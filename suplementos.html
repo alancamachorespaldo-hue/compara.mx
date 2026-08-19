@@ -29,9 +29,9 @@ nav{background:var(--ac);padding:0 20px;display:flex;align-items:center;gap:0;po
 .nav-link.active{color:#fff;border-bottom-color:#fff}
 
 /* ── Hero ────────────────────────────────────────────── */
-.hero{background:linear-gradient(135deg,var(--ac) 0%,var(--ac2) 100%);color:#fff;padding:36px 20px 32px;text-align:center}
-.hero h1{font-size:clamp(1.4rem,4vw,2rem);font-weight:800;margin-bottom:8px;letter-spacing:-.03em}
-.hero p{opacity:.85;font-size:.9rem;max-width:520px;margin:0 auto}
+.hero{background:linear-gradient(135deg,var(--ac) 0%,var(--ac2) 100%);color:#fff;padding:14px 20px 12px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.hero h1{font-size:1.05rem;font-weight:800;letter-spacing:-.02em}
+.hero p{opacity:.8;font-size:.78rem}
 
 /* ── Toolbar ─────────────────────────────────────────── */
 .toolbar{background:#fff;border-bottom:1px solid var(--bd);padding:12px 20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;position:sticky;top:49px;z-index:90}
@@ -94,6 +94,44 @@ nav{background:var(--ac);padding:0 20px;display:flex;align-items:center;gap:0;po
 .btn-buy:hover{opacity:.88}
 .btn-amz{background:var(--amz);color:#000}
 .btn-ml{background:var(--ml);color:#000}
+
+/* Comparar btn en card */
+.btn-cmp{padding:5px 11px;background:none;border:1px solid var(--bd);border-radius:6px;font-size:.74rem;font-weight:500;cursor:pointer;color:var(--t2);transition:all .15s}
+.btn-cmp:hover{border-color:var(--ac);color:var(--ac)}
+.btn-cmp.selected{background:var(--ac);border-color:var(--ac);color:#fff}
+.card.in-compare{border-color:var(--ac);box-shadow:0 0 0 2px rgba(0,104,71,.2)}
+
+/* Barra flotante de comparación */
+.cmp-bar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:2px solid var(--ac);padding:12px 20px;display:none;align-items:center;gap:12px;z-index:200;box-shadow:0 -4px 20px rgba(0,0,0,.1)}
+.cmp-bar.show{display:flex}
+.cmp-slots{display:flex;gap:8px;flex:1;flex-wrap:wrap}
+.cmp-slot{display:flex;align-items:center;gap:6px;background:var(--ac3);border:1px solid var(--ac);border-radius:8px;padding:6px 10px;font-size:.78rem;font-weight:500;color:var(--ac)}
+.cmp-slot button{background:none;border:none;cursor:pointer;color:var(--ac);font-size:.9rem;line-height:1;padding:0 2px}
+.cmp-bar-hint{font-size:.78rem;color:var(--t2)}
+.btn-compare{padding:9px 20px;background:var(--ac);border:none;border-radius:8px;color:#fff;font-weight:700;font-size:.85rem;cursor:pointer;white-space:nowrap}
+.btn-compare:hover{background:var(--ac2)}
+.btn-compare:disabled{opacity:.4;cursor:default}
+
+/* Modal comparación */
+.cmp-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:300;display:none;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto}
+.cmp-overlay.open{display:flex}
+.cmp-modal{background:#fff;border-radius:16px;width:100%;max-width:960px;overflow:hidden;margin:auto}
+.cmp-modal-header{background:var(--ac);color:#fff;padding:16px 20px;display:flex;align-items:center;justify-content:space-between}
+.cmp-modal-header h2{font-size:1rem;font-weight:700}
+.cmp-modal-close{background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;opacity:.8}
+.cmp-modal-close:hover{opacity:1}
+.cmp-table-wrap{overflow-x:auto;padding:0}
+.cmp-table{width:100%;border-collapse:collapse}
+.cmp-table th{background:var(--ac3);color:var(--ac);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:10px 14px;text-align:left;border-bottom:2px solid var(--bd);position:sticky;left:0;z-index:1}
+.cmp-table .col-prod{text-align:center;min-width:200px}
+.cmp-table td{padding:11px 14px;border-bottom:1px solid var(--bd);font-size:.83rem;text-align:center;vertical-align:middle}
+.cmp-table tr:last-child td{border-bottom:none}
+.cmp-table .row-label{text-align:left;font-weight:600;font-size:.78rem;color:var(--t2);background:#fafbfc;white-space:nowrap}
+.cmp-best{color:var(--ac);font-weight:800}
+.cmp-img{width:60px;height:60px;object-fit:contain;border-radius:8px;background:#f1f5f9;margin:0 auto 6px;display:block}
+.cmp-prod-name{font-size:.8rem;font-weight:700;line-height:1.3;margin-bottom:4px}
+.cmp-prod-marca{font-size:.72rem;color:var(--t2)}
+.cmp-btn-buy{display:inline-block;padding:7px 14px;border-radius:7px;font-weight:700;font-size:.75rem;text-decoration:none;margin-top:6px}
 
 /* Empty */
 .empty{text-align:center;padding:60px 20px;color:var(--t2);grid-column:1/-1}
@@ -160,6 +198,31 @@ const productos = [
   {id:8,nombre:'Vitanna Omega 3 Epax Salmón Noruego EPA 600mg DHA 400mg – 120 Cápsulas',marca:'Vitanna',tipo:'vitaminas',precio:580,peso:'120 cápsulas',porciones:60,duracion:60,porPorcion:'2 cápsulas (2000mg)',proteina:0.54,calorias:21,carbos:0.21,grasas:2,omegaTotal:2000,epa:600,dha:400,omegaPorPorcion:1000,costoPorPorcion:9.67,fuenteOmega:'salmon',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:0,resenas:0,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/1QK4Eqc',img:'https://http2.mlstatic.com/D_NQ_NP_2X_908034-MLM114949055978_082026-F.webp'},
   {id:9,nombre:'Vitatú Omega 3 Salmón Noruego – 90 Softgels',marca:'Vitatú',tipo:'vitaminas',precio:468,peso:'90 softgels',porciones:45,duracion:45,porPorcion:'2 softgels (2.8g)',proteina:0.54,calorias:21,carbos:0.21,grasas:2,omegaTotal:2000,epa:720,dha:480,omegaPorPorcion:1200,costoPorPorcion:10.40,fuenteOmega:'salmon',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:5.0,resenas:428,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/1EPAShY',img:'https://http2.mlstatic.com/D_NQ_NP_2X_951655-MLA99471258412_112025-F.webp'},
   {id:10,nombre:'Omega 3-6-9 Naturagel Aceite de Linaza – 60 Cápsulas',marca:'Naturagel',tipo:'vitaminas',precio:130,peso:'60 cápsulas',porciones:30,duracion:30,porPorcion:'2 cápsulas (1400mg)',proteina:0.29,calorias:11,carbos:0.11,grasas:0.99,omegaTotal:1000,epa:0,dha:0,omegaPorPorcion:547,costoPorPorcion:4.33,fuenteOmega:'linaza',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.8,resenas:1103,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/2pE2ExQ',img:'https://http2.mlstatic.com/D_NQ_NP_2X_945473-MLA100108421729_122025-F.webp'},
+  {id:16,nombre:'UPMER Omega 3 Premium 5 en 1 Krill + Pescado – 90 Cápsulas',marca:'UPMER',tipo:'vitaminas',precio:239,peso:'90 cápsulas',porciones:45,duracion:45,porPorcion:'2 softgels',proteina:0,calorias:0,carbos:0,grasas:0,omegaTotal:1000,epa:315,dha:125,omegaPorPorcion:440,costoPorPorcion:5.31,fuenteOmega:'krill+pescado',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:5.0,resenas:40,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/2kYo6Jm',img:'https://http2.mlstatic.com/D_NQ_NP_2X_732671-MLA114618428649_072026-F.webp'},
+  {id:17,nombre:'Omega 3 Aceite de Salmón + Vitamina E 180 Cápsulas',marca:'LIFE360+',tipo:'vitaminas',precio:295,peso:'180 cápsulas',porciones:180,duracion:180,porPorcion:'1 cápsula (450mg)',proteina:0.14,calorias:3.26,carbos:0,grasas:0.33,omegaTotal:300,epa:28,dha:24,omegaPorPorcion:52,costoPorPorcion:1.64,fuenteOmega:'salmon',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.8,resenas:4125,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/272AyXs',img:'https://http2.mlstatic.com/D_NQ_NP_2X_875588-MLA114319085124_082026-F.webp'},
+  {id:18,nombre:'Wellthy Omega 3 Noruego Alta Concentración Epax – 90 Cápsulas',marca:'Wellthy',tipo:'vitaminas',precio:387,peso:'90 cápsulas',porciones:45,duracion:45,porPorcion:'2 cápsulas (2g)',proteina:0.54,calorias:21,carbos:0.21,grasas:2.0,omegaTotal:2000,epa:600,dha:400,omegaPorPorcion:1000,costoPorPorcion:8.60,fuenteOmega:'anchoa',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.9,resenas:367,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/1nUzAs1',img:'https://http2.mlstatic.com/D_NQ_NP_2X_741093-MLA116376618549_082026-F.webp'},
+  {id:19,nombre:'Omega 3 Aceite de Salmón + Vitamina E 360 Cápsulas',marca:'LIFE360+',tipo:'vitaminas',precio:394,peso:'360 cápsulas',porciones:360,duracion:360,porPorcion:'1 cápsula (450mg)',proteina:0.14,calorias:3.26,carbos:0,grasas:0.33,omegaTotal:300,epa:28,dha:24,omegaPorPorcion:52,costoPorPorcion:1.09,fuenteOmega:'salmon',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.6,resenas:3974,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B09S18CZ36?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/71U7h6ri70L._AC_SX679_.jpg'},
+  {id:20,nombre:'Vitanna Omega 3 Epax Salmón Noruego EPA 600mg DHA 400mg TG – 120 Cápsulas',marca:'Vitanna',tipo:'vitaminas',precio:497,peso:'120 cápsulas',porciones:60,duracion:60,porPorcion:'2 cápsulas (2g)',proteina:0.54,calorias:21,carbos:0.21,grasas:2,omegaTotal:2000,epa:600,dha:400,omegaPorPorcion:1000,costoPorPorcion:8.28,fuenteOmega:'salmon',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:5.0,resenas:25,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0G67S94CP?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/61FX0KF0LeL._AC_SX679_.jpg'},
+  {id:21,nombre:'Pronat Omega 3 Premium Concentrado EPA 900mg DHA 600mg + Vit E – 60 Cápsulas',marca:'Pronat',tipo:'vitaminas',precio:384,peso:'60 cápsulas',porciones:30,duracion:30,porPorcion:'2 cápsulas (4.3g)',proteina:0.84,calorias:33,carbos:0.27,grasas:3.18,omegaTotal:1914,epa:900,dha:600,omegaPorPorcion:1500,costoPorPorcion:12.80,fuenteOmega:'anchoa',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Yerbabuena'],estrellas:4.7,resenas:759,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://link.amazon/B09oriGH3?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/61ECf9yykNL._AC_SX679_.jpg'},
+  {id:22,nombre:'B Life Omega 3 Aceite Puro de Salmón – 100 Cápsulas',marca:'B Life',tipo:'vitaminas',precio:269,peso:'100 cápsulas',porciones:100,duracion:100,porPorcion:'1 cápsula (1g)',proteina:0,calorias:0.41,carbos:0,grasas:1,omegaTotal:1000,epa:300,dha:200,omegaPorPorcion:500,costoPorPorcion:2.69,fuenteOmega:'salmon',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.8,resenas:6591,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0BHTTDBC2?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/51TOVyP6LzL._AC_SX679_.jpg'},
+  {id:23,nombre:'Nordic Naturals Omega-3 690mg Sabor Limón – 60 Cápsulas',marca:'Nordic Naturals',tipo:'vitaminas',precio:670,peso:'60 cápsulas',porciones:30,duracion:30,porPorcion:'2 cápsulas (3g)',proteina:0,calorias:18,carbos:0,grasas:2,omegaTotal:690,epa:330,dha:220,omegaPorPorcion:550,costoPorPorcion:22.33,fuenteOmega:'multi-pez',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Limón'],estrellas:4.8,resenas:9097,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0006GZE22?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/61V953uPFPL._AC_SX679_.jpg'},
+  {id:24,nombre:'Now Foods Omega-3 1000mg – 200 Cápsulas Blandas',marca:'Now Foods',tipo:'vitaminas',precio:320,peso:'200 cápsulas',porciones:100,duracion:100,porPorcion:'2 softgels (2000mg)',proteina:0,calorias:20,carbos:0,grasas:2,omegaTotal:2000,epa:360,dha:240,omegaPorPorcion:600,costoPorPorcion:3.20,fuenteOmega:'multi-pez',forma:'softgel',libreMetalesPesados:true,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.8,resenas:16429,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B001GCU6KA?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/71zLG8qwfLL._AC_SX679_.jpg'},
+  {id:25,nombre:'Beyond Vitamins Omega 3-6-9 EPA 288mg DHA 192mg – 180 Cápsulas',marca:'Beyond Vitamins',tipo:'vitaminas',precio:434,peso:'180 cápsulas',porciones:90,duracion:90,porPorcion:'2 cápsulas (2800mg)',proteina:0.54,calorias:20.96,carbos:0.20,grasas:2.00,omegaTotal:780,epa:288,dha:192,omegaPorPorcion:480,costoPorPorcion:4.82,fuenteOmega:'multi-pez+vegetal',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.8,resenas:99,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0DQYRK8M8?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/71xG8Eaoy6L._AC_SX679_.jpg'},
+  {id:26,nombre:'Beyond Vitamins Omega 3 Salmon Oil Ultra Concentrado – 60 Cápsulas',marca:'Beyond Vitamins',tipo:'vitaminas',precio:360,peso:'60 cápsulas',porciones:60,duracion:60,porPorcion:'1 cápsula (1400mg)',proteina:0.27,calorias:10.48,carbos:0.10,grasas:1.00,omegaTotal:1000,epa:310,dha:212,omegaPorPorcion:522,costoPorPorcion:6.00,fuenteOmega:'salmon',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.7,resenas:104,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0F8LMHC6G?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/81ABfJGmWbL._AC_SL1500_.jpg'},
+  {id:27,nombre:'Omega 3 Aceite de Salmón 1200mg EPA + 600mg DHA Mujer – 90 Cápsulas',marca:'Codigo Menstrual',tipo:'vitaminas',precio:399,peso:'90 cápsulas',porciones:30,duracion:30,porPorcion:'3 cápsulas (3.6g)',proteina:0,calorias:0,carbos:0,grasas:0,omegaTotal:3000,epa:1200,dha:600,omegaPorPorcion:1800,costoPorPorcion:13.30,fuenteOmega:'salmon',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.6,resenas:25,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0CH7VBNKY?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/51LwwKEyewL._AC_SY879_.jpg'},
+  {id:28,nombre:'B-FIT Smart Omega 3 1800mg EPA 1080mg DHA 720mg Epax – 90 Softgels',marca:'B-Fit',tipo:'vitaminas',precio:599,peso:'90 softgels',porciones:30,duracion:30,porPorcion:'3 cápsulas',proteina:0.8,calorias:31.5,carbos:0.3,grasas:3,omegaTotal:1800,epa:1080,dha:720,omegaPorPorcion:1800,costoPorPorcion:19.97,fuenteOmega:'salmon',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.8,resenas:375,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B09ZZCNLS9?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/51oFlXhKNhL._AC_SX679_.jpg'},
+  {id:29,nombre:'Sports Research Omega-3 1250mg Sin Eructos Wild Alaska Pollock – 90 Softgels',marca:'Sports Research',tipo:'vitaminas',precio:739,peso:'90 softgels',porciones:90,duracion:90,porPorcion:'1 softgel (1250mg)',proteina:0,calorias:15,carbos:0,grasas:1.5,omegaTotal:1250,epa:690,dha:260,omegaPorPorcion:950,costoPorPorcion:8.21,fuenteOmega:'pollock',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.7,resenas:41748,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B07DX89ZHN?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/61zNAqRyQ5L._AC_SL1500_.jpg'},
+  {id:30,nombre:'Vitatú Omega 3 1200mg EPA 720mg DHA 480mg Epax Noruego – 90 Softgels',marca:'Vitatú',tipo:'vitaminas',precio:467,peso:'90 softgels',porciones:45,duracion:45,porPorcion:'2 softgels (2.8g)',proteina:0.54,calorias:21,carbos:0.21,grasas:2.0,omegaTotal:2000,epa:720,dha:480,omegaPorPorcion:1200,costoPorPorcion:10.37,fuenteOmega:'salmon',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.7,resenas:257,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0CKY3NMGZ?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/41hN40muwRL._AC_.jpg'},
+  {id:31,nombre:'MAV Nutrition Omega-3 3600mg EPA 1300mg DHA 864mg Sin Eructos – 120 Cápsulas',marca:'MAV Nutrition',tipo:'vitaminas',precio:579,peso:'120 cápsulas',porciones:40,duracion:40,porPorcion:'3 cápsulas (4.8g)',proteina:0,calorias:32.4,carbos:0,grasas:3.6,omegaTotal:3600,epa:1300,dha:864,omegaPorPorcion:2164,costoPorPorcion:14.48,fuenteOmega:'anchoa',forma:'softgel',libreMetalesPesados:true,certificadoIFOS:false,sabores:['Limón'],estrellas:4.6,resenas:29992,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B01NBTJFJB?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/71kAk859aoL._AC_SX679_.jpg'},
+  {id:32,nombre:'VitaXtend Norwegian Deep Omega 3 EPA 1200mg DHA 800mg Epax – 180 Cápsulas',marca:'VitaXtend',tipo:'vitaminas',precio:745,peso:'180 cápsulas',porciones:45,duracion:45,porPorcion:'4 cápsulas (4g)',proteina:1.08,calorias:36,carbos:0,grasas:4.0,omegaTotal:4000,epa:1200,dha:800,omegaPorPorcion:2000,costoPorPorcion:16.56,fuenteOmega:'anchoa',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.6,resenas:22,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0GWKMY38X?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/71FixUOvYLL._AC_SX679_.jpg'},
+  {id:33,nombre:'Beyond Vitamins Omega 3 Premium 1000mg IFOS TG Alta Pureza – 180 Cápsulas',marca:'Beyond Vitamins',tipo:'vitaminas',precio:398,peso:'180 cápsulas',porciones:180,duracion:180,porPorcion:'1 cápsula (1300mg)',proteina:0.22,calorias:9.8,carbos:0,grasas:0.99,omegaTotal:990,epa:360,dha:240,omegaPorPorcion:600,costoPorPorcion:2.21,fuenteOmega:'anchoa',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:true,sabores:['Sin sabor'],estrellas:4.8,resenas:903,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B09FKNN3CF?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/71+mBXlIimL._AC_SY879_.jpg'},
+  {id:34,nombre:'GAT Sport Essentials Omega-3 1250mg Purificado – 90 Softgels',marca:'GAT Sport',tipo:'vitaminas',precio:299,peso:'90 softgels',porciones:90,duracion:90,porPorcion:'1 softgel (1250mg)',proteina:0,calorias:15,carbos:0,grasas:1.5,omegaTotal:1250,epa:400,dha:300,omegaPorPorcion:700,costoPorPorcion:3.32,fuenteOmega:'anchoa',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Limón'],estrellas:4.7,resenas:769,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0733Y31K6?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/71xAr9LmakL._AC_SX679_.jpg'},
+  {id:35,nombre:'Viva Naturals Triple-Strength Omega-3 2500mg EPA 1500mg DHA 570mg rTG – 180 Softgels',marca:'Viva Naturals',tipo:'vitaminas',precio:1502,peso:'180 softgels',porciones:90,duracion:90,porPorcion:'2 softgels (2500mg)',proteina:1,calorias:25,carbos:0,grasas:2.5,omegaTotal:2500,epa:1500,dha:570,omegaPorPorcion:2070,costoPorPorcion:16.69,fuenteOmega:'multi-pez',forma:'softgel',libreMetalesPesados:true,certificadoIFOS:true,sabores:['Sin sabor'],estrellas:4.6,resenas:10401,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B014LDT0ZM?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/81zjmc7hY3L._AC_SX679_.jpg'},
+  {id:36,nombre:'Nordic Naturals Prenatal DHA Omega-3 830mg + Vitamina D3 400UI – 90 Cápsulas',marca:'Nordic Naturals',tipo:'vitaminas',precio:970,peso:'90 cápsulas',porciones:45,duracion:45,porPorcion:'2 softgels',proteina:0,calorias:10,carbos:0,grasas:1,omegaTotal:830,epa:205,dha:480,omegaPorPorcion:685,costoPorPorcion:21.56,fuenteOmega:'multi-pez',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.8,resenas:2056,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0058ABILW?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/51zlRFidKqL._AC_SX679_.jpg'},
+  {id:37,nombre:'Vivenia Omega 3 2000mg EPA 360mg DHA 240mg Triglicéridos – 60 Softgels',marca:'Vivenia',tipo:'vitaminas',precio:499,peso:'60 softgels',porciones:30,duracion:30,porPorcion:'2 cápsulas (2g)',proteina:0.54,calorias:21,carbos:0.2,grasas:2,omegaTotal:2000,epa:360,dha:240,omegaPorPorcion:600,costoPorPorcion:16.63,fuenteOmega:'anchoa',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:0,resenas:0,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0GNBCFMDS?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/51vKgHWR%2BBL._AC_SX679_.jpg'},
+  {id:38,nombre:'Wellthy Arctic Omega 3 2000mg EPA 360mg DHA 240mg – 200 Cápsulas',marca:'Wellthy',tipo:'vitaminas',precio:431,peso:'200 cápsulas',porciones:100,duracion:100,porPorcion:'2 cápsulas (2.8g)',proteina:0.54,calorias:20.96,carbos:0.20,grasas:2.00,omegaTotal:2000,epa:360,dha:240,omegaPorPorcion:600,costoPorPorcion:4.31,fuenteOmega:'anchoa',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.7,resenas:731,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0D9R7615K?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/61AW6RF4fUL._AC_SX679_.jpg'},
+  {id:39,nombre:'Vitanna Aceite de Krill Antártico Superba2 1600mg Fosfolípidos + Astaxantina – 60 Softgels',marca:'Vitanna',tipo:'vitaminas',precio:652,peso:'60 softgels',porciones:30,duracion:30,porPorcion:'2 cápsulas (1.6g)',proteina:0.288,calorias:10.6,carbos:0.214,grasas:0.960,omegaTotal:1000,epa:120,dha:56,omegaPorPorcion:176,costoPorPorcion:21.73,fuenteOmega:'krill',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.9,resenas:15,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0G5VSJTPD?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/61ITjjWhfaL._AC_SL1500_.jpg'},
+  {id:40,nombre:'SUPLINT Omega 3 de Aceite de Salmón 3000mg por Porción + Vitamina E – 120 Cápsulas',marca:'SUPLINT',tipo:'vitaminas',precio:399.98,peso:'120 cápsulas',porciones:40,duracion:40,porPorcion:'3 cápsulas (4350mg)',proteina:0,calorias:27,carbos:0,grasas:3,omegaTotal:3000,epa:540,dha:360,omegaPorPorcion:900,costoPorPorcion:10.00,fuenteOmega:'salmon',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.6,resenas:73,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0GWK56S87?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/81EnYWipPjL._AC_SX679_.jpg'},
 ];
 
 // ── Estado ────────────────────────────────────────────────────
@@ -263,11 +326,142 @@ function cardHTML(p) {
       </div>
       <div class="btns">${btnAmz}${btnML}</div>
     </div>
+    <div style="padding:0 14px 12px;border-top:1px solid var(--bd);margin-top:auto">
+      <button class="btn-cmp" id="cmp-btn-${p.id}" onclick="toggleComparar(${p.id})">+ Comparar</button>
+    </div>
   </div>`;
+}
+
+// ── Comparación ───────────────────────────────────────────────
+let seleccionados = []; // ids
+
+function toggleComparar(id) {
+  const idx = seleccionados.indexOf(id);
+  if (idx !== -1) {
+    seleccionados.splice(idx, 1);
+  } else {
+    if (seleccionados.length >= 3) { alert('Máximo 3 productos para comparar.'); return; }
+    seleccionados.push(id);
+  }
+  actualizarBarraCmp();
+}
+
+function actualizarBarraCmp() {
+  const bar = document.getElementById('cmp-bar');
+  const slots = document.getElementById('cmp-slots');
+  const btnCmp = document.getElementById('btn-comparar');
+
+  // Actualizar estado visual de cards
+  document.querySelectorAll('.card').forEach(c => c.classList.remove('in-compare'));
+  document.querySelectorAll('[id^="cmp-btn-"]').forEach(b => {
+    b.classList.remove('selected');
+    b.textContent = '+ Comparar';
+  });
+  seleccionados.forEach(id => {
+    const btn = document.getElementById('cmp-btn-' + id);
+    if (btn) { btn.classList.add('selected'); btn.textContent = '✓ Seleccionado'; btn.closest('.card').classList.add('in-compare'); }
+  });
+
+  if (seleccionados.length === 0) { bar.classList.remove('show'); return; }
+  bar.classList.add('show');
+
+  slots.innerHTML = seleccionados.map(id => {
+    const p = productos.find(x => x.id === id);
+    return `<div class="cmp-slot">${p.marca} – ${p.nombre.substring(0,28)}…<button onclick="toggleComparar(${id})">✕</button></div>`;
+  }).join('');
+
+  btnCmp.disabled = seleccionados.length < 2;
+  btnCmp.textContent = seleccionados.length < 2 ? 'Selecciona 2+ para comparar' : `Comparar ${seleccionados.length} productos`;
+}
+
+function abrirComparacion() {
+  const prods = seleccionados.map(id => productos.find(p => p.id === id));
+  const overlay = document.getElementById('cmp-overlay');
+
+  const fila = (label, vals) => `<tr>
+    <td class="row-label">${label}</td>
+    ${vals.map(v => `<td>${v}</td>`).join('')}
+  </tr>`;
+
+  // Helpers para resaltar mejor valor
+  const mejorMin = (arr) => {
+    const nums = arr.map(Number);
+    const min = Math.min(...nums.filter(n => n > 0));
+    return nums.map(n => (n === min && n > 0) ? `<span class="cmp-best">${n}</span>` : (n === 0 ? '—' : n));
+  };
+  const mejorMax = (arr) => {
+    const nums = arr.map(Number);
+    const max = Math.max(...nums);
+    return nums.map(n => (n === max && n > 0) ? `<span class="cmp-best">${n}</span>` : (n === 0 ? '—' : n));
+  };
+  const mejorMinFloat = (arr) => {
+    const nums = arr.map(Number);
+    const min = Math.min(...nums.filter(n => n > 0));
+    return nums.map(n => (n === min && n > 0) ? `<span class="cmp-best">$${n.toFixed(2)}</span>` : (n === 0 ? '—' : '$'+n.toFixed(2)));
+  };
+
+  const cols = prods.length;
+  const colPct = Math.floor(90 / cols);
+
+  const cabeceras = prods.map(p => `
+    <th class="col-prod" style="width:${colPct}%">
+      <img class="cmp-img" src="${p.img}" alt="${p.nombre}" onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'60\' height=\'60\'><rect fill=\'%23f1f5f9\' width=\'60\' height=\'60\'/></svg>'">
+      <div class="cmp-prod-name">${p.nombre}</div>
+      <div class="cmp-prod-marca">${p.marca}</div>
+      ${p.linkML ? `<a class="cmp-btn-buy btn-ml" href="${p.linkML}" target="_blank" rel="nofollow noopener">Ver en ML</a>` : ''}
+      ${p.linkAmz ? `<a class="cmp-btn-buy btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow noopener">Ver en Amazon</a>` : ''}
+    </th>`).join('');
+
+  const tabla = `
+  <table class="cmp-table">
+    <thead><tr><th style="width:10%">Característica</th>${cabeceras}</tr></thead>
+    <tbody>
+      ${fila('Precio total', mejorMin(prods.map(p => p.precio)).map((v,i) => typeof v === 'string' ? v : '$'+prods[i].precio.toLocaleString('es-MX')))}
+      ${fila('$/porción', mejorMinFloat(prods.map(p => p.costoPorPorcion)))}
+      ${fila('EPA', mejorMax(prods.map(p => p.epa)).map((v,i) => v === '—' ? '—' : (v.toString().includes('cmp-best') ? v.toString().replace(/\d+/, m => m+'mg') : prods[i].epa+'mg')))}
+      ${fila('DHA', mejorMax(prods.map(p => p.dha)).map((v,i) => v === '—' ? '—' : (v.toString().includes('cmp-best') ? v.toString().replace(/\d+/, m => m+'mg') : prods[i].dha+'mg')))}
+      ${fila('Omega total/porción', prods.map(p => p.omegaPorPorcion > 0 ? p.omegaPorPorcion+'mg' : '—'))}
+      ${fila('Porciones', mejorMax(prods.map(p => p.porciones)))}
+      ${fila('Duración', prods.map(p => p.duracion > 0 ? p.duracion+' días' : '—'))}
+      ${fila('Fuente', prods.map(p => ({anchoa:'🐟 Anchoa',salmon:'🐟 Salmón',linaza:'🌱 Linaza',ninguna:'—'})[p.fuenteOmega] || '—'))}
+      ${fila('Forma', prods.map(p => p.forma || '—'))}
+      ${fila('Sin metales pesados', prods.map(p => p.libreMetalesPesados ? '✅' : '—'))}
+      ${fila('Cert. IFOS', prods.map(p => p.certificadoIFOS ? '✅' : '—'))}
+      ${fila('Calificación', mejorMax(prods.map(p => p.estrellas)).map((v,i) => v === '—' ? 'Sin reseñas' : (v.toString().includes('cmp-best') ? v.toString().replace(/[\d.]+/, m => '★ '+m) : '★ '+prods[i].estrellas.toFixed(1))))}
+      ${fila('Reseñas', mejorMax(prods.map(p => p.resenas)).map((v,i) => v === '—' ? '—' : (v.toString().includes('cmp-best') ? v.toString().replace(/\d+/, m => m.toLocaleString('es-MX')) : prods[i].resenas.toLocaleString('es-MX'))))}
+    </tbody>
+  </table>`;
+
+  overlay.innerHTML = `
+  <div class="cmp-modal">
+    <div class="cmp-modal-header">
+      <h2>Comparación de ${prods.length} productos</h2>
+      <button class="cmp-modal-close" onclick="cerrarComparacion()">✕</button>
+    </div>
+    <div class="cmp-table-wrap">${tabla}</div>
+  </div>`;
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function cerrarComparacion() {
+  document.getElementById('cmp-overlay').classList.remove('open');
+  document.body.style.overflow = '';
 }
 
 // Iniciar
 render();
 </script>
+
+<!-- Barra flotante de comparación -->
+<div class="cmp-bar" id="cmp-bar">
+  <div class="cmp-slots" id="cmp-slots"></div>
+  <span class="cmp-bar-hint" id="cmp-hint"></span>
+  <button class="btn-compare" id="btn-comparar" onclick="abrirComparacion()" disabled>Comparar</button>
+</div>
+
+<!-- Overlay modal comparación -->
+<div class="cmp-overlay" id="cmp-overlay" onclick="if(event.target===this)cerrarComparacion()"></div>
+
 </body>
 </html>
