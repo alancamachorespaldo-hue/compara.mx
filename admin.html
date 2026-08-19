@@ -191,9 +191,9 @@ function doLogin() {
     document.getElementById('pwd').select();
     return;
   }
-  if (!tok.startsWith('ghp_') && !tok.startsWith('github_pat_')) {
-    document.getElementById('login-err').textContent = 'Token inválido (debe comenzar con ghp_)';
-    document.getElementById('ghtoken').select();
+  if (!tok) {
+    document.getElementById('login-err').textContent = 'Ingresa tu GitHub Token (ghp_...)';
+    document.getElementById('ghtoken').focus();
     return;
   }
   CFG.token = tok;
@@ -226,9 +226,17 @@ const GH_HEADERS = {
 const GH_URL = `https://api.github.com/repos/${CFG.owner}/${CFG.repo}/contents/${CFG.file}`;
 
 async function ghGet() {
-  const r = await fetch(`${GH_URL}?ref=${CFG.branch}&t=${Date.now()}`, { headers: GH_HEADERS });
-  if (!r.ok) throw new Error(`GitHub ${r.status}`);
-  return r.json();
+  // Repo público: leer sin token para no depender de que sea válido
+  const rawUrl = `https://raw.githubusercontent.com/${CFG.owner}/${CFG.repo}/${CFG.branch}/${CFG.file}?t=${Date.now()}`;
+  const [rawRes, metaRes] = await Promise.all([
+    fetch(rawUrl),
+    fetch(`${GH_URL}?ref=${CFG.branch}&t=${Date.now()}`, { headers: GH_HEADERS })
+  ]);
+  if (!rawRes.ok) throw new Error(`No se pudo leer el archivo (${rawRes.status})`);
+  if (!metaRes.ok) throw new Error(`GitHub ${metaRes.status} — el token puede ser inválido o no tener permiso repo`);
+  const meta = await metaRes.json();
+  const content = await rawRes.text();
+  return { content: btoa(unescape(encodeURIComponent(content))), sha: meta.sha };
 }
 async function ghPut(message) {
   const content = b64encode(rawContent);
@@ -267,8 +275,8 @@ async function loadFile() {
     renderSection();
     setStatus('Listo ✓','ok');
   } catch(e) {
-    setStatus('Error: ' + e.message,'err');
-    toast('Error al cargar el archivo: ' + e.message,'err');
+    setStatus('Error al cargar','err');
+    toast(e.message,'err');
   }
 }
 
