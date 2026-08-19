@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comparalo.mx — Compara y elige la bicicleta ideal</title>
+<meta name="description" content="Compara bicicletas eléctricas y convencionales en México. Precios Amazon MX y Mercado Libre. Compara. Decide. Ahorra.">
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400,300&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 28'%3E%3Cpath d='M1,0 L15,14 L1,28 L7,28 L21,14 L7,0 Z' fill='%23006847'/%3E%3Ccircle cx='23' cy='14' r='3.8' fill='%23006847'/%3E%3Cpath d='M25,0 L39,14 L25,28 L31,28 L45,14 L31,0 Z' fill='%23CE1126'/%3E%3C/svg%3E">
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9TKZ4ER13X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-9TKZ4ER13X');
+</script>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#ffffff;--s1:#f7f7f5;--s2:#f0f0ec;--s3:#e8e8e2;
+  --bd:#e2e2dc;--bd2:#d0d0c8;
+  --tx:#0F172A;--tx2:#64748b;--tx3:#94a3b8;
+  --ac:#006847;--acd:rgba(0,104,71,.08);--acd2:rgba(0,104,71,.22);
+  --red:#CE1126;--redd:rgba(206,17,38,.08);--redd2:rgba(206,17,38,.2);
+  --amz:#f90;--amzd:rgba(255,153,0,.1);--amzd2:rgba(255,153,0,.25);
+  --ml:#f0c000;--mld:rgba(240,192,0,.12);--mld2:rgba(240,192,0,.3);
+  --r:10px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-size:15px;line-height:1.6}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--bd);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-icon{flex-shrink:0}
+.logo-wordmark{font-family:'Satoshi',sans-serif;font-size:1.25rem;font-weight:700;color:var(--ac);letter-spacing:-.03em;line-height:1}
+.logo-wordmark .logo-mx{color:var(--red)}
+.nav-links{display:flex;gap:1.75rem;align-items:center}
+.nav-link{font-size:13px;color:var(--tx2);cursor:pointer;font-weight:500;transition:color .15s}
+.nav-link:hover{color:var(--ac)}
+
+/* HERO STRIP */
+.hero-strip{background:linear-gradient(135deg,#006847 0%,#005238 100%);padding:2.5rem 2rem 2rem;text-align:center;color:#fff}
+.hero-strip-eyebrow{font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.7;margin-bottom:.5rem;font-weight:500}
+.hero-strip-h1{font-family:'Satoshi',sans-serif;font-size:2.4rem;font-weight:700;line-height:1.1;margin-bottom:.5rem;letter-spacing:-.03em}
+.hero-strip-h1 em{color:var(--ml);font-style:normal}
+.hero-strip-tagline{font-size:1rem;opacity:.85;margin-bottom:1.75rem;font-weight:400}
+.hero-strip-stats{display:inline-flex;gap:0;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:14px;overflow:hidden}
+.hstat{padding:.75rem 1.5rem;text-align:center;border-right:1px solid rgba(255,255,255,.15)}
+.hstat:last-child{border-right:none}
+.hstat-num{font-family:'Satoshi',sans-serif;font-size:1.15rem;font-weight:700;color:#fff}
+.hstat-label{font-size:10px;opacity:.6;margin-top:1px;text-transform:uppercase;letter-spacing:.06em}
+
+/* SECTION TABS */
+.sec-tabs{background:var(--s1);border-bottom:1px solid var(--bd);padding:0 2rem;display:flex;gap:0;position:sticky;top:64px;z-index:90;overflow-x:auto}
+.sec-tab{font-family:'Satoshi',sans-serif;font-size:14px;font-weight:600;padding:1rem 1.25rem;cursor:pointer;color:var(--tx2);border-bottom:3px solid transparent;transition:all .2s;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.sec-tab:hover{color:var(--tx)}
+.sec-tab.active{color:var(--ac);border-bottom-color:var(--ac)}
+.sec-tab .tab-count{font-size:11px;background:var(--s2);border-radius:20px;padding:2px 8px;color:var(--tx3);font-family:'Satoshi',sans-serif;font-weight:400}
+.sec-tab.active .tab-count{background:var(--acd);color:var(--ac)}
+
+/* SECTION CONTENT */
+.section-wrap{display:none}
+.section-wrap.active{display:block}
+
+/* SECTION HERO */
+.sec-hero{background:var(--s1);border-bottom:1px solid var(--bd);padding:1.5rem 2rem}
+.sec-hero-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.sec-hero-title{font-family:'Satoshi',sans-serif;font-size:1.3rem;font-weight:700;letter-spacing:-.02em}
+.sec-hero-sub{font-size:13px;color:var(--tx2);margin-top:2px}
+.sec-hero-stats{display:flex;gap:1.5rem}
+.shstat{text-align:right}
+.shstat-num{font-family:'Satoshi',sans-serif;font-size:1.1rem;font-weight:700;color:var(--ac)}
+.shstat-label{font-size:11px;color:var(--tx3)}
+
+/* TOOLBAR */
+.toolbar{background:var(--bg);border-bottom:1px solid var(--bd);padding:.75rem 2rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap;max-width:100%}
+.filter-label{font-size:11px;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;margin-right:2px;font-weight:600}
+.filter{font-size:12px;padding:4px 14px;border-radius:20px;border:1px solid var(--bd2);background:var(--bg);color:var(--tx2);cursor:pointer;transition:all .15s;font-family:'Satoshi',sans-serif;font-weight:500}
+.filter:hover{border-color:var(--ac);color:var(--ac)}
+.filter.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.sort-wrap{margin-left:auto;display:flex;align-items:center;gap:8px}
+.sort-label{font-size:12px;color:var(--tx3)}
+.sort-sel{font-size:12px;background:var(--bg);border:1px solid var(--bd2);border-radius:8px;color:var(--tx2);padding:4px 8px;font-family:'Satoshi',sans-serif;cursor:pointer}
+
+/* GRID */
+.grid-wrap{max-width:1080px;margin:0 auto;padding:1.5rem 2rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+
+/* CARD */
+.card{background:var(--bg);border:1px solid var(--bd);border-radius:14px;overflow:hidden;transition:box-shadow .2s,transform .15s;cursor:pointer;position:relative}
+.card:hover{box-shadow:0 4px 20px rgba(0,0,0,.07);transform:translateY(-2px)}
+.card.selected{border:2px solid var(--ac);box-shadow:0 0 0 4px var(--acd2)}
+.card-img-wrap{background:var(--s1);height:180px;display:flex;align-items:center;justify-content:center;overflow:hidden;border-bottom:1px solid var(--bd)}
+.card-img{max-width:100%;max-height:160px;object-fit:contain;display:block;padding:.75rem}
+.card-img-ph{font-size:3rem;opacity:.2}
+.card-body{padding:1.1rem}
+.card-badges{display:flex;gap:5px;margin-bottom:.5rem;flex-wrap:wrap}
+.badge{font-size:10px;font-weight:600;padding:2px 7px;border-radius:20px}
+.b-amz{background:var(--amzd);color:#c47000;border:1px solid var(--amzd2)}
+.b-ml{background:var(--mld);color:#8a6f00;border:1px solid var(--mld2)}
+.b-best{background:var(--acd);color:var(--ac);border:1px solid var(--acd2)}
+.b-pop{background:rgba(99,102,241,.08);color:#4f46e5;border:1px solid rgba(99,102,241,.2)}
+.b-sale{background:var(--redd);color:var(--red);border:1px solid var(--redd2)}
+.card-name{font-family:'Satoshi',sans-serif;font-size:15px;font-weight:700;color:var(--tx);margin-bottom:1px;line-height:1.3;letter-spacing:-.02em}
+.card-brand{font-size:11px;color:var(--tx3);margin-bottom:.5rem;font-weight:500;text-transform:uppercase;letter-spacing:.05em}
+.card-stars{font-size:12px;color:#e6900a;margin-bottom:.75rem;display:flex;align-items:center;gap:4px}
+.card-stars-count{color:var(--tx3);font-size:11px}
+.card-bat{margin-bottom:.75rem}
+.bat-header{display:flex;justify-content:space-between;font-size:11px;color:var(--tx2);margin-bottom:4px}
+.bat-track{height:5px;background:var(--s2);border-radius:3px;overflow:hidden}
+.bat-fill{height:100%;border-radius:3px;background:var(--ac);transition:width .6s}
+.card-specs{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:.75rem}
+.spec{background:var(--s1);border-radius:7px;padding:5px 8px}
+.spec-label{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+.spec-val{font-size:12px;font-weight:600;color:var(--tx);margin-top:1px;font-family:'Satoshi',sans-serif}
+.card-price{font-family:'Satoshi',sans-serif;font-size:1.35rem;font-weight:700;color:var(--tx);margin-bottom:.75rem;letter-spacing:-.03em}
+.card-price-sub{font-size:11px;color:var(--tx3);font-weight:400;font-family:'Satoshi',sans-serif}
+.price-compare{display:flex;gap:0;border:1px solid var(--bd);border-radius:9px;overflow:hidden;margin-bottom:.5rem}
+.pc-col{flex:1;padding:9px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.pc-divider{width:1px;background:var(--bd)}
+.pc-platform{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:20px;margin-bottom:5px}
+.pc-amz{background:var(--amzd);color:#c47000}
+.pc-ml{background:var(--mld);color:#8a6f00}
+.pc-price{font-family:'Satoshi',sans-serif;font-size:1rem;font-weight:700;color:var(--tx)}
+.pc-msi{font-size:10px;color:var(--tx3);margin-top:1px;line-height:1.3}
+.card-btns{display:flex;flex-direction:column;gap:6px}
+.btn-amz{display:block;width:100%;text-align:center;background:var(--amz);color:#fff;border:none;border-radius:8px;padding:9px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Satoshi',sans-serif;text-decoration:none;transition:opacity .15s}
+.btn-amz:hover{opacity:.9}
+.btn-ml{display:block;width:100%;text-align:center;background:var(--ml);color:#5a4200;border:none;border-radius:8px;padding:9px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Satoshi',sans-serif;text-decoration:none;transition:opacity .15s}
+.btn-ml:hover{opacity:.9}
+.sel-check{position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:var(--ac);display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;font-weight:700;box-shadow:0 2px 8px rgba(0,104,71,.4)}
+.card-tip{font-size:10px;color:var(--tx3);margin-top:.5rem;text-align:center}
+
+/* COMPARE BAR */
+.cmp-bar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:2px solid var(--ac);padding:.875rem 2rem;display:none;align-items:center;justify-content:space-between;z-index:200;gap:12px;box-shadow:0 -4px 20px rgba(0,0,0,.08)}
+.cmp-bar-txt{font-size:14px;color:var(--tx);font-weight:600;font-family:'Satoshi',sans-serif}
+.cmp-bar-sub{font-size:11px;color:var(--tx2)}
+.cmp-bar-actions{display:flex;gap:8px}
+.btn-do-cmp{background:var(--ac);color:#fff;border:none;border-radius:var(--r);padding:9px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Satoshi',sans-serif}
+.btn-clear{background:transparent;color:var(--tx2);border:1px solid var(--bd2);border-radius:var(--r);padding:9px 14px;font-size:13px;cursor:pointer;font-family:'Satoshi',sans-serif}
+
+/* COMPARE TABLE */
+.cmp-section{max-width:1080px;margin:0 auto;padding:0 2rem 3rem;display:none}
+.cmp-divider{border:none;border-top:1px solid var(--bd);margin:2rem 0 1.25rem}
+.cmp-title{font-family:'Satoshi',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:1rem;letter-spacing:-.02em}
+.cmp-wrap{overflow-x:auto;border:1px solid var(--bd);border-radius:12px;overflow:hidden}
+.cmp-table{width:100%;border-collapse:collapse;font-size:13px;min-width:480px}
+.cmp-table th{padding:12px 14px;text-align:center;color:var(--tx3);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--s1);border-bottom:1px solid var(--bd)}
+.cmp-table td{padding:11px 14px;border-bottom:1px solid var(--bd);color:var(--tx);vertical-align:middle;text-align:center}
+.cmp-table td:first-child{color:var(--tx2);font-size:12px;font-weight:600;background:var(--s1);text-transform:uppercase;letter-spacing:.04em;text-align:left}
+.cmp-table tr:last-child td{border-bottom:none}
+.cmp-winner{color:var(--ac);font-weight:700}
+.cmp-close{margin-top:.875rem;font-size:13px;background:transparent;border:1px solid var(--bd2);border-radius:var(--r);padding:7px 16px;cursor:pointer;color:var(--tx2);font-family:'Satoshi',sans-serif}
+
+/* DISCLAIMER + FOOTER */
+.disclaimer{max-width:1080px;margin:0 auto;padding:1.25rem 2rem;font-size:12px;color:var(--tx3);border-top:1px solid var(--bd)}
+footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;text-align:center}
+.footer-logo{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:.5rem}
+.footer-wordmark{font-family:'Satoshi',sans-serif;font-size:1rem;font-weight:700;color:var(--ac);letter-spacing:-.02em}
+.footer-wordmark .logo-mx{color:var(--red)}
+.footer-info{font-size:12px;color:var(--tx3)}
+.footer-info strong{color:var(--tx2)}
+.empty{text-align:center;padding:3rem;color:var(--tx3);font-size:14px}
+
+@media(max-width:640px){
+  .hero-strip-h1{font-size:1.8rem}
+  .nav-links,.sort-wrap{display:none}
+  .sec-tab{padding:.75rem .875rem;font-size:12px}
+  .hero-strip-stats{flex-direction:column}
+  .hstat{border-right:none;border-bottom:1px solid rgba(255,255,255,.15)}
+  .hstat:last-child{border-bottom:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="logo" href="#">
+    <img src="logoComparalo.mx.JPG" alt="comparalo.mx" style="height:38px;width:auto;object-fit:contain">
+    <span class="logo-wordmark">comparalo<span class="logo-mx">.mx</span></span>
+  </a>
+  <div class="nav-links">
+    <span class="nav-link" onclick="document.querySelector('.sec-tabs').scrollIntoView({behavior:'smooth'})">Comparador</span>
+    <span class="nav-link" onclick="document.getElementById('tab-electricas').click();document.querySelector('.sec-tabs').scrollIntoView({behavior:'smooth'})">⚡ Eléctricas</span>
+    <span class="nav-link" onclick="document.getElementById('tab-montana').click();document.querySelector('.sec-tabs').scrollIntoView({behavior:'smooth'})">🏔 Montaña</span>
+    <span class="nav-link" onclick="document.getElementById('tab-ruta').click();document.querySelector('.sec-tabs').scrollIntoView({behavior:'smooth'})">🚴 Ruta</span>
+    <span class="nav-link" onclick="document.getElementById('tab-gravel').click();document.querySelector('.sec-tabs').scrollIntoView({behavior:'smooth'})">🪨 Gravel</span>
+  </div>
+</nav>
+
+<!-- HERO STRIP -->
+<div class="hero-strip">
+  <div class="hero-strip-eyebrow">México · Amazon MX · Mercado Libre</div>
+  <div class="hero-strip-h1">Compara y elige la <em>mejor opción</em></div>
+  <div class="hero-strip-tagline">Compara. Decide. Ahorra.</div>
+  <div class="hero-strip-stats">
+    <div class="hstat"><div class="hstat-num" id="stat-total">—</div><div class="hstat-label">Productos</div></div>
+    <div class="hstat"><div class="hstat-num">Amazon · ML</div><div class="hstat-label">Plataformas</div></div>
+    <div class="hstat"><div class="hstat-num">Gratis</div><div class="hstat-label">Sin costo extra</div></div>
+  </div>
+</div>
+
+<!-- TABS: 4 secciones -->
+<div class="sec-tabs">
+  <div class="sec-tab active" id="tab-electricas" onclick="switchSection('electricas',this)">
+    ⚡ Bicis Eléctricas <span class="tab-count" id="count-electricas">—</span>
+  </div>
+  <div class="sec-tab" id="tab-montana" onclick="switchSection('montana',this)">
+    🏔 Montaña <span class="tab-count" id="count-montana">—</span>
+  </div>
+  <div class="sec-tab" id="tab-ruta" onclick="switchSection('ruta',this)">
+    🚴 Ruta <span class="tab-count" id="count-ruta">—</span>
+  </div>
+  <div class="sec-tab" id="tab-gravel" onclick="switchSection('gravel',this)">
+    🪨 Gravel <span class="tab-count" id="count-gravel">—</span>
+  </div>
+</div>
+
+<!-- SECCIÓN ELÉCTRICAS -->
+<div class="section-wrap active" id="sec-electricas">
+  <div class="sec-hero">
+    <div class="sec-hero-inner">
+      <div>
+        <div class="sec-hero-title">⚡ Bicicletas Eléctricas</div>
+        <div class="sec-hero-sub">Compara autonomía, velocidad, precio y valoraciones — Amazon MX y Mercado Libre</div>
+      </div>
+      <div class="sec-hero-stats">
+        <div class="shstat"><div class="shstat-num">$5,969</div><div class="shstat-label">Desde</div></div>
+        <div class="shstat"><div class="shstat-num">4.7★</div><div class="shstat-label">Mejor nota</div></div>
+        <div class="shstat"><div class="shstat-num">AMZ·ML</div><div class="shstat-label">Plataformas</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="toolbar">
+    <span class="filter-label">Tipo:</span>
+    <button class="filter on" data-group="tipo" onclick="applyFilter('elec','all',this)">Todas</button>
+    <button class="filter" data-group="tipo" onclick="applyFilter('elec','plegable',this)">Plegable</button>
+    <button class="filter" data-group="tipo" onclick="applyFilter('elec','urbana',this)">Urbana</button>
+    <button class="filter" data-group="tipo" onclick="applyFilter('elec','montaña',this)">Montaña</button>
+    <button class="filter" data-group="tipo" onclick="applyFilter('elec','amz',this)">En Amazon</button>
+    <button class="filter" data-group="tipo" onclick="applyFilter('elec','ml',this)">En ML</button>
+    <span class="filter-label" style="margin-left:8px">Precio:</span>
+    <button class="filter on" data-group="precio" onclick="applyPrecio('elec','all',this)">Todos</button>
+    <button class="filter" data-group="precio" onclick="applyPrecio('elec','low',this)">— $7,000</button>
+    <button class="filter" data-group="precio" onclick="applyPrecio('elec','mid',this)">$7k–$10k</button>
+    <button class="filter" data-group="precio" onclick="applyPrecio('elec','high',this)">$10,000+</button>
+    <div class="sort-wrap">
+      <span class="sort-label">Ordenar:</span>
+      <select class="sort-sel" onchange="applySort('elec',this.value)">
+        <option value="default">Destacadas</option>
+        <option value="precio-asc">Precio ↑</option>
+        <option value="precio-desc">Precio ↓</option>
+        <option value="stars">Mejor calificadas</option>
+        <option value="autonomia">Mayor autonomía</option>
+        <option value="resenas">Más reseñas</option>
+      </select>
+    </div>
+  </div>
+  <div class="grid-wrap">
+    <div class="grid" id="grid-elec"></div>
+    <div class="empty" id="empty-elec" style="display:none">No hay bicis con ese filtro.</div>
+  </div>
+  <div class="cmp-section" id="cmp-elec">
+    <hr class="cmp-divider">
+    <div class="cmp-title">Comparativa detallada</div>
+    <div class="cmp-wrap"><table class="cmp-table" id="cmp-table-elec"></table></div>
+    <button class="cmp-close" onclick="closeCmp('elec')">Cerrar comparativa</button>
+  </div>
+</div>
+
+<!-- SECCIÓN MONTAÑA -->
+<div class="section-wrap" id="sec-montana">
+  <div class="sec-hero">
+    <div class="sec-hero-inner">
+      <div>
+        <div class="sec-hero-title">🏔 Bicicletas de Montaña</div>
+        <div class="sec-hero-sub">Mountain bike — las mejores opciones en Mercado Libre México</div>
+      </div>
+      <div class="sec-hero-stats">
+        <div class="shstat"><div class="shstat-num">$4,359</div><div class="shstat-label">Desde</div></div>
+        <div class="shstat"><div class="shstat-num">4.8★</div><div class="shstat-label">Mejor nota</div></div>
+        <div class="shstat"><div class="shstat-num">1,147</div><div class="shstat-label">Máx. reseñas</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="toolbar">
+    <span class="filter-label">Precio:</span>
+    <button class="filter on" data-group="precio" onclick="applyPrecio('montana','all',this)">Todos</button>
+    <button class="filter" data-group="precio" onclick="applyPrecio('montana','low',this)">— $6,000</button>
+    <button class="filter" data-group="precio" onclick="applyPrecio('montana','mid',this)">$6k–$10k</button>
+    <button class="filter" data-group="precio" onclick="applyPrecio('montana','high',this)">$10,000+</button>
+    <div class="sort-wrap">
+      <span class="sort-label">Ordenar:</span>
+      <select class="sort-sel" onchange="applySort('montana',this.value)">
+        <option value="default">Destacadas</option>
+        <option value="precio-asc">Precio ↑</option>
+        <option value="precio-desc">Precio ↓</option>
+        <option value="stars">Mejor calificadas</option>
+        <option value="resenas">Más reseñas</option>
+      </select>
+    </div>
+  </div>
+  <div class="grid-wrap">
+    <div class="grid" id="grid-montana"></div>
+    <div class="empty" id="empty-montana" style="display:none">No hay bicis con ese filtro.</div>
+  </div>
+  <div class="cmp-section" id="cmp-montana">
+    <hr class="cmp-divider">
+    <div class="cmp-title">Comparativa detallada</div>
+    <div class="cmp-wrap"><table class="cmp-table" id="cmp-table-montana"></table></div>
+    <button class="cmp-close" onclick="closeCmp('montana')">Cerrar comparativa</button>
+  </div>
+</div>
+
+<!-- SECCIÓN RUTA -->
+<div class="section-wrap" id="sec-ruta">
+  <div class="sec-hero">
+    <div class="sec-hero-inner">
+      <div>
+        <div class="sec-hero-title">🚴 Bicicletas de Ruta</div>
+        <div class="sec-hero-sub">Road bikes — desde entrada de gama hasta competencia, en Mercado Libre México</div>
+      </div>
+      <div class="sec-hero-stats">
+        <div class="shstat"><div class="shstat-num">$2,899</div><div class="shstat-label">Desde</div></div>
+        <div class="shstat"><div class="shstat-num">4.9★</div><div class="shstat-label">Mejor nota</div></div>
+        <div class="shstat"><div class="shstat-num">9 modelos</div><div class="shstat-label">En catálogo</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="toolbar">
+    <span class="filter-label">Precio:</span>
+    <button class="filter on" data-group="precio" onclick="applyPrecio('ruta','all',this)">Todos</button>
+    <button class="filter" data-group="precio" onclick="applyPrecio('ruta','low',this)">— $6,000</button>
+    <button class="filter" data-group="precio" onclick="applyPrecio('ruta','mid',this)">$6k–$10k</button>
+    <button class="filter" data-group="precio" onclick="applyPrecio('ruta','high',this)">$10,000+</button>
+    <div class="sort-wrap">
+      <span class="sort-label">Ordenar:</span>
+      <select class="sort-sel" onchange="applySort('ruta',this.value)">
+        <option value="default">Destacadas</option>
+        <option value="precio-asc">Precio ↑</option>
+        <option value="precio-desc">Precio ↓</option>
+        <option value="stars">Mejor calificadas</option>
+        <option value="resenas">Más reseñas</option>
+      </select>
+    </div>
+  </div>
+  <div class="grid-wrap">
+    <div class="grid" id="grid-ruta"></div>
+    <div class="empty" id="empty-ruta" style="display:none">No hay bicis con ese filtro.</div>
+  </div>
+  <div class="cmp-section" id="cmp-ruta">
+    <hr class="cmp-divider">
+    <div class="cmp-title">Comparativa detallada</div>
+    <div class="cmp-wrap"><table class="cmp-table" id="cmp-table-ruta"></table></div>
+    <button class="cmp-close" onclick="closeCmp('ruta')">Cerrar comparativa</button>
+  </div>
+</div>
+
+<!-- SECCIÓN GRAVEL -->
+<div class="section-wrap" id="sec-gravel">
+  <div class="sec-hero">
+    <div class="sec-hero-inner">
+      <div>
+        <div class="sec-hero-title">🪨 Bicicletas Gravel</div>
+        <div class="sec-hero-sub">Gravel — para cualquier terreno, en Mercado Libre México</div>
+      </div>
+      <div class="sec-hero-stats">
+        <div class="shstat"><div class="shstat-num">$6,474</div><div class="shstat-label">Desde</div></div>
+        <div class="shstat"><div class="shstat-num">4.7★</div><div class="shstat-label">Mejor nota</div></div>
+        <div class="shstat"><div class="shstat-num">700c</div><div class="shstat-label">Rueda</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="toolbar">
+    <span class="filter-label">Precio:</span>
+    <button class="filter on" data-group="precio" onclick="applyPrecio('gravel','all',this)">Todos</button>
+    <button class="filter" data-group="precio" onclick="applyPrecio('gravel','low',this)">— $10,000</button>
+    <button class="filter" data-group="precio" onclick="applyPrecio('gravel','mid',this)">$10k–$20k</button>
+    <button class="filter" data-group="precio" onclick="applyPrecio('gravel','high',this)">$20,000+</button>
+    <div class="sort-wrap">
+      <span class="sort-label">Ordenar:</span>
+      <select class="sort-sel" onchange="applySort('gravel',this.value)">
+        <option value="default">Destacadas</option>
+        <option value="precio-asc">Precio ↑</option>
+        <option value="precio-desc">Precio ↓</option>
+        <option value="stars">Mejor calificadas</option>
+        <option value="resenas">Más reseñas</option>
+      </select>
+    </div>
+  </div>
+  <div class="grid-wrap">
+    <div class="grid" id="grid-gravel"></div>
+    <div class="empty" id="empty-gravel" style="display:none">No hay bicis con ese filtro.</div>
+  </div>
+  <div class="cmp-section" id="cmp-gravel">
+    <hr class="cmp-divider">
+    <div class="cmp-title">Comparativa detallada</div>
+    <div class="cmp-wrap"><table class="cmp-table" id="cmp-table-gravel"></table></div>
+    <button class="cmp-close" onclick="closeCmp('gravel')">Cerrar comparativa</button>
+  </div>
+</div>
+
+<div class="disclaimer">
+  Como afiliados de Amazon MX y Mercado Libre, podemos recibir una comisión por compras a través de nuestros enlaces, sin costo adicional para ti. Los precios pueden variar.
+</div>
+
+<footer>
+  <div class="footer-logo">
+    <svg width="33" height="21" viewBox="0 0 44 28" xmlns="http://www.w3.org/2000/svg">
+      <path d="M1,0 L15,14 L1,28 L7,28 L21,14 L7,0 Z" fill="#006847"/>
+      <circle cx="23" cy="14" r="3.8" fill="#006847"/>
+      <path d="M25,0 L39,14 L25,28 L31,28 L45,14 L31,0 Z" fill="#CE1126"/>
+    </svg>
+    <span class="footer-wordmark">comparalo<span class="logo-mx">.mx</span></span>
+  </div>
+  <div class="footer-info">
+    Afiliados <strong>Amazon MX</strong> (comparabici-20) · Afiliados <strong>Mercado Libre</strong> · Actualizado agosto 2026
+  </div>
+</footer>
+
+<div class="cmp-bar" id="cmp-bar">
+  <div>
+    <div class="cmp-bar-txt" id="cmp-bar-txt">0 bicis seleccionadas</div>
+    <div class="cmp-bar-sub" id="cmp-bar-sub-txt">Selecciona 2 o 3 para ver la comparativa</div>
+  </div>
+  <div class="cmp-bar-actions">
+    <button class="btn-clear" id="btn-clear-cmp" onclick="clearSel()">Limpiar</button>
+    <button class="btn-do-cmp" id="btn-do-cmp" onclick="showCmp()">Comparar ahora →</button>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// DATOS — ELÉCTRICAS
+// ============================================================
+const ELECTRICAS = [
+  {id:1,nombre:'HONEYWHALE F6',marca:'HONEYWHALE',tipo:'montaña',
+   precio:12798,precioML:0,autonomia:45,velocidad:40,peso:32,motor:'500W',rueda:'20"',velocidades:'7',
+   cargaMax:120,msiAmz:'15 MSI con BBVA',msiML:'',estrellas:4.4,resenas:16,
+   badges:[{t:'AMZ',c:'b-amz'},{t:'Suspensión doble',c:'b-pop'}],
+   linkAmz:'https://www.amazon.com.mx/dp/B0G931TX1K?th=1&linkCode=ll2&tag=comparabici-20&linkId=b8d8d427bce3d67114678823db2230f9&ref_=as_li_ss_tl',linkML:'',
+   img:'https://m.media-amazon.com/images/I/71Q8rsfPJEL._AC_SX679_.jpg'},
+  {id:2,nombre:'HONEYWHALE S6-S',marca:'HONEYWHALE',tipo:'plegable',
+   precio:7999,precioML:7199,autonomia:40,velocidad:35,peso:25.5,motor:'750W',rueda:'14"',velocidades:'3',
+   cargaMax:125,msiAmz:'15 MSI con BBVA',msiML:'12 meses',estrellas:4.1,resenas:351,
+   badges:[{t:'AMZ',c:'b-amz'},{t:'ML',c:'b-ml'},{t:'351 reseñas',c:'b-best'}],
+   linkAmz:'https://www.amazon.com.mx/dp/B0BHWC9DC4?th=1&linkCode=ll2&tag=comparabici-20&linkId=fb5221337dc77d0f1f32ab89c23e755f&ref_=as_li_ss_tl',
+   linkML:'https://meli.la/2cccAnq',
+   img:'https://m.media-amazon.com/images/I/7198Wi0XnjL._AC_SX679_.jpg'},
+  {id:3,nombre:'HONEYWHALE U1s',marca:'HONEYWHALE',tipo:'urbana',
+   precio:9999,precioML:0,autonomia:65,velocidad:31,peso:57.6,motor:'650W',rueda:'14"',velocidades:'1',
+   cargaMax:150,msiAmz:'15 MSI con BBVA',msiML:'',estrellas:4.0,resenas:311,
+   badges:[{t:'AMZ',c:'b-amz'},{t:'Mayor autonomía',c:'b-best'}],
+   linkAmz:'https://www.amazon.com.mx/dp/B0BS6R4RWQ?th=1&linkCode=ll2&tag=comparabici-20&linkId=e4f38d164db41aed58ff4fea773e287f&ref_=as_li_ss_tl',linkML:'',
+   img:'https://m.media-amazon.com/images/I/71WDfDfi0JL._AC_SX679_.jpg'},
+  {id:4,nombre:'Pop Shope S6',marca:'Pop Shope',tipo:'plegable',
+   precio:6599,precioML:0,autonomia:30,velocidad:35,peso:25.5,motor:'750W',rueda:'14"',velocidades:'3',
+   cargaMax:125,msiAmz:'15 MSI con BBVA',msiML:'',estrellas:4.4,resenas:99,
+   badges:[{t:'AMZ',c:'b-amz'},{t:'Precio accesible',c:'b-pop'}],
+   linkAmz:'https://www.amazon.com.mx/dp/B0DKWCTQB3?th=1&linkCode=ll2&tag=comparabici-20&linkId=254faf275db64a0c7b23bd7fb6019b63&ref_=as_li_ss_tl',linkML:'',
+   img:'https://m.media-amazon.com/images/I/71DrOpd+zEL._AC_SX679_.jpg'},
+  {id:5,nombre:'GUTSY D460',marca:'GUTSY',tipo:'plegable',
+   precio:7699,precioML:7699,autonomia:0,velocidad:40,peso:30,motor:'750W',rueda:'—',velocidades:'—',
+   cargaMax:180,msiAmz:'',msiML:'',estrellas:3.9,resenas:8,
+   badges:[{t:'ML',c:'b-ml'},{t:'2 pasajeros',c:'b-pop'}],
+   linkAmz:'',linkML:'https://meli.la/2Eu51p1',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_791483-MLM89975271049_082025-F-bicicleta-electrica-uber-d460-plegable-750w-40kmh-2-pasaje.webp'},
+  {id:6,nombre:'VOLTBULL K1',marca:'VOLTBULL',tipo:'plegable',
+   precio:6466,precioML:6466,autonomia:32,velocidad:45,peso:33,motor:'500W',rueda:'14"',velocidades:'3',
+   cargaMax:150,msiAmz:'',msiML:'',estrellas:4.4,resenas:13,
+   badges:[{t:'ML',c:'b-ml'},{t:'Más rápida',c:'b-best'}],
+   linkAmz:'',linkML:'https://meli.la/14P2TRD',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_694646-MLM111624407009_052026-F.webp'},
+  {id:7,nombre:'HONEYWHALE B20',marca:'HONEYWHALE',tipo:'plegable',
+   precio:6599,precioML:6599,autonomia:35,velocidad:32,peso:21,motor:'440W',rueda:'14"',velocidades:'3',
+   cargaMax:120,msiAmz:'',msiML:'',estrellas:4.7,resenas:789,
+   badges:[{t:'ML',c:'b-ml'},{t:'Más vendida',c:'b-best'},{t:'789 reseñas',c:'b-pop'}],
+   linkAmz:'',linkML:'https://meli.la/13mxVr4',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_763620-MLA89353119440_082025-F.webp'},
+  {id:8,nombre:'HONEYWHALE BW02',marca:'HONEYWHALE',tipo:'montaña',
+   precio:12599,precioML:0,autonomia:45,velocidad:40,peso:30,motor:'500W',rueda:'20"',velocidades:'—',
+   cargaMax:140,msiAmz:'15 MSI con BBVA',msiML:'',estrellas:4.4,resenas:12,
+   badges:[{t:'AMZ',c:'b-amz'},{t:'Suspensión delantera',c:'b-pop'}],
+   linkAmz:'https://www.amazon.com.mx/HONEYWHALE-BW02-Bicicleta-Electrica-Velocidad/dp/B0FCRHGKS9?th=1&linkCode=ll2&tag=comparabici-20&linkId=cba03ee0086eb36502ef16c11f87f15e&ref_=as_li_ss_tl',linkML:'',
+   img:'https://m.media-amazon.com/images/I/71jRlG+iNfL._AC_SY879_.jpg'},
+  {id:9,nombre:'HONEYWHALE B20 — Amazon',marca:'HONEYWHALE',tipo:'plegable',
+   precio:6598,precioML:0,autonomia:35,velocidad:32,peso:21.3,motor:'440W',rueda:'14"',velocidades:'3',
+   cargaMax:120,msiAmz:'15 MSI con BBVA',msiML:'',estrellas:4.1,resenas:351,
+   badges:[{t:'AMZ',c:'b-amz'},{t:'Precio accesible',c:'b-pop'}],
+   linkAmz:'https://www.amazon.com.mx/dp/B0FK298YDN?th=1&linkCode=ll2&tag=comparabici-20&linkId=3c9e7d97bab77a9582cb094759e19df2&ref_=as_li_ss_tl',linkML:'',
+   img:'https://m.media-amazon.com/images/I/61dX+2AughL._AC_SX679_.jpg'},
+  {id:10,nombre:'HONEYWHALE S6-S Blanco',marca:'HONEYWHALE',tipo:'plegable',
+   precio:7999,precioML:0,autonomia:40,velocidad:35,peso:25.5,motor:'750W',rueda:'14"',velocidades:'3',
+   cargaMax:125,msiAmz:'',msiML:'',estrellas:4.7,resenas:5,
+   badges:[{t:'AMZ',c:'b-amz'},{t:'Nuevo',c:'b-best'}],
+   linkAmz:'https://www.amazon.com.mx/HONEYWHALE-S6-S-Bicicleta-El%C3%A9ctrica-Velocidad/dp/B0DL2J1QFW?th=1&linkCode=ll2&tag=comparabici-20&linkId=dff9de280f64de920c61d54af69075ba&ref_=as_li_ss_tl',linkML:'',
+   img:'https://m.media-amazon.com/images/I/71FwpvaEzBL._AC_SX679_.jpg'},
+  {id:11,nombre:'VOLTBULL F1',marca:'VOLTBULL',tipo:'plegable',
+   precio:6000,precioML:6000,autonomia:0,velocidad:35,peso:29,motor:'400W',rueda:'14"',velocidades:'3',
+   cargaMax:150,msiAmz:'',msiML:'',estrellas:4.7,resenas:55,
+   badges:[{t:'ML',c:'b-ml'},{t:'6ª más vendida',c:'b-best'}],
+   linkAmz:'',linkML:'https://meli.la/28LXjta',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_689356-MLA109073730295_032026-F.webp'},
+  // --- Nuevas eléctricas del catálogo ---
+  {id:12,nombre:'F1 Pequeño 14" Plegable 500W',marca:'VOLTBULL',tipo:'plegable',
+   precio:5969,precioML:5969,autonomia:0,velocidad:35,peso:0,motor:'500W',rueda:'14"',velocidades:'—',
+   cargaMax:0,msiAmz:'',msiML:'',estrellas:5.0,resenas:3,
+   badges:[{t:'ML',c:'b-ml'},{t:'La más económica',c:'b-sale'},{t:'5.0★',c:'b-best'}],
+   linkAmz:'',linkML:'https://meli.la/2GGZZPS',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_747211-MLM110989858132_052026-F.webp'},
+  {id:13,nombre:'Bici Eléctrica 48V/13.8AH 500W',marca:'—',tipo:'urbana',
+   precio:7886,precioML:7886,autonomia:0,velocidad:35,peso:0,motor:'500W',rueda:'—',velocidades:'—',
+   cargaMax:0,msiAmz:'',msiML:'',estrellas:0,resenas:0,
+   badges:[{t:'ML',c:'b-ml'}],
+   linkAmz:'',linkML:'https://meli.la/1PbKNjX',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_699985-CBT116210055853_082026-F.webp'},
+  // ── Nuevas desde Excel ──
+  {id:20,nombre:'HONEYWHALE F6',marca:'Honeywhale',tipo:'plegable',
+   precio:12798,velocidad:0,peso:0,rueda:'',velocidades:'—',cargaMax:0,
+   estrellas:0,resenas:0,
+   badges:[{t:'AMZ',c:'b-amz'}],
+   linkAmz:'https://www.amazon.com.mx/dp/B0G931TX1K?th=1&linkCode=ll2&tag=comparabici-20&linkId=b8d8d427bce3d67114678823db2230f9&ref_=as_li_ss_tl',
+   linkML:'',
+   img:'https://m.media-amazon.com/images/I/71Q8rsfPJEL._AC_SX679_.jpg'},
+  {id:21,nombre:'HONEYWHALE S6-S AMZ',marca:'Honeywhale',tipo:'plegable',
+   precio:7999,velocidad:0,peso:0,rueda:'',velocidades:'—',cargaMax:0,
+   estrellas:0,resenas:0,
+   badges:[{t:'AMZ',c:'b-amz'}],
+   linkAmz:'https://www.amazon.com.mx/dp/B0BHWC9DC4?th=1&linkCode=ll2&tag=comparabici-20&linkId=fb5221337dc77d0f1f32ab89c23e755f&ref_=as_li_ss_tl',
+   linkML:'',
+   img:'https://m.media-amazon.com/images/I/7198Wi0XnjL._AC_SX679_.jpg'},
+  {id:22,nombre:'HONEYWHALE U1s',marca:'Honeywhale',tipo:'urbana',
+   precio:9999,velocidad:0,peso:0,rueda:'',velocidades:'—',cargaMax:0,
+   estrellas:0,resenas:0,
+   badges:[{t:'AMZ',c:'b-amz'}],
+   linkAmz:'https://www.amazon.com.mx/dp/B0BS6R4RWQ?th=1&linkCode=ll2&tag=comparabici-20&linkId=e4f38d164db41aed58ff4fea773e287f&ref_=as_li_ss_tl',
+   linkML:'',
+   img:'https://m.media-amazon.com/images/I/71WDfDfi0JL._AC_SX679_.jpg'},
+  {id:23,nombre:'Pop Shope S6',marca:'Pop Shope',tipo:'plegable',
+   precio:6599,velocidad:0,peso:0,rueda:'',velocidades:'—',cargaMax:0,
+   estrellas:0,resenas:0,
+   badges:[{t:'AMZ',c:'b-amz'}],
+   linkAmz:'https://www.amazon.com.mx/dp/B0DKWCTQB3?th=1&linkCode=ll2&tag=comparabici-20&linkId=254faf275db64a0c7b23bd7fb6019b63&ref_=as_li_ss_tl',
+   linkML:'',
+   img:'https://m.media-amazon.com/images/I/71DrOpd+zEL._AC_SX679_.jpg'},
+  {id:27,nombre:'HONEYWHALE BW02 790W Plegable',marca:'Honeywhale',tipo:'plegable',
+   precio:12599,velocidad:40,peso:0,rueda:'',velocidades:'—',cargaMax:0,
+   estrellas:0,resenas:12,
+   badges:[{t:'AMZ',c:'b-amz'}],
+   linkAmz:'https://www.amazon.com.mx/HONEYWHALE-BW02-Bicicleta-Electrica-Velocidad/dp/B0FCRHGKS9?th=1&linkCode=ll2&tag=comparabici-20&linkId=cba03ee0086eb36502ef16c11f87f15e&ref_=as_li_ss_tl',
+   linkML:'',
+   img:'https://m.media-amazon.com/images/I/71jRlG+iNfL._AC_SY879_.jpg'},
+  {id:28,nombre:'HONEYWHALE S6-S/B20 750W Plegable',marca:'Honeywhale',tipo:'plegable',
+   precio:6598,velocidad:35,peso:0,rueda:'',velocidades:'3',cargaMax:0,
+   estrellas:0,resenas:351,
+   badges:[{t:'AMZ',c:'b-amz'},{t:'351 reseñas',c:'b-pop'}],
+   linkAmz:'https://www.amazon.com.mx/dp/B0FK298YDN?th=1&linkCode=ll2&tag=comparabici-20&linkId=3c9e7d97bab77a9582cb094759e19df2&ref_=as_li_ss_tl',
+   linkML:'',
+   img:'https://m.media-amazon.com/images/I/61dX+2AughL._AC_SX679_.jpg'},
+  {id:29,nombre:'HONEYWHALE S6-S 750W Plegable',marca:'Honeywhale',tipo:'plegable',
+   precio:7999,velocidad:35,peso:0,rueda:'',velocidades:'—',cargaMax:0,
+   estrellas:0,resenas:5,
+   badges:[{t:'AMZ',c:'b-amz'}],
+   linkAmz:'https://www.amazon.com.mx/HONEYWHALE-S6-S-Bicicleta-El%C3%A9ctrica-Velocidad/dp/B0DL2J1QFW?th=1&linkCode=ll2&tag=comparabici-20&linkId=dff9de280f64de920c61d54af69075ba&ref_=as_li_ss_tl',
+   linkML:'',
+   img:'https://m.media-amazon.com/images/I/71FwpvaEzBL._AC_SX679_.jpg'},
+  {id:31,nombre:'Voltbull F1 400W 14"',marca:'Voltbull',tipo:'plegable',
+   precio:0,velocidad:0,peso:0,rueda:'14"',velocidades:'—',cargaMax:150,
+   estrellas:4.7,resenas:55,
+   badges:[{t:'ML',c:'b-ml'},{t:'Más vendida',c:'b-best'}],
+   linkAmz:'',linkML:'https://meli.la/2zgA1HA',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_903605-MLM109068439965_032026-F.webp'},
+  {id:33,nombre:'Voltbull F1 400W Rosa',marca:'Voltbull',tipo:'plegable',
+   precio:6191,velocidad:0,peso:0,rueda:'14"',velocidades:'—',cargaMax:150,
+   estrellas:4.7,resenas:55,
+   badges:[{t:'ML',c:'b-ml'},{t:'Más vendida',c:'b-best'}],
+   linkAmz:'',linkML:'https://meli.la/1QvmHyn',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_605131-MLM109070977047_032026-F.webp'},
+];
+
+// ============================================================
+// DATOS — MONTAÑA (tipo:'mtb')
+// ============================================================
+const MONTANA = [
+  {id:101,nombre:'Terrafit Venum R26',marca:'Terrafit',tipo:'mtb',
+   precio:4359,velocidad:0,peso:18,rueda:'26"',velocidades:'21',cargaMax:120,
+   estrellas:4.8,resenas:459,
+   badges:[{t:'ML',c:'b-ml'},{t:'Más vendida',c:'b-best'},{t:'459 reseñas',c:'b-pop'}],
+   linkML:'https://meli.la/1z195hd',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_821602-MLA110863985818_052026-F.webp'},
+  {id:102,nombre:'Kubor Cosmo 26',marca:'Kubor',tipo:'mtb',
+   precio:5749,velocidad:0,peso:14,rueda:'26"',velocidades:'21',cargaMax:120,
+   estrellas:4.7,resenas:536,
+   badges:[{t:'ML',c:'b-ml'},{t:'536 reseñas',c:'b-pop'}],
+   linkML:'https://meli.la/2KKZNgU',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_970460-MLA97356510755_112025-F.webp'},
+  {id:103,nombre:'Terrafit Spider R29',marca:'Terrafit',tipo:'mtb',
+   precio:5189,velocidad:0,peso:15,rueda:'29"',velocidades:'21',cargaMax:130,
+   estrellas:4.7,resenas:212,
+   badges:[{t:'ML',c:'b-ml'},{t:'Doble suspensión',c:'b-pop'}],
+   linkML:'https://meli.la/1J6QUWi',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_701859-MLA113098539003_062026-F.webp'},
+  {id:104,nombre:'Kubor Calipso 3 R29',marca:'Kubor',tipo:'mtb',
+   precio:7239,velocidad:0,peso:0,rueda:'29"',velocidades:'21',cargaMax:0,
+   estrellas:4.7,resenas:1147,
+   badges:[{t:'ML',c:'b-ml'},{t:'1,147 reseñas',c:'b-best'},{t:'3ª más vendida',c:'b-pop'}],
+   linkML:'https://meli.la/2jyzTcR',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_618596-MLA96798702060_112025-F.webp'},
+  {id:105,nombre:'Kubor Calipso 4 R29',marca:'Kubor',tipo:'mtb',
+   precio:8805,velocidad:0,peso:17,rueda:'29"',velocidades:'9',cargaMax:120,
+   estrellas:4.7,resenas:83,
+   badges:[{t:'ML',c:'b-ml'},{t:'Disco hidráulico',c:'b-pop'}],
+   linkML:'https://meli.la/1SHfv2C',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_933562-MLA97670768816_112025-F.webp'},
+  {id:106,nombre:'Centurfit R29',marca:'Centurfit',tipo:'mtb',
+   precio:8499,velocidad:0,peso:16,rueda:'29"',velocidades:'21',cargaMax:140,
+   estrellas:0,resenas:0,
+   badges:[{t:'ML',c:'b-ml'}],
+   linkML:'https://meli.la/1Ex8GXS',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_993963-MLM116127531687_082026-F.webp'},
+  {id:201,nombre:'Lagom Shimano 500-7 R29 21v',marca:'Lagom',tipo:'mtb',
+   precio:6299,velocidad:0,peso:0,rueda:'29"',velocidades:'21',cargaMax:0,
+   estrellas:4.5,resenas:15,
+   badges:[{t:'ML',c:'b-ml'},{t:'Shimano',c:'b-pop'}],
+   linkML:'https://meli.la/1YqtNuV',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_997546-MLA106163254840_022026-F.webp'},
+  {id:202,nombre:'Kubor Octopus R29 9V Shimano Acera',marca:'Kubor',tipo:'mtb',
+   precio:9219,velocidad:0,peso:0,rueda:'29"',velocidades:'9',cargaMax:0,
+   estrellas:4.8,resenas:123,
+   badges:[{t:'ML',c:'b-ml'},{t:'Shimano Acera',c:'b-pop'},{t:'123 reseñas',c:'b-best'}],
+   linkML:'https://meli.la/16qSVsg',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_674174-MLA96904338186_112025-F.webp'},
+  {id:203,nombre:'Kubor Calipso 3 R27.5 Rojo',marca:'Kubor',tipo:'mtb',
+   precio:7543,velocidad:0,peso:0,rueda:'27.5"',velocidades:'21',cargaMax:0,
+   estrellas:4.7,resenas:1147,
+   badges:[{t:'ML',c:'b-ml'},{t:'2ª más vendida',c:'b-best'}],
+   linkML:'https://meli.la/2GtxKLu',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_793344-MLA109236862708_042026-F.webp'},
+  {id:204,nombre:'Kubor Calipso 3 R27 Blanco',marca:'Kubor',tipo:'mtb',
+   precio:6799,velocidad:0,peso:0,rueda:'27"',velocidades:'9',cargaMax:0,
+   estrellas:4.9,resenas:31,
+   badges:[{t:'ML',c:'b-ml'},{t:'4.9★',c:'b-best'}],
+   linkML:'https://meli.la/2Nu3SVW',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_697441-MLA84770963326_052025-F.webp'},
+  {id:205,nombre:'Kubor Calipso 4 R29 Azul',marca:'Kubor',tipo:'mtb',
+   precio:8805,velocidad:0,peso:0,rueda:'29"',velocidades:'9',cargaMax:120,
+   estrellas:3.7,resenas:3,
+   badges:[{t:'ML',c:'b-ml'}],
+   linkAmz:'',linkML:'https://meli.la/2QdfY8b',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_954423-MLA109810886695_032026-F.webp'},
+  {id:206,nombre:'Terrafit Venum R26 Verde',marca:'Terrafit',tipo:'mtb',
+   precio:4359,velocidad:0,peso:0,rueda:'26"',velocidades:'21',cargaMax:120,
+   estrellas:4.8,resenas:464,
+   badges:[{t:'ML',c:'b-ml'},{t:'Más vendida',c:'b-best'},{t:'464 reseñas',c:'b-pop'}],
+   linkAmz:'',linkML:'https://meli.la/2JhMu8g',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_896574-MLA95658117002_102025-F.webp'},
+];
+
+// ============================================================
+// DATOS — RUTA (tipo:'ruta')
+// ============================================================
+const RUTA = [
+  {id:301,nombre:'Terrafit Atenea R700 1v',marca:'Terrafit',tipo:'ruta',
+   precio:2899,velocidad:0,peso:0,rueda:'700c',velocidades:'1',cargaMax:0,
+   estrellas:4.4,resenas:13,
+   badges:[{t:'ML',c:'b-ml'},{t:'La más económica',c:'b-sale'},{t:'7ª más vendida',c:'b-best'}],
+   linkML:'https://meli.la/1noKL8E',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_844321-MLU77756632618_072024-F.webp'},
+  {id:111,nombre:'Monk Flug R700',marca:'Monk',tipo:'ruta',
+   precio:8174,velocidad:0,peso:13,rueda:'700c',velocidades:'14',cargaMax:120,
+   estrellas:4.8,resenas:21,
+   badges:[{t:'ML',c:'b-ml'}],
+   linkML:'https://meli.la/17jmy7D',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_724514-MLA99985506617_112025-F.webp'},
+  {id:302,nombre:'Benotto Ruta 590 R700 14v',marca:'Benotto',tipo:'ruta',
+   precio:7435,velocidad:0,peso:0,rueda:'700c',velocidades:'14',cargaMax:0,
+   estrellas:4.9,resenas:11,
+   badges:[{t:'ML',c:'b-ml'},{t:'4.9★',c:'b-best'}],
+   linkML:'https://meli.la/2DdcB9o',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_997643-MLA99468561230_112025-F.webp'},
+  {id:305,nombre:'Gravel Fixie R700c Rosa',marca:'Gravel',tipo:'ruta',
+   precio:6474,velocidad:0,peso:0,rueda:'700c',velocidades:'1',cargaMax:0,
+   estrellas:4.9,resenas:74,
+   badges:[{t:'ML',c:'b-ml'},{t:'4.9★',c:'b-best'},{t:'74 reseñas',c:'b-pop'}],
+   linkML:'https://meli.la/1sX2WZs',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_661371-MLA99496632892_112025-F.webp'},
+  {id:306,nombre:'Gravel Fixie R700c Amarillo',marca:'Gravel',tipo:'ruta',
+   precio:6474,velocidad:0,peso:0,rueda:'700c',velocidades:'1',cargaMax:0,
+   estrellas:4.9,resenas:74,
+   badges:[{t:'ML',c:'b-ml'},{t:'4.9★',c:'b-best'}],
+   linkML:'https://meli.la/2T5fSoC',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_825822-MLA99938854945_112025-F.webp'},
+  {id:307,nombre:'Gravel Fixie R700c Blanco',marca:'Gravel',tipo:'ruta',
+   precio:7625,velocidad:0,peso:0,rueda:'700c',velocidades:'1',cargaMax:0,
+   estrellas:4.9,resenas:74,
+   badges:[{t:'ML',c:'b-ml'},{t:'4.9★',c:'b-best'}],
+   linkML:'https://meli.la/1n91RZ9',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_674286-MLA111824428261_052026-F.webp'},
+  {id:110,nombre:'Alubike Mazzima',marca:'Alubike',tipo:'ruta',
+   precio:10635,velocidad:0,peso:11,rueda:'700c',velocidades:'14',cargaMax:85,
+   estrellas:4.7,resenas:207,
+   badges:[{t:'ML',c:'b-ml'},{t:'207 reseñas',c:'b-pop'}],
+   linkML:'https://meli.la/2riR7pt',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_638415-MLA96107853065_102025-F.webp'},
+  {id:112,nombre:'Gravel Armstrong R700',marca:'Gravel',tipo:'ruta',
+   precio:13499,velocidad:0,peso:12,rueda:'700c',velocidades:'14',cargaMax:110,
+   estrellas:4.7,resenas:34,
+   badges:[{t:'ML',c:'b-ml'},{t:'Shimano A070',c:'b-pop'}],
+   linkML:'https://meli.la/2L1qxxF',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_821518-MLA110859152012_052026-F.webp'},
+  {id:303,nombre:'Turbo Technik R700 14v',marca:'Turbo',tipo:'ruta',
+   precio:12672,velocidad:0,peso:0,rueda:'700c',velocidades:'14',cargaMax:0,
+   estrellas:4.7,resenas:3,
+   badges:[{t:'ML',c:'b-ml'}],
+   linkML:'https://meli.la/2SXni1U',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_813815-MLA99987333273_112025-F.webp'},
+  {id:109,nombre:'RAM Road R700 14v',marca:'RAM',tipo:'ruta',
+   precio:16362,velocidad:0,peso:12,rueda:'700c',velocidades:'14',cargaMax:150,
+   estrellas:4.8,resenas:12,
+   badges:[{t:'ML',c:'b-ml'},{t:'Shimano',c:'b-pop'}],
+   linkML:'https://meli.la/2reBECj',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_611373-MLA102549727975_122025-F.webp'},
+  {id:304,nombre:'Turbo Strada R700 20v',marca:'Turbo',tipo:'ruta',
+   precio:15840,velocidad:0,peso:0,rueda:'700c',velocidades:'20',cargaMax:0,
+   estrellas:0,resenas:0,
+   badges:[{t:'ML',c:'b-ml'}],
+   linkML:'https://meli.la/2DrvPBU',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_939425-MLA84550850450_052025-F.webp'},
+  // ⚠ id:113 — Hiland Ruta R26: enlace ML no encontrado en catálogo, pendiente verificar
+  {id:113,nombre:'Hiland Ruta R26',marca:'Hiland',tipo:'ruta',
+   precio:12099,velocidad:0,peso:12,rueda:'26"',velocidades:'14',cargaMax:0,
+   estrellas:0,resenas:0,
+   badges:[{t:'ML',c:'b-ml'}],
+   linkML:'https://meli.la/hiland-ruta',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_855493-MLM96102786298_102025-F-bicicleta-de-ruta-aluminio-deportiva-para-carreras-veloz.webp'},
+];
+
+// ============================================================
+// DATOS — GRAVEL (tipo:'gravel')
+// ============================================================
+const GRAVEL = [
+  {id:107,nombre:'Gravel Asphalt R700c 14v',marca:'Gravel',tipo:'gravel',
+   precio:6616,velocidad:0,peso:12,rueda:'700c',velocidades:'14',cargaMax:90,
+   estrellas:4.7,resenas:87,
+   badges:[{t:'ML',c:'b-ml'},{t:'Shimano',c:'b-pop'},{t:'87 reseñas',c:'b-best'}],
+   linkML:'https://meli.la/1wbKiie',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_837941-MLM110039272980_042026-F-bicicleta-gravel-de-ruta-calle-asphalt-r700c-14v-shimano.webp'},
+  {id:108,nombre:'Java Sequoia Gravel L-twoo R3 2x8v',marca:'Java',tipo:'gravel',
+   precio:19000,velocidad:0,peso:0,rueda:'700c',velocidades:'16',cargaMax:120,
+   estrellas:0,resenas:0,
+   badges:[{t:'ML',c:'b-ml'},{t:'Disco hidráulico',c:'b-pop'}],
+   linkML:'https://meli.la/2DEKrHB',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_707546-MLM116123911777_082026-F.webp'},
+  {id:401,nombre:'Gravel Tucson 2024 Shimano Sora 18v',marca:'Tucson',tipo:'gravel',
+   precio:25999,velocidad:0,peso:0,rueda:'700c',velocidades:'18',cargaMax:0,
+   estrellas:4.7,resenas:12,
+   badges:[{t:'ML',c:'b-ml'},{t:'Shimano Sora',c:'b-pop'},{t:'Últimas unidades',c:'b-sale'}],
+   linkML:'https://meli.la/2jcmFnH',
+   img:'https://http2.mlstatic.com/D_NQ_NP_2X_903671-MLA99451385324_112025-F.webp'},
+];
+
+// ============================================================
+// ESTADO
+// ============================================================
+let curSection = 'elec';
+
+// Mapa: seccionId -> {key de state, datos, emoji para comparativa cruzada}
+const SECS = {
+  elec:    {data:()=>ELECTRICAS, label:'Eléctrica', emoji:'⚡'},
+  montana: {data:()=>MONTANA,    label:'Montaña',   emoji:'🏔'},
+  ruta:    {data:()=>RUTA,       label:'Ruta',       emoji:'🚴'},
+  gravel:  {data:()=>GRAVEL,     label:'Gravel',     emoji:'🪨'},
+};
+
+let state = {
+  elec:    {filter:'all', precio:'all', sort:'default', sel:[]},
+  montana: {filter:'all', precio:'all', sort:'default', sel:[]},
+  ruta:    {filter:'all', precio:'all', sort:'default', sel:[]},
+  gravel:  {filter:'all', precio:'all', sort:'default', sel:[]},
+};
+
+// Comparativa cruzada (mezcla de secciones)
+let crossSel = []; // [{sec:'elec',id:1}, {sec:'montana',id:101}]
+
+// ============================================================
+// HELPERS
+// ============================================================
+function starsStr(n){ return n?'★'.repeat(Math.floor(n))+(n%1>=.5?'½':'')+' '+n.toFixed(1):'—'; }
+
+function secFromTabName(name){
+  // Tab name -> state key
+  const map = {electricas:'elec', montana:'montana', ruta:'ruta', gravel:'gravel'};
+  return map[name] || name;
+}
+
+function switchSection(name, el){
+  document.querySelectorAll('.sec-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.section-wrap').forEach(s=>s.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('sec-'+name).classList.add('active');
+  curSection = secFromTabName(name);
+  updateBar();
+}
+
+function applyFilter(sec, f, el){
+  state[sec].filter = f;
+  el.closest('.toolbar').querySelectorAll('[data-group="tipo"]').forEach(x=>x.classList.remove('on'));
+  el.classList.add('on');
+  renderGrid(sec);
+}
+
+function applyPrecio(sec, p, el){
+  state[sec].precio = p;
+  el.closest('.toolbar').querySelectorAll('[data-group="precio"]').forEach(x=>x.classList.remove('on'));
+  el.classList.add('on');
+  renderGrid(sec);
+}
+
+function applySort(sec, v){ state[sec].sort=v; renderGrid(sec); }
+
+function toggleSel(sec, id){
+  const s = state[sec].sel;
+  if(s.includes(id)){ state[sec].sel=s.filter(x=>x!==id); }
+  else if(s.length<3){ state[sec].sel.push(id); }
+  const inCross = crossSel.findIndex(x=>x.sec===sec&&x.id===id);
+  if(!state[sec].sel.includes(id) && inCross>-1) crossSel.splice(inCross,1);
+  renderGrid(sec); updateBar();
+}
+
+function toggleCross(sec, id, ev){
+  ev.stopPropagation();
+  const idx = crossSel.findIndex(x=>x.sec===sec&&x.id===id);
+  if(idx>-1){ crossSel.splice(idx,1); }
+  else if(crossSel.length<3){ crossSel.push({sec,id}); }
+  Object.keys(SECS).forEach(s=>renderGrid(s));
+  updateBar();
+}
+
+function clearSel(){
+  state[curSection].sel=[];
+  crossSel=crossSel.filter(x=>x.sec!==curSection);
+  renderGrid(curSection); updateBar();
+}
+
+function clearCross(){
+  crossSel=[];
+  Object.keys(SECS).forEach(s=>renderGrid(s));
+  updateBar();
+}
+
+function updateBar(){
+  const bar=document.getElementById('cmp-bar');
+  const nSec=state[curSection].sel.length;
+  const nCross=crossSel.length;
+  if(nCross>=2){
+    bar.style.display='flex';
+    const parts = Object.keys(SECS).map(s=>{
+      const n=crossSel.filter(x=>x.sec===s).length;
+      return n?n+' '+SECS[s].emoji:'';
+    }).filter(Boolean);
+    document.getElementById('cmp-bar-txt').textContent=nCross+' bicis en comparativa cruzada';
+    document.getElementById('cmp-bar-sub-txt').textContent=parts.join(' · ');
+    document.getElementById('btn-do-cmp').onclick=()=>showCross();
+    document.getElementById('btn-clear-cmp').onclick=()=>clearCross();
+  } else if(nSec>=2){
+    bar.style.display='flex';
+    document.getElementById('cmp-bar-txt').textContent=nSec+' bici'+(nSec>1?'s':'')+' seleccionada'+(nSec>1?'s':'');
+    document.getElementById('cmp-bar-sub-txt').textContent='Selecciona 2 o 3 para comparar';
+    document.getElementById('btn-do-cmp').onclick=()=>showCmp();
+    document.getElementById('btn-clear-cmp').onclick=()=>clearSel();
+  } else { bar.style.display='none'; }
+}
+
+// ============================================================
+// RENDER GRID
+// ============================================================
+function getList(sec){
+  const data = [...SECS[sec].data()];
+  const {filter, precio, sort} = state[sec];
+
+  let list = [...data];
+
+  // tipo filter (solo para eléctricas)
+  if(sec==='elec'){
+    if(filter==='plegable') list=list.filter(b=>b.tipo==='plegable');
+    else if(filter==='urbana') list=list.filter(b=>b.tipo==='urbana');
+    else if(filter==='montaña') list=list.filter(b=>b.tipo==='montaña');
+    else if(filter==='amz') list=list.filter(b=>b.linkAmz);
+    else if(filter==='ml') list=list.filter(b=>b.linkML);
+  }
+
+  // precio filter
+  if(sec==='elec'){
+    if(precio==='low') list=list.filter(b=>b.precio<7000);
+    else if(precio==='mid') list=list.filter(b=>b.precio>=7000&&b.precio<=10000);
+    else if(precio==='high') list=list.filter(b=>b.precio>10000);
+  } else if(sec==='gravel'){
+    if(precio==='low') list=list.filter(b=>b.precio<10000);
+    else if(precio==='mid') list=list.filter(b=>b.precio>=10000&&b.precio<=20000);
+    else if(precio==='high') list=list.filter(b=>b.precio>20000);
+  } else {
+    if(precio==='low') list=list.filter(b=>b.precio<6000);
+    else if(precio==='mid') list=list.filter(b=>b.precio>=6000&&b.precio<=10000);
+    else if(precio==='high') list=list.filter(b=>b.precio>10000);
+  }
+
+  if(sort==='precio-asc') list.sort((a,b)=>a.precio-b.precio);
+  else if(sort==='precio-desc') list.sort((a,b)=>b.precio-a.precio);
+  else if(sort==='stars') list.sort((a,b)=>b.estrellas-a.estrellas);
+  else if(sort==='autonomia') list.sort((a,b)=>(b.autonomia||0)-(a.autonomia||0));
+  else if(sort==='resenas') list.sort((a,b)=>b.resenas-a.resenas);
+
+  return list;
+}
+
+function cardConv(b, sec){
+  const isSel = state[sec].sel.includes(b.id);
+  const inCross = crossSel.find(x=>x.sec===sec&&x.id===b.id);
+  const secLabel = SECS[sec].label;
+  const emoji = SECS[sec].emoji;
+  return `<div class="card${isSel?' selected':''}" onclick="toggleSel('${sec}',${b.id})">
+    ${isSel?'<div class="sel-check">✓</div>':''}
+    <div class="card-img-wrap">
+      ${b.img?`<img class="card-img" src="${b.img}" alt="${b.nombre}" loading="lazy" onerror="this.outerHTML='<div class=card-img-ph>${emoji}</div>'">`:`<div class="card-img-ph">${emoji}</div>`}
+    </div>
+    <div class="card-body">
+      <div class="card-badges">${b.badges.map(bd=>`<span class="badge ${bd.c}">${bd.t}</span>`).join('')}</div>
+      <div class="card-name">${b.nombre}</div>
+      <div class="card-brand">${b.marca} · ${secLabel}</div>
+      <div class="card-stars">${starsStr(b.estrellas)}<span class="card-stars-count">${b.resenas?(b.resenas.toLocaleString('es-MX')+' reseñas'):''}</span></div>
+      <div class="card-specs">
+        <div class="spec"><div class="spec-label">Velocidades</div><div class="spec-val">${b.velocidades||'—'}</div></div>
+        <div class="spec"><div class="spec-label">Peso</div><div class="spec-val">${b.peso?b.peso+' kg':'—'}</div></div>
+        <div class="spec"><div class="spec-label">Rueda</div><div class="spec-val">${b.rueda||'—'}</div></div>
+        <div class="spec"><div class="spec-label">Carga máx.</div><div class="spec-val">${b.cargaMax?b.cargaMax+' kg':'—'}</div></div>
+      </div>
+      <div class="card-price">$${b.precio.toLocaleString('es-MX')} <span class="card-price-sub">MXN</span></div>
+      <div class="card-btns" onclick="event.stopPropagation()">
+        ${b.linkAmz?`<a class="btn-amz" href="${b.linkAmz}" target="_blank" rel="nofollow sponsored">Ver en Amazon →</a>`:''}
+        ${b.linkML?`<a class="btn-ml" href="${b.linkML}" target="_blank" rel="nofollow sponsored">Ver en Mercado Libre →</a>`:''}
+      </div>
+      <div class="card-tip">Toca para comparar · <span style="color:var(--ac);cursor:pointer" onclick="toggleCross('${sec}',${b.id},event)">${inCross?'✓ En comparativa cruzada':'+ Comparar secciones'}</span></div>
+    </div>
+  </div>`;
+}
+
+function renderGrid(sec){
+  const list = getList(sec);
+  const grid = document.getElementById('grid-'+sec);
+  const empty = document.getElementById('empty-'+sec);
+  if(!list.length){grid.innerHTML='';empty.style.display='block';return;}
+  empty.style.display='none';
+
+  if(sec==='elec'){
+    const maxAuto = Math.max(...ELECTRICAS.filter(b=>b.autonomia).map(b=>b.autonomia));
+    grid.innerHTML = list.map(b=>{
+      const isSel = state.elec.sel.includes(b.id);
+      const pct = b.autonomia?Math.round(b.autonomia/maxAuto*100):0;
+      const hasBoth = b.linkAmz&&b.linkML;
+      const inCross = crossSel.find(x=>x.sec==='elec'&&x.id===b.id);
+      return `<div class="card${isSel?' selected':''}" onclick="toggleSel('elec',${b.id})">
+        ${isSel?'<div class="sel-check">✓</div>':''}
+        <div class="card-img-wrap">
+          ${b.img?`<img class="card-img" src="${b.img}" alt="${b.nombre}" loading="lazy" onerror="this.outerHTML='<div class=card-img-ph>⚡</div>'">`:'<div class="card-img-ph">⚡</div>'}
+        </div>
+        <div class="card-body">
+          <div class="card-badges">${b.badges.map(bd=>`<span class="badge ${bd.c}">${bd.t}</span>`).join('')}</div>
+          <div class="card-name">${b.nombre}</div>
+          <div class="card-brand">${b.marca} · ${b.tipo}</div>
+          <div class="card-stars">${starsStr(b.estrellas)}<span class="card-stars-count">${b.resenas?(b.resenas.toLocaleString('es-MX')+' reseñas'):''}</span></div>
+          ${b.autonomia?`<div class="card-bat">
+            <div class="bat-header"><span>Autonomía</span><span>${b.autonomia}km</span></div>
+            <div class="bat-track"><div class="bat-fill" style="width:${pct}%"></div></div>
+          </div>`:''}
+          <div class="card-specs">
+            <div class="spec"><div class="spec-label">Velocidad</div><div class="spec-val">${b.velocidad?b.velocidad+' km/h':'—'}</div></div>
+            <div class="spec"><div class="spec-label">Peso</div><div class="spec-val">${b.peso?b.peso+' kg':'—'}</div></div>
+            <div class="spec"><div class="spec-label">Motor</div><div class="spec-val">${b.motor}</div></div>
+            <div class="spec"><div class="spec-label">Rueda</div><div class="spec-val">${b.rueda}</div></div>
+          </div>
+          ${hasBoth?`
+          <div class="price-compare" onclick="event.stopPropagation()">
+            <div class="pc-col">
+              <div class="pc-platform pc-amz">Amazon</div>
+              <div class="pc-price">$${b.precio.toLocaleString('es-MX')}</div>
+              ${b.msiAmz?`<div class="pc-msi">${b.msiAmz}</div>`:''}
+              <a class="btn-amz" href="${b.linkAmz}" target="_blank" rel="nofollow sponsored" style="margin-top:7px;padding:7px;font-size:11px;border-radius:7px;text-decoration:none;display:block;text-align:center">Comprar →</a>
+            </div>
+            <div class="pc-divider"></div>
+            <div class="pc-col">
+              <div class="pc-platform pc-ml">Mercado Libre</div>
+              <div class="pc-price">$${(b.precioML||b.precio).toLocaleString('es-MX')}</div>
+              ${b.msiML?`<div class="pc-msi">${b.msiML}</div>`:''}
+              <a class="btn-ml" href="${b.linkML}" target="_blank" rel="nofollow sponsored" style="margin-top:7px;padding:7px;font-size:11px;border-radius:7px;text-decoration:none;display:block;text-align:center;color:#5a4200">Comprar →</a>
+            </div>
+          </div>` : `
+          <div class="card-price">$${b.precio.toLocaleString('es-MX')} <span class="card-price-sub">MXN</span></div>
+          <div class="card-btns" onclick="event.stopPropagation()">
+            ${b.linkAmz?`<a class="btn-amz" href="${b.linkAmz}" target="_blank" rel="nofollow sponsored">Ver en Amazon →</a>`:''}
+            ${b.linkML?`<a class="btn-ml" href="${b.linkML}" target="_blank" rel="nofollow sponsored">Ver en Mercado Libre →</a>`:''}
+          </div>`}
+          <div class="card-tip">Toca para comparar · <span style="color:var(--ac);cursor:pointer" onclick="toggleCross('elec',${b.id},event)">${inCross?'✓ En comparativa cruzada':'+ Comparar secciones'}</span></div>
+        </div>
+      </div>`;
+    }).join('');
+  } else {
+    grid.innerHTML = list.map(b=>cardConv(b, sec)).join('');
+  }
+
+  // actualizar count en tab
+  const tabCountId = sec==='elec'?'count-electricas':'count-'+sec;
+  const el = document.getElementById(tabCountId);
+  if(el) el.textContent = SECS[sec].data().length;
+}
+
+// ============================================================
+// COMPARADOR (dentro de la misma sección)
+// ============================================================
+function showCmp(){
+  const sec = curSection;
+  const data = SECS[sec].data();
+  const cmpSec = document.getElementById('cmp-'+sec);
+  const tbl = document.getElementById('cmp-table-'+sec);
+  cmpSec.style.display='block';
+  const list = data.filter(b=>state[sec].sel.includes(b.id));
+  const emoji = SECS[sec].emoji;
+
+  const heads='<tr><th style="min-width:120px;text-align:left"></th>'+list.map(b=>`
+    <th style="padding:14px 12px">
+      <div style="width:72px;height:72px;margin:0 auto 8px;border-radius:8px;overflow:hidden;background:#f7f7f5;border:1px solid #e2e2dc;display:flex;align-items:center;justify-content:center">
+        ${b.img?`<img src="${b.img}" style="max-width:100%;max-height:100%;object-fit:contain;padding:4px" onerror="this.outerHTML='<span style=font-size:1.5rem>${emoji}</span>'">`:`<span style="font-size:1.5rem">${emoji}</span>`}
+      </div>
+      <div style="font-family:Satoshi,sans-serif;font-size:13px;font-weight:700;color:#0F172A;line-height:1.3">${b.nombre}</div>
+      <div style="font-size:10px;color:#94a3b8;margin-top:1px;text-transform:uppercase;letter-spacing:.05em">${b.marca}</div>
+    </th>`).join('')+'</tr>';
+
+  let rows;
+  if(sec==='elec'){
+    rows=[
+      {l:'Precio AMZ',vals:list.map(b=>({v:b.linkAmz?'$'+b.precio.toLocaleString('es-MX'):'—',n:b.linkAmz?b.precio:0})),best:'min'},
+      {l:'Precio ML',vals:list.map(b=>({v:b.linkML?'$'+(b.precioML||b.precio).toLocaleString('es-MX'):'—',n:b.linkML?(b.precioML||b.precio):0})),best:'min'},
+      {l:'Autonomía',vals:list.map(b=>({v:b.autonomia?b.autonomia+'km':'—',n:b.autonomia||0})),best:'max'},
+      {l:'Velocidad máx.',vals:list.map(b=>({v:b.velocidad?b.velocidad+' km/h':'—',n:b.velocidad||0})),best:'max'},
+      {l:'Peso',vals:list.map(b=>({v:b.peso?b.peso+' kg':'—',n:b.peso||0})),best:'min'},
+      {l:'Motor',vals:list.map(b=>({v:b.motor,n:0})),best:'none'},
+      {l:'Rueda',vals:list.map(b=>({v:b.rueda,n:0})),best:'none'},
+      {l:'Velocidades',vals:list.map(b=>({v:b.velocidades,n:0})),best:'none'},
+      {l:'Calificación',vals:list.map(b=>({v:starsStr(b.estrellas)+(b.resenas?' ('+b.resenas+')':''),n:b.estrellas})),best:'max'},
+      {l:'Carga máx.',vals:list.map(b=>({v:b.cargaMax?b.cargaMax+' kg':'—',n:b.cargaMax||0})),best:'max'},
+    ];
+  } else {
+    rows=[
+      {l:'Precio',vals:list.map(b=>({v:'$'+b.precio.toLocaleString('es-MX'),n:b.precio})),best:'min'},
+      {l:'Rueda',vals:list.map(b=>({v:b.rueda||'—',n:0})),best:'none'},
+      {l:'Velocidades',vals:list.map(b=>({v:b.velocidades||'—',n:parseInt(b.velocidades)||0})),best:'max'},
+      {l:'Peso',vals:list.map(b=>({v:b.peso?b.peso+' kg':'—',n:b.peso||0})),best:'min'},
+      {l:'Carga máx.',vals:list.map(b=>({v:b.cargaMax?b.cargaMax+' kg':'—',n:b.cargaMax||0})),best:'max'},
+      {l:'Calificación',vals:list.map(b=>({v:starsStr(b.estrellas)+(b.resenas?' ('+b.resenas+')':''),n:b.estrellas})),best:'max'},
+    ];
+  }
+
+  const body=rows.map(r=>{
+    const nums=r.vals.map(v=>v.n);
+    const best=r.best==='max'?Math.max(...nums):r.best==='min'?Math.min(...nums.filter(n=>n>0)):null;
+    return `<tr><td style="text-align:left">${r.l}</td>${r.vals.map(v=>{
+      const w=best!==null&&v.n===best&&v.n!==0&&r.best!=='none';
+      return `<td class="${w?'cmp-winner':''}">${w?'✓ ':''}${v.v}</td>`;
+    }).join('')}</tr>`;
+  }).join('');
+
+  const btns='<tr><td style="text-align:left">Comprar</td>'+list.map(b=>`
+    <td><div style="display:flex;flex-direction:column;gap:6px;max-width:150px;margin:0 auto">
+      ${b.linkAmz?`<a class="btn-amz" href="${b.linkAmz}" target="_blank" rel="nofollow sponsored" style="display:block;padding:7px 10px;font-size:11px;border-radius:7px;text-decoration:none;text-align:center">Ver en Amazon</a>`:''}
+      ${b.linkML?`<a class="btn-ml" href="${b.linkML}" target="_blank" rel="nofollow sponsored" style="display:block;padding:7px 10px;font-size:11px;border-radius:7px;text-decoration:none;text-align:center;color:#5a4200">Ver en ML</a>`:''}
+    </div></td>`).join('')+'</tr>';
+
+  tbl.innerHTML=heads+body+btns;
+  cmpSec.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function closeCmp(sec){document.getElementById('cmp-'+sec).style.display='none';}
+
+// ============================================================
+// COMPARATIVA CRUZADA (mezcla de secciones)
+// ============================================================
+function showCross(){
+  const sec = curSection;
+  const cmpSec = document.getElementById('cmp-'+sec);
+  const tbl = document.getElementById('cmp-table-'+sec);
+  cmpSec.style.display='block';
+  const list = crossSel.map(x=>{
+    const b = SECS[x.sec].data().find(b=>b.id===x.id);
+    return {...b, _sec:x.sec};
+  });
+  const heads='<tr><th style="min-width:120px;text-align:left"></th>'+list.map(b=>`
+    <th style="padding:14px 12px">
+      <div style="width:72px;height:72px;margin:0 auto 8px;border-radius:8px;overflow:hidden;background:#f7f7f5;border:1px solid #e2e2dc;display:flex;align-items:center;justify-content:center">
+        ${b.img?`<img src="${b.img}" style="max-width:100%;max-height:100%;object-fit:contain;padding:4px">`:`<span style="font-size:1.5rem">${SECS[b._sec].emoji}</span>`}
+      </div>
+      <div style="font-family:Satoshi,sans-serif;font-size:13px;font-weight:700;color:#0F172A;line-height:1.3">${b.nombre}</div>
+      <div style="font-size:10px;color:#94a3b8;margin-top:1px;text-transform:uppercase;letter-spacing:.05em">${SECS[b._sec].emoji} ${SECS[b._sec].label}</div>
+    </th>`).join('')+'</tr>';
+
+  const rows=[
+    {l:'Precio',vals:list.map(b=>({v:'$'+b.precio.toLocaleString('es-MX'),n:b.precio})),best:'min'},
+    {l:'Tipo',vals:list.map(b=>({v:SECS[b._sec].label+(b._sec==='elec'?' — '+b.tipo:''),n:0})),best:'none'},
+    {l:'Rueda',vals:list.map(b=>({v:b.rueda||'—',n:0})),best:'none'},
+    {l:'Velocidades',vals:list.map(b=>({v:b.velocidades||'—',n:parseInt(b.velocidades)||0})),best:'none'},
+    {l:'Peso',vals:list.map(b=>({v:b.peso?b.peso+' kg':'—',n:b.peso||0})),best:'min'},
+    {l:'Carga máx.',vals:list.map(b=>({v:b.cargaMax?b.cargaMax+' kg':'—',n:b.cargaMax||0})),best:'max'},
+    {l:'Motor',vals:list.map(b=>({v:b._sec==='elec'?b.motor:'No aplica',n:0})),best:'none'},
+    {l:'Autonomía',vals:list.map(b=>({v:b._sec==='elec'?(b.autonomia?b.autonomia+'km':'—'):'No aplica',n:b._sec==='elec'?(b.autonomia||0):0})),best:'max'},
+    {l:'Calificación',vals:list.map(b=>({v:starsStr(b.estrellas)+(b.resenas?' ('+b.resenas+')':''),n:b.estrellas})),best:'max'},
+  ];
+
+  const body=rows.map(r=>{
+    const nums=r.vals.map(v=>v.n);
+    const best=r.best==='max'?Math.max(...nums):r.best==='min'?Math.min(...nums.filter(n=>n>0)):null;
+    return `<tr><td style="text-align:left">${r.l}</td>${r.vals.map(v=>{
+      const w=best!==null&&v.n===best&&v.n!==0&&r.best!=='none';
+      return `<td class="${w?'cmp-winner':''}">${w?'✓ ':''}${v.v}</td>`;
+    }).join('')}</tr>`;
+  }).join('');
+
+  const btns='<tr><td style="text-align:left">Comprar</td>'+list.map(b=>`
+    <td><div style="display:flex;flex-direction:column;gap:6px;max-width:150px;margin:0 auto">
+      ${b.linkAmz?`<a class="btn-amz" href="${b.linkAmz}" target="_blank" rel="nofollow sponsored" style="display:block;padding:7px 10px;font-size:11px;border-radius:7px;text-decoration:none;text-align:center">Ver en Amazon</a>`:''}
+      ${b.linkML?`<a class="btn-ml" href="${b.linkML}" target="_blank" rel="nofollow sponsored" style="display:block;padding:7px 10px;font-size:11px;border-radius:7px;text-decoration:none;text-align:center;color:#5a4200">Ver en ML</a>`:''}
+    </div></td>`).join('')+'</tr>';
+
+  tbl.innerHTML=heads+body+btns;
+  cmpSec.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ============================================================
+// INIT
+// ============================================================
+function init(){
+  Object.keys(SECS).forEach(sec=>renderGrid(sec));
+  const total = Object.keys(SECS).reduce((sum,s)=>sum+SECS[s].data().length,0);
+  document.getElementById('stat-total').textContent=total;
+  // tab counts
+  document.getElementById('count-electricas').textContent=ELECTRICAS.length;
+  document.getElementById('count-montana').textContent=MONTANA.length;
+  document.getElementById('count-ruta').textContent=RUTA.length;
+  document.getElementById('count-gravel').textContent=GRAVEL.length;
+}
+init();
+</script>
+</body>
+</html>

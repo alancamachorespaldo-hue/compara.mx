@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — comparalo.mx</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* ── Tokens ── */
+:root {
+  --bg:       #f7f9f7;
+  --surface:  #ffffff;
+  --border:   #d8e4d8;
+  --text:     #1a2a1a;
+  --muted:    #5a7a5a;
+  --ac:       #006847;
+  --ac-light: #e6f2ec;
+  --ac-dark:  #005038;
+  --amz:      #f90;
+  --ml:       #f0c000;
+  --code-bg:  #151f15;
+  --code-text:#b8f0b8;
+  --danger:   #c0392b;
+  --shadow:   0 1px 3px rgba(0,80,56,.08), 0 4px 12px rgba(0,80,56,.05);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:       #111811;
+    --surface:  #1a231a;
+    --border:   #2a3d2a;
+    --text:     #e0ece0;
+    --muted:    #7aaa7a;
+    --ac:       #00a86b;
+    --ac-light: #0d2a1d;
+    --ac-dark:  #00c97f;
+    --code-bg:  #0d160d;
+    --code-text:#7de87d;
+    --shadow:   0 1px 3px rgba(0,0,0,.3), 0 4px 12px rgba(0,0,0,.2);
+  }
+}
+:root[data-theme="dark"] {
+  --bg:       #111811;
+  --surface:  #1a231a;
+  --border:   #2a3d2a;
+  --text:     #e0ece0;
+  --muted:    #7aaa7a;
+  --ac:       #00a86b;
+  --ac-light: #0d2a1d;
+  --ac-dark:  #00c97f;
+  --code-bg:  #0d160d;
+  --code-text:#7de87d;
+  --shadow:   0 1px 3px rgba(0,0,0,.3), 0 4px 12px rgba(0,0,0,.2);
+}
+
+/* ── Reset & base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 15px; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+  min-height: 100vh;
+}
+
+/* ── Header ── */
+header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: var(--shadow);
+}
+.logo {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -.02em;
+}
+.logo span { color: var(--ac); }
+.header-meta { font-size: .8rem; color: var(--muted); }
+
+/* ── Layout ── */
+.workspace {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 0;
+  min-height: calc(100vh - 56px);
+}
+.panel-form {
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.panel-right {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+/* ── Section tabs ── */
+.sec-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: .4rem;
+}
+.sec-tab {
+  padding: .45rem .3rem;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--muted);
+  font-size: .78rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  transition: all .15s;
+  font-family: inherit;
+}
+.sec-tab.active {
+  background: var(--ac-light);
+  border-color: var(--ac);
+  color: var(--ac);
+}
+
+/* ── Field groups ── */
+.fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+}
+.fieldset-title {
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-bottom: .4rem;
+  border-bottom: 1px solid var(--border);
+}
+.field { display: flex; flex-direction: column; gap: .3rem; }
+.field label {
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+.field label .req { color: var(--ac); }
+.field input, .field select, .field textarea {
+  padding: .5rem .7rem;
+  border: 1.5px solid var(--border);
+  border-radius: 7px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: inherit;
+  font-size: .875rem;
+  transition: border-color .15s;
+  outline: none;
+}
+.field input:focus, .field select:focus, .field textarea:focus {
+  border-color: var(--ac);
+}
+.field textarea { resize: vertical; min-height: 56px; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
+.field-row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .6rem; }
+
+/* Plataforma radio */
+.plat-row { display: flex; gap: .5rem; flex-wrap: wrap; }
+.plat-pill {
+  display: flex; align-items: center; gap: .35rem;
+  padding: .35rem .7rem;
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--muted);
+  background: var(--bg);
+  transition: all .15s;
+  user-select: none;
+}
+.plat-pill input { display: none; }
+.plat-pill.amz.checked { background: #fff3e0; border-color: var(--amz); color: #c07000; }
+.plat-pill.ml.checked  { background: #fffbde; border-color: var(--ml);  color: #8a7000; }
+
+/* Badges */
+.badges-row { display: flex; gap: .4rem; flex-wrap: wrap; }
+.badge-chip {
+  display: flex; align-items: center; gap: .3rem;
+  padding: .25rem .6rem;
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: .75rem;
+  font-weight: 600;
+  color: var(--muted);
+  background: var(--bg);
+  transition: all .15s;
+  user-select: none;
+}
+.badge-chip input { display: none; }
+.badge-chip.checked { background: var(--ac-light); border-color: var(--ac); color: var(--ac); }
+
+/* ── Botón generar ── */
+.btn-generate {
+  padding: .7rem 1.2rem;
+  background: var(--ac);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: .9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .15s;
+  display: flex; align-items: center; justify-content: center; gap: .5rem;
+}
+.btn-generate:hover { background: var(--ac-dark); }
+.btn-generate:active { transform: scale(.98); }
+
+/* ── Panel derecho ── */
+.preview-section {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.preview-section h3 {
+  font-size: .7rem; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 1rem;
+}
+/* Mini card preview */
+.card-preview {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  max-width: 280px;
+  box-shadow: var(--shadow);
+}
+.card-img-wrap {
+  height: 160px;
+  background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+.card-img-wrap img {
+  max-width: 100%; max-height: 100%;
+  object-fit: contain;
+  display: none;
+}
+.img-placeholder {
+  font-size: 2.5rem;
+  opacity: .25;
+}
+.card-badges {
+  position: absolute; top: .5rem; left: .5rem;
+  display: flex; flex-wrap: wrap; gap: .25rem;
+}
+.card-badge {
+  font-size: .65rem; font-weight: 700;
+  padding: .15rem .45rem;
+  border-radius: 20px;
+  background: var(--ac);
+  color: #fff;
+}
+.card-body { padding: .8rem; }
+.card-name {
+  font-size: .85rem; font-weight: 600; line-height: 1.35;
+  margin-bottom: .5rem; color: var(--text);
+  text-wrap: balance;
+}
+.card-stars { font-size: .75rem; color: var(--muted); margin-bottom: .5rem; }
+.card-price {
+  font-size: 1.15rem; font-weight: 700; color: var(--ac);
+  margin-bottom: .6rem; font-variant-numeric: tabular-nums;
+}
+.card-btns { display: flex; gap: .4rem; flex-wrap: wrap; }
+.card-btn {
+  flex: 1; min-width: 80px;
+  padding: .4rem .5rem;
+  border-radius: 7px;
+  font-size: .72rem; font-weight: 700;
+  border: none; cursor: default;
+  text-align: center;
+}
+.card-btn.amz { background: var(--amz); color: #000; }
+.card-btn.ml  { background: var(--ml);  color: #000; }
+
+/* ── Código generado ── */
+.code-section {
+  flex: 1;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+.code-header {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.code-header h3 {
+  font-size: .7rem; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--muted);
+}
+.btn-copy {
+  padding: .35rem .8rem;
+  background: var(--ac-light);
+  color: var(--ac);
+  border: 1.5px solid var(--ac);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: .75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .15s;
+}
+.btn-copy:hover { background: var(--ac); color: #fff; }
+.btn-copy.copied { background: var(--ac); color: #fff; }
+.code-box {
+  background: var(--code-bg);
+  color: var(--code-text);
+  border-radius: 10px;
+  padding: 1.25rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .75rem;
+  line-height: 1.65;
+  overflow-x: auto;
+  white-space: pre;
+  flex: 1;
+  min-height: 200px;
+  border: 1px solid rgba(255,255,255,.05);
+}
+.code-empty {
+  display: flex; align-items: center; justify-content: center;
+  height: 100%; color: #4a6a4a; font-size: .8rem; text-align: center;
+}
+.hint {
+  font-size: .75rem; color: var(--muted); line-height: 1.5;
+  background: var(--ac-light);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: .6rem .8rem;
+}
+
+/* ── Img preview inline ── */
+#imgPreviewSmall {
+  width: 48px; height: 48px;
+  border-radius: 6px;
+  object-fit: contain;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  display: none;
+  vertical-align: middle;
+  margin-left: .5rem;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><span>comparalo</span>.mx — Admin</div>
+  <div class="header-meta">Panel local · No requiere internet</div>
+</header>
+
+<div class="workspace">
+
+  <!-- ══ FORMULARIO ══ -->
+  <aside class="panel-form">
+
+    <!-- Sección -->
+    <div class="fieldset">
+      <div class="fieldset-title">Sección</div>
+      <div class="sec-tabs">
+        <button class="sec-tab active" data-sec="elec" onclick="setSec(this)">⚡ Eléctrica</button>
+        <button class="sec-tab" data-sec="montana" onclick="setSec(this)">🏔 Montaña</button>
+        <button class="sec-tab" data-sec="ruta" onclick="setSec(this)">🚴 Ruta</button>
+        <button class="sec-tab" data-sec="gravel" onclick="setSec(this)">🪨 Gravel</button>
+      </div>
+    </div>
+
+    <!-- Datos básicos -->
+    <div class="fieldset">
+      <div class="fieldset-title">Datos básicos</div>
+      <div class="field">
+        <label>Nombre del producto <span class="req">*</span></label>
+        <input id="f-nombre" type="text" placeholder="ej. HONEYWHALE S6 Plegable 750W" oninput="updatePreview()">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Marca</label>
+          <input id="f-marca" type="text" placeholder="ej. Voltbull">
+        </div>
+        <div class="field" id="wrap-tipo">
+          <label>Tipo (solo eléctrica)</label>
+          <select id="f-tipo">
+            <option value="plegable">plegable</option>
+            <option value="urbana">urbana</option>
+            <option value="montana">montaña</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Plataformas -->
+    <div class="fieldset">
+      <div class="fieldset-title">Plataformas</div>
+      <div class="plat-row">
+        <label class="plat-pill amz" id="pill-amz">
+          <input type="checkbox" id="cb-amz" onchange="togglePlat('amz')"> 🟠 Amazon
+        </label>
+        <label class="plat-pill ml" id="pill-ml">
+          <input type="checkbox" id="cb-ml" checked onchange="togglePlat('ml')"> 🟡 Mercado Libre
+        </label>
+      </div>
+      <div id="wrap-amz" style="display:none" class="fieldset" style="margin-top:.5rem">
+        <div class="field-row">
+          <div class="field">
+            <label>Precio Amazon <span class="req">*</span></label>
+            <input id="f-precio-amz" type="number" placeholder="7999" oninput="updatePreview()">
+          </div>
+          <div class="field">
+            <label>MSI Amazon</label>
+            <input id="f-msi-amz" type="text" placeholder="15 MSI con BBVA">
+          </div>
+        </div>
+        <div class="field">
+          <label>Link Amazon (con tag comparabici-20) <span class="req">*</span></label>
+          <input id="f-link-amz" type="url" placeholder="https://www.amazon.com.mx/dp/...?tag=comparabici-20">
+        </div>
+      </div>
+      <div id="wrap-ml" class="fieldset">
+        <div class="field-row">
+          <div class="field">
+            <label>Precio ML <span class="req">*</span></label>
+            <input id="f-precio-ml" type="number" placeholder="6999" oninput="updatePreview()">
+          </div>
+          <div class="field">
+            <label>MSI ML</label>
+            <input id="f-msi-ml" type="text" placeholder="12 meses">
+          </div>
+        </div>
+        <div class="field">
+          <label>Link ML (meli.la o directo) <span class="req">*</span></label>
+          <input id="f-link-ml" type="url" placeholder="https://meli.la/xxxxxx">
+        </div>
+      </div>
+    </div>
+
+    <!-- Imagen y calificación -->
+    <div class="fieldset">
+      <div class="fieldset-title">Imagen y calificación</div>
+      <div class="field">
+        <label>
+          URL de imagen
+          <img id="imgPreviewSmall" src="" alt="">
+        </label>
+        <input id="f-img" type="url" placeholder="https://http2.mlstatic.com/D_NQ_NP_2X_..." oninput="updatePreview(); previewImg()">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Estrellas (0–5)</label>
+          <input id="f-stars" type="number" min="0" max="5" step="0.1" placeholder="4.7" oninput="updatePreview()">
+        </div>
+        <div class="field">
+          <label>Reseñas</label>
+          <input id="f-reviews" type="number" min="0" placeholder="459" oninput="updatePreview()">
+        </div>
+      </div>
+    </div>
+
+    <!-- Specs técnicas -->
+    <div class="fieldset" id="wrap-specs-elec">
+      <div class="fieldset-title">Specs (eléctrica)</div>
+      <div class="field-row">
+        <div class="field">
+          <label>Motor</label>
+          <input id="f-motor" type="text" placeholder="750W">
+        </div>
+        <div class="field">
+          <label>Autonomía (km)</label>
+          <input id="f-autonomia" type="number" placeholder="40">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Vel. máx (km/h)</label>
+          <input id="f-velocidad" type="number" placeholder="35">
+        </div>
+        <div class="field">
+          <label>Peso (kg)</label>
+          <input id="f-peso" type="number" step="0.1" placeholder="25.5">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Rueda</label>
+          <input id="f-rueda" type="text" placeholder='20"'>
+        </div>
+        <div class="field">
+          <label>Velocidades</label>
+          <input id="f-velocidades" type="text" placeholder="7">
+        </div>
+      </div>
+      <div class="field">
+        <label>Carga máx (kg)</label>
+        <input id="f-carga" type="number" placeholder="120">
+      </div>
+    </div>
+
+    <div class="fieldset" id="wrap-specs-conv" style="display:none">
+      <div class="fieldset-title">Specs</div>
+      <div class="field-row">
+        <div class="field">
+          <label>Rueda</label>
+          <input id="f-rueda-c" type="text" placeholder='29"'>
+        </div>
+        <div class="field">
+          <label>Velocidades</label>
+          <input id="f-velocidades-c" type="text" placeholder="21">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Peso (kg)</label>
+          <input id="f-peso-c" type="number" step="0.1" placeholder="14">
+        </div>
+        <div class="field">
+          <label>Carga máx (kg)</label>
+          <input id="f-carga-c" type="number" placeholder="100">
+        </div>
+      </div>
+    </div>
+
+    <!-- Badges -->
+    <div class="fieldset">
+      <div class="fieldset-title">Badges</div>
+      <div class="badges-row">
+        <label class="badge-chip" id="bdg-amz"><input type="checkbox" value="AMZ" onchange="toggleBadge(this,'bdg-amz')"> AMZ</label>
+        <label class="badge-chip" id="bdg-ml2"><input type="checkbox" value="ML" onchange="toggleBadge(this,'bdg-ml2')"> ML</label>
+        <label class="badge-chip" id="bdg-mv"><input type="checkbox" value="Más vendida" onchange="toggleBadge(this,'bdg-mv')"> Más vendida</label>
+        <label class="badge-chip" id="bdg-new"><input type="checkbox" value="Nuevo" onchange="toggleBadge(this,'bdg-new')"> Nuevo</label>
+        <label class="badge-chip" id="bdg-oferta"><input type="checkbox" value="Oferta" onchange="toggleBadge(this,'bdg-oferta')"> Oferta</label>
+      </div>
+    </div>
+
+    <!-- ID (opcional) -->
+    <div class="fieldset">
+      <div class="fieldset-title">ID del producto</div>
+      <div class="field">
+        <label>ID numérico (déjalo vacío para que se asigne automáticamente)</label>
+        <input id="f-id" type="number" placeholder="ej. 14">
+      </div>
+    </div>
+
+    <button class="btn-generate" onclick="generate()">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M9 3l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Generar código
+    </button>
+
+  </aside>
+
+  <!-- ══ PANEL DERECHO ══ -->
+  <main class="panel-right">
+
+    <div class="preview-section">
+      <h3>Vista previa</h3>
+      <div class="card-preview">
+        <div class="card-img-wrap">
+          <span class="img-placeholder">🚲</span>
+          <img id="prev-img" src="" alt="" onload="this.style.display='block';this.previousElementSibling.style.display='none'" onerror="this.style.display='none';this.previousElementSibling.style.display='block'">
+          <div class="card-badges" id="prev-badges"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-name" id="prev-name">Nombre del producto</div>
+          <div class="card-stars" id="prev-stars">— ⭐ · — reseñas</div>
+          <div class="card-price" id="prev-price">$—</div>
+          <div class="card-btns" id="prev-btns">
+            <div class="card-btn ml">Ver en ML</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="code-section">
+      <div class="code-header">
+        <h3>Código generado</h3>
+        <button class="btn-copy" id="copyBtn" onclick="copyCode()">Copiar</button>
+      </div>
+      <div class="code-box" id="codeBox">
+        <div class="code-empty">Completa el formulario y presiona<br>"Generar código"</div>
+      </div>
+      <div class="hint">
+        📋 <strong>Cómo usarlo:</strong> copia el código → abre <code>index.html</code> → busca el array de la sección (ej. <code>const ELECTRICAS = [</code>) → pega el objeto antes del cierre <code>]</code>.
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+let currentSec = 'elec';
+
+function setSec(btn) {
+  document.querySelectorAll('.sec-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentSec = btn.dataset.sec;
+  const isElec = currentSec === 'elec';
+  document.getElementById('wrap-tipo').style.display = isElec ? '' : 'none';
+  document.getElementById('wrap-specs-elec').style.display = isElec ? '' : 'none';
+  document.getElementById('wrap-specs-conv').style.display = isElec ? 'none' : '';
+  updatePreview();
+}
+
+function togglePlat(plat) {
+  const cb = document.getElementById('cb-' + plat);
+  const pill = document.getElementById('pill-' + plat);
+  const wrap = document.getElementById('wrap-' + plat);
+  if (cb.checked) {
+    pill.classList.add('checked');
+    wrap.style.display = '';
+  } else {
+    pill.classList.remove('checked');
+    wrap.style.display = 'none';
+  }
+  updatePreview();
+}
+
+function toggleBadge(cb, pillId) {
+  document.getElementById(pillId).classList.toggle('checked', cb.checked);
+  updatePreview();
+}
+
+function previewImg() {
+  const url = document.getElementById('f-img').value.trim();
+  const sm = document.getElementById('imgPreviewSmall');
+  if (url) { sm.src = url; sm.style.display = 'inline-block'; }
+  else { sm.style.display = 'none'; }
+}
+
+function updatePreview() {
+  const name  = document.getElementById('f-nombre').value.trim() || 'Nombre del producto';
+  const stars = parseFloat(document.getElementById('f-stars').value) || 0;
+  const revs  = parseInt(document.getElementById('f-reviews').value) || 0;
+  const img   = document.getElementById('f-img').value.trim();
+  const hasAmz = document.getElementById('cb-amz').checked;
+  const hasMl  = document.getElementById('cb-ml').checked;
+  const priceAmz = parseFloat(document.getElementById('f-precio-amz').value) || 0;
+  const priceMl  = parseFloat(document.getElementById('f-precio-ml').value) || 0;
+  const price = hasAmz ? priceAmz : priceMl;
+
+  document.getElementById('prev-name').textContent = name;
+  document.getElementById('prev-stars').textContent =
+    stars ? `${stars} ⭐ · ${revs ? revs + ' reseñas' : 'sin reseñas'}` : '— ⭐ · — reseñas';
+  document.getElementById('prev-price').textContent =
+    price ? '$' + price.toLocaleString('es-MX') : '$—';
+  if (img) {
+    document.getElementById('prev-img').src = img;
+  }
+
+  const btnsEl = document.getElementById('prev-btns');
+  btnsEl.innerHTML = '';
+  if (hasAmz) btnsEl.innerHTML += '<div class="card-btn amz">Ver en Amazon</div>';
+  if (hasMl)  btnsEl.innerHTML += '<div class="card-btn ml">Ver en ML</div>';
+
+  const badgesEl = document.getElementById('prev-badges');
+  badgesEl.innerHTML = '';
+  document.querySelectorAll('.badge-chip input:checked').forEach(cb => {
+    badgesEl.innerHTML += `<span class="card-badge">${cb.value}</span>`;
+  });
+}
+
+function getBadges() {
+  const vals = [];
+  document.querySelectorAll('.badge-chip input:checked').forEach(cb => vals.push(cb.value));
+  return vals;
+}
+
+function v(id) { return document.getElementById(id).value.trim(); }
+function n(id) { const x = parseFloat(document.getElementById(id).value); return isNaN(x) ? 0 : x; }
+
+function generate() {
+  const isElec = currentSec === 'elec';
+  const hasAmz = document.getElementById('cb-amz').checked;
+  const hasMl  = document.getElementById('cb-ml').checked;
+
+  if (!v('f-nombre')) { alert('El nombre es obligatorio.'); return; }
+  if (!hasAmz && !hasMl) { alert('Selecciona al menos una plataforma.'); return; }
+
+  const badges = getBadges();
+  const badgeStr = badges.length ? `'${badges.join('|')}'` : "''";
+  const idVal = v('f-id');
+
+  let lines = [];
+  lines.push('{');
+  if (idVal) lines.push(`  id:${idVal},`);
+  lines.push(`  n:'${v('f-nombre').replace(/'/g,"\\'")}',`);
+  if (v('f-marca')) lines.push(`  marca:'${v('f-marca').replace(/'/g,"\\'")}',`);
+
+  if (isElec && v('f-tipo')) lines.push(`  tipo:'${v('f-tipo')}',`);
+
+  if (hasAmz && n('f-precio-amz')) lines.push(`  p:${n('f-precio-amz')},`);
+  if (hasMl  && n('f-precio-ml'))  lines.push(`  pml:${n('f-precio-ml')},`);
+
+  if (hasAmz && v('f-link-amz')) lines.push(`  amz:'${v('f-link-amz')}',`);
+  if (hasMl  && v('f-link-ml'))  lines.push(`  ml:'${v('f-link-ml')}',`);
+
+  if (v('f-img')) lines.push(`  img:'${v('f-img')}',`);
+  if (n('f-stars'))   lines.push(`  stars:${n('f-stars')},`);
+  if (n('f-reviews')) lines.push(`  reviews:${n('f-reviews')},`);
+
+  if (isElec) {
+    if (v('f-motor'))      lines.push(`  motor:'${v('f-motor')}',`);
+    if (n('f-autonomia'))  lines.push(`  km:${n('f-autonomia')},`);
+    if (n('f-velocidad'))  lines.push(`  kmh:${n('f-velocidad')},`);
+    if (v('f-rueda'))      lines.push(`  rueda:'${v('f-rueda')}',`);
+    if (v('f-velocidades'))lines.push(`  vel:'${v('f-velocidades')}',`);
+    if (n('f-peso'))       lines.push(`  kg:${n('f-peso')},`);
+    if (n('f-carga'))      lines.push(`  carga:${n('f-carga')},`);
+    if (hasAmz && v('f-msi-amz')) lines.push(`  msi:'${v('f-msi-amz')}',`);
+    if (hasMl  && v('f-msi-ml'))  lines.push(`  msiml:'${v('f-msi-ml')}',`);
+  } else {
+    if (v('f-rueda-c'))       lines.push(`  rueda:'${v('f-rueda-c')}',`);
+    if (v('f-velocidades-c')) lines.push(`  vel:'${v('f-velocidades-c')}',`);
+    if (n('f-peso-c'))        lines.push(`  kg:${n('f-peso-c')},`);
+    if (n('f-carga-c'))       lines.push(`  carga:${n('f-carga-c')},`);
+  }
+
+  if (badges.length) lines.push(`  badges:${badgeStr},`);
+  lines.push('},');
+
+  const code = lines.join('\n');
+  const box = document.getElementById('codeBox');
+  box.textContent = '';
+  box.appendChild(document.createTextNode(code));
+
+  // Reset copy button
+  const btn = document.getElementById('copyBtn');
+  btn.textContent = 'Copiar';
+  btn.classList.remove('copied');
+}
+
+function copyCode() {
+  const box = document.getElementById('codeBox');
+  const text = box.textContent;
+  if (!text || text.includes('Completa el formulario')) return;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = '✓ Copiado';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+// Init
+document.getElementById('pill-ml').classList.add('checked');
+updatePreview();
+</script>
+</body>
+</html>
