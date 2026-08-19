@@ -54,6 +54,20 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .hstat-num{font-family:'Satoshi',sans-serif;font-size:1.15rem;font-weight:700;color:#fff}
 .hstat-label{font-size:10px;opacity:.6;margin-top:1px;text-transform:uppercase;letter-spacing:.06em}
 
+/* CATEGORY GRID */
+.cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:760px;margin:1.5rem auto 1.75rem}
+.cat-card{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:16px 12px;border-radius:14px;text-decoration:none;transition:transform .15s,box-shadow .15s;cursor:pointer}
+.cat-active{background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.35);color:#fff}
+.cat-active:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.2);background:rgba(255,255,255,.26)}
+.cat-soon{background:rgba(255,255,255,.06);border:1.5px dashed rgba(255,255,255,.2);color:rgba(255,255,255,.4);cursor:default}
+.cat-icon{font-size:1.8rem;line-height:1}
+.cat-name{font-size:.82rem;font-weight:700;letter-spacing:-.01em}
+.cat-sub{font-size:.68rem;opacity:.75;text-align:center;line-height:1.3}
+.cat-badge{font-size:.62rem;background:rgba(255,255,255,.12);border-radius:20px;padding:2px 8px;letter-spacing:.04em}
+@media(max-width:640px){
+  .cat-grid{grid-template-columns:repeat(2,1fr);max-width:380px}
+}
+
 /* SECTION TABS */
 .sec-tabs{background:var(--s1);border-bottom:1px solid var(--bd);padding:0 2rem;display:flex;gap:0;position:sticky;top:64px;z-index:90;overflow-x:auto}
 .sec-tab{font-family:'Satoshi',sans-serif;font-size:14px;font-weight:600;padding:1rem 1.25rem;cursor:pointer;color:var(--tx2);border-bottom:3px solid transparent;transition:all .2s;display:flex;align-items:center;gap:8px;white-space:nowrap}
@@ -180,16 +194,18 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 
 <nav class="nav">
   <a class="logo" href="#">
-    <img src="logoComparalo.mx.JPG" alt="comparalo.mx" style="height:38px;width:auto;object-fit:contain">
+    <svg width="36" height="24" viewBox="0 0 44 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M1,0 L15,14 L1,28 L7,28 L21,14 L7,0 Z" fill="#006847"/>
+      <circle cx="23" cy="14" r="3.8" fill="#006847"/>
+      <path d="M25,0 L39,14 L25,28 L31,28 L45,14 L31,0 Z" fill="#CE1126"/>
+    </svg>
     <span class="logo-wordmark">comparalo<span class="logo-mx">.mx</span></span>
   </a>
   <div class="nav-links">
-    <span class="nav-link" onclick="document.querySelector('.sec-tabs').scrollIntoView({behavior:'smooth'})">Comparador</span>
-    <span class="nav-link" onclick="document.getElementById('tab-electricas').click();document.querySelector('.sec-tabs').scrollIntoView({behavior:'smooth'})">⚡ Eléctricas</span>
-    <span class="nav-link" onclick="document.getElementById('tab-montana').click();document.querySelector('.sec-tabs').scrollIntoView({behavior:'smooth'})">🏔 Montaña</span>
-    <span class="nav-link" onclick="document.getElementById('tab-ruta').click();document.querySelector('.sec-tabs').scrollIntoView({behavior:'smooth'})">🚴 Ruta</span>
-    <span class="nav-link" onclick="document.getElementById('tab-gravel').click();document.querySelector('.sec-tabs').scrollIntoView({behavior:'smooth'})">🪨 Gravel</span>
+    <a class="nav-link" href="index.html" style="text-decoration:none;color:var(--ac);font-weight:700">🚲 Bicicletas</a>
     <a class="nav-link" href="suplementos.html" style="text-decoration:none">💊 Suplementos</a>
+    <span class="nav-link" style="opacity:.4;cursor:default">🏠 Electrodomésticos</span>
+    <span class="nav-link" style="opacity:.4;cursor:default">📱 Electrónica</span>
   </div>
 </nav>
 
@@ -198,8 +214,32 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   <div class="hero-strip-eyebrow">México · Amazon MX · Mercado Libre</div>
   <div class="hero-strip-h1">Compara y elige la <em>mejor opción</em></div>
   <div class="hero-strip-tagline">Compara. Decide. Ahorra.</div>
+
+  <!-- Categorías -->
+  <div class="cat-grid">
+    <a class="cat-card cat-active" href="index.html">
+      <span class="cat-icon">🚲</span>
+      <span class="cat-name">Bicicletas</span>
+      <span class="cat-sub">Eléc · MTB · Ruta · Gravel</span>
+    </a>
+    <a class="cat-card cat-active" href="suplementos.html">
+      <span class="cat-icon">💊</span>
+      <span class="cat-name">Suplementos</span>
+      <span class="cat-sub">Omega 3 · Vitaminas · Proteína</span>
+    </a>
+    <div class="cat-card cat-soon">
+      <span class="cat-icon">🏠</span>
+      <span class="cat-name">Electrodomésticos</span>
+      <span class="cat-badge">Próximamente</span>
+    </div>
+    <div class="cat-card cat-soon">
+      <span class="cat-icon">📱</span>
+      <span class="cat-name">Electrónica</span>
+      <span class="cat-badge">Próximamente</span>
+    </div>
+  </div>
+
   <div class="hero-strip-stats">
-    <div class="hstat"><div class="hstat-num" id="stat-total">—</div><div class="hstat-label">Productos</div></div>
     <div class="hstat"><div class="hstat-num">Amazon · ML</div><div class="hstat-label">Plataformas</div></div>
     <div class="hstat"><div class="hstat-num">Gratis</div><div class="hstat-label">Sin costo extra</div></div>
   </div>
