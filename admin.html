@@ -230,10 +230,10 @@ async function ghGet() {
   const rawUrl = `https://raw.githubusercontent.com/${CFG.owner}/${CFG.repo}/${CFG.branch}/${CFG.file}?t=${Date.now()}`;
   const [rawRes, metaRes] = await Promise.all([
     fetch(rawUrl),
-    fetch(`${GH_URL}?ref=${CFG.branch}&t=${Date.now()}`, { headers: GH_HEADERS })
+    fetch(`${GH_URL}?ref=${CFG.branch}&t=${Date.now()}`)  // sin token — repo público
   ]);
   if (!rawRes.ok) throw new Error(`No se pudo leer el archivo (${rawRes.status})`);
-  if (!metaRes.ok) throw new Error(`GitHub ${metaRes.status} — el token puede ser inválido o no tener permiso repo`);
+  if (!metaRes.ok) throw new Error(`Error al obtener SHA (${metaRes.status})`);
   const meta = await metaRes.json();
   const content = await rawRes.text();
   return { content: btoa(unescape(encodeURIComponent(content))), sha: meta.sha };
