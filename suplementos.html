@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Comparador de Suplementos – comparalo.mx</title>
+<meta name="description" content="Compara suplementos de Omega 3, proteínas y vitaminas en México. Precios, EPA, DHA y costo por porción.">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9TKZ4ER13X"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-9TKZ4ER13X');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ac:#006847;--ac2:#004d34;--ac3:#e8f5f0;
+  --amz:#f90;--ml:#f0c000;
+  --bg:#f7f8fa;--card:#fff;--t:#1a1a2e;--t2:#64748b;--bd:#e2e8f0;
+  font-family:Inter,sans-serif;color:var(--t)
+}
+body{background:var(--bg);min-height:100vh}
+
+/* ── Nav ─────────────────────────────────────────────── */
+nav{background:var(--ac);padding:0 20px;display:flex;align-items:center;gap:0;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.nav-brand{color:#fff;font-weight:800;font-size:1.1rem;padding:14px 0;text-decoration:none;letter-spacing:-.02em;margin-right:20px}
+.nav-links{display:flex;gap:2px;flex:1;overflow-x:auto}
+.nav-link{color:rgba(255,255,255,.75);text-decoration:none;font-size:.82rem;font-weight:500;padding:14px 14px;white-space:nowrap;transition:all .15s;border-bottom:3px solid transparent}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,.1)}
+.nav-link.active{color:#fff;border-bottom-color:#fff}
+
+/* ── Hero ────────────────────────────────────────────── */
+.hero{background:linear-gradient(135deg,var(--ac) 0%,var(--ac2) 100%);color:#fff;padding:36px 20px 32px;text-align:center}
+.hero h1{font-size:clamp(1.4rem,4vw,2rem);font-weight:800;margin-bottom:8px;letter-spacing:-.03em}
+.hero p{opacity:.85;font-size:.9rem;max-width:520px;margin:0 auto}
+
+/* ── Toolbar ─────────────────────────────────────────── */
+.toolbar{background:#fff;border-bottom:1px solid var(--bd);padding:12px 20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;position:sticky;top:49px;z-index:90}
+.filter-group{display:flex;gap:6px;align-items:center;flex-wrap:wrap;flex:1}
+.chip{padding:6px 14px;border-radius:20px;border:1px solid var(--bd);background:#fff;font-size:.78rem;font-weight:500;cursor:pointer;transition:all .15s;color:var(--t2);white-space:nowrap}
+.chip:hover{border-color:var(--ac);color:var(--ac)}
+.chip.active{background:var(--ac);border-color:var(--ac);color:#fff}
+.sort-sel{padding:6px 12px;border:1px solid var(--bd);border-radius:8px;font-size:.78rem;background:#fff;color:var(--t);cursor:pointer}
+.sort-sel:focus{outline:none;border-color:var(--ac)}
+.result-cnt{font-size:.78rem;color:var(--t2);margin-left:auto}
+
+/* ── Grid ────────────────────────────────────────────── */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;padding:20px;max-width:1300px;margin:0 auto}
+
+/* ── Card ────────────────────────────────────────────── */
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .2s,transform .15s}
+.card:hover{box-shadow:0 8px 24px rgba(0,0,0,.09);transform:translateY(-2px)}
+
+.card-top{display:flex;gap:14px;padding:16px 16px 12px}
+.card-img{width:88px;height:88px;object-fit:contain;border-radius:10px;background:#f1f5f9;flex-shrink:0}
+.card-info{flex:1;min-width:0}
+.card-badges{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:6px}
+.badge{display:inline-flex;align-items:center;padding:2px 7px;border-radius:4px;font-size:.66rem;font-weight:700}
+.b-amz{background:var(--amz);color:#000}
+.b-ml{background:var(--ml);color:#000}
+.b-ifos{background:#6366f1;color:#fff}
+.b-hmfree{background:#0ea5e9;color:#fff}
+.b-best{background:#22c55e;color:#000}
+.b-salmon{background:#fb923c;color:#fff}
+.b-anchoa{background:#3b82f6;color:#fff}
+.b-linaza{background:#84cc16;color:#000}
+.card-name{font-size:.88rem;font-weight:700;line-height:1.35;color:var(--t);margin-bottom:2px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-brand{font-size:.75rem;color:var(--t2)}
+
+/* Stars */
+.stars{display:flex;align-items:center;gap:4px;margin-top:4px}
+.stars-val{color:#f59e0b;font-size:.78rem;font-weight:600}
+.stars-cnt{font-size:.72rem;color:var(--t2)}
+
+/* Metrics */
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--bd);border-bottom:1px solid var(--bd)}
+.metric{padding:10px 8px;text-align:center;border-right:1px solid var(--bd)}
+.metric:last-child{border-right:none}
+.metric-val{font-size:.95rem;font-weight:800;color:var(--ac);line-height:1}
+.metric-lbl{font-size:.62rem;color:var(--t2);margin-top:3px;text-transform:uppercase;letter-spacing:.04em}
+
+/* Details row */
+.details{display:flex;gap:8px;padding:10px 16px;flex-wrap:wrap}
+.detail-tag{font-size:.72rem;padding:3px 9px;border-radius:20px;background:var(--ac3);color:var(--ac);font-weight:500}
+
+/* Price & CTA */
+.card-bottom{padding:12px 16px;margin-top:auto;display:flex;align-items:center;gap:10px}
+.price-block{flex:1}
+.price-main{font-size:1.3rem;font-weight:800;color:var(--t);letter-spacing:-.02em}
+.price-sub{font-size:.72rem;color:var(--t2);margin-top:1px}
+.costo-por{font-size:.78rem;font-weight:600;color:var(--ac)}
+
+.btns{display:flex;gap:6px}
+.btn-buy{display:inline-flex;align-items:center;gap:5px;padding:9px 14px;border-radius:8px;font-weight:700;font-size:.78rem;text-decoration:none;border:none;cursor:pointer;transition:opacity .15s;white-space:nowrap}
+.btn-buy:hover{opacity:.88}
+.btn-amz{background:var(--amz);color:#000}
+.btn-ml{background:var(--ml);color:#000}
+
+/* Empty */
+.empty{text-align:center;padding:60px 20px;color:var(--t2);grid-column:1/-1}
+
+/* Footer */
+footer{text-align:center;padding:28px 20px;font-size:.78rem;color:var(--t2);border-top:1px solid var(--bd);margin-top:20px}
+footer a{color:var(--ac);text-decoration:none}
+
+@media(max-width:600px){
+  .grid{grid-template-columns:1fr;padding:12px}
+  .metrics{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="index.html">comparalo.mx</a>
+  <div class="nav-links">
+    <a class="nav-link" href="index.html">🚲 Bicicletas</a>
+    <a class="nav-link active" href="suplementos.html">💊 Suplementos</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>Comparador de Suplementos</h1>
+  <p>Omega 3, vitaminas y más — compara precio, EPA, DHA y costo por porción</p>
+</div>
+
+<div class="toolbar">
+  <div class="filter-group" id="chips">
+    <button class="chip active" data-tipo="todos" onclick="setFiltro('todos',this)">Todos</button>
+    <button class="chip" data-tipo="vitaminas" onclick="setFiltro('vitaminas',this)">Omega 3 / Vitaminas</button>
+    <button class="chip" data-tipo="complejo-b" onclick="setFiltro('complejo-b',this)">Complejo B</button>
+  </div>
+  <select class="sort-sel" id="sort-sel" onchange="render()">
+    <option value="precio-asc">Precio ↑</option>
+    <option value="precio-desc">Precio ↓</option>
+    <option value="costo-asc">$/porción ↑</option>
+    <option value="epa-desc">EPA ↓</option>
+    <option value="resenas-desc">Más reseñas</option>
+    <option value="estrellas-desc">Mejor calificación</option>
+  </select>
+  <span class="result-cnt" id="result-cnt"></span>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<footer>
+  <p>© 2025 comparalo.mx — Sitio de afiliados. Los precios pueden variar.</p>
+  <p style="margin-top:6px"><a href="index.html">← Ver bicicletas</a></p>
+</footer>
+
+<script>
+// ── Datos ─────────────────────────────────────────────────────
+const productos = [
+  {id:1,nombre:'Omega 3 Forte 2000mg – 60 Softgels',marca:'OBY',tipo:'vitaminas',precio:389,peso:'60 softgels',porciones:30,duracion:30,porPorcion:'2 softgels',proteina:0,calorias:18,carbos:0,grasas:2,omegaTotal:2000,epa:1000,dha:400,omegaPorPorcion:1400,costoPorPorcion:12.97,fuenteOmega:'anchoa',forma:'softgel',libreMetalesPesados:true,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.9,resenas:377,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/1CpEJAk',img:'https://http2.mlstatic.com/D_NQ_NP_2X_809253-MLA106059329740_022026-F.webp'},
+  {id:2,nombre:'Omega 3 Ultra Premium EPA 360mg DHA 240mg TG – 60 Cápsulas',marca:'Beyond Vitamins',tipo:'vitaminas',precio:399,peso:'60 cápsulas',porciones:60,duracion:60,porPorcion:'1 cápsula (1300mg)',proteina:0.22,calorias:9.8,carbos:0,grasas:0.99,omegaTotal:990,epa:360,dha:240,omegaPorPorcion:600,costoPorPorcion:6.65,fuenteOmega:'anchoa',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:true,sabores:['Sin sabor'],estrellas:5.0,resenas:19,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/2zGrd5j',img:'https://http2.mlstatic.com/D_NQ_NP_2X_684076-MLA114054614297_072026-F.webp'},
+  {id:3,nombre:'Omega 3 De Salmón Alto EPA y DHA Salmon Oil – 120 Cápsulas',marca:'OBY',tipo:'vitaminas',precio:379,peso:'120 cápsulas',porciones:120,duracion:120,porPorcion:'1 cápsula (1.3g)',proteina:0.22,calorias:9.79,carbos:0,grasas:0.99,omegaTotal:1000,epa:360,dha:240,omegaPorPorcion:600,costoPorPorcion:3.16,fuenteOmega:'salmon',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.9,resenas:4078,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/28sYPqn',img:'https://http2.mlstatic.com/D_NQ_NP_2X_853534-MLA96079139207_102025-F.webp'},
+  {id:4,nombre:'Suplemento Complejo B Magnesio Zinc L-Triptófano – 30 Cápsulas',marca:'Inner Bienestar',tipo:'complejo-b',precio:424,peso:'30 cápsulas',porciones:30,duracion:30,porPorcion:'1 cápsula (500mg)',proteina:0,calorias:0,carbos:0,grasas:0,omegaTotal:0,epa:0,dha:0,omegaPorPorcion:0,costoPorPorcion:14.13,fuenteOmega:'ninguna',forma:'capsula',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.4,resenas:78,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/1ypCbmd',img:'https://http2.mlstatic.com/D_NQ_NP_2X_763454-MLA99515796914_112025-F.webp'},
+  {id:5,nombre:'Omega 3 Platinum 1000mg – 180 Cápsulas',marca:'B Life',tipo:'vitaminas',precio:749,peso:'180 cápsulas',porciones:180,duracion:180,porPorcion:'1 cápsula (1g)',proteina:0,calorias:9,carbos:0,grasas:1,omegaTotal:1000,epa:500,dha:200,omegaPorPorcion:700,costoPorPorcion:4.16,fuenteOmega:'anchoa',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.9,resenas:6908,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/1bCdCuk',img:'https://http2.mlstatic.com/D_NQ_NP_2X_999696-MLA115094763921_072026-F.webp'},
+  {id:6,nombre:'Now Foods Omega 3 1000mg Sin Metales Pesados – 100 Softgels',marca:'Now Foods',tipo:'vitaminas',precio:237,peso:'100 softgels',porciones:50,duracion:50,porPorcion:'2 softgels (2000mg)',proteina:0,calorias:20,carbos:0,grasas:2,omegaTotal:2000,epa:360,dha:240,omegaPorPorcion:600,costoPorPorcion:4.74,fuenteOmega:'anchoa',forma:'softgel',libreMetalesPesados:true,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.9,resenas:2649,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/1QExyyw',img:'https://http2.mlstatic.com/D_NQ_NP_2X_953377-MLA99489778884_112025-F.webp'},
+  {id:7,nombre:'Omega 3 Aceite de Salmón + Vitamina E 365 Cápsulas',marca:'LIFE360+',tipo:'vitaminas',precio:375,peso:'365 cápsulas',porciones:365,duracion:365,porPorcion:'1 cápsula (450mg)',proteina:0.14,calorias:3.53,carbos:0,grasas:0.33,omegaTotal:300,epa:28,dha:24,omegaPorPorcion:52,costoPorPorcion:1.03,fuenteOmega:'salmon',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.8,resenas:4338,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/1wtHcqp',img:'https://http2.mlstatic.com/D_NQ_NP_2X_768270-MLA115778410731_082026-F.webp'},
+  {id:8,nombre:'Vitanna Omega 3 Epax Salmón Noruego EPA 600mg DHA 400mg – 120 Cápsulas',marca:'Vitanna',tipo:'vitaminas',precio:580,peso:'120 cápsulas',porciones:60,duracion:60,porPorcion:'2 cápsulas (2000mg)',proteina:0.54,calorias:21,carbos:0.21,grasas:2,omegaTotal:2000,epa:600,dha:400,omegaPorPorcion:1000,costoPorPorcion:9.67,fuenteOmega:'salmon',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:0,resenas:0,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/1QK4Eqc',img:'https://http2.mlstatic.com/D_NQ_NP_2X_908034-MLM114949055978_082026-F.webp'},
+  {id:9,nombre:'Vitatú Omega 3 Salmón Noruego – 90 Softgels',marca:'Vitatú',tipo:'vitaminas',precio:468,peso:'90 softgels',porciones:45,duracion:45,porPorcion:'2 softgels (2.8g)',proteina:0.54,calorias:21,carbos:0.21,grasas:2,omegaTotal:2000,epa:720,dha:480,omegaPorPorcion:1200,costoPorPorcion:10.40,fuenteOmega:'salmon',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:5.0,resenas:428,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/1EPAShY',img:'https://http2.mlstatic.com/D_NQ_NP_2X_951655-MLA99471258412_112025-F.webp'},
+  {id:10,nombre:'Omega 3-6-9 Naturagel Aceite de Linaza – 60 Cápsulas',marca:'Naturagel',tipo:'vitaminas',precio:130,peso:'60 cápsulas',porciones:30,duracion:30,porPorcion:'2 cápsulas (1400mg)',proteina:0.29,calorias:11,carbos:0.11,grasas:0.99,omegaTotal:1000,epa:0,dha:0,omegaPorPorcion:547,costoPorPorcion:4.33,fuenteOmega:'linaza',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.8,resenas:1103,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/2pE2ExQ',img:'https://http2.mlstatic.com/D_NQ_NP_2X_945473-MLA100108421729_122025-F.webp'},
+];
+
+// ── Estado ────────────────────────────────────────────────────
+let filtroTipo = 'todos';
+
+function setFiltro(tipo, el) {
+  filtroTipo = tipo;
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  render();
+}
+
+// ── Render ────────────────────────────────────────────────────
+function render() {
+  const sort = document.getElementById('sort-sel').value;
+
+  let lista = filtroTipo === 'todos' ? [...productos] : productos.filter(p => p.tipo === filtroTipo);
+
+  lista.sort((a,b) => {
+    switch(sort) {
+      case 'precio-asc':    return a.precio - b.precio;
+      case 'precio-desc':   return b.precio - a.precio;
+      case 'costo-asc':     return a.costoPorPorcion - b.costoPorPorcion;
+      case 'epa-desc':      return b.epa - a.epa;
+      case 'resenas-desc':  return b.resenas - a.resenas;
+      case 'estrellas-desc':return b.estrellas - a.estrellas;
+      default: return 0;
+    }
+  });
+
+  document.getElementById('result-cnt').textContent = `${lista.length} producto${lista.length!==1?'s':''}`;
+
+  const grid = document.getElementById('grid');
+  if (!lista.length) {
+    grid.innerHTML = '<div class="empty">Sin resultados para este filtro.</div>';
+    return;
+  }
+  grid.innerHTML = lista.map(p => cardHTML(p)).join('');
+}
+
+function cardHTML(p) {
+  // Badges plataforma
+  const bdgs = (p.badges||[]).map(b => `<span class="badge ${b.c}">${b.t}</span>`).join('');
+
+  // Badges especiales
+  const extras = [];
+  if (p.certificadoIFOS)    extras.push(`<span class="badge b-ifos">IFOS ✓</span>`);
+  if (p.libreMetalesPesados) extras.push(`<span class="badge b-hmfree">Sin metales pesados</span>`);
+
+  // Fuente badge
+  const fuenteClase = {anchoa:'b-anchoa',salmon:'b-salmon',linaza:'b-linaza'}[p.fuenteOmega] || '';
+  const fuenteLbl   = {anchoa:'Anchoa',salmon:'Salmón',linaza:'Linaza',ninguna:''}[p.fuenteOmega] || '';
+
+  // Métricas: según tipo
+  let metricasHTML = '';
+  if (p.omegaTotal > 0) {
+    metricasHTML = `
+      <div class="metric"><div class="metric-val">${p.epa>0?p.epa+'mg':'—'}</div><div class="metric-lbl">EPA</div></div>
+      <div class="metric"><div class="metric-val">${p.dha>0?p.dha+'mg':'—'}</div><div class="metric-lbl">DHA</div></div>
+      <div class="metric"><div class="metric-val">$${p.costoPorPorcion.toFixed(2)}</div><div class="metric-lbl">$/porción</div></div>`;
+  } else {
+    metricasHTML = `
+      <div class="metric"><div class="metric-val">${p.porciones}</div><div class="metric-lbl">Porciones</div></div>
+      <div class="metric"><div class="metric-val">${p.duracion} días</div><div class="metric-lbl">Duración</div></div>
+      <div class="metric"><div class="metric-val">$${p.costoPorPorcion.toFixed(2)}</div><div class="metric-lbl">$/porción</div></div>`;
+  }
+
+  // Estrellas
+  const stars = p.estrellas > 0
+    ? `<div class="stars"><span class="stars-val">★ ${p.estrellas.toFixed(1)}</span><span class="stars-cnt">(${p.resenas.toLocaleString('es-MX')} reseñas)</span></div>`
+    : '';
+
+  // Botones
+  const btnAmz = p.linkAmz ? `<a class="btn-buy btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow noopener">Ver en Amazon</a>` : '';
+  const btnML  = p.linkML  ? `<a class="btn-buy btn-ml"  href="${p.linkML}"  target="_blank" rel="nofollow noopener">Ver en ML</a>` : '';
+
+  // Detalles
+  const detalles = [];
+  if (fuenteLbl && fuenteLbl !== '') detalles.push(`🐟 ${fuenteLbl}`);
+  if (p.duracion > 0) detalles.push(`${p.duracion} días`);
+  if (p.porciones > 0) detalles.push(`${p.porciones} porciones`);
+
+  return `
+  <div class="card">
+    <div class="card-top">
+      <img class="card-img" src="${p.img}" alt="${p.nombre}" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'88\' height=\'88\'><rect fill=\'%23f1f5f9\' width=\'88\' height=\'88\'/></svg>'">
+      <div class="card-info">
+        <div class="card-badges">${bdgs}${extras.join('')}</div>
+        <div class="card-name">${p.nombre}</div>
+        <div class="card-brand">${p.marca}</div>
+        ${stars}
+      </div>
+    </div>
+    <div class="metrics">${metricasHTML}</div>
+    ${detalles.length ? `<div class="details">${detalles.map(d=>`<span class="detail-tag">${d}</span>`).join('')}</div>` : ''}
+    <div class="card-bottom">
+      <div class="price-block">
+        <div class="price-main">$${p.precio.toLocaleString('es-MX')}</div>
+        <div class="price-sub">${p.porPorcion} · ${p.peso}</div>
+        ${p.omegaTotal>0?`<div class="costo-por">$${p.costoPorPorcion.toFixed(2)} por porción</div>`:''}
+      </div>
+      <div class="btns">${btnAmz}${btnML}</div>
+    </div>
+  </div>`;
+}
+
+// Iniciar
+render();
+</script>
+</body>
+</html>
