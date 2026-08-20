@@ -8,25 +8,25 @@
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9TKZ4ER13X"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-9TKZ4ER13X');</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400,300&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --ac:#006847;--ac2:#004d34;--ac3:#e8f5f0;
   --amz:#f90;--ml:#f0c000;
-  --bg:#f7f8fa;--card:#fff;--t:#1a1a2e;--t2:#64748b;--bd:#e2e8f0;
-  font-family:Inter,sans-serif;color:var(--t)
+  --bg:#f7f7f5;--card:#fff;--t:#0F172A;--t2:#64748b;--bd:#e2e2dc;
+  font-family:'Satoshi',sans-serif;color:var(--t)
 }
 body{background:var(--bg);min-height:100vh}
 
 /* ── Nav ─────────────────────────────────────────────── */
-nav{background:var(--ac);padding:0 20px;display:flex;align-items:center;gap:0;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.2)}
-.nav-brand{color:#fff;font-weight:800;font-size:1.1rem;padding:14px 0;text-decoration:none;letter-spacing:-.02em;margin-right:20px}
-.nav-links{display:flex;gap:2px;flex:1;overflow-x:auto}
-.nav-link{color:rgba(255,255,255,.75);text-decoration:none;font-size:.82rem;font-weight:500;padding:14px 14px;white-space:nowrap;transition:all .15s;border-bottom:3px solid transparent}
-.nav-link:hover{color:#fff;background:rgba(255,255,255,.1)}
-.nav-link.active{color:#fff;border-bottom-color:#fff}
+nav{background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--bd);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:100}
+.nav-logo{display:flex;align-items:center;text-decoration:none}
+.nav-links{display:flex;gap:1.5rem;align-items:center}
+.nav-link{font-size:13px;color:var(--t2);text-decoration:none;font-weight:500;transition:color .15s}
+.nav-link:hover{color:var(--ac)}
+.nav-link.active{color:var(--ac);font-weight:700}
+.nav-link.dim{opacity:.4;pointer-events:none}
 
 /* ── Hero ────────────────────────────────────────────── */
 .hero{background:linear-gradient(135deg,var(--ac) 0%,var(--ac2) 100%);color:#fff;padding:14px 20px 12px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
@@ -42,16 +42,23 @@ nav{background:var(--ac);padding:0 20px;display:flex;align-items:center;gap:0;po
 .sort-sel{padding:6px 12px;border:1px solid var(--bd);border-radius:8px;font-size:.78rem;background:#fff;color:var(--t);cursor:pointer}
 .sort-sel:focus{outline:none;border-color:var(--ac)}
 .result-cnt{font-size:.78rem;color:var(--t2);margin-left:auto}
+.search-wrap{width:100%;margin-bottom:8px}
+.search-input{width:100%;padding:9px 14px;border:1.5px solid var(--bd);border-radius:10px;font-size:.84rem;font-family:'Satoshi',sans-serif;color:var(--t);background:#fff;outline:none;transition:border-color .15s}
+.search-input:focus{border-color:var(--ac)}
 
 /* ── Grid ────────────────────────────────────────────── */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;padding:20px;max-width:1300px;margin:0 auto}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:16px 20px;max-width:1400px;margin:0 auto}
+@media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:780px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.grid{grid-template-columns:1fr}}
 
 /* ── Card ────────────────────────────────────────────── */
-.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .2s,transform .15s}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .2s,transform .15s,border-color .15s;position:relative}
+.card:hover{box-shadow:0 4px 20px rgba(0,0,0,.07);transform:translateY(-2px)}
 .card:hover{box-shadow:0 8px 24px rgba(0,0,0,.09);transform:translateY(-2px)}
 
-.card-top{display:flex;gap:14px;padding:16px 16px 12px}
-.card-img{width:88px;height:88px;object-fit:contain;border-radius:10px;background:#f1f5f9;flex-shrink:0}
+.card-top{display:flex;gap:10px;padding:12px 12px 8px}
+.card-img{width:72px;height:72px;object-fit:contain;border-radius:8px;background:#f1f5f9;flex-shrink:0}
 .card-info{flex:1;min-width:0}
 .card-badges{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:6px}
 .badge{display:inline-flex;align-items:center;padding:2px 7px;border-radius:4px;font-size:.66rem;font-weight:700}
@@ -83,23 +90,24 @@ nav{background:var(--ac);padding:0 20px;display:flex;align-items:center;gap:0;po
 .detail-tag{font-size:.72rem;padding:3px 9px;border-radius:20px;background:var(--ac3);color:var(--ac);font-weight:500}
 
 /* Price & CTA */
-.card-bottom{padding:12px 16px;margin-top:auto;display:flex;align-items:center;gap:10px}
+.card-bottom{padding:8px 12px;margin-top:auto;display:flex;align-items:center;gap:8px}
 .price-block{flex:1}
-.price-main{font-size:1.3rem;font-weight:800;color:var(--t);letter-spacing:-.02em}
+.price-main{font-size:1.1rem;font-weight:800;color:var(--t);letter-spacing:-.02em}
 .price-sub{font-size:.72rem;color:var(--t2);margin-top:1px}
 .costo-por{font-size:.78rem;font-weight:600;color:var(--ac)}
 
-.btns{display:flex;gap:6px}
-.btn-buy{display:inline-flex;align-items:center;gap:5px;padding:9px 14px;border-radius:8px;font-weight:700;font-size:.78rem;text-decoration:none;border:none;cursor:pointer;transition:opacity .15s;white-space:nowrap}
+.btns{display:flex;gap:5px;flex-wrap:wrap}
+.btn-buy{display:inline-flex;align-items:center;gap:5px;padding:7px 11px;border-radius:7px;font-weight:700;font-size:.73rem;text-decoration:none;border:none;cursor:pointer;transition:opacity .15s;white-space:nowrap}
 .btn-buy:hover{opacity:.88}
 .btn-amz{background:var(--amz);color:#000}
 .btn-ml{background:var(--ml);color:#000}
+.btn-logo{width:16px;height:16px;flex-shrink:0}
 
-/* Comparar btn en card */
-.btn-cmp{padding:5px 11px;background:none;border:1px solid var(--bd);border-radius:6px;font-size:.74rem;font-weight:500;cursor:pointer;color:var(--t2);transition:all .15s}
-.btn-cmp:hover{border-color:var(--ac);color:var(--ac)}
-.btn-cmp.selected{background:var(--ac);border-color:var(--ac);color:#fff}
-.card.in-compare{border-color:var(--ac);box-shadow:0 0 0 2px rgba(0,104,71,.2)}
+/* Card seleccionable para comparar */
+.card{cursor:pointer}
+.card.in-compare{border-color:var(--ac);box-shadow:0 0 0 3px rgba(0,104,71,.25)}
+.card-check{position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:var(--ac);display:none;align-items:center;justify-content:center;font-size:12px;color:#fff;font-weight:700;box-shadow:0 2px 8px rgba(0,104,71,.4)}
+.card.in-compare .card-check{display:flex}
 
 /* Barra flotante de comparación */
 .cmp-bar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:2px solid var(--ac);padding:12px 20px;display:none;align-items:center;gap:12px;z-index:200;box-shadow:0 -4px 20px rgba(0,0,0,.1)}
@@ -128,6 +136,7 @@ nav{background:var(--ac);padding:0 20px;display:flex;align-items:center;gap:0;po
 .cmp-table tr:last-child td{border-bottom:none}
 .cmp-table .row-label{text-align:left;font-weight:600;font-size:.78rem;color:var(--t2);background:#fafbfc;white-space:nowrap}
 .cmp-best{color:var(--ac);font-weight:800}
+.cmp-win{background:#d4f0e3;color:#004d34;font-weight:800}
 .cmp-img{width:60px;height:60px;object-fit:contain;border-radius:8px;background:#f1f5f9;margin:0 auto 6px;display:block}
 .cmp-prod-name{font-size:.8rem;font-weight:700;line-height:1.3;margin-bottom:4px}
 .cmp-prod-marca{font-size:.72rem;color:var(--t2)}
@@ -149,10 +158,14 @@ footer a{color:var(--ac);text-decoration:none}
 <body>
 
 <nav>
-  <a class="nav-brand" href="index.html">comparalo.mx</a>
+  <a class="nav-logo" href="index.html">
+    <img src="logo.jpg.JPG" alt="comparalo.mx" style="height:38px;width:auto;object-fit:contain">
+  </a>
   <div class="nav-links">
-    <a class="nav-link" href="index.html">🚲 Bicicletas</a>
+    <a class="nav-link" href="bicis.html">🚲 Bicicletas</a>
     <a class="nav-link active" href="suplementos.html">💊 Suplementos</a>
+    <span class="nav-link dim">🏠 Electrodomésticos</span>
+    <span class="nav-link dim">📱 Electrónica</span>
   </div>
 </nav>
 
@@ -162,19 +175,22 @@ footer a{color:var(--ac);text-decoration:none}
 </div>
 
 <div class="toolbar">
+  <div class="search-wrap">
+    <input class="search-input" id="search-input" type="text" placeholder="🔍 Buscar producto, marca o característica…" oninput="render()">
+  </div>
   <div class="filter-group" id="chips">
     <button class="chip active" data-tipo="todos" onclick="setFiltro('todos',this)">Todos</button>
     <button class="chip" data-tipo="vitaminas" onclick="setFiltro('vitaminas',this)">Omega 3 / Vitaminas</button>
     <button class="chip" data-tipo="complejo-b" onclick="setFiltro('complejo-b',this)">Complejo B</button>
   </div>
-  <select class="sort-sel" id="sort-sel" onchange="render()">
-    <option value="precio-asc">Precio ↑</option>
-    <option value="precio-desc">Precio ↓</option>
-    <option value="costo-asc">$/porción ↑</option>
-    <option value="epa-desc">EPA ↓</option>
-    <option value="resenas-desc">Más reseñas</option>
-    <option value="estrellas-desc">Mejor calificación</option>
-  </select>
+  <div class="filter-group" id="sort-chips">
+    <button class="chip chip-sort active" data-sort="precio-asc"  onclick="setSort('precio-asc',this)">Precio más bajo</button>
+    <button class="chip chip-sort"        data-sort="precio-desc" onclick="setSort('precio-desc',this)">Precio más alto</button>
+    <button class="chip chip-sort"        data-sort="epa-desc"    onclick="setSort('epa-desc',this)">Más EPA</button>
+    <button class="chip chip-sort"        data-sort="estrellas-desc" onclick="setSort('estrellas-desc',this)">Mejor valoración ★</button>
+    <button class="chip chip-sort"        data-sort="resenas-desc" onclick="setSort('resenas-desc',this)">Más reseñas</button>
+    <button class="chip chip-sort"        data-sort="costo-asc"   onclick="setSort('costo-asc',this)">$/porción más bajo</button>
+  </div>
   <span class="result-cnt" id="result-cnt"></span>
 </div>
 
@@ -227,19 +243,35 @@ const productos = [
 
 // ── Estado ────────────────────────────────────────────────────
 let filtroTipo = 'todos';
+let sortActivo = 'precio-asc';
 
 function setFiltro(tipo, el) {
   filtroTipo = tipo;
-  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('#chips .chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  render();
+}
+
+function setSort(valor, el) {
+  sortActivo = valor;
+  document.querySelectorAll('#sort-chips .chip').forEach(c => c.classList.remove('active'));
   el.classList.add('active');
   render();
 }
 
 // ── Render ────────────────────────────────────────────────────
 function render() {
-  const sort = document.getElementById('sort-sel').value;
+  const sort = sortActivo;
 
+  const q = (document.getElementById('search-input').value || '').toLowerCase().trim();
   let lista = filtroTipo === 'todos' ? [...productos] : productos.filter(p => p.tipo === filtroTipo);
+  if (q) lista = lista.filter(p =>
+    p.nombre.toLowerCase().includes(q) ||
+    p.marca.toLowerCase().includes(q) ||
+    (p.fuenteOmega||'').toLowerCase().includes(q) ||
+    (p.forma||'').toLowerCase().includes(q) ||
+    p.tipo.toLowerCase().includes(q)
+  );
 
   lista.sort((a,b) => {
     switch(sort) {
@@ -295,18 +327,18 @@ function cardHTML(p) {
     ? `<div class="stars"><span class="stars-val">★ ${p.estrellas.toFixed(1)}</span><span class="stars-cnt">(${p.resenas.toLocaleString('es-MX')} reseñas)</span></div>`
     : '';
 
-  // Botones
-  const btnAmz = p.linkAmz ? `<a class="btn-buy btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow noopener">Ver en Amazon</a>` : '';
-  const btnML  = p.linkML  ? `<a class="btn-buy btn-ml"  href="${p.linkML}"  target="_blank" rel="nofollow noopener">Ver en ML</a>` : '';
+  // Botones con logos oficiales
+  const btnAmz = p.linkAmz ? `<a class="btn-buy btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow noopener"><img class="btn-logo" src="logoamazon.png" alt="Amazon" onerror="this.style.display='none'">Amazon</a>` : '';
+  const btnML  = p.linkML  ? `<a class="btn-buy btn-ml"  href="${p.linkML}"  target="_blank" rel="nofollow noopener"><img class="btn-logo" src="logomercado.png" alt="ML" onerror="this.style.display='none'">Mercado Libre</a>` : '';
 
   // Detalles
   const detalles = [];
   if (fuenteLbl && fuenteLbl !== '') detalles.push(`🐟 ${fuenteLbl}`);
-  if (p.duracion > 0) detalles.push(`${p.duracion} días`);
   if (p.porciones > 0) detalles.push(`${p.porciones} porciones`);
 
   return `
-  <div class="card">
+  <div class="card" id="card-${p.id}" onclick="toggleComparar(${p.id})" title="Clic para comparar">
+    <div class="card-check">✓</div>
     <div class="card-top">
       <img class="card-img" src="${p.img}" alt="${p.nombre}" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'88\' height=\'88\'><rect fill=\'%23f1f5f9\' width=\'88\' height=\'88\'/></svg>'">
       <div class="card-info">
@@ -324,10 +356,7 @@ function cardHTML(p) {
         <div class="price-sub">${p.porPorcion} · ${p.peso}</div>
         ${p.omegaTotal>0?`<div class="costo-por">$${p.costoPorPorcion.toFixed(2)} por porción</div>`:''}
       </div>
-      <div class="btns">${btnAmz}${btnML}</div>
-    </div>
-    <div style="padding:0 14px 12px;border-top:1px solid var(--bd);margin-top:auto">
-      <button class="btn-cmp" id="cmp-btn-${p.id}" onclick="toggleComparar(${p.id})">+ Comparar</button>
+      <div class="btns" onclick="event.stopPropagation()">${btnAmz}${btnML}</div>
     </div>
   </div>`;
 }
@@ -353,13 +382,9 @@ function actualizarBarraCmp() {
 
   // Actualizar estado visual de cards
   document.querySelectorAll('.card').forEach(c => c.classList.remove('in-compare'));
-  document.querySelectorAll('[id^="cmp-btn-"]').forEach(b => {
-    b.classList.remove('selected');
-    b.textContent = '+ Comparar';
-  });
   seleccionados.forEach(id => {
-    const btn = document.getElementById('cmp-btn-' + id);
-    if (btn) { btn.classList.add('selected'); btn.textContent = '✓ Seleccionado'; btn.closest('.card').classList.add('in-compare'); }
+    const card = document.getElementById('card-' + id);
+    if (card) card.classList.add('in-compare');
   });
 
   if (seleccionados.length === 0) { bar.classList.remove('show'); return; }
@@ -371,64 +396,74 @@ function actualizarBarraCmp() {
   }).join('');
 
   btnCmp.disabled = seleccionados.length < 2;
-  btnCmp.textContent = seleccionados.length < 2 ? 'Selecciona 2+ para comparar' : `Comparar ${seleccionados.length} productos`;
+  btnCmp.textContent = seleccionados.length < 2 ? 'Selecciona 2 o más' : `Comparar ${seleccionados.length} productos`;
 }
 
 function abrirComparacion() {
   const prods = seleccionados.map(id => productos.find(p => p.id === id));
   const overlay = document.getElementById('cmp-overlay');
 
-  const fila = (label, vals) => `<tr>
-    <td class="row-label">${label}</td>
-    ${vals.map(v => `<td>${v}</td>`).join('')}
-  </tr>`;
+  // Genera una fila con resaltado automático.
+  // mejor: 'min' | 'max' | null (sin resaltado)
+  // vals: array de {num, label} — num para comparar, label para mostrar
+  function fila(etiqueta, items, mejor) {
+    const nums = items.map(x => x.num);
+    let ganador = null;
+    if (mejor === 'min') {
+      const validos = nums.filter(n => n > 0);
+      if (validos.length) ganador = Math.min(...validos);
+    } else if (mejor === 'max') {
+      const validos = nums.filter(n => n > 0);
+      if (validos.length) ganador = Math.max(...validos);
+    }
+    const celdas = items.map(({num, label}) => {
+      const esGanador = ganador !== null && num === ganador && num > 0;
+      return esGanador
+        ? `<td class="cmp-win">${label}</td>`
+        : `<td>${label}</td>`;
+    }).join('');
+    return `<tr><td class="row-label">${etiqueta}</td>${celdas}</tr>`;
+  }
 
-  // Helpers para resaltar mejor valor
-  const mejorMin = (arr) => {
-    const nums = arr.map(Number);
-    const min = Math.min(...nums.filter(n => n > 0));
-    return nums.map(n => (n === min && n > 0) ? `<span class="cmp-best">${n}</span>` : (n === 0 ? '—' : n));
-  };
-  const mejorMax = (arr) => {
-    const nums = arr.map(Number);
-    const max = Math.max(...nums);
-    return nums.map(n => (n === max && n > 0) ? `<span class="cmp-best">${n}</span>` : (n === 0 ? '—' : n));
-  };
-  const mejorMinFloat = (arr) => {
-    const nums = arr.map(Number);
-    const min = Math.min(...nums.filter(n => n > 0));
-    return nums.map(n => (n === min && n > 0) ? `<span class="cmp-best">$${n.toFixed(2)}</span>` : (n === 0 ? '—' : '$'+n.toFixed(2)));
-  };
-
-  const cols = prods.length;
-  const colPct = Math.floor(90 / cols);
+  const colPct = Math.floor(90 / prods.length);
 
   const cabeceras = prods.map(p => `
     <th class="col-prod" style="width:${colPct}%">
       <img class="cmp-img" src="${p.img}" alt="${p.nombre}" onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'60\' height=\'60\'><rect fill=\'%23f1f5f9\' width=\'60\' height=\'60\'/></svg>'">
       <div class="cmp-prod-name">${p.nombre}</div>
       <div class="cmp-prod-marca">${p.marca}</div>
-      ${p.linkML ? `<a class="cmp-btn-buy btn-ml" href="${p.linkML}" target="_blank" rel="nofollow noopener">Ver en ML</a>` : ''}
+      ${p.linkML  ? `<a class="cmp-btn-buy btn-ml"  href="${p.linkML}"  target="_blank" rel="nofollow noopener">Ver en ML</a>`      : ''}
       ${p.linkAmz ? `<a class="cmp-btn-buy btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow noopener">Ver en Amazon</a>` : ''}
     </th>`).join('');
+
+  const fuenteLabel = f => ({anchoa:'🐟 Anchoa',salmon:'🐟 Salmón',linaza:'🌱 Linaza','krill':'🦐 Krill','krill+pescado':'🦐 Krill+Pescado','pollock':'🐟 Pollock','multi-pez':'🐟 Multi-pez','multi-pez+vegetal':'🐟+🌱 Mix',ninguna:'—'}[f] || f || '—');
+
+  // Detectar si hay mezcla de tipos
+  const tiposEnComparacion = [...new Set(prods.map(p => p.tipo))];
+  const esMezcla = tiposEnComparacion.length > 1 || prods.every(p => p.omegaTotal === 0);
+
+  // Filas omega (solo si todos tienen datos de omega)
+  const filasOmega = !esMezcla ? `
+      ${fila('EPA',             prods.map(p => ({num:p.epa,              label:p.epa>0?p.epa+'mg':'—'})),               'max')}
+      ${fila('DHA',             prods.map(p => ({num:p.dha,              label:p.dha>0?p.dha+'mg':'—'})),               'max')}
+      ${fila('Omega/porción',   prods.map(p => ({num:p.omegaPorPorcion,  label:p.omegaPorPorcion>0?p.omegaPorPorcion+'mg':'—'})), 'max')}
+      ${fila('Fuente',          prods.map(p => ({num:0,                  label:fuenteLabel(p.fuenteOmega)})),           null)}
+      ${fila('Sin metales pesados', prods.map(p => ({num:p.libreMetalesPesados?1:0, label:p.libreMetalesPesados?'✅':'—'})), 'max')}
+      ${fila('Cert. IFOS',      prods.map(p => ({num:p.certificadoIFOS?1:0, label:p.certificadoIFOS?'✅':'—'})),        'max')}` : '';
 
   const tabla = `
   <table class="cmp-table">
     <thead><tr><th style="width:10%">Característica</th>${cabeceras}</tr></thead>
     <tbody>
-      ${fila('Precio total', mejorMin(prods.map(p => p.precio)).map((v,i) => typeof v === 'string' ? v : '$'+prods[i].precio.toLocaleString('es-MX')))}
-      ${fila('$/porción', mejorMinFloat(prods.map(p => p.costoPorPorcion)))}
-      ${fila('EPA', mejorMax(prods.map(p => p.epa)).map((v,i) => v === '—' ? '—' : (v.toString().includes('cmp-best') ? v.toString().replace(/\d+/, m => m+'mg') : prods[i].epa+'mg')))}
-      ${fila('DHA', mejorMax(prods.map(p => p.dha)).map((v,i) => v === '—' ? '—' : (v.toString().includes('cmp-best') ? v.toString().replace(/\d+/, m => m+'mg') : prods[i].dha+'mg')))}
-      ${fila('Omega total/porción', prods.map(p => p.omegaPorPorcion > 0 ? p.omegaPorPorcion+'mg' : '—'))}
-      ${fila('Porciones', mejorMax(prods.map(p => p.porciones)))}
-      ${fila('Duración', prods.map(p => p.duracion > 0 ? p.duracion+' días' : '—'))}
-      ${fila('Fuente', prods.map(p => ({anchoa:'🐟 Anchoa',salmon:'🐟 Salmón',linaza:'🌱 Linaza',ninguna:'—'})[p.fuenteOmega] || '—'))}
-      ${fila('Forma', prods.map(p => p.forma || '—'))}
-      ${fila('Sin metales pesados', prods.map(p => p.libreMetalesPesados ? '✅' : '—'))}
-      ${fila('Cert. IFOS', prods.map(p => p.certificadoIFOS ? '✅' : '—'))}
-      ${fila('Calificación', mejorMax(prods.map(p => p.estrellas)).map((v,i) => v === '—' ? 'Sin reseñas' : (v.toString().includes('cmp-best') ? v.toString().replace(/[\d.]+/, m => '★ '+m) : '★ '+prods[i].estrellas.toFixed(1))))}
-      ${fila('Reseñas', mejorMax(prods.map(p => p.resenas)).map((v,i) => v === '—' ? '—' : (v.toString().includes('cmp-best') ? v.toString().replace(/\d+/, m => m.toLocaleString('es-MX')) : prods[i].resenas.toLocaleString('es-MX'))))}
+      ${fila('Categoría',       prods.map(p => ({num:0, label:({vitaminas:'Omega 3 / Vitaminas','complejo-b':'Complejo B'})[p.tipo]||p.tipo})), null)}
+      ${fila('Precio total',    prods.map(p => ({num:p.precio,           label:'$'+p.precio.toLocaleString('es-MX')})), 'min')}
+      ${fila('$/porción',       prods.map(p => ({num:p.costoPorPorcion,  label:'$'+p.costoPorPorcion.toFixed(2)})),     'min')}
+      ${fila('Porciones',       prods.map(p => ({num:p.porciones,        label:String(p.porciones)})),                  'max')}
+      ${fila('Por porción',     prods.map(p => ({num:0,                  label:p.porPorcion||'—'})),                    null)}
+      ${filasOmega}
+      ${fila('Forma',           prods.map(p => ({num:0,                  label:p.forma||'—'})),                         null)}
+      ${fila('Calificación',    prods.map(p => ({num:p.estrellas,        label:p.estrellas>0?'★ '+p.estrellas.toFixed(1):'Sin reseñas'})), 'max')}
+      ${fila('Reseñas',         prods.map(p => ({num:p.resenas,          label:p.resenas>0?p.resenas.toLocaleString('es-MX'):'—'})), 'max')}
     </tbody>
   </table>`;
 
