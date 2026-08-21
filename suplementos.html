@@ -178,7 +178,7 @@ nav{background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1p
 .btn-compare:disabled{opacity:.4;cursor:default}
 
 /* Modal comparación */
-.cmp-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:300;display:none;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto}
+.cmp-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:400;display:none;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto}
 .cmp-overlay.open{display:flex}
 .cmp-modal{background:#fff;border-radius:16px;width:100%;max-width:960px;overflow:hidden;margin:auto}
 .cmp-modal-header{background:var(--ac);color:#fff;padding:16px 20px;display:flex;align-items:center;justify-content:space-between}
@@ -226,12 +226,16 @@ footer a{color:var(--ac);text-decoration:none}
   .metrics{display:none}
   .card-check{width:18px;height:18px;font-size:10px;top:7px;right:7px}
 
-  /* Barra flotante de comparación — una sola fila en móvil */
-  .cmp-bar{padding:10px 12px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));gap:8px;flex-wrap:nowrap;align-items:center}
-  .cmp-bar-hint{display:none}
-  .cmp-slots{gap:4px;flex-wrap:nowrap;overflow:hidden;flex:1;min-width:0}
-  .cmp-slot{padding:5px 8px;font-size:.68rem;white-space:nowrap;min-width:0;max-width:120px;overflow:hidden;text-overflow:ellipsis}
-  .btn-compare{padding:10px 16px;font-size:.82rem;width:auto;flex-shrink:0;border-radius:10px;font-weight:800}
+  /* Ocultar barra horizontal en móvil, usar FAB en su lugar */
+  .cmp-bar{display:none !important}
+  /* FAB de comparar */
+  .cmp-fab{display:none;position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));right:16px;z-index:300;flex-direction:column;align-items:flex-end;gap:8px}
+  .cmp-fab.show{display:flex}
+  .cmp-fab-btn{background:var(--ac);color:#fff;border:none;border-radius:50px;padding:13px 20px;font-size:.9rem;font-weight:800;cursor:pointer;font-family:'Satoshi',sans-serif;box-shadow:0 4px 20px rgba(0,104,71,.5);display:flex;align-items:center;gap:8px;white-space:nowrap}
+  .cmp-fab-count{background:#fff;color:var(--ac);border-radius:50%;width:24px;height:24px;font-size:.8rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .cmp-fab-chips{display:flex;flex-direction:column;gap:4px;align-items:flex-end}
+  .cmp-fab-chip{background:#fff;border:1.5px solid var(--ac);border-radius:20px;padding:4px 10px;font-size:.7rem;font-weight:600;color:var(--ac);display:flex;align-items:center;gap:6px;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+  .cmp-fab-chip button{background:none;border:none;color:var(--ac);cursor:pointer;font-size:.85rem;line-height:1;padding:0}
 
   /* Espacio para que la barra flotante no tape las cards */
   body{padding-bottom:80px}
@@ -690,6 +694,10 @@ function actualizarBarraCmp() {
   const bar = document.getElementById('cmp-bar');
   const slots = document.getElementById('cmp-slots');
   const btnCmp = document.getElementById('btn-comparar');
+  const fab = document.getElementById('cmp-fab');
+  const fabBtn = document.getElementById('cmp-fab-btn');
+  const fabCount = document.getElementById('cmp-fab-count');
+  const fabChips = document.getElementById('cmp-fab-chips');
 
   // Actualizar estado visual de cards
   document.querySelectorAll('.card').forEach(c => c.classList.remove('in-compare'));
@@ -698,16 +706,31 @@ function actualizarBarraCmp() {
     if (card) card.classList.add('in-compare');
   });
 
-  if (seleccionados.length === 0) { bar.classList.remove('show'); return; }
-  bar.classList.add('show');
+  if (seleccionados.length === 0) {
+    bar.classList.remove('show');
+    if (fab) fab.classList.remove('show');
+    return;
+  }
 
+  // Barra desktop
+  bar.classList.add('show');
   slots.innerHTML = seleccionados.map(id => {
     const p = productos.find(x => x.id === id);
     return `<div class="cmp-slot">${p.marca} – ${p.nombre.substring(0,28)}…<button onclick="toggleComparar(${id})">✕</button></div>`;
   }).join('');
-
   btnCmp.disabled = seleccionados.length < 2;
-  btnCmp.textContent = seleccionados.length < 2 ? 'Selecciona 2 o más' : `Comparar ${seleccionados.length} productos`;
+  btnCmp.textContent = seleccionados.length < 2 ? 'Selecciona 2 o más' : `Comparar ${seleccionados.length}`;
+
+  // FAB móvil
+  if (fab) {
+    fab.classList.add('show');
+    fabCount.textContent = seleccionados.length;
+    fabBtn.disabled = seleccionados.length < 2;
+    fabChips.innerHTML = seleccionados.map(id => {
+      const p = productos.find(x => x.id === id);
+      return `<div class="cmp-fab-chip">${p.nombre.substring(0,22)}… <button onclick="toggleComparar(${id})">✕</button></div>`;
+    }).join('');
+  }
 }
 
 function abrirComparacion() {
@@ -890,6 +913,15 @@ render();
 
 <!-- Overlay modal comparación -->
 <div class="cmp-overlay" id="cmp-overlay" onclick="if(event.target===this)cerrarComparacion()"></div>
+
+<!-- FAB de comparar (móvil) -->
+<div class="cmp-fab" id="cmp-fab">
+  <div class="cmp-fab-chips" id="cmp-fab-chips"></div>
+  <button class="cmp-fab-btn" id="cmp-fab-btn" onclick="abrirComparacion()" disabled>
+    <span class="cmp-fab-count" id="cmp-fab-count">0</span>
+    Comparar
+  </button>
+</div>
 
 </body>
 </html>
