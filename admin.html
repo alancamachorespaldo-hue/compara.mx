@@ -4,7 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Admin — comparalo.mx</title>
+<<<<<<< HEAD
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+=======
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap">
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -16,7 +21,11 @@
 }
 body{background:var(--bg);color:var(--t);min-height:100vh}
 
+<<<<<<< HEAD
 /* Login */
+=======
+/* ─── Login ─────────────────────────────────────────── */
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
 #login{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
 .login-box{background:var(--s);border:1px solid var(--bd);border-radius:14px;padding:40px 36px;width:360px;text-align:center}
 .login-logo{width:48px;height:48px;background:var(--g);border-radius:10px;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:1.5rem}
@@ -24,16 +33,25 @@ body{background:var(--bg);color:var(--t);min-height:100vh}
 .login-box p{color:var(--t2);font-size:.85rem;margin-bottom:24px}
 .login-box input{width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--bd);border-radius:8px;color:var(--t);font-size:.9rem;margin-bottom:10px;transition:border .15s}
 .login-box input:focus{outline:none;border-color:var(--g)}
+<<<<<<< HEAD
 .login-box button{width:100%;padding:11px;background:var(--g);border:none;border-radius:8px;color:#fff;font-weight:600;cursor:pointer;font-size:.95rem}
 .login-box button:hover{background:var(--g2)}
 .err{color:var(--red);font-size:.82rem;margin-top:10px;min-height:18px}
 
 /* Header */
+=======
+.login-box button{width:100%;padding:11px;background:var(--g);border:none;border-radius:8px;color:#fff;font-weight:600;cursor:pointer;font-size:.95rem;transition:background .15s}
+.login-box button:hover{background:var(--g2)}
+.err{color:var(--red);font-size:.82rem;margin-top:10px;min-height:18px}
+
+/* ─── Header ─────────────────────────────────────────── */
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
 header{background:var(--s);border-bottom:1px solid var(--bd);padding:12px 24px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100}
 .hdr-logo{width:28px;height:28px;background:var(--g);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.9rem}
 header h1{font-size:.95rem;font-weight:700;flex:1}
 #hdr-status{font-size:.78rem;padding:3px 10px;border-radius:20px;background:var(--s2);color:var(--t2)}
 #hdr-status.ok{background:rgba(34,197,94,.15);color:var(--green)}
+<<<<<<< HEAD
 #hdr-status.err{background:rgba(239,68,68,.15);color:var(--red)}
 .btn-ghost{padding:6px 12px;background:none;border:1px solid var(--bd);border-radius:6px;color:var(--t2);cursor:pointer;font-size:.8rem}
 .btn-ghost:hover{border-color:var(--g);color:var(--g)}
@@ -52,6 +70,21 @@ header h1{font-size:.95rem;font-weight:700;flex:1}
 .tab-cnt{opacity:.5;font-size:.72rem;margin-left:4px}
 
 /* Table */
+=======
+#hdr-status.saving{background:rgba(249,144,0,.15);color:var(--amz)}
+#hdr-status.err{background:rgba(239,68,68,.15);color:var(--red)}
+.btn-ghost{padding:6px 12px;background:none;border:1px solid var(--bd);border-radius:6px;color:var(--t2);cursor:pointer;font-size:.8rem;transition:all .15s}
+.btn-ghost:hover{border-color:var(--g);color:var(--g)}
+
+/* ─── Tabs ───────────────────────────────────────────── */
+.tabs{display:flex;gap:2px;padding:14px 24px 0;border-bottom:1px solid var(--bd);background:var(--s);overflow-x:auto}
+.tab{padding:8px 18px;border-radius:8px 8px 0 0;font-size:.83rem;font-weight:500;cursor:pointer;color:var(--t2);border:none;background:none;white-space:nowrap;transition:all .15s}
+.tab:hover{color:var(--t)}
+.tab.active{background:var(--bg);color:var(--t);box-shadow:inset 0 0 0 1px var(--bd);box-shadow:0 0 0 1px var(--bd);border-bottom:1px solid var(--bg);margin-bottom:-1px}
+.tab-cnt{opacity:.5;font-size:.72rem;margin-left:4px}
+
+/* ─── Table ──────────────────────────────────────────── */
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
 .section{padding:20px 24px}
 .section-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .section-hdr span{font-size:.8rem;color:var(--t2)}
@@ -62,16 +95,27 @@ header h1{font-size:.95rem;font-weight:700;flex:1}
 .table-wrap{overflow-x:auto}
 table{width:100%;border-collapse:collapse}
 th{text-align:left;padding:8px 12px;font-size:.72rem;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid var(--bd);white-space:nowrap}
+<<<<<<< HEAD
 tr.row:hover{background:var(--s)}
 td{padding:10px 12px;border-bottom:1px solid rgba(45,51,72,.5);font-size:.84rem;vertical-align:middle}
 td.img-cell img{width:46px;height:46px;object-fit:cover;border-radius:7px;display:block}
 td.price{font-weight:700;font-variant-numeric:tabular-nums}
+=======
+tr.row{transition:background .1s}
+tr.row:hover{background:var(--s)}
+td{padding:10px 12px;border-bottom:1px solid rgba(45,51,72,.5);font-size:.84rem;vertical-align:middle}
+td.img-cell img{width:46px;height:46px;object-fit:cover;border-radius:7px;display:block}
+td.img-cell .no-img{width:46px;height:46px;background:var(--s2);border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--t2);font-size:.7rem}
+td.price{font-weight:700;font-variant-numeric:tabular-nums}
+td.stars{font-size:.8rem;color:var(--t2)}
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
 .badge{display:inline-block;padding:2px 7px;border-radius:4px;font-size:.68rem;font-weight:700;margin:1px}
 .b-amz{background:var(--amz);color:#000}
 .b-ml{background:var(--ml);color:#000}
 .b-best{background:var(--green);color:#000}
 .b-sale{background:#f43f5e;color:#fff}
 .b-pop{background:#6366f1;color:#fff}
+<<<<<<< HEAD
 .btn-edit{padding:5px 12px;background:var(--s2);border:1px solid var(--bd);border-radius:6px;color:var(--t);font-size:.78rem;cursor:pointer}
 .btn-edit:hover{border-color:var(--g);color:var(--g)}
 
@@ -99,15 +143,58 @@ textarea{resize:vertical;min-height:66px;font-family:monospace;font-size:.78rem}
 .toast.show{opacity:1;transform:none}
 .toast.ok{border-color:var(--green);color:var(--green)}
 .toast.err{border-color:var(--red);color:var(--red)}
+=======
+.btn-edit{padding:5px 12px;background:var(--s2);border:1px solid var(--bd);border-radius:6px;color:var(--t);font-size:.78rem;cursor:pointer;transition:all .15s}
+.btn-edit:hover{border-color:var(--g);color:var(--g)}
+
+/* ─── Modal ──────────────────────────────────────────── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
+.overlay.open{display:flex}
+.modal{background:var(--s);border:1px solid var(--bd);border-radius:14px;padding:24px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;position:relative}
+.modal h2{font-size:.95rem;font-weight:700;margin-bottom:16px;padding-right:36px;line-height:1.4}
+.modal-close{position:absolute;top:18px;right:18px;background:var(--s2);border:none;color:var(--t2);cursor:pointer;font-size:.9rem;width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.modal-close:hover{color:var(--t)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-full{grid-column:1/-1}
+label{display:block;font-size:.72rem;font-weight:600;color:var(--t2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.04em}
+input[type=text],input[type=number],select,textarea{width:100%;padding:8px 10px;background:var(--bg);border:1px solid var(--bd);border-radius:7px;color:var(--t);font-size:.84rem;font-family:inherit;transition:border .15s}
+input[type=text]:focus,input[type=number]:focus,select:focus,textarea:focus{outline:none;border-color:var(--g)}
+select option{background:var(--s)}
+textarea{resize:vertical;min-height:72px;font-family:'JetBrains Mono',monospace;font-size:.78rem}
+.field-hint{font-size:.7rem;color:var(--t2);margin-top:4px}
+.modal-footer{display:flex;gap:8px;justify-content:flex-end;margin-top:18px;padding-top:16px;border-top:1px solid var(--bd)}
+.btn-cancel{padding:8px 16px;background:none;border:1px solid var(--bd);border-radius:7px;color:var(--t2);cursor:pointer;font-size:.85rem;transition:all .15s}
+.btn-cancel:hover{border-color:var(--t2);color:var(--t)}
+.btn-save{padding:8px 20px;background:var(--g);border:none;border-radius:7px;color:#fff;font-weight:600;cursor:pointer;font-size:.85rem;transition:background .15s;display:flex;align-items:center;gap:8px}
+.btn-save:hover:not(:disabled){background:var(--g2)}
+.btn-save:disabled{opacity:.5;cursor:not-allowed}
+.spinner{width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none}
+.btn-save.loading .spinner{display:block}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ─── Toast ──────────────────────────────────────────── */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--s2);border:1px solid var(--bd);border-radius:10px;padding:12px 18px;font-size:.83rem;z-index:300;opacity:0;transform:translateY(8px);transition:all .2s;pointer-events:none;max-width:320px}
+.toast.show{opacity:1;transform:none}
+.toast.ok{border-color:var(--green);color:var(--green)}
+.toast.err{border-color:var(--red);color:var(--red)}
+
+/* ─── Empty ──────────────────────────────────────────── */
+.empty{text-align:center;padding:60px 20px;color:var(--t2);font-size:.9rem}
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
 </style>
 </head>
 <body>
 
+<<<<<<< HEAD
 <!-- Login -->
+=======
+<!-- ══ Login ═════════════════════════════════════════════ -->
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
 <div id="login">
   <div class="login-box">
     <div class="login-logo">⚙</div>
     <h1>Admin Panel</h1>
+<<<<<<< HEAD
     <p>comparalo.mx</p>
     <input type="password" id="pwd" placeholder="Contraseña"
            onkeydown="if(event.key==='Enter')doLogin()">
@@ -117,6 +204,22 @@ textarea{resize:vertical;min-height:66px;font-family:monospace;font-size:.78rem}
 </div>
 
 <!-- Admin -->
+=======
+    <p>comparalo.mx — acceso restringido</p>
+    <input type="password" id="pwd" placeholder="Contraseña" autocomplete="current-password"
+           onkeydown="if(event.key==='Enter')doLogin()">
+    <input type="password" id="ghtoken" placeholder="GitHub Token (ghp_...)"
+           autocomplete="off" onkeydown="if(event.key==='Enter')doLogin()">
+    <button onclick="doLogin()">Entrar</button>
+    <div class="err" id="login-err"></div>
+    <div style="margin-top:14px;font-size:.73rem;color:var(--t2);line-height:1.5">
+      El token no se guarda en el archivo.<br>Solo vive en tu navegador hasta que cierres sesión.
+    </div>
+  </div>
+</div>
+
+<!-- ══ Admin ══════════════════════════════════════════════ -->
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
 <div id="admin" hidden>
   <header>
     <div class="hdr-logo">⚙</div>
@@ -126,6 +229,7 @@ textarea{resize:vertical;min-height:66px;font-family:monospace;font-size:.78rem}
     <button class="btn-ghost" onclick="doLogout()">Salir</button>
   </header>
 
+<<<<<<< HEAD
   <!-- Banner de descarga -->
   <div class="dl-banner" id="dl-banner">
     <p>✅ Cambios listos. Descarga el archivo y súbelo a GitHub para publicar.</p>
@@ -137,6 +241,16 @@ textarea{resize:vertical;min-height:66px;font-family:monospace;font-size:.78rem}
 </div>
 
 <!-- Modal -->
+=======
+  <div class="tabs" id="tabs"></div>
+
+  <div class="section" id="section-content">
+    <div class="empty">Cargando productos...</div>
+  </div>
+</div>
+
+<!-- ══ Modal edición ══════════════════════════════════════ -->
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
 <div class="overlay" id="overlay">
   <div class="modal">
     <button class="modal-close" onclick="closeModal()">✕</button>
@@ -144,7 +258,14 @@ textarea{resize:vertical;min-height:66px;font-family:monospace;font-size:.78rem}
     <div class="form-grid" id="modal-form"></div>
     <div class="modal-footer">
       <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+<<<<<<< HEAD
       <button class="btn-save" onclick="saveEdit()">Guardar cambios</button>
+=======
+      <button class="btn-save" id="btn-save" onclick="saveEdit()">
+        <span class="spinner" id="save-spinner"></span>
+        <span id="save-label">Guardar en GitHub</span>
+      </button>
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
     </div>
   </div>
 </div>
@@ -152,6 +273,7 @@ textarea{resize:vertical;min-height:66px;font-family:monospace;font-size:.78rem}
 <div class="toast" id="toast"></div>
 
 <script>
+<<<<<<< HEAD
 const PASS      = 'comparalo2025';
 const SITE_URL  = 'https://radiant-creponne-2df732.netlify.app';
 const SECS      = ['ELECTRICAS','MONTANA','RUTA','GRAVEL'];
@@ -173,11 +295,61 @@ function doLogin() {
 }
 function doLogout() { sessionStorage.removeItem('cmp_adm'); location.reload(); }
 if (sessionStorage.getItem('cmp_adm')==='1') {
+=======
+// ══ CONFIG ════════════════════════════════════════════════════
+// El token se pide en el login y se guarda solo en sessionStorage
+const CFG = {
+  token:  '',   // se llena al hacer login
+  owner:  'alancamachorespaldo-hue',
+  repo:   'compara.mx',
+  file:   'index.html',
+  branch: 'main',
+  pass:   'comparalo2025'   // ← Cambia esta contraseña
+};
+
+const SECS = ['ELECTRICAS','MONTANA','RUTA','GRAVEL'];
+const LABELS = {ELECTRICAS:'⚡ Eléctricas',MONTANA:'🏔 Montaña',RUTA:'🚴 Ruta',GRAVEL:'🪨 Gravel'};
+const TIPOS  = ['plegable','urbana','mtb','ruta','gravel','otro'];
+
+let rawContent = '', fileSha = '', products = {}, activeTab = 'ELECTRICAS', editProduct = null, query = '';
+
+// ══ Autenticación ═════════════════════════════════════════════
+function doLogin() {
+  const p   = document.getElementById('pwd').value;
+  const tok = document.getElementById('ghtoken').value.trim();
+  if (p !== CFG.pass) {
+    document.getElementById('login-err').textContent = 'Contraseña incorrecta';
+    document.getElementById('pwd').select();
+    return;
+  }
+  if (!tok) {
+    document.getElementById('login-err').textContent = 'Ingresa tu GitHub Token (ghp_...)';
+    document.getElementById('ghtoken').focus();
+    return;
+  }
+  CFG.token = tok;
+  sessionStorage.setItem('cmp_adm','1');
+  sessionStorage.setItem('cmp_tok', tok);
+  document.getElementById('login').hidden = true;
+  document.getElementById('admin').hidden = false;
+  loadFile();
+}
+function doLogout() {
+  sessionStorage.removeItem('cmp_adm');
+  sessionStorage.removeItem('cmp_tok');
+  CFG.token = '';
+  location.reload();
+}
+// Restaurar sesión si ya estaba logueado
+if (sessionStorage.getItem('cmp_adm')==='1' && sessionStorage.getItem('cmp_tok')) {
+  CFG.token = sessionStorage.getItem('cmp_tok');
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
   document.getElementById('login').hidden = true;
   document.getElementById('admin').hidden = false;
   setTimeout(loadFile, 0);
 }
 
+<<<<<<< HEAD
 // ── Cargar desde Netlify (público, sin auth) ─────────────────
 async function loadFile() {
   setStatus('Cargando...','');
@@ -185,17 +357,79 @@ async function loadFile() {
     const r = await fetch(`${SITE_URL}/index.html?t=${Date.now()}`);
     if (!r.ok) throw new Error(r.status);
     rawContent = await r.text();
+=======
+// ══ GitHub API ════════════════════════════════════════════════
+const GH_HEADERS = {
+  Authorization: `token ${CFG.token}`,
+  Accept: 'application/vnd.github.v3+json',
+  'Content-Type': 'application/json'
+};
+const GH_URL = `https://api.github.com/repos/${CFG.owner}/${CFG.repo}/contents/${CFG.file}`;
+
+async function ghGet() {
+  // Repo público: leer sin token para no depender de que sea válido
+  const rawUrl = `https://raw.githubusercontent.com/${CFG.owner}/${CFG.repo}/${CFG.branch}/${CFG.file}?t=${Date.now()}`;
+  const [rawRes, metaRes] = await Promise.all([
+    fetch(rawUrl),
+    fetch(`${GH_URL}?ref=${CFG.branch}&t=${Date.now()}`)  // sin token — repo público
+  ]);
+  if (!rawRes.ok) throw new Error(`No se pudo leer el archivo (${rawRes.status})`);
+  if (!metaRes.ok) throw new Error(`Error al obtener SHA (${metaRes.status})`);
+  const meta = await metaRes.json();
+  const content = await rawRes.text();
+  return { content: btoa(unescape(encodeURIComponent(content))), sha: meta.sha };
+}
+async function ghPut(message) {
+  const content = b64encode(rawContent);
+  const r = await fetch(GH_URL, {
+    method: 'PUT',
+    headers: GH_HEADERS,
+    body: JSON.stringify({ message, content, sha: fileSha, branch: CFG.branch })
+  });
+  if (!r.ok) { const d=await r.json(); throw new Error(d.message||r.status); }
+  const data = await r.json();
+  if (data.content?.sha) fileSha = data.content.sha;
+  return true;
+}
+
+function b64decode(b64) {
+  return decodeURIComponent(
+    atob(b64.replace(/\n/g,''))
+      .split('').map(c => '%' + c.charCodeAt(0).toString(16).padStart(2,'0')).join('')
+  );
+}
+function b64encode(str) {
+  return btoa(
+    encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (_, p) => String.fromCharCode(parseInt(p,16)))
+  );
+}
+
+// ══ Carga y parse ═════════════════════════════════════════════
+async function loadFile() {
+  setStatus('Cargando...','');
+  try {
+    const data = await ghGet();
+    fileSha = data.sha;
+    rawContent = b64decode(data.content);
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
     parseAll();
     renderTabs();
     renderSection();
     setStatus('Listo ✓','ok');
   } catch(e) {
     setStatus('Error al cargar','err');
+<<<<<<< HEAD
     toast('No se pudo cargar el archivo: ' + e.message,'err');
   }
 }
 
 // ── Parse ───────────────────────────────────────────────────
+=======
+    toast(e.message,'err');
+  }
+}
+
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
 function parseAll() {
   products = {};
   for (const sec of SECS) {
@@ -209,6 +443,7 @@ function parseAll() {
       else if (rawContent[i]===']') depth--;
       i++;
     }
+<<<<<<< HEAD
     try { products[sec] = new Function('return [' + rawContent.slice(arrStart, i-1) + ']')(); }
     catch(e) { products[sec] = []; }
   }
@@ -227,6 +462,39 @@ function switchTab(sec) { activeTab = sec; query = ''; renderTabs(); renderSecti
 function renderSection() {
   const all  = products[activeTab] || [];
   const list = query ? all.filter(p => (p.nombre+p.marca).toLowerCase().includes(query.toLowerCase())) : all;
+=======
+    try {
+      products[sec] = new Function('return [' + rawContent.slice(arrStart, i-1) + ']')();
+    } catch(e) {
+      products[sec] = [];
+      console.error('Parse error:', sec, e);
+    }
+  }
+}
+
+// ══ Render ════════════════════════════════════════════════════
+function renderTabs() {
+  document.getElementById('tabs').innerHTML = SECS.map(s =>
+    `<button class="tab${s===activeTab?' active':''}" onclick="switchTab('${s}')">
+      ${LABELS[s]} <span class="tab-cnt">${(products[s]||[]).length}</span>
+    </button>`
+  ).join('');
+}
+
+function switchTab(sec) {
+  activeTab = sec;
+  query = '';
+  renderTabs();
+  renderSection();
+}
+
+function renderSection() {
+  const all  = products[activeTab] || [];
+  const list = query
+    ? all.filter(p => (p.nombre+p.marca).toLowerCase().includes(query.toLowerCase()))
+    : all;
+
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
   document.getElementById('section-content').innerHTML = `
     <div class="section-hdr">
       <span>${list.length} de ${all.length} productos</span>
@@ -236,6 +504,7 @@ function renderSection() {
                oninput="query=this.value;renderSection()" autocomplete="off">
       </div>
     </div>
+<<<<<<< HEAD
     <div class="table-wrap"><table>
       <thead><tr>
         <th></th><th>#</th><th>Nombre</th><th>Precio</th><th>★</th><th>Plataforma</th><th></th>
@@ -256,10 +525,46 @@ function renderSection() {
 }
 
 // ── Modal ───────────────────────────────────────────────────
+=======
+    <div class="table-wrap">
+    <table>
+      <thead><tr>
+        <th></th><th>#</th><th>Nombre</th><th>Precio</th><th>★</th><th>Plataforma</th><th></th>
+      </tr></thead>
+      <tbody>
+        ${list.length ? list.map(p => `
+        <tr class="row">
+          <td class="img-cell">
+            ${p.img
+              ? `<img src="${esc4html(p.img)}" loading="lazy" onerror="this.parentNode.innerHTML='<div class=no-img>?</div>'">`
+              : `<div class="no-img">?</div>`}
+          </td>
+          <td style="color:var(--t2);font-size:.72rem;font-family:'JetBrains Mono',monospace">${p.id}</td>
+          <td>
+            <div style="font-weight:500">${esc4html(p.nombre||'')}</div>
+            <div style="color:var(--t2);font-size:.75rem;margin-top:2px">${esc4html(p.marca||'')} · ${p.tipo||''}</div>
+          </td>
+          <td class="price">$${(p.precio||0).toLocaleString('es-MX')}</td>
+          <td class="stars">${p.estrellas||0}★<br><span style="font-size:.72rem">${(p.resenas||0).toLocaleString()} reseñas</span></td>
+          <td>${renderBadges(p.badges||[])}</td>
+          <td><button class="btn-edit" onclick="openEdit(${p.id})">Editar</button></td>
+        </tr>`).join('') : `<tr><td colspan="7"><div class="empty">Sin resultados</div></td></tr>`}
+      </tbody>
+    </table>
+    </div>`;
+}
+
+function renderBadges(badges) {
+  return badges.map(b=>`<span class="badge ${esc4html(b.c)}">${esc4html(b.t)}</span>`).join('');
+}
+
+// ══ Modal ═════════════════════════════════════════════════════
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
 function openEdit(id) {
   const p = (products[activeTab]||[]).find(x => x.id === id);
   if (!p) return;
   editProduct = JSON.parse(JSON.stringify(p));
+<<<<<<< HEAD
   document.getElementById('modal-title').textContent = `Editar #${p.id} — ${p.nombre}`;
   document.getElementById('modal-form').innerHTML = `
     <div><label>Precio ($)</label><input type="number" id="f-precio" value="${p.precio||0}" min="0"></div>
@@ -275,14 +580,76 @@ function openEdit(id) {
     <div class="form-full"><label>Badges <span style="font-weight:400;text-transform:none;font-size:.68rem">(una por línea: texto|clase)</span></label>
       <textarea id="f-badges">${(p.badges||[]).map(b=>`${b.t}|${b.c}`).join('\n')}</textarea>
       <div class="field-hint">Clases: b-amz · b-ml · b-best · b-sale · b-pop</div></div>`;
+=======
+
+  document.getElementById('modal-title').textContent = `Editar #${p.id} — ${p.nombre}`;
+  document.getElementById('modal-form').innerHTML = `
+    <div>
+      <label>Precio ($)</label>
+      <input type="number" id="f-precio" value="${p.precio||0}" min="0" step="1">
+    </div>
+    <div>
+      <label>Tipo</label>
+      <select id="f-tipo">${TIPOS.map(t=>`<option${p.tipo===t?' selected':''}>${t}</option>`).join('')}</select>
+    </div>
+    <div>
+      <label>Estrellas (0–5)</label>
+      <input type="number" id="f-stars" value="${p.estrellas||0}" min="0" max="5" step="0.1">
+    </div>
+    <div>
+      <label>Reseñas</label>
+      <input type="number" id="f-resenas" value="${p.resenas||0}" min="0">
+    </div>
+    <div class="form-full">
+      <label>Nombre</label>
+      <input type="text" id="f-nombre" value="${esc4html(p.nombre||'')}">
+    </div>
+    <div class="form-full">
+      <label>Marca</label>
+      <input type="text" id="f-marca" value="${esc4html(p.marca||'')}">
+    </div>
+    <div class="form-full">
+      <label>Link Amazon <span style="font-weight:400;text-transform:none;font-size:.68rem">(incluir &amp;tag=comparabici-20)</span></label>
+      <input type="text" id="f-lamz" value="${esc4html(p.linkAmz||'')}">
+    </div>
+    <div class="form-full">
+      <label>Link Mercado Libre</label>
+      <input type="text" id="f-lml" value="${esc4html(p.linkML||'')}">
+    </div>
+    <div class="form-full">
+      <label>URL de imagen</label>
+      <input type="text" id="f-img" value="${esc4html(p.img||'')}">
+    </div>
+    <div class="form-full">
+      <label>Badges</label>
+      <textarea id="f-badges">${(p.badges||[]).map(b=>`${b.t}|${b.c}`).join('\n')}</textarea>
+      <div class="field-hint">Una por línea: <code>texto|clase</code> — clases: b-amz · b-ml · b-best · b-sale · b-pop</div>
+    </div>`;
+
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
   document.getElementById('overlay').classList.add('open');
   document.getElementById('f-precio').focus();
 }
 
+<<<<<<< HEAD
 function closeModal() { document.getElementById('overlay').classList.remove('open'); editProduct = null; }
 
 function saveEdit() {
   if (!editProduct) return;
+=======
+function closeModal() {
+  document.getElementById('overlay').classList.remove('open');
+  editProduct = null;
+}
+
+async function saveEdit() {
+  if (!editProduct) return;
+  const btn   = document.getElementById('btn-save');
+  const label = document.getElementById('save-label');
+  const spin  = document.getElementById('save-spinner');
+
+  // Leer form
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
   editProduct.precio    = parseInt(document.getElementById('f-precio').value)||0;
   editProduct.tipo      = document.getElementById('f-tipo').value;
   editProduct.estrellas = parseFloat(document.getElementById('f-stars').value)||0;
@@ -292,6 +659,7 @@ function saveEdit() {
   editProduct.linkAmz   = document.getElementById('f-lamz').value.trim();
   editProduct.linkML    = document.getElementById('f-lml').value.trim();
   editProduct.img       = document.getElementById('f-img').value.trim();
+<<<<<<< HEAD
   editProduct.badges    = document.getElementById('f-badges').value.trim().split('\n')
     .filter(Boolean).map(l=>{const[t,c]=l.split('|');return{t:(t||'').trim(),c:(c||'').trim()}})
     .filter(b=>b.t&&b.c);
@@ -314,6 +682,50 @@ function updateRaw(p) {
   const marker = `{id:${p.id},`;
   const start  = rawContent.indexOf(marker);
   if (start === -1) { toast('No encontré id:' + p.id,'err'); return false; }
+=======
+
+  const badgeLines = document.getElementById('f-badges').value.trim().split('\n').filter(Boolean);
+  editProduct.badges = badgeLines.map(l => {
+    const [t,c] = l.split('|');
+    return { t: (t||'').trim(), c: (c||'').trim() };
+  }).filter(b => b.t && b.c);
+
+  // Actualizar rawContent
+  if (!updateRaw(editProduct)) return;
+
+  // Actualizar memoria
+  const sec = products[activeTab];
+  const idx = sec.findIndex(x => x.id === editProduct.id);
+  if (idx >= 0) sec[idx] = { ...editProduct };
+
+  // Guardar en GitHub
+  btn.disabled = true;
+  btn.classList.add('loading');
+  label.textContent = 'Guardando...';
+
+  try {
+    const msg = `admin: precio actualizado id${editProduct.id} ${editProduct.nombre}`;
+    await ghPut(msg);
+    closeModal();
+    renderSection();
+    setStatus('Guardado ✓ — sitio actualizando en ~30s','ok');
+    toast('¡Guardado! El sitio se actualiza en ~30 segundos.','ok');
+  } catch(e) {
+    setStatus('Error al guardar','err');
+    toast('Error: ' + e.message,'err');
+  } finally {
+    btn.disabled = false;
+    btn.classList.remove('loading');
+    label.textContent = 'Guardar en GitHub';
+  }
+}
+
+// ══ Actualizar rawContent ═════════════════════════════════════
+function updateRaw(p) {
+  const marker = `{id:${p.id},`;
+  const start  = rawContent.indexOf(marker);
+  if (start === -1) { toast('No encontré id:' + p.id + ' en el archivo','err'); return false; }
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
   let depth = 0, i = start;
   while (i < rawContent.length) {
     if (rawContent[i]==='{') depth++;
@@ -337,6 +749,7 @@ function buildBlock(p) {
    img:'${esc(p.img||'')}'}`;
 }
 
+<<<<<<< HEAD
 // ── Descargar archivo modificado ─────────────────────────────
 function downloadFile() {
   const blob = new Blob([rawContent], { type: 'text/html' });
@@ -360,6 +773,30 @@ function toast(msg, cls) {
 }
 document.getElementById('overlay').addEventListener('click', e=>{ if(e.target===e.currentTarget) closeModal(); });
 document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
+=======
+// ══ Helpers ═══════════════════════════════════════════════════
+function setStatus(msg, cls) {
+  const el = document.getElementById('hdr-status');
+  el.textContent = msg;
+  el.className   = cls ? cls : '';
+}
+function toast(msg, cls) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className   = 'toast show' + (cls ? ' '+cls : '');
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.className = 'toast', 4000);
+}
+
+// Cerrar modal al hacer click en overlay
+document.getElementById('overlay').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeModal();
+});
+// Cerrar con Escape
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+});
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
 </script>
 </body>
 </html>

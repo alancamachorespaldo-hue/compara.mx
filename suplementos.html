@@ -9,6 +9,7 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9TKZ4ER13X"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-9TKZ4ER13X');</script>
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400,300&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 28'%3E%3Cpath d='M1,0 L15,14 L1,28 L7,28 L21,14 L7,0 Z' fill='%23006847'/%3E%3Ccircle cx='23' cy='14' r='3.8' fill='%23006847'/%3E%3Cpath d='M25,0 L39,14 L25,28 L31,28 L45,14 L31,0 Z' fill='%23CE1126'/%3E%3C/svg%3E">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -20,29 +21,41 @@
 body{background:var(--bg);min-height:100vh}
 
 /* ── Nav ─────────────────────────────────────────────── */
+<<<<<<< HEAD
 nav{background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--bd);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px;position:sticky;top:0;z-index:100}
 .nav-logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0}
 .nav-links{display:flex;gap:1.5rem;align-items:center;flex-shrink:0}
+=======
+nav{background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--bd);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:100}
+.nav-logo{display:flex;align-items:center;text-decoration:none}
+.nav-links{display:flex;gap:1.5rem;align-items:center}
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
 .nav-link{font-size:13px;color:var(--t2);text-decoration:none;font-weight:500;transition:color .15s}
 .nav-link:hover{color:var(--ac)}
 .nav-link.active{color:var(--ac);font-weight:700}
 .nav-link.dim{opacity:.4;pointer-events:none}
+<<<<<<< HEAD
 .nav-search{display:flex;align-items:center;flex:1;max-width:320px;background:#f1f5f9;border:1.5px solid var(--bd);border-radius:22px;padding:0 14px;gap:7px;transition:border-color .15s}
 .nav-search:focus-within{border-color:var(--ac);background:#fff}
 .nav-search-icon{color:var(--t2);font-size:.85rem;flex-shrink:0}
 .nav-search-input{border:none;background:transparent;outline:none;font-size:.82rem;font-family:'Satoshi',sans-serif;color:var(--t);width:100%;padding:7px 0}
 .nav-search-input::placeholder{color:var(--t2)}
 @media(max-width:700px){.nav-search{max-width:140px}.nav-links{gap:.8rem}}
+=======
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
 
 /* ── Hero ────────────────────────────────────────────── */
 .hero{background:linear-gradient(135deg,var(--ac) 0%,var(--ac2) 100%);color:#fff;padding:14px 20px 12px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .hero h1{font-size:1.05rem;font-weight:800;letter-spacing:-.02em}
 .hero p{opacity:.8;font-size:.78rem}
 
+<<<<<<< HEAD
 /* ── Breadcrumb ──────────────────────────────────────── */
 .breadcrumb{padding:.55rem 20px;font-size:12px;color:var(--t2);background:var(--s);border-bottom:1px solid var(--bd)}
 .breadcrumb a{color:var(--ac);text-decoration:none}
 .breadcrumb a:hover{text-decoration:underline}
+=======
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
 /* ── Toolbar ─────────────────────────────────────────── */
 .toolbar{background:#fff;border-bottom:1px solid var(--bd);padding:12px 20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;position:sticky;top:49px;z-index:90}
 .filter-group{display:flex;gap:6px;align-items:center;flex-wrap:wrap;flex:1}
@@ -53,6 +66,7 @@ nav{background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1p
 .sort-sel:focus{outline:none;border-color:var(--ac)}
 .result-cnt{font-size:.78rem;color:var(--t2);margin-left:auto}
 .search-wrap{width:100%;margin-bottom:8px}
+<<<<<<< HEAD
 /* Filtros móvil */
 .mobile-filter-toggle{display:none}
 @media(max-width:600px){
@@ -63,15 +77,23 @@ nav{background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1p
   .chips-panel.open{display:flex}
   #chips,#sort-chips{display:flex;flex-wrap:wrap;gap:6px}
 }
+=======
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
 .search-input{width:100%;padding:9px 14px;border:1.5px solid var(--bd);border-radius:10px;font-size:.84rem;font-family:'Satoshi',sans-serif;color:var(--t);background:#fff;outline:none;transition:border-color .15s}
 .search-input:focus{border-color:var(--ac)}
 
 /* ── Grid ────────────────────────────────────────────── */
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:16px 20px;max-width:1400px;margin:0 auto}
+<<<<<<< HEAD
 .grid:has(.cat-section){display:block;padding:0}
 @media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:780px){.grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:480px){.grid{grid-template-columns:repeat(2,1fr);padding:10px 8px}}
+=======
+@media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:780px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.grid{grid-template-columns:1fr}}
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
 
 /* ── Card ────────────────────────────────────────────── */
 .card{background:var(--card);border:1px solid var(--bd);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .2s,transform .15s,border-color .15s;position:relative}
@@ -111,6 +133,7 @@ nav{background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1p
 .detail-tag{font-size:.72rem;padding:3px 9px;border-radius:20px;background:var(--ac3);color:var(--ac);font-weight:500}
 
 /* Price & CTA */
+<<<<<<< HEAD
 .card-bottom{padding:8px 12px;margin-top:auto;display:flex;flex-direction:column;gap:8px}
 .price-block{width:100%}
 .price-main{font-size:1.35rem;font-weight:800;color:var(--t);letter-spacing:-.02em}
@@ -158,6 +181,20 @@ nav{background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1p
 .cat-card-ver{display:block;width:100%;margin-top:8px;background:var(--ac);color:#fff;border:none;border-radius:7px;padding:7px 0;font-size:.74rem;font-weight:700;cursor:pointer;font-family:'Satoshi',sans-serif;text-align:center;text-decoration:none}
 .cat-card-ver:hover{background:var(--ac2);color:#fff}
 .cat-sep{border:none;border-top:1px solid var(--bd);margin:20px 0 0}
+=======
+.card-bottom{padding:8px 12px;margin-top:auto;display:flex;align-items:center;gap:8px}
+.price-block{flex:1}
+.price-main{font-size:1.1rem;font-weight:800;color:var(--t);letter-spacing:-.02em}
+.price-sub{font-size:.72rem;color:var(--t2);margin-top:1px}
+.costo-por{font-size:.78rem;font-weight:600;color:var(--ac)}
+
+.btns{display:flex;gap:5px;flex-wrap:wrap}
+.btn-buy{display:inline-flex;align-items:center;gap:5px;padding:7px 11px;border-radius:7px;font-weight:700;font-size:.73rem;text-decoration:none;border:none;cursor:pointer;transition:opacity .15s;white-space:nowrap}
+.btn-buy:hover{opacity:.88}
+.btn-amz{background:var(--amz);color:#000}
+.btn-ml{background:var(--ml);color:#000}
+.btn-logo{width:16px;height:16px;flex-shrink:0}
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
 
 /* Card seleccionable para comparar */
 .card{cursor:pointer}
@@ -206,7 +243,11 @@ footer{text-align:center;padding:28px 20px;font-size:.78rem;color:var(--t2);bord
 footer a{color:var(--ac);text-decoration:none}
 
 @media(max-width:600px){
+<<<<<<< HEAD
   .grid{grid-template-columns:repeat(2,1fr);padding:10px 8px}
+=======
+  .grid{grid-template-columns:1fr;padding:12px}
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
   .metrics{grid-template-columns:repeat(3,1fr)}
 }
 </style>
@@ -215,8 +256,9 @@ footer a{color:var(--ac);text-decoration:none}
 
 <nav>
   <a class="nav-logo" href="index.html">
-    <img src="logo.jpg.JPG" alt="comparalo.mx" style="height:38px;width:auto;object-fit:contain">
+    <img src="logo.jpg" alt="comparalo.mx" style="height:38px;width:auto;object-fit:contain">
   </a>
+<<<<<<< HEAD
   <div class="nav-search">
     <span class="nav-search-icon">🔍</span>
     <input class="nav-search-input" id="nav-search-input" type="search" placeholder="Buscar suplemento…" oninput="buscarDesdeNav(this.value)" onkeydown="if(event.key==='Enter')buscarDesdeNav(this.value,true)">
@@ -225,14 +267,23 @@ footer a{color:var(--ac);text-decoration:none}
     <a class="nav-link" href="bicis.html">🚲 Bicicletas</a>
     <a class="nav-link active" href="suplementos.html">💊 Suplementos</a>
     <a class="nav-link" href="electrodomesticos.html">🏠 Electrodomésticos</a>
+=======
+  <div class="nav-links">
+    <a class="nav-link" href="bicis.html">🚲 Bicicletas</a>
+    <a class="nav-link active" href="suplementos.html">💊 Suplementos</a>
+    <span class="nav-link dim">🏠 Electrodomésticos</span>
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
     <span class="nav-link dim">📱 Electrónica</span>
   </div>
 </nav>
 
+<<<<<<< HEAD
 <div class="breadcrumb">
   <a href="index.html">Inicio</a> › <span id="breadcrumb-cat">Suplementos</span>
 </div>
 
+=======
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
 <div class="hero">
   <h1>Comparador de Suplementos</h1>
   <p>Omega 3, vitaminas y más — compara precio, EPA, DHA y costo por porción</p>
@@ -242,6 +293,7 @@ footer a{color:var(--ac);text-decoration:none}
   <div class="search-wrap">
     <input class="search-input" id="search-input" type="text" placeholder="🔍 Buscar producto, marca o característica…" oninput="render()">
   </div>
+<<<<<<< HEAD
   <button class="mobile-filter-toggle" id="filter-toggle" onclick="toggleFiltrosMobile()">
     <span>🔧 Filtros y orden</span><span id="filter-arrow">▾</span>
   </button>
@@ -259,6 +311,20 @@ footer a{color:var(--ac);text-decoration:none}
       <button class="chip chip-sort"        data-sort="resenas-desc" onclick="setSort('resenas-desc',this)">Más reseñas</button>
       <button class="chip chip-sort"        data-sort="costo-asc"   onclick="setSort('costo-asc',this)">$/porción más bajo</button>
     </div>
+=======
+  <div class="filter-group" id="chips">
+    <button class="chip active" data-tipo="todos" onclick="setFiltro('todos',this)">Todos</button>
+    <button class="chip" data-tipo="vitaminas" onclick="setFiltro('vitaminas',this)">Omega 3 / Vitaminas</button>
+    <button class="chip" data-tipo="complejo-b" onclick="setFiltro('complejo-b',this)">Complejo B</button>
+  </div>
+  <div class="filter-group" id="sort-chips">
+    <button class="chip chip-sort active" data-sort="precio-asc"  onclick="setSort('precio-asc',this)">Precio más bajo</button>
+    <button class="chip chip-sort"        data-sort="precio-desc" onclick="setSort('precio-desc',this)">Precio más alto</button>
+    <button class="chip chip-sort"        data-sort="epa-desc"    onclick="setSort('epa-desc',this)">Más EPA</button>
+    <button class="chip chip-sort"        data-sort="estrellas-desc" onclick="setSort('estrellas-desc',this)">Mejor valoración ★</button>
+    <button class="chip chip-sort"        data-sort="resenas-desc" onclick="setSort('resenas-desc',this)">Más reseñas</button>
+    <button class="chip chip-sort"        data-sort="costo-asc"   onclick="setSort('costo-asc',this)">$/porción más bajo</button>
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
   </div>
   <span class="result-cnt" id="result-cnt"></span>
 </div>
@@ -308,6 +374,7 @@ const productos = [
   {id:38,nombre:'Wellthy Arctic Omega 3 2000mg EPA 360mg DHA 240mg – 200 Cápsulas',marca:'Wellthy',tipo:'vitaminas',precio:431,peso:'200 cápsulas',porciones:100,duracion:100,porPorcion:'2 cápsulas (2.8g)',proteina:0.54,calorias:20.96,carbos:0.20,grasas:2.00,omegaTotal:2000,epa:360,dha:240,omegaPorPorcion:600,costoPorPorcion:4.31,fuenteOmega:'anchoa',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.7,resenas:731,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0D9R7615K?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/61AW6RF4fUL._AC_SX679_.jpg'},
   {id:39,nombre:'Vitanna Aceite de Krill Antártico Superba2 1600mg Fosfolípidos + Astaxantina – 60 Softgels',marca:'Vitanna',tipo:'vitaminas',precio:652,peso:'60 softgels',porciones:30,duracion:30,porPorcion:'2 cápsulas (1.6g)',proteina:0.288,calorias:10.6,carbos:0.214,grasas:0.960,omegaTotal:1000,epa:120,dha:56,omegaPorPorcion:176,costoPorPorcion:21.73,fuenteOmega:'krill',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.9,resenas:15,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0G5VSJTPD?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/61ITjjWhfaL._AC_SL1500_.jpg'},
   {id:40,nombre:'SUPLINT Omega 3 de Aceite de Salmón 3000mg por Porción + Vitamina E – 120 Cápsulas',marca:'SUPLINT',tipo:'vitaminas',precio:399.98,peso:'120 cápsulas',porciones:40,duracion:40,porPorcion:'3 cápsulas (4350mg)',proteina:0,calorias:27,carbos:0,grasas:3,omegaTotal:3000,epa:540,dha:360,omegaPorPorcion:900,costoPorPorcion:10.00,fuenteOmega:'salmon',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.6,resenas:73,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0GWK56S87?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/81EnYWipPjL._AC_SX679_.jpg'},
+<<<<<<< HEAD
   // ── COMPLEJO B (ids 101–135) ──────────────────────────────────────────
   {id:101,nombre:'Vitalizate Complejo B Completo Vitamina B12 – 60 Cápsulas',marca:'Vitalizate',tipo:'complejo-b',precio:179,precioML:179,precioAmz:399,porciones:60,capsulasPorDia:1,porPorcion:'1 cápsula (700mg)',costoPorPorcion:2.98,b1:'15 mg',b2:'18 mg',b3:'25 mg',b5:'20 mg',b6:'10 mg',b7:'300 µg',b9:'400 µg',b12:'12 µg',formaB12:'cianocobalamina',vitaminasExtra:[{nombre:'Vitamina A',cantidad:'1,000 µg'},{nombre:'Vitamina C',cantidad:'300 mg'},{nombre:'Vitamina D',cantidad:'10 µg'},{nombre:'Vitamina E',cantidad:'200 mg'},{nombre:'Vitamina K',cantidad:'30 µg'}],certificaciones:[],estrellas:4.9,resenas:41,badges:[{t:'ML',c:'b-ml'},{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0G69764TB?tag=comparabici-20',linkML:'https://meli.la/2L2dD3A',img:'https://http2.mlstatic.com/D_NQ_NP_2X_746788-MLA115220572203_072026-F.webp'},
   {id:102,nombre:'SUPLINT Complejo B Vegano con Inositol y Colina – 90 Cápsulas',marca:'SUPLINT',tipo:'complejo-b',precio:219.99,precioML:219.99,precioAmz:298.99,porciones:90,capsulasPorDia:1,porPorcion:'1 cápsula (480mg)',costoPorPorcion:2.44,b1:'15 mg',b2:'18 mg',b3:'25 mg',b5:'20 mg',b6:'10 mg',b7:'300 mcg',b9:'400 mcg',b12:'12 mcg',formaB12:'cianocobalamina',vitaminasExtra:[{nombre:'Inositol',cantidad:'150 mg'},{nombre:'Bitartarato de Colina',cantidad:'100 mg'},{nombre:'Leucina',cantidad:'10 mg'}],certificaciones:['100% Vegano','Non GMO'],estrellas:4.8,resenas:88,badges:[{t:'ML',c:'b-ml'},{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0G25J2M6X?tag=comparabici-20',linkML:'https://meli.la/2o86X7Y',img:'https://http2.mlstatic.com/D_NQ_NP_2X_703370-MLA115100352358_082026-F.webp'},
@@ -350,6 +417,10 @@ function toggleFiltrosMobile() {
   arrow.textContent = open ? '▴' : '▾';
 }
 
+=======
+];
+
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
 // ── Estado ────────────────────────────────────────────────────
 let filtroTipo = 'todos';
 let sortActivo = 'precio-asc';
@@ -358,12 +429,15 @@ function setFiltro(tipo, el) {
   filtroTipo = tipo;
   document.querySelectorAll('#chips .chip').forEach(c => c.classList.remove('active'));
   el.classList.add('active');
+<<<<<<< HEAD
   // Actualizar miga de pan
   const catLabel = {todos:'Suplementos', vitaminas:'Suplementos › Omega 3 / Vitaminas', 'complejo-b':'Suplementos › Complejo B'};
   document.getElementById('breadcrumb-cat').textContent = catLabel[tipo] || 'Suplementos';
   // Al cambiar categoría, limpiar selección
   seleccionados = [];
   actualizarBarraCmp();
+=======
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
   render();
 }
 
@@ -375,6 +449,7 @@ function setSort(valor, el) {
 }
 
 // ── Render ────────────────────────────────────────────────────
+<<<<<<< HEAD
 const CATEGORIAS = [
   {
     tipo:'vitaminas',
@@ -426,6 +501,22 @@ function buscarDesdeNav(q, scrollResultados) {
 
 function sortLista(lista, sort) {
   return lista.slice().sort((a,b) => {
+=======
+function render() {
+  const sort = sortActivo;
+
+  const q = (document.getElementById('search-input').value || '').toLowerCase().trim();
+  let lista = filtroTipo === 'todos' ? [...productos] : productos.filter(p => p.tipo === filtroTipo);
+  if (q) lista = lista.filter(p =>
+    p.nombre.toLowerCase().includes(q) ||
+    p.marca.toLowerCase().includes(q) ||
+    (p.fuenteOmega||'').toLowerCase().includes(q) ||
+    (p.forma||'').toLowerCase().includes(q) ||
+    p.tipo.toLowerCase().includes(q)
+  );
+
+  lista.sort((a,b) => {
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
     switch(sort) {
       case 'precio-asc':    return a.precio - b.precio;
       case 'precio-desc':   return b.precio - a.precio;
@@ -436,6 +527,7 @@ function sortLista(lista, sort) {
       default: return 0;
     }
   });
+<<<<<<< HEAD
 }
 
 function render() {
@@ -514,6 +606,12 @@ function render() {
   lista = sortLista(lista, sort);
 
   document.getElementById('result-cnt').textContent = `${lista.length} producto${lista.length!==1?'s':''}`;
+=======
+
+  document.getElementById('result-cnt').textContent = `${lista.length} producto${lista.length!==1?'s':''}`;
+
+  const grid = document.getElementById('grid');
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
   if (!lista.length) {
     grid.innerHTML = '<div class="empty">Sin resultados para este filtro.</div>';
     return;
@@ -521,6 +619,7 @@ function render() {
   grid.innerHTML = lista.map(p => cardHTML(p)).join('');
 }
 
+<<<<<<< HEAD
 function irACategoria(tipo, idDestino) {
   filtroTipo = tipo;
   const chip = document.querySelector(`#chips .chip[data-tipo="${tipo}"]`);
@@ -541,6 +640,8 @@ function irACategoria(tipo, idDestino) {
   }
 }
 
+=======
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
 function cardHTML(p) {
   // Badges plataforma
   const bdgs = (p.badges||[]).map(b => `<span class="badge ${b.c}">${b.t}</span>`).join('');
@@ -556,6 +657,7 @@ function cardHTML(p) {
 
   // Métricas: según tipo
   let metricasHTML = '';
+<<<<<<< HEAD
   if (p.tipo === 'complejo-b') {
     const b12lbl = p.b12 || '—';
     metricasHTML = `
@@ -563,6 +665,9 @@ function cardHTML(p) {
       <div class="metric"><div class="metric-val">${p.porciones}</div><div class="metric-lbl">Porciones</div></div>
       <div class="metric"><div class="metric-val">$${p.costoPorPorcion.toFixed(2)}</div><div class="metric-lbl">$/porción</div></div>`;
   } else if (p.omegaTotal > 0) {
+=======
+  if (p.omegaTotal > 0) {
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
     metricasHTML = `
       <div class="metric"><div class="metric-val">${p.epa>0?p.epa+'mg':'—'}</div><div class="metric-lbl">EPA</div></div>
       <div class="metric"><div class="metric-val">${p.dha>0?p.dha+'mg':'—'}</div><div class="metric-lbl">DHA</div></div>
@@ -570,7 +675,11 @@ function cardHTML(p) {
   } else {
     metricasHTML = `
       <div class="metric"><div class="metric-val">${p.porciones}</div><div class="metric-lbl">Porciones</div></div>
+<<<<<<< HEAD
       <div class="metric"><div class="metric-val">${p.duracion||'—'}</div><div class="metric-lbl">Días</div></div>
+=======
+      <div class="metric"><div class="metric-val">${p.duracion} días</div><div class="metric-lbl">Duración</div></div>
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
       <div class="metric"><div class="metric-val">$${p.costoPorPorcion.toFixed(2)}</div><div class="metric-lbl">$/porción</div></div>`;
   }
 
@@ -579,6 +688,7 @@ function cardHTML(p) {
     ? `<div class="stars"><span class="stars-val">★ ${p.estrellas.toFixed(1)}</span><span class="stars-cnt">(${p.resenas.toLocaleString('es-MX')} reseñas)</span></div>`
     : '';
 
+<<<<<<< HEAD
   // Botones con logos — si hay ambas plataformas, mostrar precio encima de cada botón
   const tieneAmbos = p.linkAmz && p.linkML;
   const btnAmz = p.linkAmz ? `<a class="btn-buy btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow noopener">Ver en <img class="btn-logo" src="logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>` : '';
@@ -593,6 +703,16 @@ function cardHTML(p) {
     if (fuenteLbl && fuenteLbl !== '') detalles.push(`🐟 ${fuenteLbl}`);
     if (p.porciones > 0) detalles.push(`${p.porciones} porciones`);
   }
+=======
+  // Botones con logos oficiales
+  const btnAmz = p.linkAmz ? `<a class="btn-buy btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow noopener"><img class="btn-logo" src="logoamazon.png" alt="Amazon" onerror="this.style.display='none'">Amazon</a>` : '';
+  const btnML  = p.linkML  ? `<a class="btn-buy btn-ml"  href="${p.linkML}"  target="_blank" rel="nofollow noopener"><img class="btn-logo" src="logomercado.png" alt="ML" onerror="this.style.display='none'">Mercado Libre</a>` : '';
+
+  // Detalles
+  const detalles = [];
+  if (fuenteLbl && fuenteLbl !== '') detalles.push(`🐟 ${fuenteLbl}`);
+  if (p.porciones > 0) detalles.push(`${p.porciones} porciones`);
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
 
   return `
   <div class="card" id="card-${p.id}" onclick="toggleComparar(${p.id})" title="Clic para comparar">
@@ -609,6 +729,7 @@ function cardHTML(p) {
     <div class="metrics">${metricasHTML}</div>
     ${detalles.length ? `<div class="details">${detalles.map(d=>`<span class="detail-tag">${d}</span>`).join('')}</div>` : ''}
     <div class="card-bottom">
+<<<<<<< HEAD
       ${tieneAmbos ? `
       <div class="btns dual" onclick="event.stopPropagation()">
         <div class="dual-col">
@@ -624,6 +745,14 @@ function cardHTML(p) {
         <div class="price-main">$${p.precio.toLocaleString('es-MX')}</div>
       </div>
       <div class="btns" onclick="event.stopPropagation()">${btnAmz}${btnML}</div>`}
+=======
+      <div class="price-block">
+        <div class="price-main">$${p.precio.toLocaleString('es-MX')}</div>
+        <div class="price-sub">${p.porPorcion} · ${p.peso}</div>
+        ${p.omegaTotal>0?`<div class="costo-por">$${p.costoPorPorcion.toFixed(2)} por porción</div>`:''}
+      </div>
+      <div class="btns" onclick="event.stopPropagation()">${btnAmz}${btnML}</div>
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
     </div>
   </div>`;
 }
@@ -637,6 +766,7 @@ function toggleComparar(id) {
     seleccionados.splice(idx, 1);
   } else {
     if (seleccionados.length >= 3) { alert('Máximo 3 productos para comparar.'); return; }
+<<<<<<< HEAD
     // Solo permitir comparar productos del mismo tipo
     if (seleccionados.length > 0) {
       const tipoActual = productos.find(x => x.id === seleccionados[0]).tipo;
@@ -646,6 +776,8 @@ function toggleComparar(id) {
         return;
       }
     }
+=======
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
     seleccionados.push(id);
   }
   actualizarBarraCmp();
@@ -703,6 +835,7 @@ function abrirComparacion() {
 
   const colPct = Math.floor(90 / prods.length);
 
+<<<<<<< HEAD
   const cabeceras = prods.map(p => {
     const tieneAmbos = p.linkML && p.linkAmz;
     const btnsHeader = tieneAmbos
@@ -713,10 +846,14 @@ function abrirComparacion() {
       : `${p.linkML  ? `<a class="cmp-btn-buy btn-ml"  href="${p.linkML}"  target="_blank" rel="nofollow noopener">Ver en <img class="btn-logo" src="logomercado.png" alt="" onerror="this.style.display='none'"></a>` : ''}
          ${p.linkAmz ? `<a class="cmp-btn-buy btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow noopener">Ver en <img class="btn-logo" src="logoamazon.png" alt="" onerror="this.style.display='none'"></a>` : ''}`;
     return `
+=======
+  const cabeceras = prods.map(p => `
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
     <th class="col-prod" style="width:${colPct}%">
       <img class="cmp-img" src="${p.img}" alt="${p.nombre}" onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'60\' height=\'60\'><rect fill=\'%23f1f5f9\' width=\'60\' height=\'60\'/></svg>'">
       <div class="cmp-prod-name">${p.nombre}</div>
       <div class="cmp-prod-marca">${p.marca}</div>
+<<<<<<< HEAD
       ${btnsHeader}
     </th>`;
   }).join('');
@@ -730,10 +867,25 @@ function abrirComparacion() {
 
   // Filas omega (solo si todos son vitaminas con omega)
   const filasOmega = todosOmega ? `
+=======
+      ${p.linkML  ? `<a class="cmp-btn-buy btn-ml"  href="${p.linkML}"  target="_blank" rel="nofollow noopener">Ver en ML</a>`      : ''}
+      ${p.linkAmz ? `<a class="cmp-btn-buy btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow noopener">Ver en Amazon</a>` : ''}
+    </th>`).join('');
+
+  const fuenteLabel = f => ({anchoa:'🐟 Anchoa',salmon:'🐟 Salmón',linaza:'🌱 Linaza','krill':'🦐 Krill','krill+pescado':'🦐 Krill+Pescado','pollock':'🐟 Pollock','multi-pez':'🐟 Multi-pez','multi-pez+vegetal':'🐟+🌱 Mix',ninguna:'—'}[f] || f || '—');
+
+  // Detectar si hay mezcla de tipos
+  const tiposEnComparacion = [...new Set(prods.map(p => p.tipo))];
+  const esMezcla = tiposEnComparacion.length > 1 || prods.every(p => p.omegaTotal === 0);
+
+  // Filas omega (solo si todos tienen datos de omega)
+  const filasOmega = !esMezcla ? `
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
       ${fila('EPA',             prods.map(p => ({num:p.epa,              label:p.epa>0?p.epa+'mg':'—'})),               'max')}
       ${fila('DHA',             prods.map(p => ({num:p.dha,              label:p.dha>0?p.dha+'mg':'—'})),               'max')}
       ${fila('Omega/porción',   prods.map(p => ({num:p.omegaPorPorcion,  label:p.omegaPorPorcion>0?p.omegaPorPorcion+'mg':'—'})), 'max')}
       ${fila('Fuente',          prods.map(p => ({num:0,                  label:fuenteLabel(p.fuenteOmega)})),           null)}
+<<<<<<< HEAD
       ${fila('Sin metales pesados', prods.map(p => ({num:p.libreMetalesPesados?1:0, label:p.libreMetalesPesados?'✅':'—'})), 'max')}` : '';
 
   // Filas complejo B (solo si todos son complejo-b)
@@ -776,12 +928,17 @@ function abrirComparacion() {
       </td>`;
     }).join('')}
   </tr>`;
+=======
+      ${fila('Sin metales pesados', prods.map(p => ({num:p.libreMetalesPesados?1:0, label:p.libreMetalesPesados?'✅':'—'})), 'max')}
+      ${fila('Cert. IFOS',      prods.map(p => ({num:p.certificadoIFOS?1:0, label:p.certificadoIFOS?'✅':'—'})),        'max')}` : '';
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
 
   const tabla = `
   <table class="cmp-table">
     <thead><tr><th style="width:10%">Característica</th>${cabeceras}</tr></thead>
     <tbody>
       ${fila('Categoría',       prods.map(p => ({num:0, label:({vitaminas:'Omega 3 / Vitaminas','complejo-b':'Complejo B'})[p.tipo]||p.tipo})), null)}
+<<<<<<< HEAD
       <tr><td class="row-label">Precio total</td>${prods.map(p => {
         if (p.linkML && p.linkAmz && p.precioML && p.precioAmz) {
           return `<td><div style="display:flex;flex-direction:row;gap:10px;justify-content:center;font-size:.85rem">
@@ -822,6 +979,16 @@ function abrirComparacion() {
       ${fila('Calificación',    prods.map(p => ({num:p.estrellas,        label:p.estrellas>0?'★ '+p.estrellas.toFixed(1):'Sin reseñas'})), 'max')}
       ${fila('Reseñas',         prods.map(p => ({num:p.resenas,          label:p.resenas>0?p.resenas.toLocaleString('es-MX'):'—'})), 'max')}
       ${filaBtns}
+=======
+      ${fila('Precio total',    prods.map(p => ({num:p.precio,           label:'$'+p.precio.toLocaleString('es-MX')})), 'min')}
+      ${fila('$/porción',       prods.map(p => ({num:p.costoPorPorcion,  label:'$'+p.costoPorPorcion.toFixed(2)})),     'min')}
+      ${fila('Porciones',       prods.map(p => ({num:p.porciones,        label:String(p.porciones)})),                  'max')}
+      ${fila('Por porción',     prods.map(p => ({num:0,                  label:p.porPorcion||'—'})),                    null)}
+      ${filasOmega}
+      ${fila('Forma',           prods.map(p => ({num:0,                  label:p.forma||'—'})),                         null)}
+      ${fila('Calificación',    prods.map(p => ({num:p.estrellas,        label:p.estrellas>0?'★ '+p.estrellas.toFixed(1):'Sin reseñas'})), 'max')}
+      ${fila('Reseñas',         prods.map(p => ({num:p.resenas,          label:p.resenas>0?p.resenas.toLocaleString('es-MX'):'—'})), 'max')}
+>>>>>>> eb50f42390348e3bbfeafc2dccd2749d47828905
     </tbody>
   </table>`;
 
