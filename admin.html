@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin — comparalo.mx</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --g:#006847;--g2:#004d34;
+  --bg:#0f1117;--s:#1a1f2e;--s2:#242938;
+  --t:#e2e8f0;--t2:#94a3b8;--bd:#2d3348;
+  --amz:#f90;--ml:#f0c000;--red:#ef4444;--green:#22c55e;
+  font-family:Inter,sans-serif
+}
+body{background:var(--bg);color:var(--t);min-height:100vh}
+
+/* Login */
+#login{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+.login-box{background:var(--s);border:1px solid var(--bd);border-radius:14px;padding:40px 36px;width:360px;text-align:center}
+.login-logo{width:48px;height:48px;background:var(--g);border-radius:10px;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+.login-box h1{font-size:1.3rem;font-weight:700;margin-bottom:4px}
+.login-box p{color:var(--t2);font-size:.85rem;margin-bottom:24px}
+.login-box input{width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--bd);border-radius:8px;color:var(--t);font-size:.9rem;margin-bottom:10px;transition:border .15s}
+.login-box input:focus{outline:none;border-color:var(--g)}
+.login-box button{width:100%;padding:11px;background:var(--g);border:none;border-radius:8px;color:#fff;font-weight:600;cursor:pointer;font-size:.95rem}
+.login-box button:hover{background:var(--g2)}
+.err{color:var(--red);font-size:.82rem;margin-top:10px;min-height:18px}
+
+/* Header */
+header{background:var(--s);border-bottom:1px solid var(--bd);padding:12px 24px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100}
+.hdr-logo{width:28px;height:28px;background:var(--g);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.9rem}
+header h1{font-size:.95rem;font-weight:700;flex:1}
+#hdr-status{font-size:.78rem;padding:3px 10px;border-radius:20px;background:var(--s2);color:var(--t2)}
+#hdr-status.ok{background:rgba(34,197,94,.15);color:var(--green)}
+#hdr-status.err{background:rgba(239,68,68,.15);color:var(--red)}
+.btn-ghost{padding:6px 12px;background:none;border:1px solid var(--bd);border-radius:6px;color:var(--t2);cursor:pointer;font-size:.8rem}
+.btn-ghost:hover{border-color:var(--g);color:var(--g)}
+
+/* Download banner */
+.dl-banner{display:none;background:rgba(249,144,0,.1);border:1px solid var(--amz);border-radius:10px;margin:16px 24px 0;padding:14px 18px;align-items:center;gap:14px}
+.dl-banner.show{display:flex}
+.dl-banner p{flex:1;font-size:.85rem;color:var(--amz);line-height:1.5}
+.btn-dl{padding:9px 18px;background:var(--amz);border:none;border-radius:7px;color:#000;font-weight:700;cursor:pointer;font-size:.85rem;white-space:nowrap}
+
+/* Tabs */
+.tabs{display:flex;gap:2px;padding:14px 24px 0;border-bottom:1px solid var(--bd);background:var(--s);overflow-x:auto}
+.tab{padding:8px 18px;border-radius:8px 8px 0 0;font-size:.83rem;font-weight:500;cursor:pointer;color:var(--t2);border:none;background:none;white-space:nowrap}
+.tab:hover{color:var(--t)}
+.tab.active{background:var(--bg);color:var(--t);box-shadow:0 0 0 1px var(--bd);border-bottom:1px solid var(--bg);margin-bottom:-1px}
+.tab-cnt{opacity:.5;font-size:.72rem;margin-left:4px}
+
+/* Table */
+.section{padding:20px 24px}
+.section-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.section-hdr span{font-size:.8rem;color:var(--t2)}
+.search-wrap{position:relative}
+.search-wrap input{padding:7px 12px 7px 30px;background:var(--s);border:1px solid var(--bd);border-radius:7px;color:var(--t);font-size:.82rem;width:220px}
+.search-wrap input:focus{outline:none;border-color:var(--g)}
+.search-icon{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--t2);font-size:.8rem;pointer-events:none}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;padding:8px 12px;font-size:.72rem;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid var(--bd);white-space:nowrap}
+tr.row:hover{background:var(--s)}
+td{padding:10px 12px;border-bottom:1px solid rgba(45,51,72,.5);font-size:.84rem;vertical-align:middle}
+td.img-cell img{width:46px;height:46px;object-fit:cover;border-radius:7px;display:block}
+td.price{font-weight:700;font-variant-numeric:tabular-nums}
+.badge{display:inline-block;padding:2px 7px;border-radius:4px;font-size:.68rem;font-weight:700;margin:1px}
+.b-amz{background:var(--amz);color:#000}
+.b-ml{background:var(--ml);color:#000}
+.b-best{background:var(--green);color:#000}
+.b-sale{background:#f43f5e;color:#fff}
+.b-pop{background:#6366f1;color:#fff}
+.btn-edit{padding:5px 12px;background:var(--s2);border:1px solid var(--bd);border-radius:6px;color:var(--t);font-size:.78rem;cursor:pointer}
+.btn-edit:hover{border-color:var(--g);color:var(--g)}
+
+/* Modal */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
+.overlay.open{display:flex}
+.modal{background:var(--s);border:1px solid var(--bd);border-radius:14px;padding:24px;width:100%;max-width:540px;max-height:90vh;overflow-y:auto;position:relative}
+.modal h2{font-size:.95rem;font-weight:700;margin-bottom:16px;padding-right:36px;line-height:1.4}
+.modal-close{position:absolute;top:18px;right:18px;background:var(--s2);border:none;color:var(--t2);cursor:pointer;font-size:.9rem;width:28px;height:28px;border-radius:6px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-full{grid-column:1/-1}
+label{display:block;font-size:.72rem;font-weight:600;color:var(--t2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.04em}
+input[type=text],input[type=number],select,textarea{width:100%;padding:8px 10px;background:var(--bg);border:1px solid var(--bd);border-radius:7px;color:var(--t);font-size:.84rem;font-family:inherit}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--g)}
+select option{background:var(--s)}
+textarea{resize:vertical;min-height:66px;font-family:monospace;font-size:.78rem}
+.field-hint{font-size:.7rem;color:var(--t2);margin-top:4px}
+.modal-footer{display:flex;gap:8px;justify-content:flex-end;margin-top:18px;padding-top:16px;border-top:1px solid var(--bd)}
+.btn-cancel{padding:8px 16px;background:none;border:1px solid var(--bd);border-radius:7px;color:var(--t2);cursor:pointer;font-size:.85rem}
+.btn-save{padding:8px 20px;background:var(--g);border:none;border-radius:7px;color:#fff;font-weight:600;cursor:pointer;font-size:.85rem}
+.btn-save:hover{background:var(--g2)}
+
+/* Toast */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--s2);border:1px solid var(--bd);border-radius:10px;padding:12px 18px;font-size:.83rem;z-index:300;opacity:0;transform:translateY(8px);transition:all .2s;pointer-events:none}
+.toast.show{opacity:1;transform:none}
+.toast.ok{border-color:var(--green);color:var(--green)}
+.toast.err{border-color:var(--red);color:var(--red)}
+</style>
+</head>
+<body>
+
+<!-- Login -->
+<div id="login">
+  <div class="login-box">
+    <div class="login-logo">⚙</div>
+    <h1>Admin Panel</h1>
+    <p>comparalo.mx</p>
+    <input type="password" id="pwd" placeholder="Contraseña"
+           onkeydown="if(event.key==='Enter')doLogin()">
+    <button onclick="doLogin()">Entrar</button>
+    <div class="err" id="login-err"></div>
+  </div>
+</div>
+
+<!-- Admin -->
+<div id="admin" hidden>
+  <header>
+    <div class="hdr-logo">⚙</div>
+    <h1>Admin — comparalo.mx</h1>
+    <span id="hdr-status">Cargando...</span>
+    <button class="btn-ghost" onclick="loadFile()">↺ Recargar</button>
+    <button class="btn-ghost" onclick="doLogout()">Salir</button>
+  </header>
+
+  <!-- Banner de descarga -->
+  <div class="dl-banner" id="dl-banner">
+    <p>✅ Cambios listos. Descarga el archivo y súbelo a GitHub para publicar.</p>
+    <button class="btn-dl" onclick="downloadFile()">⬇ Descargar index.html</button>
+  </div>
+
+  <div class="tabs" id="tabs"></div>
+  <div class="section" id="section-content"></div>
+</div>
+
+<!-- Modal -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h2 id="modal-title">Editar producto</h2>
+    <div class="form-grid" id="modal-form"></div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+      <button class="btn-save" onclick="saveEdit()">Guardar cambios</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const PASS      = 'comparalo2025';
+const SITE_URL  = 'https://radiant-creponne-2df732.netlify.app';
+const SECS      = ['ELECTRICAS','MONTANA','RUTA','GRAVEL'];
+const LABELS    = {ELECTRICAS:'⚡ Eléctricas',MONTANA:'🏔 Montaña',RUTA:'🚴 Ruta',GRAVEL:'🪨 Gravel'};
+const TIPOS     = ['plegable','urbana','mtb','ruta','gravel','otro'];
+
+let rawContent = '', products = {}, activeTab = 'ELECTRICAS', editProduct = null, query = '', hasChanges = false;
+
+// ── Auth ────────────────────────────────────────────────────
+function doLogin() {
+  if (document.getElementById('pwd').value === PASS) {
+    sessionStorage.setItem('cmp_adm','1');
+    document.getElementById('login').hidden = true;
+    document.getElementById('admin').hidden = false;
+    loadFile();
+  } else {
+    document.getElementById('login-err').textContent = 'Contraseña incorrecta';
+  }
+}
+function doLogout() { sessionStorage.removeItem('cmp_adm'); location.reload(); }
+if (sessionStorage.getItem('cmp_adm')==='1') {
+  document.getElementById('login').hidden = true;
+  document.getElementById('admin').hidden = false;
+  setTimeout(loadFile, 0);
+}
+
+// ── Cargar desde Netlify (público, sin auth) ─────────────────
+async function loadFile() {
+  setStatus('Cargando...','');
+  try {
+    const r = await fetch(`${SITE_URL}/index.html?t=${Date.now()}`);
+    if (!r.ok) throw new Error(r.status);
+    rawContent = await r.text();
+    parseAll();
+    renderTabs();
+    renderSection();
+    setStatus('Listo ✓','ok');
+  } catch(e) {
+    setStatus('Error al cargar','err');
+    toast('No se pudo cargar el archivo: ' + e.message,'err');
+  }
+}
+
+// ── Parse ───────────────────────────────────────────────────
+function parseAll() {
+  products = {};
+  for (const sec of SECS) {
+    const marker = `const ${sec} = [`;
+    const si = rawContent.indexOf(marker);
+    if (si === -1) { products[sec] = []; continue; }
+    const arrStart = rawContent.indexOf('[', si) + 1;
+    let depth = 1, i = arrStart;
+    while (i < rawContent.length && depth > 0) {
+      if (rawContent[i]==='[') depth++;
+      else if (rawContent[i]===']') depth--;
+      i++;
+    }
+    try { products[sec] = new Function('return [' + rawContent.slice(arrStart, i-1) + ']')(); }
+    catch(e) { products[sec] = []; }
+  }
+}
+
+// ── Render ──────────────────────────────────────────────────
+function renderTabs() {
+  document.getElementById('tabs').innerHTML = SECS.map(s =>
+    `<button class="tab${s===activeTab?' active':''}" onclick="switchTab('${s}')">
+      ${LABELS[s]}<span class="tab-cnt">${(products[s]||[]).length}</span>
+    </button>`
+  ).join('');
+}
+function switchTab(sec) { activeTab = sec; query = ''; renderTabs(); renderSection(); }
+
+function renderSection() {
+  const all  = products[activeTab] || [];
+  const list = query ? all.filter(p => (p.nombre+p.marca).toLowerCase().includes(query.toLowerCase())) : all;
+  document.getElementById('section-content').innerHTML = `
+    <div class="section-hdr">
+      <span>${list.length} de ${all.length} productos</span>
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" placeholder="Buscar..." value="${esc4html(query)}"
+               oninput="query=this.value;renderSection()" autocomplete="off">
+      </div>
+    </div>
+    <div class="table-wrap"><table>
+      <thead><tr>
+        <th></th><th>#</th><th>Nombre</th><th>Precio</th><th>★</th><th>Plataforma</th><th></th>
+      </tr></thead>
+      <tbody>${list.map(p => `
+        <tr class="row">
+          <td class="img-cell">${p.img?`<img src="${esc4html(p.img)}" loading="lazy" onerror="this.style.display='none'">`:'—'}</td>
+          <td style="color:var(--t2);font-size:.72rem">${p.id}</td>
+          <td><div style="font-weight:500">${esc4html(p.nombre||'')}</div>
+              <div style="color:var(--t2);font-size:.75rem">${esc4html(p.marca||'')} · ${p.tipo||''}</div></td>
+          <td class="price">$${(p.precio||0).toLocaleString('es-MX')}</td>
+          <td style="color:var(--t2);font-size:.8rem">${p.estrellas||0}★ (${(p.resenas||0).toLocaleString()})</td>
+          <td>${(p.badges||[]).map(b=>`<span class="badge ${esc4html(b.c)}">${esc4html(b.t)}</span>`).join('')}</td>
+          <td><button class="btn-edit" onclick="openEdit(${p.id})">Editar</button></td>
+        </tr>`).join('')}
+      </tbody>
+    </table></div>`;
+}
+
+// ── Modal ───────────────────────────────────────────────────
+function openEdit(id) {
+  const p = (products[activeTab]||[]).find(x => x.id === id);
+  if (!p) return;
+  editProduct = JSON.parse(JSON.stringify(p));
+  document.getElementById('modal-title').textContent = `Editar #${p.id} — ${p.nombre}`;
+  document.getElementById('modal-form').innerHTML = `
+    <div><label>Precio ($)</label><input type="number" id="f-precio" value="${p.precio||0}" min="0"></div>
+    <div><label>Tipo</label>
+      <select id="f-tipo">${TIPOS.map(t=>`<option${p.tipo===t?' selected':''}>${t}</option>`).join('')}</select></div>
+    <div><label>Estrellas</label><input type="number" id="f-stars" value="${p.estrellas||0}" min="0" max="5" step="0.1"></div>
+    <div><label>Reseñas</label><input type="number" id="f-resenas" value="${p.resenas||0}" min="0"></div>
+    <div class="form-full"><label>Nombre</label><input type="text" id="f-nombre" value="${esc4html(p.nombre||'')}"></div>
+    <div class="form-full"><label>Marca</label><input type="text" id="f-marca" value="${esc4html(p.marca||'')}"></div>
+    <div class="form-full"><label>Link Amazon</label><input type="text" id="f-lamz" value="${esc4html(p.linkAmz||'')}"></div>
+    <div class="form-full"><label>Link Mercado Libre</label><input type="text" id="f-lml" value="${esc4html(p.linkML||'')}"></div>
+    <div class="form-full"><label>URL de imagen</label><input type="text" id="f-img" value="${esc4html(p.img||'')}"></div>
+    <div class="form-full"><label>Badges <span style="font-weight:400;text-transform:none;font-size:.68rem">(una por línea: texto|clase)</span></label>
+      <textarea id="f-badges">${(p.badges||[]).map(b=>`${b.t}|${b.c}`).join('\n')}</textarea>
+      <div class="field-hint">Clases: b-amz · b-ml · b-best · b-sale · b-pop</div></div>`;
+  document.getElementById('overlay').classList.add('open');
+  document.getElementById('f-precio').focus();
+}
+
+function closeModal() { document.getElementById('overlay').classList.remove('open'); editProduct = null; }
+
+function saveEdit() {
+  if (!editProduct) return;
+  editProduct.precio    = parseInt(document.getElementById('f-precio').value)||0;
+  editProduct.tipo      = document.getElementById('f-tipo').value;
+  editProduct.estrellas = parseFloat(document.getElementById('f-stars').value)||0;
+  editProduct.resenas   = parseInt(document.getElementById('f-resenas').value)||0;
+  editProduct.nombre    = document.getElementById('f-nombre').value.trim();
+  editProduct.marca     = document.getElementById('f-marca').value.trim();
+  editProduct.linkAmz   = document.getElementById('f-lamz').value.trim();
+  editProduct.linkML    = document.getElementById('f-lml').value.trim();
+  editProduct.img       = document.getElementById('f-img').value.trim();
+  editProduct.badges    = document.getElementById('f-badges').value.trim().split('\n')
+    .filter(Boolean).map(l=>{const[t,c]=l.split('|');return{t:(t||'').trim(),c:(c||'').trim()}})
+    .filter(b=>b.t&&b.c);
+
+  if (!updateRaw(editProduct)) return;
+
+  const sec = products[activeTab];
+  const idx = sec.findIndex(x => x.id === editProduct.id);
+  if (idx >= 0) sec[idx] = {...editProduct};
+
+  hasChanges = true;
+  document.getElementById('dl-banner').classList.add('show');
+  closeModal();
+  renderSection();
+  toast('Cambio guardado en memoria. Descarga el archivo para publicar.','ok');
+}
+
+// ── Actualizar rawContent ────────────────────────────────────
+function updateRaw(p) {
+  const marker = `{id:${p.id},`;
+  const start  = rawContent.indexOf(marker);
+  if (start === -1) { toast('No encontré id:' + p.id,'err'); return false; }
+  let depth = 0, i = start;
+  while (i < rawContent.length) {
+    if (rawContent[i]==='{') depth++;
+    else if (rawContent[i]==='}') { depth--; if (depth===0) break; }
+    i++;
+  }
+  rawContent = rawContent.slice(0, start) + buildBlock(p) + rawContent.slice(i+1);
+  return true;
+}
+
+function esc(s)     { return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
+function esc4html(s){ return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function buildBlock(p) {
+  const badges = '[' + (p.badges||[]).map(b=>`{t:'${esc(b.t)}',c:'${esc(b.c)}'}`).join(',') + ']';
+  return `{id:${p.id},nombre:'${esc(p.nombre)}',marca:'${esc(p.marca)}',tipo:'${esc(p.tipo)}',
+   precio:${p.precio},velocidad:${p.velocidad||0},peso:${p.peso||0},rueda:'${esc(p.rueda||'')}',velocidades:'${esc(p.velocidades||'—')}',cargaMax:${p.cargaMax||0},
+   estrellas:${p.estrellas},resenas:${p.resenas},
+   badges:${badges},
+   linkAmz:'${esc(p.linkAmz||'')}',linkML:'${esc(p.linkML||'')}',
+   img:'${esc(p.img||'')}'}`;
+}
+
+// ── Descargar archivo modificado ─────────────────────────────
+function downloadFile() {
+  const blob = new Blob([rawContent], { type: 'text/html' });
+  const a    = document.createElement('a');
+  a.href     = URL.createObjectURL(blob);
+  a.download = 'index.html';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast('Archivo descargado. Súbelo a GitHub para publicar.','ok');
+}
+
+// ── Helpers ──────────────────────────────────────────────────
+function setStatus(msg, cls) {
+  const el = document.getElementById('hdr-status');
+  el.textContent = msg; el.className = cls || '';
+}
+function toast(msg, cls) {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.className = 'toast show' + (cls?' '+cls:'');
+  clearTimeout(el._t); el._t = setTimeout(()=>el.className='toast', 4000);
+}
+document.getElementById('overlay').addEventListener('click', e=>{ if(e.target===e.currentTarget) closeModal(); });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
+</script>
+</body>
+</html>
