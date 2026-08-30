@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<title>Redirigiendo… – comparalo.mx</title>
+<script>
+(function() {
+  var path = window.location.pathname.toLowerCase();
+  var dest = '/suplementos.html';
+  if (/^\/suplementos\/magnesio$/i.test(window.location.pathname)) {
+    dest = '/magnesio.html';
+  } else if (/^\/suplementos\/prote[ií]na$/i.test(window.location.pathname)) {
+    dest = '/proteina.html';
+  } else if (/^\/suplementos\//i.test(window.location.pathname)) {
+    sessionStorage.setItem('suplementos_redirect_path', window.location.pathname);
+    dest = '/suplementos.html';
+  }
+  window.location.replace(dest);
+})();
+</script>
+</head>
+<body></body>
+</html>
