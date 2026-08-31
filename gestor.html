@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gestor de Productos — comparalo.mx</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --g:#006847;--g2:#004d34;
+  --bg:#0f1117;--s:#1a1f2e;--s2:#242938;--s3:#2d3348;
+  --t:#e2e8f0;--t2:#94a3b8;--t3:#64748b;
+  --bd:#2d3348;--bd2:#3d4462;
+  --amz:#f90;--ml:#f0c000;--red:#ef4444;--green:#22c55e;--blue:#3b82f6;--purple:#a855f7;
+  font-family:Inter,sans-serif
+}
+body{background:var(--bg);color:var(--t);min-height:100vh;font-size:14px}
+
+/* ── HEADER ── */
+header{background:var(--s);border-bottom:1px solid var(--bd);padding:0 24px;display:flex;align-items:center;gap:12px;height:56px;position:sticky;top:0;z-index:100}
+.hdr-logo{background:var(--g);color:#fff;border-radius:8px;padding:4px 10px;font-size:.82rem;font-weight:700;letter-spacing:.03em}
+header h1{font-size:.92rem;font-weight:700;flex:1}
+#hdr-db{font-size:.75rem;color:var(--t2)}
+.hdr-actions{display:flex;gap:8px}
+.btn-hdr{padding:5px 14px;border:1px solid var(--bd);border-radius:6px;background:none;color:var(--t2);cursor:pointer;font-size:.78rem;transition:all .15s}
+.btn-hdr:hover{border-color:var(--g);color:var(--g)}
+.btn-hdr.primary{background:var(--g);border-color:var(--g);color:#fff}
+.btn-hdr.primary:hover{background:var(--g2)}
+
+/* ── TABS ── */
+.tabs-wrap{background:var(--s);border-bottom:1px solid var(--bd);padding:0 24px;display:flex;gap:0;overflow-x:auto}
+.tab{padding:10px 18px;font-size:.82rem;font-weight:500;cursor:pointer;color:var(--t2);background:none;border:none;border-bottom:2px solid transparent;white-space:nowrap;transition:all .15s}
+.tab:hover{color:var(--t)}
+.tab.active{color:var(--g);border-bottom-color:var(--g);font-weight:600}
+.tab-cnt{font-size:.68rem;background:var(--s2);border-radius:10px;padding:1px 6px;margin-left:5px;color:var(--t3)}
+.tab.active .tab-cnt{background:rgba(0,104,71,.2);color:var(--g)}
+
+/* ── PANEL PRINCIPAL ── */
+#panel{padding:20px 24px}
+
+/* ── TOOLBAR ── */
+.toolbar{display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.search-wrap{position:relative;flex:1;min-width:200px;max-width:360px}
+.search-wrap input{width:100%;padding:7px 12px 7px 32px;background:var(--s);border:1px solid var(--bd);border-radius:7px;color:var(--t);font-size:.82rem}
+.search-wrap input:focus{outline:none;border-color:var(--g)}
+.search-ico{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--t2);pointer-events:none}
+.filter-sel{padding:6px 10px;background:var(--s);border:1px solid var(--bd);border-radius:7px;color:var(--t);font-size:.8rem;cursor:pointer}
+.filter-sel option{background:var(--s2)}
+.info-cnt{font-size:.78rem;color:var(--t2);margin-left:auto}
+.btn-sm{padding:6px 13px;border:1px solid var(--bd);border-radius:6px;background:none;color:var(--t2);cursor:pointer;font-size:.78rem;transition:all .15s;white-space:nowrap}
+.btn-sm:hover{border-color:var(--g);color:var(--g)}
+.btn-sm.green{background:var(--g);border-color:var(--g);color:#fff}
+.btn-sm.green:hover{background:var(--g2)}
+.btn-sm.red{background:rgba(239,68,68,.1);border-color:var(--red);color:var(--red)}
+
+/* ── TABLE ── */
+.table-wrap{overflow-x:auto;border:1px solid var(--bd);border-radius:10px}
+table{width:100%;border-collapse:collapse;min-width:700px}
+th{text-align:left;padding:9px 12px;font-size:.7rem;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;background:var(--s);border-bottom:1px solid var(--bd);white-space:nowrap;cursor:pointer;user-select:none}
+th:hover{color:var(--t)}
+tr.row{transition:background .1s}
+tr.row:hover{background:var(--s)}
+td{padding:9px 12px;border-bottom:1px solid rgba(45,51,72,.4);font-size:.83rem;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+td.img-cell img{width:42px;height:42px;object-fit:contain;border-radius:6px;background:var(--s2);display:block}
+td.img-cell .no-img{width:42px;height:42px;background:var(--s2);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--t3);font-size:.65rem}
+td.price{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+td.mono{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--t2)}
+.badge{display:inline-block;padding:2px 7px;border-radius:4px;font-size:.66rem;font-weight:700;margin:1px}
+.b-amz{background:rgba(255,153,0,.15);color:#f90;border:1px solid rgba(255,153,0,.3)}
+.b-ml{background:rgba(240,192,0,.15);color:#c8a000;border:1px solid rgba(240,192,0,.3)}
+.status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}
+.st-ok{background:var(--green)}
+.st-changed{background:var(--amz)}
+.st-gone{background:var(--red)}
+.st-pending{background:var(--t3)}
+.status-label{font-size:.75rem}
+
+/* ── ROW ACTIONS ── */
+.row-actions{display:flex;gap:4px;flex-wrap:nowrap}
+.btn-act{padding:4px 9px;border:1px solid var(--bd);border-radius:5px;background:none;color:var(--t2);cursor:pointer;font-size:.73rem;transition:all .12s;white-space:nowrap}
+.btn-act:hover{border-color:var(--g);color:var(--g)}
+.btn-act.verify{border-color:var(--blue);color:var(--blue)}
+.btn-act.verify:hover{background:rgba(59,130,246,.1)}
+.btn-act.gone{border-color:var(--red);color:var(--red)}
+.btn-act.gone:hover{background:rgba(239,68,68,.1)}
+
+/* ── MODAL ── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:300;display:none;align-items:center;justify-content:center;padding:20px}
+.overlay.open{display:flex}
+.modal{background:var(--s);border:1px solid var(--bd);border-radius:14px;padding:0;width:100%;max-width:600px;max-height:92vh;display:flex;flex-direction:column;overflow:hidden}
+.modal-hdr{padding:18px 22px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.modal-hdr h2{font-size:.92rem;font-weight:700}
+.modal-close{background:var(--s2);border:none;color:var(--t2);cursor:pointer;width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:all .15s}
+.modal-close:hover{color:var(--t)}
+.modal-body{padding:20px 22px;overflow-y:auto;flex:1}
+.modal-footer{padding:14px 22px;border-top:1px solid var(--bd);display:flex;gap:8px;justify-content:flex-end;flex-shrink:0}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-full{grid-column:1/-1}
+label{display:block;font-size:.7rem;font-weight:600;color:var(--t2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.04em}
+input[type=text],input[type=number],select,textarea{width:100%;padding:8px 10px;background:var(--bg);border:1px solid var(--bd);border-radius:7px;color:var(--t);font-size:.83rem;font-family:inherit;transition:border .15s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--g)}
+select option{background:var(--s2)}
+textarea{resize:vertical;font-family:'JetBrains Mono',monospace;font-size:.76rem;min-height:72px}
+.field-hint{font-size:.68rem;color:var(--t3);margin-top:4px}
+.btn-modal{padding:8px 18px;border:none;border-radius:7px;cursor:pointer;font-size:.83rem;font-weight:600;transition:all .15s;display:flex;align-items:center;gap:6px}
+.btn-modal.cancel{background:none;border:1px solid var(--bd);color:var(--t2)}
+.btn-modal.cancel:hover{border-color:var(--t2);color:var(--t)}
+.btn-modal.save{background:var(--g);color:#fff}
+.btn-modal.save:hover:not(:disabled){background:var(--g2)}
+.btn-modal.save:disabled{opacity:.5;cursor:not-allowed}
+.spinner{width:13px;height:13px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none}
+.btn-modal.save.loading .spinner{display:block}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── GENERATE TAB ── */
+.gen-wrap{display:grid;grid-template-columns:260px 1fr;gap:20px;align-items:start}
+.gen-sidebar{background:var(--s);border:1px solid var(--bd);border-radius:10px;padding:16px}
+.gen-sidebar h3{font-size:.82rem;font-weight:600;margin-bottom:12px;color:var(--t2);text-transform:uppercase;letter-spacing:.05em}
+.cat-btn{display:flex;align-items:center;justify-content:space-between;width:100%;padding:9px 12px;border:1px solid var(--bd);border-radius:7px;background:none;color:var(--t);cursor:pointer;font-size:.83rem;margin-bottom:6px;transition:all .15s}
+.cat-btn:hover{border-color:var(--g);color:var(--g)}
+.cat-btn.active{background:rgba(0,104,71,.12);border-color:var(--g);color:var(--g);font-weight:600}
+.cat-btn-cnt{font-size:.7rem;opacity:.6}
+.gen-output{background:var(--s);border:1px solid var(--bd);border-radius:10px;padding:16px}
+.gen-output h3{font-size:.82rem;font-weight:600;margin-bottom:10px;color:var(--t2);display:flex;align-items:center;justify-content:space-between}
+.code-box{background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:14px;font-family:'JetBrains Mono',monospace;font-size:.72rem;color:#a5d6a7;overflow:auto;max-height:560px;white-space:pre;line-height:1.6}
+.gen-placeholder{display:flex;align-items:center;justify-content:center;height:200px;color:var(--t3);font-size:.85rem}
+
+/* ── VERIFICAR TAB ── */
+.ver-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.ver-stat{background:var(--s);border:1px solid var(--bd);border-radius:10px;padding:14px}
+.ver-stat-n{font-size:1.6rem;font-weight:700}
+.ver-stat-l{font-size:.75rem;color:var(--t2);margin-top:2px}
+.ver-table-wrap{border:1px solid var(--bd);border-radius:10px;overflow:hidden}
+.ver-row{display:grid;grid-template-columns:42px 1fr auto auto 180px;gap:12px;align-items:center;padding:10px 14px;border-bottom:1px solid rgba(45,51,72,.4)}
+.ver-row:last-child{border-bottom:none}
+.ver-row:hover{background:var(--s)}
+.ver-img img{width:42px;height:42px;object-fit:contain;border-radius:6px;background:var(--s2)}
+.ver-name{font-size:.83rem;font-weight:500;line-height:1.3}
+.ver-cat{font-size:.7rem;color:var(--t2);margin-top:2px}
+.ver-price{font-size:.83rem;font-weight:700;text-align:right;white-space:nowrap}
+.ver-status{text-align:center}
+.ver-actions{display:flex;gap:5px;justify-content:flex-end}
+.btn-ver{padding:4px 10px;border-radius:5px;border:1px solid var(--bd);background:none;color:var(--t2);cursor:pointer;font-size:.72rem;transition:all .12s}
+.btn-ver.ml{border-color:rgba(240,192,0,.4);color:#c8a000}
+.btn-ver.ml:hover{background:rgba(240,192,0,.1)}
+.btn-ver.amz{border-color:rgba(255,153,0,.4);color:#f90}
+.btn-ver.amz:hover{background:rgba(255,153,0,.1)}
+.btn-ver.mark-ok{border-color:var(--green);color:var(--green)}
+.btn-ver.mark-ok:hover{background:rgba(34,197,94,.1)}
+.btn-ver.mark-gone{border-color:var(--red);color:var(--red)}
+.btn-ver.mark-gone:hover{background:rgba(239,68,68,.1)}
+
+/* ── VIDEOS TAB ── */
+.videos-toolbar{display:flex;gap:8px;align-items:center;margin-bottom:16px}
+.video-card{background:var(--s);border:1px solid var(--bd);border-radius:10px;padding:14px;display:grid;grid-template-columns:80px 1fr auto;gap:12px;align-items:center;margin-bottom:8px}
+.video-thumb{width:80px;height:52px;background:var(--s2);border-radius:6px;overflow:hidden;flex-shrink:0}
+.video-thumb img{width:100%;height:100%;object-fit:cover}
+.video-title{font-size:.84rem;font-weight:500;line-height:1.3}
+.video-meta{font-size:.72rem;color:var(--t2);margin-top:3px}
+.video-actions{display:flex;gap:5px}
+
+/* ── EMPTY / TOAST ── */
+.empty{text-align:center;padding:48px 20px;color:var(--t3)}
+.toast{position:fixed;bottom:22px;right:22px;background:var(--s2);border:1px solid var(--bd);border-radius:10px;padding:11px 16px;font-size:.82rem;z-index:999;opacity:0;transform:translateY(6px);transition:all .2s;pointer-events:none;max-width:300px}
+.toast.show{opacity:1;transform:none}
+.toast.ok{border-color:var(--green);color:var(--green)}
+.toast.err{border-color:var(--red);color:var(--red)}
+.toast.info{border-color:var(--blue);color:var(--blue)}
+
+/* ── SECTION TITLE ── */
+.sec-title{font-size:.8rem;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px}
+
+@media(max-width:700px){
+  #panel{padding:14px}
+  .gen-wrap{grid-template-columns:1fr}
+  .ver-grid{grid-template-columns:1fr 1fr}
+  .ver-row{grid-template-columns:1fr auto}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="hdr-logo">⚙ GCP</div>
+  <h1>Gestor de Productos — comparalo.mx</h1>
+  <span id="hdr-db">Sin base de datos cargada</span>
+  <div class="hdr-actions">
+    <button class="btn-hdr" onclick="openDB()">📂 Abrir JSON</button>
+    <button class="btn-hdr" onclick="document.getElementById('inp-html').click()">⬇ Importar .html</button>
+    <button class="btn-hdr" id="btn-save-db" onclick="saveDB()" disabled>💾 Guardar JSON</button>
+    <button class="btn-hdr primary" onclick="document.getElementById('inp-new').click()">＋ Nueva categoría</button>
+  </div>
+  <input type="file" id="inp-file" accept=".json"  style="display:none" onchange="loadDB(this)">
+  <input type="file" id="inp-new"  accept=".json"  style="display:none" onchange="newCat(this)">
+  <input type="file" id="inp-html" accept=".html"  style="display:none" onchange="importFromHTML(this)">
+</header>
+
+<!-- TABS -->
+<div class="tabs-wrap" id="tabs-wrap">
+  <button class="tab active" onclick="switchTab('productos')" id="tab-productos">📦 Productos <span class="tab-cnt" id="cnt-productos">0</span></button>
+  <button class="tab" onclick="switchTab('verificar')"  id="tab-verificar">🔍 Verificar <span class="tab-cnt" id="cnt-verificar">0</span></button>
+  <button class="tab" onclick="switchTab('generar')"    id="tab-generar">⚡ Generar código</button>
+  <button class="tab" onclick="switchTab('videos')"     id="tab-videos">🎬 Video reseñas <span class="tab-cnt" id="cnt-videos">0</span></button>
+</div>
+
+<!-- PANEL -->
+<div id="panel">
+
+  <!-- ── TAB: PRODUCTOS ── -->
+  <div id="view-productos">
+    <div class="toolbar">
+      <div class="search-wrap">
+        <span class="search-ico">🔍</span>
+        <input type="text" id="q-prod" placeholder="Buscar producto, marca..." oninput="renderProductos()">
+      </div>
+      <select class="filter-sel" id="f-cat" onchange="renderProductos()">
+        <option value="">Todas las categorías</option>
+      </select>
+      <select class="filter-sel" id="f-plat" onchange="renderProductos()">
+        <option value="">Todas las plataformas</option>
+        <option value="ml">Solo Mercado Libre</option>
+        <option value="amz">Solo Amazon</option>
+        <option value="dual">Ambas plataformas</option>
+      </select>
+      <select class="filter-sel" id="f-status" onchange="renderProductos()">
+        <option value="">Todos los estados</option>
+        <option value="pending">Sin verificar</option>
+        <option value="ok">Activo</option>
+        <option value="changed">Precio cambió</option>
+        <option value="gone">No disponible</option>
+      </select>
+      <span class="info-cnt" id="info-prod"></span>
+      <button class="btn-sm green" onclick="openNewProduct()">＋ Agregar</button>
+    </div>
+    <div class="table-wrap">
+      <table id="tbl-productos">
+        <thead><tr>
+          <th style="width:52px"></th>
+          <th onclick="sortBy('id')">#</th>
+          <th onclick="sortBy('nombre')">Nombre</th>
+          <th onclick="sortBy('categoria')">Categoría</th>
+          <th onclick="sortBy('precio')">Precio</th>
+          <th>Plataforma</th>
+          <th>Estado</th>
+          <th>Verificado</th>
+          <th></th>
+        </tr></thead>
+        <tbody id="tbody-productos">
+          <tr><td colspan="9"><div class="empty">Carga un archivo JSON para comenzar</div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── TAB: VERIFICAR ── -->
+  <div id="view-verificar" hidden>
+    <div class="ver-grid">
+      <div class="ver-stat"><div class="ver-stat-n" id="vs-total" style="color:var(--t)">0</div><div class="ver-stat-l">Total productos</div></div>
+      <div class="ver-stat"><div class="ver-stat-n" id="vs-pending" style="color:var(--t3)">0</div><div class="ver-stat-l">Sin verificar</div></div>
+      <div class="ver-stat"><div class="ver-stat-n" id="vs-ok" style="color:var(--green)">0</div><div class="ver-stat-l">Activos</div></div>
+    </div>
+    <p class="field-hint" style="margin-bottom:14px">Haz clic en "Abrir ML" o "Abrir AMZ" para revisar el enlace, luego marca el resultado.</p>
+    <div class="ver-table-wrap" id="ver-list">
+      <div class="empty">Sin productos cargados</div>
+    </div>
+  </div>
+
+  <!-- ── TAB: GENERAR ── -->
+  <div id="view-generar" hidden>
+    <div class="gen-wrap">
+      <div class="gen-sidebar">
+        <h3>Categoría</h3>
+        <div id="gen-cats"><div class="empty" style="padding:20px">Sin categorías</div></div>
+      </div>
+      <div class="gen-output">
+        <h3>
+          <span id="gen-title">Selecciona una categoría</span>
+          <button class="btn-sm" id="btn-copy-code" onclick="copyCode()" style="display:none">📋 Copiar</button>
+        </h3>
+        <div id="gen-code-box"><div class="gen-placeholder">← Selecciona una categoría</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB: VIDEOS ── -->
+  <div id="view-videos" hidden>
+    <div class="videos-toolbar">
+      <div class="search-wrap">
+        <span class="search-ico">🔍</span>
+        <input type="text" id="q-vid" placeholder="Buscar video, producto..." oninput="renderVideos()">
+      </div>
+      <select class="filter-sel" id="f-vid-cat" onchange="renderVideos()">
+        <option value="">Todas las categorías</option>
+      </select>
+      <span class="info-cnt" id="info-vid" style="margin-left:0"></span>
+      <button class="btn-sm green" onclick="openNewVideo()">＋ Agregar video</button>
+    </div>
+    <div id="videos-list"><div class="empty">Sin videos registrados</div></div>
+  </div>
+
+</div><!-- /panel -->
+
+<!-- MODAL EDITAR PRODUCTO -->
+<div class="overlay" id="overlay-prod">
+  <div class="modal">
+    <div class="modal-hdr">
+      <h2 id="mprod-title">Editar producto</h2>
+      <button class="modal-close" onclick="closeModal('overlay-prod')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid" id="mprod-form"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-modal cancel" onclick="closeModal('overlay-prod')">Cancelar</button>
+      <button class="btn-modal save" id="btn-mprod-save" onclick="saveProd()">
+        <span class="spinner"></span>
+        <span class="lbl">Guardar</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL NUEVO VIDEO -->
+<div class="overlay" id="overlay-vid">
+  <div class="modal" style="max-width:500px">
+    <div class="modal-hdr">
+      <h2>Agregar video reseña</h2>
+      <button class="modal-close" onclick="closeModal('overlay-vid')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="display:grid;gap:12px">
+        <div class="form-full">
+          <label>URL del video (YouTube)</label>
+          <input type="text" id="v-url" placeholder="https://youtube.com/watch?v=...">
+        </div>
+        <div class="form-full">
+          <label>Título del video</label>
+          <input type="text" id="v-titulo" placeholder="Ej. Review Oster 6L — ¿Vale la pena?">
+        </div>
+        <div>
+          <label>Categoría</label>
+          <select id="v-cat"></select>
+        </div>
+        <div>
+          <label>Fecha (AAAA-MM)</label>
+          <input type="text" id="v-fecha" placeholder="2026-08">
+        </div>
+        <div class="form-full">
+          <label>Producto relacionado (ID, opcional)</label>
+          <input type="number" id="v-prodid" placeholder="ej. 7">
+        </div>
+        <div class="form-full">
+          <label>Notas</label>
+          <textarea id="v-notas" placeholder="Notas internas..."></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-modal cancel" onclick="closeModal('overlay-vid')">Cancelar</button>
+      <button class="btn-modal save" onclick="saveVideo()"><span class="lbl">Agregar</span></button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ══ ESTADO GLOBAL ═══════════════════════════════════════════════
+let DB = {
+  version: '1.0',
+  lastUpdated: '',
+  categorias: {},
+  videos: []
+};
+let dbLoaded    = false;
+let sortCol     = 'id';
+let sortAsc     = true;
+let editingProd = null;  // { catKey, producto }
+let genActiveCat = null;
+
+// ══ CATEGORÍAS CONOCIDAS (para generar código) ═══════════════
+const CAT_META = {
+  freidoras:    { arrayName: 'productos', label: '🍟 Freidoras de Aire',  page: 'freidoras.html'    },
+  microondas:   { arrayName: 'micros',    label: '📡 Microondas',          page: 'microondas.html'   },
+  bicis:        { arrayName: 'ELECTRICAS',label: '🚲 Bicicletas',          page: 'bicis.html'        },
+  suplementos:  { arrayName: 'suplementos',label:'💊 Suplementos',         page: 'suplementos.html'  },
+  laptops:      { arrayName: 'productos', label: '💻 Laptops',             page: 'laptops.html'      },
+  electronica:  { arrayName: 'productos', label: '📱 Electrónica',         page: 'electronica.html'  },
+  proteina:     { arrayName: 'productos', label: '🥛 Proteína en Polvo',   page: 'proteina.html'     },
+};
+
+// ══ CARGA / GUARDADO ════════════════════════════════════════════
+function openDB() { document.getElementById('inp-file').click(); }
+
+function loadDB(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      DB = JSON.parse(e.target.result);
+      if (!DB.categorias) DB.categorias = {};
+      if (!DB.videos) DB.videos = [];
+      dbLoaded = true;
+      document.getElementById('hdr-db').textContent = file.name;
+      document.getElementById('btn-save-db').disabled = false;
+      refreshAll();
+      toast('Base de datos cargada: ' + allProducts().length + ' productos','ok');
+    } catch(err) {
+      toast('Error al leer el JSON: ' + err.message,'err');
+    }
+  };
+  reader.readAsText(file);
+  input.value = '';
+}
+
+function newCat(input) {
+  // Permite cargar un segundo JSON para fusionar categorías
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const extra = JSON.parse(e.target.result);
+      if (extra.categorias) {
+        Object.assign(DB.categorias, extra.categorias);
+        refreshAll();
+        toast('Categorías fusionadas','ok');
+      } else {
+        toast('El archivo no tiene la estructura esperada','err');
+      }
+    } catch(err) {
+      toast('Error: ' + err.message,'err');
+    }
+  };
+  reader.readAsText(file);
+  input.value = '';
+}
+
+// ══ IMPORTAR DESDE .HTML ═════════════════════════════════════════
+// Detecta el nombre de la categoría por el filename, extrae el array
+// de productos del bloque <script> y lo fusiona en DB.categorias.
+function importFromHTML(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const html = e.target.result;
+
+    // Determinar catKey por nombre de archivo
+    const fname = file.name.replace('.html','').toLowerCase();
+    const catKey = Object.keys(CAT_META).find(k => fname.includes(k)) || fname;
+    const meta   = CAT_META[catKey] || { arrayName: 'productos', label: catKey };
+    const arrName = meta.arrayName;
+
+    // Extraer el bloque JS: busca "const <arrName> = [" hasta el cierre "];"
+    const re = new RegExp(`const\\s+${arrName}\\s*=\\s*(\\[[\\s\\S]*?\\]);`, 'm');
+    const m  = html.match(re);
+    if (!m) {
+      toast(`No se encontró "const ${arrName} = [...]" en ${file.name}`, 'err');
+      input.value = '';
+      return;
+    }
+
+    let productos;
+    try {
+      // Evaluar el literal de array JS (puede tener trailing commas, etc.)
+      productos = Function(`"use strict"; return (${m[1]})`)();
+    } catch(err) {
+      toast('Error al parsear el array: ' + err.message, 'err');
+      input.value = '';
+      return;
+    }
+
+    if (!Array.isArray(productos) || !productos.length) {
+      toast('El array está vacío o tiene errores', 'err');
+      input.value = '';
+      return;
+    }
+
+    // Añadir campos gestor si no existen
+    productos.forEach(p => {
+      if (!p._status)     p._status     = 'pending';
+      if (!p.badges)      p.badges      = [
+        ...(p.linkAmz ? [{t:'AMZ'}] : []),
+        ...(p.linkML  ? [{t:'ML'}]  : []),
+      ];
+    });
+
+    // Si ya existe la categoría, preguntar si sobreescribir
+    const existente = DB.categorias[catKey];
+    if (existente && existente.productos?.length) {
+      const ok = confirm(`La categoría "${meta.label}" ya tiene ${existente.productos.length} productos.\n¿Sobreescribir con los ${productos.length} del archivo?`);
+      if (!ok) { input.value = ''; return; }
+    }
+
+    if (!DB.categorias[catKey]) DB.categorias[catKey] = {};
+    DB.categorias[catKey].label     = meta.label;
+    DB.categorias[catKey].productos = productos;
+
+    dbLoaded = true;
+    document.getElementById('btn-save-db').disabled = false;
+    const prev = document.getElementById('hdr-db').textContent;
+    document.getElementById('hdr-db').textContent = prev === 'Sin base de datos cargada'
+      ? file.name : prev + ' + ' + file.name;
+
+    refreshAll();
+    toast(`✅ ${productos.length} productos importados de ${file.name}`, 'ok');
+    input.value = '';
+  };
+  reader.readAsText(file, 'utf-8');
+}
+
+function saveDB() {
+  DB.lastUpdated = new Date().toISOString().slice(0,10);
+  const blob = new Blob([JSON.stringify(DB, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'productos.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast('productos.json descargado','ok');
+}
+
+// ══ HELPERS ═════════════════════════════════════════════════════
+function allProducts() {
+  const list = [];
+  for (const [catKey, cat] of Object.entries(DB.categorias)) {
+    for (const p of (cat.productos || [])) {
+      list.push({ ...p, _cat: catKey, _catLabel: cat.label || catKey });
+    }
+  }
+  return list;
+}
+
+function catLabel(k) {
+  return DB.categorias[k]?.label || CAT_META[k]?.label || k;
+}
+
+function statusHTML(s) {
+  const map = {
+    ok:      ['st-ok','Activo'],
+    changed: ['st-changed','Cambió'],
+    gone:    ['st-gone','No disponible'],
+    pending: ['st-pending','Sin verificar'],
+  };
+  const [cls,lbl] = map[s||'pending'] || map.pending;
+  return `<span class="status-dot ${cls}"></span><span class="status-label">${lbl}</span>`;
+}
+
+function esc(s)     { return String(s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
+function esc4(s)    { return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function fmtDate(d) { return d ? d.slice(0,10) : '—'; }
+function fmtPrecio(v){ return v ? '$' + Number(v).toLocaleString('es-MX') : '—'; }
+
+// ══ REFRESH TOTAL ════════════════════════════════════════════════
+function refreshAll() {
+  populateCatFilters();
+  renderProductos();
+  renderVerificar();
+  renderGenerarCats();
+  renderVideos();
+  updateTabCounts();
+}
+
+function updateTabCounts() {
+  const all = allProducts();
+  document.getElementById('cnt-productos').textContent = all.length;
+  const pending = all.filter(p => !p._status || p._status === 'pending').length;
+  document.getElementById('cnt-verificar').textContent = pending || '';
+  document.getElementById('cnt-videos').textContent = (DB.videos||[]).length || '';
+}
+
+function populateCatFilters() {
+  const cats = Object.keys(DB.categorias);
+  const opts = cats.map(k => `<option value="${k}">${catLabel(k)}</option>`).join('');
+  ['f-cat','f-vid-cat','v-cat'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const prev = el.value;
+    el.innerHTML = (id === 'f-cat' || id === 'f-vid-cat') ? `<option value="">Todas las categorías</option>${opts}` : opts;
+    if (prev) el.value = prev;
+  });
+}
+
+// ══ TAB SWITCH ══════════════════════════════════════════════════
+function switchTab(name) {
+  ['productos','verificar','generar','videos'].forEach(t => {
+    document.getElementById('view-'+t).hidden = (t !== name);
+    document.getElementById('tab-'+t).classList.toggle('active', t === name);
+  });
+}
+
+// ══ TAB: PRODUCTOS ══════════════════════════════════════════════
+function renderProductos() {
+  const q       = (document.getElementById('q-prod').value||'').toLowerCase();
+  const catFilt = document.getElementById('f-cat').value;
+  const platFil = document.getElementById('f-plat').value;
+  const stFilt  = document.getElementById('f-status').value;
+
+  let list = allProducts().filter(p => {
+    if (catFilt && p._cat !== catFilt) return false;
+    if (platFil === 'ml'   && !(p.linkML && !p.linkAmz)) return false;
+    if (platFil === 'amz'  && !(p.linkAmz && !p.linkML)) return false;
+    if (platFil === 'dual' && !(p.linkML && p.linkAmz))  return false;
+    if (stFilt && (p._status||'pending') !== stFilt) return false;
+    if (q && !(p.nombre+' '+(p.marca||'')).toLowerCase().includes(q)) return false;
+    return true;
+  });
+
+  list.sort((a,b) => {
+    let av = a[sortCol] ?? (sortCol === 'id' ? 0 : '');
+    let bv = b[sortCol] ?? (sortCol === 'id' ? 0 : '');
+    if (sortCol === 'categoria') { av = a._catLabel; bv = b._catLabel; }
+    if (typeof av === 'string') return sortAsc ? av.localeCompare(bv) : bv.localeCompare(av);
+    return sortAsc ? av - bv : bv - av;
+  });
+
+  document.getElementById('info-prod').textContent = list.length + ' producto' + (list.length !== 1 ? 's' : '');
+
+  const tbody = document.getElementById('tbody-productos');
+  if (!list.length) {
+    tbody.innerHTML = `<tr><td colspan="9"><div class="empty">${dbLoaded ? 'Sin resultados' : 'Carga un archivo JSON para comenzar'}</div></td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = list.map(p => {
+    const badgesHTML = (p.badges||[]).map(b=>`<span class="badge b-${b.t.toLowerCase()}">${b.t}</span>`).join('');
+    const precioBest = p.precioML || p.precioAmz || p.precio;
+    return `<tr class="row">
+      <td class="img-cell">${p.img ? `<img src="${esc4(p.img)}" loading="lazy" onerror="this.parentNode.innerHTML='<div class=no-img>?</div>'">` : '<div class="no-img">?</div>'}</td>
+      <td class="mono">${p.id}</td>
+      <td>
+        <div style="font-weight:500;line-height:1.3">${esc4(p.nombre||'')}</div>
+        <div style="color:var(--t2);font-size:.73rem;margin-top:2px">${esc4(p.marca||'')}</div>
+      </td>
+      <td><span style="font-size:.75rem;background:var(--s2);padding:2px 7px;border-radius:4px">${esc4(p._catLabel)}</span></td>
+      <td class="price">${fmtPrecio(precioBest)}</td>
+      <td>${badgesHTML || '<span style="color:var(--t3);font-size:.73rem">—</span>'}</td>
+      <td>${statusHTML(p._status)}</td>
+      <td style="font-size:.73rem;color:var(--t2)">${fmtDate(p._verifiedAt)}</td>
+      <td>
+        <div class="row-actions">
+          <button class="btn-act" onclick="openEditProduct('${esc4(p._cat)}',${p.id})">Editar</button>
+          ${p.linkML  ? `<button class="btn-act verify" onclick="openLink('${esc4(p.linkML)}','ml','${esc4(p._cat)}',${p.id})">ML</button>` : ''}
+          ${p.linkAmz ? `<button class="btn-act verify" onclick="openLink('${esc4(p.linkAmz)}','amz','${esc4(p._cat)}',${p.id})">AMZ</button>` : ''}
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function sortBy(col) {
+  if (sortCol === col) sortAsc = !sortAsc;
+  else { sortCol = col; sortAsc = true; }
+  renderProductos();
+}
+
+// ══ TAB: VERIFICAR ══════════════════════════════════════════════
+function renderVerificar() {
+  const all = allProducts();
+  document.getElementById('vs-total').textContent   = all.length;
+  document.getElementById('vs-pending').textContent = all.filter(p => !p._status || p._status === 'pending').length;
+  document.getElementById('vs-ok').textContent      = all.filter(p => p._status === 'ok').length;
+
+  if (!all.length) { document.getElementById('ver-list').innerHTML = '<div class="empty">Sin productos</div>'; return; }
+
+  // Ordenar: pendientes primero
+  const sorted = [...all].sort((a,b) => {
+    const order = { pending:0, changed:1, gone:2, ok:3 };
+    return (order[a._status||'pending']||0) - (order[b._status||'pending']||0);
+  });
+
+  document.getElementById('ver-list').innerHTML = sorted.map(p => {
+    const precioBest = p.precioML || p.precioAmz || p.precio;
+    return `<div class="ver-row">
+      <div class="ver-img">${p.img ? `<img src="${esc4(p.img)}" onerror="this.style.display='none'">` : '<div style="width:42px;height:42px;background:var(--s2);border-radius:6px"></div>'}</div>
+      <div>
+        <div class="ver-name">${esc4(p.nombre||'')}</div>
+        <div class="ver-cat">${esc4(p._catLabel)} · id ${p.id}</div>
+      </div>
+      <div class="ver-price">${fmtPrecio(precioBest)}</div>
+      <div class="ver-status">${statusHTML(p._status)}</div>
+      <div class="ver-actions">
+        ${p.linkML  ? `<button class="btn-ver ml"  onclick="openLink('${esc4(p.linkML)}','ml','${esc4(p._cat)}',${p.id})">ML ↗</button>` : ''}
+        ${p.linkAmz ? `<button class="btn-ver amz" onclick="openLink('${esc4(p.linkAmz)}','amz','${esc4(p._cat)}',${p.id})">AMZ ↗</button>` : ''}
+        <button class="btn-ver mark-ok"   onclick="markStatus('${esc4(p._cat)}',${p.id},'ok')">✅</button>
+        <button class="btn-ver mark-gone" onclick="markStatus('${esc4(p._cat)}',${p.id},'gone')">❌</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openLink(url, plat, catKey, id) {
+  window.open(url, '_blank');
+  // Pre-marcar como "revisando" — el usuario confirmará
+}
+
+function markStatus(catKey, id, status) {
+  const cat  = DB.categorias[catKey];
+  if (!cat) return;
+  const prod = (cat.productos||[]).find(p => p.id === id);
+  if (!prod) return;
+  prod._status     = status;
+  prod._verifiedAt = new Date().toISOString().slice(0,10);
+  renderVerificar();
+  renderProductos();
+  updateTabCounts();
+  toast(status === 'ok' ? '✅ Marcado como activo' : '❌ Marcado como no disponible', status === 'ok' ? 'ok' : 'err');
+}
+
+function updatePrice(catKey, id, newPrice) {
+  const cat  = DB.categorias[catKey];
+  if (!cat) return;
+  const prod = (cat.productos||[]).find(p => p.id === id);
+  if (!prod) return;
+  const oldPrice = prod.precio;
+  prod.precio      = newPrice;
+  prod._prevPrecio = oldPrice;
+  prod._status     = newPrice !== oldPrice ? 'changed' : 'ok';
+  prod._verifiedAt = new Date().toISOString().slice(0,10);
+}
+
+// ══ TAB: GENERAR CÓDIGO ═════════════════════════════════════════
+function renderGenerarCats() {
+  const cats = Object.keys(DB.categorias);
+  if (!cats.length) {
+    document.getElementById('gen-cats').innerHTML = '<div class="empty" style="padding:20px">Sin categorías</div>';
+    return;
+  }
+  document.getElementById('gen-cats').innerHTML = cats.map(k => {
+    const cnt = (DB.categorias[k].productos||[]).length;
+    return `<button class="cat-btn${k===genActiveCat?' active':''}" onclick="genSelect('${k}')">
+      <span>${catLabel(k)}</span>
+      <span class="cat-btn-cnt">${cnt}</span>
+    </button>`;
+  }).join('');
+}
+
+function genSelect(catKey) {
+  genActiveCat = catKey;
+  renderGenerarCats();
+  const cat      = DB.categorias[catKey];
+  const prods    = cat.productos || [];
+  const meta     = CAT_META[catKey] || { arrayName: 'productos' };
+  const arrName  = cat.arrayName || meta.arrayName;
+
+  const code = `const ${arrName} = [\n` +
+    prods.map(p => {
+      // Serializar el objeto como JS literal (sin _status, _verifiedAt, _cat, _catLabel)
+      const clean = Object.fromEntries(
+        Object.entries(p).filter(([k]) => !k.startsWith('_'))
+      );
+      return '  ' + JSON.stringify(clean);
+    }).join(',\n') +
+  '\n];';
+
+  document.getElementById('gen-title').textContent = catLabel(catKey) + ' — ' + prods.length + ' productos';
+  document.getElementById('gen-code-box').innerHTML = `<div class="code-box" id="code-content">${esc4(code)}</div>`;
+  document.getElementById('btn-copy-code').style.display = '';
+}
+
+function copyCode() {
+  const el = document.getElementById('code-content');
+  if (!el) return;
+  navigator.clipboard.writeText(el.textContent).then(() => toast('Código copiado al portapapeles','ok'));
+}
+
+// ══ MODAL: EDITAR PRODUCTO ══════════════════════════════════════
+function openEditProduct(catKey, id) {
+  const cat  = DB.categorias[catKey];
+  if (!cat) return;
+  const p = (cat.productos||[]).find(x => x.id === id);
+  if (!p) return;
+  editingProd = { catKey, id };
+
+  document.getElementById('mprod-title').textContent = `Editar #${p.id} — ${p.nombre||''}`;
+  document.getElementById('mprod-form').innerHTML = `
+    <div class="form-full"><label>Nombre</label><input type="text" id="ep-nombre" value="${esc4(p.nombre||'')}"></div>
+    <div><label>Marca</label><input type="text" id="ep-marca" value="${esc4(p.marca||'')}"></div>
+    <div><label>Modelo</label><input type="text" id="ep-modelo" value="${esc4(p.modelo||'')}"></div>
+    <div><label>Precio ($)</label><input type="number" id="ep-precio" value="${p.precio||0}" min="0" step="1"></div>
+    <div><label>Precio ML ($)</label><input type="number" id="ep-precioML" value="${p.precioML||''}" min="0" step="1" placeholder="Dejar vacío si no aplica"></div>
+    <div><label>Precio AMZ ($)</label><input type="number" id="ep-precioAmz" value="${p.precioAmz||''}" min="0" step="1" placeholder="Dejar vacío si no aplica"></div>
+    <div><label>Estrellas</label><input type="number" id="ep-stars" value="${p.estrellas||0}" min="0" max="5" step="0.1"></div>
+    <div><label>Reseñas</label><input type="number" id="ep-resenas" value="${p.resenas||0}" min="0"></div>
+    <div class="form-full"><label>Link Mercado Libre</label><input type="text" id="ep-lml" value="${esc4(p.linkML||'')}"></div>
+    <div class="form-full"><label>Link Amazon</label><input type="text" id="ep-lamz" value="${esc4(p.linkAmz||'')}"></div>
+    <div class="form-full"><label>URL imagen</label><input type="text" id="ep-img" value="${esc4(p.img||'')}"></div>
+    <div class="form-full"><label>Badges <span style="font-weight:400;text-transform:none">(una por línea: TEXTO|clase)</span></label>
+      <textarea id="ep-badges">${(p.badges||[]).map(b=>`${b.t}|${b.c}`).join('\n')}</textarea>
+      <div class="field-hint">Clases: b-amz · b-ml · b-best · b-pop</div>
+    </div>`;
+
+  document.getElementById('overlay-prod').classList.add('open');
+  document.getElementById('ep-nombre').focus();
+}
+
+function openNewProduct() {
+  const cats = Object.keys(DB.categorias);
+  if (!cats.length) { toast('Primero carga o crea una categoría','err'); return; }
+  editingProd = null;
+
+  // Calcular próximo ID global
+  const maxId = Math.max(0, ...allProducts().map(p => p.id||0));
+  const catKey = document.getElementById('f-cat').value || cats[0];
+
+  document.getElementById('mprod-title').textContent = 'Nuevo producto';
+  document.getElementById('mprod-form').innerHTML = `
+    <div class="form-full">
+      <label>Categoría</label>
+      <select id="ep-cat">${cats.map(k=>`<option value="${k}"${k===catKey?' selected':''}>${catLabel(k)}</option>`).join('')}</select>
+    </div>
+    <div class="form-full"><label>Nombre</label><input type="text" id="ep-nombre" placeholder="Ej. Oster 6L DiamondForce"></div>
+    <div><label>Marca</label><input type="text" id="ep-marca"></div>
+    <div><label>Modelo</label><input type="text" id="ep-modelo"></div>
+    <div><label>Precio ($)</label><input type="number" id="ep-precio" value="0" min="0"></div>
+    <div><label>Precio ML</label><input type="number" id="ep-precioML" min="0" placeholder="Opcional"></div>
+    <div><label>Precio AMZ</label><input type="number" id="ep-precioAmz" min="0" placeholder="Opcional"></div>
+    <div><label>Estrellas</label><input type="number" id="ep-stars" value="0" min="0" max="5" step="0.1"></div>
+    <div><label>Reseñas</label><input type="number" id="ep-resenas" value="0" min="0"></div>
+    <div class="form-full"><label>Link Mercado Libre</label><input type="text" id="ep-lml"></div>
+    <div class="form-full"><label>Link Amazon</label><input type="text" id="ep-lamz"></div>
+    <div class="form-full"><label>URL imagen</label><input type="text" id="ep-img"></div>
+    <div class="form-full">
+      <label>Badges</label>
+      <textarea id="ep-badges" placeholder="ML|b-ml&#10;AMZ|b-amz"></textarea>
+      <div class="field-hint">Una por línea: TEXTO|clase</div>
+    </div>
+    <input type="hidden" id="ep-newid" value="${maxId+1}">`;
+
+  document.getElementById('btn-mprod-save').querySelector('.lbl').textContent = 'Crear producto';
+  document.getElementById('overlay-prod').classList.add('open');
+  document.getElementById('ep-nombre').focus();
+}
+
+function saveProd() {
+  const isNew = !editingProd;
+  const catKey = isNew
+    ? (document.getElementById('ep-cat')?.value || Object.keys(DB.categorias)[0])
+    : editingProd.catKey;
+  const cat = DB.categorias[catKey];
+  if (!cat) return;
+
+  const readNum = id => { const v = parseFloat(document.getElementById(id)?.value||''); return isNaN(v) ? null : v; };
+  const readTxt = id => (document.getElementById(id)?.value||'').trim();
+
+  const badges = readTxt('ep-badges').split('\n').filter(Boolean).map(l=>{
+    const [t,c] = l.split('|');
+    return { t:(t||'').trim(), c:(c||'').trim() };
+  }).filter(b=>b.t&&b.c);
+
+  if (isNew) {
+    const newId = parseInt(document.getElementById('ep-newid').value)||1;
+    const nuevo = {
+      id:        newId,
+      nombre:    readTxt('ep-nombre'),
+      marca:     readTxt('ep-marca'),
+      modelo:    readTxt('ep-modelo'),
+      precio:    readNum('ep-precio') || 0,
+      precioML:  readNum('ep-precioML') || null,
+      precioAmz: readNum('ep-precioAmz') || null,
+      estrellas: readNum('ep-stars') || 0,
+      resenas:   readNum('ep-resenas') || 0,
+      linkML:    readTxt('ep-lml') || null,
+      linkAmz:   readTxt('ep-lamz') || null,
+      img:       readTxt('ep-img'),
+      badges,
+      _status:   'pending',
+    };
+    if (!cat.productos) cat.productos = [];
+    cat.productos.push(nuevo);
+    toast('Producto creado','ok');
+  } else {
+    const prod = (cat.productos||[]).find(p => p.id === editingProd.id);
+    if (!prod) { toast('Producto no encontrado','err'); return; }
+    prod.nombre    = readTxt('ep-nombre');
+    prod.marca     = readTxt('ep-marca');
+    prod.modelo    = readTxt('ep-modelo');
+    prod.precio    = readNum('ep-precio') || 0;
+    prod.precioML  = readNum('ep-precioML') || null;
+    prod.precioAmz = readNum('ep-precioAmz') || null;
+    prod.estrellas = readNum('ep-stars') || 0;
+    prod.resenas   = readNum('ep-resenas') || 0;
+    prod.linkML    = readTxt('ep-lml') || null;
+    prod.linkAmz   = readTxt('ep-lamz') || null;
+    prod.img       = readTxt('ep-img');
+    prod.badges    = badges;
+    toast('Cambios guardados','ok');
+  }
+
+  closeModal('overlay-prod');
+  refreshAll();
+}
+
+// ══ TAB: VIDEOS ═════════════════════════════════════════════════
+function renderVideos() {
+  const q    = (document.getElementById('q-vid').value||'').toLowerCase();
+  const cat  = document.getElementById('f-vid-cat').value;
+  let videos = (DB.videos||[]).filter(v => {
+    if (cat && v.categoria !== cat) return false;
+    if (q && !(v.titulo+' '+(v.categoria||'')).toLowerCase().includes(q)) return false;
+    return true;
+  });
+
+  document.getElementById('info-vid').textContent = videos.length + ' video' + (videos.length !== 1 ? 's' : '');
+
+  if (!videos.length) {
+    document.getElementById('videos-list').innerHTML = '<div class="empty">Sin videos. Agrega el primero con el botón ＋</div>';
+    return;
+  }
+
+  document.getElementById('videos-list').innerHTML = videos.map((v,i) => {
+    const ytId  = ytThumb(v.url);
+    const thumb = ytId ? `<img src="https://img.youtube.com/vi/${ytId}/mqdefault.jpg" onerror="this.style.display='none'">` : '';
+    return `<div class="video-card">
+      <div class="video-thumb">${thumb}</div>
+      <div>
+        <div class="video-title">${esc4(v.titulo||v.url)}</div>
+        <div class="video-meta">${esc4(catLabel(v.categoria)||v.categoria||'—')} · ${v.fecha||'—'}${v.productoId ? ' · producto #'+v.productoId : ''}</div>
+        ${v.notas ? `<div style="font-size:.72rem;color:var(--t3);margin-top:3px">${esc4(v.notas)}</div>` : ''}
+      </div>
+      <div class="video-actions">
+        <button class="btn-sm" onclick="window.open('${esc4(v.url)}','_blank')">▶ Ver</button>
+        <button class="btn-sm red" onclick="deleteVideo(${i})">✕</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function ytThumb(url) {
+  const m = (url||'').match(/(?:v=|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+  return m ? m[1] : null;
+}
+
+function openNewVideo() {
+  document.getElementById('v-url').value    = '';
+  document.getElementById('v-titulo').value = '';
+  document.getElementById('v-fecha').value  = new Date().toISOString().slice(0,7);
+  document.getElementById('v-prodid').value = '';
+  document.getElementById('v-notas').value  = '';
+  document.getElementById('overlay-vid').classList.add('open');
+  document.getElementById('v-url').focus();
+}
+
+function saveVideo() {
+  const url = document.getElementById('v-url').value.trim();
+  if (!url) { toast('La URL es obligatoria','err'); return; }
+  DB.videos = DB.videos || [];
+  DB.videos.push({
+    url,
+    titulo:     document.getElementById('v-titulo').value.trim(),
+    categoria:  document.getElementById('v-cat').value,
+    fecha:      document.getElementById('v-fecha').value.trim(),
+    productoId: parseInt(document.getElementById('v-prodid').value)||null,
+    notas:      document.getElementById('v-notas').value.trim(),
+    addedAt:    new Date().toISOString().slice(0,10),
+  });
+  closeModal('overlay-vid');
+  renderVideos();
+  updateTabCounts();
+  toast('Video agregado','ok');
+}
+
+function deleteVideo(idx) {
+  if (!confirm('¿Eliminar este video?')) return;
+  DB.videos.splice(idx,1);
+  renderVideos();
+  updateTabCounts();
+  toast('Video eliminado','info');
+}
+
+// ══ MODAL UTILS ═════════════════════════════════════════════════
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+// ══ TOAST ═══════════════════════════════════════════════════════
+function toast(msg, cls) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className   = 'toast show' + (cls ? ' '+cls : '');
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.className = 'toast', 3500);
+}
+
+// ══ KEYBOARD ════════════════════════════════════════════════════
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    ['overlay-prod','overlay-vid'].forEach(id => {
+      document.getElementById(id).classList.remove('open');
+    });
+  }
+});
+['overlay-prod','overlay-vid'].forEach(id => {
+  document.getElementById(id).addEventListener('click', e => {
+    if (e.target === e.currentTarget) closeModal(id);
+  });
+});
+
+// ══ INIT ════════════════════════════════════════════════════════
+// Intentar cargar productos.json automáticamente si existe en la misma carpeta
+// (no es posible desde el browser sin input, pero preparamos la UI)
+renderProductos();
+</script>
+</body>
+</html>
