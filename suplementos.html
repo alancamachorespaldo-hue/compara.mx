@@ -616,7 +616,8 @@ function setFiltro(tipo, el) {
   document.querySelectorAll('#chips .chip').forEach(c => c.classList.remove('active'));
   el.classList.add('active');
   // Miga de pan visual
-  document.getElementById('breadcrumb-cat').textContent = catLabel[tipo] || 'Suplementos';
+  const breadEl = document.getElementById('breadcrumb-cat');
+  if (breadEl) breadEl.textContent = catLabel[tipo] || 'Suplementos';
   // URL bonita
   const slug = slugMap[tipo];
   const newPath = slug ? '/suplementos/' + slug : '/suplementos.html';
@@ -642,8 +643,13 @@ function initFromURL() {
   const pathTipo = {'/suplementos/Omega3':'vitaminas','/suplementos/omega3':'vitaminas','/suplementos/Complejo-B':'complejo-b','/suplementos/complejo-b':'complejo-b'};
   const p = sessionStorage.getItem('suplementos_redirect_path') || window.location.pathname;
   sessionStorage.removeItem('suplementos_redirect_path');
-  const hashTipo = {'vitaminas':'vitaminas','complejo-b':'complejo-b'};
+  const hashTipo = {'vitaminas':'vitaminas'};
   const hash = window.location.hash.replace('#','');
+  // complejo-b ahora tiene página propia — redirigir si viene del hash viejo
+  if (hash === 'complejo-b' || p === '/suplementos/complejo-b' || p === '/suplementos/Complejo-B') {
+    window.location.replace('/suplementos/complejo-b');
+    return;
+  }
   const tipo = pathTipo[p] || hashTipo[hash];
   if (tipo) {
     const chip = document.querySelector(`#chips [data-tipo="${tipo}"]`);
