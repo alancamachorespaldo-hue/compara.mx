@@ -188,7 +188,17 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 
 @media(max-width:600px){
   .nav-links{display:none}
-  .toolbar{top:64px;overflow-x:auto;flex-wrap:nowrap;padding:.5rem 1rem}
+  .toolbar{top:64px;flex-direction:column;flex-wrap:nowrap;overflow-x:visible;padding:.5rem .75rem;gap:6px}
+  .toolbar-row1{display:flex;gap:6px;width:100%}
+  .toolbar-row1 .sabor-dd{flex:1;min-width:0}
+  .toolbar-row1 .sabor-dd .sabor-dd-btn{width:100%;justify-content:space-between}
+  .toolbar-row2{display:flex;align-items:center;width:100%;gap:6px}
+  .toolbar-row2 .sort-wrap{flex:1;display:flex;align-items:center;gap:6px}
+  .toolbar-row2 .sort-label{font-size:12px;white-space:nowrap}
+  .toolbar-row2 .sort-sel{flex:1;min-width:0}
+  .desktop-filters{display:none}
+  .filter-sep{display:none}
+  .toolbar-row2 .filter-sep{display:none}
   .cmp-bar{display:none !important}
   .cmp-fab{display:none;position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));right:14px;z-index:300;flex-direction:column;align-items:flex-end;gap:6px}
   .cmp-fab.show{display:flex}
@@ -224,36 +234,71 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 </div>
 
 <div class="toolbar" id="toolbar">
-  <span class="filter-label">Tipo</span>
-  <button class="filter on" onclick="toggleFilter('tipo','todos',this)">Todos</button>
-  <button class="filter" onclick="toggleFilter('tipo','vegetal',this)">Vegetal</button>
-  <button class="filter" onclick="toggleFilter('tipo','whey',this)">Whey</button>
-  <button class="filter" onclick="toggleFilter('tipo','isolate',this)">Aislada / Isolate</button>
-  <button class="filter" onclick="toggleFilter('tipo','bone-broth',this)">Bone Broth</button>
-  <button class="filter" onclick="toggleFilter('tipo','con-creatina',this)">Con creatina</button>
-
-  <div class="filter-sep"></div>
-  <div class="sabor-dd" id="sabor-dd">
-    <button class="sabor-dd-btn" id="sabor-dd-btn" onclick="toggleSaborDD(event)">
-      <span id="sabor-dd-label">Sabor</span> <span>▾</span>
-    </button>
-    <div class="sabor-dd-menu" id="sabor-dd-menu">
-      <div class="sabor-dd-item on" data-val="todos" onclick="setSabor('todos',this)">Todas las opciones</div>
+  <!-- Row 1 (mobile: 3 pill dropdowns; desktop: all filters) -->
+  <div class="toolbar-row1">
+    <!-- Tipo pill (mobile only) -->
+    <div class="sabor-dd" id="tipo-dd">
+      <button class="sabor-dd-btn" id="tipo-dd-btn" onclick="toggleTipoDD(event)">
+        <span id="tipo-dd-label">Tipo</span> <span>▾</span>
+      </button>
+      <div class="sabor-dd-menu" id="tipo-dd-menu">
+        <div class="sabor-dd-item on" data-val="todos" onclick="setTipo('todos',this)">Todos</div>
+        <div class="sabor-dd-item" data-val="vegetal" onclick="setTipo('vegetal',this)">Vegetal</div>
+        <div class="sabor-dd-item" data-val="whey" onclick="setTipo('whey',this)">Whey</div>
+        <div class="sabor-dd-item" data-val="isolate" onclick="setTipo('isolate',this)">Aislada / Isolate</div>
+        <div class="sabor-dd-item" data-val="bone-broth" onclick="setTipo('bone-broth',this)">Bone Broth</div>
+        <div class="sabor-dd-item" data-val="con-creatina" onclick="setTipo('con-creatina',this)">Con creatina</div>
+      </div>
+    </div>
+    <!-- Sabor pill -->
+    <div class="sabor-dd" id="sabor-dd">
+      <button class="sabor-dd-btn" id="sabor-dd-btn" onclick="toggleSaborDD(event)">
+        <span id="sabor-dd-label">Sabor</span> <span>▾</span>
+      </button>
+      <div class="sabor-dd-menu" id="sabor-dd-menu">
+        <div class="sabor-dd-item on" data-val="todos" onclick="setSabor('todos',this)">Todas las opciones</div>
+      </div>
+    </div>
+    <!-- Plataforma pill -->
+    <div class="sabor-dd" id="plat-dd">
+      <button class="sabor-dd-btn" id="plat-dd-btn" onclick="togglePlatDD(event)">
+        <span id="plat-dd-label">Plataforma</span> <span>▾</span>
+      </button>
+      <div class="sabor-dd-menu" id="plat-dd-menu">
+        <div class="sabor-dd-item on" data-val="todos" onclick="setPlat('todos',this)">Todas</div>
+        <div class="sabor-dd-item" data-val="ml" onclick="setPlat('ml',this)">🛒 Mercado Libre</div>
+        <div class="sabor-dd-item" data-val="amz" onclick="setPlat('amz',this)">📦 Amazon</div>
+      </div>
     </div>
   </div>
 
-  <div class="sort-wrap">
+  <!-- Desktop-only tipo filter buttons -->
+  <div class="desktop-filters">
+    <span class="filter-label">Tipo</span>
+    <button class="filter on" onclick="toggleFilterTipoDesktop('todos',this)">Todos</button>
+    <button class="filter" onclick="toggleFilterTipoDesktop('vegetal',this)">Vegetal</button>
+    <button class="filter" onclick="toggleFilterTipoDesktop('whey',this)">Whey</button>
+    <button class="filter" onclick="toggleFilterTipoDesktop('isolate',this)">Aislada / Isolate</button>
+    <button class="filter" onclick="toggleFilterTipoDesktop('bone-broth',this)">Bone Broth</button>
+    <button class="filter" onclick="toggleFilterTipoDesktop('con-creatina',this)">Con creatina</button>
+    <div class="filter-sep"></div>
+  </div>
+
+  <!-- Row 2 (mobile: sort; desktop: inline) -->
+  <div class="toolbar-row2">
     <button class="filter" id="btn-clear-filters" onclick="clearFilters()" style="display:none">✕ Limpiar</button>
-    <span class="sort-label">Ordenar:</span>
-    <select class="sort-sel" id="sort-sel" onchange="render()">
-      <option value="precio-asc">Precio ↑</option>
-      <option value="precio-desc">Precio ↓</option>
-      <option value="proteina">Más proteína/porción</option>
-      <option value="concentracion">Mayor concentración %</option>
-      <option value="costo-porcion">Menor costo/porción</option>
-      <option value="costo-25g">Menor costo/25g proteína</option>
-      <option value="estrellas">Mejor calificados</option>
-    </select>
+    <div class="sort-wrap">
+      <span class="sort-label">Ordenar:</span>
+      <select class="sort-sel" id="sort-sel" onchange="render()">
+        <option value="precio-asc">Precio más bajo</option>
+        <option value="precio-desc">Precio más alto</option>
+        <option value="proteina">Más proteína/porción</option>
+        <option value="concentracion">Mayor concentración %</option>
+        <option value="costo-porcion">Menor costo/porción</option>
+        <option value="costo-25g">Menor costo/25g proteína</option>
+        <option value="estrellas">Mejor calificados</option>
+      </select>
+    </div>
   </div>
 </div>
 
@@ -432,10 +477,21 @@ function buildSaborDD() {
 }
 
 // ── Estado ────────────────────────────────────────────────────
-const filters = { tipo:'todos', sabor:'todos' };
+const filters = { tipo:'todos', sabor:'todos', plataforma:'todos' };
 
 function clearFilters() {
-  filters.tipo = 'todos'; filters.sabor = 'todos';
+  filters.tipo = 'todos'; filters.sabor = 'todos'; filters.plataforma = 'todos';
+  // reset plataforma pill
+  document.querySelectorAll('#plat-dd-menu .sabor-dd-item').forEach(i => i.classList.remove('on'));
+  const platTodos = document.querySelector('#plat-dd-menu .sabor-dd-item');
+  if (platTodos) platTodos.classList.add('on');
+  const platLbl = document.getElementById('plat-dd-label');
+  if (platLbl) platLbl.textContent = 'Plataforma';
+  document.getElementById('plat-dd-btn')?.classList.remove('on');
+  // reset tipo pill
+  const tipoLbl = document.getElementById('tipo-dd-label');
+  if (tipoLbl) tipoLbl.textContent = 'Tipo';
+  document.getElementById('tipo-dd-btn')?.classList.remove('on');
   document.getElementById('search').value = '';
   document.querySelectorAll('.filter.on').forEach(b => b.classList.remove('on'));
   document.querySelectorAll('.filter[onclick*="\'todos\'"]').forEach(b => b.classList.add('on'));
@@ -465,11 +521,69 @@ function setSabor(val, item) {
   const emoji = val === 'todos' ? '' : (saborEmojis[val.toLowerCase()] || '');
   document.getElementById('sabor-dd-label').textContent = val === 'todos' ? 'Sabor' : (emoji ? emoji + ' ' + val : val);
   document.getElementById('sabor-dd').classList.remove('open');
-  const hasFilters = filters.tipo !== 'todos' || filters.sabor !== 'todos';
+  const hasFilters = filters.tipo !== 'todos' || filters.sabor !== 'todos' || filters.plataforma !== 'todos';
   document.getElementById('btn-clear-filters').style.display = hasFilters ? '' : 'none';
   render();
 }
-document.addEventListener('click', () => document.getElementById('sabor-dd')?.classList.remove('open'));
+document.addEventListener('click', () => {
+  document.getElementById('sabor-dd')?.classList.remove('open');
+  document.getElementById('tipo-dd')?.classList.remove('open');
+  document.getElementById('plat-dd')?.classList.remove('open');
+});
+
+function toggleTipoDD(e) {
+  e.stopPropagation();
+  document.getElementById('tipo-dd').classList.toggle('open');
+}
+function setTipo(val, item) {
+  filters.tipo = val;
+  document.querySelectorAll('#tipo-dd-menu .sabor-dd-item').forEach(i => i.classList.remove('on'));
+  item.classList.add('on');
+  const btn = document.getElementById('tipo-dd-btn');
+  btn.classList.toggle('on', val !== 'todos');
+  const labels = {todos:'Tipo',vegetal:'Vegetal',whey:'Whey',isolate:'Aislada',  'bone-broth':'Bone Broth','con-creatina':'Con creatina'};
+  document.getElementById('tipo-dd-label').textContent = labels[val] || val;
+  document.getElementById('tipo-dd').classList.remove('open');
+  // sync desktop buttons
+  document.querySelectorAll('.desktop-filters .filter').forEach(b => {
+    const onclick = b.getAttribute('onclick') || '';
+    b.classList.toggle('on', onclick.includes(`'${val}'`));
+  });
+  const hasFilters = filters.tipo !== 'todos' || filters.sabor !== 'todos' || filters.plataforma !== 'todos';
+  document.getElementById('btn-clear-filters').style.display = hasFilters ? '' : 'none';
+  render();
+}
+function toggleFilterTipoDesktop(val, btn) {
+  filters.tipo = val;
+  document.querySelectorAll('.desktop-filters .filter').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  // sync mobile pill
+  document.querySelectorAll('#tipo-dd-menu .sabor-dd-item').forEach(i => i.classList.toggle('on', i.dataset.val === val));
+  const labels = {todos:'Tipo',vegetal:'Vegetal',whey:'Whey',isolate:'Aislada','bone-broth':'Bone Broth','con-creatina':'Con creatina'};
+  const tipoLbl = document.getElementById('tipo-dd-label');
+  if (tipoLbl) { tipoLbl.textContent = val === 'todos' ? 'Tipo' : (labels[val]||val); }
+  document.getElementById('tipo-dd-btn')?.classList.toggle('on', val !== 'todos');
+  const hasFilters = filters.tipo !== 'todos' || filters.sabor !== 'todos' || filters.plataforma !== 'todos';
+  document.getElementById('btn-clear-filters').style.display = hasFilters ? '' : 'none';
+  render();
+}
+function togglePlatDD(e) {
+  e.stopPropagation();
+  document.getElementById('plat-dd').classList.toggle('open');
+}
+function setPlat(val, item) {
+  filters.plataforma = val;
+  document.querySelectorAll('#plat-dd-menu .sabor-dd-item').forEach(i => i.classList.remove('on'));
+  item.classList.add('on');
+  const btn = document.getElementById('plat-dd-btn');
+  btn.classList.toggle('on', val !== 'todos');
+  const labels = {todos:'Plataforma',ml:'Mercado Libre',amz:'Amazon'};
+  document.getElementById('plat-dd-label').textContent = labels[val] || val;
+  document.getElementById('plat-dd').classList.remove('open');
+  const hasFilters = filters.tipo !== 'todos' || filters.sabor !== 'todos' || filters.plataforma !== 'todos';
+  document.getElementById('btn-clear-filters').style.display = hasFilters ? '' : 'none';
+  render();
+}
 
 function toggleFilter(key, val, btn) {
   filters[key] = val;
@@ -478,7 +592,7 @@ function toggleFilter(key, val, btn) {
   );
   group.forEach(b => b.classList.remove('on'));
   btn.classList.add('on');
-  const hasFilters = filters.tipo !== 'todos' || filters.sabor !== 'todos';
+  const hasFilters = filters.tipo !== 'todos' || filters.sabor !== 'todos' || filters.plataforma !== 'todos';
   document.getElementById('btn-clear-filters').style.display = hasFilters ? '' : 'none';
   render();
 }
@@ -493,6 +607,10 @@ function render() {
       else if (getCategoria(p) !== filters.tipo) return false;
     }
     if (filters.sabor !== 'todos' && !matchSabor(p, filters.sabor)) return false;
+    if (filters.plataforma !== 'todos') {
+      if (filters.plataforma === 'ml' && !p.linkML) return false;
+      if (filters.plataforma === 'amz' && !p.linkAmz) return false;
+    }
     if (q) {
       const hay = (p.nombre+' '+p.marca+' '+(p.tipoProteina||'')+' '+(p.saboresDisponibles||[]).join(' ')).toLowerCase();
       if (!hay.includes(q)) return false;
