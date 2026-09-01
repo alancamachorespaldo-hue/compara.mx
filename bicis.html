@@ -29,7 +29,7 @@
 <meta name="language" content="Spanish">
 
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400,300&display=swap" rel="stylesheet">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 28'%3E%3Cpath d='M1,0 L15,14 L1,28 L7,28 L21,14 L7,0 Z' fill='%23006847'/%3E%3Ccircle cx='23' cy='14' r='3.8' fill='%23006847'/%3E%3Cpath d='M25,0 L39,14 L25,28 L31,28 L45,14 L31,0 Z' fill='%23CE1126'/%3E%3C/svg%3E">
+<link rel="icon" type="image/png" href="/logopng.png"><link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 28'%3E%3Cpath d='M1,0 L15,14 L1,28 L7,28 L21,14 L7,0 Z' fill='%23006847'/%3E%3Ccircle cx='23' cy='14' r='3.8' fill='%23006847'/%3E%3Cpath d='M25,0 L39,14 L25,28 L31,28 L45,14 L31,0 Z' fill='%23CE1126'/%3E%3C/svg%3E">
 
 <!-- Schema.org: WebPage + BreadcrumbList -->
 <script type="application/ld+json">
@@ -266,7 +266,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 
 <nav class="nav">
   <a class="logo" href="index.html">
-    <img src="logo.jpg" alt="comparalo.mx" style="height:38px;width:auto;object-fit:contain">
+    <img src="/logopng.png" alt="comparalo.mx" style="height:38px;width:auto;object-fit:contain">
   </a>
   <div class="nav-links">
     <a class="nav-link active" href="bicis.html">ðŸš² Bicicletas</a>
@@ -1035,8 +1035,8 @@ function cardConv(b, sec){
       </div>
       <div class="card-price">$${b.precio.toLocaleString('es-MX')} <span class="card-price-sub">MXN</span></div>
       <div class="card-btns" onclick="event.stopPropagation()">
-        ${b.linkAmz?`<a class="btn-amz" href="${b.linkAmz}" target="_blank" rel="nofollow sponsored">Ver en <img class="btn-logo-img" src="logoamazon.png" alt="" onerror="this.style.display='none'"></a>`:''}
-        ${b.linkML?`<a class="btn-ml" href="${b.linkML}" target="_blank" rel="nofollow sponsored">Ver en <img class="btn-logo-img" src="logomercado.png" alt="" onerror="this.style.display='none'"></a>`:''}
+        ${b.linkAmz?`<a class="btn-amz" href="${b.linkAmz}" target="_blank" rel="nofollow sponsored">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="" onerror="this.style.display='none'"></a>`:''}
+        ${b.linkML?`<a class="btn-ml" href="${b.linkML}" target="_blank" rel="nofollow sponsored">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="" onerror="this.style.display='none'"></a>`:''}
       </div>
       <div class="card-tip">Toca para comparar Â· <span style="color:var(--ac);cursor:pointer" onclick="toggleCross('${sec}',${b.id},event)">${inCross?'âœ“ En comparativa cruzada':'+ Comparar secciones'}</span></div>
     </div>
@@ -1083,20 +1083,20 @@ function renderGrid(sec){
               <div class="pc-platform pc-amz">Amazon</div>
               <div class="pc-price">$${b.precio.toLocaleString('es-MX')}</div>
               ${b.msiAmz?`<div class="pc-msi">${b.msiAmz}</div>`:''}
-              <a class="btn-amz" href="${b.linkAmz}" target="_blank" rel="nofollow sponsored" style="margin-top:7px;padding:7px;border-radius:7px;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:5px">Ver en <img class="btn-logo-img" src="logoamazon.png" alt="" onerror="this.style.display='none'"></a>
+              <a class="btn-amz" href="${b.linkAmz}" target="_blank" rel="nofollow sponsored" style="margin-top:7px;padding:7px;border-radius:7px;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:5px">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="" onerror="this.style.display='none'"></a>
             </div>
             <div class="pc-divider"></div>
             <div class="pc-col">
               <div class="pc-platform pc-ml">Mercado Libre</div>
               <div class="pc-price">$${(b.precioML||b.precio).toLocaleString('es-MX')}</div>
               ${b.msiML?`<div class="pc-msi">${b.msiML}</div>`:''}
-              <a class="btn-ml" href="${b.linkML}" target="_blank" rel="nofollow sponsored" style="margin-top:7px;padding:7px;border-radius:7px;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:5px">Ver en <img class="btn-logo-img" src="logomercado.png" alt="" onerror="this.style.display='none'"></a>
+              <a class="btn-ml" href="${b.linkML}" target="_blank" rel="nofollow sponsored" style="margin-top:7px;padding:7px;border-radius:7px;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:5px">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="" onerror="this.style.display='none'"></a>
             </div>
           </div>` : `
           <div class="card-price">${b.precio?'$'+b.precio.toLocaleString('es-MX')+' <span class="card-price-sub">MXN</span>':'<span style="font-size:.85rem;color:var(--tx2)">Ver precio en plataforma</span>'}</div>
           <div class="card-btns" onclick="event.stopPropagation()">
-            ${b.linkAmz?`<a class="btn-amz" href="${b.linkAmz}" target="_blank" rel="nofollow sponsored">Ver en <img class="btn-logo-img" src="logoamazon.png" alt="" onerror="this.style.display='none'"></a>`:''}
-            ${b.linkML?`<a class="btn-ml" href="${b.linkML}" target="_blank" rel="nofollow sponsored">Ver en <img class="btn-logo-img" src="logomercado.png" alt="" onerror="this.style.display='none'"></a>`:''}
+            ${b.linkAmz?`<a class="btn-amz" href="${b.linkAmz}" target="_blank" rel="nofollow sponsored">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="" onerror="this.style.display='none'"></a>`:''}
+            ${b.linkML?`<a class="btn-ml" href="${b.linkML}" target="_blank" rel="nofollow sponsored">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="" onerror="this.style.display='none'"></a>`:''}
           </div>`}
           <div class="card-tip">Toca para comparar Â· <span style="color:var(--ac);cursor:pointer" onclick="toggleCross('elec',${b.id},event)">${inCross?'âœ“ En comparativa cruzada':'+ Comparar secciones'}</span></div>
         </div>
@@ -1167,8 +1167,8 @@ function showCmp(){
 
   const btns='<tr><td style="text-align:left">Comprar</td>'+list.map(b=>`
     <td><div style="display:flex;flex-direction:column;gap:6px;max-width:150px;margin:0 auto">
-      ${b.linkAmz?`<a class="btn-amz" href="${b.linkAmz}" target="_blank" rel="nofollow sponsored" style="display:flex;align-items:center;justify-content:center;gap:5px;padding:7px 10px;border-radius:7px;text-decoration:none">Ver en <img class="btn-logo-img" src="logoamazon.png" alt="" onerror="this.style.display='none'"></a>`:''}
-      ${b.linkML?`<a class="btn-ml" href="${b.linkML}" target="_blank" rel="nofollow sponsored" style="display:flex;align-items:center;justify-content:center;gap:5px;padding:7px 10px;border-radius:7px;text-decoration:none">Ver en <img class="btn-logo-img" src="logomercado.png" alt="" onerror="this.style.display='none'"></a>`:''}
+      ${b.linkAmz?`<a class="btn-amz" href="${b.linkAmz}" target="_blank" rel="nofollow sponsored" style="display:flex;align-items:center;justify-content:center;gap:5px;padding:7px 10px;border-radius:7px;text-decoration:none">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="" onerror="this.style.display='none'"></a>`:''}
+      ${b.linkML?`<a class="btn-ml" href="${b.linkML}" target="_blank" rel="nofollow sponsored" style="display:flex;align-items:center;justify-content:center;gap:5px;padding:7px 10px;border-radius:7px;text-decoration:none">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="" onerror="this.style.display='none'"></a>`:''}
     </div></td>`).join('')+'</tr>';
 
   tbl.innerHTML=heads+body+btns;
@@ -1224,8 +1224,8 @@ function showCross(){
 
   const btns='<tr><td style="text-align:left">Comprar</td>'+list.map(b=>`
     <td><div style="display:flex;flex-direction:column;gap:6px;max-width:150px;margin:0 auto">
-      ${b.linkAmz?`<a class="btn-amz" href="${b.linkAmz}" target="_blank" rel="nofollow sponsored" style="display:flex;align-items:center;justify-content:center;gap:5px;padding:7px 10px;border-radius:7px;text-decoration:none">Ver en <img class="btn-logo-img" src="logoamazon.png" alt="" onerror="this.style.display='none'"></a>`:''}
-      ${b.linkML?`<a class="btn-ml" href="${b.linkML}" target="_blank" rel="nofollow sponsored" style="display:flex;align-items:center;justify-content:center;gap:5px;padding:7px 10px;border-radius:7px;text-decoration:none">Ver en <img class="btn-logo-img" src="logomercado.png" alt="" onerror="this.style.display='none'"></a>`:''}
+      ${b.linkAmz?`<a class="btn-amz" href="${b.linkAmz}" target="_blank" rel="nofollow sponsored" style="display:flex;align-items:center;justify-content:center;gap:5px;padding:7px 10px;border-radius:7px;text-decoration:none">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="" onerror="this.style.display='none'"></a>`:''}
+      ${b.linkML?`<a class="btn-ml" href="${b.linkML}" target="_blank" rel="nofollow sponsored" style="display:flex;align-items:center;justify-content:center;gap:5px;padding:7px 10px;border-radius:7px;text-decoration:none">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="" onerror="this.style.display='none'"></a>`:''}
     </div></td>`).join('')+'</tr>';
 
   tbl.innerHTML=heads+body+btns;
