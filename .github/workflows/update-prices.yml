@@ -29,91 +29,125 @@ jobs:
           fi
           echo "token=$TOKEN" >> $GITHUB_OUTPUT
 
-      - name: Actualizar precios en creatina.html
+      - name: Resolver links meli.la y actualizar precios en creatina.html
         run: |
           python3 << 'PYEOF'
           import urllib.request
+          import urllib.error
           import json
           import re
-          import os
 
           TOKEN = "${{ steps.get_token.outputs.token }}"
 
-          ITEM_IDS = [
-            "MLA100176226170","MLA103325331495","MLA105016309121","MLA105110572804",
-            "MLA107122659702","MLA107317756536","MLA107422381325","MLA107589116091",
-            "MLA108577166279","MLA108969476618","MLA110045225256","MLA110078241851",
-            "MLA110465841446","MLA112065661232","MLA112262833650","MLA112638604144",
-            "MLA112911248420","MLA113044049384","MLA113096921153","MLA113103853189",
-            "MLA113104041737","MLA114022042236","MLA114543468918","MLA114772014316",
-            "MLA115200630291","MLA115309859643","MLA115667183199","MLA116244291397",
-            "MLA92075082263","MLA96321260331","MLA97397742924","MLA98924944108",
-            "MLA99371896502","MLA99490226388","MLA99498275498","MLA99507422886",
-            "MLA99561058348","MLA99573504378","MLA99936164047","MLA99972611001",
-            "MLA99987878047","MLM107249638071","MLM109611021238"
+          # Links meli.la extraídos del HTML — se resuelven para obtener IDs MLM reales
+          MELI_LINKS = [
+            "https://meli.la/29DHHzt","https://meli.la/1GAWiDJ","https://meli.la/2BpzB13",
+            "https://meli.la/1NL3FWD","https://meli.la/2Y4iL9m","https://meli.la/1LxceHp",
+            "https://meli.la/147daDa","https://meli.la/2ZSuvJK","https://meli.la/2WScuqX",
+            "https://meli.la/1GVBrkd","https://meli.la/2QxUJHw","https://meli.la/1g8ipd2",
+            "https://meli.la/2BMhKZ3","https://meli.la/2DN65Qs","https://meli.la/1rFyr8r",
+            "https://meli.la/1bsxGdo","https://meli.la/2kBuiam","https://meli.la/1YVKc3i",
+            "https://meli.la/2pZh2RA","https://meli.la/2nPS19Z","https://meli.la/33Hxuxe",
+            "https://meli.la/19R9R7x","https://meli.la/21DEf2D","https://meli.la/1gCUEaD",
+            "https://meli.la/1YG4vWW","https://meli.la/1fqjkmL","https://meli.la/1tekFYw",
+            "https://meli.la/1X7Pf9w","https://meli.la/1xM24Zw","https://meli.la/2ty8qXt",
+            "https://meli.la/2NMLMz1","https://meli.la/26FsGmw","https://meli.la/2JAdV9g",
+            "https://meli.la/178oSnz","https://meli.la/2gq8NQv","https://meli.la/2dYUxdb",
+            "https://meli.la/2QyUgTs","https://meli.la/2DAgxTP","https://meli.la/2FGYiK7",
+            "https://meli.la/2mabnsV","https://meli.la/1LheY1x","https://meli.la/1tgGyVu",
+            "https://meli.la/2RP7wXn","https://meli.la/1ATYDz6"
           ]
 
-          prices = {}
+          # Paso 1: resolver cada meli.la → obtener item ID real
+          item_ids = []
+          link_to_id = {}
+          print(f"Resolviendo {len(MELI_LINKS)} links meli.la...")
 
-          # Query en lotes de 20 (límite de la API)
-          for i in range(0, len(ITEM_IDS), 20):
-            batch = ITEM_IDS[i:i+20]
+          for short_url in MELI_LINKS:
+            try:
+              req = urllib.request.Request(short_url, method="HEAD")
+              req.add_header("User-Agent", "Mozilla/5.0")
+              # No seguir redirects — leer Location header
+              opener = urllib.request.build_opener(urllib.request.HTTPRedirectHandler())
+              class NoRedirect(urllib.request.HTTPRedirectHandler):
+                def redirect_request(self, req, fp, code, msg, headers, newurl):
+                  return None
+              no_redir_opener = urllib.request.build_opener(NoRedirect())
+              try:
+                no_redir_opener.open(short_url, timeout=10)
+              except urllib.error.HTTPError as e:
+                location = e.headers.get("Location", "")
+                if location:
+                  # Extraer item ID: MLM seguido de dígitos
+                  m = re.search(r'(ML[A-Z]\d+)', location)
+                  if m:
+                    item_id = m.group(1)
+                    item_ids.append(item_id)
+                    link_to_id[short_url] = item_id
+                    print(f"  {short_url} → {item_id}")
+                  else:
+                    print(f"  {short_url} → sin ID en: {location[:80]}")
+            except Exception as e:
+              print(f"  Error resolviendo {short_url}: {e}")
+
+          print(f"IDs resueltos: {len(item_ids)} de {len(MELI_LINKS)}")
+
+          if not item_ids:
+            print("No se pudieron resolver IDs. Abortando.")
+            exit(0)
+
+          # Paso 2: consultar precios en lotes de 20
+          prices = {}
+          for i in range(0, len(item_ids), 20):
+            batch = item_ids[i:i+20]
             ids_param = ",".join(batch)
-            url = f"https://api.mercadolibre.com/items?ids={ids_param}&attributes=id,price,currency_id,title,condition"
+            url = f"https://api.mercadolibre.com/items?ids={ids_param}&attributes=id,price,currency_id"
             req = urllib.request.Request(url, headers={"Authorization": f"Bearer {TOKEN}"})
             try:
               with urllib.request.urlopen(req, timeout=15) as resp:
                 data = json.loads(resp.read())
+                print(f"Respuesta API lote {i//20+1}: {json.dumps(data)[:300]}")
                 for entry in data:
                   if entry.get("code") == 200:
                     body = entry["body"]
-                    item_id = body.get("id","")
+                    item_id = body.get("id", "")
                     price = body.get("price")
-                    currency = body.get("currency_id","MXN")
                     if item_id and price is not None:
-                      prices[item_id] = {"price": price, "currency": currency}
+                      prices[item_id] = price
             except Exception as e:
-              print(f"Error en lote {batch}: {e}")
+              print(f"Error lote {i//20+1}: {e}")
 
-          print(f"Precios obtenidos: {len(prices)} de {len(ITEM_IDS)}")
+          print(f"Precios obtenidos: {len(prices)} de {len(item_ids)}")
 
           if not prices:
-            print("Sin precios nuevos, abortando actualización.")
+            print("Sin precios. Abortando actualización HTML.")
             exit(0)
 
+          # Paso 3: actualizar data-price en el HTML usando el short link como clave
           with open("creatina.html", "r", encoding="utf-8") as f:
             html = f.read()
 
           updated = 0
-          for item_id, info in prices.items():
-            price = info["price"]
-            # Formato: $1,234 (sin decimales para precios en MXN)
-            price_str = f"${price:,.0f}"
-            # Reemplaza data-price y spans de precio asociados al item
-            # Patrón: data-price="XXXX" dentro del elemento que contiene el item_id
+          for short_url, item_id in link_to_id.items():
+            if item_id not in prices:
+              continue
+            price = prices[item_id]
+            # Busca el bloque que contiene este linkML y actualiza data-price
             old = html
+            # Patrón: objeto JS con linkML:"<short_url>" y data-price cercano
             html = re.sub(
-              rf'(data-id="{re.escape(item_id)}"[^>]*?)data-price="[^"]*"',
+              rf'(linkML:"{re.escape(short_url)}"[^}}]{{0,200}}?)data-price="[^"]*"',
               rf'\1data-price="{price}"',
-              html
+              html,
+              flags=re.DOTALL
             )
             if html != old:
               updated += 1
 
-          # Actualiza fecha de actualización en el HTML
-          from datetime import datetime, timezone
-          now = datetime.now(timezone.utc).strftime("%-d de %B de %Y").lower()
-          html = re.sub(
-            r'(actualizado[^<]*?)\d{1,2} de \w+ de \d{4}',
-            rf'\g<1>{now}',
-            html,
-            flags=re.IGNORECASE
-          )
-
           with open("creatina.html", "w", encoding="utf-8") as f:
             f.write(html)
 
-          print(f"Elementos actualizados en HTML: {updated}")
+          print(f"Precios actualizados en HTML: {updated}")
           PYEOF
 
       - name: Commit y push si hay cambios
