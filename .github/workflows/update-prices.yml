@@ -55,12 +55,21 @@ jobs:
             final=$(curl -s -o /dev/null -L -w "%{url_effective}" \
               -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" \
               --max-redirs 5 --connect-timeout 10 "$url")
+            # Intentar extraer ID directo de la URL final
             item_id=$(echo "$final" | grep -oP 'ML[A-Z]\d+' | head -1)
+            # Si no hay ID directo, decodificar parámetro "ref" de la URL social
+            if [ -z "$item_id" ]; then
+              ref_param=$(echo "$final" | grep -oP '(?<=ref=)[^&]+' | head -1)
+              if [ -n "$ref_param" ]; then
+                decoded=$(python3 -c "import urllib.parse,sys; print(urllib.parse.unquote(sys.argv[1]))" "$ref_param")
+                item_id=$(echo "$decoded" | grep -oP 'ML[A-Z]\d+' | head -1)
+              fi
+            fi
             if [ -n "$item_id" ]; then
               echo "$url $item_id"
               echo "$url $item_id" >> link_ids.txt
             else
-              echo "$url → sin ID (url final: $final)"
+              echo "$url → sin ID (url final: ${final:0:120})"
             fi
           done
           echo "Total resueltos: $(wc -l < link_ids.txt)"
