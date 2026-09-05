@@ -40,16 +40,23 @@ jobs:
           TOKEN = "${{ steps.get_token.outputs.token }}"
 
           with open("creatina.html", "r", encoding="utf-8") as f:
-            html = f.read()
+            lines = f.readlines()
 
-          # Extraer pares nombre→linkML del HTML
-          pairs = re.findall(r'nombre:"([^"]+)"[^}]{0,200}?linkML:"(https://meli\.la/[^"]+)"', html, re.DOTALL)
+          # Cada producto está en una línea — extraer nombre y linkML por línea
+          pairs = []
+          for line in lines:
+            m_nombre = re.search(r'nombre:"([^"]+)"', line)
+            m_link = re.search(r'linkML:"(https://meli\.la/[^"]+)"', line)
+            if m_nombre and m_link:
+              pairs.append((m_nombre.group(1), m_link.group(1), line))
+
+          html = "".join(lines)
           print(f"Productos encontrados: {len(pairs)}")
 
           prices_by_link = {}
           headers = {"Authorization": f"Bearer {TOKEN}"}
 
-          for nombre, link in pairs:
+          for nombre, link, _ in pairs:
             query = urllib.parse.quote(nombre)
             url = f"https://api.mercadolibre.com/sites/MLM/search?q={query}&limit=1&attributes=results.id,results.price,results.title"
             req = urllib.request.Request(url, headers=headers)
@@ -77,19 +84,22 @@ jobs:
             exit(0)
 
           updated = 0
-          for link, price in prices_by_link.items():
-            old = html
-            html = re.sub(
-              rf'(linkML:"{re.escape(link)}"[^}}]{{0,400}}?)data-price:"[^"]*"',
-              rf'\1data-price:"{price}"',
-              html,
-              flags=re.DOTALL
-            )
-            if html != old:
-              updated += 1
+          new_lines = []
+          for line in lines:
+            m_link = re.search(r'linkML:"(https://meli\.la/[^"]+)"', line)
+            if m_link:
+              link = m_link.group(1)
+              if link in prices_by_link:
+                price = prices_by_link[link]
+                new_line = re.sub(r'precioML:\d+(\.\d+)?', f'precioML:{price}', line)
+                if new_line != line:
+                  updated += 1
+                new_lines.append(new_line)
+                continue
+            new_lines.append(line)
 
           with open("creatina.html", "w", encoding="utf-8") as f:
-            f.write(html)
+            f.writelines(new_lines)
 
           print(f"Precios actualizados en HTML: {updated}")
           PYEOF
