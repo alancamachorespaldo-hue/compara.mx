@@ -29,116 +29,59 @@ jobs:
           fi
           echo "token=$TOKEN" >> $GITHUB_OUTPUT
 
-      - name: Resolver links meli.la con curl
-        id: resolve_links
-        run: |
-          MELI_LINKS=(
-            "https://meli.la/29DHHzt" "https://meli.la/1GAWiDJ" "https://meli.la/2BpzB13"
-            "https://meli.la/1NL3FWD" "https://meli.la/2Y4iL9m" "https://meli.la/1LxceHp"
-            "https://meli.la/147daDa" "https://meli.la/2ZSuvJK" "https://meli.la/2WScuqX"
-            "https://meli.la/1GVBrkd" "https://meli.la/2QxUJHw" "https://meli.la/1g8ipd2"
-            "https://meli.la/2BMhKZ3" "https://meli.la/2DN65Qs" "https://meli.la/1rFyr8r"
-            "https://meli.la/1bsxGdo" "https://meli.la/2kBuiam" "https://meli.la/1YVKc3i"
-            "https://meli.la/2pZh2RA" "https://meli.la/2nPS19Z" "https://meli.la/33Hxuxe"
-            "https://meli.la/19R9R7x" "https://meli.la/21DEf2D" "https://meli.la/1gCUEaD"
-            "https://meli.la/1YG4vWW" "https://meli.la/1fqjkmL" "https://meli.la/1tekFYw"
-            "https://meli.la/1X7Pf9w" "https://meli.la/1xM24Zw" "https://meli.la/2ty8qXt"
-            "https://meli.la/2NMLMz1" "https://meli.la/26FsGmw" "https://meli.la/2JAdV9g"
-            "https://meli.la/178oSnz" "https://meli.la/2gq8NQv" "https://meli.la/2dYUxdb"
-            "https://meli.la/2QyUgTs" "https://meli.la/2DAgxTP" "https://meli.la/2FGYiK7"
-            "https://meli.la/2mabnsV" "https://meli.la/1LheY1x" "https://meli.la/1tgGyVu"
-            "https://meli.la/2RP7wXn" "https://meli.la/1ATYDz6"
-          )
-          echo "Resolviendo ${#MELI_LINKS[@]} links..."
-          > link_ids.txt
-          for url in "${MELI_LINKS[@]}"; do
-            final=$(curl -s -o /dev/null -L -w "%{url_effective}" \
-              -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" \
-              --max-redirs 5 --connect-timeout 10 "$url")
-            # Intentar extraer ID directo de la URL final
-            item_id=$(echo "$final" | grep -oP 'ML[A-Z]\d+' | head -1)
-            # Si no hay ID directo, decodificar parámetro "ref" de la URL social
-            if [ -z "$item_id" ]; then
-              ref_param=$(echo "$final" | grep -oP '(?<=ref=)[^&]+' | head -1)
-              if [ -n "$ref_param" ]; then
-                decoded=$(python3 -c "import urllib.parse,sys; print(urllib.parse.unquote(sys.argv[1]))" "$ref_param")
-                item_id=$(echo "$decoded" | grep -oP 'ML[A-Z]\d+' | head -1)
-              fi
-            fi
-            if [ -n "$item_id" ]; then
-              echo "$url $item_id"
-              echo "$url $item_id" >> link_ids.txt
-            else
-              echo "$url → sin ID (url final: ${final:0:120})"
-            fi
-          done
-          echo "Total resueltos: $(wc -l < link_ids.txt)"
-
-      - name: Actualizar precios en creatina.html
+      - name: Actualizar precios buscando por nombre en ML México
         run: |
           python3 << 'PYEOF'
           import urllib.request
+          import urllib.parse
           import json
           import re
 
           TOKEN = "${{ steps.get_token.outputs.token }}"
 
-          # Leer IDs resueltos por curl
-          link_to_id = {}
-          try:
-            with open("link_ids.txt") as f:
-              for line in f:
-                parts = line.strip().split()
-                if len(parts) == 2:
-                  link_to_id[parts[0]] = parts[1]
-          except FileNotFoundError:
-            print("link_ids.txt no encontrado. Abortando.")
-            exit(0)
-
-          item_ids = list(set(link_to_id.values()))
-          print(f"IDs únicos a consultar: {len(item_ids)}")
-          if not item_ids:
-            print("Sin IDs. Abortando.")
-            exit(0)
-
-          # Consultar precios en lotes de 20
-          prices = {}
-          for i in range(0, len(item_ids), 20):
-            batch = item_ids[i:i+20]
-            ids_param = ",".join(batch)
-            url = f"https://api.mercadolibre.com/items?ids={ids_param}&attributes=id,price,currency_id"
-            req = urllib.request.Request(url, headers={"Authorization": f"Bearer {TOKEN}"})
-            try:
-              with urllib.request.urlopen(req, timeout=15) as resp:
-                data = json.loads(resp.read())
-                print(f"Lote {i//20+1}: {json.dumps(data)[:400]}")
-                for entry in data:
-                  if entry.get("code") == 200:
-                    body = entry["body"]
-                    item_id = body.get("id", "")
-                    price = body.get("price")
-                    if item_id and price is not None:
-                      prices[item_id] = price
-            except Exception as e:
-              print(f"Error lote {i//20+1}: {e}")
-
-          print(f"Precios obtenidos: {len(prices)} de {len(item_ids)}")
-          if not prices:
-            print("Sin precios. Abortando.")
-            exit(0)
-
           with open("creatina.html", "r", encoding="utf-8") as f:
             html = f.read()
 
+          # Extraer pares nombre→linkML del HTML
+          pairs = re.findall(r'nombre:"([^"]+)"[^}]{0,200}?linkML:"(https://meli\.la/[^"]+)"', html, re.DOTALL)
+          print(f"Productos encontrados: {len(pairs)}")
+
+          prices_by_link = {}
+          headers = {"Authorization": f"Bearer {TOKEN}"}
+
+          for nombre, link in pairs:
+            query = urllib.parse.quote(nombre)
+            url = f"https://api.mercadolibre.com/sites/MLM/search?q={query}&limit=1&attributes=results.id,results.price,results.title"
+            req = urllib.request.Request(url, headers=headers)
+            try:
+              with urllib.request.urlopen(req, timeout=15) as resp:
+                data = json.loads(resp.read())
+                results = data.get("results", [])
+                if results:
+                  price = results[0].get("price")
+                  found_title = results[0].get("title", "")
+                  if price is not None:
+                    prices_by_link[link] = price
+                    print(f"OK  {nombre[:50]} → ${price:,.0f} [{found_title[:40]}]")
+                  else:
+                    print(f"SIN PRECIO: {nombre[:50]}")
+                else:
+                  print(f"SIN RESULTADO: {nombre[:50]}")
+            except Exception as e:
+              print(f"ERROR {nombre[:40]}: {e}")
+
+          print(f"\nPrecios obtenidos: {len(prices_by_link)} de {len(pairs)}")
+
+          if not prices_by_link:
+            print("Sin precios. Abortando.")
+            exit(0)
+
           updated = 0
-          for short_url, item_id in link_to_id.items():
-            if item_id not in prices:
-              continue
-            price = prices[item_id]
+          for link, price in prices_by_link.items():
             old = html
             html = re.sub(
-              rf'(linkML:"{re.escape(short_url)}"[^}}]{{0,300}}?)data-price="[^"]*"',
-              rf'\1data-price="{price}"',
+              rf'(linkML:"{re.escape(link)}"[^}}]{{0,400}}?)data-price:"[^"]*"',
+              rf'\1data-price:"{price}"',
               html,
               flags=re.DOTALL
             )
