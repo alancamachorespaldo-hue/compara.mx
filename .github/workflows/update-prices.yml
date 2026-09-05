@@ -1,0 +1,129 @@
+name: Actualizar precios Mercado Libre
+
+on:
+  schedule:
+    # Corre cada día a las 6:00 AM hora Ciudad de México (UTC-6 → 12:00 UTC)
+    - cron: '0 12 * * *'
+  workflow_dispatch: # permite lanzarlo manualmente
+
+jobs:
+  update-prices:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repositorio
+        uses: actions/checkout@v4
+
+      - name: Obtener token de Mercado Libre
+        id: get_token
+        run: |
+          RESPONSE=$(curl -s -X POST "https://api.mercadolibre.com/oauth/token" \
+            -H "Content-Type: application/x-www-form-urlencoded" \
+            -d "grant_type=client_credentials&client_id=${{ secrets.ML_CLIENT_ID }}&client_secret=${{ secrets.ML_CLIENT_SECRET }}")
+          TOKEN=$(echo "$RESPONSE" | python3 -c "import sys,json; print(json.load(sys.stdin).get('access_token',''))")
+          if [ -z "$TOKEN" ]; then
+            echo "Error obteniendo token: $RESPONSE"
+            exit 1
+          fi
+          echo "token=$TOKEN" >> $GITHUB_OUTPUT
+
+      - name: Actualizar precios en creatina.html
+        run: |
+          python3 << 'PYEOF'
+          import urllib.request
+          import json
+          import re
+          import os
+
+          TOKEN = "${{ steps.get_token.outputs.token }}"
+
+          ITEM_IDS = [
+            "MLA100176226170","MLA103325331495","MLA105016309121","MLA105110572804",
+            "MLA107122659702","MLA107317756536","MLA107422381325","MLA107589116091",
+            "MLA108577166279","MLA108969476618","MLA110045225256","MLA110078241851",
+            "MLA110465841446","MLA112065661232","MLA112262833650","MLA112638604144",
+            "MLA112911248420","MLA113044049384","MLA113096921153","MLA113103853189",
+            "MLA113104041737","MLA114022042236","MLA114543468918","MLA114772014316",
+            "MLA115200630291","MLA115309859643","MLA115667183199","MLA116244291397",
+            "MLA92075082263","MLA96321260331","MLA97397742924","MLA98924944108",
+            "MLA99371896502","MLA99490226388","MLA99498275498","MLA99507422886",
+            "MLA99561058348","MLA99573504378","MLA99936164047","MLA99972611001",
+            "MLA99987878047","MLM107249638071","MLM109611021238"
+          ]
+
+          prices = {}
+
+          # Query en lotes de 20 (límite de la API)
+          for i in range(0, len(ITEM_IDS), 20):
+            batch = ITEM_IDS[i:i+20]
+            ids_param = ",".join(batch)
+            url = f"https://api.mercadolibre.com/items?ids={ids_param}&attributes=id,price,currency_id,title,condition"
+            req = urllib.request.Request(url, headers={"Authorization": f"Bearer {TOKEN}"})
+            try:
+              with urllib.request.urlopen(req, timeout=15) as resp:
+                data = json.loads(resp.read())
+                for entry in data:
+                  if entry.get("code") == 200:
+                    body = entry["body"]
+                    item_id = body.get("id","")
+                    price = body.get("price")
+                    currency = body.get("currency_id","MXN")
+                    if item_id and price is not None:
+                      prices[item_id] = {"price": price, "currency": currency}
+            except Exception as e:
+              print(f"Error en lote {batch}: {e}")
+
+          print(f"Precios obtenidos: {len(prices)} de {len(ITEM_IDS)}")
+
+          if not prices:
+            print("Sin precios nuevos, abortando actualización.")
+            exit(0)
+
+          with open("creatina.html", "r", encoding="utf-8") as f:
+            html = f.read()
+
+          updated = 0
+          for item_id, info in prices.items():
+            price = info["price"]
+            # Formato: $1,234 (sin decimales para precios en MXN)
+            price_str = f"${price:,.0f}"
+            # Reemplaza data-price y spans de precio asociados al item
+            # Patrón: data-price="XXXX" dentro del elemento que contiene el item_id
+            old = html
+            html = re.sub(
+              rf'(data-id="{re.escape(item_id)}"[^>]*?)data-price="[^"]*"',
+              rf'\1data-price="{price}"',
+              html
+            )
+            if html != old:
+              updated += 1
+
+          # Actualiza fecha de actualización en el HTML
+          from datetime import datetime, timezone
+          now = datetime.now(timezone.utc).strftime("%-d de %B de %Y").lower()
+          html = re.sub(
+            r'(actualizado[^<]*?)\d{1,2} de \w+ de \d{4}',
+            rf'\g<1>{now}',
+            html,
+            flags=re.IGNORECASE
+          )
+
+          with open("creatina.html", "w", encoding="utf-8") as f:
+            f.write(html)
+
+          print(f"Elementos actualizados en HTML: {updated}")
+          PYEOF
+
+      - name: Commit y push si hay cambios
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add creatina.html
+          if git diff --staged --quiet; then
+            echo "Sin cambios de precios, nada que commitear."
+          else
+            git commit -m "chore: actualizar precios ML $(date +'%Y-%m-%d')"
+            git push
+          fi
