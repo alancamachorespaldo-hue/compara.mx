@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es-MX">
 <head>
 <meta charset="UTF-8" >
@@ -57,13 +57,17 @@
       "name": "Mejores Bicicletas ElÃ©ctricas en MÃ©xico 2026",
       "description": "Las mejores bicicletas elÃ©ctricas disponibles en Amazon MX y Mercado Libre",
       "url": "https://comparalo.mx/bicis.html",
-      "numberOfItems": 13,
+      "numberOfItems": 9,
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "HONEYWHALE S6-S Plegable 750W", "url": "https://www.amazon.com.mx/dp/B0BHWC9DC4" },
-        { "@type": "ListItem", "position": 2, "name": "HONEYWHALE B20 Plegable 440W", "url": "https://meli.la/13mxVr4" },
-        { "@type": "ListItem", "position": 3, "name": "HONEYWHALE U1s Urbana 650W", "url": "https://www.amazon.com.mx/dp/B0BS6R4RWQ" },
-        { "@type": "ListItem", "position": 4, "name": "VOLTBULL F1 Plegable 400W", "url": "https://meli.la/28LXjta" },
-        { "@type": "ListItem", "position": 5, "name": "VOLTBULL K1 Plegable 500W", "url": "https://meli.la/14P2TRD" }
+        { "@type": "ListItem", "position": 1, "name": "HONEYWHALE B20 Plegable 440W", "url": "https://meli.la/13mxVr4" },
+        { "@type": "ListItem", "position": 2, "name": "POP SHOPPE S6 Negro 750W", "url": "https://meli.la/2GzSAbQ" },
+        { "@type": "ListItem", "position": 3, "name": "POP SHOPPE S6 Blanco 750W", "url": "https://meli.la/1xqxwtR" },
+        { "@type": "ListItem", "position": 4, "name": "HONEYWHALE S6 PRO-S Plegable 750W", "url": "https://meli.la/1kjrpQP" },
+        { "@type": "ListItem", "position": 5, "name": "AMYET SE1 Fat Tire 20 Pulgadas", "url": "https://meli.la/2GnsiwY" },
+        { "@type": "ListItem", "position": 6, "name": "HONEYWHALE S6-S Plegable 750W", "url": "https://meli.la/1bjtgkL" },
+        { "@type": "ListItem", "position": 7, "name": "NEON EX-1R Urbana 350W", "url": "https://meli.la/1NWtToB" },
+        { "@type": "ListItem", "position": 8, "name": "Bizmo MKZ-BIZMODYNEG Urbana 350W", "url": "https://meli.la/1tfJMSP" },
+        { "@type": "ListItem", "position": 9, "name": "NEON EBIKE500 Urbana 500W", "url": "https://meli.la/1utSy9X" }
       ]
     },
     {
@@ -191,6 +195,13 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .b-best{background:var(--acd);color:var(--ac);border:1px solid var(--acd2)}
 .b-pop{background:rgba(99,102,241,.08);color:#4f46e5;border:1px solid rgba(99,102,241,.2)}
 .b-sale{background:var(--redd);color:var(--red);border:1px solid var(--redd2)}
+.b-discr{background:#fff8e1;color:#b45309;border:1px solid #fde68a}
+.b-color{background:#e0f2fe;color:#0369a1;border:1px solid #bae6fd}
+.card-discrepancias{margin:.4rem 0;padding:.35rem .6rem;background:#fff8e1;border-left:3px solid #f59e0b;border-radius:0 6px 6px 0;font-size:11px;color:#92400e}
+.card-bat-nd{margin-bottom:.75rem;font-size:12px;color:var(--tx3);font-style:italic}
+.card-pendientes{margin:.5rem 0;font-size:11px}
+.card-pendientes summary{cursor:pointer;color:var(--tx3);padding:.2rem 0}
+.card-pendientes ul{margin:.3rem 0 0 1rem;padding:0;color:var(--tx3);line-height:1.6}
 .card-name{font-family:'Satoshi',sans-serif;font-size:15px;font-weight:700;color:var(--tx);margin-bottom:1px;line-height:1.3;letter-spacing:-.02em}
 .card-brand{font-size:11px;color:var(--tx3);margin-bottom:.5rem;font-weight:500;text-transform:uppercase;letter-spacing:.05em}
 .card-stars{font-size:12px;color:#e6900a;margin-bottom:.75rem;display:flex;align-items:center;gap:4px}
@@ -540,99 +551,279 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 // DATOS â€” ELÃ‰CTRICAS
 // ============================================================
 const ELECTRICAS = [
-  {id:1,nombre:'HONEYWHALE F6',marca:'HONEYWHALE',tipo:'montaÃ±a',
-   precio:12798,precioML:0,autonomia:45,velocidad:40,peso:32,motor:'500W',rueda:'20"',velocidades:'7',
-   cargaMax:120,msiAmz:'15 MSI con BBVA',msiML:'',estrellas:4.4,resenas:16,
-   badges:[{t:'AMZ',c:'b-amz'},{t:'SuspensiÃ³n doble',c:'b-pop'}],
-   linkAmz:'https://www.amazon.com.mx/dp/B0G931TX1K?th=1&linkCode=ll2&tag=comparabici-20&linkId=b8d8d427bce3d67114678823db2230f9&ref_=as_li_ss_tl',linkML:'',
-   img:'https://m.media-amazon.com/images/I/71Q8rsfPJEL._AC_SX679_.jpg'},
-  {id:2,nombre:'HONEYWHALE S6-S',marca:'HONEYWHALE',tipo:'plegable',
-   precio:7999,precioML:7199,autonomia:40,velocidad:35,peso:25.5,motor:'750W',rueda:'14"',velocidades:'3',
-   cargaMax:125,msiAmz:'15 MSI con BBVA',msiML:'12 meses',estrellas:4.1,resenas:351,
-   badges:[{t:'AMZ',c:'b-amz'},{t:'ML',c:'b-ml'},{t:'351 reseÃ±as',c:'b-best'}],
-   linkAmz:'https://www.amazon.com.mx/dp/B0BHWC9DC4?th=1&linkCode=ll2&tag=comparabici-20&linkId=fb5221337dc77d0f1f32ab89c23e755f&ref_=as_li_ss_tl',
-   linkML:'https://meli.la/2cccAnq',
-   img:'https://m.media-amazon.com/images/I/7198Wi0XnjL._AC_SX679_.jpg'},
-  {id:3,nombre:'HONEYWHALE U1s',marca:'HONEYWHALE',tipo:'urbana',
-   precio:9999,precioML:0,autonomia:65,velocidad:31,peso:57.6,motor:'650W',rueda:'14"',velocidades:'1',
-   cargaMax:150,msiAmz:'15 MSI con BBVA',msiML:'',estrellas:4.0,resenas:311,
-   badges:[{t:'AMZ',c:'b-amz'},{t:'Mayor autonomÃ­a',c:'b-best'}],
-   linkAmz:'https://www.amazon.com.mx/dp/B0BS6R4RWQ?th=1&linkCode=ll2&tag=comparabici-20&linkId=e4f38d164db41aed58ff4fea773e287f&ref_=as_li_ss_tl',linkML:'',
-   img:'https://m.media-amazon.com/images/I/71WDfDfi0JL._AC_SX679_.jpg'},
-  {id:4,nombre:'Pop Shope S6',marca:'Pop Shope',tipo:'plegable',
-   precio:6599,precioML:0,autonomia:30,velocidad:35,peso:25.5,motor:'750W',rueda:'14"',velocidades:'3',
-   cargaMax:125,msiAmz:'15 MSI con BBVA',msiML:'',estrellas:4.4,resenas:99,
-   badges:[{t:'AMZ',c:'b-amz'},{t:'Precio accesible',c:'b-pop'}],
-   linkAmz:'https://www.amazon.com.mx/dp/B0DKWCTQB3?th=1&linkCode=ll2&tag=comparabici-20&linkId=254faf275db64a0c7b23bd7fb6019b63&ref_=as_li_ss_tl',linkML:'',
-   img:'https://m.media-amazon.com/images/I/71DrOpd+zEL._AC_SX679_.jpg'},
-  {id:5,nombre:'GUTSY D460',marca:'GUTSY',tipo:'plegable',
-   precio:7699,precioML:7699,autonomia:0,velocidad:40,peso:30,motor:'750W',rueda:'â€”',velocidades:'â€”',
-   cargaMax:180,msiAmz:'',msiML:'',estrellas:3.9,resenas:8,
-   badges:[{t:'ML',c:'b-ml'},{t:'2 pasajeros',c:'b-pop'}],
-   linkAmz:'',linkML:'https://meli.la/2Eu51p1',
-   img:'https://http2.mlstatic.com/D_NQ_NP_2X_791483-MLM89975271049_082025-F-bicicleta-electrica-uber-d460-plegable-750w-40kmh-2-pasaje.webp'},
-  {id:6,nombre:'VOLTBULL K1',marca:'VOLTBULL',tipo:'plegable',
-   precio:6466,precioML:6466,autonomia:32,velocidad:45,peso:33,motor:'500W',rueda:'14"',velocidades:'3',
-   cargaMax:150,msiAmz:'',msiML:'',estrellas:4.4,resenas:13,
-   badges:[{t:'ML',c:'b-ml'},{t:'MÃ¡s rÃ¡pida',c:'b-best'}],
-   linkAmz:'',linkML:'https://meli.la/14P2TRD',
-   img:'https://http2.mlstatic.com/D_NQ_NP_2X_694646-MLM111624407009_052026-F.webp'},
-  {id:7,nombre:'HONEYWHALE B20',marca:'HONEYWHALE',tipo:'plegable',
-   precio:6599,precioML:6599,autonomia:35,velocidad:32,peso:21,motor:'440W',rueda:'14"',velocidades:'3',
-   cargaMax:120,msiAmz:'',msiML:'',estrellas:4.7,resenas:789,
-   badges:[{t:'ML',c:'b-ml'},{t:'MÃ¡s vendida',c:'b-best'},{t:'789 reseÃ±as',c:'b-pop'}],
-   linkAmz:'',linkML:'https://meli.la/13mxVr4',
-   img:'https://http2.mlstatic.com/D_NQ_NP_2X_763620-MLA89353119440_082025-F.webp'},
-  {id:8,nombre:'HONEYWHALE BW02',marca:'HONEYWHALE',tipo:'montaÃ±a',
-   precio:12599,precioML:0,autonomia:45,velocidad:40,peso:30,motor:'500W',rueda:'20"',velocidades:'â€”',
-   cargaMax:140,msiAmz:'15 MSI con BBVA',msiML:'',estrellas:4.4,resenas:12,
-   badges:[{t:'AMZ',c:'b-amz'},{t:'SuspensiÃ³n delantera',c:'b-pop'}],
-   linkAmz:'https://www.amazon.com.mx/HONEYWHALE-BW02-Bicicleta-Electrica-Velocidad/dp/B0FCRHGKS9?th=1&linkCode=ll2&tag=comparabici-20&linkId=cba03ee0086eb36502ef16c11f87f15e&ref_=as_li_ss_tl',linkML:'',
-   img:'https://m.media-amazon.com/images/I/71jRlG+iNfL._AC_SY879_.jpg'},
-  {id:9,nombre:'HONEYWHALE B20 â€” Amazon',marca:'HONEYWHALE',tipo:'plegable',
-   precio:6598,precioML:0,autonomia:35,velocidad:32,peso:21.3,motor:'440W',rueda:'14"',velocidades:'3',
-   cargaMax:120,msiAmz:'15 MSI con BBVA',msiML:'',estrellas:4.1,resenas:351,
-   badges:[{t:'AMZ',c:'b-amz'},{t:'Precio accesible',c:'b-pop'}],
-   linkAmz:'https://www.amazon.com.mx/dp/B0FK298YDN?th=1&linkCode=ll2&tag=comparabici-20&linkId=3c9e7d97bab77a9582cb094759e19df2&ref_=as_li_ss_tl',linkML:'',
-   img:'https://m.media-amazon.com/images/I/61dX+2AughL._AC_SX679_.jpg'},
-  {id:10,nombre:'HONEYWHALE S6-S Blanco',marca:'HONEYWHALE',tipo:'plegable',
-   precio:7999,precioML:0,autonomia:40,velocidad:35,peso:25.5,motor:'750W',rueda:'14"',velocidades:'3',
-   cargaMax:125,msiAmz:'',msiML:'',estrellas:4.7,resenas:5,
-   badges:[{t:'AMZ',c:'b-amz'},{t:'Nuevo',c:'b-best'}],
-   linkAmz:'https://www.amazon.com.mx/HONEYWHALE-S6-S-Bicicleta-El%C3%A9ctrica-Velocidad/dp/B0DL2J1QFW?th=1&linkCode=ll2&tag=comparabici-20&linkId=dff9de280f64de920c61d54af69075ba&ref_=as_li_ss_tl',linkML:'',
-   img:'https://m.media-amazon.com/images/I/71FwpvaEzBL._AC_SX679_.jpg'},
-  {id:11,nombre:'VOLTBULL F1',marca:'VOLTBULL',tipo:'plegable',
-   precio:6000,precioML:6000,autonomia:0,velocidad:35,peso:29,motor:'400W',rueda:'14"',velocidades:'3',
-   cargaMax:150,msiAmz:'',msiML:'',estrellas:4.7,resenas:55,
-   badges:[{t:'ML',c:'b-ml'},{t:'6Âª mÃ¡s vendida',c:'b-best'}],
-   linkAmz:'',linkML:'https://meli.la/28LXjta',
-   img:'https://http2.mlstatic.com/D_NQ_NP_2X_689356-MLA109073730295_032026-F.webp'},
-  // --- Nuevas elÃ©ctricas del catÃ¡logo ---
-  {id:12,nombre:'F1 PequeÃ±o 14" Plegable 500W',marca:'VOLTBULL',tipo:'plegable',
-   precio:5969,precioML:5969,autonomia:0,velocidad:35,peso:0,motor:'500W',rueda:'14"',velocidades:'â€”',
-   cargaMax:0,msiAmz:'',msiML:'',estrellas:5.0,resenas:3,
-   badges:[{t:'ML',c:'b-ml'},{t:'La mÃ¡s econÃ³mica',c:'b-sale'},{t:'5.0â˜…',c:'b-best'}],
-   linkAmz:'',linkML:'https://meli.la/2GGZZPS',
-   img:'https://http2.mlstatic.com/D_NQ_NP_2X_747211-MLM110989858132_052026-F.webp'},
-  {id:13,nombre:'Bici ElÃ©ctrica 48V/13.8AH 500W',marca:'â€”',tipo:'urbana',
-   precio:7886,precioML:7886,autonomia:0,velocidad:35,peso:0,motor:'500W',rueda:'â€”',velocidades:'â€”',
-   cargaMax:0,msiAmz:'',msiML:'',estrellas:0,resenas:0,
-   badges:[{t:'ML',c:'b-ml'}],
-   linkAmz:'',linkML:'https://meli.la/1PbKNjX',
-   img:'https://http2.mlstatic.com/D_NQ_NP_2X_699985-CBT116210055853_082026-F.webp'},
-  {id:31,nombre:'Voltbull F1 400W 14"',marca:'Voltbull',tipo:'plegable',
-   precio:0,velocidad:0,peso:0,rueda:'14"',velocidades:'â€”',cargaMax:150,
-   estrellas:4.7,resenas:55,
-   badges:[{t:'ML',c:'b-ml'},{t:'MÃ¡s vendida',c:'b-best'}],
-   linkAmz:'',linkML:'https://meli.la/2zgA1HA',
-   img:'https://http2.mlstatic.com/D_NQ_NP_2X_903605-MLM109068439965_032026-F.webp'},
-  {id:33,nombre:'Voltbull F1 400W Rosa',marca:'Voltbull',tipo:'plegable',
-   precio:6191,velocidad:0,peso:0,rueda:'14"',velocidades:'â€”',cargaMax:150,
-   estrellas:4.7,resenas:55,
-   badges:[{t:'ML',c:'b-ml'},{t:'MÃ¡s vendida',c:'b-best'}],
-   linkAmz:'',linkML:'https://meli.la/1QvmHyn',
-   img:'https://http2.mlstatic.com/D_NQ_NP_2X_605131-MLM109070977047_032026-F.webp'},
+  // Tanda 1: 8 modelos / 9 ofertas. Precios referenciales, no en tiempo real. Nulos = dato no confirmado.
+  // 1. HONEYWHALE B20
+  {
+    id:'honeywhale-b20',
+    nombre:'HONEYWHALE B20',
+    marca:'HONEYWHALE',
+    tipo:'plegable',
+    precio:6699,
+    linkML:'https://meli.la/13mxVr4',
+    linkAmz:null,
+    img:'https://http2.mlstatic.com/D_NQ_NP_2X_763620-MLA89353119440_082025-F.webp',
+    estrellas:4.7,
+    resenas:875,
+    vendidosDeclarados:'Más de 1000',
+    autonomia:35,
+    autonomiaStr:'35 km',
+    velocidad:32,
+    peso:21.3,
+    motorStr:'440 W pico',
+    batWh:280.8,
+    batTipo:'Li-ion',
+    batRemovible:null,
+    rueda:'14"',
+    velocidades:null,
+    cargaMax:120,
+    ip:'IP54',
+    ofertaColor:'Negro',
+    discrepanciasCount:1,
+    pendientes:['Autonomía real','Torque','Tipo de frenos','Batería removible','Suspensión','Garantía y refacciones'],
+    badges:[{t:'ML',c:'b-ml'},{t:'875 reseñas',c:'b-best'}],
+  },
+  // 2. POP SHOPPE S6 — Negro
+  {
+    id:'pop-shoppe-s6-negro',
+    nombre:'POP SHOPPE S6',
+    marca:'POP SHOPPE',
+    tipo:'plegable',
+    precio:6599,
+    linkML:'https://meli.la/2GzSAbQ',
+    linkAmz:null,
+    img:'https://http2.mlstatic.com/D_NQ_NP_2X_601610-MLA97524594486_112025-F.webp',
+    estrellas:4.7,
+    resenas:351,
+    vendidosDeclarados:null,
+    autonomia:32,
+    autonomiaStr:'28–32 km',
+    velocidad:35,
+    peso:25.5,
+    motorStr:'750 W pico',
+    batWh:384,
+    batTipo:'Li-ion',
+    batRemovible:true,
+    rueda:'14"',
+    velocidades:null,
+    cargaMax:125,
+    ip:'IPX4',
+    ofertaColor:'Negro',
+    discrepanciasCount:3,
+    pendientes:['Confirmar capacidad de batería de la variante vendida','Autonomía real','Torque','Frenos y suspensión','Garantía y refacciones'],
+    badges:[{t:'ML',c:'b-ml'},{t:'Negro',c:'b-color'}],
+  },
+  // 3. POP SHOPPE S6 — Blanco
+  {
+    id:'pop-shoppe-s6-blanco',
+    nombre:'POP SHOPPE S6',
+    marca:'POP SHOPPE',
+    tipo:'plegable',
+    precio:9719,
+    linkML:'https://meli.la/1xqxwtR',
+    linkAmz:null,
+    img:'https://http2.mlstatic.com/D_NQ_NP_2X_640975-MLA97738664389_112025-F.webp',
+    estrellas:4.7,
+    resenas:351,
+    vendidosDeclarados:'Más de 100',
+    autonomia:32,
+    autonomiaStr:'28–32 km',
+    velocidad:35,
+    peso:25.5,
+    motorStr:'750 W pico',
+    batWh:384,
+    batTipo:'Li-ion',
+    batRemovible:true,
+    rueda:'14"',
+    velocidades:null,
+    cargaMax:125,
+    ip:'IPX4',
+    ofertaColor:'Blanco',
+    discrepanciasCount:3,
+    pendientes:['Confirmar capacidad de batería de la variante vendida','Autonomía real','Torque','Frenos y suspensión','Garantía y refacciones'],
+    badges:[{t:'ML',c:'b-ml'},{t:'Blanco',c:'b-color'}],
+  },
+  // 4. HONEYWHALE S6 PRO-S
+  {
+    id:'honeywhale-s6-pro-s',
+    nombre:'HONEYWHALE S6 PRO-S',
+    marca:'HONEYWHALE',
+    tipo:'plegable',
+    precio:8999,
+    linkML:'https://meli.la/1kjrpQP',
+    linkAmz:null,
+    img:'https://http2.mlstatic.com/D_NQ_NP_2X_704357-MLA88049333470_072025-F.webp',
+    estrellas:4.6,
+    resenas:526,
+    vendidosDeclarados:'Más de 100',
+    autonomia:50,
+    autonomiaStr:'50 km',
+    velocidad:35,
+    peso:25.5,
+    motorStr:'750 W pico',
+    batWh:720,
+    batTipo:'Li-ion',
+    batRemovible:true,
+    rueda:'14"',
+    velocidades:null,
+    cargaMax:125,
+    ip:'IP54',
+    ofertaColor:'Azul',
+    discrepanciasCount:0,
+    pendientes:['Autonomía real','Torque','Suspensión','Tipo de frenos','Dimensiones plegada','Garantía y refacciones'],
+    badges:[{t:'ML',c:'b-ml'},{t:'720 Wh',c:'b-best'}],
+  },
+  // 5. AMYET SE1
+  {
+    id:'amyet-se1',
+    nombre:'AMYET SE1',
+    marca:'AMYET',
+    tipo:'plegable',
+    precio:11640,
+    linkML:'https://meli.la/2GnsiwY',
+    linkAmz:null,
+    img:'https://http2.mlstatic.com/D_NQ_NP_2X_722373-MLA116745940639_082026-F.webp',
+    estrellas:4.4,
+    resenas:5,
+    vendidosDeclarados:null,
+    autonomia:72,
+    autonomiaStr:'72 km',
+    velocidad:45,
+    peso:null,
+    motorStr:'N/D (datos contradictorios)',
+    batWh:720,
+    batTipo:'Li-ion',
+    batRemovible:true,
+    rueda:'20"',
+    velocidades:'7',
+    cargaMax:125,
+    ip:null,
+    ofertaColor:'Blanco',
+    discrepanciasCount:3,
+    pendientes:['Potencia nominal y pico contradictorias','Peso real del ciclista','Estatura recomendada','Autonomía real','Torque','Garantía y refacciones'],
+    badges:[{t:'ML',c:'b-ml'},{t:'Fat tire 20×3',c:'b-pop'},{t:'⚠ 3 datos',c:'b-discr'}],
+  },
+  // 6. HONEYWHALE S6-S
+  {
+    id:'honeywhale-s6-s',
+    nombre:'HONEYWHALE S6-S',
+    marca:'HONEYWHALE',
+    tipo:'plegable',
+    precio:7598,
+    linkML:'https://meli.la/1bjtgkL',
+    linkAmz:null,
+    img:'https://http2.mlstatic.com/D_NQ_NP_2X_837219-MLA99478539078_112025-F.webp',
+    estrellas:4.7,
+    resenas:1250,
+    vendidosDeclarados:'Más de 1000',
+    autonomia:40,
+    autonomiaStr:'40 km',
+    velocidad:35,
+    peso:25.5,
+    motorStr:'750 W pico',
+    batWh:499.2,
+    batTipo:'Li-ion',
+    batRemovible:true,
+    rueda:'14"',
+    velocidades:null,
+    cargaMax:125,
+    ip:'IP54',
+    ofertaColor:'Blanco',
+    discrepanciasCount:0,
+    pendientes:['Autonomía real','Torque','Tipo de frenos','Suspensión','Dimensiones plegada','Garantía y refacciones'],
+    badges:[{t:'ML',c:'b-ml'},{t:'1,250 reseñas',c:'b-best'}],
+  },
+  // 7. NEON EX-1R
+  {
+    id:'neon-ex-1r',
+    nombre:'NEON EX-1R',
+    marca:'NEON',
+    tipo:'urbana',
+    precio:8535,
+    linkML:'https://meli.la/1NWtToB',
+    linkAmz:null,
+    img:'https://http2.mlstatic.com/D_NQ_NP_2X_882525-MLA117209889871_092026-F.webp',
+    estrellas:4.2,
+    resenas:15,
+    vendidosDeclarados:'Más de 100',
+    autonomia:50,
+    autonomiaStr:'30–50 km',
+    velocidad:null,
+    peso:52,
+    motorStr:'350 W',
+    batWh:null,
+    batTipo:'Li-ion',
+    batRemovible:true,
+    rueda:'14"',
+    velocidades:null,
+    cargaMax:null,
+    ip:null,
+    ofertaColor:'Verde',
+    discrepanciasCount:4,
+    pendientes:['Capacidad real de batería','Carga máxima contradictoria','Autonomía real','Velocidad máxima contradictoria'],
+    badges:[{t:'ML',c:'b-ml'},{t:'⚠ 4 datos',c:'b-discr'}],
+  },
+  // 8. Bizmo MKZ-BIZMODYNEG
+  {
+    id:'bizmo-mkz',
+    nombre:'Bizmo MKZ-BIZMODYNEG',
+    marca:'Bizmo',
+    tipo:'urbana',
+    precio:7070,
+    linkML:'https://meli.la/1tfJMSP',
+    linkAmz:null,
+    img:'https://http2.mlstatic.com/D_NQ_NP_2X_813148-MLA99442457012_112025-F.webp',
+    estrellas:4.2,
+    resenas:39,
+    vendidosDeclarados:null,
+    autonomia:null,
+    autonomiaStr:null,
+    velocidad:25,
+    peso:52,
+    motorStr:'350 W',
+    batWh:null,
+    batTipo:'Li-ion',
+    batRemovible:true,
+    rueda:'14"',
+    velocidades:null,
+    cargaMax:120,
+    ip:null,
+    ofertaColor:'Rosa',
+    discrepanciasCount:1,
+    pendientes:['Voltaje de batería contradictorio','Capacidad Ah y Wh desconocida','Autonomía no especificada','Tipo de frenos','Garantía y refacciones'],
+    badges:[{t:'ML',c:'b-ml'},{t:'⚠ Datos pendientes',c:'b-discr'}],
+  },
+  // 9. NEON EBIKE500
+  {
+    id:'neon-ebike500',
+    nombre:'NEON EBIKE500',
+    marca:'NEON',
+    tipo:'urbana',
+    precio:9999,
+    linkML:'https://meli.la/1utSy9X',
+    linkAmz:null,
+    img:'https://http2.mlstatic.com/D_NQ_NP_2X_856660-MLA99455653556_112025-F.webp',
+    estrellas:4.6,
+    resenas:25,
+    vendidosDeclarados:'Más de 100',
+    autonomia:60,
+    autonomiaStr:'60 km',
+    velocidad:35,
+    peso:58,
+    motorStr:'500 W',
+    batWh:960,
+    batTipo:'Plomo-ácido',
+    batRemovible:true,
+    rueda:'14"',
+    velocidades:null,
+    cargaMax:200,
+    ip:null,
+    ofertaColor:'Gris/Negro',
+    discrepanciasCount:2,
+    pendientes:['Autonomía real','Vida útil de batería de plomo-ácido','Torque y pendientes','Refacciones'],
+    badges:[{t:'ML',c:'b-ml'},{t:'960 Wh',c:'b-pop'},{t:'Plomo-ácido',c:'b-sale'}],
+  },
 ];
+
 
 // ============================================================
 // DATOS â€” MONTAÃ‘A (tipo:'mtb')
@@ -981,7 +1172,7 @@ function getList(sec){
   if(sec==='elec'){
     if(filter==='plegable') list=list.filter(b=>b.tipo==='plegable');
     else if(filter==='urbana') list=list.filter(b=>b.tipo==='urbana');
-    else if(filter==='montaÃ±a') list=list.filter(b=>b.tipo==='montaÃ±a');
+    else if(filter==='montana') list=list.filter(b=>b.tipo==='montana');
     else if(filter==='amz') list=list.filter(b=>b.linkAmz);
     else if(filter==='ml') list=list.filter(b=>b.linkML);
   }
@@ -1007,7 +1198,7 @@ function getList(sec){
   else if(sort==='autonomia') list.sort((a,b)=>(b.autonomia||0)-(a.autonomia||0));
   else if(sort==='resenas') list.sort((a,b)=>b.resenas-a.resenas);
 
-  if(searchQuery) list=list.filter(b=>(b.nombre+' '+b.marca+' '+(b.tipo||'')+(b.motor||'')).toLowerCase().includes(searchQuery));
+  if(searchQuery) list=list.filter(b=>(b.nombre+' '+b.marca+' '+(b.tipo||'')+(b.motorStr||'')).toLowerCase().includes(searchQuery));
 
   return list;
 }
@@ -1051,57 +1242,54 @@ function renderGrid(sec){
   empty.style.display='none';
 
   if(sec==='elec'){
-    const maxAuto = Math.max(...ELECTRICAS.filter(b=>b.autonomia).map(b=>b.autonomia));
+    const maxAuto = Math.max(...ELECTRICAS.filter(b=>b.autonomia!=null).map(b=>b.autonomia));
     grid.innerHTML = list.map(b=>{
       const isSel = state.elec.sel.includes(b.id);
-      const pct = b.autonomia?Math.round(b.autonomia/maxAuto*100):0;
-      const hasBoth = b.linkAmz&&b.linkML;
+      const pct = b.autonomia!=null?Math.round(b.autonomia/maxAuto*100):0;
       const inCross = crossSel.find(x=>x.sec==='elec'&&x.id===b.id);
-      return `<div class="card${isSel?' selected':''}" onclick="toggleSel('elec',${b.id})">
-        ${isSel?'<div class="sel-check">âœ“</div>':''}
+      const autoStr = b.autonomiaStr || 'N/D';
+      const velStr = b.velocidad!=null ? b.velocidad+' km/h' : 'N/D';
+      const pesoStr = b.peso!=null ? b.peso+' kg' : 'N/D';
+      const discr = b.discrepanciasCount>0
+        ? `<div class="card-discrepancias"><span>⚠ ${b.discrepanciasCount} dato${b.discrepanciasCount>1?'s':''} a verificar</span></div>`
+        : '';
+      const pendList = (b.pendientes&&b.pendientes.length)
+        ? `<details class="card-pendientes"><summary>Datos pendientes (${b.pendientes.length})</summary><ul>${b.pendientes.map(p=>`<li>${p}</li>`).join('')}</ul></details>`
+        : '';
+      return `<div class="card${isSel?' selected':''}" onclick="toggleSel('elec','${b.id}')">
+        ${isSel?'<div class="sel-check">✓</div>':''}
         <div class="card-img-wrap">
-          ${b.img?`<img class="card-img" src="${b.img}" alt="${b.nombre}" loading="lazy" onerror="this.outerHTML='<div class=card-img-ph>âš¡</div>'">`:'<div class="card-img-ph">âš¡</div>'}
+          ${b.img?`<img class="card-img" src="${b.img}" alt="${b.nombre}" loading="lazy" onerror="this.outerHTML='<div class=card-img-ph>⚡</div>'">`:'<div class="card-img-ph">⚡</div>'}
         </div>
         <div class="card-body">
           <div class="card-badges">${b.badges.map(bd=>`<span class="badge ${bd.c}">${bd.t}</span>`).join('')}</div>
           <div class="card-name">${b.nombre}</div>
-          <div class="card-brand">${b.marca} Â· ${b.tipo}</div>
-          <div class="card-stars">${starsStr(b.estrellas)}<span class="card-stars-count">${b.resenas?(b.resenas.toLocaleString('es-MX')+' reseÃ±as'):''}</span></div>
-          ${b.autonomia?`<div class="card-bat">
-            <div class="bat-header"><span>AutonomÃ­a</span><span>${b.autonomia}km</span></div>
+          <div class="card-brand">${b.marca} · ${b.tipo}${b.ofertaColor?' · '+b.ofertaColor:''}</div>
+          <div class="card-stars">${starsStr(b.estrellas)}<span class="card-stars-count">${b.resenas?(b.resenas.toLocaleString('es-MX')+' reseñas'):''}</span></div>
+          ${b.autonomia!=null?`<div class="card-bat">
+            <div class="bat-header"><span>Autonomía</span><span>${autoStr}</span></div>
             <div class="bat-track"><div class="bat-fill" style="width:${pct}%"></div></div>
-          </div>`:''}
+          </div>`:`<div class="card-bat-nd">Autonomía: N/D</div>`}
           <div class="card-specs">
-            <div class="spec"><div class="spec-label">Velocidad</div><div class="spec-val">${b.velocidad?b.velocidad+' km/h':'â€”'}</div></div>
-            <div class="spec"><div class="spec-label">Peso</div><div class="spec-val">${b.peso?b.peso+' kg':'â€”'}</div></div>
-            <div class="spec"><div class="spec-label">Motor</div><div class="spec-val">${b.motor}</div></div>
-            <div class="spec"><div class="spec-label">Rueda</div><div class="spec-val">${b.rueda}</div></div>
+            <div class="spec"><div class="spec-label">Velocidad</div><div class="spec-val">${velStr}</div></div>
+            <div class="spec"><div class="spec-label">Peso</div><div class="spec-val">${pesoStr}</div></div>
+            <div class="spec"><div class="spec-label">Motor</div><div class="spec-val">${b.motorStr||'N/D'}</div></div>
+            <div class="spec"><div class="spec-label">Batería</div><div class="spec-val">${b.batWh!=null?b.batWh+' Wh':'N/D'}</div></div>
+            <div class="spec"><div class="spec-label">Rueda</div><div class="spec-val">${b.rueda||'N/D'}</div></div>
+            <div class="spec"><div class="spec-label">Carga máx.</div><div class="spec-val">${b.cargaMax!=null?b.cargaMax+' kg':'N/D'}</div></div>
           </div>
-          ${hasBoth?`
-          <div class="price-compare" onclick="event.stopPropagation()">
-            <div class="pc-col">
-              <div class="pc-platform pc-amz">Amazon</div>
-              <div class="pc-price">$${b.precio.toLocaleString('es-MX')}</div>
-              ${b.msiAmz?`<div class="pc-msi">${b.msiAmz}</div>`:''}
-              <a class="btn-amz" href="${b.linkAmz}" target="_blank" rel="nofollow sponsored" style="margin-top:7px;padding:7px;border-radius:7px;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:5px">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="" onerror="this.style.display='none'"></a>
-            </div>
-            <div class="pc-divider"></div>
-            <div class="pc-col">
-              <div class="pc-platform pc-ml">Mercado Libre</div>
-              <div class="pc-price">$${(b.precioML||b.precio).toLocaleString('es-MX')}</div>
-              ${b.msiML?`<div class="pc-msi">${b.msiML}</div>`:''}
-              <a class="btn-ml" href="${b.linkML}" target="_blank" rel="nofollow sponsored" style="margin-top:7px;padding:7px;border-radius:7px;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:5px">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="" onerror="this.style.display='none'"></a>
-            </div>
-          </div>` : `
+          ${discr}
           <div class="card-price">${b.precio?'$'+b.precio.toLocaleString('es-MX')+' <span class="card-price-sub">MXN</span>':'<span style="font-size:.85rem;color:var(--tx2)">Ver precio en plataforma</span>'}</div>
           <div class="card-btns" onclick="event.stopPropagation()">
-            ${b.linkAmz?`<a class="btn-amz" href="${b.linkAmz}" target="_blank" rel="nofollow sponsored">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="" onerror="this.style.display='none'"></a>`:''}
-            ${b.linkML?`<a class="btn-ml" href="${b.linkML}" target="_blank" rel="nofollow sponsored">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="" onerror="this.style.display='none'"></a>`:''}
-          </div>`}
-          <div class="card-tip">Toca para comparar Â· <span style="color:var(--ac);cursor:pointer" onclick="toggleCross('elec',${b.id},event)">${inCross?'âœ“ En comparativa cruzada':'+ Comparar secciones'}</span></div>
+            ${b.linkAmz?`<a class="btn-amz" href="${b.linkAmz}" target="_blank" rel="sponsored nofollow noopener">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="" onerror="this.style.display='none'"></a>`:''}
+            ${b.linkML?`<a class="btn-ml" href="${b.linkML}" target="_blank" rel="sponsored nofollow noopener">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="" onerror="this.style.display='none'"></a>`:''}
+          </div>
+          ${pendList}
+          <div class="card-tip">Toca para comparar · <span style="color:var(--ac);cursor:pointer" onclick="toggleCross('elec','${b.id}',event)">${inCross?'✓ En comparativa cruzada':'+ Comparar secciones'}</span></div>
         </div>
       </div>`;
     }).join('');
+
   } else {
     grid.innerHTML = list.map(b=>cardConv(b, sec)).join('');
   }
@@ -1134,16 +1322,18 @@ function showCmp(){
   let rows;
   if(sec==='elec'){
     rows=[
-      {l:'Precio AMZ',vals:list.map(b=>({v:b.linkAmz?'$'+b.precio.toLocaleString('es-MX'):'â€”',n:b.linkAmz?b.precio:0})),best:'min'},
-      {l:'Precio ML',vals:list.map(b=>({v:b.linkML?'$'+(b.precioML||b.precio).toLocaleString('es-MX'):'â€”',n:b.linkML?(b.precioML||b.precio):0})),best:'min'},
-      {l:'AutonomÃ­a',vals:list.map(b=>({v:b.autonomia?b.autonomia+'km':'â€”',n:b.autonomia||0})),best:'max'},
-      {l:'Velocidad mÃ¡x.',vals:list.map(b=>({v:b.velocidad?b.velocidad+' km/h':'â€”',n:b.velocidad||0})),best:'max'},
-      {l:'Peso',vals:list.map(b=>({v:b.peso?b.peso+' kg':'â€”',n:b.peso||0})),best:'min'},
-      {l:'Motor',vals:list.map(b=>({v:b.motor,n:0})),best:'none'},
-      {l:'Rueda',vals:list.map(b=>({v:b.rueda,n:0})),best:'none'},
-      {l:'Velocidades',vals:list.map(b=>({v:b.velocidades,n:0})),best:'none'},
-      {l:'CalificaciÃ³n',vals:list.map(b=>({v:starsStr(b.estrellas)+(b.resenas?' ('+b.resenas+')':''),n:b.estrellas})),best:'max'},
-      {l:'Carga mÃ¡x.',vals:list.map(b=>({v:b.cargaMax?b.cargaMax+' kg':'â€”',n:b.cargaMax||0})),best:'max'},
+      {l:'Precio ML',vals:list.map(b=>({v:b.linkML?'$'+b.precio.toLocaleString('es-MX'):'N/D',n:b.linkML?b.precio:0})),best:'min'},
+      {l:'Autonomía',vals:list.map(b=>({v:b.autonomiaStr||'N/D',n:b.autonomia!=null?b.autonomia:0})),best:'max'},
+      {l:'Velocidad máx.',vals:list.map(b=>({v:b.velocidad!=null?b.velocidad+' km/h':'N/D',n:b.velocidad!=null?b.velocidad:0})),best:'max'},
+      {l:'Peso',vals:list.map(b=>({v:b.peso!=null?b.peso+' kg':'N/D',n:b.peso!=null?b.peso:0})),best:'min'},
+      {l:'Motor',vals:list.map(b=>({v:b.motorStr||'N/D',n:0})),best:'none'},
+      {l:'Batería Wh',vals:list.map(b=>({v:b.batWh!=null?b.batWh+' Wh':'N/D',n:b.batWh!=null?b.batWh:0})),best:'max'},
+      {l:'Tipo batería',vals:list.map(b=>({v:b.batTipo||'N/D',n:0})),best:'none'},
+      {l:'Rueda',vals:list.map(b=>({v:b.rueda||'N/D',n:0})),best:'none'},
+      {l:'Velocidades',vals:list.map(b=>({v:b.velocidades||'N/D',n:0})),best:'none'},
+      {l:'Calificación',vals:list.map(b=>({v:starsStr(b.estrellas)+(b.resenas?' ('+b.resenas+')':''),n:b.estrellas})),best:'max'},
+      {l:'Carga máx.',vals:list.map(b=>({v:b.cargaMax!=null?b.cargaMax+' kg':'N/D',n:b.cargaMax!=null?b.cargaMax:0})),best:'max'},
+      {l:'Datos a verificar',vals:list.map(b=>({v:b.discrepanciasCount>0?'⚠ '+b.discrepanciasCount+' dato(s)':'OK',n:0})),best:'none'},
     ];
   } else {
     rows=[
@@ -1208,8 +1398,8 @@ function showCross(){
     {l:'Velocidades',vals:list.map(b=>({v:b.velocidades||'â€”',n:parseInt(b.velocidades)||0})),best:'none'},
     {l:'Peso',vals:list.map(b=>({v:b.peso?b.peso+' kg':'â€”',n:b.peso||0})),best:'min'},
     {l:'Carga mÃ¡x.',vals:list.map(b=>({v:b.cargaMax?b.cargaMax+' kg':'â€”',n:b.cargaMax||0})),best:'max'},
-    {l:'Motor',vals:list.map(b=>({v:b._sec==='elec'?b.motor:'No aplica',n:0})),best:'none'},
-    {l:'AutonomÃ­a',vals:list.map(b=>({v:b._sec==='elec'?(b.autonomia?b.autonomia+'km':'â€”'):'No aplica',n:b._sec==='elec'?(b.autonomia||0):0})),best:'max'},
+    {l:'Motor',vals:list.map(b=>({v:b._sec==='elec'?(b.motorStr||'N/D'):'No aplica',n:0})),best:'none'},
+    {l:'Autonomia',vals:list.map(b=>({v:b._sec==='elec'?(b.autonomiaStr||'N/D'):'No aplica',n:b._sec==='elec'?(b.autonomia!=null?b.autonomia:0):0})),best:'max'},
     {l:'CalificaciÃ³n',vals:list.map(b=>({v:starsStr(b.estrellas)+(b.resenas?' ('+b.resenas+')':''),n:b.estrellas})),best:'max'},
   ];
 
