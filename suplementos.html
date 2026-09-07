@@ -119,7 +119,7 @@ nav{background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1p
 .search-input:focus{border-color:var(--ac)}
 
 /* ── Grid ────────────────────────────────────────────── */
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:16px 20px;max-width:1400px;margin:0 auto}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:16px 20px;max-width:1600px;margin:0 auto}
 .grid:has(.cat-section){display:block;padding:0}
 .grid:has(.hub-grid){display:block;padding:0;max-width:none}
 @media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
@@ -179,7 +179,7 @@ nav{background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1p
 .btn-logo{height:20px;width:auto;object-fit:contain;flex-shrink:0}
 
 /* ── Vista Todos (secciones por categoría) ─────────────── */
-.cat-section{padding:24px 20px 6px;max-width:1400px;margin:0 auto}
+.cat-section{padding:24px 20px 6px;max-width:1600px;margin:0 auto}
 .cat-section-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;gap:12px;flex-wrap:wrap}
 .cat-section-meta{display:flex;flex-direction:column;gap:3px}
 .cat-section-title{font-size:1.25rem;font-weight:800;color:var(--t);letter-spacing:-.02em}
@@ -213,7 +213,8 @@ nav{background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1p
 .cat-sep{border:none;border-top:1px solid var(--bd);margin:20px 0 0}
 
 /* ── Hub de categorías (vista Todos) ─────────────────────── */
-.hub-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:28px 24px;max-width:1200px;margin:0 auto}
+.hub-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding:28px 24px;max-width:1600px;margin:0 auto}
+@media(max-width:1000px){.hub-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:700px){.hub-grid{grid-template-columns:repeat(2,1fr);padding:16px 12px;gap:14px}}
 @media(max-width:400px){.hub-grid{grid-template-columns:1fr}}
 .hub-card{background:var(--card);border:1px solid var(--bd);border-radius:16px;overflow:hidden;text-decoration:none;color:var(--t);display:flex;flex-direction:column;transition:box-shadow .2s,transform .15s;cursor:pointer}
@@ -367,7 +368,7 @@ footer a{color:var(--ac);text-decoration:none}
 
 
 <section style="background:#EAF2EE;padding:48px 2rem 40px;">
-  <div style="max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;">
+  <div style="max-width:1600px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;">
     <div>
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
         <a href="index.html" style="font-size:12px;color:#64748b;text-decoration:none;">Inicio</a>
@@ -377,10 +378,10 @@ footer a{color:var(--ac);text-decoration:none}
       <h1 style="font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-1.5px;color:#1E2922;line-height:1.1;margin-bottom:10px;">Comparador de <span style="color:#006847;">Suplementos</span> en México 2026</h1>
       <p style="font-size:15px;color:rgba(30,41,34,.6);line-height:1.6;max-width:520px;">Compara precios de creatina, proteína whey, magnesio, omega 3 y complejo B entre Amazon México y Mercado Libre. Filtra por costo por porción, marca y calificación para encontrar siempre la mejor oferta. Más de 200 productos actualizados periódicamente.</p>
     </div>
-    <div style="display:flex;gap:20px;align-items:center;flex-shrink:0;">
-      <img src="/logoamazon.png" alt="Amazon" style="height:30px;width:auto;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,.15));">
-      <div style="width:1px;height:28px;background:rgba(0,104,71,.2);"></div>
-      <img src="/logomercado.png" alt="Mercado Libre" style="height:30px;width:auto;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,.15));">
+    <div style="display:flex;gap:28px;align-items:center;flex-shrink:0;">
+      <img src="/logoamazon.png" alt="Amazon" style="height:52px;width:auto;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,.15));">
+      <div style="width:1px;height:44px;background:rgba(0,104,71,.2);"></div>
+      <img src="/logomercado.png" alt="Mercado Libre" style="height:52px;width:auto;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,.15));">
     </div>
   </div>
 </section>
@@ -417,7 +418,7 @@ footer a{color:var(--ac);text-decoration:none}
 
 <!-- Categorías con descripción — contenido estático para SEO -->
 <section style="background:#fff;border-top:1px solid #e2e2dc;padding:56px 2rem;">
-  <div style="max-width:960px;margin:0 auto;">
+  <div style="max-width:1600px;margin:0 auto;">
     <p style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#006847;margin-bottom:8px;">Categorías</p>
     <h2 style="font-size:22px;font-weight:800;letter-spacing:-.8px;color:#0F172A;margin-bottom:28px;">Suplementos disponibles en comparalo.mx</h2>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;">
@@ -462,7 +463,7 @@ footer a{color:var(--ac);text-decoration:none}
 
 <!-- FAQ SEO -->
 <section style="background:#f7f7f5;border-top:1px solid #e2e2dc;padding:56px 2rem;">
-  <div style="max-width:860px;margin:0 auto;">
+  <div style="max-width:1600px;margin:0 auto;">
     <p style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#006847;margin-bottom:8px;">Preguntas frecuentes</p>
     <h2 style="font-size:22px;font-weight:800;letter-spacing:-.8px;color:#0F172A;margin-bottom:28px;">Preguntas frecuentes sobre suplementos en México</h2>
     <div style="display:flex;flex-direction:column;gap:0;">
@@ -503,10 +504,10 @@ footer a{color:var(--ac);text-decoration:none}
 
 <!-- Artículos relacionados -->
 <section style="padding:56px 2rem;border-top:1px solid #e2e2dc;">
-  <div style="max-width:960px;margin:0 auto;">
+  <div style="max-width:1600px;margin:0 auto;">
     <p style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#006847;margin-bottom:8px;">Guías</p>
     <h2 style="font-size:22px;font-weight:800;letter-spacing:-.8px;color:#0F172A;margin-bottom:22px;">Artículos relacionados</h2>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;">
       <a href="articulo-suplementos-por-edad-mexico-2026.html" style="display:flex;flex-direction:column;border:1px solid #e2e2dc;border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;background:#fff;transition:box-shadow .2s,transform .15s;" onmouseenter="this.style.boxShadow='0 4px 20px rgba(0,0,0,.08)';this.style.transform='translateY(-2px)'" onmouseleave="this.style.boxShadow='';this.style.transform=''">
         <div style="height:90px;background:linear-gradient(135deg,#006847 0%,#004d34 100%);display:flex;align-items:center;justify-content:center;">
           <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=70" alt="Suplementos por edad" style="width:100%;height:100%;object-fit:cover;">
@@ -557,7 +558,7 @@ footer a{color:var(--ac);text-decoration:none}
 </section>
 
 <footer style="background:#f7f7f5;border-top:1px solid #e2e2dc;padding:40px 2rem 28px;">
-  <div style="max-width:960px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:32px;">
+  <div style="max-width:1600px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:32px;">
     <div>
       <img src="/logopng.png" alt="comparalo.mx" style="height:34px;width:auto;object-fit:contain;margin-bottom:12px;display:block;">
       <p style="font-size:13px;color:#64748b;line-height:1.65;max-width:220px;">Compara precios en Amazon MX y Mercado Libre. Encuentra siempre la mejor oferta.</p>
@@ -805,6 +806,28 @@ const CATEGORIAS = [
     iconClass:'c-vd',
     comingSoon:true,
     beneficios:['Fortalece huesos y dientes','Apoya el sistema inmunológico','Mejora el estado de ánimo','Regula la absorción de calcio y fósforo']
+  },
+  {
+    tipo:'testosterona',
+    label:'Testosterona',
+    desc:'Potenciadores naturales de testosterona: ashwagandha, zinc, DAA y más. Compara por dosis y precio en México.',
+    link:null,
+    emoji:'💊',
+    img:'https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=600&q=75',
+    iconClass:'',
+    comingSoon:true,
+    beneficios:['Potenciadores naturales','Ashwagandha, zinc y DAA','Mejora el rendimiento y la energía']
+  },
+  {
+    tipo:'multivitaminico',
+    label:'Multivitamínico',
+    desc:'Un solo suplemento con vitaminas y minerales esenciales. Compara fórmulas completas para hombre, mujer y deportistas.',
+    link:null,
+    emoji:'🌿',
+    img:'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&q=75',
+    iconClass:'',
+    comingSoon:true,
+    beneficios:['Vitaminas y minerales en un solo suplemento','Fórmulas para hombre, mujer y deportistas','Compara precio por porción']
   },
 ];
 
