@@ -1792,19 +1792,19 @@ function cardHTML(p) {
     btnsBlock = `<div class="card-btns-dual">
       <div class="card-btn-col">
         ${pML ? `<div class="card-btn-col-price">${fmtPrecio(pML)}</div>` : ''}
-        <a class="btn-ml" href="${p.linkML}" target="_blank" rel="nofollow noopener" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>
+        <a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>
       </div>
       <div class="card-btn-col">
         ${pAmz ? `<div class="card-btn-col-price">${fmtPrecio(pAmz)}</div>` : ''}
-        <a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow noopener" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>
+        <a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>
       </div>
     </div>`;
   } else {
     precioBlock = p.precio
       ? `<div class="card-price">${fmtPrecio(p.precio)}</div>`
       : `<div class="price-nd">Precio no disponible</div>`;
-    const btnML = p.linkML ? `<a class="btn-ml" href="${p.linkML}" target="_blank" rel="nofollow noopener" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>` : '';
-    const btnAmz = p.linkAmz ? `<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow noopener" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>` : '';
+    const btnML = p.linkML ? `<a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>` : '';
+    const btnAmz = p.linkAmz ? `<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>` : '';
     btnsBlock = `<div class="card-btns">${btnML}${btnAmz}</div>`;
   }
 
@@ -1880,8 +1880,8 @@ function openModal() {
     const h = size === 'sm' ? '16px' : '18px';
     const pad = size === 'sm' ? '5px 8px' : '7px 12px';
     const fs = size === 'sm' ? '11px' : '12px';
-    const ml = p.linkML ? `<a class="btn-ml" href="${p.linkML}" target="_blank" rel="nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;">Ver en <img style="height:${h}" src="/logomercado.png" onerror="this.style.display='none'"></a>` : '';
-    const amz = p.linkAmz ? `<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;">Ver en <img style="height:${h}" src="/logoamazon.png" onerror="this.style.display='none'"></a>` : '';
+    const ml = p.linkML ? `<a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;">Ver en <img style="height:${h}" src="/logomercado.png" onerror="this.style.display='none'"></a>` : '';
+    const amz = p.linkAmz ? `<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;">Ver en <img style="height:${h}" src="/logoamazon.png" onerror="this.style.display='none'"></a>` : '';
     const isDual = ml && amz;
     return `<div class="cmp-prod-btns${isDual?' dual':''}">${ml}${amz}</div>`;
   }

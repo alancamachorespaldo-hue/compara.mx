@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
+Disallow: /admin.html
+Disallow: /gestor.html
+Disallow: /proteina_backup.html
+Disallow: /index-anterior.html
+Disallow: /index1.html
 
 Sitemap: https://comparalo.mx/sitemap.xml

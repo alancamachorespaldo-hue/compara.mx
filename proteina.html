@@ -6,7 +6,7 @@
 <title>Mejor Proteína en México 2026 — Compara Precios Amazon y Mercado Libre | comparalo.mx</title>
 <meta name="description" content="Compara proteínas Whey, Vegana, Isolate y Caseína en México. Precios actualizados en Amazon MX y Mercado Libre. Encuentra la mejor opción por precio y gramos.">
 <meta name="keywords" content="proteína whey México, proteína en polvo México, suplementos deportivos México, proteína Amazon México, whey protein México, proteína vegana México, isolate México, chícharo proteína">
-<link rel="canonical" href="https://comparalo.mx/suplementos/Proteina">
+<link rel="canonical" href="https://comparalo.mx/proteina.html">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://comparalo.mx/proteina.html">
 <meta property="og:title" content="Mejor Proteína en México 2026 — Compara Precios Amazon y Mercado Libre">
@@ -688,19 +688,19 @@ function cardHTML(p) {
     btnsBlock = `<div class="card-btns-dual">
       <div class="card-btn-col">
         ${pML  ? `<div class="card-btn-col-price">${fmt(pML)}</div>` : ''}
-        <a class="btn-ml"  href="${p.linkML}"  target="_blank" rel="nofollow noopener" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="logomercado.png" alt="ML" onerror="this.style.display='none'"></a>
+        <a class="btn-ml"  href="${p.linkML}"  target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="logomercado.png" alt="ML" onerror="this.style.display='none'"></a>
       </div>
       <div class="card-btn-col">
         ${pAmz ? `<div class="card-btn-col-price">${fmt(pAmz)}</div>` : ''}
-        <a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow noopener" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>
+        <a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>
       </div>
     </div>`;
   } else {
     precioBlock = p.precio != null
       ? `<div class="card-price">${fmt(p.precio)}</div>`
       : '<div class="price-nd">Precio no disponible</div>';
-    const btnML  = p.linkML  ? `<a class="btn-ml"  href="${p.linkML}"  target="_blank" rel="nofollow noopener" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="logomercado.png" alt="ML" onerror="this.style.display='none'"></a>` : '';
-    const btnAmz = p.linkAmz ? `<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow noopener" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>` : '';
+    const btnML  = p.linkML  ? `<a class="btn-ml"  href="${p.linkML}"  target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="logomercado.png" alt="ML" onerror="this.style.display='none'"></a>` : '';
+    const btnAmz = p.linkAmz ? `<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>` : '';
     btnsBlock = `<div class="card-btns">${btnML}${btnAmz}</div>`;
   }
 
@@ -760,8 +760,8 @@ function openModal() {
     const h = size==='sm'?'16px':'18px';
     const pad = size==='sm'?'5px 8px':'7px 12px';
     const fs = size==='sm'?'11px':'12px';
-    const ml  = p.linkML  ? `<a class="btn-ml"  href="${p.linkML}"  target="_blank" rel="nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;">Ver en <img style="height:${h}" src="logomercado.png" onerror="this.style.display='none'"></a>` : '';
-    const amz = p.linkAmz ? `<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;">Ver en <img style="height:${h}" src="logoamazon.png" onerror="this.style.display='none'"></a>` : '';
+    const ml  = p.linkML  ? `<a class="btn-ml"  href="${p.linkML}"  target="_blank" rel="sponsored nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;">Ver en <img style="height:${h}" src="logomercado.png" onerror="this.style.display='none'"></a>` : '';
+    const amz = p.linkAmz ? `<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;">Ver en <img style="height:${h}" src="logoamazon.png" onerror="this.style.display='none'"></a>` : '';
     return `<div class="cmp-prod-btns${ml&&amz?' dual':''}">${ml}${amz}</div>`;
   }
 

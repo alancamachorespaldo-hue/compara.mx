@@ -6,12 +6,12 @@
 <title>Mejor Creatina en México 2026 — Compara Precios y Costo por Porción | comparalo.mx</title>
 <meta name="description" content="Compara 52 creatinas en México: Monohidrato, Micronizada, Creapure®, HCl y Kre-Alkalyn. Precios actualizados en Mercado Libre y Amazon MX. Ordena por menor costo por porción o por 5 g y encuentra la creatina más barata sin perder calidad.">
 <meta name="keywords" content="creatina México, creatina monohidrato México, creatina más barata México, creatina Creapure México, creatina mercado libre, creatina hcl México, kre-alkalyn México, creatina micronizada México, suplementos deportivos México">
-<link rel="canonical" href="https://comparalo.mx/suplementos/creatina">
+<link rel="canonical" href="https://comparalo.mx/creatina.html">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://comparalo.mx/suplementos/creatina">
 <meta property="og:title" content="Mejor Creatina en México 2026 — Compara 52 productos por precio y costo real">
 <meta property="og:description" content="53 creatinas comparadas: Monohidrato, Creapure®, HCl y más. Filtra por tipo, presentación y plataforma. Costo real por porción y por 5 g.">
-<meta property="og:image" content="https://comparalo.mx/og-creatina.jpg">
+<meta property="og:image" content="https://comparalo.mx/logopng.png">
 <meta property="og:locale" content="es_MX">
 <meta property="og:site_name" content="comparalo.mx">
 <meta name="twitter:card" content="summary_large_image">
@@ -95,7 +95,7 @@
           "name": "¿Es mejor comprar creatina en Amazon o en Mercado Libre en México?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Depende del producto. Mercado Libre suele tener mayor variedad de marcas nacionales y precios competitivos en creatina, mientras que Amazon MX es útil para marcas internacionales. En comparalo.mx puedes filtrar por plataforma y comparar precios en tiempo real para encontrar la mejor opción."
+            "text": "Depende del producto. Mercado Libre suele tener mayor variedad de marcas nacionales y precios competitivos en creatina, mientras que Amazon MX es útil para marcas internacionales. En comparalo.mx puedes filtrar por plataforma y comparar precios actualizados periódicamente para encontrar la mejor opción."
           }
         }
       ]
@@ -705,19 +705,19 @@ function cardHTML(p) {
     btnsBlock = `<div class="card-btns-dual">
       <div class="card-btn-col">
         ${pML  ? `<div class="card-btn-col-price">${fmt(pML)}</div>` : ''}
-        <a class="btn-ml"  href="${p.linkML}"  target="_blank" rel="nofollow noopener" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="logomercado.png" alt="ML" onerror="this.style.display='none'"></a>
+        <a class="btn-ml"  href="${p.linkML}"  target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="logomercado.png" alt="ML" onerror="this.style.display='none'"></a>
       </div>
       <div class="card-btn-col">
         ${pAmz ? `<div class="card-btn-col-price">${fmt(pAmz)}</div>` : ''}
-        <a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow noopener" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>
+        <a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>
       </div>
     </div>`;
   } else {
     precioBlock = p.precio != null
       ? `<div class="card-price">${fmt(p.precio)}</div>`
       : '<div class="price-nd">Precio no disponible</div>';
-    const btnML  = p.linkML  ? `<a class="btn-ml"  href="${p.linkML}"  target="_blank" rel="nofollow noopener" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="logomercado.png" alt="ML" onerror="this.style.display='none'"></a>` : '';
-    const btnAmz = p.linkAmz ? `<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow noopener" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>` : '';
+    const btnML  = p.linkML  ? `<a class="btn-ml"  href="${p.linkML}"  target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="logomercado.png" alt="ML" onerror="this.style.display='none'"></a>` : '';
+    const btnAmz = p.linkAmz ? `<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>` : '';
     btnsBlock = `<div class="card-btns">${btnML}${btnAmz}</div>`;
   }
 
@@ -777,8 +777,8 @@ function openModal() {
     const h = size==='sm'?'16px':'18px';
     const pad = size==='sm'?'5px 8px':'7px 12px';
     const fs = size==='sm'?'11px':'12px';
-    const ml  = p.linkML  ? `<a class="btn-ml"  href="${p.linkML}"  target="_blank" rel="nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;">Ver en <img style="height:${h}" src="logomercado.png" onerror="this.style.display='none'"></a>` : '';
-    const amz = p.linkAmz ? `<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;">Ver en <img style="height:${h}" src="logoamazon.png" onerror="this.style.display='none'"></a>` : '';
+    const ml  = p.linkML  ? `<a class="btn-ml"  href="${p.linkML}"  target="_blank" rel="sponsored nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;">Ver en <img style="height:${h}" src="logomercado.png" onerror="this.style.display='none'"></a>` : '';
+    const amz = p.linkAmz ? `<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;">Ver en <img style="height:${h}" src="logoamazon.png" onerror="this.style.display='none'"></a>` : '';
     return `<div class="cmp-prod-btns${ml&&amz?' dual':''}">${ml}${amz}</div>`;
   }
 

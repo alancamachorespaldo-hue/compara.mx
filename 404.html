@@ -2,24 +2,87 @@
 <html lang="es-MX">
 <head>
 <meta charset="UTF-8">
-<title>Redirigiendo… – comparalo.mx</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Página no encontrada — comparalo.mx</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://comparalo.mx/">
+<link rel="icon" type="image/png" href="/logopng.png">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap" rel="stylesheet">
 <script>
 (function() {
   var path = window.location.pathname;
-  var dest = '/suplementos.html';
-  if (/^\/suplementos\/magnesio$/i.test(path)) {
-    dest = '/magnesio.html';
-  } else if (/^\/suplementos\/prote[ií]na$/i.test(path)) {
-    dest = '/proteina.html';
-  } else if (/^\/suplementos\/creatina$/i.test(path)) {
-    dest = '/creatina.html';
-  } else if (/^\/suplementos\//i.test(path)) {
-    sessionStorage.setItem('suplementos_redirect_path', path);
-    dest = '/suplementos.html';
+  var routes = {
+    '/suplementos/magnesio': '/magnesio.html',
+    '/suplementos/proteina': '/proteina.html',
+    '/suplementos/Proteina': '/proteina.html',
+    '/suplementos/creatina': '/creatina.html'
+  };
+  if (routes[path]) {
+    window.location.replace(routes[path]);
+    return;
   }
-  window.location.replace(dest);
+  if (/^\/suplementos\//i.test(path)) {
+    sessionStorage.setItem('suplementos_redirect_path', path);
+    window.location.replace('/suplementos.html');
+  }
 })();
 </script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ac:#006847;--ac2:#004D34;--tx:#0F172A;--tx2:#64748B;--bg:#fff;--s1:#F2F4F7;--bd:#E2E8E4}
+body{font-family:'Satoshi',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;display:flex;flex-direction:column}
+a{color:var(--ac);text-decoration:none}
+a:hover{color:var(--ac2);text-decoration:underline}
+.nav{border-bottom:1px solid var(--bd);padding:0 24px}
+.nav-in{max-width:1060px;margin:0 auto;display:flex;align-items:center;height:60px;gap:20px}
+.lock{display:flex;align-items:center;gap:7px;font-weight:800;font-size:18px;letter-spacing:-.5px;color:var(--tx)}
+.lock i{font-style:normal;color:var(--ac)}
+.lock img{height:25px;width:25px;object-fit:contain}
+.nav-links{display:flex;gap:2px;margin-left:auto}
+.nav-links a{font-size:13px;font-weight:500;color:var(--tx2);padding:7px 10px;border-radius:8px}
+.nav-links a:hover{background:var(--s1);color:var(--tx);text-decoration:none}
+main{flex:1;display:flex;align-items:center;justify-content:center;padding:48px 24px}
+.box{text-align:center;max-width:480px}
+.code{font-size:96px;font-weight:800;line-height:1;letter-spacing:-4px;color:var(--s1);margin-bottom:8px}
+h1{font-size:26px;font-weight:800;letter-spacing:-.8px;margin-bottom:10px}
+p{font-size:15px;line-height:1.65;color:var(--tx2);margin-bottom:28px}
+.links{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.btn{background:var(--ac);color:#fff;font-weight:700;font-size:14px;padding:13px 22px;border-radius:10px}
+.btn:hover{background:var(--ac2);color:#fff;text-decoration:none}
+.btn2{border:1.5px solid var(--bd);color:var(--tx);font-weight:600;font-size:13.5px;padding:11.5px 20px;border-radius:10px}
+.btn2:hover{border-color:var(--ac);color:var(--ac);text-decoration:none}
+footer{border-top:1px solid var(--bd);padding:16px 24px;text-align:center;font-size:11.5px;color:var(--tx2)}
+</style>
 </head>
-<body></body>
+<body>
+<nav class="nav">
+  <div class="nav-in">
+    <a class="lock" href="/">
+      <img src="/logopng.png" alt="" width="25" height="25">
+      comparalo<i>.mx</i>
+    </a>
+    <div class="nav-links">
+      <a href="/suplementos.html">Suplementos</a>
+      <a href="/bicis.html">Bicicletas</a>
+      <a href="/laptops.html">Laptops</a>
+      <a href="/electrodomesticos.html">Electrodomésticos</a>
+    </div>
+  </div>
+</nav>
+<main>
+  <div class="box">
+    <div class="code">404</div>
+    <h1>Página no encontrada</h1>
+    <p>La dirección que buscas no existe o fue movida. Puedes ir al inicio o elegir una categoría directamente.</p>
+    <div class="links">
+      <a class="btn" href="/">Ir al inicio</a>
+      <a class="btn2" href="/suplementos.html">Suplementos</a>
+      <a class="btn2" href="/bicis.html">Bicicletas</a>
+      <a class="btn2" href="/laptops.html">Laptops</a>
+    </div>
+  </div>
+</main>
+<footer>© 2026 comparalo.mx</footer>
+</body>
 </html>
