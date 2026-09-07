@@ -58,8 +58,9 @@ jobs:
 
           for nombre, link, _ in pairs:
             query = urllib.parse.quote(nombre)
+            # Search API pública — no requiere token
             url = f"https://api.mercadolibre.com/sites/MLM/search?q={query}&limit=1&attributes=results.id,results.price,results.title"
-            req = urllib.request.Request(url, headers=headers)
+            req = urllib.request.Request(url)
             try:
               with urllib.request.urlopen(req, timeout=15) as resp:
                 data = json.loads(resp.read())
