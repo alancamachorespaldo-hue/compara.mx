@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es-MX">
 <head>
 <meta charset="UTF-8" >
@@ -57,7 +57,7 @@
       "name": "Mejores Bicicletas Eléctricas en México 2026",
       "description": "Las mejores bicicletas eléctricas disponibles en Amazon MX y Mercado Libre",
       "url": "https://comparalo.mx/bicis.html",
-      "numberOfItems": 9,
+      "numberOfItems": 14,
       "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "HONEYWHALE B20 Plegable 440W", "url": "https://meli.la/13mxVr4" },
         { "@type": "ListItem", "position": 2, "name": "POP SHOPPE S6 Negro 750W", "url": "https://meli.la/2GzSAbQ" },
@@ -256,6 +256,21 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .cmp-table td:first-child{color:var(--tx2);font-size:12px;font-weight:600;background:var(--s1);text-transform:uppercase;letter-spacing:.04em;text-align:left}
 .cmp-table tr:last-child td{border-bottom:none}
 .cmp-winner{background:#d4f0e3;color:#004d34;font-weight:800}
+
+/* ARTÍCULOS */
+.art-section{background:#fff;border-top:1px solid var(--bd);padding:48px 2rem 40px}
+.art-section-inner{max-width:1600px;margin:0 auto}
+.art-section-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ac);margin-bottom:8px}
+.art-section-title{font-size:20px;font-weight:800;letter-spacing:-.6px;color:var(--tx);margin-bottom:24px}
+.art-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.art-card{display:flex;flex-direction:column;border:1px solid var(--bd);border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;background:#fff;transition:box-shadow .2s,transform .15s}
+.art-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.09);transform:translateY(-2px)}
+.art-card-img{height:100px;overflow:hidden}
+.art-card-img img{width:100%;height:100%;object-fit:cover}
+.art-card-body{padding:12px 14px 16px;flex:1;display:flex;flex-direction:column}
+.art-card-tag{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.art-card-headline{font-size:13px;font-weight:700;color:var(--tx);line-height:1.35;flex:1}
+.art-card-cta{font-size:12px;color:var(--ac);font-weight:600;margin-top:10px}
 
 /* DISCLAIMER + FOOTER */
 .disclaimer{max-width:1080px;margin:0 auto;padding:1.25rem 2rem;font-size:12px;color:var(--tx3);border-top:1px solid var(--bd)}
@@ -516,6 +531,31 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
     <div class="cmp-table-wrap"><table class="cmp-table" id="cmp-table-modal"></table></div>
   </div>
 </div>
+
+<section class="art-section">
+  <div class="art-section-inner">
+    <p class="art-section-label">Guías</p>
+    <h2 class="art-section-title">Artículos sobre bicicletas eléctricas</h2>
+    <div class="art-grid">
+      <a class="art-card" href="bicicleta-electrica-vale-la-pena-mexico-2026.html">
+        <div class="art-card-img"><img src="https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=600&q=75" alt="¿Vale la pena una bicicleta eléctrica en México?" loading="lazy"></div>
+        <div class="art-card-body">
+          <div class="art-card-tag">Bicicletas Eléctricas</div>
+          <div class="art-card-headline">¿Vale la Pena una Bicicleta Eléctrica en México 2026? Costos Reales, Ahorro y Regulación</div>
+          <div class="art-card-cta">Leer guía →</div>
+        </div>
+      </a>
+      <a class="art-card" href="como-elegir-bicicleta-electrica-mexico-2026.html">
+        <div class="art-card-img"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=75" alt="Cómo elegir bicicleta eléctrica México" loading="lazy"></div>
+        <div class="art-card-body">
+          <div class="art-card-tag">Guía de Compra</div>
+          <div class="art-card-headline">Cómo Elegir una Bicicleta Eléctrica en México 2026: Guía por Tipo de Uso</div>
+          <div class="art-card-cta">Leer guía →</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
 
 <div class="disclaimer">
   Como afiliados de Amazon MX y Mercado Libre, podemos recibir una comisión por compras a través de nuestros enlaces, sin costo adicional para ti. Los precios pueden variar.
@@ -822,7 +862,159 @@ const ELECTRICAS = [
     pendientes:['Autonomía real','Vida útil de batería de plomo-ácido','Torque y pendientes','Refacciones'],
     badges:[{t:'ML',c:'b-ml'},{t:'960 Wh',c:'b-pop'},{t:'Plomo-ácido',c:'b-sale'}],
   },
+  // ── Tanda 2: 4 modelos / 5 ofertas ─────────────────────────
+  // 10. MOBOSS PRINCE — Gris
+  {
+    id:'moboss-prince-gris',
+    nombre:'Moboss Prince',
+    marca:'Moboss',
+    tipo:'urbana',
+    precio:7499,
+    linkML:'https://meli.la/2ypGNkD',
+    linkAmz:null,
+    img:'https://http2.mlstatic.com/D_NQ_NP_2X_906825-MLA115351610919_072026-F.webp',
+    estrellas:5.0,
+    resenas:9,
+    vendidosDeclarados:'3 vendidos',
+    autonomia:null,
+    autonomiaStr:null,
+    velocidad:25,
+    peso:34,
+    motorStr:'350 W',
+    batWh:624,
+    batTipo:'Plomo-ácido',
+    batRemovible:null,
+    rueda:null,
+    velocidades:null,
+    cargaMax:100,
+    ip:null,
+    ofertaColor:'Gris',
+    discrepanciasCount:0,
+    pendientes:['Autonomía','Tiempo de carga','Rodada','Tipo de frenos','Torque','Suspensión','Batería removible','Garantía','Refacciones','Capacidad del asiento trasero'],
+    badges:[{t:'ML',c:'b-ml'},{t:'Gris',c:'b-color'}],
+  },
+  // 11. MOBOSS PRINCE — Negro
+  {
+    id:'moboss-prince-negro',
+    nombre:'Moboss Prince',
+    marca:'Moboss',
+    tipo:'urbana',
+    precio:7499,
+    linkML:'https://meli.la/1pTsE3X',
+    linkAmz:null,
+    img:'https://http2.mlstatic.com/D_NQ_NP_2X_695530-MLA115350563481_072026-F.webp',
+    estrellas:5.0,
+    resenas:9,
+    vendidosDeclarados:'Más de 5',
+    autonomia:null,
+    autonomiaStr:null,
+    velocidad:25,
+    peso:34,
+    motorStr:'350 W',
+    batWh:624,
+    batTipo:'Plomo-ácido',
+    batRemovible:null,
+    rueda:null,
+    velocidades:null,
+    cargaMax:100,
+    ip:null,
+    ofertaColor:'Negro',
+    discrepanciasCount:0,
+    pendientes:['Autonomía','Tiempo de carga','Rodada','Tipo de frenos','Torque','Suspensión','Batería removible','Garantía','Refacciones','Capacidad del asiento trasero'],
+    badges:[{t:'ML',c:'b-ml'},{t:'Negro',c:'b-color'}],
+  },
+  // 12. KIWO HIKARI
+  {
+    id:'kiwo-hikari',
+    nombre:'Kiwo Hikari',
+    marca:'Kiwo',
+    tipo:'urbana',
+    precio:6999,
+    linkML:'https://meli.la/2B19ndd',
+    linkAmz:null,
+    img:'https://http2.mlstatic.com/D_NQ_NP_2X_751729-MLM114869339569_072026-F.webp',
+    estrellas:4.7,
+    resenas:6,
+    vendidosDeclarados:'Más de 100',
+    autonomia:null,
+    autonomiaStr:null,
+    velocidad:40,
+    peso:45,
+    motorStr:'350 W',
+    batWh:288,
+    batTipo:'Polímero de litio',
+    batRemovible:true,
+    rueda:'14"',
+    velocidades:null,
+    cargaMax:120,
+    ip:null,
+    ofertaColor:'Rosa',
+    discrepanciasCount:0,
+    pendientes:['Autonomía','Tiempo de carga','Tipo de frenos','Suspensión','Torque','Garantía','Refacciones','Capacidad del asiento trasero'],
+    badges:[{t:'ML',c:'b-ml'},{t:'Rosa',c:'b-color'}],
+  },
+  // 13. F1 PLEGABLE 500W (Genérica / VOLTBULL)
+  {
+    id:'f1-500w',
+    nombre:'F1 Plegable 500W',
+    marca:'VOLTBULL',
+    tipo:'plegable',
+    precio:5825,
+    linkML:'https://meli.la/2yagayB',
+    linkAmz:null,
+    img:'https://http2.mlstatic.com/D_NQ_NP_2X_886425-MLM110989798436_052026-F.webp',
+    estrellas:4.6,
+    resenas:8,
+    vendidosDeclarados:'Más de 50',
+    autonomia:null,
+    autonomiaStr:null,
+    velocidad:35,
+    peso:29,
+    motorStr:'500 W',
+    batWh:480,
+    batTipo:'Li-ion',
+    batRemovible:true,
+    rueda:'14"',
+    velocidades:null,
+    cargaMax:150,
+    ip:null,
+    ofertaColor:'Celeste',
+    discrepanciasCount:2,
+    pendientes:['Confirmar marca exacta','Confirmar capacidad exacta de batería','Autonomía','Tiempo de carga','Torque','Tipo de frenos','Suspensión','Garantía','Refacciones'],
+    badges:[{t:'ML',c:'b-ml'},{t:'⚠ 2 datos',c:'b-discr'}],
+  },
+  // 14. F1 VOLTBULL 400W (Delfín Pequeño)
+  {
+    id:'f1-400w',
+    nombre:'F1 Delfín Pequeño 400W',
+    marca:'VOLTBULL',
+    tipo:'plegable',
+    precio:6259,
+    linkML:'https://meli.la/1n41C9A',
+    linkAmz:null,
+    img:'https://http2.mlstatic.com/D_NQ_NP_2X_792213-CBT112874623817_062026-F-bicicleta-electrica-plegable-14-voltbull-pequeno-motor-400.webp',
+    estrellas:4.3,
+    resenas:6,
+    vendidosDeclarados:'Más de 25',
+    autonomia:null,
+    autonomiaStr:null,
+    velocidad:35,
+    peso:29,
+    motorStr:'400 W',
+    batWh:499.2,
+    batTipo:'Li-ion',
+    batRemovible:true,
+    rueda:'14"',
+    velocidades:null,
+    cargaMax:150,
+    ip:null,
+    ofertaColor:'Rojo',
+    discrepanciasCount:1,
+    pendientes:['Confirmar marca exacta','Autonomía','Tiempo de carga','Potencia nominal y pico','Torque','Tipo de frenos','Suspensión','Garantía','Refacciones','Uso del asiento trasero'],
+    badges:[{t:'ML',c:'b-ml'},{t:'⚠ 1 dato',c:'b-discr'}],
+  },
 ];
+
 
 
 // ============================================================
