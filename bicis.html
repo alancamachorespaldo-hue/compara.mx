@@ -295,15 +295,15 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
     <img src="/logopng.png" alt="comparalo.mx" style="height:38px;width:auto;object-fit:contain">
   </a>
   <div class="nav-links">
-    <a class="nav-link active" href="bicis.html">ðŸš² Bicicletas</a>
-    <a class="nav-link" href="suplementos.html">ðŸ’Š Suplementos</a>
-    <a class="nav-link" href="electrodomesticos.html">ðŸ  Electrodomésticos</a>
-    <span class="nav-link dim">ðŸ“± Electrónica</span>
+    <a class="nav-link active" href="bicis.html">Bicicletas</a>
+    <a class="nav-link" href="suplementos.html">Suplementos</a>
+    <a class="nav-link" href="electrodomesticos.html">Electrodomésticos</a>
+    <span class="nav-link dim">Electrónica</span>
   </div>
 </nav>
 
 <div class="breadcrumb">
-  <a href="index.html">Inicio</a> â€º <span id="breadcrumb-cat">Bicicletas</span>
+  <a href="index.html">Inicio</a> › <span id="breadcrumb-cat">Bicicletas</span>
 </div>
 
 <div class="hero">
@@ -315,7 +315,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 
 <!-- Buscador global -->
 <div style="background:#fff;border-bottom:1px solid var(--bd);padding:10px 2rem">
-  <input id="bici-search" type="text" placeholder="ðŸ” Buscar bicicleta, marca o característicaâ€¦"
+  <input id="bici-search" type="text" placeholder="Buscar bicicleta, marca o característica…"
     oninput="buscarBicis()"
     style="width:100%;max-width:600px;padding:9px 14px;border:1.5px solid var(--bd2);border-radius:10px;font-size:.84rem;font-family:'Satoshi',sans-serif;color:var(--tx);outline:none;transition:border-color .15s"
     onfocus="this.style.borderColor='var(--ac)'" onblur="this.style.borderColor='var(--bd2)'">
@@ -350,7 +350,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   <div class="sec-hero">
     <div class="sec-hero-inner">
       <div>
-        <div class="sec-hero-title">âš¡ Bicicletas Eléctricas</div>
+        <div class="sec-hero-title">⚡ Bicicletas Eléctricas</div>
         <div class="sec-hero-sub">Compara autonomía, velocidad, precio y valoraciones — Amazon MX y Mercado Libre</div>
       </div>
       <div class="sec-hero-stats">
@@ -400,7 +400,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   <div class="sec-hero">
     <div class="sec-hero-inner">
       <div>
-        <div class="sec-hero-title">ðŸ” Bicicletas de Montaña</div>
+        <div class="sec-hero-title">🏔 Bicicletas de Montaña</div>
         <div class="sec-hero-sub">Mountain bike — las mejores opciones en Mercado Libre México</div>
       </div>
       <div class="sec-hero-stats">
@@ -442,7 +442,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   <div class="sec-hero">
     <div class="sec-hero-inner">
       <div>
-        <div class="sec-hero-title">ðŸš´ Bicicletas de Ruta</div>
+        <div class="sec-hero-title">🚴 Bicicletas de Ruta</div>
         <div class="sec-hero-sub">Road bikes — desde entrada de gama hasta competencia, en Mercado Libre México</div>
       </div>
       <div class="sec-hero-stats">
@@ -484,7 +484,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   <div class="sec-hero">
     <div class="sec-hero-inner">
       <div>
-        <div class="sec-hero-title">ðŸª¨ Bicicletas Gravel</div>
+        <div class="sec-hero-title">🪨 Bicicletas Gravel</div>
         <div class="sec-hero-sub">Gravel — para cualquier terreno, en Mercado Libre México</div>
       </div>
       <div class="sec-hero-stats">
@@ -582,7 +582,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   </div>
   <div class="cmp-bar-actions">
     <button class="btn-clear" id="btn-clear-cmp" onclick="clearSel()">Limpiar</button>
-    <button class="btn-do-cmp" id="btn-do-cmp" onclick="showCmp()">Comparar ahora â†’</button>
+    <button class="btn-do-cmp" id="btn-do-cmp" onclick="showCmp()">Comparar ahora →</button>
   </div>
 </div>
 
@@ -1165,7 +1165,7 @@ const RUTA = [
    badges:[{t:'ML',c:'b-ml'}],
    linkML:'https://meli.la/2DrvPBU',
    img:'https://http2.mlstatic.com/D_NQ_NP_2X_939425-MLA84550850450_052025-F.webp'},
-  // âš  id:113 — Hiland Ruta R26: enlace ML no encontrado en catálogo, pendiente verificar
+  // ⚠️  id:113 — Hiland Ruta R26: enlace ML no encontrado en catálogo, pendiente verificar
   {id:113,nombre:'Hiland Ruta R26',marca:'Hiland',tipo:'ruta',
    precio:12099,velocidad:0,peso:12,rueda:'26"',velocidades:'14',cargaMax:0,
    estrellas:0,resenas:0,
@@ -1205,10 +1205,10 @@ let curSection = 'home';
 
 // Mapa: seccionId -> {key de state, datos, emoji para comparativa cruzada}
 const SECS = {
-  elec:    {data:()=>ELECTRICAS, label:'Eléctrica', emoji:'âš¡'},
-  montana: {data:()=>MONTANA,    label:'Montaña',   emoji:'ðŸ”'},
-  ruta:    {data:()=>RUTA,       label:'Ruta',       emoji:'ðŸš´'},
-  gravel:  {data:()=>GRAVEL,     label:'Gravel',     emoji:'ðŸª¨'},
+  elec:    {data:()=>ELECTRICAS, label:'Eléctrica', emoji:'⚡'},
+  montana: {data:()=>MONTANA,    label:'Montaña',   emoji:'🏔'},
+  ruta:    {data:()=>RUTA,       label:'Ruta',       emoji:'🚴'},
+  gravel:  {data:()=>GRAVEL,     label:'Gravel',     emoji:'🪨'},
 };
 
 let state = {
@@ -1246,7 +1246,7 @@ function switchSection(name, el){
   document.getElementById('sec-'+name).classList.add('active');
   curSection = secFromTabName(name);
   const breadcrumb = document.getElementById('breadcrumb-cat');
-  const labels = {home:'Bicicletas', electricas:'Bicicletas â€º Eléctricas', montana:'Bicicletas â€º Montaña', ruta:'Bicicletas â€º Ruta', gravel:'Bicicletas â€º Gravel'};
+  const labels = {home:'Bicicletas', electricas:'Bicicletas › Eléctricas', montana:'Bicicletas › Montaña', ruta:'Bicicletas › Ruta', gravel:'Bicicletas › Gravel'};
   if(breadcrumb) breadcrumb.textContent = labels[name] || 'Bicicletas';
   updateBar();
 }
@@ -1269,7 +1269,7 @@ function renderHome(){
     return `<div class="home-cat-section">
       <div class="home-cat-header">
         <div class="home-cat-title">${cat.label}</div>
-        <button class="home-ver-mas" onclick="switchSection('${cat.tabName}',document.getElementById('tab-${cat.tabName}'))">Ver todos â†’</button>
+        <button class="home-ver-mas" onclick="switchSection('${cat.tabName}',document.getElementById('tab-${cat.tabName}'))">Ver todos →</button>
       </div>
       <div class="home-preview-row">
         ${items.map(b=>`<div class="home-preview-card" onclick="switchSection('${cat.tabName}',document.getElementById('tab-${cat.tabName}'))">
