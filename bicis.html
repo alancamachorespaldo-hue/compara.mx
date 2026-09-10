@@ -1442,12 +1442,8 @@ function renderGrid(sec){
       const autoStr = b.autonomiaStr || 'N/D';
       const velStr = b.velocidad!=null ? b.velocidad+' km/h' : 'N/D';
       const pesoStr = b.peso!=null ? b.peso+' kg' : 'N/D';
-      const discr = b.discrepanciasCount>0
-        ? `<div class="card-discrepancias"><span>⚠ ${b.discrepanciasCount} dato${b.discrepanciasCount>1?'s':''} a verificar</span></div>`
-        : '';
-      const pendList = (b.pendientes&&b.pendientes.length)
-        ? `<details class="card-pendientes"><summary>Datos pendientes (${b.pendientes.length})</summary><ul>${b.pendientes.map(p=>`<li>${p}</li>`).join('')}</ul></details>`
-        : '';
+      const discr = '';
+      const pendList = '';
       return `<div class="card${isSel?' selected':''}" onclick="toggleSel('elec','${b.id}')">
         ${isSel?'<div class="sel-check">✓</div>':''}
         <div class="card-img-wrap">
@@ -1525,7 +1521,6 @@ function showCmp(){
       {l:'Velocidades',vals:list.map(b=>({v:b.velocidades||'N/D',n:0})),best:'none'},
       {l:'Calificación',vals:list.map(b=>({v:starsStr(b.estrellas)+(b.resenas?' ('+b.resenas+')':''),n:b.estrellas})),best:'max'},
       {l:'Carga máx.',vals:list.map(b=>({v:b.cargaMax!=null?b.cargaMax+' kg':'N/D',n:b.cargaMax!=null?b.cargaMax:0})),best:'max'},
-      {l:'Datos a verificar',vals:list.map(b=>({v:b.discrepanciasCount>0?'⚠ '+b.discrepanciasCount+' dato(s)':'OK',n:0})),best:'none'},
     ];
   } else {
     rows=[
