@@ -57,7 +57,7 @@
       "name": "Mejores Bicicletas Eléctricas en México 2026",
       "description": "Las mejores bicicletas eléctricas disponibles en Amazon MX y Mercado Libre",
       "url": "https://comparalo.mx/bicis.html",
-      "numberOfItems": 32,
+      "numberOfItems": 33,
       "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "HONEYWHALE B20 Plegable 440W", "url": "https://meli.la/13mxVr4" },
         { "@type": "ListItem", "position": 2, "name": "POP SHOPPE S6 Negro 750W", "url": "https://meli.la/2GzSAbQ" },
@@ -225,6 +225,14 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .pc-price{font-family:'Satoshi',sans-serif;font-size:1rem;font-weight:700;color:var(--tx)}
 .pc-msi{font-size:10px;color:var(--tx3);margin-top:1px;line-height:1.3}
 .card-btns{display:flex;flex-direction:column;gap:6px}
+.card-stars-dual{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:.75rem}
+.card-stars-dual .stars-col{background:var(--s1);border-radius:7px;padding:5px 8px}
+.card-stars-dual .stars-plat{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-bottom:2px}
+.card-stars-dual .stars-val{font-size:13px;color:#e6900a;font-weight:700}
+.card-stars-dual .stars-cnt{font-size:11px;color:var(--tx3);font-weight:400}
+.card-btns-dual{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.card-btn-col{display:flex;flex-direction:column;gap:3px}
+.card-btn-col-price{font-size:12px;font-weight:700;color:var(--tx);text-align:center}
 .btn-amz{display:flex;align-items:center;justify-content:center;gap:5px;width:100%;text-align:center;background:var(--amz);color:#000;border:none;border-radius:8px;padding:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Satoshi',sans-serif;text-decoration:none;transition:opacity .15s}
 .btn-amz:hover{opacity:.9}
 .btn-ml{display:flex;align-items:center;justify-content:center;gap:5px;width:100%;text-align:center;background:var(--ml);color:#3a2e00;border:none;border-radius:8px;padding:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Satoshi',sans-serif;text-decoration:none;transition:opacity .15s}
@@ -592,18 +600,24 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 // ============================================================
 const ELECTRICAS = [
   // Tanda 1: 8 modelos / 9 ofertas. Precios referenciales, no en tiempo real. Nulos = dato no confirmado.
-  // 1. HONEYWHALE B20
+  // 1. HONEYWHALE B20 (ML Negro + AMZ Negro) — UNIFICADO
   {
     id:'honeywhale-b20',
     nombre:'HONEYWHALE B20',
     marca:'HONEYWHALE',
     tipo:'plegable',
-    precio:6699,
+    precio:6599,
+    precioML:6699,
+    precioAmz:6599,
     linkML:'https://meli.la/13mxVr4',
-    linkAmz:null,
+    linkAmz:'https://www.amazon.com.mx/HONEYWHALE-B20-Bicicleta-Electrica-Conducci%C3%B3n/dp/B0FK298YDN?th=1&linkCode=ll2&tag=comparabici-20&linkId=ccd2fd01c7c0fab0e501b73cab8e8c8c&ref_=as_li_ss_tl',
     img:'https://http2.mlstatic.com/D_NQ_NP_2X_763620-MLA89353119440_082025-F.webp',
     estrellas:4.8,
     resenas:912,
+    estrellasML:4.8,
+    estrellasAmz:4.1,
+    resenasML:912,
+    resenasAmz:347,
     vendidosDeclarados:'Más de 1000',
     autonomia:35,
     autonomiaStr:'35 km',
@@ -620,7 +634,7 @@ const ELECTRICAS = [
     ofertaColor:'Negro',
     discrepanciasCount:1,
     pendientes:['Autonomía real','Torque','Tipo de frenos','Batería removible','Suspensión','Garantía y refacciones'],
-    badges:[{t:'ML',c:'b-ml'},{t:'875 reseñas',c:'b-best'}],
+    badges:[{t:'ML',c:'b-ml'},{t:'AMZ',c:'b-amz'},{t:'912 res. ML',c:'b-best'}],
   },
   // 2. POP SHOPPE S6 — Negro
   {
@@ -1135,18 +1149,24 @@ const ELECTRICAS = [
     pendientes:['Potencia nominal y pico contradictorias','Peso real del ciclista','Estatura recomendada','Autonomía real','Torque','Garantía y refacciones'],
     badges:[{t:'ML',c:'b-ml'},{t:'Rosa',c:'b-color'},{t:'⚠ 3 datos',c:'b-discr'}],
   },
-  // 20. HONEYWHALE S6 PRO-S — nueva publicación ML
+  // 20. HONEYWHALE S6 PRO-S — nueva publicación ML (ML Azul + AMZ Azul) — UNIFICADO
   {
     id:'honeywhale-s6-pro-s-v2',
     nombre:'HONEYWHALE S6 PRO-S',
     marca:'HONEYWHALE',
     tipo:'plegable',
-    precio:8999,
+    precio:8554.42,
+    precioML:8999,
+    precioAmz:8554.42,
     linkML:'https://meli.la/2FHcEss',
-    linkAmz:null,
+    linkAmz:'https://www.amazon.com.mx/HONEYWHALE-S6-Pro-S-Desbloqueo-Inteligente/dp/B0CXSRMDZR?th=1&linkCode=ll2&tag=comparabici-20&linkId=65c5d78f1d0641dc98142a00f87f0825&ref_=as_li_ss_tl',
     img:'https://http2.mlstatic.com/D_NQ_NP_2X_823735-MLA85933645727_062025-F.webp',
     estrellas:4.6,
     resenas:521,
+    estrellasML:4.6,
+    estrellasAmz:4.2,
+    resenasML:521,
+    resenasAmz:176,
     vendidosDeclarados:'Más de 100',
     autonomia:50,
     autonomiaStr:'50 km',
@@ -1163,20 +1183,26 @@ const ELECTRICAS = [
     ofertaColor:'Azul',
     discrepanciasCount:0,
     pendientes:['Autonomía real','Torque','Suspensión','Tipo de frenos','Dimensiones plegada','Garantía y refacciones'],
-    badges:[{t:'ML',c:'b-ml'},{t:'720 Wh',c:'b-best'},{t:'521 reseñas',c:'b-pop'}],
+    badges:[{t:'ML',c:'b-ml'},{t:'AMZ',c:'b-amz'},{t:'720 Wh',c:'b-best'}],
   },
-  // 21. NEON EBIKE500 — Verde/Negro
+  // 21. NEON EBIKE500 — Verde/Negro (ML + AMZ) — UNIFICADO
   {
     id:'neon-ebike500-verde',
     nombre:'NEON EBIKE500',
     marca:'NEON',
     tipo:'urbana',
     precio:9299,
+    precioML:9299,
+    precioAmz:9999,
     linkML:'https://meli.la/1oVoskp',
-    linkAmz:null,
+    linkAmz:'https://www.amazon.com.mx/Neon-Bicicleta-El%C3%A9ctrica-Adultos-EBIKE/dp/B0DWK49HSK?th=1&linkCode=ll2&tag=comparabici-20&linkId=1c428ece0213bcc2f0ca73c7bf2fd376&ref_=as_li_ss_tl',
     img:'https://http2.mlstatic.com/D_NQ_NP_2X_934601-MLA99469612334_112025-F.webp',
     estrellas:4.6,
     resenas:26,
+    estrellasML:4.6,
+    estrellasAmz:3.4,
+    resenasML:26,
+    resenasAmz:3,
     vendidosDeclarados:'Más de 100',
     autonomia:60,
     autonomiaStr:'60 km',
@@ -1193,21 +1219,27 @@ const ELECTRICAS = [
     ofertaColor:'Verde/Negro',
     discrepanciasCount:2,
     pendientes:['Autonomía real','Vida útil de batería de plomo-ácido','Torque y pendientes','Refacciones'],
-    badges:[{t:'ML',c:'b-ml'},{t:'Verde',c:'b-color'},{t:'960 Wh',c:'b-pop'}],
+    badges:[{t:'ML',c:'b-ml'},{t:'AMZ',c:'b-amz'},{t:'960 Wh',c:'b-pop'}],
   },
   // ── Última tanda: 4 modelos nuevos + 2 variantes ────────────
-  // 22. Red Velvet EAGOEZL-01
+  // 22. Red Velvet EAGOEZL-01 (ML Gris + AMZ Gris) — UNIFICADO
   {
     id:'red-velvet-eagoezl-01',
     nombre:'Red Velvet EAGOEZL-01',
     marca:'Red Velvet',
     tipo:'urbana',
     precio:6999,
+    precioML:6999,
+    precioAmz:7369,
     linkML:'https://meli.la/2BVSzSo',
-    linkAmz:null,
+    linkAmz:'https://www.amazon.com.mx/RED-VELVET-Bicicleta-El%C3%A9ctrica-Canasta/dp/B0DZ4XPRP6?psc=1&linkCode=ll2&tag=comparabici-20&linkId=d4f2da360b8f60db8be8f9eb7e984f28&ref_=as_li_ss_tl',
     img:'https://http2.mlstatic.com/D_NQ_NP_2X_935004-MLA114431231557_072026-F.webp',
     estrellas:4.0,
     resenas:115,
+    estrellasML:4.0,
+    estrellasAmz:2.3,
+    resenasML:115,
+    resenasAmz:11,
     vendidosDeclarados:'Más de 5',
     autonomia:40,
     autonomiaStr:'40 km',
@@ -1224,8 +1256,9 @@ const ELECTRICAS = [
     ofertaColor:'Gris',
     discrepanciasCount:2,
     pendientes:['Confirmar capacidad exacta de batería','Autonomía','Tiempo de carga','Rodada','Tipo de frenos','Suspensión','Torque','Garantía','Refacciones','Uso del asiento trasero'],
-    badges:[{t:'ML',c:'b-ml'},{t:'⚠ 1 dato',c:'b-discr'}],
+    badges:[{t:'ML',c:'b-ml'},{t:'AMZ',c:'b-amz'},{t:'⚠ 2 datos',c:'b-discr'}],
   },
+
   // 23. HONEYWHALE BW02
   {
     id:'honeywhale-bw02',
@@ -1430,7 +1463,7 @@ const ELECTRICAS = [
     batRemovible:true,
     rueda:'14"',
     velocidades:'3',
-    cargaMax:null,
+    cargaMax:125,
     ip:null,
     ofertaColor:'Negro',
     discrepanciasCount:2,
@@ -1460,7 +1493,7 @@ const ELECTRICAS = [
     batRemovible:null,
     rueda:'14"',
     velocidades:'1',
-    cargaMax:null,
+    cargaMax:150,
     ip:null,
     ofertaColor:'Naranja',
     discrepanciasCount:0,
@@ -1497,36 +1530,7 @@ const ELECTRICAS = [
     pendientes:['Autonomía real','Tiempo de carga','Batería removible','Suspensión trasera','Torque','Garantía','Refacciones'],
     badges:[{t:'AMZ',c:'b-amz'},{t:'Negro',c:'b-color'},{t:'⚠ 2 datos',c:'b-discr'}],
   },
-  // 31. Red Velvet EAGOEZL-01 — Amazon Gris (2.3★)
-  {
-    id:'red-velvet-eagoezl-01-amz-gris',
-    nombre:'Red Velvet EAGOEZL-01',
-    marca:'Red Velvet',
-    tipo:'urbana',
-    precio:7369,
-    linkML:null,
-    linkAmz:'https://www.amazon.com.mx/RED-VELVET-Bicicleta-El%C3%A9ctrica-Canasta/dp/B0DZ4XPRP6?psc=1&linkCode=ll2&tag=comparabici-20&linkId=d4f2da360b8f60db8be8f9eb7e984f28&ref_=as_li_ss_tl',
-    img:'https://m.media-amazon.com/images/I/61vgep55M9L._AC_SX679_.jpg',
-    estrellas:2.3,
-    resenas:11,
-    vendidosDeclarados:null,
-    autonomia:40,
-    autonomiaStr:'40 km',
-    velocidad:45,
-    peso:50,
-    motorStr:'350 W',
-    batWh:576,
-    batTipo:'Li-ion',
-    batRemovible:null,
-    rueda:'14"',
-    velocidades:'3',
-    cargaMax:120,
-    ip:null,
-    ofertaColor:'Gris',
-    discrepanciasCount:2,
-    pendientes:['Autonomía real','Tiempo de carga','Batería removible','Suspensión trasera','Torque','Garantía','Refacciones'],
-    badges:[{t:'AMZ',c:'b-amz'},{t:'Gris',c:'b-color'},{t:'⚠ 2 datos',c:'b-discr'}],
-  },
+
   // 32. HONEYWHALE BW02 — Amazon Negro/Azul
   {
     id:'honeywhale-bw02-amz',
@@ -1556,6 +1560,66 @@ const ELECTRICAS = [
     discrepanciasCount:1,
     pendientes:['Potencia nominal vs pico','Tiempo de carga','Dimensiones plegada','Torque','Tipo de frenos','Garantía','Refacciones'],
     badges:[{t:'AMZ',c:'b-amz'},{t:'Rodada 20',c:'b-pop'},{t:'4.6★',c:'b-best'}],
+  },
+  // 33. HONEYWHALE U1s — Amazon Rojo (variante de color)
+  {
+    id:'honeywhale-u1s-rojo',
+    nombre:'HONEYWHALE U1s',
+    marca:'HONEYWHALE',
+    tipo:'urbana',
+    precio:9599,
+    linkML:null,
+    linkAmz:'https://www.amazon.com.mx/HONEYWHALE-U1s-Bicicleta-Electrica-El%C3%A9ctrica/dp/B0BS6S4L1D?th=1&linkCode=ll2&tag=comparabici-20&linkId=73e62b04b8ba43d41de29ea441f1e2dc&ref_=as_li_ss_tl',
+    img:'https://m.media-amazon.com/images/I/717btTHL09L._AC_SX679_.jpg',
+    estrellas:4.0,
+    resenas:314,
+    vendidosDeclarados:null,
+    autonomia:65,
+    autonomiaStr:'65 km',
+    velocidad:31,
+    peso:57.6,
+    motorStr:'650 W',
+    batWh:960,
+    batTipo:null,
+    batRemovible:null,
+    rueda:'14"',
+    velocidades:'1',
+    cargaMax:150,
+    ip:null,
+    ofertaColor:'Rojo',
+    discrepanciasCount:0,
+    pendientes:['Tipo de batería','Batería removible','Tiempo de carga','Torque','Garantía','Refacciones','Uso del asiento trasero'],
+    badges:[{t:'AMZ',c:'b-amz'},{t:'960 Wh',c:'b-best'},{t:'Rojo',c:'b-color'}],
+  },
+  // 34. Pop Shope S6 48V 10.4Ah — Amazon Rojo (variante de color)
+  {
+    id:'pop-shope-s6-48v-10ah-rojo',
+    nombre:'Pop Shope S6 48V 10.4Ah',
+    marca:'Pop Shope',
+    tipo:'plegable',
+    precio:6599,
+    linkML:null,
+    linkAmz:'https://www.amazon.com.mx/Pop-Shope-S6-Bicicleta-El%C3%A9ctrica/dp/B0DKWCTQB3?th=1&linkCode=ll2&tag=comparabici-20&linkId=bc0e01e7f3a68c2c7cbe341d9ebddf90&ref_=as_li_ss_tl',
+    img:'https://m.media-amazon.com/images/I/71DrOpd+zEL._AC_SX679_.jpg',
+    estrellas:4.4,
+    resenas:87,
+    vendidosDeclarados:null,
+    autonomia:35,
+    autonomiaStr:'35 km',
+    velocidad:35,
+    peso:25.5,
+    motorStr:'750 W pico',
+    batWh:499.2,
+    batTipo:'Li-ion',
+    batRemovible:true,
+    rueda:'14"',
+    velocidades:'1',
+    cargaMax:125,
+    ip:null,
+    ofertaColor:'Rojo',
+    discrepanciasCount:3,
+    pendientes:['Confirmar peso real (25.5 vs 28.5 kg entre publicaciones)','Confirmar número de velocidades (1 vs 3 entre publicaciones)','Tiempo de carga','Garantía'],
+    badges:[{t:'AMZ',c:'b-amz'},{t:'Rojo',c:'b-color'},{t:'⚠ 3 datos',c:'b-discr'}],
   },
 ];
 
@@ -1907,22 +1971,83 @@ function getList(sec){
 
   // tipo filter (solo para eléctricas)
   if(sec==='elec'){
-    if(filter==='plegable') list=list.filter(b=>b.tipo==='plegable');
-    else if(filter==='urbana') list=list.filter(b=>b.tipo==='urbana');
-    else if(filter==='montana') list=list.filter(b=>b.tipo==='montana');
-    else if(filter==='amz') list=list.filter(b=>b.linkAmz);
-    else if(filter==='ml') list=list.filter(b=>b.linkML);
-  }
+    const maxAuto = Math.max(...ELECTRICAS.filter(b=>b.autonomia!=null).map(b=>b.autonomia));
+    grid.innerHTML = list.map(b=>{
+      const isSel = state.elec.sel.includes(b.id);
+      const pct = b.autonomia!=null?Math.round(b.autonomia/maxAuto*100):0;
+      const inCross = crossSel.find(x=>x.sec==='elec'&&x.id===b.id);
+      const autoStr = b.autonomiaStr || 'N/D';
+      const velStr = b.velocidad!=null ? b.velocidad+' km/h' : 'N/D';
+      const pesoStr = b.peso!=null ? b.peso+' kg' : 'N/D';
 
-  // precio filter
-  if(sec==='elec'){
-    if(precio==='low') list=list.filter(b=>b.precio<7000);
-    else if(precio==='mid') list=list.filter(b=>b.precio>=7000&&b.precio<=10000);
-    else if(precio==='high') list=list.filter(b=>b.precio>10000);
-  } else if(sec==='gravel'){
-    if(precio==='low') list=list.filter(b=>b.precio<10000);
-    else if(precio==='mid') list=list.filter(b=>b.precio>=10000&&b.precio<=20000);
-    else if(precio==='high') list=list.filter(b=>b.precio>20000);
+      const dual = !!(b.linkML && b.linkAmz);
+
+      const starsBlock = dual
+        ? `<div class="card-stars-dual">
+            <div class="stars-col">
+              <div class="stars-plat">Mercado Libre</div>
+              ${b.estrellasML ? `<div class="stars-val">★ ${b.estrellasML.toFixed(1)} <span class="stars-cnt">(${(b.resenasML||0).toLocaleString('es-MX')})</span></div>` : '<div class="stars-val" style="color:var(--tx3)">Sin datos</div>'}
+            </div>
+            <div class="stars-col">
+              <div class="stars-plat">Amazon</div>
+              ${b.estrellasAmz ? `<div class="stars-val">★ ${b.estrellasAmz.toFixed(1)} <span class="stars-cnt">(${(b.resenasAmz||0).toLocaleString('es-MX')})</span></div>` : '<div class="stars-val" style="color:var(--tx3)">Sin datos</div>'}
+            </div>
+          </div>`
+        : `<div class="card-stars">${starsStr(b.estrellas)}<span class="card-stars-count">${b.resenas?(b.resenas.toLocaleString('es-MX')+' reseñas'):''}</span></div>`;
+
+      const precioBlock = dual
+        ? ''
+        : (b.precio
+            ? `<div class="card-price">$${b.precio.toLocaleString('es-MX')} <span class="card-price-sub">MXN</span></div>`
+            : `<div class="card-price"><span style="font-size:.85rem;color:var(--tx2)">Ver precio en plataforma</span></div>`);
+
+      const fmtP = v => '$' + v.toLocaleString('es-MX', {minimumFractionDigits:0, maximumFractionDigits:2});
+
+      const btnsBlock = dual
+        ? `<div class="card-btns-dual" onclick="event.stopPropagation()">
+            <div class="card-btn-col">
+              <div class="card-btn-col-price">${fmtP(b.precioML||b.precio)}</div>
+              <a class="btn-ml" href="${b.linkML}" rel="sponsored nofollow noopener" target="_blank">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>
+            </div>
+            <div class="card-btn-col">
+              <div class="card-btn-col-price">${fmtP(b.precioAmz||b.precio)}</div>
+              <a class="btn-amz" href="${b.linkAmz}" rel="sponsored nofollow noopener" target="_blank">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>
+            </div>
+          </div>`
+        : `<div class="card-btns" onclick="event.stopPropagation()">
+            ${b.linkAmz?`<a class="btn-amz" href="${b.linkAmz}" rel="sponsored nofollow noopener" target="_blank">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>`:''}
+            ${b.linkML?`<a class="btn-ml" href="${b.linkML}" rel="sponsored nofollow noopener" target="_blank">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>`:''}
+          </div>`;
+
+      return `<div class="card${isSel?' selected':''}" onclick="toggleSel('elec','${b.id}')">
+        ${isSel?'<div class="sel-check">✓</div>':''}
+        <div class="card-img-wrap">
+          ${b.img?`<img class="card-img" src="${b.img}" alt="${b.nombre}" loading="lazy" onerror="this.outerHTML='<div class=card-img-ph>⚡</div>'">`:'<div class="card-img-ph">⚡</div>'}
+        </div>
+        <div class="card-body">
+          <div class="card-badges">${b.badges.map(bd=>`<span class="badge ${bd.c}">${bd.t}</span>`).join('')}</div>
+          <div class="card-name">${b.nombre}</div>
+          <div class="card-brand">${b.marca} · ${b.tipo}${b.ofertaColor?' · '+b.ofertaColor:''}</div>
+          ${starsBlock}
+          ${b.autonomia!=null
+            ?`<div class="card-bat"><div class="bat-header"><span>Autonomía</span><span>${autoStr}</span></div><div class="bat-track"><div class="bat-fill" style="width:${pct}%"></div></div></div>`
+            :`<div class="card-bat-nd">Autonomía: N/D</div>`}
+          <div class="card-specs">
+            <div class="spec"><div class="spec-label">Velocidad</div><div class="spec-val">${velStr}</div></div>
+            <div class="spec"><div class="spec-label">Peso</div><div class="spec-val">${pesoStr}</div></div>
+            <div class="spec"><div class="spec-label">Motor</div><div class="spec-val">${b.motorStr||'N/D'}</div></div>
+            <div class="spec"><div class="spec-label">Batería</div><div class="spec-val">${b.batWh!=null?b.batWh+' Wh':'N/D'}</div></div>
+            <div class="spec"><div class="spec-label">Rueda</div><div class="spec-val">${b.rueda||'N/D'}</div></div>
+            <div class="spec"><div class="spec-label">Carga máx.</div><div class="spec-val">${b.cargaMax!=null?b.cargaMax+' kg':'N/D'}</div></div>
+          </div>
+          ${precioBlock}
+          ${btnsBlock}
+          <div class="card-tip">Toca para comparar · <span style="color:var(--ac);cursor:pointer" onclick="toggleCross('elec','${b.id}',event)">${inCross?'✓ En comparativa cruzada':'+ Comparar secciones'}</span></div>
+        </div>
+      </div>`;
+    }).join('');
+
+  } else {
   } else {
     if(precio==='low') list=list.filter(b=>b.precio<6000);
     else if(precio==='mid') list=list.filter(b=>b.precio>=6000&&b.precio<=10000);
