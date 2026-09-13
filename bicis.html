@@ -168,6 +168,13 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .filter{font-size:12px;padding:4px 14px;border-radius:20px;border:1px solid var(--bd2);background:var(--bg);color:var(--tx2);cursor:pointer;transition:all .15s;font-family:'Satoshi',sans-serif;font-weight:500}
 .filter:hover{border-color:var(--ac);color:var(--ac)}
 .filter.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.color-filter-wrap{position:relative}
+.color-dropdown{position:absolute;top:calc(100% + 6px);left:0;z-index:300;background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:8px;box-shadow:0 4px 20px rgba(0,0,0,.13);min-width:170px;display:none;flex-direction:column;gap:2px}
+.color-dropdown.open{display:flex}
+.color-opt{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:7px;cursor:pointer;font-size:12px;color:var(--tx2);font-weight:500;transition:background .12s;white-space:nowrap;user-select:none}
+.color-opt:hover{background:var(--s1);color:var(--tx)}
+.color-opt.on{background:var(--s1);color:var(--ac);font-weight:700}
+.color-swatch{width:15px;height:15px;border-radius:50%;border:1.5px solid rgba(0,0,0,.15);flex-shrink:0}
 .sort-wrap{margin-left:auto;display:flex;align-items:center;gap:8px}
 .sort-label{font-size:12px;color:var(--tx3)}
 .sort-sel{font-size:12px;background:var(--bg);border:1px solid var(--bd2);border-radius:8px;color:var(--tx2);padding:4px 8px;font-family:'Satoshi',sans-serif;cursor:pointer}
@@ -381,6 +388,11 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
     <button class="filter" data-group="precio" onclick="applyPrecio('elec','low',this)">— $7,000</button>
     <button class="filter" data-group="precio" onclick="applyPrecio('elec','mid',this)">$7k–$10k</button>
     <button class="filter" data-group="precio" onclick="applyPrecio('elec','high',this)">$10,000+</button>
+    <span class="filter-label" style="margin-left:8px">Color:</span>
+    <div class="color-filter-wrap">
+      <button class="filter" id="btn-color-elec" onclick="toggleColorDropdown('elec')">Todos ▾</button>
+      <div class="color-dropdown" id="color-dd-elec"></div>
+    </div>
     <div class="sort-wrap">
       <span class="sort-label">Ordenar:</span>
       <select class="sort-sel" onchange="applySort('elec',this.value)">
@@ -1828,7 +1840,7 @@ const SECS = {
 };
 
 let state = {
-  elec:    {filter:'all', precio:'all', sort:'default', sel:[]},
+  elec:    {filter:'all', precio:'all', sort:'default', color:'all', sel:[]},
   montana: {filter:'all', precio:'all', sort:'default', sel:[]},
   ruta:    {filter:'all', precio:'all', sort:'default', sel:[]},
   gravel:  {filter:'all', precio:'all', sort:'default', sel:[]},
@@ -1914,6 +1926,54 @@ function applyPrecio(sec, p, el){
 
 function applySort(sec, v){ state[sec].sort=v; renderGrid(sec); }
 
+const COLOR_HEX = {
+  'Amarillo':'#FFD700','Azul':'#2563EB','Blanco':'#F5F5F5','Blanco/Negro':'linear-gradient(135deg,#F5F5F5 50%,#1F2937 50%)',
+  'Celeste':'#7EC8E3','Gris':'#9CA3AF','Gris/Negro':'linear-gradient(135deg,#9CA3AF 50%,#1F2937 50%)',
+  'Naranja':'#F97316','Negro':'#1F2937','Negro · Gris':'linear-gradient(135deg,#1F2937 50%,#9CA3AF 50%)',
+  'Negro/Azul':'linear-gradient(135deg,#1F2937 50%,#2563EB 50%)','Negro/Gris':'linear-gradient(135deg,#1F2937 50%,#9CA3AF 50%)',
+  'Rojo':'#DC2626','Rosa':'#F472B6','Verde':'#16A34A','Verde/Negro':'linear-gradient(135deg,#16A34A 50%,#1F2937 50%)'
+};
+
+function buildColorDropdown(sec){
+  const data = SECS[sec].data();
+  const colors = [...new Set(data.map(b=>b.ofertaColor).filter(Boolean))].sort();
+  const dd = document.getElementById('color-dd-'+sec);
+  if(!dd) return;
+  const bg = v => COLOR_HEX[v] ? (COLOR_HEX[v].startsWith('linear') ? COLOR_HEX[v] : '') : '';
+  const solid = v => COLOR_HEX[v] && !COLOR_HEX[v].startsWith('linear') ? COLOR_HEX[v] : '';
+  dd.innerHTML = `<div class="color-opt on" onclick="applyColor('${sec}','all',this)"><span class="color-swatch" style="background:var(--bd2)"></span>Todos</div>`
+    + colors.map(c => {
+      const hex = COLOR_HEX[c];
+      const style = hex ? (hex.startsWith('linear') ? `background:${hex}` : `background:${hex}`) : 'background:#ccc';
+      return `<div class="color-opt" onclick="applyColor('${sec}','${c}',this)"><span class="color-swatch" style="${style}"></span>${c}</div>`;
+    }).join('');
+}
+
+function toggleColorDropdown(sec){
+  const dd = document.getElementById('color-dd-'+sec);
+  const isOpen = dd.classList.contains('open');
+  document.querySelectorAll('.color-dropdown').forEach(d=>d.classList.remove('open'));
+  if(!isOpen) dd.classList.add('open');
+}
+
+function applyColor(sec, color, el){
+  state[sec].color = color;
+  const dd = document.getElementById('color-dd-'+sec);
+  dd.querySelectorAll('.color-opt').forEach(x=>x.classList.remove('on'));
+  el.classList.add('on');
+  const btn = document.getElementById('btn-color-'+sec);
+  if(color==='all'){ btn.textContent='Todos ▾'; btn.classList.remove('on'); }
+  else { btn.textContent=color+' ▾'; btn.classList.add('on'); }
+  dd.classList.remove('open');
+  renderGrid(sec);
+}
+
+document.addEventListener('click', function(e){
+  if(!e.target.closest('.color-filter-wrap')){
+    document.querySelectorAll('.color-dropdown').forEach(d=>d.classList.remove('open'));
+  }
+});
+
 function toggleSel(sec, id){
   const s = state[sec].sel;
   if(s.includes(id)){ state[sec].sel=s.filter(x=>x!==id); }
@@ -1975,6 +2035,11 @@ function getList(sec){
   const {filter, precio, sort} = state[sec];
 
   let list = [...data];
+
+  // color filter (solo para eléctricas)
+  if(sec==='elec' && state.elec.color && state.elec.color!=='all'){
+    list=list.filter(b=>b.ofertaColor===state.elec.color);
+  }
 
   // tipo filter (solo para eléctricas)
   if(sec==='elec'){
@@ -2265,6 +2330,7 @@ function showCross(){
 // INIT
 // ============================================================
 function init(){
+  buildColorDropdown('elec');
   Object.keys(SECS).forEach(sec=>renderGrid(sec));
   renderHome();
   const total = Object.keys(SECS).reduce((sum,s)=>sum+SECS[s].data().length,0);
