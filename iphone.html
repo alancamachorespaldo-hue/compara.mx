@@ -85,9 +85,10 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 /* ── GRID ── */
 .grid-wrap{max-width:1400px;margin:0 auto;padding:1.2rem 2rem}
 @media(max-width:480px){.grid-wrap{padding:1rem .75rem}}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:500px){.grid{grid-template-columns:1fr}}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:750px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.grid{grid-template-columns:1fr}}
 
 /* ── CARD ── */
 .card{background:var(--bg);border:1px solid var(--bd);border-radius:14px;overflow:hidden;transition:box-shadow .2s,transform .15s;cursor:pointer;position:relative;display:flex;flex-direction:column}
