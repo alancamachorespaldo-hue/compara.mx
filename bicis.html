@@ -1971,6 +1971,78 @@ function getList(sec){
 
   // tipo filter (solo para eléctricas)
   if(sec==='elec'){
+    if(filter==='plegable') list=list.filter(b=>b.tipo==='plegable');
+    else if(filter==='urbana') list=list.filter(b=>b.tipo==='urbana');
+    else if(filter==='montana') list=list.filter(b=>b.tipo==='montana');
+    else if(filter==='amz') list=list.filter(b=>b.linkAmz);
+    else if(filter==='ml') list=list.filter(b=>b.linkML);
+  }
+
+  // precio filter
+  if(sec==='elec'){
+    if(precio==='low') list=list.filter(b=>b.precio<7000);
+    else if(precio==='mid') list=list.filter(b=>b.precio>=7000&&b.precio<=10000);
+    else if(precio==='high') list=list.filter(b=>b.precio>10000);
+  } else if(sec==='gravel'){
+    if(precio==='low') list=list.filter(b=>b.precio<10000);
+    else if(precio==='mid') list=list.filter(b=>b.precio>=10000&&b.precio<=20000);
+    else if(precio==='high') list=list.filter(b=>b.precio>20000);
+  } else {
+    if(precio==='low') list=list.filter(b=>b.precio<6000);
+    else if(precio==='mid') list=list.filter(b=>b.precio>=6000&&b.precio<=10000);
+    else if(precio==='high') list=list.filter(b=>b.precio>10000);
+  }
+
+  if(sort==='precio-asc') list.sort((a,b)=>a.precio-b.precio);
+  else if(sort==='precio-desc') list.sort((a,b)=>b.precio-a.precio);
+  else if(sort==='stars') list.sort((a,b)=>b.estrellas-a.estrellas);
+  else if(sort==='autonomia') list.sort((a,b)=>(b.autonomia||0)-(a.autonomia||0));
+  else if(sort==='resenas') list.sort((a,b)=>b.resenas-a.resenas);
+
+  if(searchQuery) list=list.filter(b=>(b.nombre+' '+b.marca+' '+(b.tipo||'')+(b.motorStr||'')).toLowerCase().includes(searchQuery));
+
+  return list;
+}
+
+function cardConv(b, sec){
+  const isSel = state[sec].sel.includes(b.id);
+  const inCross = crossSel.find(x=>x.sec===sec&&x.id===b.id);
+  const secLabel = SECS[sec].label;
+  const emoji = SECS[sec].emoji;
+  return `<div class="card${isSel?' selected':''}" onclick="toggleSel('${sec}',${b.id})">
+    ${isSel?'<div class="sel-check">✓</div>':''}
+    <div class="card-img-wrap">
+      ${b.img?`<img class="card-img" src="${b.img}" alt="${b.nombre}" loading="lazy" onerror="this.outerHTML='<div class=card-img-ph>${emoji}</div>'">`:`<div class="card-img-ph">${emoji}</div>`}
+    </div>
+    <div class="card-body">
+      <div class="card-badges">${b.badges.map(bd=>`<span class="badge ${bd.c}">${bd.t}</span>`).join('')}</div>
+      <div class="card-name">${b.nombre}</div>
+      <div class="card-brand">${b.marca} · ${secLabel}</div>
+      <div class="card-stars">${starsStr(b.estrellas)}<span class="card-stars-count">${b.resenas?(b.resenas.toLocaleString('es-MX')+' reseñas'):''}</span></div>
+      <div class="card-specs">
+        <div class="spec"><div class="spec-label">Velocidades</div><div class="spec-val">${b.velocidades||'—'}</div></div>
+        <div class="spec"><div class="spec-label">Peso</div><div class="spec-val">${b.peso?b.peso+' kg':'—'}</div></div>
+        <div class="spec"><div class="spec-label">Rueda</div><div class="spec-val">${b.rueda||'—'}</div></div>
+        <div class="spec"><div class="spec-label">Carga máx.</div><div class="spec-val">${b.cargaMax?b.cargaMax+' kg':'—'}</div></div>
+      </div>
+      <div class="card-price">$${b.precio.toLocaleString('es-MX')} <span class="card-price-sub">MXN</span></div>
+      <div class="card-btns" onclick="event.stopPropagation()">
+        ${b.linkAmz?`<a class="btn-amz" href="${b.linkAmz}" target="_blank" rel="nofollow sponsored">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="" onerror="this.style.display='none'"></a>`:''}
+        ${b.linkML?`<a class="btn-ml" href="${b.linkML}" target="_blank" rel="nofollow sponsored">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="" onerror="this.style.display='none'"></a>`:''}
+      </div>
+      <div class="card-tip">Toca para comparar · <span style="color:var(--ac);cursor:pointer" onclick="toggleCross('${sec}',${b.id},event)">${inCross?'✓ En comparativa cruzada':'+ Comparar secciones'}</span></div>
+    </div>
+  </div>`;
+}
+
+function renderGrid(sec){
+  const list = getList(sec);
+  const grid = document.getElementById('grid-'+sec);
+  const empty = document.getElementById('empty-'+sec);
+  if(!list.length){grid.innerHTML='';empty.style.display='block';return;}
+  empty.style.display='none';
+
+  if(sec==='elec'){
     const maxAuto = Math.max(...ELECTRICAS.filter(b=>b.autonomia!=null).map(b=>b.autonomia));
     grid.innerHTML = list.map(b=>{
       const isSel = state.elec.sel.includes(b.id);
@@ -2042,107 +2114,6 @@ function getList(sec){
           </div>
           ${precioBlock}
           ${btnsBlock}
-          <div class="card-tip">Toca para comparar · <span style="color:var(--ac);cursor:pointer" onclick="toggleCross('elec','${b.id}',event)">${inCross?'✓ En comparativa cruzada':'+ Comparar secciones'}</span></div>
-        </div>
-      </div>`;
-    }).join('');
-
-  } else {
-  } else {
-    if(precio==='low') list=list.filter(b=>b.precio<6000);
-    else if(precio==='mid') list=list.filter(b=>b.precio>=6000&&b.precio<=10000);
-    else if(precio==='high') list=list.filter(b=>b.precio>10000);
-  }
-
-  if(sort==='precio-asc') list.sort((a,b)=>a.precio-b.precio);
-  else if(sort==='precio-desc') list.sort((a,b)=>b.precio-a.precio);
-  else if(sort==='stars') list.sort((a,b)=>b.estrellas-a.estrellas);
-  else if(sort==='autonomia') list.sort((a,b)=>(b.autonomia||0)-(a.autonomia||0));
-  else if(sort==='resenas') list.sort((a,b)=>b.resenas-a.resenas);
-
-  if(searchQuery) list=list.filter(b=>(b.nombre+' '+b.marca+' '+(b.tipo||'')+(b.motorStr||'')).toLowerCase().includes(searchQuery));
-
-  return list;
-}
-
-function cardConv(b, sec){
-  const isSel = state[sec].sel.includes(b.id);
-  const inCross = crossSel.find(x=>x.sec===sec&&x.id===b.id);
-  const secLabel = SECS[sec].label;
-  const emoji = SECS[sec].emoji;
-  return `<div class="card${isSel?' selected':''}" onclick="toggleSel('${sec}',${b.id})">
-    ${isSel?'<div class="sel-check">✓</div>':''}
-    <div class="card-img-wrap">
-      ${b.img?`<img class="card-img" src="${b.img}" alt="${b.nombre}" loading="lazy" onerror="this.outerHTML='<div class=card-img-ph>${emoji}</div>'">`:`<div class="card-img-ph">${emoji}</div>`}
-    </div>
-    <div class="card-body">
-      <div class="card-badges">${b.badges.map(bd=>`<span class="badge ${bd.c}">${bd.t}</span>`).join('')}</div>
-      <div class="card-name">${b.nombre}</div>
-      <div class="card-brand">${b.marca} · ${secLabel}</div>
-      <div class="card-stars">${starsStr(b.estrellas)}<span class="card-stars-count">${b.resenas?(b.resenas.toLocaleString('es-MX')+' reseñas'):''}</span></div>
-      <div class="card-specs">
-        <div class="spec"><div class="spec-label">Velocidades</div><div class="spec-val">${b.velocidades||'—'}</div></div>
-        <div class="spec"><div class="spec-label">Peso</div><div class="spec-val">${b.peso?b.peso+' kg':'—'}</div></div>
-        <div class="spec"><div class="spec-label">Rueda</div><div class="spec-val">${b.rueda||'—'}</div></div>
-        <div class="spec"><div class="spec-label">Carga máx.</div><div class="spec-val">${b.cargaMax?b.cargaMax+' kg':'—'}</div></div>
-      </div>
-      <div class="card-price">$${b.precio.toLocaleString('es-MX')} <span class="card-price-sub">MXN</span></div>
-      <div class="card-btns" onclick="event.stopPropagation()">
-        ${b.linkAmz?`<a class="btn-amz" href="${b.linkAmz}" target="_blank" rel="nofollow sponsored">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="" onerror="this.style.display='none'"></a>`:''}
-        ${b.linkML?`<a class="btn-ml" href="${b.linkML}" target="_blank" rel="nofollow sponsored">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="" onerror="this.style.display='none'"></a>`:''}
-      </div>
-      <div class="card-tip">Toca para comparar · <span style="color:var(--ac);cursor:pointer" onclick="toggleCross('${sec}',${b.id},event)">${inCross?'✓ En comparativa cruzada':'+ Comparar secciones'}</span></div>
-    </div>
-  </div>`;
-}
-
-function renderGrid(sec){
-  const list = getList(sec);
-  const grid = document.getElementById('grid-'+sec);
-  const empty = document.getElementById('empty-'+sec);
-  if(!list.length){grid.innerHTML='';empty.style.display='block';return;}
-  empty.style.display='none';
-
-  if(sec==='elec'){
-    const maxAuto = Math.max(...ELECTRICAS.filter(b=>b.autonomia!=null).map(b=>b.autonomia));
-    grid.innerHTML = list.map(b=>{
-      const isSel = state.elec.sel.includes(b.id);
-      const pct = b.autonomia!=null?Math.round(b.autonomia/maxAuto*100):0;
-      const inCross = crossSel.find(x=>x.sec==='elec'&&x.id===b.id);
-      const autoStr = b.autonomiaStr || 'N/D';
-      const velStr = b.velocidad!=null ? b.velocidad+' km/h' : 'N/D';
-      const pesoStr = b.peso!=null ? b.peso+' kg' : 'N/D';
-      const discr = '';
-      const pendList = '';
-      return `<div class="card${isSel?' selected':''}" onclick="toggleSel('elec','${b.id}')">
-        ${isSel?'<div class="sel-check">✓</div>':''}
-        <div class="card-img-wrap">
-          ${b.img?`<img class="card-img" src="${b.img}" alt="${b.nombre}" loading="lazy" onerror="this.outerHTML='<div class=card-img-ph>⚡</div>'">`:'<div class="card-img-ph">⚡</div>'}
-        </div>
-        <div class="card-body">
-          <div class="card-badges">${b.badges.map(bd=>`<span class="badge ${bd.c}">${bd.t}</span>`).join('')}</div>
-          <div class="card-name">${b.nombre}</div>
-          <div class="card-brand">${b.marca} · ${b.tipo}${b.ofertaColor?' · '+b.ofertaColor:''}</div>
-          <div class="card-stars">${starsStr(b.estrellas)}<span class="card-stars-count">${b.resenas?(b.resenas.toLocaleString('es-MX')+' reseñas'):''}</span></div>
-          ${b.autonomia!=null?`<div class="card-bat">
-            <div class="bat-header"><span>Autonomía</span><span>${autoStr}</span></div>
-            <div class="bat-track"><div class="bat-fill" style="width:${pct}%"></div></div>
-          </div>`:`<div class="card-bat-nd">Autonomía: N/D</div>`}
-          <div class="card-specs">
-            <div class="spec"><div class="spec-label">Velocidad</div><div class="spec-val">${velStr}</div></div>
-            <div class="spec"><div class="spec-label">Peso</div><div class="spec-val">${pesoStr}</div></div>
-            <div class="spec"><div class="spec-label">Motor</div><div class="spec-val">${b.motorStr||'N/D'}</div></div>
-            <div class="spec"><div class="spec-label">Batería</div><div class="spec-val">${b.batWh!=null?b.batWh+' Wh':'N/D'}</div></div>
-            <div class="spec"><div class="spec-label">Rueda</div><div class="spec-val">${b.rueda||'N/D'}</div></div>
-            <div class="spec"><div class="spec-label">Carga máx.</div><div class="spec-val">${b.cargaMax!=null?b.cargaMax+' kg':'N/D'}</div></div>
-          </div>
-          ${discr}
-          <div class="card-price">${b.precio?'$'+b.precio.toLocaleString('es-MX')+' <span class="card-price-sub">MXN</span>':'<span style="font-size:.85rem;color:var(--tx2)">Ver precio en plataforma</span>'}</div>
-          <div class="card-btns" onclick="event.stopPropagation()">
-            ${b.linkAmz?`<a class="btn-amz" href="${b.linkAmz}" target="_blank" rel="sponsored nofollow noopener">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="" onerror="this.style.display='none'"></a>`:''}
-            ${b.linkML?`<a class="btn-ml" href="${b.linkML}" target="_blank" rel="sponsored nofollow noopener">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="" onerror="this.style.display='none'"></a>`:''}
-          </div>
-          ${pendList}
           <div class="card-tip">Toca para comparar · <span style="color:var(--ac);cursor:pointer" onclick="toggleCross('elec','${b.id}',event)">${inCross?'✓ En comparativa cruzada':'+ Comparar secciones'}</span></div>
         </div>
       </div>`;
