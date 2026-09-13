@@ -138,19 +138,19 @@ html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-size:15px;line-height:1.72;-webkit-font-smoothing:antialiased}
 
 /* ── Nav ── */
-.nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--bd);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:62px}
+.nav{gap:1rem;position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--bd);padding:0 2rem;display:flex;align-items:center;height:62px}
 .logo{font-size:1.1rem;font-weight:700;color:var(--tx);text-decoration:none;letter-spacing:-.03em}
 .logo em{color:var(--ac);font-style:normal}
 .nav-links{display:flex;gap:1.75rem;align-items:center}
+.nav-breadcrumb{font-size:14px;color:var(--tx3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;display:flex;align-items:center;gap:4px}
+.nav-breadcrumb a{color:var(--ac);text-decoration:none}
+.nav-breadcrumb a:hover{text-decoration:underline}
 .nav-link{font-size:13px;color:var(--tx2);text-decoration:none;font-weight:500;transition:color .15s}
 .nav-link:hover{color:var(--ac)}
 .nav-link.active{color:var(--ac);font-weight:700;border-bottom:2px solid var(--ac);padding-bottom:2px}
 .nav-link.dim{opacity:.4;pointer-events:none}
 
 /* ── Breadcrumb ── */
-.breadcrumb{padding:.5rem 2rem;font-size:12px;color:var(--tx3);background:var(--s1);border-bottom:1px solid var(--bd)}
-.breadcrumb a{color:var(--ac);text-decoration:none}
-.breadcrumb a:hover{text-decoration:underline}
 .breadcrumb span{color:var(--tx3)}
 
 /* ── Layout ── */
@@ -304,9 +304,9 @@ footer strong{color:var(--tx2)}
 
 @media(max-width:640px){
   .art{padding:2rem 1rem 4rem}
-  .nav{padding:0 1rem}
+  .nav{gap:1rem;padding:0 1rem}
   .nav-links{display:none}
-  .breadcrumb{padding:.5rem 1rem}
+  
   .prod-par{grid-template-columns:1fr}
   .plat-grid{grid-template-columns:1fr}
   .obj-grid{grid-template-columns:1fr 1fr}
@@ -322,6 +322,10 @@ footer strong{color:var(--tx2)}
 <!-- Nav -->
 <nav class="nav" aria-label="Navegación principal">
   <a href="index.html" class="logo">comparalo<em>.mx</em></a>
+  <div class="nav-breadcrumb">
+    <a href="suplementos.html">Suplementos</a> <span>›</span>
+  <span>Proteína Whey México 2026</span>
+  </div>
   <div class="nav-links">
     <a class="nav-link" href="bicis.html">🚲 Bicicletas</a>
     <a class="nav-link active" href="suplementos.html">💊 Suplementos</a>
@@ -331,11 +335,6 @@ footer strong{color:var(--tx2)}
 </nav>
 
 <!-- Breadcrumb -->
-<div class="breadcrumb" aria-label="Ruta de navegación">
-  <a href="index.html">Inicio</a> <span>›</span>
-  <a href="suplementos.html">Suplementos</a> <span>›</span>
-  <span>Proteína Whey México 2026</span>
-</div>
 
 <article class="art" itemscope itemtype="https://schema.org/Article">
 

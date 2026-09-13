@@ -62,17 +62,17 @@
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-size:15px;line-height:1.6}
 
-.nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--bd);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav{gap:1rem;position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--bd);padding:0 2rem;display:flex;align-items:center;height:64px}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
 .nav-links{display:flex;gap:1.75rem;align-items:center}
+.nav-breadcrumb{font-size:14px;color:var(--tx3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;display:flex;align-items:center;gap:4px}
+.nav-breadcrumb a{color:var(--ac);text-decoration:none}
+.nav-breadcrumb a:hover{text-decoration:underline}
 .nav-link{font-size:13px;color:var(--tx2);text-decoration:none;font-weight:500;transition:color .15s}
 .nav-link:hover{color:var(--ac)}
 .nav-link.active{color:var(--ac);font-weight:700}
 .nav-link.dim{opacity:.4;cursor:default;pointer-events:none}
 
-.breadcrumb{padding:.6rem 2rem;font-size:12px;color:var(--tx3);background:var(--s1);border-bottom:1px solid var(--bd)}
-.breadcrumb a{color:var(--ac);text-decoration:none}
-.breadcrumb a:hover{text-decoration:underline}
 
 .hero{background:linear-gradient(135deg,#006847 0%,#004d34 100%);color:#fff;padding:14px 20px 12px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .hero h1{font-size:1.05rem;font-weight:800;letter-spacing:-.02em}
@@ -203,6 +203,9 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   <a class="logo" href="index.html">
     <img src="/logopng.png" alt="comparalo.mx" style="height:38px;width:auto;object-fit:contain">
   </a>
+  <div class="nav-breadcrumb">
+    <a href="electrodomesticos.html">Electrodomésticos</a> › Freidoras de Aire
+  </div>
   <div class="nav-links">
     <a class="nav-link" href="bicis.html">🚲 Bicicletas</a>
     <a class="nav-link" href="suplementos.html">💊 Suplementos</a>
@@ -210,10 +213,6 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
     <span class="nav-link dim">📱 Electrónica</span>
   </div>
 </nav>
-
-<div class="breadcrumb">
-  <a href="index.html">Inicio</a> › <a href="electrodomesticos.html">Electrodomésticos</a> › Freidoras de Aire
-</div>
 
 <div class="hero">
   <div>

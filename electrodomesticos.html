@@ -46,9 +46,12 @@ html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;min-height:100vh;display:flex;flex-direction:column}
 
 /* NAV */
-.nav{background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--bd);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:100}
+.nav{gap:1rem;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--bd);padding:0 2rem;display:flex;align-items:center;height:64px;position:sticky;top:0;z-index:100}
 .logo{display:flex;align-items:center;text-decoration:none}
 .nav-links{display:flex;gap:1.5rem;align-items:center}
+.nav-breadcrumb{font-size:14px;color:var(--tx3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;display:flex;align-items:center;gap:4px}
+.nav-breadcrumb a{color:var(--ac);text-decoration:none}
+.nav-breadcrumb a:hover{text-decoration:underline}
 .nav-link{font-size:13px;color:var(--tx2);text-decoration:none;font-weight:500;transition:color .15s}
 .nav-link:hover{color:var(--ac)}
 .nav-link.active{color:var(--ac);font-weight:700}
@@ -73,9 +76,6 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;min-h
 .cat-badge{font-size:.62rem;background:rgba(255,255,255,.1);border-radius:20px;padding:3px 9px;letter-spacing:.05em;margin-top:2px}
 
 /* BREADCRUMB */
-.breadcrumb{padding:.75rem 2rem;font-size:12px;color:var(--tx3);border-bottom:1px solid var(--bd);background:var(--s1)}
-.breadcrumb a{color:var(--ac);text-decoration:none}
-.breadcrumb a:hover{text-decoration:underline}
 
 /* FOOTER */
 footer{margin-top:auto;background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;text-align:center;font-size:12px;color:var(--tx3)}
@@ -94,6 +94,9 @@ footer a{color:var(--ac);text-decoration:none}
   <a class="logo" href="index.html">
     <img src="/logopng.png" alt="comparalo.mx" style="height:38px;width:auto;object-fit:contain">
   </a>
+  <div class="nav-breadcrumb">
+    Electrodomésticos
+  </div>
   <div class="nav-links">
     <a class="nav-link" href="bicis.html">🚲 Bicicletas</a>
     <a class="nav-link" href="suplementos.html">💊 Suplementos</a>
@@ -101,10 +104,6 @@ footer a{color:var(--ac);text-decoration:none}
     <span class="nav-link dim">📱 Electrónica</span>
   </div>
 </nav>
-
-<div class="breadcrumb">
-  <a href="index.html">Inicio</a> › Electrodomésticos
-</div>
 
 <div class="hero">
   <div class="hero-eyebrow">México · Amazon MX · Mercado Libre</div>

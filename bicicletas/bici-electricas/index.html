@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es-MX">
 <head>
 <meta charset="UTF-8">
@@ -113,17 +113,17 @@
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-size:15px;line-height:1.6}
 
-.nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--bd);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav{gap:1rem;position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--bd);padding:0 2rem;display:flex;align-items:center;height:64px}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
 .logo-wordmark{font-family:'Satoshi',sans-serif;font-size:1.25rem;font-weight:700;color:var(--ac);letter-spacing:-.03em;line-height:1}
 .logo-wordmark .logo-mx{color:var(--red)}
 .nav-links{display:flex;gap:1.75rem;align-items:center}
+.nav-breadcrumb{font-size:14px;color:var(--tx3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;display:flex;align-items:center;gap:4px}
+.nav-breadcrumb a{color:var(--ac);text-decoration:none}
+.nav-breadcrumb a:hover{text-decoration:underline}
 .nav-link{font-size:13px;color:var(--tx2);cursor:pointer;font-weight:500;transition:color .15s;text-decoration:none}
 .nav-link:hover,.nav-link.active{color:var(--ac)}
 
-.breadcrumb{padding:8px 2rem;font-size:12px;color:var(--tx3)}
-.breadcrumb a{color:var(--tx3);text-decoration:none}
-.breadcrumb a:hover{color:var(--ac)}
 .breadcrumb span{color:var(--tx2)}
 
 .hero{background:linear-gradient(135deg,#006847 0%,#004d34 100%);color:#fff;padding:20px 2rem 18px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
@@ -254,18 +254,16 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   <a class="logo" href="/index.html">
     <img src="/logopng.png" alt="comparalo.mx" style="height:38px;width:auto;object-fit:contain">
   </a>
+  <div class="nav-breadcrumb">
+    <a href="/bicis.html">Bicicletas</a> ›
+  <span>Bicicletas Eléctricas</span>
+  </div>
   <div class="nav-links">
     <a class="nav-link active" href="/bicis.html">Bicicletas</a>
     <a class="nav-link" href="/suplementos.html">Suplementos</a>
     <a class="nav-link" href="/electrodomesticos.html">Electrodomésticos</a>
     <span class="nav-link" style="opacity:.4;cursor:default">Electrónica</span>
   </div>
-</nav>
-
-<nav aria-label="Breadcrumb" class="breadcrumb">
-  <a href="/index.html">Inicio</a> ›
-  <a href="/bicis.html">Bicicletas</a> ›
-  <span>Bicicletas Eléctricas</span>
 </nav>
 
 <div class="hero">
