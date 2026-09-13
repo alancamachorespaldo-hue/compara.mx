@@ -143,6 +143,8 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .filter{font-size:12px;padding:4px 14px;border-radius:20px;border:1px solid var(--bd2);background:var(--bg);color:var(--tx2);cursor:pointer;transition:all .15s;font-family:'Satoshi',sans-serif;font-weight:500}
 .filter:hover{border-color:var(--ac);color:var(--ac)}
 .filter.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.filter-logo{padding:4px 10px;display:inline-flex;align-items:center;justify-content:center}
+.filter-logo.on img{filter:brightness(0) invert(1)}
 .sort-wrap{margin-left:auto;display:flex;align-items:center;gap:8px}
 .sort-label{font-size:12px;color:var(--tx3)}
 .sort-sel{font-size:12px;background:var(--bg);border:1px solid var(--bd2);border-radius:8px;color:var(--tx2);padding:4px 8px;font-family:'Satoshi',sans-serif;cursor:pointer}
@@ -289,8 +291,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   <button class="filter" data-group="tipo" onclick="applyFilter('plegable',this)">Plegable</button>
   <button class="filter" data-group="tipo" onclick="applyFilter('urbana',this)">Urbana</button>
   <button class="filter" data-group="tipo" onclick="applyFilter('montana',this)">Montaña</button>
-  <button class="filter" data-group="tipo" onclick="applyFilter('amz',this)">En Amazon</button>
-  <button class="filter" data-group="tipo" onclick="applyFilter('ml',this)">En ML</button>
+  <button class="filter filter-logo" data-group="tipo" onclick="applyFilter('amz',this)"><img src="/logoamazon.png" alt="Amazon" style="height:16px;width:auto;object-fit:contain" onerror="this.outerHTML='Amazon'"></button>
+  <button class="filter filter-logo" data-group="tipo" onclick="applyFilter('ml',this)"><img src="/logomercado.png" alt="Mercado Libre" style="height:16px;width:auto;object-fit:contain" onerror="this.outerHTML='ML'"></button>
   <span class="filter-label" style="margin-left:8px">Precio:</span>
   <button class="filter on" data-group="precio" onclick="applyPrecio('all',this)">Todos</button>
   <button class="filter" data-group="precio" onclick="applyPrecio('low',this)">— $7,000</button>
