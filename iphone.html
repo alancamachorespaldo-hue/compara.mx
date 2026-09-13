@@ -168,6 +168,8 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .cmp-prod-btns{display:grid;gap:4px;margin-top:6px}
 .cmp-prod-btns.dual{grid-template-columns:1fr 1fr}
 
+.preventa-badge{display:inline-block;background:#fff8e6;color:#b45309;border:1px solid #fcd34d;border-radius:20px;font-size:10px;font-weight:700;padding:2px 9px;letter-spacing:.05em;text-transform:uppercase}
+.vendidos-txt{font-size:11px;color:var(--tx3);margin-top:1px}
 .empty{text-align:center;padding:3rem;color:var(--tx3);font-size:14px}
 .disclaimer{max-width:1100px;margin:0 auto;padding:1.25rem 2rem;font-size:12px;color:var(--tx3);border-top:1px solid var(--bd)}
 footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;text-align:center}
@@ -279,34 +281,85 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 // ─────────────────────────────────────────────────────────────────────────────
 const familias = [
   {
+    modeloBase: 'iphone-16e',
+    nombre: 'iPhone 16e',
+    serie: '16',
+    chip: null,
+    camPrincipal: 48,
+    pantalla: 6.1,
+    preventa: false,
+    variantes: [
+      {
+        id: 'apple-iphone-16e-128gb',
+        almacenamientoGB: 128,
+        precio: 12528.63,
+        precioML: 12528.63,
+        precioAmz: null,
+        linkML: 'https://meli.la/2Bti4Vm',
+        linkAmz: null,
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_908532-MLA96107615227_102025-F.webp',
+        estrellas: 4.9,
+        resenas: 26446,
+        vendidos: '+1000 vendidos',
+        preventa: false
+      },
+      {
+        id: 'apple-iphone-16e-512gb',
+        almacenamientoGB: 512,
+        precio: 21586.41,
+        precioML: 21586.41,
+        precioAmz: null,
+        linkML: 'https://meli.la/2Bti4Vm',
+        linkAmz: null,
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_908532-MLA96107615227_102025-F.webp',
+        estrellas: 4.9,
+        resenas: 26446,
+        vendidos: '+50 vendidos',
+        preventa: false
+      }
+    ],
+    saltos: [
+      { desdeGB: 128, hastaGB: 512, multiplicaCapacidadPor: 4, diferenciaMXN: 9057.78,
+        mensaje: 'Por $9,057.78 más, obtienes cuatro veces el almacenamiento: de 128 GB a 512 GB.' }
+    ]
+  },
+
+  {
     modeloBase: 'iphone-15',
     nombre: 'iPhone 15',
     serie: '15',
     chip: 'A16 Bionic',
     camPrincipal: 48,
     pantalla: 6.1,
-    estrellas: null,
-    resenas: null,
+    preventa: false,
     variantes: [
       {
         id: 'apple-iphone-15-128gb',
         almacenamientoGB: 128,
         precio: 14391.35,
-        precioAmz: null,
         precioML: 14391.35,
+        precioAmz: null,
+        linkML: 'https://meli.la/2YicyZQ',
         linkAmz: null,
-        linkML: null,   // ← agregar link afiliado
-        img: '',        // ← agregar URL de imagen
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_975589-MLA95496385884_102025-F.webp',
+        estrellas: 4.9,
+        resenas: 25438,
+        vendidos: '+5 mil vendidos',
+        preventa: false
       },
       {
         id: 'apple-iphone-15-256gb',
         almacenamientoGB: 256,
         precio: 18420,
-        precioAmz: null,
         precioML: 18420,
+        precioAmz: null,
+        linkML: 'https://meli.la/2YicyZQ',
         linkAmz: null,
-        linkML: null,
-        img: '',
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_975589-MLA95496385884_102025-F.webp',
+        estrellas: 4.9,
+        resenas: 25438,
+        vendidos: '+5 mil vendidos',
+        preventa: false
       }
     ],
     saltos: [
@@ -322,28 +375,35 @@ const familias = [
     chip: 'A18',
     camPrincipal: 48,
     pantalla: 6.1,
-    estrellas: null,
-    resenas: null,
+    preventa: false,
     variantes: [
       {
         id: 'apple-iphone-16-128gb',
         almacenamientoGB: 128,
         precio: 13749,
-        precioAmz: null,
         precioML: 13749,
+        precioAmz: null,
+        linkML: 'https://meli.la/1THU9GK',
         linkAmz: null,
-        linkML: null,
-        img: '',
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_962195-MLA99461506290_112025-F.webp',
+        estrellas: 4.8,
+        resenas: 7207,
+        vendidos: '+5 mil vendidos',
+        preventa: false
       },
       {
         id: 'apple-iphone-16-256gb',
         almacenamientoGB: 256,
         precio: 16234.35,
-        precioAmz: null,
         precioML: 16234.35,
+        precioAmz: null,
+        linkML: 'https://meli.la/1THU9GK',
         linkAmz: null,
-        linkML: null,
-        img: '',
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_962195-MLA99461506290_112025-F.webp',
+        estrellas: 4.8,
+        resenas: 7207,
+        vendidos: '+500 vendidos',
+        preventa: false
       }
     ],
     saltos: [
@@ -353,39 +413,46 @@ const familias = [
   },
 
   {
-    modeloBase: 'iphone-16e',
-    nombre: 'iPhone 16e',
-    serie: '16',
-    chip: 'A16',
-    camPrincipal: 48,
-    pantalla: 6.1,
-    estrellas: null,
-    resenas: null,
+    modeloBase: 'iphone-18-pro',
+    nombre: 'iPhone 18 Pro',
+    serie: '18',
+    chip: 'A20 Pro',
+    camPrincipal: null,
+    pantalla: null,
+    preventa: true,
     variantes: [
       {
-        id: 'apple-iphone-16e-128gb',
-        almacenamientoGB: 128,
-        precio: 12528.63,
+        id: 'apple-iphone-18-pro-256gb-esim',
+        almacenamientoGB: 256,
+        precio: 29999,
+        precioML: 29999,
         precioAmz: null,
-        precioML: 12528.63,
+        linkML: 'https://meli.la/1rtkPHj',
         linkAmz: null,
-        linkML: null,
-        img: '',
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_915123-MLA116009380962_092026-F.webp',
+        estrellas: null,
+        resenas: null,
+        vendidos: null,
+        preventa: true
       },
       {
-        id: 'apple-iphone-16e-512gb',
-        almacenamientoGB: 512,
-        precio: 21586.41,
+        id: 'apple-iphone-18-pro-1tb-esim',
+        almacenamientoGB: 1024,
+        precio: 44999,
+        precioML: 44999,
         precioAmz: null,
-        precioML: 21586.41,
+        linkML: 'https://meli.la/1rtkPHj',
         linkAmz: null,
-        linkML: null,
-        img: '',
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_915123-MLA116009380962_092026-F.webp',
+        estrellas: null,
+        resenas: null,
+        vendidos: 'Última unidad',
+        preventa: true
       }
     ],
     saltos: [
-      { desdeGB: 128, hastaGB: 512, multiplicaCapacidadPor: 4, diferenciaMXN: 9057.78,
-        mensaje: 'Por $9,057.78 más, obtienes cuatro veces el almacenamiento: de 128 GB a 512 GB.' }
+      { desdeGB: 256, hastaGB: 1024, multiplicaCapacidadPor: 4, diferenciaMXN: 15000,
+        mensaje: 'Por $15,000 más, obtienes cuatro veces el almacenamiento: de 256 GB a 1 TB.' }
     ]
   },
 
@@ -396,38 +463,49 @@ const familias = [
     chip: 'A19 Pro',
     camPrincipal: 48,
     pantalla: 6.3,
-    estrellas: null,
-    resenas: null,
+    preventa: false,
     variantes: [
       {
-        id: 'apple-iphone-17-pro-256gb',
+        id: 'apple-iphone-17-pro-256gb-esim',
         almacenamientoGB: 256,
         precio: 28499,
-        precioAmz: null,
         precioML: 28499,
+        precioAmz: null,
+        linkML: 'https://meli.la/2TFkBy9',
         linkAmz: null,
-        linkML: null,
-        img: '',
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_917504-MLA97350178367_112025-F.webp',
+        estrellas: 4.9,
+        resenas: 1505,
+        vendidos: '+1000 vendidos',
+        preventa: false
       },
       {
-        id: 'apple-iphone-17-pro-512gb',
+        id: 'apple-iphone-17-pro-512gb-esim',
         almacenamientoGB: 512,
         precio: 33499,
-        precioAmz: null,
         precioML: 33499,
+        precioAmz: null,
+        linkML: 'https://meli.la/2TFkBy9',
         linkAmz: null,
-        linkML: null,
-        img: '',
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_917504-MLA97350178367_112025-F.webp',
+        estrellas: null,
+        resenas: null,
+        vendidos: null,
+        preventa: false
       },
       {
-        id: 'apple-iphone-17-pro-1tb',
+        id: 'apple-iphone-17-pro-1tb-esim',
         almacenamientoGB: 1024,
         precio: 38499,
-        precioAmz: null,
         precioML: 38499,
+        precioAmz: null,
+        linkML: 'https://meli.la/2TFkBy9',
         linkAmz: null,
-        linkML: null,
-        img: '',
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_917504-MLA97350178367_112025-F.webp',
+        estrellas: null,
+        resenas: null,
+        vendidos: null,
+        preventa: false
       }
     ],
     saltos: [
@@ -445,48 +523,63 @@ const familias = [
     chip: 'A19 Pro',
     camPrincipal: 48,
     pantalla: 6.9,
-    estrellas: null,
-    resenas: null,
+    preventa: false,
     variantes: [
       {
-        id: 'apple-iphone-17-pro-max-256gb',
+        id: 'apple-iphone-17-pro-max-256gb-esim',
         almacenamientoGB: 256,
         precio: 30999,
-        precioAmz: null,
         precioML: 30999,
+        precioAmz: null,
+        linkML: 'https://meli.la/1PKLsFJ',
         linkAmz: null,
-        linkML: null,
-        img: '',
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_660568-MLA92147273075_092025-F.webp',
+        estrellas: 4.9,
+        resenas: 2120,
+        vendidos: null,
+        preventa: false
       },
       {
-        id: 'apple-iphone-17-pro-max-512gb',
+        id: 'apple-iphone-17-pro-max-512gb-esim',
         almacenamientoGB: 512,
         precio: 35999,
-        precioAmz: null,
         precioML: 35999,
+        precioAmz: null,
+        linkML: 'https://meli.la/1PKLsFJ',
         linkAmz: null,
-        linkML: null,
-        img: '',
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_660568-MLA92147273075_092025-F.webp',
+        estrellas: 4.9,
+        resenas: 2120,
+        vendidos: '+500 vendidos',
+        preventa: false
       },
       {
-        id: 'apple-iphone-17-pro-max-1tb',
+        id: 'apple-iphone-17-pro-max-1tb-esim',
         almacenamientoGB: 1024,
         precio: 40999,
-        precioAmz: null,
         precioML: 40999,
+        precioAmz: null,
+        linkML: 'https://meli.la/1PKLsFJ',
         linkAmz: null,
-        linkML: null,
-        img: '',
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_660568-MLA92147273075_092025-F.webp',
+        estrellas: null,
+        resenas: null,
+        vendidos: null,
+        preventa: false
       },
       {
-        id: 'apple-iphone-17-pro-max-2tb',
+        id: 'apple-iphone-17-pro-max-2tb-esim',
         almacenamientoGB: 2048,
         precio: 50999,
-        precioAmz: null,
         precioML: 50999,
+        precioAmz: null,
+        linkML: 'https://meli.la/1PKLsFJ',
         linkAmz: null,
-        linkML: null,
-        img: '',
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_660568-MLA92147273075_092025-F.webp',
+        estrellas: null,
+        resenas: null,
+        vendidos: null,
+        preventa: false
       }
     ],
     saltos: [
@@ -496,43 +589,6 @@ const familias = [
         mensaje: 'Por $5,000 más, duplicas el almacenamiento de 512 GB a 1 TB.' },
       { desdeGB: 1024, hastaGB: 2048, multiplicaCapacidadPor: 2, diferenciaMXN: 10000,
         mensaje: 'Por $10,000 más, duplicas el almacenamiento de 1 TB a 2 TB.' }
-    ]
-  },
-
-  {
-    modeloBase: 'iphone-18-pro',
-    nombre: 'iPhone 18 Pro',
-    serie: '18',
-    chip: null,
-    camPrincipal: null,
-    pantalla: null,
-    estrellas: null,
-    resenas: null,
-    variantes: [
-      {
-        id: 'apple-iphone-18-pro-256gb',
-        almacenamientoGB: 256,
-        precio: 29999,
-        precioAmz: null,
-        precioML: 29999,
-        linkAmz: null,
-        linkML: null,
-        img: '',
-      },
-      {
-        id: 'apple-iphone-18-pro-1tb',
-        almacenamientoGB: 1024,
-        precio: 44999,
-        precioAmz: null,
-        precioML: 44999,
-        linkAmz: null,
-        linkML: null,
-        img: '',
-      }
-    ],
-    saltos: [
-      { desdeGB: 256, hastaGB: 1024, multiplicaCapacidadPor: 4, diferenciaMXN: 15000,
-        mensaje: 'Por $15,000 más, obtienes cuatro veces el almacenamiento: de 256 GB a 1 TB.' }
     ]
   }
 ];
@@ -583,6 +639,12 @@ function insightHTML(familia, idx) {
     // "vs 128 GB: +$2,485 · 2× almacenamiento"
     return `vs <strong>${fmtGB(salto.desdeGB)}</strong>: <strong>+${fmt(salto.diferenciaMXN)}</strong> · ${multLabel}`;
   }
+}
+
+function starsHTML(variante) {
+  if (!variante.estrellas) return '';
+  const vendidosTxt = variante.vendidos ? `<div class="vendidos-txt">${variante.vendidos}</div>` : '';
+  return `<div class="card-stars">★ ${variante.estrellas.toFixed(1)} <span class="card-stars-count">(${(variante.resenas||0).toLocaleString('es-MX')})</span></div>${vendidosTxt}`;
 }
 
 function btnsHTML(variante) {
@@ -683,10 +745,8 @@ function cardHTML(familia) {
   // Insight
   const insight = insightHTML(familia, idx);
 
-  // Stars
-  const stars = familia.estrellas
-    ? `<div class="card-stars">★ ${familia.estrellas.toFixed(1)} <span class="card-stars-count">(${(familia.resenas||0).toLocaleString('es-MX')})</span></div>`
-    : '';
+  // Stars — per variante
+  const starsInner = starsHTML(variante);
 
   // Specs
   const specs = `<div class="card-specs">
@@ -699,6 +759,8 @@ function cardHTML(familia) {
   const imgSrc = variante.img || '';
   const imgFallback = `this.src='data:image/svg+xml,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'88\\' height=\\'88\\'><rect fill=\\'%23f1f5f9\\' width=\\'88\\' height=\\'88\\'/>  <text x=\\'50%\\' y=\\'55%\\' font-family=\\'sans-serif\\' font-size=\\'28\\' text-anchor=\\'middle\\' fill=\\'%23cbd5e1\\'> </text></svg>'`;
 
+  const prevBadge = (familia.preventa || variante.preventa) ? '<span class="preventa-badge">Preventa</span>' : '';
+
   return `
   <div class="card${isSelected ? ' selected' : ''}" id="card-${mb}" onclick="toggleSelect('${mb}')">
     ${isSelected ? '<div class="sel-check">✓</div>' : ''}
@@ -707,12 +769,12 @@ function cardHTML(familia) {
     </div>
     <div class="card-body">
       <div>
-        <div class="card-name">${familia.nombre}</div>
+        <div class="card-name">${familia.nombre} ${prevBadge}</div>
         ${familia.chip ? `<div class="card-chip">${familia.chip}</div>` : ''}
       </div>
       <div class="stor-row">${storBtns}</div>
       <div class="stor-insight" id="insight-${mb}">${insight}</div>
-      ${stars}
+      <div id="stars-${mb}">${starsInner}</div>
       ${specs}
       <div class="card-price" id="price-${mb}">${fmt(variante.precio)}</div>
       <div id="btns-${mb}">${btnsHTML(variante)}</div>
@@ -754,6 +816,10 @@ function selectStorage(event, modeloBase, idx) {
     const imgEl = document.getElementById(`img-${modeloBase}`);
     if (imgEl) imgEl.src = variante.img;
   }
+
+  // Estrellas y vendidos
+  const starsEl = document.getElementById(`stars-${modeloBase}`);
+  if (starsEl) starsEl.innerHTML = starsHTML(variante);
 
   // Botones de compra
   const btnsEl = document.getElementById(`btns-${modeloBase}`);
