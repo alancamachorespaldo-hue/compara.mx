@@ -1573,7 +1573,12 @@ function renderGrid(){
             ${b.estrellasAmz ? `<div class="stars-val">★ ${b.estrellasAmz.toFixed(1)} <span class="stars-cnt">(${(b.resenasAmz||0).toLocaleString('es-MX')})</span></div>` : '<div class="stars-val" style="color:var(--tx3)">Sin datos</div>'}
           </div>
         </div>`
-      : `<div class="card-stars">${starsStr(b.estrellas)}<span class="card-stars-count">${b.resenas?(b.resenas.toLocaleString('es-MX')+' reseñas'):''}</span></div>`;
+      : `<div class="card-stars-dual" style="grid-template-columns:1fr">
+          <div class="stars-col">
+            <div class="stars-plat">${b.linkML?'Mercado Libre':b.linkAmz?'Amazon':''}</div>
+            ${b.estrellas?`<div class="stars-val">★ ${b.estrellas.toFixed(1)} <span class="stars-cnt">(${(b.resenas||0).toLocaleString('es-MX')})</span></div>`:'<div class="stars-val" style="color:var(--tx3)">Sin datos</div>'}
+          </div>
+        </div>`;
 
     const precioBlock = dual
       ? ''
