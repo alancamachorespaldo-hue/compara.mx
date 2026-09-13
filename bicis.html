@@ -629,6 +629,7 @@ const ELECTRICAS = [
     batRemovible:null,
     rueda:'14"',
     velocidades:null,
+    tiempoCarga:'6.5 h',
     cargaMax:120,
     ip:'IP54',
     ofertaColor:'Negro',
@@ -659,6 +660,7 @@ const ELECTRICAS = [
     batRemovible:true,
     rueda:'14"',
     velocidades:null,
+    tiempoCarga:'7 h',
     cargaMax:125,
     ip:'IPX4',
     ofertaColor:'Negro',
@@ -689,6 +691,7 @@ const ELECTRICAS = [
     batRemovible:true,
     rueda:'14"',
     velocidades:null,
+    tiempoCarga:'7 h',
     cargaMax:125,
     ip:'IPX4',
     ofertaColor:'Blanco',
@@ -839,6 +842,7 @@ const ELECTRICAS = [
     batRemovible:true,
     rueda:'14"',
     velocidades:null,
+    tiempoCarga:'8–10 h',
     cargaMax:200,
     ip:null,
     ofertaColor:'Gris/Negro',
@@ -1082,6 +1086,7 @@ const ELECTRICAS = [
     batRemovible:true,
     rueda:'14"',
     velocidades:null,
+    tiempoCarga:'7–9 h',
     cargaMax:150,
     ip:null,
     ofertaColor:'Blanco/Negro',
@@ -1178,6 +1183,7 @@ const ELECTRICAS = [
     batRemovible:true,
     rueda:'14"',
     velocidades:null,
+    tiempoCarga:'8 h',
     cargaMax:125,
     ip:'IP54',
     ofertaColor:'Azul',
@@ -1214,6 +1220,7 @@ const ELECTRICAS = [
     batRemovible:true,
     rueda:'14"',
     velocidades:null,
+    tiempoCarga:'8–10 h',
     cargaMax:200,
     ip:null,
     ofertaColor:'Verde/Negro',
@@ -2105,7 +2112,7 @@ function renderGrid(sec){
             ?`<div class="card-bat"><div class="bat-header"><span>Autonomía</span><span>${autoStr}</span></div><div class="bat-track"><div class="bat-fill" style="width:${pct}%"></div></div></div>`
             :`<div class="card-bat-nd">Autonomía: N/D</div>`}
           <div class="card-specs">
-            <div class="spec"><div class="spec-label">Velocidad</div><div class="spec-val">${velStr}</div></div>
+            <div class="spec"><div class="spec-label">Duración bat.</div><div class="spec-val">${b.tiempoCarga||'N/D'}</div></div>
             <div class="spec"><div class="spec-label">Peso</div><div class="spec-val">${pesoStr}</div></div>
             <div class="spec"><div class="spec-label">Motor</div><div class="spec-val">${b.motorStr||'N/D'}</div></div>
             <div class="spec"><div class="spec-label">Batería</div><div class="spec-val">${b.batWh!=null?b.batWh+' Wh':'N/D'}</div></div>
