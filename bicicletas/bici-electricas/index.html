@@ -1618,7 +1618,6 @@ function renderGrid(){
         ${b.img?`<img class="card-img" src="${b.img}" alt="${b.nombre}" loading="lazy" onerror="this.outerHTML='<div class=card-img-ph>⚡</div>'">`:'<div class="card-img-ph">⚡</div>'}
       </div>
       <div class="card-body">
-        <div class="card-badges">${b.badges.map(bd=>`<span class="badge ${bd.c}">${bd.t}</span>`).join('')}</div>
         <div class="card-name">${b.nombre}</div>
         <div class="card-brand">${b.marca} · ${b.tipo}${b.ofertaColor?' · '+b.ofertaColor:''}</div>
         ${starsBlock}
