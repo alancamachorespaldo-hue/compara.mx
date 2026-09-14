@@ -65,13 +65,21 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;min-h
 .hero-tagline{font-size:.95rem;opacity:.8;margin-bottom:2.5rem;font-weight:400}
 
 /* CATEGORY GRID */
-.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:640px;margin:0 auto}
-.cat-card{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:22px 14px 18px;border-radius:16px;text-decoration:none;transition:transform .18s,box-shadow .18s,background .15s;cursor:pointer;min-height:130px}
-.cat-active{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);color:#fff}
-.cat-active:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.25);background:rgba(255,255,255,.22)}
-.cat-icon{font-size:2rem;line-height:1}
-.cat-name{font-size:.88rem;font-weight:700;letter-spacing:-.01em;text-align:center}
-.cat-sub{font-size:.68rem;opacity:.75;text-align:center;line-height:1.4}
+.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;margin:0 auto}
+.cat-card{display:flex;flex-direction:column;text-decoration:none;border-radius:16px;overflow:hidden;transition:transform .18s,box-shadow .18s;cursor:pointer;text-align:left;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.16)}
+.cat-active:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.25)}
+.cat-soon{cursor:default}
+.cat-photo{height:220px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;position:relative}
+.cat-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.cat-photo span{font:500 8px ui-monospace,Menlo,monospace;letter-spacing:.06em;color:rgba(255,255,255,.4);text-align:center;padding:0 8px}
+.cat-soon .cat-photo img{filter:grayscale(1);opacity:.55}
+.cat-body{padding:16px 18px 20px;display:flex;flex-direction:column;gap:5px;align-items:flex-start;text-align:left}
+.cat-name{font-size:1rem;font-weight:700;letter-spacing:-.01em;color:#fff}
+.cat-sub{font-size:.78rem;color:rgba(255,255,255,.75);text-align:left;line-height:1.4}
+.cat-soon .cat-name,.cat-soon .cat-sub{color:rgba(255,255,255,.45)}
+.cat-badge{font-size:.68rem;background:rgba(255,255,255,.12);border-radius:20px;padding:3px 10px;letter-spacing:.05em;margin-top:2px;color:rgba(255,255,255,.6);align-self:flex-start}
+.cat-cta{display:inline-flex;align-items:center;gap:4px;margin-top:6px;font-size:.78rem;font-weight:700;color:#fff;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:5px 14px;transition:background .15s}
+.cat-active:hover .cat-cta{background:rgba(255,255,255,.25)}
 
 /* FOOTER */
 footer{margin-top:auto;background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;text-align:center;font-size:12px;color:var(--tx3)}
@@ -79,7 +87,8 @@ footer a{color:var(--ac);text-decoration:none}
 
 @media(max-width:640px){
   .hero-h1{font-size:1.8rem}
-  .cat-grid{grid-template-columns:repeat(1,1fr);max-width:300px}
+  .cat-grid{grid-template-columns:repeat(2,1fr);max-width:520px}
+  .cat-photo{height:160px}
   .nav-links{gap:.75rem}
 }
 </style>
@@ -88,17 +97,17 @@ footer a{color:var(--ac);text-decoration:none}
 
 <nav class="nav">
   <a class="logo" href="index.html">
-    <img src="/logopng.png" alt="comparalo.mx" style="height:38px;width:auto;object-fit:contain">
+    <img src="logopng.png" alt="comparalo.mx" style="height:38px;width:auto;object-fit:contain">
   </a>
   <div class="nav-breadcrumb">
     Celulares
   </div>
   <div class="nav-links">
-    <a class="nav-link" href="bicis.html">🚲 Bicicletas</a>
-    <a class="nav-link" href="suplementos.html">💊 Suplementos</a>
-    <a class="nav-link" href="electrodomesticos.html">🏠 Electrodomésticos</a>
-    <a class="nav-link" href="laptops.html">💻 Laptops</a>
-    <a class="nav-link active" href="celulares.html">📱 Celulares</a>
+    <a class="nav-link" href="bicis.html">Bicicletas</a>
+    <a class="nav-link" href="suplementos.html">Suplementos</a>
+    <a class="nav-link" href="electrodomesticos.html">Electrodomésticos</a>
+    <a class="nav-link" href="laptops.html">Laptops</a>
+    <a class="nav-link active" href="celulares.html">Celulares</a>
   </div>
 </nav>
 
@@ -109,19 +118,28 @@ footer a{color:var(--ac);text-decoration:none}
 
   <div class="cat-grid">
     <a class="cat-card cat-active" href="smartphones.html">
-      <span class="cat-icon">📱</span>
-      <span class="cat-name">Smartphones</span>
-      <span class="cat-sub">Gama Media · Mejor precio</span>
+      <div class="cat-photo"><img src="fotos/smartphones.jpg" alt="Smartphones gama media comparados en Amazon México y Mercado Libre" loading="lazy"></div>
+      <div class="cat-body">
+        <span class="cat-name">Smartphones</span>
+        <span class="cat-sub">Gama Media · Mejor precio</span>
+        <span class="cat-cta">Ver comparativa →</span>
+      </div>
     </a>
     <a class="cat-card cat-active" href="smartphones-alta-gama.html">
-      <span class="cat-icon">✨</span>
-      <span class="cat-name">Alta Gama</span>
-      <span class="cat-sub">Samsung · Pixel · Motorola</span>
+      <div class="cat-photo"><img src="fotos/alta-gama.jpg" alt="Smartphones alta gama Samsung, Pixel y Motorola comparados en Amazon México y Mercado Libre" loading="lazy"></div>
+      <div class="cat-body">
+        <span class="cat-name">Alta Gama</span>
+        <span class="cat-sub">Samsung · Pixel · Motorola</span>
+        <span class="cat-cta">Ver comparativa →</span>
+      </div>
     </a>
     <a class="cat-card cat-active" href="iphone.html">
-      <span class="cat-icon">🍎</span>
-      <span class="cat-name">iPhone</span>
-      <span class="cat-sub">iPhone 15 · 16 · Pro</span>
+      <div class="cat-photo"><img src="fotos/iphone.jpg" alt="iPhone comparado en Amazon México y Mercado Libre" loading="lazy"></div>
+      <div class="cat-body">
+        <span class="cat-name">iPhone</span>
+        <span class="cat-sub">15 · 16 · 17 Pro · 18 Pro</span>
+        <span class="cat-cta">Ver comparativa →</span>
+      </div>
     </a>
   </div>
 </div>
