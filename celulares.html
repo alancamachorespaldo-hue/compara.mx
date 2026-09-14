@@ -81,6 +81,21 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;min-h
 .cat-cta{display:inline-flex;align-items:center;gap:4px;margin-top:6px;font-size:.78rem;font-weight:700;color:#fff;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:5px 14px;transition:background .15s}
 .cat-active:hover .cat-cta{background:rgba(255,255,255,.25)}
 
+/* ARTÍCULOS */
+.arts-section{background:var(--bg);padding:3rem 2rem;max-width:1100px;margin:0 auto;width:100%}
+.arts-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ac);margin-bottom:.4rem}
+.arts-title{font-size:1.5rem;font-weight:700;letter-spacing:-.03em;color:var(--tx);margin-bottom:1.5rem}
+.arts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.art-card{display:flex;flex-direction:column;text-decoration:none;border-radius:14px;overflow:hidden;border:1px solid var(--bd);transition:box-shadow .18s,transform .18s;background:var(--bg)}
+.art-card:hover{box-shadow:0 8px 28px rgba(0,0,0,.09);transform:translateY(-3px)}
+.art-card-img{height:180px;overflow:hidden;background:var(--s1)}
+.art-card-img img{width:100%;height:100%;object-fit:cover;display:block}
+.art-card-body{padding:1rem 1.1rem 1.2rem;display:flex;flex-direction:column;gap:.4rem;flex:1}
+.art-card-tag{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ac)}
+.art-card-headline{font-size:.95rem;font-weight:700;color:var(--tx);line-height:1.35;letter-spacing:-.01em}
+.art-card-cta{font-size:13px;color:var(--ac);font-weight:600;margin-top:auto;padding-top:.5rem}
+@media(max-width:640px){.arts-grid{grid-template-columns:1fr}.arts-section{padding:2rem 1rem}}
+
 /* FOOTER */
 footer{margin-top:auto;background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;text-align:center;font-size:12px;color:var(--tx3)}
 footer a{color:var(--ac);text-decoration:none}
@@ -141,6 +156,39 @@ footer a{color:var(--ac);text-decoration:none}
         <span class="cat-cta">Ver comparativa →</span>
       </div>
     </a>
+  </div>
+</div>
+
+<div style="background:#fff">
+  <div class="arts-section">
+    <p class="arts-label">Guías</p>
+    <h2 class="arts-title">Artículos sobre celulares</h2>
+    <div class="arts-grid">
+      <a class="art-card" href="iphone-18-pro-precio-mexico-2026.html">
+        <div class="art-card-img"><img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&q=75" alt="iPhone 18 Pro precio México 2026" loading="lazy"></div>
+        <div class="art-card-body">
+          <span class="art-card-tag">iPhone · Precios</span>
+          <span class="art-card-headline">iPhone 18 Pro y Pro Max en México 2026: precio, características y fecha de venta</span>
+          <span class="art-card-cta">Leer guía →</span>
+        </div>
+      </a>
+      <a class="art-card" href="iphone-18-pro-vs-iphone-17-pro-vale-la-pena-mexico.html">
+        <div class="art-card-img"><img src="https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&q=75" alt="iPhone 18 Pro vs 17 Pro comparativa México" loading="lazy"></div>
+        <div class="art-card-body">
+          <span class="art-card-tag">iPhone · Comparativa</span>
+          <span class="art-card-headline">iPhone 18 Pro vs iPhone 17 Pro: ¿vale la pena el cambio en México?</span>
+          <span class="art-card-cta">Leer comparativa →</span>
+        </div>
+      </a>
+      <a class="art-card" href="iphone-duo-plegable-precio-mexico-2026.html">
+        <div class="art-card-img"><img src="https://images.unsplash.com/photo-1565849904461-04a58ad377e0?w=600&q=75" alt="iPhone Duo plegable precio México 2026" loading="lazy"></div>
+        <div class="art-card-body">
+          <span class="art-card-tag">iPhone · Novedades</span>
+          <span class="art-card-headline">iPhone Duo plegable en México 2026: precio desde $47,999 MXN y cuándo sale</span>
+          <span class="art-card-cta">Leer guía →</span>
+        </div>
+      </a>
+    </div>
   </div>
 </div>
 
