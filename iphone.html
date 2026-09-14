@@ -281,180 +281,122 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 // En la UI se agrupan bajo una sola card con selector de capacidad.
 // ─────────────────────────────────────────────────────────────────────────────
 const familias = [
+
+  // ── Serie 17 ──────────────────────────────────────────────────────────────
+
   {
-    modeloBase: 'iphone-16e',
-    nombre: 'iPhone 16e',
-    serie: '16',
-    chip: null,
+    modeloBase: 'iphone-17e',
+    nombre: 'iPhone 17e',
+    serie: '17',
+    chip: 'A19',
     camPrincipal: 48,
     pantalla: 6.1,
     preventa: false,
     variantes: [
       {
-        id: 'apple-iphone-16e-128gb',
-        almacenamientoGB: 128,
-        precio: 12528.63,
-        precioML: 12528.63,
+        id: 'apple-iphone-17e-256gb-esim-ml-1',
+        almacenamientoGB: 256,
+        precio: 14999,
+        precioML: 14999,
         precioAmz: null,
-        linkML: 'https://meli.la/2Bti4Vm',
+        linkML: 'https://meli.la/24RTU5D',
         linkAmz: null,
-        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_908532-MLA96107615227_102025-F.webp',
-        estrellas: 4.9,
-        resenas: 26446,
-        vendidos: '+1000 vendidos',
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_803928-MLA107971134829_032026-F.webp',
+        estrellas: 4.8,
+        resenas: 239,
+        vendidos: '+500 vendidos',
         preventa: false
       },
       {
-        id: 'apple-iphone-16e-512gb',
+        id: 'apple-iphone-17e-512gb-esim-ml-1',
         almacenamientoGB: 512,
-        precio: 21586.41,
-        precioML: 21586.41,
+        precio: 19999,
+        precioML: 19999,
         precioAmz: null,
-        linkML: 'https://meli.la/2Bti4Vm',
+        linkML: 'https://meli.la/24RTU5D',
         linkAmz: null,
-        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_908532-MLA96107615227_102025-F.webp',
-        estrellas: 4.9,
-        resenas: 26446,
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_803928-MLA107971134829_032026-F.webp',
+        estrellas: 4.8,
+        resenas: 239,
         vendidos: '+50 vendidos',
         preventa: false
       }
     ],
     saltos: [
-      { desdeGB: 128, hastaGB: 512, multiplicaCapacidadPor: 4, diferenciaMXN: 9057.78,
-        mensaje: 'Por $9,057.78 más, obtienes cuatro veces el almacenamiento: de 128 GB a 512 GB.' }
+      { desdeGB: 256, hastaGB: 512, multiplicaCapacidadPor: 2, diferenciaMXN: 5000,
+        mensaje: 'Por $5,000 más, duplicas el almacenamiento de 256 GB a 512 GB.' }
     ]
   },
 
   {
-    modeloBase: 'iphone-15',
-    nombre: 'iPhone 15',
-    serie: '15',
-    chip: 'A16 Bionic',
+    modeloBase: 'iphone-17',
+    nombre: 'iPhone 17',
+    serie: '17',
+    chip: 'A19',
     camPrincipal: 48,
-    pantalla: 6.1,
+    pantalla: 6.3,
     preventa: false,
     variantes: [
       {
-        id: 'apple-iphone-15-128gb',
-        almacenamientoGB: 128,
-        precio: 14391.35,
-        precioML: 14391.35,
+        id: 'apple-iphone-17-256gb-esim-ml-1',
+        almacenamientoGB: 256,
+        precio: 19999,
+        precioML: 19999,
         precioAmz: null,
-        linkML: 'https://meli.la/2YicyZQ',
+        linkML: 'https://meli.la/1oF1T4n',
         linkAmz: null,
-        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_975589-MLA95496385884_102025-F.webp',
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_634187-MLA104668423005_012026-F.webp',
         estrellas: 4.9,
-        resenas: 25438,
-        vendidos: '+5 mil vendidos',
+        resenas: 2207,
+        vendidos: '+1000 vendidos',
         preventa: false
       },
       {
-        id: 'apple-iphone-15-256gb',
-        almacenamientoGB: 256,
-        precio: 18420,
-        precioML: 18420,
+        id: 'apple-iphone-17-512gb-esim-ml-1',
+        almacenamientoGB: 512,
+        precio: 24999,
+        precioML: 24999,
         precioAmz: null,
-        linkML: 'https://meli.la/2YicyZQ',
+        linkML: 'https://meli.la/1oF1T4n',
         linkAmz: null,
-        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_975589-MLA95496385884_102025-F.webp',
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_634187-MLA104668423005_012026-F.webp',
         estrellas: 4.9,
-        resenas: 25438,
-        vendidos: '+5 mil vendidos',
+        resenas: 2207,
+        vendidos: '+100 vendidos',
         preventa: false
       }
     ],
     saltos: [
-      { desdeGB: 128, hastaGB: 256, multiplicaCapacidadPor: 2, diferenciaMXN: 4028.65,
-        mensaje: 'Por $4,028.65 más, duplicas el almacenamiento de 128 GB a 256 GB.' }
+      { desdeGB: 256, hastaGB: 512, multiplicaCapacidadPor: 2, diferenciaMXN: 5000,
+        mensaje: 'Por $5,000 más, duplicas el almacenamiento de 256 GB a 512 GB.' }
     ]
   },
 
   {
-    modeloBase: 'iphone-16',
-    nombre: 'iPhone 16',
-    serie: '16',
-    chip: 'A18',
+    modeloBase: 'iphone-air',
+    nombre: 'iPhone Air',
+    serie: '17',
+    chip: 'A19 Pro',
     camPrincipal: 48,
-    pantalla: 6.1,
+    pantalla: 6.5,
     preventa: false,
     variantes: [
       {
-        id: 'apple-iphone-16-128gb',
-        almacenamientoGB: 128,
-        precio: 13749,
-        precioML: 13749,
-        precioAmz: null,
-        linkML: 'https://meli.la/1THU9GK',
-        linkAmz: null,
-        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_962195-MLA99461506290_112025-F.webp',
-        estrellas: 4.8,
-        resenas: 7207,
-        vendidos: '+5 mil vendidos',
-        preventa: false
-      },
-      {
-        id: 'apple-iphone-16-256gb',
+        id: 'apple-iphone-air-256gb-esim-ml-1',
         almacenamientoGB: 256,
-        precio: 16234.35,
-        precioML: 16234.35,
+        precio: 24696.57,
+        precioML: 24696.57,
         precioAmz: null,
-        linkML: 'https://meli.la/1THU9GK',
+        linkML: 'https://meli.la/2dGddhn',
         linkAmz: null,
-        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_962195-MLA99461506290_112025-F.webp',
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_734877-MLA95630936814_102025-F.webp',
         estrellas: 4.8,
-        resenas: 7207,
-        vendidos: '+500 vendidos',
+        resenas: 640,
+        vendidos: '+100 vendidos',
         preventa: false
       }
     ],
-    saltos: [
-      { desdeGB: 128, hastaGB: 256, multiplicaCapacidadPor: 2, diferenciaMXN: 2485.35,
-        mensaje: 'Por $2,485.35 más, duplicas el almacenamiento de 128 GB a 256 GB.' }
-    ]
-  },
-
-  {
-    modeloBase: 'iphone-18-pro',
-    nombre: 'iPhone 18 Pro',
-    serie: '18',
-    chip: 'A20 Pro',
-    camPrincipal: null,
-    pantalla: null,
-    preventa: true,
-    variantes: [
-      {
-        id: 'apple-iphone-18-pro-256gb-esim',
-        almacenamientoGB: 256,
-        precio: 29999,
-        precioML: 29999,
-        precioAmz: null,
-        linkML: 'https://meli.la/1rtkPHj',
-        linkAmz: null,
-        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_915123-MLA116009380962_092026-F.webp',
-        estrellas: null,
-        resenas: null,
-        vendidos: null,
-        preventa: true
-      },
-      {
-        id: 'apple-iphone-18-pro-1tb-esim',
-        almacenamientoGB: 1024,
-        precio: 44999,
-        precioML: 44999,
-        precioAmz: null,
-        linkML: 'https://meli.la/1rtkPHj',
-        linkAmz: null,
-        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_915123-MLA116009380962_092026-F.webp',
-        estrellas: null,
-        resenas: null,
-        vendidos: 'Última unidad',
-        preventa: true
-      }
-    ],
-    saltos: [
-      { desdeGB: 256, hastaGB: 1024, multiplicaCapacidadPor: 4, diferenciaMXN: 15000,
-        mensaje: 'Por $15,000 más, obtienes cuatro veces el almacenamiento: de 256 GB a 1 TB.' }
-    ]
+    saltos: []
   },
 
   {
@@ -527,31 +469,31 @@ const familias = [
     preventa: false,
     variantes: [
       {
-        id: 'apple-iphone-17-pro-max-256gb-esim',
+        id: 'apple-iphone-17-pro-max-256gb-esim-ml-2',
         almacenamientoGB: 256,
-        precio: 30999,
-        precioML: 30999,
+        precio: 23999,
+        precioML: 23999,
         precioAmz: null,
-        linkML: 'https://meli.la/1PKLsFJ',
+        linkML: 'https://meli.la/2LSh6sm',
         linkAmz: null,
-        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_660568-MLA92147273075_092025-F.webp',
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_975183-MLA96892195530_112025-F.webp',
         estrellas: 4.9,
-        resenas: 2120,
-        vendidos: null,
+        resenas: 862,
+        vendidos: '+1000 vendidos',
         preventa: false
       },
       {
-        id: 'apple-iphone-17-pro-max-512gb-esim',
+        id: 'apple-iphone-17-pro-max-512gb-esim-ml-2',
         almacenamientoGB: 512,
-        precio: 35999,
-        precioML: 35999,
+        precio: 29428.08,
+        precioML: 29428.08,
         precioAmz: null,
-        linkML: 'https://meli.la/1PKLsFJ',
+        linkML: 'https://meli.la/2LSh6sm',
         linkAmz: null,
-        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_660568-MLA92147273075_092025-F.webp',
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_975183-MLA96892195530_112025-F.webp',
         estrellas: 4.9,
-        resenas: 2120,
-        vendidos: '+500 vendidos',
+        resenas: 862,
+        vendidos: '+100 vendidos',
         preventa: false
       },
       {
@@ -584,14 +526,239 @@ const familias = [
       }
     ],
     saltos: [
-      { desdeGB: 256,  hastaGB: 512,  multiplicaCapacidadPor: 2, diferenciaMXN: 5000,
-        mensaje: 'Por $5,000 más, duplicas el almacenamiento de 256 GB a 512 GB.' },
-      { desdeGB: 512,  hastaGB: 1024, multiplicaCapacidadPor: 2, diferenciaMXN: 5000,
-        mensaje: 'Por $5,000 más, duplicas el almacenamiento de 512 GB a 1 TB.' },
+      { desdeGB: 256,  hastaGB: 512,  multiplicaCapacidadPor: 2, diferenciaMXN: 5429.08,
+        mensaje: 'Por $5,429.08 más, duplicas el almacenamiento de 256 GB a 512 GB.' },
+      { desdeGB: 512,  hastaGB: 1024, multiplicaCapacidadPor: 2, diferenciaMXN: 11570.92,
+        mensaje: 'Por $11,570.92 más, duplicas el almacenamiento de 512 GB a 1 TB.' },
       { desdeGB: 1024, hastaGB: 2048, multiplicaCapacidadPor: 2, diferenciaMXN: 10000,
         mensaje: 'Por $10,000 más, duplicas el almacenamiento de 1 TB a 2 TB.' }
     ]
+  },
+
+  // ── Serie 18 ──────────────────────────────────────────────────────────────
+
+  {
+    modeloBase: 'iphone-18-pro',
+    nombre: 'iPhone 18 Pro',
+    serie: '18',
+    chip: 'A20 Pro',
+    camPrincipal: null,
+    pantalla: null,
+    preventa: true,
+    variantes: [
+      {
+        id: 'apple-iphone-18-pro-256gb-esim',
+        almacenamientoGB: 256,
+        precio: 29999,
+        precioML: 29999,
+        precioAmz: null,
+        linkML: 'https://meli.la/1rtkPHj',
+        linkAmz: null,
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_915123-MLA116009380962_092026-F.webp',
+        estrellas: null,
+        resenas: null,
+        vendidos: null,
+        preventa: true
+      },
+      {
+        id: 'apple-iphone-18-pro-1tb-esim',
+        almacenamientoGB: 1024,
+        precio: 44999,
+        precioML: 44999,
+        precioAmz: null,
+        linkML: 'https://meli.la/1rtkPHj',
+        linkAmz: null,
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_915123-MLA116009380962_092026-F.webp',
+        estrellas: null,
+        resenas: null,
+        vendidos: 'Última unidad',
+        preventa: true
+      }
+    ],
+    saltos: [
+      { desdeGB: 256, hastaGB: 1024, multiplicaCapacidadPor: 4, diferenciaMXN: 15000,
+        mensaje: 'Por $15,000 más, obtienes cuatro veces el almacenamiento: de 256 GB a 1 TB.' }
+    ]
+  },
+
+  // ── Serie 16 ──────────────────────────────────────────────────────────────
+
+  {
+    modeloBase: 'iphone-16e',
+    nombre: 'iPhone 16e',
+    serie: '16',
+    chip: null,
+    camPrincipal: 48,
+    pantalla: 6.1,
+    preventa: false,
+    variantes: [
+      {
+        id: 'apple-iphone-16e-128gb',
+        almacenamientoGB: 128,
+        precio: 12528.63,
+        precioML: 12528.63,
+        precioAmz: null,
+        linkML: 'https://meli.la/2Bti4Vm',
+        linkAmz: null,
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_908532-MLA96107615227_102025-F.webp',
+        estrellas: 4.9,
+        resenas: 26446,
+        vendidos: '+1000 vendidos',
+        preventa: false
+      },
+      {
+        id: 'apple-iphone-16e-512gb',
+        almacenamientoGB: 512,
+        precio: 21586.41,
+        precioML: 21586.41,
+        precioAmz: null,
+        linkML: 'https://meli.la/2Bti4Vm',
+        linkAmz: null,
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_908532-MLA96107615227_102025-F.webp',
+        estrellas: 4.9,
+        resenas: 26446,
+        vendidos: '+50 vendidos',
+        preventa: false
+      }
+    ],
+    saltos: [
+      { desdeGB: 128, hastaGB: 512, multiplicaCapacidadPor: 4, diferenciaMXN: 9057.78,
+        mensaje: 'Por $9,057.78 más, obtienes cuatro veces el almacenamiento: de 128 GB a 512 GB.' }
+    ]
+  },
+
+  {
+    modeloBase: 'iphone-15',
+    nombre: 'iPhone 15',
+    serie: '15',
+    chip: 'A16 Bionic',
+    camPrincipal: 48,
+    pantalla: 6.1,
+    preventa: false,
+    variantes: [
+      {
+        id: 'apple-iphone-15-128gb',
+        almacenamientoGB: 128,
+        precio: 14391.35,
+        precioML: 14391.35,
+        precioAmz: null,
+        linkML: 'https://meli.la/2YicyZQ',
+        linkAmz: null,
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_975589-MLA95496385884_102025-F.webp',
+        estrellas: 4.9,
+        resenas: 25438,
+        vendidos: '+5 mil vendidos',
+        preventa: false
+      },
+      {
+        id: 'apple-iphone-15-256gb-ml-2',
+        almacenamientoGB: 256,
+        precio: 17499,
+        precioML: 17499,
+        precioAmz: null,
+        linkML: 'https://meli.la/31CV8nv',
+        linkAmz: null,
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_898880-MLA95937583859_102025-F.webp',
+        estrellas: 4.8,
+        resenas: 325,
+        vendidos: '+1000 vendidos',
+        preventa: false
+      }
+    ],
+    saltos: [
+      { desdeGB: 128, hastaGB: 256, multiplicaCapacidadPor: 2, diferenciaMXN: 3107.65,
+        mensaje: 'Por $3,107.65 más, duplicas el almacenamiento de 128 GB a 256 GB.' }
+    ]
+  },
+
+  {
+    modeloBase: 'iphone-16',
+    nombre: 'iPhone 16',
+    serie: '16',
+    chip: 'A18',
+    camPrincipal: 48,
+    pantalla: 6.1,
+    preventa: false,
+    variantes: [
+      {
+        id: 'apple-iphone-16-128gb',
+        almacenamientoGB: 128,
+        precio: 13749,
+        precioML: 13749,
+        precioAmz: null,
+        linkML: 'https://meli.la/1THU9GK',
+        linkAmz: null,
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_962195-MLA99461506290_112025-F.webp',
+        estrellas: 4.8,
+        resenas: 7207,
+        vendidos: '+5 mil vendidos',
+        preventa: false
+      },
+      {
+        id: 'apple-iphone-16-256gb',
+        almacenamientoGB: 256,
+        precio: 16234.35,
+        precioML: 16234.35,
+        precioAmz: null,
+        linkML: 'https://meli.la/1THU9GK',
+        linkAmz: null,
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_962195-MLA99461506290_112025-F.webp',
+        estrellas: 4.8,
+        resenas: 7207,
+        vendidos: '+500 vendidos',
+        preventa: false
+      }
+    ],
+    saltos: [
+      { desdeGB: 128, hastaGB: 256, multiplicaCapacidadPor: 2, diferenciaMXN: 2485.35,
+        mensaje: 'Por $2,485.35 más, duplicas el almacenamiento de 128 GB a 256 GB.' }
+    ]
+  },
+
+  {
+    modeloBase: 'iphone-16-plus',
+    nombre: 'iPhone 16 Plus',
+    serie: '16',
+    chip: 'A18',
+    camPrincipal: 48,
+    pantalla: 6.7,
+    preventa: false,
+    variantes: [
+      {
+        id: 'apple-iphone-16-plus-128gb-ml-1',
+        almacenamientoGB: 128,
+        precio: 19242.89,
+        precioML: 19242.89,
+        precioAmz: null,
+        linkML: 'https://meli.la/26SdSkr',
+        linkAmz: null,
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_977625-MLA95689872556_102025-F.webp',
+        estrellas: 4.9,
+        resenas: 2361,
+        vendidos: '+1000 vendidos',
+        preventa: false
+      },
+      {
+        id: 'apple-iphone-16-plus-256gb-ml-1',
+        almacenamientoGB: 256,
+        precio: 22499,
+        precioML: 22499,
+        precioAmz: null,
+        linkML: 'https://meli.la/26SdSkr',
+        linkAmz: null,
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_977625-MLA95689872556_102025-F.webp',
+        estrellas: 4.9,
+        resenas: 2361,
+        vendidos: '+500 vendidos',
+        preventa: false
+      }
+    ],
+    saltos: [
+      { desdeGB: 128, hastaGB: 256, multiplicaCapacidadPor: 2, diferenciaMXN: 3256.11,
+        mensaje: 'Por $3,256.11 más, duplicas el almacenamiento de 128 GB a 256 GB.' }
+    ]
   }
+
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
