@@ -113,8 +113,16 @@ input:focus-visible,a:focus-visible,button:focus-visible{outline:2px solid var(-
 h1{font-size:clamp(32px,4.4vw,46px);font-weight:800;line-height:1.06;letter-spacing:-2px;color:#1E2922;margin-bottom:14px}
 h1 em{font-style:normal;color:var(--ac)}
 .lead{font-size:16px;line-height:1.6;color:var(--tx2);margin-bottom:22px;max-width:430px}
-.searchbox{display:flex;align-items:center;gap:10px;background:var(--s1);border:1.5px solid var(--bd);border-radius:12px;padding:0 15px;margin-bottom:10px;max-width:430px}
+.searchbox-wrap{position:relative;max-width:430px;margin-bottom:10px}
+.searchbox{display:flex;align-items:center;gap:10px;background:var(--s1);border:1.5px solid var(--bd);border-radius:12px;padding:0 15px}
 .searchbox input{border:none;background:transparent;font-size:15px;color:var(--tx);width:100%;padding:14px 0;outline:none}
+.search-dropdown{display:none;position:absolute;top:calc(100% + 6px);left:0;right:0;background:#fff;border:1.5px solid var(--bd);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.10);z-index:200;overflow:hidden}
+.search-dropdown.open{display:block}
+.search-dropdown-label{font-size:10.5px;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;padding:10px 14px 6px}
+.search-dropdown a{display:flex;align-items:center;gap:10px;padding:11px 14px;font-size:14px;font-weight:600;color:var(--tx);text-decoration:none;transition:background .12s}
+.search-dropdown a:hover{background:var(--s1)}
+.search-dropdown a .sd-icon{font-size:1.2rem;width:28px;text-align:center}
+.search-dropdown a .sd-sub{font-size:11.5px;font-weight:400;color:var(--tx3);display:block}
 .btn{display:inline-block;text-align:center;background:var(--ac);color:#fff;font-weight:700;font-size:14px;padding:14px 24px;border:none;border-radius:11px;cursor:pointer}
 .btn:hover{background:var(--ac2);color:#fff}
 .btn2{display:inline-block;border:1.5px solid var(--bd);color:var(--tx);font-weight:700;font-size:14px;padding:12.5px 22px;border-radius:11px}
@@ -294,11 +302,34 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
     </div>
     <h1>Antes de comprar, <em>compara</em></h1>
     <p class="lead">Buscamos el mismo producto en Amazon MX y Mercado Libre y te mostramos precio, calidad y características para que decidas con lo que a ti te importa.</p>
-    <form class="searchbox" action="/suplementos.html" method="get" role="search">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-      <label class="skip" for="q-hero">¿Qué quieres comparar?</label>
-      <input id="q-hero" name="q" type="search" placeholder="¿Qué quieres comparar?">
-    </form>
+    <div class="searchbox-wrap" id="searchWrap">
+      <form class="searchbox" action="/suplementos.html" method="get" role="search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <label class="skip" for="q-hero">¿Qué quieres comparar?</label>
+        <input id="q-hero" name="q" type="search" placeholder="¿Qué quieres comparar?" autocomplete="off" onfocus="openSearchDrop()" oninput="filterSearchDrop(this.value)">
+      </form>
+      <div class="search-dropdown" id="searchDrop">
+        <div class="search-dropdown-label">Nuestras comparativas</div>
+        <a href="/suplementos.html" data-search="suplementos proteína creatina magnesio complejo b omega"><span class="sd-icon">💊</span><span>Suplementos<span class="sd-sub">Proteína, Creatina, Magnesio, Complejo B, Omega 3</span></span></a>
+        <a href="/bicis.html" data-search="bicicletas bici ciclismo"><span class="sd-icon">🚲</span><span>Bicicletas<span class="sd-sub">Urbanas, eléctricas, montaña</span></span></a>
+        <a href="/laptops.html" data-search="laptops computadoras notebooks universidad gamer"><span class="sd-icon">💻</span><span>Laptops<span class="sd-sub">Universidad, gaming, trabajo</span></span></a>
+        <a href="/electrodomesticos.html" data-search="electrodomesticos microondas freidoras aire"><span class="sd-icon">🏠</span><span>Electrodomésticos<span class="sd-sub">Microondas, freidoras de aire</span></span></a>
+        <a href="/magnesio.html" data-search="magnesio citrato bisglicinato complejo"><span class="sd-icon">🧴</span><span>Magnesio<span class="sd-sub">Citrato, Bisglicinato, L-Treonato</span></span></a>
+        <a href="/creatina.html" data-search="creatina monohidratada micronizada"><span class="sd-icon">💪</span><span>Creatina<span class="sd-sub">Monohidratada, micronizada</span></span></a>
+        <a href="/proteina.html" data-search="proteina whey concentrada aislada vegana"><span class="sd-icon">🥛</span><span>Proteína Whey<span class="sd-sub">Concentrada, aislada, vegana</span></span></a>
+        <a href="/microondas.html" data-search="microondas horno"><span class="sd-icon">📡</span><span>Microondas<span class="sd-sub">Básico, grill, convección</span></span></a>
+        <a href="/freidoras.html" data-search="freidoras aire airfryer"><span class="sd-icon">🍟</span><span>Freidoras de Aire<span class="sd-sub">Sin aceite, digital, compactas</span></span></a>
+      </div>
+    </div>
+    <script>
+    function openSearchDrop(){document.getElementById('searchDrop').classList.add('open')}
+    function filterSearchDrop(q){
+      var d=document.getElementById('searchDrop'),links=d.querySelectorAll('a'),v=q.trim().toLowerCase();
+      links.forEach(function(a){a.style.display=(!v||a.dataset.search.includes(v)||a.textContent.toLowerCase().includes(v))?'':'none'});
+      d.classList.add('open');
+    }
+    document.addEventListener('click',function(e){if(!document.getElementById('searchWrap').contains(e.target))document.getElementById('searchDrop').classList.remove('open')});
+    </script>
     <div class="hero-cta">
       <a class="btn" href="/suplementos.html">Ver comparativas</a>
       <a class="btn2" href="#metodo">Cómo comparamos</a>
