@@ -487,10 +487,11 @@ function importFromHTML(input) {
     // Aplanar familias con variantes (ej. iphone.html)
     if (catKey === 'iphone' && productos[0] && productos[0].variantes) {
       const planos = [];
+      let autoId = 1;
       productos.forEach(familia => {
         (familia.variantes || []).forEach(v => {
           planos.push({
-            id:       v.id || familia.modeloBase + '-' + v.almacenamientoGB,
+            id:       autoId++,
             nombre:   familia.nombre + ' ' + v.almacenamientoGB + ' GB',
             marca:    'Apple',
             modelo:   familia.modeloBase,
