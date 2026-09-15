@@ -278,13 +278,14 @@ const familias = [
     modeloBase: 'samsung-galaxy-s26-ultra',
     nombre: 'Samsung Galaxy S26 Ultra',
     marca: 'samsung',
+    chip: 'Snapdragon 8 Elite Gen 5',
     camPrincipal: 200,
     pantalla: 6.9,
     hz: 120, usb: 3.2, zoom: 10,
     img: 'https://http2.mlstatic.com/D_NQ_NP_2X_617813-MLA108032078647_032026-F.webp',
     variantes: [
-      { storage: 256,  ram: 12, precio: 20394,    linkML: 'https://meli.la/2xN52B6', estrellas: 4.9, resenas: 3914 },
-      { storage: 512,  ram: 12, precio: 21199,    linkML: 'https://meli.la/2xN52B6', estrellas: 4.9, resenas: 3914, salto: { texto: 'Duplicas el almacenamiento', diff: 805 } },
+      { storage: 256,  ram: 12, precio: 18799,    linkML: 'https://meli.la/29oZQxW', estrellas: 4.9, resenas: 3831 },
+      { storage: 512,  ram: 12, precio: 21199,    linkML: 'https://meli.la/2xN52B6', estrellas: 4.9, resenas: 3914, salto: { texto: 'Duplicas el almacenamiento', diff: 2400 } },
       { storage: 1024, ram: 16, precio: 26480.03, linkML: 'https://meli.la/2xN52B6', estrellas: 4.9, resenas: 3914, salto: { texto: 'Duplicas el almacenamiento', diff: 5281.03 } },
     ]
   },
@@ -292,8 +293,9 @@ const familias = [
     modeloBase: 'samsung-galaxy-s26',
     nombre: 'Samsung Galaxy S26',
     marca: 'samsung',
+    chip: 'Exynos 2600',
     camPrincipal: 50,
-    pantalla: 6.2,
+    pantalla: 6.3,
     hz: 120, usb: 3.2, zoom: 3,
     img: 'https://http2.mlstatic.com/D_NQ_NP_2X_870493-MLA109812392870_042026-F.webp',
     variantes: [
@@ -305,25 +307,41 @@ const familias = [
     modeloBase: 'samsung-galaxy-s26-plus',
     nombre: 'Samsung Galaxy S26+',
     marca: 'samsung',
-    camPrincipal: null,
-    pantalla: null,
+    chip: 'Exynos 2600',
+    camPrincipal: 50,
+    pantalla: 6.7,
     hz: 120, usb: 3.2, zoom: 3,
     img: 'https://http2.mlstatic.com/D_NQ_NP_2X_683869-MLA110519587223_042026-F.webp',
     variantes: [
-      { storage: 256, ram: 12, precio: 18539, linkML: 'https://meli.la/1pWzuZZ', estrellas: 4.9, resenas: 430 },
-      { storage: 512, ram: 12, precio: 19799, linkML: 'https://meli.la/1pWzuZZ', estrellas: 4.9, resenas: 430, salto: { texto: 'Duplicas el almacenamiento', diff: 1260 } },
+      { storage: 256, ram: 12, precio: 17499, linkML: 'https://meli.la/11NMevA', estrellas: 4.9, resenas: 429 },
+      { storage: 512, ram: 12, precio: 19799, linkML: 'https://meli.la/1pWzuZZ', estrellas: 4.9, resenas: 430, salto: { texto: 'Duplicas el almacenamiento', diff: 2300 } },
     ]
   },
   {
     modeloBase: 'motorola-signature',
     nombre: 'Motorola Edge 60 Signature',
     marca: 'motorola',
+    chip: null,
     camPrincipal: 200,
     pantalla: 6.9,
     hz: 165, usb: 3.2, zoom: null,
     img: 'https://http2.mlstatic.com/D_NQ_NP_2X_877244-MLA107642928956_032026-F.webp',
     variantes: [
       { storage: 1024, ram: 16, precio: 26116.13, linkML: 'https://meli.la/2WEys3C', estrellas: 4.8, resenas: 76 },
+    ]
+  },
+  {
+    modeloBase: 'google-pixel-10-pro-xl',
+    nombre: 'Google Pixel 10 Pro XL',
+    marca: 'google',
+    chip: 'Google Tensor G5',
+    camPrincipal: 50,
+    pantalla: 6.8,
+    hz: 120, usb: null, zoom: 5,
+    img: 'https://http2.mlstatic.com/D_NQ_NP_2X_631816-MLA99694381776_122025-F.webp',
+    variantes: [
+      { storage: 256, ram: 16, precio: 19189, linkML: 'https://meli.la/1U7zDeh', estrellas: 4.6, resenas: 46 },
+      { storage: 512, ram: 16, precio: 33999, linkML: 'https://meli.la/1U7zDeh', estrellas: 4.6, resenas: 46, salto: { texto: 'Duplicas el almacenamiento', diff: 14810 } },
     ]
   },
 ];
@@ -502,7 +520,7 @@ function guardarCruzada() {
       modeloBase: f.modeloBase, nombre: f.nombre,
       img: f.img || null, precio: v.precio,
       ram: v.ram || null, almacenamiento: v.storage,
-      chip: null, camPrincipal: f.camPrincipal || null,
+      chip: f.chip || null, camPrincipal: f.camPrincipal || null,
       pantalla: f.pantalla || null, hz: f.hz || null, usb: f.usb || null, zoom: f.zoom || null,
       estrellas: v.estrellas || null, resenas: v.resenas || null,
       linkML: v.linkML || null, linkAmz: v.linkAmz || null,
@@ -565,11 +583,12 @@ function openModal() {
     precioRow,
     fila('RAM',                    items.map(({v}) => v.ram),            v => v+' GB',      'max'),
     fila('Almacenamiento',         items.map(({v}) => v.storage),        v => storageLbl(v),'max'),
+    `<tr><td>Chip</td>${items.map(({f}) => `<td>${f.chip || '—'}</td>`).join('')}</tr>`,
+    fila('Cámara principal',       items.map(({f}) => f.camPrincipal),   v => v+' MP',      'max'),
     fila('Pantalla',               items.map(({f}) => f.pantalla),       v => v+'"',        'max'),
     fila('Frecuencia de pantalla', items.map(({f}) => f.hz),             v => v+' Hz',      'max'),
     fila('USB',                    items.map(({f}) => f.usb),            v => 'USB '+v,     'max'),
     fila('Zoom óptico',            items.map(({f}) => f.zoom),           v => v+'×',        'max'),
-    fila('Cámara principal',       items.map(({f}) => f.camPrincipal),   v => v+' MP',      'max'),
     valorRow,
   ].join('');
 
