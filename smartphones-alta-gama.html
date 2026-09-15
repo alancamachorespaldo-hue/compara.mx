@@ -265,15 +265,59 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 </div>
 
 <script>
-const productos = [
-  // ── Agrega aquí los productos reales ──
-  // { id:1, nombre:'Samsung Galaxy S25 256GB 8GB RAM', marca:'samsung', modelo:'Galaxy S25', precio:17999, precioAmz:17999, precioML:18499, ram:8, almacenamiento:256, camPrincipal:50, pantalla:6.2, bateria:4000, estrellas:4.9, resenas:500, badges:[{t:'AMZ',c:'b-amz'},{t:'ML',c:'b-ml'}], linkAmz:'https://www.amazon.com.mx/dp/XXXXXXX?tag=comparabici-20', linkML:'https://meli.la/XXXXXXX', img:'https://m.media-amazon.com/images/I/...' },
+/* ─── DATOS ────────────────────────────────────────────────── */
+const familias = [
+  {
+    modeloBase: 'samsung-galaxy-s26-ultra',
+    nombre: 'Samsung Galaxy S26 Ultra',
+    marca: 'samsung',
+    camPrincipal: 200,
+    pantalla: 6.9,
+    img: 'https://http2.mlstatic.com/D_NQ_NP_2X_754118-MLA111088500309_042026-F.webp',
+    variantes: [
+      { storage: 256,  ram: 12, precio: 20394,    linkML: 'https://meli.la/1FdEy1B', estrellas: 4.9, resenas: 3827 },
+      { storage: 512,  ram: 12, precio: 21199,    linkML: 'https://meli.la/1FdEy1B', estrellas: 4.9, resenas: 3827, salto: { texto: 'Duplicas el almacenamiento', diff: 805 } },
+      { storage: 1024, ram: 16, precio: 26480.03, linkML: 'https://meli.la/1FdEy1B', estrellas: 4.9, resenas: 3827, salto: { texto: 'Duplicas el almacenamiento', diff: 5281.03 } },
+    ]
+  },
+  {
+    modeloBase: 'samsung-galaxy-s26',
+    nombre: 'Samsung Galaxy S26',
+    marca: 'samsung',
+    camPrincipal: 50,
+    pantalla: 6.2,
+    img: 'https://http2.mlstatic.com/D_NQ_NP_2X_870493-MLA109812392870_042026-F.webp',
+    variantes: [
+      { storage: 256, ram: 12, precio: 15282, linkML: 'https://meli.la/1TgKbkx', estrellas: 4.9, resenas: 1290 },
+      { storage: 512, ram: 12, precio: 17399, linkML: 'https://meli.la/1TgKbkx', estrellas: 4.9, resenas: 1290, salto: { texto: 'Duplicas el almacenamiento', diff: 2117 } },
+    ]
+  },
+  {
+    modeloBase: 'motorola-signature',
+    nombre: 'Motorola Edge 60 Signature',
+    marca: 'motorola',
+    camPrincipal: 200,
+    pantalla: 6.9,
+    img: 'https://http2.mlstatic.com/D_NQ_NP_2X_877244-MLA107642928956_032026-F.webp',
+    variantes: [
+      { storage: 1024, ram: 16, precio: 26116.13, linkML: 'https://meli.la/2WEys3C', estrellas: 4.8, resenas: 76 },
+    ]
+  },
 ];
 
-const filters = { marca:'todos', ram:'todos' };
+/* ─── ESTADO ─────────────────────────────────────────────── */
+const storageState = {};
+familias.forEach(f => { storageState[f.modeloBase] = 0; });
 
+const filterState = { marca: 'todos', ram: 'todos' };
+
+/* ─── HELPERS ────────────────────────────────────────────── */
+const fmt = v => '$' + Number(v).toLocaleString('es-MX', {minimumFractionDigits:0, maximumFractionDigits:2});
+function storageLbl(gb) { return gb >= 1000 ? (gb/1024) + ' TB' : gb + ' GB'; }
+
+/* ─── FILTROS ────────────────────────────────────────────── */
 function clearFilters() {
-  filters.marca = 'todos'; filters.ram = 'todos';
+  filterState.marca = 'todos'; filterState.ram = 'todos';
   document.getElementById('search').value = '';
   document.querySelectorAll('.filter.on').forEach(b => b.classList.remove('on'));
   document.querySelectorAll('.filter[onclick*="\'todos\'"]').forEach(b => b.classList.add('on'));
@@ -282,43 +326,50 @@ function clearFilters() {
 }
 
 function toggleFilter(key, val, btn) {
-  filters[key] = val;
+  filterState[key] = val;
   const group = Array.from(btn.closest('.toolbar').querySelectorAll('.filter')).filter(b =>
     b.getAttribute('onclick') && b.getAttribute('onclick').includes(`'${key}'`)
   );
   group.forEach(b => b.classList.remove('on'));
   btn.classList.add('on');
-  const hasFilters = filters.marca !== 'todos' || filters.ram !== 'todos';
-  document.getElementById('btn-clear-filters').style.display = hasFilters ? '' : 'none';
+  const dirty = filterState.marca !== 'todos' || filterState.ram !== 'todos';
+  document.getElementById('btn-clear-filters').style.display = dirty ? '' : 'none';
   render();
 }
 
+/* ─── RENDER ─────────────────────────────────────────────── */
 function render() {
   const q = (document.getElementById('search').value || '').toLowerCase();
   const sortVal = document.getElementById('sort-sel').value;
 
-  let lista = productos.filter(p => {
-    if (filters.marca !== 'todos' && p.marca !== filters.marca) return false;
-    if (filters.ram === '8' && p.ram !== 8) return false;
-    if (filters.ram === '12' && p.ram !== 12) return false;
-    if (filters.ram === '16' && p.ram < 16) return false;
+  let lista = familias.filter(f => {
+    if (filterState.marca !== 'todos' && f.marca !== filterState.marca) return false;
+    if (filterState.ram !== 'todos') {
+      const ramVal = filterState.ram === '16' ? 16 : Number(filterState.ram);
+      const anyMatch = f.variantes.some(v =>
+        filterState.ram === '16' ? v.ram >= 16 : v.ram === ramVal
+      );
+      if (!anyMatch) return false;
+    }
     if (q) {
-      const hay = (p.nombre + ' ' + p.marca + ' ' + (p.modelo||'')).toLowerCase();
+      const hay = (f.nombre + ' ' + f.marca).toLowerCase();
       if (!hay.includes(q)) return false;
     }
     return true;
   });
 
   lista.sort((a, b) => {
-    if (sortVal === 'precio-asc') return (a.precio||99999) - (b.precio||99999);
-    if (sortVal === 'precio-desc') return (b.precio||0) - (a.precio||0);
-    if (sortVal === 'estrellas') return (b.estrellas||0) - (a.estrellas||0);
+    const va = a.variantes[storageState[a.modeloBase]];
+    const vb = b.variantes[storageState[b.modeloBase]];
+    if (sortVal === 'precio-asc')  return (va.precio||99999) - (vb.precio||99999);
+    if (sortVal === 'precio-desc') return (vb.precio||0) - (va.precio||0);
+    if (sortVal === 'estrellas')   return (vb.estrellas||0) - (va.estrellas||0);
     return 0;
   });
 
-  const grid = document.getElementById('grid');
+  const grid  = document.getElementById('grid');
   const empty = document.getElementById('empty');
-  const info = document.getElementById('result-info');
+  const info  = document.getElementById('result-info');
 
   if (!lista.length) {
     grid.innerHTML = '';
@@ -328,67 +379,81 @@ function render() {
   }
   empty.style.display = 'none';
   info.textContent = lista.length + ' smartphone' + (lista.length !== 1 ? 's' : '');
-  grid.innerHTML = lista.map(p => cardHTML(p)).join('');
+  grid.innerHTML = lista.map(f => cardHTML(f)).join('');
 }
 
-function cardHTML(p) {
-  const isSelected = selected.includes(p.id);
-  const fmt = v => '$' + v.toLocaleString('es-MX', {minimumFractionDigits:0, maximumFractionDigits:2});
-  const dual = p.linkML && p.linkAmz;
-  const stars = p.estrellas
-    ? `<div class="card-stars">★ ${p.estrellas.toFixed(1)} <span class="card-stars-count">(${(p.resenas||0).toLocaleString('es-MX')})</span></div>`
+/* ─── CARD HTML ──────────────────────────────────────────── */
+function cardHTML(f) {
+  const idx  = storageState[f.modeloBase];
+  const v    = f.variantes[idx];
+  const isSel = selected.includes(f.modeloBase);
+  const stars = v.estrellas
+    ? `<div class="card-stars">★ ${v.estrellas.toFixed(1)} <span class="card-stars-count">(${(v.resenas||0).toLocaleString('es-MX')})</span></div>`
     : '<div class="card-stars-empty"></div>';
 
-  let precioBlock, btnsBlock;
-  if (dual) {
-    const pML = p.precioML || p.precio;
-    const pAmz = p.precioAmz || p.precio;
-    precioBlock = '';
-    btnsBlock = `<div class="card-btns-dual">
-      <div class="card-btn-col">
-        ${pML ? `<div class="card-btn-col-price">${fmt(pML)}</div>` : ''}
-        <a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>
-      </div>
-      <div class="card-btn-col">
-        ${pAmz ? `<div class="card-btn-col-price">${fmt(pAmz)}</div>` : ''}
-        <a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>
-      </div>
-    </div>`;
-  } else {
-    precioBlock = p.precio ? `<div class="card-price">${fmt(p.precio)}</div>` : `<div class="price-nd">Precio no disponible</div>`;
-    const btnML = p.linkML ? `<a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>` : '';
-    const btnAmz = p.linkAmz ? `<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>` : '';
-    btnsBlock = `<div class="card-btns">${btnML}${btnAmz}</div>`;
-  }
+  const storageBtns = f.variantes.length > 1 ? `
+    <div class="storage-selector" id="ss-${f.modeloBase}">
+      ${f.variantes.map((vv, i) => `<button class="storage-btn${i===idx?' active':''}" onclick="event.stopPropagation();selectStorage('${f.modeloBase}',${i})">${storageLbl(vv.storage)}</button>`).join('')}
+    </div>` : '';
+
+  const saltoHTML = v.salto ? `<div class="salto-info" id="salto-${f.modeloBase}">${v.salto.texto} · +${fmt(v.salto.diff)}</div>` : `<div class="salto-info" id="salto-${f.modeloBase}"></div>`;
+
+  const btnML = v.linkML ? `<a class="btn-ml" href="${v.linkML}" id="lnk-ml-${f.modeloBase}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>` : '';
+  const btnAmz = v.linkAmz ? `<a class="btn-amz" href="${v.linkAmz}" id="lnk-amz-${f.modeloBase}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>` : '';
 
   return `
-  <div class="card${isSelected?' selected':''}" id="card-${p.id}" onclick="toggleSelect(${p.id})">
-    ${isSelected ? '<div class="sel-check">✓</div>' : ''}
+  <div class="card${isSel?' selected':''}" id="card-${f.modeloBase}" onclick="toggleSelect('${f.modeloBase}')">
+    ${isSel ? '<div class="sel-check">✓</div>' : ''}
     <div class="card-img-wrap">
-      <img class="card-img" src="${p.img}" alt="${p.nombre}" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'88\' height=\'88\'><rect fill=\'%23f1f5f9\' width=\'88\' height=\'88\'/></svg>'">
+      <img class="card-img" src="${f.img}" alt="${f.nombre}" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'88\' height=\'88\'><rect fill=\'%23f1f5f9\' width=\'88\' height=\'88\'/></svg>'">
     </div>
     <div class="card-body">
-      <div class="card-name">${p.nombre}</div>
+      <div class="card-name">${f.nombre}</div>
       ${stars}
+      ${storageBtns}
+      ${saltoHTML}
       <div class="card-specs">
-        <div class="spec"><div class="spec-label">RAM</div><div class="spec-val">${p.ram ? p.ram + ' GB' : '—'}</div></div>
-        <div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">${p.almacenamiento ? p.almacenamiento + ' GB' : '—'}</div></div>
-        <div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">${p.camPrincipal ? p.camPrincipal + ' MP' : '—'}</div></div>
+        <div class="spec"><div class="spec-label">RAM</div><div class="spec-val" id="ram-${f.modeloBase}">${v.ram} GB</div></div>
+        <div class="spec"><div class="spec-label">Almac.</div><div class="spec-val" id="alm-${f.modeloBase}">${storageLbl(v.storage)}</div></div>
+        ${f.camPrincipal ? `<div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">${f.camPrincipal} MP</div></div>` : ''}
+        ${f.pantalla ? `<div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">${f.pantalla}"</div></div>` : ''}
       </div>
-      ${precioBlock}
-      ${btnsBlock}
+      <div class="card-price" id="precio-${f.modeloBase}">${fmt(v.precio)}</div>
+      <div class="card-btns" id="btns-${f.modeloBase}">${btnML}${btnAmz}</div>
     </div>
   </div>`;
 }
 
+/* ─── SELECT STORAGE ─────────────────────────────────────── */
+function selectStorage(modeloBase, idx) {
+  storageState[modeloBase] = idx;
+  const f = familias.find(x => x.modeloBase === modeloBase);
+  const v = f.variantes[idx];
+
+  document.getElementById('precio-' + modeloBase).textContent = fmt(v.precio);
+  document.getElementById('ram-'   + modeloBase).textContent  = v.ram + ' GB';
+  document.getElementById('alm-'   + modeloBase).textContent  = storageLbl(v.storage);
+
+  const saltoEl = document.getElementById('salto-' + modeloBase);
+  if (saltoEl) saltoEl.textContent = v.salto ? v.salto.texto + ' · +' + fmt(v.salto.diff) : '';
+
+  const ss = document.getElementById('ss-' + modeloBase);
+  if (ss) ss.querySelectorAll('.storage-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
+
+  const btnML  = v.linkML  ? `<a class="btn-ml"  href="${v.linkML}"  id="lnk-ml-${modeloBase}"  target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>` : '';
+  const btnAmz = v.linkAmz ? `<a class="btn-amz" href="${v.linkAmz}" id="lnk-amz-${modeloBase}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon"       onerror="this.style.display='none'"></a>` : '';
+  document.getElementById('btns-' + modeloBase).innerHTML = btnML + btnAmz;
+}
+
+/* ─── COMPARE ────────────────────────────────────────────── */
 let selected = [];
 
-function toggleSelect(id) {
-  const idx = selected.indexOf(id);
+function toggleSelect(modeloBase) {
+  const idx = selected.indexOf(modeloBase);
   if (idx !== -1) { selected.splice(idx, 1); }
   else {
     if (selected.length >= 3) { alert('Máximo 3 smartphones para comparar.'); return; }
-    selected.push(id);
+    selected.push(modeloBase);
   }
   updateBar(); render();
 }
@@ -408,25 +473,28 @@ function clearSelection() { selected = []; updateBar(); render(); }
 
 function openModal() {
   if (selected.length < 2) return;
-  const items = selected.map(id => productos.find(p => p.id === id));
-  const fmt = v => v ? '$' + v.toLocaleString('es-MX', {minimumFractionDigits:0}) : '—';
-  const headers = items.map(p => `<th>
-    <img class="cmp-prod-img" src="${p.img}" alt="${p.nombre}">
-    <div class="cmp-prod-name">${p.nombre}</div>
-    <div class="cmp-prod-brand">${p.marca.toUpperCase()}</div>
-    <div class="cmp-prod-btns${p.linkML && p.linkAmz?' dual':''}">
-      ${p.linkML ? `<a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener">ML</a>` : ''}
-      ${p.linkAmz ? `<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener">AMZ</a>` : ''}
+  const items = selected.map(mb => {
+    const f = familias.find(x => x.modeloBase === mb);
+    const v = f.variantes[storageState[mb]];
+    return { f, v };
+  });
+  const fmt2 = val => val != null ? '$' + Number(val).toLocaleString('es-MX', {minimumFractionDigits:0}) : '—';
+  const headers = items.map(({ f, v }) => `<th>
+    <img class="cmp-prod-img" src="${f.img}" alt="${f.nombre}">
+    <div class="cmp-prod-name">${f.nombre}</div>
+    <div class="cmp-prod-brand">${f.marca.toUpperCase()}</div>
+    <div class="cmp-prod-btns">
+      ${v.linkML  ? `<a class="btn-ml"  href="${v.linkML}"  target="_blank" rel="sponsored nofollow noopener">ML</a>`  : ''}
+      ${v.linkAmz ? `<a class="btn-amz" href="${v.linkAmz}" target="_blank" rel="sponsored nofollow noopener">AMZ</a>` : ''}
     </div>
   </th>`).join('');
   const rows = [
-    ['Precio', items.map(p => `<td>${fmt(p.precio)}</td>`).join('')],
-    ['RAM', items.map(p => `<td>${p.ram ? p.ram + ' GB' : '—'}</td>`).join('')],
-    ['Almacenamiento', items.map(p => `<td>${p.almacenamiento ? p.almacenamiento + ' GB' : '—'}</td>`).join('')],
-    ['Cámara', items.map(p => `<td>${p.camPrincipal ? p.camPrincipal + ' MP' : '—'}</td>`).join('')],
-    ['Pantalla', items.map(p => `<td>${p.pantalla ? p.pantalla + '"' : '—'}</td>`).join('')],
-    ['Batería', items.map(p => `<td>${p.bateria ? p.bateria + ' mAh' : '—'}</td>`).join('')],
-    ['Estrellas', items.map(p => `<td>${p.estrellas ? '★ ' + p.estrellas.toFixed(1) : '—'}</td>`).join('')],
+    ['Precio',         items.map(({v}) => `<td>${fmt2(v.precio)}</td>`).join('')],
+    ['RAM',            items.map(({v}) => `<td>${v.ram ? v.ram + ' GB' : '—'}</td>`).join('')],
+    ['Almacenamiento', items.map(({v}) => `<td>${storageLbl(v.storage)}</td>`).join('')],
+    ['Cámara',         items.map(({f}) => `<td>${f.camPrincipal ? f.camPrincipal + ' MP' : '—'}</td>`).join('')],
+    ['Pantalla',       items.map(({f}) => `<td>${f.pantalla ? f.pantalla + '"' : '—'}</td>`).join('')],
+    ['Estrellas',      items.map(({v}) => `<td>${v.estrellas ? '★ ' + v.estrellas.toFixed(1) : '—'}</td>`).join('')],
   ].map(([label, cells]) => `<tr><td>${label}</td>${cells}</tr>`).join('');
   document.getElementById('cmp-table').innerHTML = `<thead><tr><th></th>${headers}</tr></thead><tbody>${rows}</tbody>`;
   document.getElementById('cmp-overlay').classList.add('open');
