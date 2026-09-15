@@ -215,10 +215,16 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 <div class="toolbar" id="toolbar">
   <span class="filter-label">Serie</span>
   <button class="filter on" onclick="toggleFilter('serie','todos',this)">Todas</button>
+  <button class="filter" onclick="toggleFilter('serie','14',this)">iPhone 14</button>
   <button class="filter" onclick="toggleFilter('serie','15',this)">iPhone 15</button>
   <button class="filter" onclick="toggleFilter('serie','16',this)">iPhone 16</button>
   <button class="filter" onclick="toggleFilter('serie','17',this)">iPhone 17</button>
   <button class="filter" onclick="toggleFilter('serie','18',this)">iPhone 18</button>
+  <span class="filter-sep"></span>
+  <span class="filter-label">Condición</span>
+  <button class="filter on" onclick="toggleFilter('condicion','todos',this)">Todas</button>
+  <button class="filter" onclick="toggleFilter('condicion','nuevo',this)">Nuevo</button>
+  <button class="filter" onclick="toggleFilter('condicion','reacond',this)">Reacondicionado</button>
 
   <div class="sort-wrap">
     <button class="filter" id="btn-clear-filters" onclick="clearFilters()" style="display:none">✕ Limpiar filtros</button>
@@ -833,6 +839,326 @@ const familias = [
       }
     ],
     saltos: []
+  },
+
+  // ── Serie 16 · Reacondicionado ────────────────────────────────────────────
+
+  {
+    modeloBase: 'iphone-16-pro',
+    nombre: 'iPhone 16 Pro',
+    serie: '16',
+    chip: 'A18 Pro',
+    camPrincipal: 48,
+    pantalla: 6.3,
+    preventa: false,
+    reacondicionado: true,
+    estadoReacondicionado: 'Amazon Renewed',
+    variantes: [
+      {
+        id: 'apple-iphone-16-pro-128gb-reacondicionado-amz-1',
+        almacenamientoGB: 128,
+        precio: 13929,
+        precioML: null, precioAmz: 13929,
+        linkML: null,
+        linkAmz: 'https://www.amazon.com.mx/dp/B0DHJC1VZ5',
+        img: null,
+        estrellas: 4.3, resenas: 2381, vendidos: null, preventa: false
+      },
+      {
+        id: 'apple-iphone-16-pro-256gb-reacondicionado-amz-1',
+        almacenamientoGB: 256,
+        precio: 14832,
+        precioML: null, precioAmz: 14832,
+        linkML: null,
+        linkAmz: 'https://www.amazon.com.mx/dp/B0DHJC1VZ5',
+        img: null,
+        estrellas: 4.3, resenas: 2381, vendidos: null, preventa: false
+      },
+      {
+        id: 'apple-iphone-16-pro-512gb-reacondicionado-amz-1',
+        almacenamientoGB: 512,
+        precio: 16399,
+        precioML: null, precioAmz: 16399,
+        linkML: null,
+        linkAmz: 'https://www.amazon.com.mx/dp/B0DHJ2MKQM',
+        img: null,
+        estrellas: 4.3, resenas: 2381, vendidos: '+50 el mes pasado', preventa: false
+      },
+      {
+        id: 'apple-iphone-16-pro-1tb-reacondicionado-amz-1',
+        almacenamientoGB: 1024,
+        precio: 20000,
+        precioML: null, precioAmz: 20000,
+        linkML: null,
+        linkAmz: 'https://www.amazon.com.mx/dp/B0DHJC1VZ5',
+        img: null,
+        estrellas: null, resenas: null, vendidos: null, preventa: false
+      }
+    ],
+    saltos: [
+      { desdeGB: 128,  hastaGB: 256,  multiplicaCapacidadPor: 2, diferenciaMXN: 903,
+        mensaje: 'Por $903 más, duplicas el almacenamiento de 128 GB a 256 GB.' },
+      { desdeGB: 256,  hastaGB: 512,  multiplicaCapacidadPor: 2, diferenciaMXN: 1567,
+        mensaje: 'Por $1,567 más, duplicas el almacenamiento de 256 GB a 512 GB.' },
+      { desdeGB: 512,  hastaGB: 1024, multiplicaCapacidadPor: 2, diferenciaMXN: 3601,
+        mensaje: 'Por $3,601 más, duplicas el almacenamiento de 512 GB a 1 TB.' }
+    ]
+  },
+
+  {
+    modeloBase: 'iphone-16e-reacond',
+    nombre: 'iPhone 16e',
+    serie: '16',
+    chip: null,
+    camPrincipal: 48,
+    pantalla: 6.1,
+    preventa: false,
+    reacondicionado: true,
+    estadoReacondicionado: 'Amazon Renewed',
+    variantes: [
+      {
+        id: 'apple-iphone-16e-128gb-reacondicionado-amz-1',
+        almacenamientoGB: 128,
+        precio: 7299,
+        precioML: null, precioAmz: 7299,
+        linkML: null,
+        linkAmz: 'https://www.amazon.com.mx/dp/B0F4RM7Y2L',
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_908532-MLA96107615227_102025-F.webp',
+        estrellas: 3.9, resenas: 1047, vendidos: '+300 el mes pasado', preventa: false
+      },
+      {
+        id: 'apple-iphone-16e-256gb-reacondicionado-amz-1',
+        almacenamientoGB: 256,
+        precio: 9341.22,
+        precioML: null, precioAmz: 9341.22,
+        linkML: null,
+        linkAmz: 'https://www.amazon.com.mx/dp/B0F4XQ3MGJ',
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_908532-MLA96107615227_102025-F.webp',
+        estrellas: 3.9, resenas: 1047, vendidos: null, preventa: false
+      }
+    ],
+    saltos: [
+      { desdeGB: 128, hastaGB: 256, multiplicaCapacidadPor: 2, diferenciaMXN: 2042.22,
+        mensaje: 'Por $2,042.22 más, duplicas el almacenamiento de 128 GB a 256 GB.' }
+    ]
+  },
+
+  // ── Serie 15 · Reacondicionado ────────────────────────────────────────────
+
+  {
+    modeloBase: 'iphone-15-pro',
+    nombre: 'iPhone 15 Pro',
+    serie: '15',
+    chip: 'A17 Pro',
+    camPrincipal: 48,
+    pantalla: 6.1,
+    preventa: false,
+    reacondicionado: true,
+    estadoReacondicionado: 'Amazon Renewed',
+    variantes: [
+      {
+        id: 'apple-iphone-15-pro-128gb-reacondicionado-amz-1',
+        almacenamientoGB: 128,
+        precio: 10281.38,
+        precioML: null, precioAmz: 10281.38,
+        linkML: null,
+        linkAmz: 'https://www.amazon.com.mx/dp/B0CLPNY48J',
+        img: null,
+        estrellas: 3.9, resenas: 1736, vendidos: '+100 el mes pasado', preventa: false
+      },
+      {
+        id: 'apple-iphone-15-pro-256gb-reacondicionado-amz-1',
+        almacenamientoGB: 256,
+        precio: 11063.55,
+        precioML: null, precioAmz: 11063.55,
+        linkML: null,
+        linkAmz: 'https://www.amazon.com.mx/dp/B0CLPNY48J',
+        img: null,
+        estrellas: 3.9, resenas: 1736, vendidos: null, preventa: false
+      },
+      {
+        id: 'apple-iphone-15-pro-512gb-reacondicionado-amz-1',
+        almacenamientoGB: 512,
+        precio: 13299,
+        precioML: null, precioAmz: 13299,
+        linkML: null,
+        linkAmz: 'https://www.amazon.com.mx/dp/B0CLPPGYC4',
+        img: null,
+        estrellas: null, resenas: null, vendidos: null, preventa: false
+      },
+      {
+        id: 'apple-iphone-15-pro-1tb-reacondicionado-amz-1',
+        almacenamientoGB: 1024,
+        precio: 13699,
+        precioML: null, precioAmz: 13699,
+        linkML: null,
+        linkAmz: 'https://www.amazon.com.mx/dp/B0CLPNY48J',
+        img: null,
+        estrellas: null, resenas: null, vendidos: null, preventa: false
+      }
+    ],
+    saltos: [
+      { desdeGB: 128,  hastaGB: 256,  multiplicaCapacidadPor: 2, diferenciaMXN: 782.17,
+        mensaje: 'Por $782.17 más, duplicas el almacenamiento de 128 GB a 256 GB.' },
+      { desdeGB: 256,  hastaGB: 512,  multiplicaCapacidadPor: 2, diferenciaMXN: 2235.45,
+        mensaje: 'Por $2,235.45 más, duplicas el almacenamiento de 256 GB a 512 GB.' },
+      { desdeGB: 512,  hastaGB: 1024, multiplicaCapacidadPor: 2, diferenciaMXN: 400,
+        mensaje: 'Por $400 más, duplicas el almacenamiento de 512 GB a 1 TB.' }
+    ]
+  },
+
+  {
+    modeloBase: 'iphone-15-pro-max',
+    nombre: 'iPhone 15 Pro Max',
+    serie: '15',
+    chip: 'A17 Pro',
+    camPrincipal: 48,
+    pantalla: 6.7,
+    preventa: false,
+    reacondicionado: true,
+    estadoReacondicionado: 'Amazon Renewed',
+    variantes: [
+      {
+        id: 'apple-iphone-15-pro-max-256gb-reacondicionado-amz-1',
+        almacenamientoGB: 256,
+        precio: 12726.22,
+        precioML: null, precioAmz: 12726.22,
+        linkML: null,
+        linkAmz: 'https://www.amazon.com.mx/dp/B0CLQ6XKDV',
+        img: null,
+        estrellas: 3.9, resenas: 1887, vendidos: '+200 el mes pasado', preventa: false
+      },
+      {
+        id: 'apple-iphone-15-pro-max-512gb-reacondicionado-amz-1',
+        almacenamientoGB: 512,
+        precio: 14041.05,
+        precioML: null, precioAmz: 14041.05,
+        linkML: null,
+        linkAmz: 'https://www.amazon.com.mx/dp/B0CLQ6XKDV',
+        img: null,
+        estrellas: null, resenas: null, vendidos: null, preventa: false
+      }
+    ],
+    saltos: [
+      { desdeGB: 256, hastaGB: 512, multiplicaCapacidadPor: 2, diferenciaMXN: 1314.83,
+        mensaje: 'Por $1,314.83 más, duplicas el almacenamiento de 256 GB a 512 GB.' }
+    ]
+  },
+
+  {
+    modeloBase: 'iphone-15-reacond',
+    nombre: 'iPhone 15',
+    serie: '15',
+    chip: 'A16 Bionic',
+    camPrincipal: 48,
+    pantalla: 6.1,
+    preventa: false,
+    reacondicionado: true,
+    estadoReacondicionado: 'Amazon Renewed',
+    variantes: [
+      {
+        id: 'apple-iphone-15-128gb-reacondicionado-amz-1',
+        almacenamientoGB: 128,
+        precio: 7749,
+        precioML: null, precioAmz: 7749,
+        linkML: null,
+        linkAmz: 'https://www.amazon.com.mx/dp/B0CLN5XNR8',
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_975589-MLA95496385884_102025-F.webp',
+        estrellas: 3.8, resenas: 1131, vendidos: '+200 el mes pasado', preventa: false
+      },
+      {
+        id: 'apple-iphone-15-256gb-reacondicionado-amz-1',
+        almacenamientoGB: 256,
+        precio: 10129.36,
+        precioML: null, precioAmz: 10129.36,
+        linkML: null,
+        linkAmz: 'https://www.amazon.com.mx/dp/B0CLN6K4K9',
+        img: 'https://http2.mlstatic.com/D_NQ_NP_2X_975589-MLA95496385884_102025-F.webp',
+        estrellas: 3.8, resenas: 1131, vendidos: null, preventa: false
+      }
+    ],
+    saltos: [
+      { desdeGB: 128, hastaGB: 256, multiplicaCapacidadPor: 2, diferenciaMXN: 2380.36,
+        mensaje: 'Por $2,380.36 más, duplicas el almacenamiento de 128 GB a 256 GB.' }
+    ]
+  },
+
+  // ── Serie 14 ──────────────────────────────────────────────────────────────
+
+  {
+    modeloBase: 'iphone-14',
+    nombre: 'iPhone 14',
+    serie: '14',
+    chip: null,
+    camPrincipal: 12,
+    pantalla: 6.1,
+    preventa: false,
+    reacondicionado: true,
+    estadoReacondicionado: 'Amazon Renewed',
+    variantes: [
+      {
+        id: 'apple-iphone-14-128gb-reacondicionado-amz-1',
+        almacenamientoGB: 128,
+        precio: 5601.36,
+        precioML: null, precioAmz: 5601.36,
+        linkML: null,
+        linkAmz: 'https://www.amazon.com.mx/dp/B0BNLRVZLC',
+        img: null,
+        estrellas: 4.0, resenas: 2537, vendidos: '+400 el mes pasado', preventa: false
+      },
+      {
+        id: 'apple-iphone-14-256gb-reacondicionado-amz-1',
+        almacenamientoGB: 256,
+        precio: 7389.26,
+        precioML: null, precioAmz: 7389.26,
+        linkML: null,
+        linkAmz: 'https://www.amazon.com.mx/dp/B0BNLRVZLC',
+        img: null,
+        estrellas: 4.0, resenas: 2537, vendidos: '+50 el mes pasado', preventa: false
+      }
+    ],
+    saltos: [
+      { desdeGB: 128, hastaGB: 256, multiplicaCapacidadPor: 2, diferenciaMXN: 1787.90,
+        mensaje: 'Por $1,787.90 más, duplicas el almacenamiento de 128 GB a 256 GB.' }
+    ]
+  },
+
+  {
+    modeloBase: 'iphone-14-pro',
+    nombre: 'iPhone 14 Pro',
+    serie: '14',
+    chip: 'A16 Bionic',
+    camPrincipal: 48,
+    pantalla: 6.1,
+    preventa: false,
+    reacondicionado: true,
+    estadoReacondicionado: 'Amazon Renewed',
+    variantes: [
+      {
+        id: 'apple-iphone-14-pro-128gb-reacondicionado-amz-1',
+        almacenamientoGB: 128,
+        precio: 8019,
+        precioML: null, precioAmz: 8019,
+        linkML: null,
+        linkAmz: 'https://www.amazon.com.mx/dp/B0BNLV66P9',
+        img: null,
+        estrellas: 4.0, resenas: 2956, vendidos: '+100 el mes pasado', preventa: false
+      },
+      {
+        id: 'apple-iphone-14-pro-256gb-reacondicionado-amz-1',
+        almacenamientoGB: 256,
+        precio: 8536.36,
+        precioML: null, precioAmz: 8536.36,
+        linkML: null,
+        linkAmz: 'https://www.amazon.com.mx/dp/B0BNLWKDQM',
+        img: null,
+        estrellas: 4.0, resenas: 2956, vendidos: null, preventa: false
+      }
+    ],
+    saltos: [
+      { desdeGB: 128, hastaGB: 256, multiplicaCapacidadPor: 2, diferenciaMXN: 517.36,
+        mensaje: 'Por $517.36 más, duplicas el almacenamiento de 128 GB a 256 GB.' }
+    ]
   }
 
 ];
@@ -916,7 +1242,7 @@ function btnsHTML(variante) {
 // ─────────────────────────────────────────────────────────────────────────────
 // RENDER GRID
 // ─────────────────────────────────────────────────────────────────────────────
-const filterState = { serie: 'todos' };
+const filterState = { serie: 'todos', condicion: 'todos' };
 
 function toggleFilter(key, val, btn) {
   filterState[key] = val;
@@ -925,12 +1251,14 @@ function toggleFilter(key, val, btn) {
   );
   group.forEach(b => b.classList.remove('on'));
   btn.classList.add('on');
-  document.getElementById('btn-clear-filters').style.display = filterState.serie !== 'todos' ? '' : 'none';
+  const dirty = filterState.serie !== 'todos' || filterState.condicion !== 'todos';
+  document.getElementById('btn-clear-filters').style.display = dirty ? '' : 'none';
   render();
 }
 
 function clearFilters() {
   filterState.serie = 'todos';
+  filterState.condicion = 'todos';
   document.getElementById('search').value = '';
   document.querySelectorAll('.filter.on').forEach(b => b.classList.remove('on'));
   document.querySelectorAll('.filter[onclick*="\'todos\'"]').forEach(b => b.classList.add('on'));
@@ -944,6 +1272,8 @@ function render() {
 
   let lista = familias.filter(f => {
     if (filterState.serie !== 'todos' && f.serie !== filterState.serie) return false;
+    if (filterState.condicion === 'nuevo'   &&  f.reacondicionado) return false;
+    if (filterState.condicion === 'reacond' && !f.reacondicionado) return false;
     if (q && !f.nombre.toLowerCase().includes(q)) return false;
     return true;
   });
