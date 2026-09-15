@@ -280,6 +280,7 @@ const familias = [
     marca: 'samsung',
     camPrincipal: 200,
     pantalla: 6.9,
+    hz: 120, usb: 3.2, zoom: 10,
     img: 'https://http2.mlstatic.com/D_NQ_NP_2X_617813-MLA108032078647_032026-F.webp',
     variantes: [
       { storage: 256,  ram: 12, precio: 20394,    linkML: 'https://meli.la/2xN52B6', estrellas: 4.9, resenas: 3914 },
@@ -293,6 +294,7 @@ const familias = [
     marca: 'samsung',
     camPrincipal: 50,
     pantalla: 6.2,
+    hz: 120, usb: 3.2, zoom: 3,
     img: 'https://http2.mlstatic.com/D_NQ_NP_2X_870493-MLA109812392870_042026-F.webp',
     variantes: [
       { storage: 256, ram: 12, precio: 15282, linkML: 'https://meli.la/1TgKbkx', estrellas: 4.9, resenas: 1290 },
@@ -305,6 +307,7 @@ const familias = [
     marca: 'samsung',
     camPrincipal: null,
     pantalla: null,
+    hz: 120, usb: 3.2, zoom: 3,
     img: 'https://http2.mlstatic.com/D_NQ_NP_2X_683869-MLA110519587223_042026-F.webp',
     variantes: [
       { storage: 256, ram: 12, precio: 18539, linkML: 'https://meli.la/1pWzuZZ', estrellas: 4.9, resenas: 430 },
@@ -317,6 +320,7 @@ const familias = [
     marca: 'motorola',
     camPrincipal: 200,
     pantalla: 6.9,
+    hz: 165, usb: 3.2, zoom: null,
     img: 'https://http2.mlstatic.com/D_NQ_NP_2X_877244-MLA107642928956_032026-F.webp',
     variantes: [
       { storage: 1024, ram: 16, precio: 26116.13, linkML: 'https://meli.la/2WEys3C', estrellas: 4.8, resenas: 76 },
@@ -499,7 +503,7 @@ function guardarCruzada() {
       img: f.img || null, precio: v.precio,
       ram: v.ram || null, almacenamiento: v.storage,
       chip: null, camPrincipal: f.camPrincipal || null,
-      pantalla: f.pantalla || null,
+      pantalla: f.pantalla || null, hz: f.hz || null, usb: f.usb || null, zoom: f.zoom || null,
       estrellas: v.estrellas || null, resenas: v.resenas || null,
       linkML: v.linkML || null, linkAmz: v.linkAmz || null,
       categoria: 'alta-gama'
@@ -559,10 +563,13 @@ function openModal() {
 
   const rows = [
     precioRow,
-    fila('RAM',              items.map(({v}) => v.ram),          v => v+' GB',      'max'),
-    fila('Almacenamiento',   items.map(({v}) => v.storage),      v => storageLbl(v),'max'),
-    fila('Pantalla',         items.map(({f}) => f.pantalla),     v => v+'"',        'max'),
-    fila('Cámara principal', items.map(({f}) => f.camPrincipal), v => v+' MP',      'max'),
+    fila('RAM',                    items.map(({v}) => v.ram),            v => v+' GB',      'max'),
+    fila('Almacenamiento',         items.map(({v}) => v.storage),        v => storageLbl(v),'max'),
+    fila('Pantalla',               items.map(({f}) => f.pantalla),       v => v+'"',        'max'),
+    fila('Frecuencia de pantalla', items.map(({f}) => f.hz),             v => v+' Hz',      'max'),
+    fila('USB',                    items.map(({f}) => f.usb),            v => 'USB '+v,     'max'),
+    fila('Zoom óptico',            items.map(({f}) => f.zoom),           v => v+'×',        'max'),
+    fila('Cámara principal',       items.map(({f}) => f.camPrincipal),   v => v+' MP',      'max'),
     valorRow,
   ].join('');
 

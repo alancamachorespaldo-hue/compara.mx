@@ -305,6 +305,7 @@ const familias = [
     chip: 'A19',
     camPrincipal: 48,
     pantalla: 6.1,
+    hz: null, usb: null, zoom: null,
     preventa: false,
     variantes: [
       {
@@ -349,6 +350,7 @@ const familias = [
     chip: 'A19',
     camPrincipal: 48,
     pantalla: 6.3,
+    hz: null, usb: null, zoom: null,
     preventa: false,
     variantes: [
       {
@@ -393,6 +395,7 @@ const familias = [
     chip: 'A19 Pro',
     camPrincipal: 48,
     pantalla: 6.5,
+    hz: null, usb: null, zoom: null,
     preventa: false,
     variantes: [
       {
@@ -420,6 +423,7 @@ const familias = [
     chip: 'A19 Pro',
     camPrincipal: 48,
     pantalla: 6.3,
+    hz: null, usb: null, zoom: null,
     preventa: false,
     variantes: [
       {
@@ -480,6 +484,7 @@ const familias = [
     chip: 'A19 Pro',
     camPrincipal: 48,
     pantalla: 6.9,
+    hz: null, usb: null, zoom: null,
     preventa: false,
     variantes: [
       {
@@ -558,6 +563,7 @@ const familias = [
     chip: 'A20 Pro',
     camPrincipal: null,
     pantalla: null,
+    hz: null, usb: null, zoom: null,
     preventa: true,
     variantes: [
       {
@@ -602,6 +608,7 @@ const familias = [
     chip: 'A20 Pro',
     camPrincipal: 48,
     pantalla: 6.9,
+    hz: null, usb: null, zoom: null,
     preventa: true,
     variantes: [
       {
@@ -648,6 +655,7 @@ const familias = [
     chip: null,
     camPrincipal: 48,
     pantalla: 6.1,
+    hz: 60, usb: 2, zoom: null,
     preventa: false,
     variantes: [
       {
@@ -692,6 +700,7 @@ const familias = [
     chip: 'A16 Bionic',
     camPrincipal: 48,
     pantalla: 6.1,
+    hz: 60, usb: 2, zoom: 2,
     preventa: false,
     variantes: [
       {
@@ -736,6 +745,7 @@ const familias = [
     chip: 'A18',
     camPrincipal: 48,
     pantalla: 6.1,
+    hz: 60, usb: 2, zoom: 2,
     preventa: false,
     variantes: [
       {
@@ -780,6 +790,7 @@ const familias = [
     chip: 'A18',
     camPrincipal: 48,
     pantalla: 6.7,
+    hz: 60, usb: 2, zoom: 2,
     preventa: false,
     variantes: [
       {
@@ -824,6 +835,7 @@ const familias = [
     chip: 'A16 Bionic',
     camPrincipal: null,
     pantalla: null,
+    hz: 60, usb: 2, zoom: 2,
     preventa: false,
     reacondicionado: true,
     estadoReacondicionado: 'Excelente',
@@ -857,6 +869,7 @@ const familias = [
     chip: 'A18 Pro',
     camPrincipal: 48,
     pantalla: 6.3,
+    hz: 120, usb: 3, zoom: 5,
     preventa: false,
     reacondicionado: true,
     estadoReacondicionado: 'Amazon Renewed',
@@ -919,6 +932,7 @@ const familias = [
     chip: null,
     camPrincipal: 48,
     pantalla: 6.1,
+    hz: 60, usb: 2, zoom: null,
     preventa: false,
     reacondicionado: true,
     estadoReacondicionado: 'Amazon Renewed',
@@ -959,6 +973,7 @@ const familias = [
     chip: 'A17 Pro',
     camPrincipal: 48,
     pantalla: 6.1,
+    hz: 120, usb: 3, zoom: 3,
     preventa: false,
     reacondicionado: true,
     estadoReacondicionado: 'Amazon Renewed',
@@ -1021,6 +1036,7 @@ const familias = [
     chip: 'A17 Pro',
     camPrincipal: 48,
     pantalla: 6.7,
+    hz: 120, usb: 3, zoom: 5,
     preventa: false,
     reacondicionado: true,
     estadoReacondicionado: 'Amazon Renewed',
@@ -1059,6 +1075,7 @@ const familias = [
     chip: 'A16 Bionic',
     camPrincipal: 48,
     pantalla: 6.1,
+    hz: 60, usb: 2, zoom: 2,
     preventa: false,
     reacondicionado: true,
     estadoReacondicionado: 'Amazon Renewed',
@@ -1099,6 +1116,7 @@ const familias = [
     chip: null,
     camPrincipal: 12,
     pantalla: 6.1,
+    hz: 60, usb: 2, zoom: 2,
     preventa: false,
     reacondicionado: true,
     estadoReacondicionado: 'Amazon Renewed',
@@ -1137,6 +1155,7 @@ const familias = [
     chip: 'A16 Bionic',
     camPrincipal: 48,
     pantalla: 6.1,
+    hz: 120, usb: 2, zoom: 3,
     preventa: false,
     reacondicionado: true,
     estadoReacondicionado: 'Amazon Renewed',
@@ -1464,7 +1483,7 @@ function guardarCruzada() {
       img: v.img || null, precio: v.precio,
       ram: null, almacenamiento: v.almacenamientoGB,
       chip: f.chip || null, camPrincipal: f.camPrincipal || null,
-      pantalla: f.pantalla || null,
+      pantalla: f.pantalla || null, hz: f.hz || null, usb: f.usb || null, zoom: f.zoom || null,
       estrellas: v.estrellas || f.estrellas || null,
       resenas: v.resenas || f.resenas || null,
       linkML: v.linkML || null, linkAmz: v.linkAmz || null,
@@ -1541,10 +1560,13 @@ function openModal() {
 
   const rows = [
     precioRow,
-    fila('Almacenamiento', items.map(({variante: v}) => v.almacenamientoGB), v => fmtGB(v), 'max'),
+    fila('Almacenamiento',         items.map(({variante: v}) => v.almacenamientoGB), v => fmtGB(v), 'max'),
     `<tr><td>Chip</td>${items.map(({familia: f}) => `<td>${f.chip || '—'}</td>`).join('')}</tr>`,
-    fila('Cámara',         items.map(({familia: f}) => f.camPrincipal),      v => v+' MP', 'max'),
-    fila('Pantalla',       items.map(({familia: f}) => f.pantalla),          v => v+'"',   'max'),
+    fila('Cámara',                 items.map(({familia: f}) => f.camPrincipal),      v => v+' MP', 'max'),
+    fila('Pantalla',               items.map(({familia: f}) => f.pantalla),          v => v+'"',   'max'),
+    fila('Frecuencia de pantalla', items.map(({familia: f}) => f.hz),                v => v+' Hz', 'max'),
+    fila('USB',                    items.map(({familia: f}) => f.usb),               v => 'USB '+v,'max'),
+    fila('Zoom óptico',            items.map(({familia: f}) => f.zoom),              v => v+'×',   'max'),
     valorRow,
   ].join('');
 

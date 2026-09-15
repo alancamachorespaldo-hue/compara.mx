@@ -208,11 +208,14 @@ function render() {
 
   const rows = [
     precioRow,
-    fila('Almacenamiento', items.map(i => i.almacenamiento), v => storageLbl(v), 'max'),
-    fila('RAM',            items.map(i => i.ram),           v => v + ' GB',      'max'),
+    fila('Almacenamiento',         items.map(i => i.almacenamiento), v => storageLbl(v), 'max'),
+    fila('RAM',                    items.map(i => i.ram),            v => v + ' GB',     'max'),
     chipRow,
-    fila('Cámara',         items.map(i => i.camPrincipal),  v => v + ' MP',      'max'),
-    fila('Pantalla',       items.map(i => i.pantalla),      v => v + '"',        'max'),
+    fila('Cámara',                 items.map(i => i.camPrincipal),   v => v + ' MP',     'max'),
+    fila('Pantalla',               items.map(i => i.pantalla),       v => v + '"',       'max'),
+    fila('Frecuencia de pantalla', items.map(i => i.hz),             v => v + ' Hz',     'max'),
+    fila('USB',                    items.map(i => i.usb),            v => 'USB ' + v,    'max'),
+    fila('Zoom óptico',            items.map(i => i.zoom),           v => v + '×',       'max'),
     valorRow,
   ].join('');
 
