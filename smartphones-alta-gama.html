@@ -141,16 +141,22 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .cmp-modal-header h2{font-size:1rem;font-weight:700;letter-spacing:-.02em}
 .cmp-modal-close{background:none;border:none;font-size:1.2rem;cursor:pointer;color:var(--tx2);padding:4px 8px;border-radius:6px;line-height:1}
 .cmp-modal-close:hover{background:var(--s1)}
-.cmp-table-wrap{overflow:auto;flex:1}
-.cmp-table{width:100%;border-collapse:collapse;font-size:13px;min-width:520px}
-.cmp-table th{padding:12px 14px;text-align:center;color:var(--tx3);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--s1);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:10}
-.cmp-table td{padding:11px 14px;border-bottom:1px solid var(--bd);color:var(--tx);vertical-align:middle;text-align:center}
-.cmp-table td:first-child{color:var(--tx2);font-size:12px;font-weight:600;background:var(--s1);text-transform:uppercase;letter-spacing:.04em;text-align:left}
+.cmp-table-wrap{overflow:auto;flex:1;background:var(--bg)}
+.cmp-table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:480px}
+.cmp-table th{padding:14px 12px 12px;text-align:center;background:var(--bg);border-bottom:2px solid var(--bd);position:sticky;top:0;z-index:10;vertical-align:top;min-width:160px}
+.cmp-table th:first-child{background:var(--s1);border-right:1px solid var(--bd);min-width:120px}
+.cmp-table tbody tr:nth-child(even) td{background:var(--s1)}
+.cmp-table tbody tr:nth-child(even) td:first-child{background:var(--s2)}
+.cmp-table td{padding:9px 12px;border-bottom:1px solid var(--bd);color:var(--tx);vertical-align:middle;text-align:center;font-size:12.5px;line-height:1.35}
+.cmp-table tbody tr:hover td{background:rgba(0,104,71,.04)}
+.cmp-table tbody tr:hover td:first-child{background:var(--s2)}
+.cmp-table td:first-child{color:var(--tx2);font-size:10.5px;font-weight:700;background:var(--s1);text-transform:uppercase;letter-spacing:.06em;text-align:left;position:sticky;left:0;z-index:10;min-width:120px;max-width:120px;border-right:1px solid var(--bd);padding:9px 10px;white-space:nowrap}
 .cmp-table tr:last-child td{border-bottom:none}
-.cmp-prod-img{width:90px;height:90px;object-fit:contain;border-radius:8px;background:var(--s1);margin:0 auto 8px;display:block}
-.cmp-prod-name{font-size:.8rem;font-weight:700;line-height:1.3;margin-bottom:4px}
-.cmp-prod-brand{font-size:.72rem;color:var(--tx3);margin-bottom:8px}
-.cmp-prod-btns{display:grid;gap:4px;margin-top:6px}
+.cmp-winner{background:linear-gradient(135deg,#d4f0e3,#c0ebd5) !important;color:#004d34;font-weight:800}
+.cmp-prod-img{width:72px;height:72px;object-fit:contain;border-radius:10px;background:var(--s1);margin:0 auto 8px;display:block;padding:4px}
+.cmp-prod-name{font-size:.76rem;font-weight:700;line-height:1.3;margin-bottom:4px;color:var(--tx)}
+.cmp-prod-stor{font-size:.7rem;color:var(--ac);font-weight:700;margin-bottom:4px}
+.cmp-prod-btns{display:grid;gap:4px;margin-top:4px}
 .cmp-prod-btns.dual{grid-template-columns:1fr 1fr}
 
 .empty{text-align:center;padding:3rem;color:var(--tx3);font-size:14px}
@@ -490,25 +496,56 @@ function openModal() {
     const v = f.variantes[storageState[mb]];
     return { f, v };
   });
-  const fmt2 = val => val != null ? '$' + Number(val).toLocaleString('es-MX', {minimumFractionDigits:0}) : '—';
-  const headers = items.map(({ f, v }) => `<th>
-    <img class="cmp-prod-img" src="${f.img}" alt="${f.nombre}">
-    <div class="cmp-prod-name">${f.nombre}</div>
-    <div class="cmp-prod-brand">${f.marca.toUpperCase()}</div>
-    <div class="cmp-prod-btns">
-      ${v.linkML  ? `<a class="btn-ml"  href="${v.linkML}"  target="_blank" rel="sponsored nofollow noopener">ML</a>`  : ''}
-      ${v.linkAmz ? `<a class="btn-amz" href="${v.linkAmz}" target="_blank" rel="sponsored nofollow noopener">AMZ</a>` : ''}
-    </div>
-  </th>`).join('');
+
+  function prodBtns(v, size) {
+    const h = size === 'sm' ? '16px' : '18px';
+    const pad = size === 'sm' ? '5px 8px' : '7px 12px';
+    const fs = size === 'sm' ? '11px' : '12px';
+    const ml = v.linkML  ? `<a class="btn-ml"  href="${v.linkML}"  target="_blank" rel="sponsored nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;">Ver en <img style="height:${h}" src="/logomercado.png" onerror="this.style.display='none'"></a>` : '';
+    const amz = v.linkAmz ? `<a class="btn-amz" href="${v.linkAmz}" target="_blank" rel="sponsored nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;">Ver en <img style="height:${h}" src="/logoamazon.png" onerror="this.style.display='none'"></a>` : '';
+    return `<div class="cmp-prod-btns${ml&&amz?' dual':''}">${ml}${amz}</div>`;
+  }
+
+  const headers = items.map(({ f, v }) =>
+    `<th><img class="cmp-prod-img" src="${f.img}" alt="${f.nombre}"><div class="cmp-prod-name">${f.nombre}</div><div class="cmp-prod-stor">${storageLbl(v.storage)} · ${v.ramDisplay||v.ram+' GB'} RAM</div>${prodBtns(v,'sm')}</th>`
+  ).join('');
+
+  function fila(label, rawVals, fmtFn, best) {
+    const nums = rawVals.map(v => (v !== null && v !== undefined && typeof v === 'number' && !isNaN(v)) ? v : null);
+    let winner = null;
+    if (best === 'max') { const val = nums.filter(n => n !== null); if (val.length > 1) winner = Math.max(...val); }
+    if (best === 'min') { const val = nums.filter(n => n !== null && n > 0); if (val.length > 1) winner = Math.min(...val); }
+    const cells = rawVals.map((v, i) => {
+      const isWin = winner !== null && nums[i] === winner;
+      const display = (v !== null && v !== undefined) ? fmtFn(v) : '—';
+      return `<td class="${isWin?'cmp-winner':''}">${display}</td>`;
+    }).join('');
+    return `<tr><td>${label}</td>${cells}</tr>`;
+  }
+
+  const prices = items.map(({v}) => v.precio || null);
+  const minP = Math.min(...prices.filter(Boolean));
+  const precioRow = `<tr><td>Precio</td>${items.map(({v}) =>
+    `<td class="${v.precio===minP?'cmp-winner':''}">${v.precio ? fmt(v.precio) : '—'}</td>`
+  ).join('')}</tr>`;
+
+  const valorRow = `<tr><td>Valoración</td>${items.map(({v}) =>
+    `<td>${v.estrellas ? `<span style="color:#e6900a;font-weight:700">★ ${v.estrellas.toFixed(1)}</span> <span style="font-size:11px;color:var(--tx3)">(${(v.resenas||0).toLocaleString('es-MX')})</span>` : '—'}</td>`
+  ).join('')}</tr>`;
+
   const rows = [
-    ['Precio',         items.map(({v}) => `<td>${fmt2(v.precio)}</td>`).join('')],
-    ['RAM',            items.map(({v}) => `<td>${v.ram ? v.ram + ' GB' : '—'}</td>`).join('')],
-    ['Almacenamiento', items.map(({v}) => `<td>${storageLbl(v.storage)}</td>`).join('')],
-    ['Cámara',         items.map(({f}) => `<td>${f.camPrincipal ? f.camPrincipal + ' MP' : '—'}</td>`).join('')],
-    ['Pantalla',       items.map(({f}) => `<td>${f.pantalla ? f.pantalla + '"' : '—'}</td>`).join('')],
-    ['Estrellas',      items.map(({v}) => `<td>${v.estrellas ? '★ ' + v.estrellas.toFixed(1) : '—'}</td>`).join('')],
-  ].map(([label, cells]) => `<tr><td>${label}</td>${cells}</tr>`).join('');
-  document.getElementById('cmp-table').innerHTML = `<thead><tr><th></th>${headers}</tr></thead><tbody>${rows}</tbody>`;
+    precioRow,
+    fila('RAM',              items.map(({v}) => v.ram),          v => v+' GB',      'max'),
+    fila('Almacenamiento',   items.map(({v}) => v.storage),      v => storageLbl(v),'max'),
+    fila('Pantalla',         items.map(({f}) => f.pantalla),     v => v+'"',        'max'),
+    fila('Cámara principal', items.map(({f}) => f.camPrincipal), v => v+' MP',      'max'),
+    valorRow,
+  ].join('');
+
+  const btnRows = items.map(({v}) => `<td>${prodBtns(v,'md')}</td>`).join('');
+  document.getElementById('cmp-table').innerHTML =
+    `<thead><tr><th style="text-align:left;position:sticky;left:0;z-index:20;min-width:130px;border-right:1px solid var(--bd)">Característica</th>${headers}</tr></thead>
+     <tbody>${rows}<tr><td>Comprar</td>${btnRows}</tr></tbody>`;
   document.getElementById('cmp-overlay').classList.add('open');
 }
 
