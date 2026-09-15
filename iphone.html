@@ -270,6 +270,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   </div>
   <div class="cmp-bar-actions">
     <button class="btn-clr" onclick="clearSelection()">Limpiar</button>
+    <button class="btn-clr" id="btn-cross-cmp" onclick="guardarCruzada()" style="display:none">↗ Con otras categorías</button>
     <button class="btn-do-cmp" id="btn-do-cmp" onclick="openModal()" disabled>Comparar</button>
   </div>
 </div>
@@ -1442,13 +1443,38 @@ function updateBar() {
   const bar = document.getElementById('cmp-bar');
   const txt = document.getElementById('cmp-bar-txt');
   const btn = document.getElementById('btn-do-cmp');
+  const btnCross = document.getElementById('btn-cross-cmp');
   if (selected.length > 0) {
     bar.classList.add('show');
     txt.textContent = selected.length === 1 ? 'Selecciona 1 modelo más para comparar' : `${selected.length} modelos seleccionados`;
     btn.disabled = selected.length < 2;
+    btnCross.style.display = 'inline-block';
   } else {
     bar.classList.remove('show');
+    btnCross.style.display = 'none';
   }
+}
+
+function guardarCruzada() {
+  const items = selected.map(mb => {
+    const f = familias.find(f => f.modeloBase === mb);
+    const v = activeVariante(f);
+    return {
+      modeloBase: f.modeloBase, nombre: f.nombre,
+      img: v.img || null, precio: v.precio,
+      ram: null, almacenamiento: v.almacenamientoGB,
+      chip: f.chip || null, camPrincipal: f.camPrincipal || null,
+      pantalla: f.pantalla || null,
+      estrellas: v.estrellas || f.estrellas || null,
+      resenas: v.resenas || f.resenas || null,
+      linkML: v.linkML || null, linkAmz: v.linkAmz || null,
+      categoria: 'iphone'
+    };
+  });
+  const existing = JSON.parse(localStorage.getItem('cmp_celulares') || '[]');
+  const merged = [...existing.filter(e => !items.find(i => i.modeloBase === e.modeloBase)), ...items];
+  localStorage.setItem('cmp_celulares', JSON.stringify(merged));
+  window.location.href = 'comparar-celulares.html';
 }
 
 function clearSelection() {
