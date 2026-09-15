@@ -484,6 +484,32 @@ function importFromHTML(input) {
       return;
     }
 
+    // Aplanar familias con variantes (ej. iphone.html)
+    if (catKey === 'iphone' && productos[0] && productos[0].variantes) {
+      const planos = [];
+      productos.forEach(familia => {
+        (familia.variantes || []).forEach(v => {
+          planos.push({
+            id:       v.id || familia.modeloBase + '-' + v.almacenamientoGB,
+            nombre:   familia.nombre + ' ' + v.almacenamientoGB + ' GB',
+            marca:    'Apple',
+            modelo:   familia.modeloBase,
+            precio:   v.precio || 0,
+            precioML: v.precioML || null,
+            precioAmz:v.precioAmz || null,
+            estrellas:v.estrellas || 0,
+            resenas:  v.resenas || 0,
+            linkML:   v.linkML || '',
+            linkAmz:  v.linkAmz || '',
+            img:      v.img || '',
+            _familia: familia.modeloBase,
+            _almacenamiento: v.almacenamientoGB,
+          });
+        });
+      });
+      productos = planos;
+    }
+
     // Añadir campos gestor si no existen
     productos.forEach(p => {
       if (!p._status)     p._status     = 'pending';
