@@ -73,6 +73,13 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .filter.on{background:var(--ac);color:#fff;border-color:var(--ac)}
 .filter-sep{width:1px;height:20px;background:var(--bd2);margin:0 4px}
 .sort-wrap{margin-left:auto;display:flex;align-items:center;gap:8px}
+.color-filter-wrap{position:relative}
+.color-dropdown{position:absolute;top:calc(100% + 6px);left:0;z-index:300;background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:8px;box-shadow:0 4px 20px rgba(0,0,0,.13);min-width:160px;display:none;flex-direction:column;gap:2px}
+.color-dropdown.open{display:flex}
+.color-opt{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:7px;cursor:pointer;font-size:12px;color:var(--tx2);font-weight:500;transition:background .12s;white-space:nowrap;user-select:none}
+.color-opt:hover{background:var(--s1);color:var(--tx)}
+.color-opt.on{background:var(--s1);color:var(--ac);font-weight:700}
+.color-swatch{width:14px;height:14px;border-radius:50%;border:1.5px solid rgba(0,0,0,.15);flex-shrink:0}
 .sort-label{font-size:12px;color:var(--tx3)}
 .sort-sel{font-size:12px;background:var(--bg);border:1px solid var(--bd2);border-radius:8px;color:var(--tx2);padding:4px 8px;font-family:'Satoshi',sans-serif;cursor:pointer}
 
@@ -231,6 +238,12 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   <button class="filter on" onclick="toggleFilter('condicion','todos',this)">Todas</button>
   <button class="filter" onclick="toggleFilter('condicion','nuevo',this)">Nuevo</button>
   <button class="filter" onclick="toggleFilter('condicion','reacond',this)">Reacondicionado</button>
+  <span class="filter-sep"></span>
+  <span class="filter-label">Color</span>
+  <div class="color-filter-wrap">
+    <button class="filter" id="btn-color-iphone" onclick="toggleColorDropdown()">Todos ▾</button>
+    <div class="color-dropdown" id="color-dd-iphone"></div>
+  </div>
 
   <div class="sort-wrap">
     <button class="filter" id="btn-clear-filters" onclick="clearFilters()" style="display:none">✕ Limpiar filtros</button>
@@ -307,6 +320,7 @@ const familias = [
     pantalla: 6.1,
     hz: null, usb: null, zoom: null,
     preventa: false,
+    colores: null,
     variantes: [
       {
         id: 'apple-iphone-17e-256gb-esim-ml-1',
@@ -352,6 +366,7 @@ const familias = [
     pantalla: 6.3,
     hz: null, usb: null, zoom: null,
     preventa: false,
+    colores: null,
     variantes: [
       {
         id: 'apple-iphone-17-256gb-esim-ml-2',
@@ -397,6 +412,7 @@ const familias = [
     pantalla: 6.5,
     hz: null, usb: null, zoom: null,
     preventa: false,
+    colores: null,
     variantes: [
       {
         id: 'apple-iphone-air-256gb-esim-ml-1',
@@ -425,6 +441,7 @@ const familias = [
     pantalla: 6.3,
     hz: null, usb: null, zoom: null,
     preventa: false,
+    colores: null,
     variantes: [
       {
         id: 'apple-iphone-17-pro-256gb-esim',
@@ -486,6 +503,7 @@ const familias = [
     pantalla: 6.9,
     hz: null, usb: null, zoom: null,
     preventa: false,
+    colores: null,
     variantes: [
       {
         id: 'apple-iphone-17-pro-max-256gb-esim-ml-2',
@@ -565,6 +583,7 @@ const familias = [
     pantalla: 6.3,
     hz: 120, usb: 3, zoom: 16,
     preventa: true,
+    colores: ['Negro', 'Plateado'],
     variantes: [
       {
         id: 'apple-iphone-18-pro-256gb-esim',
@@ -610,6 +629,7 @@ const familias = [
     pantalla: 6.9,
     hz: 120, usb: 3, zoom: 16,
     preventa: true,
+    colores: ['Negro'],
     variantes: [
       {
         id: 'apple-iphone-18-pro-max-256gb-esim-ml-1',
@@ -657,6 +677,7 @@ const familias = [
     pantalla: 6.1,
     hz: 60, usb: 2, zoom: null,
     preventa: false,
+    colores: ['Negro', 'Blanco', 'Azul'],
     variantes: [
       {
         id: 'apple-iphone-16e-128gb',
@@ -702,6 +723,7 @@ const familias = [
     pantalla: 6.1,
     hz: 60, usb: 2, zoom: 2,
     preventa: false,
+    colores: ['Negro', 'Azul', 'Verde', 'Amarillo', 'Rosa'],
     variantes: [
       {
         id: 'apple-iphone-15-128gb',
@@ -747,6 +769,7 @@ const familias = [
     pantalla: 6.1,
     hz: 60, usb: 2, zoom: 2,
     preventa: false,
+    colores: ['Negro', 'Blanco', 'Rosa', 'Verde', 'Azul'],
     variantes: [
       {
         id: 'apple-iphone-16-128gb',
@@ -792,6 +815,7 @@ const familias = [
     pantalla: 6.7,
     hz: 60, usb: 2, zoom: 2,
     preventa: false,
+    colores: ['Negro', 'Blanco', 'Rosa', 'Verde', 'Azul'],
     variantes: [
       {
         id: 'apple-iphone-16-plus-128gb-ml-3',
@@ -837,6 +861,7 @@ const familias = [
     pantalla: null,
     hz: 60, usb: 2, zoom: 2,
     preventa: false,
+    colores: ['Negro', 'Azul', 'Verde', 'Amarillo', 'Rosa'],
     reacondicionado: true,
     estadoReacondicionado: 'Excelente',
     variantes: [
@@ -871,6 +896,7 @@ const familias = [
     pantalla: 6.3,
     hz: 120, usb: 3, zoom: 5,
     preventa: false,
+    colores: ['Negro', 'Blanco', 'Desierto', 'Natural'],
     reacondicionado: true,
     estadoReacondicionado: 'Amazon Renewed',
     variantes: [
@@ -934,6 +960,7 @@ const familias = [
     pantalla: 6.1,
     hz: 60, usb: 2, zoom: null,
     preventa: false,
+    colores: ['Negro', 'Blanco', 'Azul'],
     reacondicionado: true,
     estadoReacondicionado: 'Amazon Renewed',
     variantes: [
@@ -975,6 +1002,7 @@ const familias = [
     pantalla: 6.1,
     hz: 120, usb: 3, zoom: 3,
     preventa: false,
+    colores: ['Negro', 'Azul', 'Natural', 'Blanco'],
     reacondicionado: true,
     estadoReacondicionado: 'Amazon Renewed',
     variantes: [
@@ -1038,6 +1066,7 @@ const familias = [
     pantalla: 6.7,
     hz: 120, usb: 3, zoom: 5,
     preventa: false,
+    colores: ['Negro', 'Azul', 'Natural', 'Blanco'],
     reacondicionado: true,
     estadoReacondicionado: 'Amazon Renewed',
     variantes: [
@@ -1077,6 +1106,7 @@ const familias = [
     pantalla: 6.1,
     hz: 60, usb: 2, zoom: 2,
     preventa: false,
+    colores: ['Negro', 'Azul', 'Verde', 'Amarillo', 'Rosa'],
     reacondicionado: true,
     estadoReacondicionado: 'Amazon Renewed',
     variantes: [
@@ -1118,6 +1148,7 @@ const familias = [
     pantalla: 6.1,
     hz: 60, usb: 2, zoom: 2,
     preventa: false,
+    colores: ['Negro', 'Blanco', 'Azul', 'Morado', 'Rojo', 'Amarillo'],
     reacondicionado: true,
     estadoReacondicionado: 'Amazon Renewed',
     variantes: [
@@ -1157,6 +1188,7 @@ const familias = [
     pantalla: 6.1,
     hz: 120, usb: 2, zoom: 3,
     preventa: false,
+    colores: ['Negro', 'Plata', 'Dorado', 'Morado'],
     reacondicionado: true,
     estadoReacondicionado: 'Amazon Renewed',
     variantes: [
@@ -1268,7 +1300,58 @@ function btnsHTML(variante) {
 // ─────────────────────────────────────────────────────────────────────────────
 // RENDER GRID
 // ─────────────────────────────────────────────────────────────────────────────
-const filterState = { serie: 'todos', condicion: 'todos' };
+const filterState = { serie: 'todos', condicion: 'todos', color: 'todos' };
+
+const COLOR_SWATCHES = {
+  'Negro':    '#1c1c1e',
+  'Blanco':   '#f0ede8',
+  'Azul':     '#4a6fa5',
+  'Rosa':     '#e8a0b0',
+  'Verde':    '#4a8b8a',
+  'Amarillo': '#f9d67c',
+  'Morado':   '#8b5cf6',
+  'Rojo':     '#c8282e',
+  'Natural':  '#c4b4a0',
+  'Desierto': '#c5a882',
+  'Dorado':   '#c5a04a',
+  'Plata':    '#c8c8c8',
+  'Plateado': '#c8c8c8',
+};
+
+function buildColorDropdown() {
+  const all = new Set();
+  familias.forEach(f => { if (f.colores) f.colores.forEach(c => all.add(c)); });
+  const sorted = [...all].sort();
+  const dd = document.getElementById('color-dd-iphone');
+  dd.innerHTML = `<div class="color-opt on" onclick="applyColor('todos',this)">
+    <span class="color-swatch" style="background:#e2e2dc"></span> Todos</div>` +
+    sorted.map(c => `<div class="color-opt" onclick="applyColor('${c}',this)">
+      <span class="color-swatch" style="background:${COLOR_SWATCHES[c]||'#aaa'}"></span> ${c}</div>`).join('');
+}
+
+function toggleColorDropdown() {
+  const dd = document.getElementById('color-dd-iphone');
+  dd.classList.toggle('open');
+}
+
+function applyColor(color, el) {
+  filterState.color = color;
+  document.querySelectorAll('#color-dd-iphone .color-opt').forEach(x => x.classList.remove('on'));
+  el.classList.add('on');
+  const btn = document.getElementById('btn-color-iphone');
+  if (color === 'todos') { btn.textContent = 'Todos ▾'; btn.classList.remove('on'); }
+  else { btn.textContent = color + ' ▾'; btn.classList.add('on'); }
+  document.getElementById('color-dd-iphone').classList.remove('open');
+  const dirty = filterState.serie !== 'todos' || filterState.condicion !== 'todos' || filterState.color !== 'todos';
+  document.getElementById('btn-clear-filters').style.display = dirty ? '' : 'none';
+  render();
+}
+
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.color-filter-wrap')) {
+    document.getElementById('color-dd-iphone').classList.remove('open');
+  }
+});
 
 function toggleFilter(key, val, btn) {
   filterState[key] = val;
@@ -1277,7 +1360,7 @@ function toggleFilter(key, val, btn) {
   );
   group.forEach(b => b.classList.remove('on'));
   btn.classList.add('on');
-  const dirty = filterState.serie !== 'todos' || filterState.condicion !== 'todos';
+  const dirty = filterState.serie !== 'todos' || filterState.condicion !== 'todos' || filterState.color !== 'todos';
   document.getElementById('btn-clear-filters').style.display = dirty ? '' : 'none';
   render();
 }
@@ -1285,9 +1368,13 @@ function toggleFilter(key, val, btn) {
 function clearFilters() {
   filterState.serie = 'todos';
   filterState.condicion = 'todos';
+  filterState.color = 'todos';
   document.getElementById('search').value = '';
   document.querySelectorAll('.filter.on').forEach(b => b.classList.remove('on'));
   document.querySelectorAll('.filter[onclick*="\'todos\'"]').forEach(b => b.classList.add('on'));
+  document.getElementById('btn-color-iphone').textContent = 'Todos ▾';
+  document.getElementById('btn-color-iphone').classList.remove('on');
+  document.querySelectorAll('#color-dd-iphone .color-opt').forEach((x,i) => x.classList.toggle('on', i===0));
   document.getElementById('btn-clear-filters').style.display = 'none';
   render();
 }
@@ -1300,6 +1387,7 @@ function render() {
     if (filterState.serie !== 'todos' && f.serie !== filterState.serie) return false;
     if (filterState.condicion === 'nuevo'   &&  f.reacondicionado) return false;
     if (filterState.condicion === 'reacond' && !f.reacondicionado) return false;
+    if (filterState.color !== 'todos' && f.colores && !f.colores.includes(filterState.color)) return false;
     if (q && !f.nombre.toLowerCase().includes(q)) return false;
     return true;
   });
@@ -1584,6 +1672,7 @@ function closeModal() {
 // ─────────────────────────────────────────────────────────────────────────────
 // INIT
 // ─────────────────────────────────────────────────────────────────────────────
+buildColorDropdown();
 render();
 </script>
 
