@@ -32,15 +32,15 @@
 
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
- {"@type":"WebSite","@id":"https://comparalo.mx/#website","url":"https://comparalo.mx/","name":"comparalo.mx","description":"Comparador de precios en México: Amazon MX y Mercado Libre","inLanguage":"es-MX","publisher":{"@id":"https://comparalo.mx/#organization"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://comparalo.mx/suplementos/?q={search_term_string}"},"query-input":"required name=search_term_string"}},
+ {"@type":"WebSite","@id":"https://comparalo.mx/#website","url":"https://comparalo.mx/","name":"comparalo.mx","description":"Comparador de precios en México: Amazon MX y Mercado Libre","inLanguage":"es-MX","publisher":{"@id":"https://comparalo.mx/#organization"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://comparalo.mx/suplementos?q={search_term_string}"},"query-input":"required name=search_term_string"}},
  {"@type":"Organization","@id":"https://comparalo.mx/#organization","name":"comparalo.mx","url":"https://comparalo.mx/","logo":{"@type":"ImageObject","url":"https://comparalo.mx/logopng.png","width":1254,"height":1254},"areaServed":{"@type":"Country","name":"México"}},
  {"@type":"CollectionPage","@id":"https://comparalo.mx/#webpage","url":"https://comparalo.mx/","name":"comparalo.mx — Compara precios en Amazon MX y Mercado Libre","isPartOf":{"@id":"https://comparalo.mx/#website"},"about":{"@id":"https://comparalo.mx/#organization"},"inLanguage":"es-MX"},
  {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://comparalo.mx/"}]},
  {"@type":"ItemList","name":"Categorías comparadas en comparalo.mx","itemListElement":[
-  {"@type":"ListItem","position":1,"name":"Suplementos","url":"https://comparalo.mx/suplementos/"},
-  {"@type":"ListItem","position":2,"name":"Bicicletas","url":"https://comparalo.mx/bicis/"},
-  {"@type":"ListItem","position":3,"name":"Laptops","url":"https://comparalo.mx/laptops/"},
-  {"@type":"ListItem","position":4,"name":"Electrodomésticos","url":"https://comparalo.mx/electrodomesticos/"}]},
+  {"@type":"ListItem","position":1,"name":"Suplementos","url":"https://comparalo.mx/suplementos"},
+  {"@type":"ListItem","position":2,"name":"Bicicletas","url":"https://comparalo.mx/bicis"},
+  {"@type":"ListItem","position":3,"name":"Laptops","url":"https://comparalo.mx/laptops"},
+  {"@type":"ListItem","position":4,"name":"Electrodomésticos","url":"https://comparalo.mx/electrodomesticos"}]},
  {"@type":"ItemList","name":"Guías y artículos de comparalo.mx","itemListElement":[
   {"@type":"ListItem","position":1,"name":"Las 53 creatinas más vendidas en México 2026: marcas, precios y plataformas","url":"https://comparalo.mx/creatina-mexico-2026-cual-comprar.html"},
   {"@type":"ListItem","position":2,"name":"Creatina monohidratada México 2026: guía completa, dosis y tipos","url":"https://comparalo.mx/creatina-monohidratada-mexico-2026-guia-completa.html"},
@@ -251,14 +251,14 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
       <span>comparalo<i>.mx</i></span>
     </a>
     <div class="nav-links">
-      <a href="/bicis/">Bicicletas</a>
-      <a href="/suplementos/">Suplementos</a>
-      <a href="/electrodomesticos/">Electrodomésticos</a>
-      <a href="/laptops/">Laptops</a>
-      <a href="/celulares/">Celulares</a>
-      <a href="/celulares/iphone/">iPhones</a>
+      <a href="/bicis">Bicicletas</a>
+      <a href="/suplementos">Suplementos</a>
+      <a href="/electrodomesticos">Electrodomésticos</a>
+      <a href="/laptops">Laptops</a>
+      <a href="/celulares">Celulares</a>
+      <a href="/celulares/iphone">iPhones</a>
     </div>
-    <form class="nav-search" action="/suplementos/" method="get" role="search">
+    <form class="nav-search" action="/suplementos" method="get" role="search">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
       <label class="skip" for="q-nav">Buscar producto</label>
       <input id="q-nav" name="q" type="search" placeholder="Buscar…">
@@ -268,24 +268,24 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
     </button>
   </nav>
   <div class="nav-panel" id="nav-panel" data-open="0">
-    <form action="/suplementos/" method="get" role="search">
+    <form action="/suplementos" method="get" role="search">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
       <label class="skip" for="q-panel">Buscar producto</label>
       <input id="q-panel" name="q" type="search" placeholder="¿Qué quieres comparar?">
     </form>
     <ul>
-      <li><a href="/suplementos/">Suplementos</a></li>
-      <li><a href="/bicis/">Bicicletas</a></li>
-      <li><a href="/electrodomesticos/">Electrodomésticos</a></li>
-      <li><a href="/laptops/">Laptops</a></li>
+      <li><a href="/suplementos">Suplementos</a></li>
+      <li><a href="/bicis">Bicicletas</a></li>
+      <li><a href="/electrodomesticos">Electrodomésticos</a></li>
+      <li><a href="/laptops">Laptops</a></li>
       <li><a href="#metodo">Cómo comparamos</a></li>
     </ul>
   </div>
   <div class="chips" id="m-chips">
-    <a href="/suplementos/">Suplementos</a>
-    <a href="/bicis/">Bicicletas</a>
-    <a href="/electrodomesticos/">Electrodomésticos</a>
-    <a href="/laptops/">Laptops</a>
+    <a href="/suplementos">Suplementos</a>
+    <a href="/bicis">Bicicletas</a>
+    <a href="/electrodomesticos">Electrodomésticos</a>
+    <a href="/laptops">Laptops</a>
   </div>
 </header>
 
@@ -302,22 +302,22 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
     <h1>Antes de comprar en México, <em>compara</em></h1>
     <p class="lead">Buscamos el mismo producto en Amazon MX y Mercado Libre y te mostramos precio, calidad y características para que decidas con lo que a ti te importa.</p>
     <div class="searchbox-wrap" id="searchWrap">
-      <form class="searchbox" action="/suplementos/" method="get" role="search">
+      <form class="searchbox" action="/suplementos" method="get" role="search">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         <label class="skip" for="q-hero">¿Qué quieres comparar?</label>
         <input id="q-hero" name="q" type="search" placeholder="¿Qué quieres comparar?" autocomplete="off" onfocus="openSearchDrop()" oninput="filterSearchDrop(this.value)">
       </form>
       <div class="search-dropdown" id="searchDrop">
         <div class="search-dropdown-label">Nuestras comparativas</div>
-        <a href="/suplementos/" data-search="suplementos proteína creatina magnesio complejo b omega"><span class="sd-icon">💊</span><span>Suplementos<span class="sd-sub">Proteína, Creatina, Magnesio, Complejo B, Omega 3</span></span></a>
-        <a href="/bicis/" data-search="bicicletas bici ciclismo"><span class="sd-icon">🚲</span><span>Bicicletas<span class="sd-sub">Urbanas, eléctricas, montaña</span></span></a>
-        <a href="/laptops/" data-search="laptops computadoras notebooks universidad gamer"><span class="sd-icon">💻</span><span>Laptops<span class="sd-sub">Universidad, gaming, trabajo</span></span></a>
-        <a href="/electrodomesticos/" data-search="electrodomesticos microondas freidoras aire"><span class="sd-icon">🏠</span><span>Electrodomésticos<span class="sd-sub">Microondas, freidoras de aire</span></span></a>
-        <a href="/suplementos/magnesio/" data-search="magnesio citrato bisglicinato complejo"><span class="sd-icon">🧴</span><span>Magnesio<span class="sd-sub">Citrato, Bisglicinato, L-Treonato</span></span></a>
-        <a href="/suplementos/creatina/" data-search="creatina monohidratada micronizada"><span class="sd-icon">💪</span><span>Creatina<span class="sd-sub">Monohidratada, micronizada</span></span></a>
+        <a href="/suplementos" data-search="suplementos proteína creatina magnesio complejo b omega"><span class="sd-icon">💊</span><span>Suplementos<span class="sd-sub">Proteína, Creatina, Magnesio, Complejo B, Omega 3</span></span></a>
+        <a href="/bicis" data-search="bicicletas bici ciclismo"><span class="sd-icon">🚲</span><span>Bicicletas<span class="sd-sub">Urbanas, eléctricas, montaña</span></span></a>
+        <a href="/laptops" data-search="laptops computadoras notebooks universidad gamer"><span class="sd-icon">💻</span><span>Laptops<span class="sd-sub">Universidad, gaming, trabajo</span></span></a>
+        <a href="/electrodomesticos" data-search="electrodomesticos microondas freidoras aire"><span class="sd-icon">🏠</span><span>Electrodomésticos<span class="sd-sub">Microondas, freidoras de aire</span></span></a>
+        <a href="/suplementos/magnesio" data-search="magnesio citrato bisglicinato complejo"><span class="sd-icon">🧴</span><span>Magnesio<span class="sd-sub">Citrato, Bisglicinato, L-Treonato</span></span></a>
+        <a href="/suplementos/creatina" data-search="creatina monohidratada micronizada"><span class="sd-icon">💪</span><span>Creatina<span class="sd-sub">Monohidratada, micronizada</span></span></a>
         <a href="/proteina.html" data-search="proteina whey concentrada aislada vegana"><span class="sd-icon">🥛</span><span>Proteína Whey<span class="sd-sub">Concentrada, aislada, vegana</span></span></a>
         <a href="/microondas.html" data-search="microondas horno"><span class="sd-icon">📡</span><span>Microondas<span class="sd-sub">Básico, grill, convección</span></span></a>
-        <a href="/electrodomesticos/freidoras/" data-search="freidoras aire airfryer"><span class="sd-icon">🍟</span><span>Freidoras de Aire<span class="sd-sub">Sin aceite, digital, compactas</span></span></a>
+        <a href="/electrodomesticos/freidoras" data-search="freidoras aire airfryer"><span class="sd-icon">🍟</span><span>Freidoras de Aire<span class="sd-sub">Sin aceite, digital, compactas</span></span></a>
       </div>
     </div>
     <script>
@@ -330,7 +330,7 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
     document.addEventListener('click',function(e){if(!document.getElementById('searchWrap').contains(e.target))document.getElementById('searchDrop').classList.remove('open')});
     </script>
     <div class="hero-cta">
-      <a class="btn" href="/suplementos/">Ver comparativas</a>
+      <a class="btn" href="/suplementos">Ver comparativas</a>
       <a class="btn2" href="#metodo">Cómo comparamos</a>
     </div>
   </div>
@@ -357,7 +357,7 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
       <p>Suplementos, bicicletas, laptops y electrodomésticos</p>
     </div>
     <div class="cats-grid">
-      <a class="cat cat-big" href="/suplementos/" title="Comparar precios de suplementos en Amazon MX y Mercado Libre">
+      <a class="cat cat-big" href="/suplementos" title="Comparar precios de suplementos en Amazon MX y Mercado Libre">
         <div class="photo" data-ph=""><img src="/fotos/imgsuplementos.png" alt="Suplementos deportivos comparados en Amazon México y Mercado Libre" width="900" height="600" loading="eager" style="object-position:center 30%"></div>
         <div class="scrim"></div>
         <div class="body">
@@ -368,14 +368,14 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
         </div>
       </a>
       <div class="cat-col">
-        <a class="cat cat-sm cat-bici" href="/bicis/" title="Comparar precios de bicicletas en Amazon MX y Mercado Libre">
+        <a class="cat cat-sm cat-bici" href="/bicis" title="Comparar precios de bicicletas en Amazon MX y Mercado Libre">
           <div class="body">
             <div><h3>Bicicletas</h3><div class="subs"><span>Eléctricas</span><span>MTB</span><span>Ruta</span></div></div>
             <div class="go">Ver bicicletas →</div>
           </div>
           <div class="thumb"><img src="/fotos/imgbicicletas.png" alt="Bicicletas comparadas en Amazon México y Mercado Libre" loading="lazy" style="object-position:center 40%"></div>
         </a>
-        <a class="cat cat-sm cat-lap" href="/laptops/" title="Comparar precios de laptops en Amazon MX y Mercado Libre">
+        <a class="cat cat-sm cat-lap" href="/laptops" title="Comparar precios de laptops en Amazon MX y Mercado Libre">
           <div class="body">
             <div><h3>Laptops</h3><div class="subs"><span>HP</span><span>Dell</span><span>Lenovo</span><span>Asus</span></div></div>
             <div class="go">Ver laptops →</div>
@@ -385,14 +385,14 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
       </div>
     </div>
     <div class="cats-row2">
-      <a class="cat cat-sm cat-cel" href="/celulares/" title="Comparar precios de celulares en Amazon MX y Mercado Libre">
+      <a class="cat cat-sm cat-cel" href="/celulares" title="Comparar precios de celulares en Amazon MX y Mercado Libre">
         <div class="body">
           <div><h3>Celulares</h3><div class="subs"><span>Smartphones</span><span>Alta Gama</span><span>iPhone</span></div></div>
           <div class="go">Ver celulares →</div>
         </div>
         <div class="thumb"><img src="/fotos/imgcelulares.png" alt="Celulares comparados en Amazon México y Mercado Libre" loading="lazy" style="object-position:center center"></div>
       </a>
-      <a class="cat cat-sm cat-elec" href="/electrodomesticos/" title="Comparar precios de electrodomésticos en Amazon MX y Mercado Libre">
+      <a class="cat cat-sm cat-elec" href="/electrodomesticos" title="Comparar precios de electrodomésticos en Amazon MX y Mercado Libre">
         <div class="body">
           <div><h3>Electrodomésticos</h3><div class="subs"><span>Freidoras de aire</span><span>Microondas</span><span>Lavadoras</span></div></div>
           <div class="go">Ver electrodomésticos →</div>
@@ -496,10 +496,10 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
       <div>
         <h2>Categorías</h2>
         <ul>
-          <li><a href="/suplementos/">Suplementos</a></li>
-          <li><a href="/bicis/">Bicicletas</a></li>
-          <li><a href="/laptops/">Laptops</a></li>
-          <li><a href="/electrodomesticos/">Electrodomésticos</a></li>
+          <li><a href="/suplementos">Suplementos</a></li>
+          <li><a href="/bicis">Bicicletas</a></li>
+          <li><a href="/laptops">Laptops</a></li>
+          <li><a href="/electrodomesticos">Electrodomésticos</a></li>
         </ul>
       </div>
       <div>
