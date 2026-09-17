@@ -400,9 +400,9 @@ footer a{color:var(--ac);text-decoration:none}
       <button class="chip active" data-tipo="todos" onclick="setFiltro('todos',this)">Todos</button>
       <button class="chip" data-tipo="vitaminas" onclick="setFiltro('vitaminas',this)">Omega 3 / Vitaminas</button>
       <button class="chip" data-tipo="complejo-b" onclick="setFiltro('complejo-b',this)">Complejo B</button>
-      <a class="chip" href="/suplementos/magnesio" onclick="irCategoria(event,'magnesio')">🧲 Magnesio</a>
+      <a class="chip" href="/suplementosmagnesio" onclick="irCategoria(event,'magnesio')">🧲 Magnesio</a>
       <a class="chip" href="/suplementosproteina" onclick="irCategoria(event,'proteina')">💪 Proteína</a>
-      <a class="chip" href="/suplementos/creatina">⚡ Creatina</a>
+      <a class="chip" href="/suplementoscreatina">⚡ Creatina</a>
     </div>
     <div class="filter-group" id="sort-chips" style="display:none;">
       <button class="chip chip-sort active" data-sort="precio-asc"  onclick="setSort('precio-asc',this)">Precio más bajo</button>
@@ -510,7 +510,7 @@ footer a{color:var(--ac);text-decoration:none}
     <p style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#006847;margin-bottom:8px;">Guías</p>
     <h2 style="font-size:22px;font-weight:800;letter-spacing:-.8px;color:#0F172A;margin-bottom:22px;">Artículos relacionados</h2>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;">
-      <a href="articulo-suplementos-por-edad-mexico-2026.html" style="display:flex;flex-direction:column;border:1px solid #e2e2dc;border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;background:#fff;transition:box-shadow .2s,transform .15s;" onmouseenter="this.style.boxShadow='0 4px 20px rgba(0,0,0,.08)';this.style.transform='translateY(-2px)'" onmouseleave="this.style.boxShadow='';this.style.transform=''">
+      <a href="/suplementossuplementos-por-edad" style="display:flex;flex-direction:column;border:1px solid #e2e2dc;border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;background:#fff;transition:box-shadow .2s,transform .15s;" onmouseenter="this.style.boxShadow='0 4px 20px rgba(0,0,0,.08)';this.style.transform='translateY(-2px)'" onmouseleave="this.style.boxShadow='';this.style.transform=''">
         <div style="height:90px;background:linear-gradient(135deg,#006847 0%,#004d34 100%);display:flex;align-items:center;justify-content:center;">
           <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=70" alt="Suplementos por edad" style="width:100%;height:100%;object-fit:cover;">
         </div>
@@ -519,7 +519,7 @@ footer a{color:var(--ac);text-decoration:none}
           <div style="font-size:13px;font-weight:700;color:#0F172A;line-height:1.35;margin-top:4px;">¿Qué suplementos tomar según tu edad en México? Guía 2026</div>
         </div>
       </a>
-      <a href="proteina-whey-mexico-2026-cual-comprar-segun-objetivo.html" style="display:flex;flex-direction:column;border:1px solid #e2e2dc;border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;background:#fff;transition:box-shadow .2s,transform .15s;" onmouseenter="this.style.boxShadow='0 4px 20px rgba(0,0,0,.08)';this.style.transform='translateY(-2px)'" onmouseleave="this.style.boxShadow='';this.style.transform=''">
+      <a href="/suplementos/proteinaproteina-whey-cual-comprar" style="display:flex;flex-direction:column;border:1px solid #e2e2dc;border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;background:#fff;transition:box-shadow .2s,transform .15s;" onmouseenter="this.style.boxShadow='0 4px 20px rgba(0,0,0,.08)';this.style.transform='translateY(-2px)'" onmouseleave="this.style.boxShadow='';this.style.transform=''">
         <div style="height:90px;overflow:hidden;">
           <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400&q=70" alt="Proteína Whey" style="width:100%;height:100%;object-fit:cover;">
         </div>
@@ -528,7 +528,7 @@ footer a{color:var(--ac);text-decoration:none}
           <div style="font-size:13px;font-weight:700;color:#0F172A;line-height:1.35;margin-top:4px;">Proteína Whey en México 2026: cuál comprar según tu objetivo</div>
         </div>
       </a>
-      <a href="tipos-de-magnesio-cual-comprar-mexico-2026.html" style="display:flex;flex-direction:column;border:1px solid #e2e2dc;border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;background:#fff;transition:box-shadow .2s,transform .15s;" onmouseenter="this.style.boxShadow='0 4px 20px rgba(0,0,0,.08)';this.style.transform='translateY(-2px)'" onmouseleave="this.style.boxShadow='';this.style.transform=''">
+      <a href="/suplementos/magnesiotipos-de-magnesio-cual-comprar" style="display:flex;flex-direction:column;border:1px solid #e2e2dc;border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;background:#fff;transition:box-shadow .2s,transform .15s;" onmouseenter="this.style.boxShadow='0 4px 20px rgba(0,0,0,.08)';this.style.transform='translateY(-2px)'" onmouseleave="this.style.boxShadow='';this.style.transform=''">
         <div style="height:90px;overflow:hidden;">
           <img src="https://images.unsplash.com/photo-1520206183501-b80df61043c2?w=400&q=70" alt="Magnesio" style="width:100%;height:100%;object-fit:cover;">
         </div>
@@ -537,7 +537,7 @@ footer a{color:var(--ac);text-decoration:none}
           <div style="font-size:13px;font-weight:700;color:#0F172A;line-height:1.35;margin-top:4px;">Tipos de Magnesio en México 2026: Cuál Comprar Según tu Objetivo</div>
         </div>
       </a>
-      <a href="proteina-concentrada-vs-aislada-vs-vegana-mexico-2026.html" style="display:flex;flex-direction:column;border:1px solid #e2e2dc;border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;background:#fff;transition:box-shadow .2s,transform .15s;" onmouseenter="this.style.boxShadow='0 4px 20px rgba(0,0,0,.08)';this.style.transform='translateY(-2px)'" onmouseleave="this.style.boxShadow='';this.style.transform=''">
+      <a href="/suplementos/proteinaproteina-concentrada-vs-aislada-vs-vegana" style="display:flex;flex-direction:column;border:1px solid #e2e2dc;border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;background:#fff;transition:box-shadow .2s,transform .15s;" onmouseenter="this.style.boxShadow='0 4px 20px rgba(0,0,0,.08)';this.style.transform='translateY(-2px)'" onmouseleave="this.style.boxShadow='';this.style.transform=''">
         <div style="height:90px;overflow:hidden;">
           <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=70" alt="Proteína concentrada vs aislada vs vegana" style="width:100%;height:100%;object-fit:cover;">
         </div>
@@ -546,7 +546,7 @@ footer a{color:var(--ac);text-decoration:none}
           <div style="font-size:13px;font-weight:700;color:#0F172A;line-height:1.35;margin-top:4px;">Proteína Concentrada vs Aislada vs Vegana en México 2026: Cuál Elegir</div>
         </div>
       </a>
-      <a href="mejor-proteina-vegana-mexico-2026.html" style="display:flex;flex-direction:column;border:1px solid #e2e2dc;border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;background:#fff;transition:box-shadow .2s,transform .15s;" onmouseenter="this.style.boxShadow='0 4px 20px rgba(0,0,0,.08)';this.style.transform='translateY(-2px)'" onmouseleave="this.style.boxShadow='';this.style.transform=''">
+      <a href="/suplementos/proteinamejor-proteina-vegana" style="display:flex;flex-direction:column;border:1px solid #e2e2dc;border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;background:#fff;transition:box-shadow .2s,transform .15s;" onmouseenter="this.style.boxShadow='0 4px 20px rgba(0,0,0,.08)';this.style.transform='translateY(-2px)'" onmouseleave="this.style.boxShadow='';this.style.transform=''">
         <div style="height:90px;overflow:hidden;">
           <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400&q=70" alt="Mejor proteína vegana México" style="width:100%;height:100%;object-fit:cover;">
         </div>
@@ -570,8 +570,8 @@ footer a{color:var(--ac);text-decoration:none}
       <div style="display:flex;flex-direction:column;gap:9px;">
         <a href="/bicis" style="font-size:13px;color:#64748b;text-decoration:none;">Bicicletas</a>
         <a href="/suplementos" style="font-size:13px;color:#64748b;text-decoration:none;">Suplementos</a>
-        <a href="/suplementos/magnesio" style="font-size:13px;color:#64748b;text-decoration:none;">Magnesio</a>
-        <a href="/suplementos/creatina" style="font-size:13px;color:#64748b;text-decoration:none;">Creatina</a>
+        <a href="/suplementosmagnesio" style="font-size:13px;color:#64748b;text-decoration:none;">Magnesio</a>
+        <a href="/suplementoscreatina" style="font-size:13px;color:#64748b;text-decoration:none;">Creatina</a>
         <a href="/electrodomesticos" style="font-size:13px;color:#64748b;text-decoration:none;">Electrodomésticos</a>
         <a href="/laptops" style="font-size:13px;color:#64748b;text-decoration:none;">Laptops</a>
       <a href="/celulares.html">Celulares</a>
@@ -581,18 +581,18 @@ footer a{color:var(--ac);text-decoration:none}
     <div>
       <p style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#94a3b8;margin-bottom:12px;">Guías</p>
       <div style="display:flex;flex-direction:column;gap:9px;">
-        <a href="articulo-suplementos-por-edad-mexico-2026.html" style="font-size:13px;color:#64748b;text-decoration:none;">Suplementos por edad</a>
-        <a href="suplementos-mas-comprados-mexico-2026.html" style="font-size:13px;color:#64748b;text-decoration:none;">Más comprados 2026</a>
-        <a href="tipos-de-magnesio-cual-comprar-mexico-2026.html" style="font-size:13px;color:#64748b;text-decoration:none;">Tipos de magnesio</a>
-        <a href="proteina-whey-mexico-2026-cual-comprar-segun-objetivo.html" style="font-size:13px;color:#64748b;text-decoration:none;">Proteína Whey 2026</a>
+        <a href="/suplementossuplementos-por-edad" style="font-size:13px;color:#64748b;text-decoration:none;">Suplementos por edad</a>
+        <a href="/suplementossuplementos-mas-comprados" style="font-size:13px;color:#64748b;text-decoration:none;">Más comprados 2026</a>
+        <a href="/suplementos/magnesiotipos-de-magnesio-cual-comprar" style="font-size:13px;color:#64748b;text-decoration:none;">Tipos de magnesio</a>
+        <a href="/suplementos/proteinaproteina-whey-cual-comprar" style="font-size:13px;color:#64748b;text-decoration:none;">Proteína Whey 2026</a>
       </div>
     </div>
     <div>
       <p style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#94a3b8;margin-bottom:12px;">Legal</p>
       <div style="display:flex;flex-direction:column;gap:9px;">
-        <a href="privacidad.html" style="font-size:13px;color:#64748b;text-decoration:none;">Privacidad</a>
-        <a href="terminos.html" style="font-size:13px;color:#64748b;text-decoration:none;">Términos de uso</a>
-        <a href="aviso-afiliados.html" style="font-size:13px;color:#64748b;text-decoration:none;">Aviso de afiliados</a>
+        <a href="/privacidad" style="font-size:13px;color:#64748b;text-decoration:none;">Privacidad</a>
+        <a href="/terminos" style="font-size:13px;color:#64748b;text-decoration:none;">Términos de uso</a>
+        <a href="/aviso-afiliados" style="font-size:13px;color:#64748b;text-decoration:none;">Aviso de afiliados</a>
       </div>
     </div>
   </div>
