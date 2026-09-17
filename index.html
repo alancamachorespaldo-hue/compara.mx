@@ -155,9 +155,8 @@ h1 em{font-style:normal;color:var(--ac)}
 .cat .go{font-weight:700;font-size:12px;margin-top:14px}
 .cat-big{background:var(--ac2);min-height:220px}
 .cat-big .photo{position:absolute;inset:0;background:repeating-linear-gradient(45deg,#0a3a29 0 10px,#0d4531 10px 20px)}
-.cat-big .photo::after,.cat-sm .thumb::after,.cat-elec .thumb::after{content:attr(data-ph);display:block;padding:8px;font:500 7.5px ui-monospace,Menlo,monospace;letter-spacing:.05em;color:rgba(255,255,255,.4);text-align:center}
-.cat-elec .thumb::after{color:#A8B4AE}
-.cat-big .photo:has(img)::after,.cat-sm .thumb:has(img)::after,.cat-elec .thumb:has(img)::after{display:none}
+.cat-big .photo::after,.cat-sm .thumb::after{content:attr(data-ph);display:block;padding:8px;font:500 7.5px ui-monospace,Menlo,monospace;letter-spacing:.05em;color:rgba(255,255,255,.4);text-align:center}
+.cat-big .photo:has(img)::after,.cat-sm .thumb:has(img)::after{display:none}
 .cat-big .photo img{width:100%;height:100%;object-fit:cover;display:block}
 .cat-big .scrim{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,30,18,.92) 38%,rgba(0,30,18,.25) 75%,rgba(0,30,18,.1) 100%)}
 .cat-big .body{position:relative;padding:24px;display:flex;flex-direction:column;justify-content:flex-end;flex:1}
@@ -173,12 +172,11 @@ h1 em{font-style:normal;color:var(--ac)}
 .cat-bici .go{color:#6EE7B7}
 .cat-lap{background:var(--tx)}
 .cat-lap .go{color:#93C5FD}
-.cat-elec{background:#fff;border:1px solid #DCE6E1;margin-top:14px;padding:20px 22px;align-items:center;gap:18px}
-.cat-elec .thumb{width:120px;height:90px;flex-shrink:0;border-radius:10px;overflow:hidden;background:repeating-linear-gradient(45deg,#EEF1EF 0 8px,#F8FAF9 8px 16px)}
-.cat-elec .thumb img{width:100%;height:100%;object-fit:cover;display:block}
-.cat-elec h3{color:var(--tx);font-size:19px;margin-bottom:6px}
-.cat-elec .subs span{color:var(--tx2);background:var(--s1)}
-.cat-elec .go{color:var(--ac);margin-top:0;white-space:nowrap}
+.cat-cel{background:#1a1a2e}
+.cat-cel .go{color:#a5b4fc}
+.cat-elec{background:#7c3d0f}
+.cat-elec .go{color:#fcd34d}
+.cats-row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
 .cat:hover .go{text-decoration:underline}
 
 /* artículos */
@@ -236,8 +234,7 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
   h1{letter-spacing:-1.4px}
   .btn,.btn2{width:100%}
   .cat-sm .thumb{width:76px;height:76px}
-  .cat-elec{flex-direction:row}
-  .cat-elec .thumb{width:76px;height:76px}
+  .cats-row2{grid-template-columns:1fr}
   .cat-elec .go{margin-top:10px}
   .cat-elec .body{flex:1}
   .art .ph,.art img{height:84px}
@@ -387,20 +384,22 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
         </a>
       </div>
     </div>
-    <a class="cat cat-sm cat-elec" href="/celulares.html" style="margin-top:14px">
-      <div class="thumb"><img src="/fotos/imgcelulares.png" alt="Celulares comparados en Amazon México y Mercado Libre" loading="lazy" style="object-position:center center"></div>
-      <div class="body">
-        <div><h3>Celulares</h3><div class="subs"><span>Smartphones</span><span>Alta Gama</span><span>iPhone</span></div></div>
-      </div>
-      <div class="go">Ver celulares →</div>
-    </a>
-    <a class="cat cat-sm cat-elec" href="/electrodomesticos.html" title="Comparar precios de electrodomésticos en Amazon MX y Mercado Libre">
-      <div class="thumb"><img src="/fotos/imgelectrodomesticos.png" alt="Electrodomésticos comparados en Amazon México y Mercado Libre" loading="lazy"></div>
-      <div class="body">
-        <div><h3>Electrodomésticos</h3><div class="subs"><span>Freidoras de aire</span><span>Microondas</span><span>Lavadoras</span></div></div>
-      </div>
-      <div class="go">Ver electrodomésticos →</div>
-    </a>
+    <div class="cats-row2">
+      <a class="cat cat-sm cat-cel" href="/celulares.html" title="Comparar precios de celulares en Amazon MX y Mercado Libre">
+        <div class="body">
+          <div><h3>Celulares</h3><div class="subs"><span>Smartphones</span><span>Alta Gama</span><span>iPhone</span></div></div>
+          <div class="go">Ver celulares →</div>
+        </div>
+        <div class="thumb"><img src="/fotos/imgcelulares.png" alt="Celulares comparados en Amazon México y Mercado Libre" loading="lazy" style="object-position:center center"></div>
+      </a>
+      <a class="cat cat-sm cat-elec" href="/electrodomesticos.html" title="Comparar precios de electrodomésticos en Amazon MX y Mercado Libre">
+        <div class="body">
+          <div><h3>Electrodomésticos</h3><div class="subs"><span>Freidoras de aire</span><span>Microondas</span><span>Lavadoras</span></div></div>
+          <div class="go">Ver electrodomésticos →</div>
+        </div>
+        <div class="thumb"><img src="/fotos/imgelectrodomesticos.png" alt="Electrodomésticos comparados en Amazon México y Mercado Libre" loading="lazy" style="object-position:center 40%"></div>
+      </a>
+    </div>
   </div>
 </section>
 
