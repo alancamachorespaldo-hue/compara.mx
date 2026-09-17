@@ -9,5 +9,20 @@
 </head>
 <body>
 <p>Redirigiendo… <a href="/suplementosmagnesio">Ver comparativa de Magnesio</a></p>
+<script>
+/* GA4 affiliate tracking — event delegation */
+document.addEventListener('click', function(e) {
+  var btn = e.target.closest ? e.target.closest('.btn-amz,.btn-ml') : null;
+  if (!btn || typeof gtag === 'undefined') return;
+  var isAmz = btn.classList.contains('btn-amz');
+  var label = btn.dataset.gaLabel || '';
+  var val   = parseFloat(btn.dataset.gaVal) || 0;
+  gtag('event', isAmz ? 'click_amazon' : 'click_mercadolibre', {
+    event_category: 'afiliado',
+    event_label: label,
+    value: val
+  });
+});
+</script>
 </body>
 </html>

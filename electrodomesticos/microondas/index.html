@@ -568,14 +568,14 @@ function cardHTML(m) {
     const pAmz = m.precioAmz || m.precio;
     precioBlock = '';
     btnsBlock = `<div class="card-btns-dual">
-      <div class="card-btn-col">${pML ? `<div class="card-btn-col-price">${fmtPrecio(pML)}</div>` : ''}<a class="btn-ml" href="${m.linkML}" target="_blank" rel="noopener sponsored" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a></div>
-      <div class="card-btn-col">${pAmz ? `<div class="card-btn-col-price">${fmtPrecio(pAmz)}</div>` : ''}<a class="btn-amz" href="${m.linkAmz}" target="_blank" rel="noopener sponsored" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a></div>
+      <div class="card-btn-col">${pML ? `<div class="card-btn-col-price">${fmtPrecio(pML)}</div>` : ''}<a class="btn-ml" href="${m.linkML}" target="_blank" rel="noopener sponsored" onclick="event.stopPropagation()" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a></div>
+      <div class="card-btn-col">${pAmz ? `<div class="card-btn-col-price">${fmtPrecio(pAmz)}</div>` : ''}<a class="btn-amz" href="${m.linkAmz}" target="_blank" rel="noopener sponsored" onclick="event.stopPropagation()" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a></div>
     </div>`;
   } else {
     precioBlock = m.precio ? `<div class="card-price">${fmtPrecio(m.precio)}</div>` : '<div class="price-nd">Precio no disponible</div>';
     btnsBlock = `<div class="card-btns">
-      ${m.linkML ? `<a class="btn-ml" href="${m.linkML}" target="_blank" rel="noopener sponsored" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>` : ''}
-      ${m.linkAmz ? `<a class="btn-amz" href="${m.linkAmz}" target="_blank" rel="noopener sponsored" onclick="event.stopPropagation()">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>` : ''}
+      ${m.linkML ? `<a class="btn-ml" href="${m.linkML}" target="_blank" rel="noopener sponsored" onclick="event.stopPropagation()" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>` : ''}
+      ${m.linkAmz ? `<a class="btn-amz" href="${m.linkAmz}" target="_blank" rel="noopener sponsored" onclick="event.stopPropagation()" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>` : ''}
     </div>`;
   }
 
@@ -648,8 +648,8 @@ function openModal() {
     const h = size === 'sm' ? '16px' : '18px';
     const pad = size === 'sm' ? '5px 8px' : '7px 12px';
     const fs = size === 'sm' ? '11px' : '12px';
-    const ml = m.linkML ? `<a class="btn-ml" href="${m.linkML}" target="_blank" rel="noopener sponsored" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;">Ver en <img style="height:${h}" src="/logomercado.png" onerror="this.style.display='none'"></a>` : '';
-    const amz = m.linkAmz ? `<a class="btn-amz" href="${m.linkAmz}" target="_blank" rel="noopener sponsored" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;">Ver en <img style="height:${h}" src="/logoamazon.png" onerror="this.style.display='none'"></a>` : '';
+    const ml = m.linkML ? `<a class="btn-ml" href="${m.linkML}" target="_blank" rel="noopener sponsored" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}">Ver en <img style="height:${h}" src="/logomercado.png" onerror="this.style.display='none'"></a>` : '';
+    const amz = m.linkAmz ? `<a class="btn-amz" href="${m.linkAmz}" target="_blank" rel="noopener sponsored" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}">Ver en <img style="height:${h}" src="/logoamazon.png" onerror="this.style.display='none'"></a>` : '';
     const isDual = ml && amz;
     return `<div class="cmp-prod-btns${isDual?' dual':''}">${ml}${amz}</div>`;
   }
@@ -724,6 +724,21 @@ function updateStats() {
 // ── INIT ─────────────────────────────────────────────────────────────────────
 updateStats();
 render();
+</script>
+<script>
+/* GA4 affiliate tracking — event delegation */
+document.addEventListener('click', function(e) {
+  var btn = e.target.closest ? e.target.closest('.btn-amz,.btn-ml') : null;
+  if (!btn || typeof gtag === 'undefined') return;
+  var isAmz = btn.classList.contains('btn-amz');
+  var label = btn.dataset.gaLabel || '';
+  var val   = parseFloat(btn.dataset.gaVal) || 0;
+  gtag('event', isAmz ? 'click_amazon' : 'click_mercadolibre', {
+    event_category: 'afiliado',
+    event_label: label,
+    value: val
+  });
+});
 </script>
 </body>
 </html>
