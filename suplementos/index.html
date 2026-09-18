@@ -362,8 +362,8 @@ footer a{color:var(--ac);text-decoration:none}
     
     <a href="/electrodomesticos" style="font-size:13px;font-weight:500;color:#64748b;padding:6px 12px;border-radius:8px;text-decoration:none;transition:background .15s;" onmouseenter="this.style.background='#f7f7f5'" onmouseleave="this.style.background='transparent'">Electrodomésticos</a>
     <a href="/laptops" style="font-size:13px;font-weight:500;color:#64748b;padding:6px 12px;border-radius:8px;text-decoration:none;transition:background .15s;" onmouseenter="this.style.background='#f7f7f5'" onmouseleave="this.style.background='transparent'">Laptops</a>
-      <a href="/celulares.html">Celulares</a>
-      <a href="/iphone.html">iPhones</a>
+    <a href="/celulares" style="font-size:13px;font-weight:500;color:#64748b;padding:6px 12px;border-radius:8px;text-decoration:none;transition:background .15s;" onmouseenter="this.style.background='#f7f7f5'" onmouseleave="this.style.background='transparent'">Celulares</a>
+    <a href="/celulares/iphone" style="font-size:13px;font-weight:500;color:#64748b;padding:6px 12px;border-radius:8px;text-decoration:none;transition:background .15s;" onmouseenter="this.style.background='#f7f7f5'" onmouseleave="this.style.background='transparent'">iPhones</a>
   </div>
 </nav>
 
@@ -400,9 +400,9 @@ footer a{color:var(--ac);text-decoration:none}
       <button class="chip active" data-tipo="todos" onclick="setFiltro('todos',this)">Todos</button>
       <button class="chip" data-tipo="vitaminas" onclick="setFiltro('vitaminas',this)">Omega 3 / Vitaminas</button>
       <button class="chip" data-tipo="complejo-b" onclick="setFiltro('complejo-b',this)">Complejo B</button>
-      <a class="chip" href="/suplementosmagnesio" onclick="irCategoria(event,'magnesio')">🧲 Magnesio</a>
+      <a class="chip" href="/suplementos/magnesio" onclick="irCategoria(event,'magnesio')">🧲 Magnesio</a>
       <a class="chip" href="/suplementosproteina" onclick="irCategoria(event,'proteina')">💪 Proteína</a>
-      <a class="chip" href="/suplementoscreatina">⚡ Creatina</a>
+      <a class="chip" href="/suplementos/creatina">⚡ Creatina</a>
     </div>
     <div class="filter-group" id="sort-chips" style="display:none;">
       <button class="chip chip-sort active" data-sort="precio-asc"  onclick="setSort('precio-asc',this)">Precio más bajo</button>
@@ -424,7 +424,7 @@ footer a{color:var(--ac);text-decoration:none}
     <p style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#006847;margin-bottom:8px;">Categorías</p>
     <h2 style="font-size:22px;font-weight:800;letter-spacing:-.8px;color:#0F172A;margin-bottom:28px;">Suplementos disponibles en comparalo.mx</h2>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;">
-      <a href="/suplementoscreatina" style="display:flex;flex-direction:column;border:1px solid #e2e2dc;border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;background:#fff;transition:box-shadow .2s,transform .15s;" onmouseenter="this.style.boxShadow='0 4px 20px rgba(0,0,0,.08)';this.style.transform='translateY(-2px)'" onmouseleave="this.style.boxShadow='';this.style.transform=''">
+      <a href="/suplementos/creatina" style="display:flex;flex-direction:column;border:1px solid #e2e2dc;border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;background:#fff;transition:box-shadow .2s,transform .15s;" onmouseenter="this.style.boxShadow='0 4px 20px rgba(0,0,0,.08)';this.style.transform='translateY(-2px)'" onmouseleave="this.style.boxShadow='';this.style.transform=''">
         <div style="height:110px;overflow:hidden;"><img src="https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=600&q=75" alt="Creatina monohidratada México" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
         <div style="padding:14px 16px 18px;">
           <div style="font-weight:700;font-size:15px;color:#0F172A;margin-bottom:5px;">Creatina</div>
@@ -438,7 +438,7 @@ footer a{color:var(--ac);text-decoration:none}
           <p style="font-size:13px;color:#64748b;line-height:1.55;margin:0;">Proteína concentrada, aislada y vegana. Compara precio por gramo entre Amazon MX y Mercado Libre. Birdman, Optimum Nutrition, Gold Standard y más.</p>
         </div>
       </a>
-      <a href="/suplementosmagnesio" style="display:flex;flex-direction:column;border:1px solid #e2e2dc;border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;background:#fff;transition:box-shadow .2s,transform .15s;" onmouseenter="this.style.boxShadow='0 4px 20px rgba(0,0,0,.08)';this.style.transform='translateY(-2px)'" onmouseleave="this.style.boxShadow='';this.style.transform=''">
+      <a href="/suplementos/magnesio" style="display:flex;flex-direction:column;border:1px solid #e2e2dc;border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;background:#fff;transition:box-shadow .2s,transform .15s;" onmouseenter="this.style.boxShadow='0 4px 20px rgba(0,0,0,.08)';this.style.transform='translateY(-2px)'" onmouseleave="this.style.boxShadow='';this.style.transform=''">
         <div style="height:110px;overflow:hidden;"><img src="https://images.unsplash.com/photo-1520206183501-b80df61043c2?w=600&q=75" alt="Magnesio México" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
         <div style="padding:14px 16px 18px;">
           <div style="font-weight:700;font-size:15px;color:#0F172A;margin-bottom:5px;">Magnesio</div>
@@ -570,12 +570,12 @@ footer a{color:var(--ac);text-decoration:none}
       <div style="display:flex;flex-direction:column;gap:9px;">
         <a href="/bicis" style="font-size:13px;color:#64748b;text-decoration:none;">Bicicletas</a>
         <a href="/suplementos" style="font-size:13px;color:#64748b;text-decoration:none;">Suplementos</a>
-        <a href="/suplementosmagnesio" style="font-size:13px;color:#64748b;text-decoration:none;">Magnesio</a>
-        <a href="/suplementoscreatina" style="font-size:13px;color:#64748b;text-decoration:none;">Creatina</a>
+        <a href="/suplementos/magnesio" style="font-size:13px;color:#64748b;text-decoration:none;">Magnesio</a>
+        <a href="/suplementos/creatina" style="font-size:13px;color:#64748b;text-decoration:none;">Creatina</a>
         <a href="/electrodomesticos" style="font-size:13px;color:#64748b;text-decoration:none;">Electrodomésticos</a>
         <a href="/laptops" style="font-size:13px;color:#64748b;text-decoration:none;">Laptops</a>
-      <a href="/celulares.html">Celulares</a>
-      <a href="/iphone.html">iPhones</a>
+    <a href="/celulares" style="font-size:13px;font-weight:500;color:#64748b;padding:6px 12px;border-radius:8px;text-decoration:none;transition:background .15s;" onmouseenter="this.style.background='#f7f7f5'" onmouseleave="this.style.background='transparent'">Celulares</a>
+    <a href="/celulares/iphone" style="font-size:13px;font-weight:500;color:#64748b;padding:6px 12px;border-radius:8px;text-decoration:none;transition:background .15s;" onmouseenter="this.style.background='#f7f7f5'" onmouseleave="this.style.background='transparent'">iPhones</a>
       </div>
     </div>
     <div>
