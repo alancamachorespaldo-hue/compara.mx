@@ -450,7 +450,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
     <div class="sec-hero-inner">
       <div>
         <div class="sec-hero-title">🏔 Bicicletas de Montaña</div>
-        <div class="sec-hero-sub">Mountain bike — las mejores opciones en Mercado Libre México</div>
+        <div class="sec-hero-sub">Mountain bike — las mejores opciones en Mercado Libre México · <a href="/bicicletas/bici-montana/" style="color:var(--ac);font-weight:600">Ver página dedicada →</a></div>
       </div>
       <div class="sec-hero-stats">
         <div class="shstat"><div class="shstat-num">$4,359</div><div class="shstat-label">Desde</div></div>
@@ -492,7 +492,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
     <div class="sec-hero-inner">
       <div>
         <div class="sec-hero-title">🚴 Bicicletas de Ruta</div>
-        <div class="sec-hero-sub">Road bikes — desde entrada de gama hasta competencia, en Mercado Libre México</div>
+        <div class="sec-hero-sub">Road bikes — desde entrada de gama hasta competencia, en Mercado Libre México · <a href="/bicicletas/bici-ruta/" style="color:var(--ac);font-weight:600">Ver página dedicada →</a></div>
       </div>
       <div class="sec-hero-stats">
         <div class="shstat"><div class="shstat-num">$2,899</div><div class="shstat-label">Desde</div></div>
@@ -534,7 +534,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
     <div class="sec-hero-inner">
       <div>
         <div class="sec-hero-title">🪨 Bicicletas Gravel</div>
-        <div class="sec-hero-sub">Gravel — para cualquier terreno, en Mercado Libre México</div>
+        <div class="sec-hero-sub">Gravel — para cualquier terreno, en Mercado Libre México · <a href="/bicicletas/bici-gravel/" style="color:var(--ac);font-weight:600">Ver página dedicada →</a></div>
       </div>
       <div class="sec-hero-stats">
         <div class="shstat"><div class="shstat-num">$6,474</div><div class="shstat-label">Desde</div></div>
@@ -2116,10 +2116,14 @@ function cardConv(b, sec){
       ${b.img?`<img class="card-img" src="${b.img}" alt="${b.nombre}" loading="lazy" onerror="this.outerHTML='<div class=card-img-ph>${emoji}</div>'">`:`<div class="card-img-ph">${emoji}</div>`}
     </div>
     <div class="card-body">
-      <div class="card-badges">${b.badges.map(bd=>`<span class="badge ${bd.c}">${bd.t}</span>`).join('')}</div>
       <div class="card-name">${b.nombre}</div>
       <div class="card-brand">${b.marca} · ${secLabel}</div>
-      <div class="card-stars">${starsStr(b.estrellas)}<span class="card-stars-count">${b.resenas?(b.resenas.toLocaleString('es-MX')+' reseñas'):''}</span></div>
+      <div class="card-stars-dual">
+        <div class="stars-col">
+          <div class="stars-plat">Mercado Libre</div>
+          ${b.estrellas?`<div class="stars-val">★ ${b.estrellas.toFixed(1)} <span class="stars-cnt">(${(b.resenas||0).toLocaleString('es-MX')})</span></div>`:'<div class="stars-val" style="color:var(--tx3)">Sin datos</div>'}
+        </div>
+      </div>
       <div class="card-specs">
         <div class="spec"><div class="spec-label">Velocidades</div><div class="spec-val">${b.velocidades||'—'}</div></div>
         <div class="spec"><div class="spec-label">Peso</div><div class="spec-val">${b.peso?b.peso+' kg':'—'}</div></div>
