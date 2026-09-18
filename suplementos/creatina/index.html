@@ -704,19 +704,19 @@ function cardHTML(p) {
     btnsBlock = `<div class="card-btns-dual">
       <div class="card-btn-col">
         ${pML  ? `<div class="card-btn-col-price">${fmt(pML)}</div>` : ''}
-        <a class="btn-ml"  href="${p.linkML}"  target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation()" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="ML" onerror="this.style.display='none'"></a>
+        <a class="btn-ml"  href="${p.linkML}"  target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','click_mercadolibre',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0});}" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="ML" onerror="this.style.display='none'"></a>
       </div>
       <div class="card-btn-col">
         ${pAmz ? `<div class="card-btn-col-price">${fmt(pAmz)}</div>` : ''}
-        <a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation()" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>
+        <a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','click_amazon',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0});}" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>
       </div>
     </div>`;
   } else {
     precioBlock = p.precio != null
       ? `<div class="card-price">${fmt(p.precio)}</div>`
       : '<div class="price-nd">Precio no disponible</div>';
-    const btnML  = p.linkML  ? `<a class="btn-ml"  href="${p.linkML}"  target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation()" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="ML" onerror="this.style.display='none'"></a>` : '';
-    const btnAmz = p.linkAmz ? `<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation()" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>` : '';
+    const btnML  = p.linkML  ? `<a class="btn-ml"  href="${p.linkML}"  target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','click_mercadolibre',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0});}" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="ML" onerror="this.style.display='none'"></a>` : '';
+    const btnAmz = p.linkAmz ? `<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','click_amazon',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0});}" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>` : '';
     btnsBlock = `<div class="card-btns">${btnML}${btnAmz}</div>`;
   }
 
