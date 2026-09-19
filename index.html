@@ -420,7 +420,7 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
   var cur=0,total=5,timer,paused=false;
   function goSlide(n){
     cur=((n%total)+total)%total;
-    document.getElementById('carouselTrack').style.transform='translateX(-'+cur*100+'%)';
+    document.getElementById('carouselTrack').style.transform='translateX(-'+(cur*20)+'%)';
     document.querySelectorAll('.cdot').forEach(function(d,i){d.classList.toggle('active',i===cur)});
   }
   function next(){if(!paused)goSlide(cur+1)}
