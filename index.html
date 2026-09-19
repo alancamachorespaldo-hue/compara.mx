@@ -128,6 +128,22 @@ h1 em{font-style:normal;color:var(--ac)}
 .btn2{display:inline-block;border:1.5px solid var(--bd);color:var(--tx);font-weight:700;font-size:14px;padding:12.5px 22px;border-radius:11px}
 .btn2:hover{border-color:var(--ac);color:var(--ac)}
 .hero-cta{display:flex;gap:10px;flex-wrap:wrap}
+/* ── Carrusel ── */
+.carousel-wrap{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:4/3;max-height:380px;flex-shrink:0}
+.carousel-track{display:flex;width:500%;height:100%;transition:transform .55s cubic-bezier(.4,0,.2,1)}
+.carousel-slide{flex:0 0 20%;position:relative;display:block;text-decoration:none;overflow:hidden}
+.carousel-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform 6s ease}
+.carousel-slide:hover .carousel-img{transform:scale(1.04)}
+.carousel-scrim{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.82) 35%,rgba(0,0,0,.2) 75%,transparent 100%)}
+.carousel-body{position:relative;padding:20px;display:flex;flex-direction:column;justify-content:flex-end;height:100%;color:#fff}
+.carousel-kicker{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.6);margin-bottom:4px}
+.carousel-body h3{font-size:1.35rem;font-weight:800;letter-spacing:-.025em;margin-bottom:5px;line-height:1.2}
+.carousel-body p{font-size:.78rem;line-height:1.5;color:rgba(255,255,255,.75);margin-bottom:12px}
+.carousel-btn{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(6px);color:#fff;font-size:.75rem;font-weight:700;padding:6px 14px;border-radius:20px;transition:background .2s}
+.carousel-slide:hover .carousel-btn{background:rgba(255,255,255,.28)}
+.carousel-dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:10}
+.cdot{width:7px;height:7px;border-radius:50%;border:none;background:rgba(255,255,255,.4);cursor:pointer;padding:0;transition:background .25s,width .25s}
+.cdot.active{background:#fff;width:22px;border-radius:4px}
 
 /* método */
 .method{background:var(--s1);border:1px solid var(--bd);border-radius:16px;padding:26px}
@@ -220,6 +236,7 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
   .nav-toggle{display:flex}
   .chips{display:flex}
   .hero{grid-template-columns:1fr;gap:26px;padding:30px 24px 34px}
+  .carousel-wrap{max-height:260px;border-radius:14px}
   .lead,.searchbox{max-width:none}
   .cats-grid{grid-template-columns:1fr}
   .cat-big{min-height:200px}
@@ -335,17 +352,90 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
     </div>
   </div>
 
-  <div class="method" id="metodo">
-    <h2>Nuestro método</h2>
-    <div class="steps">
-      <div class="step"><i>1</i><div><h3>Buscamos el mismo producto en las dos tiendas</h3><p>Misma marca, mismo modelo y misma presentación. Si no es el mismo producto, no lo comparamos.</p></div></div>
-      <div class="step"><i>2</i><div><h3>Anotamos el precio y lo actualizamos cada tanto</h3><p>No son precios en tiempo real. En cada comparativa verás la fecha de la última actualización.</p></div></div>
-      <div class="step"><i>3</i><div><h3>Comparamos precio, calidad y características</h3><p>Cada persona decide por razones distintas. Mostramos el precio de las dos tiendas y las características para que compares lo que a ti te importa.</p></div></div>
-      <div class="step"><i>4</i><div><h3>Ganamos una comisión, tú pagas lo mismo</h3><p>Si compras desde nuestro enlace, la tienda nos paga una comisión de afiliado. El precio final que pagas no cambia.</p></div></div>
+  <!-- Carrusel de categorías -->
+  <div class="carousel-wrap" id="metodo">
+    <div class="carousel-track" id="carouselTrack">
+      <a class="carousel-slide" href="/suplementos" style="background:linear-gradient(135deg,#006847 0%,#004d34 100%)">
+        <img src="/fotos/imgsuplementos.png" alt="Suplementos" class="carousel-img">
+        <div class="carousel-scrim"></div>
+        <div class="carousel-body">
+          <span class="carousel-kicker">Compara ahora</span>
+          <h3>Suplementos</h3>
+          <p>Proteína, creatina, magnesio y más en Amazon MX vs Mercado Libre</p>
+          <span class="carousel-btn">Ver comparativas →</span>
+        </div>
+      </a>
+      <a class="carousel-slide" href="/celulares" style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%)">
+        <img src="/fotos/imgcelulares.png" alt="Celulares" class="carousel-img">
+        <div class="carousel-scrim"></div>
+        <div class="carousel-body">
+          <span class="carousel-kicker">Compara ahora</span>
+          <h3>Celulares</h3>
+          <p>iPhone, Samsung y más smartphones al mejor precio en México</p>
+          <span class="carousel-btn">Ver celulares →</span>
+        </div>
+      </a>
+      <a class="carousel-slide" href="/bicis" style="background:linear-gradient(135deg,#065f46 0%,#064e3b 100%)">
+        <img src="/fotos/imgbicicletas.png" alt="Bicicletas" class="carousel-img" style="object-position:center 40%">
+        <div class="carousel-scrim"></div>
+        <div class="carousel-body">
+          <span class="carousel-kicker">Compara ahora</span>
+          <h3>Bicicletas</h3>
+          <p>Eléctricas, montaña y ruta — precios comparados en las dos tiendas</p>
+          <span class="carousel-btn">Ver bicicletas →</span>
+        </div>
+      </a>
+      <a class="carousel-slide" href="/laptops" style="background:linear-gradient(135deg,#1e293b 0%,#0f172a 100%)">
+        <img src="/fotos/imglaptops.png" alt="Laptops" class="carousel-img" style="object-position:center 60%">
+        <div class="carousel-scrim"></div>
+        <div class="carousel-body">
+          <span class="carousel-kicker">Compara ahora</span>
+          <h3>Laptops</h3>
+          <p>HP, Dell, Lenovo y Asus — elige la mejor opción para universidad o trabajo</p>
+          <span class="carousel-btn">Ver laptops →</span>
+        </div>
+      </a>
+      <a class="carousel-slide" href="/electrodomesticos" style="background:linear-gradient(135deg,#7c2d12 0%,#431407 100%)">
+        <img src="/fotos/imgelectrodomesticos.png" alt="Electrodomésticos" class="carousel-img" style="object-position:center 40%">
+        <div class="carousel-scrim"></div>
+        <div class="carousel-body">
+          <span class="carousel-kicker">Compara ahora</span>
+          <h3>Electrodomésticos</h3>
+          <p>Freidoras de aire, microondas y lavadoras al mejor precio en México</p>
+          <span class="carousel-btn">Ver electrodomésticos →</span>
+        </div>
+      </a>
     </div>
-    <p class="method-note">Lo que <b>no</b> hacemos: precios en tiempo real, cobrar por aparecer en la lista, ni comparar productos distintos como si fueran iguales.</p>
+    <div class="carousel-dots" id="carouselDots">
+      <button class="cdot active" onclick="goSlide(0)" aria-label="Suplementos"></button>
+      <button class="cdot" onclick="goSlide(1)" aria-label="Celulares"></button>
+      <button class="cdot" onclick="goSlide(2)" aria-label="Bicicletas"></button>
+      <button class="cdot" onclick="goSlide(3)" aria-label="Laptops"></button>
+      <button class="cdot" onclick="goSlide(4)" aria-label="Electrodomésticos"></button>
+    </div>
   </div>
 </section>
+<script>
+(function(){
+  var cur=0,total=5,timer,paused=false;
+  function goSlide(n){
+    cur=((n%total)+total)%total;
+    document.getElementById('carouselTrack').style.transform='translateX(-'+cur*100+'%)';
+    document.querySelectorAll('.cdot').forEach(function(d,i){d.classList.toggle('active',i===cur)});
+  }
+  function next(){if(!paused)goSlide(cur+1)}
+  function startTimer(){timer=setInterval(next,4000)}
+  var wrap=document.getElementById('carouselTrack').parentElement;
+  wrap.addEventListener('mouseenter',function(){paused=true});
+  wrap.addEventListener('mouseleave',function(){paused=false});
+  /* touch swipe */
+  var tx=0;
+  wrap.addEventListener('touchstart',function(e){tx=e.touches[0].clientX;paused=true},{passive:true});
+  wrap.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>40)goSlide(dx<0?cur+1:cur-1);paused=false},{passive:true});
+  window.goSlide=goSlide;
+  startTimer();
+})();
+</script>
 
 <section class="cats" aria-labelledby="cats-h">
   <div class="wrap">
