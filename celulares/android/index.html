@@ -612,9 +612,10 @@ function cardHTML(f) {
     ? `<div class="card-stars">★ ${v.estrellas.toFixed(1)} <span class="card-stars-count">(${(v.resenas||0).toLocaleString('es-MX')})</span></div>`
     : '<div class="card-stars-empty"></div>';
 
+  const uniqueStorages = [...new Set(f.variantes.map(vv => vv.storage))];
   const storageBtns = `
     <div class="storage-selector" id="ss-${f.modeloBase}">
-      ${f.variantes.length > 1 ? f.variantes.map((vv, i) => `<button class="storage-btn${i===idx?' active':''}" onclick="event.stopPropagation();selectStorage('${f.modeloBase}',${i})">${storageLbl(vv.storage)}${vv.label?' · '+vv.label:vv.ram?' · '+vv.ram+' GB':''}</button>`).join('') : ''}
+      ${uniqueStorages.length > 1 ? uniqueStorages.map(s => `<button class="storage-btn${f.variantes[idx].storage===s?' active':''}" onclick="event.stopPropagation();selectStorageBySize('${f.modeloBase}',${s})">${storageLbl(s)}</button>`).join('') : ''}
     </div>`;
 
   const saltoHTML = v.salto ? `<div class="salto-info" id="salto-${f.modeloBase}">${v.salto.texto} · +${fmt(v.salto.diff)}</div>` : `<div class="salto-info" id="salto-${f.modeloBase}"></div>`;
@@ -652,6 +653,12 @@ function cardHTML(f) {
 }
 
 /* ─── SELECT STORAGE ─────────────────────────────────────── */
+function selectStorageBySize(modeloBase, storageGb) {
+  const f = familias.find(x => x.modeloBase === modeloBase);
+  const idx = f.variantes.findIndex(v => v.storage === storageGb);
+  if (idx !== -1) selectStorage(modeloBase, idx);
+}
+
 function selectStorage(modeloBase, idx) {
   storageState[modeloBase] = idx;
   const f = familias.find(x => x.modeloBase === modeloBase);
@@ -665,7 +672,7 @@ function selectStorage(modeloBase, idx) {
   if (saltoEl) saltoEl.textContent = v.salto ? v.salto.texto + ' · +' + fmt(v.salto.diff) : '';
 
   const ss = document.getElementById('ss-' + modeloBase);
-  if (ss) ss.querySelectorAll('.storage-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
+  if (ss) { const s = storageLbl(v.storage); ss.querySelectorAll('.storage-btn').forEach(b => b.classList.toggle('active', b.textContent.trim() === s)); }
 
   const btnML  = v.linkML  ? `<a class="btn-ml"  href="${v.linkML}"  id="lnk-ml-${modeloBase}"  target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','click_mercadolibre',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0});}" data-ga-label="${f.nombre||''}" data-ga-val="${v.precio||0}">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>` : '';
   const btnAmz = v.linkAmz ? `<a class="btn-amz" href="${v.linkAmz}" id="lnk-amz-${modeloBase}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','click_amazon',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0});}" data-ga-label="${f.nombre||''}" data-ga-val="${v.precio||0}">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon"       onerror="this.style.display='none'"></a>` : '';
