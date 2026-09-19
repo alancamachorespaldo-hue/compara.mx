@@ -1581,7 +1581,7 @@ function guardarCruzada() {
   const existing = JSON.parse(localStorage.getItem('cmp_celulares') || '[]');
   const merged = [...existing.filter(e => !items.find(i => i.modeloBase === e.modeloBase)), ...items];
   localStorage.setItem('cmp_celulares', JSON.stringify(merged));
-  window.location.href = 'comparar-celulares.html';
+  window.location.href = '/celulares/comparar/';
 }
 
 function clearSelection() {
