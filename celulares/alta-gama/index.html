@@ -480,7 +480,7 @@ function cardHTML(f) {
 
   const storageBtns = f.variantes.length > 1 ? `
     <div class="storage-selector" id="ss-${f.modeloBase}">
-      ${f.variantes.map((vv, i) => `<button class="storage-btn${i===idx?' active':''}" onclick="event.stopPropagation();selectStorage('${f.modeloBase}',${i})">${vv.label||storageLbl(vv.storage)}</button>`).join('')}
+      ${f.variantes.map((vv, i) => `<button class="storage-btn${i===idx?' active':''}" onclick="event.stopPropagation();selectStorage('${f.modeloBase}',${i})">${storageLbl(vv.storage)}${vv.label?' · '+vv.label:vv.ram?' · '+vv.ram+' GB':''}</button>`).join('')}
     </div>` : '';
 
   const saltoHTML = v.salto ? `<div class="salto-info" id="salto-${f.modeloBase}">${v.salto.texto} · +${fmt(v.salto.diff)}</div>` : `<div class="salto-info" id="salto-${f.modeloBase}"></div>`;
@@ -589,17 +589,17 @@ function openModal() {
     return { f, v };
   });
 
-  function prodBtns(v, size) {
+  function prodBtns(v, size, f) {
     const h = size === 'sm' ? '16px' : '18px';
     const pad = size === 'sm' ? '5px 8px' : '7px 12px';
     const fs = size === 'sm' ? '11px' : '12px';
-    const ml = v.linkML  ? `<a class="btn-ml"  href="${v.linkML}"  target="_blank" rel="sponsored nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;" data-ga-label="${f.nombre||''}" data-ga-val="${v.precio||0}">Ver en <img style="height:${h}" src="/logomercado.png" onerror="this.style.display='none'"></a>` : '';
-    const amz = v.linkAmz ? `<a class="btn-amz" href="${v.linkAmz}" target="_blank" rel="sponsored nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;" data-ga-label="${f.nombre||''}" data-ga-val="${v.precio||0}">Ver en <img style="height:${h}" src="/logoamazon.png" onerror="this.style.display='none'"></a>` : '';
+    const ml = v.linkML  ? `<a class="btn-ml"  href="${v.linkML}"  target="_blank" rel="sponsored nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;" data-ga-label="${(f&&f.nombre)||''}" data-ga-val="${v.precio||0}">Ver en <img style="height:${h}" src="/logomercado.png" onerror="this.style.display='none'"></a>` : '';
+    const amz = v.linkAmz ? `<a class="btn-amz" href="${v.linkAmz}" target="_blank" rel="sponsored nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;" data-ga-label="${(f&&f.nombre)||''}" data-ga-val="${v.precio||0}">Ver en <img style="height:${h}" src="/logoamazon.png" onerror="this.style.display='none'"></a>` : '';
     return `<div class="cmp-prod-btns${ml&&amz?' dual':''}">${ml}${amz}</div>`;
   }
 
   const headers = items.map(({ f, v }) =>
-    `<th><img class="cmp-prod-img" src="${f.img}" alt="${f.nombre}"><div class="cmp-prod-name">${f.nombre}</div><div class="cmp-prod-stor">${storageLbl(v.storage)} · ${v.ramDisplay||v.ram+' GB'} RAM</div>${prodBtns(v,'sm')}</th>`
+    `<th><img class="cmp-prod-img" src="${f.img}" alt="${f.nombre}"><div class="cmp-prod-name">${f.nombre}</div><div class="cmp-prod-stor">${storageLbl(v.storage)} · ${v.ramDisplay||v.ram+' GB'} RAM</div>${prodBtns(v,'sm',f)}</th>`
   ).join('');
 
   function fila(label, rawVals, fmtFn, best) {
@@ -638,7 +638,7 @@ function openModal() {
     valorRow,
   ].join('');
 
-  const btnRows = items.map(({v}) => `<td>${prodBtns(v,'md')}</td>`).join('');
+  const btnRows = items.map(({f,v}) => `<td>${prodBtns(v,'md',f)}</td>`).join('');
   document.getElementById('cmp-table').innerHTML =
     `<thead><tr><th style="text-align:left;position:sticky;left:0;z-index:20;min-width:130px;border-right:1px solid var(--bd)">Característica</th>${headers}</tr></thead>
      <tbody>${rows}<tr><td>Comprar</td>${btnRows}</tr></tbody>`;
