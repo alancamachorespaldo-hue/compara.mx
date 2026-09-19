@@ -357,7 +357,11 @@ const familias = [
     hz: 120, usb: null, zoom: 5,
     img: 'https://http2.mlstatic.com/D_NQ_NP_2X_619302-MLA110981295394_052026-F.webp',
     variantes: [
-      { storage: 128, ram: 16, precio: 18066.54, linkML: 'https://meli.la/1w8hFnD', estrellas: 4.1, resenas: 14 },
+      { storage: 128, ram: 16, precio: 18066.54, linkML: 'https://meli.la/1w8hFnD', estrellas: 4.1, resenas: 14, label: 'Gris Piedra' },
+      { storage: 128, ram: 16, precio: 18066.54, linkML: 'https://meli.la/1dh66sS', estrellas: 4.1, resenas: 15, label: 'Obsidiana' },
+      { storage: 128, ram: 16, precio: 18897,    linkML: 'https://meli.la/1TatjhY', estrellas: null, resenas: null, label: 'Moonstone' },
+      { storage: 128, ram: 16, precio: 18897,    linkML: 'https://meli.la/1sTnEvU', estrellas: null, resenas: null, label: 'Negro' },
+      { storage: 128, ram: 16, precio: 18901,    linkML: 'https://meli.la/2Q3ZYxa', estrellas: null, resenas: null, label: 'Porcelana' },
     ]
   },
   {
@@ -476,7 +480,7 @@ function cardHTML(f) {
 
   const storageBtns = f.variantes.length > 1 ? `
     <div class="storage-selector" id="ss-${f.modeloBase}">
-      ${f.variantes.map((vv, i) => `<button class="storage-btn${i===idx?' active':''}" onclick="event.stopPropagation();selectStorage('${f.modeloBase}',${i})">${storageLbl(vv.storage)}</button>`).join('')}
+      ${f.variantes.map((vv, i) => `<button class="storage-btn${i===idx?' active':''}" onclick="event.stopPropagation();selectStorage('${f.modeloBase}',${i})">${vv.label||storageLbl(vv.storage)}</button>`).join('')}
     </div>` : '';
 
   const saltoHTML = v.salto ? `<div class="salto-info" id="salto-${f.modeloBase}">${v.salto.texto} · +${fmt(v.salto.diff)}</div>` : `<div class="salto-info" id="salto-${f.modeloBase}"></div>`;
