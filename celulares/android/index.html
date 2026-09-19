@@ -99,21 +99,24 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 @media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:480px){.grid{grid-template-columns:repeat(2,1fr)}}
 
-.card{background:var(--bg);border:1px solid var(--bd);border-radius:14px;overflow:hidden;transition:box-shadow .2s,transform .15s;cursor:pointer;position:relative}
+.card{background:var(--bg);border:1px solid var(--bd);border-radius:14px;overflow:hidden;transition:box-shadow .2s,transform .15s;cursor:pointer;position:relative;display:flex;flex-direction:column}
 .card:hover{box-shadow:0 4px 20px rgba(0,0,0,.07);transform:translateY(-2px)}
 .card.selected{border:2px solid var(--ac);box-shadow:0 0 0 4px var(--acd2)}
 .card-img-wrap{background:var(--s1);height:220px;display:flex;align-items:center;justify-content:center;overflow:hidden;border-bottom:1px solid var(--bd)}
 .card-img{width:100%;height:100%;object-fit:contain;display:block;padding:.3rem}
-.card-body{padding:1rem}
+.card-body{padding:1rem;display:flex;flex-direction:column;flex:1}
 .card-name{font-size:14px;font-weight:700;color:var(--tx);margin-bottom:1px;line-height:1.3;letter-spacing:-.02em}
 .card-stars{font-size:15px;color:#e6900a;margin-bottom:.65rem;display:flex;align-items:center;gap:5px;font-weight:700}
 .card-stars-count{color:var(--tx3);font-size:13px;font-weight:400}
 .card-stars-empty{height:28px;margin-bottom:.65rem}
-.card-specs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin-bottom:.65rem}
+.card-specs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin-bottom:5px}
+.card-specs-2{display:grid;grid-template-columns:1fr;gap:5px;margin-bottom:.65rem}
 .spec{background:var(--s1);border-radius:7px;padding:5px 8px}
 .spec-label{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
 .spec-val{font-size:12px;font-weight:600;color:var(--tx);margin-top:1px}
-.card-price{font-size:1.3rem;font-weight:700;color:var(--tx);margin-bottom:.65rem;letter-spacing:-.03em}
+.color-dots{display:flex;gap:6px;align-items:center;min-height:22px;margin-bottom:.65rem;flex-wrap:wrap}
+.color-dot{width:16px;height:16px;border-radius:50%;border:1.5px solid rgba(0,0,0,.15);flex-shrink:0;display:inline-block}
+.card-price{font-size:1.3rem;font-weight:700;color:var(--tx);margin-top:auto;padding-top:.5rem;margin-bottom:.65rem;letter-spacing:-.03em}
 .price-nd{font-size:13px;color:var(--tx3);font-weight:400;margin-bottom:.65rem}
 .card-btns{display:flex;flex-direction:column;gap:6px}
 .card-btns-dual{display:grid;grid-template-columns:1fr 1fr;gap:6px}
@@ -417,6 +420,7 @@ const familias = [
     camPrincipal: 50, camFrontal: 32,
     pantalla: 6.59,
     hz: null, usb: null, zoom: null,
+    colores: ['Azul'],
     img: 'https://http2.mlstatic.com/D_NQ_NP_2X_993534-CBT113939491433_062026-F-xiaomi-17-12gb-ram-256gb-rom-63-camara-de-leica-100w-azul.webp',
     variantes: [
       { storage: 256, ram: 12, precio: 17343.38, linkML: 'https://meli.la/2AUjAyH', estrellas: null, resenas: null },
@@ -430,6 +434,7 @@ const familias = [
     camPrincipal: 50, camFrontal: 32,
     pantalla: 6.59,
     hz: 120, usb: null, zoom: null,
+    colores: ['Violeta', 'Rosa', 'Azul', 'Blanco', 'Negro'],
     img: 'https://http2.mlstatic.com/D_NQ_NP_2X_916958-MLA112288274670_062026-F.webp',
     variantes: [
       { storage: 512, ram: 12, precio: 12655.37, linkML: 'https://meli.la/2aDRpYf', estrellas: 4.8, resenas: 67 },
@@ -443,6 +448,7 @@ const familias = [
     camPrincipal: 108, camFrontal: 13,
     pantalla: 6.79,
     hz: null, usb: null, zoom: null,
+    colores: ['Negro'],
     img: 'https://http2.mlstatic.com/D_NQ_NP_2X_636342-CBT115285598872_082026-F-xiaomi-redmi-17-4g-4gb-ram-128gb-rom-69-7500mah-45w-negro.webp',
     variantes: [
       { storage: 128, ram: 4, precio: 4009.10, linkML: 'https://meli.la/2nAtP9e', estrellas: null, resenas: null },
@@ -456,6 +462,7 @@ const familias = [
     camPrincipal: 50, camFrontal: 50,
     pantalla: 6.8,
     hz: null, usb: null, zoom: null,
+    colores: ['Azul oscuro', 'Azul', 'Blanco'],
     img: 'https://http2.mlstatic.com/D_NQ_NP_2X_736353-MLA110976439622_052026-F.webp',
     variantes: [
       { storage: 512, ram: 12, precio: 15299, linkML: 'https://meli.la/1QmTtpV', estrellas: 4.9, resenas: 287 },
@@ -483,6 +490,7 @@ const familias = [
     camPrincipal: 50, camFrontal: 50,
     pantalla: 6.57,
     hz: null, usb: null, zoom: null,
+    colores: ['Violeta', 'Morado'],
     img: 'https://http2.mlstatic.com/D_NQ_NP_2X_906290-MLA115521742011_082026-F.webp',
     variantes: [
       { storage: 128, ram: 8, precio: 10999, linkML: 'https://meli.la/132XgXh', estrellas: 5, resenas: 5 },
@@ -513,6 +521,20 @@ const filterState = { marca: 'todos', ram: 'todos' };
 /* ─── HELPERS ────────────────────────────────────────────── */
 const fmt = v => '$' + Number(v).toLocaleString('es-MX', {minimumFractionDigits:0, maximumFractionDigits:2});
 function storageLbl(gb) { return gb >= 1000 ? (gb/1024) + ' TB' : gb + ' GB'; }
+
+const COLOR_SWATCHES = {
+  'Negro': '#1a1a1a', 'Blanco': '#f0efe9', 'Gris': '#6b7280', 'Plateado': '#d1d5db',
+  'Azul': '#3b82f6', 'Azul oscuro': '#1e3a5f', 'Azul marino': '#1e3a5f', 'Celeste': '#7dd3fc',
+  'Verde': '#22c55e', 'Violeta': '#7c3aed', 'Morado': '#9333ea', 'Rosa': '#ec4899',
+  'Dorado': '#f59e0b', 'Titanio': '#8a898d', 'Gris Piedra': '#9ca3af',
+  'Obsidiana': '#1c1917', 'Moonstone': '#dde5f0', 'Porcelana': '#faf9f7',
+  'Ed. FIFA': '#006847',
+};
+function getColores(f) {
+  if (f.colores && f.colores.length) return f.colores;
+  const labels = f.variantes.filter(v => v.label).map(v => v.label);
+  return labels.length ? labels : [];
+}
 
 /* ─── FILTROS ────────────────────────────────────────────── */
 function clearFilters() {
@@ -590,12 +612,15 @@ function cardHTML(f) {
     ? `<div class="card-stars">★ ${v.estrellas.toFixed(1)} <span class="card-stars-count">(${(v.resenas||0).toLocaleString('es-MX')})</span></div>`
     : '<div class="card-stars-empty"></div>';
 
-  const storageBtns = f.variantes.length > 1 ? `
+  const storageBtns = `
     <div class="storage-selector" id="ss-${f.modeloBase}">
-      ${f.variantes.map((vv, i) => `<button class="storage-btn${i===idx?' active':''}" onclick="event.stopPropagation();selectStorage('${f.modeloBase}',${i})">${storageLbl(vv.storage)}${vv.label?' · '+vv.label:vv.ram?' · '+vv.ram+' GB':''}</button>`).join('')}
-    </div>` : '';
+      ${f.variantes.length > 1 ? f.variantes.map((vv, i) => `<button class="storage-btn${i===idx?' active':''}" onclick="event.stopPropagation();selectStorage('${f.modeloBase}',${i})">${storageLbl(vv.storage)}${vv.label?' · '+vv.label:vv.ram?' · '+vv.ram+' GB':''}</button>`).join('') : ''}
+    </div>`;
 
   const saltoHTML = v.salto ? `<div class="salto-info" id="salto-${f.modeloBase}">${v.salto.texto} · +${fmt(v.salto.diff)}</div>` : `<div class="salto-info" id="salto-${f.modeloBase}"></div>`;
+
+  const colores = getColores(f);
+  const colorDots = colores.length ? `<div class="color-dots">${colores.map(c => `<span class="color-dot" style="background:${COLOR_SWATCHES[c]||'#ccc'}" title="${c}"></span>`).join('')}</div>` : '<div class="color-dots"></div>';
 
   const btnML = v.linkML ? `<a class="btn-ml" href="${v.linkML}" id="lnk-ml-${f.modeloBase}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','click_mercadolibre',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0});}" data-ga-label="${f.nombre||''}" data-ga-val="${v.precio||0}">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>` : '';
   const btnAmz = v.linkAmz ? `<a class="btn-amz" href="${v.linkAmz}" id="lnk-amz-${f.modeloBase}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','click_amazon',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0});}" data-ga-label="${f.nombre||''}" data-ga-val="${v.precio||0}">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>` : '';
@@ -612,11 +637,14 @@ function cardHTML(f) {
       ${storageBtns}
       ${saltoHTML}
       <div class="card-specs">
-        <div class="spec"><div class="spec-label">RAM</div><div class="spec-val" id="ram-${f.modeloBase}">${v.ram} GB</div></div>
+        <div class="spec"><div class="spec-label">RAM</div><div class="spec-val" id="ram-${f.modeloBase}">${v.ram ? v.ram+' GB' : '—'}</div></div>
         <div class="spec"><div class="spec-label">Almac.</div><div class="spec-val" id="alm-${f.modeloBase}">${storageLbl(v.storage)}</div></div>
-        ${f.camPrincipal ? `<div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">${f.camPrincipal} MP</div></div>` : ''}
-        ${f.pantalla ? `<div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">${f.pantalla}"</div></div>` : ''}
+        <div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">${f.camPrincipal ? f.camPrincipal+' MP' : '—'}</div></div>
       </div>
+      <div class="card-specs-2">
+        <div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">${f.pantalla ? f.pantalla+'"' : '—'}</div></div>
+      </div>
+      ${colorDots}
       <div class="card-price" id="precio-${f.modeloBase}">${fmt(v.precio)}</div>
       <div class="card-btns" id="btns-${f.modeloBase}">${btnML}${btnAmz}</div>
     </div>
