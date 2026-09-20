@@ -188,7 +188,6 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 @media(max-width:600px){
   .nav-links{display:none}
   .toolbar{top:64px;overflow-x:auto;flex-wrap:wrap;padding:.5rem 1rem}
-  .cmp-bar{display:none !important}
   .cmp-fab{display:none;position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));right:14px;z-index:300;flex-direction:column;align-items:flex-end;gap:6px}
   .cmp-fab.show{display:flex}
   .cmp-fab-btn{background:var(--ac);color:#fff;border:none;border-radius:50px;padding:12px 18px;font-size:.88rem;font-weight:800;cursor:pointer;font-family:'Satoshi',sans-serif;box-shadow:0 4px 20px rgba(0,104,71,.5);display:flex;align-items:center;gap:8px}
@@ -205,7 +204,6 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   .btn-buy,.btn-ml,.btn-amz{font-size:11px!important;padding:5px 4px!important}
   .card::after{content:'+ Comparar';display:block;border:1px solid #16a34a;color:#16a34a;font-size:11px;padding:3px 8px;border-radius:20px;text-align:center;margin:6px 8px 8px;font-family:inherit;font-weight:500;cursor:pointer}
   .card.selected::after{background:#16a34a;color:#fff;content:'Seleccionado \2713'}
-  .cmp-bar{display:none!important}
 }/* â”€â”€ Precio-max input â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .precio-max-input{font-size:12px;padding:4px 8px;border-radius:20px;border:1px solid var(--bd2);background:var(--bg);color:var(--tx);font-family:inherit;font-weight:500;width:88px;outline:none;-moz-appearance:textfield}
 .precio-max-input::-webkit-outer-spin-button,.precio-max-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
@@ -218,6 +216,13 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   .cmp-table td:first-child{min-width:80px!important;max-width:80px!important;font-size:10px!important;padding:6px 5px!important}
   .cmp-prod-img{width:44px!important;height:44px!important;max-height:50px!important}
   .cmp-prod-name{font-size:.65rem!important;-webkit-line-clamp:2!important;display:-webkit-box!important;-webkit-box-orient:vertical!important;overflow:hidden!important}
+}/* -- Barra comparar movil -- */
+@media(max-width:600px){
+  .cmp-bar,.compare-bar{padding:.5rem 1rem!important;flex-wrap:wrap!important;gap:6px!important;display:flex!important}
+  .cmp-bar.show,.compare-bar.show{display:flex!important}
+  .cmp-bar-txt{font-size:12px!important}
+  .cmp-bar-sub{font-size:10px!important}
+  .cmp-bar-actions{gap:5px!important}
 }</style>
 </head>
 <body>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es-MX">
 <head>
 <meta charset="UTF-8">
@@ -158,7 +158,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 @media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:480px){.grid{grid-template-columns:repeat(2,1fr)}}
 
-.card{background:var(--bg);border:1px solid var(--bd);border-radius:14px;overflow:hidden;transition:box-shadow .2s,transform .15s;cursor:pointer;position:relative}
+.card{background:var(--bg);border:1px solid var(--bd);border-radius:14px;transition:box-shadow .2s,transform .15s;cursor:pointer;position:relative}
 .card:hover{box-shadow:0 4px 20px rgba(0,0,0,.07);transform:translateY(-2px)}
 .card.selected{border:2px solid var(--ac);box-shadow:0 0 0 4px var(--acd2)}
 .card::after{content:'+ Comparar';display:block;border:1px solid var(--ac);color:var(--ac);font-size:11px;padding:3px 8px;border-radius:20px;text-align:center;margin:6px 8px 8px;font-family:inherit;font-weight:500;cursor:pointer}
@@ -248,7 +248,14 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   .nav-links,.sort-wrap{display:none}
   .hero-stats{display:none}
 }
-</style>
+/* -- Barra comparar movil -- */
+@media(max-width:600px){
+  .cmp-bar,.compare-bar{padding:.5rem 1rem!important;flex-wrap:wrap!important;gap:6px!important;display:flex!important}
+  .cmp-bar.show,.compare-bar.show{display:flex!important}
+  .cmp-bar-txt{font-size:12px!important}
+  .cmp-bar-sub{font-size:10px!important}
+  .cmp-bar-actions{gap:5px!important}
+}</style>
 </head>
 <body>
 
