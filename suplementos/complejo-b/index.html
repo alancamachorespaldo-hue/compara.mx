@@ -208,6 +208,18 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
   .card::after{content:'+ Comparar';display:block;border:1px solid #16a34a;color:#16a34a;font-size:11px;padding:3px 8px;border-radius:20px;text-align:center;margin:6px 8px 8px;font-family:inherit;font-weight:500;cursor:pointer}
   .card.selected::after{background:#16a34a;color:#fff;content:'Seleccionado \2713'}
   .cmp-bar{display:none!important}
+}/* â”€â”€ Precio-max input â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.precio-max-input{font-size:12px;padding:4px 8px;border-radius:20px;border:1px solid var(--bd2);background:var(--bg);color:var(--tx);font-family:inherit;font-weight:500;width:88px;outline:none;-moz-appearance:textfield}
+.precio-max-input::-webkit-outer-spin-button,.precio-max-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.precio-max-input:focus{border-color:var(--ac)}
+/* â”€â”€ Table compact on mobile â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+@media(max-width:768px){
+  .cmp-table th{min-width:90px!important;padding:8px 6px!important}
+  .cmp-table th:first-child{min-width:80px!important}
+  .cmp-table td{padding:6px 5px!important;font-size:11px!important}
+  .cmp-table td:first-child{min-width:80px!important;max-width:80px!important;font-size:10px!important;padding:6px 5px!important}
+  .cmp-prod-img{width:44px!important;height:44px!important;max-height:50px!important}
+  .cmp-prod-name{font-size:.65rem!important;-webkit-line-clamp:2!important;display:-webkit-box!important;-webkit-box-orient:vertical!important;overflow:hidden!important}
 }</style>
 </head>
 <body>
@@ -262,7 +274,10 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
   <button class="filter on" onclick="toggleFilter('plataforma','todos',this)">Todas</button>
   <button class="filter" onclick="toggleFilter('plataforma','ml',this)">Mercado Libre</button>
   <button class="filter" onclick="toggleFilter('plataforma','amz',this)">Amazon</button>
-  <div class="sort-wrap">
+  <div class="filter-sep"></div>
+    <span class="filter-label">Precio mÃ¡x.</span>
+    <input type="number" id="precio-max" placeholder="ej. 8000" class="precio-max-input" oninput="render()" min="0" step="500">
+<div class="sort-wrap">
     <span class="sort-label">Ordenar:</span>
     <select class="sort-sel" id="sortSel" onchange="sortActivo=this.value;render()">
       <option value="precio-asc">Precio ↑</option>
@@ -377,6 +392,7 @@ function filtrar() {
     if (filters.formaB12 !== 'todos' && !p.formaB12.includes(filters.formaB12)) return false;
     if (filters.plataforma === 'ml' && !p.linkML) return false;
     if (filters.plataforma === 'amz' && !p.linkAmz) return false;
+    const _maxP=parseFloat(document.getElementById('precio-max')?.value)||Infinity;if(_maxP<Infinity&&(p.precio||0)>_maxP)return false;
     return true;
   });
 }

@@ -206,6 +206,18 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   .card::after{content:'+ Comparar';display:block;border:1px solid #16a34a;color:#16a34a;font-size:11px;padding:3px 8px;border-radius:20px;text-align:center;margin:6px 8px 8px;font-family:inherit;font-weight:500;cursor:pointer}
   .card.selected::after{background:#16a34a;color:#fff;content:'Seleccionado \2713'}
   .cmp-bar{display:none!important}
+}/* â”€â”€ Precio-max input â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.precio-max-input{font-size:12px;padding:4px 8px;border-radius:20px;border:1px solid var(--bd2);background:var(--bg);color:var(--tx);font-family:inherit;font-weight:500;width:88px;outline:none;-moz-appearance:textfield}
+.precio-max-input::-webkit-outer-spin-button,.precio-max-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.precio-max-input:focus{border-color:var(--ac)}
+/* â”€â”€ Table compact on mobile â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+@media(max-width:768px){
+  .cmp-table th{min-width:90px!important;padding:8px 6px!important}
+  .cmp-table th:first-child{min-width:80px!important}
+  .cmp-table td{padding:6px 5px!important;font-size:11px!important}
+  .cmp-table td:first-child{min-width:80px!important;max-width:80px!important;font-size:10px!important;padding:6px 5px!important}
+  .cmp-prod-img{width:44px!important;height:44px!important;max-height:50px!important}
+  .cmp-prod-name{font-size:.65rem!important;-webkit-line-clamp:2!important;display:-webkit-box!important;-webkit-box-orient:vertical!important;overflow:hidden!important}
 }</style>
 </head>
 <body>
@@ -279,6 +291,9 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   <button class="filter" onclick="toggleFilter('canastos','dual',this)">2+ canastas</button>
 
   <div class="sort-wrap">
+    <div class="filter-sep"></div>
+    <span class="filter-label">Precio máx.</span>
+    <input type="number" id="precio-max" placeholder="ej. 8000" class="precio-max-input" oninput="render()" min="0" step="500">
     <button class="filter" id="btn-clear-filters" onclick="clearFilters()" style="display:none">✕ Limpiar filtros</button>
     <span class="sort-label">Ordenar:</span>
     <select class="sort-sel" id="sort-sel" onchange="render()">
@@ -418,6 +433,7 @@ const filters = { cap:'todos', panel:'todos', ventana:'todos', canastos:'todos' 
 
 function clearFilters() {
   filters.cap = 'todos'; filters.panel = 'todos'; filters.ventana = 'todos'; filters.canastos = 'todos';
+  const _pm=document.getElementById('precio-max');if(_pm)_pm.value='';
   document.getElementById('search').value = '';
   document.querySelectorAll('.filter.on').forEach(b => b.classList.remove('on'));
   document.querySelectorAll('.filter[onclick*="\'todos\'"]').forEach(b => b.classList.add('on'));
@@ -464,6 +480,7 @@ function render() {
       const hay = (p.nombre + ' ' + p.marca + ' ' + (p.modelo||'')).toLowerCase();
       if (!hay.includes(q)) return false;
     }
+    const _maxP=parseFloat(document.getElementById('precio-max')?.value)||Infinity;if(_maxP<Infinity&&(p.precio||0)>_maxP)return false;
     return true;
   });
 
