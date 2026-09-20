@@ -187,7 +187,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 @media(max-width:600px){
   nav{padding:0 1rem;height:58px}
   .nav-links{display:none}
-  .toolbar{top:58px;overflow-x:auto;flex-wrap:nowrap;padding:.5rem 1rem;-webkit-overflow-scrolling:touch}
+  .toolbar{top:58px;overflow-x:auto;flex-wrap:wrap;padding:.5rem 1rem;-webkit-overflow-scrolling:touch}
   .sort-wrap{flex-shrink:0}
   .grid{grid-template-columns:repeat(2,1fr);gap:10px}
   .grid-wrap{padding:1rem .75rem}
@@ -228,8 +228,19 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   .nav-menu-btn{display:flex !important}
   .breadcrumb{padding:.5rem 1rem}
   .card-img-wrap{height:160px}
-  .toolbar{overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch}
+  .toolbar{overflow-x:auto;flex-wrap:wrap;-webkit-overflow-scrolling:touch}
   .toolbar::-webkit-scrollbar{display:none}
+}/* â”€â”€ Mobile improvements â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+@media(max-width:768px){
+  .toolbar{flex-wrap:wrap!important;overflow-x:visible!important}
+  .card-img-wrap{height:100px!important}
+  .card-body{padding:.5rem!important}
+  .card-name{font-size:12px!important;-webkit-line-clamp:2!important;display:-webkit-box!important;-webkit-box-orient:vertical!important;overflow:hidden!important;line-clamp:2!important}
+  .card-price,.dual-price{font-size:14px!important}
+  .btn-buy,.btn-ml,.btn-amz{font-size:11px!important;padding:5px 4px!important}
+  .card::after{content:'+ Comparar';display:block;border:1px solid #16a34a;color:#16a34a;font-size:11px;padding:3px 8px;border-radius:20px;text-align:center;margin:6px 8px 8px;font-family:inherit;font-weight:500;cursor:pointer}
+  .card.selected::after{background:#16a34a;color:#fff;content:'Seleccionado \2713'}
+  .cmp-bar{display:none!important}
 }</style>
 </head>
 <body>

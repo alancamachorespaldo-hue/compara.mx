@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es-MX">
 <head>
 <meta charset="UTF-8">
@@ -214,7 +214,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 /* FAB móvil */
 @media(max-width:600px){
   .nav-links{display:none}
-  .toolbar{overflow-x:auto;flex-wrap:nowrap;padding:.5rem 1rem}
+  .toolbar{overflow-x:auto;flex-wrap:wrap;padding:.5rem 1rem}
   .cmp-bar{display:none !important}
   .cmp-fab{display:none;position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));right:14px;z-index:300;flex-direction:column;align-items:flex-end;gap:6px}
   .cmp-fab.show{display:flex}
@@ -225,7 +225,18 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 @media(max-width:640px){
   .sec-tab{padding:.75rem .875rem;font-size:12px}
 }
-</style>
+/* â”€â”€ Mobile improvements â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+@media(max-width:768px){
+  .toolbar{flex-wrap:wrap!important;overflow-x:visible!important}
+  .card-img-wrap{height:100px!important}
+  .card-body{padding:.5rem!important}
+  .card-name{font-size:12px!important;-webkit-line-clamp:2!important;display:-webkit-box!important;-webkit-box-orient:vertical!important;overflow:hidden!important;line-clamp:2!important}
+  .card-price,.dual-price{font-size:14px!important}
+  .btn-buy,.btn-ml,.btn-amz{font-size:11px!important;padding:5px 4px!important}
+  .card::after{content:'+ Comparar';display:block;border:1px solid #16a34a;color:#16a34a;font-size:11px;padding:3px 8px;border-radius:20px;text-align:center;margin:6px 8px 8px;font-family:inherit;font-weight:500;cursor:pointer}
+  .card.selected::after{background:#16a34a;color:#fff;content:'Seleccionado \2713'}
+  .cmp-bar{display:none!important}
+}</style>
 </head>
 <body>
 

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es-MX">
 <head>
 <meta charset="UTF-8">
@@ -190,7 +190,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 #tipo-dd{display:none}
 @media(max-width:600px){
   .nav-links{display:none}
-  .toolbar{top:64px;flex-direction:column;flex-wrap:nowrap;overflow-x:visible;padding:.5rem .75rem;gap:6px}
+  .toolbar{top:64px;flex-direction:column;flex-wrap:wrap;overflow-x:visible;padding:.5rem .75rem;gap:6px}
   .toolbar-row1{display:flex;gap:6px;width:100%}
   .toolbar-row1 .sabor-dd{flex:1;min-width:0}
   .toolbar-row1 .sabor-dd .sabor-dd-btn{width:100%;justify-content:space-between}
@@ -208,7 +208,18 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   .cmp-fab-count{background:#fff;color:var(--ac);border-radius:50%;width:22px;height:22px;font-size:.78rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0}
   body{padding-bottom:80px}
 }
-</style>
+/* â”€â”€ Mobile improvements â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+@media(max-width:768px){
+  .toolbar{flex-wrap:wrap!important;overflow-x:visible!important}
+  .card-img-wrap{height:100px!important}
+  .card-body{padding:.5rem!important}
+  .card-name{font-size:12px!important;-webkit-line-clamp:2!important;display:-webkit-box!important;-webkit-box-orient:vertical!important;overflow:hidden!important;line-clamp:2!important}
+  .card-price,.dual-price{font-size:14px!important}
+  .btn-buy,.btn-ml,.btn-amz{font-size:11px!important;padding:5px 4px!important}
+  .card::after{content:'+ Comparar';display:block;border:1px solid #16a34a;color:#16a34a;font-size:11px;padding:3px 8px;border-radius:20px;text-align:center;margin:6px 8px 8px;font-family:inherit;font-weight:500;cursor:pointer}
+  .card.selected::after{background:#16a34a;color:#fff;content:'Seleccionado \2713'}
+  .cmp-bar{display:none!important}
+}</style>
 </head>
 <body>
 
