@@ -142,7 +142,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .card-tip{font-size:10px;color:var(--tx3);margin-top:.5rem;text-align:center}
 .empty{text-align:center;padding:3rem;color:var(--tx3);font-size:14px}
 
-.cmp-bar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:2px solid var(--ac);padding:.875rem 2rem;display:none;align-items:center;justify-content:space-between;z-index:200;gap:12px;box-shadow:0 -4px 20px rgba(0,0,0,.08)}
+.cmp-bar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:2px solid var(--ac);padding:.875rem 2rem;display:none;align-items:center;justify-content:space-between;z-index:200;gap:12px;box-shadow:0 -4px 20px rgba(0,0,0,.08)}.cmp-bar.show{display:flex}
 .cmp-bar-txt{font-size:14px;color:var(--tx);font-weight:600;font-family:'Satoshi',sans-serif}
 .cmp-bar-sub{font-size:11px;color:var(--tx2)}
 .cmp-bar-actions{display:flex;gap:8px}
@@ -179,8 +179,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 }
 /* -- Barra comparar movil -- */
 @media(max-width:600px){
-  .cmp-bar,.compare-bar{padding:.5rem 1rem!important;flex-wrap:wrap!important;gap:6px!important;display:flex!important}
-  .cmp-bar.show,.compare-bar.show{display:flex!important}
+  .cmp-bar,.compare-bar{padding:.5rem 1rem;flex-wrap:wrap;gap:6px}
+  .cmp-bar.show,.compare-bar.show{display:flex!important;padding:.5rem 1rem;flex-wrap:wrap;gap:6px}
   .cmp-bar-txt{font-size:12px!important}
   .cmp-bar-sub{font-size:10px!important}
   .cmp-bar-actions{gap:5px!important}
@@ -421,8 +421,8 @@ function updateCmpBar(){
   const txt = document.getElementById('cmp-bar-txt');
   const sub = document.getElementById('cmp-bar-sub-txt');
   const btn = document.getElementById('btn-do-cmp');
-  if(state.sel.length===0){bar.style.display='none';return;}
-  bar.style.display='flex';
+  if(state.sel.length===0){bar.classList.remove('show');return;}
+  bar.classList.add('show');
   txt.textContent=state.sel.length+' '+(state.sel.length===1?'bici seleccionada':'bicis seleccionadas');
   sub.textContent=state.sel.length<2?'Selecciona 2 o 3 para comparar':'';
   btn.disabled=state.sel.length<2;
