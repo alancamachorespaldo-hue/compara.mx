@@ -669,7 +669,14 @@ function getColores(f) {
 /* ─── ANALYTICS ──────────────────────────────────────────── */
 let _lastComparisonId = null;
 let _searchTimer, _precioTimer;
-/* trackEvent y buildComparisonId vienen de /assets/js/analytics.js */
+/* trackEvent y buildComparisonId vienen de /assets/js/analytics.js
+   Fallbacks por si el script externo tarda o falla (no romper el comparador) */
+if (typeof window.trackEvent !== 'function') {
+  window.trackEvent = function(n,p){ try{ if(typeof gtag==='function') gtag('event',n,p||{}); }catch(e){} };
+}
+if (typeof window.buildComparisonId !== 'function') {
+  window.buildComparisonId = function(ids){ return [].concat(ids).sort().join('__'); };
+}
 function onSearchInput() {
   clearTimeout(_searchTimer);
   _searchTimer = setTimeout(function() {
