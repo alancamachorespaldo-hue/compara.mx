@@ -42,6 +42,12 @@
  *   Llama trackEvent('select_product', {...}) cuando se seleccione,
  *   y trackEvent('compare_start'/'compare_2_products'/'compare_3_products', {...})
  *   al abrir la comparación.  buildComparisonId([id1, id2]) genera el ID estable.
+ *
+ * --- PARA MEDIR comparison_section_view EN UNA NUEVA CATEGORÍA ---
+ *   Añade data-ga-section="comparison" al contenedor principal del comparador:
+ *     <div class="grid-wrap" data-ga-section="comparison">
+ *   El observer global lo detecta automáticamente y dispara el evento
+ *   una sola vez cuando el 40 % del contenedor entra en el viewport.
  */
 (function () {
   'use strict';
@@ -93,4 +99,35 @@
 
   }, true); /* true = fase de captura → dispara antes que onclick inline */
 
+  /* ── comparison_section_view ────────────────────────────────────── */
+  /* Dispara UNA SOLA VEZ cuando [data-ga-section="comparison"] entra
+   * al viewport con al menos 40 % visible.
+   * Para activarlo en cualquier página: añade data-ga-section="comparison"
+   * al contenedor principal del comparador (p.ej. <div class="grid-wrap">). */
+  if (typeof IntersectionObserver !== 'undefined') {
+    var _cmpObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        _cmpObserver.unobserve(entry.target); /* dispara solo una vez */
+        var cat = document.body && document.body.dataset && document.body.dataset.category;
+        var params = { page_path: window.location.pathname };
+        if (cat) params.category = cat;
+        window.trackEvent('comparison_section_view', params);
+      });
+    }, { threshold: 0.4 });
+
+    /* Observar en cuanto el DOM esté listo */
+    function _initCmpObserver() {
+      var el = document.querySelector('[data-ga-section="comparison"]');
+      if (el) _cmpObserver.observe(el);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', _initCmpObserver);
+    } else {
+      _initCmpObserver();
+    }
+  }
+
 })();
+
