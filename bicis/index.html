@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es-MX">
 <head>
 <meta charset="UTF-8" >
@@ -446,8 +446,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="color-dropdown" id="color-dd-elec"></div>
     </div>
     <div class="filter-sep"></div>
-    <span class="filter-label">Precio mÃ¡x.</span>
-    <input type="number" id="precio-max" placeholder="ej. 8000" class="precio-max-input" oninput="render()" min="0" step="500">
+    <span class="filter-label">Precio máx.</span>
+    <input type="number" id="precio-max-elec" placeholder="ej. 7000" class="precio-max-input" oninput="renderGrid('elec')" min="0" step="500">
 <div class="sort-wrap">
       <span class="sort-label">Ordenar:</span>
       <select class="sort-sel" onchange="applySort('elec',this.value)">
@@ -466,6 +466,31 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   <div class="grid-wrap">
     <div class="grid" id="grid-elec"></div>
     <div class="empty" id="empty-elec" style="display:none">No hay bicis con ese filtro.</div>
+  <noscript><ul style="margin:1rem 2rem;padding:0;list-style:disc;font-size:13px;line-height:2">
+    <li>HONEYWHALE B20 Plegable 440W â€” $6,599 MXN</li>
+    <li>POP SHOPPE S6 Negro 750W â€” $8,499 MXN</li>
+    <li>POP SHOPPE S6 Blanco 750W â€” $8,499 MXN</li>
+    <li>HONEYWHALE S6 PRO-S Plegable 750W â€” $9,999 MXN</li>
+    <li>AMYET SE1 Fat Tire 20" â€” $9,999 MXN</li>
+    <li>HONEYWHALE S6-S Plegable 750W â€” $9,499 MXN</li>
+    <li>Bizmo MKZ-BIZMODYNEG Urbana 350W</li>
+    <li>NEON EBIKE500 Urbana 500W</li>
+    <li>Moboss Prince Plegable</li>
+    <li>Kiwo Hikari</li>
+    <li>F1 Plegable 500W</li>
+    <li>F1 DelfÃ­n PequeÃ±o 400W</li>
+    <li>Kiwo KL 800</li>
+    <li>NEON EX-1 Urbana</li>
+    <li>NEON EX-1R Urbana 350W</li>
+    <li>AMYET SE1 MontaÃ±a</li>
+    <li>HONEYWHALE BW02</li>
+    <li>HONEYWHALE F6</li>
+    <li>Moto Bici 500W</li>
+    <li>RACK &amp; PACK Motoneta 350W</li>
+    <li>Pop Shope S6 48V 10.4Ah</li>
+    <li>HONEYWHALE U1s</li>
+    <li>Red Velvet EAGOEZL-01</li>
+  </ul></noscript>
   </div>
   </div>
 </div>
@@ -492,8 +517,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
     <button class="filter" data-group="precio" onclick="applyPrecio('montana','mid',this)">$6k–$10k</button>
     <button class="filter" data-group="precio" onclick="applyPrecio('montana','high',this)">$10,000+</button>
     <div class="filter-sep"></div>
-    <span class="filter-label">Precio mÃ¡x.</span>
-    <input type="number" id="precio-max" placeholder="ej. 8000" class="precio-max-input" oninput="render()" min="0" step="500">
+    <span class="filter-label">Precio máx.</span>
+    <input type="number" id="precio-max-montana" placeholder="ej. 8000" class="precio-max-input" oninput="renderGrid('montana')" min="0" step="500">
 <div class="sort-wrap">
       <span class="sort-label">Ordenar:</span>
       <select class="sort-sel" onchange="applySort('montana',this.value)">
@@ -511,6 +536,20 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   <div class="grid-wrap">
     <div class="grid" id="grid-montana"></div>
     <div class="empty" id="empty-montana" style="display:none">No hay bicis con ese filtro.</div>
+  <noscript><ul style="margin:1rem 2rem;padding:0;list-style:disc;font-size:13px;line-height:2">
+    <li>Terrafit Venum R26 MTB 21v â€” $4,359 MXN</li>
+    <li>Kubor Cosmo 26 MTB 21v â€” $5,749 MXN</li>
+    <li>Terrafit Spider R29 MTB 21v â€” $5,189 MXN</li>
+    <li>Kubor Calipso 3 R29 21v â€” $7,239 MXN</li>
+    <li>Kubor Calipso 4 R29 â€” $8,805 MXN</li>
+    <li>Centurfit R29 MTB 21v â€” $8,499 MXN</li>
+    <li>Lagom Shimano 500-7 R29 21v â€” $6,299 MXN</li>
+    <li>Kubor Octopus R29 9V Shimano Acera â€” $9,219 MXN</li>
+    <li>Kubor Calipso 3 R27.5 Rojo â€” $7,543 MXN</li>
+    <li>Kubor Calipso 3 R27 Blanco â€” $6,799 MXN</li>
+    <li>Kubor Calipso 4 R29 Azul â€” $8,805 MXN</li>
+    <li>Terrafit Venum R26 Verde â€” $4,359 MXN</li>
+  </ul></noscript>
   </div>
   </div>
 </div>
@@ -537,8 +576,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
     <button class="filter" data-group="precio" onclick="applyPrecio('ruta','mid',this)">$6k–$10k</button>
     <button class="filter" data-group="precio" onclick="applyPrecio('ruta','high',this)">$10,000+</button>
     <div class="filter-sep"></div>
-    <span class="filter-label">Precio mÃ¡x.</span>
-    <input type="number" id="precio-max" placeholder="ej. 8000" class="precio-max-input" oninput="render()" min="0" step="500">
+    <span class="filter-label">Precio máx.</span>
+    <input type="number" id="precio-max-ruta" placeholder="ej. 10000" class="precio-max-input" oninput="renderGrid('ruta')" min="0" step="500">
 <div class="sort-wrap">
       <span class="sort-label">Ordenar:</span>
       <select class="sort-sel" onchange="applySort('ruta',this.value)">
@@ -556,6 +595,20 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   <div class="grid-wrap">
     <div class="grid" id="grid-ruta"></div>
     <div class="empty" id="empty-ruta" style="display:none">No hay bicis con ese filtro.</div>
+  <noscript><ul style="margin:1rem 2rem;padding:0;list-style:disc;font-size:13px;line-height:2">
+    <li>Terrafit Atenea R700 1v â€” $2,899 MXN</li>
+    <li>Monk Flug R700 14v â€” $8,174 MXN</li>
+    <li>Benotto Ruta 590 R700 14v â€” $7,435 MXN</li>
+    <li>Gravel Fixie R700c Rosa â€” $6,474 MXN</li>
+    <li>Gravel Fixie R700c Amarillo â€” $6,474 MXN</li>
+    <li>Gravel Fixie R700c Blanco â€” $7,625 MXN</li>
+    <li>Alubike Mazzima R700 14v â€” $10,635 MXN</li>
+    <li>Gravel Armstrong R700 14v â€” $13,499 MXN</li>
+    <li>Turbo Technik R700 14v â€” $12,672 MXN</li>
+    <li>RAM Road R700 14v â€” $16,362 MXN</li>
+    <li>Turbo Strada R700 20v â€” $15,840 MXN</li>
+    <li>Hiland Ruta R26 14v â€” $12,099 MXN</li>
+  </ul></noscript>
   </div>
   </div>
 </div>
@@ -582,8 +635,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
     <button class="filter" data-group="precio" onclick="applyPrecio('gravel','mid',this)">$10k–$20k</button>
     <button class="filter" data-group="precio" onclick="applyPrecio('gravel','high',this)">$20,000+</button>
     <div class="filter-sep"></div>
-    <span class="filter-label">Precio mÃ¡x.</span>
-    <input type="number" id="precio-max" placeholder="ej. 8000" class="precio-max-input" oninput="render()" min="0" step="500">
+    <span class="filter-label">Precio máx.</span>
+    <input type="number" id="precio-max-gravel" placeholder="ej. 15000" class="precio-max-input" oninput="renderGrid('gravel')" min="0" step="500">
 <div class="sort-wrap">
       <span class="sort-label">Ordenar:</span>
       <select class="sort-sel" onchange="applySort('gravel',this.value)">
@@ -601,6 +654,11 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   <div class="grid-wrap">
     <div class="grid" id="grid-gravel"></div>
     <div class="empty" id="empty-gravel" style="display:none">No hay bicis con ese filtro.</div>
+  <noscript><ul style="margin:1rem 2rem;padding:0;list-style:disc;font-size:13px;line-height:2">
+    <li>Gravel Asphalt R700c 14v Shimano â€” $6,616 MXN</li>
+    <li>Java Sequoia Gravel L-twoo R3 2x8v â€” $19,000 MXN</li>
+    <li>Gravel Tucson 2024 Shimano Sora 18v â€” $25,999 MXN</li>
+  </ul></noscript>
   </div>
   </div>
 </div>
@@ -655,7 +713,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
     <span class="footer-wordmark">comparalo<span class="logo-mx">.mx</span></span>
   </div>
   <div class="footer-info">
-    Afiliados <strong>Amazon MX</strong> (comparabici-20) · Afiliados <strong>Mercado Libre</strong> · Actualizado agosto 2026
+    Afiliados <strong>Amazon MX</strong> (comparabici-20) · Afiliados <strong>Mercado Libre</strong> · Precios revisados: agosto 2026
   </div>
 </footer>
 
@@ -2085,7 +2143,7 @@ function updateBar(){
   } else if(nSec>=2){
     bar.style.display='flex';
     document.getElementById('cmp-bar-txt').textContent=nSec+' bici'+(nSec>1?'s':'')+' seleccionada'+(nSec>1?'s':'');
-    document.getElementById('cmp-bar-sub-txt').textContent='Selecciona 2 o 3 para comparar';
+    document.getElementById('cmp-bar-sub-txt').textContent=nSec<2?'Selecciona '+(2-nSec)+' más para comparar':nSec===2?'Lista para comparar \u2014 o agrega una más':'Comparativa de '+nSec+' modelos lista';
     document.getElementById('btn-do-cmp').onclick=()=>showCmp();
     document.getElementById('btn-clear-cmp').onclick=()=>clearSel();
   } else { bar.style.display='none'; }
@@ -2135,6 +2193,7 @@ function getList(sec){
   else if(sort==='autonomia') list.sort((a,b)=>(b.autonomia||0)-(a.autonomia||0));
   else if(sort==='resenas') list.sort((a,b)=>b.resenas-a.resenas);
 
+  const _pmEl=document.getElementById('precio-max-'+sec);const _maxP=_pmEl?(parseFloat(_pmEl.value)||Infinity):Infinity;if(_maxP<Infinity)list=list.filter(b=>(b.precio||0)<=_maxP);
   if(searchQuery) list=list.filter(b=>(b.nombre+' '+b.marca+' '+(b.tipo||'')+(b.motorStr||'')).toLowerCase().includes(searchQuery));
 
   return list;
