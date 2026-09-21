@@ -274,10 +274,18 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   <button class="filter" onclick="toggleFilter('ram','12',this)">12 GB</button>
   <button class="filter" onclick="toggleFilter('ram','16',this)">16 GB+</button>
 
+  <div class="filter-sep"></div>
+  <span class="filter-label">Almac.</span>
+  <button class="filter on" onclick="toggleFilter('almacenamiento','todos',this)">Todos</button>
+  <button class="filter" onclick="toggleFilter('almacenamiento','128',this)">128 GB</button>
+  <button class="filter" onclick="toggleFilter('almacenamiento','256',this)">256 GB</button>
+  <button class="filter" onclick="toggleFilter('almacenamiento','512',this)">512 GB</button>
+  <button class="filter" onclick="toggleFilter('almacenamiento','1024',this)">1 TB</button>
+
   <div class="sort-wrap">
     <div class="filter-sep"></div>
     <span class="filter-label">Precio máx.</span>
-    <input type="number" id="precio-max" placeholder="ej. 8000" class="precio-max-input" oninput="render()" min="0" step="500">
+    <input type="number" id="precio-max" placeholder="ej. 8000" class="precio-max-input" oninput="onPrecioMaxInput()" min="0" step="500">
     <button class="filter" id="btn-clear-filters" onclick="clearFilters()" style="display:none">✕ Limpiar filtros</button>
     <span class="sort-label">Ordenar:</span>
     <select class="sort-sel" id="sort-sel" onchange="render()">
@@ -290,7 +298,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 
 <!-- SEARCH -->
 <div class="search-bar">
-  <input id="search" type="text" placeholder="🔍 Buscar por marca, modelo o característica…" oninput="render()">
+  <input id="search" type="text" placeholder="🔍 Buscar por marca, modelo o característica…" oninput="onSearchInput()">
 </div>
 
 <div class="result-info" id="result-info"></div>
@@ -364,10 +372,10 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body"><div class="card-name">HONOR 600 5G</div><div class="card-price">$8,742</div><a class="btn-ml" href="https://meli.la/2ujFdR5" rel="sponsored nofollow noopener" target="_blank">Ver en Mercado Libre</a></div>
     </article>
   </div>
-  <div id="empty" class="empty" style="display:none">No hay celulares con esos filtros.</div>
 </div>
 
 <div class="disclaimer">
+  <time datetime="2026-09-20">Precios revisados: 20 de septiembre de 2026.</time>
   * Precios y disponibilidad sujetos a cambio. Los enlaces son de afiliado — comparalo.mx puede recibir comisión sin costo adicional para ti.
 </div>
 
@@ -636,7 +644,8 @@ const familias = [
 const storageState = {};
 familias.forEach(f => { storageState[f.modeloBase] = 0; });
 
-const filterState = { marca: 'todos', ram: 'todos' };
+const CATALOG_UPDATED = '20 de septiembre de 2026';
+const filterState = { marca: 'todos', ram: 'todos', almacenamiento: 'todos' };
 
 /* ─── HELPERS ────────────────────────────────────────────── */
 const fmt = v => '$' + Number(v).toLocaleString('es-MX', {minimumFractionDigits:0, maximumFractionDigits:2});
@@ -656,9 +665,37 @@ function getColores(f) {
   return labels.length ? labels : [];
 }
 
+/* ─── ANALYTICS ──────────────────────────────────────────── */
+let _lastComparisonId = null;
+let _searchTimer, _precioTimer;
+function trackEvent(name, params) {
+  try { if (typeof gtag === 'function') gtag('event', name, params || {}); } catch(e) {}
+}
+function makeComparisonId(models) { return [...models].sort().join('__'); }
+function onSearchInput() {
+  clearTimeout(_searchTimer);
+  _searchTimer = setTimeout(function() {
+    const q = (document.getElementById('search').value || '').trim();
+    if (q) {
+      render();
+      const lista = familias.filter(f => (f.nombre+' '+f.marca).toLowerCase().includes(q.toLowerCase()));
+      if (lista.length === 0) trackEvent('search_no_results', { search_term: q });
+      else trackEvent('search_product', { search_term: q, results: lista.length });
+    } else { render(); }
+  }, 1200);
+}
+function onPrecioMaxInput() {
+  clearTimeout(_precioTimer);
+  _precioTimer = setTimeout(function() {
+    const val = parseFloat(document.getElementById('precio-max').value) || 0;
+    if (val > 0) trackEvent('filter_price', { precio_max: val });
+    render();
+  }, 800);
+}
+
 /* ─── FILTROS ────────────────────────────────────────────── */
 function clearFilters() {
-  filterState.marca = 'todos'; filterState.ram = 'todos';
+  filterState.marca = 'todos'; filterState.ram = 'todos'; filterState.almacenamiento = 'todos';
   const _pm=document.getElementById('precio-max');if(_pm)_pm.value='';
   document.getElementById('search').value = '';
   document.querySelectorAll('.filter.on').forEach(b => b.classList.remove('on'));
@@ -674,8 +711,13 @@ function toggleFilter(key, val, btn) {
   );
   group.forEach(b => b.classList.remove('on'));
   btn.classList.add('on');
-  const dirty = filterState.marca !== 'todos' || filterState.ram !== 'todos';
+  const dirty = filterState.marca !== 'todos' || filterState.ram !== 'todos' || filterState.almacenamiento !== 'todos';
   document.getElementById('btn-clear-filters').style.display = dirty ? '' : 'none';
+  if (val !== 'todos') {
+    if (key === 'marca') trackEvent('filter_brand', { brand: val });
+    if (key === 'ram')   trackEvent('filter_ram',   { ram: val });
+    if (key === 'almacenamiento') trackEvent('filter_storage', { storage: val });
+  }
   render();
 }
 
@@ -692,6 +734,10 @@ function render() {
         filterState.ram === '16' ? v.ram >= 16 : v.ram === ramVal
       );
       if (!anyMatch) return false;
+    }
+    if (filterState.almacenamiento !== 'todos') {
+      const almVal = Number(filterState.almacenamiento);
+      if (!f.variantes.some(v => v.storage === almVal)) return false;
     }
     if (q) {
       const hay = (f.nombre + ' ' + f.marca).toLowerCase();
@@ -711,17 +757,24 @@ function render() {
   });
 
   const grid  = document.getElementById('grid');
-  const empty = document.getElementById('empty');
   const info  = document.getElementById('result-info');
 
   if (!lista.length) {
     grid.innerHTML = '';
+    let empty = document.getElementById('empty');
+    if (!empty) {
+      empty = document.createElement('div');
+      empty.id = 'empty'; empty.className = 'empty';
+      empty.textContent = 'No hay celulares con esos filtros.';
+      grid.parentNode.insertBefore(empty, grid.nextSibling);
+    }
     empty.style.display = 'block';
     info.textContent = '';
     return;
   }
-  empty.style.display = 'none';
-  info.textContent = lista.length + ' smartphone' + (lista.length !== 1 ? 's' : '');
+  const emptyEl = document.getElementById('empty');
+  if (emptyEl) emptyEl.style.display = 'none';
+  info.textContent = lista.length + ' celular' + (lista.length !== 1 ? 'es' : '');
   grid.innerHTML = lista.map(f => cardHTML(f)).join('');
 }
 
@@ -810,6 +863,8 @@ function toggleSelect(modeloBase) {
   else {
     if (selected.length >= 3) { alert('Máximo 3 smartphones para comparar.'); return; }
     selected.push(modeloBase);
+    const f = familias.find(x => x.modeloBase === modeloBase);
+    trackEvent('select_product', { item_id: modeloBase, item_name: f ? f.nombre : modeloBase });
   }
   updateBar(); render();
 }
@@ -852,6 +907,11 @@ function clearSelection() { selected = []; updateBar(); render(); }
 
 function openModal() {
   if (selected.length < 2) return;
+  const cmpId = makeComparisonId(selected);
+  _lastComparisonId = cmpId;
+  trackEvent('compare_start', { comparison_id: cmpId, count: selected.length });
+  if (selected.length === 2) trackEvent('compare_2_products', { comparison_id: cmpId });
+  if (selected.length === 3) trackEvent('compare_3_products', { comparison_id: cmpId });
   const items = selected.map(mb => {
     const f = familias.find(x => x.modeloBase === mb);
     const v = f.variantes[storageState[mb]];
@@ -921,15 +981,14 @@ render();
 /* GA4 affiliate tracking — event delegation */
 document.addEventListener('click', function(e) {
   var btn = e.target.closest ? e.target.closest('.btn-amz,.btn-ml') : null;
-  if (!btn || typeof gtag === 'undefined') return;
+  if (!btn) return;
   var isAmz = btn.classList.contains('btn-amz');
   var label = btn.dataset.gaLabel || '';
   var val   = parseFloat(btn.dataset.gaVal) || 0;
-  gtag('event', isAmz ? 'click_amazon' : 'click_mercadolibre', {
-    event_category: 'afiliado',
-    event_label: label,
-    value: val
-  });
+  var inModal = !!btn.closest('#cmp-overlay');
+  var params = { item_name: label, value: val };
+  if (inModal && _lastComparisonId) params.comparison_id = _lastComparisonId;
+  trackEvent(isAmz ? 'affiliate_click_amazon' : 'affiliate_click_ml', params);
 });
 </script>
 </body>
