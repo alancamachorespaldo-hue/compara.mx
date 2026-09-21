@@ -1657,17 +1657,19 @@ function openModal() {
     return { familia: f, variante: v };
   });
 
-  function prodBtns(v, size) {
+  function prodBtns(f, v, size) {
     const h = size === 'sm' ? '16px' : '18px';
     const pad = size === 'sm' ? '5px 8px' : '7px 12px';
     const fs = size === 'sm' ? '11px' : '12px';
-    const ml = v.linkML  ? `<a class="btn-ml"  href="${v.linkML}"  target="_blank" rel="sponsored nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;" data-ga-label="${nombre||''}" data-ga-val="${variante.precio||0}">Ver en <img style="height:${h}" src="/logomercado.png" onerror="this.style.display='none'"></a>` : '';
-    const amz = v.linkAmz ? `<a class="btn-amz" href="${v.linkAmz}" target="_blank" rel="sponsored nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;" data-ga-label="${nombre||''}" data-ga-val="${variante.precio||0}">Ver en <img style="height:${h}" src="/logoamazon.png" onerror="this.style.display='none'"></a>` : '';
+    const gaLabel = (f && f.nombre) || '';
+    const gaVal = v.precio || 0;
+    const ml = v.linkML  ? `<a class="btn-ml"  href="${v.linkML}"  target="_blank" rel="sponsored nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;" data-ga-label="${gaLabel}" data-ga-val="${gaVal}">Ver en <img style="height:${h}" src="/logomercado.png" onerror="this.style.display='none'"></a>` : '';
+    const amz = v.linkAmz ? `<a class="btn-amz" href="${v.linkAmz}" target="_blank" rel="sponsored nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;" data-ga-label="${gaLabel}" data-ga-val="${gaVal}">Ver en <img style="height:${h}" src="/logoamazon.png" onerror="this.style.display='none'"></a>` : '';
     return `<div class="cmp-prod-btns${ml&&amz?' dual':''}">${ml}${amz}</div>`;
   }
 
   const headers = items.map(({ familia: f, variante: v }) =>
-    `<th><img class="cmp-prod-img" src="${v.img || ''}" alt="${f.nombre}" onerror="this.style.opacity='.3'"><div class="cmp-prod-name">${f.nombre}</div><div class="cmp-prod-stor">${fmtGB(v.almacenamientoGB)}</div>${prodBtns(v,'sm')}</th>`
+    `<th><img class="cmp-prod-img" src="${v.img || ''}" alt="${f.nombre}" onerror="this.style.opacity='.3'"><div class="cmp-prod-name">${f.nombre}</div><div class="cmp-prod-stor">${fmtGB(v.almacenamientoGB)}</div>${prodBtns(f,v,'sm')}</th>`
   ).join('');
 
   function fila(label, rawVals, fmtFn, best) {
@@ -1707,7 +1709,7 @@ function openModal() {
     valorRow,
   ].join('');
 
-  const btnRows = items.map(({variante: v}) => `<td>${prodBtns(v,'md')}</td>`).join('');
+  const btnRows = items.map(({familia: f, variante: v}) => `<td>${prodBtns(f,v,'md')}</td>`).join('');
   document.getElementById('cmp-table').innerHTML =
     `<thead><tr><th style="text-align:left;position:sticky;left:0;z-index:20;min-width:130px;border-right:1px solid var(--bd)">Característica</th>${headers}</tr></thead>
      <tbody>${rows}<tr><td>Comprar</td>${btnRows}</tr></tbody>`;
