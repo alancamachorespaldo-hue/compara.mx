@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es-MX">
 <head>
 <meta charset="UTF-8">
@@ -33,6 +33,7 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 28'%3E%3Cpath d='M1,0 L15,14 L1,28 L7,28 L21,14 L7,0 Z' fill='%23006847'/%3E%3Ccircle cx='23' cy='14' r='3.8' fill='%23006847'/%3E%3Cpath d='M25,0 L39,14 L25,28 L31,28 L45,14 L31,0 Z' fill='%23CE1126'/%3E%3C/svg%3E">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9TKZ4ER13X"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-9TKZ4ER13X');</script>
+<script src="/assets/js/analytics.js"></script>
 
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -228,7 +229,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   .cmp-bar-actions{gap:5px!important}
 }</style>
 </head>
-<body>
+<body data-category="celulares_iphone"
 
 <nav class="nav">
   <a class="logo" href="/">
@@ -1561,6 +1562,8 @@ function toggleSelect(modeloBase) {
   } else {
     if (selected.length >= 3) { alert('Máximo 3 modelos para comparar.'); return; }
     selected.push(modeloBase);
+    const _f = familias.find(x => x.modeloBase === modeloBase);
+    trackEvent('select_product', { item_id: modeloBase, item_name: _f ? _f.nombre : modeloBase, category: 'celulares_iphone', selection_count: selected.length });
   }
   // Actualizar apariencia de la card seleccionada
   const cardEl = document.getElementById(`card-${modeloBase}`);
@@ -1635,6 +1638,12 @@ function clearSelection() {
 // ─────────────────────────────────────────────────────────────────────────────
 function openModal() {
   if (selected.length < 2) return;
+  const _cmpId = buildComparisonId(selected);
+  const _cmpNames = selected.map(mb => { const f = familias.find(x => x.modeloBase === mb); return f ? f.nombre : mb; }).join(' vs ');
+  trackEvent('compare_start',     { comparison_id: _cmpId, products_compared: _cmpNames, product_count: selected.length, category: 'celulares_iphone' });
+  if (selected.length === 2) trackEvent('compare_2_products', { comparison_id: _cmpId, products_compared: _cmpNames, product_count: 2, category: 'celulares_iphone' });
+  if (selected.length === 3) trackEvent('compare_3_products', { comparison_id: _cmpId, products_compared: _cmpNames, product_count: 3, category: 'celulares_iphone' });
+
   const items = selected.map(mb => {
     const f = familias.find(f => f.modeloBase === mb);
     const v = activeVariante(f);
@@ -1709,20 +1718,6 @@ buildColorDropdown();
 render();
 </script>
 
-<script>
-/* GA4 affiliate tracking — event delegation */
-document.addEventListener('click', function(e) {
-  var btn = e.target.closest ? e.target.closest('.btn-amz,.btn-ml') : null;
-  if (!btn || typeof gtag === 'undefined') return;
-  var isAmz = btn.classList.contains('btn-amz');
-  var label = btn.dataset.gaLabel || '';
-  var val   = parseFloat(btn.dataset.gaVal) || 0;
-  gtag('event', isAmz ? 'click_amazon' : 'click_mercadolibre', {
-    event_category: 'afiliado',
-    event_label: label,
-    value: val
-  });
-});
-</script>
+<!-- affiliate tracking: manejado globalmente por /assets/js/analytics.js -->
 </body>
 </html>

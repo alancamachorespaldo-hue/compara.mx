@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es-MX">
 <head>
 <meta charset="UTF-8">
@@ -69,6 +69,7 @@
 <link rel="icon" type="image/png" href="/logopng.png"><link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 28'%3E%3Cpath d='M1,0 L15,14 L1,28 L7,28 L21,14 L7,0 Z' fill='%23006847'/%3E%3Ccircle cx='23' cy='14' r='3.8' fill='%23006847'/%3E%3Cpath d='M25,0 L39,14 L25,28 L31,28 L45,14 L31,0 Z' fill='%23CE1126'/%3E%3C/svg%3E">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9TKZ4ER13X"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-9TKZ4ER13X');</script>
+<script src="/assets/js/analytics.js"></script>
 
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -231,7 +232,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   .cmp-bar-actions{gap:5px!important}
 }</style>
 </head>
-<body>
+<body data-category="celulares_android"
 
 <nav class="nav">
   <a class="logo" href="/">
@@ -668,10 +669,7 @@ function getColores(f) {
 /* ─── ANALYTICS ──────────────────────────────────────────── */
 let _lastComparisonId = null;
 let _searchTimer, _precioTimer;
-function trackEvent(name, params) {
-  try { if (typeof gtag === 'function') gtag('event', name, params || {}); } catch(e) {}
-}
-function makeComparisonId(models) { return [...models].sort().join('__'); }
+/* trackEvent y buildComparisonId vienen de /assets/js/analytics.js */
 function onSearchInput() {
   clearTimeout(_searchTimer);
   _searchTimer = setTimeout(function() {
@@ -799,7 +797,7 @@ function cardHTML(f) {
   const colorDots = colores.length ? `<div class="color-dots">${colores.map(c => `<span class="color-dot" style="background:${COLOR_SWATCHES[c]||'#ccc'}" title="${c}"></span>`).join('')}</div>` : '<div class="color-dots"></div>';
 
   const btnML = v.linkML ? `<a class="btn-ml" href="${v.linkML}" id="lnk-ml-${f.modeloBase}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','click_mercadolibre',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0});}" data-ga-label="${f.nombre||''}" data-ga-val="${v.precio||0}">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>` : '';
-  const btnAmz = v.linkAmz ? `<a class="btn-amz" href="${v.linkAmz}" id="lnk-amz-${f.modeloBase}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();trackEvent('affiliate_click_amazon',{'item_name':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0,'platform':'amazon'});" data-ga-label="${f.nombre||''}" data-ga-val="${v.precio||0}">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>` : '';
+  const btnAmz = v.linkAmz ? `<a class="btn-amz" href="${v.linkAmz}" id="lnk-amz-${f.modeloBase}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();" data-ga-label="${f.nombre||''}" data-ga-val="${v.precio||0}">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>` : '';
 
   return `
   <div class="card${isSel?' selected':''}" id="card-${f.modeloBase}" onclick="toggleSelect('${f.modeloBase}')">
@@ -850,7 +848,7 @@ function selectStorage(modeloBase, idx) {
   if (ss) { const s = storageLbl(v.storage); ss.querySelectorAll('.storage-btn').forEach(b => b.classList.toggle('active', b.textContent.trim() === s)); }
 
   const btnML  = v.linkML  ? `<a class="btn-ml"  href="${v.linkML}"  id="lnk-ml-${modeloBase}"  target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','click_mercadolibre',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0});}" data-ga-label="${f.nombre||''}" data-ga-val="${v.precio||0}">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>` : '';
-  const btnAmz = v.linkAmz ? `<a class="btn-amz" href="${v.linkAmz}" id="lnk-amz-${modeloBase}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();trackEvent('affiliate_click_amazon',{'item_name':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0,'platform':'amazon'});" data-ga-label="${f.nombre||''}" data-ga-val="${v.precio||0}">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon"       onerror="this.style.display='none'"></a>` : '';
+  const btnAmz = v.linkAmz ? `<a class="btn-amz" href="${v.linkAmz}" id="lnk-amz-${modeloBase}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();" data-ga-label="${f.nombre||''}" data-ga-val="${v.precio||0}">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>` : '';
   document.getElementById('btns-' + modeloBase).innerHTML = btnML + btnAmz;
 }
 
@@ -907,7 +905,7 @@ function clearSelection() { selected = []; updateBar(); render(); }
 
 function openModal() {
   if (selected.length < 2) return;
-  const cmpId = makeComparisonId(selected);
+  const cmpId = buildComparisonId(selected);
   _lastComparisonId = cmpId;
   trackEvent('compare_start', { comparison_id: cmpId, count: selected.length });
   if (selected.length === 2) trackEvent('compare_2_products', { comparison_id: cmpId });
@@ -977,21 +975,6 @@ function closeModal() { document.getElementById('cmp-overlay').classList.remove(
 render();
 </script>
 
-<script>
-/* GA4 affiliate tracking — event delegation (handles modal buttons that have no inline onclick) */
-document.addEventListener('click', function(e) {
-  var btn = e.target.closest ? e.target.closest('.btn-amz,.btn-ml') : null;
-  if (!btn) return;
-  /* Card buttons call trackEvent() in their inline onclick and stopPropagation() — skip them here */
-  if (btn.id && (btn.id.indexOf('lnk-amz-') === 0 || btn.id.indexOf('lnk-ml-') === 0)) return;
-  var isAmz = btn.classList.contains('btn-amz');
-  var label = btn.dataset.gaLabel || '';
-  var val   = parseFloat(btn.dataset.gaVal) || 0;
-  var inModal = !!btn.closest('#cmp-overlay');
-  var params = { item_name: label, value: val, platform: isAmz ? 'amazon' : 'mercadolibre' };
-  if (inModal && _lastComparisonId) params.comparison_id = _lastComparisonId;
-  trackEvent(isAmz ? 'affiliate_click_amazon' : 'affiliate_click_ml', params);
-});
-</script>
+<!-- affiliate tracking: manejado globalmente por /assets/js/analytics.js -->
 </body>
 </html>
