@@ -111,10 +111,10 @@
   text-transform: uppercase;
   letter-spacing: .2px;
   color: #64748b;
-  line-height: 1.2;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  line-height: 1.15;
+  white-space: normal;
+  overflow: visible;
+  word-break: break-word;
 }
 
 .spec-val {
@@ -231,33 +231,51 @@
 
 /* card-btns-dual (freidoras, bicis, creatina, etc.) */
 .card[data-platform="both"] .card-btns-dual {
-  gap: 0 !important;
+  flex-direction: column !important;
+  gap: 5px !important;
+  overflow: visible;
+}
+
+.card[data-platform="both"] .card-btn-col {
+  background: transparent;
   border-radius: 8px;
-  overflow: hidden;
+  padding: 5px 7px !important;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .card[data-platform="both"] .card-btn-col:first-child {
   background: #fffae0;
   border: 1px solid #e0ca00;
-  border-right: none;
-  border-radius: 8px 0 0 8px;
-  padding: 5px !important;
 }
 
 .card[data-platform="both"] .card-btn-col:last-child {
   background: #fff4eb;
   border: 1px solid #e8893a;
-  border-left: none;
-  border-radius: 0 8px 8px 0;
-  padding: 5px !important;
 }
 
 .card[data-platform="both"] .card-btn-col:first-child .card-btn-col-price {
   color: #b38600;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
 }
 
 .card[data-platform="both"] .card-btn-col:last-child .card-btn-col-price {
   color: #c05c00;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.card[data-platform="both"] .card-btn-col .btn-ml,
+.card[data-platform="both"] .card-btn-col .btn-amz {
+  flex: 1;
+  padding: 5px 6px !important;
+  font-size: 10.5px !important;
 }
 
 /* btn-row dual (complejo-b) */
@@ -267,23 +285,21 @@
 }
 
 .card[data-platform="both"] .btn-row.dual {
-  gap: 0 !important;
-  border-radius: 8px;
-  overflow: hidden;
+  flex-direction: column !important;
+  gap: 5px !important;
+  overflow: visible;
 }
 
 .card[data-platform="both"] .btn-row.dual .btn-buy.btn-ml {
   background: #fffae0;
-  border: 1px solid #e0ca00;
-  border-right: none;
-  border-radius: 8px 0 0 8px;
+  border: 1px solid #e0ca00 !important;
+  border-radius: 8px !important;
 }
 
 .card[data-platform="both"] .btn-row.dual .btn-buy.btn-amz {
   background: #fff4eb;
-  border: 1px solid #e8893a;
-  border-left: none;
-  border-radius: 0 8px 8px 0;
+  border: 1px solid #e8893a !important;
+  border-radius: 8px !important;
 }
 
 /* ================================================================
