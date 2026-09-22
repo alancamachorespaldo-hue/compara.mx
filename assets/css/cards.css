@@ -1,19 +1,17 @@
-/* comparalo.mx — Sistema visual de plataformas v1.0
+/* comparalo.mx — Sistema visual de plataformas v2.0
  *
  * Uso: añade data-platform="ml|amz|both" al div.card en el JS.
  *
- * MERCADO LIBRE → crema/amarillo
- * AMAZON        → carbón/naranja
- * AMBAS         → split en la zona de precio/botones
+ * MERCADO LIBRE → amarillo crema muy pálido
+ * AMAZON        → naranja/durazno muy pálido (NO negro/carbón)
+ * AMBAS         → fondo neutral + zona comercial split ML/AMZ
  * VERDE         → exclusivo comparalo.mx (selección, destacados)
- *
- * Requiere las variables CSS de cada página:
- *   --bg, --s1, --bd, --bd2, --tx, --tx2, --tx3
- *   --ac, --acd2, --amz, --ml
  */
 
 /* ================================================================
    MERCADO LIBRE (solo ML)
+   Fondo: amarillo crema muy pálido
+   Borde: amarillo ML
    ================================================================ */
 
 .card[data-platform="ml"] {
@@ -23,99 +21,71 @@
 
 .card[data-platform="ml"] .card-img-wrap {
   background: #fdf9e0;
-  border-bottom-color: #e0ca00;
+  border-bottom-color: #e8d600;
 }
 
 .card[data-platform="ml"] .spec,
 .card[data-platform="ml"] .stars-col {
-  background: rgba(240,192,0,.10);
+  background: rgba(212,184,0,.08);
 }
 
 .card[data-platform="ml"] .card-bottom {
-  border-top-color: #e0ca00;
+  border-top-color: #e8d600;
   background: #fffae0;
+}
+
+/* Precio ML */
+.card[data-platform="ml"] .card-price,
+.card[data-platform="ml"] .price-main,
+.card[data-platform="ml"] .dual-price,
+.card[data-platform="ml"] .card-btn-col-price {
+  color: #b38600;
 }
 
 /* ================================================================
    AMAZON (solo AMZ)
+   Fondo: naranja/durazno MUY PÁLIDO — NO negro
+   Borde: naranja
+   Texto: oscuro (igual que ML)
    ================================================================ */
 
 .card[data-platform="amz"] {
-  background: #1a1d23;
-  border: 2px solid rgba(255,153,0,.8);
-  color: #e2e8f0;
+  background: #fff8f2;
+  border-color: #e8893a;
 }
 
 .card[data-platform="amz"]:hover {
-  box-shadow: 0 4px 20px rgba(255,153,0,.18);
+  box-shadow: 0 4px 20px rgba(232,137,58,.15);
   transform: translateY(-2px);
 }
 
 .card[data-platform="amz"] .card-img-wrap {
-  background: #22262e;
-  border-bottom-color: #2d3240;
+  background: #fff4eb;
+  border-bottom-color: #f0a060;
 }
 
-/* Textos */
-.card[data-platform="amz"] .card-name  { color: #f0f4f8; }
-.card[data-platform="amz"] .card-brand { color: #94a3b8; }
-
-/* Estrellas */
-.card[data-platform="amz"] .card-stars { color: #fbbf24; }
-.card[data-platform="amz"] .stars-val  { color: #fbbf24; }
-.card[data-platform="amz"] .card-stars-count,
-.card[data-platform="amz"] .stars-cnt  { color: #94a3b8; }
-.card[data-platform="amz"] .stars-plat { color: #94a3b8; }
-
-/* Precio */
-.card[data-platform="amz"] .card-price     { color: #ff9900; }
-.card[data-platform="amz"] .card-price-sub { color: #94a3b8; }
-.card[data-platform="amz"] .price-main     { color: #ff9900; }
-.card[data-platform="amz"] .price-tag      { color: #94a3b8; }
-.card[data-platform="amz"] .price-nd       { color: #64748b; }
-.card[data-platform="amz"] .dual-price     { color: #ff9900; }
-.card[data-platform="amz"] .card-btn-col-price { color: #ff9900; }
-
-/* Specs */
 .card[data-platform="amz"] .spec,
 .card[data-platform="amz"] .stars-col {
-  background: rgba(255,255,255,.06);
-}
-.card[data-platform="amz"] .spec-label,
-.card[data-platform="amz"] .spec-lbl { color: #94a3b8; }
-.card[data-platform="amz"] .spec-val  { color: #e2e8f0; }
-
-/* Barra de batería */
-.card[data-platform="amz"] .bat-track { background: #333; }
-
-/* Notas / tips */
-.card[data-platform="amz"] .card-tip    { color: #64748b; }
-.card[data-platform="amz"] .card-bat-nd { color: #64748b; }
-.card[data-platform="amz"] .card-discrepancias {
-  background: rgba(245,158,11,.12);
-  border-left-color: #f59e0b;
-  color: #fcd34d;
+  background: rgba(232,137,58,.07);
 }
 
-/* Sección inferior */
 .card[data-platform="amz"] .card-bottom {
-  border-top-color: #2d3240;
-  background: #22262e;
+  border-top-color: #f0a060;
+  background: #fff4eb;
 }
 
-/* Botón "Seleccionar para comparar" */
-.card[data-platform="amz"]::after {
-  color: #4ade80;
-  border-color: #4ade80;
-}
-.card[data-platform="amz"].selected::after {
-  background: #006847;
-  color: #fff;
-  content: 'Seleccionado \2713';
+/* Precio AMZ */
+.card[data-platform="amz"] .card-price,
+.card[data-platform="amz"] .price-main,
+.card[data-platform="amz"] .dual-price,
+.card[data-platform="amz"] .card-btn-col-price {
+  color: #c05c00;
 }
 
 /* ================================================================
-   AMBAS PLATAFORMAS — split en zona de botones
+   AMBAS PLATAFORMAS
+   Tarjeta: fondo neutral (hereda el de la página)
+   Zona comercial: split ML izquierda / AMZ derecha
    ================================================================ */
 
 /* card-btns-dual (freidoras, bicis, creatina, etc.) */
@@ -134,15 +104,19 @@
 }
 
 .card[data-platform="both"] .card-btn-col:last-child {
-  background: #1a1d23;
-  border: 1px solid rgba(255,153,0,.6);
+  background: #fff4eb;
+  border: 1px solid #e8893a;
   border-left: none;
   border-radius: 0 10px 10px 0;
   padding: 6px !important;
 }
 
+.card[data-platform="both"] .card-btn-col:first-child .card-btn-col-price {
+  color: #b38600;
+}
+
 .card[data-platform="both"] .card-btn-col:last-child .card-btn-col-price {
-  color: #ff9900;
+  color: #c05c00;
 }
 
 /* btn-row dual (complejo-b) */
@@ -157,16 +131,22 @@
   overflow: hidden;
 }
 
-.card[data-platform="both"] .btn-row.dual .btn-buy:first-child {
+.card[data-platform="both"] .btn-row.dual .btn-buy.btn-ml {
+  background: #fffae0;
+  border: 1px solid #e0ca00;
+  border-right: none;
   border-radius: 10px 0 0 10px;
 }
 
-.card[data-platform="both"] .btn-row.dual .btn-buy:last-child {
+.card[data-platform="both"] .btn-row.dual .btn-buy.btn-amz {
+  background: #fff4eb;
+  border: 1px solid #e8893a;
+  border-left: none;
   border-radius: 0 10px 10px 0;
 }
 
 /* ================================================================
-   LEYENDA DE PLATAFORMAS (sección inferior de páginas)
+   LEYENDA DE PLATAFORMAS
    ================================================================ */
 
 .platform-legend {
@@ -175,9 +155,9 @@
   flex-wrap: wrap;
   align-items: center;
   padding: .75rem 2rem;
-  border-top: 1px solid var(--bd);
+  border-top: 1px solid var(--bd, #e2e8f0);
   font-size: 12px;
-  color: var(--tx2);
+  color: var(--tx2, #64748b);
   max-width: 1400px;
   margin: 0 auto;
 }
@@ -194,23 +174,57 @@
   border-radius: 50%;
   flex-shrink: 0;
 }
-.plt-dot-ml  { background: #d4b800; }
-.plt-dot-amz { background: #ff9900; }
+.plt-dot-ml   { background: #d4b800; }
+.plt-dot-amz  { background: #e8893a; }
 .plt-dot-both {
-  background: linear-gradient(90deg, #d4b800 50%, #1a1d23 50%);
-  border: 1px solid #aaa;
+  background: linear-gradient(90deg, #d4b800 50%, #e8893a 50%);
+  border: 1px solid #ccc;
 }
 
 /* ================================================================
-   RESPONSIVE — ajustes en tarjetas AMZ para móvil
+   RESPONSIVE — zona comercial apilada en móvil estrecho
    ================================================================ */
 
 @media (max-width: 480px) {
-  .card[data-platform="both"] .card-btn-col:first-child,
-  .card[data-platform="both"] .card-btn-col:last-child {
-    padding: 4px !important;
-  }
+  /* Apilar columnas cuando son muy estrechas */
   .card[data-platform="both"] .card-btns-dual {
-    gap: 0 !important;
+    flex-direction: column;
+    gap: 6px !important;
+    border-radius: 10px;
+    overflow: visible;
+  }
+
+  .card[data-platform="both"] .card-btn-col:first-child {
+    border: 1px solid #e0ca00;
+    border-radius: 10px !important;
+    padding: 6px !important;
+  }
+
+  .card[data-platform="both"] .card-btn-col:last-child {
+    border: 1px solid #e8893a;
+    border-radius: 10px !important;
+    padding: 6px !important;
+  }
+
+  .card[data-platform="both"] .btn-row.dual {
+    flex-direction: column;
+    gap: 6px !important;
+    border-radius: 10px;
+    overflow: visible;
+  }
+
+  .card[data-platform="both"] .btn-row.dual .btn-buy.btn-ml,
+  .card[data-platform="both"] .btn-row.dual .btn-buy.btn-amz {
+    border-radius: 10px !important;
+    border: 1px solid;
+  }
+
+  .card[data-platform="both"] .btn-row.dual .btn-buy.btn-ml {
+    border-color: #e0ca00;
+  }
+
+  .card[data-platform="both"] .btn-row.dual .btn-buy.btn-amz {
+    border-color: #e8893a;
+    border-left: 1px solid #e8893a;
   }
 }
