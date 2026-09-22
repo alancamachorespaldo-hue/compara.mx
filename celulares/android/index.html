@@ -402,6 +402,18 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-img-wrap"><img class="card-img" src="https://m.media-amazon.com/images/I/61bdCBz79FL._AC_SX522_.jpg" alt="Xiaomi Poco X8 Pro" loading="lazy"></div>
       <div class="card-body"><div class="card-name">Xiaomi Poco X8 Pro</div><div class="card-price">$8,190</div><a class="btn-amz" href="https://link.amazon/B08gKd47A?tag=comparabici-20" rel="sponsored nofollow noopener" target="_blank">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a></div>
     </article>
+    <article class="card" data-modelo="xiaomi-redmi-note-15">
+      <div class="card-img-wrap"><img class="card-img" src="https://m.media-amazon.com/images/I/71u1gn5Y5hL._AC_SX679_.jpg" alt="Xiaomi Redmi Note 15" loading="lazy"></div>
+      <div class="card-body"><div class="card-name">Xiaomi Redmi Note 15</div><div class="card-price">$4,645</div></div>
+    </article>
+    <article class="card" data-modelo="xiaomi-poco-c85">
+      <div class="card-img-wrap"><img class="card-img" src="https://m.media-amazon.com/images/I/61-Lcck-JkL._AC_SX522_.jpg" alt="Xiaomi Poco C85" loading="lazy"></div>
+      <div class="card-body"><div class="card-name">Xiaomi Poco C85</div><div class="card-price">$3,082</div></div>
+    </article>
+    <article class="card" data-modelo="xiaomi-redmi-note-14-5g">
+      <div class="card-img-wrap"><img class="card-img" src="https://m.media-amazon.com/images/I/51RsDk7wNYL._AC_SX522_.jpg" alt="Xiaomi Redmi Note 14 5G" loading="lazy"></div>
+      <div class="card-body"><div class="card-name">Xiaomi Redmi Note 14 5G</div><div class="card-price">$4,199</div></div>
+    </article>
     <article class="card" data-platform="ml" data-modelo="huawei-pura-90s-pro">
       <div class="card-img-wrap"><img class="card-img" src="https://m.media-amazon.com/images/I/61eZN2iPoKL._AC_SX522_.jpg" alt="HUAWEI Pura 90s Pro" loading="lazy"></div>
       <div class="card-body"><div class="card-name">HUAWEI Pura 90s Pro</div><div class="card-price">$15,999</div><a class="btn-amz" href="https://link.amazon/A09iPbiuj?tag=comparabici-20" rel="sponsored nofollow noopener" target="_blank">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a></div>
@@ -699,6 +711,7 @@ const familias = [
     img: 'https://m.media-amazon.com/images/I/61GAjrfuRdL._AC_SY300_SX300_QL70_ML2_.jpg',
     variantes: [
       { storage: 128, ram: 6, precio: 3490, linkAmz: 'https://link.amazon/B0gqIrt6I?tag=comparabici-20', estrellas: 4.6, resenas: 205 },
+      { storage: 128, ram: 6, precio: 3490, label: 'Plata', linkAmz: 'https://link.amazon/B05TKpdse?tag=comparabici-20', estrellas: 4.4, resenas: 46 },
     ]
   },
   {
@@ -771,6 +784,48 @@ const familias = [
     img: 'https://m.media-amazon.com/images/I/61bdCBz79FL._AC_SX522_.jpg',
     variantes: [
       { storage: 512, ram: 12, precio: 8190, linkAmz: 'https://link.amazon/B08gKd47A?tag=comparabici-20', estrellas: 4.5, resenas: 151 },
+    ]
+  },
+  {
+    modeloBase: 'xiaomi-redmi-note-15',
+    nombre: 'Xiaomi Redmi Note 15',
+    marca: 'xiaomi',
+    chip: 'MediaTek Helio G100 Turbo',
+    camPrincipal: 108,
+    pantalla: 6.77,
+    hz: null, usb: null, zoom: null,
+    colores: ['Negro', 'Morado'],
+    img: 'https://m.media-amazon.com/images/I/71u1gn5Y5hL._AC_SX679_.jpg',
+    variantes: [
+      { storage: 256, ram: 8, precio: 4645, estrellas: 4.6, resenas: 28 },
+    ]
+  },
+  {
+    modeloBase: 'xiaomi-poco-c85',
+    nombre: 'Xiaomi Poco C85',
+    marca: 'xiaomi',
+    chip: 'MediaTek Helio',
+    camPrincipal: null,
+    pantalla: 6.9,
+    hz: null, usb: null, zoom: null,
+    colores: ['Verde', 'Negro', 'Morado'],
+    img: 'https://m.media-amazon.com/images/I/61-Lcck-JkL._AC_SX522_.jpg',
+    variantes: [
+      { storage: 256, ram: 8, precio: 3082, estrellas: 4.4, resenas: 0 },
+    ]
+  },
+  {
+    modeloBase: 'xiaomi-redmi-note-14-5g',
+    nombre: 'Xiaomi Redmi Note 14 5G',
+    marca: 'xiaomi',
+    chip: null,
+    camPrincipal: 108, camFrontal: 20,
+    pantalla: null,
+    hz: null, usb: null, zoom: null,
+    colores: ['Púrpura'],
+    img: 'https://m.media-amazon.com/images/I/51RsDk7wNYL._AC_SX522_.jpg',
+    variantes: [
+      { storage: 256, ram: 8, precio: 4199, estrellas: 4.5, resenas: 579 },
     ]
   },
   {
