@@ -631,7 +631,7 @@ function cardHTML(m) {
         <div class="spec"><div class="spec-label">Niveles pot.</div><div class="spec-val">${m.nivelPotencia ?? '—'}</div></div>
         <div class="spec"><div class="spec-label">Programas</div><div class="spec-val">${m.programas ?? '—'}</div></div>
         <div class="spec"><div class="spec-label">Panel</div><div class="spec-val">${panelLabel(m.panel)}</div></div>
-        ${m.peso ? <div class="spec"><div class="spec-label">Peso</div><div class="spec-val">${m.peso} kg</div></div> : ''}
+        ${m.peso ? `<div class="spec"><div class="spec-label">Peso</div><div class="spec-val">${m.peso} kg</div></div>` : ''}
       </div>
       <div class="card-commercial">
         ${precioBlock}
