@@ -1581,7 +1581,7 @@ function cardHTML(familia) {
     ? `<span class="reacond-badge">Reacondicionado · ${familia.estadoReacondicionado || 'Excelente'}</span>`
     : '';
 
-  const _plat = dual ? 'both' : (variante.linkML ? 'ml' : 'amz');
+  const _plat = (variante.linkML && variante.linkAmz) ? 'both' : (variante.linkML ? 'ml' : 'amz');
   return `
   <div class="card${isSelected ? ' selected' : ''}" data-platform="${_plat}" id="card-${mb}" onclick="toggleSelect('${mb}')">
     ${isSelected ? '<div class="sel-check">✓</div>' : ''}
