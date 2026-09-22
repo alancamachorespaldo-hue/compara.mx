@@ -66,6 +66,7 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9TKZ4ER13X"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-9TKZ4ER13X');</script>
 <script src="/assets/js/analytics.js"></script>
+<link rel="stylesheet" href="/assets/css/cards.css">
 
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -439,7 +440,8 @@ function cardHTML(p) {
   const btnRowClass = (tieneML && tieneAmz) ? 'btn-row dual' : 'btn-row';
   const b12label = p.formaB12 ? p.formaB12.charAt(0).toUpperCase()+p.formaB12.slice(1) : '—';
 
-  return `<div class="card${sel?' selected':''}" onclick="toggleSelect(${p.id})">
+  const _plat = (tieneML && tieneAmz) ? 'both' : (tieneML ? 'ml' : 'amz');
+  return `<div class="card${sel?' selected':''}" data-platform="${_plat}" onclick="toggleSelect(${p.id})">
     <div class="card-img-wrap"><img class="card-img" src="${p.img}" alt="${p.nombre}" loading="lazy" onerror="this.src='https://via.placeholder.com/200x180?text=Sin+imagen'"></div>
     <div class="card-body">
       <div class="card-badges">${badges}</div>

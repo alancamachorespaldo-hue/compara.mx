@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es-MX">
 <head>
 <meta charset="UTF-8">
@@ -57,6 +57,7 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9TKZ4ER13X"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-9TKZ4ER13X');</script>
 <script src="/assets/js/analytics.js"></script>
+<link rel="stylesheet" href="/assets/css/cards.css">
 
 <style>
 :root{
@@ -398,7 +399,8 @@ function renderGrid(){
         ${b.estrellas?`<div class="stars-val">★ ${b.estrellas.toFixed(1)} <span class="stars-cnt">(${(b.resenas||0).toLocaleString('es-MX')})</span></div>`:'<div class="stars-val" style="color:var(--tx3)">Sin datos</div>'}
       </div>
     </div>`;
-    return `<div class="card${isSel?' selected':''}" onclick="toggleSel(${b.id})">
+    const _plat = (b.linkML && b.linkAmz) ? 'both' : (b.linkML ? 'ml' : 'amz');
+    return `<div class="card${isSel?' selected':''}" data-platform="${_plat}" onclick="toggleSel(${b.id})">
       ${isSel?'<div class="sel-check">✓</div>':''}
       <div class="card-img-wrap">
         ${b.img?`<img class="card-img" src="${b.img}" alt="${b.nombre}" loading="lazy" onerror="this.outerHTML='<div class=card-img-ph>🏔</div>'">`:'<div class="card-img-ph">🏔</div>'}

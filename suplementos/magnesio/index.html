@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es-MX">
 <head>
 <meta charset="UTF-8">
@@ -53,6 +53,7 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9TKZ4ER13X"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-9TKZ4ER13X');</script>
 <script src="/assets/js/analytics.js"></script>
+<link rel="stylesheet" href="/assets/css/cards.css">
 
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -1184,8 +1185,9 @@ function cardHTML(p) {
     btnsBlock = `<div class="card-btns">${btnML}${btnAmz}</div>`;
   }
 
+  const _plat = dual ? 'both' : (p.linkML ? 'ml' : 'amz');
   return `
-  <div class="card${isSelected?' selected':''}" id="card-${p.id}" onclick="toggleSelect(${p.id})">
+  <div class="card${isSelected?' selected':''}" data-platform="${_plat}" id="card-${p.id}" onclick="toggleSelect(${p.id})">
     ${isSelected ? '<div class="sel-check">✓</div>' : ''}
     <div class="card-img-wrap">
       <img class="card-img" src="${p.img}" alt="${p.nombre}" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'88\' height=\'88\'><rect fill=\'%23f1f5f9\' width=\'88\' height=\'88\'/></svg>'">
