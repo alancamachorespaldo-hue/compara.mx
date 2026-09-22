@@ -404,15 +404,15 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
     </article>
     <article class="card" data-modelo="xiaomi-redmi-note-15">
       <div class="card-img-wrap"><img class="card-img" src="https://m.media-amazon.com/images/I/71u1gn5Y5hL._AC_SX679_.jpg" alt="Xiaomi Redmi Note 15" loading="lazy"></div>
-      <div class="card-body"><div class="card-name">Xiaomi Redmi Note 15</div><div class="card-price">$4,645</div></div>
+      <div class="card-body"><div class="card-name">Xiaomi Redmi Note 15</div><div class="card-price">$4,645</div><a class="btn-amz" href="https://www.amazon.com.mx/XIAOMI-Note-15-G100-Ultra-Resistencia/dp/B0G8D3P12C?th=1&linkCode=ll2&tag=comparabici-20" rel="sponsored nofollow noopener" target="_blank">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a></div>
     </article>
     <article class="card" data-modelo="xiaomi-poco-c85">
       <div class="card-img-wrap"><img class="card-img" src="https://m.media-amazon.com/images/I/61-Lcck-JkL._AC_SX522_.jpg" alt="Xiaomi Poco C85" loading="lazy"></div>
-      <div class="card-body"><div class="card-name">Xiaomi Poco C85</div><div class="card-price">$3,082</div></div>
+      <div class="card-body"><div class="card-name">Xiaomi Poco C85</div><div class="card-price">$3,082</div><a class="btn-amz" href="https://www.amazon.com.mx/XIAOMI-C85-compatible-desbloqueado-25078PC3EG/dp/B0FHQCYCNW?th=1&linkCode=ll2&tag=comparabici-20" rel="sponsored nofollow noopener" target="_blank">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a></div>
     </article>
     <article class="card" data-modelo="xiaomi-redmi-note-14-5g">
       <div class="card-img-wrap"><img class="card-img" src="https://m.media-amazon.com/images/I/51RsDk7wNYL._AC_SX522_.jpg" alt="Xiaomi Redmi Note 14 5G" loading="lazy"></div>
-      <div class="card-body"><div class="card-name">Xiaomi Redmi Note 14 5G</div><div class="card-price">$4,199</div></div>
+      <div class="card-body"><div class="card-name">Xiaomi Redmi Note 14 5G</div><div class="card-price">$4,199</div><a class="btn-amz" href="https://www.amazon.com.mx/Note-14-5G-8GB-256GB-Lavender/dp/B0DTP5X7DP?linkCode=ll2&tag=comparabici-20" rel="sponsored nofollow noopener" target="_blank">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a></div>
     </article>
     <article class="card" data-platform="ml" data-modelo="huawei-pura-90s-pro">
       <div class="card-img-wrap"><img class="card-img" src="https://m.media-amazon.com/images/I/61eZN2iPoKL._AC_SX522_.jpg" alt="HUAWEI Pura 90s Pro" loading="lazy"></div>
@@ -727,7 +727,7 @@ const familias = [
     variantes: [
       { storage: 256, ram: 8, precio: 5084, label: 'Negro', linkAmz: 'https://link.amazon/B0aFtF0Xw?tag=comparabici-20', estrellas: 4.3, resenas: 48 },
       { storage: 256, ram: 8, precio: 5135, label: 'Titanio', linkAmz: 'https://link.amazon/B0bEbyneG?tag=comparabici-20', estrellas: 4.3, resenas: 48 },
-      { storage: 512, ram: 8, precio: 6826, label: 'Morado 5G', linkAmz: 'https://link.amazon/B0fr9gZFV?tag=comparabici-20', estrellas: 4.0, resenas: 16, salto: { texto: 'Doble almacenamiento + 5G', diff: 1742 } },
+      { storage: 512, ram: 8, precio: 6826, label: 'Morado 5G', linkML: 'https://meli.la/2TnzRde', linkAmz: 'https://link.amazon/B0fr9gZFV?tag=comparabici-20', estrellas: 4.8, resenas: 1842, salto: { texto: 'Doble almacenamiento + 5G', diff: 1742 } },
     ]
   },
   {
@@ -797,7 +797,7 @@ const familias = [
     colores: ['Negro', 'Morado'],
     img: 'https://m.media-amazon.com/images/I/71u1gn5Y5hL._AC_SX679_.jpg',
     variantes: [
-      { storage: 256, ram: 8, precio: 4645, estrellas: 4.6, resenas: 28 },
+      { storage: 256, ram: 8, precio: 4645, linkAmz: 'https://www.amazon.com.mx/XIAOMI-Note-15-G100-Ultra-Resistencia/dp/B0G8D3P12C?th=1&linkCode=ll2&tag=comparabici-20', estrellas: 4.6, resenas: 28 },
     ]
   },
   {
@@ -811,7 +811,7 @@ const familias = [
     colores: ['Verde', 'Negro', 'Morado'],
     img: 'https://m.media-amazon.com/images/I/61-Lcck-JkL._AC_SX522_.jpg',
     variantes: [
-      { storage: 256, ram: 8, precio: 3082, estrellas: 4.4, resenas: 0 },
+      { storage: 256, ram: 8, precio: 3082, linkAmz: 'https://www.amazon.com.mx/XIAOMI-C85-compatible-desbloqueado-25078PC3EG/dp/B0FHQCYCNW?th=1&linkCode=ll2&tag=comparabici-20', estrellas: 4.4, resenas: 0 },
     ]
   },
   {
@@ -825,7 +825,7 @@ const familias = [
     colores: ['Púrpura'],
     img: 'https://m.media-amazon.com/images/I/51RsDk7wNYL._AC_SX522_.jpg',
     variantes: [
-      { storage: 256, ram: 8, precio: 4199, estrellas: 4.5, resenas: 579 },
+      { storage: 256, ram: 8, precio: 4199, linkAmz: 'https://www.amazon.com.mx/Note-14-5G-8GB-256GB-Lavender/dp/B0DTP5X7DP?linkCode=ll2&tag=comparabici-20', estrellas: 4.5, resenas: 579 },
     ]
   },
   {
