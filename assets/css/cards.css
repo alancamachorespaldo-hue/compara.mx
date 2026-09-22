@@ -1,17 +1,160 @@
-/* comparalo.mx — Sistema visual de plataformas v2.0
+/* comparalo.mx — Sistema visual de tarjetas v3.0
  *
- * Uso: añade data-platform="ml|amz|both" al div.card en el JS.
- *
- * MERCADO LIBRE → amarillo crema muy pálido
- * AMAZON        → naranja/durazno muy pálido (NO negro/carbón)
- * AMBAS         → fondo neutral + zona comercial split ML/AMZ
- * VERDE         → exclusivo comparalo.mx (selección, destacados)
+ * LAYOUT: Imagen izquierda / Información derecha (horizontal)
+ * METRIC TILES: .card-specs → 3 cols × 2 filas máx.
+ * PLATAFORMAS: data-platform="ml|amz|both"
+ *   ML  → amarillo crema muy pálido
+ *   AMZ → naranja/durazno muy pálido (NO negro)
+ *   BOTH → neutral + zona comercial split
+ * VERDE → comparalo.mx (selección, destacados)
  */
+
+/* ================================================================
+   LAYOUT HORIZONTAL — Imagen izquierda / Información derecha
+   ================================================================ */
+
+.card {
+  display: grid !important;
+  grid-template-columns: 120px 1fr;
+  align-items: stretch;
+  position: relative;
+  overflow: hidden;
+}
+
+/* sel-check: esquina superior izquierda sobre la imagen */
+.card > .sel-check {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  z-index: 3;
+}
+
+/* COLUMNA IZQUIERDA — imagen */
+.card-img-wrap {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 6px;
+  min-height: 130px;
+  align-self: stretch;
+}
+
+.card-img {
+  max-width: 100%;
+  max-height: 120px;
+  object-fit: contain;
+  display: block;
+}
+
+/* COLUMNA DERECHA — info */
+.card-body {
+  display: flex !important;
+  flex-direction: column;
+  padding: 10px 12px 10px 6px;
+  min-width: 0;
+}
+
+/* ================================================================
+   NOMBRE — siempre reserva 2 líneas exactas
+   ================================================================ */
+
+.card-name {
+  font-weight: 600;
+  font-size: 12.5px;
+  line-height: 1.35;
+  height: calc(2 * 1.35em);
+  min-height: calc(2 * 1.35em);
+  max-height: calc(2 * 1.35em);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  margin-bottom: 3px;
+}
+
+/* ================================================================
+   RATING — altura fija para alineación vertical
+   ================================================================ */
+
+.card-stars,
+.card-stars-dual,
+.card-stars-empty {
+  min-height: 1.6em;
+  font-size: 11.5px;
+  margin-bottom: 5px;
+  flex-shrink: 0;
+}
+
+/* ================================================================
+   METRIC TILES — .card-specs con .spec items
+   ================================================================ */
+
+.card-specs {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 3px !important;
+  margin: 0 0 4px;
+  flex-shrink: 0;
+}
+
+.spec {
+  background: rgba(0,0,0,.04);
+  border-radius: 5px;
+  padding: 4px 5px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.spec-label,
+.spec-lbl {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: .2px;
+  color: #64748b;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.spec-val {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1e293b;
+  line-height: 1.3;
+  margin-top: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ================================================================
+   ZONA COMERCIAL — pegada al fondo del card-body
+   ================================================================ */
+
+.card-commercial {
+  margin-top: auto;
+  padding-top: 5px;
+}
+
+/* Fallback sin .card-commercial */
+.card-body > .card-price:last-of-type {
+  margin-top: auto;
+}
+
+/* ================================================================
+   BADGES ML / AMZ redundantes — ocultar
+   Solo queda IFOS, Sin metales, etc.
+   ================================================================ */
+
+.badge.b-ml,
+.badge.b-amz {
+  display: none;
+}
 
 /* ================================================================
    MERCADO LIBRE (solo ML)
    Fondo: amarillo crema muy pálido
-   Borde: amarillo ML
    ================================================================ */
 
 .card[data-platform="ml"] {
@@ -21,20 +164,18 @@
 
 .card[data-platform="ml"] .card-img-wrap {
   background: #fdf9e0;
-  border-bottom-color: #e8d600;
+  border-right: 1px solid #e8d600;
 }
 
 .card[data-platform="ml"] .spec,
 .card[data-platform="ml"] .stars-col {
-  background: rgba(212,184,0,.08);
+  background: rgba(212,184,0,.09);
 }
 
-.card[data-platform="ml"] .card-bottom {
-  border-top-color: #e8d600;
-  background: #fffae0;
+.card[data-platform="ml"] .card-commercial {
+  border-top: 1px solid #e8d600;
 }
 
-/* Precio ML */
 .card[data-platform="ml"] .card-price,
 .card[data-platform="ml"] .price-main,
 .card[data-platform="ml"] .dual-price,
@@ -45,8 +186,6 @@
 /* ================================================================
    AMAZON (solo AMZ)
    Fondo: naranja/durazno MUY PÁLIDO — NO negro
-   Borde: naranja
-   Texto: oscuro (igual que ML)
    ================================================================ */
 
 .card[data-platform="amz"] {
@@ -61,7 +200,7 @@
 
 .card[data-platform="amz"] .card-img-wrap {
   background: #fff4eb;
-  border-bottom-color: #f0a060;
+  border-right: 1px solid #f0a060;
 }
 
 .card[data-platform="amz"] .spec,
@@ -69,12 +208,10 @@
   background: rgba(232,137,58,.07);
 }
 
-.card[data-platform="amz"] .card-bottom {
-  border-top-color: #f0a060;
-  background: #fff4eb;
+.card[data-platform="amz"] .card-commercial {
+  border-top: 1px solid #f0a060;
 }
 
-/* Precio AMZ */
 .card[data-platform="amz"] .card-price,
 .card[data-platform="amz"] .price-main,
 .card[data-platform="amz"] .dual-price,
@@ -84,14 +221,18 @@
 
 /* ================================================================
    AMBAS PLATAFORMAS
-   Tarjeta: fondo neutral (hereda el de la página)
+   Tarjeta principal: hereda neutro de la página
    Zona comercial: split ML izquierda / AMZ derecha
    ================================================================ */
+
+.card[data-platform="both"] .card-img-wrap {
+  border-right: 1px solid var(--bd, #e2e8f0);
+}
 
 /* card-btns-dual (freidoras, bicis, creatina, etc.) */
 .card[data-platform="both"] .card-btns-dual {
   gap: 0 !important;
-  border-radius: 10px;
+  border-radius: 8px;
   overflow: hidden;
 }
 
@@ -99,16 +240,16 @@
   background: #fffae0;
   border: 1px solid #e0ca00;
   border-right: none;
-  border-radius: 10px 0 0 10px;
-  padding: 6px !important;
+  border-radius: 8px 0 0 8px;
+  padding: 5px !important;
 }
 
 .card[data-platform="both"] .card-btn-col:last-child {
   background: #fff4eb;
   border: 1px solid #e8893a;
   border-left: none;
-  border-radius: 0 10px 10px 0;
-  padding: 6px !important;
+  border-radius: 0 8px 8px 0;
+  padding: 5px !important;
 }
 
 .card[data-platform="both"] .card-btn-col:first-child .card-btn-col-price {
@@ -127,7 +268,7 @@
 
 .card[data-platform="both"] .btn-row.dual {
   gap: 0 !important;
-  border-radius: 10px;
+  border-radius: 8px;
   overflow: hidden;
 }
 
@@ -135,14 +276,14 @@
   background: #fffae0;
   border: 1px solid #e0ca00;
   border-right: none;
-  border-radius: 10px 0 0 10px;
+  border-radius: 8px 0 0 8px;
 }
 
 .card[data-platform="both"] .btn-row.dual .btn-buy.btn-amz {
   background: #fff4eb;
   border: 1px solid #e8893a;
   border-left: none;
-  border-radius: 0 10px 10px 0;
+  border-radius: 0 8px 8px 0;
 }
 
 /* ================================================================
@@ -162,17 +303,11 @@
   margin: 0 auto;
 }
 
-.platform-legend-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
+.platform-legend-item { display: flex; align-items: center; gap: 8px; }
 
 .plt-dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  flex-shrink: 0;
+  width: 14px; height: 14px;
+  border-radius: 50%; flex-shrink: 0;
 }
 .plt-dot-ml   { background: #d4b800; }
 .plt-dot-amz  { background: #e8893a; }
@@ -182,49 +317,76 @@
 }
 
 /* ================================================================
-   RESPONSIVE — zona comercial apilada en móvil estrecho
+   RESPONSIVE
    ================================================================ */
 
-@media (max-width: 480px) {
-  /* Apilar columnas cuando son muy estrechas */
+/* Tablet: imagen más pequeña */
+@media (max-width: 768px) {
+  .card {
+    grid-template-columns: 100px 1fr;
+  }
+  .card-img-wrap {
+    min-height: 110px;
+    padding: 8px 4px;
+  }
+  .card-img { max-height: 95px; }
+}
+
+/* Mobile: stack vertical (imagen arriba / info abajo) */
+@media (max-width: 540px) {
+  .card {
+    grid-template-columns: 1fr !important;
+  }
+
+  .card-img-wrap {
+    border-right: none !important;
+    border-bottom: 1px solid var(--bd, #e2e8f0);
+    min-height: 110px;
+    padding: 10px;
+  }
+
+  .card[data-platform="ml"] .card-img-wrap  { border-bottom-color: #e8d600; }
+  .card[data-platform="amz"] .card-img-wrap { border-bottom-color: #f0a060; }
+
+  .card-img { max-height: 90px; }
+
+  .card-body {
+    padding: 8px 10px;
+  }
+
+  /* Metric tiles: 2 cols en mobile */
+  .card-specs {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Zona comercial dual: apilar en mobile */
   .card[data-platform="both"] .card-btns-dual {
     flex-direction: column;
-    gap: 6px !important;
-    border-radius: 10px;
+    border-radius: 8px;
     overflow: visible;
   }
 
   .card[data-platform="both"] .card-btn-col:first-child {
-    border: 1px solid #e0ca00;
-    border-radius: 10px !important;
-    padding: 6px !important;
+    border: 1px solid #e0ca00 !important;
+    border-radius: 8px !important;
   }
 
   .card[data-platform="both"] .card-btn-col:last-child {
-    border: 1px solid #e8893a;
-    border-radius: 10px !important;
-    padding: 6px !important;
+    border: 1px solid #e8893a !important;
+    border-radius: 8px !important;
   }
 
   .card[data-platform="both"] .btn-row.dual {
     flex-direction: column;
-    gap: 6px !important;
-    border-radius: 10px;
     overflow: visible;
   }
 
   .card[data-platform="both"] .btn-row.dual .btn-buy.btn-ml,
   .card[data-platform="both"] .btn-row.dual .btn-buy.btn-amz {
-    border-radius: 10px !important;
-    border: 1px solid;
+    border-radius: 8px !important;
+    border: 1px solid !important;
   }
 
-  .card[data-platform="both"] .btn-row.dual .btn-buy.btn-ml {
-    border-color: #e0ca00;
-  }
-
-  .card[data-platform="both"] .btn-row.dual .btn-buy.btn-amz {
-    border-color: #e8893a;
-    border-left: 1px solid #e8893a;
-  }
+  .card[data-platform="both"] .btn-row.dual .btn-buy.btn-ml  { border-color: #e0ca00 !important; }
+  .card[data-platform="both"] .btn-row.dual .btn-buy.btn-amz { border-color: #e8893a !important; }
 }

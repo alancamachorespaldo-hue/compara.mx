@@ -614,9 +614,12 @@ function render() {
       : `<div class="card-stars-empty"></div>`;
 
     const specs = `<div class="card-specs">
-      <div class="spec"><div class="spec-label">EPA</div><div class="spec-val">${p.epa?p.epa+'mg':'—'}</div></div>
-      <div class="spec"><div class="spec-label">DHA</div><div class="spec-val">${p.dha?p.dha+'mg':'—'}</div></div>
+      <div class="spec"><div class="spec-label">EPA</div><div class="spec-val">${p.epa?p.epa+' mg':'—'}</div></div>
+      <div class="spec"><div class="spec-label">DHA</div><div class="spec-val">${p.dha?p.dha+' mg':'—'}</div></div>
+      <div class="spec"><div class="spec-label">EPA+DHA</div><div class="spec-val">${p.omegaPorPorcion?p.omegaPorPorcion+' mg':'—'}</div></div>
+      <div class="spec"><div class="spec-label">Porciones</div><div class="spec-val">${p.porciones??'—'}</div></div>
       <div class="spec"><div class="spec-label">$/porción</div><div class="spec-val">${fmtPrecio(p.costoPorPorcion)}</div></div>
+      <div class="spec"><div class="spec-label">Fuente</div><div class="spec-val">${p.fuenteOmega||'—'}</div></div>
     </div>`;
 
     let btnsBlock;
@@ -648,8 +651,10 @@ function render() {
         <div class="card-brand">${p.marca}</div>
         ${stars}
         ${specs}
-        <div class="card-price">${fmtPrecio(p.precio)}</div>
-        ${btnsBlock}
+        <div class="card-commercial">
+          <div class="card-price">${fmtPrecio(p.precio)}</div>
+          ${btnsBlock}
+        </div>
       </div>
     </div>`;
   }).join('');

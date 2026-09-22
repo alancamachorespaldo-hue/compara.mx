@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es-MX">
 <head>
 <meta charset="UTF-8">
@@ -589,9 +589,14 @@ function cardHTML(p) {
         <div class="spec"><div class="spec-label">Capacidad</div><div class="spec-val">${p.capacidad} L</div></div>
         <div class="spec"><div class="spec-label">Potencia</div><div class="spec-val">${p.potencia ? p.potencia + ' W' : '—'}</div></div>
         <div class="spec"><div class="spec-label">Panel</div><div class="spec-val">${p.panel ? p.panel.charAt(0).toUpperCase()+p.panel.slice(1) : '—'}</div></div>
+        ${p.tempMax ? <div class="spec"><div class="spec-label">Temp. Máx.</div><div class="spec-val">${p.tempMax}°C</div></div> : ''}
+        <div class="spec"><div class="spec-label">Cestas</div><div class="spec-val">${p.canastos ?? '—'}</div></div>
+        ${p.funciones && p.funciones.length ? <div class="spec"><div class="spec-label">Funciones</div><div class="spec-val">${p.funciones.length}</div></div> : ''}
       </div>
-      ${precioBlock}
-      ${btnsBlock}
+      <div class="card-commercial">
+        ${precioBlock}
+        ${btnsBlock}
+      </div>
     </div>
   </div>`;
 }

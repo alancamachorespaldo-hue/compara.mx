@@ -415,9 +415,11 @@ function renderGrid(){
           <div class="spec"><div class="spec-label">Rueda</div><div class="spec-val">${b.rueda||'—'}</div></div>
           <div class="spec"><div class="spec-label">Carga máx.</div><div class="spec-val">${b.cargaMax?b.cargaMax+' kg':'N/D'}</div></div>
         </div>
-        <div class="card-price">$${b.precio.toLocaleString('es-MX')} <span class="card-price-sub">MXN</span></div>
-        <div class="card-btns" onclick="event.stopPropagation()">
-          <a class="btn-ml" href="${b.linkML}" rel="sponsored nofollow noopener" target="_blank">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>
+        <div class="card-commercial">
+          <div class="card-price">$${b.precio.toLocaleString('es-MX')} <span class="card-price-sub">MXN</span></div>
+          <div class="card-btns" onclick="event.stopPropagation()">
+            <a class="btn-ml" href="${b.linkML}" rel="sponsored nofollow noopener" target="_blank">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>
+          </div>
         </div>
         <div class="card-tip">Toca para comparar</div>
       </div>

@@ -752,11 +752,14 @@ function cardHTML(p) {
       <div class="card-specs">
         <div class="spec"><div class="spec-label">Proteína</div><div class="spec-val">${spec1}</div></div>
         <div class="spec"><div class="spec-label">Conc. %</div><div class="spec-val">${spec2}</div></div>
+        <div class="spec"><div class="spec-label">Tipo</div><div class="spec-val">${p.tipoProteina ? p.tipoProteina.replace(/proteína?/i,'').trim()||p.tipoProteina : '—'}</div></div>
         <div class="spec"><div class="spec-label">$/porción</div><div class="spec-val">${spec3}</div></div>
         <div class="spec"><div class="spec-label">Porciones</div><div class="spec-val">${spec4}</div></div>
       </div>
-      ${precioBlock}
-      ${btnsBlock}
+      <div class="card-commercial">
+        ${precioBlock}
+        ${btnsBlock}
+      </div>
     </div>
   </div>`;
 }

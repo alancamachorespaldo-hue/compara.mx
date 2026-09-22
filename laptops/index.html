@@ -1855,9 +1855,14 @@ function cardHTML(p) {
         <div class="spec"><div class="spec-label">Procesador</div><div class="spec-val">${p.procesador||'—'}</div></div>
         <div class="spec"><div class="spec-label">RAM</div><div class="spec-val">${p.ram ? p.ram + ' GB' : '—'}</div></div>
         <div class="spec"><div class="spec-label">Almacen.</div><div class="spec-val">${p.almacenamiento ? p.almacenamiento + ' GB SSD' : '—'}</div></div>
+        <div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">${p.pantalla ? p.pantalla + '"' : '—'}</div></div>
+        <div class="spec"><div class="spec-label">GPU</div><div class="spec-val">${p.gpu||'—'}</div></div>
+        <div class="spec"><div class="spec-label">Peso</div><div class="spec-val">${p.peso ? p.peso + ' kg' : '—'}</div></div>
       </div>
-      ${precioBlock}
-      ${btnsBlock}
+      <div class="card-commercial">
+        ${precioBlock}
+        ${btnsBlock}
+      </div>
     </div>
   </div>`;
 }

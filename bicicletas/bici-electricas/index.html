@@ -1661,16 +1661,18 @@ function renderGrid(){
           ?`<div class="card-bat"><div class="bat-header"><span>Autonomía</span><span>${autoStr}</span></div><div class="bat-track"><div class="bat-fill" style="width:${pct}%"></div></div></div>`
           :`<div class="card-bat-nd">Autonomía: N/D</div>`}
         <div class="card-specs">
-          <div class="spec"><div class="spec-label">Duración bat.</div><div class="spec-val">${b.tiempoCarga||'N/D'}</div></div>
-          <div class="spec"><div class="spec-label">Peso</div><div class="spec-val">${pesoStr}</div></div>
+          <div class="spec"><div class="spec-label">Autonomía</div><div class="spec-val">${b.autonomia!=null?b.autonomia+' km':'N/D'}</div></div>
           <div class="spec"><div class="spec-label">Motor</div><div class="spec-val">${b.motorStr||'N/D'}</div></div>
           <div class="spec"><div class="spec-label">Batería</div><div class="spec-val">${b.batWh!=null?b.batWh+' Wh':'N/D'}</div></div>
+          <div class="spec"><div class="spec-label">Peso</div><div class="spec-val">${pesoStr}</div></div>
           <div class="spec"><div class="spec-label">Rueda</div><div class="spec-val">${b.rueda||'N/D'}</div></div>
           <div class="spec"><div class="spec-label">Carga máx.</div><div class="spec-val">${b.cargaMax!=null?b.cargaMax+' kg':'N/D'}</div></div>
         </div>
         ${discr}
-        ${precioBlock}
-        ${btnsBlock}
+        <div class="card-commercial">
+          ${precioBlock}
+          ${btnsBlock}
+        </div>
         ${pendList}
         <div class="card-tip">Toca para comparar hasta 3 modelos</div>
       </div>

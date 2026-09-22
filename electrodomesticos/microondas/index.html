@@ -626,12 +626,17 @@ function cardHTML(m) {
       <div class="card-brand">${m.marca}</div>
       ${stars}
       <div class="card-specs">
-        <div class="spec"><div class="spec-label">Capacidad</div><div class="spec-val">${m.capacidad ? m.capacidad + ' L' : 'N/D'}</div></div>
-        <div class="spec"><div class="spec-label">Potencia</div><div class="spec-val">${m.potencia ? m.potencia + ' W' : 'N/D'}</div></div>
+        <div class="spec"><div class="spec-label">Capacidad</div><div class="spec-val">${m.capacidad ? m.capacidad + ' L' : '—'}</div></div>
+        <div class="spec"><div class="spec-label">Potencia</div><div class="spec-val">${m.potencia ? m.potencia + ' W' : '—'}</div></div>
+        <div class="spec"><div class="spec-label">Niveles pot.</div><div class="spec-val">${m.nivelPotencia ?? '—'}</div></div>
+        <div class="spec"><div class="spec-label">Programas</div><div class="spec-val">${m.programas ?? '—'}</div></div>
         <div class="spec"><div class="spec-label">Panel</div><div class="spec-val">${panelLabel(m.panel)}</div></div>
+        ${m.peso ? <div class="spec"><div class="spec-label">Peso</div><div class="spec-val">${m.peso} kg</div></div> : ''}
       </div>
-      ${precioBlock}
-      ${btnsBlock}
+      <div class="card-commercial">
+        ${precioBlock}
+        ${btnsBlock}
+      </div>
     </div>
   </div>`;
 }

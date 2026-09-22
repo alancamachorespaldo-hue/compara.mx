@@ -771,9 +771,13 @@ function cardHTML(p) {
         <div class="spec"><div class="spec-label">Porciones</div><div class="spec-val">${spec2}</div></div>
         <div class="spec"><div class="spec-label">$/porción</div><div class="spec-val">${spec3}</div></div>
         <div class="spec"><div class="spec-label">Peso neto</div><div class="spec-val">${spec4}</div></div>
+        <div class="spec"><div class="spec-label">Tipo</div><div class="spec-val">${p.tipoCreatina ? p.tipoCreatina.replace('Creatina ','').replace('creatina ','') : '—'}</div></div>
+        <div class="spec"><div class="spec-label">Presentación</div><div class="spec-val">${p.presentacion ? p.presentacion.charAt(0).toUpperCase()+p.presentacion.slice(1) : '—'}</div></div>
       </div>
-      ${precioBlock}
-      ${btnsBlock}
+      <div class="card-commercial">
+        ${precioBlock}
+        ${btnsBlock}
+      </div>
     </div>
   </div>`;
 }

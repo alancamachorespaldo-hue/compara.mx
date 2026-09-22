@@ -1022,16 +1022,18 @@ function cardHTML(f) {
       ${storageBtns}
       ${saltoHTML}
       <div class="card-specs">
+        <div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">${f.pantalla ? f.pantalla+'"' : '—'}</div></div>
         <div class="spec"><div class="spec-label">RAM</div><div class="spec-val" id="ram-${f.modeloBase}">${v.ram ? v.ram+' GB' : '—'}</div></div>
         <div class="spec"><div class="spec-label">Almac.</div><div class="spec-val" id="alm-${f.modeloBase}">${storageLbl(v.storage)}</div></div>
         <div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">${f.camPrincipal ? f.camPrincipal+' MP' : '—'}</div></div>
-      </div>
-      <div class="card-specs-2">
-        <div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">${f.pantalla ? f.pantalla+'"' : '—'}</div></div>
+        <div class="spec"><div class="spec-label">Chip</div><div class="spec-val">${f.chip||'—'}</div></div>
+        <div class="spec"><div class="spec-label">Hz</div><div class="spec-val">${f.hz ? f.hz+' Hz' : '—'}</div></div>
       </div>
       ${colorDots}
-      <div class="card-price" id="precio-${f.modeloBase}">${fmt(v.precio)}</div>
-      <div class="card-btns" id="btns-${f.modeloBase}">${btnML}${btnAmz}</div>
+      <div class="card-commercial">
+        <div class="card-price" id="precio-${f.modeloBase}">${fmt(v.precio)}</div>
+        <div class="card-btns" id="btns-${f.modeloBase}">${btnML}${btnAmz}</div>
+      </div>
     </div>
   </div>`;
 }

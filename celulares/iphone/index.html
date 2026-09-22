@@ -1564,9 +1564,12 @@ function cardHTML(familia) {
 
   // Specs
   const specs = `<div class="card-specs">
+    <div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">${familia.pantalla ? familia.pantalla + '"' : '—'}</div></div>
     <div class="spec"><div class="spec-label">Almac.</div><div class="spec-val" id="spec-stor-${mb}">${fmtGB(variante.almacenamientoGB)}</div></div>
     <div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">${familia.camPrincipal ? familia.camPrincipal + ' MP' : '—'}</div></div>
-    <div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">${familia.pantalla ? familia.pantalla + '"' : '—'}</div></div>
+    <div class="spec"><div class="spec-label">Chip</div><div class="spec-val">${familia.chip||'—'}</div></div>
+    <div class="spec"><div class="spec-label">RAM</div><div class="spec-val">${variante.ram ? variante.ram+' GB' : (familia.ram ? familia.ram+' GB' : '—')}</div></div>
+    <div class="spec"><div class="spec-label">Hz</div><div class="spec-val">${familia.hz ? familia.hz+' Hz' : '—'}</div></div>
   </div>`;
 
   // Placeholder image fallback
@@ -1595,8 +1598,10 @@ function cardHTML(familia) {
       <div class="stor-insight" id="insight-${mb}">${insight}</div>
       <div id="stars-${mb}">${starsInner}</div>
       ${specs}
-      <div class="card-price" id="price-${mb}">${fmt(variante.precio)}</div>
-      <div id="btns-${mb}">${btnsHTML(variante, familia.nombre)}</div>
+      <div class="card-commercial">
+        <div class="card-price" id="price-${mb}">${fmt(variante.precio)}</div>
+        <div id="btns-${mb}">${btnsHTML(variante, familia.nombre)}</div>
+      </div>
     </div>
   </div>`;
 }

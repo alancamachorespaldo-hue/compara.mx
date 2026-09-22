@@ -450,14 +450,16 @@ function cardHTML(p) {
       <div class="card-stars">${estrellas(p.estrellas)} <span class="card-stars-count">${p.estrellas} (${p.resenas.toLocaleString()})</span></div>
       <div class="card-specs">
         <div class="spec"><div class="spec-lbl">Porciones</div><div class="spec-val">${p.porciones}</div></div>
-        <div class="spec"><div class="spec-lbl">$/porción</div><div class="spec-val">$${p.costoPorPorcion.toFixed(2)}</div></div>
+        <div class="spec"><div class="spec-lbl">B6</div><div class="spec-val">${p.b6!=null?p.b6+' mg':'—'}</div></div>
+        <div class="spec"><div class="spec-lbl">B9</div><div class="spec-val">${p.b9!=null?p.b9+' mcg':'—'}</div></div>
         <div class="spec"><div class="spec-lbl">B12</div><div class="spec-val">${p.b12||'—'}</div></div>
         <div class="spec"><div class="spec-lbl">Forma B12</div><div class="spec-val" style="font-size:10px">${b12label}</div></div>
+        <div class="spec"><div class="spec-lbl">$/porción</div><div class="spec-val">$${p.costoPorPorcion.toFixed(2)}</div></div>
       </div>
-    </div>
-    <div class="card-bottom">
-      <div class="price-row"><span class="price-main">${fmtPrecio(precioShow)}</span></div>
-      <div class="${btnRowClass}">${btnML}${btnAmz}</div>
+      <div class="card-commercial">
+        <div class="price-row"><span class="price-main">${fmtPrecio(precioShow)}</span></div>
+        <div class="${btnRowClass}">${btnML}${btnAmz}</div>
+      </div>
     </div>
   </div>`;
 }
