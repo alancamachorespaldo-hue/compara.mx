@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Celulares en México 2026 — Compara Precios Amazon y Mercado Libre | comparalo.mx</title>
-<meta name="description" content="Compara celulares en México: smartphones gama media, alta gama e iPhone. Precios actualizados de Amazon MX y Mercado Libre. Encuentra el mejor precio.">
-<link rel="canonical" href="https://comparalo.mx/celulares">
+<title>Celulares en México: compara Android y iPhone | comparalo.mx</title>
+<meta name="description" content="Compara celulares Android e iPhone en México. Precios actualizados de Amazon MX y Mercado Libre. Encuentra el mejor precio antes de comprar.">
+<link rel="canonical" href="https://comparalo.mx/celulares/">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://comparalo.mx/celulares">
-<meta property="og:title" content="Celulares en México 2026 — comparalo.mx">
+<meta property="og:url" content="https://comparalo.mx/celulares/">
+<meta property="og:title" content="Celulares en México: compara Android y iPhone — comparalo.mx">
 <meta property="og:description" content="Compara precios de smartphones en Amazon MX y Mercado Libre. Gama media, alta gama e iPhone.">
 <meta property="og:image" content="https://comparalo.mx/logopng.png">
 <meta property="og:locale" content="es_MX">
@@ -20,13 +20,12 @@
 {"@context":"https://schema.org","@graph":[
   {"@type":"BreadcrumbList","itemListElement":[
     {"@type":"ListItem","position":1,"name":"Inicio","item":"https://comparalo.mx/"},
-    {"@type":"ListItem","position":2,"name":"Celulares","item":"https://comparalo.mx/celulares"}
+    {"@type":"ListItem","position":2,"name":"Celulares","item":"https://comparalo.mx/celulares/"}
   ]},
-  {"@type":"WebPage","url":"https://comparalo.mx/celulares","name":"Celulares en México 2026 — comparalo.mx","description":"Compara smartphones gama media, alta gama e iPhone en Amazon MX y Mercado Libre.","inLanguage":"es-MX","publisher":{"@type":"Organization","name":"comparalo.mx","url":"https://comparalo.mx"}},
+  {"@type":"WebPage","url":"https://comparalo.mx/celulares/","name":"Celulares en México: compara Android y iPhone — comparalo.mx","description":"Compara Android e iPhone en México. Precios actualizados de Amazon MX y Mercado Libre.","inLanguage":"es-MX","publisher":{"@type":"Organization","name":"comparalo.mx","url":"https://comparalo.mx"}},
   {"@type":"ItemList","name":"Categorías de celulares en comparalo.mx","itemListElement":[
-
-    {"@type":"ListItem","position":2,"name":"Smartphones Android","url":"https://comparalo.mx/celulares/android/"},
-    {"@type":"ListItem","position":3,"name":"iPhone","url":"https://comparalo.mx/celulares/iphone"}
+    {"@type":"ListItem","position":1,"name":"Smartphones Android","url":"https://comparalo.mx/celulares/android/"},
+    {"@type":"ListItem","position":2,"name":"iPhone","url":"https://comparalo.mx/celulares/iphone/"}
   ]}
 ]}
 </script>
@@ -81,6 +80,14 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;min-h
 .cat-cta{display:inline-flex;align-items:center;gap:4px;margin-top:6px;font-size:.78rem;font-weight:700;color:#fff;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:5px 14px;transition:background .15s}
 .cat-active:hover .cat-cta{background:rgba(255,255,255,.25)}
 
+/* 3-PASOS */
+.steps{display:flex;gap:0;justify-content:center;max-width:680px;margin:2.5rem auto 0;background:rgba(255,255,255,.08);border-radius:14px;border:1px solid rgba(255,255,255,.15);overflow:hidden}
+.step{flex:1;padding:16px 18px;text-align:center;position:relative}
+.step+.step::before{content:'→';position:absolute;left:-10px;top:50%;transform:translateY(-50%);font-size:1.1rem;color:rgba(255,255,255,.4);pointer-events:none}
+.step-num{display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:4px;font-weight:600}
+.step-txt{font-size:.85rem;font-weight:700;color:#fff;line-height:1.3}
+@media(max-width:640px){.steps{flex-direction:column;border-radius:12px}.step+.step::before{content:'↓';left:50%;top:-10px;transform:translateX(-50%)}.step{padding:12px 16px}}
+
 /* ARTÍCULOS */
 .arts-section{background:var(--bg);padding:3rem 2rem;max-width:1100px;margin:0 auto;width:100%}
 .arts-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ac);margin-bottom:.4rem}
@@ -128,8 +135,8 @@ footer a{color:var(--ac);text-decoration:none}
 
 <div class="hero">
   <div class="hero-eyebrow">México · Amazon MX · Mercado Libre</div>
-  <h1 class="hero-h1">Celulares al <em>mejor precio</em></h1>
-  <p class="hero-tagline">Compara marcas, especificaciones y precios. Decide con datos.</p>
+  <h1 class="hero-h1">Celulares en México: <em>compara antes de comprar</em></h1>
+  <p class="hero-tagline">Android e iPhone, lado a lado. Precios en Amazon MX y Mercado Libre.</p>
 
   <div class="cat-grid">
 
@@ -149,6 +156,12 @@ footer a{color:var(--ac);text-decoration:none}
         <span class="cat-cta">Ver comparativa →</span>
       </div>
     </a>
+  </div>
+
+  <div class="steps">
+    <div class="step"><span class="step-num">Paso 1</span><span class="step-txt">Encuentra tu categoría</span></div>
+    <div class="step"><span class="step-num">Paso 2</span><span class="step-txt">Selecciona y compara</span></div>
+    <div class="step"><span class="step-num">Paso 3</span><span class="step-txt">Compra al mejor precio</span></div>
   </div>
 </div>
 
