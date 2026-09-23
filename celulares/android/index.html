@@ -206,8 +206,8 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .cmp-diffs-header{margin-bottom:12px}
 .cmp-diffs-title{font-size:14px;font-weight:700;color:var(--tx);display:block}
 .cmp-diffs-sub{font-size:12px;color:var(--tx2)}
-.cmp-diff-chips{display:flex;flex-wrap:wrap;gap:8px}
-.cmp-diff-chip{display:flex;align-items:flex-start;gap:8px;background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:10px 12px;flex:1;min-width:130px;max-width:200px}
+.cmp-diff-chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:8px}
+.cmp-diff-chip{display:flex;align-items:flex-start;gap:8px;background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:10px 12px}
 .cmp-diff-chip-icon{font-size:18px;line-height:1;flex-shrink:0;margin-top:1px}
 .cmp-diff-chip-body{flex:1;min-width:0}
 .cmp-diff-chip-top{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-bottom:4px}
@@ -1582,7 +1582,7 @@ function openModal() {
       if (allNums.length>=2) {
         const worst=m.dir==='higher'?Math.min(...allNums):Math.max(...allNums);
         const d=Math.abs(wv-worst);
-        if (m.key==='price') chipSub=`$${d.toLocaleString('es-MX')} menos que el más caro`;
+        if (m.key==='price') chipSub=`$${Math.round(d).toLocaleString('es-MX')} menos que el más caro`;
         else if (m.key==='ram') chipSub=`vs ${worst} GB`;
         else if (m.key==='hz') chipSub=`vs ${worst} Hz`;
         else if (m.key==='storage') chipSub=`${storageLbl(d)} más que el menor`;
