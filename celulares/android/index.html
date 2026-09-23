@@ -196,23 +196,28 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .cmp-prod-row{display:grid;gap:10px;padding:14px 16px;border-bottom:1px solid var(--bd)}
 .cmp-prod-row.cmp-count-2{grid-template-columns:repeat(2,1fr)}
 .cmp-prod-row.cmp-count-3{grid-template-columns:repeat(3,1fr)}
-.cmp-prod-card{text-align:center;padding:6px}
-.cmp-prod-card-img{width:80px;height:80px;object-fit:contain;border-radius:10px;background:var(--s1);margin:0 auto 6px;display:block;padding:6px}
-.cmp-prod-card-name{font-size:12.5px;font-weight:700;line-height:1.3;margin-bottom:3px;color:var(--tx)}
-.cmp-prod-card-variant{font-size:11px;color:var(--ac);font-weight:700;margin-bottom:3px}
-.cmp-prod-card-price{font-size:15px;font-weight:800;color:var(--tx);margin-bottom:7px}
-.cmp-diffs-section{padding:12px 16px 8px}
-.cmp-diffs-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--tx2);margin-bottom:10px}
-.cmp-diff-grid{display:flex;flex-direction:column;gap:12px}
-.cmp-diff-item{}
-.cmp-diff-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--tx3);margin-bottom:5px}
-.cmp-diff-vals{display:grid;gap:5px}
-.cmp-diff-vals.cmp-count-2{grid-template-columns:1fr 1fr}
-.cmp-diff-vals.cmp-count-3{grid-template-columns:repeat(3,1fr)}
-.cmp-diff-val{background:var(--s1);border-radius:7px;padding:7px 8px;text-align:center;font-size:14px;font-weight:700;color:var(--tx);line-height:1.2}
-.cmp-diff-val.cmp-winner{background:linear-gradient(135deg,#d4f0e3,#c0ebd5);color:#004d34}
-.cmp-diff-val-sub{font-size:10px;font-weight:400;color:var(--tx2);margin-top:2px}
-.cmp-diff-delta{font-size:11px;color:var(--tx2);text-align:center;margin-top:5px;font-weight:600}
+.cmp-prod-card{display:flex;flex-direction:row;gap:10px;align-items:flex-start;background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:12px}
+.cmp-prod-card-img{width:68px;height:68px;object-fit:contain;border-radius:8px;background:var(--s2);flex-shrink:0;padding:4px;display:block}
+.cmp-prod-card-info{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.cmp-prod-card-name{font-size:12.5px;font-weight:700;line-height:1.3;color:var(--tx);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cmp-prod-card-variant{font-size:11px;color:var(--tx2);font-weight:500}
+.cmp-prod-card-stars{font-size:11px;color:#e6900a}
+.cmp-diffs-section{padding:16px 18px 12px;border-bottom:1px solid var(--bd)}
+.cmp-diffs-header{margin-bottom:12px}
+.cmp-diffs-title{font-size:14px;font-weight:700;color:var(--tx);display:block}
+.cmp-diffs-sub{font-size:12px;color:var(--tx2)}
+.cmp-diff-chips{display:flex;flex-wrap:wrap;gap:8px}
+.cmp-diff-chip{display:flex;align-items:flex-start;gap:8px;background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:10px 12px;flex:1;min-width:130px;max-width:200px}
+.cmp-diff-chip-icon{font-size:18px;line-height:1;flex-shrink:0;margin-top:1px}
+.cmp-diff-chip-body{flex:1;min-width:0}
+.cmp-diff-chip-top{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-bottom:4px}
+.cmp-diff-chip-label{font-size:11px;color:var(--tx2);font-weight:500}
+.cmp-diff-chip-badge{font-size:9.5px;font-weight:700;padding:2px 6px;border-radius:20px;white-space:nowrap}
+.cmp-chip-badge-green{background:#d1fae5;color:#065f46}
+.cmp-chip-badge-gray{background:#f1f5f9;color:#64748b}
+.cmp-chip-badge-blue{background:#dbeafe;color:#1d4ed8}
+.cmp-diff-chip-val{font-size:14px;font-weight:700;color:var(--tx);margin-bottom:2px}
+.cmp-diff-chip-sub{font-size:10.5px;color:var(--tx2);line-height:1.3}
 .cmp-value-prop{margin:8px 16px 4px;background:var(--s1);border-radius:10px;padding:11px 13px}
 .cmp-value-prop-title{font-size:12.5px;font-weight:600;color:var(--tx);margin-bottom:6px}
 .cmp-value-prop-list{list-style:none;padding:0;margin:0;display:grid;gap:3px}
@@ -222,7 +227,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .cmp-full-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--tx2);margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
 .cmp-show-diffs-btn{font-size:11px;font-weight:600;color:var(--ac);background:none;border:1px solid rgba(0,104,71,.3);border-radius:20px;padding:3px 10px;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0}
 .cmp-show-diffs-btn.active{background:var(--ac);color:#fff;border-color:var(--ac)}
-.cmp-footer-cta{border-top:1px solid var(--bd);padding:12px 16px}
+.cmp-footer-cta{display:none}
 .cmp-sticky-bar{position:sticky;top:0;z-index:30;background:var(--bg);border-bottom:1px solid var(--bd);padding:7px 16px;display:none}
 .cmp-sticky-bar.visible{display:block}
 .cmp-sticky-inner{display:grid;gap:8px}
@@ -231,9 +236,13 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .cmp-sticky-prod{font-size:11px;font-weight:700;color:var(--tx);text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.4}
 /* ── Fase 3 Mobile: comparador compacto ─────────────────────── */
 .cmp-table tbody tr.cmp-group-hdr td{background:var(--s2)!important;color:var(--tx2);font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:6px 8px!important;text-align:left!important;border-top:2px solid var(--bd);border-bottom:1px solid var(--bd);position:static!important;z-index:auto!important;white-space:nowrap;min-width:0!important;max-width:none!important;width:auto!important}
-/* Tabs + bottom bar: ocultos en desktop */
+/* Tabs: ocultos en desktop */
 .cmp-tabs{display:none;flex-shrink:0}
-.cmp-bottom-bar{display:none;flex-shrink:0}
+/* Bottom bar: visible en desktop */
+.cmp-bottom-bar{display:flex;flex-shrink:0;align-items:center;gap:10px;padding:12px 18px;background:var(--bg);border-top:1px solid var(--bd);position:sticky;bottom:0;z-index:30}
+.cmp-bottom-count{font-size:13px;color:var(--tx2);flex:1;min-width:0}
+.cmp-bottom-btn-sec{font-size:13px;font-weight:600;padding:8px 16px;border-radius:8px;border:1px solid var(--bd);background:none;color:var(--tx);cursor:pointer;font-family:inherit;white-space:nowrap}
+.cmp-bottom-btn-pri{font-size:13px;font-weight:700;padding:8px 18px;border-radius:8px;background:var(--ac);color:#fff;border:none;cursor:pointer;font-family:inherit;white-space:nowrap}
 /* Tab panels: siempre visibles en desktop */
 .cmp-tab-panel{display:block}
 @media(max-width:540px){
@@ -1535,12 +1544,14 @@ function openModal() {
   const prodRowHtml = `<div class="cmp-prod-row ${cc}" id="cmp-prod-row">
     ${items.map(({f,v})=>{
       const vl = storageLbl(v.storage)+(v.ram?' · '+v.ram+' GB RAM':'');
+      const stars = v.estrellas?`<div class="cmp-prod-card-stars">★ ${v.estrellas.toFixed(1)} <span style="color:var(--tx3);font-size:9.5px">(${(v.resenas||0).toLocaleString('es-MX')})</span></div>`:'';
       return `<div class="cmp-prod-card">
         <img class="cmp-prod-card-img" src="${f.img}" alt="${f.nombre}" onerror="this.style.opacity='.3'">
-        <div class="cmp-prod-card-name">${f.nombre}</div>
-        <div class="cmp-prod-card-variant">${vl}</div>
-        <div class="cmp-prod-card-price">${v.precio?fmt(v.precio):'—'}</div>
-        ${btns(v,f,'sm')}</div>`;
+        <div class="cmp-prod-card-info">
+          <div class="cmp-prod-card-name">${f.nombre}</div>
+          <div class="cmp-prod-card-variant">${vl}</div>
+          ${stars}
+          ${btns(v,f,'sm')}</div></div>`;
     }).join('')}
   </div>`;
 
@@ -1551,46 +1562,42 @@ function openModal() {
     </div></div>`;
 
   // ── 3. Diferencias clave ──────────────────────────────────────
-  const diffItemsHtml = [];
+  const badgeLabels = {price:'Menor precio',ram:'Más RAM',storage:'Más almac.',hz:'Mayor Hz',rating:'Mejor valorado'};
+  const diffChipsHtml = [];
   for (const m of METRICS) {
     const vals = items.map(item=>m.get(item));
-    if (vals.filter(v=>v!==null&&v!==undefined).length < 2) continue;
+    const valid = vals.filter(v=>v!==null&&v!==undefined);
+    if (valid.length < 1) continue;
     const ws = winIdxs(vals, m.dir);
-    const cells = vals.map((val,i)=>{
-      const iw = ws.includes(i);
-      const disp = val!==null&&val!==undefined ? m.fmt(val) : '—';
-      const sub = m.key==='rating'&&items[i].v.resenas&&val!==null
-        ? `<div class="cmp-diff-val-sub">(${items[i].v.resenas.toLocaleString('es-MX')} res.)</div>` : '';
-      return `<div class="cmp-diff-val${iw?' cmp-winner':''}">${disp}${sub}</div>`;
-    }).join('');
-    let delta = '';
-    const vld = vals.filter(v=>v!==null);
-    if (vld.length>=2 && vld.every(v=>v===vld[0])) {
-      delta = '<div class="cmp-diff-delta">Iguales</div>';
-    } else if (n===2) {
-      const [a,b] = vals;
-      if (typeof a==='number'&&typeof b==='number'&&a!==b) {
-        const d = Math.abs(b-a);
-        if (m.key==='price')   delta = `<div class="cmp-diff-delta">$${d.toLocaleString('es-MX')} de diferencia</div>`;
-        if (m.key==='ram')     delta = `<div class="cmp-diff-delta">${d} GB de diferencia</div>`;
-        if (m.key==='storage') {
-          const ratio = Math.max(a,b)/Math.min(a,b);
-          delta = `<div class="cmp-diff-delta">${storageLbl(d)} de diferencia${Math.abs(ratio-2)<0.15?' (el doble)':''}</div>`;
-        }
-        if (m.key==='hz')     delta = `<div class="cmp-diff-delta">${d} Hz de diferencia</div>`;
-        if (m.key==='screen') delta = `<div class="cmp-diff-delta">${d.toFixed(1)}" de diferencia</div>`;
+    const allSame = valid.length>=2&&valid.every(v=>v===valid[0]);
+    let badgeText='', badgeClass='', chipVal='', chipSub='';
+    if (allSame||m.dir==='neutral') {
+      badgeText='Igual'; badgeClass='cmp-chip-badge-gray';
+      chipVal=m.fmt(valid[0]); chipSub=`En los ${n} modelos`;
+    } else if (ws.length===1) {
+      const wv=vals[ws[0]];
+      chipVal=wv!==null?m.fmt(wv):'—';
+      badgeText=badgeLabels[m.key]||'Mayor'; badgeClass='cmp-chip-badge-green';
+      const allNums=vals.filter(v=>typeof v==='number'&&v!==null);
+      if (allNums.length>=2) {
+        const worst=m.dir==='higher'?Math.min(...allNums):Math.max(...allNums);
+        const d=Math.abs(wv-worst);
+        if (m.key==='price') chipSub=`$${d.toLocaleString('es-MX')} menos que el más caro`;
+        else if (m.key==='ram') chipSub=`vs ${worst} GB`;
+        else if (m.key==='hz') chipSub=`vs ${worst} Hz`;
+        else if (m.key==='storage') chipSub=`${storageLbl(d)} más que el menor`;
+        else if (m.key==='rating') chipSub=`vs ★ ${worst.toFixed(1)}`;
       }
+    } else if (ws.length>1) {
+      badgeText='Empate'; badgeClass='cmp-chip-badge-blue';
+      chipVal=vals[ws[0]]!==null?m.fmt(vals[ws[0]]):'—';
+    } else {
+      chipVal=valid.length?m.fmt(valid[0]):'—';
     }
-    diffItemsHtml.push(`<div class="cmp-diff-item">
-      <div class="cmp-diff-label">${m.icon} ${m.label}</div>
-      <div class="cmp-diff-vals ${cc}">${cells}</div>
-      ${delta}</div>`);
+    diffChipsHtml.push(`<div class="cmp-diff-chip"><div class="cmp-diff-chip-icon">${m.icon}</div><div class="cmp-diff-chip-body"><div class="cmp-diff-chip-top"><span class="cmp-diff-chip-label">${m.label}</span>${badgeText?`<span class="cmp-diff-chip-badge ${badgeClass}">${badgeText}</span>`:''}</div><div class="cmp-diff-chip-val">${chipVal}</div>${chipSub?`<div class="cmp-diff-chip-sub">${chipSub}</div>`:''}</div></div>`);
   }
-  const diffsHtml = diffItemsHtml.length
-    ? `<section class="cmp-diffs-section">
-        <div class="cmp-diffs-title">Diferencias clave</div>
-        <div class="cmp-diff-grid">${diffItemsHtml.join('')}</div>
-       </section>` : '';
+  const diffsHtml = diffChipsHtml.length
+    ? `<section class="cmp-diffs-section"><div class="cmp-diffs-header"><span class="cmp-diffs-title">Diferencias clave</span> <span class="cmp-diffs-sub">Lo más importante para decidir</span></div><div class="cmp-diff-chips">${diffChipsHtml.join('')}</div></section>` : '';
 
   // ── 4. Por $X más (solo 2 productos) ─────────────────────────
   let valuePropHtml = '';
@@ -1685,7 +1692,7 @@ function openModal() {
 
   // ── 7. Tab bar + barra inferior ───────────────────────────────
   const tabBarHtml = `<div class="cmp-tabs"><button class="cmp-tab" onclick="window._cmpTab(this,'resumen')">Resumen</button><button class="cmp-tab active" onclick="window._cmpTab(this,'tabla')">Todas las características</button></div>`;
-  const bottomBarHtml = `<div class="cmp-bottom-bar"><span class="cmp-bottom-count">${n} producto${n!==1?'s':''} comparados</span><button class="cmp-bottom-btn-sec" onclick="window._cmpLimpiar()">Limpiar</button><button class="cmp-bottom-btn-pri" onclick="closeModal()">Cerrar</button></div>`;
+  const bottomBarHtml = `<div class="cmp-bottom-bar"><span class="cmp-bottom-count">${n} de 3 seleccionados</span><button class="cmp-bottom-btn-sec" onclick="window._cmpLimpiar()">Limpiar selección</button><button class="cmp-bottom-btn-pri" onclick="closeModal()">Cerrar</button></div>`;
 
   // ── Render ────────────────────────────────────────────────────
   const body = document.getElementById('cmp-modal-body');
