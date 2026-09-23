@@ -2223,7 +2223,6 @@ function openModal() {
   const gHdr=label=>`<tr class="cmp-group-hdr"><td colspan="${n+1}">${label}</td></tr>`;
   const fullRows = [
     precioT,
-    tiendaT,
     filaT('💾 Almacenamiento', items.map(({v})=>v.almacenamientoGB), v=>fmtGB(v),  'higher'),
     chipT,
     filaT('📐 Tamaño',         items.map(({f})=>f.pantalla),         v=>v+'"',     'neutral'),

@@ -1658,14 +1658,13 @@ function openModal() {
   const chipVals = items.map(({f})=>f.chip||null);
   const chipSame = chipVals.filter(Boolean).length>=2&&chipVals.filter(Boolean).every(v=>v===chipVals.find(Boolean));
   const chipT   = `<tr data-same="${chipSame}"><td>⚙️ Procesador</td>${items.map(({f})=>`<td>${f.chip||'—'}</td>`).join('')}</tr>`;
-  const colorT  = `<tr data-same="false"><td>🎨 Color</td>${items.map(({v})=>`<td>${v.label||'—'}</td>`).join('')}</tr>`;
+  const colorT  = `<tr data-same="false"><td>🎨 Color</td>${items.map(({f})=>{const dots=f.colores&&f.colores.length?f.colores.map(c=>`<span class="color-dot" style="background:${COLOR_SWATCHES[c]||'#ccc'}" title="${c}"></span>`).join(''):'—';return`<td><div class="color-dots" style="justify-content:center">${dots}</div></td>`;}).join('')}</tr>`;
   const tiendaVals = items.map(({v})=>v.linkML&&v.linkAmz?'Amazon · ML':v.linkML?'Mercado Libre':v.linkAmz?'Amazon':'—');
   const tiendaSame = tiendaVals.filter(v=>v!=='—').length>=2&&tiendaVals.every(x=>x===tiendaVals[0]);
   const tiendaT = `<tr data-same="${tiendaSame}"><td>🏪 Tienda</td>${tiendaVals.map(v=>`<td>${v}</td>`).join('')}</tr>`;
   const gHdr = label=>`<tr class="cmp-group-hdr"><td colspan="${n+1}">${label}</td></tr>`;
   const fullRows = [
     precioT,
-    tiendaT,
     filaT('🧠 RAM',             items.map(({v})=>v.ram),              v=>v+' GB',      'higher'),
     filaT('💾 Almacenamiento',  items.map(({v})=>v.storage),          v=>storageLbl(v),'higher'),
     chipT,
