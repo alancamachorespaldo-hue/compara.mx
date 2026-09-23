@@ -2186,40 +2186,40 @@ function openModal() {
     return `<tr data-same="${same}"><td>${label}</td>${cells}</tr>`;
   }
   const minPF=(()=>{const ps=items.map(({v})=>v.precio).filter(Boolean);return ps.length?Math.min(...ps):null;})();
-  const precioT=`<tr data-same="false"><td>Precio</td>${items.map(({v})=>`<td class="${minPF&&v.precio===minPF?'cmp-winner':''}">${v.precio?fmt(v.precio):'—'}</td>`).join('')}</tr>`;
-  const valorT=`<tr data-same="false"><td>Valoración</td>${items.map(({f,v})=>{
+  const precioT=`<tr data-same="false"><td>💰 Precio</td>${items.map(({v})=>`<td class="${minPF&&v.precio===minPF?'cmp-winner':''}">${v.precio?fmt(v.precio):'—'}</td>`).join('')}</tr>`;
+  const valorT=`<tr data-same="false"><td>⭐ Valoración</td>${items.map(({f,v})=>{
     const est=v.estrellas||f.estrellas, res=v.resenas||f.resenas;
     return `<td>${est?`<span style="color:#e6900a;font-weight:700">★ ${est.toFixed(1)}</span> <span style="font-size:11px;color:var(--tx3)">(${(res||0).toLocaleString('es-MX')})</span>`:'—'}</td>`;
   }).join('')}</tr>`;
   const chipVals=items.map(({f})=>f.chip||null);
   const chipSame=chipVals.filter(Boolean).length>=2&&chipVals.filter(Boolean).every(v=>v===chipVals.find(Boolean));
-  const chipT=`<tr data-same="${chipSame}"><td>Procesador</td>${items.map(({f})=>`<td>${f.chip||'—'}</td>`).join('')}</tr>`;
+  const chipT=`<tr data-same="${chipSame}"><td>⚙️ Procesador</td>${items.map(({f})=>`<td>${f.chip||'—'}</td>`).join('')}</tr>`;
   const usbVals=items.map(({f})=>f.usb||null);
   const usbSame=usbVals.filter(Boolean).length>=2&&usbVals.filter(Boolean).every(v=>v===usbVals.find(Boolean));
-  const usbT=`<tr data-same="${usbSame}"><td>USB</td>${items.map(({f})=>`<td>${f.usb?'USB '+f.usb:'—'}</td>`).join('')}</tr>`;
+  const usbT=`<tr data-same="${usbSame}"><td>🔌 USB</td>${items.map(({f})=>`<td>${f.usb?'USB '+f.usb:'—'}</td>`).join('')}</tr>`;
   const tiendaVals = items.map(({v})=>v.linkML&&v.linkAmz?'Amazon · ML':v.linkML?'Mercado Libre':v.linkAmz?'Amazon':'—');
   const tiendaSame = tiendaVals.filter(v=>v!=='—').length>=2&&tiendaVals.every(x=>x===tiendaVals[0]);
-  const tiendaT = `<tr data-same="${tiendaSame}"><td>Tienda</td>${tiendaVals.map(v=>`<td>${v}</td>`).join('')}</tr>`;
+  const tiendaT = `<tr data-same="${tiendaSame}"><td>🏪 Tienda</td>${tiendaVals.map(v=>`<td>${v}</td>`).join('')}</tr>`;
   const gHdr=label=>`<tr class="cmp-group-hdr"><td colspan="${n+1}">${label}</td></tr>`;
   const fullRows = [
     gHdr('Precio y disponibilidad'),
     precioT,
     tiendaT,
     gHdr('Rendimiento'),
-    filaT('Almacenamiento', items.map(({v})=>v.almacenamientoGB), v=>fmtGB(v),  'higher'),
+    filaT('💾 Almacenamiento', items.map(({v})=>v.almacenamientoGB), v=>fmtGB(v),  'higher'),
     chipT,
     gHdr('Pantalla'),
-    filaT('Tamaño',         items.map(({f})=>f.pantalla),         v=>v+'"',     'neutral'),
-    filaT('Frecuencia',     items.map(({f})=>f.hz),               v=>v+' Hz',   'higher'),
+    filaT('📐 Tamaño',         items.map(({f})=>f.pantalla),         v=>v+'"',     'neutral'),
+    filaT('🔄 Frecuencia',     items.map(({f})=>f.hz),               v=>v+' Hz',   'higher'),
     gHdr('Cámara'),
-    filaT('Principal',      items.map(({f})=>f.camPrincipal),     v=>v+' MP',   'neutral'),
-    filaT('Zoom óptico',    items.map(({f})=>f.zoom||null),       v=>v+'×',     'neutral'),
+    filaT('📷 Principal',      items.map(({f})=>f.camPrincipal),     v=>v+' MP',   'neutral'),
+    filaT('🔍 Zoom óptico',    items.map(({f})=>f.zoom||null),       v=>v+'×',     'neutral'),
     gHdr('Otros'),
     usbT, valorT,
   ].join('');
   const thLbl=`<th style="text-align:left;position:sticky;left:0;z-index:20;min-width:130px;border-right:1px solid var(--bd)">Característica</th>`;
   const thProds=items.map(({f,v})=>`<th><img class="cmp-prod-img" src="${v.img||f.img||''}" alt="${f.nombre}" onerror="this.style.opacity='.3'"><div class="cmp-prod-name">${f.nombre}</div><div class="cmp-prod-stor">${fmtGB(v.almacenamientoGB)}</div>${btns(v,f,'sm')}</th>`).join('');
-  const btnT=`<tr data-same="false"><td>Comprar</td>${items.map(({f,v})=>`<td>${btns(v,f,'md')}</td>`).join('')}</tr>`;
+  const btnT=`<tr data-same="false"><td>🛒 Comprar</td>${items.map(({f,v})=>`<td>${btns(v,f,'md')}</td>`).join('')}</tr>`;
   const fullTableHtml=`<section class="cmp-full-section">
     <div class="cmp-full-title"><span>Todas las características</span>
       <button class="cmp-show-diffs-btn" id="cmp-diffs-btn" onclick="window._cmpToggle(this)">Solo diferencias</button>
