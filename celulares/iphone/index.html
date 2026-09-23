@@ -116,11 +116,8 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .stor-btn:hover{border-color:var(--ac);color:var(--ac)}
 .stor-btn.on{background:var(--ac);color:#fff;border-color:var(--ac)}
 
-/* ── STORAGE INSIGHT ── */
-.stor-insight{font-size:11px;color:var(--tx2);background:var(--s1);border-radius:8px;padding:6px 10px;line-height:1.5;min-height:0}
-.stor-insight:empty{display:none}
-.stor-insight strong{color:var(--tx);font-weight:700}
-.stor-insight .si-mult{color:var(--ac);font-weight:700}
+/* ── STORAGE INSIGHT — oculto en tarjetas de catálogo ── */
+.stor-insight{display:none!important}
 
 /* ── SPECS ── */
 .card-specs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px}
@@ -238,15 +235,16 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 /* ── Imagen protagonista (override cards.css) ──────────── */
 .card{grid-template-columns:40% 1fr!important}
 .card-img-wrap{height:auto!important;align-self:stretch!important;min-height:200px!important;padding:14px 10px!important}
-.card-img{max-width:100%!important;max-height:100%!important;width:auto!important;height:auto!important;object-fit:contain!important}
+.card-img{width:85%!important;height:85%!important;object-fit:contain!important;max-width:100%!important;max-height:100%!important}
 @media(max-width:768px){
   .card{grid-template-columns:38% 1fr!important}
   .card-img-wrap{min-height:140px!important}
+  .card-img{width:88%!important;height:88%!important}
 }
 @media(max-width:540px){
   .card{grid-template-columns:1fr!important}
   .card-img-wrap{min-height:190px!important;max-height:240px!important;border-right:none!important;border-bottom:1px solid var(--bd)!important}
-  .card-img{max-height:220px!important;width:100%!important;height:auto!important}
+  .card-img{width:100%!important;height:auto!important;max-height:220px!important}
 }</style>
 </head>
 <body data-category="celulares_iphone">
@@ -1776,9 +1774,6 @@ function cardHTML(familia) {
   const storBtns = familia.variantes.map((v, i) =>
     `<button class="stor-btn${i === idx ? ' on' : ''}" data-stor="${mb}" onclick="selectStorage(event,'${mb}',${i})">${fmtGB(v.almacenamientoGB)}</button>`
   ).join('');
-
-  // Insight
-  const insight = insightHTML(familia, idx);
 
   // Stars — per variante
   const starsInner = starsHTML(variante);
