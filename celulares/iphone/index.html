@@ -291,6 +291,34 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   .card{grid-template-columns:1fr!important}
   .card-img-wrap{min-height:190px!important;max-height:240px!important;border-right:none!important;border-bottom:1px solid var(--bd)!important}
   .card-img{width:100%!important;height:auto!important;max-height:220px!important}
+}
+/* ── Fase 3 Mobile: comparador compacto ─────────────────────── */
+.cmp-table tbody tr.cmp-group-hdr td{background:var(--s2)!important;color:var(--tx2);font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:6px 8px!important;text-align:left!important;border-top:2px solid var(--bd);border-bottom:1px solid var(--bd);position:static!important;z-index:auto!important;white-space:nowrap;min-width:0!important;max-width:none!important;width:auto!important}
+@media(max-width:540px){
+  .cmp-overlay{padding:0!important;align-items:flex-end!important}
+  .cmp-modal{border-radius:14px 14px 0 0!important;max-height:100dvh!important;height:100dvh!important;max-width:100%!important}
+  .cmp-modal-header{padding:10px 14px!important}
+  .cmp-modal-header h2{font-size:.85rem!important}
+  .cmp-sticky-bar,.cmp-diffs-section,.cmp-value-prop,.cmp-footer-cta,.cmp-prod-row{display:none!important}
+  .cmp-full-section{margin-top:0!important;padding:0!important;border-top:none!important}
+  .cmp-full-title{position:sticky;top:0;z-index:25;background:var(--bg);padding:5px 10px!important;border-bottom:1px solid var(--bd);margin-bottom:0!important;justify-content:flex-end!important}
+  .cmp-full-title>span{display:none}
+  .cmp-table-wrap{overflow:visible!important}
+  .cmp-table thead{position:sticky;top:34px;z-index:20;background:var(--bg)}
+  .cmp-table thead tr{background:var(--bg)}
+  .cmp-table{font-size:11px!important;table-layout:fixed!important;width:100%!important}
+  .cmp-table th{padding:5px 3px!important;min-width:0!important;font-size:10.5px;vertical-align:top;word-break:break-word}
+  .cmp-table th:first-child{width:26%!important;min-width:0!important;max-width:none!important;font-size:9.5px;vertical-align:middle}
+  .cmp-table td{padding:5px 3px!important;font-size:11px!important;word-break:break-word;white-space:normal!important}
+  .cmp-table td:first-child{font-size:9.5px!important;min-width:0!important;max-width:none!important;width:26%!important;white-space:normal!important}
+  .cmp-prod-img{width:42px!important;height:42px!important;max-height:46px!important;padding:2px!important;margin-bottom:3px!important}
+  .cmp-prod-name{font-size:10px!important;-webkit-line-clamp:2!important;display:-webkit-box!important;-webkit-box-orient:vertical!important;overflow:hidden!important;margin-bottom:2px!important;height:auto!important;min-height:0!important;max-height:none!important}
+  .cmp-prod-stor{font-size:9.5px!important;margin-bottom:2px!important}
+  .cmp-prod-btns{gap:2px!important;margin-top:2px!important}
+  .cmp-prod-btns .btn-ml,.cmp-prod-btns .btn-amz{font-size:9px!important;padding:3px 4px!important;border-radius:5px!important;gap:2px!important}
+  .cmp-prod-btns .btn-ml img,.cmp-prod-btns .btn-amz img{height:10px!important}
+  .cmp-table tbody tr.cmp-group-hdr td{font-size:8.5px!important;padding:5px 6px!important;border-top:1px solid var(--bd)!important}
+  .cmp-table .cmp-winner{background:linear-gradient(135deg,#d4f0e3,#c0ebd5)!important;color:#004d34!important;font-weight:800!important}
 }</style>
 </head>
 <body data-category="celulares_iphone">
@@ -2157,14 +2185,20 @@ function openModal() {
   const usbVals=items.map(({f})=>f.usb||null);
   const usbSame=usbVals.filter(Boolean).length>=2&&usbVals.filter(Boolean).every(v=>v===usbVals.find(Boolean));
   const usbT=`<tr data-same="${usbSame}"><td>USB</td>${items.map(({f})=>`<td>${f.usb?'USB '+f.usb:'—'}</td>`).join('')}</tr>`;
+  const gHdr=label=>`<tr class="cmp-group-hdr"><td colspan="${n+1}">${label}</td></tr>`;
   const fullRows = [
+    gHdr('Precio y disponibilidad'),
     precioT,
+    gHdr('Rendimiento'),
     filaT('Almacenamiento', items.map(({v})=>v.almacenamientoGB), v=>fmtGB(v),  'higher'),
     chipT,
-    filaT('Pantalla',       items.map(({f})=>f.pantalla),         v=>v+'"',     'neutral'),
+    gHdr('Pantalla'),
+    filaT('Tamaño',         items.map(({f})=>f.pantalla),         v=>v+'"',     'neutral'),
     filaT('Frecuencia',     items.map(({f})=>f.hz),               v=>v+' Hz',   'higher'),
-    filaT('Cámara',         items.map(({f})=>f.camPrincipal),     v=>v+' MP',   'neutral'),
+    gHdr('Cámara'),
+    filaT('Principal',      items.map(({f})=>f.camPrincipal),     v=>v+' MP',   'neutral'),
     filaT('Zoom óptico',    items.map(({f})=>f.zoom||null),       v=>v+'×',     'neutral'),
+    gHdr('Otros'),
     usbT, valorT,
   ].join('');
   const thLbl=`<th style="text-align:left;position:sticky;left:0;z-index:20;min-width:130px;border-right:1px solid var(--bd)">Característica</th>`;
@@ -2209,6 +2243,15 @@ window._cmpToggle = function(btn) {
   btn.classList.toggle('active');
   const only = btn.classList.contains('active');
   document.querySelectorAll('#cmp-tbody tr[data-same="true"]').forEach(tr=>{ tr.style.display=only?'none':''; });
+  document.querySelectorAll('#cmp-tbody tr.cmp-group-hdr').forEach(hdr=>{
+    if (!only) { hdr.style.display=''; return; }
+    let next=hdr.nextElementSibling, hasVisible=false;
+    while(next&&!next.classList.contains('cmp-group-hdr')){
+      if(next.style.display!=='none'){hasVisible=true;break;}
+      next=next.nextElementSibling;
+    }
+    hdr.style.display=hasVisible?'':'none';
+  });
 };
 
 function closeModal() {
