@@ -2222,19 +2222,14 @@ function openModal() {
   const tiendaT = `<tr data-same="${tiendaSame}"><td>🏪 Tienda</td>${tiendaVals.map(v=>`<td>${v}</td>`).join('')}</tr>`;
   const gHdr=label=>`<tr class="cmp-group-hdr"><td colspan="${n+1}">${label}</td></tr>`;
   const fullRows = [
-    gHdr('Precio y disponibilidad'),
     precioT,
     tiendaT,
-    gHdr('Rendimiento'),
     filaT('💾 Almacenamiento', items.map(({v})=>v.almacenamientoGB), v=>fmtGB(v),  'higher'),
     chipT,
-    gHdr('Pantalla'),
     filaT('📐 Tamaño',         items.map(({f})=>f.pantalla),         v=>v+'"',     'neutral'),
     filaT('🔄 Frecuencia',     items.map(({f})=>f.hz),               v=>v+' Hz',   'higher'),
-    gHdr('Cámara'),
     filaT('📷 Principal',      items.map(({f})=>f.camPrincipal),     v=>v+' MP',   'neutral'),
     filaT('🔍 Zoom óptico',    items.map(({f})=>f.zoom||null),       v=>v+'×',     'neutral'),
-    gHdr('Otros'),
     usbT, valorT,
   ].join('');
   const thLbl=`<th style="text-align:left;position:sticky;left:0;z-index:20;min-width:130px;border-right:1px solid var(--bd)">Característica</th>`;
