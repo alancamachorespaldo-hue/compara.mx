@@ -2235,7 +2235,7 @@ function openModal() {
   const thProds=items.map(({f,v})=>`<th><img class="cmp-prod-img" src="${v.img||f.img||''}" alt="${f.nombre}" onerror="this.style.opacity='.3'"><div class="cmp-prod-name">${f.nombre}</div><div class="cmp-prod-stor">${fmtGB(v.almacenamientoGB)}</div>${btns(v,f,'sm')}</th>`).join('');
   const btnT=`<tr data-same="false"><td>🛒 Comprar</td>${items.map(({f,v})=>`<td>${btns(v,f,'md')}</td>`).join('')}</tr>`;
   const fullTableHtml=`<section class="cmp-full-section">
-    <div class="cmp-full-title"><span>Todas las características</span></div>
+
     <div class="cmp-table-wrap"><table class="cmp-table" id="cmp-table">
       <thead><tr>${thLbl}${thProds}</tr></thead>
       <tbody id="cmp-tbody">${fullRows}${btnT}</tbody>
