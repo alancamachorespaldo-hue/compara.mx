@@ -127,20 +127,22 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .card{background:var(--bg);border:1px solid var(--bd);border-radius:14px;overflow:hidden;transition:box-shadow .2s,transform .15s;cursor:pointer;position:relative;display:flex;flex-direction:column}
 .card:hover{box-shadow:0 4px 20px rgba(0,0,0,.07);transform:translateY(-2px)}
 .card.selected{border:2px solid var(--ac);box-shadow:0 0 0 4px var(--acd2)}
-.card-img-wrap{background:var(--s1);height:220px;display:flex;align-items:center;justify-content:center;overflow:hidden;border-bottom:1px solid var(--bd)}
-.card-img{width:100%;height:100%;object-fit:contain;display:block;padding:.3rem}
+.card-img-wrap{background:var(--s1);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.card-img{object-fit:contain;display:block}
 .card-body{padding:1rem;display:flex;flex-direction:column;flex:1}
 .card-name{font-size:14px;font-weight:700;color:var(--tx);margin-bottom:1px;line-height:1.3;letter-spacing:-.02em}
 .card-stars{font-size:15px;color:#e6900a;margin-bottom:.65rem;display:flex;align-items:center;gap:5px;font-weight:700}
 .card-stars-count{color:var(--tx3);font-size:13px;font-weight:400}
 .card-stars-empty{height:28px;margin-bottom:.65rem}
 .card-specs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin-bottom:5px}
+.card-specs[data-cols="2"]{grid-template-columns:1fr 1fr!important}
 .card-specs-2{display:grid;grid-template-columns:1fr;gap:5px;margin-bottom:.65rem}
 .spec{background:var(--s1);border-radius:7px;padding:5px 8px}
 .spec-label{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
 .spec-val{font-size:12px;font-weight:600;color:var(--tx);margin-top:1px}
 .color-dots{display:flex;gap:6px;align-items:center;min-height:22px;margin-bottom:.65rem;flex-wrap:wrap}
-.color-dot{width:16px;height:16px;border-radius:50%;border:1.5px solid rgba(0,0,0,.15);flex-shrink:0;display:inline-block}
+.color-dot{width:15px;height:15px;border-radius:50%;border:1.5px solid rgba(0,0,0,.15);flex-shrink:0;display:inline-block}
+.color-dot[data-color="Blanco"],.color-dot[data-color="Moonstone"],.color-dot[data-color="Porcelana"]{border-color:rgba(0,0,0,.3)}
 .card-price{font-size:1.3rem;font-weight:700;color:var(--tx);margin-top:auto;padding-top:.5rem;margin-bottom:.65rem;letter-spacing:-.03em}
 .price-nd{font-size:13px;color:var(--tx3);font-weight:400;margin-bottom:.65rem}
 .card-btns{display:flex;flex-direction:column;gap:6px}
@@ -207,7 +209,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 /* â”€â”€ Mobile improvements â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 @media(max-width:768px){
   .toolbar{flex-wrap:wrap!important;overflow-x:visible!important}
-  .card-img-wrap{height:100px!important}
+  .card-img-wrap{height:auto!important;min-height:130px!important}
   .card-body{padding:.5rem!important}
   .card-name{font-size:12px!important;-webkit-line-clamp:2!important;display:-webkit-box!important;-webkit-box-orient:vertical!important;overflow:hidden!important;line-clamp:2!important}
   .card-price,.dual-price{font-size:14px!important}
@@ -233,6 +235,20 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   .cmp-bar-txt{font-size:12px!important}
   .cmp-bar-sub{font-size:10px!important}
   .cmp-bar-actions{gap:5px!important}
+}
+/* ── Imagen protagonista (override cards.css) ──────────── */
+.card{grid-template-columns:40% 1fr!important}
+.card-img-wrap{height:auto!important;min-height:190px!important;align-self:stretch!important;padding:12px 10px!important}
+.card-img{max-height:210px!important;width:100%!important;height:100%!important;object-fit:contain!important}
+@media(max-width:768px){
+  .card{grid-template-columns:38% 1fr!important}
+  .card-img-wrap{min-height:130px!important}
+  .card-img{max-height:150px!important}
+}
+@media(max-width:540px){
+  .card{grid-template-columns:1fr!important}
+  .card-img-wrap{min-height:180px!important;border-right:none!important;border-bottom:1px solid var(--bd)!important}
+  .card-img{max-height:190px!important}
 }</style>
 </head>
 <body data-category="celulares_android">
@@ -317,7 +333,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">Samsung Galaxy S26 Ultra</div>
         <div class="card-stars">★ 4.9 <span class="card-stars-count">(3,831)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.9"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">12 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">200 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">Snapdragon 8 Elite Gen 5</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">120 Hz</div></div></div>
+        <div class="card-specs" data-cols="3"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.9"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">12 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">200 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">Snapdragon 8 Elite Gen 5</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">120 Hz</div></div></div>
+        
         <div class="card-commercial">
           <div class="card-price">$18,799</div>
           <div class="card-btns"><a class="btn-ml"  href="https://meli.la/29oZQxW"  rel="sponsored nofollow noopener" target="_blank">Ver en Mercado Libre</a></div>
@@ -330,7 +347,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">Samsung Galaxy S26</div>
         <div class="card-stars">★ 4.9 <span class="card-stars-count">(1,290)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.3"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">12 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">50 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">Exynos 2600</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">120 Hz</div></div></div>
+        <div class="card-specs" data-cols="3"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.3"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">12 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">50 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">Exynos 2600</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">120 Hz</div></div></div>
+        
         <div class="card-commercial">
           <div class="card-price">$15,282</div>
           <div class="card-btns"><a class="btn-ml"  href="https://meli.la/1TgKbkx"  rel="sponsored nofollow noopener" target="_blank">Ver en Mercado Libre</a></div>
@@ -343,7 +361,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">Samsung Galaxy S26+</div>
         <div class="card-stars">★ 4.9 <span class="card-stars-count">(429)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.7"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">12 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">50 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">Exynos 2600</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">120 Hz</div></div></div>
+        <div class="card-specs" data-cols="3"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.7"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">12 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">50 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">Exynos 2600</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">120 Hz</div></div></div>
+        
         <div class="card-commercial">
           <div class="card-price">$17,499</div>
           <div class="card-btns"><a class="btn-ml"  href="https://meli.la/11NMevA"  rel="sponsored nofollow noopener" target="_blank">Ver en Mercado Libre</a></div>
@@ -356,7 +375,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">Motorola Edge 60 Signature</div>
         <div class="card-stars">★ 4.8 <span class="card-stars-count">(76)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.9"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">16 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">1 TB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">200 MP</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">165 Hz</div></div></div>
+        <div class="card-specs" data-cols="3"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.9"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">16 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">1 TB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">200 MP</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">165 Hz</div></div></div>
+        
         <div class="card-commercial">
           <div class="card-price">$26,116.13</div>
           <div class="card-btns"><a class="btn-ml"  href="https://meli.la/2WEys3C"  rel="sponsored nofollow noopener" target="_blank">Ver en Mercado Libre</a></div>
@@ -369,7 +389,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">Google Pixel 10 Pro XL</div>
         <div class="card-stars">★ 4.6 <span class="card-stars-count">(46)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.8"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">16 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">50 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">Google Tensor G5</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">120 Hz</div></div></div>
+        <div class="card-specs" data-cols="3"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.8"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">16 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">50 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">Google Tensor G5</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">120 Hz</div></div></div>
+        
         <div class="card-commercial">
           <div class="card-price">$19,189</div>
           <div class="card-btns"><a class="btn-ml"  href="https://meli.la/1U7zDeh"  rel="sponsored nofollow noopener" target="_blank">Ver en Mercado Libre</a></div>
@@ -382,7 +403,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">Google Pixel 10 Pro</div>
         <div class="card-stars">★ 4.1 <span class="card-stars-count">(14)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.3"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">16 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">128 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">50 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">Google Tensor G5</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">120 Hz</div></div></div>
+        <div class="card-specs" data-cols="3"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.3"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">16 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">128 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">50 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">Google Tensor G5</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">120 Hz</div></div></div>
+        
         <div class="card-commercial">
           <div class="card-price">$18,066.54</div>
           <div class="card-btns"><a class="btn-ml"  href="https://meli.la/1w8hFnD"  rel="sponsored nofollow noopener" target="_blank">Ver en Mercado Libre</a></div>
@@ -395,7 +417,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">Google Pixel 10</div>
         <div class="card-stars">★ 4.9 <span class="card-stars-count">(113)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.3"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">12 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">Google Tensor G5</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">120 Hz</div></div></div>
+        <div class="card-specs" data-cols="3"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.3"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">12 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">Google Tensor G5</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">120 Hz</div></div></div>
+        
         <div class="card-commercial">
           <div class="card-price">$20,998.32</div>
           <div class="card-btns"><a class="btn-ml"  href="https://meli.la/2RXgEDV"  rel="sponsored nofollow noopener" target="_blank">Ver en Mercado Libre</a></div>
@@ -408,7 +431,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">Google Pixel 10 Pro Fold</div>
         
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">8"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">16 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">512 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">50 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">Google Tensor G5</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">120 Hz</div></div></div>
+        <div class="card-specs" data-cols="3"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">8"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">16 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">512 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">50 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">Google Tensor G5</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">120 Hz</div></div></div>
+        
         <div class="card-commercial">
           <div class="card-price">$53,198.1</div>
           <div class="card-btns"><a class="btn-ml"  href="https://meli.la/2iTdy3y"  rel="sponsored nofollow noopener" target="_blank">Ver en Mercado Libre</a></div>
@@ -421,7 +445,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">Xiaomi 17T Pro</div>
         <div class="card-stars">★ 4.9 <span class="card-stars-count">(76)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.83"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">12 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">50 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">MediaTek Dimensity 9500</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">144 Hz</div></div></div>
+        <div class="card-specs" data-cols="3"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.83"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">12 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">50 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">MediaTek Dimensity 9500</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">144 Hz</div></div></div>
+        
         <div class="card-commercial">
           <div class="card-price">$15,250</div>
           <div class="card-btns"><a class="btn-ml"  href="https://meli.la/1DsFWPy"  rel="sponsored nofollow noopener" target="_blank">Ver en Mercado Libre</a></div>
@@ -434,7 +459,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">Xiaomi 17</div>
         
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.59"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">12 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">50 MP</div></div></div>
+        <div class="card-specs" data-cols="2"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.59"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">12 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">50 MP</div></div></div>
+        <div class="color-dots"><span class="color-dot" style="background:#3b82f6" data-color="Azul" aria-label="Azul" title="Azul"></span></div>
         <div class="card-commercial">
           <div class="card-price">$17,343.38</div>
           <div class="card-btns"><a class="btn-ml"  href="https://meli.la/2AUjAyH"  rel="sponsored nofollow noopener" target="_blank">Ver en Mercado Libre</a></div>
@@ -447,7 +473,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">Xiaomi 17T</div>
         <div class="card-stars">★ 4.8 <span class="card-stars-count">(67)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.59"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">12 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">512 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">50 MP</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">120 Hz</div></div></div>
+        <div class="card-specs" data-cols="3"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.59"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">12 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">512 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">50 MP</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">120 Hz</div></div></div>
+        <div class="color-dots"><span class="color-dot" style="background:#7c3aed" data-color="Violeta" aria-label="Violeta" title="Violeta"></span><span class="color-dot" style="background:#ec4899" data-color="Rosa" aria-label="Rosa" title="Rosa"></span><span class="color-dot" style="background:#3b82f6" data-color="Azul" aria-label="Azul" title="Azul"></span><span class="color-dot" style="background:#f0efe9" data-color="Blanco" aria-label="Blanco" title="Blanco"></span><span class="color-dot" style="background:#1a1a1a" data-color="Negro" aria-label="Negro" title="Negro"></span></div>
         <div class="card-commercial">
           <div class="card-price">$12,655.37</div>
           <div class="card-btns"><a class="btn-ml"  href="https://meli.la/2aDRpYf"  rel="sponsored nofollow noopener" target="_blank">Ver en Mercado Libre</a></div>
@@ -460,7 +487,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">Xiaomi Redmi 17</div>
         
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.79"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">4 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">128 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">108 MP</div></div></div>
+        <div class="card-specs" data-cols="2"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.79"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">4 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">128 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">108 MP</div></div></div>
+        <div class="color-dots"><span class="color-dot" style="background:#1a1a1a" data-color="Negro" aria-label="Negro" title="Negro"></span></div>
         <div class="card-commercial">
           <div class="card-price">$4,009.1</div>
           <div class="card-btns"><a class="btn-ml"  href="https://meli.la/2nAtP9e"  rel="sponsored nofollow noopener" target="_blank">Ver en Mercado Libre</a></div>
@@ -473,7 +501,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">Motorola Edge 70 Pro</div>
         <div class="card-stars">★ 4.9 <span class="card-stars-count">(287)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.8"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">12 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">512 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">50 MP</div></div></div>
+        <div class="card-specs" data-cols="2"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.8"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">12 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">512 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">50 MP</div></div></div>
+        <div class="color-dots"><span class="color-dot" style="background:#1e3a5f" data-color="Azul oscuro" aria-label="Azul oscuro" title="Azul oscuro"></span><span class="color-dot" style="background:#3b82f6" data-color="Azul" aria-label="Azul" title="Azul"></span><span class="color-dot" style="background:#f0efe9" data-color="Blanco" aria-label="Blanco" title="Blanco"></span></div>
         <div class="card-commercial">
           <div class="card-price">$15,299</div>
           <div class="card-btns"><a class="btn-ml"  href="https://meli.la/1QmTtpV"  rel="sponsored nofollow noopener" target="_blank">Ver en Mercado Libre</a></div>
@@ -486,7 +515,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">Motorola Edge 70 Fusion</div>
         <div class="card-stars">★ 4.8 <span class="card-stars-count">(431)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.7"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">8 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">50 MP</div></div></div>
+        <div class="card-specs" data-cols="2"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.7"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">8 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">50 MP</div></div></div>
+        
         <div class="card-commercial">
           <div class="card-price">$7,139.93</div>
           <div class="card-btns"><a class="btn-ml"  href="https://meli.la/1AQ7DNb"  rel="sponsored nofollow noopener" target="_blank">Ver en Mercado Libre</a></div>
@@ -499,7 +529,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">OPPO Reno16F 5G</div>
         <div class="card-stars">★ 5.0 <span class="card-stars-count">(5)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.57"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">8 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">128 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">50 MP</div></div></div>
+        <div class="card-specs" data-cols="2"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.57"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">8 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">128 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">50 MP</div></div></div>
+        <div class="color-dots"><span class="color-dot" style="background:#7c3aed" data-color="Violeta" aria-label="Violeta" title="Violeta"></span><span class="color-dot" style="background:#9333ea" data-color="Morado" aria-label="Morado" title="Morado"></span></div>
         <div class="card-commercial">
           <div class="card-price">$10,999</div>
           <div class="card-btns"><a class="btn-ml"  href="https://meli.la/132XgXh"  rel="sponsored nofollow noopener" target="_blank">Ver en Mercado Libre</a></div>
@@ -512,7 +543,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">HONOR 600 5G</div>
         <div class="card-stars">★ 4.9 <span class="card-stars-count">(103)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">8 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div></div>
+        <div class="card-specs" data-cols="2"><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">8 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div></div>
+        
         <div class="card-commercial">
           <div class="card-price">$8,742</div>
           <div class="card-btns"><a class="btn-ml"  href="https://meli.la/2ujFdR5"  rel="sponsored nofollow noopener" target="_blank">Ver en Mercado Libre</a></div>
@@ -525,7 +557,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">OPPO Reno14F 5G</div>
         <div class="card-stars">★ 4.3 <span class="card-stars-count">(79)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.5"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">12 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">50 MP</div></div></div>
+        <div class="card-specs" data-cols="2"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.5"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">12 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">50 MP</div></div></div>
+        <div class="color-dots"><span class="color-dot" style="background:#3b82f6" data-color="Azul" aria-label="Azul" title="Azul"></span><span class="color-dot" style="background:#22c55e" data-color="Verde" aria-label="Verde" title="Verde"></span></div>
         <div class="card-commercial">
           <div class="card-price">$8,399</div>
           <div class="card-btns"><a class="btn-amz" href="https://link.amazon/B0eKkdfn4?tag=comparabici-20" rel="sponsored nofollow noopener" target="_blank">Ver en Amazon</a></div>
@@ -538,7 +571,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">Xiaomi Poco M7</div>
         <div class="card-stars">★ 4.6 <span class="card-stars-count">(205)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.9"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">6 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">128 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">50 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">Snapdragon</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">144 Hz</div></div></div>
+        <div class="card-specs" data-cols="3"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.9"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">6 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">128 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">50 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">Snapdragon</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">144 Hz</div></div></div>
+        <div class="color-dots"><span class="color-dot" style="background:#ccc" data-color="Plata" aria-label="Plata" title="Plata"></span><span class="color-dot" style="background:#1a1a1a" data-color="Negro" aria-label="Negro" title="Negro"></span><span class="color-dot" style="background:#3b82f6" data-color="Azul" aria-label="Azul" title="Azul"></span></div>
         <div class="card-commercial">
           <div class="card-price">$3,490</div>
           <div class="card-btns"><a class="btn-amz" href="https://link.amazon/B0gqIrt6I?tag=comparabici-20" rel="sponsored nofollow noopener" target="_blank">Ver en Amazon</a></div>
@@ -551,7 +585,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">Xiaomi Redmi Note 15 Pro</div>
         <div class="card-stars">★ 4.3 <span class="card-stars-count">(48)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.77"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">8 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">200 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">MediaTek Helio / Dimensity 7400</div></div></div>
+        <div class="card-specs" data-cols="3"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.77"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">8 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">200 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">MediaTek Helio / Dimensity 7400</div></div></div>
+        <div class="color-dots"><span class="color-dot" style="background:#1a1a1a" data-color="Negro" aria-label="Negro" title="Negro"></span><span class="color-dot" style="background:#8a898d" data-color="Titanio" aria-label="Titanio" title="Titanio"></span><span class="color-dot" style="background:#9333ea" data-color="Morado" aria-label="Morado" title="Morado"></span></div>
         <div class="card-commercial">
           <div class="card-price">$5,084</div>
           <div class="card-btns"><a class="btn-amz" href="https://link.amazon/B0aFtF0Xw?tag=comparabici-20" rel="sponsored nofollow noopener" target="_blank">Ver en Amazon</a></div>
@@ -564,7 +599,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">Xiaomi Redmi Note 15 Pro+ 5G</div>
         <div class="card-stars">★ 4.0 <span class="card-stars-count">(25)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.83"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">12 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">512 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">200 MP</div></div></div>
+        <div class="card-specs" data-cols="2"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.83"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">12 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">512 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">200 MP</div></div></div>
+        <div class="color-dots"><span class="color-dot" style="background:#ccc" data-color="Marrón" aria-label="Marrón" title="Marrón"></span><span class="color-dot" style="background:#1a1a1a" data-color="Negro" aria-label="Negro" title="Negro"></span></div>
         <div class="card-commercial">
           <div class="card-price">$9,199</div>
           <div class="card-btns"><a class="btn-amz" href="https://link.amazon/B0h5KjM7x?tag=comparabici-20" rel="sponsored nofollow noopener" target="_blank">Ver en Amazon</a></div>
@@ -577,7 +613,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">Xiaomi Poco F6 5G</div>
         <div class="card-stars">★ 4.6 <span class="card-stars-count">(372)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.67"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">12 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">512 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">50 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">Snapdragon 8s Gen 3</div></div></div>
+        <div class="card-specs" data-cols="3"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.67"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">12 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">512 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">50 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">Snapdragon 8s Gen 3</div></div></div>
+        <div class="color-dots"><span class="color-dot" style="background:#1a1a1a" data-color="Negro" aria-label="Negro" title="Negro"></span></div>
         <div class="card-commercial">
           <div class="card-price">$5,899</div>
           <div class="card-btns"><a class="btn-amz" href="https://link.amazon/B024xSmWI?tag=comparabici-20" rel="sponsored nofollow noopener" target="_blank">Ver en Amazon</a></div>
@@ -590,7 +627,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">Xiaomi Redmi 14C</div>
         <div class="card-stars">★ 4.2 <span class="card-stars-count">(39)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.88"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">4 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">128 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">50 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">MediaTek Helio</div></div></div>
+        <div class="card-specs" data-cols="3"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.88"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">4 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">128 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">50 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">MediaTek Helio</div></div></div>
+        <div class="color-dots"><span class="color-dot" style="background:#1a1a1a" data-color="Negro" aria-label="Negro" title="Negro"></span></div>
         <div class="card-commercial">
           <div class="card-price">$2,199</div>
           <div class="card-btns"><a class="btn-amz" href="https://link.amazon/B0ayFg1hL?tag=comparabici-20" rel="sponsored nofollow noopener" target="_blank">Ver en Amazon</a></div>
@@ -603,7 +641,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">Xiaomi Poco X8 Pro</div>
         <div class="card-stars">★ 4.5 <span class="card-stars-count">(151)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.66"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">12 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">512 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">50 MP</div></div></div>
+        <div class="card-specs" data-cols="2"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.66"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">12 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">512 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">50 MP</div></div></div>
+        <div class="color-dots"><span class="color-dot" style="background:#f0efe9" data-color="Blanco" aria-label="Blanco" title="Blanco"></span><span class="color-dot" style="background:#1a1a1a" data-color="Negro" aria-label="Negro" title="Negro"></span></div>
         <div class="card-commercial">
           <div class="card-price">$8,190</div>
           <div class="card-btns"><a class="btn-amz" href="https://link.amazon/B08gKd47A?tag=comparabici-20" rel="sponsored nofollow noopener" target="_blank">Ver en Amazon</a></div>
@@ -616,7 +655,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">Xiaomi Redmi Note 15</div>
         <div class="card-stars">★ 4.6 <span class="card-stars-count">(28)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.77"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">8 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">108 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">MediaTek Helio G100 Turbo</div></div></div>
+        <div class="card-specs" data-cols="3"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.77"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">8 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">108 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">MediaTek Helio G100 Turbo</div></div></div>
+        <div class="color-dots"><span class="color-dot" style="background:#1a1a1a" data-color="Negro" aria-label="Negro" title="Negro"></span><span class="color-dot" style="background:#9333ea" data-color="Morado" aria-label="Morado" title="Morado"></span></div>
         <div class="card-commercial">
           <div class="card-price">$4,645</div>
           <div class="card-btns"><a class="btn-amz" href="https://www.amazon.com.mx/XIAOMI-Note-15-G100-Ultra-Resistencia/dp/B0G8D3P12C?th=1&linkCode=ll2&tag=comparabici-20" rel="sponsored nofollow noopener" target="_blank">Ver en Amazon</a></div>
@@ -629,7 +669,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">Xiaomi Poco C85</div>
         <div class="card-stars">★ 4.4 <span class="card-stars-count">(0)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.9"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">8 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">MediaTek Helio</div></div></div>
+        <div class="card-specs" data-cols="2"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.9"</div></div><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">8 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">MediaTek Helio</div></div></div>
+        <div class="color-dots"><span class="color-dot" style="background:#22c55e" data-color="Verde" aria-label="Verde" title="Verde"></span><span class="color-dot" style="background:#1a1a1a" data-color="Negro" aria-label="Negro" title="Negro"></span><span class="color-dot" style="background:#9333ea" data-color="Morado" aria-label="Morado" title="Morado"></span></div>
         <div class="card-commercial">
           <div class="card-price">$3,082</div>
           <div class="card-btns"><a class="btn-amz" href="https://www.amazon.com.mx/XIAOMI-C85-compatible-desbloqueado-25078PC3EG/dp/B0FHQCYCNW?th=1&linkCode=ll2&tag=comparabici-20" rel="sponsored nofollow noopener" target="_blank">Ver en Amazon</a></div>
@@ -642,7 +683,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">Xiaomi Redmi Note 14 5G</div>
         <div class="card-stars">★ 4.5 <span class="card-stars-count">(579)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">8 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">108 MP</div></div></div>
+        <div class="card-specs" data-cols="2"><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">8 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">108 MP</div></div></div>
+        <div class="color-dots"><span class="color-dot" style="background:#ccc" data-color="Púrpura" aria-label="Púrpura" title="Púrpura"></span></div>
         <div class="card-commercial">
           <div class="card-price">$4,199</div>
           <div class="card-btns"><a class="btn-amz" href="https://www.amazon.com.mx/Note-14-5G-8GB-256GB-Lavender/dp/B0DTP5X7DP?linkCode=ll2&tag=comparabici-20" rel="sponsored nofollow noopener" target="_blank">Ver en Amazon</a></div>
@@ -655,7 +697,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">HUAWEI Pura 90s Pro</div>
         
-        <div class="card-specs"><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">12 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">50 MP</div></div></div>
+        <div class="card-specs" data-cols="2"><div class="spec"><div class="spec-label">RAM</div><div class="spec-val">12 GB</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">50 MP</div></div></div>
+        <div class="color-dots"><span class="color-dot" style="background:#f0efe9" data-color="Blanco" aria-label="Blanco" title="Blanco"></span><span class="color-dot" style="background:#ccc" data-color="Naranja" aria-label="Naranja" title="Naranja"></span><span class="color-dot" style="background:#1a1a1a" data-color="Negro" aria-label="Negro" title="Negro"></span><span class="color-dot" style="background:#ec4899" data-color="Rosa" aria-label="Rosa" title="Rosa"></span></div>
         <div class="card-commercial">
           <div class="card-price">$15,999</div>
           <div class="card-btns"><a class="btn-amz" href="https://link.amazon/A09iPbiuj?tag=comparabici-20" rel="sponsored nofollow noopener" target="_blank">Ver en Amazon</a></div>
@@ -1249,7 +1292,7 @@ function cardHTML(f) {
   const saltoHTML = v.salto ? `<div class="salto-info" id="salto-${f.modeloBase}">${v.salto.texto} · +${fmt(v.salto.diff)}</div>` : `<div class="salto-info" id="salto-${f.modeloBase}"></div>`;
 
   const colores = getColores(f);
-  const colorDots = colores.length ? `<div class="color-dots">${colores.map(c => `<span class="color-dot" style="background:${COLOR_SWATCHES[c]||'#ccc'}" title="${c}"></span>`).join('')}</div>` : '<div class="color-dots"></div>';
+  const colorDots = colores.length ? `<div class="color-dots">${colores.map(c => `<span class="color-dot" style="background:${COLOR_SWATCHES[c]||'#ccc'}" data-color="${c}" aria-label="${c}" title="${c}"></span>`).join('')}</div>` : '';
 
   const btnML = v.linkML ? `<a class="btn-ml" href="${v.linkML}" id="lnk-ml-${f.modeloBase}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','click_mercadolibre',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0});}" data-ga-label="${f.nombre||''}" data-ga-val="${v.precio||0}">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>` : '';
   const btnAmz = v.linkAmz ? `<a class="btn-amz" href="${v.linkAmz}" id="lnk-amz-${f.modeloBase}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();" data-ga-label="${f.nombre||''}" data-ga-val="${v.precio||0}">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>` : '';
@@ -1266,14 +1309,7 @@ function cardHTML(f) {
       ${stars}
       ${storageBtns}
       ${saltoHTML}
-      <div class="card-specs">
-        <div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">${f.pantalla ? f.pantalla+'"' : '—'}</div></div>
-        <div class="spec"><div class="spec-label">RAM</div><div class="spec-val" id="ram-${f.modeloBase}">${v.ram ? v.ram+' GB' : '—'}</div></div>
-        <div class="spec"><div class="spec-label">Almac.</div><div class="spec-val" id="alm-${f.modeloBase}">${storageLbl(v.storage)}</div></div>
-        <div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">${f.camPrincipal ? f.camPrincipal+' MP' : '—'}</div></div>
-        <div class="spec"><div class="spec-label">Chip</div><div class="spec-val">${f.chip||'—'}</div></div>
-        <div class="spec"><div class="spec-label">Hz</div><div class="spec-val">${f.hz ? f.hz+' Hz' : '—'}</div></div>
-      </div>
+      ${(()=>{const si=[];if(f.pantalla)si.push({l:'Pantalla',v:f.pantalla+'"'});if(v.ram)si.push({l:'RAM',v:v.ram+' GB',id:`ram-${f.modeloBase}`});si.push({l:'Almac.',v:storageLbl(v.storage),id:`alm-${f.modeloBase}`});if(f.camPrincipal)si.push({l:'Cámara',v:f.camPrincipal+' MP'});if(f.chip)si.push({l:'Chip',v:f.chip});if(f.hz)si.push({l:'Hz',v:f.hz+' Hz'});const cols=si.length<=4?2:3;return`<div class="card-specs" data-cols="${cols}">${si.map(s=>`<div class="spec"><div class="spec-label">${s.l}</div><div class="spec-val"${s.id?` id="${s.id}"`:''}>${s.v}</div></div>`).join('')}</div>`;})()}
       ${colorDots}
       <div class="card-commercial">
         <div class="card-price" id="precio-${f.modeloBase}">${fmt(v.precio)}</div>
@@ -1297,7 +1333,8 @@ function selectStorage(modeloBase, idx) {
   const v = f.variantes[idx];
 
   document.getElementById('precio-' + modeloBase).textContent = fmt(v.precio);
-  document.getElementById('ram-'   + modeloBase).textContent  = v.ram + ' GB';
+  const _ramEl = document.getElementById('ram-' + modeloBase);
+  if (_ramEl) _ramEl.textContent = v.ram ? v.ram + ' GB' : '';
   document.getElementById('alm-'   + modeloBase).textContent  = storageLbl(v.storage);
 
   const saltoEl = document.getElementById('salto-' + modeloBase);

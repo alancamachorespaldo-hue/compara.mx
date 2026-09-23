@@ -103,7 +103,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .card{background:var(--bg);border:1px solid var(--bd);border-radius:14px;overflow:hidden;transition:box-shadow .2s,transform .15s;cursor:pointer;position:relative;display:flex;flex-direction:column}
 .card:hover{box-shadow:0 4px 20px rgba(0,0,0,.07);transform:translateY(-2px)}
 .card.selected{border:2px solid var(--ac);box-shadow:0 0 0 4px var(--acd2)}
-.card-img-wrap{background:var(--s1);height:200px;display:flex;align-items:center;justify-content:center;overflow:hidden;border-bottom:1px solid var(--bd)}
+.card-img-wrap{background:var(--s1);display:flex;align-items:center;justify-content:center;overflow:hidden}
 .card-img{width:100%;height:100%;object-fit:contain;display:block;padding:.5rem}
 .card-body{padding:.9rem;display:flex;flex-direction:column;gap:.55rem;flex:1}
 
@@ -124,6 +124,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 
 /* ── SPECS ── */
 .card-specs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px}
+.card-specs[data-cols="2"]{grid-template-columns:1fr 1fr!important}
 .spec{background:var(--s1);border-radius:7px;padding:5px 8px}
 .spec-label{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
 .spec-val{font-size:12px;font-weight:600;color:var(--tx);margin-top:1px}
@@ -188,6 +189,9 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .reacond-badge{display:inline-flex;align-items:center;gap:4px;background:#f0fdf4;color:#15803d;border:1px solid #86efac;border-radius:20px;font-size:10px;font-weight:700;padding:2px 9px;letter-spacing:.04em;text-transform:uppercase}
 .vendidos-txt{font-size:11px;color:var(--tx3);margin-top:1px}
 .empty{text-align:center;padding:3rem;color:var(--tx3);font-size:14px}
+.color-dots{display:flex;gap:5px;align-items:center;min-height:18px;margin-bottom:.5rem;flex-wrap:wrap}
+.color-dot{width:15px;height:15px;border-radius:50%;border:1.5px solid rgba(0,0,0,.15);flex-shrink:0;display:inline-block}
+.color-dot[data-color="Blanco"],.color-dot[data-color="Moonstone"],.color-dot[data-color="Porcelana"]{border-color:rgba(0,0,0,.3)}
 .card-sel-row{font-size:11px;font-weight:600;color:var(--ac);text-align:center;padding:6px 4px 2px;opacity:.65;letter-spacing:.01em}
 .card.selected .card-sel-row{opacity:1;font-weight:700}
 .disclaimer{max-width:1100px;margin:0 auto;padding:1.25rem 2rem;font-size:12px;color:var(--tx3);border-top:1px solid var(--bd)}
@@ -204,7 +208,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 /* â”€â”€ Mobile improvements â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 @media(max-width:768px){
   .toolbar{flex-wrap:wrap!important;overflow-x:visible!important}
-  .card-img-wrap{height:100px!important}
+  .card-img-wrap{height:auto!important;min-height:130px!important}
   .card-body{padding:.5rem!important}
   .card-name{font-size:12px!important;-webkit-line-clamp:2!important;display:-webkit-box!important;-webkit-box-orient:vertical!important;overflow:hidden!important;line-clamp:2!important}
   .card-price,.dual-price{font-size:14px!important}
@@ -230,6 +234,20 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   .cmp-bar-txt{font-size:12px!important}
   .cmp-bar-sub{font-size:10px!important}
   .cmp-bar-actions{gap:5px!important}
+}
+/* ── Imagen protagonista (override cards.css) ──────────── */
+.card{grid-template-columns:40% 1fr!important}
+.card-img-wrap{height:auto!important;min-height:190px!important;align-self:stretch!important;padding:12px 10px!important}
+.card-img{max-height:210px!important;width:100%!important;height:100%!important;object-fit:contain!important}
+@media(max-width:768px){
+  .card{grid-template-columns:38% 1fr!important}
+  .card-img-wrap{min-height:130px!important}
+  .card-img{max-height:150px!important}
+}
+@media(max-width:540px){
+  .card{grid-template-columns:1fr!important}
+  .card-img-wrap{min-height:180px!important;border-right:none!important;border-bottom:1px solid var(--bd)!important}
+  .card-img{max-height:190px!important}
 }</style>
 </head>
 <body data-category="celulares_iphone">
@@ -305,7 +323,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">iPhone 17e</div>
         <div class="card-stars">★ 4.8 <span class="card-stars-count">(239)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.1"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">A19</div></div></div>
+        <div class="card-specs" data-cols="2"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.1"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">A19</div></div></div>
+        
         <div class="card-commercial">
           <div class="card-price">$14,999</div>
           <div class="card-btns"><a class="btn-ml"  href="https://meli.la/24RTU5D"  rel="sponsored nofollow noopener" target="_blank">Ver en Mercado Libre</a></div>
@@ -318,7 +337,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">iPhone 17</div>
         <div class="card-stars">★ 4.8 <span class="card-stars-count">(872)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.3"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">A19</div></div></div>
+        <div class="card-specs" data-cols="2"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.3"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">A19</div></div></div>
+        
         <div class="card-commercial">
           <div class="card-price">$17,299</div>
           <div class="card-btns"><a class="btn-ml"  href="https://meli.la/1boaVdH"  rel="sponsored nofollow noopener" target="_blank">Ver en Mercado Libre</a></div>
@@ -331,7 +351,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">iPhone Air</div>
         <div class="card-stars">★ 4.8 <span class="card-stars-count">(640)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.5"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">A19 Pro</div></div></div>
+        <div class="card-specs" data-cols="2"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.5"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">A19 Pro</div></div></div>
+        
         <div class="card-commercial">
           <div class="card-price">$24,696.57</div>
           <div class="card-btns"><a class="btn-ml"  href="https://meli.la/2dGddhn"  rel="sponsored nofollow noopener" target="_blank">Ver en Mercado Libre</a></div>
@@ -344,7 +365,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">iPhone 17 Pro</div>
         <div class="card-stars">★ 4.9 <span class="card-stars-count">(1,505)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.3"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">A19 Pro</div></div></div>
+        <div class="card-specs" data-cols="2"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.3"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">A19 Pro</div></div></div>
+        
         <div class="card-commercial">
           <div class="card-price">$28,499</div>
           <div class="card-btns"><a class="btn-ml"  href="https://meli.la/2TFkBy9"  rel="sponsored nofollow noopener" target="_blank">Ver en Mercado Libre</a></div>
@@ -357,7 +379,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">iPhone 17 Pro Max</div>
         <div class="card-stars">★ 4.9 <span class="card-stars-count">(862)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.9"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">A19 Pro</div></div></div>
+        <div class="card-specs" data-cols="2"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.9"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">A19 Pro</div></div></div>
+        
         <div class="card-commercial">
           <div class="card-price">$23,999</div>
           <div class="card-btns"><a class="btn-ml"  href="https://meli.la/2LSh6sm"  rel="sponsored nofollow noopener" target="_blank">Ver en Mercado Libre</a></div>
@@ -370,7 +393,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">iPhone 18 Pro <span class="preventa-badge">Preventa</span></div>
         
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.3"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">A20 Pro</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">120 Hz</div></div></div>
+        <div class="card-specs" data-cols="3"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.3"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">A20 Pro</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">120 Hz</div></div></div>
+        <div class="color-dots"><span class="color-dot" style="background:#1a1a1a" data-color="Negro" aria-label="Negro" title="Negro"></span><span class="color-dot" style="background:#d1d5db" data-color="Plateado" aria-label="Plateado" title="Plateado"></span></div>
         <div class="card-commercial">
           <div class="card-price">$29,999</div>
           <div class="card-btns"><a class="btn-ml"  href="https://meli.la/1Wj9gJb"  rel="sponsored nofollow noopener" target="_blank">Ver en Mercado Libre</a></div>
@@ -383,7 +407,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">iPhone 18 Pro Max <span class="preventa-badge">Preventa</span></div>
         
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.9"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">A20 Pro</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">120 Hz</div></div></div>
+        <div class="card-specs" data-cols="3"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.9"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">A20 Pro</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">120 Hz</div></div></div>
+        <div class="color-dots"><span class="color-dot" style="background:#1a1a1a" data-color="Negro" aria-label="Negro" title="Negro"></span></div>
         <div class="card-commercial">
           <div class="card-price">$31,999</div>
           <div class="card-btns"><a class="btn-ml"  href="https://meli.la/32hT6yZ"  rel="sponsored nofollow noopener" target="_blank">Ver en Mercado Libre</a></div>
@@ -396,7 +421,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">iPhone 16e</div>
         <div class="card-stars">★ 4.9 <span class="card-stars-count">(26,446)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.1"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">128 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">A16 Bionic</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">60 Hz</div></div></div>
+        <div class="card-specs" data-cols="3"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.1"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">128 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">A16 Bionic</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">60 Hz</div></div></div>
+        <div class="color-dots"><span class="color-dot" style="background:#1a1a1a" data-color="Negro" aria-label="Negro" title="Negro"></span><span class="color-dot" style="background:#f0efe9" data-color="Blanco" aria-label="Blanco" title="Blanco"></span><span class="color-dot" style="background:#3b82f6" data-color="Azul" aria-label="Azul" title="Azul"></span></div>
         <div class="card-commercial">
           <div class="card-price">$12,528.63</div>
           <div class="card-btns"><a class="btn-ml"  href="https://meli.la/2Bti4Vm"  rel="sponsored nofollow noopener" target="_blank">Ver en Mercado Libre</a></div>
@@ -409,7 +435,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">iPhone 15</div>
         <div class="card-stars">★ 4.9 <span class="card-stars-count">(25,438)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.1"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">128 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">A16 Bionic</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">60 Hz</div></div></div>
+        <div class="card-specs" data-cols="3"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.1"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">128 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">A16 Bionic</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">60 Hz</div></div></div>
+        <div class="color-dots"><span class="color-dot" style="background:#1a1a1a" data-color="Negro" aria-label="Negro" title="Negro"></span><span class="color-dot" style="background:#3b82f6" data-color="Azul" aria-label="Azul" title="Azul"></span><span class="color-dot" style="background:#22c55e" data-color="Verde" aria-label="Verde" title="Verde"></span><span class="color-dot" style="background:#ccc" data-color="Amarillo" aria-label="Amarillo" title="Amarillo"></span><span class="color-dot" style="background:#ec4899" data-color="Rosa" aria-label="Rosa" title="Rosa"></span></div>
         <div class="card-commercial">
           <div class="card-price">$14,391.35</div>
           <div class="card-btns"><a class="btn-ml"  href="https://meli.la/2YicyZQ"  rel="sponsored nofollow noopener" target="_blank">Ver en Mercado Libre</a></div>
@@ -422,7 +449,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">iPhone 16</div>
         <div class="card-stars">★ 4.8 <span class="card-stars-count">(7,207)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.1"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">128 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">A18</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">60 Hz</div></div></div>
+        <div class="card-specs" data-cols="3"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.1"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">128 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">A18</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">60 Hz</div></div></div>
+        <div class="color-dots"><span class="color-dot" style="background:#1a1a1a" data-color="Negro" aria-label="Negro" title="Negro"></span><span class="color-dot" style="background:#f0efe9" data-color="Blanco" aria-label="Blanco" title="Blanco"></span><span class="color-dot" style="background:#ec4899" data-color="Rosa" aria-label="Rosa" title="Rosa"></span><span class="color-dot" style="background:#22c55e" data-color="Verde" aria-label="Verde" title="Verde"></span><span class="color-dot" style="background:#3b82f6" data-color="Azul" aria-label="Azul" title="Azul"></span></div>
         <div class="card-commercial">
           <div class="card-price">$13,749</div>
           <div class="card-btns"><a class="btn-ml"  href="https://meli.la/1THU9GK"  rel="sponsored nofollow noopener" target="_blank">Ver en Mercado Libre</a></div>
@@ -435,7 +463,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">iPhone 16 Plus</div>
         <div class="card-stars">★ 4.9 <span class="card-stars-count">(2,361)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.7"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">128 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">A18</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">60 Hz</div></div></div>
+        <div class="card-specs" data-cols="3"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.7"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">128 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">A18</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">60 Hz</div></div></div>
+        <div class="color-dots"><span class="color-dot" style="background:#1a1a1a" data-color="Negro" aria-label="Negro" title="Negro"></span><span class="color-dot" style="background:#f0efe9" data-color="Blanco" aria-label="Blanco" title="Blanco"></span><span class="color-dot" style="background:#ec4899" data-color="Rosa" aria-label="Rosa" title="Rosa"></span><span class="color-dot" style="background:#22c55e" data-color="Verde" aria-label="Verde" title="Verde"></span><span class="color-dot" style="background:#3b82f6" data-color="Azul" aria-label="Azul" title="Azul"></span></div>
         <div class="card-commercial">
           <div class="card-price">$19,242.89</div>
           <div class="card-btns"><a class="btn-ml"  href="https://meli.la/1VT8zeN"  rel="sponsored nofollow noopener" target="_blank">Ver en Mercado Libre</a></div>
@@ -448,7 +477,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">iPhone 15 Plus <span class="reacond-badge">Reacondicionado · Excelente</span></div>
         
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.7"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">128 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">A16 Bionic</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">60 Hz</div></div></div>
+        <div class="card-specs" data-cols="3"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.7"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">128 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">A16 Bionic</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">60 Hz</div></div></div>
+        <div class="color-dots"><span class="color-dot" style="background:#1a1a1a" data-color="Negro" aria-label="Negro" title="Negro"></span><span class="color-dot" style="background:#3b82f6" data-color="Azul" aria-label="Azul" title="Azul"></span><span class="color-dot" style="background:#22c55e" data-color="Verde" aria-label="Verde" title="Verde"></span><span class="color-dot" style="background:#ccc" data-color="Amarillo" aria-label="Amarillo" title="Amarillo"></span><span class="color-dot" style="background:#ec4899" data-color="Rosa" aria-label="Rosa" title="Rosa"></span></div>
         <div class="card-commercial">
           <div class="card-price">$9,199</div>
           <div class="card-btns"><a class="btn-ml"  href="https://meli.la/2Qq5AQn"  rel="sponsored nofollow noopener" target="_blank">Ver en Mercado Libre</a></div>
@@ -461,7 +491,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">iPhone 16 Pro <span class="reacond-badge">Reacondicionado · Amazon Renewed</span></div>
         <div class="card-stars">★ 4.3 <span class="card-stars-count">(2,381)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.3"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">128 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">A18 Pro</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">120 Hz</div></div></div>
+        <div class="card-specs" data-cols="3"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.3"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">128 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">A18 Pro</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">120 Hz</div></div></div>
+        <div class="color-dots"><span class="color-dot" style="background:#1a1a1a" data-color="Negro" aria-label="Negro" title="Negro"></span><span class="color-dot" style="background:#f0efe9" data-color="Blanco" aria-label="Blanco" title="Blanco"></span><span class="color-dot" style="background:#ccc" data-color="Desierto" aria-label="Desierto" title="Desierto"></span><span class="color-dot" style="background:#ccc" data-color="Natural" aria-label="Natural" title="Natural"></span></div>
         <div class="card-commercial">
           <div class="card-price">$13,929</div>
           <div class="card-btns"><a class="btn-amz" href="https://www.amazon.com.mx/dp/B0DHJC1VZ5" rel="sponsored nofollow noopener" target="_blank">Ver en Amazon</a></div>
@@ -474,7 +505,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">iPhone 16e <span class="reacond-badge">Reacondicionado · Amazon Renewed</span></div>
         <div class="card-stars">★ 3.9 <span class="card-stars-count">(1,047)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.1"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">128 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">60 Hz</div></div></div>
+        <div class="card-specs" data-cols="2"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.1"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">128 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">60 Hz</div></div></div>
+        <div class="color-dots"><span class="color-dot" style="background:#1a1a1a" data-color="Negro" aria-label="Negro" title="Negro"></span><span class="color-dot" style="background:#f0efe9" data-color="Blanco" aria-label="Blanco" title="Blanco"></span><span class="color-dot" style="background:#3b82f6" data-color="Azul" aria-label="Azul" title="Azul"></span></div>
         <div class="card-commercial">
           <div class="card-price">$7,299</div>
           <div class="card-btns"><a class="btn-amz" href="https://www.amazon.com.mx/dp/B0F4RM7Y2L" rel="sponsored nofollow noopener" target="_blank">Ver en Amazon</a></div>
@@ -487,7 +519,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">iPhone 15 Pro <span class="reacond-badge">Reacondicionado · Amazon Renewed</span></div>
         <div class="card-stars">★ 3.9 <span class="card-stars-count">(1,736)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.1"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">128 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">A17 Pro</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">120 Hz</div></div></div>
+        <div class="card-specs" data-cols="3"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.1"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">128 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">A17 Pro</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">120 Hz</div></div></div>
+        <div class="color-dots"><span class="color-dot" style="background:#1a1a1a" data-color="Negro" aria-label="Negro" title="Negro"></span><span class="color-dot" style="background:#3b82f6" data-color="Azul" aria-label="Azul" title="Azul"></span><span class="color-dot" style="background:#ccc" data-color="Natural" aria-label="Natural" title="Natural"></span><span class="color-dot" style="background:#f0efe9" data-color="Blanco" aria-label="Blanco" title="Blanco"></span></div>
         <div class="card-commercial">
           <div class="card-price">$10,281.38</div>
           <div class="card-btns"><a class="btn-amz" href="https://www.amazon.com.mx/dp/B0CLPNY48J" rel="sponsored nofollow noopener" target="_blank">Ver en Amazon</a></div>
@@ -500,7 +533,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">iPhone 15 Pro Max <span class="reacond-badge">Reacondicionado · Amazon Renewed</span></div>
         <div class="card-stars">★ 3.9 <span class="card-stars-count">(1,887)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.7"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">A17 Pro</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">120 Hz</div></div></div>
+        <div class="card-specs" data-cols="3"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.7"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">256 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">A17 Pro</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">120 Hz</div></div></div>
+        <div class="color-dots"><span class="color-dot" style="background:#1a1a1a" data-color="Negro" aria-label="Negro" title="Negro"></span><span class="color-dot" style="background:#3b82f6" data-color="Azul" aria-label="Azul" title="Azul"></span><span class="color-dot" style="background:#ccc" data-color="Natural" aria-label="Natural" title="Natural"></span><span class="color-dot" style="background:#f0efe9" data-color="Blanco" aria-label="Blanco" title="Blanco"></span></div>
         <div class="card-commercial">
           <div class="card-price">$12,726.22</div>
           <div class="card-btns"><a class="btn-amz" href="https://www.amazon.com.mx/dp/B0CLQ6XKDV" rel="sponsored nofollow noopener" target="_blank">Ver en Amazon</a></div>
@@ -513,7 +547,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">iPhone 15 <span class="reacond-badge">Reacondicionado · Amazon Renewed</span></div>
         <div class="card-stars">★ 3.8 <span class="card-stars-count">(1,131)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.1"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">128 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">A16 Bionic</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">60 Hz</div></div></div>
+        <div class="card-specs" data-cols="3"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.1"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">128 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">A16 Bionic</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">60 Hz</div></div></div>
+        <div class="color-dots"><span class="color-dot" style="background:#1a1a1a" data-color="Negro" aria-label="Negro" title="Negro"></span><span class="color-dot" style="background:#3b82f6" data-color="Azul" aria-label="Azul" title="Azul"></span><span class="color-dot" style="background:#22c55e" data-color="Verde" aria-label="Verde" title="Verde"></span><span class="color-dot" style="background:#ccc" data-color="Amarillo" aria-label="Amarillo" title="Amarillo"></span><span class="color-dot" style="background:#ec4899" data-color="Rosa" aria-label="Rosa" title="Rosa"></span></div>
         <div class="card-commercial">
           <div class="card-price">$7,749</div>
           <div class="card-btns"><a class="btn-amz" href="https://www.amazon.com.mx/dp/B0CLN5XNR8" rel="sponsored nofollow noopener" target="_blank">Ver en Amazon</a></div>
@@ -526,7 +561,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">iPhone 14 <span class="reacond-badge">Reacondicionado · Amazon Renewed</span></div>
         <div class="card-stars">★ 4.0 <span class="card-stars-count">(2,537)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.1"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">128 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">12 MP</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">60 Hz</div></div></div>
+        <div class="card-specs" data-cols="2"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.1"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">128 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">12 MP</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">60 Hz</div></div></div>
+        <div class="color-dots"><span class="color-dot" style="background:#1a1a1a" data-color="Negro" aria-label="Negro" title="Negro"></span><span class="color-dot" style="background:#f0efe9" data-color="Blanco" aria-label="Blanco" title="Blanco"></span><span class="color-dot" style="background:#3b82f6" data-color="Azul" aria-label="Azul" title="Azul"></span><span class="color-dot" style="background:#9333ea" data-color="Morado" aria-label="Morado" title="Morado"></span><span class="color-dot" style="background:#ccc" data-color="Rojo" aria-label="Rojo" title="Rojo"></span><span class="color-dot" style="background:#ccc" data-color="Amarillo" aria-label="Amarillo" title="Amarillo"></span></div>
         <div class="card-commercial">
           <div class="card-price">$5,601.36</div>
           <div class="card-btns"><a class="btn-amz" href="https://www.amazon.com.mx/dp/B0BNLRVZLC" rel="sponsored nofollow noopener" target="_blank">Ver en Amazon</a></div>
@@ -539,7 +575,8 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div class="card-body">
         <div class="card-name">iPhone 14 Pro <span class="reacond-badge">Reacondicionado · Amazon Renewed</span></div>
         <div class="card-stars">★ 4.0 <span class="card-stars-count">(2,956)</span></div>
-        <div class="card-specs"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.1"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">128 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">A16 Bionic</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">120 Hz</div></div></div>
+        <div class="card-specs" data-cols="3"><div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">6.1"</div></div><div class="spec"><div class="spec-label">Almac.</div><div class="spec-val">128 GB</div></div><div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">48 MP</div></div><div class="spec"><div class="spec-label">Chip</div><div class="spec-val">A16 Bionic</div></div><div class="spec"><div class="spec-label">Hz</div><div class="spec-val">120 Hz</div></div></div>
+        <div class="color-dots"><span class="color-dot" style="background:#1a1a1a" data-color="Negro" aria-label="Negro" title="Negro"></span><span class="color-dot" style="background:#ccc" data-color="Plata" aria-label="Plata" title="Plata"></span><span class="color-dot" style="background:#f59e0b" data-color="Dorado" aria-label="Dorado" title="Dorado"></span><span class="color-dot" style="background:#9333ea" data-color="Morado" aria-label="Morado" title="Morado"></span></div>
         <div class="card-commercial">
           <div class="card-price">$8,019</div>
           <div class="card-btns"><a class="btn-amz" href="https://www.amazon.com.mx/dp/B0BNLV66P9" rel="sponsored nofollow noopener" target="_blank">Ver en Amazon</a></div>
@@ -597,6 +634,19 @@ if (typeof window.buildComparisonId !== 'function') {
 // Las variantes son productos independientes (IDs distintos).
 // En la UI se agrupan bajo una sola card con selector de capacidad.
 // ─────────────────────────────────────────────────────────────────────────────
+
+const COLOR_SWATCHES_IPH = {
+  'Negro':'#1a1a1a','Blanco':'#f0efe9','Gris':'#6b7280','Plateado':'#d1d5db',
+  'Azul':'#3b82f6','Azul oscuro':'#1e3a5f','Azul marino':'#1e3a5f','Celeste':'#7dd3fc',
+  'Verde':'#22c55e','Violeta':'#7c3aed','Morado':'#9333ea','Rosa':'#ec4899',
+  'Dorado':'#f59e0b','Titanio':'#8a898d','Gris Piedra':'#9ca3af',
+  'Obsidiana':'#1c1917','Moonstone':'#dde5f0','Porcelana':'#faf9f7',
+};
+function getColoresIph(f) {
+  if (f.colores && f.colores.length) return f.colores;
+  return [];
+}
+
 const familias = [
 
   // ── Serie 17 ──────────────────────────────────────────────────────────────
@@ -1734,15 +1784,18 @@ function cardHTML(familia) {
   // Stars — per variante
   const starsInner = starsHTML(variante);
 
-  // Specs
-  const specs = `<div class="card-specs">
-    <div class="spec"><div class="spec-label">Pantalla</div><div class="spec-val">${familia.pantalla ? familia.pantalla + '"' : '—'}</div></div>
-    <div class="spec"><div class="spec-label">Almac.</div><div class="spec-val" id="spec-stor-${mb}">${fmtGB(variante.almacenamientoGB)}</div></div>
-    <div class="spec"><div class="spec-label">Cámara</div><div class="spec-val">${familia.camPrincipal ? familia.camPrincipal + ' MP' : '—'}</div></div>
-    <div class="spec"><div class="spec-label">Chip</div><div class="spec-val">${familia.chip||'—'}</div></div>
-    <div class="spec"><div class="spec-label">RAM</div><div class="spec-val">${variante.ram ? variante.ram+' GB' : (familia.ram ? familia.ram+' GB' : '—')}</div></div>
-    <div class="spec"><div class="spec-label">Hz</div><div class="spec-val">${familia.hz ? familia.hz+' Hz' : '—'}</div></div>
-  </div>`;
+  // Specs — solo tiles con dato real
+  const _si = [];
+  if (familia.pantalla) _si.push({l:'Pantalla', v:familia.pantalla+'"'});
+  const _almacVal = fmtGB(variante.almacenamientoGB);
+  if (_almacVal) _si.push({l:'Almac.', v:_almacVal, id:`spec-stor-${mb}`});
+  if (familia.camPrincipal) _si.push({l:'Cámara', v:familia.camPrincipal+' MP'});
+  if (familia.chip) _si.push({l:'Chip', v:familia.chip});
+  const _ramVal = variante.ram ? variante.ram+' GB' : (familia.ram ? familia.ram+' GB' : null);
+  if (_ramVal) _si.push({l:'RAM', v:_ramVal});
+  if (familia.hz) _si.push({l:'Hz', v:familia.hz+' Hz'});
+  const _specCols = _si.length <= 4 ? 2 : 3;
+  const specs = `<div class="card-specs" data-cols="${_specCols}">${_si.map(s=>`<div class="spec"><div class="spec-label">${s.l}</div><div class="spec-val"${s.id?` id="${s.id}"`:''}>${s.v}</div></div>`).join('')}</div>`;
 
   // Placeholder image fallback
   const imgSrc = variante.img || '';
@@ -1770,6 +1823,7 @@ function cardHTML(familia) {
       <div class="stor-insight" id="insight-${mb}">${insight}</div>
       <div id="stars-${mb}">${starsInner}</div>
       ${specs}
+      ${(()=>{const _c=getColoresIph(familia);return _c.length?`<div class="color-dots">${_c.map(c=>`<span class="color-dot" style="background:${COLOR_SWATCHES_IPH[c]||'#ccc'}" data-color="${c}" aria-label="${c}" title="${c}"></span>`).join('')}</div>`:'';})()}
       <div class="card-commercial">
         <div class="card-price" id="price-${mb}">${fmt(variante.precio)}</div>
         <div id="btns-${mb}">${btnsHTML(variante, familia.nombre)}</div>
