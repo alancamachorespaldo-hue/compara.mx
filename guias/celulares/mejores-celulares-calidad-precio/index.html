@@ -822,7 +822,7 @@ const familiasCPV = [
     destaca: 'Cámara + software',
     rangoLabel: '$5,000–$10,000',
     fromDB: false,
-    img: 'https://m.media-amazon.com/images/I/71JRIpTrUFL._AC_SX522_.jpg',
+    img: 'https://http2.mlstatic.com/D_NQ_NP_2X_973131-MLA99392824964_112025-F.webp',
     variantes: [{ storage: 128, ram: 8, precio: 8999,
       linkAmz: 'https://www.amazon.com.mx/s?k=google+pixel+9a+128gb&tag=comparabici-20',
       estrellas: null, resenas: null }]
@@ -855,7 +855,7 @@ if (typeof window.trackEvent !== 'function') {
 const fmt = v => '$' + Number(v).toLocaleString('es-MX',{minimumFractionDigits:0,maximumFractionDigits:0});
 function storageLbl(gb){ return gb>=1000?(gb/1024)+' TB':gb+' GB'; }
 
-const PH = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Crect fill='%23f0f0ec' width='120' height='120' rx='8'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%2394a3b8' font-size='28' font-family='sans-serif'%3E📱%3C/text%3E%3C/svg%3E`;
+const PH = `data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27120%27 height=%27120%27%3E%3Crect fill=%27%23f0f0ec%27 width=%27120%27 height=%27120%27 rx=%278%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 dominant-baseline=%27middle%27 text-anchor=%27middle%27 fill=%27%2394a3b8%27 font-size=%2728%27 font-family=%27sans-serif%27%3E%F0%9F%93%B1%3C/text%3E%3C/svg%3E`;
 
 function renderCards() {
   const grid = document.getElementById('cards-grid');
