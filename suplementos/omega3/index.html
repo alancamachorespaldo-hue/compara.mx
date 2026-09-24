@@ -627,15 +627,15 @@ function render() {
       const pML = p.precioML || p.precio, pAmz = p.precioAmz || p.precio;
       btnsBlock = `<div class="card-btns-dual">
         <div class="card-btn-col">
-          <a class="btn-ml" href="${p.linkML}" target="_blank" rel="nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','click_mercadolibre',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0});}"><img class="btn-logo-img" src="/logomercado.png" alt="ML"></a>
+          <a class="btn-ml" href="${p.linkML}" target="_blank" rel="nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0});}"><img class="btn-logo-img" src="/logomercado.png" alt="ML"></a>
         </div>
         <div class="card-btn-col">
-          <a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','click_amazon',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0});}"><img class="btn-logo-img" src="/logoamazon.png" alt="AMZ"></a>
+          <a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_amazon',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0});}"><img class="btn-logo-img" src="/logoamazon.png" alt="AMZ"></a>
         </div>
       </div>`;
     } else {
-      const btnML  = p.linkML  ? `<a class="btn-ml"  href="${p.linkML}"  target="_blank" rel="nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','click_mercadolibre',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0});}">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="ML" onerror="this.style.display='none'"></a>` : '';
-      const btnAmz = p.linkAmz ? `<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','click_amazon',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0});}">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="AMZ" onerror="this.style.display='none'"></a>` : '';
+      const btnML  = p.linkML  ? `<a class="btn-ml"  href="${p.linkML}"  target="_blank" rel="nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0});}">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="ML" onerror="this.style.display='none'"></a>` : '';
+      const btnAmz = p.linkAmz ? `<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_amazon',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0});}">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="AMZ" onerror="this.style.display='none'"></a>` : '';
       btnsBlock = `<div class="card-btns">${btnML}${btnAmz}</div>`;
     }
 

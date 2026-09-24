@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es-MX">
 <head>
 <meta charset="UTF-8" >
@@ -2482,7 +2482,7 @@ document.addEventListener('click', function(e) {
   var isAmz = btn.classList.contains('btn-amz');
   var label = btn.dataset.gaLabel || '';
   var val   = parseFloat(btn.dataset.gaVal) || 0;
-  gtag('event', isAmz ? 'click_amazon' : 'click_mercadolibre', {
+  gtag('event', isAmz ? 'affiliate_click_amazon' : 'affiliate_click_ml', {
     event_category: 'afiliado',
     event_label: label,
     value: val

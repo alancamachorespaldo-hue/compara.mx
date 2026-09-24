@@ -64,40 +64,12 @@
     return [].concat(ids).sort().join('__');
   };
 
-  /* ── Auto-tracking global de afiliados ──────────────────────────── */
-  document.addEventListener('click', function (e) {
-    var a = e.target.closest ? e.target.closest('a[href]') : null;
-    if (!a) return;
-
-    /* Deduplicación: si este elemento ya fue registrado en este ciclo, omitir */
-    if (a._cmxTracked) return;
-
-    var href = a.getAttribute('href') || '';
-    var isAmz = /amazon\.com\.mx|amzn\.to/i.test(href);
-    var isML  = /mercadolibre\.com\.mx|meli\.la/i.test(href);
-    if (!isAmz && !isML) return;
-
-    /* Marcar y limpiar tras el ciclo del evento */
-    a._cmxTracked = true;
-    setTimeout(function () { a._cmxTracked = false; }, 500);
-
-    /* Contexto del producto */
-    var params = { platform: isAmz ? 'amazon' : 'mercado_libre' };
-    if (a.dataset && a.dataset.gaLabel) params.product_name = a.dataset.gaLabel;
-
-    var card = a.closest('[data-product-id],[data-product-name]') || a.closest('.card');
-    if (card && card.dataset) {
-      if (card.dataset.productId   && !params.product_id)   params.product_id   = card.dataset.productId;
-      if (card.dataset.productName && !params.product_name) params.product_name = card.dataset.productName;
-      if (card.dataset.brand)                               params.brand        = card.dataset.brand;
-    }
-
-    var cat = document.body && document.body.dataset && document.body.dataset.category;
-    if (cat) params.category = cat;
-
-    window.trackEvent(isAmz ? 'affiliate_click_amazon' : 'affiliate_click_ml', params);
-
-  }, true); /* true = fase de captura → dispara antes que onclick inline */
+  /* ── Auto-tracking global de afiliados ──────────────────────────────
+   * DESACTIVADO: el tracking de afiliados se maneja con onclick inline
+   * en cada botón de producto usando affiliate_click_amazon / affiliate_click_ml.
+   * Esto evita doble disparo y asegura que el evento siempre lleva el
+   * nombre correcto independientemente del formato de la URL del enlace.
+   * ─────────────────────────────────────────────────────────────────── */
 
   /* ── comparison_section_view ────────────────────────────────────── */
   /* Dispara UNA SOLA VEZ cuando [data-ga-section="comparison"] entra

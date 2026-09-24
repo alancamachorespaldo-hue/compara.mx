@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es-MX">
 <head>
 <meta charset="UTF-8">
@@ -976,8 +976,8 @@ function cardHTML(p) {
 
   // Botones con logos — si hay ambas plataformas, mostrar precio encima de cada botón
   const tieneAmbos = p.linkAmz && p.linkML;
-  const btnAmz = p.linkAmz ? `<a class="btn-buy btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','click_amazon',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0});}" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}">Ver en <img class="btn-logo" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>` : '';
-  const btnML  = p.linkML  ? `<a class="btn-buy btn-ml"  href="${p.linkML}"  target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','click_mercadolibre',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0});}" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}">Ver en <img class="btn-logo" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>` : '';
+  const btnAmz = p.linkAmz ? `<a class="btn-buy btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_amazon',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0});}" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}">Ver en <img class="btn-logo" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>` : '';
+  const btnML  = p.linkML  ? `<a class="btn-buy btn-ml"  href="${p.linkML}"  target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0});}" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}">Ver en <img class="btn-logo" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>` : '';
 
   // Detalles
   const detalles = [];
@@ -1289,7 +1289,7 @@ document.addEventListener('click', function(e) {
   var isAmz = btn.classList.contains('btn-amz');
   var label = btn.dataset.gaLabel || '';
   var val   = parseFloat(btn.dataset.gaVal) || 0;
-  gtag('event', isAmz ? 'click_amazon' : 'click_mercadolibre', {
+  gtag('event', isAmz ? 'affiliate_click_amazon' : 'affiliate_click_ml', {
     event_category: 'afiliado',
     event_label: label,
     value: val

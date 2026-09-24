@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es-MX">
 <head>
 <meta charset="UTF-8">
@@ -435,8 +435,8 @@ function cardHTML(p) {
   const badges = p.badges.map(b => `<span class="badge ${b.c}">${b.t}</span>`).join('');
   const precioShow = p.precio;
   const tieneML = !!p.linkML, tieneAmz = !!p.linkAmz;
-  const btnML  = tieneML  ? `<a class="btn-buy btn-ml"  href="${p.linkML}"  target="_blank" rel="nofollow sponsored" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','click_mercadolibre',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0});}">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="ML"></a>` : '';
-  const btnAmz = tieneAmz ? `<a class="btn-buy btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow sponsored" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','click_amazon',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0});}">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="AMZ"></a>` : '';
+  const btnML  = tieneML  ? `<a class="btn-buy btn-ml"  href="${p.linkML}"  target="_blank" rel="nofollow sponsored" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0});}">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="ML"></a>` : '';
+  const btnAmz = tieneAmz ? `<a class="btn-buy btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow sponsored" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_amazon',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0});}">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="AMZ"></a>` : '';
   const btnRowClass = (tieneML && tieneAmz) ? 'btn-row dual' : 'btn-row';
   const b12label = p.formaB12 ? p.formaB12.charAt(0).toUpperCase()+p.formaB12.slice(1) : '—';
 

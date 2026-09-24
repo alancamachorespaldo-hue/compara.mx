@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es-MX">
 <head>
 <meta charset="UTF-8">
@@ -44,6 +44,7 @@
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@800,700,600,500,400&display=swap" rel="stylesheet">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9TKZ4ER13X"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-9TKZ4ER13X');</script>
+<script src="/assets/js/analytics.js"></script>
 
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -879,7 +880,7 @@ function cardHTML(f) {
   const amzBtn = v.linkAmz
     ? `<a class="btn-amz" href="${v.linkAmz}" target="_blank" rel="sponsored nofollow noopener"
         aria-label="Ver ${f.nombre} en Amazon"
-        onclick="event.stopPropagation();gtag('event','click_amazon',{event_category:'afiliado',event_label:'${f.nombre}',value:${v.precio||0}})"
+        onclick="event.stopPropagation();gtag('event','affiliate_click_amazon',{event_category:'afiliado',event_label:'${f.nombre}',value:${v.precio||0}})"
         data-ga-label="${f.nombre}" data-ga-val="${v.precio||0}">Ver en Amazon MX</a>`
     : '';
 
