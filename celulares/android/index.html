@@ -1411,7 +1411,7 @@ function cardHTML(f) {
   const colorDots = colores.length ? `<div class="color-dots">${colores.map(c => `<span class="color-dot" style="background:${COLOR_SWATCHES[c]||'#ccc'}" data-color="${c}" aria-label="${c}" title="${c}"></span>`).join('')}</div>` : '';
 
   const btnML = v.linkML ? `<a class="btn-ml" href="${v.linkML}" id="lnk-ml-${f.modeloBase}" target="_blank" rel="sponsored nofollow noopener" aria-label="Ver ${f.nombre||''} en Mercado Libre" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0});}" data-ga-label="${f.nombre||''}" data-ga-val="${v.precio||0}">Ver en Mercado Libre</a>` : '';
-  const btnAmz = v.linkAmz ? `<a class="btn-amz" href="${v.linkAmz}" id="lnk-amz-${f.modeloBase}" target="_blank" rel="sponsored nofollow noopener" aria-label="Ver ${f.nombre||''} en Amazon" onclick="event.stopPropagation();" data-ga-label="${f.nombre||''}" data-ga-val="${v.precio||0}">Ver en Amazon</a>` : '';
+  const btnAmz = v.linkAmz ? `<a class="btn-amz" href="${v.linkAmz}" id="lnk-amz-${f.modeloBase}" target="_blank" rel="sponsored nofollow noopener" aria-label="Ver ${f.nombre||''} en Amazon" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_amazon',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0});}" data-ga-label="${f.nombre||''}" data-ga-val="${v.precio||0}">Ver en Amazon</a>` : '';
 
   const _plat = (v.linkML && v.linkAmz) ? 'both' : (v.linkML ? 'ml' : 'amz');
   return `
@@ -1460,7 +1460,7 @@ function selectStorage(modeloBase, idx) {
   if (ss) { const s = storageLbl(v.storage); ss.querySelectorAll('.storage-btn').forEach(b => b.classList.toggle('active', b.textContent.trim() === s)); }
 
   const btnML  = v.linkML  ? `<a class="btn-ml"  href="${v.linkML}"  id="lnk-ml-${modeloBase}"  target="_blank" rel="sponsored nofollow noopener" aria-label="Ver ${f.nombre||''} en Mercado Libre" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0});}" data-ga-label="${f.nombre||''}" data-ga-val="${v.precio||0}">Ver en Mercado Libre</a>` : '';
-  const btnAmz = v.linkAmz ? `<a class="btn-amz" href="${v.linkAmz}" id="lnk-amz-${modeloBase}" target="_blank" rel="sponsored nofollow noopener" aria-label="Ver ${f.nombre||''} en Amazon" onclick="event.stopPropagation();" data-ga-label="${f.nombre||''}" data-ga-val="${v.precio||0}">Ver en Amazon</a>` : '';
+  const btnAmz = v.linkAmz ? `<a class="btn-amz" href="${v.linkAmz}" id="lnk-amz-${modeloBase}" target="_blank" rel="sponsored nofollow noopener" aria-label="Ver ${f.nombre||''} en Amazon" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_amazon',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0});}" data-ga-label="${f.nombre||''}" data-ga-val="${v.precio||0}">Ver en Amazon</a>` : '';
   document.getElementById('btns-' + modeloBase).innerHTML = btnML + btnAmz;
 }
 
