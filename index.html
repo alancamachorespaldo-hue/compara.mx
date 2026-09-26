@@ -128,22 +128,24 @@ h1 em{font-style:normal;color:var(--ac)}
 .btn2{display:inline-block;border:1.5px solid var(--bd);color:var(--tx);font-weight:700;font-size:14px;padding:12.5px 22px;border-radius:11px}
 .btn2:hover{border-color:var(--ac);color:var(--ac)}
 .hero-cta{display:flex;gap:10px;flex-wrap:wrap}
-/* ── Carrusel ── */
-.carousel-wrap{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:4/3;max-height:380px;flex-shrink:0}
+/* ── Carrusel de pasos ── */
+.carousel-wrap{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:4/3;max-height:380px;flex-shrink:0;background:var(--s1);cursor:pointer}
 .carousel-track{display:flex;width:500%;height:100%;transition:transform .55s cubic-bezier(.4,0,.2,1)}
-.carousel-slide{flex:0 0 20%;position:relative;display:block;text-decoration:none;overflow:hidden}
-.carousel-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform 6s ease}
-.carousel-slide:hover .carousel-img{transform:scale(1.04)}
-.carousel-scrim{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.82) 35%,rgba(0,0,0,.2) 75%,transparent 100%)}
-.carousel-body{position:relative;padding:20px;display:flex;flex-direction:column;justify-content:flex-end;height:100%;color:#fff}
-.carousel-kicker{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.6);margin-bottom:4px}
-.carousel-body h3{font-size:1.35rem;font-weight:800;letter-spacing:-.025em;margin-bottom:5px;line-height:1.2}
-.carousel-body p{font-size:.78rem;line-height:1.5;color:rgba(255,255,255,.75);margin-bottom:12px}
-.carousel-btn{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(6px);color:#fff;font-size:.75rem;font-weight:700;padding:6px 14px;border-radius:20px;transition:background .2s}
-.carousel-slide:hover .carousel-btn{background:rgba(255,255,255,.28)}
+.carousel-slide{flex:0 0 20%;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.carousel-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+.carousel-scrim{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.78) 32%,rgba(0,0,0,.15) 70%,transparent 100%)}
+.carousel-body{position:relative;padding:18px 20px 14px;display:flex;flex-direction:column;justify-content:flex-end;height:100%;color:#fff}
+.carousel-step-badge{display:inline-flex;align-items:center;gap:7px;margin-bottom:8px}
+.carousel-step-badge span{width:22px;height:22px;border-radius:50%;background:var(--ac);color:#fff;font-weight:800;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.carousel-step-badge em{font-style:normal;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.65)}
+.carousel-body h3{font-size:1.1rem;font-weight:800;letter-spacing:-.02em;margin-bottom:4px;line-height:1.25}
+.carousel-body p{font-size:.75rem;line-height:1.5;color:rgba(255,255,255,.75)}
 .carousel-dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:10}
 .cdot{width:7px;height:7px;border-radius:50%;border:none;background:rgba(255,255,255,.4);cursor:pointer;padding:0;transition:background .25s,width .25s}
 .cdot.active{background:#fff;width:22px;border-radius:4px}
+.carousel-arrows{position:absolute;top:50%;transform:translateY(-50%);width:100%;display:flex;justify-content:space-between;padding:0 10px;pointer-events:none;z-index:10}
+.carousel-arrow{width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.35);border:none;color:#fff;font-size:14px;cursor:pointer;pointer-events:all;display:flex;align-items:center;justify-content:center;transition:background .2s;backdrop-filter:blur(4px)}
+.carousel-arrow:hover{background:rgba(0,0,0,.55)}
 
 /* método */
 .method{background:var(--s1);border:1px solid var(--bd);border-radius:16px;padding:26px}
@@ -194,35 +196,6 @@ h1 em{font-style:normal;color:var(--ac)}
 .cat-elec .go{color:#fcd34d}
 .cats-row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
 .cat:hover .go{text-decoration:underline}
-
-/* cómo funciona */
-.how{background:#fff;border-top:1px solid var(--bd);padding:52px 0}
-.how-head{margin-bottom:32px}
-.how-head h2{font-size:26px;font-weight:800;letter-spacing:-.9px;color:#1E2922;margin-top:6px}
-.how-head p{font-size:13.5px;color:var(--tx2);margin-top:6px;max-width:500px}
-.how-track-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -24px;padding:0 24px}
-.how-track-wrap::-webkit-scrollbar{display:none}
-.how-track{display:grid;grid-template-columns:repeat(5,minmax(240px,1fr));gap:16px;min-width:0}
-.how-card{border:1.5px solid var(--bd);border-radius:16px;overflow:hidden;background:#fff;display:flex;flex-direction:column;transition:box-shadow .2s,border-color .2s}
-.how-card:hover{box-shadow:0 6px 24px rgba(0,0,0,.09);border-color:var(--ac)}
-.how-img{position:relative;background:var(--s1);aspect-ratio:16/10;overflow:hidden;flex-shrink:0}
-.how-img img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
-.how-ph{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border:2px dashed var(--bd2,#c8c8c0);background:var(--s1);border-radius:0}
-.how-ph-icon{font-size:2rem;opacity:.4}
-.how-ph-txt{font-size:10px;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;text-align:center;padding:0 12px;line-height:1.5}
-.how-body{padding:18px 20px 20px;flex:1;display:flex;flex-direction:column;gap:8px}
-.how-num{display:inline-flex;align-items:center;gap:6px}
-.how-num span{width:24px;height:24px;border-radius:50%;background:var(--ac);color:#fff;font-weight:800;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.how-num em{font-style:normal;font-size:10.5px;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em}
-.how-card h3{font-size:15px;font-weight:800;letter-spacing:-.3px;color:var(--tx);line-height:1.25}
-.how-card p{font-size:12.5px;line-height:1.55;color:var(--tx2)}
-@media(max-width:860px){
-  .how-track{grid-template-columns:repeat(5,minmax(210px,1fr))}
-}
-@media(max-width:560px){
-  .how-track{grid-template-columns:repeat(5,minmax(190px,1fr))}
-  .how{padding:38px 0}
-}
 
 /* artículos */
 .arts{background:var(--s1);border-top:1px solid var(--bd);padding:44px 0}
@@ -387,87 +360,123 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
     </div>
   </div>
 
-  <!-- Carrusel de categorías -->
-  <div class="carousel-wrap" id="metodo">
+  <!-- Carrusel de 5 pasos -->
+  <div class="carousel-wrap" id="metodo" role="region" aria-label="Cómo funciona comparalo.mx">
     <div class="carousel-track" id="carouselTrack">
-      <a class="carousel-slide" href="/suplementos" style="background:linear-gradient(135deg,#006847 0%,#004d34 100%)">
-        <img src="/fotos/imgsuplementos.png" alt="Suplementos" class="carousel-img">
+
+      <div class="carousel-slide">
+        <img src="/fotos/paso1-categorias.png" alt="Paso 1: elige una categoría" class="carousel-img">
         <div class="carousel-scrim"></div>
         <div class="carousel-body">
-          <span class="carousel-kicker">Compara ahora</span>
-          <h3>Suplementos</h3>
-          <p>Proteína, creatina, magnesio y más en Amazon MX vs Mercado Libre</p>
-          <span class="carousel-btn">Ver comparativas →</span>
+          <div class="carousel-step-badge"><span>1</span><em>Elige una categoría</em></div>
+          <h3>Elige qué quieres comprar</h3>
+          <p>Celulares, laptops, suplementos, bicicletas o electrodomésticos.</p>
         </div>
-      </a>
-      <a class="carousel-slide" href="/celulares" style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%)">
-        <img src="/fotos/imgcelulares.png" alt="Celulares" class="carousel-img">
+      </div>
+
+      <div class="carousel-slide">
+        <img src="/fotos/paso2-filtros.png" alt="Paso 2: filtra por características" class="carousel-img">
         <div class="carousel-scrim"></div>
         <div class="carousel-body">
-          <span class="carousel-kicker">Compara ahora</span>
-          <h3>Celulares</h3>
-          <p>iPhone, Samsung y más smartphones al mejor precio en México</p>
-          <span class="carousel-btn">Ver celulares →</span>
+          <div class="carousel-step-badge"><span>2</span><em>Filtra</em></div>
+          <h3>Filtra por lo que te importa</h3>
+          <p>Marca, precio, RAM, almacenamiento o uso. El catálogo se actualiza al instante.</p>
         </div>
-      </a>
-      <a class="carousel-slide" href="/bicis" style="background:linear-gradient(135deg,#065f46 0%,#064e3b 100%)">
-        <img src="/fotos/imgbicicletas.png" alt="Bicicletas" class="carousel-img" style="object-position:center 40%">
+      </div>
+
+      <div class="carousel-slide">
+        <img src="/fotos/paso3-comparar.png" alt="Paso 3: compara productos lado a lado" class="carousel-img">
         <div class="carousel-scrim"></div>
         <div class="carousel-body">
-          <span class="carousel-kicker">Compara ahora</span>
-          <h3>Bicicletas</h3>
-          <p>Eléctricas, montaña y ruta — precios comparados en las dos tiendas</p>
-          <span class="carousel-btn">Ver bicicletas →</span>
+          <div class="carousel-step-badge"><span>3</span><em>Compara</em></div>
+          <h3>Compara características lado a lado</h3>
+          <p>Selecciona 2 o 3 modelos y ve precio, procesador, RAM y más en una sola tabla.</p>
         </div>
-      </a>
-      <a class="carousel-slide" href="/laptops" style="background:linear-gradient(135deg,#1e293b 0%,#0f172a 100%)">
-        <img src="/fotos/imglaptops.png" alt="Laptops" class="carousel-img" style="object-position:center 60%">
+      </div>
+
+      <div class="carousel-slide">
+        <img src="/fotos/paso4-producto.png" alt="Paso 4: elige el producto" class="carousel-img">
         <div class="carousel-scrim"></div>
         <div class="carousel-body">
-          <span class="carousel-kicker">Compara ahora</span>
-          <h3>Laptops</h3>
-          <p>HP, Dell, Lenovo y Asus — elige la mejor opción para universidad o trabajo</p>
-          <span class="carousel-btn">Ver laptops →</span>
+          <div class="carousel-step-badge"><span>4</span><em>Elige</em></div>
+          <h3>Da clic en el que quieres</h3>
+          <p>Cada producto muestra su precio en Amazon y Mercado Libre. Elige la tienda.</p>
         </div>
-      </a>
-      <a class="carousel-slide" href="/electrodomesticos" style="background:linear-gradient(135deg,#7c2d12 0%,#431407 100%)">
-        <img src="/fotos/imgelectrodomesticos.png" alt="Electrodomésticos" class="carousel-img" style="object-position:center 40%">
+      </div>
+
+      <div class="carousel-slide">
+        <img src="/fotos/paso5-tienda.png" alt="Paso 5: ve a la tienda oficial" class="carousel-img">
         <div class="carousel-scrim"></div>
         <div class="carousel-body">
-          <span class="carousel-kicker">Compara ahora</span>
-          <h3>Electrodomésticos</h3>
-          <p>Freidoras de aire, microondas y lavadoras al mejor precio en México</p>
-          <span class="carousel-btn">Ver electrodomésticos →</span>
+          <div class="carousel-step-badge"><span>5</span><em>Compra</em></div>
+          <h3>Llegas directo a la tienda oficial</h3>
+          <p>Te enviamos a Amazon MX o Mercado Libre para completar tu compra de forma segura.</p>
         </div>
-      </a>
+      </div>
+
+    </div>
+    <div class="carousel-arrows">
+      <button class="carousel-arrow" onclick="stepCarousel(-1)" aria-label="Paso anterior">&#8592;</button>
+      <button class="carousel-arrow" onclick="stepCarousel(1)" aria-label="Paso siguiente">&#8594;</button>
     </div>
     <div class="carousel-dots" id="carouselDots">
-      <button class="cdot active" onclick="goSlide(0)" aria-label="Suplementos"></button>
-      <button class="cdot" onclick="goSlide(1)" aria-label="Celulares"></button>
-      <button class="cdot" onclick="goSlide(2)" aria-label="Bicicletas"></button>
-      <button class="cdot" onclick="goSlide(3)" aria-label="Laptops"></button>
-      <button class="cdot" onclick="goSlide(4)" aria-label="Electrodomésticos"></button>
+      <button class="cdot active" onclick="goSlide(0)" aria-label="Paso 1"></button>
+      <button class="cdot" onclick="goSlide(1)" aria-label="Paso 2"></button>
+      <button class="cdot" onclick="goSlide(2)" aria-label="Paso 3"></button>
+      <button class="cdot" onclick="goSlide(3)" aria-label="Paso 4"></button>
+      <button class="cdot" onclick="goSlide(4)" aria-label="Paso 5"></button>
     </div>
   </div>
 </section>
 <script>
 (function(){
   var cur=0,total=5,timer,paused=false;
-  function goSlide(n){
+  var stepLabels=['Elige categoria','Filtra','Compara','Elige producto','Ve a tienda'];
+
+  function trackStep(step,method){
+    if(typeof gtag==='function'){
+      gtag('event','tutorial_step_view',{
+        event_category:'tutorial',
+        event_label:stepLabels[step]||('paso_'+(step+1)),
+        step_number:step+1,
+        interaction_method:method
+      });
+    }
+  }
+
+  function goSlide(n,method){
     cur=((n%total)+total)%total;
     document.getElementById('carouselTrack').style.transform='translateX(-'+(cur*20)+'%)';
     document.querySelectorAll('.cdot').forEach(function(d,i){d.classList.toggle('active',i===cur)});
+    if(method)trackStep(cur,method);
   }
-  function next(){if(!paused)goSlide(cur+1)}
-  function startTimer(){timer=setInterval(next,4000)}
+
+  window.stepCarousel=function(dir){goSlide(cur+dir,'arrow')};
+  window.goSlide=function(n){goSlide(n,'dot')};
+
+  /* click en la slide cuenta como interacción */
+  document.getElementById('metodo').addEventListener('click',function(e){
+    if(!e.target.closest('.carousel-arrow')&&!e.target.closest('.cdot')){
+      trackStep(cur,'slide_click');
+    }
+  });
+
+  function next(){if(!paused)goSlide(cur+1,'auto')}
+  function startTimer(){timer=setInterval(next,4500)}
+
   var wrap=document.getElementById('carouselTrack').parentElement;
-  wrap.addEventListener('mouseenter',function(){paused=true});
-  wrap.addEventListener('mouseleave',function(){paused=false});
+  wrap.addEventListener('mouseenter',function(){paused=true;clearInterval(timer)});
+  wrap.addEventListener('mouseleave',function(){paused=false;startTimer()});
+
   /* touch swipe */
   var tx=0;
-  wrap.addEventListener('touchstart',function(e){tx=e.touches[0].clientX;paused=true},{passive:true});
-  wrap.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>40)goSlide(dx<0?cur+1:cur-1);paused=false},{passive:true});
-  window.goSlide=goSlide;
+  wrap.addEventListener('touchstart',function(e){tx=e.touches[0].clientX;paused=true;clearInterval(timer)},{passive:true});
+  wrap.addEventListener('touchend',function(e){
+    var dx=e.changedTouches[0].clientX-tx;
+    if(Math.abs(dx)>40)goSlide(dx<0?cur+1:cur-1,'swipe');
+    paused=false;startTimer();
+  },{passive:true});
+
   startTimer();
 })();
 </script>
@@ -524,76 +533,6 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
         </div>
         <div class="thumb"><img src="/fotos/imgelectrodomesticos.png" alt="Electrodomésticos comparados en Amazon México y Mercado Libre" loading="lazy" style="object-position:center 40%"></div>
       </a>
-    </div>
-  </div>
-</section>
-
-<section class="how" aria-labelledby="how-h">
-  <div class="wrap">
-    <div class="how-head">
-      <p class="kicker">Así funciona</p>
-      <h2 id="how-h">5 pasos para comprar mejor</h2>
-      <p>Encuentra el producto, filtra lo que importa, compara, elige y ve directo a la tienda.</p>
-    </div>
-    <div class="how-track-wrap">
-      <div class="how-track">
-
-        <div class="how-card">
-          <div class="how-img">
-            <img src="/fotos/paso1-categorias.png" alt="Paso 1: elige una categoría en comparalo.mx" loading="lazy">
-          </div>
-          <div class="how-body">
-            <div class="how-num"><span>1</span><em>Elige una categoría</em></div>
-            <h3>Elige qué quieres comprar</h3>
-            <p>Celulares, laptops, suplementos, bicicletas o electrodomésticos. Cada categoría tiene sus propios filtros y comparativas.</p>
-          </div>
-        </div>
-
-        <div class="how-card">
-          <div class="how-img">
-            <img src="/fotos/paso2-filtros.png" alt="Paso 2: filtra por marca, RAM, precio y más" loading="lazy">
-          </div>
-          <div class="how-body">
-            <div class="how-num"><span>2</span><em>Filtra</em></div>
-            <h3>Filtra por las características que te importan</h3>
-            <p>Marca, precio, RAM, almacenamiento o uso. Ajusta los filtros y el catálogo se actualiza al instante.</p>
-          </div>
-        </div>
-
-        <div class="how-card">
-          <div class="how-img">
-            <img src="/fotos/paso3-comparar.png" alt="Paso 3: compara productos lado a lado" loading="lazy">
-          </div>
-          <div class="how-body">
-            <div class="how-num"><span>3</span><em>Compara</em></div>
-            <h3>Compara características lado a lado</h3>
-            <p>Selecciona 2 o 3 modelos y ve precio, procesador, RAM, pantalla y más en una sola tabla.</p>
-          </div>
-        </div>
-
-        <div class="how-card">
-          <div class="how-img">
-            <img src="/fotos/paso4-producto.png" alt="Paso 4: elige el producto y da click para ir a la tienda" loading="lazy">
-          </div>
-          <div class="how-body">
-            <div class="how-num"><span>4</span><em>Elige</em></div>
-            <h3>Da clic en el que quieres comprar</h3>
-            <p>Cada producto muestra su precio en Amazon y Mercado Libre. Elige la tienda que prefieras y da clic.</p>
-          </div>
-        </div>
-
-        <div class="how-card">
-          <div class="how-img">
-            <img src="/fotos/paso5-tienda.png" alt="Paso 5: ve directo a la tienda oficial en Mercado Libre o Amazon" loading="lazy">
-          </div>
-          <div class="how-body">
-            <div class="how-num"><span>5</span><em>Compra</em></div>
-            <h3>Llegas directo a la tienda oficial</h3>
-            <p>Te enviamos a la página del producto en Amazon MX o Mercado Libre para que completes tu compra de forma segura.</p>
-          </div>
-        </div>
-
-      </div>
     </div>
   </div>
 </section>
