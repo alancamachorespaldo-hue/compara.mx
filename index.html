@@ -202,7 +202,7 @@ h1 em{font-style:normal;color:var(--ac)}
 .how-head p{font-size:13.5px;color:var(--tx2);margin-top:6px;max-width:500px}
 .how-track-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -24px;padding:0 24px}
 .how-track-wrap::-webkit-scrollbar{display:none}
-.how-track{display:grid;grid-template-columns:repeat(4,minmax(260px,1fr));gap:16px;min-width:0}
+.how-track{display:grid;grid-template-columns:repeat(5,minmax(240px,1fr));gap:16px;min-width:0}
 .how-card{border:1.5px solid var(--bd);border-radius:16px;overflow:hidden;background:#fff;display:flex;flex-direction:column;transition:box-shadow .2s,border-color .2s}
 .how-card:hover{box-shadow:0 6px 24px rgba(0,0,0,.09);border-color:var(--ac)}
 .how-img{position:relative;background:var(--s1);aspect-ratio:16/10;overflow:hidden;flex-shrink:0}
@@ -217,10 +217,10 @@ h1 em{font-style:normal;color:var(--ac)}
 .how-card h3{font-size:15px;font-weight:800;letter-spacing:-.3px;color:var(--tx);line-height:1.25}
 .how-card p{font-size:12.5px;line-height:1.55;color:var(--tx2)}
 @media(max-width:860px){
-  .how-track{grid-template-columns:repeat(4,minmax(220px,1fr))}
+  .how-track{grid-template-columns:repeat(5,minmax(210px,1fr))}
 }
 @media(max-width:560px){
-  .how-track{grid-template-columns:repeat(4,minmax(200px,1fr))}
+  .how-track{grid-template-columns:repeat(5,minmax(190px,1fr))}
   .how{padding:38px 0}
 }
 
@@ -532,19 +532,15 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
   <div class="wrap">
     <div class="how-head">
       <p class="kicker">Así funciona</p>
-      <h2 id="how-h">4 pasos para comprar mejor</h2>
-      <p>Encuentra el producto, filtra lo que te importa, compara y decide en segundos.</p>
+      <h2 id="how-h">5 pasos para comprar mejor</h2>
+      <p>Encuentra el producto, filtra lo que importa, compara, elige y ve directo a la tienda.</p>
     </div>
     <div class="how-track-wrap">
       <div class="how-track">
 
         <div class="how-card">
           <div class="how-img">
-            <!-- Reemplaza con: <img src="/fotos/paso1-categorias.jpg" alt="Paso 1: elige una categoría"> -->
-            <div class="how-ph">
-              <span class="how-ph-icon">🗂️</span>
-              <span class="how-ph-txt">Screenshot: pantalla de categorías o hub /celulares/</span>
-            </div>
+            <img src="/fotos/paso1-categorias.png" alt="Paso 1: elige una categoría en comparalo.mx" loading="lazy">
           </div>
           <div class="how-body">
             <div class="how-num"><span>1</span><em>Elige una categoría</em></div>
@@ -555,46 +551,45 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
 
         <div class="how-card">
           <div class="how-img">
-            <!-- Reemplaza con: <img src="/fotos/paso2-filtros.jpg" alt="Paso 2: filtra por características"> -->
-            <div class="how-ph">
-              <span class="how-ph-icon">🎛️</span>
-              <span class="how-ph-txt">Screenshot: barra de filtros activos en catálogo Android o iPhone</span>
-            </div>
+            <img src="/fotos/paso2-filtros.png" alt="Paso 2: filtra por marca, RAM, precio y más" loading="lazy">
           </div>
           <div class="how-body">
-            <div class="how-num"><span>2</span><em>Filtra y busca</em></div>
+            <div class="how-num"><span>2</span><em>Filtra</em></div>
             <h3>Filtra por las características que te importan</h3>
-            <p>Marca, precio, RAM, almacenamiento o serie. Ajusta los filtros y el catálogo se actualiza al instante.</p>
+            <p>Marca, precio, RAM, almacenamiento o uso. Ajusta los filtros y el catálogo se actualiza al instante.</p>
           </div>
         </div>
 
         <div class="how-card">
           <div class="how-img">
-            <!-- Reemplaza con: <img src="/fotos/paso3-comparar.jpg" alt="Paso 3: compara productos"> -->
-            <div class="how-ph">
-              <span class="how-ph-icon">⚖️</span>
-              <span class="how-ph-txt">Screenshot: modal del comparador con 2 o 3 productos lado a lado</span>
-            </div>
+            <img src="/fotos/paso3-comparar.png" alt="Paso 3: compara productos lado a lado" loading="lazy">
           </div>
           <div class="how-body">
             <div class="how-num"><span>3</span><em>Compara</em></div>
-            <h3>Compara 2 o 3 productos lado a lado</h3>
-            <p>Selecciona los modelos que te interesan y ve sus características principales en una sola tabla para decidir cuál se adapta mejor a ti.</p>
+            <h3>Compara características lado a lado</h3>
+            <p>Selecciona 2 o 3 modelos y ve precio, procesador, RAM, pantalla y más en una sola tabla.</p>
           </div>
         </div>
 
         <div class="how-card">
           <div class="how-img">
-            <!-- Reemplaza con: <img src="/fotos/paso4-comprar.jpg" alt="Paso 4: compra en Amazon o Mercado Libre"> -->
-            <div class="how-ph">
-              <span class="how-ph-icon">🛒</span>
-              <span class="how-ph-txt">Screenshot: tarjeta de producto con botones Amazon y Mercado Libre</span>
-            </div>
+            <img src="/fotos/paso4-producto.png" alt="Paso 4: elige el producto y da click para ir a la tienda" loading="lazy">
           </div>
           <div class="how-body">
-            <div class="how-num"><span>4</span><em>Compra</em></div>
-            <h3>Ve directo a Amazon o Mercado Libre</h3>
-            <p>Cada producto tiene el precio actualizado en ambas tiendas. Un clic y llegas directo a la página de compra.</p>
+            <div class="how-num"><span>4</span><em>Elige</em></div>
+            <h3>Da clic en el que quieres comprar</h3>
+            <p>Cada producto muestra su precio en Amazon y Mercado Libre. Elige la tienda que prefieras y da clic.</p>
+          </div>
+        </div>
+
+        <div class="how-card">
+          <div class="how-img">
+            <img src="/fotos/paso5-tienda.png" alt="Paso 5: ve directo a la tienda oficial en Mercado Libre o Amazon" loading="lazy">
+          </div>
+          <div class="how-body">
+            <div class="how-num"><span>5</span><em>Compra</em></div>
+            <h3>Llegas directo a la tienda oficial</h3>
+            <p>Te enviamos a la página del producto en Amazon MX o Mercado Libre para que completes tu compra de forma segura.</p>
           </div>
         </div>
 
