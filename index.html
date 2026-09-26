@@ -195,6 +195,35 @@ h1 em{font-style:normal;color:var(--ac)}
 .cats-row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
 .cat:hover .go{text-decoration:underline}
 
+/* cómo funciona */
+.how{background:#fff;border-top:1px solid var(--bd);padding:52px 0}
+.how-head{margin-bottom:32px}
+.how-head h2{font-size:26px;font-weight:800;letter-spacing:-.9px;color:#1E2922;margin-top:6px}
+.how-head p{font-size:13.5px;color:var(--tx2);margin-top:6px;max-width:500px}
+.how-track-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -24px;padding:0 24px}
+.how-track-wrap::-webkit-scrollbar{display:none}
+.how-track{display:grid;grid-template-columns:repeat(4,minmax(260px,1fr));gap:16px;min-width:0}
+.how-card{border:1.5px solid var(--bd);border-radius:16px;overflow:hidden;background:#fff;display:flex;flex-direction:column;transition:box-shadow .2s,border-color .2s}
+.how-card:hover{box-shadow:0 6px 24px rgba(0,0,0,.09);border-color:var(--ac)}
+.how-img{position:relative;background:var(--s1);aspect-ratio:16/10;overflow:hidden;flex-shrink:0}
+.how-img img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+.how-ph{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border:2px dashed var(--bd2,#c8c8c0);background:var(--s1);border-radius:0}
+.how-ph-icon{font-size:2rem;opacity:.4}
+.how-ph-txt{font-size:10px;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;text-align:center;padding:0 12px;line-height:1.5}
+.how-body{padding:18px 20px 20px;flex:1;display:flex;flex-direction:column;gap:8px}
+.how-num{display:inline-flex;align-items:center;gap:6px}
+.how-num span{width:24px;height:24px;border-radius:50%;background:var(--ac);color:#fff;font-weight:800;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.how-num em{font-style:normal;font-size:10.5px;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em}
+.how-card h3{font-size:15px;font-weight:800;letter-spacing:-.3px;color:var(--tx);line-height:1.25}
+.how-card p{font-size:12.5px;line-height:1.55;color:var(--tx2)}
+@media(max-width:860px){
+  .how-track{grid-template-columns:repeat(4,minmax(220px,1fr))}
+}
+@media(max-width:560px){
+  .how-track{grid-template-columns:repeat(4,minmax(200px,1fr))}
+  .how{padding:38px 0}
+}
+
 /* artículos */
 .arts{background:var(--s1);border-top:1px solid var(--bd);padding:44px 0}
 .arts-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:6px}
@@ -495,6 +524,81 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
         </div>
         <div class="thumb"><img src="/fotos/imgelectrodomesticos.png" alt="Electrodomésticos comparados en Amazon México y Mercado Libre" loading="lazy" style="object-position:center 40%"></div>
       </a>
+    </div>
+  </div>
+</section>
+
+<section class="how" aria-labelledby="how-h">
+  <div class="wrap">
+    <div class="how-head">
+      <p class="kicker">Así funciona</p>
+      <h2 id="how-h">4 pasos para comprar mejor</h2>
+      <p>Encuentra el producto, filtra lo que te importa, compara y decide en segundos.</p>
+    </div>
+    <div class="how-track-wrap">
+      <div class="how-track">
+
+        <div class="how-card">
+          <div class="how-img">
+            <!-- Reemplaza con: <img src="/fotos/paso1-categorias.jpg" alt="Paso 1: elige una categoría"> -->
+            <div class="how-ph">
+              <span class="how-ph-icon">🗂️</span>
+              <span class="how-ph-txt">Screenshot: pantalla de categorías o hub /celulares/</span>
+            </div>
+          </div>
+          <div class="how-body">
+            <div class="how-num"><span>1</span><em>Elige una categoría</em></div>
+            <h3>Elige qué quieres comprar</h3>
+            <p>Celulares, laptops, suplementos, bicicletas o electrodomésticos. Cada categoría tiene sus propios filtros y comparativas.</p>
+          </div>
+        </div>
+
+        <div class="how-card">
+          <div class="how-img">
+            <!-- Reemplaza con: <img src="/fotos/paso2-filtros.jpg" alt="Paso 2: filtra por características"> -->
+            <div class="how-ph">
+              <span class="how-ph-icon">🎛️</span>
+              <span class="how-ph-txt">Screenshot: barra de filtros activos en catálogo Android o iPhone</span>
+            </div>
+          </div>
+          <div class="how-body">
+            <div class="how-num"><span>2</span><em>Filtra y busca</em></div>
+            <h3>Filtra por las características que te importan</h3>
+            <p>Marca, precio, RAM, almacenamiento o serie. Ajusta los filtros y el catálogo se actualiza al instante.</p>
+          </div>
+        </div>
+
+        <div class="how-card">
+          <div class="how-img">
+            <!-- Reemplaza con: <img src="/fotos/paso3-comparar.jpg" alt="Paso 3: compara productos"> -->
+            <div class="how-ph">
+              <span class="how-ph-icon">⚖️</span>
+              <span class="how-ph-txt">Screenshot: modal del comparador con 2 o 3 productos lado a lado</span>
+            </div>
+          </div>
+          <div class="how-body">
+            <div class="how-num"><span>3</span><em>Compara</em></div>
+            <h3>Compara 2 o 3 productos lado a lado</h3>
+            <p>Selecciona los modelos que te interesan y ve sus características principales en una sola tabla para decidir cuál se adapta mejor a ti.</p>
+          </div>
+        </div>
+
+        <div class="how-card">
+          <div class="how-img">
+            <!-- Reemplaza con: <img src="/fotos/paso4-comprar.jpg" alt="Paso 4: compra en Amazon o Mercado Libre"> -->
+            <div class="how-ph">
+              <span class="how-ph-icon">🛒</span>
+              <span class="how-ph-txt">Screenshot: tarjeta de producto con botones Amazon y Mercado Libre</span>
+            </div>
+          </div>
+          <div class="how-body">
+            <div class="how-num"><span>4</span><em>Compra</em></div>
+            <h3>Ve directo a Amazon o Mercado Libre</h3>
+            <p>Cada producto tiene el precio actualizado en ambas tiendas. Un clic y llegas directo a la página de compra.</p>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 </section>
