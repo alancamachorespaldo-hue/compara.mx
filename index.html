@@ -111,8 +111,16 @@ input:focus-visible,a:focus-visible,button:focus-visible{outline:2px solid var(-
 .nav-links{display:flex;gap:2px;margin-left:auto}
 .nav-links a{font-weight:500;font-size:13.5px;color:#5a6a7e;padding:8px 11px;border-radius:8px}
 .nav-links a:hover{background:var(--s1);color:var(--tx)}
-.nav-search{display:flex;align-items:center;gap:8px;background:var(--s1);border:1.5px solid var(--bd);border-radius:100px;padding:0 13px;width:196px;flex-shrink:0}
+.nav-search-wrap{position:relative;flex-shrink:0}
+.nav-search{display:flex;align-items:center;gap:8px;background:var(--s1);border:1.5px solid var(--bd);border-radius:100px;padding:0 13px;width:196px}
 .nav-search input{border:none;background:transparent;font-size:12.5px;color:var(--tx);width:100%;padding:9px 0;outline:none}
+.nav-drop{display:none;position:absolute;top:calc(100% + 6px);right:0;width:280px;background:#fff;border:1.5px solid var(--bd);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.10);z-index:300;overflow:hidden}
+.nav-drop.open{display:block}
+.nav-drop .search-dropdown-label{font-size:10.5px;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;padding:10px 14px 6px}
+.nav-drop a{display:flex;align-items:center;gap:10px;padding:9px 14px;font-size:13px;font-weight:600;color:var(--tx);text-decoration:none;transition:background .12s}
+.nav-drop a:hover{background:var(--s1)}
+.nav-drop a .sd-icon{font-size:1.1rem;width:26px;text-align:center}
+.nav-drop a .sd-sub{font-size:11px;font-weight:400;color:var(--tx3);display:block}
 .nav-toggle{display:none;width:44px;height:44px;border:none;background:transparent;border-radius:10px;cursor:pointer;align-items:center;justify-content:center;margin-left:auto}
 .chips{display:none;gap:8px;overflow-x:auto;padding:11px 24px;border-bottom:1px solid var(--bd);-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .chips::-webkit-scrollbar{display:none}
@@ -302,11 +310,27 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
       <a href="/celulares">Celulares</a>
       <a href="/celulares/iphone">iPhones</a>
     </div>
-    <form class="nav-search" action="/suplementos" method="get" role="search">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-      <label class="skip" for="q-nav">Buscar producto</label>
-      <input id="q-nav" name="q" type="search" placeholder="Buscar…">
-    </form>
+    <div class="nav-search-wrap" id="navSearchWrap">
+      <form class="nav-search" action="/suplementos" method="get" role="search">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <label class="skip" for="q-nav">Buscar producto</label>
+        <input id="q-nav" name="q" type="search" placeholder="Buscar…" autocomplete="off" onfocus="openNavDrop()" oninput="filterNavDrop(this.value)">
+      </form>
+      <div class="nav-drop" id="navDrop">
+        <div class="search-dropdown-label">Nuestras comparativas</div>
+        <a href="/suplementos" data-search="suplementos proteína creatina magnesio complejo b omega"><span class="sd-icon">💊</span><span>Suplementos<span class="sd-sub">Proteína, Creatina, Magnesio, Complejo B, Omega 3</span></span></a>
+        <a href="/bicis" data-search="bicicletas bici ciclismo"><span class="sd-icon">🚲</span><span>Bicicletas<span class="sd-sub">Urbanas, eléctricas, montaña</span></span></a>
+        <a href="/laptops" data-search="laptops computadoras notebooks universidad gamer"><span class="sd-icon">💻</span><span>Laptops<span class="sd-sub">Universidad, gaming, trabajo</span></span></a>
+        <a href="/electrodomesticos" data-search="electrodomesticos microondas freidoras aire"><span class="sd-icon">🏠</span><span>Electrodomésticos<span class="sd-sub">Microondas, freidoras de aire</span></span></a>
+        <a href="/suplementos/magnesio" data-search="magnesio citrato bisglicinato complejo"><span class="sd-icon">🧴</span><span>Magnesio<span class="sd-sub">Citrato, Bisglicinato, L-Treonato</span></span></a>
+        <a href="/suplementos/creatina" data-search="creatina monohidratada micronizada"><span class="sd-icon">💪</span><span>Creatina<span class="sd-sub">Monohidratada, micronizada</span></span></a>
+        <a href="/suplementos/proteina" data-search="proteina whey concentrada aislada vegana"><span class="sd-icon">🥛</span><span>Proteína Whey<span class="sd-sub">Concentrada, aislada, vegana</span></span></a>
+        <a href="/electrodomesticos/microondas" data-search="microondas horno"><span class="sd-icon">📡</span><span>Microondas<span class="sd-sub">Básico, grill, convección</span></span></a>
+        <a href="/electrodomesticos/freidoras" data-search="freidoras aire airfryer"><span class="sd-icon">🍟</span><span>Freidoras de Aire<span class="sd-sub">Sin aceite, digital, compactas</span></span></a>
+        <a href="/celulares/android/" data-search="celulares android smartphones samsung pixel motorola"><span class="sd-icon">📱</span><span>Android<span class="sd-sub">Samsung, Pixel, Motorola y más</span></span></a>
+        <a href="/celulares/iphone/" data-search="iphone apple ios iphone 17 iphone 18"><span class="sd-icon">🍎</span><span>iPhone<span class="sd-sub">iPhone 17, 18 Pro, 18 Pro Max</span></span></a>
+      </div>
+    </div>
     <button class="nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" onclick="var p=document.getElementById('nav-panel');var o=p.getAttribute('data-open')==='1';p.setAttribute('data-open',o?'0':'1');this.setAttribute('aria-expanded',String(!o));this.setAttribute('aria-label',o?'Abrir menú':'Cerrar menú')">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0F172A" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="7" x2="21" y2="7"></line><line x1="3" y1="13" x2="21" y2="13"></line><line x1="3" y1="19" x2="15" y2="19"></line></svg>
     </button>
@@ -413,7 +437,16 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
       links.forEach(function(a){a.style.display=(!v||a.dataset.search.includes(v)||a.textContent.toLowerCase().includes(v))?'':'none'});
       d.classList.add('open');
     }
-    document.addEventListener('click',function(e){if(!document.getElementById('searchWrap').contains(e.target))document.getElementById('searchDrop').classList.remove('open')});
+    function openNavDrop(){document.getElementById('navDrop').classList.add('open')}
+    function filterNavDrop(q){
+      var d=document.getElementById('navDrop'),links=d.querySelectorAll('a'),v=q.trim().toLowerCase();
+      links.forEach(function(a){a.style.display=(!v||a.dataset.search.includes(v)||a.textContent.toLowerCase().includes(v))?'':'none'});
+      d.classList.add('open');
+    }
+    document.addEventListener('click',function(e){
+      if(!document.getElementById('searchWrap').contains(e.target))document.getElementById('searchDrop').classList.remove('open');
+      if(!document.getElementById('navSearchWrap').contains(e.target))document.getElementById('navDrop').classList.remove('open');
+    });
     </script>
     <div class="hero-cta">
       <a class="btn" href="/suplementos">Ver comparativas</a>
