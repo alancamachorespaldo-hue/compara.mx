@@ -852,5 +852,20 @@ a{color:var(--ac);font-weight:600;text-underline-offset:3px}
   </p>
 
 </article>
+
+<script>
+/* affiliate click tracking */
+document.addEventListener('click',function(e){
+  var btn=e.target.closest('.btn-amz,.btn-ml');
+  if(!btn)return;
+  if(typeof gtag!=='function')return;
+  var evt=btn.classList.contains('btn-ml')?'affiliate_click_ml':'affiliate_click_amazon';
+  var label=btn.dataset.gaLabel||btn.getAttribute('aria-label')||'';
+  var cards=Array.from(document.querySelectorAll('.card,.prod-card'));
+  var pos=cards.indexOf(btn.closest('.card,.prod-card'))+1;
+  var sec=location.pathname.replace(/^\//,'').replace(/\/(?:index\.html)?$/,'').replace(/\//g,'_')||'home';
+  gtag('event',evt,{event_category:'afiliado',event_label:label,value:parseFloat(btn.dataset.gaVal)||0,page_section:sec,item_position:pos});
+});
+</script>
 </body>
 </html>

@@ -2485,7 +2485,9 @@ document.addEventListener('click', function(e) {
   gtag('event', isAmz ? 'affiliate_click_amazon' : 'affiliate_click_ml', {
     event_category: 'afiliado',
     event_label: label,
-    value: val
+    value: val,
+    page_section: location.pathname.replace(/^\//g,'').replace(/\/(?:index\.html)?$/g,'').replace(/\//g,'_')||'home',
+    item_position: Array.from(document.querySelectorAll('.card')).indexOf(btn.closest('.card'))+1
   });
 });
 </script>

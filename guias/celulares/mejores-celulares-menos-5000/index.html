@@ -837,7 +837,7 @@ function cardHTML5k(f) {
   const amzBtn = v.linkAmz
     ? `<a class="btn-amz" href="${v.linkAmz}" target="_blank" rel="sponsored nofollow noopener"
         aria-label="Ver ${f.nombre} en Amazon"
-        onclick="event.stopPropagation();gtag('event','affiliate_click_amazon',{event_category:'afiliado',event_label:'${f.nombre}',value:${v.precio||0}})"
+        onclick="event.stopPropagation();gtag('event','affiliate_click_amazon',{event_category:'afiliado',event_label:'${f.nombre}',value:${v.precio||0},page_section:location.pathname.replace(/^\//g,'').replace(/\/(?:index\.html)?$/g,'').replace(/\//g,'_')||'home',item_position:Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1})"
         data-ga-label="${f.nombre}" data-ga-val="${v.precio||0}">Ver en Amazon MX</a>`
     : '';
 

@@ -362,7 +362,7 @@ function renderGrid(){
         <div class="card-commercial">
           <div class="card-price">$${b.precio.toLocaleString('es-MX')} <span class="card-price-sub">MXN</span></div>
           <div class="card-btns" onclick="event.stopPropagation()">
-            <a class="btn-ml" href="${b.linkML}" rel="sponsored nofollow noopener" target="_blank">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>
+            <a class="btn-ml" href="${b.linkML}" rel="sponsored nofollow noopener" target="_blank" data-ga-label="${b.nombre||''}" data-ga-val="${b.precio||0}" onclick="if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\//g,'').replace(/\/(?:index\.html)?$/g,'').replace(/\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1});}">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>
           </div>
         </div>
         <div class="card-tip">Toca para comparar</div>

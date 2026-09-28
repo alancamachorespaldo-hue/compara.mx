@@ -975,5 +975,20 @@ footer strong{color:var(--tx2)}
     <p style="font-size:12px;color:var(--tx3)"><a href="/privacidad.html" style="color:var(--tx3)">Privacidad</a> · <a href="/terminos.html" style="color:var(--tx3)">Términos</a> · <a href="/aviso-afiliados.html" style="color:var(--tx3)">Aviso de afiliados</a></p>
   </div>
 </footer>
+
+<script>
+/* affiliate click tracking */
+document.addEventListener('click',function(e){
+  var btn=e.target.closest('.btn-amz,.btn-ml');
+  if(!btn)return;
+  if(typeof gtag!=='function')return;
+  var evt=btn.classList.contains('btn-ml')?'affiliate_click_ml':'affiliate_click_amazon';
+  var label=btn.dataset.gaLabel||btn.getAttribute('aria-label')||'';
+  var cards=Array.from(document.querySelectorAll('.card,.prod-card'));
+  var pos=cards.indexOf(btn.closest('.card,.prod-card'))+1;
+  var sec=location.pathname.replace(/^\//,'').replace(/\/(?:index\.html)?$/,'').replace(/\//g,'_')||'home';
+  gtag('event',evt,{event_category:'afiliado',event_label:label,value:parseFloat(btn.dataset.gaVal)||0,page_section:sec,item_position:pos});
+});
+</script>
 </body>
 </html>
