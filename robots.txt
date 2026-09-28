@@ -5,4 +5,16 @@ Disallow: /proteina_backup.html
 Disallow: /index-anterior.html
 Disallow: /index1.html
 
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
 Sitemap: https://comparalo.mx/sitemap.xml
