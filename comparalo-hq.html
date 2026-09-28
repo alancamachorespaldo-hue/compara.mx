@@ -1,0 +1,2624 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>comparalo.mx — HQ</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+:root {
+  --verde: #006847;
+  --verde-light: #e8f5f0;
+  --verde-2: #00a86b;
+  --rojo: #CE1126;
+  --rojo-light: #fdecea;
+  --noche: #0F172A;
+  --gris: #F2F4F7;
+  --gris-2: #e2e8f0;
+  --gris-txt: #64748b;
+  --txt: #1e293b;
+  --white: #ffffff;
+  --amz: #FF9900;
+  --amz-bg: #FFF3E0;
+  --amz-txt: #E65100;
+  --ml: #F0C000;
+  --ml-bg: #FFF9C4;
+  --ml-txt: #5a4200;
+  --radius: 10px;
+  --pad: env(safe-area-inset-top, 0px);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--gris);
+  color: var(--txt);
+  min-height: 100vh;
+  padding-top: calc(var(--pad) + 0px);
+}
+h1,h2,h3,h4 { font-family: 'Outfit', sans-serif; }
+
+/* HEADER */
+.header {
+  background: var(--noche);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding-top: calc(var(--pad) + 14px);
+}
+.logo { display: flex; align-items: center; gap: 8px; }
+.logo-icon { font-size: 20px; }
+.logo-text { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 700; color: #fff; }
+.logo-text span { color: var(--rojo); }
+.logo-sub { font-size: 11px; color: #94a3b8; font-family: 'DM Sans', sans-serif; }
+.sync-dot { width: 8px; height: 8px; border-radius: 50%; background: #94a3b8; }
+.sync-dot.ok { background: #22c55e; }
+
+/* NAV TABS */
+.nav {
+  background: var(--white);
+  border-bottom: 1px solid var(--gris-2);
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+  position: sticky;
+  top: 57px;
+  z-index: 99;
+}
+.nav::-webkit-scrollbar { display: none; }
+.nav-btn {
+  flex: none;
+  padding: 12px 18px;
+  border: none;
+  background: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gris-txt);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.nav-btn.active { color: var(--verde); border-bottom-color: var(--verde); }
+.nav-btn i { font-size: 16px; }
+
+/* MAIN */
+.main { padding: 16px; max-width: 800px; margin: 0 auto; padding-bottom: 100px; }
+.section { display: none; }
+.section.active { display: block; }
+
+/* CARDS */
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1px solid var(--gris-2);
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gris-txt);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.card-title i { font-size: 15px; color: var(--verde); }
+
+/* METRICS */
+.metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 12px; }
+.metric {
+  background: var(--white);
+  border: 1px solid var(--gris-2);
+  border-radius: var(--radius);
+  padding: 14px;
+  text-align: center;
+}
+.metric-num { font-family: 'Outfit', sans-serif; font-size: 28px; font-weight: 700; color: var(--verde); }
+.metric-lbl { font-size: 12px; color: var(--gris-txt); margin-top: 2px; }
+
+/* CHECKLIST */
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--gris);
+}
+.check-item:last-child { border-bottom: none; }
+.check-item input[type=checkbox] {
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  accent-color: var(--verde);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.check-text { font-size: 14px; line-height: 1.4; flex: 1; }
+.check-text.done { text-decoration: line-through; color: var(--gris-txt); }
+.check-meta { font-size: 11px; color: var(--gris-txt); margin-top: 2px; }
+
+/* ESTADO CATEGORIAS */
+.cat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; }
+.cat-card {
+  background: var(--gris);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.cat-name { font-size: 13px; font-weight: 500; }
+.cat-count { font-size: 11px; color: var(--gris-txt); }
+.cat-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: 20px;
+  margin-top: 4px;
+  width: fit-content;
+}
+.badge-active { background: #dcfce7; color: #15803d; }
+.badge-build { background: #fef9c3; color: #854d0e; }
+.badge-pending { background: var(--gris-2); color: var(--gris-txt); }
+
+/* LISTA EDITABLE */
+.list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--gris);
+}
+.list-item:last-child { border-bottom: none; }
+.list-item-txt { font-size: 14px; flex: 1; line-height: 1.4; }
+.btn-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--gris-txt);
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.btn-icon:hover { background: var(--gris); color: var(--rojo); }
+
+/* ADD INPUT */
+.add-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+.add-row input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid var(--gris-2);
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--txt);
+  background: var(--white);
+}
+.add-row input:focus { outline: none; border-color: var(--verde); }
+.btn-add {
+  padding: 8px 14px;
+  background: var(--verde);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn-add:hover { background: #005538; }
+
+/* PROGRESO */
+.progress-bar { background: var(--gris-2); border-radius: 99px; height: 8px; margin: 8px 0 4px; overflow: hidden; }
+.progress-fill { background: var(--verde); height: 100%; border-radius: 99px; transition: width .4s; }
+.progress-txt { font-size: 12px; color: var(--gris-txt); }
+
+/* EXTRACTOR */
+.step-label { font-size: 12px; font-weight: 600; color: var(--verde); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 6px; }
+.plat-row { display: flex; gap: 8px; margin-bottom: 12px; }
+.plat-btn {
+  flex: 1;
+  padding: 10px;
+  border: 1.5px solid var(--gris-2);
+  border-radius: 8px;
+  background: var(--white);
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gris-txt);
+  text-align: center;
+  transition: all .15s;
+}
+.plat-btn.amz.active { border-color: var(--amz); background: var(--amz-bg); color: var(--amz-txt); }
+.plat-btn.ml.active { border-color: var(--ml); background: var(--ml-bg); color: var(--ml-txt); }
+select, textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--gris-2);
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--txt);
+  background: var(--white);
+  margin-bottom: 12px;
+}
+select:focus, textarea:focus { outline: none; border-color: var(--verde); }
+textarea { min-height: 130px; resize: vertical; line-height: 1.5; }
+textarea::placeholder { color: #94a3b8; }
+.btn-extract {
+  width: 100%;
+  padding: 12px;
+  background: var(--verde);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.btn-extract:hover { background: #005538; }
+.btn-extract:disabled { opacity: .5; cursor: not-allowed; }
+
+/* PREVIEW CARD */
+.preview-card {
+  background: var(--gris);
+  border: 1px solid var(--gris-2);
+  border-radius: var(--radius);
+  padding: 14px;
+  margin-top: 12px;
+}
+.preview-nombre { font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.preview-precio { font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 700; color: var(--verde); margin-bottom: 10px; }
+.preview-specs { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 16px; margin-bottom: 12px; }
+.spec-row { font-size: 12px; color: var(--gris-txt); }
+.spec-row b { color: var(--txt); font-weight: 500; }
+.badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500;
+}
+.badge-amz { background: var(--amz-bg); color: var(--amz-txt); }
+.badge-ml { background: var(--ml-bg); color: var(--ml-txt); }
+
+/* EDICION INLINE */
+.edit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+.edit-field label { font-size: 11px; color: var(--gris-txt); display: block; margin-bottom: 3px; }
+.edit-field input {
+  width: 100%;
+  padding: 7px 10px;
+  border: 1px solid var(--gris-2);
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--txt);
+  background: var(--white);
+}
+.edit-field input:focus { outline: none; border-color: var(--verde); }
+.edit-field { display: flex; flex-direction: column; }
+
+.btn-save {
+  width: 100%;
+  padding: 11px;
+  background: var(--verde);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.btn-save:hover { background: #005538; }
+
+/* LOADING */
+.loading { display: flex; align-items: center; gap: 10px; padding: 14px; color: var(--gris-txt); font-size: 14px; }
+.spinner { width: 18px; height: 18px; border: 2px solid var(--gris-2); border-top-color: var(--verde); border-radius: 50%; animation: spin .7s linear infinite; flex-shrink: 0; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.error-box { background: var(--rojo-light); color: var(--rojo); border-radius: 8px; padding: 10px 14px; font-size: 13px; margin-top: 10px; }
+.success-box { background: #dcfce7; color: #15803d; border-radius: 8px; padding: 10px 14px; font-size: 13px; margin-top: 10px; display: flex; align-items: center; gap: 8px; }
+
+/* CATALOGO */
+.cat-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+.cat-tab {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--gris-2);
+  font-size: 13px;
+  cursor: pointer;
+  background: var(--white);
+  color: var(--gris-txt);
+  font-family: 'DM Sans', sans-serif;
+}
+.cat-tab.active { background: var(--verde); color: #fff; border-color: var(--verde); }
+/* CATÁLOGO GRID */
+.cat-toolbar {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  margin-bottom: 14px; padding: 10px 14px;
+  background: var(--white); border: 1px solid var(--gris-2); border-radius: var(--radius);
+}
+.cat-toolbar select, .cat-toolbar input {
+  padding: 6px 10px; border: 1px solid var(--gris-2); border-radius: 7px;
+  font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--txt);
+  background: var(--white); margin-bottom: 0;
+}
+.cat-toolbar select:focus, .cat-toolbar input:focus { outline: none; border-color: var(--verde); }
+.sel-bar {
+  display: none; align-items: center; gap: 10px; flex-wrap: wrap;
+  margin-bottom: 10px; padding: 10px 14px;
+  background: #eff6ff; border: 1.5px solid #93c5fd; border-radius: var(--radius);
+  font-size: 13px; font-weight: 600; color: #1d4ed8;
+}
+.sel-bar.visible { display: flex; }
+.btn-sel-action {
+  padding: 6px 14px; border-radius: 7px; border: none; cursor: pointer;
+  font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600;
+}
+
+.prod-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+@media (max-width: 1100px) { .prod-grid { grid-template-columns: repeat(3,1fr); } }
+@media (max-width: 750px)  { .prod-grid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 480px)  { .prod-grid { grid-template-columns: 1fr; } }
+
+.prod-card {
+  background: var(--white);
+  border: 1.5px solid var(--gris-2);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  position: relative;
+  transition: border-color .15s, box-shadow .15s;
+}
+.prod-card:hover { border-color: #cbd5e1; box-shadow: 0 2px 12px rgba(0,0,0,.06); }
+.prod-card.selected { border-color: var(--verde); box-shadow: 0 0 0 2px rgba(0,168,107,.2); }
+
+.prod-img {
+  width: 100%; aspect-ratio: 1/1; object-fit: contain;
+  background: var(--gris); padding: 12px;
+}
+.prod-img-placeholder {
+  width: 100%; aspect-ratio: 1/1; background: var(--gris);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem; color: var(--gris-2);
+}
+.prod-check {
+  position: absolute; top: 8px; right: 8px;
+  width: 22px; height: 22px; border-radius: 6px;
+  border: 2px solid var(--gris-2); background: var(--white);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 13px; transition: all .15s; z-index: 2;
+}
+.prod-card.selected .prod-check { background: var(--verde); border-color: var(--verde); color: #fff; }
+
+.prod-body { padding: 10px 12px; flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.prod-nombre { font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 600; line-height: 1.35; }
+.prod-precio-row { display: flex; align-items: baseline; gap: 6px; margin-top: 2px; }
+.prod-precio { font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 700; color: var(--verde); }
+.prod-precio-orig { font-size: 11px; color: var(--gris-txt); text-decoration: line-through; }
+.prod-desc-badge { font-size: 10px; font-weight: 700; background: #fef2f2; color: var(--rojo); border-radius: 4px; padding: 1px 5px; }
+.prod-specs { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.spec-pill { background: var(--gris); border-radius: 20px; padding: 2px 8px; font-size: 10px; color: var(--gris-txt); }
+.prod-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 6px 12px 8px; border-top: 1px solid var(--gris);
+  font-size: 11px; color: var(--gris-txt);
+}
+.prod-actions { display: flex; gap: 2px; }
+.prod-actions .btn-icon { font-size: 14px; padding: 3px 5px; }
+.empty-state { text-align: center; padding: 40px 20px; color: var(--gris-txt); grid-column: 1/-1; }
+.empty-state i { font-size: 36px; margin-bottom: 10px; display: block; }
+
+/* GENERAR HTML */
+.gen-desc { font-size: 14px; color: var(--gris-txt); margin-bottom: 16px; line-height: 1.6; }
+.btn-gen {
+  width: 100%;
+  padding: 13px;
+  background: var(--noche);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.btn-gen:hover { background: #1e3a5f; }
+.btn-gen:disabled { opacity: .5; cursor: not-allowed; }
+
+/* ─── RETOS TAB ─────────────────────────────────────────────────────────── */
+
+/* Scorecard */
+.scorecard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.score-card {
+  background: var(--white);
+  border: 1px solid var(--gris-2);
+  border-radius: var(--radius);
+  padding: 14px;
+  text-align: center;
+}
+.score-val { font-family: 'Outfit', sans-serif; font-size: 26px; font-weight: 700; line-height: 1; margin-bottom: 4px; }
+.score-label { font-size: 10px; color: var(--gris-txt); text-transform: uppercase; letter-spacing: .08em; }
+.score-change { font-size: 11px; margin-top: 4px; font-weight: 600; }
+.up { color: var(--verde-2); } .down { color: var(--rojo); } .flat { color: #94a3b8; }
+
+/* Reto banner */
+.reto-banner {
+  background: linear-gradient(135deg, rgba(0,168,107,.08), rgba(0,104,71,.04));
+  border: 1.5px solid rgba(0,168,107,.25);
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+.reto-icon { font-size: 2rem; flex-shrink: 0; }
+.reto-title { font-size: 1rem; font-weight: 700; color: var(--verde-2); letter-spacing: -.01em; font-family: 'Outfit', sans-serif; }
+.reto-desc { font-size: .8rem; color: var(--gris-txt); margin-top: 3px; line-height: 1.5; }
+.prog-bar { background: var(--gris-2); border-radius: 20px; height: 6px; overflow: hidden; margin-top: 8px; }
+.prog-fill { height: 100%; border-radius: 20px; background: linear-gradient(90deg, var(--verde), var(--verde-2)); transition: width .5s ease; }
+.prog-label { font-size: 10px; color: var(--gris-txt); display: flex; justify-content: space-between; margin-top: 4px; }
+
+/* Countdown badge */
+.countdown {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0,104,71,.08);
+  border: 1px solid rgba(0,104,71,.2);
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--verde);
+  margin-bottom: 12px;
+}
+.countdown-num { font-size: 1.1rem; font-weight: 700; color: var(--verde); }
+
+/* Task cards */
+.task-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.task-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--gris-txt);
+}
+.task-section-count { font-size: 11px; color: var(--gris-txt); }
+
+.task-card {
+  background: var(--white);
+  border: 1px solid var(--gris-2);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+}
+.task-card:hover { border-color: #cbd5e1; background: #fafafa; }
+.task-card.done { opacity: .55; }
+.task-card.done .task-title { text-decoration: line-through; color: var(--gris-txt); }
+.task-card.blocked { border-color: rgba(206,17,38,.25); background: var(--rojo-light); }
+
+.task-check {
+  width: 20px; height: 20px;
+  border-radius: 6px;
+  border: 2px solid var(--gris-2);
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .15s;
+  margin-top: 1px;
+}
+.task-card.done .task-check { background: var(--verde); border-color: var(--verde); }
+.task-card.blocked .task-check { border-color: var(--rojo); }
+.check-icon { display: none; color: #fff; font-size: 11px; font-weight: 700; }
+.task-card.done .check-icon { display: block; }
+
+.task-body { flex: 1; min-width: 0; }
+.task-title { font-size: .85rem; font-weight: 600; line-height: 1.35; color: var(--txt); }
+.task-meta { display: flex; align-items: center; gap: 6px; margin-top: 5px; flex-wrap: wrap; }
+.task-tag {
+  font-size: 10px; font-weight: 600;
+  padding: 2px 8px; border-radius: 20px; letter-spacing: .03em;
+}
+.tag-seo { background: rgba(0,104,71,.1); color: var(--verde); }
+.tag-gsc { background: rgba(240,192,0,.15); color: #a07c00; }
+.tag-code { background: rgba(139,90,255,.12); color: #7c3aed; }
+.tag-fb { background: rgba(24,119,242,.12); color: #1d6fd1; }
+.tag-urgente { background: var(--rojo-light); color: var(--rojo); }
+.task-date { font-size: 10px; color: var(--gris-txt); }
+.task-impact {
+  font-size: 10px; font-weight: 700;
+  padding: 2px 7px; border-radius: 20px;
+}
+.imp-high { background: rgba(0,168,107,.15); color: var(--verde-2); }
+.imp-med { background: rgba(240,192,0,.12); color: #a07c00; }
+.imp-low { background: var(--gris-2); color: var(--gris-txt); }
+.blocked-label { font-size: 10px; color: var(--rojo); font-weight: 700; margin-top: 4px; }
+
+/* FAB */
+.fab {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  width: 52px; height: 52px;
+  background: var(--verde);
+  border-radius: 50%;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0,104,71,.35);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  transition: transform .15s, box-shadow .15s;
+  z-index: 50;
+}
+.fab.visible { display: flex; }
+.fab:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(0,104,71,.45); }
+
+/* MODAL */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.6);
+  backdrop-filter: blur(4px);
+  z-index: 200;
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: var(--white);
+  border: 1px solid var(--gris-2);
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -4px 30px rgba(0,0,0,.1);
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 480px;
+  animation: slideUp .2s ease;
+}
+@keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.modal-title { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 1rem; }
+.modal input, .modal select, .modal textarea {
+  width: 100%;
+  background: var(--gris);
+  border: 1px solid var(--gris-2);
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: var(--txt);
+  font-family: 'DM Sans', sans-serif;
+  font-size: .85rem;
+  outline: none;
+  margin-bottom: 10px;
+}
+.modal input:focus, .modal select:focus { border-color: var(--verde); }
+.modal textarea { resize: vertical; min-height: 70px; }
+.modal-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.modal-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: .5rem; }
+.btn-modal {
+  padding: 10px; border-radius: 10px; border: none;
+  font-family: 'DM Sans', sans-serif; font-size: .85rem; font-weight: 700;
+  cursor: pointer; transition: opacity .15s;
+}
+.btn-modal-primary { background: var(--verde); color: #fff; }
+.btn-modal-secondary { background: var(--gris-2); color: var(--gris-txt); }
+.btn-modal:hover { opacity: .85; }
+
+/* ─── EXTRACTOR 2-COLUMN LAYOUT ──────────────────────────────────────────── */
+.ext-layout {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  height: calc(100vh - 105px);
+  overflow: hidden;
+}
+.ext-left {
+  background: var(--white);
+  border-right: 1px solid var(--gris-2);
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.ext-right {
+  background: var(--gris);
+  padding: 20px 24px;
+  overflow-y: auto;
+}
+.ext-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--verde);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ext-textarea {
+  width: 100%;
+  flex: 1;
+  min-height: 220px;
+  resize: vertical;
+  padding: 10px 12px;
+  border: 1px solid var(--gris-2);
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--txt);
+  background: var(--white);
+  line-height: 1.5;
+  margin-bottom: 0;
+}
+.ext-textarea:focus { outline: none; border-color: var(--verde); }
+.ext-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--gris-2);
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--txt);
+  background: var(--white);
+}
+.ext-input:focus { outline: none; border-color: var(--verde); }
+.plat-auto-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+.ext-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+}
+.ext-field-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.ext-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.ext-field label {
+  font-size: 11px;
+  color: var(--gris-txt);
+  font-weight: 500;
+}
+.ext-field input {
+  padding: 8px 10px;
+  border: 1px solid var(--gris-2);
+  border-radius: 7px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--txt);
+  background: var(--white);
+}
+.ext-field input:focus { outline: none; border-color: var(--verde); }
+.ext-field.wide { grid-column: span 2; }
+.ext-field input.missing { border-color: #fbbf24; background: #fffbeb; }
+@media (max-width: 700px) {
+  .ext-layout { grid-template-columns: 1fr; height: auto; }
+  .ext-left { border-right: none; border-bottom: 1px solid var(--gris-2); }
+  .ext-field-group { grid-template-columns: 1fr; }
+}
+
+/* VARIANTES */
+.variante-row {
+  display: grid;
+  grid-template-columns: 1fr 100px 100px 58px 32px;
+  gap: 6px;
+  margin-bottom: 6px;
+  align-items: center;
+}
+.variante-row input {
+  padding: 7px 10px;
+  border: 1px solid var(--gris-2);
+  border-radius: 7px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--txt);
+  background: var(--white);
+  width: 100%;
+}
+.variante-row input:focus { outline: none; border-color: var(--verde); }
+.variante-row input.active-variant { border-color: var(--verde-2); background: var(--verde-light); font-weight: 600; }
+.btn-del-var {
+  width: 32px; height: 32px;
+  border: none; border-radius: 7px;
+  background: var(--gris-2); color: var(--gris-txt);
+  cursor: pointer; font-size: 15px;
+  display: flex; align-items: center; justify-content: center;
+}
+.btn-del-var:hover { background: var(--rojo-light); color: var(--rojo); }
+
+/* TOAST */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--noche);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-family: 'DM Sans', sans-serif;
+  z-index: 9999;
+  transition: transform .3s;
+  white-space: nowrap;
+  box-shadow: 0 4px 20px rgba(0,0,0,.2);
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* DIVIDER */
+.section-divider { height: 1px; background: var(--gris-2); margin: 16px 0; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">
+    <span class="logo-icon">⚡</span>
+    <div>
+      <div class="logo-text">comparalo<span>.mx</span></div>
+      <div class="logo-sub">Panel de control</div>
+    </div>
+  </div>
+  <div class="sync-dot" id="sync-dot" title="Estado de sincronización"></div>
+</div>
+
+<nav class="nav">
+  <button class="nav-btn active" onclick="goTab('retos',this)">
+    <i class="ti ti-trophy"></i> Retos
+  </button>
+  <button class="nav-btn" onclick="goTab('extractor',this)">
+    <i class="ti ti-bolt"></i> Extractor
+  </button>
+  <button class="nav-btn" onclick="goTab('catalogo',this)">
+    <i class="ti ti-package"></i> Catálogo
+  </button>
+  <button class="nav-btn" onclick="goTab('generar',this)">
+    <i class="ti ti-code"></i> Generar HTML
+  </button>
+</nav>
+
+<div class="main">
+
+  <!-- ===== RETOS ===== -->
+  <section class="section active" id="sec-retos">
+
+    <!-- Countdown -->
+    <div style="text-align:center;margin-bottom:4px">
+      <div class="countdown">
+        ⏳ Faltan <span class="countdown-num" id="reto-dias">—</span> días · 30 sep 2026
+      </div>
+    </div>
+
+    <!-- Scorecard -->
+    <div class="scorecard">
+      <div class="score-card">
+        <div class="score-val" style="color:var(--verde-2)">14</div>
+        <div class="score-label">Indexadas</div>
+        <div class="score-change up">+32 por GSC</div>
+      </div>
+      <div class="score-card">
+        <div class="score-val" style="color:#c49a00">179</div>
+        <div class="score-label">Usuarios hoy</div>
+        <div class="score-change up">↑ récord Reddit</div>
+      </div>
+      <div class="score-card">
+        <div class="score-val" style="color:var(--verde-2)" id="reto-ventas-count">1</div>
+        <div class="score-label">Ventas org.</div>
+        <div class="score-change up">Meta: 3 antes 30 sep</div>
+      </div>
+    </div>
+
+    <!-- Banner reto principal -->
+    <div class="reto-banner">
+      <div class="reto-icon">🏆</div>
+      <div style="flex:1">
+        <div class="reto-title">Reto: 3 Ventas Orgánicas antes del 30 sep</div>
+        <div class="reto-desc">✅ Venta 1: Armaf Club De Nuit $350 MXN · $20.58 comisión · 17 sep · Reddit. Faltan 2 ventas más.</div>
+        <div class="prog-bar"><div class="prog-fill" id="reto-prog-fill" style="width:33%"></div></div>
+        <div class="prog-label">
+          <span id="reto-prog-label">1 de 3 ventas</span>
+          <span id="reto-prog-pct">33% completado</span>
+          <span>30 sep</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tasks container -->
+    <div id="tasks-container"></div>
+
+  </section>
+
+  <!-- ===== EXTRACTOR ===== -->
+  <section class="section" id="sec-extractor">
+    <div class="ext-layout">
+
+      <!-- COLUMNA IZQUIERDA -->
+      <div class="ext-left">
+        <div class="ext-section-title">Categoría</div>
+        <select id="cat-sel" style="margin-bottom:16px">
+          <option value="bici-elec">Bicicleta eléctrica</option>
+          <option value="bici-conv">Bicicleta convencional</option>
+          <option value="audifonos">Audífonos</option>
+          <option value="tele">Televisión</option>
+          <option value="celular" selected>Celular / Tablet</option>
+          <option value="suplemento">Suplemento</option>
+          <option value="electrodom">Electrodoméstico</option>
+        </select>
+
+        <div class="ext-section-title">Plataforma</div>
+        <div style="display:flex;gap:8px;margin-bottom:16px">
+          <button id="btn-plat-amz" onclick="setExtractorPlat('amz')"
+            style="flex:1;padding:10px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;border:2px solid var(--amz);background:var(--amz-bg);color:var(--amz-txt)">
+            🛒 Amazon MX
+          </button>
+          <button id="btn-plat-ml" onclick="setExtractorPlat('ml')"
+            style="flex:1;padding:10px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;border:2px solid var(--gris-2);background:var(--white);color:var(--gris-txt)">
+            🟡 Mercado Libre
+          </button>
+        </div>
+
+        <div class="ext-section-title">Texto del producto</div>
+        <div style="font-size:11px;color:var(--gris-txt);margin-bottom:6px">Puedes pegar varias variantes (256 GB, 512 GB…) y se detectan automáticamente</div>
+        <textarea id="raw-text" class="ext-textarea" placeholder="Pega aquí el texto del producto — si tiene varias capacidades, pega todos los bloques juntos…"></textarea>
+
+        <div class="ext-section-title" style="margin-top:14px">URL imagen del producto</div>
+        <input id="img-url-input" class="ext-input" placeholder="https://…jpg" type="url">
+
+        <div class="ext-section-title" style="margin-top:12px">URL afiliado</div>
+        <input id="aff-url-input" class="ext-input" placeholder="https://amazon.com.mx/… o https://mercadolibre.com.mx/…" type="url" oninput="detectPlatFromUrl(this.value)">
+        <div id="plat-hint" style="font-size:11px;color:var(--gris-txt);margin-top:4px">La plataforma también se detecta desde la URL</div>
+
+        <button class="btn-extract" id="btn-ext" onclick="extract()" style="margin-top:18px">
+          🔍 Extraer datos
+        </button>
+        <div class="error-box" id="err-box" style="display:none;margin-top:10px"></div>
+      </div>
+
+      <!-- COLUMNA DERECHA -->
+      <div class="ext-right" id="ext-right">
+        <div class="ext-empty-state" id="ext-empty">
+          <i class="ti ti-forms" style="font-size:40px;color:var(--gris-2);display:block;margin-bottom:12px"></i>
+          <div style="font-size:14px;color:var(--gris-txt)">Pega el texto del producto y presiona<br><b>Extraer datos</b> para ver los campos aquí</div>
+        </div>
+        <div id="ext-fields" style="display:none">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+            <div style="font-size:13px;font-weight:600;color:var(--txt)">Datos extraídos — edita lo que necesites</div>
+            <span id="ext-plat-pill" class="badge" style="font-size:12px"></span>
+          </div>
+          <!-- Banner de duplicado -->
+          <div id="dup-banner" style="display:none;background:#fffbeb;border:1.5px solid #f59e0b;border-radius:10px;padding:10px 14px;margin-bottom:14px;font-size:13px">
+            <div style="font-weight:700;color:#92400e;margin-bottom:4px">⚠️ Posible duplicado detectado</div>
+            <div id="dup-nombre" style="color:#78350f;margin-bottom:6px"></div>
+            <button onclick="goTab('catalogo',document.querySelector('.nav-btn:nth-child(3)'))" style="font-size:12px;background:#fef3c7;border:1px solid #f59e0b;border-radius:6px;padding:3px 10px;cursor:pointer;color:#92400e;font-weight:600">Ver en catálogo →</button>
+            <button onclick="document.getElementById('dup-banner').style.display='none'" style="font-size:12px;background:none;border:none;cursor:pointer;color:#a16207;margin-left:8px">Ignorar y guardar igual</button>
+          </div>
+          <!-- Campos principales -->
+          <div class="ext-field-group" id="edit-grid"></div>
+          <!-- Specs de categoría -->
+          <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gris-txt);margin:16px 0 10px">Especificaciones</div>
+          <div class="ext-field-group" id="edit-specs-grid"></div>
+          <div id="color-chips" style="display:flex;flex-wrap:wrap;gap:5px;margin-top:6px"></div>
+          <!-- Variantes de precio por capacidad -->
+          <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gris-txt);margin:20px 0 8px;display:flex;align-items:center;justify-content:space-between">
+            <span>Variantes de precio (capacidad)</span>
+            <button onclick="addVariante()" style="background:var(--verde-light);color:var(--verde);border:none;border-radius:6px;padding:3px 10px;font-size:11px;font-weight:700;cursor:pointer">+ Agregar</button>
+          </div>
+          <div id="variantes-list"></div>
+          <button class="btn-save" id="btn-save-prod" onclick="saveProduct()" style="margin-top:20px">
+            💾 Guardar producto
+          </button>
+        </div>
+        <!-- Pantalla de éxito: reemplaza el panel de campos -->
+        <div id="save-ok-big" style="display:none;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;gap:12px">
+          <div style="font-size:56px">✅</div>
+          <div style="font-family:'Outfit',sans-serif;font-size:1.2rem;font-weight:700;color:var(--verde)">¡Producto guardado!</div>
+          <div style="font-size:14px;color:var(--gris-txt)">Ya aparece en el Catálogo.<br>Puedes extraer otro producto.</div>
+        </div>
+        <div style="display:none" id="save-ok"></div><!-- compat -->
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== CATÁLOGO ===== -->
+  <section class="section" id="sec-catalogo">
+    <div class="cat-tabs" id="cat-filter-tabs"></div>
+    <!-- Toolbar: orden + filtro fecha -->
+    <div class="cat-toolbar">
+      <span style="font-size:12px;font-weight:600;color:var(--gris-txt)">Ordenar:</span>
+      <select id="cat-sort" onchange="applyCatFilters()">
+        <option value="newest">Más recientes</option>
+        <option value="oldest">Más antiguos</option>
+        <option value="az">Nombre A→Z</option>
+        <option value="price-asc">Precio ↑</option>
+        <option value="price-desc">Precio ↓</option>
+      </select>
+      <span style="font-size:12px;font-weight:600;color:var(--gris-txt);margin-left:6px">Fecha:</span>
+      <select id="cat-date-filter" onchange="applyCatFilters()">
+        <option value="all">Todos</option>
+        <option value="today">Hoy</option>
+        <option value="week">Últimos 7 días</option>
+        <option value="month">Últimos 30 días</option>
+      </select>
+      <div style="flex:1"></div>
+      <button onclick="toggleSelectAll()" style="font-size:12px;padding:6px 12px;border-radius:7px;border:1px solid var(--gris-2);background:var(--white);cursor:pointer;font-weight:600;color:var(--gris-txt)">☑ Seleccionar todos</button>
+    </div>
+    <!-- Barra de selección activa -->
+    <div class="sel-bar" id="sel-bar">
+      <span id="sel-count">0 seleccionados</span>
+      <div style="flex:1"></div>
+      <button class="btn-sel-action" onclick="deseleccionarTodos()" style="background:var(--gris-2);color:var(--gris-txt)">Deseleccionar</button>
+      <button class="btn-sel-action" onclick="generarHTMLSeleccionados()" style="background:var(--noche);color:#fff">📄 Generar HTML con seleccionados</button>
+    </div>
+    <div id="catalogo-list" class="prod-grid"></div>
+  </section>
+
+  <!-- ===== GENERAR HTML ===== -->
+  <section class="section" id="sec-generar">
+    <div class="card">
+      <div class="card-title"><i class="ti ti-code"></i> Generar HTML por categoría</div>
+      <p class="gen-desc">Selecciona una categoría, genera el HTML completo con todos los productos guardados, y descárgalo listo para subir a tu repo de GitHub.</p>
+
+      <div class="step-label">Categoría a exportar</div>
+      <select id="gen-cat-sel">
+        <option value="bici-elec">Bicicletas eléctricas</option>
+        <option value="bici-conv">Bicicletas convencionales</option>
+        <option value="audifonos">Audífonos</option>
+        <option value="tele">Televisiones</option>
+        <option value="celular">Celulares / Tablets</option>
+        <option value="suplemento">Suplementos</option>
+        <option value="electrodom">Electrodomésticos</option>
+      </select>
+
+      <div id="gen-count" style="font-size:13px;color:var(--gris-txt);margin-bottom:12px;"></div>
+
+      <button class="btn-gen" id="btn-gen" onclick="generarHTML()">
+        <i class="ti ti-code-dots"></i> Generar HTML
+      </button>
+      <div class="loading" id="gen-loading" style="display:none">
+        <div class="spinner"></div> Generando archivo…
+      </div>
+      <div class="error-box" id="gen-err" style="display:none"></div>
+      <div class="success-box" id="gen-ok" style="display:none">
+        <i class="ti ti-circle-check"></i> HTML generado. Revisa tu carpeta de descargas.
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:4px">
+      <div class="card-title"><i class="ti ti-brand-github"></i> Instrucciones GitHub</div>
+      <div style="font-size:13px;color:var(--gris-txt);line-height:1.7">
+        <p>1. Descarga el archivo HTML de la categoría</p>
+        <p>2. Renómbralo según la categoría (ej: <code style="background:var(--gris);padding:1px 6px;border-radius:4px">bicis-electricas.html</code>)</p>
+        <p>3. Súbelo a tu repo en GitHub</p>
+        <p>4. GitHub Pages lo publica automáticamente</p>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /.main -->
+
+<!-- FAB — solo visible en tab Retos -->
+<button class="fab" id="fab-retos" onclick="openTaskModal()" title="Nueva tarea">+</button>
+
+<!-- Modal nueva tarea -->
+<div class="modal-overlay" id="task-modal" onclick="if(event.target===this)closeTaskModal()">
+  <div class="modal">
+    <div class="modal-title">Nueva tarea</div>
+    <input type="text" id="m-title" placeholder="¿Qué hay que hacer?…" />
+    <div class="modal-row">
+      <select id="m-tag">
+        <option value="seo">SEO</option>
+        <option value="gsc">Search Console</option>
+        <option value="code">Claude Code</option>
+        <option value="fb">Facebook</option>
+        <option value="urgente">🚨 Urgente</option>
+      </select>
+      <select id="m-impact">
+        <option value="high">Impacto Alto</option>
+        <option value="med">Impacto Medio</option>
+        <option value="low">Impacto Bajo</option>
+      </select>
+    </div>
+    <div class="modal-row">
+      <input type="date" id="m-date" />
+      <select id="m-status">
+        <option value="pending">Pendiente</option>
+        <option value="done">✅ Hecho</option>
+        <option value="blocked">🚫 Bloqueado</option>
+      </select>
+    </div>
+    <textarea id="m-notes" placeholder="Notas adicionales (opcional)…"></textarea>
+    <div class="modal-btns">
+      <button class="btn-modal btn-modal-secondary" onclick="closeTaskModal()">Cancelar</button>
+      <button class="btn-modal btn-modal-primary" onclick="saveTask()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal edición de producto desde catálogo -->
+<div class="modal-overlay" id="edit-prod-modal" onclick="if(event.target===this)closeEditModal()" style="align-items:center">
+  <div class="modal" style="max-height:90vh;overflow-y:auto;border-radius:16px;max-width:640px;width:calc(100% - 32px)">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <div class="modal-title" style="margin-bottom:0">Editar producto</div>
+      <button onclick="closeEditModal()" style="background:var(--gris-2);border:none;border-radius:8px;padding:6px 12px;cursor:pointer;font-size:13px;color:var(--gris-txt)">Cerrar</button>
+    </div>
+    <!-- Plataforma -->
+    <div style="font-size:11px;font-weight:700;color:var(--gris-txt);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Plataforma</div>
+    <div style="display:flex;gap:8px;margin-bottom:14px">
+      <button onclick="setEditPlat('amz',this)" id="ep-amz" class="plat-btn amz" style="flex:1">🛒 Amazon MX</button>
+      <button onclick="setEditPlat('ml',this)"  id="ep-ml"  class="plat-btn ml"  style="flex:1">🟡 Mercado Libre</button>
+    </div>
+    <!-- Campos principales -->
+    <div style="font-size:11px;font-weight:700;color:var(--gris-txt);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Datos del producto</div>
+    <div id="ep-main-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px"></div>
+    <!-- Specs -->
+    <div style="font-size:11px;font-weight:700;color:var(--gris-txt);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Especificaciones</div>
+    <div id="ep-specs-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px"></div>
+    <!-- Colores -->
+    <div id="ep-colors-wrap" style="display:none;margin-bottom:12px">
+      <div style="font-size:11px;font-weight:700;color:var(--gris-txt);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Colores</div>
+      <input id="ep-colores-input" style="width:100%;background:var(--gris);border:1px solid var(--gris-2);border-radius:10px;padding:8px 12px;color:var(--txt);font-family:'DM Sans',sans-serif;font-size:.85rem;margin-bottom:8px" placeholder="Negro, Blanco, Azul…" oninput="renderEditColorChips(this.value)">
+      <div id="ep-color-chips" style="display:flex;flex-wrap:wrap;gap:5px"></div>
+    </div>
+    <!-- Variantes -->
+    <div style="font-size:11px;font-weight:700;color:var(--gris-txt);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;display:flex;align-items:center;justify-content:space-between">
+      <span>Variantes de precio</span>
+      <button onclick="addEditVariante()" style="background:var(--verde-light);color:var(--verde);border:none;border-radius:6px;padding:3px 10px;font-size:11px;font-weight:700;cursor:pointer">+ Agregar</button>
+    </div>
+    <div id="ep-variantes-list" style="margin-bottom:14px"></div>
+    <!-- Botón guardar -->
+    <button onclick="saveEditProduct()" style="width:100%;padding:12px;background:var(--verde);color:#fff;border:none;border-radius:10px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px">
+      <i class="ti ti-device-floppy"></i> Guardar cambios
+    </button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── STATE ─────────────────────────────────────────────────────────────────
+let db = null;
+let downloads = null;
+let plat = 'amz';
+let extractedData = null;
+
+const CATS = {
+  'bici-elec':  { label: 'Bicicletas eléctricas',    specs: ['autonomia','velocidad_max','motor','rueda','peso','velocidades','carga_max','bateria'] },
+  'bici-conv':  { label: 'Bicicletas convencionales', specs: ['tipo','velocidades','rueda','peso','material_marco','frenos'] },
+  'audifonos':  { label: 'Audífonos',                 specs: ['driver','anc','bateria','conectividad','tipo'] },
+  'tele':       { label: 'Televisiones',              specs: ['pulgadas','resolucion','hz','smart_tv','hdmi'] },
+  'celular':    { label: 'Celulares / Tablets',       specs: ['marca','modelo','camara','memoria_interna','ram','colores','pantalla','duracion_espera','desbloqueo','red_movil','camara_trasera_principal','resolucion_video','camara_frontal_principal','adicional'] },
+  'suplemento': { label: 'Suplementos',               specs: ['contenido','porciones','activo_por_porcion','sabor','certificaciones'] },
+  'electrodom': { label: 'Electrodomésticos',         specs: ['potencia','capacidad','funciones','dimensiones','voltaje'] },
+};
+
+// ─── DEFAULT TASKS (Retos) ──────────────────────────────────────────────────
+const DEFAULT_TASKS = [
+  { id:'t1', title:'Solicitar indexación en GSC: /celulares/iphone/iphone-18-pro-vs-samsung-s26-ultra', tag:'gsc', impact:'high', date:'2026-09-17', status:'pending', notes:'Cuota se renueva cada 24 hrs — hacerlo antes de las 10am' },
+  { id:'t2', title:'Configurar eventos GA4 en botones Amazon y ML (click_amazon, click_mercadolibre)', tag:'code', impact:'high', date:'2026-09-17', status:'pending', notes:'Sin esto no sabemos si alguien hizo clic — operamos a ciegas' },
+  { id:'t3', title:'Agregar grid de artículos en bicis/index.html y suplementos/index.html', tag:'code', impact:'med', date:'2026-09-17', status:'pending', notes:'Como ya lo tiene celulares/index.html — ese es el modelo' },
+  { id:'t4', title:'Publicar artículo: calendario de ofertas AMZ ML México 2026', tag:'seo', impact:'high', date:'2026-09-18', status:'pending', notes:'Prompt listo — ataca "Buen Fin 2026 cuándo es" antes de octubre' },
+  { id:'t5', title:'Publicar artículo: tipos de magnesio cuál comprar México 2026', tag:'seo', impact:'high', date:'2026-09-19', status:'pending', notes:'Prompt listo — incluye CTA al comparador magnesio.html' },
+  { id:'t6', title:'Revisar GSC: keywords nuevas post-reestructura de URLs', tag:'gsc', impact:'med', date:'2026-09-20', status:'pending', notes:'Ver qué términos nuevos aparecen para creatina, laptops, celulares' },
+  { id:'t7', title:'Identificar página con más tráfico orgánico y optimizar CTA', tag:'seo', impact:'high', date:'2026-09-23', status:'pending', notes:'Botones más visibles, precio destacado, urgencia' },
+  { id:'t8', title:'Post Facebook: artículo Buen Fin 2026 + compartir en grupos', tag:'fb', impact:'med', date:'2026-09-25', status:'pending', notes:'Grupos: Amazon México Ofertas, Ofertas ML México' },
+  { id:'t9', title:'Limpiar nav links en gestor, video-resenas, comparar-celulares', tag:'code', impact:'low', date:'2026-09-26', status:'pending', notes:'No urgente — los redirects funcionan pero es deuda técnica' },
+  { id:'t10', title:'Scorecard final semana 5: impresiones, posiciones, clics AMZ/ML', tag:'gsc', impact:'high', date:'2026-09-29', status:'pending', notes:'Revisar GA4 + Search Console juntos' },
+  { id:'t11', title:'Reestructura de URLs: 36 páginas migradas a /categoria/subcategoria', tag:'code', impact:'high', date:'2026-09-16', status:'done', notes:'Commit completado — GitHub Pages desplegado' },
+  { id:'t12', title:'Sitemap.xml reescrito con 36 URLs y enviado a GSC', tag:'gsc', impact:'high', date:'2026-09-16', status:'done', notes:'32 páginas descubiertas — procesado correctamente' },
+  { id:'t13', title:'Title tag optimizado para keyword "comparalo todo" posición 7', tag:'seo', impact:'high', date:'2026-09-10', status:'done', notes:'' },
+  { id:'t14', title:'Indexación manual solicitada: bicis, celulares, suplementos, laptops, electrodomésticos', tag:'gsc', impact:'med', date:'2026-09-16', status:'done', notes:'' },
+];
+
+// ─── DB HELPERS ────────────────────────────────────────────────────────────
+function lsGet(key, def = null) {
+  try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : def; } catch { return def; }
+}
+function lsSet(key, val) {
+  try { localStorage.setItem(key, JSON.stringify(val)); } catch {}
+}
+
+async function dbGet(path) {
+  if (!db) return lsGet('db_' + path.replace(/\//g,'_'));
+  try { const d = await db.doc(path).get(); return d.exists ? d.data() : null; } catch { return null; }
+}
+async function dbSet(path, data) {
+  if (!db) { lsSet('db_' + path.replace(/\//g,'_'), data); return; }
+  try { await db.doc(path).set(data); } catch(e) { console.warn('dbSet', e); }
+}
+async function dbUpdate(path, data) {
+  if (!db) {
+    const cur = lsGet('db_' + path.replace(/\//g,'_'), {});
+    lsSet('db_' + path.replace(/\//g,'_'), { ...cur, ...data });
+    return;
+  }
+  try { await db.doc(path).update(data); } catch(e) { console.warn('dbUpdate', e); }
+}
+async function colGet(col) {
+  if (!db) {
+    const ids = lsGet('db_col_' + col.replace(/\//g,'_'), []);
+    return ids.map(id => lsGet('db_' + (col + '/' + id).replace(/\//g,'_'))).filter(Boolean);
+  }
+  try {
+    const snap = await db.collection(col).get();
+    return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  } catch { return []; }
+}
+
+// ─── INIT ──────────────────────────────────────────────────────────────────
+(async () => {
+  try {
+    db = await claude.use('db');
+    if (db) document.getElementById('sync-dot').className = 'sync-dot ok';
+  } catch {}
+  try { downloads = await claude.use('downloads'); } catch {}
+
+  if (db) {
+    const reto = await dbGet('config/reto');
+    if (!reto) {
+      const estado = {};
+      RETO_ITEMS.forEach(i => { estado[i.id] = false; });
+      await dbSet('config/reto', estado);
+    }
+  }
+
+  updateGenCount();
+  document.getElementById('gen-cat-sel').addEventListener('change', updateGenCount);
+  updateCountdown();
+  await initTasks();
+})();
+
+// ─── COUNTDOWN ──────────────────────────────────────────────────────────────
+function updateCountdown() {
+  const target = new Date('2026-09-30T23:59:59');
+  const diff = Math.ceil((target - new Date()) / (1000*60*60*24));
+  document.getElementById('reto-dias').textContent = Math.max(0, diff);
+}
+
+// ─── TABS ──────────────────────────────────────────────────────────────────
+function goTab(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  btn.classList.add('active');
+
+  const fab = document.getElementById('fab-retos');
+  fab.classList.toggle('visible', id === 'retos');
+
+  // Extractor usa ancho completo — quita padding/max-width del main
+  const main = document.querySelector('.main');
+  if (id === 'extractor') {
+    main.style.maxWidth = '100%';
+    main.style.padding = '0';
+    main.style.paddingBottom = '0';
+  } else {
+    main.style.maxWidth = '';
+    main.style.padding = '';
+    main.style.paddingBottom = '100px';
+  }
+
+  if (id === 'catalogo') renderCatalogo();
+}
+
+// ─── RETOS — TASKS ──────────────────────────────────────────────────────────
+const TAG_MAP = {
+  seo:    { cls: 'tag-seo',    label: 'SEO' },
+  gsc:    { cls: 'tag-gsc',    label: 'Search Console' },
+  code:   { cls: 'tag-code',   label: 'Claude Code' },
+  fb:     { cls: 'tag-fb',     label: 'Facebook' },
+  urgente:{ cls: 'tag-urgente',label: '🚨 Urgente' },
+};
+const IMP_MAP = {
+  high: { cls: 'imp-high', label: '↑ Alto' },
+  med:  { cls: 'imp-med',  label: '→ Medio' },
+  low:  { cls: 'imp-low',  label: '↓ Bajo' },
+};
+
+async function initTasks() {
+  let tasks = lsGet('cmx_tasks');
+  if (!tasks) {
+    tasks = DEFAULT_TASKS;
+    lsSet('cmx_tasks', tasks);
+  }
+  renderTasks(tasks);
+}
+
+function getTasks() {
+  return lsGet('cmx_tasks', DEFAULT_TASKS);
+}
+
+function setTasks(tasks) {
+  lsSet('cmx_tasks', tasks);
+}
+
+function toggleTask(id) {
+  const tasks = getTasks();
+  const t = tasks.find(x => x.id === id);
+  if (!t) return;
+  t.status = t.status === 'done' ? 'pending' : 'done';
+  setTasks(tasks);
+  renderTasks(tasks);
+}
+
+function renderTasks(tasks) {
+  const pending = tasks.filter(t => t.status !== 'done');
+  const done    = tasks.filter(t => t.status === 'done');
+
+  // Update banner progress
+  const total = tasks.length;
+  const donePct = Math.round((done.length / total) * 100);
+  // (reto-prog-fill shows sale progress, not task progress — leave it)
+
+  pending.sort((a,b) => (a.date||'').localeCompare(b.date||''));
+
+  let html = '';
+
+  // Pendientes
+  html += `<div style="margin-bottom:8px">
+    <div class="task-section-header">
+      <span class="task-section-title">📋 Pendientes</span>
+      <span class="task-section-count">${pending.length} tareas</span>
+    </div>`;
+  if (!pending.length) {
+    html += `<div style="text-align:center;padding:2rem;color:var(--gris-txt);font-size:.85rem">🎉 ¡Todo completado!</div>`;
+  } else {
+    pending.forEach(t => { html += taskHTML(t); });
+  }
+  html += '</div>';
+
+  // Completadas
+  if (done.length) {
+    html += `<div class="section-divider"></div>
+    <div>
+      <div class="task-section-header">
+        <span class="task-section-title">✅ Completadas</span>
+        <span class="task-section-count">${done.length} tareas</span>
+      </div>`;
+    done.forEach(t => { html += taskHTML(t); });
+    html += '</div>';
+  }
+
+  document.getElementById('tasks-container').innerHTML = html;
+
+  document.querySelectorAll('.task-card').forEach(el => {
+    el.addEventListener('click', () => toggleTask(el.dataset.id));
+  });
+}
+
+function taskHTML(t) {
+  const tag = TAG_MAP[t.tag] || TAG_MAP.seo;
+  const imp = IMP_MAP[t.impact] || IMP_MAP.med;
+  const isDone = t.status === 'done';
+  const isBlocked = t.status === 'blocked';
+  const dateStr = t.date
+    ? new Date(t.date + 'T12:00:00').toLocaleDateString('es-MX', { day:'numeric', month:'short' })
+    : '';
+
+  return `<div class="task-card ${isDone?'done':''} ${isBlocked?'blocked':''}" data-id="${t.id}">
+    <div class="task-check"><span class="check-icon">✓</span></div>
+    <div class="task-body">
+      <div class="task-title">${t.title}</div>
+      <div class="task-meta">
+        <span class="task-tag ${tag.cls}">${tag.label}</span>
+        <span class="task-impact ${imp.cls}">${imp.label}</span>
+        ${dateStr ? `<span class="task-date">📅 ${dateStr}</span>` : ''}
+      </div>
+      ${t.notes ? `<div style="font-size:11px;color:var(--gris-txt);margin-top:5px;line-height:1.5">${t.notes}</div>` : ''}
+      ${isBlocked ? `<div class="blocked-label">🚫 Bloqueado</div>` : ''}
+    </div>
+  </div>`;
+}
+
+// Modal task
+function openTaskModal() {
+  document.getElementById('task-modal').classList.add('open');
+  document.getElementById('m-date').value = new Date().toISOString().split('T')[0];
+  setTimeout(() => document.getElementById('m-title').focus(), 100);
+}
+function closeTaskModal() {
+  document.getElementById('task-modal').classList.remove('open');
+}
+
+function saveTask() {
+  const title = document.getElementById('m-title').value.trim();
+  if (!title) return;
+  const t = {
+    id: 't' + Date.now(),
+    title,
+    tag:    document.getElementById('m-tag').value,
+    impact: document.getElementById('m-impact').value,
+    date:   document.getElementById('m-date').value,
+    status: document.getElementById('m-status').value,
+    notes:  document.getElementById('m-notes').value.trim(),
+  };
+  const tasks = getTasks();
+  tasks.unshift(t);
+  setTasks(tasks);
+  renderTasks(tasks);
+  closeTaskModal();
+  document.getElementById('m-title').value = '';
+  document.getElementById('m-notes').value = '';
+  toast('Tarea añadida');
+}
+
+// ─── EXTRACTOR ─────────────────────────────────────────────────────────────
+function setExtractorPlat(p) {
+  plat = p;
+  const amzBtn = document.getElementById('btn-plat-amz');
+  const mlBtn  = document.getElementById('btn-plat-ml');
+  if (p === 'amz') {
+    amzBtn.style.cssText = 'flex:1;padding:10px;border-radius:8px;font-family:\'DM Sans\',sans-serif;font-size:13px;font-weight:600;cursor:pointer;border:2px solid var(--amz);background:var(--amz-bg);color:var(--amz-txt)';
+    mlBtn.style.cssText  = 'flex:1;padding:10px;border-radius:8px;font-family:\'DM Sans\',sans-serif;font-size:13px;font-weight:600;cursor:pointer;border:2px solid var(--gris-2);background:var(--white);color:var(--gris-txt)';
+  } else {
+    mlBtn.style.cssText  = 'flex:1;padding:10px;border-radius:8px;font-family:\'DM Sans\',sans-serif;font-size:13px;font-weight:600;cursor:pointer;border:2px solid var(--ml);background:var(--ml-bg);color:var(--ml-txt)';
+    amzBtn.style.cssText = 'flex:1;padding:10px;border-radius:8px;font-family:\'DM Sans\',sans-serif;font-size:13px;font-weight:600;cursor:pointer;border:2px solid var(--gris-2);background:var(--white);color:var(--gris-txt)';
+  }
+  // Actualizar pill si ya hay datos extraídos
+  if (extractedData) {
+    extractedData.plataforma = p;
+    const pill = document.getElementById('ext-plat-pill');
+    if (pill) {
+      pill.className = 'badge ' + (p === 'amz' ? 'badge-amz' : 'badge-ml');
+      pill.textContent = p === 'amz' ? '🛒 Amazon MX' : '🟡 Mercado Libre';
+    }
+  }
+}
+
+function detectPlatFromUrl(url) {
+  const hint = document.getElementById('plat-hint');
+  if (/amazon/i.test(url)) {
+    setExtractorPlat('amz');
+    if (hint) hint.style.display = 'none';
+    if (url.includes('amazon') && !url.includes('tag=')) {
+      const sep = url.includes('?') ? '&' : '?';
+      document.getElementById('aff-url-input').value = url + sep + 'tag=comparabici-20';
+    }
+  } else if (/mercadolibre|meli\.com/i.test(url)) {
+    setExtractorPlat('ml');
+    if (hint) hint.style.display = 'none';
+  }
+}
+
+// ─── PARSER DE VARIANTES MULTI-BLOQUE ──────────────────────────────────────
+// Detecta si el texto tiene múltiples bloques de producto (distintas capacidades)
+// y extrae variantes automáticamente: [{label:'256 GB', precio:19089}, ...]
+function extractVariantesFromText(text) {
+  const variantes = [];
+
+  // Dividir en bloques: cada bloque empieza con una línea que contiene GB/TB
+  // y tiene un nombre de producto largo
+  // Solo storage (GB/TB que NO van seguidos de RAM ni precedidos de RAM)
+  const capacityRe = /\b(\d+\s*(?:GB|TB))\b(?!\s*(?:de\s*)?ram\b)/gi;
+
+  const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
+
+  // Encontrar índices de líneas que son nombres de producto (contienen GB/TB de storage, longitud > 20)
+  const blockStarts = [];
+  for (let i = 0; i < lines.length; i++) {
+    const l = lines[i];
+    // Ignorar líneas que son puramente de RAM o que no tienen storage
+    if (l.length > 20 && !/^\$/.test(l) && /\b\d+\s*(?:GB|TB)\b/i.test(l) && !/^\d+\s*gb\s*(?:de\s*)?ram\b/i.test(l)) {
+      // Verificar que la línea tenga GB/TB que no sea RAM
+      const stripped = l.replace(/\b\d+\s*gb\s*(?:de\s*)?ram\b/gi, '');
+      if (/\b\d+\s*(?:GB|TB)\b/i.test(stripped)) {
+        blockStarts.push(i);
+      }
+    }
+  }
+
+  if (blockStarts.length < 2) return []; // No hay múltiples variantes
+
+  // Procesar cada bloque
+  for (let b = 0; b < blockStarts.length; b++) {
+    const start = blockStarts[b];
+    const end   = blockStarts[b + 1] || lines.length;
+    const block = lines.slice(start, end).join('\n');
+
+    // Extraer capacidad de storage (GB/TB que no sea RAM)
+    const lineForCap = lines[start].replace(/\b\d+\s*gb\s*(?:de\s*)?ram\b/gi, '');
+    const capMatch = lineForCap.match(/\b(\d+\s*(?:GB|TB))\b/i);
+    const label = capMatch ? capMatch[1].replace(/\s+/,'') : `Variante ${b + 1}`;
+
+    // Extraer precios del bloque (mayor = original, menor = actual)
+    const blockPrices = extractAllPrices(block);
+    const sorted = [...blockPrices].sort((a, b) => b - a);
+    const precio_original = sorted.length > 1 ? sorted[0] : 0;
+    const precio          = sorted.length > 1 ? sorted[1] : (sorted[0] || 0);
+
+    // Descuento
+    const descMatch = block.match(/(\d+)\s*%\s*(?:off|descuento)/i);
+    let descuento = descMatch ? descMatch[1] + '%' : '';
+    if (!descuento && precio_original > 0 && precio > 0)
+      descuento = Math.round((1 - precio / precio_original) * 100) + '%';
+
+    if (precio > 0) variantes.push({ label, precio, precio_original, descuento });
+  }
+
+  return variantes;
+}
+
+function extract() {
+  const raw = document.getElementById('raw-text').value.trim();
+  if (raw.length < 30) { showErr('Pega más texto del producto.'); return; }
+  document.getElementById('err-box').style.display = 'none';
+  document.getElementById('save-ok').style.display = 'none';
+
+  const cat       = document.getElementById('cat-sel').value;
+  const imgUrl    = document.getElementById('img-url-input').value.trim();
+  const affUrl    = document.getElementById('aff-url-input').value.trim();
+
+  // Si hay URL afiliado, detectar plataforma
+  if (affUrl) detectPlatFromUrl(affUrl);
+
+  try {
+    extractedData = parseProductText(raw, cat, plat);
+    // Sobrescribir URLs si el usuario las pegó manualmente
+    if (imgUrl) extractedData.url_imagen  = imgUrl;
+    if (affUrl) extractedData.url_afiliado = affUrl;
+    // Detectar variantes multi-bloque automáticamente
+    const variantes = extractVariantesFromText(raw);
+    if (variantes.length >= 2) {
+      extractedData.variantes = variantes;
+      // Encontrar la variante que coincide con el precio detectado
+      const match = variantes.find(v => Math.abs(v.precio - extractedData.precio) < 50)
+                 || variantes[0];
+      // Sincronizar precio, precio_original y descuento del header con la variante seleccionada
+      extractedData.precio          = match.precio;
+      extractedData.precio_original = match.precio_original || 0;
+      extractedData.descuento       = match.descuento || '';
+      // Limpiar la capacidad del nombre del producto (ej. "128 Gb", "256GB", "1TB")
+      extractedData.nombre = extractedData.nombre
+        .replace(/\b\d+\s*(?:gb|tb|mb)\b/gi, '')  // quita "128 Gb", "256GB"…
+        .replace(/\b\d+\s*gb\s*de\s*ram\b/gi, '')  // quita "16 GB de RAM"
+        .replace(/\s{2,}/g, ' ')                    // colapsa espacios dobles
+        .trim();
+    }
+    renderPreview(extractedData);
+    checkDuplicate(extractedData, document.getElementById('cat-sel').value);
+  } catch(e) {
+    showErr('No se pudo extraer. Revisa que hayas pegado suficiente texto del producto.');
+  }
+}
+
+async function checkDuplicate(data, cat) {
+  const banner = document.getElementById('dup-banner');
+  banner.style.display = 'none';
+  const prods = await colGet('productos/' + cat + '/items');
+  if (!prods.length) return;
+
+  // Normalizar nombre: minúsculas, sin tildes, sin GB/TB/RAM, sin puntuación
+  function norm(s) {
+    return (s || '').toLowerCase()
+      .normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .replace(/\b\d+\s*(gb|tb|mb|ram)\b/gi, '')
+      .replace(/[^a-z0-9\s]/g, ' ')
+      .replace(/\s+/g, ' ').trim();
+  }
+
+  const newName  = norm(data.nombre);
+  const newWords = new Set(newName.split(' ').filter(w => w.length > 2));
+  const newUrl   = (data.url_afiliado || '').split('?')[0]; // sin parámetros
+
+  let match = null;
+
+  for (const p of prods) {
+    // 1. URL exacta (sin query string)
+    const existUrl = (p.url_afiliado || '').split('?')[0];
+    if (newUrl && existUrl && newUrl === existUrl) { match = p; break; }
+
+    // 2. Solapamiento de palabras clave ≥ 70%
+    const existWords = new Set(norm(p.nombre).split(' ').filter(w => w.length > 2));
+    if (!newWords.size || !existWords.size) continue;
+    const shared = [...newWords].filter(w => existWords.has(w)).length;
+    const score  = shared / Math.max(newWords.size, existWords.size);
+    if (score >= 0.70) { match = p; break; }
+  }
+
+  if (match) {
+    document.getElementById('dup-nombre').textContent =
+      `Ya existe: "${match.nombre}" · $${(match.precio||0).toLocaleString('es-MX')}`;
+    banner.style.display = 'block';
+    banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+}
+
+// ─── PARSER LOCAL ──────────────────────────────────────────────────────────
+function parseProductText(text, cat, platform) {
+  const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
+
+  // ── PRECIOS (formato fragmentado de ML: $\n18,066\n,\n54) ──
+  // Reconstruye todos los precios del texto uniendo fragmentos
+  const prices = extractAllPrices(text);
+  // ML muestra: precio_tachado (mayor) primero, luego precio actual (menor)
+  // Amazon: generalmente un solo precio o precio + "antes"
+  let precio = 0, precio_original = 0;
+  if (prices.length >= 2) {
+    // Ordenar: mayor = original tachado, menor = precio actual
+    const sorted = [...prices].sort((a, b) => b - a);
+    precio_original = sorted[0];
+    precio = sorted[1];
+  } else if (prices.length === 1) {
+    precio = prices[0];
+  }
+
+  // ── DESCUENTO ──
+  let descuento = '';
+  const descMatch = text.match(/(\d+)\s*%\s*(?:off|descuento|menos)/i);
+  if (descMatch) descuento = descMatch[1] + '%';
+  // Si no aparece explícito pero tenemos ambos precios, calcularlo
+  if (!descuento && precio_original > 0 && precio > 0 && precio_original > precio) {
+    descuento = Math.round((1 - precio / precio_original) * 100) + '%';
+  }
+
+  // ── VENDIDOS ──
+  let vendidos = '';
+  const vendidosMatch = text.match(/\+?\s*(\d+[\d,kK]*)\s*vendidos?/i)
+    || text.match(/(\d+)\s*\+?\s*sold/i);
+  if (vendidosMatch) vendidos = '+' + vendidosMatch[1].replace(/,/g,'');
+
+  // ── ESTRELLAS ──
+  let estrellas = 0;
+  const starMatch = text.match(/calificaci[oó]n\s*(\d+[.,]\d)\s*de\s*5/i)
+    || text.match(/(\d+[.,]\d)\s*(?:de\s*5\s*estrellas|out of 5|\/5)/i)
+    || text.match(/(\d+[.,]\d)\s*estrellas/i);
+  if (starMatch) estrellas = parseFloat(starMatch[1].replace(',', '.'));
+
+  // ── RESEÑAS / OPINIONES ──
+  let reseñas = 0;
+  const revMatch = text.match(/\(?\s*(\d+)\s*\)?\s*(?:calificaciones|opiniones|reseñas|valoraciones|ratings|reviews)/i)
+    || text.match(/\((\d+)\)/);
+  if (revMatch) reseñas = parseInt(revMatch[1]);
+
+  // ── NOMBRE ──
+  let nombre = '';
+  const skipLine = /^[\$\d\s,\.%\+\|]+$|^(envío|delivery|disponible|añadir|agregar|comprar|ver\s|precio|oferta|descuento|\d+%|nuevo|usado|reacondicionado|iva|sin\s*inter|meses|vendidos|agregar|favoritos|calificac)/i;
+  for (const l of lines) {
+    if (l.length >= 15 && l.length <= 120 && !skipLine.test(l) && !/^\d/.test(l) && !/^\$/.test(l)) {
+      nombre = l.slice(0, 70);
+      break;
+    }
+  }
+  if (!nombre && lines.length) nombre = lines[0].slice(0, 70);
+
+  // ── URL AFILIADO ──
+  let url_afiliado = '';
+  const urlMatch = text.match(/https?:\/\/[^\s"'<>]+/);
+  if (urlMatch) {
+    let u = urlMatch[0].replace(/[,\.\)]+$/, '');
+    if (platform === 'amz' && u.includes('amazon')) {
+      u = u.includes('tag=') ? u.replace(/tag=[^&]+/, 'tag=comparabici-20') : u + (u.includes('?') ? '&' : '?') + 'tag=comparabici-20';
+    }
+    url_afiliado = u;
+  }
+
+  // ── URL IMAGEN ──
+  let url_imagen = '';
+  const imgMatch = text.match(/https?:\/\/[^\s"'<>]+\.(?:jpg|jpeg|png|webp|gif)(?:\?[^\s"'<>]*)?/i);
+  if (imgMatch) url_imagen = imgMatch[0].replace(/[,\.\)]+$/, '');
+
+  // ── SPECS por categoría ──
+  const specs = extractSpecs(text, cat);
+
+  return {
+    nombre, precio, precio_original, descuento, vendidos,
+    moneda: 'MXN', plataforma: platform,
+    estrellas, reseñas,
+    url_afiliado, url_imagen,
+    specs, variantes: [],
+    destacado: false, badge: '',
+  };
+}
+
+// Reconstruye precios del formato fragmentado de ML y Amazon
+function extractAllPrices(text) {
+  // Normalizar el texto: unir líneas fragmentadas de precio ML
+  // Patrón ML: "$\n27,278\n,\n94" → reconstruir como número
+  const normalized = text
+    // Caso: $ sola en línea + número + coma + 2 dígitos (cada uno en su línea)
+    .replace(/\$\s*\n\s*([\d,]+)\s*\n\s*,\s*\n\s*(\d{2})\b/g, ' PRECIO_$1.$2 ')
+    // Caso: $ sola en línea + número sola (sin decimales)
+    .replace(/\$\s*\n\s*([\d,]+)(?!\s*\n\s*,)/g, ' PRECIO_$1.00 ')
+    // Caso normal: $18,066.54 o $ 18,066.54
+    .replace(/\$\s*([\d,]+)\.(\d{2})\b/g, ' PRECIO_$1.$2 ')
+    // Caso: $18,066 sin decimal
+    .replace(/\$\s*([\d,]+)\b/g, ' PRECIO_$1.00 ');
+
+  const found = [];
+  const re = /PRECIO_([\d,]+\.\d{2})/g;
+  let m;
+  while ((m = re.exec(normalized)) !== null) {
+    const val = parseFloat(m[1].replace(/,/g, ''));
+    // Filtrar valores irreales (< 50 o > 2M) y precios de MSI (cuotas)
+    if (val >= 50 && val < 2000000) found.push(val);
+  }
+
+  // Deduplicar y ordenar de mayor a menor
+  return [...new Set(found)].sort((a, b) => b - a);
+}
+
+function extractSpecs(text, cat) {
+  const t = text.toLowerCase();
+  const specs = {};
+
+  const find = (patterns) => {
+    for (const [re, group] of patterns) {
+      const m = text.match(re);
+      if (m) return (m[group || 1] || '').trim();
+    }
+    return '';
+  };
+
+  if (cat === 'bici-elec') {
+    specs.autonomia      = find([[/autonom[íi]a[:\s]+([^\n,]+)/i], [/(\d+[\s-]*km)\s*(?:de\s*autonom|range)/i]]);
+    specs.velocidad_max  = find([[/velocidad\s*m[áa]x[^\d]*(\d+\s*km\/h)/i], [/(\d+\s*km\/h)/i]]);
+    specs.motor          = find([[/motor[:\s]+([^\n,]{3,40})/i], [/(\d+\s*[Ww](?:att)?)/]]);
+    specs.rueda          = find([[/rueda[s]?[:\s]+([^\n,]{2,20})/i], [/(\d+[""]?\s*(?:pulg|inch|in\b))/i]]);
+    specs.peso           = find([[/peso[:\s]+([^\n,]{2,15})/i], [/(\d+[.,]\d+\s*kg)/i]]);
+    specs.velocidades    = find([[/velocidades[:\s]+(\d+)/i], [/(\d+)\s*velocidades/i]]);
+    specs.carga_max      = find([[/carga\s*m[áa]x[^\d]*(\d+\s*kg)/i], [/capacidad[^\d]*(\d+\s*kg)/i]]);
+    specs.bateria        = find([[/bater[íi]a[:\s]+([^\n,]{3,40})/i], [/(\d+\s*[Ww][Hh])/], [/(\d+\s*[Mm][Aa][Hh])/]]);
+  } else if (cat === 'bici-conv') {
+    specs.tipo           = find([[/tipo[:\s]+([^\n,]{3,30})/i], [/(mountain|ruta|gravel|bmx|urbana|híbrida)/i]]);
+    specs.velocidades    = find([[/(\d+)\s*velocidades/i], [/velocidades[:\s]+(\d+)/i]]);
+    specs.rueda          = find([[/rueda[s]?[:\s]+([^\n,]{2,20})/i], [/(\d+[x×]\d+[^\n,]{0,10})/i]]);
+    specs.peso           = find([[/peso[:\s]+([^\n,]{2,15})/i], [/(\d+[.,]\d+\s*kg)/i]]);
+    specs.material_marco = find([[/marco[:\s]+([^\n,]{3,30})/i], [/(aluminio|acero|carbono|cromo)/i]]);
+    specs.frenos         = find([[/frenos[:\s]+([^\n,]{3,30})/i], [/(disco|v-brake|hidráulico|mecánico)/i]]);
+  } else if (cat === 'celular') {
+    specs.marca            = find([[/marca[:\s]+([^\n,]{2,25})/i], [/(samsung|apple|xiaomi|motorola|huawei|oppo|vivo|realme|oneplus|lg|nokia|sony|google|zte|honor)/i]]);
+    specs.modelo           = find([[/modelo[:\s]+([^\n,]{2,40})/i], [/(iphone\s*\d+[^\n,]{0,20})/i], [/(galaxy\s*[a-z]\d+[^\n,]{0,15})/i], [/(redmi\s*[^\n,]{2,20})/i], [/(moto\s*[a-z\d]+[^\n,]{0,15})/i]]);
+    specs.camara           = (() => {
+      const raw = find([[/sistema\s*de\s*c[áa]mara[:\s]+([^\n]{5,60})/i], [/c[áa]mara[s]?\s*trasera[s]?[:\s]+([^\n,]{5,50})/i], [/c[áa]mara\s*posterior[:\s]+([^\n,]{5,50})/i], [/(\d+\s*mp\s*\+\s*\d+[^\n,]{0,30})/i]]);
+      if (raw === '-') return '-';
+      // Si capturó algo como "principal: 50 Mpx · Gran angular..." extraer solo Mpx summary
+      const mpxAll = raw.match(/\d+\s*mpx?/gi);
+      if (mpxAll) {
+        // Si hay varios lentes, mostrarlos: "50 Mpx + 12 Mpx + 48 Mpx"
+        if (mpxAll.length > 1) return mpxAll.map(m => m.replace(/\s+/,'')).join(' + ');
+        return mpxAll[0].replace(/\s+/g,'').replace(/mpx?/i,' Mpx').trim();
+      }
+      // Limpiar etiquetas "principal:", "gran angular:", etc.
+      return raw.replace(/\b(principal|gran\s*angular|ultra\s*gran\s*angular|teleobjetivo|macro|profundidad)[:\s]*/gi,'').trim().slice(0,40);
+    })();
+    specs.memoria_interna  = find([[/memoria\s*interna[:\s]+([^\n,]{2,20})/i], [/almacenamiento[:\s]+([^\n,]{2,20})/i], [/(\d+\s*(?:gb|tb))\s*(?:de\s*almacenamiento|interno|storage)/i]]);
+    specs.ram = (() => {
+      for (const line of text.split('\n')) {
+        const l = line.trim();
+        // "Memoria RAM  12 GB" o "RAM: 12 GB"
+        let m = l.match(/^(?:memoria\s*)?ram[:\s\t]+(\d[\d,\.]*\s*gb)/i);
+        if (m) return m[1].trim();
+        // "12 GB RAM" o "12GB de RAM"
+        m = l.match(/^(\d[\d,\.]*\s*gb)\s*(?:de\s*)?ram\b/i);
+        if (m) return m[1].trim();
+        // línea que contiene RAM y un número GB (ej: "12 GB RAM")
+        m = l.match(/\b(\d+[\d,\.]*\s*gb)\b.*\bram\b/i);
+        if (m && !/almacenamiento|interna|storage|rom/i.test(l)) return m[1].trim();
+      }
+      return '';
+    })();
+    specs.colores          = find([[/(?:color(?:es)?|disponible\s*en)[:\s]+([^\n]{3,60})/i], [/colores?\s*disponibles?[:\s]+([^\n]{3,60})/i]]);
+    specs.pantalla         = find([[/pantalla[:\s]+([^\n,]{3,40})/i], [/tama[ñn]o\s*de\s*pantalla[:\s]+([^\n,]{3,30})/i], [/(\d+[.,]\d+[""]?\s*(?:pulg|pulgadas|inch|"))/i]]);
+    specs.duracion_espera  = find([[/duraci[oó]n\s*de\s*la\s*bater[íi]a\s*en\s*espera[:\s\t]+([^\n]{2,30})/i], [/standby[:\s]+([^\n]{2,20})/i]]);
+    specs.desbloqueo       = find([[/desbloqueo[:\s]+([^\n,]{3,50})/i], [/(?:huella|fingerprint)[^\n,]{0,30}/i], [/(reconocimiento\s*facial[^\n,]{0,20})/i]]);
+    specs.red_movil        = find([[/red\s*m[oó]vil[:\s]+([^\n,]{2,20})/i], [/conectividad\s*m[oó]vil[:\s]+([^\n,]{2,20})/i], [/(5g|4g\s*lte|4g|3g)/i]]);
+    specs.camara_trasera_principal = find([[/resoluci[oó]n\s*de\s*la\s*c[áa]mara\s*trasera\s*principal[\s\t:]+([^\n]{2,25})/i], [/c[áa]mara\s*trasera\s*principal[\s\t:]+([^\n]{2,25})/i], [/(\d+\s*mpx?)\s*(?:principal|trasera)/i]]);
+    specs.resolucion_video = find([[/resoluci[oó]n\s*de\s*v[íi]deo\s*de\s*la\s*c[áa]mara\s*trasera[\s\t:]+([^\n]{3,35})/i], [/resoluci[oó]n\s*de\s*v[íi]deo[\s\t:]+([^\n]{3,30})/i], [/(4k|8k|1080p|2160p|1920\s*px[^\n]{0,20})/i]]);
+    specs.camara_frontal_principal = find([[/resoluci[oó]n\s*de\s*la\s*c[áa]mara\s*frontal\s*principal[\s\t:]+([^\n]{2,25})/i], [/resoluci[oó]n\s*de\s*las?\s*c[áa]maras?\s*frontales?[\s\t:]+([^\n]{2,25})/i], [/c[áa]mara\s*frontal[\s\t:]+([^\n]{2,25})/i], [/(\d+\s*mpx?)\s*(?:frontal|selfie)/i]]);
+    specs.adicional        = find([[/accesorios?\s*incluidos?[:\s]+([^\n,]{3,50})/i], [/(s[\s-]*pen|stylus|lapiz|lápiz|apple\s*pencil)[^\n,]{0,20}/i], [/(watch|smartwatch|reloj)[^\n,]{0,20}/i]]);
+  } else if (cat === 'audifonos') {
+    specs.driver         = find([[/driver[s]?[:\s]+([^\n,]{3,30})/i], [/(\d+\s*mm)\s*driver/i]]);
+    specs.anc            = find([[/anc[:\s]+([^\n,]{2,20})/i], [/(cancelaci[oó]n\s*de\s*ruido[^\n,]{0,20})/i]]);
+    specs.bateria        = find([[/bater[íi]a[:\s]+([^\n,]{3,25})/i], [/(\d+\s*horas?)\s*(?:de\s*bater|playback|reproducci)/i]]);
+    specs.conectividad   = find([[/conectividad[:\s]+([^\n,]{3,25})/i], [/(bluetooth\s*\d+[.,]\d)/i], [/(bluetooth)/i]]);
+    specs.tipo           = find([[/tipo[:\s]+([^\n,]{3,25})/i], [/(over-ear|on-ear|in-ear|tws|inalámbrico|con cable)/i]]);
+  } else if (cat === 'tele') {
+    specs.pulgadas       = find([[/(\d+[""]?\s*(?:pulg|pulgadas|inch|"))[^\w]/i], [/(\d+)\s*(?:clase|class)/i]]);
+    specs.resolucion     = find([[/resoluci[oó]n[:\s]+([^\n,]{3,25})/i], [/(4k|8k|uhd|fhd|full hd|1080p|2160p)/i]]);
+    specs.hz             = find([[/(\d+\s*hz)/i]]);
+    specs.smart_tv       = find([[/smart\s*tv[:\s]+([^\n,]{2,20})/i], [/(android tv|google tv|tizen|webos|fire tv)/i], [/(smart tv)/i]]);
+    specs.hdmi           = find([[/hdmi[:\s]+([^\n,]{1,15})/i], [/(\d+)\s*hdmi/i]]);
+  } else if (cat === 'suplemento') {
+    specs.contenido      = find([[/contenido[:\s]+([^\n,]{2,20})/i], [/(\d+\s*(?:g|kg|lbs|lb|oz|ml|l))\b/i]]);
+    specs.porciones      = find([[/porciones[:\s]+(\d+)/i], [/(\d+)\s*porciones/i], [/servings[:\s]+(\d+)/i]]);
+    specs.activo_por_porcion = find([[/prote[íi]na[:\s]+([^\n,]{2,20})/i], [/(\d+\s*g\s*(?:de\s*)?prote)/i]]);
+    specs.sabor          = find([[/sabor[:\s]+([^\n,]{3,25})/i], [/flavor[:\s]+([^\n,]{3,25})/i]]);
+    specs.certificaciones= find([[/certificaci[oó]n[:\s]+([^\n,]{3,40})/i], [/(nsf|informed sport|usda organic|halal|kosher)/i]]);
+  } else if (cat === 'electrodom') {
+    specs.potencia       = find([[/potencia[:\s]+([^\n,]{2,20})/i], [/(\d+\s*[Ww](?:att)?)/]]);
+    specs.capacidad      = find([[/capacidad[:\s]+([^\n,]{2,20})/i], [/(\d+[.,]?\d*\s*(?:lt?|litros?|l\b|qt|cuartos?))/i]]);
+    specs.funciones      = find([[/funciones[:\s]+([^\n,]{3,50})/i], [/programas[:\s]+([^\n,]{3,40})/i]]);
+    specs.dimensiones    = find([[/dimensiones[:\s]+([^\n,]{5,40})/i], [/medidas[:\s]+([^\n,]{5,40})/i]]);
+    specs.voltaje        = find([[/voltaje[:\s]+([^\n,]{2,15})/i], [/(\d+\s*[Vv](?:olts?)?)/]]);
+  }
+
+  // Campos sin dato → '-' para que sean editables
+  CATS[cat].specs.forEach(k => { if (!specs[k]) specs[k] = '-'; });
+  return specs;
+}
+
+function extractBateriaCelular(text) {
+  const parts = [];
+
+  // Capacidad en mAh — busca número seguido de mAh (ignora decimales tipo "4.87")
+  const mah = text.match(/(\d[\d,]{2,}\s*mah)/i)          // 4,870 mAh / 5000 mAh
+    || text.match(/capacidad[^0-9]{0,40}(\d[\d,\.]+\s*mah)/i);
+  if (mah) {
+    // Normaliza "4.87 mAh" a "4,870 mAh" si viene en miles con punto decimal
+    let val = mah[1].trim();
+    const dec = val.match(/^(\d+)[.,](\d{2,3})\s*mah/i);
+    if (dec && parseInt(dec[2]) >= 10) val = (dec[1] + dec[2]).replace(/^0+/,'') + ' mAh';
+    parts.push(val);
+  }
+
+  // Carga rápida
+  const rapida = text.match(/carga\s*r[áa]pida[^\n]{0,30}(s[íi]|no|yes)/i)
+    || text.match(/(carga\s*r[áa]pida)/i);
+  if (rapida) {
+    const val = rapida[1];
+    if (/s[íi]|yes/i.test(val)) parts.push('Carga rápida');
+    else if (/carga\s*r[áa]pida/i.test(val)) parts.push('Carga rápida');
+  }
+
+  // Carga inalámbrica
+  const inalambrica = text.match(/carga\s*inal[áa]mbrica[^\n]{0,30}(s[íi]|no|yes)/i)
+    || text.match(/(wireless\s*charging|carga\s*inal[áa]mbrica)/i);
+  if (inalambrica) {
+    const val = inalambrica[1];
+    if (/s[íi]|yes/i.test(val)) parts.push('Inalámbrica');
+    else if (/wireless|inal[áa]mbric/i.test(val)) parts.push('Inalámbrica');
+  }
+
+  return parts.length ? parts.join(' · ') : '-';
+}
+
+function renderPreview(d) {
+  const cat   = document.getElementById('cat-sel').value;
+  const specs = d.specs || {};
+
+  const SPEC_LABELS = {
+    marca:'Marca', modelo:'Modelo', camara:'Cámara (sistema completo)',
+    memoria_interna:'Memoria interna', ram:'RAM',
+    colores:'Colores disponibles', pantalla:'Tamaño de pantalla',
+    duracion_espera:'Duración de la batería en espera', desbloqueo:'Desbloqueo',
+    red_movil:'Red móvil', camara_trasera_principal:'Cámara trasera principal',
+    resolucion_video:'Resolución de video (cámara trasera)', camara_frontal_principal:'Cámara frontal principal',
+    adicional:'Adicional (lápiz, reloj, etc.)',
+  };
+
+  // Pill de plataforma en el panel derecho
+  const pill = document.getElementById('ext-plat-pill');
+  pill.className = 'badge ' + (d.plataforma === 'amz' ? 'badge-amz' : 'badge-ml');
+  pill.textContent = d.plataforma === 'amz' ? '🛒 Amazon MX' : '🟡 Mercado Libre';
+
+  // Campos principales
+  const main = [
+    { key: 'nombre',          label: 'Nombre del producto', wide: true },
+    { key: 'precio',          label: 'Precio MXN' },
+    { key: 'precio_original', label: 'Precio original (tachado)' },
+    { key: 'descuento',       label: 'Descuento (ej. 33%)' },
+    { key: 'vendidos',        label: 'Vendidos (ej. +25)' },
+    { key: 'estrellas',       label: 'Estrellas' },
+    { key: 'reseñas',         label: 'Opiniones' },
+    { key: 'url_afiliado',    label: 'URL afiliado', wide: true },
+    { key: 'url_imagen',      label: 'URL imagen', wide: true },
+  ];
+  document.getElementById('edit-grid').innerHTML = main.map(f => {
+    const val = (d[f.key]||'').toString().replace(/"/g,'&quot;');
+    return `<div class="ext-field ${f.wide ? 'wide' : ''}">
+      <label>${f.label}</label>
+      <input id="ef-${f.key}" value="${val}" oninput="updateExtracted('${f.key}',this.value)"
+        ${!val ? 'class="missing"' : ''}>
+    </div>`;
+  }).join('');
+
+  // Specs de categoría
+  const wideSpecs = ['colores','adicional','camara','desbloqueo','camara_frontal_principal','resolucion_video','camara_trasera_principal'];
+  document.getElementById('edit-specs-grid').innerHTML = CATS[cat].specs.map(s => {
+    const label = SPEC_LABELS[s] || s.replace(/_/g,' ');
+    const val   = (specs[s] || '-').replace(/"/g,'&quot;');
+    const wide  = wideSpecs.includes(s);
+    const missing = val === '-';
+    if (s === 'colores') {
+      return `<div class="ext-field wide">
+        <label>${label} <span style="font-weight:400;color:var(--gris-txt)">— separa con coma</span></label>
+        <input id="ef-spec-${s}" value="${val === '-' ? '' : val}" placeholder="Negro, Azul, Blanco Perla…"
+          oninput="updateExtractedSpec('${s}',this.value);renderColorChips(this.value)"
+          style="${missing ? 'border-color:#fbbf24;background:#fffbeb' : 'border-color:var(--verde-2)'}">
+      </div>`;
+    }
+    return `<div class="ext-field ${wide ? 'wide' : ''}">
+      <label>${label}</label>
+      <input id="ef-spec-${s}" value="${val}" oninput="updateExtractedSpec('${s}',this.value)"
+        ${missing ? 'class="missing"' : ''}>
+    </div>`;
+  }).join('');
+
+  renderColorChips(specs.colores || '');
+  renderVariantes();
+
+  document.getElementById('ext-empty').style.display  = 'none';
+  document.getElementById('ext-fields').style.display = 'block';
+}
+
+function updateExtracted(key, val) {
+  if (!extractedData) return;
+  const numKeys = ['precio','precio_original','reseñas','estrellas'];
+  extractedData[key] = numKeys.includes(key) ? (parseFloat(val)||0) : val;
+}
+function updateExtractedSpec(key, val) {
+  if (!extractedData) return;
+  if (!extractedData.specs) extractedData.specs = {};
+  extractedData.specs[key] = val;
+}
+
+// ─── VARIANTES DE PRECIO ───────────────────────────────────────────────────
+function renderVariantes() {
+  const el = document.getElementById('variantes-list');
+  if (!el || !extractedData) return;
+  const vars = extractedData.variantes || [];
+  const precioActual = extractedData.precio || 0;
+
+  if (!vars.length) {
+    el.innerHTML = `<div style="font-size:12px;color:var(--gris-txt);padding:6px 0">Sin variantes — presiona + Agregar si el producto tiene distintos precios por capacidad</div>`;
+    return;
+  }
+
+  // Header + filas
+  el.innerHTML = `
+    <div style="display:grid;grid-template-columns:1fr 100px 100px 58px 32px;gap:6px;margin-bottom:4px">
+      <span style="font-size:11px;color:var(--gris-txt)">Capacidad</span>
+      <span style="font-size:11px;color:var(--gris-txt)">Precio actual</span>
+      <span style="font-size:11px;color:var(--gris-txt)">Precio original</span>
+      <span style="font-size:11px;color:var(--gris-txt)">Desc.</span>
+      <span></span>
+    </div>
+    ${vars.map((v, i) => {
+      const isActive = Math.abs(v.precio - precioActual) < 1;
+      const ac = isActive ? 'class="active-variant"' : '';
+      return `<div class="variante-row">
+        <input value="${v.label}" placeholder="128GB" oninput="updateVariante(${i},'label',this.value)" ${ac}>
+        <input value="${v.precio||''}" type="number" placeholder="18066" oninput="updateVariante(${i},'precio',this.value)" ${ac}>
+        <input value="${v.precio_original||''}" type="number" placeholder="27278" oninput="updateVariante(${i},'precio_original',this.value)"
+          style="border-color:#fca5a5;background:#fff5f5">
+        <input value="${v.descuento||''}" placeholder="33%" oninput="updateVariante(${i},'descuento',this.value)"
+          style="text-align:center;color:var(--rojo);font-weight:600">
+        <button class="btn-del-var" onclick="removeVariante(${i})">✕</button>
+      </div>`;
+    }).join('')}
+    <div style="font-size:11px;color:var(--verde-2);margin-top:4px">Verde = variante seleccionada (precio principal del producto)</div>`;
+}
+
+function addVariante() {
+  if (!extractedData) return;
+  if (!extractedData.variantes) extractedData.variantes = [];
+  extractedData.variantes.push({ label: '', precio: 0 });
+  renderVariantes();
+  // Focus en el último input de label
+  setTimeout(() => {
+    const rows = document.querySelectorAll('.variante-row input');
+    if (rows.length) rows[rows.length - 2].focus();
+  }, 50);
+}
+
+function removeVariante(idx) {
+  if (!extractedData?.variantes) return;
+  extractedData.variantes.splice(idx, 1);
+  renderVariantes();
+}
+
+function updateVariante(idx, key, val) {
+  if (!extractedData?.variantes) return;
+  const numKeys = ['precio','precio_original'];
+  extractedData.variantes[idx][key] = numKeys.includes(key) ? (parseFloat(val) || 0) : val;
+}
+
+const COLOR_PALETTE = [
+  { name: 'Negro',         hex: '#1a1a1a' },
+  { name: 'Blanco',        hex: '#f5f5f5' },
+  { name: 'Gris',          hex: '#9e9e9e' },
+  { name: 'Plata',         hex: '#c0c0c0' },
+  { name: 'Titanio',       hex: '#878681' },
+  { name: 'Grafito',       hex: '#4b4b4b' },
+  { name: 'Rojo',          hex: '#e53935' },
+  { name: 'Rosa',          hex: '#f06292' },
+  { name: 'Azul',          hex: '#1e88e5' },
+  { name: 'Azul marino',   hex: '#1a237e' },
+  { name: 'Celeste',       hex: '#4fc3f7' },
+  { name: 'Verde',         hex: '#43a047' },
+  { name: 'Verde olivo',   hex: '#827717' },
+  { name: 'Amarillo',      hex: '#fdd835' },
+  { name: 'Dorado',        hex: '#f9a825' },
+  { name: 'Naranja',       hex: '#fb8c00' },
+  { name: 'Morado',        hex: '#8e24aa' },
+  { name: 'Beige',         hex: '#d7ccc8' },
+  { name: 'Marrón',        hex: '#6d4c41' },
+  { name: 'Coral',         hex: '#ff7043' },
+];
+
+function getActiveColors() {
+  const input = document.getElementById('ef-spec-colores');
+  if (!input) return [];
+  return input.value.split(',').map(c => c.trim()).filter(c => c && c !== '-');
+}
+
+function toggleColor(name) {
+  const input = document.getElementById('ef-spec-colores');
+  if (!input) return;
+  const active = getActiveColors();
+  const idx = active.findIndex(c => c.toLowerCase() === name.toLowerCase());
+  if (idx >= 0) {
+    active.splice(idx, 1);
+  } else {
+    active.push(name);
+  }
+  const newVal = active.join(', ');
+  input.value = newVal;
+  if (extractedData) {
+    if (!extractedData.specs) extractedData.specs = {};
+    extractedData.specs.colores = newVal;
+  }
+  renderColorChips(newVal);
+}
+
+function renderColorChips(val) {
+  const el = document.getElementById('color-chips');
+  if (!el) return;
+  const active = val.split(',').map(c => c.trim()).filter(c => c && c !== '-');
+
+  el.innerHTML = COLOR_PALETTE.map(col => {
+    const isActive = active.some(c => c.toLowerCase() === col.name.toLowerCase());
+    const isDark = ['#1a1a1a','#4b4b4b','#1a237e','#1e88e5','#8e24aa','#e53935','#43a047','#827717','#6d4c41'].includes(col.hex);
+    const textColor = isDark ? '#fff' : '#1a1a1a';
+    const border = isActive ? `2.5px solid var(--verde)` : `1.5px solid ${col.hex}33`;
+    const opacity = isActive ? '1' : '0.45';
+    return `<span
+      onclick="toggleColor('${col.name}')"
+      title="${col.name}"
+      style="
+        display:inline-flex;align-items:center;gap:5px;
+        padding:4px 10px;border-radius:20px;font-size:12px;font-weight:${isActive?'600':'400'};
+        background:${col.hex};color:${textColor};
+        border:${border};cursor:pointer;
+        opacity:${opacity};
+        transition:opacity .15s,border .15s;
+        user-select:none;
+      ">${col.name}</span>`;
+  }).join('');
+}
+
+async function saveProduct() {
+  if (!extractedData) return;
+  // Validación: campos obligatorios
+  const missing = [];
+  if (!extractedData.nombre || extractedData.nombre.length < 5) missing.push('Nombre del producto');
+  if (!extractedData.url_imagen)  missing.push('URL imagen');
+  if (!extractedData.url_afiliado) missing.push('URL afiliado');
+  if (missing.length) {
+    toast('⚠️ Faltan: ' + missing.join(' · '));
+    missing.forEach(m => {
+      const keyMap = { 'Nombre del producto': 'nombre', 'URL imagen': 'url_imagen', 'URL afiliado': 'url_afiliado' };
+      const input = document.getElementById('ef-' + keyMap[m]);
+      if (input) { input.classList.add('missing'); input.focus(); }
+    });
+    return;
+  }
+
+  // Deshabilitar botón inmediatamente para evitar doble guardado
+  const btn = document.getElementById('btn-save-prod');
+  btn.disabled = true;
+  btn.textContent = 'Guardando…';
+
+  try {
+    const cat = document.getElementById('cat-sel').value;
+    const id = 'p_' + Date.now();
+    await dbSet(`productos/${cat}/items/${id}`, { ...extractedData, _cat: cat, _id: id, _ts: Date.now() });
+  } catch(e) {
+    btn.disabled = false;
+    btn.textContent = '💾 Guardar producto';
+    toast('❌ Error al guardar — intenta de nuevo');
+    return;
+  }
+
+  // Limpiar campos del panel izquierdo
+  document.getElementById('raw-text').value = '';
+  document.getElementById('img-url-input').value = '';
+  document.getElementById('aff-url-input').value = '';
+  extractedData = null;
+
+  // Pantalla de éxito: ocultar campos, mostrar ✅
+  document.getElementById('ext-fields').style.display  = 'none';
+  document.getElementById('ext-empty').style.display   = 'none';
+  document.getElementById('save-ok-big').style.display = 'flex';
+  toast('✅ Producto guardado en catálogo');
+
+  // Restaurar estado vacío tras 3s
+  setTimeout(() => {
+    document.getElementById('save-ok-big').style.display = 'none';
+    document.getElementById('ext-empty').style.display   = 'flex';
+    btn.disabled = false;
+    btn.innerHTML = '💾 Guardar producto';
+  }, 3000);
+}
+
+// ─── EDICIÓN DESDE CATÁLOGO ───────────────────────────────────────────────
+let editingProd = null; // { cat, id, data }
+
+async function openEditModal(cat, id) {
+  const prods = await colGet('productos/' + cat + '/items');
+  const prod  = prods.find(p => (p._id || p.id) === id);
+  if (!prod) return;
+  editingProd = { cat, id, data: JSON.parse(JSON.stringify(prod)) };
+  populateEditModal(editingProd.data, cat);
+  document.getElementById('edit-prod-modal').classList.add('open');
+}
+
+function closeEditModal() {
+  document.getElementById('edit-prod-modal').classList.remove('open');
+  editingProd = null;
+}
+
+function setEditPlat(plat, btn) {
+  if (!editingProd) return;
+  editingProd.data.plataforma = plat;
+  document.getElementById('ep-amz').classList.toggle('active', plat === 'amz');
+  document.getElementById('ep-ml').classList.toggle('active',  plat === 'ml');
+}
+
+function populateEditModal(d, cat) {
+  // Plataforma
+  const plat = d.plataforma || 'amz';
+  document.getElementById('ep-amz').classList.toggle('active', plat === 'amz');
+  document.getElementById('ep-ml').classList.toggle('active',  plat === 'ml');
+
+  // Campos principales
+  const MAIN_FIELDS = [
+    { key: 'nombre',          label: 'Nombre', wide: true },
+    { key: 'precio',          label: 'Precio MXN', type: 'number' },
+    { key: 'precio_original', label: 'Precio original', type: 'number' },
+    { key: 'descuento',       label: 'Descuento (ej. 33%)' },
+    { key: 'vendidos',        label: 'Vendidos (ej. +25)' },
+    { key: 'estrellas',       label: 'Estrellas', type: 'number' },
+    { key: 'reseñas',         label: 'Opiniones', type: 'number' },
+    { key: 'url_afiliado',    label: 'URL afiliado', wide: true },
+    { key: 'url_imagen',      label: 'URL imagen', wide: true },
+  ];
+  document.getElementById('ep-main-grid').innerHTML = MAIN_FIELDS.map(f => {
+    const val = (d[f.key] || '').toString().replace(/"/g,'&quot;');
+    const span = f.wide ? 'grid-column:span 2' : '';
+    return `<div style="${span};display:flex;flex-direction:column;gap:4px">
+      <label style="font-size:11px;color:var(--gris-txt)">${f.label}</label>
+      <input value="${val}" type="${f.type||'text'}"
+        style="padding:8px 10px;border:1px solid var(--gris-2);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--txt);background:var(--white)"
+        oninput="updateEditField('${f.key}',this.value,${f.type==='number'})">
+    </div>`;
+  }).join('');
+
+  // Specs
+  const SPEC_LABELS = {
+    marca:'Marca', modelo:'Modelo', camara:'Cámara (sistema completo)',
+    memoria_interna:'Memoria interna', ram:'RAM',
+    colores:'Colores', pantalla:'Tamaño de pantalla',
+    duracion_espera:'Duración de la batería en espera', desbloqueo:'Desbloqueo',
+    red_movil:'Red móvil', camara_trasera_principal:'Cámara trasera principal',
+    resolucion_video:'Resolución de video', camara_frontal_principal:'Cámara frontal principal',
+    adicional:'Adicional',
+  };
+  const wideSpecs = ['colores','adicional','camara','desbloqueo','camara_frontal_principal','resolucion_video','camara_trasera_principal','duracion_espera'];
+  const specs = d.specs || {};
+  const catSpecs = (CATS[cat]?.specs || []).filter(s => s !== 'colores');
+
+  document.getElementById('ep-specs-grid').innerHTML = catSpecs.map(s => {
+    const label = SPEC_LABELS[s] || s.replace(/_/g,' ');
+    const val   = (specs[s] || '').replace(/"/g,'&quot;');
+    const span  = wideSpecs.includes(s) ? 'grid-column:span 2' : '';
+    return `<div style="${span};display:flex;flex-direction:column;gap:4px">
+      <label style="font-size:11px;color:var(--gris-txt)">${label}</label>
+      <input value="${val}"
+        style="padding:8px 10px;border:1px solid var(--gris-2);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--txt);background:var(--white)"
+        oninput="updateEditSpec('${s}',this.value)">
+    </div>`;
+  }).join('');
+
+  // Colores (con paleta)
+  const hasColores = (CATS[cat]?.specs || []).includes('colores');
+  const coloresWrap = document.getElementById('ep-colors-wrap');
+  coloresWrap.style.display = hasColores ? 'block' : 'none';
+  if (hasColores) {
+    const colVal = specs.colores || '';
+    document.getElementById('ep-colores-input').value = colVal === '-' ? '' : colVal;
+    renderEditColorChips(colVal);
+  }
+
+  // Variantes
+  renderEditVariantes();
+}
+
+function updateEditField(key, val, isNum) {
+  if (!editingProd) return;
+  editingProd.data[key] = isNum ? (parseFloat(val) || 0) : val;
+}
+function updateEditSpec(key, val) {
+  if (!editingProd) return;
+  if (!editingProd.data.specs) editingProd.data.specs = {};
+  editingProd.data.specs[key] = val;
+}
+
+function renderEditColorChips(val) {
+  const active = val.split(',').map(c => c.trim()).filter(c => c && c !== '-');
+  if (editingProd?.data?.specs) editingProd.data.specs.colores = val;
+  const el = document.getElementById('ep-color-chips');
+  if (!el) return;
+  el.innerHTML = COLOR_PALETTE.map(col => {
+    const isActive = active.some(c => c.toLowerCase() === col.name.toLowerCase());
+    const isDark = ['#1a1a1a','#4b4b4b','#1a237e','#1e88e5','#8e24aa','#e53935','#43a047','#827717','#6d4c41'].includes(col.hex);
+    const textColor = isDark ? '#fff' : '#1a1a1a';
+    return `<span onclick="toggleEditColor('${col.name}')"
+      style="display:inline-flex;align-items:center;padding:4px 10px;border-radius:20px;font-size:12px;
+      font-weight:${isActive?'600':'400'};background:${col.hex};color:${textColor};
+      border:${isActive?'2.5px solid var(--verde)':'1.5px solid '+col.hex+'33'};
+      cursor:pointer;opacity:${isActive?'1':'0.45'};user-select:none">${col.name}</span>`;
+  }).join('');
+}
+
+function toggleEditColor(name) {
+  const input = document.getElementById('ep-colores-input');
+  if (!input) return;
+  const active = input.value.split(',').map(c => c.trim()).filter(c => c && c !== '-');
+  const idx = active.findIndex(c => c.toLowerCase() === name.toLowerCase());
+  if (idx >= 0) active.splice(idx, 1); else active.push(name);
+  const newVal = active.join(', ');
+  input.value = newVal;
+  renderEditColorChips(newVal);
+}
+
+function renderEditVariantes() {
+  const el = document.getElementById('ep-variantes-list');
+  if (!el || !editingProd) return;
+  const vars = editingProd.data.variantes || [];
+  const precioActual = editingProd.data.precio || 0;
+
+  if (!vars.length) {
+    el.innerHTML = `<div style="font-size:12px;color:var(--gris-txt);padding:4px 0 10px">Sin variantes registradas.</div>`;
+    return;
+  }
+  el.innerHTML = `
+    <div style="display:grid;grid-template-columns:1fr 100px 100px 58px 32px;gap:6px;margin-bottom:4px">
+      <span style="font-size:11px;color:var(--gris-txt)">Capacidad</span>
+      <span style="font-size:11px;color:var(--gris-txt)">Precio actual</span>
+      <span style="font-size:11px;color:var(--gris-txt)">Precio original</span>
+      <span style="font-size:11px;color:var(--gris-txt)">Desc.</span>
+      <span></span>
+    </div>
+    ${vars.map((v,i) => {
+      const isActive = Math.abs(v.precio - precioActual) < 1;
+      const ac = isActive ? 'class="active-variant"' : '';
+      return `<div class="variante-row">
+        <input value="${v.label}" placeholder="128GB" oninput="updateEditVariante(${i},'label',this.value)" ${ac}>
+        <input value="${v.precio||''}" type="number" placeholder="18066" oninput="updateEditVariante(${i},'precio',this.value)" ${ac}>
+        <input value="${v.precio_original||''}" type="number" placeholder="27278" oninput="updateEditVariante(${i},'precio_original',this.value)"
+          style="border-color:#fca5a5;background:#fff5f5">
+        <input value="${v.descuento||''}" placeholder="33%" oninput="updateEditVariante(${i},'descuento',this.value)"
+          style="text-align:center;color:var(--rojo);font-weight:600">
+        <button class="btn-del-var" onclick="removeEditVariante(${i})">✕</button>
+      </div>`;
+    }).join('')}`;
+}
+
+function addEditVariante() {
+  if (!editingProd) return;
+  if (!editingProd.data.variantes) editingProd.data.variantes = [];
+  editingProd.data.variantes.push({ label: '', precio: 0 });
+  renderEditVariantes();
+  setTimeout(() => {
+    const rows = document.querySelectorAll('#ep-variantes-list .variante-row input');
+    if (rows.length) rows[rows.length - 2].focus();
+  }, 50);
+}
+function removeEditVariante(idx) {
+  if (!editingProd?.data?.variantes) return;
+  editingProd.data.variantes.splice(idx, 1);
+  renderEditVariantes();
+}
+function updateEditVariante(idx, key, val) {
+  if (!editingProd?.data?.variantes) return;
+  const numKeys = ['precio','precio_original'];
+  editingProd.data.variantes[idx][key] = numKeys.includes(key) ? (parseFloat(val)||0) : val;
+}
+
+async function saveEditProduct() {
+  if (!editingProd) return;
+  const { cat, id, data } = editingProd;
+  const path = `productos/${cat}/items/${id}`;
+  await dbSet(path, { ...data, _cat: cat, _id: id, _ts: Date.now() }); // actualiza timestamp
+  closeEditModal();
+  await renderCatalogo();
+  toast('✅ Producto actualizado');
+}
+
+// ─── CATÁLOGO ──────────────────────────────────────────────────────────────
+// Selección de productos para generar HTML
+let selectedIds = new Set();
+let catAllProds = []; // caché de productos de la categoría activa
+
+function relativeDate(ts) {
+  if (!ts) return '';
+  const diff = Math.floor((Date.now() - ts) / 86400000);
+  if (diff === 0) return 'Hoy';
+  if (diff === 1) return 'Ayer';
+  if (diff < 7)  return `Hace ${diff} días`;
+  return new Date(ts).toLocaleDateString('es-MX', { day:'numeric', month:'short' });
+}
+
+async function renderCatalogo() {
+  const tabs = document.getElementById('cat-filter-tabs');
+  const activeCat = tabs.querySelector('.cat-tab.active')?.dataset.cat || Object.keys(CATS)[0];
+
+  const counts = {};
+  for (const k of Object.keys(CATS)) {
+    const p = await colGet('productos/' + k + '/items');
+    counts[k] = p.length;
+  }
+  tabs.innerHTML = Object.entries(CATS).map(([k,v]) => `
+    <button class="cat-tab ${k === activeCat ? 'active' : ''}" data-cat="${k}" onclick="switchCatTab('${k}',this)">
+      ${v.label}${counts[k] ? ` <span style="background:var(--verde);color:#fff;border-radius:10px;padding:1px 7px;font-size:11px;margin-left:4px">${counts[k]}</span>` : ''}
+    </button>`).join('');
+
+  selectedIds.clear();
+  updateSelBar();
+  await loadCatProducts(activeCat);
+}
+
+async function switchCatTab(cat, btn) {
+  document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  selectedIds.clear();
+  updateSelBar();
+  await loadCatProducts(cat);
+}
+
+function applyCatFilters() {
+  renderProdGrid(catAllProds);
+}
+
+async function loadCatProducts(cat) {
+  catAllProds = await colGet('productos/' + cat + '/items');
+  renderProdGrid(catAllProds);
+}
+
+function renderProdGrid(prods) {
+  const list   = document.getElementById('catalogo-list');
+  const sort   = document.getElementById('cat-sort')?.value || 'newest';
+  const dateF  = document.getElementById('cat-date-filter')?.value || 'all';
+
+  // Filtro fecha
+  const now = Date.now();
+  const cutoffs = { today: 86400000, week: 7*86400000, month: 30*86400000 };
+  let filtered = prods;
+  if (dateF !== 'all') {
+    const cut = now - cutoffs[dateF];
+    filtered = prods.filter(p => (p._ts || 0) >= cut);
+  }
+
+  // Ordenar
+  filtered = [...filtered].sort((a, b) => {
+    if (sort === 'newest')     return (b._ts||0) - (a._ts||0);
+    if (sort === 'oldest')     return (a._ts||0) - (b._ts||0);
+    if (sort === 'az')         return (a.nombre||'').localeCompare(b.nombre||'');
+    if (sort === 'price-asc')  return (a.precio||0) - (b.precio||0);
+    if (sort === 'price-desc') return (b.precio||0) - (a.precio||0);
+    return 0;
+  });
+
+  if (!filtered.length) {
+    list.innerHTML = `<div class="empty-state">📦 Sin productos${dateF !== 'all' ? ' en este período' : ''}.<br><span style="font-size:13px">Usa el Extractor para añadir.</span></div>`;
+    return;
+  }
+
+  // Obtener cat activa
+  const cat = document.querySelector('.cat-tab.active')?.dataset.cat || '';
+
+  list.innerHTML = filtered.map(p => {
+    const id   = p._id || p.id || '';
+    const isSel = selectedIds.has(id);
+    const specs = Object.entries(p.specs || {})
+      .filter(([k,v]) => v && v !== '-' && !['colores','adicional'].includes(k))
+      .slice(0,3);
+    const img = p.url_imagen;
+    const dateStr = relativeDate(p._ts);
+    const precioFmt = '$' + (p.precio||0).toLocaleString('es-MX', {minimumFractionDigits:0, maximumFractionDigits:2});
+    const platBadge = p.plataforma === 'amz'
+      ? `<span class="badge badge-amz" style="font-size:10px;padding:1px 7px">AMZ</span>`
+      : `<span class="badge badge-ml" style="font-size:10px;padding:1px 7px">ML</span>`;
+
+    return `<div class="prod-card ${isSel ? 'selected' : ''}" id="pc-${id}">
+      <div class="prod-check" onclick="toggleSelect('${id}')">${isSel ? '✓' : ''}</div>
+      ${img
+        ? `<img class="prod-img" src="${img}" onerror="this.style.display='none'" loading="lazy">`
+        : `<div class="prod-img-placeholder">📱</div>`}
+      <div class="prod-body">
+        <div style="margin-bottom:3px">${platBadge}</div>
+        <div class="prod-nombre">${p.nombre||'Sin nombre'}</div>
+        <div class="prod-precio-row">
+          <span class="prod-precio">${precioFmt}</span>
+          ${p.precio_original ? `<span class="prod-precio-orig">$${(p.precio_original).toLocaleString('es-MX',{minimumFractionDigits:0,maximumFractionDigits:2})}</span>` : ''}
+          ${p.descuento ? `<span class="prod-desc-badge">${p.descuento}</span>` : ''}
+        </div>
+        ${specs.length ? `<div class="prod-specs">${specs.map(([k,v])=>`<span class="spec-pill">${k.replace(/_/g,' ')}: ${v}</span>`).join('')}</div>` : ''}
+        ${p.estrellas ? `<div style="font-size:11px;color:var(--gris-txt);margin-top:3px">⭐ ${p.estrellas} · ${p.reseñas||0} opiniones</div>` : ''}
+      </div>
+      <div class="prod-footer">
+        <span>${dateStr}</span>
+        <div class="prod-actions">
+          ${p.url_afiliado ? `<a href="${p.url_afiliado}" target="_blank" style="text-decoration:none"><button class="btn-icon" style="font-size:13px">↗</button></a>` : ''}
+          <button class="btn-icon" onclick="openEditModal('${p._cat||cat}','${id}')" style="font-size:13px">✏️</button>
+          <button class="btn-icon" onclick="deleteProduct('${p._cat||cat}','${id}',this)" style="font-size:13px">🗑️</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleSelect(id) {
+  if (selectedIds.has(id)) selectedIds.delete(id);
+  else selectedIds.add(id);
+  const card = document.getElementById('pc-' + id);
+  if (card) {
+    card.classList.toggle('selected', selectedIds.has(id));
+    const chk = card.querySelector('.prod-check');
+    if (chk) chk.textContent = selectedIds.has(id) ? '✓' : '';
+  }
+  updateSelBar();
+}
+
+function toggleSelectAll() {
+  const allIds = catAllProds.map(p => p._id || p.id || '');
+  const allSelected = allIds.every(id => selectedIds.has(id));
+  if (allSelected) {
+    allIds.forEach(id => selectedIds.delete(id));
+  } else {
+    allIds.forEach(id => selectedIds.add(id));
+  }
+  renderProdGrid(catAllProds);
+  updateSelBar();
+}
+
+function deseleccionarTodos() {
+  selectedIds.clear();
+  renderProdGrid(catAllProds);
+  updateSelBar();
+}
+
+function updateSelBar() {
+  const bar = document.getElementById('sel-bar');
+  const cnt = document.getElementById('sel-count');
+  if (selectedIds.size > 0) {
+    bar.classList.add('visible');
+    cnt.textContent = `${selectedIds.size} producto${selectedIds.size !== 1 ? 's' : ''} seleccionado${selectedIds.size !== 1 ? 's' : ''}`;
+  } else {
+    bar.classList.remove('visible');
+  }
+}
+
+async function deleteProduct(cat, id, btnEl) {
+  // Primer clic: pedir confirmación inline en el botón
+  if (!btnEl.dataset.confirm) {
+    btnEl.dataset.confirm = '1';
+    btnEl.textContent = '¿Borrar?';
+    btnEl.style.background = 'var(--rojo-light)';
+    btnEl.style.color = 'var(--rojo)';
+    setTimeout(() => {
+      if (btnEl.dataset.confirm) {
+        delete btnEl.dataset.confirm;
+        btnEl.textContent = '🗑️';
+        btnEl.style.background = '';
+        btnEl.style.color = '';
+      }
+    }, 2500);
+    return;
+  }
+  // Segundo clic: confirmar y borrar
+  delete btnEl.dataset.confirm;
+  if (db) {
+    try { await db.doc(`productos/${cat}/items/${id}`).delete(); } catch {}
+  } else {
+    const key = 'db_' + ('productos/' + cat + '/items/' + id).replace(/\//g,'_');
+    localStorage.removeItem(key);
+  }
+  await renderCatalogo();
+  toast('🗑️ Producto eliminado');
+}
+
+// ─── GENERAR HTML ──────────────────────────────────────────────────────────
+async function updateGenCount() {
+  const cat = document.getElementById('gen-cat-sel').value;
+  const prods = await colGet('productos/' + cat + '/items');
+  document.getElementById('gen-count').textContent = `${prods.length} producto(s) disponibles en esta categoría`;
+}
+
+async function generarHTMLSeleccionados() {
+  if (!selectedIds.size) { toast('⚠️ Selecciona al menos un producto'); return; }
+  const cat = document.querySelector('.cat-tab.active')?.dataset.cat;
+  if (!cat) return;
+  const allProds = await colGet('productos/' + cat + '/items');
+  const prods = allProds.filter(p => selectedIds.has(p._id || p.id || ''));
+  if (!prods.length) return;
+  const catLabel = CATS[cat].label;
+  _buildAndDownloadHTML(cat, catLabel, prods);
+}
+
+function _buildAndDownloadHTML(cat, catLabel, prods) {
+  const html = buildHTML(catLabel, prods, cat);
+  const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+  const fname = cat + '.html';
+  if (downloads) {
+    downloads.save({ filename: fname, data: blob })
+      .then(() => { document.getElementById('gen-ok').style.display = 'flex'; })
+      .catch(() => fallbackDownload(blob, fname));
+  } else {
+    fallbackDownload(blob, fname);
+  }
+  toast('✅ Archivo generado');
+}
+
+async function generarHTML() {
+  const cat = document.getElementById('gen-cat-sel').value;
+  const catLabel = CATS[cat].label;
+  const prods = await colGet('productos/' + cat + '/items');
+
+  if (!prods.length) {
+    document.getElementById('gen-err').textContent = 'Sin productos en esta categoría. Añade al menos uno.';
+    document.getElementById('gen-err').style.display = 'block';
+    return;
+  }
+
+  document.getElementById('gen-err').style.display = 'none';
+  document.getElementById('gen-ok').style.display = 'none';
+  document.getElementById('gen-loading').style.display = 'flex';
+  document.getElementById('btn-gen').disabled = true;
+
+  _buildAndDownloadHTML(cat, catLabel, prods);
+
+  document.getElementById('gen-loading').style.display = 'none';
+  document.getElementById('btn-gen').disabled = false;
+}
+
+function fallbackDownload(blob, fname) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = fname; a.click();
+  URL.revokeObjectURL(url);
+  document.getElementById('gen-ok').style.display = 'flex';
+}
+
+function buildHTML(catLabel, prods, cat) {
+  const cards = prods.map(p => {
+    const specs = Object.entries(p.specs || {}).filter(([,v]) => v);
+    const btnStyle = p.plataforma === 'amz' ? 'background:#FF9900;color:#fff' : 'background:#F0C000;color:#5a4200';
+    const btnLabel = p.plataforma === 'amz' ? '🛒 Ver en Amazon' : '🟡 Ver en Mercado Libre';
+    return `
+    <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:20px;break-inside:avoid">
+      ${p.url_imagen ? `<img src="${p.url_imagen}" alt="${p.nombre}" style="width:100%;max-height:180px;object-fit:contain;margin-bottom:12px;border-radius:8px">` : ''}
+      <div style="font-family:Outfit,sans-serif;font-size:16px;font-weight:700;margin-bottom:4px">${p.nombre||''}</div>
+      <div style="font-family:Outfit,sans-serif;font-size:22px;font-weight:700;color:#006847;margin-bottom:12px">$${(p.precio||0).toLocaleString('es-MX')} MXN</div>
+      ${p.estrellas ? `<div style="font-size:13px;color:#64748b;margin-bottom:10px">⭐ ${p.estrellas} (${(p.reseñas||0).toLocaleString()} reseñas)</div>` : ''}
+      ${specs.length ? `<table style="width:100%;font-size:13px;border-collapse:collapse;margin-bottom:14px">${specs.map(([k,v]) => `<tr><td style="color:#64748b;padding:4px 0;border-bottom:1px solid #f1f5f9">${k.replace(/_/g,' ')}</td><td style="font-weight:500;text-align:right;padding:4px 0;border-bottom:1px solid #f1f5f9">${v}</td></tr>`).join('')}</table>` : ''}
+      ${p.url_afiliado ? `<a href="${p.url_afiliado}" target="_blank" rel="nofollow sponsored" style="display:block;text-align:center;padding:11px;border-radius:8px;font-family:Outfit,sans-serif;font-size:14px;font-weight:600;text-decoration:none;${btnStyle}">${btnLabel}</a>` : ''}
+    </div>`;
+  }).join('');
+
+  return `<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${catLabel} — comparalo.mx</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:#F2F4F7;color:#1e293b}
+.header{background:#0F172A;padding:16px 24px;display:flex;align-items:center;gap:10px}
+.logo{font-family:Outfit,sans-serif;font-size:22px;font-weight:700;color:#fff}
+.logo span{color:#CE1126}
+.main{max-width:1100px;margin:0 auto;padding:24px 16px}
+h1{font-family:Outfit,sans-serif;font-size:28px;font-weight:700;margin-bottom:6px}
+.sub{color:#64748b;margin-bottom:24px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.footer{background:#0F172A;color:#94a3b8;text-align:center;padding:20px;font-size:12px;margin-top:40px}
+</style>
+</head>
+<body>
+<div class="header"><div class="logo">comparalo<span>.mx</span></div></div>
+<div class="main">
+  <h1>${catLabel}</h1>
+  <p class="sub">Compara los mejores productos · Última actualización: ${new Date().toLocaleDateString('es-MX')}</p>
+  <div class="grid">${cards}</div>
+</div>
+<div class="footer">
+  Este sitio contiene links de afiliado. Si compras a través de nuestros links, podemos ganar una comisión sin costo adicional para ti.<br>
+  comparalo.mx · Compara. Decide. Ahorra.
+</div>
+</body>
+</html>`;
+}
+
+// ─── UTILS ─────────────────────────────────────────────────────────────────
+function showErr(msg) {
+  const e = document.getElementById('err-box');
+  e.textContent = msg;
+  e.style.display = 'block';
+}
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+</script>
+</body>
+</html>
