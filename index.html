@@ -66,6 +66,36 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--ac:#006847;--ac2:#004D34;--rd:#CE1126;--tx:#0F172A;--tx2:#64748B;--tx3:#94A3B8;--bg:#fff;--s1:#F2F4F7;--s2:#EAF2EE;--bd:#E2E8E4}
+/* cómo usar */
+.how{padding:48px 0 52px;border-top:1px solid var(--bd)}
+.how-head{margin-bottom:22px}
+.how-head h2{font-size:26px;font-weight:800;letter-spacing:-.9px;color:#1E2922;margin-top:6px}
+.how-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:28px;align-items:stretch}
+.how-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.how-step{display:flex;gap:14px;align-items:center;width:100%;text-align:left;background:transparent;border:1.5px solid transparent;border-radius:12px;padding:13px 14px;cursor:pointer;position:relative;overflow:hidden;color:var(--tx2);font-size:14.5px;font-weight:600;line-height:1.35;transition:background .2s,border-color .2s,color .2s}
+.how-step:hover{background:var(--s1)}
+.how-step i{font-style:normal;width:30px;height:30px;flex-shrink:0;border-radius:50%;background:var(--s1);color:var(--tx2);font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s}
+.how-step[aria-selected="true"]{background:var(--s2);border-color:rgba(0,104,71,.25);color:var(--tx)}
+.how-step[aria-selected="true"] i{background:var(--ac);color:#fff}
+.how-step .bar{position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--ac)}
+.how-step[aria-selected="true"] .bar{animation:howbar 5s linear forwards}
+.how-paused .how-step .bar{animation-play-state:paused}
+@keyframes howbar{to{width:100%}}
+.how-stage{position:relative;background:var(--s1);border:1px solid var(--bd);border-radius:16px;height:420px;overflow:hidden}
+.how-stage figure{position:absolute;inset:0;margin:0;padding:22px;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .45s}
+.how-stage figure.on{opacity:1}
+.how-stage img{max-width:100%;max-height:100%;object-fit:contain;border-radius:10px;box-shadow:0 8px 28px rgba(15,23,42,.14);background:#fff}
+.how-nav{display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+.how-count{font-size:12.5px;font-weight:600;color:var(--tx3)}
+.how-arrows{display:flex;gap:8px}
+.how-arrows button{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--bd);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.how-arrows button:hover{border-color:var(--ac)}
+@media(max-width:860px){
+  .how-grid{grid-template-columns:1fr}
+  .how-stage{height:320px;order:-1}
+  .how-list{gap:4px}
+}
+@media(prefers-reduced-motion:reduce){.how-step .bar{animation:none!important}.how-stage figure{transition:none}}
 html{-webkit-text-size-adjust:100%}
 body{font-family:'Satoshi',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--tx);text-wrap:pretty;-webkit-font-smoothing:antialiased}
 a{color:var(--ac);text-decoration:none}
@@ -357,130 +387,47 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
     </script>
     <div class="hero-cta">
       <a class="btn" href="/suplementos">Ver comparativas</a>
-      <a class="btn2" href="#metodo">Cómo comparamos</a>
+      <a class="btn2" href="#como-usar">Cómo comparamos</a>
     </div>
   </div>
 
-  <!-- Carrusel de 5 pasos -->
-  <div class="carousel-wrap" id="metodo" role="region" aria-label="Cómo funciona comparalo.mx">
-    <div class="carousel-track" id="carouselTrack">
+</section>
 
-      <div class="carousel-slide">
-        <img src="/fotos/paso1-categorias.png" alt="Paso 1: elige una categoría" class="carousel-img">
-        <div class="carousel-scrim"></div>
-        <div class="carousel-body">
-          <div class="carousel-step-badge"><span>1</span><em>Elige una categoría</em></div>
-          <h3>Elige qué quieres comprar</h3>
-          <p>Celulares, laptops, suplementos, bicicletas o electrodomésticos.</p>
-        </div>
-      </div>
-
-      <div class="carousel-slide">
-        <img src="/fotos/paso2-filtros.png" alt="Paso 2: filtra por características" class="carousel-img">
-        <div class="carousel-scrim"></div>
-        <div class="carousel-body">
-          <div class="carousel-step-badge"><span>2</span><em>Filtra</em></div>
-          <h3>Filtra por lo que te importa</h3>
-          <p>Marca, precio, RAM, almacenamiento o uso. El catálogo se actualiza al instante.</p>
-        </div>
-      </div>
-
-      <div class="carousel-slide">
-        <img src="/fotos/paso3-comparar.png" alt="Paso 3: compara productos lado a lado" class="carousel-img">
-        <div class="carousel-scrim"></div>
-        <div class="carousel-body">
-          <div class="carousel-step-badge"><span>3</span><em>Compara</em></div>
-          <h3>Compara características lado a lado</h3>
-          <p>Selecciona 2 o 3 modelos y ve precio, procesador, RAM y más en una sola tabla.</p>
-        </div>
-      </div>
-
-      <div class="carousel-slide">
-        <img src="/fotos/paso4-producto.png" alt="Paso 4: elige el producto" class="carousel-img">
-        <div class="carousel-scrim"></div>
-        <div class="carousel-body">
-          <div class="carousel-step-badge"><span>4</span><em>Elige</em></div>
-          <h3>Da clic en el que quieres</h3>
-          <p>Cada producto muestra su precio en Amazon y Mercado Libre. Elige la tienda.</p>
-        </div>
-      </div>
-
-      <div class="carousel-slide">
-        <img src="/fotos/paso5-tienda.png" alt="Paso 5: ve a la tienda oficial" class="carousel-img">
-        <div class="carousel-scrim"></div>
-        <div class="carousel-body">
-          <div class="carousel-step-badge"><span>5</span><em>Compra</em></div>
-          <h3>Llegas directo a la tienda oficial</h3>
-          <p>Te enviamos a Amazon MX o Mercado Libre para completar tu compra de forma segura.</p>
-        </div>
-      </div>
-
+<section class="how" id="como-usar" aria-labelledby="how-h">
+  <div class="wrap">
+    <div class="how-head">
+      <p class="kicker">Paso a paso</p>
+      <h2 id="how-h">Cómo usar comparalo.mx</h2>
     </div>
-    <div class="carousel-arrows">
-      <button class="carousel-arrow" onclick="stepCarousel(-1)" aria-label="Paso anterior">&#8592;</button>
-      <button class="carousel-arrow" onclick="stepCarousel(1)" aria-label="Paso siguiente">&#8594;</button>
-    </div>
-    <div class="carousel-dots" id="carouselDots">
-      <button class="cdot active" onclick="goSlide(0)" aria-label="Paso 1"></button>
-      <button class="cdot" onclick="goSlide(1)" aria-label="Paso 2"></button>
-      <button class="cdot" onclick="goSlide(2)" aria-label="Paso 3"></button>
-      <button class="cdot" onclick="goSlide(3)" aria-label="Paso 4"></button>
-      <button class="cdot" onclick="goSlide(4)" aria-label="Paso 5"></button>
+    <div class="how-grid">
+      <div>
+        <ol class="how-list" role="tablist" aria-label="Pasos para usar comparalo.mx">
+          <li><button class="how-step" type="button" role="tab" id="how-t1" aria-controls="how-p1" aria-selected="true"><i>1</i><span>Elige una categoría</span><span class="bar"></span></button></li>
+          <li><button class="how-step" type="button" role="tab" id="how-t2" aria-controls="how-p2" aria-selected="false"><i>2</i><span>Filtra por características que te interesan</span><span class="bar"></span></button></li>
+          <li><button class="how-step" type="button" role="tab" id="how-t3" aria-controls="how-p3" aria-selected="false"><i>3</i><span>Compara entre distintas características</span><span class="bar"></span></button></li>
+          <li><button class="how-step" type="button" role="tab" id="how-t4" aria-controls="how-p4" aria-selected="false"><i>4</i><span>Da click en la opción que quieres para ir a la tienda oficial</span><span class="bar"></span></button></li>
+          <li><button class="how-step" type="button" role="tab" id="how-t5" aria-controls="how-p5" aria-selected="false"><i>5</i><span>Ve a la plataforma</span><span class="bar"></span></button></li>
+        </ol>
+      </div>
+      <div>
+        <div class="how-stage">
+          <figure class="on" id="how-p1" role="tabpanel" aria-labelledby="how-t1"><img src="fotos/pasos/paso-1.jpg" alt="Paso 1: Buscador de comparalo.mx con la lista de categorías" loading="lazy"></figure>
+          <figure class="" id="how-p2" role="tabpanel" aria-labelledby="how-t2"><img src="fotos/pasos/paso-2.jpg" alt="Paso 2: Filtros por características en comparalo.mx" loading="lazy"></figure>
+          <figure class="" id="how-p3" role="tabpanel" aria-labelledby="how-t3"><img src="fotos/pasos/paso-3.jpg" alt="Paso 3: Tabla comparativa de características en comparalo.mx" loading="lazy"></figure>
+          <figure class="" id="how-p4" role="tabpanel" aria-labelledby="how-t4"><img src="fotos/pasos/paso-4.jpg" alt="Paso 4: Botones para ir a Amazon o Mercado Libre desde comparalo.mx" loading="lazy"></figure>
+          <figure class="" id="how-p5" role="tabpanel" aria-labelledby="how-t5"><img src="fotos/pasos/paso-5.jpg" alt="Paso 5: Producto abierto en Mercado Libre desde comparalo.mx" loading="lazy"></figure>
+        </div>
+        <div class="how-nav">
+          <span class="how-count" id="how-count">Paso 1 de 5</span>
+          <div class="how-arrows">
+            <button type="button" id="how-prev" aria-label="Paso anterior"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0F172A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+            <button type="button" id="how-next" aria-label="Paso siguiente"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0F172A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
-<script>
-(function(){
-  var cur=0,total=5,timer,paused=false;
-  var stepLabels=['Elige categoria','Filtra','Compara','Elige producto','Ve a tienda'];
-
-  function trackStep(step,method){
-    if(typeof gtag==='function'){
-      gtag('event','tutorial_step_view',{
-        event_category:'tutorial',
-        event_label:stepLabels[step]||('paso_'+(step+1)),
-        step_number:step+1,
-        interaction_method:method
-      });
-    }
-  }
-
-  function goSlide(n,method){
-    cur=((n%total)+total)%total;
-    document.getElementById('carouselTrack').style.transform='translateX(-'+(cur*20)+'%)';
-    document.querySelectorAll('.cdot').forEach(function(d,i){d.classList.toggle('active',i===cur)});
-    if(method)trackStep(cur,method);
-  }
-
-  window.stepCarousel=function(dir){goSlide(cur+dir,'arrow')};
-  window.goSlide=function(n){goSlide(n,'dot')};
-
-  /* click en la slide cuenta como interacción */
-  document.getElementById('metodo').addEventListener('click',function(e){
-    if(!e.target.closest('.carousel-arrow')&&!e.target.closest('.cdot')){
-      trackStep(cur,'slide_click');
-    }
-  });
-
-  function next(){if(!paused)goSlide(cur+1,'auto')}
-  function startTimer(){timer=setInterval(next,4500)}
-
-  var wrap=document.getElementById('carouselTrack').parentElement;
-  wrap.addEventListener('mouseenter',function(){paused=true;clearInterval(timer)});
-  wrap.addEventListener('mouseleave',function(){paused=false;startTimer()});
-
-  /* touch swipe */
-  var tx=0;
-  wrap.addEventListener('touchstart',function(e){tx=e.touches[0].clientX;paused=true;clearInterval(timer)},{passive:true});
-  wrap.addEventListener('touchend',function(e){
-    var dx=e.changedTouches[0].clientX-tx;
-    if(Math.abs(dx)>40)goSlide(dx<0?cur+1:cur-1,'swipe');
-    paused=false;startTimer();
-  },{passive:true});
-
-  startTimer();
-})();
-</script>
 
 <section class="cats" aria-labelledby="cats-h">
   <div class="wrap">
@@ -668,5 +615,27 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9TKZ4ER13X"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-9TKZ4ER13X');</script>
+<script>
+(function(){
+  var root=document.getElementById('como-usar');if(!root)return;
+  var tabs=root.querySelectorAll('.how-step'),figs=root.querySelectorAll('.how-stage figure'),count=document.getElementById('how-count');
+  var cur=0,timer=null,N=tabs.length;
+  function go(i){
+    cur=(i+N)%N;
+    tabs.forEach(function(t,k){t.setAttribute('aria-selected',k===cur?'true':'false');var b=t.querySelector('.bar');b.style.animation='none';b.offsetWidth;b.style.animation='';});
+    figs.forEach(function(fg,k){fg.classList.toggle('on',k===cur)});
+    count.textContent='Paso '+(cur+1)+' de '+N;
+    restart();
+  }
+  function restart(){clearInterval(timer);if(!root.classList.contains('how-paused'))timer=setInterval(function(){go(cur+1)},5000)}
+  tabs.forEach(function(t,k){t.addEventListener('click',function(){go(k)})});
+  document.getElementById('how-prev').addEventListener('click',function(){go(cur-1)});
+  document.getElementById('how-next').addEventListener('click',function(){go(cur+1)});
+  root.addEventListener('mouseenter',function(){root.classList.add('how-paused');clearInterval(timer)});
+  root.addEventListener('mouseleave',function(){root.classList.remove('how-paused');restart()});
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){root.classList.add('how-paused')}
+  restart();
+})();
+</script>
 </body>
 </html>
