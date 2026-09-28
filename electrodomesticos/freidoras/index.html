@@ -170,6 +170,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .cmp-modal-header h2{font-size:1rem;font-weight:700;letter-spacing:-.02em}
 .cmp-modal-close{background:none;border:none;font-size:1.2rem;cursor:pointer;color:var(--tx2);padding:4px 8px;border-radius:6px;line-height:1}
 .cmp-modal-close:hover{background:var(--s1)}
+.cmp-diffs-section{border-bottom:1px solid var(--bd)}.cmp-diffs-inner{display:flex;align-items:flex-start;gap:16px;padding:10px 14px}.cmp-diffs-label-col{flex-shrink:0;width:145px;padding-top:2px}.cmp-diffs-title{font-size:14px;font-weight:700;color:var(--tx);display:block;margin-bottom:4px}.cmp-diffs-sub{font-size:11.5px;color:var(--tx2);line-height:1.35;display:block}.cmp-diff-chips{display:flex;gap:8px;flex:1;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}.cmp-diff-chip{display:flex;flex-direction:column;gap:2px;background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:8px 10px;flex:0 0 128px}.cmp-diff-chip-head{display:flex;align-items:center;gap:5px;margin-bottom:2px}.cmp-diff-chip-icon{font-size:14px;line-height:1}.cmp-diff-chip-label{font-size:11px;color:var(--tx2);font-weight:500}.cmp-diff-chip-badge{font-size:9.5px;font-weight:700;padding:2px 6px;border-radius:20px;white-space:nowrap;width:fit-content}.cmp-chip-badge-green{background:#d4f0e3;color:#004d34}.cmp-chip-badge-blue{background:#dbeafe;color:#1e40af}.cmp-chip-badge-gray{background:var(--s1);color:var(--tx3);border:1px solid var(--bd)}.cmp-diff-chip-val{font-size:14px;font-weight:700;color:var(--tx)}.cmp-diff-chip-sub{font-size:10.5px;color:var(--tx2);line-height:1.3}
 .cmp-table-wrap{overflow:auto;flex:1}
 .cmp-table{width:100%;border-collapse:collapse;font-size:13px;min-width:520px}
 .cmp-table th{padding:12px 14px;text-align:center;color:var(--tx3);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--s1);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:10}
@@ -375,6 +376,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <h2>Comparativa de Freidoras</h2>
       <button class="cmp-modal-close" onclick="closeModal()">✕</button>
     </div>
+    <div id="cmp-diffs-wrap"></div>
     <div class="cmp-table-wrap">
       <table class="cmp-table" id="cmp-table"></table>
     </div>
@@ -650,6 +652,7 @@ function updateBar() {
   }
 }
 
+function winIdxs(vals,dir){if(dir==='neutral')return[];const valid=vals.filter(v=>v!==null&&v!==undefined);if(!valid.length)return[];const best=dir==='lower'?Math.min(...valid):Math.max(...valid);return vals.reduce((acc,v,i)=>{if(v===best)acc.push(i);return acc;},[]);}
 function openModal() {
   if (selected.length < 2) return;
   const prods = selected.map(id => productos.find(p => p.id === id));
@@ -731,6 +734,40 @@ function openModal() {
     `<thead><tr><th style="text-align:left">Característica</th>${headers}</tr></thead>
      <tbody>${rows}<tr><td>Comprar</td>${btnRows}</tr></tbody>`;
 
+  const METRICS_FRE=[
+    {key:'precio',dir:'lower',label:'Precio',icon:'💰',get:p=>p.precio||null,fmt:x=>'$'+x.toLocaleString('es-MX')},
+    {key:'capacidad',dir:'higher',label:'Capacidad',icon:'🪣',get:p=>typeof p.capacidad==='number'?p.capacidad:null,fmt:x=>x+' L'},
+    {key:'potencia',dir:'higher',label:'Potencia',icon:'⚡',get:p=>typeof p.potencia==='number'?p.potencia:null,fmt:x=>x+' W'},
+    {key:'tempMax',dir:'higher',label:'Temp. máx.',icon:'🌡️',get:p=>typeof p.tempMax==='number'?p.tempMax:null,fmt:x=>x+'°C'},
+    {key:'programas',dir:'higher',label:'Programas',icon:'📋',get:p=>typeof p.programas==='number'?p.programas:null,fmt:x=>x+' prog.'},
+    {key:'estrellas',dir:'higher',label:'Calificación',icon:'⭐',get:p=>typeof p.estrellas==='number'?p.estrellas:null,fmt:x=>x.toFixed(1)},
+  ];
+  const n=prods.length;
+  const diffChipsHtml=[];
+  for(const m of METRICS_FRE){
+    const vals=prods.map(p=>m.get(p));
+    const valid=vals.filter(v=>v!==null&&v!==undefined);
+    if(valid.length<1)continue;
+    const ws=winIdxs(vals,m.dir);
+    const allSame=valid.length>=2&&valid.every(v=>v===valid[0]);
+    let badgeText='',badgeClass='',chipVal='',chipSub='';
+    if(allSame||m.dir==='neutral'){
+      badgeText='Igual';badgeClass='cmp-chip-badge-gray';
+      chipVal=m.fmt(valid[0]);chipSub='En las '+n+' freidoras';
+    }else if(ws.length===1){
+      const wv=vals[ws[0]];
+      chipVal=wv!==null?m.fmt(wv):'—';
+      badgeText=m.dir==='lower'?'Menor':'Mayor';badgeClass='cmp-chip-badge-green';
+      chipSub=prods[ws[0]].nombre.substring(0,24)+(prods[ws[0]].nombre.length>24?'…':'');
+    }else if(ws.length>1){
+      badgeText='Empate';badgeClass='cmp-chip-badge-blue';
+      chipVal=vals[ws[0]]!==null?m.fmt(vals[ws[0]]):'—';
+      chipSub='Varios modelos';
+    }
+    diffChipsHtml.push(`<div class="cmp-diff-chip"><div class="cmp-diff-chip-head"><span class="cmp-diff-chip-icon">${m.icon}</span><span class="cmp-diff-chip-label">${m.label}</span></div><span class="cmp-diff-chip-badge ${badgeClass}">${badgeText}</span><span class="cmp-diff-chip-val">${chipVal}</span><span class="cmp-diff-chip-sub">${chipSub}</span></div>`);
+  }
+  const diffsHtml=diffChipsHtml.length?`<section class="cmp-diffs-section"><div class="cmp-diffs-inner"><div class="cmp-diffs-label-col"><span class="cmp-diffs-title">Diferencias clave</span><span class="cmp-diffs-sub">Métricas destacadas entre los modelos</span></div><div class="cmp-diff-chips">${diffChipsHtml.join('')}</div></div></section>`:'';
+  document.getElementById('cmp-diffs-wrap').innerHTML=diffsHtml;
   document.getElementById('cmp-overlay').classList.add('open');
 }
 

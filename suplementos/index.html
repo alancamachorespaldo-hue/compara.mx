@@ -265,6 +265,7 @@ nav{background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1p
 .cmp-modal-header h2{font-size:1rem;font-weight:700}
 .cmp-modal-close{background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;opacity:.8}
 .cmp-modal-close:hover{opacity:1}
+.cmp-diffs-section{border-bottom:1px solid var(--bd)}.cmp-diffs-inner{display:flex;align-items:flex-start;gap:16px;padding:10px 14px}.cmp-diffs-label-col{flex-shrink:0;width:145px;padding-top:2px}.cmp-diffs-title{font-size:14px;font-weight:700;color:var(--tx);display:block;margin-bottom:4px}.cmp-diffs-sub{font-size:11.5px;color:var(--tx2);line-height:1.35;display:block}.cmp-diff-chips{display:flex;gap:8px;flex:1;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}.cmp-diff-chip{display:flex;flex-direction:column;gap:2px;background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:8px 10px;flex:0 0 128px}.cmp-diff-chip-head{display:flex;align-items:center;gap:5px;margin-bottom:2px}.cmp-diff-chip-icon{font-size:14px;line-height:1}.cmp-diff-chip-label{font-size:11px;color:var(--tx2);font-weight:500}.cmp-diff-chip-badge{font-size:9.5px;font-weight:700;padding:2px 6px;border-radius:20px;white-space:nowrap;width:fit-content}.cmp-chip-badge-green{background:#d4f0e3;color:#004d34}.cmp-chip-badge-blue{background:#dbeafe;color:#1e40af}.cmp-chip-badge-gray{background:var(--s1);color:var(--tx3);border:1px solid var(--bd)}.cmp-diff-chip-val{font-size:14px;font-weight:700;color:var(--tx)}.cmp-diff-chip-sub{font-size:10.5px;color:var(--tx2);line-height:1.3}
 .cmp-table-wrap{overflow-x:auto;padding:0}
 .cmp-table{width:100%;border-collapse:collapse}
 .cmp-table th{background:var(--ac3);color:var(--ac);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:10px 14px;text-align:left;border-bottom:2px solid var(--bd);position:sticky;left:0;z-index:1}
@@ -1108,6 +1109,7 @@ function actualizarBarraCmp() {
   }
 }
 
+function winIdxs(vals,dir){if(dir==='neutral')return[];const valid=vals.filter(v=>v!==null&&v!==undefined);if(!valid.length)return[];const best=dir==='lower'?Math.min(...valid):Math.max(...valid);return vals.reduce((acc,v,i)=>{if(v===best)acc.push(i);return acc;},[]);}
 function abrirComparacion() {
   const prods = seleccionados.map(id => productos.find(p => p.id === id));
   const overlay = document.getElementById('cmp-overlay');
@@ -1258,12 +1260,46 @@ function abrirComparacion() {
     </tbody>
   </table>`;
 
+  const METRICS_SUP=[
+    {key:'precio',dir:'lower',label:'Precio',icon:'💰',get:p=>{const mn=Math.min(...[p.precioML,p.precioAmz,p.precio].filter(Boolean));return mn||null;},fmt:x=>'$'+x.toLocaleString('es-MX')},
+    {key:'porciones',dir:'higher',label:'Porciones',icon:'📦',get:p=>typeof p.porciones==='number'?p.porciones:null,fmt:x=>x+' porc.'},
+    {key:'costoPorPorcion',dir:'lower',label:'$/porción',icon:'🧮',get:p=>typeof p.costoPorPorcion==='number'?p.costoPorPorcion:null,fmt:x=>'$'+x.toFixed(2)},
+    {key:'epa',dir:'higher',label:'EPA',icon:'🐟',get:p=>typeof p.epa==='number'&&p.epa>0?p.epa:null,fmt:x=>x+' mg'},
+    {key:'dha',dir:'higher',label:'DHA',icon:'🐟',get:p=>typeof p.dha==='number'&&p.dha>0?p.dha:null,fmt:x=>x+' mg'},
+    {key:'estrellas',dir:'higher',label:'Calificación',icon:'⭐',get:p=>typeof p.estrellas==='number'&&p.estrellas>0?p.estrellas:null,fmt:x=>x.toFixed(1)},
+  ];
+  const nSup=prods.length;
+  const diffChipsHtmlSup=[];
+  for(const m of METRICS_SUP){
+    const vals=prods.map(p=>m.get(p));
+    const valid=vals.filter(v=>v!==null&&v!==undefined);
+    if(valid.length<1)continue;
+    const ws=winIdxs(vals,m.dir);
+    const allSame=valid.length>=2&&valid.every(v=>v===valid[0]);
+    let badgeText='',badgeClass='',chipVal='',chipSub='';
+    if(allSame||m.dir==='neutral'){
+      badgeText='Igual';badgeClass='cmp-chip-badge-gray';
+      chipVal=m.fmt(valid[0]);chipSub='En los '+nSup+' productos';
+    }else if(ws.length===1){
+      const wv=vals[ws[0]];
+      chipVal=wv!==null?m.fmt(wv):'—';
+      badgeText=m.dir==='lower'?'Menor':'Mayor';badgeClass='cmp-chip-badge-green';
+      chipSub=prods[ws[0]].nombre.substring(0,24)+(prods[ws[0]].nombre.length>24?'…':'');
+    }else if(ws.length>1){
+      badgeText='Empate';badgeClass='cmp-chip-badge-blue';
+      chipVal=vals[ws[0]]!==null?m.fmt(vals[ws[0]]):'—';
+      chipSub='Varios productos';
+    }
+    diffChipsHtmlSup.push(`<div class="cmp-diff-chip"><div class="cmp-diff-chip-head"><span class="cmp-diff-chip-icon">${m.icon}</span><span class="cmp-diff-chip-label">${m.label}</span></div><span class="cmp-diff-chip-badge ${badgeClass}">${badgeText}</span><span class="cmp-diff-chip-val">${chipVal}</span><span class="cmp-diff-chip-sub">${chipSub}</span></div>`);
+  }
+  const diffsHtmlSup=diffChipsHtmlSup.length?`<section class="cmp-diffs-section"><div class="cmp-diffs-inner"><div class="cmp-diffs-label-col"><span class="cmp-diffs-title">Diferencias clave</span><span class="cmp-diffs-sub">Métricas destacadas entre los productos</span></div><div class="cmp-diff-chips">${diffChipsHtmlSup.join('')}</div></div></section>`:'';
   overlay.innerHTML = `
   <div class="cmp-modal">
     <div class="cmp-modal-header">
       <h2>Comparación de ${prods.length} productos</h2>
       <button class="cmp-modal-close" onclick="cerrarComparacion()">✕</button>
     </div>
+    <div id="cmp-diffs-wrap">${diffsHtmlSup}</div>
     <div class="cmp-table-wrap">${tabla}</div>
   </div>`;
   overlay.classList.add('open');
