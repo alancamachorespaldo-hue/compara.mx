@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <rect width="1200" height="630" fill="#006847"/>
+  <rect x="0" y="0" width="1200" height="630" fill="#004f35" opacity="0.35"/>
+
+  <!-- Decorative circles -->
+  <circle cx="1080" cy="80" r="220" fill="#00804e" opacity="0.25"/>
+  <circle cx="120" cy="580" r="180" fill="#00804e" opacity="0.2"/>
+  <circle cx="1050" cy="580" r="120" fill="#005c3a" opacity="0.4"/>
+
+  <!-- Top label -->
+  <rect x="80" y="72" width="200" height="36" rx="18" fill="#ffffff" opacity="0.15"/>
+  <text x="180" y="96" font-family="system-ui, sans-serif" font-size="15" font-weight="600" fill="#ffffff" text-anchor="middle" opacity="0.9">comparalo.mx</text>
+
+  <!-- Main title -->
+  <text x="80" y="310" font-family="system-ui, sans-serif" font-size="104" font-weight="800" fill="#ffffff">Bicicletas</text>
+  <text x="80" y="410" font-family="system-ui, sans-serif" font-size="104" font-weight="800" fill="#6ee7b7">en México</text>
+
+  <!-- Tagline -->
+  <text x="80" y="502" font-family="system-ui, sans-serif" font-size="32" font-weight="400" fill="#ffffff" opacity="0.8">Compara precios en Amazon MX y Mercado Libre</text>
+
+  <!-- Bottom bar -->
+  <rect x="80" y="556" width="80" height="6" rx="3" fill="#6ee7b7"/>
+  <text x="80" y="600" font-family="system-ui, sans-serif" font-size="22" fill="#6ee7b7" opacity="0.9">comparalo.mx</text>
+</svg>
