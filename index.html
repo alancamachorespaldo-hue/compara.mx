@@ -339,17 +339,17 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
     <form action="/suplementos" method="get" role="search">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
       <label class="skip" for="q-panel">Buscar producto</label>
-      <input id="q-panel" name="q" type="search" placeholder="¿Qué quieres comparar?">
+      <input id="q-panel" name="q" type="search" placeholder="¿Qué quieres comparar?" autocomplete="off" oninput="filterPanelNav(this.value)">
     </form>
-    <ul>
-      <li><a href="/celulares">Celulares</a></li>
-      <li><a href="/celulares/android/">Android</a></li>
-      <li><a href="/celulares/iphone/">iPhone</a></li>
-      <li><a href="/suplementos">Suplementos</a></li>
-      <li><a href="/bicis">Bicicletas</a></li>
-      <li><a href="/electrodomesticos">Electrodomésticos</a></li>
-      <li><a href="/laptops">Laptops</a></li>
-      <li><a href="#metodo">Cómo comparamos</a></li>
+    <ul id="panel-nav-list">
+      <li data-search="celulares smartphones"><a href="/celulares">Celulares</a></li>
+      <li data-search="celulares android smartphones samsung pixel motorola"><a href="/celulares/android/">Android</a></li>
+      <li data-search="iphone apple ios"><a href="/celulares/iphone/">iPhone</a></li>
+      <li data-search="suplementos proteína creatina magnesio complejo b omega"><a href="/suplementos">Suplementos</a></li>
+      <li data-search="bicicletas bici ciclismo"><a href="/bicis">Bicicletas</a></li>
+      <li data-search="electrodomesticos microondas freidoras aire"><a href="/electrodomesticos">Electrodomésticos</a></li>
+      <li data-search="laptops computadoras notebooks universidad gamer"><a href="/laptops">Laptops</a></li>
+      <li data-search="como usar paso a paso"><a href="#como-usar">Cómo comparamos</a></li>
     </ul>
   </div>
   <div class="chips" id="m-chips">
@@ -436,6 +436,11 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
       var d=document.getElementById('searchDrop'),links=d.querySelectorAll('a'),v=q.trim().toLowerCase();
       links.forEach(function(a){a.style.display=(!v||a.dataset.search.includes(v)||a.textContent.toLowerCase().includes(v))?'':'none'});
       d.classList.add('open');
+    }
+    function filterPanelNav(q){
+      var v=q.trim().toLowerCase(),list=document.getElementById('panel-nav-list');
+      if(!list)return;
+      list.querySelectorAll('li').forEach(function(li){li.style.display=(!v||li.dataset.search.includes(v)||li.textContent.toLowerCase().includes(v))?'':'none'});
     }
     function openNavDrop(){document.getElementById('navDrop').classList.add('open')}
     function filterNavDrop(q){
