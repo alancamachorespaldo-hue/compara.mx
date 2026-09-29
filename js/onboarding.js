@@ -16,33 +16,33 @@
   var steps = [
     {
       img: '/fotos/pasos/paso-1.jpg',
-      alt: 'Paso 1: Elige una categoría en comparalo.mx',
-      title: 'Elige una categoría',
-      desc: 'Selecciona suplementos, bicicletas, laptops, celulares o electrodomésticos.'
+      alt: 'Busca lo que quieres comparar en comparalo.mx',
+      title: 'Busca lo que quieres',
+      desc: 'Escribe el producto o elige directamente una categoría: suplementos, bicicletas, laptops, celulares o electrodomésticos.'
     },
     {
       img: '/fotos/pasos/paso-2.jpg',
-      alt: 'Paso 2: Filtra por características',
-      title: 'Filtra lo que necesitas',
-      desc: 'Usa los filtros para afinar por precio, marca o características clave.'
+      alt: 'Explora el catálogo de productos de la categoría',
+      title: 'Explora el catálogo',
+      desc: 'Ve todos los productos de la categoría con sus especificaciones reales: porciones, peso, tipo y precio.'
     },
     {
       img: '/fotos/pasos/paso-3.jpg',
-      alt: 'Paso 3: Compara productos lado a lado',
-      title: 'Compara lado a lado',
-      desc: 'Ve las diferencias reales entre productos en una sola tabla.'
+      alt: 'Filtra y selecciona los productos que te interesan',
+      title: 'Filtra y selecciona',
+      desc: 'Usa los filtros para afinar por tipo, precio o plataforma. Selecciona hasta 3 productos para compararlos.'
     },
     {
       img: '/fotos/pasos/paso-4.jpg',
-      alt: 'Paso 4: Ve el precio en Amazon y Mercado Libre',
-      title: 'Ve precios en ambas plataformas',
-      desc: 'Comparamos el mismo producto en Amazon MX y Mercado Libre en tiempo real.'
+      alt: 'Compara productos lado a lado en una sola tabla',
+      title: 'Compara lado a lado',
+      desc: 'Ve en una sola tabla las diferencias reales: precio por porción, valoraciones, pesos y más. Sin ir a cada tienda.'
     },
     {
       img: '/fotos/pasos/paso-5.jpg',
-      alt: 'Paso 5: Compra donde te convenga',
+      alt: 'Compra en Amazon o Mercado Libre donde te convenga más',
       title: 'Compra donde te convenga',
-      desc: 'Haz clic en la plataforma que te dé mejor precio o mejores condiciones.'
+      desc: 'Haz clic en "Ir a producto" para abrir el artículo directamente en Amazon MX o Mercado Libre y comprarlo al mejor precio.'
     }
   ];
 
@@ -121,8 +121,8 @@
       'line-height:1;transition:border-color .15s,color .15s}',
       '.cmx-ob-x:hover{border-color:#006847;color:#006847}',
       '.cmx-ob-img-wrap{position:relative;background:#F2F4F7;margin:14px 20px 0;border-radius:12px;',
-      'overflow:hidden;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center}',
-      '.cmx-ob-img{width:100%;height:100%;object-fit:contain;display:block}',
+      'overflow:hidden;height:280px;display:flex;align-items:center;justify-content:center}',
+      '.cmx-ob-img{max-width:100%;max-height:100%;object-fit:contain;display:block;border-radius:8px}',
       '.cmx-ob-body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:10px}',
       '.cmx-ob-step-title{font-size:17px;font-weight:800;color:#0F172A;letter-spacing:-.03em;margin:0}',
       '.cmx-ob-step-desc{font-size:14px;color:#64748B;line-height:1.6;margin:0}',
@@ -161,7 +161,7 @@
       '<button class="cmx-ob-x" aria-label="Cerrar tutorial">×</button>',
       '</div>',
       '<div class="cmx-ob-img-wrap">',
-      '<img class="cmx-ob-img" src="' + steps[0].img + '" alt="' + steps[0].alt + '" width="800" height="450" loading="eager">',
+      '<img class="cmx-ob-img" src="' + steps[0].img + '" alt="' + steps[0].alt + '" width="948" height="2000" loading="eager">',
       '</div>',
       '<div class="cmx-ob-body">',
       '<p class="cmx-ob-step-title">' + steps[0].title + '</p>',
