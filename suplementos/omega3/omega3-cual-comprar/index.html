@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es-MX">
 <head>
 <meta charset="UTF-8">
@@ -155,6 +155,23 @@ li{margin-bottom:.3rem;font-size:14.5px;line-height:1.6}
 footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;text-align:center;font-size:12px;color:var(--tx3)}
 footer strong{color:var(--tx2)}
 @media(max-width:640px){.art{padding:2rem 1rem 4rem}.nav{padding:0 1rem}.nav-links{display:none}}
+
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;margin:1.4rem 0}
+.card{background:var(--s1);border:1px solid var(--bd);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px}
+.card-name{font-size:13.5px;font-weight:700;color:var(--tx);line-height:1.35;margin:0}
+.card-brand{font-size:10px;color:var(--tx3);font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.card-stars{font-size:13px;color:#e6900a;font-weight:700;display:flex;align-items:center;gap:4px}
+.card-stars-count{color:var(--tx3);font-size:11px;font-weight:400}
+.card-specs{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.spec{background:var(--bg);border-radius:7px;padding:5px 8px;border:1px solid var(--bd)}
+.spec-label{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+.spec-val{font-size:11.5px;font-weight:700;color:var(--tx);margin-top:1px}
+.card-price{font-size:1.15rem;font-weight:700;color:var(--tx);letter-spacing:-.03em}
+.card-btns{display:flex;flex-direction:column;gap:6px;margin-top:auto}
+.btn-amz{display:flex;align-items:center;justify-content:center;gap:5px;width:100%;background:var(--amz);color:#000;border:none;border-radius:8px;padding:9px;font-size:12px;font-weight:700;text-decoration:none;transition:opacity .15s}
+.btn-amz:hover{opacity:.88;color:#000}
+.btn-ml{display:flex;align-items:center;justify-content:center;gap:5px;width:100%;background:var(--ml);color:#3a2e00;border:none;border-radius:8px;padding:9px;font-size:12px;font-weight:700;text-decoration:none;transition:opacity .15s}
+.btn-ml:hover{opacity:.88;color:#3a2e00}
 </style>
 </head>
 <body>
@@ -255,19 +272,100 @@ footer strong{color:var(--tx2)}
   </div>
 
   <h2 id="marcas-mexico">Marcas disponibles en México (Amazon MX y Mercado Libre)</h2>
-  <p>Estas son algunas de las marcas más vendidas o mejor valoradas en plataformas mexicanas en 2026. Verifica precios actuales en el comparador:</p>
+  <p>Marcas más vendidas o mejor valoradas en plataformas mexicanas en 2026, con links directos verificados:</p>
 
-  <div class="tabla-wrap">
-    <table class="tabla">
-      <thead><tr><th>Marca</th><th>EPA+DHA por cápsula</th><th>Porciones</th><th>Plataforma</th><th>Rango de precio</th></tr></thead>
-      <tbody>
-        <tr><td>Optimum Nutrition Fish Oil</td><td>300 mg EPA + 200 mg DHA</td><td>200 cáps</td><td>Amazon MX</td><td>~$380–$450 MXN</td></tr>
-        <tr><td>Beyond Vitamins Omega 3</td><td>360 mg EPA + 240 mg DHA</td><td>120 cáps</td><td>Amazon MX / ML</td><td>~$220–$280 MXN</td></tr>
-        <tr><td>Birdman Omega 3 Vegano</td><td>DHA de algas (300 mg DHA)</td><td>60 cáps</td><td>Mercado Libre</td><td>~$350–$420 MXN</td></tr>
-        <tr><td>NATSA Omega 3</td><td>180 mg EPA + 120 mg DHA</td><td>100 cáps</td><td>Mercado Libre</td><td>~$180–$230 MXN</td></tr>
-        <tr><td>Hero Sport Omega 3</td><td>330 mg EPA + 220 mg DHA</td><td>90 cáps</td><td>Amazon MX / ML</td><td>~$260–$310 MXN</td></tr>
-      </tbody>
-    </table>
+  <div class="cards-grid" role="list">
+
+    <!-- Now Foods Omega-3 100 softgels ML -->
+    <div class="card" role="listitem">
+      <div class="card-brand">Now Foods · Aceite de pescado</div>
+      <p class="card-name">Now Foods Omega-3 – 100 Softgels (EPA 180mg + DHA 120mg)</p>
+      <div class="card-stars">★ 4.9 <span class="card-stars-count">(2,649 reseñas)</span></div>
+      <div class="card-specs">
+        <div class="spec"><div class="spec-label">EPA+DHA/cáp</div><div class="spec-val">300 mg</div></div>
+        <div class="spec"><div class="spec-label">Porciones</div><div class="spec-val">100 softgels</div></div>
+      </div>
+      <div class="card-price">$237 <span style="font-size:12px;color:var(--tx3);font-weight:400">MXN (ML)</span></div>
+      <div class="card-btns">
+        <a class="btn-ml" href="https://meli.la/1QExyyw" target="_blank" rel="nofollow sponsored" aria-label="Now Foods Omega-3 100 softgels en Mercado Libre">Ver en Mercado Libre →</a>
+      </div>
+    </div>
+
+    <!-- Now Foods Omega-3 200 cáps AMZ -->
+    <div class="card" role="listitem">
+      <div class="card-brand">Now Foods · Aceite de pescado</div>
+      <p class="card-name">Now Foods Omega-3 – 200 Cápsulas (EPA 180mg + DHA 120mg)</p>
+      <div class="card-stars">★ 4.8 <span class="card-stars-count">(16,429 reseñas)</span></div>
+      <div class="card-specs">
+        <div class="spec"><div class="spec-label">EPA+DHA/cáp</div><div class="spec-val">300 mg</div></div>
+        <div class="spec"><div class="spec-label">Porciones</div><div class="spec-val">200 cáps</div></div>
+      </div>
+      <div class="card-price">$320 <span style="font-size:12px;color:var(--tx3);font-weight:400">MXN (AMZ)</span></div>
+      <div class="card-btns">
+        <a class="btn-amz" href="https://www.amazon.com.mx/dp/B001GCU6KA?tag=comparabici-20" target="_blank" rel="nofollow sponsored" aria-label="Now Foods Omega-3 200 cápsulas en Amazon MX">Ver en Amazon →</a>
+      </div>
+    </div>
+
+    <!-- B Life 100 cáps AMZ -->
+    <div class="card" role="listitem">
+      <div class="card-brand">B Life · Marca mexicana</div>
+      <p class="card-name">B Life Omega 3 – 100 Cápsulas</p>
+      <div class="card-stars">★ 4.8 <span class="card-stars-count">(6,591 reseñas)</span></div>
+      <div class="card-specs">
+        <div class="spec"><div class="spec-label">EPA+DHA</div><div class="spec-val">Ver etiqueta</div></div>
+        <div class="spec"><div class="spec-label">Porciones</div><div class="spec-val">100 cáps</div></div>
+      </div>
+      <div class="card-price">$269 <span style="font-size:12px;color:var(--tx3);font-weight:400">MXN (AMZ)</span></div>
+      <div class="card-btns">
+        <a class="btn-amz" href="https://www.amazon.com.mx/dp/B0BHTTDBC2?tag=comparabici-20" target="_blank" rel="nofollow sponsored" aria-label="B Life Omega 3 100 cápsulas en Amazon MX">Ver en Amazon →</a>
+      </div>
+    </div>
+
+    <!-- B Life 180 cáps ML -->
+    <div class="card" role="listitem">
+      <div class="card-brand">B Life · Marca mexicana</div>
+      <p class="card-name">B Life Omega 3 – 180 Cápsulas</p>
+      <div class="card-stars">★ 4.9 <span class="card-stars-count">(6,908 reseñas)</span></div>
+      <div class="card-specs">
+        <div class="spec"><div class="spec-label">EPA+DHA</div><div class="spec-val">Ver etiqueta</div></div>
+        <div class="spec"><div class="spec-label">Porciones</div><div class="spec-val">180 cáps</div></div>
+      </div>
+      <div class="card-price">$749 <span style="font-size:12px;color:var(--tx3);font-weight:400">MXN (ML)</span></div>
+      <div class="card-btns">
+        <a class="btn-ml" href="https://meli.la/1bCdCuk" target="_blank" rel="nofollow sponsored" aria-label="B Life Omega 3 180 cápsulas en Mercado Libre">Ver en Mercado Libre →</a>
+      </div>
+    </div>
+
+    <!-- OBY Omega 3 salmón 120 cáps ML -->
+    <div class="card" role="listitem">
+      <div class="card-brand">OBY · Aceite de salmón</div>
+      <p class="card-name">OBY Omega 3 Salmón – 120 Cápsulas</p>
+      <div class="card-stars">★ 4.9 <span class="card-stars-count">(4,078 reseñas)</span></div>
+      <div class="card-specs">
+        <div class="spec"><div class="spec-label">Fuente</div><div class="spec-val">Salmón</div></div>
+        <div class="spec"><div class="spec-label">Porciones</div><div class="spec-val">120 cáps</div></div>
+      </div>
+      <div class="card-price">$379 <span style="font-size:12px;color:var(--tx3);font-weight:400">MXN (ML)</span></div>
+      <div class="card-btns">
+        <a class="btn-ml" href="https://meli.la/28sYPqn" target="_blank" rel="nofollow sponsored" aria-label="OBY Omega 3 Salmón 120 cápsulas en Mercado Libre">Ver en Mercado Libre →</a>
+      </div>
+    </div>
+
+    <!-- Nordic Naturals 60 cáps AMZ -->
+    <div class="card" role="listitem">
+      <div class="card-brand">Nordic Naturals · Concentrado premium</div>
+      <p class="card-name">Nordic Naturals Ultimate Omega – 60 Cápsulas (EPA 650mg + DHA 450mg)</p>
+      <div class="card-stars">★ 4.8 <span class="card-stars-count">(9,097 reseñas)</span></div>
+      <div class="card-specs">
+        <div class="spec"><div class="spec-label">EPA+DHA/cáp</div><div class="spec-val">1,100 mg</div></div>
+        <div class="spec"><div class="spec-label">Porciones</div><div class="spec-val">60 cáps</div></div>
+      </div>
+      <div class="card-price">$670 <span style="font-size:12px;color:var(--tx3);font-weight:400">MXN (AMZ)</span></div>
+      <div class="card-btns">
+        <a class="btn-amz" href="https://www.amazon.com.mx/dp/B0006GZE22?tag=comparabici-20" target="_blank" rel="nofollow sponsored" aria-label="Nordic Naturals Ultimate Omega 60 cápsulas en Amazon MX">Ver en Amazon →</a>
+      </div>
+    </div>
+
   </div>
 
   <p style="font-size:13px;color:var(--tx3)">Precios orientativos verificados en septiembre 2026. Pueden variar. Confirma el precio actual antes de comprar.</p>
@@ -341,6 +439,17 @@ footer strong{color:var(--tx2)}
   </div>
 </footer>
 
+
+<script>
+document.addEventListener('click',function(e){
+  var btn=e.target.closest('.btn-amz,.btn-ml');
+  if(!btn)return;
+  if(typeof gtag!=='function')return;
+  var evt=btn.classList.contains('btn-ml')?'affiliate_click_ml':'affiliate_click_amazon';
+  var label=btn.dataset.gaLabel||btn.getAttribute('aria-label')||'';
+  gtag('event',evt,{product_name:label,page_location:window.location.href});
+});
+</script>
 <script src="/js/onboarding.js" defer></script>
 </body>
 </html>

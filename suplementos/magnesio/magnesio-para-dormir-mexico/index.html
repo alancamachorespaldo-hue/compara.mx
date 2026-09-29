@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es-MX">
 <head>
 <meta charset="UTF-8">
@@ -146,6 +146,23 @@ li{margin-bottom:.3rem;font-size:14.5px;line-height:1.6}
 footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;text-align:center;font-size:12px;color:var(--tx3)}
 footer strong{color:var(--tx2)}
 @media(max-width:640px){.art{padding:2rem 1rem 4rem}.nav{padding:0 1rem}.nav-links{display:none}}
+
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;margin:1.4rem 0}
+.card{background:var(--s1);border:1px solid var(--bd);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px}
+.card-name{font-size:13.5px;font-weight:700;color:var(--tx);line-height:1.35;margin:0}
+.card-brand{font-size:10px;color:var(--tx3);font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.card-stars{font-size:13px;color:#e6900a;font-weight:700;display:flex;align-items:center;gap:4px}
+.card-stars-count{color:var(--tx3);font-size:11px;font-weight:400}
+.card-specs{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.spec{background:var(--bg);border-radius:7px;padding:5px 8px;border:1px solid var(--bd)}
+.spec-label{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+.spec-val{font-size:11.5px;font-weight:700;color:var(--tx);margin-top:1px}
+.card-price{font-size:1.15rem;font-weight:700;color:var(--tx);letter-spacing:-.03em}
+.card-btns{display:flex;flex-direction:column;gap:6px;margin-top:auto}
+.btn-amz{display:flex;align-items:center;justify-content:center;gap:5px;width:100%;background:var(--amz);color:#000;border:none;border-radius:8px;padding:9px;font-size:12px;font-weight:700;text-decoration:none;transition:opacity .15s}
+.btn-amz:hover{opacity:.88;color:#000}
+.btn-ml{display:flex;align-items:center;justify-content:center;gap:5px;width:100%;background:var(--ml);color:#3a2e00;border:none;border-radius:8px;padding:9px;font-size:12px;font-weight:700;text-decoration:none;transition:opacity .15s}
+.btn-ml:hover{opacity:.88;color:#3a2e00}
 </style>
 </head>
 <body>
@@ -242,17 +259,69 @@ footer strong{color:var(--tx2)}
 
   <h2 id="marcas-mexico">Marcas disponibles en México para el sueño</h2>
 
-  <div class="tabla-wrap">
-    <table class="tabla">
-      <thead><tr><th>Marca</th><th>Tipo de magnesio</th><th>Mg elemental/dosis</th><th>Plataforma</th><th>Precio estimado</th></tr></thead>
-      <tbody>
-        <tr><td>B Life Glicinato</td><td>Glicinato</td><td>336 mg / 2 cáps</td><td>Mercado Libre</td><td>~$230–$280 MXN (120 cáps)</td></tr>
-        <tr><td>Wellthy Bisglicinato</td><td>Bisglicinato</td><td>300 mg / 3 cáps</td><td>Amazon MX / ML</td><td>~$320–$380 MXN (300 cáps)</td></tr>
-        <tr><td>Beyond Vitamins Glicinato</td><td>Glicinato</td><td>200 mg / 2 cáps</td><td>Amazon MX / ML</td><td>~$250–$300 MXN (90 cáps)</td></tr>
-        <tr><td>NATSA Citrato</td><td>Citrato</td><td>200 mg / 2 cáps</td><td>Mercado Libre</td><td>~$150–$190 MXN (60 cáps)</td></tr>
-        <tr><td>Solaray Mg Glycinate</td><td>Glicinato</td><td>400 mg / 2 cáps</td><td>Amazon MX</td><td>~$400–$500 MXN (120 cáps)</td></tr>
-      </tbody>
-    </table>
+  <div class="cards-grid" role="list">
+
+    <!-- KAL Glicinato 350mg 160 cáps -->
+    <div class="card" role="listitem">
+      <div class="card-brand">KAL · Glicinato</div>
+      <p class="card-name">KAL Glicinato de Magnesio 350 mg – 160 Cápsulas Vegetarianas</p>
+      <div class="card-stars">★ 4.8 <span class="card-stars-count">(1,965 reseñas)</span></div>
+      <div class="card-specs">
+        <div class="spec"><div class="spec-label">Mg elemental</div><div class="spec-val">350 mg</div></div>
+        <div class="spec"><div class="spec-label">Porciones</div><div class="spec-val">160 cáps</div></div>
+      </div>
+      <div class="card-price">$449 <span style="font-size:12px;color:var(--tx3);font-weight:400">MXN (AMZ)</span></div>
+      <div class="card-btns">
+        <a class="btn-amz" href="https://www.amazon.com.mx/dp/B09V5TJJ4G?tag=comparabici-20" target="_blank" rel="nofollow sponsored" aria-label="KAL Glicinato de Magnesio 350 mg en Amazon MX">Ver en Amazon →</a>
+        <a class="btn-ml" href="https://meli.la/2nYJPCG" target="_blank" rel="nofollow sponsored" aria-label="KAL Glicinato de Magnesio 350 mg en Mercado Libre">Ver en Mercado Libre →</a>
+      </div>
+    </div>
+
+    <!-- Solaray Glicinato 350mg 120 cáps veganas -->
+    <div class="card" role="listitem">
+      <div class="card-brand">Solaray · Vegano · Lab Verified</div>
+      <p class="card-name">Solaray Glicinato de Magnesio 350 mg – 120 Cápsulas Veganas</p>
+      <div class="card-stars">★ 4.9 <span class="card-stars-count">(1,080 reseñas)</span></div>
+      <div class="card-specs">
+        <div class="spec"><div class="spec-label">Mg elemental</div><div class="spec-val">350 mg</div></div>
+        <div class="spec"><div class="spec-label">Porciones</div><div class="spec-val">120 cáps</div></div>
+      </div>
+      <div class="card-price">$405 <span style="font-size:12px;color:var(--tx3);font-weight:400">MXN (ML)</span></div>
+      <div class="card-btns">
+        <a class="btn-ml" href="https://meli.la/2rRKtWY" target="_blank" rel="nofollow sponsored" aria-label="Solaray Glicinato de Magnesio 350 mg en Mercado Libre">Ver en Mercado Libre →</a>
+      </div>
+    </div>
+
+    <!-- WELLTHY Glicinato 220 cáps -->
+    <div class="card" role="listitem">
+      <div class="card-brand">WELLTHY · Glicinato</div>
+      <p class="card-name">WELLTHY Glicinato de Magnesio – 220 Cápsulas</p>
+      <div class="card-stars">★ 4.7 <span class="card-stars-count">(432 reseñas)</span></div>
+      <div class="card-specs">
+        <div class="spec"><div class="spec-label">Mg elemental</div><div class="spec-val">432 mg</div></div>
+        <div class="spec"><div class="spec-label">Porciones</div><div class="spec-val">55 porciones</div></div>
+      </div>
+      <div class="card-price">$297 <span style="font-size:12px;color:var(--tx3);font-weight:400">MXN (AMZ)</span></div>
+      <div class="card-btns">
+        <a class="btn-amz" href="https://www.amazon.com.mx/dp/B0CCG6XGM4?tag=comparabici-20" target="_blank" rel="nofollow sponsored" aria-label="WELLTHY Glicinato de Magnesio en Amazon MX">Ver en Amazon →</a>
+      </div>
+    </div>
+
+    <!-- OBY Magnesio Complex 5 190 cáps -->
+    <div class="card" role="listitem">
+      <div class="card-brand">OBY · Complex 5</div>
+      <p class="card-name">OBY Magnesio Complex 5 – 190 Cápsulas (Citrato, Bisglicinato, L-Treonato…)</p>
+      <div class="card-stars">★ 4.7 <span class="card-stars-count">(2,020 reseñas)</span></div>
+      <div class="card-specs">
+        <div class="spec"><div class="spec-label">Mg elemental</div><div class="spec-val">188.7 mg</div></div>
+        <div class="spec"><div class="spec-label">Porciones</div><div class="spec-val">190 cáps</div></div>
+      </div>
+      <div class="card-price">$400 <span style="font-size:12px;color:var(--tx3);font-weight:400">MXN (AMZ)</span></div>
+      <div class="card-btns">
+        <a class="btn-amz" href="https://www.amazon.com.mx/dp/B0F1DX5TMD?tag=comparabici-20" target="_blank" rel="nofollow sponsored" aria-label="OBY Magnesio Complex 5 190 cápsulas en Amazon MX">Ver en Amazon →</a>
+      </div>
+    </div>
+
   </div>
   <p style="font-size:13px;color:var(--tx3)">Precios orientativos verificados en septiembre 2026. Pueden variar. Confirma el precio actual antes de comprar.</p>
 
@@ -321,6 +390,17 @@ footer strong{color:var(--tx2)}
   </div>
 </footer>
 
+
+<script>
+document.addEventListener('click',function(e){
+  var btn=e.target.closest('.btn-amz,.btn-ml');
+  if(!btn)return;
+  if(typeof gtag!=='function')return;
+  var evt=btn.classList.contains('btn-ml')?'affiliate_click_ml':'affiliate_click_amazon';
+  var label=btn.dataset.gaLabel||btn.getAttribute('aria-label')||'';
+  gtag('event',evt,{product_name:label,page_location:window.location.href});
+});
+</script>
 <script src="/js/onboarding.js" defer></script>
 </body>
 </html>
