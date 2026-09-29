@@ -44,11 +44,22 @@
 
   var current = 0;
 
+  function ga(eventName, params) {
+    try {
+      if (typeof gtag === 'function') gtag('event', eventName, params);
+    } catch (e) {}
+  }
+
   function markSeen() {
     try { sessionStorage.setItem(KEY, '1'); } catch (e) {}
   }
 
-  function close() {
+  function close(trigger) {
+    ga('onboarding_closed', {
+      step_number: current + 1,
+      step_title: steps[current].title,
+      trigger: trigger || 'unknown'
+    });
     markSeen();
     var el = document.getElementById('cmx-ob');
     if (el) {
@@ -61,10 +72,10 @@
   }
 
   function onVisibility() {
-    if (document.visibilityState === 'hidden') close();
+    if (document.visibilityState === 'hidden') close('tab_switch');
   }
 
-  function render() {
+  function render(trigger) {
     var s = steps[current];
     var modal = document.getElementById('cmx-ob');
     if (!modal) return;
@@ -94,6 +105,14 @@
     }
 
     modal.querySelector('.cmx-ob-count').textContent = (current + 1) + ' / ' + steps.length;
+
+    if (trigger) {
+      ga('onboarding_step_view', {
+        step_number: current + 1,
+        step_title: s.title,
+        trigger: trigger
+      });
+    }
   }
 
   function build() {
@@ -218,33 +237,39 @@
     var modal = document.getElementById('cmx-ob');
 
     requestAnimationFrame(function () {
-      requestAnimationFrame(function () { modal.classList.add('vis'); });
+      requestAnimationFrame(function () {
+        modal.classList.add('vis');
+        ga('onboarding_shown', { step_number: 1, step_title: steps[0].title });
+      });
     });
 
-    modal.querySelector('.cmx-ob-x').addEventListener('click', close);
-    modal.addEventListener('click', function (e) { if (e.target === modal) close(); });
+    modal.querySelector('.cmx-ob-x').addEventListener('click', function () { close('x_button'); });
+    modal.addEventListener('click', function (e) { if (e.target === modal) close('backdrop'); });
 
     modal.querySelector('.cmx-ob-prev').addEventListener('click', function () {
-      if (current > 0) { current--; render(); }
+      if (current > 0) { current--; render('prev_arrow'); }
     });
     modal.querySelector('.cmx-ob-next').addEventListener('click', function () {
-      if (current < steps.length - 1) { current++; render(); }
+      if (current < steps.length - 1) { current++; render('next_arrow'); }
     });
-    modal.querySelector('.cmx-ob-fin').addEventListener('click', close);
+    modal.querySelector('.cmx-ob-fin').addEventListener('click', function () {
+      ga('onboarding_completed', { total_steps: steps.length });
+      close('finish_button');
+    });
 
     modal.querySelectorAll('.cmx-ob-dot').forEach(function (dot) {
       dot.addEventListener('click', function () {
         current = parseInt(dot.getAttribute('data-i'), 10);
-        render();
+        render('dot');
       });
     });
 
     document.addEventListener('keydown', function onKey(e) {
       var m = document.getElementById('cmx-ob');
       if (!m) { document.removeEventListener('keydown', onKey); return; }
-      if (e.key === 'Escape') close();
-      if (e.key === 'ArrowRight' && current < steps.length - 1) { current++; render(); }
-      if (e.key === 'ArrowLeft' && current > 0) { current--; render(); }
+      if (e.key === 'Escape') close('keyboard_escape');
+      if (e.key === 'ArrowRight' && current < steps.length - 1) { current++; render('keyboard_arrow'); }
+      if (e.key === 'ArrowLeft' && current > 0) { current--; render('keyboard_arrow'); }
     });
 
     document.addEventListener('visibilitychange', onVisibility);
