@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es-MX">
 <head>
 <meta charset="UTF-8">
@@ -64,35 +64,34 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--ac:#006847;--ac2:#004D34;--rd:#CE1126;--tx:#0F172A;--tx2:#64748B;--tx3:#94A3B8;--bg:#fff;--s1:#F2F4F7;--s2:#EAF2EE;--bd:#E2E8E4}
-/* cómo usar */
-.how{padding:48px 0 52px;border-bottom:1px solid var(--bd)}
-.how-head{margin-bottom:22px}
-.how-head h2{font-size:26px;font-weight:800;letter-spacing:-.9px;color:#1E2922;margin-top:6px}
-.how-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:28px;align-items:stretch}
-.how-list{list-style:none;display:flex;flex-direction:column;gap:6px}
-.how-step{display:flex;gap:14px;align-items:center;width:100%;text-align:left;background:transparent;border:1.5px solid transparent;border-radius:12px;padding:13px 14px;cursor:pointer;position:relative;overflow:hidden;color:var(--tx2);font-size:14.5px;font-weight:600;line-height:1.35;transition:background .2s,border-color .2s,color .2s}
-.how-step:hover{background:var(--s1)}
-.how-step i{font-style:normal;width:30px;height:30px;flex-shrink:0;border-radius:50%;background:var(--s1);color:var(--tx2);font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s}
-.how-step[aria-selected="true"]{background:var(--s2);border-color:rgba(0,104,71,.25);color:var(--tx)}
+/* ── Hero combinado 35/65 ── */
+.hero-combined{border-bottom:1px solid var(--bd)}
+.hero-combined-inner{display:grid;grid-template-columns:35fr 65fr;gap:36px;align-items:start;max-width:1060px;margin:0 auto;padding:28px 24px 32px}
+.hero-left{display:flex;flex-direction:column;padding:16px 0}
+.hero-right{background:var(--s2);border-radius:20px;padding:24px 22px 18px;display:flex;flex-direction:column}
+/* ── Cómo usar ── */
+.how-head{margin-bottom:16px}
+.how-head h2{font-size:20px;font-weight:800;letter-spacing:-.6px;color:#1E2922;margin-top:4px}
+.how-grid{display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);gap:18px;align-items:stretch}
+.how-list{list-style:none;display:flex;flex-direction:column;gap:3px}
+.how-step{display:flex;gap:11px;align-items:center;width:100%;text-align:left;background:transparent;border:1.5px solid transparent;border-radius:11px;padding:10px 11px;cursor:pointer;position:relative;overflow:hidden;color:var(--tx2);font-size:13px;font-weight:600;line-height:1.35;transition:background .2s,border-color .2s,color .2s}
+.how-step:hover{background:rgba(255,255,255,.6)}
+.how-step i{font-style:normal;width:27px;height:27px;flex-shrink:0;border-radius:50%;background:rgba(255,255,255,.7);color:var(--tx2);font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s}
+.how-step[aria-selected="true"]{background:rgba(255,255,255,.88);border-color:rgba(0,104,71,.2);color:var(--tx)}
 .how-step[aria-selected="true"] i{background:var(--ac);color:#fff}
 .how-step .bar{position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--ac)}
 .how-step[aria-selected="true"] .bar{animation:howbar 5s linear forwards}
 .how-paused .how-step .bar{animation-play-state:paused}
 @keyframes howbar{to{width:100%}}
-.how-stage{position:relative;background:var(--s1);border:1px solid var(--bd);border-radius:16px;height:420px;overflow:hidden}
-.how-stage figure{position:absolute;inset:0;margin:0;padding:22px;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .45s}
+.how-stage{position:relative;background:#fff;border:1px solid var(--bd);border-radius:14px;height:clamp(260px,30vw,400px);overflow:hidden}
+.how-stage figure{position:absolute;inset:0;margin:0;padding:16px;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .45s}
 .how-stage figure.on{opacity:1}
-.how-stage img{max-width:100%;max-height:100%;object-fit:contain;border-radius:10px;box-shadow:0 8px 28px rgba(15,23,42,.14);background:#fff}
-.how-nav{display:flex;align-items:center;justify-content:space-between;margin-top:12px}
-.how-count{font-size:12.5px;font-weight:600;color:var(--tx2)}
-.how-arrows{display:flex;gap:8px}
-.how-arrows button{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--bd);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.how-stage img{max-width:100%;max-height:100%;object-fit:contain;border-radius:8px;box-shadow:0 6px 22px rgba(15,23,42,.12);background:#fff}
+.how-nav{display:flex;align-items:center;justify-content:space-between;margin-top:9px}
+.how-count{font-size:11.5px;font-weight:600;color:var(--tx2)}
+.how-arrows{display:flex;gap:7px}
+.how-arrows button{width:38px;height:38px;border-radius:50%;border:1.5px solid var(--bd);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .how-arrows button:hover{border-color:var(--ac)}
-@media(max-width:860px){
-  .how-grid{grid-template-columns:1fr}
-  .how-stage{height:320px;order:-1}
-  .how-list{gap:4px}
-}
 @media(prefers-reduced-motion:reduce){.how-step .bar{animation:none!important}.how-stage figure{transition:none}}
 html{-webkit-text-size-adjust:100%}
 body{font-family:'Satoshi',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--tx);text-wrap:pretty;-webkit-font-smoothing:antialiased}
@@ -139,7 +138,7 @@ input:focus-visible,a:focus-visible,button:focus-visible{outline:2px solid var(-
 .nav-panel li:last-child a{border-bottom:none}
 
 /* hero */
-.hero{display:grid;grid-template-columns:1.15fr 1fr;gap:44px;align-items:center;padding:52px 24px 48px}
+/* .hero grid replaced by .hero-combined-inner */
 .stores{display:flex;align-items:center;gap:13px;margin-bottom:16px}
 .stores span{font-weight:600;font-size:11.5px;color:var(--tx3);white-space:nowrap}
 .stores img{height:21px;width:auto;object-fit:contain}
@@ -268,13 +267,14 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
 
 @media(max-width:1000px){
   .arts-grid{grid-template-columns:repeat(3,1fr)}
-  .hero{gap:32px}
+  .hero-combined-inner{gap:28px}
 }
 @media(max-width:860px){
   .nav-links,.nav-search{display:none}
   .nav-toggle{display:flex}
   .chips{display:flex}
-  .hero{grid-template-columns:1fr;gap:26px;padding:30px 24px 34px}
+  .hero-combined-inner{grid-template-columns:1fr;gap:20px;padding:22px 24px 26px}
+  .hero-right{border-radius:14px}
   .carousel-wrap{max-height:260px;border-radius:14px}
   .lead,.searchbox{max-width:none}
   .cats-grid{grid-template-columns:1fr}
@@ -284,7 +284,7 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
 }
 @media(max-width:560px){
   .wrap{padding:0 16px}
-  .hero{padding:26px 16px 30px}
+  .hero-combined-inner{padding:20px 16px 24px}
   .chips{padding:11px 16px}
   .nav-panel{padding:14px 16px 18px}
   h1{letter-spacing:-1.4px}
@@ -367,102 +367,105 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
 
 <main id="main">
 
-<section class="how" id="como-usar" aria-labelledby="how-h">
-  <div class="wrap">
-    <div class="how-head">
-      <p class="kicker">Paso a paso</p>
-      <h2 id="how-h">Cómo usar comparalo.mx</h2>
-    </div>
-    <div class="how-grid">
-      <div>
-        <ol class="how-list" role="tablist" aria-label="Pasos para usar comparalo.mx">
-          <li role="presentation"><button class="how-step" type="button" role="tab" id="how-t1" aria-controls="how-p1" aria-selected="true"><i>1</i><span>Elige una categoría</span><span class="bar"></span></button></li>
-          <li role="presentation"><button class="how-step" type="button" role="tab" id="how-t2" aria-controls="how-p2" aria-selected="false"><i>2</i><span>Filtra por características que te interesan</span><span class="bar"></span></button></li>
-          <li role="presentation"><button class="how-step" type="button" role="tab" id="how-t3" aria-controls="how-p3" aria-selected="false"><i>3</i><span>Compara entre distintas características</span><span class="bar"></span></button></li>
-          <li role="presentation"><button class="how-step" type="button" role="tab" id="how-t4" aria-controls="how-p4" aria-selected="false"><i>4</i><span>Da click en la opción que quieres para ir a la tienda oficial</span><span class="bar"></span></button></li>
-          <li role="presentation"><button class="how-step" type="button" role="tab" id="how-t5" aria-controls="how-p5" aria-selected="false"><i>5</i><span>Ve a la plataforma</span><span class="bar"></span></button></li>
-        </ol>
+<section class="hero-combined" id="como-usar" aria-labelledby="how-h">
+  <div class="hero-combined-inner">
+
+    <!-- IZQUIERDA 35%: propuesta de valor -->
+    <div class="hero-left">
+      <div class="stores">
+        <span>Comparamos en</span>
+        <img src="/logoamazon.png" alt="Amazon México" width="120" height="36" loading="eager">
+        <div class="div"></div>
+        <img src="/logomercado.png" alt="Mercado Libre México" width="120" height="36" loading="eager">
       </div>
-      <div>
-        <div class="how-stage">
-          <figure class="on" id="how-p1" role="tabpanel" aria-labelledby="how-t1"><img src="fotos/pasos/paso-1.jpg" alt="Paso 1: Buscador de comparalo.mx con la lista de categorías" width="530" height="765" loading="lazy"></figure>
-          <figure class="" id="how-p2" role="tabpanel" aria-labelledby="how-t2"><img src="fotos/pasos/paso-2.jpg" alt="Paso 2: Filtros por características en comparalo.mx" width="1440" height="367" loading="lazy"></figure>
-          <figure class="" id="how-p3" role="tabpanel" aria-labelledby="how-t3"><img src="fotos/pasos/paso-3.jpg" alt="Paso 3: Tabla comparativa de características en comparalo.mx" width="993" height="707" loading="lazy"></figure>
-          <figure class="" id="how-p4" role="tabpanel" aria-labelledby="how-t4"><img src="fotos/pasos/paso-4.jpg" alt="Paso 4: Botones para ir a Amazon o Mercado Libre desde comparalo.mx" width="362" height="321" loading="lazy"></figure>
-          <figure class="" id="how-p5" role="tabpanel" aria-labelledby="how-t5"><img src="fotos/pasos/paso-5.jpg" alt="Paso 5: Producto abierto en Mercado Libre desde comparalo.mx" width="1321" height="695" loading="lazy"></figure>
+      <h1>Antes de comprar en México, <em>compara</em></h1>
+      <p class="lead">Buscamos el mismo producto en Amazon MX y Mercado Libre y te mostramos precio, calidad y características para que decidas con lo que a ti te importa.</p>
+      <div class="searchbox-wrap" id="searchWrap">
+        <form class="searchbox" action="/suplementos" method="get" role="search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <label class="skip" for="q-hero">¿Qué quieres comparar?</label>
+          <input id="q-hero" name="q" type="search" placeholder="¿Qué quieres comparar?" autocomplete="off" onfocus="openSearchDrop()" oninput="filterSearchDrop(this.value)">
+        </form>
+        <div class="search-dropdown" id="searchDrop">
+          <div class="search-dropdown-label">Nuestras comparativas</div>
+          <a href="/suplementos" data-search="suplementos proteína creatina magnesio complejo b omega"><span class="sd-icon">💊</span><span>Suplementos<span class="sd-sub">Proteína, Creatina, Magnesio, Complejo B, Omega 3</span></span></a>
+          <a href="/bicis" data-search="bicicletas bici ciclismo"><span class="sd-icon">🚲</span><span>Bicicletas<span class="sd-sub">Urbanas, eléctricas, montaña</span></span></a>
+          <a href="/laptops" data-search="laptops computadoras notebooks universidad gamer"><span class="sd-icon">💻</span><span>Laptops<span class="sd-sub">Universidad, gaming, trabajo</span></span></a>
+          <a href="/electrodomesticos" data-search="electrodomesticos microondas freidoras aire"><span class="sd-icon">🏠</span><span>Electrodomésticos<span class="sd-sub">Microondas, freidoras de aire</span></span></a>
+          <a href="/suplementos/magnesio" data-search="magnesio citrato bisglicinato complejo"><span class="sd-icon">🧴</span><span>Magnesio<span class="sd-sub">Citrato, Bisglicinato, L-Treonato</span></span></a>
+          <a href="/suplementos/creatina" data-search="creatina monohidratada micronizada"><span class="sd-icon">💪</span><span>Creatina<span class="sd-sub">Monohidratada, micronizada</span></span></a>
+          <a href="/suplementos/proteina" data-search="proteina whey concentrada aislada vegana"><span class="sd-icon">🥛</span><span>Proteína Whey<span class="sd-sub">Concentrada, aislada, vegana</span></span></a>
+          <a href="/electrodomesticos/microondas" data-search="microondas horno"><span class="sd-icon">📡</span><span>Microondas<span class="sd-sub">Básico, grill, convección</span></span></a>
+          <a href="/electrodomesticos/freidoras" data-search="freidoras aire airfryer"><span class="sd-icon">🍟</span><span>Freidoras de Aire<span class="sd-sub">Sin aceite, digital, compactas</span></span></a>
+          <a href="/celulares/android/" data-search="celulares android smartphones samsung pixel motorola"><span class="sd-icon">📱</span><span>Android<span class="sd-sub">Samsung, Pixel, Motorola y más</span></span></a>
+          <a href="/celulares/iphone/" data-search="iphone apple ios iphone 17 iphone 18"><span class="sd-icon">🍎</span><span>iPhone<span class="sd-sub">iPhone 17, 18 Pro, 18 Pro Max</span></span></a>
         </div>
-        <div class="how-nav">
-          <span class="how-count" id="how-count">Paso 1 de 5</span>
-          <div class="how-arrows">
-            <button type="button" id="how-prev" aria-label="Paso anterior"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0F172A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
-            <button type="button" id="how-next" aria-label="Paso siguiente"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0F172A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+      </div>
+      <script>
+      function openSearchDrop(){document.getElementById('searchDrop').classList.add('open')}
+      function filterSearchDrop(q){
+        var d=document.getElementById('searchDrop'),links=d.querySelectorAll('a'),v=q.trim().toLowerCase();
+        links.forEach(function(a){a.style.display=(!v||a.dataset.search.includes(v)||a.textContent.toLowerCase().includes(v))?'':'none'});
+        d.classList.add('open');
+      }
+      function filterPanelNav(q){
+        var v=q.trim().toLowerCase(),list=document.getElementById('panel-nav-list');
+        if(!list)return;
+        list.querySelectorAll('li').forEach(function(li){li.style.display=(!v||li.dataset.search.includes(v)||li.textContent.toLowerCase().includes(v))?'':'none'});
+      }
+      function openNavDrop(){document.getElementById('navDrop').classList.add('open')}
+      function filterNavDrop(q){
+        var d=document.getElementById('navDrop'),links=d.querySelectorAll('a'),v=q.trim().toLowerCase();
+        links.forEach(function(a){a.style.display=(!v||a.dataset.search.includes(v)||a.textContent.toLowerCase().includes(v))?'':'none'});
+        d.classList.add('open');
+      }
+      document.addEventListener('click',function(e){
+        if(!document.getElementById('searchWrap').contains(e.target))document.getElementById('searchDrop').classList.remove('open');
+        if(!document.getElementById('navSearchWrap').contains(e.target))document.getElementById('navDrop').classList.remove('open');
+      });
+      </script>
+      <div class="hero-cta">
+        <a class="btn" href="/suplementos">Ver comparativas</a>
+        <a class="btn2" href="#como-usar">Cómo comparamos</a>
+      </div>
+    </div>
+
+    <!-- DERECHA 65%: cómo usar (onboarding interactivo) -->
+    <div class="hero-right">
+      <div class="how-head">
+        <p class="kicker">Paso a paso</p>
+        <h2 id="how-h">Cómo usar comparalo.mx</h2>
+      </div>
+      <div class="how-grid">
+        <div>
+          <ol class="how-list" role="tablist" aria-label="Pasos para usar comparalo.mx">
+            <li role="presentation"><button class="how-step" type="button" role="tab" id="how-t1" aria-controls="how-p1" aria-selected="true"><i>1</i><span>Elige una categoría</span><span class="bar"></span></button></li>
+            <li role="presentation"><button class="how-step" type="button" role="tab" id="how-t2" aria-controls="how-p2" aria-selected="false"><i>2</i><span>Filtra por características que te interesan</span><span class="bar"></span></button></li>
+            <li role="presentation"><button class="how-step" type="button" role="tab" id="how-t3" aria-controls="how-p3" aria-selected="false"><i>3</i><span>Compara entre distintas características</span><span class="bar"></span></button></li>
+            <li role="presentation"><button class="how-step" type="button" role="tab" id="how-t4" aria-controls="how-p4" aria-selected="false"><i>4</i><span>Da click en la opción que quieres para ir a la tienda oficial</span><span class="bar"></span></button></li>
+            <li role="presentation"><button class="how-step" type="button" role="tab" id="how-t5" aria-controls="how-p5" aria-selected="false"><i>5</i><span>Ve a la plataforma</span><span class="bar"></span></button></li>
+          </ol>
+        </div>
+        <div>
+          <div class="how-stage">
+            <figure class="on" id="how-p1" role="tabpanel" aria-labelledby="how-t1"><img src="fotos/pasos/paso-1.jpg" alt="Paso 1: Buscador de comparalo.mx con la lista de categorías" width="530" height="765" loading="lazy"></figure>
+            <figure class="" id="how-p2" role="tabpanel" aria-labelledby="how-t2"><img src="fotos/pasos/paso-2.jpg" alt="Paso 2: Filtros por características en comparalo.mx" width="1440" height="367" loading="lazy"></figure>
+            <figure class="" id="how-p3" role="tabpanel" aria-labelledby="how-t3"><img src="fotos/pasos/paso-3.jpg" alt="Paso 3: Tabla comparativa de características en comparalo.mx" width="993" height="707" loading="lazy"></figure>
+            <figure class="" id="how-p4" role="tabpanel" aria-labelledby="how-t4"><img src="fotos/pasos/paso-4.jpg" alt="Paso 4: Botones para ir a Amazon o Mercado Libre desde comparalo.mx" width="362" height="321" loading="lazy"></figure>
+            <figure class="" id="how-p5" role="tabpanel" aria-labelledby="how-t5"><img src="fotos/pasos/paso-5.jpg" alt="Paso 5: Producto abierto en Mercado Libre desde comparalo.mx" width="1321" height="695" loading="lazy"></figure>
+          </div>
+          <div class="how-nav">
+            <span class="how-count" id="how-count">Paso 1 de 5</span>
+            <div class="how-arrows">
+              <button type="button" id="how-prev" aria-label="Paso anterior"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0F172A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+              <button type="button" id="how-next" aria-label="Paso siguiente"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0F172A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
 
-<section class="wrap hero">
-  <div>
-    <div class="stores">
-      <span>Comparamos en</span>
-      <img src="/logoamazon.png" alt="Amazon México" width="120" height="36" loading="eager">
-      <div class="div"></div>
-      <img src="/logomercado.png" alt="Mercado Libre México" width="120" height="36" loading="eager">
-    </div>
-    <h1>Antes de comprar en México, <em>compara</em></h1>
-    <p class="lead">Buscamos el mismo producto en Amazon MX y Mercado Libre y te mostramos precio, calidad y características para que decidas con lo que a ti te importa.</p>
-    <div class="searchbox-wrap" id="searchWrap">
-      <form class="searchbox" action="/suplementos" method="get" role="search">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        <label class="skip" for="q-hero">¿Qué quieres comparar?</label>
-        <input id="q-hero" name="q" type="search" placeholder="¿Qué quieres comparar?" autocomplete="off" onfocus="openSearchDrop()" oninput="filterSearchDrop(this.value)">
-      </form>
-      <div class="search-dropdown" id="searchDrop">
-        <div class="search-dropdown-label">Nuestras comparativas</div>
-        <a href="/suplementos" data-search="suplementos proteína creatina magnesio complejo b omega"><span class="sd-icon">💊</span><span>Suplementos<span class="sd-sub">Proteína, Creatina, Magnesio, Complejo B, Omega 3</span></span></a>
-        <a href="/bicis" data-search="bicicletas bici ciclismo"><span class="sd-icon">🚲</span><span>Bicicletas<span class="sd-sub">Urbanas, eléctricas, montaña</span></span></a>
-        <a href="/laptops" data-search="laptops computadoras notebooks universidad gamer"><span class="sd-icon">💻</span><span>Laptops<span class="sd-sub">Universidad, gaming, trabajo</span></span></a>
-        <a href="/electrodomesticos" data-search="electrodomesticos microondas freidoras aire"><span class="sd-icon">🏠</span><span>Electrodomésticos<span class="sd-sub">Microondas, freidoras de aire</span></span></a>
-        <a href="/suplementos/magnesio" data-search="magnesio citrato bisglicinato complejo"><span class="sd-icon">🧴</span><span>Magnesio<span class="sd-sub">Citrato, Bisglicinato, L-Treonato</span></span></a>
-        <a href="/suplementos/creatina" data-search="creatina monohidratada micronizada"><span class="sd-icon">💪</span><span>Creatina<span class="sd-sub">Monohidratada, micronizada</span></span></a>
-        <a href="/suplementos/proteina" data-search="proteina whey concentrada aislada vegana"><span class="sd-icon">🥛</span><span>Proteína Whey<span class="sd-sub">Concentrada, aislada, vegana</span></span></a>
-        <a href="/electrodomesticos/microondas" data-search="microondas horno"><span class="sd-icon">📡</span><span>Microondas<span class="sd-sub">Básico, grill, convección</span></span></a>
-        <a href="/electrodomesticos/freidoras" data-search="freidoras aire airfryer"><span class="sd-icon">🍟</span><span>Freidoras de Aire<span class="sd-sub">Sin aceite, digital, compactas</span></span></a>
-        <a href="/celulares/android/" data-search="celulares android smartphones samsung pixel motorola"><span class="sd-icon">📱</span><span>Android<span class="sd-sub">Samsung, Pixel, Motorola y más</span></span></a>
-        <a href="/celulares/iphone/" data-search="iphone apple ios iphone 17 iphone 18"><span class="sd-icon">🍎</span><span>iPhone<span class="sd-sub">iPhone 17, 18 Pro, 18 Pro Max</span></span></a>
-      </div>
-    </div>
-    <script>
-    function openSearchDrop(){document.getElementById('searchDrop').classList.add('open')}
-    function filterSearchDrop(q){
-      var d=document.getElementById('searchDrop'),links=d.querySelectorAll('a'),v=q.trim().toLowerCase();
-      links.forEach(function(a){a.style.display=(!v||a.dataset.search.includes(v)||a.textContent.toLowerCase().includes(v))?'':'none'});
-      d.classList.add('open');
-    }
-    function filterPanelNav(q){
-      var v=q.trim().toLowerCase(),list=document.getElementById('panel-nav-list');
-      if(!list)return;
-      list.querySelectorAll('li').forEach(function(li){li.style.display=(!v||li.dataset.search.includes(v)||li.textContent.toLowerCase().includes(v))?'':'none'});
-    }
-    function openNavDrop(){document.getElementById('navDrop').classList.add('open')}
-    function filterNavDrop(q){
-      var d=document.getElementById('navDrop'),links=d.querySelectorAll('a'),v=q.trim().toLowerCase();
-      links.forEach(function(a){a.style.display=(!v||a.dataset.search.includes(v)||a.textContent.toLowerCase().includes(v))?'':'none'});
-      d.classList.add('open');
-    }
-    document.addEventListener('click',function(e){
-      if(!document.getElementById('searchWrap').contains(e.target))document.getElementById('searchDrop').classList.remove('open');
-      if(!document.getElementById('navSearchWrap').contains(e.target))document.getElementById('navDrop').classList.remove('open');
-    });
-    </script>
-    <div class="hero-cta">
-      <a class="btn" href="/suplementos">Ver comparativas</a>
-      <a class="btn2" href="#como-usar">Cómo comparamos</a>
-    </div>
   </div>
-
 </section>
 
 <section class="cats" aria-labelledby="cats-h">
