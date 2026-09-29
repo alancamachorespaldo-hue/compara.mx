@@ -16,9 +16,9 @@
   var steps = [
     {
       img: '/fotos/pasos/paso-1.jpg',
-      alt: 'Busca lo que quieres comparar en comparalo.mx',
-      title: 'Busca lo que quieres',
-      desc: 'Escribe el producto o elige directamente una categoría: suplementos, bicicletas, laptops, celulares o electrodomésticos.'
+      alt: 'comparalo.mx compara precios en Amazon MX y Mercado Libre México',
+      title: 'Comparamos en Amazon y Mercado Libre',
+      desc: 'Buscamos el mismo producto en Amazon MX y Mercado Libre para que decidas con precio, calidad y características reales.'
     },
     {
       img: '/fotos/pasos/paso-2.jpg',
