@@ -111,7 +111,7 @@
       'background:rgba(15,23,42,.62);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);',
       'padding:16px;transition:opacity .35s;opacity:0}',
       '#cmx-ob.vis{opacity:1}',
-      '.cmx-ob-box{background:#fff;border-radius:18px;width:100%;max-width:620px;overflow:hidden;',
+      '.cmx-ob-box{background:#fff;border-radius:18px;width:100%;max-width:min(860px,94vw);overflow:hidden;',
       'box-shadow:0 24px 60px rgba(15,23,42,.22);display:flex;flex-direction:column}',
       '.cmx-ob-head{display:flex;align-items:center;justify-content:space-between;padding:16px 20px 0}',
       '.cmx-ob-logo{font-size:15px;font-weight:800;letter-spacing:-.03em;color:#0F172A;text-decoration:none}',
@@ -121,8 +121,8 @@
       'line-height:1;transition:border-color .15s,color .15s}',
       '.cmx-ob-x:hover{border-color:#006847;color:#006847}',
       '.cmx-ob-img-wrap{position:relative;background:#F2F4F7;margin:14px 20px 0;border-radius:12px;',
-      'overflow:hidden;height:420px;display:flex;align-items:center;justify-content:center}',
-      '.cmx-ob-img{max-width:100%;max-height:100%;width:auto;height:420px;object-fit:contain;display:block;border-radius:8px}',
+      'overflow:hidden;height:clamp(320px,55vh,600px);display:flex;align-items:center;justify-content:center}',
+      '.cmx-ob-img{max-width:100%;width:auto;height:clamp(320px,55vh,600px);object-fit:contain;display:block;border-radius:8px}',
       '.cmx-ob-body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:10px}',
       '.cmx-ob-step-title{font-size:17px;font-weight:800;color:#0F172A;letter-spacing:-.03em;margin:0}',
       '.cmx-ob-step-desc{font-size:14px;color:#64748B;line-height:1.6;margin:0}',
@@ -142,7 +142,7 @@
       '.cmx-ob-fin{background:#006847;color:#fff}',
       '.cmx-ob-fin:hover{background:#004D34}',
       '@media(max-width:480px){.cmx-ob-box{border-radius:14px}',
-      '.cmx-ob-img-wrap{height:300px}.cmx-ob-img{height:300px}',
+      '.cmx-ob-img-wrap{height:50vw}.cmx-ob-img{height:50vw}',
       '.cmx-ob-step-title{font-size:15px}.cmx-ob-step-desc{font-size:13px}}'
     ].join('');
 
