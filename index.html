@@ -72,7 +72,7 @@
 /* ── Cómo usar ── */
 .how-head{margin-bottom:16px}
 .how-head h2{font-size:20px;font-weight:800;letter-spacing:-.6px;color:#1E2922;margin-top:4px}
-.how-grid{display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);gap:18px;align-items:stretch}
+.how-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.65fr);gap:16px;align-items:start}
 .how-list{list-style:none;display:flex;flex-direction:column;gap:3px}
 .how-step{display:flex;gap:11px;align-items:center;width:100%;text-align:left;background:transparent;border:1.5px solid transparent;border-radius:11px;padding:10px 11px;cursor:pointer;position:relative;overflow:hidden;color:var(--tx2);font-size:13px;font-weight:600;line-height:1.35;transition:background .2s,border-color .2s,color .2s}
 .how-step:hover{background:rgba(255,255,255,.6)}
@@ -83,10 +83,10 @@
 .how-step[aria-selected="true"] .bar{animation:howbar 5s linear forwards}
 .how-paused .how-step .bar{animation-play-state:paused}
 @keyframes howbar{to{width:100%}}
-.how-stage{position:relative;background:#fff;border:1px solid var(--bd);border-radius:14px;height:clamp(260px,30vw,400px);overflow:hidden}
-.how-stage figure{position:absolute;inset:0;margin:0;padding:16px;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .45s}
+.how-stage{position:relative;background:#fff;border:1px solid var(--bd);border-radius:14px;aspect-ratio:3/2;overflow:hidden;width:100%}
+.how-stage figure{position:absolute;inset:0;margin:0;padding:6px;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .45s}
 .how-stage figure.on{opacity:1}
-.how-stage img{max-width:100%;max-height:100%;object-fit:contain;border-radius:8px;box-shadow:0 6px 22px rgba(15,23,42,.12);background:#fff}
+.how-stage img{width:100%;height:100%;object-fit:contain;border-radius:10px;box-shadow:0 4px 16px rgba(15,23,42,.10);background:#fff}
 .how-nav{display:flex;align-items:center;justify-content:space-between;margin-top:9px}
 .how-count{font-size:11.5px;font-weight:600;color:var(--tx2)}
 .how-arrows{display:flex;gap:7px}
@@ -448,10 +448,10 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
         </div>
         <div>
           <div class="how-stage">
-            <figure class="on" id="how-p1" role="tabpanel" aria-labelledby="how-t1"><img src="fotos/pasos/paso-1.jpg" alt="Paso 1: Buscador de comparalo.mx con la lista de categorías" width="530" height="765" loading="lazy"></figure>
-            <figure class="" id="how-p2" role="tabpanel" aria-labelledby="how-t2"><img src="fotos/pasos/paso-2.jpg" alt="Paso 2: Filtros por características en comparalo.mx" width="1440" height="367" loading="lazy"></figure>
-            <figure class="" id="how-p3" role="tabpanel" aria-labelledby="how-t3"><img src="fotos/pasos/paso-3.jpg" alt="Paso 3: Tabla comparativa de características en comparalo.mx" width="993" height="707" loading="lazy"></figure>
-            <figure class="" id="how-p4" role="tabpanel" aria-labelledby="how-t4"><img src="fotos/pasos/paso-4.jpg" alt="Paso 4: Botones para ir a Amazon o Mercado Libre desde comparalo.mx" width="362" height="321" loading="lazy"></figure>
+            <figure class="on" id="how-p1" role="tabpanel" aria-labelledby="how-t1"><img src="fotos/pasos/onboarding-01.jpg" alt="Paso 1: Busca lo que quieres comparar en comparalo.mx" width="1200" height="800" loading="lazy"></figure>
+            <figure class="" id="how-p2" role="tabpanel" aria-labelledby="how-t2"><img src="fotos/pasos/onboarding-02.jpg" alt="Paso 2: Filtra por tipo, precio y características en comparalo.mx" width="1200" height="800" loading="lazy"></figure>
+            <figure class="" id="how-p3" role="tabpanel" aria-labelledby="how-t3"><img src="fotos/pasos/onboarding-03.jpg" alt="Paso 3: Selecciona productos y compáralos en comparalo.mx" width="1200" height="800" loading="lazy"></figure>
+            <figure class="" id="how-p4" role="tabpanel" aria-labelledby="how-t4"><img src="fotos/pasos/onboarding-04.jpg" alt="Paso 4: Tabla comparativa lado a lado en comparalo.mx" width="1200" height="800" loading="lazy"></figure>
             <figure class="" id="how-p5" role="tabpanel" aria-labelledby="how-t5"><img src="fotos/pasos/paso-5.jpg" alt="Paso 5: Producto abierto en Mercado Libre desde comparalo.mx" width="1321" height="695" loading="lazy"></figure>
           </div>
           <div class="how-nav">
