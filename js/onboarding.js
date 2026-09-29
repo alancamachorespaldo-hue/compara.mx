@@ -11,10 +11,10 @@
 
   var steps = [
     {
-      img: '/fotos/pasos/onboarding-01.jpg',
-      alt: 'comparalo.mx — pantalla de inicio con buscador y categorías',
-      title: 'Busca lo que quieres',
-      desc: 'Escribe el producto o elige directamente una categoría: suplementos, bicicletas, laptops, celulares o electrodomésticos.'
+      img: '/fotos/pasos/onboarding-01.webp',
+      alt: 'Botones Ver en Amazon y Ver en Mercado Libre en comparalo.mx',
+      title: 'Compara y decide',
+      desc: 'Ve precio, costo por porción, porciones y valoraciones de cada producto. Haz clic en "Ver en" para ir directo a Amazon MX o Mercado Libre.'
     },
     {
       img: '/fotos/pasos/onboarding-02.jpg',
@@ -109,7 +109,7 @@
 
       /* hero banner superior */
       '.cmx-ob-hero{width:100%;height:160px;overflow:hidden;border-radius:20px 20px 0 0;flex-shrink:0;position:relative}',
-      '.cmx-ob-hero-img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}',
+      '.cmx-ob-hero-img{width:100%;height:100%;object-fit:cover;object-position:center 35%;display:block}',
       /* overlay oscuro suave para que el X se vea encima */
       '.cmx-ob-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.15) 0%,transparent 60%)}',
 
