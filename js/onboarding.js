@@ -11,8 +11,8 @@
 
   var steps = [
     {
-      img: '/fotos/pasos/onboarding-01.webp',
-      alt: 'Botones Ver en Amazon y Ver en Mercado Libre en comparalo.mx',
+      img: '/fotos/pasos/onboarding-01.jpg',
+      alt: 'Comparativa de productos en comparalo.mx con botones Ver en Amazon y Mercado Libre',
       title: 'Compara y decide',
       desc: 'Ve precio, costo por porción, porciones y valoraciones de cada producto. Haz clic en "Ver en" para ir directo a Amazon MX o Mercado Libre.'
     },
