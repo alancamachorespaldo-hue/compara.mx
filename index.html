@@ -66,13 +66,13 @@
 :root{--ac:#006847;--ac2:#004D34;--rd:#CE1126;--tx:#0F172A;--tx2:#64748B;--tx3:#94A3B8;--bg:#fff;--s1:#F2F4F7;--s2:#EAF2EE;--bd:#E2E8E4}
 /* ── Hero combinado 35/65 ── */
 .hero-combined{border-bottom:1px solid var(--bd)}
-.hero-combined-inner{display:grid;grid-template-columns:35fr 65fr;gap:36px;align-items:start;max-width:1060px;margin:0 auto;padding:28px 24px 32px}
+.hero-combined-inner{display:grid;grid-template-columns:28fr 72fr;gap:32px;align-items:start;max-width:1100px;margin:0 auto;padding:24px 24px 28px}
 .hero-left{display:flex;flex-direction:column;padding:16px 0}
-.hero-right{background:var(--s2);border-radius:20px;padding:24px 22px 18px;display:flex;flex-direction:column}
+.hero-right{background:var(--s2);border-radius:20px;padding:18px 18px 14px;display:flex;flex-direction:column}
 /* ── Cómo usar ── */
-.how-head{margin-bottom:16px}
+.how-head{margin-bottom:10px}
 .how-head h2{font-size:20px;font-weight:800;letter-spacing:-.6px;color:#1E2922;margin-top:4px}
-.how-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.65fr);gap:16px;align-items:start}
+.how-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.2fr);gap:14px;align-items:start}
 .how-list{list-style:none;display:flex;flex-direction:column;gap:3px}
 .how-step{display:flex;gap:11px;align-items:center;width:100%;text-align:left;background:transparent;border:1.5px solid transparent;border-radius:11px;padding:10px 11px;cursor:pointer;position:relative;overflow:hidden;color:var(--tx2);font-size:13px;font-weight:600;line-height:1.35;transition:background .2s,border-color .2s,color .2s}
 .how-step:hover{background:rgba(255,255,255,.6)}
@@ -273,8 +273,10 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
   .nav-links,.nav-search{display:none}
   .nav-toggle{display:flex}
   .chips{display:flex}
-  .hero-combined-inner{grid-template-columns:1fr;gap:20px;padding:22px 24px 26px}
+  .hero-combined-inner{grid-template-columns:1fr;gap:18px;padding:20px 20px 24px}
   .hero-right{border-radius:14px}
+  .how-grid{grid-template-columns:1fr}
+  .how-stage{aspect-ratio:3/2}
   .carousel-wrap{max-height:260px;border-radius:14px}
   .lead,.searchbox{max-width:none}
   .cats-grid{grid-template-columns:1fr}

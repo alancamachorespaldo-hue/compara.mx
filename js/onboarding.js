@@ -11,26 +11,26 @@
 
   var steps = [
     {
-      img: '/fotos/pasos/paso-1.jpg',
-      alt: 'Busca lo que quieres comparar en comparalo.mx',
+      img: '/fotos/pasos/onboarding-01.jpg',
+      alt: 'comparalo.mx — pantalla de inicio con buscador y categorías',
       title: 'Busca lo que quieres',
       desc: 'Escribe el producto o elige directamente una categoría: suplementos, bicicletas, laptops, celulares o electrodomésticos.'
     },
     {
-      img: '/fotos/pasos/paso-2.jpg',
-      alt: 'Explora el catálogo de productos de la categoría',
-      title: 'Explora el catálogo',
-      desc: 'Ve todos los productos de la categoría con sus especificaciones reales: porciones, peso, tipo y precio.'
+      img: '/fotos/pasos/onboarding-02.jpg',
+      alt: 'Filtros de comparalo.mx por tipo, precio y características',
+      title: 'Filtra por lo que importa',
+      desc: 'Usa los filtros para afinar por tipo, precio máximo o plataforma. Ve solo los productos que te interesan.'
     },
     {
-      img: '/fotos/pasos/paso-3.jpg',
-      alt: 'Filtra y selecciona los productos que te interesan',
-      title: 'Filtra y selecciona',
-      desc: 'Usa los filtros para afinar por tipo, precio o plataforma. Selecciona hasta 3 productos para compararlos.'
+      img: '/fotos/pasos/onboarding-03.jpg',
+      alt: 'Catálogo de productos en comparalo.mx con datos reales',
+      title: 'Explora y selecciona',
+      desc: 'Ve todos los productos con sus especificaciones reales. Selecciona hasta 3 para compararlos lado a lado.'
     },
     {
-      img: '/fotos/pasos/paso-4.jpg',
-      alt: 'Compara productos lado a lado en una sola tabla',
+      img: '/fotos/pasos/onboarding-04.jpg',
+      alt: 'Tabla comparativa de productos en comparalo.mx',
       title: 'Compara lado a lado',
       desc: 'Ve en una sola tabla las diferencias reales: precio por porción, valoraciones, pesos y más. Sin ir a cada tienda.'
     },
@@ -104,8 +104,8 @@
       '#cmx-ob.vis{opacity:1}',
 
       /* caja */
-      '.cmx-ob-box{background:#fff;border-radius:20px;width:100%;max-width:min(600px,95vw);',
-      'max-height:92vh;overflow-y:auto;box-shadow:0 28px 70px rgba(15,23,42,.25);display:flex;flex-direction:column}',
+      '.cmx-ob-box{background:#fff;border-radius:20px;width:100%;max-width:min(780px,95vw);',
+      'max-height:94vh;overflow-y:auto;box-shadow:0 28px 70px rgba(15,23,42,.25);display:flex;flex-direction:column}',
 
       /* hero banner superior */
       '.cmx-ob-hero{width:100%;height:160px;overflow:hidden;border-radius:20px 20px 0 0;flex-shrink:0;position:relative}',
@@ -126,10 +126,10 @@
       '.cmx-ob-logo em{color:#006847;font-style:normal}',
 
       /* imagen del paso */
-      '.cmx-ob-img-wrap{margin:14px 20px 0;border-radius:12px;overflow:hidden;background:#F2F4F7;',
-      'height:clamp(200px,32vh,360px);display:flex;align-items:center;justify-content:center;flex-shrink:0}',
-      '.cmx-ob-step-img{max-width:100%;height:clamp(200px,32vh,360px);width:auto;',
-      'object-fit:contain;display:block;border-radius:8px}',
+      '.cmx-ob-img-wrap{margin:12px 18px 0;border-radius:12px;overflow:hidden;background:#F8FAFB;',
+      'aspect-ratio:3/2;width:calc(100% - 36px);display:flex;align-items:center;justify-content:center;flex-shrink:0;',
+      'border:1px solid #E2E8E4;box-shadow:0 2px 12px rgba(15,23,42,.07)}',
+      '.cmx-ob-step-img{width:100%;height:100%;object-fit:contain;display:block}',
 
       /* texto */
       '.cmx-ob-body{padding:14px 20px 0;flex-shrink:0}',
@@ -153,12 +153,11 @@
       '.cmx-ob-next:hover,.cmx-ob-fin:hover{background:#004D34}',
 
       '@media(max-width:480px){',
-      '.cmx-ob-hero{height:120px}',
-      '.cmx-ob-img-wrap{height:200px;margin:12px 14px 0}',
-      '.cmx-ob-step-img{height:200px}',
-      '.cmx-ob-head{padding:12px 14px 0}',
-      '.cmx-ob-body{padding:12px 14px 0}',
-      '.cmx-ob-nav{padding:12px 14px 16px}}'
+      '.cmx-ob-hero{height:110px}',
+      '.cmx-ob-img-wrap{margin:10px 12px 0;width:calc(100% - 24px)}',
+      '.cmx-ob-head{padding:10px 14px 0}',
+      '.cmx-ob-body{padding:10px 14px 0}',
+      '.cmx-ob-nav{padding:10px 14px 14px}}'
     ].join('');
 
     var style = document.createElement('style');
@@ -188,7 +187,7 @@
 
       /* imagen del paso */
       '<div class="cmx-ob-img-wrap">',
-      '<img class="cmx-ob-step-img" src="' + steps[0].img + '" alt="' + steps[0].alt + '" width="948" height="2000" loading="eager">',
+      '<img class="cmx-ob-step-img" src="' + steps[0].img + '" alt="' + steps[0].alt + '" width="1200" height="800" loading="eager">',
       '</div>',
 
       /* texto */
