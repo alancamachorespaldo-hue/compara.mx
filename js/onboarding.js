@@ -46,7 +46,24 @@
 
   function ga(eventName, params) {
     try {
-      if (typeof gtag === 'function') gtag('event', eventName, params);
+      var p = Object.assign({ event_category: 'onboarding' }, params || {});
+      if (typeof gtag === 'function') {
+        gtag('event', eventName, p);
+      } else {
+        // gtag aún no cargó — encolar en dataLayer directamente
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: eventName, event_category: 'onboarding' });
+        // reintentar cuando gtag esté disponible
+        var attempts = 0;
+        var retry = setInterval(function () {
+          if (typeof gtag === 'function') {
+            gtag('event', eventName, p);
+            clearInterval(retry);
+          } else if (++attempts > 20) {
+            clearInterval(retry);
+          }
+        }, 200);
+      }
     } catch (e) {}
   }
 
