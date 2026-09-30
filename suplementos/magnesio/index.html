@@ -109,7 +109,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 @media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:480px){.grid{grid-template-columns:repeat(2,1fr)}.card-name{font-size:.75rem;-webkit-line-clamp:2}.card-specs{grid-template-columns:1fr 1fr}.card-specs .spec:last-child{display:none}.card-bottom{padding:6px 8px 8px}.dual-price{font-size:1.1rem}.btn-buy{font-size:.62rem;padding:7px 2px}}
+@media(max-width:480px){.grid{grid-template-columns:repeat(2,1fr)}.card-name{font-size:.75rem;-webkit-line-clamp:2}.card-specs{grid-template-columns:1fr 1fr}.card-specs .spec:last-child{display:none}.card-bottom{padding:6px 8px 8px}.dual-price{font-size:1.1rem}.btn-buy{font-size:.62rem;padding:7px 2px}.card-btns-dual{grid-template-columns:1fr}.card-btn-col-price{font-size:13px}}
 
 .card{background:var(--bg);border:1px solid var(--bd);border-radius:14px;overflow:hidden;transition:box-shadow .2s,transform .15s;cursor:pointer;position:relative}
 .card:hover{box-shadow:0 4px 20px rgba(0,0,0,.07);transform:translateY(-2px)}
@@ -139,9 +139,10 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .card-price{font-size:1.3rem;font-weight:700;color:var(--tx);margin-bottom:.65rem;letter-spacing:-.03em}
 .price-nd{font-size:13px;color:var(--tx3);font-weight:400;margin-bottom:.65rem}
 .card-btns{display:flex;flex-direction:column;gap:6px}
-.card-btns-dual{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.card-btn-col{display:flex;flex-direction:column;gap:3px}
-.card-btn-col-price{font-size:12px;font-weight:700;color:var(--tx);text-align:center}
+.card-btns-dual{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.card-btn-col{display:flex;flex-direction:column;gap:4px;background:var(--s1);border-radius:10px;padding:8px 6px 6px}
+.card-btn-col-plat{font-size:9px;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:.07em;text-align:center}
+.card-btn-col-price{font-size:15px;font-weight:800;color:var(--tx);text-align:center;letter-spacing:-.02em;line-height:1.1;margin-bottom:2px}
 .btn-amz{display:flex;align-items:center;justify-content:center;gap:5px;width:100%;text-align:center;background:var(--amz);color:#000;border:none;border-radius:8px;padding:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Satoshi',sans-serif;text-decoration:none;transition:opacity .15s}
 .btn-amz:hover{opacity:.9}
 .btn-ml{display:flex;align-items:center;justify-content:center;gap:5px;width:100%;text-align:center;background:var(--ml);color:#3a2e00;border:none;border-radius:8px;padding:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Satoshi',sans-serif;text-decoration:none;transition:opacity .15s}
@@ -1170,10 +1171,12 @@ function cardHTML(p) {
     precioBlock = '';
     btnsBlock = `<div class="card-btns-dual">
       <div class="card-btn-col">
+        <div class="card-btn-col-plat">Mercado Libre</div>
         ${pML ? `<div class="card-btn-col-price">${fmtPrecio(pML)}</div>` : ''}
         <a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\//g,'').replace(/\/(?:index\.html)?$/g,'').replace(/\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1});}">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>
       </div>
       <div class="card-btn-col">
+        <div class="card-btn-col-plat">Amazon</div>
         ${pAmz ? `<div class="card-btn-col-price">${fmtPrecio(pAmz)}</div>` : ''}
         <a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_amazon',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\//g,'').replace(/\/(?:index\.html)?$/g,'').replace(/\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1});}">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>
       </div>
