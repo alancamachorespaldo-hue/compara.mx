@@ -297,6 +297,25 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
   .cat-elec .body{flex:1}
   .art .ph,.art img{height:84px}
 }
+.leads-section{background:linear-gradient(135deg,#006847 0%,#004d35 100%);padding:64px 1.5rem;position:relative;overflow:hidden}
+.leads-section::before{content:'';position:absolute;top:-60px;right:-60px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.04);pointer-events:none}
+.leads-section::after{content:'';position:absolute;bottom:-80px;left:-40px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.03);pointer-events:none}
+.leads-inner{max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;position:relative;z-index:1}
+.leads-eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:12px}
+.leads-title{font-size:clamp(24px,3.5vw,36px);font-weight:800;color:#fff;letter-spacing:-.03em;line-height:1.15;margin-bottom:16px}
+.leads-title span{color:#f0c000}
+.leads-desc{font-size:15px;color:rgba(255,255,255,.72);line-height:1.7;margin-bottom:28px;max-width:380px}
+.leads-benefits{display:flex;flex-direction:column;gap:10px}
+.leads-benefit{display:flex;align-items:center;gap:10px;font-size:14px;color:rgba(255,255,255,.85)}
+.leads-benefit-icon{width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.leads-form-wrap{background:rgba(255,255,255,.97);border-radius:20px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.leads-form-header{background:#fff;padding:20px 24px 0;border-bottom:1px solid #f0f0ec}
+.leads-form-header-title{font-size:15px;font-weight:700;color:#0F172A;margin-bottom:4px}
+.leads-form-header-sub{font-size:12px;color:#94a3b8;margin-bottom:16px}
+.leads-form-iframe-wrap{background:#fff;padding:0 8px 8px}
+.leads-form-iframe-wrap iframe{width:100%;border:none;display:block;border-radius:0 0 12px 12px}
+.leads-privacy{text-align:center;margin-top:12px;font-size:11px;color:rgba(255,255,255,.4);display:flex;align-items:center;justify-content:center;gap:5px}
+@media(max-width:768px){.leads-inner{grid-template-columns:1fr;gap:32px}.leads-title{font-size:26px}.leads-desc{max-width:100%}}
 </style>
 </head>
 <body>
@@ -606,6 +625,58 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
 </section>
 
 </main>
+
+<section class="leads-section" aria-label="Solicita una comparativa de producto">
+  <div class="leads-inner">
+    <div class="leads-copy">
+      <p class="leads-eyebrow">Para ti · Gratis · Sin spam</p>
+      <h2 class="leads-title">
+        ¿No encuentras<br>lo que buscas?<br>
+        <span>Te comparamos.</span>
+      </h2>
+      <p class="leads-desc">
+        Dinos qué producto quieres comparar en Amazon MX
+        y Mercado Libre y te avisamos cuando tengamos la
+        comparativa lista — gratis, sin registros complicados.
+      </p>
+      <div class="leads-benefits">
+        <div class="leads-benefit">
+          <div class="leads-benefit-icon">✓</div>
+          Comparamos precio, specs y reseñas
+        </div>
+        <div class="leads-benefit">
+          <div class="leads-benefit-icon">✓</div>
+          Te avisamos por correo cuando esté lista
+        </div>
+        <div class="leads-benefit">
+          <div class="leads-benefit-icon">✓</div>
+          Sin costo, sin spam, sin compromisos
+        </div>
+        <div class="leads-benefit">
+          <div class="leads-benefit-icon">✓</div>
+          Respondemos en menos de 48 horas
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="leads-form-wrap">
+        <div class="leads-form-header">
+          <div class="leads-form-header-title">📋 Solicita tu comparativa</div>
+          <div class="leads-form-header-sub">Tarda menos de 30 segundos</div>
+        </div>
+        <div class="leads-form-iframe-wrap">
+          <iframe
+            src="https://docs.google.com/forms/d/e/1FAIpQLScI3hNm1pX6oo2cnxVqHnTBjOkfsEqBGw0bE3lYc3p0huxzOQ/viewform?embedded=true"
+            width="100%" height="480" frameborder="0" marginheight="0" marginwidth="0"
+            title="Solicitar comparativa en comparalo.mx" loading="lazy">
+            Cargando formulario…
+          </iframe>
+        </div>
+      </div>
+      <div class="leads-privacy">🔒 Tu correo solo se usa para avisarte. Nunca spam.</div>
+    </div>
+  </div>
+</section>
 
 <footer>
   <div class="wrap">
