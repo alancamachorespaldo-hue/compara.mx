@@ -21,6 +21,9 @@ jobs:
       - name: Instalar dependencias
         run: npm install
 
+      - name: Sincronizar productos pausados/eliminados desde productos.json
+        run: node scripts/sync-html.js
+
       - name: Actualizar precios ML
         env:
           ML_CLIENT_ID: ${{ secrets.ML_CLIENT_ID }}

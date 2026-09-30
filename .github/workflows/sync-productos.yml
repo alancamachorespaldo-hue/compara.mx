@@ -1,0 +1,38 @@
+name: Sincronizar productos.json → HTML
+
+on:
+  push:
+    paths:
+      - 'scripts/productos.json'  # se dispara solo cuando cambia este archivo
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Aplicar cambios de productos.json a los HTML
+        run: node scripts/sync-html.js
+
+      - name: Commit y push si hay cambios
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(productos): sincronizar productos.json → HTML $(date -u +'%Y-%m-%d')"
+            git push
+          else
+            echo "Sin cambios que aplicar"
+          fi
