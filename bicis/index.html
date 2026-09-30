@@ -2354,7 +2354,7 @@ function showCmp(){
   const heads='<tr><th style="min-width:120px;text-align:left"></th>'+list.map(b=>`
     <th style="padding:14px 12px">
       <div style="width:72px;height:72px;margin:0 auto 8px;border-radius:8px;overflow:hidden;background:#f7f7f5;border:1px solid #e2e2dc;display:flex;align-items:center;justify-content:center">
-        ${b.img?`<img src="${b.img}" style="max-width:100%;max-height:100%;object-fit:contain;padding:4px" onerror="this.outerHTML='<span style=font-size:1.5rem>${emoji}</span>'">`:`<span style="font-size:1.5rem">${emoji}</span>`}
+        ${b.img?`<img src="${b.img}" alt="${b.nombre}" style="max-width:100%;max-height:100%;object-fit:contain;padding:4px" onerror="this.outerHTML='<span style=font-size:1.5rem>${emoji}</span>'">`:`<span style="font-size:1.5rem">${emoji}</span>`}
       </div>
       <div style="font-family:Satoshi,sans-serif;font-size:13px;font-weight:700;color:#0F172A;line-height:1.3">${b.nombre}</div>
       <div style="font-size:10px;color:#94a3b8;margin-top:1px;text-transform:uppercase;letter-spacing:.05em">${b.marca}</div>
@@ -2466,7 +2466,7 @@ function showCross(){
   const heads='<tr><th style="min-width:120px;text-align:left"></th>'+list.map(b=>`
     <th style="padding:14px 12px">
       <div style="width:72px;height:72px;margin:0 auto 8px;border-radius:8px;overflow:hidden;background:#f7f7f5;border:1px solid #e2e2dc;display:flex;align-items:center;justify-content:center">
-        ${b.img?`<img src="${b.img}" style="max-width:100%;max-height:100%;object-fit:contain;padding:4px">`:`<span style="font-size:1.5rem">${SECS[b._sec].emoji}</span>`}
+        ${b.img?`<img src="${b.img}" alt="${b.nombre}" style="max-width:100%;max-height:100%;object-fit:contain;padding:4px">`:`<span style="font-size:1.5rem">${SECS[b._sec].emoji}</span>`}
       </div>
       <div style="font-family:Satoshi,sans-serif;font-size:13px;font-weight:700;color:#0F172A;line-height:1.3">${b.nombre}</div>
       <div style="font-size:10px;color:#94a3b8;margin-top:1px;text-transform:uppercase;letter-spacing:.05em">${SECS[b._sec].emoji} ${SECS[b._sec].label}</div>

@@ -1220,8 +1220,8 @@ function abrirComparacion() {
       <tr><td class="row-label">Precio total</td>${prods.map(p => {
         if (p.linkML && p.linkAmz && p.precioML && p.precioAmz) {
           return `<td><div style="display:flex;flex-direction:row;gap:10px;justify-content:center;font-size:.85rem">
-            <span><img src="/logomercado.png" style="height:14px;vertical-align:middle;margin-right:3px" onerror="this.style.display='none'">$${p.precioML.toLocaleString('es-MX')}</span>
-            <span><img src="/logoamazon.png" style="height:14px;vertical-align:middle;margin-right:3px" onerror="this.style.display='none'">$${p.precioAmz.toLocaleString('es-MX')}</span>
+            <span><img src="/logomercado.png" alt="" style="height:14px;vertical-align:middle;margin-right:3px" onerror="this.style.display='none'">$${p.precioML.toLocaleString('es-MX')}</span>
+            <span><img src="/logoamazon.png" alt="" style="height:14px;vertical-align:middle;margin-right:3px" onerror="this.style.display='none'">$${p.precioAmz.toLocaleString('es-MX')}</span>
           </div></td>`;
         }
         const minP = Math.min(...[p.precioML,p.precioAmz,p.precio].filter(Boolean));
@@ -1238,8 +1238,8 @@ function abrirComparacion() {
           const cppML = p.precioML / p.porciones;
           const cppAmz = p.precioAmz / p.porciones;
           return `<td><div style="display:flex;flex-direction:row;gap:10px;justify-content:center;font-size:.85rem">
-            <span><img src="/logomercado.png" style="height:14px;vertical-align:middle;margin-right:3px" onerror="this.style.display='none'">$${cppML.toFixed(2)}</span>
-            <span><img src="/logoamazon.png" style="height:14px;vertical-align:middle;margin-right:3px" onerror="this.style.display='none'">$${cppAmz.toFixed(2)}</span>
+            <span><img src="/logomercado.png" alt="" style="height:14px;vertical-align:middle;margin-right:3px" onerror="this.style.display='none'">$${cppML.toFixed(2)}</span>
+            <span><img src="/logoamazon.png" alt="" style="height:14px;vertical-align:middle;margin-right:3px" onerror="this.style.display='none'">$${cppAmz.toFixed(2)}</span>
           </div></td>`;
         }
         const allCpp = prods.map(q => {
