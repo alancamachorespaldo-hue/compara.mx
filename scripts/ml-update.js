@@ -14,6 +14,8 @@ import 'dotenv/config';
 import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { resolve } from 'path';
 
+const REPORT = [];   // acumula resultados de todas las categorías
+
 const CLIENT_ID     = process.env.ML_CLIENT_ID;
 const CLIENT_SECRET = process.env.ML_CLIENT_SECRET;
 
@@ -196,6 +198,7 @@ async function processFile(key, config, token) {
     const mlProduct = await findCatalogProduct(prod.nombre, prod.marca, token);
     if (!mlProduct) {
       console.log('→ no encontrado');
+      REPORT.push({ categoria: key, nombre: prod.nombre, marca: prod.marca, precioAntes: prod.precio, estado: 'no_encontrado', mlId: null, precioML: null });
       continue;
     }
 
@@ -204,6 +207,7 @@ async function processFile(key, config, token) {
 
     if (!minPrice) {
       console.log(`→ ${mlProduct.id} sin precio`);
+      REPORT.push({ categoria: key, nombre: prod.nombre, marca: prod.marca, precioAntes: prod.precio, estado: 'sin_precio', mlId: mlProduct.id, precioML: null });
       continue;
     }
 
@@ -214,6 +218,7 @@ async function processFile(key, config, token) {
     const ratio = Math.round(minPrice) / prod.precio;
     if (ratio < 0.2 || ratio > 4.0) {
       console.log(`⚠ $${prod.precio.toLocaleString()} → $${Math.round(minPrice).toLocaleString()} precio sospechoso (ratio ${ratio.toFixed(1)}x), ignorado`);
+      REPORT.push({ categoria: key, nombre: prod.nombre, marca: prod.marca, precioAntes: prod.precio, estado: 'precio_sospechoso', mlId: mlProduct.id, precioML: Math.round(minPrice) });
       continue;
     }
 
@@ -221,8 +226,10 @@ async function processFile(key, config, token) {
       html = patched;
       changed++;
       console.log(`✅ $${oldPrecio?.toLocaleString()} → $${nuevoPrecio?.toLocaleString()} (${mlProduct.id})`);
+      REPORT.push({ categoria: key, nombre: prod.nombre, marca: prod.marca, precioAntes: oldPrecio, precioNuevo: nuevoPrecio, estado: 'actualizado', mlId: mlProduct.id, precioML: Math.round(minPrice) });
     } else {
       console.log(`= $${prod.precio.toLocaleString()} (${mlProduct.id})`);
+      REPORT.push({ categoria: key, nombre: prod.nombre, marca: prod.marca, precioAntes: prod.precio, estado: 'sin_cambio', mlId: mlProduct.id, precioML: Math.round(minPrice) });
     }
   }
 
@@ -254,8 +261,29 @@ async function processFile(key, config, token) {
     process.exit(1);
   }
 
+  const fecha = new Date().toISOString().slice(0, 10);
+
   for (const [key, config] of ENTRIES) {
     await processFile(key, config, token);
+  }
+
+  // Guardar reporte JSON
+  if (!DRY_RUN) {
+    const reportPath = resolve(ROOT, 'scripts/ml-report.json');
+    const resumen = {
+      fecha,
+      generado: new Date().toISOString(),
+      totales: {
+        actualizados:      REPORT.filter(r => r.estado === 'actualizado').length,
+        sin_cambio:        REPORT.filter(r => r.estado === 'sin_cambio').length,
+        sin_precio:        REPORT.filter(r => r.estado === 'sin_precio').length,
+        no_encontrado:     REPORT.filter(r => r.estado === 'no_encontrado').length,
+        precio_sospechoso: REPORT.filter(r => r.estado === 'precio_sospechoso').length,
+      },
+      productos: REPORT,
+    };
+    writeFileSync(reportPath, JSON.stringify(resumen, null, 2), 'utf8');
+    console.log(`📊 Reporte guardado en scripts/ml-report.json\n`);
   }
 
   console.log('\n✅ Listo\n');
