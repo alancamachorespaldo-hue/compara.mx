@@ -209,6 +209,32 @@ a{color:var(--ac);font-weight:600;text-underline-offset:3px}
 .cta-btn{display:inline-block;background:#fff;color:var(--ac);font-weight:700;font-size:14px;padding:.7rem 1.6rem;border-radius:10px;text-decoration:none}
 .cta-btn:hover{opacity:.92;color:var(--ac)}
 
+/* Top-5 productos */
+.prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin:1.75rem 0}
+.prod-card{border:1px solid var(--bd);border-radius:16px;overflow:hidden;background:var(--bg);transition:box-shadow .2s,transform .15s;display:flex;flex-direction:column}
+.prod-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.07);transform:translateY(-2px)}
+.prod-img-wrap{position:relative;display:block;aspect-ratio:4/3;overflow:hidden;background:var(--s1);text-decoration:none}
+.prod-img{width:100%;height:100%;object-fit:contain;padding:10px}
+.prod-img-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:2.5rem;z-index:0}
+.prod-img-label{position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.55);color:#fff;font-size:11px;font-weight:700;padding:4px 9px;border-radius:20px}
+.prod-body{padding:.9rem 1.1rem;display:flex;flex-direction:column;flex:1;gap:.35rem}
+.prod-badge{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:3px 9px;border-radius:20px;width:fit-content}
+.pb-best{background:var(--acd);color:var(--ac);border:1px solid var(--acd2)}
+.pb-ml{background:var(--mld);color:#7a5f00;border:1px solid var(--mld2)}
+.pb-amz{background:var(--amzd);color:#8a5500;border:1px solid var(--amzd2)}
+.prod-nombre{font-size:14px;font-weight:700;color:var(--tx);line-height:1.35;letter-spacing:-.01em}
+.prod-marca{font-size:12px;color:var(--tx3);font-weight:500}
+.prod-desc{font-size:12.5px;color:var(--tx2);line-height:1.5;margin-top:.1rem}
+.prod-precio{font-size:1.15rem;font-weight:700;color:var(--tx);margin-top:auto;padding-top:.4rem}
+.prod-precio span{font-size:12px;color:var(--tx2);font-weight:400}
+.prod-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-top:.15rem}
+.prod-btns{display:flex;flex-wrap:wrap;gap:7px;margin-top:.6rem}
+.btn-ml{display:inline-block;background:var(--ml);color:#0F172A;font-size:12.5px;font-weight:700;padding:.45rem 1rem;border-radius:8px;text-decoration:none}
+.btn-amz{display:inline-block;background:var(--amz);color:#0F172A;font-size:12.5px;font-weight:700;padding:.45rem 1rem;border-radius:8px;text-decoration:none}
+.btn-comparalo{display:inline-block;background:var(--acd);color:var(--ac);font-size:12.5px;font-weight:700;padding:.45rem 1rem;border-radius:8px;text-decoration:none;border:1px solid var(--acd2)}
+.btn-ml:hover,.btn-amz:hover,.btn-comparalo:hover{opacity:.88}
+@media(max-width:480px){.prod-grid{grid-template-columns:1fr}}
+
 /* FAQ */
 .faq{display:flex;flex-direction:column;gap:10px;margin:1.4rem 0}
 .faq-item{border:1px solid var(--bd);border-radius:var(--r);overflow:hidden}
@@ -267,6 +293,7 @@ footer strong{color:var(--tx2)}
       <li><a href="#cuando-si">¿Para quién tiene sentido y para quién no?</a></li>
       <li><a href="#costos-ocultos">Los costos ocultos que nadie menciona</a></li>
       <li><a href="#precios-mercado">Qué esperar del mercado: precios en Amazon MX y Mercado Libre</a></li>
+      <li><a href="#modelos-destacados">5 modelos destacados en Amazon MX y Mercado Libre 2026</a></li>
       <li><a href="#faq">Preguntas frecuentes</a></li>
     </ol>
   </nav>
@@ -603,6 +630,126 @@ footer strong{color:var(--tx2)}
     <p class="cta-comp-txt">En el <a href="https://comparalo.mx/bicis/">comparador de bicicletas eléctricas de comparalo.mx</a> tienes más de 20 modelos con especificaciones reales, autonomía verificada y precios actualizados de ambas plataformas. Filtra por presupuesto, tipo de uso y motor.</p>
     <a class="cta-comp-btn" href="https://comparalo.mx/bicis/">Ver comparador de bicicletas eléctricas →</a>
     <p class="cta-comp-sub">Eléctricas urbanas · Montaña · Plegables · Precios actualizados septiembre 2026</p>
+  </div>
+
+  <!-- ═══ MODELOS DESTACADOS ═══ -->
+  <h2 id="modelos-destacados">5 modelos destacados en Amazon MX y Mercado Libre 2026</h2>
+
+  <p>Los siguientes modelos están disponibles en el comparador de comparalo.mx. Precios referenciales de agosto–septiembre 2026; pueden variar en plataforma.</p>
+
+  <div class="prod-grid" role="list" aria-label="Bicicletas eléctricas destacadas">
+
+    <!-- Card 1: HONEYWHALE B20 -->
+    <div class="prod-card" role="listitem">
+      <a class="prod-img-wrap" href="/bicis/" aria-label="Ver bicis eléctricas en comparalo.mx">
+        <img class="prod-img" src="https://http2.mlstatic.com/D_NQ_NP_2X_763620-MLA89353119440_082025-F.webp"
+          alt="HONEYWHALE B20 bicicleta eléctrica plegable — más vendida en México"
+          loading="lazy" onerror="this.style.display='none'">
+        <span class="prod-img-ph">⚡</span>
+        <span class="prod-img-label">Ver en comparador →</span>
+      </a>
+      <div class="prod-body">
+        <span class="prod-badge pb-best">★ Más reseñas ML · 912</span>
+        <div class="prod-nombre">HONEYWHALE B20</div>
+        <div class="prod-marca">HONEYWHALE · Plegable 14"</div>
+        <div class="prod-desc">Motor 440 W · Autonomía 35 km · IP54 · 21 kg · Batería Li-ion · Vel. máx. 32 km/h · Amazon + Mercado Libre</div>
+        <div class="prod-precio">$6,599 <span>MXN</span></div>
+        <div class="prod-btns">
+          <a class="btn-ml" href="https://meli.la/13mxVr4" target="_blank" rel="nofollow sponsored" aria-label="Ver HONEYWHALE B20 en Mercado Libre">Ver en ML →</a>
+          <a class="btn-amz" href="https://www.amazon.com.mx/HONEYWHALE-B20-Bicicleta-Electrica-Conducci%C3%B3n/dp/B0FK298YDN?th=1&linkCode=ll2&tag=comparabici-20" target="_blank" rel="nofollow sponsored" aria-label="Ver HONEYWHALE B20 en Amazon">Ver en Amazon →</a>
+          <a class="btn-comparalo" href="/bicis/" aria-label="Comparar bicis eléctricas en comparalo.mx">Comparar modelos →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2: HONEYWHALE S6-S -->
+    <div class="prod-card" role="listitem">
+      <a class="prod-img-wrap" href="/bicis/" aria-label="Ver bicis eléctricas en comparalo.mx">
+        <img class="prod-img" src="https://http2.mlstatic.com/D_NQ_NP_2X_837219-MLA99478539078_112025-F.webp"
+          alt="HONEYWHALE S6-S bicicleta eléctrica plegable — 1250 reseñas Mercado Libre"
+          loading="lazy" onerror="this.style.display='none'">
+        <span class="prod-img-ph">🚴</span>
+        <span class="prod-img-label">Ver en comparador →</span>
+      </a>
+      <div class="prod-body">
+        <span class="prod-badge pb-ml">1,250 reseñas · ML</span>
+        <div class="prod-nombre">HONEYWHALE S6-S</div>
+        <div class="prod-marca">HONEYWHALE · Plegable 14"</div>
+        <div class="prod-desc">Motor 750 W pico · Autonomía 40 km · IP54 · Batería removible 499 Wh · Vel. máx. 35 km/h</div>
+        <div class="prod-precio">$7,598 <span>MXN</span></div>
+        <div class="prod-btns">
+          <a class="btn-ml" href="https://meli.la/1bjtgkL" target="_blank" rel="nofollow sponsored" aria-label="Ver HONEYWHALE S6-S en Mercado Libre">Ver en ML →</a>
+          <a class="btn-comparalo" href="/bicis/" aria-label="Comparar bicis eléctricas en comparalo.mx">Comparar modelos →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: HONEYWHALE S6 PRO-S -->
+    <div class="prod-card" role="listitem">
+      <a class="prod-img-wrap" href="/bicis/" aria-label="Ver bicis eléctricas en comparalo.mx">
+        <img class="prod-img" src="https://http2.mlstatic.com/D_NQ_NP_2X_704357-MLA88049333470_072025-F.webp"
+          alt="HONEYWHALE S6 PRO-S bicicleta eléctrica — 720 Wh batería removible"
+          loading="lazy" onerror="this.style.display='none'">
+        <span class="prod-img-ph">🔋</span>
+        <span class="prod-img-label">Ver en comparador →</span>
+      </a>
+      <div class="prod-body">
+        <span class="prod-badge pb-best">720 Wh · Mayor batería</span>
+        <div class="prod-nombre">HONEYWHALE S6 PRO-S</div>
+        <div class="prod-marca">HONEYWHALE · Plegable 14"</div>
+        <div class="prod-desc">Motor 750 W pico · Autonomía 50 km · Batería removible 720 Wh · IP54 · 526 reseñas</div>
+        <div class="prod-precio">$8,999 <span>MXN</span></div>
+        <div class="prod-btns">
+          <a class="btn-ml" href="https://meli.la/1kjrpQP" target="_blank" rel="nofollow sponsored" aria-label="Ver HONEYWHALE S6 PRO-S en Mercado Libre">Ver en ML →</a>
+          <a class="btn-comparalo" href="/bicis/" aria-label="Comparar bicis eléctricas en comparalo.mx">Comparar modelos →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4: POP SHOPPE S6 -->
+    <div class="prod-card" role="listitem">
+      <a class="prod-img-wrap" href="/bicis/" aria-label="Ver bicis eléctricas en comparalo.mx">
+        <img class="prod-img" src="https://http2.mlstatic.com/D_NQ_NP_2X_601610-MLA97524594486_112025-F.webp"
+          alt="POP SHOPPE S6 bicicleta eléctrica plegable — batería removible"
+          loading="lazy" onerror="this.style.display='none'">
+        <span class="prod-img-ph">🚲</span>
+        <span class="prod-img-label">Ver en comparador →</span>
+      </a>
+      <div class="prod-body">
+        <span class="prod-badge pb-ml">351 reseñas · Batería removible</span>
+        <div class="prod-nombre">POP SHOPPE S6</div>
+        <div class="prod-marca">POP SHOPPE · Plegable 14"</div>
+        <div class="prod-desc">Motor 750 W pico · Autonomía 28–32 km · Batería removible 384 Wh · IPX4 · Vel. máx. 35 km/h</div>
+        <div class="prod-precio">$6,599 <span>MXN</span></div>
+        <div class="prod-btns">
+          <a class="btn-ml" href="https://meli.la/2GzSAbQ" target="_blank" rel="nofollow sponsored" aria-label="Ver POP SHOPPE S6 en Mercado Libre">Ver en ML →</a>
+          <a class="btn-comparalo" href="/bicis/" aria-label="Comparar bicis eléctricas en comparalo.mx">Comparar modelos →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 5: NEON EBIKE500 -->
+    <div class="prod-card" role="listitem">
+      <a class="prod-img-wrap" href="/bicis/" aria-label="Ver bicis eléctricas en comparalo.mx">
+        <img class="prod-img" src="https://http2.mlstatic.com/D_NQ_NP_2X_856660-MLA99455653556_112025-F.webp"
+          alt="NEON EBIKE500 bicicleta eléctrica urbana — 60 km autonomía"
+          loading="lazy" onerror="this.style.display='none'">
+        <span class="prod-img-ph">🏙️</span>
+        <span class="prod-img-label">Ver en comparador →</span>
+      </a>
+      <div class="prod-body">
+        <span class="prod-badge pb-best">Mayor autonomía · 60 km</span>
+        <div class="prod-nombre">NEON EBIKE500</div>
+        <div class="prod-marca">NEON · Urbana 14"</div>
+        <div class="prod-desc">Motor 500 W · Autonomía 60 km · Batería removible 960 Wh · Carga máx. 200 kg · 8–10 h carga</div>
+        <div class="prod-precio">$9,999 <span>MXN</span></div>
+        <div class="prod-btns">
+          <a class="btn-ml" href="https://meli.la/1utSy9X" target="_blank" rel="nofollow sponsored" aria-label="Ver NEON EBIKE500 en Mercado Libre">Ver en ML →</a>
+          <a class="btn-comparalo" href="/bicis/" aria-label="Comparar bicis eléctricas en comparalo.mx">Comparar modelos →</a>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <!-- ═══ FAQ ═══ -->
