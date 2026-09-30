@@ -1,6 +1,11 @@
 User-agent: *
 Allow: /
+Disallow: /assets/
+Disallow: /celulares/comparar/
 
+Sitemap: https://comparalo.mx/sitemap.xml
+
+# IA generativa — permitida (el contenido propio es el activo de SEO)
 User-agent: GPTBot
 Allow: /
 
@@ -12,5 +17,3 @@ Allow: /
 
 User-agent: Google-Extended
 Allow: /
-
-Sitemap: https://comparalo.mx/sitemap.xml
