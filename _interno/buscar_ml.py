@@ -14,13 +14,14 @@ import urllib.request
 import urllib.parse
 import urllib.error
 import json
+import os
 import ssl
 import time
 import sys
 
-# ─── CONFIGURACION — pon tus credenciales aqui ────────────────────────────────
-APP_ID     = "6900783320059393"
-APP_SECRET = "FhsGJPFno3iP7AXJuaWTsAf11SKBqt43"
+# ─── CONFIGURACION — credenciales vía variables de entorno ML_CLIENT_ID / ML_CLIENT_SECRET ────────────────────────────────
+APP_ID     = os.environ.get("ML_CLIENT_ID", "")
+APP_SECRET = os.environ.get("ML_CLIENT_SECRET", "")
 # ─────────────────────────────────────────────────────────────────────────────
 
 BUSQUEDAS = [
