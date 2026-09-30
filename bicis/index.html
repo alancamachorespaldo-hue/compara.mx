@@ -356,7 +356,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 .leads-form-iframe-wrap{background:#fff;padding:0 8px 8px}
 .leads-form-iframe-wrap iframe{width:100%;border:none;display:block;border-radius:0 0 12px 12px}
 .leads-privacy{text-align:center;margin-top:12px;font-size:11px;color:rgba(255,255,255,.4);display:flex;align-items:center;justify-content:center;gap:5px}
-@media(max-width:768px){.leads-inner{grid-template-columns:1fr;gap:32px}.leads-title{font-size:26px}.leads-desc{max-width:100%}}
+@media(max-width:768px){.leads-inner{grid-template-columns:1fr;gap:32px}.leads-title{font-size:26px}.leads-desc{max-width:100%}.leads-form-iframe-wrap{display:none}.leads-form-btn{display:flex!important}}
 </style>
 </head>
 <body data-category="bicis">
@@ -779,10 +779,34 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
           </iframe>
         </div>
       </div>
+      <a class="leads-form-btn" href="https://docs.google.com/forms/d/e/1FAIpQLScI3hNm1pX6oo2cnxVqHnTBjOkfsEqBGw0bE3lYc3p0huxzOQ/viewform" target="_blank" rel="noopener" style="display:none;align-items:center;justify-content:center;gap:8px;background:#f0c000;color:#0F172A;text-decoration:none;padding:16px 24px;border-radius:12px;font-weight:800;font-size:16px;margin:16px 8px 8px;text-align:center">📋 Solicitar comparativa →</a>
       <div class="leads-privacy">🔒 Tu correo solo se usa para avisarte. Nunca spam.</div>
     </div>
   </div>
 </section>
+<script>
+(function(){
+  var section=document.querySelector('.leads-section');
+  if(!section)return;
+  var iframe=section.querySelector('iframe');
+  var btn=section.querySelector('.leads-form-btn');
+  var fired=false;
+  window.addEventListener('blur',function(){
+    if(iframe&&document.activeElement===iframe&&!fired){
+      fired=true;
+      typeof gtag!=='undefined'&&gtag('event','leads_form_start',{event_category:'leads',event_label:location.pathname});
+    }
+  });
+  window.addEventListener('message',function(e){
+    if(e.origin==='https://docs.google.com'&&typeof e.data==='string'&&e.data.indexOf('submitted')!==-1){
+      typeof gtag!=='undefined'&&gtag('event','leads_form_submit',{event_category:'leads',event_label:location.pathname});
+    }
+  });
+  if(btn)btn.addEventListener('click',function(){
+    typeof gtag!=='undefined'&&gtag('event','leads_form_start',{event_category:'leads',event_label:location.pathname});
+  });
+})();
+</script>
 
 <footer>
   <div class="footer-logo">
