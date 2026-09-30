@@ -395,7 +395,10 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   .cmp-prod-btns .btn-ml img,.cmp-prod-btns .btn-amz img{height:10px!important}
   .cmp-table tbody tr.cmp-group-hdr td{font-size:8.5px!important;padding:5px 6px!important;border-top:1px solid var(--bd)!important}
   .cmp-table .cmp-winner{background:linear-gradient(135deg,#d4f0e3,#c0ebd5)!important;color:#004d34!important;font-weight:800!important}
-}</style>
+}
+.filter-logo{padding:4px 10px;display:inline-flex;align-items:center;justify-content:center}
+.filter-logo.on img{filter:brightness(0) invert(1)}
+</style>
 </head>
 <body data-category="celulares_iphone">
 
@@ -441,6 +444,13 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
     <button class="filter" id="btn-color-iphone" onclick="toggleColorDropdown()">Todos ▾</button>
     <div class="color-dropdown" id="color-dd-iphone"></div>
   </div>
+
+  <span class="filter-sep"></span>
+  <span class="filter-label">Tienda</span>
+  <button class="filter on" data-group="plat" onclick="toggleFilter('plat','todos',this)">Ambas</button>
+  <button class="filter filter-logo" data-group="plat" onclick="toggleFilter('plat','amz',this)"><img src="/logoamazon.png" alt="Amazon" style="height:16px;width:auto;object-fit:contain" onerror="this.outerHTML='Amazon'"></button>
+  <button class="filter filter-logo" data-group="plat" onclick="toggleFilter('plat','ml',this)"><img src="/logomercado.png" alt="Mercado Libre" style="height:16px;width:auto;object-fit:contain" onerror="this.outerHTML='ML'"></button>
+
 
   <div class="sort-wrap">
     <div class="filter-sep"></div>
@@ -1784,7 +1794,7 @@ function btnsHTML(variante, nombre) {
 // ─────────────────────────────────────────────────────────────────────────────
 // RENDER GRID
 // ─────────────────────────────────────────────────────────────────────────────
-const filterState = { serie: 'todos', condicion: 'todos', color: 'todos' };
+const filterState = { serie: 'todos', condicion: 'todos', color: 'todos', plat: 'todos' };
 
 const COLOR_SWATCHES = {
   'Negro':    '#1c1c1e',
@@ -1826,7 +1836,7 @@ function applyColor(color, el) {
   if (color === 'todos') { btn.textContent = 'Todos ▾'; btn.classList.remove('on'); }
   else { btn.textContent = color + ' ▾'; btn.classList.add('on'); }
   document.getElementById('color-dd-iphone').classList.remove('open');
-  const dirty = filterState.serie !== 'todos' || filterState.condicion !== 'todos' || filterState.color !== 'todos';
+  const dirty = filterState.serie !== 'todos' || filterState.condicion !== 'todos' || filterState.color !== 'todos' || filterState.plat !== 'todos';
   document.getElementById('btn-clear-filters').style.display = dirty ? '' : 'none';
   render();
 }
@@ -1844,7 +1854,7 @@ function toggleFilter(key, val, btn) {
   );
   group.forEach(b => b.classList.remove('on'));
   btn.classList.add('on');
-  const dirty = filterState.serie !== 'todos' || filterState.condicion !== 'todos' || filterState.color !== 'todos';
+  const dirty = filterState.serie !== 'todos' || filterState.condicion !== 'todos' || filterState.color !== 'todos' || filterState.plat !== 'todos';
   document.getElementById('btn-clear-filters').style.display = dirty ? '' : 'none';
   render();
 }
@@ -1853,6 +1863,7 @@ function clearFilters() {
   filterState.serie = 'todos';
   filterState.condicion = 'todos';
   filterState.color = 'todos';
+  filterState.plat = 'todos';
   const _pm=document.getElementById('precio-max');if(_pm)_pm.value='';
   document.getElementById('search').value = '';
   document.querySelectorAll('.filter.on').forEach(b => b.classList.remove('on'));
@@ -1875,6 +1886,8 @@ function render() {
     if (filterState.color !== 'todos' && f.colores && !f.colores.includes(filterState.color)) return false;
     if (q && !f.nombre.toLowerCase().includes(q)) return false;
     const _maxP=parseFloat(document.getElementById('precio-max')?.value)||Infinity;if(_maxP<Infinity){const _minV=Math.min(...f.variantes.map(v=>v.precio||Infinity));if(_minV>_maxP)return false;}
+    if (filterState.plat === 'amz' && !f.variantes.some(v=>v.linkAmz)) return false;
+    if (filterState.plat === 'ml' && !f.variantes.some(v=>v.linkML)) return false;
     return true;
   });
 

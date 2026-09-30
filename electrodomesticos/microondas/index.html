@@ -264,7 +264,10 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   .cmp-bar-txt{font-size:12px!important}
   .cmp-bar-sub{font-size:10px!important}
   .cmp-bar-actions{gap:5px!important}
-}</style>
+}
+.filter-logo{padding:4px 10px;display:inline-flex;align-items:center;justify-content:center}
+.filter-logo.on img{filter:brightness(0) invert(1)}
+</style>
 </head>
 <body data-category="microondas">
 
@@ -349,6 +352,12 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
     <div class="filter-sep"></div>
     <span class="filter-label">Precio máx.</span>
     <input type="number" id="precio-max" placeholder="ej. 8000" class="precio-max-input" oninput="render()" min="0" step="500">
+
+    <div class="filter-sep"></div>
+    <span class="filter-label">Tienda</span>
+    <button class="filter on" data-group="plat" onclick="toggleFilter('plat','todos',this)">Ambas</button>
+    <button class="filter filter-logo" data-group="plat" onclick="toggleFilter('plat','amz',this)"><img src="/logoamazon.png" alt="Amazon" style="height:16px;width:auto;object-fit:contain" onerror="this.outerHTML='Amazon'"></button>
+    <button class="filter filter-logo" data-group="plat" onclick="toggleFilter('plat','ml',this)"><img src="/logomercado.png" alt="Mercado Libre" style="height:16px;width:auto;object-fit:contain" onerror="this.outerHTML='ML'"></button>
 
     <div class="sort-wrap">
       <span class="sort-label">Ordenar:</span>
@@ -459,7 +468,7 @@ const micros = [
 
 // ── STATE ────────────────────────────────────────────────────────────────────
 let activeTab = 'basico';
-let filters = { color: 'todos', cap: 'todos', func: null };
+let filters = { color: 'todos', cap: 'todos', func: null, plat: 'todos' };
 let selected = [];
 
 const COLOR_GRUPOS = {
@@ -555,6 +564,9 @@ function render() {
   if (filters.cap === 'grande') lista = lista.filter(m => m.capacidad && m.capacidad >= 30);
   // func filter
   if (filters.func) lista = lista.filter(m => m.funciones && m.funciones.includes(filters.func));
+  // plat filter
+  if (filters.plat === 'amz') lista = lista.filter(m => m.linkAmz);
+  else if (filters.plat === 'ml') lista = lista.filter(m => m.linkML);
   // search
   if (q) lista = lista.filter(m =>
     m.nombre.toLowerCase().includes(q) ||

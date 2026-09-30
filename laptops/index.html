@@ -242,7 +242,10 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   .cmp-bar-txt{font-size:12px!important}
   .cmp-bar-sub{font-size:10px!important}
   .cmp-bar-actions{gap:5px!important}
-}</style>
+}
+.filter-logo{padding:4px 10px;display:inline-flex;align-items:center;justify-content:center}
+.filter-logo.on img{filter:brightness(0) invert(1)}
+</style>
 </head>
 <body data-category="laptops">
 
@@ -299,6 +302,12 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   <button class="filter" onclick="toggleFilter('gpuDedicada','si',this)">Con GPU dedicada</button>
   <button class="filter" onclick="toggleFilter('nvme','si',this)">SSD NVMe</button>
   <button class="filter" onclick="toggleFilter('pantalla15','si',this)">Pantalla 15&quot;+</button>
+
+  <div class="filter-sep"></div>
+  <span class="filter-label">Tienda</span>
+  <button class="filter on" data-group="plat" onclick="toggleFilter('plat','todos',this)">Ambas</button>
+  <button class="filter filter-logo" data-group="plat" onclick="toggleFilter('plat','amz',this)"><img src="/logoamazon.png" alt="Amazon" style="height:16px;width:auto;object-fit:contain" onerror="this.outerHTML='Amazon'"></button>
+  <button class="filter filter-logo" data-group="plat" onclick="toggleFilter('plat','ml',this)"><img src="/logomercado.png" alt="Mercado Libre" style="height:16px;width:auto;object-fit:contain" onerror="this.outerHTML='ML'"></button>
 
   <div class="sort-wrap">
     <div class="filter-sep"></div>
@@ -1737,7 +1746,7 @@ const productos = [
 ];
 
 // ── Estado de filtros ─────────────────────────────────────────
-const filters = { marca:'todos', ram:'todos', uso:'todos', gpuDedicada:'todos', nvme:'todos', pantalla15:'todos' };
+const filters = { marca:'todos', ram:'todos', uso:'todos', gpuDedicada:'todos', nvme:'todos', pantalla15:'todos', plat:'todos' };
 
 function clearFilters() {
   Object.keys(filters).forEach(k => filters[k] = 'todos');
@@ -1774,6 +1783,8 @@ function render() {
     if (filters.gpuDedicada === 'si' && !p.gpuDedicada) return false;
     if (filters.nvme === 'si' && !p.ssd) return false;
     if (filters.pantalla15 === 'si' && p.pantalla < 15) return false;
+    if (filters.plat === 'amz' && !p.linkAmz) return false;
+    if (filters.plat === 'ml' && !p.linkML) return false;
     if (q) {
       const hay = (p.nombre + ' ' + p.marca + ' ' + (p.modelo||'')).toLowerCase();
       if (!hay.includes(q)) return false;

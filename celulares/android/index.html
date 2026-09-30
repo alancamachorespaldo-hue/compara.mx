@@ -364,7 +364,10 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   .card{grid-template-columns:1fr!important}
   .card-img-wrap{min-height:190px!important;max-height:240px!important;border-right:none!important;border-bottom:1px solid var(--bd)!important}
   .card-img{max-height:220px!important;width:100%!important;height:auto!important}
-}</style>
+}
+.filter-logo{padding:4px 10px;display:inline-flex;align-items:center;justify-content:center}
+.filter-logo.on img{filter:brightness(0) invert(1)}
+</style>
 </head>
 <body data-category="celulares_android">
 
@@ -417,6 +420,12 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   <button class="filter" onclick="toggleFilter('almacenamiento','256',this)">256 GB</button>
   <button class="filter" onclick="toggleFilter('almacenamiento','512',this)">512 GB</button>
   <button class="filter" onclick="toggleFilter('almacenamiento','1024',this)">1 TB</button>
+
+  <div class="filter-sep"></div>
+  <span class="filter-label">Tienda</span>
+  <button class="filter on" data-group="plat" onclick="toggleFilter('plat','todos',this)">Ambas</button>
+  <button class="filter filter-logo" data-group="plat" onclick="toggleFilter('plat','amz',this)"><img src="/logoamazon.png" alt="Amazon" style="height:16px;width:auto;object-fit:contain" onerror="this.outerHTML='Amazon'"></button>
+  <button class="filter filter-logo" data-group="plat" onclick="toggleFilter('plat','ml',this)"><img src="/logomercado.png" alt="Mercado Libre" style="height:16px;width:auto;object-fit:contain" onerror="this.outerHTML='ML'"></button>
 
   <div class="sort-wrap">
     <div class="filter-sep"></div>
@@ -1261,7 +1270,7 @@ const storageState = {};
 familias.forEach(f => { storageState[f.modeloBase] = 0; });
 
 const CATALOG_UPDATED = '20 de septiembre de 2026';
-const filterState = { marca: 'todos', ram: 'todos', almacenamiento: 'todos' };
+const filterState = { marca: 'todos', ram: 'todos', almacenamiento: 'todos', plat: 'todos' };
 
 /* ─── HELPERS ────────────────────────────────────────────── */
 const fmt = v => '$' + Number(v).toLocaleString('es-MX', {minimumFractionDigits:0, maximumFractionDigits:2});
@@ -1315,7 +1324,7 @@ function onPrecioMaxInput() {
 
 /* ─── FILTROS ────────────────────────────────────────────── */
 function clearFilters() {
-  filterState.marca = 'todos'; filterState.ram = 'todos'; filterState.almacenamiento = 'todos';
+  filterState.marca = 'todos'; filterState.ram = 'todos'; filterState.almacenamiento = 'todos'; filterState.plat = 'todos';
   const _pm=document.getElementById('precio-max');if(_pm)_pm.value='';
   document.getElementById('search').value = '';
   document.querySelectorAll('.filter.on').forEach(b => b.classList.remove('on'));
@@ -1331,7 +1340,7 @@ function toggleFilter(key, val, btn) {
   );
   group.forEach(b => b.classList.remove('on'));
   btn.classList.add('on');
-  const dirty = filterState.marca !== 'todos' || filterState.ram !== 'todos' || filterState.almacenamiento !== 'todos';
+  const dirty = filterState.marca !== 'todos' || filterState.ram !== 'todos' || filterState.almacenamiento !== 'todos' || filterState.plat !== 'todos';
   document.getElementById('btn-clear-filters').style.display = dirty ? '' : 'none';
   if (val !== 'todos') {
     if (key === 'marca') trackEvent('filter_brand', { brand: val });
@@ -1364,6 +1373,8 @@ function render() {
       if (!hay.includes(q)) return false;
     }
     const _maxP=parseFloat(document.getElementById('precio-max')?.value)||Infinity;if(_maxP<Infinity){const _minV=Math.min(...f.variantes.map(v=>v.precio||Infinity));if(_minV>_maxP)return false;}
+    if (filterState.plat === 'amz' && !f.variantes.some(v=>v.linkAmz)) return false;
+    if (filterState.plat === 'ml' && !f.variantes.some(v=>v.linkML)) return false;
     return true;
   });
 

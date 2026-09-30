@@ -194,7 +194,9 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   .cmp-bar-txt{font-size:12px!important}
   .cmp-bar-sub{font-size:10px!important}
   .cmp-bar-actions{gap:5px!important}
-}</style>
+}.filter-logo{padding:4px 10px;display:inline-flex;align-items:center;justify-content:center}
+.filter-logo.on img{filter:brightness(0) invert(1)}
+</style>
 </head>
 <body data-category="bicis_ruta">
 
@@ -237,6 +239,12 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   <button class="filter" data-group="precio" onclick="applyPrecio('low',this)">— $7,000</button>
   <button class="filter" data-group="precio" onclick="applyPrecio('mid',this)">$7k–$12k</button>
   <button class="filter" data-group="precio" onclick="applyPrecio('high',this)">$12,000+</button>
+  <div class="filter-sep"></div>
+  <span class="filter-label">Tienda</span>
+  <button class="filter on" data-group="plat" onclick="applyPlat('all',this)">Ambas</button>
+  <button class="filter filter-logo" data-group="plat" onclick="applyPlat('amz',this)"><img src="/logoamazon.png" alt="Amazon" style="height:16px;width:auto;object-fit:contain" onerror="this.outerHTML='Amazon'"></button>
+  <button class="filter filter-logo" data-group="plat" onclick="applyPlat('ml',this)"><img src="/logomercado.png" alt="Mercado Libre" style="height:16px;width:auto;object-fit:contain" onerror="this.outerHTML='ML'"></button>
+
   <div class="sort-wrap">
     <span class="sort-label">Ordenar:</span>
     <select class="sort-sel" onchange="applySort(this.value)">
@@ -375,7 +383,7 @@ const RUTA = [
    img:'https://http2.mlstatic.com/D_NQ_NP_2X_855493-MLM96102786298_102025-F-bicicleta-de-ruta-aluminio-deportiva-para-carreras-veloz.webp'},
 ];
 
-let state = { precio:'all', sort:'default', sel:[] };
+let state = { precio:'all', sort:'default', sel:[], plat:'all' };
 let searchQuery = '';
 
 function starsStr(n){ return n?'★ '+n.toFixed(1):'—'; }
@@ -386,6 +394,8 @@ function getList(){
   else if(state.precio==='mid') list=list.filter(b=>b.precio>=7000&&b.precio<12000);
   else if(state.precio==='high') list=list.filter(b=>b.precio>=12000);
   if(searchQuery) list=list.filter(b=>(b.nombre+' '+b.marca).toLowerCase().includes(searchQuery));
+  if(state.plat==='amz') list=list.filter(b=>b.linkAmz);
+  else if(state.plat==='ml') list=list.filter(b=>b.linkML);
   if(state.sort==='precio-asc') list.sort((a,b)=>a.precio-b.precio);
   else if(state.sort==='precio-desc') list.sort((a,b)=>b.precio-a.precio);
   else if(state.sort==='stars') list.sort((a,b)=>(b.estrellas||0)-(a.estrellas||0));
@@ -460,6 +470,13 @@ function clearSel(){state.sel=[];renderGrid();}
 function applyPrecio(v,el){
   state.precio=v;
   document.querySelectorAll('[data-group="precio"]').forEach(x=>x.classList.remove('on'));
+  el.classList.add('on');
+  renderGrid();
+}
+
+function applyPlat(v,el){
+  state.plat=v;
+  document.querySelectorAll('[data-group="plat"]').forEach(x=>x.classList.remove('on'));
   el.classList.add('on');
   renderGrid();
 }
