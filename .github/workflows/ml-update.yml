@@ -1,0 +1,40 @@
+name: Actualizar precios ML
+
+on:
+  schedule:
+    - cron: '0 8 * * *'   # Cada día a las 8:00 AM UTC (2:00 AM CDMX)
+  workflow_dispatch:        # También permite correrlo manualmente desde GitHub
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Actualizar precios ML
+        env:
+          ML_CLIENT_ID: ${{ secrets.ML_CLIENT_ID }}
+          ML_CLIENT_SECRET: ${{ secrets.ML_CLIENT_SECRET }}
+        run: node scripts/ml-update.js --categoria=all
+
+      - name: Commit si hubo cambios
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(precios): actualización automática ML $(date -u +'%Y-%m-%d')"
+            git push
+          else
+            echo "Sin cambios de precios hoy"
+          fi
