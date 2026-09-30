@@ -38,8 +38,9 @@ jobs:
           import re
 
           TOKEN = "${{ steps.get_token.outputs.token }}"
+          TARGET = "suplementos/creatina/index.html"
 
-          with open("creatina.html", "r", encoding="utf-8") as f:
+          with open(TARGET, "r", encoding="utf-8") as f:
             lines = f.readlines()
 
           # Cada producto está en una línea — extraer nombre y linkML por línea
@@ -58,9 +59,9 @@ jobs:
 
           for nombre, link, _ in pairs:
             query = urllib.parse.quote(nombre)
-            # Search API pública — no requiere token
+            # Search API de ML con token de la app
             url = f"https://api.mercadolibre.com/sites/MLM/search?q={query}&limit=1&attributes=results.id,results.price,results.title"
-            req = urllib.request.Request(url)
+            req = urllib.request.Request(url, headers=headers)
             try:
               with urllib.request.urlopen(req, timeout=15) as resp:
                 data = json.loads(resp.read())
@@ -99,7 +100,7 @@ jobs:
                 continue
             new_lines.append(line)
 
-          with open("creatina.html", "w", encoding="utf-8") as f:
+          with open(TARGET, "w", encoding="utf-8") as f:
             f.writelines(new_lines)
 
           print(f"Precios actualizados en HTML: {updated}")
@@ -109,7 +110,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add creatina.html
+          git add suplementos/creatina/index.html
           if git diff --staged --quiet; then
             echo "Sin cambios de precios, nada que commitear."
           else

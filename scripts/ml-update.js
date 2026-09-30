@@ -28,10 +28,10 @@ const ROOT    = resolve(import.meta.dirname, '..');
 
 const CATALOG = {
   bicis:       { file: 'bicis/index.html',                        varName: 'ELECTRICAS' },
-  suplementos: { file: 'suplementos/index.html',                  varName: 'PRODUCTOS'  },
-  laptops:     { file: 'laptops/index.html',                      varName: 'PRODUCTOS'  },
-  freidoras:   { file: 'electrodomesticos/freidoras/index.html',  varName: 'PRODUCTOS'  },
-  microondas:  { file: 'electrodomesticos/microondas/index.html', varName: 'PRODUCTOS'  },
+  suplementos: { file: 'suplementos/index.html',                  varName: 'productos'  },
+  laptops:     { file: 'laptops/index.html',                      varName: 'productos'  },
+  freidoras:   { file: 'electrodomesticos/freidoras/index.html',  varName: 'productos'  },
+  microondas:  { file: 'electrodomesticos/microondas/index.html', varName: 'micros'     },
 };
 
 const ENTRIES = CAT_ARG === 'all'
@@ -109,7 +109,7 @@ async function getMinPrice(productId, token) {
 // ── Extraer productos del array JS en el HTML ─────────────────────────────────
 function extractProducts(html, varName) {
   const arrayMatch = html.match(
-    new RegExp(`(?:const|var|let)\\s+${varName}\\s*=\\s*\\[`, 'm')
+    new RegExp(`(?:const|var|let)\\s+${varName}\\s*=\\s*\\[`, 'mi')
   );
   if (!arrayMatch) return [];
 
@@ -132,7 +132,10 @@ function extractProducts(html, varName) {
         const block = arrayStr.slice(blockStart, j + 1);
         const nombre = block.match(/nombre:\s*['"`]([^'"`\n]+)['"`]/)?.[1];
         const marca  = block.match(/marca:\s*['"`]([^'"`\n]+)['"`]/)?.[1] ?? '';
-        const precio = parseFloat(block.match(/\bprecio:\s*([\d.]+)/)?.[1] ?? '0');
+        // Preferir precioML (precio en ML) sobre precio genérico
+        const precioML  = parseFloat(block.match(/\bprecioML:\s*([\d.]+)/)?.[1] ?? '0');
+        const precioGen = parseFloat(block.match(/\bprecio:\s*([\d.]+)/)?.[1] ?? '0');
+        const precio = precioML > 0 ? precioML : precioGen;
         if (nombre && precio > 0) products.push({ nombre, marca, precio });
         blockStart = -1;
       }
@@ -145,17 +148,23 @@ function extractProducts(html, varName) {
 // ── Parchear precio en HTML ───────────────────────────────────────────────────
 function patchPrice(html, nombreExacto, nuevoPrecio) {
   const escapedNombre = nombreExacto.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  // Preferir precioML si existe, si no usar precio
+  const reML = new RegExp(
+    `(nombre:\\s*['"\`]${escapedNombre}['"\`][\\s\\S]{0,400}?)(\\bprecioML:\\s*)(\\d+)`,
+    'm'
+  );
   const re = new RegExp(
     `(nombre:\\s*['"\`]${escapedNombre}['"\`][\\s\\S]{0,300}?)(\\bprecio:\\s*)(\\d+)`,
     'm'
   );
-  const match = html.match(re);
+  const useRe = reML.test(html) ? reML : re;
+  const match = html.match(useRe);
   if (!match) return { changed: false, html };
   const oldPrecio = parseInt(match[3]);
   if (oldPrecio === nuevoPrecio) return { changed: false, html };
   return {
     changed: true,
-    html: html.replace(re, `$1$2${nuevoPrecio}`),
+    html: html.replace(useRe, `$1$2${nuevoPrecio}`),
     oldPrecio,
     nuevoPrecio,
   };
