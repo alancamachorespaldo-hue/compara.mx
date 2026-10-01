@@ -18,11 +18,14 @@ try {
   const report = JSON.parse(readFileSync(reportPath, 'utf8'));
   let synced = 0;
   for (const row of report.productos || []) {
-    if (row.precioML == null) continue;
     const cat = adminData[row.categoria];
     if (!cat) continue;
     const prod = cat.find(p => p.nombre === row.nombre);
-    if (prod) { prod.precioML = row.precioML; synced++; }
+    if (prod) {
+      if (row.precioML != null) prod.precioML = row.precioML;
+      prod.estadoML = row.estado;
+      synced++;
+    }
   }
   if (synced > 0) {
     writeFileSync(adminPath, JSON.stringify(adminData, null, 2), 'utf8');
