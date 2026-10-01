@@ -106,10 +106,12 @@ td{padding:8px 10px;vertical-align:middle;font-size:13px}
 .b-no_encontrado{background:var(--red-light);color:var(--red)}
 .b-precio_sospechoso{background:var(--blue-light);color:var(--blue)}
 .b-null{background:var(--gray-light);color:var(--fg2)}
+.b-nuevo{background:#f0fdf4;color:#15803d;border:1px solid #86efac;font-weight:700}
 .link-chip{display:inline-flex;align-items:center;padding:2px 7px;border-radius:5px;font-size:11px;font-weight:600;text-decoration:none;margin-right:3px}
 .lc-amz{background:#fff3ea;color:#b45309;border:1px solid #fcd34d}
 .lc-ml{background:#eff6ff;color:#1d4ed8;border:1px solid #93c5fd}
 .lc-none{background:var(--gray-light);color:var(--fg2);border:1px solid var(--border)}
+.lc-amz-pending{background:#fff7ed;color:#c2410c;border:1px solid #fed7aa;font-weight:700}
 .actions{display:flex;gap:4px;align-items:center}
 .btn-sm{padding:3px 9px;border-radius:5px;border:1px solid var(--border);background:var(--surface);color:var(--fg2);cursor:pointer;font-size:11px;font-weight:500;white-space:nowrap}
 .btn-pause{color:var(--yellow)}.btn-play{color:var(--green)}.btn-edit{color:var(--blue)}
@@ -279,6 +281,7 @@ function visibleProds() {
       else if (activeTile === 'sin_precio' && p.estadoML !== 'sin_precio') return false;
       else if (activeTile === 'no_encontrado' && p.estadoML !== 'no_encontrado') return false;
       else if (activeTile === 'precio_sospechoso' && p.estadoML !== 'precio_sospechoso') return false;
+      else if (activeTile === 'nuevo' && p.estadoML !== 'nuevo') return false;
     }
     if (activePlat === 'ml' && !p.linkML) return false;
     if (activePlat === 'amz' && !p.linkAmz) return false;
@@ -293,7 +296,7 @@ function visibleProds() {
 
 function renderStats() {
   const all = allProds();
-  const counts = {todas:all.length, actualizado:0, sin_cambio:0, sin_precio:0, no_encontrado:0, precio_sospechoso:0};
+  const counts = {todas:all.length, actualizado:0, sin_cambio:0, sin_precio:0, no_encontrado:0, precio_sospechoso:0, nuevo:0};
   all.forEach(p=>{if(counts[p.estadoML]!==undefined)counts[p.estadoML]++;});
   const pa = all.filter(p=>p.activo===false).length;
   const TILES = [
@@ -303,6 +306,7 @@ function renderStats() {
     {k:'sin_precio',l:'Sin precio',cls:'err'},
     {k:'no_encontrado',l:'No encontrado',cls:'err'},
     {k:'precio_sospechoso',l:'Sospechoso',cls:'blue'},
+    {k:'nuevo',l:'Nuevos ML',cls:'ok'},
   ];
   document.getElementById('tiles').innerHTML = TILES.map(t =>
     '<div class="tile'+(activeTile===t.k?' on':'')+'" data-tile="'+t.k+'"><div class="tile-lbl">'+t.l+'</div><div class="tile-num '+t.cls+'">'+counts[t.k]+'</div></div>'
@@ -322,12 +326,12 @@ function render() {
   const tb = document.getElementById('tbody');
   document.getElementById('empty').hidden = prods.length > 0;
   if (!prods.length) { tb.innerHTML=''; return; }
-  const ESTADO = {actualizado:'✓ Actualizado',sin_cambio:'= Sin cambio',sin_precio:'✗ Sin precio',no_encontrado:'✗ No producto encontrado',precio_sospechoso:'? Sospechoso'};
+  const ESTADO = {actualizado:'✓ Actualizado',sin_cambio:'= Sin cambio',sin_precio:'✗ Sin precio',no_encontrado:'✗ No producto encontrado',precio_sospechoso:'? Sospechoso',nuevo:'★ Nuevo'};
   tb.innerHTML = prods.map(p => {
     const ecls = p.estadoML ? ('b-'+p.estadoML) : 'b-null';
     const elab = ESTADO[p.estadoML] || '— Sin ML';
     const lml = p.linkML ? '<a class="link-chip lc-ml" href="'+p.linkML+'" target="_blank" rel="noopener">ML↗</a>' : '<span class="link-chip lc-none">Sin ML</span>';
-    const lamz = p.linkAmz ? '<a class="link-chip lc-amz" href="'+p.linkAmz+'" target="_blank" rel="noopener">AMZ↗</a>' : '<span class="link-chip lc-none">Sin AMZ</span>';
+    const lamz = p.linkAmz ? '<a class="link-chip lc-amz" href="'+p.linkAmz+'" target="_blank" rel="noopener">AMZ↗</a>' : (p.estadoML==='nuevo' ? '<span class="link-chip lc-amz-pending">⚠ Sin AMZ</span>' : '<span class="link-chip lc-none">Sin AMZ</span>');
     const paBtn = p.activo!==false
       ? '<button class="btn-sm btn-pause" data-act="pause" data-key="'+p._key+'">⏸ Pausar</button>'
       : '<button class="btn-sm btn-play" data-act="play" data-key="'+p._key+'">▶ Activar</button>';
