@@ -70,15 +70,31 @@ async function getToken() {
   return data.access_token;
 }
 
-async function getMinPrice(productId, token) {
+// Devuelve { price, itemId, permalink } del ítem más barato del catálogo
+async function getBestItem(productId, token) {
   const res = await fetch(
-    `https://api.mercadolibre.com/products/${productId}/items?limit=5`,
+    `https://api.mercadolibre.com/products/${productId}/items?limit=8`,
     { headers: { Authorization: `Bearer ${token}` } }
   );
   if (!res.ok) return null;
   const data = await res.json();
-  const prices = (data.results ?? []).map(i => i.price).filter(p => p > 0);
-  return prices.length ? Math.min(...prices) : null;
+  const items = (data.results ?? []).filter(i => i.price > 0);
+  if (!items.length) return null;
+  items.sort((a, b) => a.price - b.price);
+  const best = items[0];
+  const itemId = best.item_id;
+  // Fetch permalink del ítem (URL individual que acepta el programa de afiliados)
+  try {
+    const itemRes = await fetch(
+      `https://api.mercadolibre.com/items/${itemId}?attributes=permalink`,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    if (itemRes.ok) {
+      const itemData = await itemRes.json();
+      return { price: best.price, itemId, permalink: itemData.permalink ?? null };
+    }
+  } catch { /* no permalink, usa URL corta */ }
+  return { price: best.price, itemId, permalink: `https://www.mercadolibre.com.mx/${itemId}` };
 }
 
 async function getProductDetails(productId, token) {
@@ -108,15 +124,21 @@ function esAccesorio(nombre) {
   return EXCLUIR_PALABRAS.some(p => n.includes(p));
 }
 
-// Extrae especificaciones relevantes de los atributos ML
+// Extrae especificaciones completas de los atributos ML
 function extraerEspecs(attributes = []) {
   const especs = {};
   const map = {
-    RAM: ['RAM', 'TOTAL_RAM_INSTALLED', 'RAM_MEMORY'],
+    procesador:     ['PROCESSOR_MODEL', 'PROCESSOR_BRAND'],
+    ram:            ['RAM', 'TOTAL_RAM_INSTALLED', 'RAM_MEMORY'],
     almacenamiento: ['INTERNAL_MEMORY', 'SSD_CAPACITY', 'HDD_CAPACITY', 'STORAGE_CAPACITY'],
-    procesador: ['PROCESSOR_MODEL', 'PROCESSOR_BRAND', 'PROCESADOR'],
-    pantalla: ['SCREEN_SIZE', 'DISPLAY_SIZE'],
-    SO: ['OPERATING_SYSTEM'],
+    pantalla:       ['SCREEN_SIZE', 'DISPLAY_SIZE'],
+    resolucion:     ['DISPLAY_RESOLUTION', 'DISPLAY_RESOLUTION_TYPE'],
+    gpu:            ['VIDEO_RAM', 'GPU_MODEL', 'GRAPHICS_CARD_TYPE'],
+    so:             ['OPERATING_SYSTEM'],
+    peso:           ['WEIGHT', 'ITEM_WEIGHT'],
+    bateria:        ['BATTERY_CAPACITY', 'BATTERY_DURATION'],
+    touch:          ['TOUCHSCREEN'],
+    color:          ['COLOR'],
   };
   for (const [key, ids] of Object.entries(map)) {
     for (const id of ids) {
@@ -179,8 +201,8 @@ for (const [id, cand] of candidatos) {
   verificados++;
   process.stdout.write(`  [${verificados}/${candidatos.size}] ${cand.nombre.substring(0, 50)}...`);
 
-  const precio = await getMinPrice(id, token);
-  if (!precio) {
+  const bestItem = await getBestItem(id, token);
+  if (!bestItem) {
     process.stdout.write(' sin precio\n');
     await new Promise(r => setTimeout(r, 200));
     continue;
@@ -189,22 +211,26 @@ for (const [id, cand] of candidatos) {
   const detalle = await getProductDetails(id, token);
   const imagen = detalle?.pictures?.[0]?.url ?? detalle?.thumbnail ?? null;
   const especs = extraerEspecs(detalle?.attributes ?? []);
-  const permalink = `https://www.mercadolibre.com.mx/p/${id}`;
+  // linkML = permalink del ítem individual (válido para programa de afiliados ML)
+  // linkCatalogo = URL de catálogo (útil como referencia)
+  const linkML = bestItem.permalink ?? `https://www.mercadolibre.com.mx/${bestItem.itemId}`;
 
-  process.stdout.write(` ✅ $${precio.toLocaleString('es-MX')}\n`);
+  process.stdout.write(` ✅ $${bestItem.price.toLocaleString('es-MX')} [${bestItem.itemId}]\n`);
   nuevos.push({
-    id:        `exp_${id}`,
-    nombre:    cand.nombre,
-    marca:     cand.marca || '',
-    linkML:    permalink,
-    linkAmz:   null,
-    precioML:  Math.round(precio),
-    precioAmz: null,
-    imagen:    imagen ?? null,
+    id:          `exp_${id}`,
+    nombre:      cand.nombre,
+    marca:       cand.marca || '',
+    linkML,
+    linkAmz:     null,
+    precioML:    Math.round(bestItem.price),
+    precioAmz:   null,
+    imagen:      imagen ?? null,
     especs,
-    activo:    true,
-    estadoML:  'nuevo',
-    _updatedAt: new Date().toISOString(),
+    activo:      true,
+    estadoML:    'nuevo',
+    _mlItemId:   bestItem.itemId,
+    _mlCatalogo: `https://www.mercadolibre.com.mx/p/${id}`,
+    _updatedAt:  new Date().toISOString(),
   });
 
   await new Promise(r => setTimeout(r, 300));
@@ -223,7 +249,10 @@ nuevos.forEach((p, i) => {
   console.log(`${i + 1}. ${p.marca} ${p.nombre.substring(0, 50)}`);
   console.log(`   💰 $${p.precioML.toLocaleString('es-MX')}  🔗 ${p.linkML}`);
   if (p.especs?.procesador) console.log(`   CPU: ${p.especs.procesador}`);
-  if (p.especs?.RAM) console.log(`   RAM: ${p.especs.RAM}`);
+  if (p.especs?.ram) console.log(`   RAM: ${p.especs.ram}`);
+  if (p.especs?.almacenamiento) console.log(`   SSD: ${p.especs.almacenamiento}`);
+  if (p.especs?.pantalla) console.log(`   Pantalla: ${p.especs.pantalla}"`);
+  if (p.especs?.so) console.log(`   OS: ${p.especs.so}`);
   console.log('');
 });
 
