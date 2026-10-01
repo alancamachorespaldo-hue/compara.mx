@@ -24,7 +24,7 @@ const QUERIES = {
   laptops: [
     'laptop HP', 'laptop Lenovo', 'laptop ASUS', 'laptop Acer',
     'laptop Dell', 'MacBook', 'laptop MSI', 'laptop gaming',
-    'laptop Chromebook', 'notebook barato',
+    'laptop Chromebook', 'laptop ultrabook',
   ],
   freidoras: [
     'freidora de aire', 'air fryer digital', 'freidora horno',
@@ -95,6 +95,19 @@ function normalizar(s) {
   return s.toLowerCase().replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
+// Palabras que indican que NO es una laptop sino un accesorio
+const EXCLUIR_PALABRAS = [
+  'bisagra', 'mochila', 'maletín', 'maletin', 'cargador', 'bateria', 'batería',
+  'tornillo', 'pantalla', 'teclado', 'candado', 'funda', 'soporte',
+  'mouse ', 'auricular', 'audífono', 'adaptador', 'hub usb', 'ratón',
+  'cooling fan', 'ventilador', 'memoria ram ', 'disco duro', 'bocina',
+  'smartwatch', 'tablet ', 'proyector', 'drone', 'reflector',
+];
+function esAccesorio(nombre) {
+  const n = nombre.toLowerCase();
+  return EXCLUIR_PALABRAS.some(p => n.includes(p));
+}
+
 // Extrae especificaciones relevantes de los atributos ML
 function extraerEspecs(attributes = []) {
   const especs = {};
@@ -148,6 +161,7 @@ for (const query of QUERIES[CAT_ARG]) {
     if (idsExistentes.has(p.id)) continue;
     const nombre = p.name ?? p.title ?? '';
     if (!nombre) continue;
+    if (esAccesorio(nombre)) continue;
     const marca = p.attributes?.find(a => a.id === 'BRAND')?.value_name ?? '';
     if (nombresExistentes.has(normalizar(nombre))) continue;
     candidatos.set(p.id, { id: p.id, nombre, marca, query });
