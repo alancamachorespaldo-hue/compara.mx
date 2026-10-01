@@ -28,6 +28,7 @@ jobs:
         env:
           ML_CLIENT_ID: ${{ secrets.ML_CLIENT_ID }}
           ML_CLIENT_SECRET: ${{ secrets.ML_CLIENT_SECRET }}
+          ML_REFRESH_TOKEN: ${{ secrets.ML_REFRESH_TOKEN }}
         run: node scripts/ml-update.js --categoria=all
 
       - name: Regenerar admin-artifact.html con precios nuevos

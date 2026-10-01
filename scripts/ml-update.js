@@ -42,6 +42,28 @@ const ENTRIES = CAT_ARG === 'all'
 
 // ── Token ────────────────────────────────────────────────────────────────────
 async function getToken() {
+  const refreshToken = process.env.ML_REFRESH_TOKEN;
+
+  if (refreshToken) {
+    // OAuth de usuario: acceso completo a items y búsqueda
+    const res = await fetch('https://api.mercadolibre.com/oauth/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        grant_type:    'refresh_token',
+        client_id:     CLIENT_ID,
+        client_secret: CLIENT_SECRET,
+        refresh_token: refreshToken,
+      }),
+    });
+    if (!res.ok) throw new Error(`Token (refresh) error ${res.status}: ${await res.text()}`);
+    const data = await res.json();
+    console.log('🔑 Token OAuth de usuario OK (refresh_token)\n');
+    return data.access_token;
+  }
+
+  // Fallback: client_credentials (solo catalog products, sin items individuales)
+  console.warn('⚠ ML_REFRESH_TOKEN no encontrado — usando client_credentials (acceso limitado)\n');
   const res = await fetch('https://api.mercadolibre.com/oauth/token', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -106,6 +128,70 @@ async function getMinPrice(productId, token) {
     if (prices.length) return Math.min(...prices);
   }
   return null;
+}
+
+// ── Obtener precio directo desde un link de ML (meli.la o URL completa) ────────
+const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36';
+
+async function getPriceFromLink(url, token) {
+  try {
+    // 1. Seguir redirects con User-Agent de navegador para obtener URL final
+    let finalUrl = url;
+    for (let i = 0; i < 4; i++) {
+      const res = await fetch(finalUrl, {
+        redirect: 'manual',
+        headers: { 'User-Agent': UA },
+        signal: AbortSignal.timeout(8000),
+      });
+      const loc = res.headers.get('location');
+      if (!loc) break;
+      finalUrl = loc.startsWith('http') ? loc : new URL(loc, finalUrl).href;
+    }
+
+    // 2. Extraer item ID (MLM seguido de 8+ dígitos) de la URL final
+    let itemId = finalUrl.match(/\bMLM(\d{8,})\b/i)?.[0]?.toUpperCase();
+
+    // 3. Si no hay item ID en URL, buscar en el HTML de la página
+    if (!itemId) {
+      const pageRes = await fetch(finalUrl, {
+        headers: { 'User-Agent': UA },
+        signal: AbortSignal.timeout(10000),
+      });
+      const html = await pageRes.text();
+      // Buscar en data-item-id, og:url, o JSON embebido
+      itemId = (
+        html.match(/data-item-id=[\"'](MLM\d+)[\"']/i)?.[1] ||
+        html.match(/\"itemId\":\s*\"(MLM\d+)\"/i)?.[1] ||
+        html.match(/\"item_id\":\s*\"(MLM\d+)\"/i)?.[1] ||
+        html.match(/og:url.*?MLM(\d{8,})/i) && html.match(/MLM(\d{8,})/i)?.[0]
+      )?.toUpperCase();
+    }
+
+    if (!itemId) return null;
+
+    // 4. Obtener precio via /items/{id} (requiere OAuth de usuario)
+    const itemRes = await fetch(`https://api.mercadolibre.com/items/${itemId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (!itemRes.ok) return null;
+    const item = await itemRes.json();
+    return item.price > 0 ? { price: item.price, itemId } : null;
+  } catch { return null; }
+}
+
+// ── Buscar precio de item via search API (requiere OAuth de usuario) ─────────
+async function searchItemPrice(nombre, marca, token) {
+  try {
+    const q = `${marca} ${nombre}`.trim().substring(0, 80);
+    const res = await fetch(
+      `https://api.mercadolibre.com/sites/MLM/search?q=${encodeURIComponent(q)}&limit=3`,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    if (!res.ok) return null;
+    const data = await res.json();
+    const first = data.results?.[0];
+    return first?.price > 0 ? { price: first.price, itemId: first.id } : null;
+  } catch { return null; }
 }
 
 // ── Extraer productos del array JS en el HTML ─────────────────────────────────
@@ -186,6 +272,14 @@ async function processFile(key, config, token) {
     return;
   }
 
+  // Índice de merged-admin.json para obtener linkML por nombre
+  const adminPath = resolve(ROOT, 'scripts/merged-admin.json');
+  const adminIndex = {};
+  try {
+    const adminData = JSON.parse(readFileSync(adminPath, 'utf8'));
+    for (const p of (adminData[key] ?? [])) adminIndex[p.nombre] = p;
+  } catch {}
+
   console.log(`\n📄 ${config.file} — ${products.length} productos`);
   let changed = 0;
 
@@ -195,19 +289,52 @@ async function processFile(key, config, token) {
 
     await new Promise(r => setTimeout(r, 350)); // rate limit
 
-    const mlProduct = await findCatalogProduct(prod.nombre, prod.marca, token);
-    if (!mlProduct) {
-      console.log('→ no encontrado');
-      REPORT.push({ categoria: key, nombre: prod.nombre, marca: prod.marca, precioAntes: prod.precio, estado: 'no_encontrado', mlId: null, precioML: null });
-      continue;
+    const adminProd = adminIndex[prod.nombre];
+    const linkML = adminProd?.linkML;
+    let mlProductId = null;
+    let minPrice = null;
+
+    if (linkML) {
+      // Usar el link directo del producto para obtener precio exacto
+      const result = await getPriceFromLink(linkML, token);
+      if (result) {
+        minPrice = result.price;
+        mlProductId = result.itemId;
+      } else {
+        console.log(`→ link sin precio (${linkML})`);
+        REPORT.push({ categoria: key, nombre: prod.nombre, marca: prod.marca, precioAntes: prod.precio, estado: 'sin_precio', mlId: null, precioML: null });
+        continue;
+      }
+    } else {
+      // Primero: búsqueda por nombre en catálogo
+      const mlProduct = await findCatalogProduct(prod.nombre, prod.marca, token);
+      if (!mlProduct) {
+        // Fallback con search API (solo disponible con OAuth de usuario)
+        await new Promise(r => setTimeout(r, 200));
+        const searchResult = await searchItemPrice(prod.nombre, prod.marca, token);
+        if (!searchResult) {
+          console.log('→ no encontrado');
+          REPORT.push({ categoria: key, nombre: prod.nombre, marca: prod.marca, precioAntes: prod.precio, estado: 'no_encontrado', mlId: null, precioML: null });
+          continue;
+        }
+        minPrice = searchResult.price;
+        mlProductId = searchResult.itemId;
+      } else {
+        mlProductId = mlProduct.id;
+        await new Promise(r => setTimeout(r, 250));
+        minPrice = await getMinPrice(mlProduct.id, token);
+        // Si catalog no tiene precio, intentar search API
+        if (!minPrice && process.env.ML_REFRESH_TOKEN) {
+          await new Promise(r => setTimeout(r, 200));
+          const searchResult = await searchItemPrice(prod.nombre, prod.marca, token);
+          if (searchResult) { minPrice = searchResult.price; mlProductId = searchResult.itemId; }
+        }
+      }
     }
 
-    await new Promise(r => setTimeout(r, 250));
-    const minPrice = await getMinPrice(mlProduct.id, token);
-
     if (!minPrice) {
-      console.log(`→ ${mlProduct.id} sin precio`);
-      REPORT.push({ categoria: key, nombre: prod.nombre, marca: prod.marca, precioAntes: prod.precio, estado: 'sin_precio', mlId: mlProduct.id, precioML: null });
+      console.log(`→ ${mlProductId} sin precio`);
+      REPORT.push({ categoria: key, nombre: prod.nombre, marca: prod.marca, precioAntes: prod.precio, estado: 'sin_precio', mlId: mlProductId, precioML: null });
       continue;
     }
 
@@ -218,18 +345,18 @@ async function processFile(key, config, token) {
     const ratio = Math.round(minPrice) / prod.precio;
     if (ratio < 0.2 || ratio > 4.0) {
       console.log(`⚠ $${prod.precio.toLocaleString()} → $${Math.round(minPrice).toLocaleString()} precio sospechoso (ratio ${ratio.toFixed(1)}x), ignorado`);
-      REPORT.push({ categoria: key, nombre: prod.nombre, marca: prod.marca, precioAntes: prod.precio, estado: 'precio_sospechoso', mlId: mlProduct.id, precioML: Math.round(minPrice) });
+      REPORT.push({ categoria: key, nombre: prod.nombre, marca: prod.marca, precioAntes: prod.precio, estado: 'precio_sospechoso', mlId: mlProductId, precioML: Math.round(minPrice) });
       continue;
     }
 
     if (didChange) {
       html = patched;
       changed++;
-      console.log(`✅ $${oldPrecio?.toLocaleString()} → $${nuevoPrecio?.toLocaleString()} (${mlProduct.id})`);
-      REPORT.push({ categoria: key, nombre: prod.nombre, marca: prod.marca, precioAntes: oldPrecio, precioNuevo: nuevoPrecio, estado: 'actualizado', mlId: mlProduct.id, precioML: Math.round(minPrice) });
+      console.log(`✅ $${oldPrecio?.toLocaleString()} → $${nuevoPrecio?.toLocaleString()} (${mlProductId})`);
+      REPORT.push({ categoria: key, nombre: prod.nombre, marca: prod.marca, precioAntes: oldPrecio, precioNuevo: nuevoPrecio, estado: 'actualizado', mlId: mlProductId, precioML: Math.round(minPrice) });
     } else {
-      console.log(`= $${prod.precio.toLocaleString()} (${mlProduct.id})`);
-      REPORT.push({ categoria: key, nombre: prod.nombre, marca: prod.marca, precioAntes: prod.precio, estado: 'sin_cambio', mlId: mlProduct.id, precioML: Math.round(minPrice) });
+      console.log(`= $${prod.precio.toLocaleString()} (${mlProductId})`);
+      REPORT.push({ categoria: key, nombre: prod.nombre, marca: prod.marca, precioAntes: prod.precio, estado: 'sin_cambio', mlId: mlProductId, precioML: Math.round(minPrice) });
     }
   }
 
