@@ -103,7 +103,7 @@ td{padding:8px 10px;vertical-align:middle;font-size:13px}
 .b-actualizado{background:var(--green-light);color:var(--green)}
 .b-sin_cambio{background:var(--gray-light);color:var(--gray)}
 .b-sin_precio{background:var(--red-light);color:var(--red)}
-.b-no_encontrado{background:var(--yellow-light);color:var(--yellow)}
+.b-no_encontrado{background:var(--red-light);color:var(--red)}
 .b-precio_sospechoso{background:var(--blue-light);color:var(--blue)}
 .b-null{background:var(--gray-light);color:var(--fg2)}
 .link-chip{display:inline-flex;align-items:center;padding:2px 7px;border-radius:5px;font-size:11px;font-weight:600;text-decoration:none;margin-right:3px}
@@ -165,7 +165,7 @@ td{padding:8px 10px;vertical-align:middle;font-size:13px}
   <div class="cats" id="cats"></div>
   <div class="filters">
     <button class="filter-btn" id="f-sinprecio" onclick="toggleFilter('sinprecio')">🔴 Sin precio ML</button>
-    <button class="filter-btn" id="f-noencontrado" onclick="toggleFilter('noencontrado')">⚠️ No encontrado</button>
+    <button class="filter-btn" id="f-noencontrado" onclick="toggleFilter('noencontrado')">✗ No producto encontrado</button>
     <button class="filter-btn" id="f-pausados" onclick="toggleFilter('pausados')">⏸ Pausados</button>
     <button class="filter-btn" id="f-sinlink" onclick="toggleFilter('sinlink')">🔗 Sin links</button>
   </div>
@@ -301,7 +301,7 @@ function renderStats() {
     {k:'actualizado',l:'Actualizados',cls:'ok'},
     {k:'sin_cambio',l:'Sin cambio',cls:'muted'},
     {k:'sin_precio',l:'Sin precio',cls:'err'},
-    {k:'no_encontrado',l:'No encontrado',cls:'warn'},
+    {k:'no_encontrado',l:'No encontrado',cls:'err'},
     {k:'precio_sospechoso',l:'Sospechoso',cls:'blue'},
   ];
   document.getElementById('tiles').innerHTML = TILES.map(t =>
@@ -322,7 +322,7 @@ function render() {
   const tb = document.getElementById('tbody');
   document.getElementById('empty').hidden = prods.length > 0;
   if (!prods.length) { tb.innerHTML=''; return; }
-  const ESTADO = {actualizado:'✓ Actualizado',sin_cambio:'= Sin cambio',sin_precio:'✗ Sin precio',no_encontrado:'⚠ No encontrado',precio_sospechoso:'? Sospechoso'};
+  const ESTADO = {actualizado:'✓ Actualizado',sin_cambio:'= Sin cambio',sin_precio:'✗ Sin precio',no_encontrado:'✗ No producto encontrado',precio_sospechoso:'? Sospechoso'};
   tb.innerHTML = prods.map(p => {
     const ecls = p.estadoML ? ('b-'+p.estadoML) : 'b-null';
     const elab = ESTADO[p.estadoML] || '— Sin ML';

@@ -135,7 +135,17 @@ const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36';
 
 async function getPriceFromLink(url, token) {
   try {
-    // 1. Seguir redirects con User-Agent de navegador para obtener URL final
+    // 1. Extraer MLM ID directamente de la URL original (evita problemas de redirect)
+    let mlmId = url.match(/\bMLM\d{6,}\b/i)?.[0]?.toUpperCase();
+    const isCatalogUrl = url.includes('/p/MLM');
+
+    // Si la URL original tiene el ID y es una URL de catálogo, usarla directo
+    if (mlmId && isCatalogUrl) {
+      const price = await getMinPrice(mlmId, token);
+      return price ? { price, itemId: mlmId } : null;
+    }
+
+    // 2. Para URLs cortas o sin ID claro, seguir redirects
     let finalUrl = url;
     for (let i = 0; i < 4; i++) {
       const res = await fetch(finalUrl, {
@@ -148,10 +158,10 @@ async function getPriceFromLink(url, token) {
       finalUrl = loc.startsWith('http') ? loc : new URL(loc, finalUrl).href;
     }
 
-    // 2. Extraer MLM ID de la URL final
-    let mlmId = finalUrl.match(/\bMLM\d{6,}\b/i)?.[0]?.toUpperCase();
+    // 3. Extraer ID de la URL final si no se encontró antes
+    if (!mlmId) mlmId = finalUrl.match(/\bMLM\d{6,}\b/i)?.[0]?.toUpperCase();
 
-    // 3. Si no hay ID en URL, buscar en el HTML de la página
+    // 4. Si aún no hay ID, buscar en HTML de la página
     if (!mlmId) {
       const pageRes = await fetch(finalUrl, {
         headers: { 'User-Agent': UA },
@@ -167,14 +177,13 @@ async function getPriceFromLink(url, token) {
 
     if (!mlmId) return null;
 
-    // 4. URL tipo /p/MLM... → catalog product → usar getMinPrice
-    const isCatalogUrl = finalUrl.includes('/p/MLM') || url.includes('/p/MLM');
-    if (isCatalogUrl) {
+    // 5. URL tipo /p/MLM... → catalog product → usar getMinPrice
+    if (finalUrl.includes('/p/MLM')) {
       const price = await getMinPrice(mlmId, token);
       return price ? { price, itemId: mlmId } : null;
     }
 
-    // 5. URL de item individual → /items/{id}
+    // 6. URL de item individual → /items/{id}
     const itemRes = await fetch(`https://api.mercadolibre.com/items/${mlmId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });

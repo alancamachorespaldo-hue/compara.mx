@@ -281,6 +281,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
     <a class="nav-link" href="/electrodomesticos/">🏠 Electrodomésticos</a>
     <a class="nav-link active" href="/laptops/">💻 Laptops</a>
   </div>
+  <button class="btn-share" onclick="shareCurrentPage()" title="Compartir esta p&#225;gina" aria-label="Compartir"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg><span class="share-txt">Compartir</span></button>
 </nav>
 
 <div class="hero">
@@ -1060,7 +1061,7 @@ const productos = [
     id: 35,
     nombre: 'KAIGERR LX15 Ryzen 5 7430U 16GB 512GB',
     marca: 'KAIGERR', color: 'Gris',
-    precio: 9499, precioML: null, precioAmz: 9499,
+    precio: 9850, precioML: null, precioAmz: 9499,
     procesador: 'AMD Ryzen 5 7430U', marcaProcesador: 'AMD',
     ram: 16, almacenamiento: 512, ssd: true,
     pantalla: 15.6, resolucion: 'FHD 1920\xD71080', touch: false,
@@ -1332,7 +1333,7 @@ const productos = [
     id: 51,
     nombre: 'HP 15 Core i7-1355U 16GB 512GB Touch FD0127',
     marca: 'HP', color: 'Plateado',
-    precio: 15467, precioML: 15467, precioAmz: null,
+    precio: 15467, precioML: 15999, precioAmz: null,
     procesador: 'Intel Core i7-1355U', marcaProcesador: 'Intel',
     ram: 16, almacenamiento: 512, ssd: true,
     pantalla: 15.6, resolucion: 'FHD 1920\xD71080', touch: true,
@@ -1349,7 +1350,7 @@ const productos = [
     id: 52,
     nombre: 'HP Pavilion 17 Core 5-120U 16GB 1TB Touch HD+',
     marca: 'HP', color: 'Plateado',
-    precio: 14049, precioML: 14049, precioAmz: null,
+    precio: 14049, precioML: 18581, precioAmz: null,
     procesador: 'Intel Core 5-120U', marcaProcesador: 'Intel',
     ram: 16, almacenamiento: 1024, ssd: true,
     pantalla: 17.3, resolucion: 'HD+ 1600\xD7900', touch: true,
@@ -1366,7 +1367,7 @@ const productos = [
     id: 53,
     nombre: 'HP OmniBook 17 Core Ultra 7-258V 32GB 1TB Touch FHD',
     marca: 'HP', color: 'Plateado',
-    precio: 23762, precioML: 23762, precioAmz: null,
+    precio: 23762, precioML: 15499, precioAmz: null,
     procesador: 'Intel Core Ultra 7-258V', marcaProcesador: 'Intel',
     ram: 32, almacenamiento: 1024, ssd: true,
     pantalla: 17.3, resolucion: 'FHD 1920\xD71080', touch: true,
@@ -1383,7 +1384,7 @@ const productos = [
     id: 54,
     nombre: 'Lenovo Legion Pro 7 Ryzen 9 9955HX3D 32GB 1TB RTX 5080 OLED Gaming',
     marca: 'Lenovo', color: 'Negro',
-    precio: 89699, precioML: 89699, precioAmz: null,
+    precio: 89699, precioML: 34400, precioAmz: null,
     procesador: 'AMD Ryzen 9 9955HX3D', marcaProcesador: 'AMD',
     ram: 32, almacenamiento: 1024, ssd: true,
     pantalla: 16, resolucion: 'WQXGA OLED 2560\xD71600', touch: false,
@@ -1451,7 +1452,7 @@ const productos = [
     id: 58,
     nombre: 'HP 255 G10 Ryzen 3 7335U 16GB 512GB',
     marca: 'HP', color: 'Plateado',
-    precio: 10999, precioML: 10999, precioAmz: null,
+    precio: 10999, precioML: 16299, precioAmz: null,
     procesador: 'AMD Ryzen 3 7335U', marcaProcesador: 'AMD',
     ram: 16, almacenamiento: 512, ssd: true,
     pantalla: 15.6, resolucion: 'FHD 1920\xD71080', touch: false,
@@ -1468,7 +1469,7 @@ const productos = [
     id: 59,
     nombre: 'HP Pavilion 15 Intel N200 4GB 128GB',
     marca: 'HP', color: 'Plateado',
-    precio: 5276, precioML: 5276, precioAmz: null,
+    precio: 5276, precioML: 6454, precioAmz: null,
     procesador: 'Intel Celeron N200', marcaProcesador: 'Intel',
     ram: 4, almacenamiento: 128, ssd: true,
     pantalla: 15.6, resolucion: 'HD 1366\xD7768', touch: false,
@@ -1485,7 +1486,7 @@ const productos = [
     id: 60,
     nombre: 'Lenovo IdeaPad Slim 3 Core i5-13420H 24GB 1TB Azul',
     marca: 'Lenovo', color: 'Azul C\xF3smico',
-    precio: 14499, precioML: 14499, precioAmz: null,
+    precio: 14499, precioML: 17099, precioAmz: null,
     procesador: 'Intel Core i5-13420H', marcaProcesador: 'Intel',
     ram: 24, almacenamiento: 1024, ssd: true,
     pantalla: 15.3, resolucion: 'WUXGA 1920\xD71200', touch: false,
@@ -1604,7 +1605,7 @@ const productos = [
     id: 67,
     nombre: 'Wozifan B8 14 Celeron N4020 8GB 256GB',
     marca: 'Wozifan', color: 'Plateado',
-    precio: 4301, precioML: 4301, precioAmz: null,
+    precio: 4301, precioML: 5850, precioAmz: null,
     procesador: 'Intel Celeron N4020', marcaProcesador: 'Intel',
     ram: 8, almacenamiento: 256, ssd: true,
     pantalla: 14, resolucion: 'FHD 1920\xD71080', touch: false,
@@ -2172,5 +2173,6 @@ document.addEventListener('click', function(e) {
 });
 </script>
 <script src="/js/onboarding.js" defer></script>
+<script src="/assets/js/share.js" defer></script>
 </body>
 </html>
