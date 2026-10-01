@@ -9,8 +9,29 @@ import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+
+// Sincronizar precios de ml-report.json → merged-admin.json antes de generar
+const reportPath = resolve(ROOT, 'scripts/ml-report.json');
+const adminPath  = resolve(ROOT, 'scripts/merged-admin.json');
+const adminData  = JSON.parse(readFileSync(adminPath, 'utf8'));
+try {
+  const report = JSON.parse(readFileSync(reportPath, 'utf8'));
+  let synced = 0;
+  for (const row of report.productos || []) {
+    if (row.precioML == null) continue;
+    const cat = adminData[row.categoria];
+    if (!cat) continue;
+    const prod = cat.find(p => p.nombre === row.nombre);
+    if (prod) { prod.precioML = row.precioML; synced++; }
+  }
+  if (synced > 0) {
+    writeFileSync(adminPath, JSON.stringify(adminData, null, 2), 'utf8');
+    console.log(`✓ ${synced} precios ML sincronizados desde ml-report.json`);
+  }
+} catch (e) { /* ml-report.json puede no existir */ }
+
 // Base64-encode the JSON to avoid any HTML/JS parse issues (&, <, >, quotes, etc.)
-const jsonRaw = JSON.stringify(JSON.parse(readFileSync(resolve(ROOT, 'scripts/merged-admin.json'), 'utf8')));
+const jsonRaw = JSON.stringify(JSON.parse(readFileSync(adminPath, 'utf8')));
 const data = Buffer.from(jsonRaw, 'utf8').toString('base64');
 // Marker used to split the page source for self-republishing
 const SPLIT_MARK = "atob('";
