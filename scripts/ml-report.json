@@ -1,11 +1,11 @@
 {
-  "fecha": "2026-09-30",
-  "generado": "2026-09-30T14:30:11.304Z",
+  "fecha": "2026-10-01",
+  "generado": "2026-10-01T02:04:28.706Z",
   "totales": {
-    "actualizados": 7,
-    "sin_cambio": 107,
-    "sin_precio": 114,
-    "no_encontrado": 5,
+    "actualizados": 17,
+    "sin_cambio": 102,
+    "sin_precio": 111,
+    "no_encontrado": 3,
     "precio_sospechoso": 1
   },
   "productos": [
@@ -14,18 +14,20 @@
       "nombre": "HONEYWHALE B20",
       "marca": "HONEYWHALE",
       "precioAntes": 12602,
-      "estado": "sin_cambio",
+      "precioNuevo": 6599,
+      "estado": "actualizado",
       "mlId": "MLM53624669",
-      "precioML": 12602
+      "precioML": 6599
     },
     {
       "categoria": "bicis",
       "nombre": "POP SHOPPE S6",
       "marca": "POP SHOPPE",
       "precioAntes": 6599,
-      "estado": "sin_cambio",
+      "precioNuevo": 6337,
+      "estado": "actualizado",
       "mlId": "MLM61645919",
-      "precioML": 6599
+      "precioML": 6337
     },
     {
       "categoria": "bicis",
@@ -40,11 +42,11 @@
       "categoria": "bicis",
       "nombre": "AMYET SE1",
       "marca": "AMYET",
-      "precioAntes": 12607,
-      "precioNuevo": 25000,
+      "precioAntes": 25000,
+      "precioNuevo": 12000,
       "estado": "actualizado",
       "mlId": "MLM74471798",
-      "precioML": 25000
+      "precioML": 12000
     },
     {
       "categoria": "bicis",
@@ -106,7 +108,7 @@
       "marca": "VOLTBULL",
       "precioAntes": 6259,
       "estado": "sin_precio",
-      "mlId": "MLM32358328",
+      "mlId": "MLM36168127",
       "precioML": null
     },
     {
@@ -240,9 +242,10 @@
       "nombre": "Omega 3 Platinum 1000mg – 180 Cápsulas",
       "marca": "B Life",
       "precioAntes": 448,
-      "estado": "sin_precio",
+      "precioNuevo": 399,
+      "estado": "actualizado",
       "mlId": "MLM23436955",
-      "precioML": null
+      "precioML": 399
     },
     {
       "categoria": "suplementos",
@@ -258,9 +261,10 @@
       "nombre": "Omega 3 Aceite de Salmón + Vitamina E 365 Cápsulas",
       "marca": "LIFE360+",
       "precioAntes": 375,
-      "estado": "sin_cambio",
+      "precioNuevo": 365,
+      "estado": "actualizado",
       "mlId": "MLM76127265",
-      "precioML": 375
+      "precioML": 365
     },
     {
       "categoria": "suplementos",
@@ -276,9 +280,10 @@
       "nombre": "Vitatú Omega 3 Salmón Noruego – 90 Softgels",
       "marca": "Vitatú",
       "precioAntes": 599,
-      "estado": "sin_cambio",
+      "precioNuevo": 424,
+      "estado": "actualizado",
       "mlId": "MLM45098654",
-      "precioML": 599
+      "precioML": 424
     },
     {
       "categoria": "suplementos",
@@ -348,9 +353,10 @@
       "nombre": "B Life Omega 3 Aceite Puro de Salmón – 100 Cápsulas",
       "marca": "B Life",
       "precioAntes": 269,
-      "estado": "sin_precio",
+      "precioNuevo": 399,
+      "estado": "actualizado",
       "mlId": "MLM23436955",
-      "precioML": null
+      "precioML": 399
     },
     {
       "categoria": "suplementos",
@@ -438,9 +444,10 @@
       "nombre": "VitaXtend Norwegian Deep Omega 3 EPA 1200mg DHA 800mg Epax – 180 Cápsulas",
       "marca": "VitaXtend",
       "precioAntes": 798,
-      "estado": "sin_cambio",
+      "precioNuevo": 764,
+      "estado": "actualizado",
       "mlId": "MLM74614325",
-      "precioML": 798
+      "precioML": 764
     },
     {
       "categoria": "suplementos",
@@ -537,9 +544,10 @@
       "nombre": "Eternal Nutrition Infinity Complejo B 11 Formas Bioactivas – 300 Cápsulas",
       "marca": "Eternal Nutrition",
       "precioAntes": 919,
-      "estado": "sin_cambio",
+      "precioNuevo": 499,
+      "estado": "actualizado",
       "mlId": "MLM45256095",
-      "precioML": 919
+      "precioML": 499
     },
     {
       "categoria": "suplementos",
@@ -555,27 +563,28 @@
       "nombre": "Solanum Complejo B + Jalea Real Vitaminas B1 B2 B3 B5 B6 – 75 Cápsulas",
       "marca": "Solanum",
       "precioAntes": 149,
-      "estado": "sin_cambio",
+      "precioNuevo": 145,
+      "estado": "actualizado",
       "mlId": "MLM35722409",
-      "precioML": 149
+      "precioML": 145
     },
     {
       "categoria": "suplementos",
       "nombre": "Life Extension Complejo B Completo Bioactivo – 60 Cápsulas",
       "marca": "Life Extension",
       "precioAntes": 219.5,
-      "estado": "no_encontrado",
-      "mlId": null,
-      "precioML": null
+      "estado": "sin_cambio",
+      "mlId": "MLM26822236",
+      "precioML": 219
     },
     {
       "categoria": "suplementos",
       "nombre": "Nuboost B-Complex Complejo B 510mg con Remolacha y Cúrcuma – 90 Cápsulas",
       "marca": "Nuboost",
       "precioAntes": 345,
-      "estado": "no_encontrado",
-      "mlId": null,
-      "precioML": null
+      "estado": "sin_cambio",
+      "mlId": "MLM56219472",
+      "precioML": 345
     },
     {
       "categoria": "suplementos",
@@ -698,10 +707,11 @@
       "categoria": "suplementos",
       "nombre": "Beyond Vitamins B-Complex Premium 100% Vegano Sin Rellenos – 60 Cápsulas",
       "marca": "Beyond Vitamins",
-      "precioAntes": 189.04,
-      "estado": "sin_cambio",
+      "precioAntes": 189,
+      "precioNuevo": 198,
+      "estado": "actualizado",
       "mlId": "MLM39198289",
-      "precioML": 189
+      "precioML": 198
     },
     {
       "categoria": "suplementos",
@@ -717,9 +727,10 @@
       "nombre": "Nature Made Super B Energy Complex Cápsulas Blandas – 60 Softgels",
       "marca": "Nature Made",
       "precioAntes": 885,
-      "estado": "sin_cambio",
+      "precioNuevo": 887,
+      "estado": "actualizado",
       "mlId": "MLM79490841",
-      "precioML": 885
+      "precioML": 887
     },
     {
       "categoria": "suplementos",
@@ -887,9 +898,8 @@
       "categoria": "laptops",
       "nombre": "Apple MacBook Air 13 M5 16GB 512GB Azul Cielo",
       "marca": "Apple",
-      "precioAntes": 29294,
-      "precioNuevo": 27291,
-      "estado": "actualizado",
+      "precioAntes": 27291,
+      "estado": "sin_cambio",
       "mlId": "MLM73080506",
       "precioML": 27291
     },
@@ -969,9 +979,8 @@
       "categoria": "laptops",
       "nombre": "Apple MacBook Air 15 M5 16GB 512GB Azul Cielo",
       "marca": "Apple",
-      "precioAntes": 29294,
-      "precioNuevo": 27291,
-      "estado": "actualizado",
+      "precioAntes": 27291,
+      "estado": "sin_cambio",
       "mlId": "MLM73080506",
       "precioML": 27291
     },
@@ -1186,9 +1195,8 @@
       "categoria": "laptops",
       "nombre": "Lenovo IdeaPad Core i5-1335U 12GB 256GB Touch",
       "marca": "Lenovo",
-      "precioAntes": 10657,
-      "precioNuevo": 10686,
-      "estado": "actualizado",
+      "precioAntes": 10686,
+      "estado": "sin_cambio",
       "mlId": "MLM60551011",
       "precioML": 10686
     },
@@ -1277,9 +1285,8 @@
       "categoria": "laptops",
       "nombre": "Vanwin 16 Core i5-8210Y 16GB 512GB",
       "marca": "Vanwin",
-      "precioAntes": 7838,
-      "precioNuevo": 8194,
-      "estado": "actualizado",
+      "precioAntes": 8194,
+      "estado": "sin_cambio",
       "mlId": "MLM53279431",
       "precioML": 8194
     },
@@ -1647,18 +1654,18 @@
       "categoria": "freidoras",
       "nombre": "Unifull SY-KX-001 Freidora Horno Aire Digital Touch 15L 3 Rejillas",
       "marca": "Unifull",
-      "precioAntes": 1355.2,
-      "estado": "sin_precio",
+      "precioAntes": 1355,
+      "precioNuevo": 1370,
+      "estado": "actualizado",
       "mlId": "MLM63615445",
-      "precioML": null
+      "precioML": 1370
     },
     {
       "categoria": "freidoras",
       "nombre": "Patbrela AF304 Freidora de Aire 8L Digital con Ventana 8 Programas",
       "marca": "PATBRELA",
-      "precioAntes": 1275,
-      "precioNuevo": 1279,
-      "estado": "actualizado",
+      "precioAntes": 1279.21,
+      "estado": "sin_cambio",
       "mlId": "MLM63275937",
       "precioML": 1279
     },
@@ -1756,11 +1763,11 @@
       "categoria": "freidoras",
       "nombre": "Patbrela AF305 Freidora de Aire 12L Digital con Ventana 11 Funciones",
       "marca": "PATBRELA",
-      "precioAntes": 1551,
-      "precioNuevo": 1556,
+      "precioAntes": 1556,
+      "precioNuevo": 1376,
       "estado": "actualizado",
       "mlId": "MLM63441510",
-      "precioML": 1556
+      "precioML": 1376
     },
     {
       "categoria": "freidoras",
@@ -1956,9 +1963,10 @@
       "nombre": "SHTARK SHT20L01 20L Espejo",
       "marca": "SHTARK",
       "precioAntes": 1499,
-      "estado": "sin_cambio",
+      "precioNuevo": 1444,
+      "estado": "actualizado",
       "mlId": "MLM44355458",
-      "precioML": 1499
+      "precioML": 1444
     },
     {
       "categoria": "microondas",
@@ -2091,18 +2099,20 @@
       "nombre": "Midea MMDF07S2BW Practia 20L Blanco",
       "marca": "Midea",
       "precioAntes": 2000,
-      "estado": "sin_cambio",
+      "precioNuevo": 1871,
+      "estado": "actualizado",
       "mlId": "MLM18556770",
-      "precioML": 2000
+      "precioML": 1871
     },
     {
       "categoria": "microondas",
       "nombre": "Panasonic NN-SU64MBRUH 36L Negro",
       "marca": "Panasonic",
-      "precioAntes": 3999.2,
-      "estado": "sin_cambio",
+      "precioAntes": 3999,
+      "precioNuevo": 3097,
+      "estado": "actualizado",
       "mlId": "MLM19917229",
-      "precioML": 3999
+      "precioML": 3097
     },
     {
       "categoria": "microondas",
