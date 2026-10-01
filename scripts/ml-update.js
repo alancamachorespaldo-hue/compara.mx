@@ -148,34 +148,39 @@ async function getPriceFromLink(url, token) {
       finalUrl = loc.startsWith('http') ? loc : new URL(loc, finalUrl).href;
     }
 
-    // 2. Extraer item ID (MLM seguido de 8+ dígitos) de la URL final
-    let itemId = finalUrl.match(/\bMLM(\d{8,})\b/i)?.[0]?.toUpperCase();
+    // 2. Extraer MLM ID de la URL final
+    let mlmId = finalUrl.match(/\bMLM\d{6,}\b/i)?.[0]?.toUpperCase();
 
-    // 3. Si no hay item ID en URL, buscar en el HTML de la página
-    if (!itemId) {
+    // 3. Si no hay ID en URL, buscar en el HTML de la página
+    if (!mlmId) {
       const pageRes = await fetch(finalUrl, {
         headers: { 'User-Agent': UA },
         signal: AbortSignal.timeout(10000),
       });
       const html = await pageRes.text();
-      // Buscar en data-item-id, og:url, o JSON embebido
-      itemId = (
+      mlmId = (
         html.match(/data-item-id=[\"'](MLM\d+)[\"']/i)?.[1] ||
         html.match(/\"itemId\":\s*\"(MLM\d+)\"/i)?.[1] ||
-        html.match(/\"item_id\":\s*\"(MLM\d+)\"/i)?.[1] ||
-        html.match(/og:url.*?MLM(\d{8,})/i) && html.match(/MLM(\d{8,})/i)?.[0]
+        html.match(/\"item_id\":\s*\"(MLM\d+)\"/i)?.[1]
       )?.toUpperCase();
     }
 
-    if (!itemId) return null;
+    if (!mlmId) return null;
 
-    // 4. Obtener precio via /items/{id} (requiere OAuth de usuario)
-    const itemRes = await fetch(`https://api.mercadolibre.com/items/${itemId}`, {
+    // 4. URL tipo /p/MLM... → catalog product → usar getMinPrice
+    const isCatalogUrl = finalUrl.includes('/p/MLM') || url.includes('/p/MLM');
+    if (isCatalogUrl) {
+      const price = await getMinPrice(mlmId, token);
+      return price ? { price, itemId: mlmId } : null;
+    }
+
+    // 5. URL de item individual → /items/{id}
+    const itemRes = await fetch(`https://api.mercadolibre.com/items/${mlmId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     if (!itemRes.ok) return null;
     const item = await itemRes.json();
-    return item.price > 0 ? { price: item.price, itemId } : null;
+    return item.price > 0 ? { price: item.price, itemId: mlmId } : null;
   } catch { return null; }
 }
 
