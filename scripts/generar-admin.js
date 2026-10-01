@@ -258,8 +258,18 @@ td{padding:8px 10px;vertical-align:middle;font-size:13px}
 
 <script>
 const INITIAL_DATA = JSON.parse(new TextDecoder().decode(Uint8Array.from(atob('${data}'),c=>c.charCodeAt(0))));
+const BUILT_AT = '${new Date().toISOString()}';
 let DB = JSON.parse(JSON.stringify(INITIAL_DATA));
-try{const s=localStorage.getItem('admin_db');if(s){DB=JSON.parse(s);}}catch(e){}
+try {
+  const s = localStorage.getItem('admin_db');
+  const ts = localStorage.getItem('admin_db_ts');
+  // Solo usar localStorage si fue guardado DESPUÉS de que se generó este artifact
+  if (s && ts && ts > BUILT_AT) { DB = JSON.parse(s); }
+  else if (s && ts && ts <= BUILT_AT) {
+    // Artifact más nuevo: limpiar localStorage stale
+    localStorage.removeItem('admin_db'); localStorage.removeItem('admin_db_ts');
+  }
+} catch(e) {}
 let activeCat = 'todas';
 let activeFilters = new Set();
 let activeTile = null;
@@ -384,7 +394,7 @@ function encodeDB(){
   return btoa(bin);
 }
 function autoSave(){
-  try{localStorage.setItem('admin_db',JSON.stringify(DB));}catch(e){}
+  try{localStorage.setItem('admin_db',JSON.stringify(DB));localStorage.setItem('admin_db_ts',new Date().toISOString());}catch(e){}
   document.getElementById('save-status').textContent='● Sin guardar';
 }
 function toB64(str){
