@@ -298,12 +298,19 @@ async function processFile(key, config, token) {
   let changed = 0;
 
   for (const prod of products) {
+    const adminProd = adminIndex[prod.nombre];
+
+    // Saltar productos nuevos del explorador (no tienen precio publicado en el sitio)
+    if (adminProd?.estadoML === 'nuevo') {
+      process.stdout.write(`  ⏭ ${`${prod.marca} ${prod.nombre}`.substring(0, 45).padEnd(45)} (nuevo, omitido)\n`);
+      continue;
+    }
+
     const label = `${prod.marca} ${prod.nombre}`.substring(0, 45).padEnd(45);
     process.stdout.write(`  🔍 ${label} `);
 
     await new Promise(r => setTimeout(r, 350)); // rate limit
 
-    const adminProd = adminIndex[prod.nombre];
     const linkML = adminProd?.linkML;
     let mlProductId = null;
     let minPrice = null;
