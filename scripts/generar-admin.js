@@ -640,7 +640,7 @@ function buildCatThead() {
     const active = catFilters[col.key] && catFilters[col.key].size > 0;
     const lbl = active ? '<span style="color:var(--accent)">'+col.label+'</span>' : col.label;
     const fBtn = col.filterable
-      ? '<button class="col-filter-btn'+(active?' active':'')+'" onclick="openCatFilter(event,\''+col.key+'\')" title="Filtrar columna">▼</button>'
+      ? '<button class="col-filter-btn'+(active?' active':'')+'" onclick="openCatFilter(event,\\''+col.key+'\\')" title="Filtrar columna">▼</button>'
       : '';
     return '<th data-col="'+col.key+'">'+lbl+fBtn+'</th>';
   }).join('');
@@ -661,9 +661,9 @@ function openCatFilter(evt, colKey) {
   const dd = document.createElement('div');
   dd.className = 'filter-dropdown'; dd.id = 'cat-dd';
   dd.innerHTML =
-    '<div class="fd-item"><input type="checkbox" id="fd-all"'+(allChk?' checked':'')+' onchange="toggleCatFilterAll(\''+colKey+'\')"> <label for="fd-all" style="cursor:pointer;font-weight:600">(Todos)</label></div>'
-    + vals.map((v,i) => '<div class="fd-item"><input type="checkbox" id="fd-v'+i+'"'+((allChk||active.has(v))?' checked':'')+' data-val="'+v.replace(/"/g,'&quot;').replace(/'/g,'&#39;')+'" onchange="toggleCatFilterVal(\''+colKey+'\',this)"> <label for="fd-v'+i+'" style="cursor:pointer">'+v+'</label></div>').join('')
-    + '<div class="fd-footer"><button onclick="clearOneCatFilter(\''+colKey+'\')">Limpiar</button><button class="fd-apply" onclick="closeCatDropdown()">OK</button></div>';
+    '<div class="fd-item"><input type="checkbox" id="fd-all"'+(allChk?' checked':'')+' onchange="toggleCatFilterAll(\\''+colKey+'\\')"> <label for="fd-all" style="cursor:pointer;font-weight:600">(Todos)</label></div>'
+    + vals.map((v,i) => '<div class="fd-item"><input type="checkbox" id="fd-v'+i+'"'+((allChk||active.has(v))?' checked':'')+' data-val="'+v.replace(/"/g,'&quot;').replace(/'/g,'&#39;')+'" onchange="toggleCatFilterVal(\\''+colKey+'\\',this)"> <label for="fd-v'+i+'" style="cursor:pointer">'+v+'</label></div>').join('')
+    + '<div class="fd-footer"><button onclick="clearOneCatFilter(\\''+colKey+'\\')">Limpiar</button><button class="fd-apply" onclick="closeCatDropdown()">OK</button></div>';
   document.body.appendChild(dd);
   const rect = evt.currentTarget.getBoundingClientRect();
   dd.style.top  = Math.min(rect.bottom+4, window.innerHeight-dd.offsetHeight-8)+'px';
@@ -707,7 +707,7 @@ function _updateCatBadges() {
   document.getElementById('cat-active-filters').innerHTML = entries.map(([k,vals]) => {
     const col = CAT_COLS.find(c => c.key === k);
     return '<span class="cat-filter-badge">'+(col?.label||k)+': '+[...vals].join(', ')
-      +'<button onclick="clearOneCatFilter(\''+k+'\')">✕</button></span>';
+      +'<button onclick="clearOneCatFilter(\\''+k+'\\')">✕</button></span>';
   }).join('');
 }
 
