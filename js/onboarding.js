@@ -100,6 +100,7 @@
     var img = modal.querySelector('.cmx-ob-step-img');
     img.src = s.img;
     img.alt = s.alt;
+    img.onerror = function(){ this.style.opacity='0'; this.closest('.cmx-ob-img-wrap').style.background='#EAF2EE'; };
 
     modal.querySelector('.cmx-ob-step-title').textContent = s.title;
     modal.querySelector('.cmx-ob-step-desc').textContent = s.desc;
@@ -213,7 +214,8 @@
       '<div class="cmx-ob-hero">',
       '<img class="cmx-ob-hero-img" src="/fotos/pasos/ob-hero.jpg"',
       ' alt="comparalo.mx — compara precios en Amazon MX y Mercado Libre"',
-      ' width="1280" height="320" loading="eager">',
+      ' width="1280" height="320" loading="eager" decoding="async"',
+      ' onerror="this.style.background=''#EAF2EE'';this.style.opacity=''0''">',',
       '<button class="cmx-ob-x" aria-label="Cerrar tutorial">×</button>',
       '</div>',
 
