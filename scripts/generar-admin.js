@@ -165,6 +165,19 @@ td{padding:8px 10px;vertical-align:middle;font-size:13px}
 .precio-col{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:600}
 .precio-ml{color:var(--blue)}
 .precio-amz{color:#b45309}
+/* Catalog sticky header */
+#cat-table-container{overflow:auto;max-height:calc(100vh - 170px)}
+#cat-table thead th{position:sticky;top:0;z-index:5;background:var(--surface);box-shadow:0 1px 0 var(--border)}
+.col-filter-btn{background:none;border:none;cursor:pointer;color:var(--fg2);font-size:9px;padding:0 0 0 3px;vertical-align:middle;opacity:.55;line-height:1;transition:opacity .15s}
+.col-filter-btn:hover,.col-filter-btn.active{opacity:1;color:var(--accent)}
+.filter-dropdown{position:fixed;z-index:400;background:var(--surface);border:1px solid var(--border);border-radius:8px;box-shadow:0 8px 28px rgba(0,0,0,.18);padding:6px;min-width:160px;max-width:260px;max-height:300px;overflow-y:auto}
+.fd-item{display:flex;align-items:center;gap:6px;padding:5px 8px;border-radius:5px;cursor:pointer;font-size:12px;user-select:none;white-space:nowrap}
+.fd-item:hover{background:var(--bg)}
+.fd-footer{display:flex;gap:6px;padding:6px 4px 2px;border-top:1px solid var(--border);margin-top:4px;position:sticky;bottom:0;background:var(--surface)}
+.fd-footer button{flex:1;padding:4px 0;border-radius:5px;border:1px solid var(--border);background:var(--surface);color:var(--fg2);cursor:pointer;font-size:11px;font-weight:600}
+.fd-footer .fd-apply{background:var(--accent);border-color:var(--accent);color:#fff}
+.cat-filter-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px 2px 10px;background:var(--accent-light);border:1px solid var(--accent);border-radius:20px;font-size:11px;color:var(--accent);font-weight:600;white-space:nowrap}
+.cat-filter-badge button{background:none;border:none;cursor:pointer;color:var(--accent);font-size:12px;padding:0 0 0 4px;line-height:1}
 </style>
 
 <div class="top-bar">
@@ -236,17 +249,17 @@ td{padding:8px 10px;vertical-align:middle;font-size:13px}
   <div class="cat-search">
     <input id="cat-search" type="search" placeholder="Buscar laptop…" oninput="renderCatalogo()">
     <span id="cat-count" style="font-size:12px;color:var(--fg2);white-space:nowrap"></span>
+    <button id="cat-clear-filters" class="btn-export" style="display:none;background:var(--red);padding:5px 12px;font-size:12px" onclick="clearCatFilters()">✕ Filtros</button>
   </div>
-  <div class="table-wrap">
-    <table id="cat-table">
-      <thead><tr>
-        <th>Precio ML</th><th>Precio AMZ</th><th>Marca</th><th>Nombre</th>
-        <th>Procesador</th><th>RAM</th><th>Almacenamiento</th><th>Pantalla</th>
-        <th>GPU</th><th>SO</th><th>Peso</th><th>Touch</th><th>Estado</th>
-      </tr></thead>
-      <tbody id="cat-tbody"></tbody>
-    </table>
-    <div class="empty" id="cat-empty" hidden>Sin resultados.</div>
+  <div id="cat-active-filters" style="padding:0 20px 4px;display:flex;gap:4px;flex-wrap:wrap"></div>
+  <div class="table-wrap" style="padding:0 20px">
+    <div id="cat-table-container">
+      <table id="cat-table">
+        <thead><tr id="cat-thead-row"></tr></thead>
+        <tbody id="cat-tbody"></tbody>
+      </table>
+      <div class="empty" id="cat-empty" hidden>Sin resultados.</div>
+    </div>
   </div>
 </div>
 
@@ -595,23 +608,157 @@ document.querySelectorAll('.tab-btn[data-tab]').forEach(btn => {
 });
 
 // ── Catálogo Laptops ─────────────────────────────────────────────────────────
+const CAT_COLS = [
+  {key:'precioML',      label:'Precio ML',       filterable:false},
+  {key:'precioAmz',     label:'Precio AMZ',      filterable:false},
+  {key:'enlace',        label:'Enlace',          filterable:false},
+  {key:'marca',         label:'Marca',           filterable:true},
+  {key:'nombre',        label:'Nombre',          filterable:false},
+  {key:'procesador',    label:'Procesador',      filterable:true,  specsKey:'procesador'},
+  {key:'ram',           label:'RAM',             filterable:true,  specsKey:'ram'},
+  {key:'almacenamiento',label:'Almacenamiento',  filterable:true,  specsKey:'almacenamiento'},
+  {key:'pantalla',      label:'Pantalla',        filterable:true,  specsKey:'pantalla'},
+  {key:'gpu',           label:'GPU',             filterable:false, specsKey:'gpu'},
+  {key:'so',            label:'SO',              filterable:true,  specsKey:'so'},
+  {key:'peso',          label:'Peso',            filterable:false, specsKey:'peso'},
+  {key:'touch',         label:'Touch',           filterable:true,  specsKey:'touch'},
+  {key:'estadoML',      label:'Estado',          filterable:true},
+  {key:'_updatedAt',    label:'Últ. Mod.',       filterable:false},
+];
+let catFilters = {};
+
+function _catColVal(p, col) {
+  if (col.specsKey) return (p.especs||{})[col.specsKey] ?? null;
+  if (col.key === 'enlace') return (p.linkML||p.linkAmz) ? 'con enlace' : null;
+  return p[col.key] ?? null;
+}
+
+function buildCatThead() {
+  const tr = document.getElementById('cat-thead-row');
+  if (!tr) return;
+  tr.innerHTML = CAT_COLS.map(col => {
+    const active = catFilters[col.key] && catFilters[col.key].size > 0;
+    const lbl = active ? '<span style="color:var(--accent)">'+col.label+'</span>' : col.label;
+    const fBtn = col.filterable
+      ? '<button class="col-filter-btn'+(active?' active':'')+'" onclick="openCatFilter(event,\''+col.key+'\')" title="Filtrar columna">▼</button>'
+      : '';
+    return '<th data-col="'+col.key+'">'+lbl+fBtn+'</th>';
+  }).join('');
+}
+
+function openCatFilter(evt, colKey) {
+  evt.stopPropagation();
+  closeCatDropdown();
+  const col = CAT_COLS.find(c => c.key === colKey);
+  if (!col) return;
+  const laptops = (DB.laptops || []).filter(p => p.activo !== false);
+  const vals = [...new Set(laptops.map(p => _catColVal(p, col)).filter(v => v != null).map(String))].sort((a,b) => {
+    const na=parseFloat(a), nb=parseFloat(b);
+    return (!isNaN(na)&&!isNaN(nb)) ? na-nb : a.localeCompare(b,'es-MX');
+  });
+  const active = catFilters[colKey] || new Set();
+  const allChk = active.size === 0;
+  const dd = document.createElement('div');
+  dd.className = 'filter-dropdown'; dd.id = 'cat-dd';
+  dd.innerHTML =
+    '<div class="fd-item"><input type="checkbox" id="fd-all"'+(allChk?' checked':'')+' onchange="toggleCatFilterAll(\''+colKey+'\')"> <label for="fd-all" style="cursor:pointer;font-weight:600">(Todos)</label></div>'
+    + vals.map((v,i) => '<div class="fd-item"><input type="checkbox" id="fd-v'+i+'"'+((allChk||active.has(v))?' checked':'')+' data-val="'+v.replace(/"/g,'&quot;').replace(/'/g,'&#39;')+'" onchange="toggleCatFilterVal(\''+colKey+'\',this)"> <label for="fd-v'+i+'" style="cursor:pointer">'+v+'</label></div>').join('')
+    + '<div class="fd-footer"><button onclick="clearOneCatFilter(\''+colKey+'\')">Limpiar</button><button class="fd-apply" onclick="closeCatDropdown()">OK</button></div>';
+  document.body.appendChild(dd);
+  const rect = evt.currentTarget.getBoundingClientRect();
+  dd.style.top  = Math.min(rect.bottom+4, window.innerHeight-dd.offsetHeight-8)+'px';
+  dd.style.left = Math.min(rect.left, window.innerWidth-270)+'px';
+  setTimeout(() => document.addEventListener('click', _closeDDHandler, {once:true}), 0);
+}
+function _closeDDHandler(e) { if (!e.target.closest('#cat-dd')) closeCatDropdown(); }
+function closeCatDropdown() { document.getElementById('cat-dd')?.remove(); }
+
+function toggleCatFilterAll(colKey) {
+  delete catFilters[colKey];
+  _applyCatFilters();
+  closeCatDropdown();
+}
+function toggleCatFilterVal(colKey, cb) {
+  if (!catFilters[colKey]) catFilters[colKey] = new Set();
+  if (cb.checked) catFilters[colKey].add(cb.dataset.val);
+  else catFilters[colKey].delete(cb.dataset.val);
+  if (!catFilters[colKey].size) delete catFilters[colKey];
+  const allEl = document.getElementById('fd-all');
+  if (allEl) allEl.checked = !catFilters[colKey];
+  _applyCatFilters();
+}
+function clearOneCatFilter(colKey) {
+  delete catFilters[colKey];
+  _applyCatFilters();
+  closeCatDropdown();
+}
+function clearCatFilters() {
+  catFilters = {};
+  renderCatalogo();
+}
+function _applyCatFilters() {
+  buildCatThead();
+  _updateCatBadges();
+  _renderCatBody();
+}
+function _updateCatBadges() {
+  const entries = Object.entries(catFilters).filter(([,v]) => v.size > 0);
+  document.getElementById('cat-clear-filters').style.display = entries.length ? '' : 'none';
+  document.getElementById('cat-active-filters').innerHTML = entries.map(([k,vals]) => {
+    const col = CAT_COLS.find(c => c.key === k);
+    return '<span class="cat-filter-badge">'+(col?.label||k)+': '+[...vals].join(', ')
+      +'<button onclick="clearOneCatFilter(\''+k+'\')">✕</button></span>';
+  }).join('');
+}
+
 function renderCatalogo() {
+  buildCatThead();
+  _updateCatBadges();
+  _renderCatBody();
+}
+
+function _renderCatBody() {
   const laptops = (DB.laptops || []).filter(p => p.activo !== false);
   const q = (document.getElementById('cat-search')?.value || '').toLowerCase();
   const ESTADO = {actualizado:'✓',sin_cambio:'=',sin_precio:'✗',no_encontrado:'✗',precio_sospechoso:'?',nuevo:'★'};
   const ECLS = {actualizado:'b-actualizado',sin_cambio:'b-sin_cambio',sin_precio:'b-sin_precio',no_encontrado:'b-no_encontrado',precio_sospechoso:'b-precio_sospechoso',nuevo:'b-nuevo'};
-  const filtered = q
-    ? laptops.filter(p => (p.nombre+' '+p.marca+(p.especs?.procesador||'')).toLowerCase().includes(q))
-    : laptops;
-  document.getElementById('cat-count').textContent = filtered.length + ' laptops';
-  document.getElementById('cat-empty').hidden = filtered.length > 0;
+  let list = q ? laptops.filter(p => (p.nombre+' '+p.marca+(p.especs?.procesador||'')).toLowerCase().includes(q)) : laptops;
+  // Apply column filters
+  for (const [k, vals] of Object.entries(catFilters)) {
+    if (!vals.size) continue;
+    const col = CAT_COLS.find(c => c.key === k);
+    if (!col) continue;
+    list = list.filter(p => { const v = _catColVal(p, col); return v != null && vals.has(String(v)); });
+  }
+  document.getElementById('cat-count').textContent = list.length + ' laptops';
+  document.getElementById('cat-empty').hidden = list.length > 0;
   const sp = v => v ? '<span class="spec-chip">'+v+'</span>' : '<span class="spec-null">—</span>';
-  document.getElementById('cat-tbody').innerHTML = filtered.map(p => {
+  document.getElementById('cat-tbody').innerHTML = list.map(p => {
     const e = p.especs || {};
     const pml = p.precioML ? '<span class="precio-ml">$'+Math.round(p.precioML).toLocaleString('es-MX')+'</span>' : '<span class="spec-null">—</span>';
     const pamz = p.precioAmz ? '<span class="precio-amz">$'+Math.round(p.precioAmz).toLocaleString('es-MX')+'</span>' : '<span class="spec-null">—</span>';
-    const est = p.estadoML ? '<span class="badge '+(ECLS[p.estadoML]||'b-null')+'">'+(ESTADO[p.estadoML]||'?')+'</span>' : '';
-    return '<tr><td class="precio-col">'+pml+'</td><td class="precio-col">'+pamz+'</td><td>'+p.marca+'</td><td style="max-width:220px;white-space:normal;font-size:12px">'+p.nombre+'</td><td>'+sp(e.procesador)+'</td><td>'+sp(e.ram)+'</td><td>'+sp(e.almacenamiento)+'</td><td>'+sp(e.pantalla)+'</td><td>'+sp(e.gpu)+'</td><td>'+sp(e.so)+'</td><td>'+sp(e.peso)+'</td><td>'+sp(e.touch)+'</td><td>'+est+'</td></tr>';
+    const lml = p.linkML ? '<a class="link-chip lc-ml" href="'+p.linkML+'" target="_blank" rel="noopener">ML↗</a>' : '';
+    const lamz = p.linkAmz ? '<a class="link-chip lc-amz" href="'+p.linkAmz+'" target="_blank" rel="noopener">AMZ↗</a>' : '';
+    const enlace = (lml||lamz) ? lml+lamz : '<span class="spec-null">—</span>';
+    const est = p.estadoML ? '<span class="badge '+(ECLS[p.estadoML]||'b-null')+'">'+(ESTADO[p.estadoML]||'?')+'</span>' : '<span class="spec-null">—</span>';
+    const upd = p._updatedAt ? '<span style="font-size:11px;white-space:nowrap;color:var(--fg2)">'+fmtDate(p._updatedAt)+'</span>' : '<span class="spec-null">—</span>';
+    return '<tr>'
+      +'<td class="precio-col">'+pml+'</td>'
+      +'<td class="precio-col">'+pamz+'</td>'
+      +'<td style="white-space:nowrap">'+enlace+'</td>'
+      +'<td>'+p.marca+'</td>'
+      +'<td style="max-width:220px;white-space:normal;font-size:12px">'+p.nombre+'</td>'
+      +'<td>'+sp(e.procesador)+'</td>'
+      +'<td>'+sp(e.ram)+'</td>'
+      +'<td>'+sp(e.almacenamiento)+'</td>'
+      +'<td>'+sp(e.pantalla)+'</td>'
+      +'<td>'+sp(e.gpu)+'</td>'
+      +'<td>'+sp(e.so)+'</td>'
+      +'<td>'+sp(e.peso)+'</td>'
+      +'<td>'+sp(e.touch)+'</td>'
+      +'<td>'+est+'</td>'
+      +'<td>'+upd+'</td>'
+      +'</tr>';
   }).join('');
 }
 </script>`;
