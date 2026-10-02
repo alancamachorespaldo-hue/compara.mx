@@ -149,6 +149,22 @@ td{padding:8px 10px;vertical-align:middle;font-size:13px}
 .plat-btn.on-ml{background:#fff8e7;border-color:#ffe030;color:#333}
 .plat-btn.on-amz{background:#fff3ea;border-color:#ff9900;color:#c45000}
 .plat-btn.on-ambas{background:linear-gradient(90deg,#fff8e7 50%,#fff3ea 50%);border-color:#ffb700;color:#333}
+/* Tabs */
+.tab-bar{display:flex;gap:0;border-bottom:2px solid var(--border);background:var(--surface);padding:0 20px;position:sticky;top:env(safe-area-inset-top,0px);z-index:99}
+.tab-btn{padding:10px 18px;font-size:13px;font-weight:600;color:var(--fg2);border:none;background:transparent;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap}
+.tab-btn:hover{color:var(--fg)}
+.tab-btn.on{color:var(--accent);border-bottom-color:var(--accent)}
+.tab-section{display:none}
+.tab-section.on{display:block}
+/* Catálogo table */
+.cat-search{padding:10px 20px 6px;display:flex;gap:8px;align-items:center}
+.cat-search input{flex:1;padding:7px 12px;border:1px solid var(--border);border-radius:7px;background:var(--surface);color:var(--fg);font-size:13px;outline:none}
+.cat-search input:focus{border-color:var(--accent)}
+.spec-chip{display:inline-block;padding:1px 7px;border-radius:10px;font-size:11px;background:var(--blue-light);color:var(--blue);font-weight:500;white-space:nowrap}
+.spec-null{color:var(--fg2);font-size:11px}
+.precio-col{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:600}
+.precio-ml{color:var(--blue)}
+.precio-amz{color:#b45309}
 </style>
 
 <div class="top-bar">
@@ -159,6 +175,11 @@ td{padding:8px 10px;vertical-align:middle;font-size:13px}
     <button class="btn-export" style="background:var(--blue)" onclick="openAddModal()">＋ Agregar</button>
   </div>
 </div>
+<div class="tab-bar">
+  <button class="tab-btn on" data-tab="gestion">⚙ Gestión</button>
+  <button class="tab-btn" data-tab="catalogo">📋 Catálogo Laptops</button>
+</div>
+<div id="tab-gestion" class="tab-section on">
 <div class="info-row">
   ℹ️ Haz cambios y copia el JSON con el botón verde → pégalo en <strong>scripts/productos.json</strong> en GitHub. El Action lo aplica automáticamente.
 </div>
@@ -207,6 +228,26 @@ td{padding:8px 10px;vertical-align:middle;font-size:13px}
     <tbody id="tbody"></tbody>
   </table>
   <div class="empty" id="empty" hidden>Sin resultados para ese filtro.</div>
+</div>
+
+</div><!-- /tab-gestion -->
+
+<div id="tab-catalogo" class="tab-section">
+  <div class="cat-search">
+    <input id="cat-search" type="search" placeholder="Buscar laptop…" oninput="renderCatalogo()">
+    <span id="cat-count" style="font-size:12px;color:var(--fg2);white-space:nowrap"></span>
+  </div>
+  <div class="table-wrap">
+    <table id="cat-table">
+      <thead><tr>
+        <th>Precio ML</th><th>Precio AMZ</th><th>Marca</th><th>Nombre</th>
+        <th>Procesador</th><th>RAM</th><th>Almacenamiento</th><th>Pantalla</th>
+        <th>GPU</th><th>SO</th><th>Peso</th><th>Touch</th><th>Estado</th>
+      </tr></thead>
+      <tbody id="cat-tbody"></tbody>
+    </table>
+    <div class="empty" id="cat-empty" hidden>Sin resultados.</div>
+  </div>
 </div>
 
 <div class="modal-bd" id="modal" hidden>
@@ -541,6 +582,38 @@ function toast(msg){
 }
 
 renderStats(); renderCats(); render();
+
+// ── Tabs ────────────────────────────────────────────────────────────────────
+document.querySelectorAll('.tab-btn[data-tab]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('on'));
+    document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('on'));
+    btn.classList.add('on');
+    document.getElementById('tab-'+btn.dataset.tab).classList.add('on');
+    if (btn.dataset.tab === 'catalogo') renderCatalogo();
+  });
+});
+
+// ── Catálogo Laptops ─────────────────────────────────────────────────────────
+function renderCatalogo() {
+  const laptops = (DB.laptops || []).filter(p => p.activo !== false);
+  const q = (document.getElementById('cat-search')?.value || '').toLowerCase();
+  const ESTADO = {actualizado:'✓',sin_cambio:'=',sin_precio:'✗',no_encontrado:'✗',precio_sospechoso:'?',nuevo:'★'};
+  const ECLS = {actualizado:'b-actualizado',sin_cambio:'b-sin_cambio',sin_precio:'b-sin_precio',no_encontrado:'b-no_encontrado',precio_sospechoso:'b-precio_sospechoso',nuevo:'b-nuevo'};
+  const filtered = q
+    ? laptops.filter(p => (p.nombre+' '+p.marca+(p.especs?.procesador||'')).toLowerCase().includes(q))
+    : laptops;
+  document.getElementById('cat-count').textContent = filtered.length + ' laptops';
+  document.getElementById('cat-empty').hidden = filtered.length > 0;
+  const sp = v => v ? '<span class="spec-chip">'+v+'</span>' : '<span class="spec-null">—</span>';
+  document.getElementById('cat-tbody').innerHTML = filtered.map(p => {
+    const e = p.especs || {};
+    const pml = p.precioML ? '<span class="precio-ml">$'+Math.round(p.precioML).toLocaleString('es-MX')+'</span>' : '<span class="spec-null">—</span>';
+    const pamz = p.precioAmz ? '<span class="precio-amz">$'+Math.round(p.precioAmz).toLocaleString('es-MX')+'</span>' : '<span class="spec-null">—</span>';
+    const est = p.estadoML ? '<span class="badge '+(ECLS[p.estadoML]||'b-null')+'">'+(ESTADO[p.estadoML]||'?')+'</span>' : '';
+    return '<tr><td class="precio-col">'+pml+'</td><td class="precio-col">'+pamz+'</td><td>'+p.marca+'</td><td style="max-width:220px;white-space:normal;font-size:12px">'+p.nombre+'</td><td>'+sp(e.procesador)+'</td><td>'+sp(e.ram)+'</td><td>'+sp(e.almacenamiento)+'</td><td>'+sp(e.pantalla)+'</td><td>'+sp(e.gpu)+'</td><td>'+sp(e.so)+'</td><td>'+sp(e.peso)+'</td><td>'+sp(e.touch)+'</td><td>'+est+'</td></tr>';
+  }).join('');
+}
 </script>`;
 
 // Split the page at the data boundary for self-republishing
