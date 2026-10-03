@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+﻿#!/usr/bin/env node
 /**
  * generar-admin.js — Genera el HTML del artifact "Admin Productos"
  * con los datos embebidos desde merged-admin.json
@@ -33,10 +33,8 @@ try {
   }
 } catch (e) { /* ml-report.json puede no existir */ }
 
-// Base64-encode the JSON to avoid any HTML/JS parse issues (&, <, >, quotes, etc.)
 const jsonRaw = JSON.stringify(JSON.parse(readFileSync(adminPath, 'utf8')));
 const data = Buffer.from(jsonRaw, 'utf8').toString('base64');
-// Marker used to split the page source for self-republishing
 const SPLIT_MARK = "atob('";
 
 const html = `<title>Gestión Productos</title>
@@ -68,10 +66,6 @@ const html = `<title>Gestión Productos</title>
 body{background:var(--bg);color:var(--fg);font-size:14px;line-height:1.5;padding-bottom:40px}
 .top-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;position:sticky;top:env(safe-area-inset-top,0px);z-index:100}
 .top-bar h1{font-size:15px;font-weight:700;color:var(--accent)}
-.stats{display:flex;gap:8px;flex-wrap:wrap}
-.stat{background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:4px 10px;font-size:11px;color:var(--fg2)}
-.stat b{font-size:15px;font-weight:700;display:block;line-height:1.2}
-.stat.red b{color:var(--red)}.stat.yellow b{color:var(--yellow)}.stat.green b{color:var(--green)}
 .controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:10px 20px 6px}
 .cats{display:flex;gap:4px;flex-wrap:wrap}
 .cat-btn{padding:4px 12px;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--fg2);cursor:pointer;font-size:12px;font-weight:500}
@@ -89,7 +83,6 @@ table{width:100%;border-collapse:collapse;min-width:680px}
 thead th{text-align:left;padding:7px 10px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--fg2);border-bottom:2px solid var(--border);background:var(--surface)}
 th.chk-col,td.chk-col{width:32px;padding:8px 6px 8px 10px}
 tbody tr.selected{background:var(--accent-light)}
-tbody tr.selected:hover{background:var(--accent-light)}
 .sel-bar{display:none;align-items:center;gap:10px;padding:8px 20px;background:var(--accent-light);border-bottom:1px solid var(--border);font-size:13px;color:var(--accent);font-weight:600}
 .sel-bar.show{display:flex}
 .btn-export-sel{padding:7px 16px;border-radius:7px;background:var(--accent);color:#fff;border:none;cursor:pointer;font-size:13px;font-weight:600;white-space:nowrap}
@@ -115,13 +108,16 @@ td{padding:8px 10px;vertical-align:middle;font-size:13px}
 .actions{display:flex;gap:4px;align-items:center}
 .btn-sm{padding:3px 9px;border-radius:5px;border:1px solid var(--border);background:var(--surface);color:var(--fg2);cursor:pointer;font-size:11px;font-weight:500;white-space:nowrap}
 .btn-pause{color:var(--yellow)}.btn-play{color:var(--green)}.btn-edit{color:var(--blue)}
-.modal-bd{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
-.modal{background:var(--surface);border-radius:12px;padding:24px;width:100%;max-width:460px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.modal-bd{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;display:flex;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto}
+.modal{background:var(--surface);border-radius:12px;padding:24px;width:100%;max-width:520px;box-shadow:0 20px 60px rgba(0,0,0,.3);margin:auto}
 .modal h2{font-size:15px;font-weight:700;margin-bottom:4px}
 .modal .sub{font-size:12px;color:var(--fg2);margin-bottom:14px}
 .modal label{display:block;font-size:11px;font-weight:600;color:var(--fg2);margin-bottom:3px;margin-top:10px;text-transform:uppercase;letter-spacing:.05em}
 .modal input{width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:7px;background:var(--bg);color:var(--fg);font-size:13px;outline:none;font-family:monospace}
 .modal input:focus{border-color:var(--accent)}
+.modal-section{margin-top:14px;padding-top:10px;border-top:1px solid var(--border)}
+.modal-section-title{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.specs-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
 .modal-footer{display:flex;gap:8px;justify-content:flex-end;margin-top:18px;align-items:center}
 .del-confirm{background:var(--red-light);border:1px solid var(--red);border-radius:7px;padding:8px 12px;font-size:12px;color:var(--red);display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}
 .btn-cancel{padding:7px 14px;border:1px solid var(--border);border-radius:7px;background:var(--surface);color:var(--fg2);cursor:pointer;font-size:13px}
@@ -150,12 +146,17 @@ td{padding:8px 10px;vertical-align:middle;font-size:13px}
 .plat-btn.on-amz{background:#fff3ea;border-color:#ff9900;color:#c45000}
 .plat-btn.on-ambas{background:linear-gradient(90deg,#fff8e7 50%,#fff3ea 50%);border-color:#ffb700;color:#333}
 /* Tabs */
-.tab-bar{display:flex;gap:0;border-bottom:2px solid var(--border);background:var(--surface);padding:0 20px;position:sticky;top:env(safe-area-inset-top,0px);z-index:99}
-.tab-btn{padding:10px 18px;font-size:13px;font-weight:600;color:var(--fg2);border:none;background:transparent;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap}
+.tab-bar{display:flex;gap:0;border-bottom:2px solid var(--border);background:var(--surface);padding:0 20px;position:sticky;top:env(safe-area-inset-top,0px);z-index:99;overflow-x:auto}
+.tab-btn{padding:10px 16px;font-size:13px;font-weight:600;color:var(--fg2);border:none;background:transparent;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap}
 .tab-btn:hover{color:var(--fg)}
 .tab-btn.on{color:var(--accent);border-bottom-color:var(--accent)}
 .tab-section{display:none}
 .tab-section.on{display:block}
+/* Sub-tabs (Suplementos) */
+.subtab-bar{display:flex;gap:0;border-bottom:1px solid var(--border);background:var(--bg);padding:0 20px;overflow-x:auto}
+.subtab-btn{padding:8px 14px;font-size:12px;font-weight:600;color:var(--fg2);border:none;background:transparent;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
+.subtab-btn:hover{color:var(--fg)}
+.subtab-btn.on{color:var(--accent);border-bottom-color:var(--accent)}
 /* Catálogo table */
 .cat-search{padding:10px 20px 6px;display:flex;gap:8px;align-items:center}
 .cat-search input{flex:1;padding:7px 12px;border:1px solid var(--border);border-radius:7px;background:var(--surface);color:var(--fg);font-size:13px;outline:none}
@@ -165,9 +166,8 @@ td{padding:8px 10px;vertical-align:middle;font-size:13px}
 .precio-col{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:600}
 .precio-ml{color:var(--blue)}
 .precio-amz{color:#b45309}
-/* Catalog sticky header */
-#cat-table-container{overflow:auto;max-height:calc(100vh - 170px)}
-#cat-table thead th{position:sticky;top:0;z-index:5;background:var(--surface);box-shadow:0 1px 0 var(--border)}
+.cat-table-wrap{overflow:auto;max-height:calc(100vh - 200px);padding:0 20px}
+.cat-table-wrap thead th{position:sticky;top:0;z-index:5;background:var(--surface);box-shadow:0 1px 0 var(--border)}
 .col-filter-btn{background:none;border:none;cursor:pointer;color:var(--fg2);font-size:9px;padding:0 0 0 3px;vertical-align:middle;opacity:.55;line-height:1;transition:opacity .15s}
 .col-filter-btn:hover,.col-filter-btn.active{opacity:1;color:var(--accent)}
 .filter-dropdown{position:fixed;z-index:400;background:var(--surface);border:1px solid var(--border);border-radius:8px;box-shadow:0 8px 28px rgba(0,0,0,.18);padding:6px;min-width:160px;max-width:260px;max-height:300px;overflow-y:auto}
@@ -185,25 +185,31 @@ td{padding:8px 10px;vertical-align:middle;font-size:13px}
   <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
     <span id="save-status" style="font-size:11px;color:var(--fg2)"></span>
     <button class="btn-export" style="background:var(--green)" id="btn-save" onclick="saveState()">💾 Guardar</button>
-    <button class="btn-export" style="background:var(--blue)" onclick="openAddModal()">＋ Agregar</button>
+    <button class="btn-export" style="background:var(--blue)" onclick="openAddModal()">+ Agregar</button>
   </div>
 </div>
 <div class="tab-bar">
   <button class="tab-btn on" data-tab="gestion">⚙ Gestión</button>
-  <button class="tab-btn" data-tab="catalogo">📋 Catálogo Laptops</button>
+  <button class="tab-btn" data-tab="laptops">💻 Laptops</button>
+  <button class="tab-btn" data-tab="freidoras">🍟 Freidoras</button>
+  <button class="tab-btn" data-tab="bicis">🚲 Bicis</button>
+  <button class="tab-btn" data-tab="suplementos">💊 Suplementos</button>
+  <button class="tab-btn" data-tab="microondas">📟 Microondas</button>
 </div>
+
+<!-- ── TAB: GESTIÓN ─────────────────────────────────────────────────── -->
 <div id="tab-gestion" class="tab-section on">
 <div class="info-row">
-  ℹ️ Haz cambios y copia el JSON con el botón verde → pégalo en <strong>scripts/productos.json</strong> en GitHub. El Action lo aplica automáticamente.
+  ℹ️ Haz cambios y guarda con el botón verde para publicar el artifact actualizado.
 </div>
 <div class="tiles" id="tiles"></div>
 <div class="controls">
   <div class="cats" id="cats"></div>
   <div class="filters">
-    <button class="filter-btn" id="f-sinprecio" onclick="toggleFilter('sinprecio')">🔴 Sin precio ML</button>
-    <button class="filter-btn" id="f-noencontrado" onclick="toggleFilter('noencontrado')">✗ No producto encontrado</button>
-    <button class="filter-btn" id="f-pausados" onclick="toggleFilter('pausados')">⏸ Pausados</button>
-    <button class="filter-btn" id="f-sinlink" onclick="toggleFilter('sinlink')">🔗 Sin links</button>
+    <button class="filter-btn" id="f-sinprecio" onclick="toggleFilter(\\'sinprecio\\')">🔴 Sin precio ML</button>
+    <button class="filter-btn" id="f-noencontrado" onclick="toggleFilter(\\'noencontrado\\')">✗ No encontrado</button>
+    <button class="filter-btn" id="f-pausados" onclick="toggleFilter(\\'pausados\\')">⏸ Pausados</button>
+    <button class="filter-btn" id="f-sinlink" onclick="toggleFilter(\\'sinlink\\')">🔗 Sin links</button>
   </div>
 </div>
 <div class="plat-filters">
@@ -228,7 +234,7 @@ td{padding:8px 10px;vertical-align:middle;font-size:13px}
 </div>
 <div class="sel-bar" id="sel-bar">
   <span id="sel-count">0 seleccionados</span>
-  <button class="btn-export-sel" onclick="exportJSON(true)">📋 Copiar JSON de seleccionados</button>
+  <button class="btn-export-sel" onclick="exportJSON(true)">📋 Copiar JSON seleccionados</button>
   <button class="btn-clear-sel" onclick="clearSelection()">✕ Deseleccionar</button>
 </div>
 <div class="table-wrap">
@@ -242,43 +248,61 @@ td{padding:8px 10px;vertical-align:middle;font-size:13px}
   </table>
   <div class="empty" id="empty" hidden>Sin resultados para ese filtro.</div>
 </div>
-
-</div><!-- /tab-gestion -->
-
-<div id="tab-catalogo" class="tab-section">
-  <div class="cat-search">
-    <input id="cat-search" type="search" placeholder="Buscar laptop…" oninput="renderCatalogo()">
-    <span id="cat-count" style="font-size:12px;color:var(--fg2);white-space:nowrap"></span>
-    <button id="cat-clear-filters" class="btn-export" style="display:none;background:var(--red);padding:5px 12px;font-size:12px" onclick="clearCatFilters()">✕ Filtros</button>
-  </div>
-  <div id="cat-active-filters" style="padding:0 20px 4px;display:flex;gap:4px;flex-wrap:wrap"></div>
-  <div class="table-wrap" style="padding:0 20px">
-    <div id="cat-table-container">
-      <table id="cat-table">
-        <thead><tr id="cat-thead-row"></tr></thead>
-        <tbody id="cat-tbody"></tbody>
-      </table>
-      <div class="empty" id="cat-empty" hidden>Sin resultados.</div>
-    </div>
-  </div>
 </div>
 
+<!-- ── TAB: LAPTOPS ─────────────────────────────────────────────────── -->
+<div id="tab-laptops" class="tab-section">
+  <div id="ct-laptops"></div>
+</div>
+
+<!-- ── TAB: FREIDORAS ──────────────────────────────────────────────── -->
+<div id="tab-freidoras" class="tab-section">
+  <div id="ct-freidoras"></div>
+</div>
+
+<!-- ── TAB: BICIS ──────────────────────────────────────────────────── -->
+<div id="tab-bicis" class="tab-section">
+  <div id="ct-bicis"></div>
+</div>
+
+<!-- ── TAB: SUPLEMENTOS ────────────────────────────────────────────── -->
+<div id="tab-suplementos" class="tab-section">
+  <div class="subtab-bar" id="subtab-bar">
+    <button class="subtab-btn on" data-sup="proteina">🥛 Proteína</button>
+    <button class="subtab-btn" data-sup="omega3">🐟 Omega 3</button>
+    <button class="subtab-btn" data-sup="magnesio">⚡ Magnesio</button>
+    <button class="subtab-btn" data-sup="creatina">💪 Creatina</button>
+    <button class="subtab-btn" data-sup="complejo_b">🅱✏ Complejo B</button>
+  </div>
+  <div id="ct-suplementos"></div>
+</div>
+
+<!-- ── TAB: MICROONDAS ─────────────────────────────────────────────── -->
+<div id="tab-microondas" class="tab-section">
+  <div id="ct-microondas"></div>
+</div>
+
+<!-- ── EDIT MODAL ──────────────────────────────────────────────────── -->
 <div class="modal-bd" id="modal" hidden>
   <div class="modal">
     <h2 id="m-title">Editar producto</h2>
     <div class="sub" id="m-sub"></div>
     <label>Link Mercado Libre</label>
-    <input id="ed-ml" type="url" placeholder="https://www.mercadolibre.com.mx/… (dejar vacío para quitar)">
-    <label>Precio ML (MXN) — dejar vacío para quitar</label>
+    <input id="ed-ml" type="url" placeholder="https://www.mercadolibre.com.mx/…">
+    <label>Precio ML (MXN)</label>
     <input id="ed-pml" type="number" min="0" step="0.01" placeholder="Ej. 4999">
     <label>Link Amazon (debe incluir ?tag=comparalo20-20)</label>
     <input id="ed-amz" type="url" placeholder="https://www.amazon.com.mx/dp/…?tag=comparalo20-20">
-    <label>Precio Amazon (MXN) — dejar vacío para quitar</label>
+    <label>Precio Amazon (MXN)</label>
     <input id="ed-pamz" type="number" min="0" step="0.01" placeholder="Ej. 5299">
+    <div class="modal-section" id="specs-section" hidden>
+      <div class="modal-section-title">Especificaciones</div>
+      <div class="specs-grid" id="specs-fields"></div>
+    </div>
     <div class="del-confirm" id="del-confirm" hidden>
       ¿Eliminar este producto del registro?
       <button class="btn-yes" onclick="confirmDelete()">Sí, eliminar</button>
-      <button class="btn-no" onclick="document.getElementById('del-confirm').hidden=true">No</button>
+      <button class="btn-no" onclick="document.getElementById(\\'del-confirm\\').hidden=true">No</button>
     </div>
     <div class="modal-footer">
       <button class="btn-del-sm" onclick="showDelConfirm()">🗑 Eliminar</button>
@@ -288,6 +312,7 @@ td{padding:8px 10px;vertical-align:middle;font-size:13px}
   </div>
 </div>
 
+<!-- ── ADD MODAL ───────────────────────────────────────────────────── -->
 <div class="modal-bd add-modal" id="add-modal" hidden>
   <div class="modal">
     <h2>Agregar producto</h2>
@@ -317,20 +342,202 @@ let DB = JSON.parse(JSON.stringify(INITIAL_DATA));
 try {
   const s = localStorage.getItem('admin_db');
   const ts = localStorage.getItem('admin_db_ts');
-  // Solo usar localStorage si fue guardado DESPUÉS de que se generó este artifact
   if (s && ts && ts > BUILT_AT) { DB = JSON.parse(s); }
   else if (s && ts && ts <= BUILT_AT) {
-    // Artifact más nuevo: limpiar localStorage stale
     localStorage.removeItem('admin_db'); localStorage.removeItem('admin_db_ts');
   }
 } catch(e) {}
-let activeCat = 'todas';
-let activeFilters = new Set();
-let activeTile = null;
-let activePlat = null;
-let editKey = null;
-let selected = new Set();
 
+let activeCat = 'todas', activeFilters = new Set(), activeTile = null, activePlat = null;
+let editKey = null, selected = new Set();
+let curSupKey = 'proteina';
+
+// ── CATALOG DEFS ────────────────────────────────────────────────────────────
+const CATALOG_DEFS = {
+  laptops: {
+    label: 'laptops', catKey: 'laptops',
+    cols: [
+      {key:'precioML',      label:'Precio ML',       filterable:false},
+      {key:'precioAmz',     label:'Precio AMZ',      filterable:false},
+      {key:'enlace',        label:'Enlace',          filterable:false},
+      {key:'marca',         label:'Marca',           filterable:true},
+      {key:'nombre',        label:'Nombre',          filterable:false},
+      {key:'procesador',    label:'Procesador',      filterable:true,  sk:'procesador'},
+      {key:'ram',           label:'RAM',             filterable:true,  sk:'ram'},
+      {key:'almacenamiento',label:'Almacenamiento',  filterable:true,  sk:'almacenamiento'},
+      {key:'pantalla',      label:'Pantalla',        filterable:true,  sk:'pantalla'},
+      {key:'gpu',           label:'GPU',             filterable:false, sk:'gpu'},
+      {key:'so',            label:'SO',              filterable:true,  sk:'so'},
+      {key:'peso',          label:'Peso',            filterable:false, sk:'peso'},
+      {key:'touch',         label:'Touch',           filterable:true,  sk:'touch'},
+      {key:'estadoML',      label:'Estado',          filterable:true},
+      {key:'_updatedAt',    label:'Últ. Mod.',       filterable:false},
+      {key:'_actions',      label:'Acciones',        filterable:false},
+    ]
+  },
+  freidoras: {
+    label: 'freidoras', catKey: 'freidoras',
+    cols: [
+      {key:'precioML',     label:'Precio ML',    filterable:false},
+      {key:'precioAmz',    label:'Precio AMZ',   filterable:false},
+      {key:'enlace',       label:'Enlace',       filterable:false},
+      {key:'marca',        label:'Marca',        filterable:true},
+      {key:'nombre',       label:'Nombre',       filterable:false},
+      {key:'tipo',         label:'Tipo',         filterable:true,  sk:'tipo'},
+      {key:'capacidad',    label:'Capacidad',    filterable:true,  sk:'capacidad'},
+      {key:'potencia',     label:'Potencia',     filterable:false, sk:'potencia'},
+      {key:'tempMax',      label:'Temp. Máx.',   filterable:false, sk:'tempMax'},
+      {key:'panel',        label:'Panel',        filterable:true,  sk:'panel'},
+      {key:'canastos',     label:'Canastos',     filterable:true,  sk:'canastos'},
+      {key:'ventana',      label:'Ventana',      filterable:true,  sk:'ventana'},
+      {key:'antiadherente',label:'Antiadherente',filterable:true,  sk:'antiadherente'},
+      {key:'estadoML',     label:'Estado',       filterable:true},
+      {key:'_updatedAt',   label:'Últ. Mod.',    filterable:false},
+      {key:'_actions',     label:'Acciones',     filterable:false},
+    ]
+  },
+  bicis: {
+    label: 'bicis', catKey: 'bicis',
+    cols: [
+      {key:'precioML',   label:'Precio ML',  filterable:false},
+      {key:'precioAmz',  label:'Precio AMZ', filterable:false},
+      {key:'enlace',     label:'Enlace',     filterable:false},
+      {key:'marca',      label:'Marca',      filterable:true},
+      {key:'nombre',     label:'Nombre',     filterable:false},
+      {key:'tipo',       label:'Tipo',       filterable:true,  sk:'tipo'},
+      {key:'autonomia',  label:'Autonomía',  filterable:false, sk:'autonomia'},
+      {key:'velocidad',  label:'Vel. Máx.',  filterable:false, sk:'velocidad'},
+      {key:'motor',      label:'Motor',      filterable:false, sk:'motor'},
+      {key:'bateria',    label:'Batería',    filterable:false, sk:'bateria'},
+      {key:'rueda',      label:'Rueda',      filterable:true,  sk:'rueda'},
+      {key:'cargaMax',   label:'Carga Máx.', filterable:false, sk:'cargaMax'},
+      {key:'ip',         label:'IP',         filterable:true,  sk:'ip'},
+      {key:'estadoML',   label:'Estado',     filterable:true},
+      {key:'_updatedAt', label:'Últ. Mod.',  filterable:false},
+      {key:'_actions',   label:'Acciones',   filterable:false},
+    ]
+  },
+  microondas: {
+    label: 'microondas', catKey: 'microondas',
+    cols: [
+      {key:'precioML',   label:'Precio ML',  filterable:false},
+      {key:'precioAmz',  label:'Precio AMZ', filterable:false},
+      {key:'enlace',     label:'Enlace',     filterable:false},
+      {key:'marca',      label:'Marca',      filterable:true},
+      {key:'nombre',     label:'Nombre',     filterable:false},
+      {key:'estadoML',   label:'Estado',     filterable:true},
+      {key:'_updatedAt', label:'Últ. Mod.',  filterable:false},
+      {key:'_actions',   label:'Acciones',   filterable:false},
+    ]
+  },
+  proteina: {
+    label: 'proteína', catKey: 'proteina',
+    cols: [
+      {key:'precioML',           label:'Precio ML',      filterable:false},
+      {key:'precioAmz',          label:'Precio AMZ',     filterable:false},
+      {key:'enlace',             label:'Enlace',         filterable:false},
+      {key:'marca',              label:'Marca',          filterable:true},
+      {key:'nombre',             label:'Nombre',         filterable:false},
+      {key:'tipoProteina',       label:'Tipo',           filterable:true,  sk:'tipoProteina'},
+      {key:'fuenteProteina',     label:'Fuente',         filterable:true,  sk:'fuenteProteina'},
+      {key:'gramosPorPorcion',   label:'g/Porción',      filterable:false, sk:'gramosPorPorcion'},
+      {key:'proteinaPorPorcion', label:'Prot/Porción',   filterable:false, sk:'proteinaPorPorcion'},
+      {key:'costoPorPorcion',    label:'Costo/Porción',  filterable:false, sk:'costoPorPorcion'},
+      {key:'vegana',             label:'Vegana',         filterable:true,  sk:'vegana'},
+      {key:'glutenFree',         label:'Gluten Free',    filterable:true,  sk:'glutenFree'},
+      {key:'estadoML',           label:'Estado',         filterable:true},
+      {key:'_updatedAt',         label:'Últ. Mod.',      filterable:false},
+      {key:'_actions',           label:'Acciones',       filterable:false},
+    ]
+  },
+  omega3: {
+    label: 'omega 3', catKey: 'omega3',
+    cols: [
+      {key:'precioML',        label:'Precio ML',      filterable:false},
+      {key:'precioAmz',       label:'Precio AMZ',     filterable:false},
+      {key:'enlace',          label:'Enlace',         filterable:false},
+      {key:'marca',           label:'Marca',          filterable:true},
+      {key:'nombre',          label:'Nombre',         filterable:false},
+      {key:'epa',             label:'EPA',            filterable:false, sk:'epa'},
+      {key:'dha',             label:'DHA',            filterable:false, sk:'dha'},
+      {key:'omegaTotal',      label:'Omega Total',    filterable:false, sk:'omegaTotal'},
+      {key:'fuenteOmega',     label:'Fuente',         filterable:true,  sk:'fuenteOmega'},
+      {key:'ifos',            label:'IFOS',           filterable:true,  sk:'ifos'},
+      {key:'metalesPesados',  label:'Sin Metales',    filterable:true,  sk:'metalesPesados'},
+      {key:'costoPorPorcion', label:'Costo/Porción',  filterable:false, sk:'costoPorPorcion'},
+      {key:'estadoML',        label:'Estado',         filterable:true},
+      {key:'_updatedAt',      label:'Últ. Mod.',      filterable:false},
+      {key:'_actions',        label:'Acciones',       filterable:false},
+    ]
+  },
+  magnesio: {
+    label: 'magnesio', catKey: 'magnesio',
+    cols: [
+      {key:'precioML',        label:'Precio ML',      filterable:false},
+      {key:'precioAmz',       label:'Precio AMZ',     filterable:false},
+      {key:'enlace',          label:'Enlace',         filterable:false},
+      {key:'marca',           label:'Marca',          filterable:true},
+      {key:'nombre',          label:'Nombre',         filterable:false},
+      {key:'formaMagnesio',   label:'Forma',          filterable:true,  sk:'formaMagnesio'},
+      {key:'mgMagnesio',      label:'mg Magnesio',    filterable:false, sk:'mgMagnesio'},
+      {key:'mgElemental',     label:'mg Elemental',   filterable:false, sk:'mgElemental'},
+      {key:'absorcion',       label:'Absorción',      filterable:true,  sk:'absorcion'},
+      {key:'vegano',          label:'Vegano',         filterable:true,  sk:'vegano'},
+      {key:'costoPorPorcion', label:'Costo/Porción',  filterable:false, sk:'costoPorPorcion'},
+      {key:'estadoML',        label:'Estado',         filterable:true},
+      {key:'_updatedAt',      label:'Últ. Mod.',      filterable:false},
+      {key:'_actions',        label:'Acciones',       filterable:false},
+    ]
+  },
+  creatina: {
+    label: 'creatina', catKey: 'creatina',
+    cols: [
+      {key:'precioML',        label:'Precio ML',      filterable:false},
+      {key:'precioAmz',       label:'Precio AMZ',     filterable:false},
+      {key:'enlace',          label:'Enlace',         filterable:false},
+      {key:'marca',           label:'Marca',          filterable:true},
+      {key:'nombre',          label:'Nombre',         filterable:false},
+      {key:'tipoCreatina',    label:'Tipo',           filterable:true,  sk:'tipoCreatina'},
+      {key:'presentacion',    label:'Presentación',   filterable:true,  sk:'presentacion'},
+      {key:'grPorPorcion',    label:'g/Porción',      filterable:false, sk:'grPorPorcion'},
+      {key:'pura',            label:'Pura',           filterable:true,  sk:'pura'},
+      {key:'costoPorPorcion', label:'Costo/Porción',  filterable:false, sk:'costoPorPorcion'},
+      {key:'costoPor5g',      label:'Costo/5g',       filterable:false, sk:'costoPor5g'},
+      {key:'estadoML',        label:'Estado',         filterable:true},
+      {key:'_updatedAt',      label:'Últ. Mod.',      filterable:false},
+      {key:'_actions',        label:'Acciones',       filterable:false},
+    ]
+  },
+  complejo_b: {
+    label: 'complejo B', catKey: 'complejo_b',
+    cols: [
+      {key:'precioML',        label:'Precio ML',      filterable:false},
+      {key:'precioAmz',       label:'Precio AMZ',     filterable:false},
+      {key:'enlace',          label:'Enlace',         filterable:false},
+      {key:'marca',           label:'Marca',          filterable:true},
+      {key:'nombre',          label:'Nombre',         filterable:false},
+      {key:'capsulasPorDia',  label:'Cáps./Día',      filterable:true,  sk:'capsulasPorDia'},
+      {key:'costoPorPorcion', label:'Costo/Porción',  filterable:false, sk:'costoPorPorcion'},
+      {key:'b1',  label:'B1',  filterable:false, sk:'b1'},
+      {key:'b6',  label:'B6',  filterable:false, sk:'b6'},
+      {key:'b9',  label:'B9',  filterable:false, sk:'b9'},
+      {key:'b12', label:'B12', filterable:false, sk:'b12'},
+      {key:'formaB12',        label:'Forma B12',      filterable:true,  sk:'formaB12'},
+      {key:'estadoML',        label:'Estado',         filterable:true},
+      {key:'_updatedAt',      label:'Últ. Mod.',      filterable:false},
+      {key:'_actions',        label:'Acciones',       filterable:false},
+    ]
+  },
+};
+
+// Per-catalog filter state: catKey → {filters: {colKey: Set}, search: ''}
+const catState = {};
+function getCatState(catKey) {
+  if (!catState[catKey]) catState[catKey] = {filters:{}, search:''};
+  return catState[catKey];
+}
+
+// ── GESTIÓN TAB ──────────────────────────────────────────────────────────────
 function allProds() {
   return Object.entries(DB).flatMap(([cat, prods]) => prods.map(p => ({...p, _cat: cat, _key: cat+'|'+p.id})));
 }
@@ -340,12 +547,7 @@ function visibleProds() {
   return src.filter(p => {
     if (q && !(p.nombre+' '+p.marca).toLowerCase().includes(q)) return false;
     if (activeTile && activeTile !== 'todas') {
-      if (activeTile === 'sin_cambio' && p.estadoML !== 'sin_cambio') return false;
-      else if (activeTile === 'actualizado' && p.estadoML !== 'actualizado') return false;
-      else if (activeTile === 'sin_precio' && p.estadoML !== 'sin_precio') return false;
-      else if (activeTile === 'no_encontrado' && p.estadoML !== 'no_encontrado') return false;
-      else if (activeTile === 'precio_sospechoso' && p.estadoML !== 'precio_sospechoso') return false;
-      else if (activeTile === 'nuevo' && p.estadoML !== 'nuevo') return false;
+      if (activeTile !== p.estadoML) return false;
     }
     if (activePlat === 'ml' && !p.linkML) return false;
     if (activePlat === 'amz' && !p.linkAmz) return false;
@@ -379,8 +581,9 @@ function renderStats() {
 }
 
 function renderCats() {
+  const CAT_LABELS = {todas:'Todas',laptops:'Laptops',freidoras:'Freidoras',bicis:'Bicis',microondas:'Microondas',proteina:'Proteína',omega3:'Omega 3',magnesio:'Magnesio',creatina:'Creatina',complejo_b:'Complejo B'};
   document.getElementById('cats').innerHTML = ['todas',...Object.keys(DB)].map(c =>
-    '<button class="cat-btn'+(c===activeCat?' on':'')+'" data-cat="'+c+'">'+(c==='todas'?'Todas':c.charAt(0).toUpperCase()+c.slice(1))+'</button>'
+    '<button class="cat-btn'+(c===activeCat?' on':'')+'" data-cat="'+c+'">'+(CAT_LABELS[c]||c.charAt(0).toUpperCase()+c.slice(1))+'</button>'
   ).join('');
   document.querySelectorAll('.cat-btn[data-cat]').forEach(el => el.onclick = () => setCat(el.dataset.cat));
 }
@@ -390,7 +593,7 @@ function render() {
   const tb = document.getElementById('tbody');
   document.getElementById('empty').hidden = prods.length > 0;
   if (!prods.length) { tb.innerHTML=''; return; }
-  const ESTADO = {actualizado:'✓ Actualizado',sin_cambio:'= Sin cambio',sin_precio:'✗ Sin precio',no_encontrado:'✗ No producto encontrado',precio_sospechoso:'? Sospechoso',nuevo:'★ Nuevo'};
+  const ESTADO = {actualizado:'✓ Actualizado',sin_cambio:'= Sin cambio',sin_precio:'✗ Sin precio',no_encontrado:'✗ No encontrado',precio_sospechoso:'? Sospechoso',nuevo:'★ Nuevo'};
   tb.innerHTML = prods.map(p => {
     const ecls = p.estadoML ? ('b-'+p.estadoML) : 'b-null';
     const elab = ESTADO[p.estadoML] || '— Sin ML';
@@ -399,33 +602,33 @@ function render() {
     const paBtn = p.activo!==false
       ? '<button class="btn-sm btn-pause" data-act="pause" data-key="'+p._key+'">⏸ Pausar</button>'
       : '<button class="btn-sm btn-play" data-act="play" data-key="'+p._key+'">▶ Activar</button>';
-    const pml = p.precioML ? '<span style="font-size:11px;color:var(--fg2)">ML </span>$'+Math.round(p.precioML).toLocaleString('es-MX') : '';
-    const pamz = p.precioAmz ? '<span style="font-size:11px;color:var(--fg2)">'+(pml?' AMZ ':' AMZ ')+'</span>$'+Math.round(p.precioAmz).toLocaleString('es-MX') : '';
-    const precio = (pml||pamz) ? (pml+(pml&&pamz?'<br>':'')+pamz) : '—';
-    const upd = p._updatedAt ? fmtDate(p._updatedAt) : '<span style="color:var(--fg2)">—</span>';
+    const pml = p.precioML ? 'ML $'+Math.round(p.precioML).toLocaleString(\\'es-MX\\') : \\'\\';
+    const pamz = p.precioAmz ? \\'AMZ $\\'+Math.round(p.precioAmz).toLocaleString(\\'es-MX\\') : \\'\\';
+    const precio = (pml||pamz) ? (pml+(pml&&pamz?\\' / \\':\\'\\')+pamz) : \\'—\\';
+    const upd = p._updatedAt ? fmtDate(p._updatedAt) : \\'<span style="color:var(--fg2)">—</span>\\';
     const isSel = selected.has(p._key);
-    return '<tr class="'+(p.activo===false?'pausado':'')+(isSel?' selected':'')+'"><td class="chk-col"><input type="checkbox" data-act="chk" data-key="'+p._key+'"'+(isSel?' checked':'')+' style="cursor:pointer;width:15px;height:15px"></td><td class="nombre-col">'+p.nombre+'</td><td>'+p.marca+'</td><td><span class="badge '+ecls+'">'+elab+'</span></td><td>'+lml+lamz+'</td><td style="font-variant-numeric:tabular-nums">'+precio+'</td><td style="font-size:11px;white-space:nowrap;color:var(--fg2)">'+upd+'</td><td><div class="actions">'+paBtn+'<button class="btn-sm btn-edit" data-act="edit" data-key="'+p._key+'">✏ Editar</button></div></td></tr>';
-  }).join('');
+    return \\'<tr class="\\'+(p.activo===false?\\'pausado\\':\\'\\')+(isSel?\\' selected\\':\\'\\')+\\'"><td class="chk-col"><input type="checkbox" data-act="chk" data-key="\\'+p._key+\\'"\\'+(isSel?\\' checked\\':\\'\\')+\\' style="cursor:pointer;width:15px;height:15px"></td><td class="nombre-col">\\'+p.nombre+\\'</td><td>\\'+p.marca+\\'</td><td><span class="badge \\'+ecls+\\'">\\'+elab+\\'</span></td><td>\\'+lml+lamz+\\'</td><td>\\'+precio+\\'</td><td style="font-size:11px;white-space:nowrap;color:var(--fg2)">\\'+upd+\\'</td><td><div class="actions">\\'+paBtn+\\'<button class="btn-sm btn-edit" data-act="edit" data-key="\\'+p._key+\\'">✏ Editar</button></div></td></tr>\\';
+  }).join(\\'\\');
 }
 
 function fmtDate(iso){
   const d=new Date(iso);
-  return d.toLocaleDateString('es-MX',{day:'2-digit',month:'short',year:'numeric'})+' '+d.toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'});
+  return d.toLocaleDateString(\\'es-MX\\',{day:\\'2-digit\\',month:\\'short\\',year:\\'numeric\\'})+\\' \\'+d.toLocaleTimeString(\\'es-MX\\',{hour:\\'2-digit\\',minute:\\'2-digit\\'});
 }
 
-document.getElementById('tbody').addEventListener('click', e => {
-  const btn = e.target.closest('[data-act]');
+document.getElementById(\\'tbody\\').addEventListener(\\'click\\', e => {
+  const btn = e.target.closest(\\'[data-act]\\');
   if (!btn) return;
   const key = btn.dataset.key;
-  if (btn.dataset.act === 'edit') openEdit(key);
-  else if (btn.dataset.act === 'pause' || btn.dataset.act === 'play') toggleActivo(key);
-  else if (btn.dataset.act === 'chk') {
+  if (btn.dataset.act === \\'edit\\') openEdit(key);
+  else if (btn.dataset.act === \\'pause\\' || btn.dataset.act === \\'play\\') toggleActivo(key);
+  else if (btn.dataset.act === \\'chk\\') {
     if (btn.checked) selected.add(key); else selected.delete(key);
-    btn.closest('tr').classList.toggle('selected', btn.checked);
+    btn.closest(\\'tr\\').classList.toggle(\\'selected\\', btn.checked);
     updateSelBar();
   }
 });
-document.getElementById('chk-all').addEventListener('change', e => {
+document.getElementById(\\'chk-all\\').addEventListener(\\'change\\', e => {
   const vis = visibleProds();
   if (e.target.checked) vis.forEach(p => selected.add(p._key));
   else vis.forEach(p => selected.delete(p._key));
@@ -433,51 +636,51 @@ document.getElementById('chk-all').addEventListener('change', e => {
 });
 function updateSelBar(){
   const n = selected.size;
-  const bar = document.getElementById('sel-bar');
-  bar.classList.toggle('show', n > 0);
-  document.getElementById('sel-count').textContent = n + ' producto'+(n!==1?'s':'')+' seleccionado'+(n!==1?'s':'');
-  document.getElementById('chk-all').checked = n > 0 && visibleProds().every(p => selected.has(p._key));
-  document.getElementById('chk-all').indeterminate = n > 0 && !visibleProds().every(p => selected.has(p._key));
+  const bar = document.getElementById(\\'sel-bar\\');
+  bar.classList.toggle(\\'show\\', n > 0);
+  document.getElementById(\\'sel-count\\').textContent = n + \\' producto\\'+(n!==1?\\'s\\':\\'\\')+\\' seleccionado\\'+(n!==1?\\'s\\':\\'\\')+\\'\\';
+  document.getElementById(\\'chk-all\\').checked = n > 0 && visibleProds().every(p => selected.has(p._key));
+  document.getElementById(\\'chk-all\\').indeterminate = n > 0 && !visibleProds().every(p => selected.has(p._key));
 }
 function clearSelection(){ selected.clear(); render(); updateSelBar(); }
 function selectVisible(){ visibleProds().forEach(p=>selected.add(p._key)); render(); updateSelBar(); }
 
 function encodeDB(){
   const bytes=new TextEncoder().encode(JSON.stringify(DB));
-  let bin='';for(let i=0;i<bytes.length;i++)bin+=String.fromCharCode(bytes[i]);
+  let bin=\\'\\';for(let i=0;i<bytes.length;i++)bin+=String.fromCharCode(bytes[i]);
   return btoa(bin);
 }
 function autoSave(){
-  try{localStorage.setItem('admin_db',JSON.stringify(DB));localStorage.setItem('admin_db_ts',new Date().toISOString());}catch(e){}
-  document.getElementById('save-status').textContent='● Sin guardar';
+  try{localStorage.setItem(\\'admin_db\\',JSON.stringify(DB));localStorage.setItem(\\'admin_db_ts\\',new Date().toISOString());}catch(e){}
+  document.getElementById(\\'save-status\\').textContent=\\'● Sin guardar\\';
 }
 function toB64(str){
   const bytes=new TextEncoder().encode(str);
-  let bin='';for(let i=0;i<bytes.length;i++)bin+=String.fromCharCode(bytes[i]);
+  let bin=\\'\\';for(let i=0;i<bytes.length;i++)bin+=String.fromCharCode(bytes[i]);
   return btoa(bin);
 }
 function fromB64(b64){
   return new TextDecoder().decode(Uint8Array.from(atob(b64),c=>c.charCodeAt(0)));
 }
 async function saveState(){
-  const btn=document.getElementById('btn-save');
-  btn.disabled=true;btn.textContent='💾 Guardando…';
+  const btn=document.getElementById(\\'btn-save\\');
+  btn.disabled=true;btn.textContent=\\'💾 Guardando…\\';
   try{
-    const artifact=await claude.use('artifact');
-    if(!artifact){toast('⚠ Guardar no disponible — usa Copiar JSON como respaldo');btn.disabled=false;btn.textContent='💾 Guardar';return;}
+    const artifact=await claude.use(\\'artifact\\');
+    if(!artifact){toast(\\'⚠ Guardar no disponible — usa Copiar JSON como respaldo\\');btn.disabled=false;btn.textContent=\\'💾 Guardar\\';return;}
     const newB64=encodeDB();
-    const pa=fromB64(document.getElementById('_srca').textContent);
-    const pb=fromB64(document.getElementById('_srcb').textContent);
-    const tags='\\n<script id="_srca" type="text/plain">'+toB64(pa)+'<\\/script>\\n<script id="_srcb" type="text/plain">'+toB64(pb)+'<\\/script>';
+    const pa=fromB64(document.getElementById(\\'_srca\\').textContent);
+    const pb=fromB64(document.getElementById(\\'_srcb\\').textContent);
+    const tags=\\'\\\\n<script id="_srca" type="text/plain">\\'+toB64(pa)+\\'<\\\\/script>\\\\n<script id="_srcb" type="text/plain">\\'+toB64(pb)+\\'<\\\\/script>\\';
     const content=pa+newB64+pb+tags;
-    const SKEL='<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font:14px/1.5 system-ui,sans-serif;background:#f8f9fa}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>';
-    await artifact.publish(SKEL+content+'</body></html>');
-    try{localStorage.removeItem('admin_db');}catch(e){}
-    document.getElementById('save-status').textContent='✓ Guardado';
-    toast('✅ Guardado — la página se actualizará con tus cambios');
+    const SKEL=\\'<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font:14px/1.5 system-ui,sans-serif;background:#f8f9fa}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>\\';
+    await artifact.publish(SKEL+content+\\'</body></html>\\');
+    try{localStorage.removeItem(\\'admin_db\\');}catch(e){}
+    document.getElementById(\\'save-status\\').textContent=\\'✓ Guardado\\';
+    toast(\\'✅ Guardado — la página se actualizará\\');
   }catch(e){
-    toast('⚠ Error al guardar: '+(e.message||String(e)));
-    btn.disabled=false;btn.textContent='💾 Guardar';
+    toast(\\'⚠ Error al guardar: \\'+(e.message||String(e)));
+    btn.disabled=false;btn.textContent=\\'💾 Guardar\\';
   }
 }
 
@@ -485,288 +688,381 @@ function setCat(c){ activeCat=c; renderCats(); render(); }
 function setTile(k){ activeTile=(activeTile===k?null:k); renderStats(); render(); }
 function setPlat(p){
   activePlat=(activePlat===p?null:p);
-  ['ml','amz','ambas'].forEach(id=>{
-    const btn=document.getElementById('pb-'+id);
-    btn.className='plat-btn'+(activePlat===id?' on-'+id:'');
+  [\\'ml\\',\\'amz\\',\\'ambas\\'].forEach(id=>{
+    const btn=document.getElementById(\\'pb-\\'+id);
+    btn.className=\\'plat-btn\\'+(activePlat===id?\\' on-\\'+id:\\'\\')+\\'\\';
   });
   render();
 }
-document.querySelectorAll('.plat-btn[data-plat]').forEach(el=>el.addEventListener('click',()=>setPlat(el.dataset.plat)));
+document.querySelectorAll(\\'.plat-btn[data-plat]\\').forEach(el=>el.addEventListener(\\'click\\',()=>setPlat(el.dataset.plat)));
 function toggleFilter(f){
   activeFilters.has(f)?activeFilters.delete(f):activeFilters.add(f);
-  document.getElementById('f-'+f).classList.toggle('on');
+  document.getElementById(\\'f-\\'+f).classList.toggle(\\'on\\');
   render();
 }
 function toggleActivo(key){
-  const [cat,id]=key.split('|');
+  const [cat,id]=key.split(\\'|\\');
   const p=DB[cat]&&DB[cat].find(p=>String(p.id)===id);
   if(!p)return;
   p.activo=(p.activo===false);
   p._updatedAt=new Date().toISOString();
   renderStats(); render(); autoSave();
-  toast(p.activo?'▶ Producto activado':'⏸ Producto pausado');
+  toast(p.activo?\\'▶ Producto activado\\':\\'⏸ Producto pausado\\');
 }
+
+// ── EDIT MODAL ───────────────────────────────────────────────────────────────
 function openEdit(key){
   editKey=key;
-  const [cat,id]=key.split('|');
+  const [cat,id]=key.split(\\'|\\');
   const p=DB[cat]&&DB[cat].find(p=>String(p.id)===id);
-  if(!p){toast('⚠ Producto no encontrado');return;}
-  document.getElementById('m-title').textContent='Editar · '+p.nombre;
-  document.getElementById('m-sub').textContent=cat+' · id '+p.id;
-  document.getElementById('ed-ml').value=p.linkML||'';
-  document.getElementById('ed-pml').value=p.precioML||'';
-  document.getElementById('ed-amz').value=p.linkAmz||'';
-  document.getElementById('ed-pamz').value=p.precioAmz||'';
-  document.getElementById('del-confirm').hidden=true;
-  document.getElementById('modal').hidden=false;
+  if(!p){toast(\\'⚠ Producto no encontrado\\');return;}
+  document.getElementById(\\'m-title\\').textContent=\\'Editar · \\'+p.nombre;
+  document.getElementById(\\'m-sub\\').textContent=cat+\\' · id \\'+p.id;
+  document.getElementById(\\'ed-ml\\').value=p.linkML||\\'\\';\
+  document.getElementById(\\'ed-pml\\').value=p.precioML||\\'\\';\
+  document.getElementById(\\'ed-amz\\').value=p.linkAmz||\\'\\';\
+  document.getElementById(\\'ed-pamz\\').value=p.precioAmz||\\'\\';\
+  // Render specs fields for catalog categories
+  const def = CATALOG_DEFS[cat];
+  const specsSection = document.getElementById(\\'specs-section\\');
+  const specsFields = document.getElementById(\\'specs-fields\\');
+  if(def && p.especs){
+    const especs = p.especs||{};
+    const skCols = def.cols.filter(c=>c.sk);
+    specsFields.innerHTML = skCols.map(c=>
+      \\'<div><label>\\'+c.label+\\'</label><input data-sk="\\'+c.sk+\\'" value="\\'+(_esc(especs[c.sk]||\\'\\')+\\'">\\')
+    ).join(\\'\\');
+    specsSection.hidden=false;
+  } else {
+    specsFields.innerHTML=\\'\\';
+    specsSection.hidden=true;
+  }
+  document.getElementById(\\'del-confirm\\').hidden=true;
+  document.getElementById(\\'modal\\').hidden=false;
 }
+function _esc(s){ return String(s).replace(/&/g,\\'&amp;\\').replace(/"/g,\\'&quot;\\').replace(/</g,\\'&lt;\\'); }
+
 function saveEdit(){
   if(!editKey)return;
-  const [cat,id]=editKey.split('|');
+  const [cat,id]=editKey.split(\\'|\\');
   const p=DB[cat].find(p=>String(p.id)===id);
-  p.linkML=document.getElementById('ed-ml').value.trim()||null;
-  p.precioML=parseFloat(document.getElementById('ed-pml').value)||null;
-  p.linkAmz=document.getElementById('ed-amz').value.trim()||null;
-  p.precioAmz=parseFloat(document.getElementById('ed-pamz').value)||null;
+  p.linkML=document.getElementById(\\'ed-ml\\').value.trim()||null;
+  p.precioML=parseFloat(document.getElementById(\\'ed-pml\\').value)||null;
+  p.linkAmz=document.getElementById(\\'ed-amz\\').value.trim()||null;
+  p.precioAmz=parseFloat(document.getElementById(\\'ed-pamz\\').value)||null;
+  // Save specs
+  const specsSection = document.getElementById(\\'specs-section\\');
+  if(!specsSection.hidden && p.especs!==undefined){
+    if(!p.especs) p.especs={};
+    document.querySelectorAll(\\'#specs-fields [data-sk]\\').forEach(inp=>{
+      const val=inp.value.trim();
+      if(val) p.especs[inp.dataset.sk]=val;
+      else delete p.especs[inp.dataset.sk];
+    });
+  }
   p._updatedAt=new Date().toISOString();
-  closeModal(); renderStats(); render(); autoSave(); toast('✓ Producto actualizado');
+  closeModal(); renderStats(); render(); autoSave(); toast(\\'✓ Producto actualizado\\');
+  // Re-render the catalog tab if open
+  const activeTab = document.querySelector(\\'.tab-btn.on\\');
+  if(activeTab && activeTab.dataset.tab && activeTab.dataset.tab!==\\'gestion\\') {
+    renderCatalogTab(activeTab.dataset.tab);
+  }
 }
-function showDelConfirm(){document.getElementById('del-confirm').hidden=false;}
+function showDelConfirm(){document.getElementById(\\'del-confirm\\').hidden=false;}
 function confirmDelete(){
   if(!editKey)return;
-  const [cat,id]=editKey.split('|');
+  const [cat,id]=editKey.split(\\'|\\');
   DB[cat]=DB[cat].filter(p=>String(p.id)!==id);
-  closeModal(); renderStats(); render(); autoSave(); toast('🗑 Producto eliminado del registro');
+  closeModal(); renderStats(); render(); autoSave(); toast(\\'🗑 Producto eliminado del registro\\');
 }
 function closeModal(){
-  document.getElementById('modal').hidden=true;
-  document.getElementById('del-confirm').hidden=true;
+  document.getElementById(\\'modal\\').hidden=true;
+  document.getElementById(\\'del-confirm\\').hidden=true;
   editKey=null;
 }
-document.getElementById('modal').addEventListener('click',e=>{if(e.target===document.getElementById('modal'))closeModal();});
+document.getElementById(\\'modal\\').addEventListener(\\'click\\',e=>{if(e.target===document.getElementById(\\'modal\\'))closeModal();});
 
 function exportJSON(onlySelected){
   const out={};
   for(const [cat,prods] of Object.entries(DB)){
-    const filtrados = onlySelected
-      ? prods.filter(p => selected.has(cat+'|'+p.id))
-      : prods;
+    const filtrados = onlySelected ? prods.filter(p => selected.has(cat+\\'|\\'+p.id)) : prods;
     if(filtrados.length===0) continue;
-    out[cat]=filtrados.map(({id,nombre,marca,linkML,linkAmz,mlId,precioML,precioAmz,activo})=>({id,nombre,marca,linkML:linkML||null,linkAmz:linkAmz||null,mlId:mlId||null,precioML:precioML||null,precioAmz:precioAmz||null,activo:activo!==false}));
+    out[cat]=filtrados.map(({id,nombre,marca,linkML,linkAmz,mlId,precioML,precioAmz,activo,especs})=>({id,nombre,marca,linkML:linkML||null,linkAmz:linkAmz||null,mlId:mlId||null,precioML:precioML||null,precioAmz:precioAmz||null,activo:activo!==false,especs:especs||undefined}));
   }
   const json=JSON.stringify(out,null,2);
-  const msg = onlySelected
-    ? '✓ JSON de '+selected.size+' productos copiado — pégalo en scripts/productos.json en GitHub'
-    : '✓ JSON completo copiado — pégalo en scripts/productos.json en GitHub';
+  const msg = onlySelected ? \\'✓ JSON de \\'+selected.size+\\' productos copiado\\' : \\'✓ JSON completo copiado\\';
   navigator.clipboard.writeText(json).then(()=>toast(msg)).catch(()=>{
-    const ta=document.createElement('textarea');
-    ta.value=json;ta.style.cssText='position:fixed;opacity:0';
-    document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+    const ta=document.createElement(\\'textarea\\');
+    ta.value=json;ta.style.cssText=\\'position:fixed;opacity:0\\';
+    document.body.appendChild(ta);ta.select();document.execCommand(\\'copy\\');document.body.removeChild(ta);
     toast(msg);
   });
 }
 
 function openAddModal(){
-  const sel=document.getElementById('add-cat');
-  sel.innerHTML=Object.keys(DB).map(c=>'<option value="'+c+'">'+c.charAt(0).toUpperCase()+c.slice(1)+'</option>').join('');
-  ['add-nombre','add-marca','add-ml','add-amz'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('add-modal').hidden=false;
+  const sel=document.getElementById(\\'add-cat\\');
+  const CAT_LABELS={laptops:\\'Laptops\\',freidoras:\\'Freidoras\\',bicis:\\'Bicis\\',microondas:\\'Microondas\\',proteina:\\'Proteína\\',omega3:\\'Omega 3\\',magnesio:\\'Magnesio\\',creatina:\\'Creatina\\',complejo_b:\\'Complejo B\\'};
+  sel.innerHTML=Object.keys(DB).map(c=>\\'<option value="\\'+c+\\'">\\'+(CAT_LABELS[c]||c)+\\'</option>\\').join(\\'\\');
+  [\\'add-nombre\\',\\'add-marca\\',\\'add-ml\\',\\'add-amz\\'].forEach(id=>document.getElementById(id).value=\\'\\');
+  document.getElementById(\\'add-modal\\').hidden=false;
 }
-function closeAddModal(){document.getElementById('add-modal').hidden=true;}
+function closeAddModal(){document.getElementById(\\'add-modal\\').hidden=true;}
 function saveAdd(){
-  const cat=document.getElementById('add-cat').value;
-  const nombre=document.getElementById('add-nombre').value.trim();
-  const marca=document.getElementById('add-marca').value.trim();
-  const linkML=document.getElementById('add-ml').value.trim()||null;
-  const linkAmz=document.getElementById('add-amz').value.trim()||null;
-  if(!nombre||!marca){toast('⚠ Nombre y marca son obligatorios');return;}
-  const ids=DB[cat].map(p=>p.id).filter(x=>typeof x==='number');
+  const cat=document.getElementById(\\'add-cat\\').value;
+  const nombre=document.getElementById(\\'add-nombre\\').value.trim();
+  const marca=document.getElementById(\\'add-marca\\').value.trim();
+  const linkML=document.getElementById(\\'add-ml\\').value.trim()||null;
+  const linkAmz=document.getElementById(\\'add-amz\\').value.trim()||null;
+  if(!nombre||!marca){toast(\\'⚠ Nombre y marca son obligatorios\\');return;}
+  const ids=(DB[cat]||[]).map(p=>p.id).filter(x=>typeof x===\\'number\\');
   const newId=ids.length?Math.max(...ids)+1:1;
-  DB[cat].push({id:newId,nombre,marca,linkML,linkAmz,mlId:null,precioML:null,precioAmz:null,activo:true,estadoML:null});
+  if(!DB[cat]) DB[cat]=[];
+  DB[cat].push({id:newId,nombre,marca,linkML,linkAmz,mlId:null,precioML:null,precioAmz:null,activo:true,estadoML:null,especs:{}});
   closeAddModal(); renderStats(); renderCats(); render(); autoSave();
-  toast('✓ Producto agregado a '+cat);
+  toast(\\'✓ Producto agregado a \\'+cat);
 }
-document.getElementById('add-modal').addEventListener('click',e=>{if(e.target===document.getElementById('add-modal'))closeAddModal();});
+document.getElementById(\\'add-modal\\').addEventListener(\\'click\\',e=>{if(e.target===document.getElementById(\\'add-modal\\'))closeAddModal();});
 
 function toast(msg){
-  const el=document.getElementById('toast');
-  el.textContent=msg;el.classList.add('show');
-  clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),3000);
+  const el=document.getElementById(\\'toast\\');
+  el.textContent=msg;el.classList.add(\\'show\\');
+  clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove(\\'show\\'),3000);
 }
 
 renderStats(); renderCats(); render();
 
-// ── Tabs ────────────────────────────────────────────────────────────────────
-document.querySelectorAll('.tab-btn[data-tab]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('on'));
-    document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('on'));
-    btn.classList.add('on');
-    document.getElementById('tab-'+btn.dataset.tab).classList.add('on');
-    if (btn.dataset.tab === 'catalogo') renderCatalogo();
+// ── TABS ─────────────────────────────────────────────────────────────────────
+document.querySelectorAll(\\'.tab-btn[data-tab]\\').forEach(btn => {
+  btn.addEventListener(\\'click\\', () => {
+    document.querySelectorAll(\\'.tab-btn\\').forEach(b => b.classList.remove(\\'on\\'));
+    document.querySelectorAll(\\'.tab-section\\').forEach(s => s.classList.remove(\\'on\\'));
+    btn.classList.add(\\'on\\');
+    document.getElementById(\\'tab-\\'+btn.dataset.tab).classList.add(\\'on\\');
+    renderCatalogTab(btn.dataset.tab);
   });
 });
 
-// ── Catálogo Laptops ─────────────────────────────────────────────────────────
-const CAT_COLS = [
-  {key:'precioML',      label:'Precio ML',       filterable:false},
-  {key:'precioAmz',     label:'Precio AMZ',      filterable:false},
-  {key:'enlace',        label:'Enlace',          filterable:false},
-  {key:'marca',         label:'Marca',           filterable:true},
-  {key:'nombre',        label:'Nombre',          filterable:false},
-  {key:'procesador',    label:'Procesador',      filterable:true,  specsKey:'procesador'},
-  {key:'ram',           label:'RAM',             filterable:true,  specsKey:'ram'},
-  {key:'almacenamiento',label:'Almacenamiento',  filterable:true,  specsKey:'almacenamiento'},
-  {key:'pantalla',      label:'Pantalla',        filterable:true,  specsKey:'pantalla'},
-  {key:'gpu',           label:'GPU',             filterable:false, specsKey:'gpu'},
-  {key:'so',            label:'SO',              filterable:true,  specsKey:'so'},
-  {key:'peso',          label:'Peso',            filterable:false, specsKey:'peso'},
-  {key:'touch',         label:'Touch',           filterable:true,  specsKey:'touch'},
-  {key:'estadoML',      label:'Estado',          filterable:true},
-  {key:'_updatedAt',    label:'Últ. Mod.',       filterable:false},
-];
-let catFilters = {};
+document.querySelectorAll(\\'.subtab-btn[data-sup]\\').forEach(btn => {
+  btn.addEventListener(\\'click\\', () => {
+    document.querySelectorAll(\\'.subtab-btn\\').forEach(b => b.classList.remove(\\'on\\'));
+    btn.classList.add(\\'on\\');
+    curSupKey = btn.dataset.sup;
+    renderCatalog(curSupKey, document.getElementById(\\'ct-suplementos\\'));
+  });
+});
 
-function _catColVal(p, col) {
-  if (col.specsKey) return (p.especs||{})[col.specsKey] ?? null;
-  if (col.key === 'enlace') return (p.linkML||p.linkAmz) ? 'con enlace' : null;
+function renderCatalogTab(tab){
+  if(tab === \\'gestion\\') return;
+  if(tab === \\'suplementos\\'){
+    renderCatalog(curSupKey, document.getElementById(\\'ct-suplementos\\'));
+  } else if(CATALOG_DEFS[tab]){
+    renderCatalog(tab, document.getElementById(\\'ct-\\'+tab));
+  }
+}
+
+// ── GENERALIZED CATALOG RENDER ───────────────────────────────────────────────
+function _colVal(p, col) {
+  if (col.sk) return (p.especs||{})[col.sk] ?? null;
+  if (col.key === \\'enlace\\') return (p.linkML||p.linkAmz) ? \\'con enlace\\' : null;
+  if (col.key === \\'_actions\\') return null;
   return p[col.key] ?? null;
 }
 
-function buildCatThead() {
-  const tr = document.getElementById('cat-thead-row');
-  if (!tr) return;
-  tr.innerHTML = CAT_COLS.map(col => {
-    const active = catFilters[col.key] && catFilters[col.key].size > 0;
-    const lbl = active ? '<span style="color:var(--accent)">'+col.label+'</span>' : col.label;
-    const fBtn = col.filterable
-      ? '<button class="col-filter-btn'+(active?' active':'')+'" onclick="openCatFilter(event,\\''+col.key+'\\')" title="Filtrar columna">▼</button>'
-      : '';
-    return '<th data-col="'+col.key+'">'+lbl+fBtn+'</th>';
-  }).join('');
+function renderCatalog(catKey, container) {
+  const def = CATALOG_DEFS[catKey];
+  if (!def || !container) return;
+  const st = getCatState(catKey);
+  const searchId = \\'cs-\\'+catKey;
+  const countId  = \\'cc-\\'+catKey;
+  const afId     = \\'caf-\\'+catKey;
+  const cfId     = \\'ccf-\\'+catKey;
+  const theadId  = \\'cth-\\'+catKey;
+  const tbodyId  = \\'ctb-\\'+catKey;
+  const emptyId  = \\'ce-\\'+catKey;
+
+  // Build HTML if not yet built
+  if (!container.querySelector(\\'[data-cat-key]\\')) {
+    container.innerHTML =
+      \\'<div class="cat-search"><input id="\\'+searchId+\\'" type="search" placeholder="Buscar..."><span id="\\'+countId+\\'" style="font-size:12px;color:var(--fg2);white-space:nowrap"></span><button id="\\'+cfId+\\'" class="btn-export" style="display:none;background:var(--red);padding:5px 12px;font-size:12px" onclick="clearCatFilters(\\'\\'+catKey+\\'\\')">✕ Filtros</button></div>\\'+
+      \\'<div id="\\'+afId+\\'" style="padding:0 20px 4px;display:flex;gap:4px;flex-wrap:wrap"></div>\\'+
+      \\'<div class="cat-table-wrap" data-cat-key="\\'+catKey+\\'">\\'+
+        \\'<table><thead><tr id="\\'+theadId+\\'"></tr></thead><tbody id="\\'+tbodyId+\\'"></tbody></table>\\'+
+        \\'<div class="empty" id="\\'+emptyId+\\'" hidden>Sin resultados.</div>\\'+
+      \\'</div>\\';
+    container.querySelector(\\'#\\'+searchId).addEventListener(\\'input\\', () => {
+      getCatState(catKey).search = container.querySelector(\\'#\\'+searchId).value;
+      _renderCatBody(catKey);
+    });
+  }
+
+  container.querySelector(\\'#\\'+searchId).value = st.search;
+  _buildCatThead(catKey);
+  _updateCatBadges(catKey);
+  _renderCatBody(catKey);
 }
 
-function openCatFilter(evt, colKey) {
+function _buildCatThead(catKey) {
+  const def = CATALOG_DEFS[catKey];
+  const theadId = \\'cth-\\'+catKey;
+  const tr = document.getElementById(theadId);
+  if (!tr) return;
+  const st = getCatState(catKey);
+  tr.innerHTML = def.cols.map(col => {
+    const active = st.filters[col.key] && st.filters[col.key].size > 0;
+    const lbl = active ? \\'<span style="color:var(--accent)">\\'+col.label+\\'</span>\\' : col.label;
+    const fBtn = col.filterable
+      ? \\'<button class="col-filter-btn\\'+(active?\\' active\\':\\'\\')+\\'\\' onclick="openCatFilter(event,\\'\\'+catKey+\\'\\',\\'\\'+col.key+\\'\\')">▼</button>\\'
+      : \\'\\';
+    return \\'<th data-col="\\'+col.key+\\'">\\'+lbl+fBtn+\\'</th>\\';
+  }).join(\\'\\');
+}
+
+function openCatFilter(evt, catKey, colKey) {
   evt.stopPropagation();
   closeCatDropdown();
-  const col = CAT_COLS.find(c => c.key === colKey);
+  const def = CATALOG_DEFS[catKey];
+  if (!def) return;
+  const col = def.cols.find(c => c.key === colKey);
   if (!col) return;
-  const laptops = (DB.laptops || []).filter(p => p.activo !== false);
-  const vals = [...new Set(laptops.map(p => _catColVal(p, col)).filter(v => v != null).map(String))].sort((a,b) => {
+  const prods = (DB[catKey]||[]).filter(p => p.activo !== false);
+  const vals = [...new Set(prods.map(p => _colVal(p, col)).filter(v => v != null).map(String))].sort((a,b) => {
     const na=parseFloat(a), nb=parseFloat(b);
-    return (!isNaN(na)&&!isNaN(nb)) ? na-nb : a.localeCompare(b,'es-MX');
+    return (!isNaN(na)&&!isNaN(nb)) ? na-nb : a.localeCompare(b,\\'es-MX\\');
   });
-  const active = catFilters[colKey] || new Set();
+  const st = getCatState(catKey);
+  const active = st.filters[colKey] || new Set();
   const allChk = active.size === 0;
-  const dd = document.createElement('div');
-  dd.className = 'filter-dropdown'; dd.id = 'cat-dd';
+  const dd = document.createElement(\\'div\\');
+  dd.className = \\'filter-dropdown\\'; dd.id = \\'cat-dd\\';
   dd.innerHTML =
-    '<div class="fd-item"><input type="checkbox" id="fd-all"'+(allChk?' checked':'')+' onchange="toggleCatFilterAll(\\''+colKey+'\\')"> <label for="fd-all" style="cursor:pointer;font-weight:600">(Todos)</label></div>'
-    + vals.map((v,i) => '<div class="fd-item"><input type="checkbox" id="fd-v'+i+'"'+((allChk||active.has(v))?' checked':'')+' data-val="'+v.replace(/"/g,'&quot;').replace(/'/g,'&#39;')+'" onchange="toggleCatFilterVal(\\''+colKey+'\\',this)"> <label for="fd-v'+i+'" style="cursor:pointer">'+v+'</label></div>').join('')
-    + '<div class="fd-footer"><button onclick="clearOneCatFilter(\\''+colKey+'\\')">Limpiar</button><button class="fd-apply" onclick="closeCatDropdown()">OK</button></div>';
+    \\'<div class="fd-item"><input type="checkbox" id="fd-all"\\'+(allChk?\\' checked\\':\\'\\')+\\' onchange="toggleCatFilterAll(\\'\\'+catKey+\\'\\'\\',\\'\\'+colKey+\\'\\'\\')"> <label for="fd-all" style="cursor:pointer;font-weight:600">(Todos)</label></div>\\'
+    + vals.map((v,i) => \\'<div class="fd-item"><input type="checkbox" id="fd-v\\'+i+\\'"\\'+((allChk||active.has(v))?\\'  checked\\':\\'\\')+\\' data-val="\\'+v.replace(/"/g,\\'&quot;\\').replace(/\\'/g,\\'&#39;\\')+\\'" onchange="toggleCatFilterVal(\\'\\'+catKey+\\'\\'\\',\\'\\'+colKey+\\'\\'\\',this)"> <label for="fd-v\\'+i+\\'" style="cursor:pointer">\\'+v+\\'</label></div>\\').join(\\'\\')
+    + \\'<div class="fd-footer"><button onclick="clearOneCatFilter(\\'\\'+catKey+\\'\\'\\',\\'\\'+colKey+\\'\\')">Limpiar</button><button class="fd-apply" onclick="closeCatDropdown()">OK</button></div>\\';
   document.body.appendChild(dd);
   const rect = evt.currentTarget.getBoundingClientRect();
-  dd.style.top  = Math.min(rect.bottom+4, window.innerHeight-dd.offsetHeight-8)+'px';
-  dd.style.left = Math.min(rect.left, window.innerWidth-270)+'px';
-  setTimeout(() => document.addEventListener('click', _closeDDHandler, {once:true}), 0);
+  dd.style.top  = Math.min(rect.bottom+4, window.innerHeight-dd.offsetHeight-8)+\\'px\\';
+  dd.style.left = Math.min(rect.left, window.innerWidth-270)+\\'px\\';
+  setTimeout(() => document.addEventListener(\\'click\\', _closeDDHandler, {once:true}), 0);
 }
-function _closeDDHandler(e) { if (!e.target.closest('#cat-dd')) closeCatDropdown(); }
-function closeCatDropdown() { document.getElementById('cat-dd')?.remove(); }
+function _closeDDHandler(e) { if (!e.target.closest(\\'#cat-dd\\')) closeCatDropdown(); }
+function closeCatDropdown() { document.getElementById(\\'cat-dd\\')?.remove(); }
 
-function toggleCatFilterAll(colKey) {
-  delete catFilters[colKey];
-  _applyCatFilters();
+function toggleCatFilterAll(catKey, colKey) {
+  const st = getCatState(catKey);
+  delete st.filters[colKey];
+  _applyCatFilters(catKey);
   closeCatDropdown();
 }
-function toggleCatFilterVal(colKey, cb) {
-  if (!catFilters[colKey]) catFilters[colKey] = new Set();
-  if (cb.checked) catFilters[colKey].add(cb.dataset.val);
-  else catFilters[colKey].delete(cb.dataset.val);
-  if (!catFilters[colKey].size) delete catFilters[colKey];
-  const allEl = document.getElementById('fd-all');
-  if (allEl) allEl.checked = !catFilters[colKey];
-  _applyCatFilters();
+function toggleCatFilterVal(catKey, colKey, cb) {
+  const st = getCatState(catKey);
+  if (!st.filters[colKey]) st.filters[colKey] = new Set();
+  if (cb.checked) st.filters[colKey].add(cb.dataset.val);
+  else st.filters[colKey].delete(cb.dataset.val);
+  if (!st.filters[colKey].size) delete st.filters[colKey];
+  const allEl = document.getElementById(\\'fd-all\\');
+  if (allEl) allEl.checked = !st.filters[colKey];
+  _applyCatFilters(catKey);
 }
-function clearOneCatFilter(colKey) {
-  delete catFilters[colKey];
-  _applyCatFilters();
+function clearOneCatFilter(catKey, colKey) {
+  const st = getCatState(catKey);
+  delete st.filters[colKey];
+  _applyCatFilters(catKey);
   closeCatDropdown();
 }
-function clearCatFilters() {
-  catFilters = {};
-  renderCatalogo();
+function clearCatFilters(catKey) {
+  const st = getCatState(catKey);
+  st.filters = {};
+  _buildCatThead(catKey);
+  _updateCatBadges(catKey);
+  _renderCatBody(catKey);
 }
-function _applyCatFilters() {
-  buildCatThead();
-  _updateCatBadges();
-  _renderCatBody();
+function _applyCatFilters(catKey) {
+  _buildCatThead(catKey);
+  _updateCatBadges(catKey);
+  _renderCatBody(catKey);
 }
-function _updateCatBadges() {
-  const entries = Object.entries(catFilters).filter(([,v]) => v.size > 0);
-  document.getElementById('cat-clear-filters').style.display = entries.length ? '' : 'none';
-  document.getElementById('cat-active-filters').innerHTML = entries.map(([k,vals]) => {
-    const col = CAT_COLS.find(c => c.key === k);
-    return '<span class="cat-filter-badge">'+(col?.label||k)+': '+[...vals].join(', ')
-      +'<button onclick="clearOneCatFilter(\\''+k+'\\')">✕</button></span>';
-  }).join('');
+function _updateCatBadges(catKey) {
+  const def = CATALOG_DEFS[catKey];
+  const st = getCatState(catKey);
+  const entries = Object.entries(st.filters).filter(([,v]) => v.size > 0);
+  const cfEl = document.getElementById(\\'ccf-\\'+catKey);
+  const afEl = document.getElementById(\\'caf-\\'+catKey);
+  if (cfEl) cfEl.style.display = entries.length ? \\'\\' : \\'none\\';
+  if (afEl) afEl.innerHTML = entries.map(([k,vals]) => {
+    const col = def?.cols.find(c => c.key === k);
+    return \\'<span class="cat-filter-badge">\\'+(col?.label||k)+\\': \\'+[...vals].join(\\', \\')
+      +\\'<button onclick="clearOneCatFilter(\\'\\'+catKey+\\'\\'\\',\\'\\'+k+\\'\\')">✕</button></span>\\';
+  }).join(\\'\\');
 }
 
-function renderCatalogo() {
-  buildCatThead();
-  _updateCatBadges();
-  _renderCatBody();
-}
+function _renderCatBody(catKey) {
+  const def = CATALOG_DEFS[catKey];
+  if (!def) return;
+  const tbId  = \\'ctb-\\'+catKey;
+  const ccId  = \\'cc-\\'+catKey;
+  const emId  = \\'ce-\\'+catKey;
+  const tb    = document.getElementById(tbId);
+  const ccEl  = document.getElementById(ccId);
+  const emEl  = document.getElementById(emId);
+  if (!tb) return;
 
-function _renderCatBody() {
-  const laptops = (DB.laptops || []).filter(p => p.activo !== false);
-  const q = (document.getElementById('cat-search')?.value || '').toLowerCase();
-  const ESTADO = {actualizado:'✓',sin_cambio:'=',sin_precio:'✗',no_encontrado:'✗',precio_sospechoso:'?',nuevo:'★'};
-  const ECLS = {actualizado:'b-actualizado',sin_cambio:'b-sin_cambio',sin_precio:'b-sin_precio',no_encontrado:'b-no_encontrado',precio_sospechoso:'b-precio_sospechoso',nuevo:'b-nuevo'};
-  let list = q ? laptops.filter(p => (p.nombre+' '+p.marca+(p.especs?.procesador||'')).toLowerCase().includes(q)) : laptops;
-  // Apply column filters
-  for (const [k, vals] of Object.entries(catFilters)) {
-    if (!vals.size) continue;
-    const col = CAT_COLS.find(c => c.key === k);
-    if (!col) continue;
-    list = list.filter(p => { const v = _catColVal(p, col); return v != null && vals.has(String(v)); });
+  const st = getCatState(catKey);
+  let list = (DB[catKey]||[]).filter(p => p.activo !== false);
+  if (st.search) {
+    const q = st.search.toLowerCase();
+    list = list.filter(p => (p.nombre+\\' \\'+p.marca).toLowerCase().includes(q));
   }
-  document.getElementById('cat-count').textContent = list.length + ' laptops';
-  document.getElementById('cat-empty').hidden = list.length > 0;
-  const sp = v => v ? '<span class="spec-chip">'+v+'</span>' : '<span class="spec-null">—</span>';
-  document.getElementById('cat-tbody').innerHTML = list.map(p => {
-    const e = p.especs || {};
-    const pml = p.precioML ? '<span class="precio-ml">$'+Math.round(p.precioML).toLocaleString('es-MX')+'</span>' : '<span class="spec-null">—</span>';
-    const pamz = p.precioAmz ? '<span class="precio-amz">$'+Math.round(p.precioAmz).toLocaleString('es-MX')+'</span>' : '<span class="spec-null">—</span>';
-    const lml = p.linkML ? '<a class="link-chip lc-ml" href="'+p.linkML+'" target="_blank" rel="noopener">ML↗</a>' : '';
-    const lamz = p.linkAmz ? '<a class="link-chip lc-amz" href="'+p.linkAmz+'" target="_blank" rel="noopener">AMZ↗</a>' : '';
-    const enlace = (lml||lamz) ? lml+lamz : '<span class="spec-null">—</span>';
-    const est = p.estadoML ? '<span class="badge '+(ECLS[p.estadoML]||'b-null')+'">'+(ESTADO[p.estadoML]||'?')+'</span>' : '<span class="spec-null">—</span>';
-    const upd = p._updatedAt ? '<span style="font-size:11px;white-space:nowrap;color:var(--fg2)">'+fmtDate(p._updatedAt)+'</span>' : '<span class="spec-null">—</span>';
-    return '<tr>'
-      +'<td class="precio-col">'+pml+'</td>'
-      +'<td class="precio-col">'+pamz+'</td>'
-      +'<td style="white-space:nowrap">'+enlace+'</td>'
-      +'<td>'+p.marca+'</td>'
-      +'<td style="max-width:220px;white-space:normal;font-size:12px">'+p.nombre+'</td>'
-      +'<td>'+sp(e.procesador)+'</td>'
-      +'<td>'+sp(e.ram)+'</td>'
-      +'<td>'+sp(e.almacenamiento)+'</td>'
-      +'<td>'+sp(e.pantalla)+'</td>'
-      +'<td>'+sp(e.gpu)+'</td>'
-      +'<td>'+sp(e.so)+'</td>'
-      +'<td>'+sp(e.peso)+'</td>'
-      +'<td>'+sp(e.touch)+'</td>'
-      +'<td>'+est+'</td>'
-      +'<td>'+upd+'</td>'
-      +'</tr>';
-  }).join('');
+  for (const [k, vals] of Object.entries(st.filters)) {
+    if (!vals.size) continue;
+    const col = def.cols.find(c => c.key === k);
+    if (!col) continue;
+    list = list.filter(p => { const v = _colVal(p, col); return v != null && vals.has(String(v)); });
+  }
+
+  if (ccEl) ccEl.textContent = list.length+\\' \\'+def.label;
+  if (emEl) emEl.hidden = list.length > 0;
+
+  const ESTADO = {actualizado:\\'✓\\',sin_cambio:\\'=\\',sin_precio:\\'✗\\',no_encontrado:\\'✗\\',precio_sospechoso:\\'?\\',nuevo:\\'★\\'};
+  const ECLS = {actualizado:\\'b-actualizado\\',sin_cambio:\\'b-sin_cambio\\',sin_precio:\\'b-sin_precio\\',no_encontrado:\\'b-no_encontrado\\',precio_sospechoso:\\'b-precio_sospechoso\\',nuevo:\\'b-nuevo\\'};
+  const sp = v => v ? \\'<span class="spec-chip">\\'+v+\\'</span>\\' : \\'<span class="spec-null">—</span>\\';
+
+  tb.innerHTML = list.map(p => {
+    const e = p.especs||{};
+    const key = catKey+\\'|\\'+p.id;
+    const cells = def.cols.map(col => {
+      if (col.key === \\'_actions\\') {
+        const pa = p.activo!==false
+          ? \\'<button class="btn-sm btn-pause" onclick="toggleActivo(\\'\\'+key+\\'\\')">⏸</button>\\'
+          : \\'<button class="btn-sm btn-play" onclick="toggleActivo(\\'\\'+key+\\'\\')">▶</button>\\';
+        return \\'<td><div class="actions">\\'+pa+\\'<button class="btn-sm btn-edit" onclick="openEdit(\\'\\'+key+\\'\\')">✏</button></div></td>\\';
+      }
+      if (col.key === \\'precioML\\') return \\'<td class="precio-col">\\'+(p.precioML?\\' <span class="precio-ml">$\\'+Math.round(p.precioML).toLocaleString(\\'es-MX\\')+\\'</span>\\':\\' <span class="spec-null">—</span>\\')+ \\'</td>\\';
+      if (col.key === \\'precioAmz\\') return \\'<td class="precio-col">\\'+(p.precioAmz?\\' <span class="precio-amz">$\\'+Math.round(p.precioAmz).toLocaleString(\\'es-MX\\')+\\'</span>\\' : \\'<span class="spec-null">—</span>\\')+\\'</td>\\';
+      if (col.key === \\'enlace\\'){
+        const lml = p.linkML ? \\'<a class="link-chip lc-ml" href="\\'+p.linkML+\\'\\' target="_blank" rel="noopener">ML↗</a>\\' : \\'\\';
+        const lamz = p.linkAmz ? \\'<a class="link-chip lc-amz" href="\\'+p.linkAmz+\\'\\' target="_blank" rel="noopener">AMZ↗</a>\\' : \\'\\';
+        return \\'<td style="white-space:nowrap">\\'+(lml||lamz?lml+lamz:\\'<span class="spec-null">—</span>\\')+ \\'</td>\\';
+      }
+      if (col.key === \\'estadoML\\') {
+        const est = p.estadoML ? \\'<span class="badge \\'+(ECLS[p.estadoML]||\\' b-null \\')+\\'">\\'+(ESTADO[p.estadoML]||p.estadoML)+\\'</span>\\' : \\'<span class="spec-null">—</span>\\';
+        return \\'<td>\\'+est+\\'</td>\\';
+      }
+      if (col.key === \\'_updatedAt\\') return \\'<td>\\'+(p._updatedAt?\\' <span style="font-size:11px;white-space:nowrap;color:var(--fg2)">\\'+fmtDate(p._updatedAt)+\\'</span>\\' : \\'<span class="spec-null">—</span>\\')+\\'</td>\\';
+      if (col.key === \\'nombre\\') return \\'<td style="max-width:200px;white-space:normal;font-size:12px">\\'+p.nombre+\\'</td>\\';
+      if (col.key === \\'marca\\') return \\'<td>\\'+p.marca+\\'</td>\\';
+      if (col.sk) return \\'<td>\\'+sp(e[col.sk])+\\'</td>\\';
+      return \\'<td>\\'+sp(p[col.key])+\\'</td>\\';
+    }).join(\\'\\');
+    const cls = p.activo===false ? \\' class="pausado"\\'  : \\'\\';
+    return \\'<tr\\'+cls+\\'>\\'+cells+\\'</tr>\\';
+  }).join(\\'\\');
 }
-</script>`;
+<\/script>`;
 
 // Split the page at the data boundary for self-republishing
 const splitIdx = html.indexOf(SPLIT_MARK) + SPLIT_MARK.length;
-const pa = html.slice(0, splitIdx);               // ends with: atob('
-const pb = html.slice(splitIdx + data.length);    // starts with: '),c=>...
+const pa = html.slice(0, splitIdx);
+const pb = html.slice(splitIdx + data.length);
 const paB64 = Buffer.from(pa, 'utf8').toString('base64');
 const pbB64 = Buffer.from(pb, 'utf8').toString('base64');
 const finalHtml = html
@@ -775,3 +1071,4 @@ const finalHtml = html
 
 writeFileSync(resolve(ROOT, 'scripts/admin-artifact.html'), finalHtml, 'utf8');
 console.log('admin-artifact.html generado:', finalHtml.length, 'chars');
+
