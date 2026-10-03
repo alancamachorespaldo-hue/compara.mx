@@ -1437,7 +1437,7 @@ function detectPlatFromUrl(url) {
     if (hint) hint.style.display = 'none';
     if (url.includes('amazon') && !url.includes('tag=')) {
       const sep = url.includes('?') ? '&' : '?';
-      document.getElementById('aff-url-input').value = url + sep + 'tag=comparabici-20';
+      document.getElementById('aff-url-input').value = url + sep + 'tag=comparalo20-20';
     }
   } else if (/mercadolibre|meli\.com/i.test(url)) {
     setExtractorPlat('ml');
@@ -1652,7 +1652,7 @@ function parseProductText(text, cat, platform) {
   if (urlMatch) {
     let u = urlMatch[0].replace(/[,\.\)]+$/, '');
     if (platform === 'amz' && u.includes('amazon')) {
-      u = u.includes('tag=') ? u.replace(/tag=[^&]+/, 'tag=comparabici-20') : u + (u.includes('?') ? '&' : '?') + 'tag=comparabici-20';
+      u = u.includes('tag=') ? u.replace(/tag=[^&]+/, 'tag=comparalo20-20') : u + (u.includes('?') ? '&' : '?') + 'tag=comparalo20-20';
     }
     url_afiliado = u;
   }
