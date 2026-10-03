@@ -206,10 +206,10 @@ td{padding:8px 10px;vertical-align:middle;font-size:13px}
 <div class="controls">
   <div class="cats" id="cats"></div>
   <div class="filters">
-    <button class="filter-btn" id="f-sinprecio" onclick="toggleFilter(\\'sinprecio\\')">🔴 Sin precio ML</button>
-    <button class="filter-btn" id="f-noencontrado" onclick="toggleFilter(\\'noencontrado\\')">✗ No encontrado</button>
-    <button class="filter-btn" id="f-pausados" onclick="toggleFilter(\\'pausados\\')">⏸ Pausados</button>
-    <button class="filter-btn" id="f-sinlink" onclick="toggleFilter(\\'sinlink\\')">🔗 Sin links</button>
+    <button class="filter-btn" id="f-sinprecio" onclick="toggleFilter(\'sinprecio\')">🔴 Sin precio ML</button>
+    <button class="filter-btn" id="f-noencontrado" onclick="toggleFilter(\'noencontrado\')">✗ No encontrado</button>
+    <button class="filter-btn" id="f-pausados" onclick="toggleFilter(\'pausados\')">⏸ Pausados</button>
+    <button class="filter-btn" id="f-sinlink" onclick="toggleFilter(\'sinlink\')">🔗 Sin links</button>
   </div>
 </div>
 <div class="plat-filters">
@@ -302,7 +302,7 @@ td{padding:8px 10px;vertical-align:middle;font-size:13px}
     <div class="del-confirm" id="del-confirm" hidden>
       ¿Eliminar este producto del registro?
       <button class="btn-yes" onclick="confirmDelete()">Sí, eliminar</button>
-      <button class="btn-no" onclick="document.getElementById(\\'del-confirm\\').hidden=true">No</button>
+      <button class="btn-no" onclick="document.getElementById(\'del-confirm\').hidden=true">No</button>
     </div>
     <div class="modal-footer">
       <button class="btn-del-sm" onclick="showDelConfirm()">🗑 Eliminar</button>
@@ -602,33 +602,33 @@ function render() {
     const paBtn = p.activo!==false
       ? '<button class="btn-sm btn-pause" data-act="pause" data-key="'+p._key+'">⏸ Pausar</button>'
       : '<button class="btn-sm btn-play" data-act="play" data-key="'+p._key+'">▶ Activar</button>';
-    const pml = p.precioML ? 'ML $'+Math.round(p.precioML).toLocaleString(\\'es-MX\\') : \\'\\';
-    const pamz = p.precioAmz ? \\'AMZ $\\'+Math.round(p.precioAmz).toLocaleString(\\'es-MX\\') : \\'\\';
-    const precio = (pml||pamz) ? (pml+(pml&&pamz?\\' / \\':\\'\\')+pamz) : \\'—\\';
-    const upd = p._updatedAt ? fmtDate(p._updatedAt) : \\'<span style="color:var(--fg2)">—</span>\\';
+    const pml = p.precioML ? 'ML $'+Math.round(p.precioML).toLocaleString(\'es-MX\') : \'\';
+    const pamz = p.precioAmz ? \'AMZ $\'+Math.round(p.precioAmz).toLocaleString(\'es-MX\') : \'\';
+    const precio = (pml||pamz) ? (pml+(pml&&pamz?\' / \':\'\')+pamz) : \'—\';
+    const upd = p._updatedAt ? fmtDate(p._updatedAt) : \'<span style="color:var(--fg2)">—</span>\';
     const isSel = selected.has(p._key);
-    return \\'<tr class="\\'+(p.activo===false?\\'pausado\\':\\'\\')+(isSel?\\' selected\\':\\'\\')+\\'"><td class="chk-col"><input type="checkbox" data-act="chk" data-key="\\'+p._key+\\'"\\'+(isSel?\\' checked\\':\\'\\')+\\' style="cursor:pointer;width:15px;height:15px"></td><td class="nombre-col">\\'+p.nombre+\\'</td><td>\\'+p.marca+\\'</td><td><span class="badge \\'+ecls+\\'">\\'+elab+\\'</span></td><td>\\'+lml+lamz+\\'</td><td>\\'+precio+\\'</td><td style="font-size:11px;white-space:nowrap;color:var(--fg2)">\\'+upd+\\'</td><td><div class="actions">\\'+paBtn+\\'<button class="btn-sm btn-edit" data-act="edit" data-key="\\'+p._key+\\'">✏ Editar</button></div></td></tr>\\';
-  }).join(\\'\\');
+    return \'<tr class="\'+(p.activo===false?\'pausado\':\'\')+(isSel?\' selected\':\'\')+\'"><td class="chk-col"><input type="checkbox" data-act="chk" data-key="\'+p._key+\'"\'+(isSel?\' checked\':\'\')+\' style="cursor:pointer;width:15px;height:15px"></td><td class="nombre-col">\'+p.nombre+\'</td><td>\'+p.marca+\'</td><td><span class="badge \'+ecls+\'">\'+elab+\'</span></td><td>\'+lml+lamz+\'</td><td>\'+precio+\'</td><td style="font-size:11px;white-space:nowrap;color:var(--fg2)">\'+upd+\'</td><td><div class="actions">\'+paBtn+\'<button class="btn-sm btn-edit" data-act="edit" data-key="\'+p._key+\'">✏ Editar</button></div></td></tr>\';
+  }).join(\'\');
 }
 
 function fmtDate(iso){
   const d=new Date(iso);
-  return d.toLocaleDateString(\\'es-MX\\',{day:\\'2-digit\\',month:\\'short\\',year:\\'numeric\\'})+\\' \\'+d.toLocaleTimeString(\\'es-MX\\',{hour:\\'2-digit\\',minute:\\'2-digit\\'});
+  return d.toLocaleDateString(\'es-MX\',{day:\'2-digit\',month:\'short\',year:\'numeric\'})+\' \'+d.toLocaleTimeString(\'es-MX\',{hour:\'2-digit\',minute:\'2-digit\'});
 }
 
-document.getElementById(\\'tbody\\').addEventListener(\\'click\\', e => {
-  const btn = e.target.closest(\\'[data-act]\\');
+document.getElementById(\'tbody\').addEventListener(\'click\', e => {
+  const btn = e.target.closest(\'[data-act]\');
   if (!btn) return;
   const key = btn.dataset.key;
-  if (btn.dataset.act === \\'edit\\') openEdit(key);
-  else if (btn.dataset.act === \\'pause\\' || btn.dataset.act === \\'play\\') toggleActivo(key);
-  else if (btn.dataset.act === \\'chk\\') {
+  if (btn.dataset.act === \'edit\') openEdit(key);
+  else if (btn.dataset.act === \'pause\' || btn.dataset.act === \'play\') toggleActivo(key);
+  else if (btn.dataset.act === \'chk\') {
     if (btn.checked) selected.add(key); else selected.delete(key);
-    btn.closest(\\'tr\\').classList.toggle(\\'selected\\', btn.checked);
+    btn.closest(\'tr\').classList.toggle(\'selected\', btn.checked);
     updateSelBar();
   }
 });
-document.getElementById(\\'chk-all\\').addEventListener(\\'change\\', e => {
+document.getElementById(\'chk-all\').addEventListener(\'change\', e => {
   const vis = visibleProds();
   if (e.target.checked) vis.forEach(p => selected.add(p._key));
   else vis.forEach(p => selected.delete(p._key));
@@ -636,51 +636,51 @@ document.getElementById(\\'chk-all\\').addEventListener(\\'change\\', e => {
 });
 function updateSelBar(){
   const n = selected.size;
-  const bar = document.getElementById(\\'sel-bar\\');
-  bar.classList.toggle(\\'show\\', n > 0);
-  document.getElementById(\\'sel-count\\').textContent = n + \\' producto\\'+(n!==1?\\'s\\':\\'\\')+\\' seleccionado\\'+(n!==1?\\'s\\':\\'\\')+\\'\\';
-  document.getElementById(\\'chk-all\\').checked = n > 0 && visibleProds().every(p => selected.has(p._key));
-  document.getElementById(\\'chk-all\\').indeterminate = n > 0 && !visibleProds().every(p => selected.has(p._key));
+  const bar = document.getElementById(\'sel-bar\');
+  bar.classList.toggle(\'show\', n > 0);
+  document.getElementById(\'sel-count\').textContent = n + \' producto\'+(n!==1?\'s\':\'\')+\' seleccionado\'+(n!==1?\'s\':\'\')+\'\';
+  document.getElementById(\'chk-all\').checked = n > 0 && visibleProds().every(p => selected.has(p._key));
+  document.getElementById(\'chk-all\').indeterminate = n > 0 && !visibleProds().every(p => selected.has(p._key));
 }
 function clearSelection(){ selected.clear(); render(); updateSelBar(); }
 function selectVisible(){ visibleProds().forEach(p=>selected.add(p._key)); render(); updateSelBar(); }
 
 function encodeDB(){
   const bytes=new TextEncoder().encode(JSON.stringify(DB));
-  let bin=\\'\\';for(let i=0;i<bytes.length;i++)bin+=String.fromCharCode(bytes[i]);
+  let bin=\'\';for(let i=0;i<bytes.length;i++)bin+=String.fromCharCode(bytes[i]);
   return btoa(bin);
 }
 function autoSave(){
-  try{localStorage.setItem(\\'admin_db\\',JSON.stringify(DB));localStorage.setItem(\\'admin_db_ts\\',new Date().toISOString());}catch(e){}
-  document.getElementById(\\'save-status\\').textContent=\\'● Sin guardar\\';
+  try{localStorage.setItem(\'admin_db\',JSON.stringify(DB));localStorage.setItem(\'admin_db_ts\',new Date().toISOString());}catch(e){}
+  document.getElementById(\'save-status\').textContent=\'● Sin guardar\';
 }
 function toB64(str){
   const bytes=new TextEncoder().encode(str);
-  let bin=\\'\\';for(let i=0;i<bytes.length;i++)bin+=String.fromCharCode(bytes[i]);
+  let bin=\'\';for(let i=0;i<bytes.length;i++)bin+=String.fromCharCode(bytes[i]);
   return btoa(bin);
 }
 function fromB64(b64){
   return new TextDecoder().decode(Uint8Array.from(atob(b64),c=>c.charCodeAt(0)));
 }
 async function saveState(){
-  const btn=document.getElementById(\\'btn-save\\');
-  btn.disabled=true;btn.textContent=\\'💾 Guardando…\\';
+  const btn=document.getElementById(\'btn-save\');
+  btn.disabled=true;btn.textContent=\'💾 Guardando…\';
   try{
-    const artifact=await claude.use(\\'artifact\\');
-    if(!artifact){toast(\\'⚠ Guardar no disponible — usa Copiar JSON como respaldo\\');btn.disabled=false;btn.textContent=\\'💾 Guardar\\';return;}
+    const artifact=await claude.use(\'artifact\');
+    if(!artifact){toast(\'⚠ Guardar no disponible — usa Copiar JSON como respaldo\');btn.disabled=false;btn.textContent=\'💾 Guardar\';return;}
     const newB64=encodeDB();
-    const pa=fromB64(document.getElementById(\\'_srca\\').textContent);
-    const pb=fromB64(document.getElementById(\\'_srcb\\').textContent);
-    const tags=\\'\\\\n<script id="_srca" type="text/plain">\\'+toB64(pa)+\\'<\\\\/script>\\\\n<script id="_srcb" type="text/plain">\\'+toB64(pb)+\\'<\\\\/script>\\';
+    const pa=fromB64(document.getElementById(\'_srca\').textContent);
+    const pb=fromB64(document.getElementById(\'_srcb\').textContent);
+    const tags=\'\\\\n<script id="_srca" type="text/plain">\'+toB64(pa)+\'<\\\\/script>\\\\n<script id="_srcb" type="text/plain">\'+toB64(pb)+\'<\\\\/script>\';
     const content=pa+newB64+pb+tags;
-    const SKEL=\\'<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font:14px/1.5 system-ui,sans-serif;background:#f8f9fa}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>\\';
-    await artifact.publish(SKEL+content+\\'</body></html>\\');
-    try{localStorage.removeItem(\\'admin_db\\');}catch(e){}
-    document.getElementById(\\'save-status\\').textContent=\\'✓ Guardado\\';
-    toast(\\'✅ Guardado — la página se actualizará\\');
+    const SKEL=\'<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font:14px/1.5 system-ui,sans-serif;background:#f8f9fa}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>\';
+    await artifact.publish(SKEL+content+\'</body></html>\');
+    try{localStorage.removeItem(\'admin_db\');}catch(e){}
+    document.getElementById(\'save-status\').textContent=\'✓ Guardado\';
+    toast(\'✅ Guardado — la página se actualizará\');
   }catch(e){
-    toast(\\'⚠ Error al guardar: \\'+(e.message||String(e)));
-    btn.disabled=false;btn.textContent=\\'💾 Guardar\\';
+    toast(\'⚠ Error al guardar: \'+(e.message||String(e)));
+    btn.disabled=false;btn.textContent=\'💾 Guardar\';
   }
 }
 
@@ -688,183 +688,183 @@ function setCat(c){ activeCat=c; renderCats(); render(); }
 function setTile(k){ activeTile=(activeTile===k?null:k); renderStats(); render(); }
 function setPlat(p){
   activePlat=(activePlat===p?null:p);
-  [\\'ml\\',\\'amz\\',\\'ambas\\'].forEach(id=>{
-    const btn=document.getElementById(\\'pb-\\'+id);
-    btn.className=\\'plat-btn\\'+(activePlat===id?\\' on-\\'+id:\\'\\')+\\'\\';
+  [\'ml\',\'amz\',\'ambas\'].forEach(id=>{
+    const btn=document.getElementById(\'pb-\'+id);
+    btn.className=\'plat-btn\'+(activePlat===id?\' on-\'+id:\'\')+\'\';
   });
   render();
 }
-document.querySelectorAll(\\'.plat-btn[data-plat]\\').forEach(el=>el.addEventListener(\\'click\\',()=>setPlat(el.dataset.plat)));
+document.querySelectorAll(\'.plat-btn[data-plat]\').forEach(el=>el.addEventListener(\'click\',()=>setPlat(el.dataset.plat)));
 function toggleFilter(f){
   activeFilters.has(f)?activeFilters.delete(f):activeFilters.add(f);
-  document.getElementById(\\'f-\\'+f).classList.toggle(\\'on\\');
+  document.getElementById(\'f-\'+f).classList.toggle(\'on\');
   render();
 }
 function toggleActivo(key){
-  const [cat,id]=key.split(\\'|\\');
+  const [cat,id]=key.split(\'|\');
   const p=DB[cat]&&DB[cat].find(p=>String(p.id)===id);
   if(!p)return;
   p.activo=(p.activo===false);
   p._updatedAt=new Date().toISOString();
   renderStats(); render(); autoSave();
-  toast(p.activo?\\'▶ Producto activado\\':\\'⏸ Producto pausado\\');
+  toast(p.activo?\'▶ Producto activado\':\'⏸ Producto pausado\');
 }
 
 // ── EDIT MODAL ───────────────────────────────────────────────────────────────
 function openEdit(key){
   editKey=key;
-  const [cat,id]=key.split(\\'|\\');
+  const [cat,id]=key.split(\'|\');
   const p=DB[cat]&&DB[cat].find(p=>String(p.id)===id);
-  if(!p){toast(\\'⚠ Producto no encontrado\\');return;}
-  document.getElementById(\\'m-title\\').textContent=\\'Editar · \\'+p.nombre;
-  document.getElementById(\\'m-sub\\').textContent=cat+\\' · id \\'+p.id;
-  document.getElementById(\\'ed-ml\\').value=p.linkML||\\'\\';\
-  document.getElementById(\\'ed-pml\\').value=p.precioML||\\'\\';\
-  document.getElementById(\\'ed-amz\\').value=p.linkAmz||\\'\\';\
-  document.getElementById(\\'ed-pamz\\').value=p.precioAmz||\\'\\';\
+  if(!p){toast(\'⚠ Producto no encontrado\');return;}
+  document.getElementById(\'m-title\').textContent=\'Editar · \'+p.nombre;
+  document.getElementById(\'m-sub\').textContent=cat+\' · id \'+p.id;
+  document.getElementById(\'ed-ml\').value=p.linkML||\'\';\
+  document.getElementById(\'ed-pml\').value=p.precioML||\'\';\
+  document.getElementById(\'ed-amz\').value=p.linkAmz||\'\';\
+  document.getElementById(\'ed-pamz\').value=p.precioAmz||\'\';\
   // Render specs fields for catalog categories
   const def = CATALOG_DEFS[cat];
-  const specsSection = document.getElementById(\\'specs-section\\');
-  const specsFields = document.getElementById(\\'specs-fields\\');
+  const specsSection = document.getElementById(\'specs-section\');
+  const specsFields = document.getElementById(\'specs-fields\');
   if(def && p.especs){
     const especs = p.especs||{};
     const skCols = def.cols.filter(c=>c.sk);
     specsFields.innerHTML = skCols.map(c=>
-      \\'<div><label>\\'+c.label+\\'</label><input data-sk="\\'+c.sk+\\'" value="\\'+(_esc(especs[c.sk]||\\'\\')+\\'">\\')
-    ).join(\\'\\');
+      \'<div><label>\'+c.label+\'</label><input data-sk="\'+c.sk+\'" value="\'+(_esc(especs[c.sk]||\'\')+\'">\')
+    ).join(\'\');
     specsSection.hidden=false;
   } else {
-    specsFields.innerHTML=\\'\\';
+    specsFields.innerHTML=\'\';
     specsSection.hidden=true;
   }
-  document.getElementById(\\'del-confirm\\').hidden=true;
-  document.getElementById(\\'modal\\').hidden=false;
+  document.getElementById(\'del-confirm\').hidden=true;
+  document.getElementById(\'modal\').hidden=false;
 }
-function _esc(s){ return String(s).replace(/&/g,\\'&amp;\\').replace(/"/g,\\'&quot;\\').replace(/</g,\\'&lt;\\'); }
+function _esc(s){ return String(s).replace(/&/g,\'&amp;\').replace(/"/g,\'&quot;\').replace(/</g,\'&lt;\'); }
 
 function saveEdit(){
   if(!editKey)return;
-  const [cat,id]=editKey.split(\\'|\\');
+  const [cat,id]=editKey.split(\'|\');
   const p=DB[cat].find(p=>String(p.id)===id);
-  p.linkML=document.getElementById(\\'ed-ml\\').value.trim()||null;
-  p.precioML=parseFloat(document.getElementById(\\'ed-pml\\').value)||null;
-  p.linkAmz=document.getElementById(\\'ed-amz\\').value.trim()||null;
-  p.precioAmz=parseFloat(document.getElementById(\\'ed-pamz\\').value)||null;
+  p.linkML=document.getElementById(\'ed-ml\').value.trim()||null;
+  p.precioML=parseFloat(document.getElementById(\'ed-pml\').value)||null;
+  p.linkAmz=document.getElementById(\'ed-amz\').value.trim()||null;
+  p.precioAmz=parseFloat(document.getElementById(\'ed-pamz\').value)||null;
   // Save specs
-  const specsSection = document.getElementById(\\'specs-section\\');
+  const specsSection = document.getElementById(\'specs-section\');
   if(!specsSection.hidden && p.especs!==undefined){
     if(!p.especs) p.especs={};
-    document.querySelectorAll(\\'#specs-fields [data-sk]\\').forEach(inp=>{
+    document.querySelectorAll(\'#specs-fields [data-sk]\').forEach(inp=>{
       const val=inp.value.trim();
       if(val) p.especs[inp.dataset.sk]=val;
       else delete p.especs[inp.dataset.sk];
     });
   }
   p._updatedAt=new Date().toISOString();
-  closeModal(); renderStats(); render(); autoSave(); toast(\\'✓ Producto actualizado\\');
+  closeModal(); renderStats(); render(); autoSave(); toast(\'✓ Producto actualizado\');
   // Re-render the catalog tab if open
-  const activeTab = document.querySelector(\\'.tab-btn.on\\');
-  if(activeTab && activeTab.dataset.tab && activeTab.dataset.tab!==\\'gestion\\') {
+  const activeTab = document.querySelector(\'.tab-btn.on\');
+  if(activeTab && activeTab.dataset.tab && activeTab.dataset.tab!==\'gestion\') {
     renderCatalogTab(activeTab.dataset.tab);
   }
 }
-function showDelConfirm(){document.getElementById(\\'del-confirm\\').hidden=false;}
+function showDelConfirm(){document.getElementById(\'del-confirm\').hidden=false;}
 function confirmDelete(){
   if(!editKey)return;
-  const [cat,id]=editKey.split(\\'|\\');
+  const [cat,id]=editKey.split(\'|\');
   DB[cat]=DB[cat].filter(p=>String(p.id)!==id);
-  closeModal(); renderStats(); render(); autoSave(); toast(\\'🗑 Producto eliminado del registro\\');
+  closeModal(); renderStats(); render(); autoSave(); toast(\'🗑 Producto eliminado del registro\');
 }
 function closeModal(){
-  document.getElementById(\\'modal\\').hidden=true;
-  document.getElementById(\\'del-confirm\\').hidden=true;
+  document.getElementById(\'modal\').hidden=true;
+  document.getElementById(\'del-confirm\').hidden=true;
   editKey=null;
 }
-document.getElementById(\\'modal\\').addEventListener(\\'click\\',e=>{if(e.target===document.getElementById(\\'modal\\'))closeModal();});
+document.getElementById(\'modal\').addEventListener(\'click\',e=>{if(e.target===document.getElementById(\'modal\'))closeModal();});
 
 function exportJSON(onlySelected){
   const out={};
   for(const [cat,prods] of Object.entries(DB)){
-    const filtrados = onlySelected ? prods.filter(p => selected.has(cat+\\'|\\'+p.id)) : prods;
+    const filtrados = onlySelected ? prods.filter(p => selected.has(cat+\'|\'+p.id)) : prods;
     if(filtrados.length===0) continue;
     out[cat]=filtrados.map(({id,nombre,marca,linkML,linkAmz,mlId,precioML,precioAmz,activo,especs})=>({id,nombre,marca,linkML:linkML||null,linkAmz:linkAmz||null,mlId:mlId||null,precioML:precioML||null,precioAmz:precioAmz||null,activo:activo!==false,especs:especs||undefined}));
   }
   const json=JSON.stringify(out,null,2);
-  const msg = onlySelected ? \\'✓ JSON de \\'+selected.size+\\' productos copiado\\' : \\'✓ JSON completo copiado\\';
+  const msg = onlySelected ? \'✓ JSON de \'+selected.size+\' productos copiado\' : \'✓ JSON completo copiado\';
   navigator.clipboard.writeText(json).then(()=>toast(msg)).catch(()=>{
-    const ta=document.createElement(\\'textarea\\');
-    ta.value=json;ta.style.cssText=\\'position:fixed;opacity:0\\';
-    document.body.appendChild(ta);ta.select();document.execCommand(\\'copy\\');document.body.removeChild(ta);
+    const ta=document.createElement(\'textarea\');
+    ta.value=json;ta.style.cssText=\'position:fixed;opacity:0\';
+    document.body.appendChild(ta);ta.select();document.execCommand(\'copy\');document.body.removeChild(ta);
     toast(msg);
   });
 }
 
 function openAddModal(){
-  const sel=document.getElementById(\\'add-cat\\');
-  const CAT_LABELS={laptops:\\'Laptops\\',freidoras:\\'Freidoras\\',bicis:\\'Bicis\\',microondas:\\'Microondas\\',proteina:\\'Proteína\\',omega3:\\'Omega 3\\',magnesio:\\'Magnesio\\',creatina:\\'Creatina\\',complejo_b:\\'Complejo B\\'};
-  sel.innerHTML=Object.keys(DB).map(c=>\\'<option value="\\'+c+\\'">\\'+(CAT_LABELS[c]||c)+\\'</option>\\').join(\\'\\');
-  [\\'add-nombre\\',\\'add-marca\\',\\'add-ml\\',\\'add-amz\\'].forEach(id=>document.getElementById(id).value=\\'\\');
-  document.getElementById(\\'add-modal\\').hidden=false;
+  const sel=document.getElementById(\'add-cat\');
+  const CAT_LABELS={laptops:\'Laptops\',freidoras:\'Freidoras\',bicis:\'Bicis\',microondas:\'Microondas\',proteina:\'Proteína\',omega3:\'Omega 3\',magnesio:\'Magnesio\',creatina:\'Creatina\',complejo_b:\'Complejo B\'};
+  sel.innerHTML=Object.keys(DB).map(c=>\'<option value="\'+c+\'">\'+(CAT_LABELS[c]||c)+\'</option>\').join(\'\');
+  [\'add-nombre\',\'add-marca\',\'add-ml\',\'add-amz\'].forEach(id=>document.getElementById(id).value=\'\');
+  document.getElementById(\'add-modal\').hidden=false;
 }
-function closeAddModal(){document.getElementById(\\'add-modal\\').hidden=true;}
+function closeAddModal(){document.getElementById(\'add-modal\').hidden=true;}
 function saveAdd(){
-  const cat=document.getElementById(\\'add-cat\\').value;
-  const nombre=document.getElementById(\\'add-nombre\\').value.trim();
-  const marca=document.getElementById(\\'add-marca\\').value.trim();
-  const linkML=document.getElementById(\\'add-ml\\').value.trim()||null;
-  const linkAmz=document.getElementById(\\'add-amz\\').value.trim()||null;
-  if(!nombre||!marca){toast(\\'⚠ Nombre y marca son obligatorios\\');return;}
-  const ids=(DB[cat]||[]).map(p=>p.id).filter(x=>typeof x===\\'number\\');
+  const cat=document.getElementById(\'add-cat\').value;
+  const nombre=document.getElementById(\'add-nombre\').value.trim();
+  const marca=document.getElementById(\'add-marca\').value.trim();
+  const linkML=document.getElementById(\'add-ml\').value.trim()||null;
+  const linkAmz=document.getElementById(\'add-amz\').value.trim()||null;
+  if(!nombre||!marca){toast(\'⚠ Nombre y marca son obligatorios\');return;}
+  const ids=(DB[cat]||[]).map(p=>p.id).filter(x=>typeof x===\'number\');
   const newId=ids.length?Math.max(...ids)+1:1;
   if(!DB[cat]) DB[cat]=[];
   DB[cat].push({id:newId,nombre,marca,linkML,linkAmz,mlId:null,precioML:null,precioAmz:null,activo:true,estadoML:null,especs:{}});
   closeAddModal(); renderStats(); renderCats(); render(); autoSave();
-  toast(\\'✓ Producto agregado a \\'+cat);
+  toast(\'✓ Producto agregado a \'+cat);
 }
-document.getElementById(\\'add-modal\\').addEventListener(\\'click\\',e=>{if(e.target===document.getElementById(\\'add-modal\\'))closeAddModal();});
+document.getElementById(\'add-modal\').addEventListener(\'click\',e=>{if(e.target===document.getElementById(\'add-modal\'))closeAddModal();});
 
 function toast(msg){
-  const el=document.getElementById(\\'toast\\');
-  el.textContent=msg;el.classList.add(\\'show\\');
-  clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove(\\'show\\'),3000);
+  const el=document.getElementById(\'toast\');
+  el.textContent=msg;el.classList.add(\'show\');
+  clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove(\'show\'),3000);
 }
 
 renderStats(); renderCats(); render();
 
 // ── TABS ─────────────────────────────────────────────────────────────────────
-document.querySelectorAll(\\'.tab-btn[data-tab]\\').forEach(btn => {
-  btn.addEventListener(\\'click\\', () => {
-    document.querySelectorAll(\\'.tab-btn\\').forEach(b => b.classList.remove(\\'on\\'));
-    document.querySelectorAll(\\'.tab-section\\').forEach(s => s.classList.remove(\\'on\\'));
-    btn.classList.add(\\'on\\');
-    document.getElementById(\\'tab-\\'+btn.dataset.tab).classList.add(\\'on\\');
+document.querySelectorAll(\'.tab-btn[data-tab]\').forEach(btn => {
+  btn.addEventListener(\'click\', () => {
+    document.querySelectorAll(\'.tab-btn\').forEach(b => b.classList.remove(\'on\'));
+    document.querySelectorAll(\'.tab-section\').forEach(s => s.classList.remove(\'on\'));
+    btn.classList.add(\'on\');
+    document.getElementById(\'tab-\'+btn.dataset.tab).classList.add(\'on\');
     renderCatalogTab(btn.dataset.tab);
   });
 });
 
-document.querySelectorAll(\\'.subtab-btn[data-sup]\\').forEach(btn => {
-  btn.addEventListener(\\'click\\', () => {
-    document.querySelectorAll(\\'.subtab-btn\\').forEach(b => b.classList.remove(\\'on\\'));
-    btn.classList.add(\\'on\\');
+document.querySelectorAll(\'.subtab-btn[data-sup]\').forEach(btn => {
+  btn.addEventListener(\'click\', () => {
+    document.querySelectorAll(\'.subtab-btn\').forEach(b => b.classList.remove(\'on\'));
+    btn.classList.add(\'on\');
     curSupKey = btn.dataset.sup;
-    renderCatalog(curSupKey, document.getElementById(\\'ct-suplementos\\'));
+    renderCatalog(curSupKey, document.getElementById(\'ct-suplementos\'));
   });
 });
 
 function renderCatalogTab(tab){
-  if(tab === \\'gestion\\') return;
-  if(tab === \\'suplementos\\'){
-    renderCatalog(curSupKey, document.getElementById(\\'ct-suplementos\\'));
+  if(tab === \'gestion\') return;
+  if(tab === \'suplementos\'){
+    renderCatalog(curSupKey, document.getElementById(\'ct-suplementos\'));
   } else if(CATALOG_DEFS[tab]){
-    renderCatalog(tab, document.getElementById(\\'ct-\\'+tab));
+    renderCatalog(tab, document.getElementById(\'ct-\'+tab));
   }
 }
 
 // ── GENERALIZED CATALOG RENDER ───────────────────────────────────────────────
 function _colVal(p, col) {
   if (col.sk) return (p.especs||{})[col.sk] ?? null;
-  if (col.key === \\'enlace\\') return (p.linkML||p.linkAmz) ? \\'con enlace\\' : null;
-  if (col.key === \\'_actions\\') return null;
+  if (col.key === 'enlace') return (p.linkML||p.linkAmz) ? 'con enlace' : null;
+  if (col.key === '_actions') return null;
   return p[col.key] ?? null;
 }
 
@@ -872,30 +872,30 @@ function renderCatalog(catKey, container) {
   const def = CATALOG_DEFS[catKey];
   if (!def || !container) return;
   const st = getCatState(catKey);
-  const searchId = \\'cs-\\'+catKey;
-  const countId  = \\'cc-\\'+catKey;
-  const afId     = \\'caf-\\'+catKey;
-  const cfId     = \\'ccf-\\'+catKey;
-  const theadId  = \\'cth-\\'+catKey;
-  const tbodyId  = \\'ctb-\\'+catKey;
-  const emptyId  = \\'ce-\\'+catKey;
+  const searchId = 'cs-'+catKey;
+  const countId  = 'cc-'+catKey;
+  const afId     = 'caf-'+catKey;
+  const cfId     = 'ccf-'+catKey;
+  const theadId  = 'cth-'+catKey;
+  const tbodyId  = 'ctb-'+catKey;
+  const emptyId  = 'ce-'+catKey;
 
-  // Build HTML if not yet built
-  if (!container.querySelector(\\'[data-cat-key]\\')) {
+  if (!container.querySelector('[data-cat-key]')) {
     container.innerHTML =
-      \\'<div class="cat-search"><input id="\\'+searchId+\\'" type="search" placeholder="Buscar..."><span id="\\'+countId+\\'" style="font-size:12px;color:var(--fg2);white-space:nowrap"></span><button id="\\'+cfId+\\'" class="btn-export" style="display:none;background:var(--red);padding:5px 12px;font-size:12px" onclick="clearCatFilters(\\'\\'+catKey+\\'\\')">✕ Filtros</button></div>\\'+
-      \\'<div id="\\'+afId+\\'" style="padding:0 20px 4px;display:flex;gap:4px;flex-wrap:wrap"></div>\\'+
-      \\'<div class="cat-table-wrap" data-cat-key="\\'+catKey+\\'">\\'+
-        \\'<table><thead><tr id="\\'+theadId+\\'"></tr></thead><tbody id="\\'+tbodyId+\\'"></tbody></table>\\'+
-        \\'<div class="empty" id="\\'+emptyId+\\'" hidden>Sin resultados.</div>\\'+
-      \\'</div>\\';
-    container.querySelector(\\'#\\'+searchId).addEventListener(\\'input\\', () => {
-      getCatState(catKey).search = container.querySelector(\\'#\\'+searchId).value;
+      '<div class="cat-search"><input id="'+searchId+'" type="search" placeholder="Buscar..."><span id="'+countId+'" style="font-size:12px;color:var(--fg2);white-space:nowrap"></span><button id="'+cfId+'" class="btn-export" style="display:none;background:var(--red);padding:5px 12px;font-size:12px">✕ Filtros</button></div>'+
+      '<div id="'+afId+'" style="padding:0 20px 4px;display:flex;gap:4px;flex-wrap:wrap"></div>'+
+      '<div class="cat-table-wrap" data-cat-key="'+catKey+'">'+
+        '<table><thead><tr id="'+theadId+'"></tr></thead><tbody id="'+tbodyId+'"></tbody></table>'+
+        '<div class="empty" id="'+emptyId+'" hidden>Sin resultados.</div>'+
+      '</div>';
+    container.querySelector('#'+searchId).addEventListener('input', () => {
+      getCatState(catKey).search = container.querySelector('#'+searchId).value;
       _renderCatBody(catKey);
     });
+    container.querySelector('#'+cfId).addEventListener('click', () => clearCatFilters(catKey));
   }
 
-  container.querySelector(\\'#\\'+searchId).value = st.search;
+  container.querySelector('#'+searchId).value = st.search;
   _buildCatThead(catKey);
   _updateCatBadges(catKey);
   _renderCatBody(catKey);
@@ -903,18 +903,21 @@ function renderCatalog(catKey, container) {
 
 function _buildCatThead(catKey) {
   const def = CATALOG_DEFS[catKey];
-  const theadId = \\'cth-\\'+catKey;
-  const tr = document.getElementById(theadId);
+  const tr = document.getElementById('cth-'+catKey);
   if (!tr) return;
   const st = getCatState(catKey);
   tr.innerHTML = def.cols.map(col => {
     const active = st.filters[col.key] && st.filters[col.key].size > 0;
-    const lbl = active ? \\'<span style="color:var(--accent)">\\'+col.label+\\'</span>\\' : col.label;
+    const lbl = active ? '<span style="color:var(--accent)">'+col.label+'</span>' : col.label;
     const fBtn = col.filterable
-      ? \\'<button class="col-filter-btn\\'+(active?\\' active\\':\\'\\')+\\'\\' onclick="openCatFilter(event,\\'\\'+catKey+\\'\\',\\'\\'+col.key+\\'\\')">▼</button>\\'
-      : \\'\\';
-    return \\'<th data-col="\\'+col.key+\\'">\\'+lbl+fBtn+\\'</th>\\';
-  }).join(\\'\\');
+      ? '<button class="col-filter-btn'+(active?' active':'')+'" data-fcat="'+catKey+'" data-fcol="'+col.key+'">▼</button>'
+      : '';
+    return '<th data-col="'+col.key+'">'+lbl+fBtn+'</th>';
+  }).join('');
+  tr.onclick = e => {
+    const btn = e.target.closest('[data-fcat]');
+    if (btn) openCatFilter(e, btn.dataset.fcat, btn.dataset.fcol);
+  };
 }
 
 function openCatFilter(evt, catKey, colKey) {
@@ -927,25 +930,36 @@ function openCatFilter(evt, catKey, colKey) {
   const prods = (DB[catKey]||[]).filter(p => p.activo !== false);
   const vals = [...new Set(prods.map(p => _colVal(p, col)).filter(v => v != null).map(String))].sort((a,b) => {
     const na=parseFloat(a), nb=parseFloat(b);
-    return (!isNaN(na)&&!isNaN(nb)) ? na-nb : a.localeCompare(b,\\'es-MX\\');
+    return (!isNaN(na)&&!isNaN(nb)) ? na-nb : a.localeCompare(b,'es-MX');
   });
   const st = getCatState(catKey);
   const active = st.filters[colKey] || new Set();
   const allChk = active.size === 0;
-  const dd = document.createElement(\\'div\\');
-  dd.className = \\'filter-dropdown\\'; dd.id = \\'cat-dd\\';
+  const dd = document.createElement('div');
+  dd.className = 'filter-dropdown'; dd.id = 'cat-dd';
   dd.innerHTML =
-    \\'<div class="fd-item"><input type="checkbox" id="fd-all"\\'+(allChk?\\' checked\\':\\'\\')+\\' onchange="toggleCatFilterAll(\\'\\'+catKey+\\'\\'\\',\\'\\'+colKey+\\'\\'\\')"> <label for="fd-all" style="cursor:pointer;font-weight:600">(Todos)</label></div>\\'
-    + vals.map((v,i) => \\'<div class="fd-item"><input type="checkbox" id="fd-v\\'+i+\\'"\\'+((allChk||active.has(v))?\\'  checked\\':\\'\\')+\\' data-val="\\'+v.replace(/"/g,\\'&quot;\\').replace(/\\'/g,\\'&#39;\\')+\\'" onchange="toggleCatFilterVal(\\'\\'+catKey+\\'\\'\\',\\'\\'+colKey+\\'\\'\\',this)"> <label for="fd-v\\'+i+\\'" style="cursor:pointer">\\'+v+\\'</label></div>\\').join(\\'\\')
-    + \\'<div class="fd-footer"><button onclick="clearOneCatFilter(\\'\\'+catKey+\\'\\'\\',\\'\\'+colKey+\\'\\')">Limpiar</button><button class="fd-apply" onclick="closeCatDropdown()">OK</button></div>\\';
+    '<div class="fd-item"><input type="checkbox" id="fd-all"'+(allChk?' checked':'')+' data-fdtype="all"> <label for="fd-all" style="cursor:pointer;font-weight:600">(Todos)</label></div>'
+    + vals.map((v,i) => '<div class="fd-item"><input type="checkbox" id="fd-v'+i+'"'+((allChk||active.has(v))?'  checked':'')+' data-fdtype="val" data-val="'+v.replace(/"/g,'&quot;').replace(/'/g,'&#39;')+'"> <label for="fd-v'+i+'" style="cursor:pointer">'+v+'</label></div>').join('')
+    + '<div class="fd-footer"><button data-fdtype="clear">Limpiar</button><button class="fd-apply" data-fdtype="ok">OK</button></div>';
+  dd.addEventListener('change', e => {
+    const inp = e.target;
+    if (inp.dataset.fdtype === 'all') { toggleCatFilterAll(catKey, colKey); }
+    else if (inp.dataset.fdtype === 'val') { toggleCatFilterVal(catKey, colKey, inp); }
+  });
+  dd.addEventListener('click', e => {
+    const btn = e.target.closest('button[data-fdtype]');
+    if (!btn) return;
+    if (btn.dataset.fdtype === 'clear') { clearOneCatFilter(catKey, colKey); }
+    else if (btn.dataset.fdtype === 'ok') { closeCatDropdown(); }
+  });
   document.body.appendChild(dd);
-  const rect = evt.currentTarget.getBoundingClientRect();
-  dd.style.top  = Math.min(rect.bottom+4, window.innerHeight-dd.offsetHeight-8)+\\'px\\';
-  dd.style.left = Math.min(rect.left, window.innerWidth-270)+\\'px\\';
-  setTimeout(() => document.addEventListener(\\'click\\', _closeDDHandler, {once:true}), 0);
+  const rect = evt.currentTarget ? evt.currentTarget.getBoundingClientRect() : evt.target.getBoundingClientRect();
+  dd.style.top  = Math.min(rect.bottom+4, window.innerHeight-dd.offsetHeight-8)+'px';
+  dd.style.left = Math.min(rect.left, window.innerWidth-270)+'px';
+  setTimeout(() => document.addEventListener('click', _closeDDHandler, {once:true}), 0);
 }
-function _closeDDHandler(e) { if (!e.target.closest(\\'#cat-dd\\')) closeCatDropdown(); }
-function closeCatDropdown() { document.getElementById(\\'cat-dd\\')?.remove(); }
+function _closeDDHandler(e) { if (!e.target.closest('#cat-dd')) closeCatDropdown(); }
+function closeCatDropdown() { document.getElementById('cat-dd')?.remove(); }
 
 function toggleCatFilterAll(catKey, colKey) {
   const st = getCatState(catKey);
@@ -959,7 +973,7 @@ function toggleCatFilterVal(catKey, colKey, cb) {
   if (cb.checked) st.filters[colKey].add(cb.dataset.val);
   else st.filters[colKey].delete(cb.dataset.val);
   if (!st.filters[colKey].size) delete st.filters[colKey];
-  const allEl = document.getElementById(\\'fd-all\\');
+  const allEl = document.getElementById('fd-all');
   if (allEl) allEl.checked = !st.filters[colKey];
   _applyCatFilters(catKey);
 }
@@ -985,32 +999,34 @@ function _updateCatBadges(catKey) {
   const def = CATALOG_DEFS[catKey];
   const st = getCatState(catKey);
   const entries = Object.entries(st.filters).filter(([,v]) => v.size > 0);
-  const cfEl = document.getElementById(\\'ccf-\\'+catKey);
-  const afEl = document.getElementById(\\'caf-\\'+catKey);
-  if (cfEl) cfEl.style.display = entries.length ? \\'\\' : \\'none\\';
-  if (afEl) afEl.innerHTML = entries.map(([k,vals]) => {
-    const col = def?.cols.find(c => c.key === k);
-    return \\'<span class="cat-filter-badge">\\'+(col?.label||k)+\\': \\'+[...vals].join(\\', \\')
-      +\\'<button onclick="clearOneCatFilter(\\'\\'+catKey+\\'\\'\\',\\'\\'+k+\\'\\')">✕</button></span>\\';
-  }).join(\\'\\');
+  const cfEl = document.getElementById('ccf-'+catKey);
+  const afEl = document.getElementById('caf-'+catKey);
+  if (cfEl) cfEl.style.display = entries.length ? '' : 'none';
+  if (afEl) {
+    afEl.innerHTML = entries.map(([k,vals]) => {
+      const col = def?.cols.find(c => c.key === k);
+      return '<span class="cat-filter-badge">'+(col?.label||k)+': '+[...vals].join(', ')
+        +'<button data-badgecat="'+catKey+'" data-badgecol="'+k+'">✕</button></span>';
+    }).join('');
+    afEl.querySelectorAll('button[data-badgecat]').forEach(btn => {
+      btn.addEventListener('click', () => clearOneCatFilter(btn.dataset.badgecat, btn.dataset.badgecol));
+    });
+  }
 }
 
 function _renderCatBody(catKey) {
   const def = CATALOG_DEFS[catKey];
   if (!def) return;
-  const tbId  = \\'ctb-\\'+catKey;
-  const ccId  = \\'cc-\\'+catKey;
-  const emId  = \\'ce-\\'+catKey;
-  const tb    = document.getElementById(tbId);
-  const ccEl  = document.getElementById(ccId);
-  const emEl  = document.getElementById(emId);
+  const tb    = document.getElementById('ctb-'+catKey);
+  const ccEl  = document.getElementById('cc-'+catKey);
+  const emEl  = document.getElementById('ce-'+catKey);
   if (!tb) return;
 
   const st = getCatState(catKey);
   let list = (DB[catKey]||[]).filter(p => p.activo !== false);
   if (st.search) {
     const q = st.search.toLowerCase();
-    list = list.filter(p => (p.nombre+\\' \\'+p.marca).toLowerCase().includes(q));
+    list = list.filter(p => (p.nombre+' '+p.marca).toLowerCase().includes(q));
   }
   for (const [k, vals] of Object.entries(st.filters)) {
     if (!vals.size) continue;
@@ -1019,43 +1035,51 @@ function _renderCatBody(catKey) {
     list = list.filter(p => { const v = _colVal(p, col); return v != null && vals.has(String(v)); });
   }
 
-  if (ccEl) ccEl.textContent = list.length+\\' \\'+def.label;
+  if (ccEl) ccEl.textContent = list.length+' '+def.label;
   if (emEl) emEl.hidden = list.length > 0;
 
-  const ESTADO = {actualizado:\\'✓\\',sin_cambio:\\'=\\',sin_precio:\\'✗\\',no_encontrado:\\'✗\\',precio_sospechoso:\\'?\\',nuevo:\\'★\\'};
-  const ECLS = {actualizado:\\'b-actualizado\\',sin_cambio:\\'b-sin_cambio\\',sin_precio:\\'b-sin_precio\\',no_encontrado:\\'b-no_encontrado\\',precio_sospechoso:\\'b-precio_sospechoso\\',nuevo:\\'b-nuevo\\'};
-  const sp = v => v ? \\'<span class="spec-chip">\\'+v+\\'</span>\\' : \\'<span class="spec-null">—</span>\\';
+  const ESTADO = {actualizado:'✓',sin_cambio:'=',sin_precio:'✗',no_encontrado:'✗',precio_sospechoso:'?',nuevo:'★'};
+  const ECLS = {actualizado:'b-actualizado',sin_cambio:'b-sin_cambio',sin_precio:'b-sin_precio',no_encontrado:'b-no_encontrado',precio_sospechoso:'b-precio_sospechoso',nuevo:'b-nuevo'};
+  const sp = v => v ? '<span class="spec-chip">'+v+'</span>' : '<span class="spec-null">—</span>';
 
   tb.innerHTML = list.map(p => {
     const e = p.especs||{};
-    const key = catKey+\\'|\\'+p.id;
+    const key = catKey+'|'+p.id;
     const cells = def.cols.map(col => {
-      if (col.key === \\'_actions\\') {
+      if (col.key === '_actions') {
         const pa = p.activo!==false
-          ? \\'<button class="btn-sm btn-pause" onclick="toggleActivo(\\'\\'+key+\\'\\')">⏸</button>\\'
-          : \\'<button class="btn-sm btn-play" onclick="toggleActivo(\\'\\'+key+\\'\\')">▶</button>\\';
-        return \\'<td><div class="actions">\\'+pa+\\'<button class="btn-sm btn-edit" onclick="openEdit(\\'\\'+key+\\'\\')">✏</button></div></td>\\';
+          ? '<button class="btn-sm btn-pause" data-catact="pause" data-key="'+key+'">⏸</button>'
+          : '<button class="btn-sm btn-play"  data-catact="play"  data-key="'+key+'">▶</button>';
+        return '<td><div class="actions">'+pa+'<button class="btn-sm btn-edit" data-catact="edit" data-key="'+key+'">✏</button></div></td>';
       }
-      if (col.key === \\'precioML\\') return \\'<td class="precio-col">\\'+(p.precioML?\\' <span class="precio-ml">$\\'+Math.round(p.precioML).toLocaleString(\\'es-MX\\')+\\'</span>\\':\\' <span class="spec-null">—</span>\\')+ \\'</td>\\';
-      if (col.key === \\'precioAmz\\') return \\'<td class="precio-col">\\'+(p.precioAmz?\\' <span class="precio-amz">$\\'+Math.round(p.precioAmz).toLocaleString(\\'es-MX\\')+\\'</span>\\' : \\'<span class="spec-null">—</span>\\')+\\'</td>\\';
-      if (col.key === \\'enlace\\'){
-        const lml = p.linkML ? \\'<a class="link-chip lc-ml" href="\\'+p.linkML+\\'\\' target="_blank" rel="noopener">ML↗</a>\\' : \\'\\';
-        const lamz = p.linkAmz ? \\'<a class="link-chip lc-amz" href="\\'+p.linkAmz+\\'\\' target="_blank" rel="noopener">AMZ↗</a>\\' : \\'\\';
-        return \\'<td style="white-space:nowrap">\\'+(lml||lamz?lml+lamz:\\'<span class="spec-null">—</span>\\')+ \\'</td>\\';
+      if (col.key === 'precioML') return '<td class="precio-col">'+(p.precioML?' <span class="precio-ml">$'+Math.round(p.precioML).toLocaleString('es-MX')+'</span>':' <span class="spec-null">—</span>')+'</td>';
+      if (col.key === 'precioAmz') return '<td class="precio-col">'+(p.precioAmz?' <span class="precio-amz">$'+Math.round(p.precioAmz).toLocaleString('es-MX')+'</span>' : '<span class="spec-null">—</span>')+'</td>';
+      if (col.key === 'enlace'){
+        const lml = p.linkML ? '<a class="link-chip lc-ml" href="'+p.linkML+'" target="_blank" rel="noopener">ML↗</a>' : '';
+        const lamz = p.linkAmz ? '<a class="link-chip lc-amz" href="'+p.linkAmz+'" target="_blank" rel="noopener">AMZ↗</a>' : '';
+        return '<td style="white-space:nowrap">'+(lml||lamz?lml+lamz:'<span class="spec-null">—</span>')+'</td>';
       }
-      if (col.key === \\'estadoML\\') {
-        const est = p.estadoML ? \\'<span class="badge \\'+(ECLS[p.estadoML]||\\' b-null \\')+\\'">\\'+(ESTADO[p.estadoML]||p.estadoML)+\\'</span>\\' : \\'<span class="spec-null">—</span>\\';
-        return \\'<td>\\'+est+\\'</td>\\';
+      if (col.key === 'estadoML') {
+        const est = p.estadoML ? '<span class="badge '+(ECLS[p.estadoML]||' b-null ')+'">'+( ESTADO[p.estadoML]||p.estadoML)+'</span>' : '<span class="spec-null">—</span>';
+        return '<td>'+est+'</td>';
       }
-      if (col.key === \\'_updatedAt\\') return \\'<td>\\'+(p._updatedAt?\\' <span style="font-size:11px;white-space:nowrap;color:var(--fg2)">\\'+fmtDate(p._updatedAt)+\\'</span>\\' : \\'<span class="spec-null">—</span>\\')+\\'</td>\\';
-      if (col.key === \\'nombre\\') return \\'<td style="max-width:200px;white-space:normal;font-size:12px">\\'+p.nombre+\\'</td>\\';
-      if (col.key === \\'marca\\') return \\'<td>\\'+p.marca+\\'</td>\\';
-      if (col.sk) return \\'<td>\\'+sp(e[col.sk])+\\'</td>\\';
-      return \\'<td>\\'+sp(p[col.key])+\\'</td>\\';
-    }).join(\\'\\');
-    const cls = p.activo===false ? \\' class="pausado"\\'  : \\'\\';
-    return \\'<tr\\'+cls+\\'>\\'+cells+\\'</tr>\\';
-  }).join(\\'\\');
+      if (col.key === '_updatedAt') return '<td>'+(p._updatedAt?' <span style="font-size:11px;white-space:nowrap;color:var(--fg2)">'+fmtDate(p._updatedAt)+'</span>' : '<span class="spec-null">—</span>')+'</td>';
+      if (col.key === 'nombre') return '<td style="max-width:200px;white-space:normal;font-size:12px">'+p.nombre+'</td>';
+      if (col.key === 'marca') return '<td>'+p.marca+'</td>';
+      if (col.sk) return '<td>'+sp(e[col.sk])+'</td>';
+      return '<td>'+sp(p[col.key])+'</td>';
+    }).join('');
+    const cls = p.activo===false ? ' class="pausado"' : '';
+    return '<tr'+cls+'>'+cells+'</tr>';
+  }).join('');
+
+  tb.onclick = e => {
+    const btn = e.target.closest('[data-catact]');
+    if (!btn) return;
+    const act = btn.dataset.catact, k = btn.dataset.key;
+    if (act === 'pause' || act === 'play') toggleActivo(k);
+    else if (act === 'edit') openEdit(k);
+  };
 }
 <\/script>`;
 
