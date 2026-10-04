@@ -725,7 +725,9 @@ function toggleActivo(key){
   p.activo=(p.activo===false);
   p._updatedAt=new Date().toISOString();
   renderStats(); render(); autoSave();
-  toast(p.activo?\'▶ Producto activado\':\'⏸ Producto pausado\');
+  // Re-renderizar el catálogo de la categoría afectada
+  _renderCatBody(cat);
+  toast(p.activo?\'● Producto activado\':\'⏸ Producto pausado\');
 }
 
 // ── EDIT MODAL ───────────────────────────────────────────────────────────────
