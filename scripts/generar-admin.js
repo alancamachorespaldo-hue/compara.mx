@@ -1072,7 +1072,7 @@ function _renderCatBody(catKey) {
   if (!tb) return;
 
   const st = getCatState(catKey);
-  let list = (DB[catKey]||[]).filter(p => p.activo !== false);
+  let list = (DB[catKey]||[]);
   if (st.search) {
     const q = st.search.toLowerCase();
     list = list.filter(p => (p.nombre+' '+p.marca).toLowerCase().includes(q));
@@ -1097,11 +1097,13 @@ function _renderCatBody(catKey) {
   tb.innerHTML = list.map(p => {
     const e = p.especs||{};
     const key = catKey+'|'+p.id;
+    const rowStyle = p.activo===false ? ' style="opacity:.45;background:var(--gray-light)"' : '';
     const cells = def.cols.map(col => {
       if (col.key === '_actions') {
-        const pa = p.activo!==false
-          ? '<button class="btn-sm btn-pause" data-catact="pause" data-key="'+key+'">⏸</button>'
-          : '<button class="btn-sm btn-play"  data-catact="play"  data-key="'+key+'">▶</button>';
+        const paused = p.activo === false;
+        const pa = paused
+          ? '<button class="btn-sm" style="color:#fff;background:var(--yellow);border-color:var(--yellow);font-size:10px;padding:3px 8px" data-catact="play"  data-key="'+key+'" title="Pausado — clic para activar">⏸ Pausado</button>'
+          : '<button class="btn-sm" style="color:#fff;background:var(--green);border-color:var(--green);font-size:10px;padding:3px 8px"  data-catact="pause" data-key="'+key+'" title="Activo — clic para pausar">● Activo</button>';
         return '<td><div class="actions">'+pa+'<button class="btn-sm btn-edit" data-catact="edit" data-key="'+key+'">✏</button></div></td>';
       }
       if (col.key === 'precioML') return '<td class="precio-col">'+(p.precioML?' <span class="precio-ml">$'+Math.round(p.precioML).toLocaleString('es-MX')+'</span>':' <span class="spec-null">—</span>')+'</td>';
@@ -1121,8 +1123,7 @@ function _renderCatBody(catKey) {
       if (col.sk) return '<td>'+sp(e[col.sk])+'</td>';
       return '<td>'+sp(p[col.key])+'</td>';
     }).join('');
-    const cls = p.activo===false ? ' class="pausado"' : '';
-    return '<tr'+cls+'>'+cells+'</tr>';
+    return '<tr'+rowStyle+'>'+cells+'</tr>';
   }).join('');
 
   tb.onclick = e => {
