@@ -156,6 +156,8 @@ td{padding:8px 10px;vertical-align:middle;font-size:13px}
 .tab-toolbar{display:flex;align-items:center;gap:10px;padding:10px 20px 8px;border-bottom:1px solid var(--border)}
 .btn-gh-action{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:7px;background:var(--accent);color:#fff;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;transition:opacity .15s}
 .btn-gh-action:hover{opacity:.85}
+.publish-pending{animation:pub-pulse 1.4s infinite;box-shadow:0 0 0 0 rgba(255,140,0,.6)}
+@keyframes pub-pulse{0%{box-shadow:0 0 0 0 rgba(255,140,0,.6)}70%{box-shadow:0 0 0 8px rgba(255,140,0,0)}100%{box-shadow:0 0 0 0 rgba(255,140,0,0)}}
 .subtab-bar{display:flex;gap:0;border-bottom:1px solid var(--border);background:var(--bg);padding:0 20px;overflow-x:auto}
 .subtab-btn{padding:8px 14px;font-size:12px;font-weight:600;color:var(--fg2);border:none;background:transparent;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
 .subtab-btn:hover{color:var(--fg)}
@@ -188,6 +190,7 @@ td{padding:8px 10px;vertical-align:middle;font-size:13px}
   <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
     <span id="save-status" style="font-size:11px;color:var(--fg2)"></span>
     <button class="btn-export" style="background:var(--green)" id="btn-save" onclick="saveState()">💾 Guardar</button>
+    <a href="https://github.com/alancamachorespaldo-hue/compara.mx/actions" target="_blank" rel="noopener" class="btn-export" id="btn-publish" style="background:#e07d00;text-decoration:none;display:inline-flex;align-items:center;gap:5px">🚀 Publicar sitio</a>
     <button class="btn-export" style="background:var(--blue)" onclick="openAddModal()">+ Agregar</button>
   </div>
 </div>
@@ -375,175 +378,184 @@ const CATALOG_DEFS = {
   laptops: {
     label: 'laptops', catKey: 'laptops',
     cols: [
-      {key:'precioML',      label:'Precio ML',       filterable:false},
-      {key:'precioAmz',     label:'Precio AMZ',      filterable:false},
+      {key:'precioML',      label:'Precio ML',       filterable:true},
+      {key:'precioAmz',     label:'Precio AMZ',      filterable:true},
       {key:'enlace',        label:'Enlace',          filterable:false},
       {key:'marca',         label:'Marca',           filterable:true},
-      {key:'nombre',        label:'Nombre',          filterable:false},
+      {key:'nombre',        label:'Nombre',          filterable:true},
       {key:'procesador',    label:'Procesador',      filterable:true,  sk:'procesador'},
       {key:'ram',           label:'RAM',             filterable:true,  sk:'ram'},
       {key:'almacenamiento',label:'Almacenamiento',  filterable:true,  sk:'almacenamiento'},
       {key:'pantalla',      label:'Pantalla',        filterable:true,  sk:'pantalla'},
-      {key:'gpu',           label:'GPU',             filterable:false, sk:'gpu'},
+      {key:'gpu',           label:'GPU',             filterable:true,  sk:'gpu'},
       {key:'so',            label:'SO',              filterable:true,  sk:'so'},
-      {key:'peso',          label:'Peso',            filterable:false, sk:'peso'},
+      {key:'peso',          label:'Peso',            filterable:true,  sk:'peso'},
       {key:'touch',         label:'Touch',           filterable:true,  sk:'touch'},
       {key:'estadoML',      label:'Estado',          filterable:true},
-      {key:'_updatedAt',    label:'Últ. Mod.',       filterable:false},
-      {key:'_actions',      label:'Acciones',        filterable:false},
+      {key:'_updatedAt',    label:'Últ. Mod.',       filterable:true},
+      {key:'_actions',      label:'Estado web',      filterable:false},
+      {key:'_edit',         label:'Editar',          filterable:false},
     ]
   },
   freidoras: {
     label: 'freidoras', catKey: 'freidoras',
     cols: [
-      {key:'precioML',     label:'Precio ML',    filterable:false},
-      {key:'precioAmz',    label:'Precio AMZ',   filterable:false},
+      {key:'precioML',     label:'Precio ML',    filterable:true},
+      {key:'precioAmz',    label:'Precio AMZ',   filterable:true},
       {key:'enlace',       label:'Enlace',       filterable:false},
       {key:'marca',        label:'Marca',        filterable:true},
-      {key:'nombre',       label:'Nombre',       filterable:false},
+      {key:'nombre',       label:'Nombre',       filterable:true},
       {key:'tipo',         label:'Tipo',         filterable:true,  sk:'tipo'},
       {key:'capacidad',    label:'Capacidad',    filterable:true,  sk:'capacidad'},
-      {key:'potencia',     label:'Potencia',     filterable:false, sk:'potencia'},
-      {key:'tempMax',      label:'Temp. Máx.',   filterable:false, sk:'tempMax'},
+      {key:'potencia',     label:'Potencia',     filterable:true,  sk:'potencia'},
+      {key:'tempMax',      label:'Temp. Máx.',   filterable:true,  sk:'tempMax'},
       {key:'panel',        label:'Panel',        filterable:true,  sk:'panel'},
       {key:'canastos',     label:'Canastos',     filterable:true,  sk:'canastos'},
       {key:'ventana',      label:'Ventana',      filterable:true,  sk:'ventana'},
       {key:'antiadherente',label:'Antiadherente',filterable:true,  sk:'antiadherente'},
       {key:'estadoML',     label:'Estado',       filterable:true},
-      {key:'_updatedAt',   label:'Últ. Mod.',    filterable:false},
-      {key:'_actions',     label:'Acciones',     filterable:false},
+      {key:'_updatedAt',   label:'Últ. Mod.',    filterable:true},
+      {key:'_actions',     label:'Estado web',   filterable:false},
+      {key:'_edit',        label:'Editar',       filterable:false},
     ]
   },
   bicis: {
     label: 'bicis', catKey: 'bicis',
     cols: [
-      {key:'precioML',   label:'Precio ML',  filterable:false},
-      {key:'precioAmz',  label:'Precio AMZ', filterable:false},
+      {key:'precioML',   label:'Precio ML',  filterable:true},
+      {key:'precioAmz',  label:'Precio AMZ', filterable:true},
       {key:'enlace',     label:'Enlace',     filterable:false},
       {key:'marca',      label:'Marca',      filterable:true},
-      {key:'nombre',     label:'Nombre',     filterable:false},
+      {key:'nombre',     label:'Nombre',     filterable:true},
       {key:'tipo',       label:'Tipo',       filterable:true,  sk:'tipo'},
-      {key:'autonomia',  label:'Autonomía',  filterable:false, sk:'autonomia'},
-      {key:'velocidad',  label:'Vel. Máx.',  filterable:false, sk:'velocidad'},
-      {key:'motor',      label:'Motor',      filterable:false, sk:'motor'},
-      {key:'bateria',    label:'Batería',    filterable:false, sk:'bateria'},
+      {key:'autonomia',  label:'Autonomía',  filterable:true,  sk:'autonomia'},
+      {key:'velocidad',  label:'Vel. Máx.',  filterable:true,  sk:'velocidad'},
+      {key:'motor',      label:'Motor',      filterable:true,  sk:'motor'},
+      {key:'bateria',    label:'Batería',    filterable:true,  sk:'bateria'},
       {key:'rueda',      label:'Rueda',      filterable:true,  sk:'rueda'},
-      {key:'cargaMax',   label:'Carga Máx.', filterable:false, sk:'cargaMax'},
+      {key:'cargaMax',   label:'Carga Máx.', filterable:true,  sk:'cargaMax'},
       {key:'ip',         label:'IP',         filterable:true,  sk:'ip'},
       {key:'estadoML',   label:'Estado',     filterable:true},
-      {key:'_updatedAt', label:'Últ. Mod.',  filterable:false},
-      {key:'_actions',   label:'Acciones',   filterable:false},
+      {key:'_updatedAt', label:'Últ. Mod.',  filterable:true},
+      {key:'_actions',   label:'Estado web', filterable:false},
+      {key:'_edit',      label:'Editar',     filterable:false},
     ]
   },
   microondas: {
     label: 'microondas', catKey: 'microondas',
     cols: [
-      {key:'precioML',   label:'Precio ML',  filterable:false},
-      {key:'precioAmz',  label:'Precio AMZ', filterable:false},
+      {key:'precioML',   label:'Precio ML',  filterable:true},
+      {key:'precioAmz',  label:'Precio AMZ', filterable:true},
       {key:'enlace',     label:'Enlace',     filterable:false},
       {key:'marca',      label:'Marca',      filterable:true},
-      {key:'nombre',     label:'Nombre',     filterable:false},
+      {key:'nombre',     label:'Nombre',     filterable:true},
       {key:'estadoML',   label:'Estado',     filterable:true},
-      {key:'_updatedAt', label:'Últ. Mod.',  filterable:false},
-      {key:'_actions',   label:'Acciones',   filterable:false},
+      {key:'_updatedAt', label:'Últ. Mod.',  filterable:true},
+      {key:'_actions',   label:'Estado web', filterable:false},
+      {key:'_edit',      label:'Editar',     filterable:false},
     ]
   },
   proteina: {
     label: 'proteína', catKey: 'proteina',
     cols: [
-      {key:'precioML',           label:'Precio ML',      filterable:false},
-      {key:'precioAmz',          label:'Precio AMZ',     filterable:false},
+      {key:'precioML',           label:'Precio ML',      filterable:true},
+      {key:'precioAmz',          label:'Precio AMZ',     filterable:true},
       {key:'enlace',             label:'Enlace',         filterable:false},
       {key:'marca',              label:'Marca',          filterable:true},
-      {key:'nombre',             label:'Nombre',         filterable:false},
+      {key:'nombre',             label:'Nombre',         filterable:true},
       {key:'tipoProteina',       label:'Tipo',           filterable:true,  sk:'tipoProteina'},
       {key:'fuenteProteina',     label:'Fuente',         filterable:true,  sk:'fuenteProteina'},
-      {key:'gramosPorPorcion',   label:'g/Porción',      filterable:false, sk:'gramosPorPorcion'},
-      {key:'proteinaPorPorcion', label:'Prot/Porción',   filterable:false, sk:'proteinaPorPorcion'},
-      {key:'costoPorPorcion',    label:'Costo/Porción',  filterable:false, sk:'costoPorPorcion'},
+      {key:'gramosPorPorcion',   label:'g/Porción',      filterable:true,  sk:'gramosPorPorcion'},
+      {key:'proteinaPorPorcion', label:'Prot/Porción',   filterable:true,  sk:'proteinaPorPorcion'},
+      {key:'costoPorPorcion',    label:'Costo/Porción',  filterable:true,  sk:'costoPorPorcion'},
       {key:'vegana',             label:'Vegana',         filterable:true,  sk:'vegana'},
       {key:'glutenFree',         label:'Gluten Free',    filterable:true,  sk:'glutenFree'},
       {key:'estadoML',           label:'Estado',         filterable:true},
-      {key:'_updatedAt',         label:'Últ. Mod.',      filterable:false},
-      {key:'_actions',           label:'Acciones',       filterable:false},
+      {key:'_updatedAt',         label:'Últ. Mod.',      filterable:true},
+      {key:'_actions',           label:'Estado web',     filterable:false},
+      {key:'_edit',              label:'Editar',         filterable:false},
     ]
   },
   omega3: {
     label: 'omega 3', catKey: 'omega3',
     cols: [
-      {key:'precioML',        label:'Precio ML',      filterable:false},
-      {key:'precioAmz',       label:'Precio AMZ',     filterable:false},
+      {key:'precioML',        label:'Precio ML',      filterable:true},
+      {key:'precioAmz',       label:'Precio AMZ',     filterable:true},
       {key:'enlace',          label:'Enlace',         filterable:false},
       {key:'marca',           label:'Marca',          filterable:true},
-      {key:'nombre',          label:'Nombre',         filterable:false},
-      {key:'epa',             label:'EPA',            filterable:false, sk:'epa'},
-      {key:'dha',             label:'DHA',            filterable:false, sk:'dha'},
-      {key:'omegaTotal',      label:'Omega Total',    filterable:false, sk:'omegaTotal'},
+      {key:'nombre',          label:'Nombre',         filterable:true},
+      {key:'epa',             label:'EPA',            filterable:true,  sk:'epa'},
+      {key:'dha',             label:'DHA',            filterable:true,  sk:'dha'},
+      {key:'omegaTotal',      label:'Omega Total',    filterable:true,  sk:'omegaTotal'},
       {key:'fuenteOmega',     label:'Fuente',         filterable:true,  sk:'fuenteOmega'},
       {key:'ifos',            label:'IFOS',           filterable:true,  sk:'ifos'},
       {key:'metalesPesados',  label:'Sin Metales',    filterable:true,  sk:'metalesPesados'},
-      {key:'costoPorPorcion', label:'Costo/Porción',  filterable:false, sk:'costoPorPorcion'},
+      {key:'costoPorPorcion', label:'Costo/Porción',  filterable:true,  sk:'costoPorPorcion'},
       {key:'estadoML',        label:'Estado',         filterable:true},
-      {key:'_updatedAt',      label:'Últ. Mod.',      filterable:false},
-      {key:'_actions',        label:'Acciones',       filterable:false},
+      {key:'_updatedAt',      label:'Últ. Mod.',      filterable:true},
+      {key:'_actions',        label:'Estado web',     filterable:false},
+      {key:'_edit',           label:'Editar',         filterable:false},
     ]
   },
   magnesio: {
     label: 'magnesio', catKey: 'magnesio',
     cols: [
-      {key:'precioML',        label:'Precio ML',      filterable:false},
-      {key:'precioAmz',       label:'Precio AMZ',     filterable:false},
+      {key:'precioML',        label:'Precio ML',      filterable:true},
+      {key:'precioAmz',       label:'Precio AMZ',     filterable:true},
       {key:'enlace',          label:'Enlace',         filterable:false},
       {key:'marca',           label:'Marca',          filterable:true},
-      {key:'nombre',          label:'Nombre',         filterable:false},
+      {key:'nombre',          label:'Nombre',         filterable:true},
       {key:'formaMagnesio',   label:'Forma',          filterable:true,  sk:'formaMagnesio'},
-      {key:'mgMagnesio',      label:'mg Magnesio',    filterable:false, sk:'mgMagnesio'},
-      {key:'mgElemental',     label:'mg Elemental',   filterable:false, sk:'mgElemental'},
+      {key:'mgMagnesio',      label:'mg Magnesio',    filterable:true,  sk:'mgMagnesio'},
+      {key:'mgElemental',     label:'mg Elemental',   filterable:true,  sk:'mgElemental'},
       {key:'absorcion',       label:'Absorción',      filterable:true,  sk:'absorcion'},
       {key:'vegano',          label:'Vegano',         filterable:true,  sk:'vegano'},
-      {key:'costoPorPorcion', label:'Costo/Porción',  filterable:false, sk:'costoPorPorcion'},
+      {key:'costoPorPorcion', label:'Costo/Porción',  filterable:true,  sk:'costoPorPorcion'},
       {key:'estadoML',        label:'Estado',         filterable:true},
-      {key:'_updatedAt',      label:'Últ. Mod.',      filterable:false},
-      {key:'_actions',        label:'Acciones',       filterable:false},
+      {key:'_updatedAt',      label:'Últ. Mod.',      filterable:true},
+      {key:'_actions',        label:'Estado web',     filterable:false},
+      {key:'_edit',           label:'Editar',         filterable:false},
     ]
   },
   creatina: {
     label: 'creatina', catKey: 'creatina',
     cols: [
-      {key:'precioML',        label:'Precio ML',      filterable:false},
-      {key:'precioAmz',       label:'Precio AMZ',     filterable:false},
+      {key:'precioML',        label:'Precio ML',      filterable:true},
+      {key:'precioAmz',       label:'Precio AMZ',     filterable:true},
       {key:'enlace',          label:'Enlace',         filterable:false},
       {key:'marca',           label:'Marca',          filterable:true},
-      {key:'nombre',          label:'Nombre',         filterable:false},
+      {key:'nombre',          label:'Nombre',         filterable:true},
       {key:'tipoCreatina',    label:'Tipo',           filterable:true,  sk:'tipoCreatina'},
       {key:'presentacion',    label:'Presentación',   filterable:true,  sk:'presentacion'},
-      {key:'grPorPorcion',    label:'g/Porción',      filterable:false, sk:'grPorPorcion'},
+      {key:'grPorPorcion',    label:'g/Porción',      filterable:true,  sk:'grPorPorcion'},
       {key:'pura',            label:'Pura',           filterable:true,  sk:'pura'},
-      {key:'costoPorPorcion', label:'Costo/Porción',  filterable:false, sk:'costoPorPorcion'},
-      {key:'costoPor5g',      label:'Costo/5g',       filterable:false, sk:'costoPor5g'},
+      {key:'costoPorPorcion', label:'Costo/Porción',  filterable:true,  sk:'costoPorPorcion'},
+      {key:'costoPor5g',      label:'Costo/5g',       filterable:true,  sk:'costoPor5g'},
       {key:'estadoML',        label:'Estado',         filterable:true},
-      {key:'_updatedAt',      label:'Últ. Mod.',      filterable:false},
-      {key:'_actions',        label:'Acciones',       filterable:false},
+      {key:'_updatedAt',      label:'Últ. Mod.',      filterable:true},
+      {key:'_actions',        label:'Estado web',     filterable:false},
+      {key:'_edit',           label:'Editar',         filterable:false},
     ]
   },
   complejo_b: {
     label: 'complejo B', catKey: 'complejo_b',
     cols: [
-      {key:'precioML',        label:'Precio ML',      filterable:false},
-      {key:'precioAmz',       label:'Precio AMZ',     filterable:false},
+      {key:'precioML',        label:'Precio ML',      filterable:true},
+      {key:'precioAmz',       label:'Precio AMZ',     filterable:true},
       {key:'enlace',          label:'Enlace',         filterable:false},
       {key:'marca',           label:'Marca',          filterable:true},
-      {key:'nombre',          label:'Nombre',         filterable:false},
+      {key:'nombre',          label:'Nombre',         filterable:true},
       {key:'capsulasPorDia',  label:'Cáps./Día',      filterable:true,  sk:'capsulasPorDia'},
-      {key:'costoPorPorcion', label:'Costo/Porción',  filterable:false, sk:'costoPorPorcion'},
-      {key:'b1',  label:'B1',  filterable:false, sk:'b1'},
-      {key:'b6',  label:'B6',  filterable:false, sk:'b6'},
-      {key:'b9',  label:'B9',  filterable:false, sk:'b9'},
-      {key:'b12', label:'B12', filterable:false, sk:'b12'},
+      {key:'costoPorPorcion', label:'Costo/Porción',  filterable:true,  sk:'costoPorPorcion'},
+      {key:'b1',  label:'B1',  filterable:true,  sk:'b1'},
+      {key:'b6',  label:'B6',  filterable:true,  sk:'b6'},
+      {key:'b9',  label:'B9',  filterable:true,  sk:'b9'},
+      {key:'b12', label:'B12', filterable:true,  sk:'b12'},
       {key:'formaB12',        label:'Forma B12',      filterable:true,  sk:'formaB12'},
       {key:'estadoML',        label:'Estado',         filterable:true},
-      {key:'_updatedAt',      label:'Últ. Mod.',      filterable:false},
-      {key:'_actions',        label:'Acciones',       filterable:false},
+      {key:'_updatedAt',      label:'Últ. Mod.',      filterable:true},
+      {key:'_actions',        label:'Estado web',     filterable:false},
+      {key:'_edit',           label:'Editar',         filterable:false},
     ]
   },
 };
@@ -671,6 +683,12 @@ function encodeDB(){
 function autoSave(){
   try{localStorage.setItem(\'admin_db\',JSON.stringify(DB));localStorage.setItem(\'admin_db_ts\',new Date().toISOString());}catch(e){}
   document.getElementById(\'save-status\').textContent=\'● Sin guardar\';
+  // Iluminar el botón Publicar sitio para recordar publicar cambios
+  const pbtn=document.getElementById(\'btn-publish\');
+  if(pbtn&&!pbtn.classList.contains(\'publish-pending\')){
+    pbtn.classList.add(\'publish-pending\');
+    pbtn.title=\'Hay cambios sin publicar en la web — haz clic para publicar\';
+  }
 }
 function toB64(str){
   const bytes=new TextEncoder().encode(str);
@@ -695,7 +713,22 @@ async function saveState(){
     await artifact.publish(SKEL+content+\'</body></html>\');
     try{localStorage.removeItem(\'admin_db\');}catch(e){}
     document.getElementById(\'save-status\').textContent=\'✓ Guardado\';
-    toast(\'✅ Guardado — la página se actualizará\');
+    // Descargar merged-admin.json actualizado para poder commitear en GitHub
+    const fullDB={};
+    for(const [cat,prods] of Object.entries(DB)){
+      fullDB[cat]=prods.map(p=>{const o={};Object.keys(p).forEach(k=>{o[k]=p[k];});return o;});
+    }
+    const jsonStr=JSON.stringify(fullDB,null,2);
+    try{
+      if(window.claude&&window.claude.downloads){
+        await window.claude.downloads.save({filename:\'merged-admin.json\',content:jsonStr,mimeType:\'application/json\'});
+      } else {
+        const jblob=new Blob([jsonStr],{type:\'application/json\'});
+        const ja=document.createElement(\'a\');ja.href=URL.createObjectURL(jblob);ja.download=\'merged-admin.json\';
+        document.body.appendChild(ja);ja.click();document.body.removeChild(ja);URL.revokeObjectURL(ja.href);
+      }
+    }catch(de){console.warn(\'download failed\',de);}
+    toast(\'✅ Guardado — se descargó merged-admin.json, cópialo al repo para commitear\');
   }catch(e){
     toast(\'⚠ Error al guardar: \'+(e.message||String(e)));
     btn.disabled=false;btn.textContent=\'💾 Guardar\';
@@ -851,6 +884,13 @@ function toast(msg){
 
 renderStats(); renderCats(); render();
 
+// Limpiar badge "pendiente" de Publicar sitio cuando el usuario hace click
+document.getElementById(\'btn-publish\').addEventListener(\'click\',()=>{
+  const pbtn=document.getElementById(\'btn-publish\');
+  pbtn.classList.remove(\'publish-pending\');
+  pbtn.title=\'\';
+});
+
 // ── TABS ─────────────────────────────────────────────────────────────────────
 document.querySelectorAll(\'.tab-btn[data-tab]\').forEach(btn => {
   btn.addEventListener(\'click\', () => {
@@ -884,7 +924,10 @@ function renderCatalogTab(tab){
 function _colVal(p, col) {
   if (col.sk) return (p.especs||{})[col.sk] ?? null;
   if (col.key === 'enlace') return (p.linkML||p.linkAmz) ? 'con enlace' : null;
-  if (col.key === '_actions') return null;
+  if (col.key === '_actions' || col.key === '_edit') return null;
+  if (col.key === 'precioML') return p.precioML ? '$'+Math.round(p.precioML).toLocaleString('es-MX') : null;
+  if (col.key === 'precioAmz') return p.precioAmz ? '$'+Math.round(p.precioAmz).toLocaleString('es-MX') : null;
+  if (col.key === '_updatedAt') return p._updatedAt ? p._updatedAt.slice(0,10) : null;
   return p[col.key] ?? null;
 }
 
@@ -1106,7 +1149,10 @@ function _renderCatBody(catKey) {
         const pa = paused
           ? '<button class="btn-sm" style="color:#fff;background:var(--yellow);border-color:var(--yellow);font-size:10px;padding:3px 8px" data-catact="play"  data-key="'+key+'" title="Pausado — clic para activar">⏸ Pausado</button>'
           : '<button class="btn-sm" style="color:#fff;background:var(--green);border-color:var(--green);font-size:10px;padding:3px 8px"  data-catact="pause" data-key="'+key+'" title="Activo — clic para pausar">● Activo</button>';
-        return '<td><div class="actions">'+pa+'<button class="btn-sm btn-edit" data-catact="edit" data-key="'+key+'">✏</button></div></td>';
+        return '<td>'+pa+'</td>';
+      }
+      if (col.key === '_edit') {
+        return '<td><button class="btn-sm btn-edit" data-catact="edit" data-key="'+key+'">✏ Editar</button></td>';
       }
       if (col.key === 'precioML') return '<td class="precio-col">'+(p.precioML?' <span class="precio-ml">$'+Math.round(p.precioML).toLocaleString('es-MX')+'</span>':' <span class="spec-null">—</span>')+'</td>';
       if (col.key === 'precioAmz') return '<td class="precio-col">'+(p.precioAmz?' <span class="precio-amz">$'+Math.round(p.precioAmz).toLocaleString('es-MX')+'</span>' : '<span class="spec-null">—</span>')+'</td>';
