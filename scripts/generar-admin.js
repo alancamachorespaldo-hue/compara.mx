@@ -203,6 +203,7 @@ td{padding:8px 10px;vertical-align:middle;font-size:13px}
   <button class="tab-btn" data-tab="bicis">🚲 Bicis</button>
   <button class="tab-btn" data-tab="suplementos">💊 Suplementos</button>
   <button class="tab-btn" data-tab="microondas">📟 Microondas</button>
+  <button class="tab-btn" data-tab="auditoria">🔍 Auditoría</button>
 </div>
 
 <!-- ── TAB: GESTIÓN ─────────────────────────────────────────────────── -->
@@ -303,6 +304,15 @@ td{padding:8px 10px;vertical-align:middle;font-size:13px}
     <a href="https://github.com/alancamachorespaldo-hue/compara.mx/actions/workflows/update-prices-microondas.yml" target="_blank" rel="noopener" class="btn-gh-action">🔄 Actualizar precios ML</a>
   </div>
   <div id="ct-microondas"></div>
+</div>
+
+<!-- ── TAB: AUDITORÍA ─────────────────────────────────────────────── -->
+<div id="tab-auditoria" class="tab-section">
+  <div class="tab-toolbar" style="justify-content:space-between;flex-wrap:wrap;gap:8px">
+    <span style="font-size:13px;color:var(--fg2)">Productos con link genérico <code style="background:var(--gray-light);padding:2px 6px;border-radius:4px">/p/MLM</code> — pueden apuntar a la variante equivocada en ML. Haz clic en el link para verificar y en ✏ para corregir.</span>
+    <button class="btn-export" style="background:var(--accent);font-size:12px;padding:5px 12px" onclick="renderAuditoria()">↺ Actualizar</button>
+  </div>
+  <div id="audit-body" style="padding:0 20px 20px"></div>
 </div>
 
 <!-- ── EDIT MODAL ──────────────────────────────────────────────────── -->
@@ -915,11 +925,45 @@ document.querySelectorAll(\'.subtab-btn[data-sup]\').forEach(btn => {
 
 function renderCatalogTab(tab){
   if(tab === \'gestion\') return;
+  if(tab === \'auditoria\'){ renderAuditoria(); return; }
   if(tab === \'suplementos\'){
     renderCatalog(curSupKey, document.getElementById(\'ct-suplementos\'));
   } else if(CATALOG_DEFS[tab]){
     renderCatalog(tab, document.getElementById(\'ct-\'+tab));
   }
+}
+
+function renderAuditoria(){
+  const body=document.getElementById(\'audit-body\');
+  if(!body) return;
+  const CAT_LABELS={laptops:\'💻 Laptops\',freidoras:\'🍟 Freidoras\',bicis:\'🚲 Bicis\',microondas:\'📟 Microondas\',proteina:\'🥛 Proteína\',omega3:\'🐟 Omega 3\',magnesio:\'💊 Magnesio\',creatina:\'💪 Creatina\',complejo_b:\'🅱 Complejo B\'};
+  let html=\'\';
+  let totalGen=0, totalSinLink=0;
+  for(const [cat,prods] of Object.entries(DB)){
+    const genericos=prods.filter(p=>p.linkML&&p.linkML.includes(\'/p/MLM\'));
+    const sinLink=prods.filter(p=>!p.linkML);
+    totalGen+=genericos.length; totalSinLink+=sinLink.length;
+    if(!genericos.length&&!sinLink.length) continue;
+    html+=\'<div style="margin-top:20px"><div style="font-weight:700;font-size:14px;color:var(--accent);padding:6px 0;border-bottom:2px solid var(--border);margin-bottom:8px">\'+(CAT_LABELS[cat]||cat)+\' — <span style="color:var(--red)">\'+ genericos.length+\' genéricos</span>\'+( sinLink.length?\'  <span style="color:var(--gray)">· \'+sinLink.length+\' sin link</span>\':\'\')+\'</div>\';
+    html+=\'<table style="width:100%;border-collapse:collapse;font-size:13px"><thead><tr style="background:var(--gray-light)"><th style="padding:6px 10px;text-align:left;font-size:11px;text-transform:uppercase;color:var(--fg2)">Producto</th><th style="padding:6px 10px;text-align:left;font-size:11px;text-transform:uppercase;color:var(--fg2)">Link ML actual</th><th style="padding:6px 10px;font-size:11px;text-transform:uppercase;color:var(--fg2)">Estado</th><th style="padding:6px 10px"></th></tr></thead><tbody>\';
+    for(const p of [...genericos,...sinLink]){
+      const key=cat+\'|\'+p.id;
+      const isGen=p.linkML&&p.linkML.includes(\'/p/MLM\');
+      const badge=isGen
+        ?\'<span style="background:#fef3c7;color:#92400e;padding:2px 7px;border-radius:10px;font-size:11px;font-weight:600">⚠ Genérico</span>\'
+        :\'<span style="background:var(--red-light);color:var(--red);padding:2px 7px;border-radius:10px;font-size:11px;font-weight:600">✗ Sin link</span>\';
+      const linkCell=p.linkML
+        ?\'<a href="\'+p.linkML+\'" target="_blank" rel="noopener" style="color:var(--accent);font-size:11px;word-break:break-all;text-decoration:none">\'+ p.linkML.replace(\'https://www.mercadolibre.com.mx\',\'meli.mx\')+\'↗</a>\'
+        :\'<span style="color:var(--fg2);font-size:11px">—</span>\';
+      html+=\'<tr style="border-bottom:1px solid var(--border)"><td style="padding:7px 10px;max-width:220px"><div style="font-weight:500">\'+ p.nombre+\'</div><div style="font-size:11px;color:var(--fg2)">\'+ p.marca+\' · id \'+p.id+\'</div></td><td style="padding:7px 10px">\'+ linkCell+\'</td><td style="padding:7px 10px;white-space:nowrap">\'+badge+\'</td><td style="padding:7px 10px"><button class="btn-sm btn-edit" onclick="openEdit(\\\'\'+ key+\'\\\')" style="font-size:11px;padding:3px 10px">✏ Editar</button></td></tr>\';
+    }
+    html+=\'</tbody></table></div>\';
+  }
+  if(!totalGen&&!totalSinLink){
+    body.innerHTML=\'<div style="padding:40px;text-align:center;color:var(--green);font-weight:600;font-size:15px">✅ Todos los productos tienen links específicos. ¡Sin pendientes!</div>\';
+    return;
+  }
+  body.innerHTML=\'<div style="padding:12px 0 4px;color:var(--fg2);font-size:13px">\'+ totalGen+\' links genéricos · \'+totalSinLink+\' sin link en total</div>\'+html;
 }
 
 // ── GENERALIZED CATALOG RENDER ───────────────────────────────────────────────
