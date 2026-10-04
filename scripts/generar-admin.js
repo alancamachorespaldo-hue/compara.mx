@@ -941,7 +941,7 @@ function renderAuditoria(){
   let totalGen=0, totalSinLink=0;
   for(const [cat,prods] of Object.entries(DB)){
     const genericos=prods.filter(p=>p.linkML&&p.linkML.includes(\'/p/MLM\'));
-    const sinLink=prods.filter(p=>!p.linkML);
+    const sinLink=prods.filter(p=>!p.linkML&&!p.linkAmz);
     totalGen+=genericos.length; totalSinLink+=sinLink.length;
     if(!genericos.length&&!sinLink.length) continue;
     html+=\'<div style="margin-top:20px"><div style="font-weight:700;font-size:14px;color:var(--accent);padding:6px 0;border-bottom:2px solid var(--border);margin-bottom:8px">\'+(CAT_LABELS[cat]||cat)+\' — <span style="color:var(--red)">\'+ genericos.length+\' genéricos</span>\'+( sinLink.length?\'  <span style="color:var(--gray)">· \'+sinLink.length+\' sin link</span>\':\'\')+\'</div>\';
