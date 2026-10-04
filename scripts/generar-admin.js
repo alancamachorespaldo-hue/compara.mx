@@ -970,18 +970,18 @@ function openCatFilter(evt, catKey, colKey) {
     return (!isNaN(na)&&!isNaN(nb)) ? na-nb : a.localeCompare(b,'es-MX');
   });
   const st = getCatState(catKey);
-  const active = st.filters[colKey] || new Set();
-  const allChk = active.size === 0;
+  const active = st.filters[colKey]; // undefined = sin filtro (todos); Set = filtro activo
+  const allChk = !active; // solo true cuando no hay filtro, no cuando el Set está vacío
   const dd = document.createElement('div');
   dd.className = 'filter-dropdown'; dd.id = 'cat-dd';
   dd.innerHTML =
     '<div class="fd-item"><input type="checkbox" id="fd-all"'+(allChk?' checked':'')+' data-fdtype="all"> <label for="fd-all" style="cursor:pointer;font-weight:600">(Todos)</label></div>'
-    + vals.map((v,i) => '<div class="fd-item"><input type="checkbox" id="fd-v'+i+'"'+((allChk||active.has(v))?'  checked':'')+' data-fdtype="val" data-val="'+v.replace(/"/g,'&quot;').replace(/'/g,'&#39;')+'"> <label for="fd-v'+i+'" style="cursor:pointer">'+v+'</label></div>').join('')
+    + vals.map((v,i) => '<div class="fd-item"><input type="checkbox" id="fd-v'+i+'"'+((!active||active.has(v))?'  checked':'')+' data-fdtype="val" data-val="'+v.replace(/"/g,'&quot;').replace(/'/g,'&#39;')+'"> <label for="fd-v'+i+'" style="cursor:pointer">'+v+'</label></div>').join('')
     + '<div class="fd-footer"><button data-fdtype="clear">Limpiar</button><button class="fd-apply" data-fdtype="ok">OK</button></div>';
   dd.addEventListener('change', e => {
     const inp = e.target;
-    if (inp.dataset.fdtype === 'all') { toggleCatFilterAll(catKey, colKey); }
-    else if (inp.dataset.fdtype === 'val') { toggleCatFilterVal(catKey, colKey, inp); }
+    if (inp.dataset.fdtype === 'all') { toggleCatFilterAll(catKey, colKey, inp.checked); }
+    else if (inp.dataset.fdtype === 'val') { toggleCatFilterVal(catKey, colKey, inp, vals); }
   });
   dd.addEventListener('click', e => {
     const btn = e.target.closest('button[data-fdtype]');
@@ -990,34 +990,41 @@ function openCatFilter(evt, catKey, colKey) {
     else if (btn.dataset.fdtype === 'ok') { closeCatDropdown(); }
   });
   document.body.appendChild(dd);
-  const rect = evt.currentTarget ? evt.currentTarget.getBoundingClientRect() : evt.target.getBoundingClientRect();
+  const btn = evt.target.closest('[data-fcat]') || evt.target;
+  const rect = btn.getBoundingClientRect();
   dd.style.top  = Math.min(rect.bottom+4, window.innerHeight-dd.offsetHeight-8)+'px';
-  dd.style.left = Math.min(rect.left, window.innerWidth-270)+'px';
+  dd.style.left = Math.max(0, Math.min(rect.left, window.innerWidth-270))+'px';
   setTimeout(() => document.addEventListener('click', _closeDDHandler, {once:true}), 0);
 }
 function _closeDDHandler(e) { if (!e.target.closest('#cat-dd')) closeCatDropdown(); }
 function closeCatDropdown() { document.getElementById('cat-dd')?.remove(); }
 
-function toggleCatFilterAll(catKey, colKey) {
+function toggleCatFilterAll(catKey, colKey, isChecked) {
   const st = getCatState(catKey);
-  delete st.filters[colKey];
-  // marcar todos los checkboxes del dropdown como checked
-  document.querySelectorAll('#cat-dd input[data-fdtype="val"]').forEach(cb => cb.checked = true);
-  const allEl = document.getElementById('fd-all');
-  if (allEl) allEl.checked = true;
+  if (isChecked) {
+    // Seleccionar todos → quitar filtro
+    delete st.filters[colKey];
+    document.querySelectorAll('#cat-dd input[data-fdtype="val"]').forEach(cb => cb.checked = true);
+  } else {
+    // Deseleccionar todos → filtro vacío (ninguna fila pasa)
+    st.filters[colKey] = new Set();
+    document.querySelectorAll('#cat-dd input[data-fdtype="val"]').forEach(cb => cb.checked = false);
+  }
   _applyCatFilters(catKey);
-  // no cierra — el usuario da OK
 }
-function toggleCatFilterVal(catKey, colKey, cb) {
+function toggleCatFilterVal(catKey, colKey, cb, allVals) {
   const st = getCatState(catKey);
-  if (!st.filters[colKey]) st.filters[colKey] = new Set();
+  // Si no hay filtro activo, empezar con todos seleccionados menos el que se desmarca
+  if (!st.filters[colKey]) {
+    st.filters[colKey] = new Set(allVals.map(String));
+  }
   if (cb.checked) st.filters[colKey].add(cb.dataset.val);
   else st.filters[colKey].delete(cb.dataset.val);
-  if (!st.filters[colKey].size) delete st.filters[colKey];
+  // Si todos seleccionados → quitar filtro (equivale a Todos)
+  if (st.filters[colKey].size === allVals.length) delete st.filters[colKey];
   const allEl = document.getElementById('fd-all');
   if (allEl) allEl.checked = !st.filters[colKey];
   _applyCatFilters(catKey);
-  // no cierra — el usuario da OK
 }
 function clearOneCatFilter(catKey, colKey) {
   const st = getCatState(catKey);
