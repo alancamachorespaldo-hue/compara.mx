@@ -551,7 +551,7 @@ const CATALOG_DEFS = {
 // Per-catalog filter state: catKey → {filters: {colKey: Set}, search: ''}
 const catState = {};
 function getCatState(catKey) {
-  if (!catState[catKey]) catState[catKey] = {filters:{}, search:''};
+  if (!catState[catKey]) catState[catKey] = {filters:{}, search:'', plat:null};
   return catState[catKey];
 }
 
@@ -898,9 +898,16 @@ function renderCatalog(catKey, container) {
   const tbodyId  = 'ctb-'+catKey;
   const emptyId  = 'ce-'+catKey;
 
+  const platId = 'cpf-'+catKey;
   if (!container.querySelector('[data-cat-key]')) {
     container.innerHTML =
       '<div class="cat-search"><input id="'+searchId+'" type="search" placeholder="Buscar..."><span id="'+countId+'" style="font-size:12px;color:var(--fg2);white-space:nowrap"></span><button id="'+cfId+'" class="btn-export" style="display:none;background:var(--red);padding:5px 12px;font-size:12px">✕ Filtros</button></div>'+
+      '<div style="display:flex;gap:6px;align-items:center;padding:0 20px 8px;flex-wrap:wrap">'+
+        '<span style="font-size:11px;color:var(--fg2);font-weight:600;text-transform:uppercase;letter-spacing:.05em">Tienda:</span>'+
+        '<button class="plat-btn" id="'+platId+'-ml" data-cpcat="'+catKey+'" data-cpplat="ml"><svg width="14" height="14" viewBox="0 0 32 32"><rect width="32" height="32" rx="4" fill="#FFE030"/><text x="16" y="22" text-anchor="middle" font-size="13" font-weight="900" font-family="Arial" fill="#333E48">ML</text></svg> Mercado Libre</button>'+
+        '<button class="plat-btn" id="'+platId+'-amz" data-cpcat="'+catKey+'" data-cpplat="amz"><svg width="14" height="14" viewBox="0 0 32 32"><rect width="32" height="32" rx="4" fill="#FF9900"/><text x="16" y="22" text-anchor="middle" font-size="11" font-weight="900" font-family="Arial" fill="#fff">amz</text></svg> Amazon</button>'+
+        '<button class="plat-btn" id="'+platId+'-ambas" data-cpcat="'+catKey+'" data-cpplat="ambas"><svg width="14" height="14" viewBox="0 0 32 32"><rect width="16" height="32" rx="4" fill="#FFE030"/><rect x="16" width="16" height="32" rx="4" fill="#FF9900"/></svg> Ambas</button>'+
+      '</div>'+
       '<div id="'+afId+'" style="padding:0 20px 4px;display:flex;gap:4px;flex-wrap:wrap"></div>'+
       '<div class="cat-table-wrap" data-cat-key="'+catKey+'">'+
         '<table><thead><tr id="'+theadId+'"></tr></thead><tbody id="'+tbodyId+'"></tbody></table>'+
@@ -911,6 +918,18 @@ function renderCatalog(catKey, container) {
       _renderCatBody(catKey);
     });
     container.querySelector('#'+cfId).addEventListener('click', () => clearCatFilters(catKey));
+    container.querySelectorAll('[data-cpcat]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const st = getCatState(catKey);
+        const p = btn.dataset.cpplat;
+        st.plat = (st.plat === p ? null : p);
+        ['ml','amz','ambas'].forEach(id => {
+          const el = document.getElementById(platId+'-'+id);
+          if (el) el.className = 'plat-btn'+(st.plat===id?' on-'+id:'');
+        });
+        _renderCatBody(catKey);
+      });
+    });
   }
 
   container.querySelector('#'+searchId).value = st.search;
@@ -982,8 +1001,12 @@ function closeCatDropdown() { document.getElementById('cat-dd')?.remove(); }
 function toggleCatFilterAll(catKey, colKey) {
   const st = getCatState(catKey);
   delete st.filters[colKey];
+  // marcar todos los checkboxes del dropdown como checked
+  document.querySelectorAll('#cat-dd input[data-fdtype="val"]').forEach(cb => cb.checked = true);
+  const allEl = document.getElementById('fd-all');
+  if (allEl) allEl.checked = true;
   _applyCatFilters(catKey);
-  closeCatDropdown();
+  // no cierra — el usuario da OK
 }
 function toggleCatFilterVal(catKey, colKey, cb) {
   const st = getCatState(catKey);
@@ -994,6 +1017,7 @@ function toggleCatFilterVal(catKey, colKey, cb) {
   const allEl = document.getElementById('fd-all');
   if (allEl) allEl.checked = !st.filters[colKey];
   _applyCatFilters(catKey);
+  // no cierra — el usuario da OK
 }
 function clearOneCatFilter(catKey, colKey) {
   const st = getCatState(catKey);
@@ -1046,6 +1070,9 @@ function _renderCatBody(catKey) {
     const q = st.search.toLowerCase();
     list = list.filter(p => (p.nombre+' '+p.marca).toLowerCase().includes(q));
   }
+  if (st.plat === 'ml')    list = list.filter(p => p.linkML);
+  if (st.plat === 'amz')   list = list.filter(p => p.linkAmz);
+  if (st.plat === 'ambas') list = list.filter(p => p.linkML && p.linkAmz);
   for (const [k, vals] of Object.entries(st.filters)) {
     if (!vals.size) continue;
     const col = def.cols.find(c => c.key === k);
