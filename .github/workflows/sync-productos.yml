@@ -3,7 +3,8 @@ name: Sincronizar productos.json → HTML
 on:
   push:
     paths:
-      - 'scripts/productos.json'  # se dispara solo cuando cambia este archivo
+      - 'scripts/productos.json'
+      - 'scripts/merged-admin.json'
   workflow_dispatch:
 
 jobs:
