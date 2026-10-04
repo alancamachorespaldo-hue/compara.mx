@@ -63,10 +63,12 @@ async function getToken() {
         refresh_token: refreshToken,
       }),
     });
-    if (!res.ok) throw new Error(`Token (refresh) error ${res.status}: ${await res.text()}`);
-    const data = await res.json();
-    console.log('🔑 Token OAuth de usuario OK (refresh_token)\n');
-    return data.access_token;
+    if (res.ok) {
+      const data = await res.json();
+      console.log('🔑 Token OAuth de usuario OK (refresh_token)\n');
+      return data.access_token;
+    }
+    console.warn(`⚠ refresh_token falló (${res.status}) — usando client_credentials como fallback\n`);
   }
 
   // Fallback: client_credentials (solo catalog products, sin items individuales)
