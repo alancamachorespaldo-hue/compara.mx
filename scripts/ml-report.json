@@ -1,11 +1,11 @@
 {
-  "fecha": "2026-10-01",
-  "generado": "2026-10-01T12:03:05.153Z",
+  "fecha": "2026-10-04",
+  "generado": "2026-10-04T20:54:57.190Z",
   "totales": {
-    "actualizados": 0,
-    "sin_cambio": 18,
-    "sin_precio": 53,
-    "no_encontrado": 4,
+    "actualizados": 7,
+    "sin_cambio": 11,
+    "sin_precio": 57,
+    "no_encontrado": 0,
     "precio_sospechoso": 0
   },
   "productos": [
@@ -60,7 +60,7 @@
       "marca": "Lenovo",
       "precioAntes": 10899,
       "estado": "sin_precio",
-      "mlId": "MLM22656425",
+      "mlId": "MLM69621642",
       "precioML": null
     },
     {
@@ -122,9 +122,10 @@
       "nombre": "Apple MacBook Air 13 M5 16GB 512GB Azul Cielo",
       "marca": "Apple",
       "precioAntes": 27322,
-      "estado": "sin_cambio",
+      "precioNuevo": 26111,
+      "estado": "actualizado",
       "mlId": "MLM73080506",
-      "precioML": 27322
+      "precioML": 26111
     },
     {
       "categoria": "laptops",
@@ -141,7 +142,7 @@
       "marca": "Apple",
       "precioAntes": 114999,
       "estado": "sin_precio",
-      "mlId": "MLM74955180",
+      "mlId": "MLM80132852",
       "precioML": null
     },
     {
@@ -203,9 +204,10 @@
       "nombre": "Apple MacBook Air 15 M5 16GB 512GB Azul Cielo",
       "marca": "Apple",
       "precioAntes": 27322,
-      "estado": "sin_cambio",
+      "precioNuevo": 26111,
+      "estado": "actualizado",
       "mlId": "MLM73080506",
-      "precioML": 27322
+      "precioML": 26111
     },
     {
       "categoria": "laptops",
@@ -222,7 +224,7 @@
       "marca": "Lenovo",
       "precioAntes": 7124,
       "estado": "sin_precio",
-      "mlId": "MLM63140592",
+      "mlId": "MLM80161584",
       "precioML": null
     },
     {
@@ -285,7 +287,7 @@
       "marca": "HP",
       "precioAntes": 5032,
       "estado": "sin_precio",
-      "mlId": "MLM28869134",
+      "mlId": "MLM35954352",
       "precioML": null
     },
     {
@@ -311,9 +313,10 @@
       "nombre": "KAIGERR LX15 Ryzen 5 7430U 16GB 512GB",
       "marca": "KAIGERR",
       "precioAntes": 9861,
-      "estado": "no_encontrado",
-      "mlId": null,
-      "precioML": null
+      "precioNuevo": 9950,
+      "estado": "actualizado",
+      "mlId": "MLM77673866",
+      "precioML": 9950
     },
     {
       "categoria": "laptops",
@@ -338,8 +341,8 @@
       "nombre": "Dell Latitude 5330 2-en-1 Core i7-1265U 32GB 512GB Touch (Reacondicionado)",
       "marca": "Dell",
       "precioAntes": 9414,
-      "estado": "no_encontrado",
-      "mlId": null,
+      "estado": "sin_precio",
+      "mlId": "MLM77719241",
       "precioML": null
     },
     {
@@ -365,8 +368,8 @@
       "nombre": "MSI Cyborg 15 Core 7-240H 16GB 512GB RTX 5060 Gaming",
       "marca": "MSI",
       "precioAntes": 29999,
-      "estado": "no_encontrado",
-      "mlId": null,
+      "estado": "sin_precio",
+      "mlId": "MLM75830763",
       "precioML": null
     },
     {
@@ -374,8 +377,8 @@
       "nombre": "Lenovo ThinkPad X13 Ryzen 5 PRO 4650U 32GB 256GB (Reacondicionado)",
       "marca": "Lenovo",
       "precioAntes": 6632,
-      "estado": "no_encontrado",
-      "mlId": null,
+      "estado": "sin_precio",
+      "mlId": "MLM78954698",
       "precioML": null
     },
     {
@@ -419,9 +422,10 @@
       "nombre": "Lenovo IdeaPad Core i5-1335U 12GB 256GB Touch",
       "marca": "Lenovo",
       "precioAntes": 10698,
-      "estado": "sin_cambio",
+      "precioNuevo": 10810,
+      "estado": "actualizado",
       "mlId": "MLM60551011",
-      "precioML": 10698
+      "precioML": 10810
     },
     {
       "categoria": "laptops",
@@ -455,9 +459,10 @@
       "nombre": "HP 15 Core i7-1355U 16GB 512GB Touch FD0127",
       "marca": "HP",
       "precioAntes": 21999,
-      "estado": "sin_cambio",
+      "precioNuevo": 20999,
+      "estado": "actualizado",
       "mlId": "MLM74159997",
-      "precioML": 21999
+      "precioML": 20999
     },
     {
       "categoria": "laptops",
@@ -491,9 +496,10 @@
       "nombre": "HP 255R G10 Ryzen 5 7535U 8GB 512GB",
       "marca": "HP",
       "precioAntes": 10199,
-      "estado": "sin_cambio",
+      "precioNuevo": 9995,
+      "estado": "actualizado",
       "mlId": "MLM75672831",
-      "precioML": 10199
+      "precioML": 9995
     },
     {
       "categoria": "laptops",
@@ -509,9 +515,9 @@
       "nombre": "Vanwin 16 Core i5-8210Y 16GB 512GB",
       "marca": "Vanwin",
       "precioAntes": 8203,
-      "estado": "sin_cambio",
-      "mlId": "MLM53279431",
-      "precioML": 8203
+      "estado": "sin_precio",
+      "mlId": null,
+      "precioML": null
     },
     {
       "categoria": "laptops",
@@ -527,9 +533,10 @@
       "nombre": "HP Pavilion 15 Intel N200 4GB 128GB",
       "marca": "HP",
       "precioAntes": 6461,
-      "estado": "sin_cambio",
+      "precioNuevo": 6529,
+      "estado": "actualizado",
       "mlId": "MLM63240659",
-      "precioML": 6461
+      "precioML": 6529
     },
     {
       "categoria": "laptops",
@@ -634,7 +641,7 @@
       "categoria": "laptops",
       "nombre": "WIPEMIK 15.6 Pentium Gold 6500Y 16GB 240GB",
       "marca": "WIPEMIK",
-      "precioAntes": 5065,
+      "precioAntes": 5348,
       "estado": "sin_precio",
       "mlId": null,
       "precioML": null
