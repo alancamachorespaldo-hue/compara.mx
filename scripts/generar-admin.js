@@ -85,6 +85,8 @@ th.chk-col,td.chk-col{width:32px;padding:8px 6px 8px 10px}
 tbody tr.selected{background:var(--accent-light)}
 .sel-bar{display:none;align-items:center;gap:10px;padding:8px 20px;background:var(--accent-light);border-bottom:1px solid var(--border);font-size:13px;color:var(--accent);font-weight:600}
 .sel-bar.show{display:flex}
+.cat-sel-bar{display:none;align-items:center;gap:10px;padding:6px 20px;background:var(--accent-light);border-top:1px solid var(--border);border-bottom:1px solid var(--border);font-size:13px;color:var(--accent);font-weight:600}
+.cat-sel-bar.show{display:flex}
 .btn-export-sel{padding:7px 16px;border-radius:7px;background:var(--accent);color:#fff;border:none;cursor:pointer;font-size:13px;font-weight:600;white-space:nowrap}
 .btn-clear-sel{padding:5px 12px;border-radius:7px;border:1px solid var(--accent);background:transparent;color:var(--accent);cursor:pointer;font-size:12px}
 tbody tr{border-bottom:1px solid var(--border)}
@@ -563,7 +565,7 @@ const CATALOG_DEFS = {
 // Per-catalog filter state: catKey → {filters: {colKey: Set}, search: ''}
 const catState = {};
 function getCatState(catKey) {
-  if (!catState[catKey]) catState[catKey] = {filters:{}, search:'', plat:null};
+  if (!catState[catKey]) catState[catKey] = {filters:{}, search:'', plat:null, selected:new Set()};
   return catState[catKey];
 }
 
@@ -955,6 +957,11 @@ function renderCatalog(catKey, container) {
         '<button class="plat-btn" id="'+platId+'-ambas" data-cpcat="'+catKey+'" data-cpplat="ambas"><svg width="14" height="14" viewBox="0 0 32 32"><rect width="16" height="32" rx="4" fill="#FFE030"/><rect x="16" width="16" height="32" rx="4" fill="#FF9900"/></svg> Ambas</button>'+
       '</div>'+
       '<div id="'+afId+'" style="padding:0 20px 4px;display:flex;gap:4px;flex-wrap:wrap"></div>'+
+      '<div class="cat-sel-bar" id="csel-'+catKey+'">'+
+        '<span id="csel-cnt-'+catKey+'">0 seleccionados</span>'+
+        '<button class="btn-export-sel" id="csel-copy-'+catKey+'">📋 Copiar JSON seleccionados</button>'+
+        '<button class="btn-clear-sel" id="csel-clear-'+catKey+'">✕ Deseleccionar</button>'+
+      '</div>'+
       '<div class="cat-table-wrap" data-cat-key="'+catKey+'">'+
         '<table><thead><tr id="'+theadId+'"></tr></thead><tbody id="'+tbodyId+'"></tbody></table>'+
         '<div class="empty" id="'+emptyId+'" hidden>Sin resultados.</div>'+
@@ -976,6 +983,11 @@ function renderCatalog(catKey, container) {
         _renderCatBody(catKey);
       });
     });
+    document.getElementById('csel-copy-'+catKey).addEventListener('click', () => _exportCatSelected(catKey));
+    document.getElementById('csel-clear-'+catKey).addEventListener('click', () => {
+      getCatState(catKey).selected.clear();
+      _renderCatBody(catKey);
+    });
   }
 
   container.querySelector('#'+searchId).value = st.search;
@@ -984,12 +996,35 @@ function renderCatalog(catKey, container) {
   _renderCatBody(catKey);
 }
 
+function _updateCatSelBar(catKey) {
+  const st = getCatState(catKey);
+  const bar = document.getElementById('csel-'+catKey);
+  const cnt = document.getElementById('csel-cnt-'+catKey);
+  if (!bar) return;
+  const n = st.selected.size;
+  if (n > 0) { bar.classList.add('show'); if(cnt) cnt.textContent = n+' seleccionado'+(n>1?'s':''); }
+  else bar.classList.remove('show');
+}
+
+function _exportCatSelected(catKey) {
+  const st = getCatState(catKey);
+  const prods = (DB[catKey]||[]).filter(p => st.selected.has(String(p.id)));
+  if (!prods.length) { toast('⚠ Ningún producto seleccionado'); return; }
+  const out = {}; out[catKey] = prods;
+  navigator.clipboard.writeText(JSON.stringify(out,null,2))
+    .then(()=>toast('✓ JSON de '+prods.length+' productos copiado'))
+    .catch(()=>{ const ta=document.createElement('textarea');ta.value=JSON.stringify(out,null,2);ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);toast('✓ JSON copiado'); });
+}
+
 function _buildCatThead(catKey) {
   const def = CATALOG_DEFS[catKey];
   const tr = document.getElementById('cth-'+catKey);
   if (!tr) return;
   const st = getCatState(catKey);
-  tr.innerHTML = def.cols.map(col => {
+  const allVis = _catVisibleList(catKey);
+  const allSel = allVis.length > 0 && allVis.every(p => st.selected.has(String(p.id)));
+  const chkTh = '<th class="chk-col"><input type="checkbox" id="cchk-all-'+catKey+'"'+(allSel?' checked':'')+' title="Seleccionar todos los visibles"></th>';
+  tr.innerHTML = chkTh + def.cols.map(col => {
     const active = st.filters[col.key] && st.filters[col.key].size > 0;
     const lbl = active ? '<span style="color:var(--accent)">'+col.label+'</span>' : col.label;
     const fBtn = col.filterable
@@ -1001,6 +1036,13 @@ function _buildCatThead(catKey) {
     const btn = e.target.closest('[data-fcat]');
     if (btn) openCatFilter(e, btn.dataset.fcat, btn.dataset.fcol);
   };
+  const chkAll = document.getElementById('cchk-all-'+catKey);
+  if (chkAll) chkAll.addEventListener('change', () => {
+    const vis = _catVisibleList(catKey);
+    if (chkAll.checked) vis.forEach(p => getCatState(catKey).selected.add(String(p.id)));
+    else vis.forEach(p => getCatState(catKey).selected.delete(String(p.id)));
+    _renderCatBody(catKey);
+  });
 }
 
 function openCatFilter(evt, catKey, colKey) {
@@ -1010,7 +1052,7 @@ function openCatFilter(evt, catKey, colKey) {
   if (!def) return;
   const col = def.cols.find(c => c.key === colKey);
   if (!col) return;
-  const prods = (DB[catKey]||[]).filter(p => p.activo !== false);
+  const prods = (DB[catKey]||[]);
   const vals = [...new Set(prods.map(p => _colVal(p, col)).filter(v => v != null).map(String))].sort((a,b) => {
     const na=parseFloat(a), nb=parseFloat(b);
     return (!isNaN(na)&&!isNaN(nb)) ? na-nb : a.localeCompare(b,'es-MX');
@@ -1109,14 +1151,9 @@ function _updateCatBadges(catKey) {
   }
 }
 
-function _renderCatBody(catKey) {
+function _catVisibleList(catKey) {
   const def = CATALOG_DEFS[catKey];
-  if (!def) return;
-  const tb    = document.getElementById('ctb-'+catKey);
-  const ccEl  = document.getElementById('cc-'+catKey);
-  const emEl  = document.getElementById('ce-'+catKey);
-  if (!tb) return;
-
+  if (!def) return [];
   const st = getCatState(catKey);
   let list = (DB[catKey]||[]);
   if (st.search) {
@@ -1132,6 +1169,19 @@ function _renderCatBody(catKey) {
     if (!col) continue;
     list = list.filter(p => { const v = _colVal(p, col); return v != null && vals.has(String(v)); });
   }
+  return list;
+}
+
+function _renderCatBody(catKey) {
+  const def = CATALOG_DEFS[catKey];
+  if (!def) return;
+  const tb    = document.getElementById('ctb-'+catKey);
+  const ccEl  = document.getElementById('cc-'+catKey);
+  const emEl  = document.getElementById('ce-'+catKey);
+  if (!tb) return;
+
+  const st = getCatState(catKey);
+  const list = _catVisibleList(catKey);
 
   if (ccEl) ccEl.textContent = list.length+' '+def.label;
   if (emEl) emEl.hidden = list.length > 0;
@@ -1143,8 +1193,10 @@ function _renderCatBody(catKey) {
   tb.innerHTML = list.map(p => {
     const e = p.especs||{};
     const key = catKey+'|'+p.id;
-    const rowStyle = p.activo===false ? ' style="opacity:.45;background:var(--gray-light)"' : '';
-    const cells = def.cols.map(col => {
+    const isSel = st.selected.has(String(p.id));
+    const rowStyle = isSel ? ' class="selected"' : (p.activo===false ? ' style="opacity:.45;background:var(--gray-light)"' : '');
+    const chkCell = '<td class="chk-col"><input type="checkbox" data-catsel="'+catKey+'" data-catid="'+p.id+'"'+(isSel?' checked':'')+' style="cursor:pointer"></td>';
+    const cells = chkCell + def.cols.map(col => {
       if (col.key === '_actions') {
         const paused = p.activo === false;
         const pa = paused
@@ -1177,11 +1229,26 @@ function _renderCatBody(catKey) {
 
   tb.onclick = e => {
     const btn = e.target.closest('[data-catact]');
-    if (!btn) return;
-    const act = btn.dataset.catact, k = btn.dataset.key;
-    if (act === 'pause' || act === 'play') toggleActivo(k);
-    else if (act === 'edit') openEdit(k);
+    if (btn) {
+      const act = btn.dataset.catact, k = btn.dataset.key;
+      if (act === 'pause' || act === 'play') toggleActivo(k);
+      else if (act === 'edit') openEdit(k);
+      return;
+    }
+    const chk = e.target.closest('[data-catsel]');
+    if (chk) {
+      const cst = getCatState(chk.dataset.catsel);
+      if (chk.checked) cst.selected.add(String(chk.dataset.catid));
+      else cst.selected.delete(String(chk.dataset.catid));
+      _updateCatSelBar(chk.dataset.catsel);
+      _buildCatThead(chk.dataset.catsel);
+      // update row highlight without full re-render
+      const row = chk.closest('tr');
+      if (row) { if(chk.checked) row.classList.add('selected'); else row.classList.remove('selected'); }
+    }
   };
+  _updateCatSelBar(catKey);
+  _buildCatThead(catKey);
 }
 <\/script>`;
 
