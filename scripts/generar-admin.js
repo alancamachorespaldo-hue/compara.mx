@@ -393,7 +393,7 @@ const CATALOG_DEFS = {
       {key:'touch',         label:'Touch',           filterable:true,  sk:'touch'},
       {key:'estadoML',      label:'Estado',          filterable:true},
       {key:'_updatedAt',    label:'Últ. Mod.',       filterable:true},
-      {key:'_actions',      label:'Estado web',      filterable:false},
+      {key:'_actions',      label:'Estado web',      filterable:true},
       {key:'_edit',         label:'Editar',          filterable:false},
     ]
   },
@@ -415,7 +415,7 @@ const CATALOG_DEFS = {
       {key:'antiadherente',label:'Antiadherente',filterable:true,  sk:'antiadherente'},
       {key:'estadoML',     label:'Estado',       filterable:true},
       {key:'_updatedAt',   label:'Últ. Mod.',    filterable:true},
-      {key:'_actions',     label:'Estado web',   filterable:false},
+      {key:'_actions',     label:'Estado web',   filterable:true},
       {key:'_edit',        label:'Editar',       filterable:false},
     ]
   },
@@ -437,7 +437,7 @@ const CATALOG_DEFS = {
       {key:'ip',         label:'IP',         filterable:true,  sk:'ip'},
       {key:'estadoML',   label:'Estado',     filterable:true},
       {key:'_updatedAt', label:'Últ. Mod.',  filterable:true},
-      {key:'_actions',   label:'Estado web', filterable:false},
+      {key:'_actions',   label:'Estado web', filterable:true},
       {key:'_edit',      label:'Editar',     filterable:false},
     ]
   },
@@ -451,7 +451,7 @@ const CATALOG_DEFS = {
       {key:'nombre',     label:'Nombre',     filterable:true},
       {key:'estadoML',   label:'Estado',     filterable:true},
       {key:'_updatedAt', label:'Últ. Mod.',  filterable:true},
-      {key:'_actions',   label:'Estado web', filterable:false},
+      {key:'_actions',   label:'Estado web', filterable:true},
       {key:'_edit',      label:'Editar',     filterable:false},
     ]
   },
@@ -472,7 +472,7 @@ const CATALOG_DEFS = {
       {key:'glutenFree',         label:'Gluten Free',    filterable:true,  sk:'glutenFree'},
       {key:'estadoML',           label:'Estado',         filterable:true},
       {key:'_updatedAt',         label:'Últ. Mod.',      filterable:true},
-      {key:'_actions',           label:'Estado web',     filterable:false},
+      {key:'_actions',           label:'Estado web',     filterable:true},
       {key:'_edit',              label:'Editar',         filterable:false},
     ]
   },
@@ -493,7 +493,7 @@ const CATALOG_DEFS = {
       {key:'costoPorPorcion', label:'Costo/Porción',  filterable:true,  sk:'costoPorPorcion'},
       {key:'estadoML',        label:'Estado',         filterable:true},
       {key:'_updatedAt',      label:'Últ. Mod.',      filterable:true},
-      {key:'_actions',        label:'Estado web',     filterable:false},
+      {key:'_actions',        label:'Estado web',     filterable:true},
       {key:'_edit',           label:'Editar',         filterable:false},
     ]
   },
@@ -513,7 +513,7 @@ const CATALOG_DEFS = {
       {key:'costoPorPorcion', label:'Costo/Porción',  filterable:true,  sk:'costoPorPorcion'},
       {key:'estadoML',        label:'Estado',         filterable:true},
       {key:'_updatedAt',      label:'Últ. Mod.',      filterable:true},
-      {key:'_actions',        label:'Estado web',     filterable:false},
+      {key:'_actions',        label:'Estado web',     filterable:true},
       {key:'_edit',           label:'Editar',         filterable:false},
     ]
   },
@@ -533,7 +533,7 @@ const CATALOG_DEFS = {
       {key:'costoPor5g',      label:'Costo/5g',       filterable:true,  sk:'costoPor5g'},
       {key:'estadoML',        label:'Estado',         filterable:true},
       {key:'_updatedAt',      label:'Últ. Mod.',      filterable:true},
-      {key:'_actions',        label:'Estado web',     filterable:false},
+      {key:'_actions',        label:'Estado web',     filterable:true},
       {key:'_edit',           label:'Editar',         filterable:false},
     ]
   },
@@ -554,7 +554,7 @@ const CATALOG_DEFS = {
       {key:'formaB12',        label:'Forma B12',      filterable:true,  sk:'formaB12'},
       {key:'estadoML',        label:'Estado',         filterable:true},
       {key:'_updatedAt',      label:'Últ. Mod.',      filterable:true},
-      {key:'_actions',        label:'Estado web',     filterable:false},
+      {key:'_actions',        label:'Estado web',     filterable:true},
       {key:'_edit',           label:'Editar',         filterable:false},
     ]
   },
@@ -924,7 +924,8 @@ function renderCatalogTab(tab){
 function _colVal(p, col) {
   if (col.sk) return (p.especs||{})[col.sk] ?? null;
   if (col.key === 'enlace') return (p.linkML||p.linkAmz) ? 'con enlace' : null;
-  if (col.key === '_actions' || col.key === '_edit') return null;
+  if (col.key === '_edit') return null;
+  if (col.key === '_actions') return p.activo === false ? 'Pausado' : 'Activo';
   if (col.key === 'precioML') return p.precioML ? '$'+Math.round(p.precioML).toLocaleString('es-MX') : null;
   if (col.key === 'precioAmz') return p.precioAmz ? '$'+Math.round(p.precioAmz).toLocaleString('es-MX') : null;
   if (col.key === '_updatedAt') return p._updatedAt ? p._updatedAt.slice(0,10) : null;
