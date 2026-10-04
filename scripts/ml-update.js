@@ -29,16 +29,23 @@ const CAT_ARG = process.argv.find(a => a.startsWith('--categoria='))?.split('=')
 const ROOT    = resolve(import.meta.dirname, '..');
 
 const CATALOG = {
-  bicis:       { file: 'bicis/index.html',                        varName: 'ELECTRICAS' },
-  suplementos: { file: 'suplementos/index.html',                  varName: 'productos'  },
-  laptops:     { file: 'laptops/index.html',                      varName: 'productos'  },
-  freidoras:   { file: 'electrodomesticos/freidoras/index.html',  varName: 'productos'  },
-  microondas:  { file: 'electrodomesticos/microondas/index.html', varName: 'micros'     },
+  laptops:    { file: 'laptops/index.html',                        varName: 'productos'  },
+  freidoras:  { file: 'electrodomesticos/freidoras/index.html',    varName: 'productos'  },
+  bicis:      { file: 'bicis/index.html',                          varName: 'ELECTRICAS' },
+  microondas: { file: 'electrodomesticos/microondas/index.html',   varName: 'micros'     },
+  proteina:   { file: 'suplementos/proteina/index.html',           varName: 'productos'  },
+  omega3:     { file: 'suplementos/omega3/index.html',             varName: 'productos'  },
+  magnesio:   { file: 'suplementos/magnesio/index.html',           varName: 'productos'  },
+  creatina:   { file: 'suplementos/creatina/index.html',           varName: 'productos'  },
+  complejo_b: { file: 'suplementos/complejo-b/index.html',         varName: 'PRODUCTOS'  },
 };
 
-const ENTRIES = CAT_ARG === 'all'
-  ? Object.entries(CATALOG)
-  : Object.entries(CATALOG).filter(([k]) => k === CAT_ARG);
+const SUPLEMENTOS = ['proteina', 'omega3', 'magnesio', 'creatina', 'complejo_b'];
+
+const ENTRIES =
+  CAT_ARG === 'all'         ? Object.entries(CATALOG) :
+  CAT_ARG === 'suplementos' ? SUPLEMENTOS.map(k => [k, CATALOG[k]]) :
+  Object.entries(CATALOG).filter(([k]) => k === CAT_ARG);
 
 // ── Token ────────────────────────────────────────────────────────────────────
 async function getToken() {
@@ -394,7 +401,7 @@ async function processFile(key, config, token) {
 // ── Main ─────────────────────────────────────────────────────────────────────
 (async () => {
   if (ENTRIES.length === 0) {
-    console.error(`❌ Categoría "${CAT_ARG}". Opciones: ${Object.keys(CATALOG).join(', ')}, all`);
+    console.error(`❌ Categoría "${CAT_ARG}". Opciones: ${Object.keys(CATALOG).join(', ')}, suplementos, all`);
     process.exit(1);
   }
   console.log(`\n🛒 comparalo.mx — Actualizador ML`);

@@ -153,6 +153,9 @@ td{padding:8px 10px;vertical-align:middle;font-size:13px}
 .tab-section{display:none}
 .tab-section.on{display:block}
 /* Sub-tabs (Suplementos) */
+.tab-toolbar{display:flex;align-items:center;gap:10px;padding:10px 20px 8px;border-bottom:1px solid var(--border)}
+.btn-gh-action{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:7px;background:var(--accent);color:#fff;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;transition:opacity .15s}
+.btn-gh-action:hover{opacity:.85}
 .subtab-bar{display:flex;gap:0;border-bottom:1px solid var(--border);background:var(--bg);padding:0 20px;overflow-x:auto}
 .subtab-btn{padding:8px 14px;font-size:12px;font-weight:600;color:var(--fg2);border:none;background:transparent;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
 .subtab-btn:hover{color:var(--fg)}
@@ -252,21 +255,33 @@ td{padding:8px 10px;vertical-align:middle;font-size:13px}
 
 <!-- ── TAB: LAPTOPS ─────────────────────────────────────────────────── -->
 <div id="tab-laptops" class="tab-section">
+  <div class="tab-toolbar">
+    <a href="https://github.com/alancamachorespaldo-hue/compara.mx/actions/workflows/update-prices-laptops.yml" target="_blank" rel="noopener" class="btn-gh-action">🔄 Actualizar precios ML</a>
+  </div>
   <div id="ct-laptops"></div>
 </div>
 
 <!-- ── TAB: FREIDORAS ──────────────────────────────────────────────── -->
 <div id="tab-freidoras" class="tab-section">
+  <div class="tab-toolbar">
+    <a href="https://github.com/alancamachorespaldo-hue/compara.mx/actions/workflows/update-prices-freidoras.yml" target="_blank" rel="noopener" class="btn-gh-action">🔄 Actualizar precios ML</a>
+  </div>
   <div id="ct-freidoras"></div>
 </div>
 
 <!-- ── TAB: BICIS ──────────────────────────────────────────────────── -->
 <div id="tab-bicis" class="tab-section">
+  <div class="tab-toolbar">
+    <a href="https://github.com/alancamachorespaldo-hue/compara.mx/actions/workflows/update-prices-bicis.yml" target="_blank" rel="noopener" class="btn-gh-action">🔄 Actualizar precios ML</a>
+  </div>
   <div id="ct-bicis"></div>
 </div>
 
 <!-- ── TAB: SUPLEMENTOS ────────────────────────────────────────────── -->
 <div id="tab-suplementos" class="tab-section">
+  <div class="tab-toolbar">
+    <a href="https://github.com/alancamachorespaldo-hue/compara.mx/actions/workflows/update-prices-suplementos.yml" target="_blank" rel="noopener" class="btn-gh-action">🔄 Actualizar precios ML</a>
+  </div>
   <div class="subtab-bar" id="subtab-bar">
     <button class="subtab-btn on" data-sup="proteina">🥛 Proteína</button>
     <button class="subtab-btn" data-sup="omega3">🐟 Omega 3</button>
@@ -279,6 +294,9 @@ td{padding:8px 10px;vertical-align:middle;font-size:13px}
 
 <!-- ── TAB: MICROONDAS ─────────────────────────────────────────────── -->
 <div id="tab-microondas" class="tab-section">
+  <div class="tab-toolbar">
+    <a href="https://github.com/alancamachorespaldo-hue/compara.mx/actions/workflows/update-prices-microondas.yml" target="_blank" rel="noopener" class="btn-gh-action">🔄 Actualizar precios ML</a>
+  </div>
   <div id="ct-microondas"></div>
 </div>
 
