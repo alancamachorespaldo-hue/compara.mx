@@ -20,7 +20,23 @@ const CATALOG = {
   microondas:  { file: 'electrodomesticos/microondas/index.html',  varName: 'micros'     },
 };
 
-const config = JSON.parse(readFileSync(resolve(ROOT, 'scripts/productos.json'), 'utf8'));
+const productosJson = JSON.parse(readFileSync(resolve(ROOT, 'scripts/productos.json'), 'utf8'));
+// merged-admin.json es la fuente de verdad para activo/pausado
+let mergedAdmin = {};
+try { mergedAdmin = JSON.parse(readFileSync(resolve(ROOT, 'scripts/merged-admin.json'), 'utf8')); } catch(e) {}
+
+// Combinar: productos.json base + activo/links de merged-admin.json
+const config = {};
+for (const [cat, prods] of Object.entries(productosJson)) {
+  const adminProds = mergedAdmin[cat] || [];
+  const adminById = {};
+  for (const p of adminProds) adminById[String(p.id)] = p;
+  config[cat] = prods.map(p => {
+    const a = adminById[String(p.id)];
+    if (!a) return p;
+    return { ...p, activo: a.activo, linkML: a.linkML ?? p.linkML, linkAmz: a.linkAmz ?? p.linkAmz };
+  });
+}
 
 let totalPausados = 0, totalLinksActualizados = 0;
 
