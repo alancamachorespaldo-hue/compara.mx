@@ -710,7 +710,17 @@ function toB64(str){
   return btoa(bin);
 }
 function fromB64(b64){
-  return new TextDecoder().decode(Uint8Array.from(atob(b64),c=>c.charCodeAt(0)));
+  // Pure-JS base64 decoder — no browser atob() to avoid encoding errors
+  const chars=\'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/\';
+  b64=b64.replace(/[^A-Za-z0-9+/]/g,\'\');
+  const bytes=[];
+  for(let i=0;i<b64.length;i+=4){
+    const a=chars.indexOf(b64[i]),b=chars.indexOf(b64[i+1]),c=chars.indexOf(b64[i+2]),d=chars.indexOf(b64[i+3]);
+    bytes.push((a<<2)|(b>>4));
+    if(c>=0)bytes.push(((b&15)<<4)|(c>>2));
+    if(d>=0)bytes.push(((c&3)<<6)|d);
+  }
+  return new TextDecoder().decode(new Uint8Array(bytes));
 }
 async function saveState(){
   const btn=document.getElementById(\'btn-save\');
@@ -719,12 +729,15 @@ async function saveState(){
     const artifact=await claude.use(\'artifact\');
     if(!artifact){toast(\'⚠ Guardar no disponible — usa Copiar JSON como respaldo\');btn.disabled=false;btn.textContent=\'💾 Guardar\';return;}
     const newB64=encodeDB();
-    const pa=fromB64(document.getElementById(\'_srca\').textContent);
-    const pb=fromB64(document.getElementById(\'_srcb\').textContent);
-    const tags=\'\\\\n<script id="_srca" type="text/plain">\'+toB64(pa)+\'<\\\\/script>\\\\n<script id="_srcb" type="text/plain">\'+toB64(pb)+\'<\\\\/script>\';
-    const content=pa+newB64+pb+tags;
-    const SKEL=\'<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}body{margin:0;font:14px/1.5 system-ui,sans-serif;background:#f8f9fa}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>\';
-    await artifact.publish(SKEL+content+\'</body></html>\');
+    // Reconstruir página desde _srca/_srcb (partes del HTML sin el bloque de datos)
+    const paB64=(document.getElementById(\'_srca\')||{textContent:\'\'}).textContent.trim();
+    const pbB64=(document.getElementById(\'_srcb\')||{textContent:\'\'}).textContent.trim();
+    if(!paB64||!pbB64) throw new Error(\'No se puede reconstruir la página — recarga e intenta de nuevo\');
+    const pa=fromB64(paB64);
+    const pb=fromB64(pbB64);
+    const tags=\'\\n<script id="_srca" type="text/plain">\'+paB64+\'<\\/script>\\n<script id="_srcb" type="text/plain">\'+pbB64+\'<\\/script>\';
+    const pageHtml=pa+newB64+pb+tags;
+    await artifact.publish(pageHtml);
     try{localStorage.removeItem(\'admin_db\');}catch(e){}
     document.getElementById(\'save-status\').textContent=\'✓ Guardado\';
     // Descargar merged-admin.json actualizado para poder commitear en GitHub
