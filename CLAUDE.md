@@ -71,6 +71,9 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
 - `generar-admin.js` — completa `mlId` desde links `/p/MLM…`, aplica `ml-report.json` por `id` (si el producto
   se editó a mano después del reporte, gana la edición), agrega candidatos de `ml-sugerencias.json` y genera
   `admin-artifact.html` desde `admin-template.html` (el CSS/JS del artifact se edita ahí, como HTML normal).
+- `ml-bicis.js especs|nuevas [--aplicar]` — bicis: llena características vacías desde la ficha ML (nunca
+  sobrescribe) y agrega bicis más vendidas con stock como `estadoML:"nuevo"`, `activo:false`. En el artifact se
+  publican (requiere link de afiliado) y `sync-html.js` agrega las marcadas `_publicar` a `ELECTRICAS`.
 - `extraer-artifact.js <archivo.html>` — pasa los datos de un artifact guardado a `merged-admin.json`.
 - `check-site.js` — validaciones del sitio (ver abajo).
 
