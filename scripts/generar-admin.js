@@ -111,6 +111,7 @@ td{padding:8px 10px;vertical-align:middle;font-size:13px}
 .btn-sm{padding:3px 9px;border-radius:5px;border:1px solid var(--border);background:var(--surface);color:var(--fg2);cursor:pointer;font-size:11px;font-weight:500;white-space:nowrap}
 .btn-pause{color:var(--yellow)}.btn-play{color:var(--green)}.btn-edit{color:var(--blue)}
 .modal-bd{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;display:flex;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto}
+.modal-bd[hidden]{display:none!important}
 .modal{background:var(--surface);border-radius:12px;padding:24px;width:100%;max-width:520px;box-shadow:0 20px 60px rgba(0,0,0,.3);margin:auto}
 .modal h2{font-size:15px;font-weight:700;margin-bottom:4px}
 .modal .sub{font-size:12px;color:var(--fg2);margin-bottom:14px}
@@ -905,6 +906,7 @@ function saveAdd(){
   toast(\'✓ Producto agregado a \'+cat);
 }
 document.getElementById(\'add-modal\').addEventListener(\'click\',e=>{if(e.target===document.getElementById(\'add-modal\'))closeAddModal();});
+document.addEventListener(\'keydown\',e=>{if(e.key===\'Escape\'){closeModal();closeAddModal();}});
 
 function toast(msg){
   const el=document.getElementById(\'toast\');
