@@ -122,6 +122,8 @@ tr.is-paused .name{color:var(--fg-3);text-decoration:line-through}
 .sug{all:unset;cursor:pointer;margin-right:4px;padding:2px 8px;border-radius:10px;font-size:12px;font-weight:700;color:var(--info);background:var(--info-soft)}
 .mini{all:unset;cursor:pointer;margin-left:4px;padding:0 4px;border-radius:4px;color:var(--fg-3);font-size:12px}
 .mini:hover{color:var(--fg);background:var(--surface-2)}
+.note-link{margin-top:3px;font-size:11.5px;font-weight:600;color:var(--warn)}
+.note-link.bad{color:var(--err)}
 .note-aff{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:9px;font-size:11px;font-weight:700;color:var(--warn);background:var(--warn-soft);white-space:nowrap}
 .publish-box{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;padding:12px 14px;border-radius:10px;background:var(--info-soft)}
 .publish-box p{margin:0;flex:1 1 280px;font-size:13px}
@@ -245,6 +247,9 @@ const QUEUES = [
   {k:'todos', l:'Todos', f:() => true},
   {k:'falta_id', l:'Falta ID ML', tone:'warn', f:p => !!p.linkML && !p.mlId},
   {k:'sugerencias', l:'Con candidatos', tone:'info', f:p => !!p.linkML && !p.mlId && Array.isArray(p._mlSug) && p._mlSug.length > 0},
+  {k:'link_mal', l:'Link ML equivocado', tone:'err', f:p => !!p._linkError, optional:true},
+  {k:'link_revisar', l:'Link ML a revisar', tone:'warn', f:p => !!p._linkRevisar, optional:true},
+  {k:'link_muerto', l:'Link sin producto', tone:'err', f:p => !!p._linkSinProducto, optional:true},
   {k:'sin_precio', l:'Sin ofertas ML', tone:'err', f:p => !!p.mlId && p.estadoML === 'sin_precio'},
   {k:'revisar', l:'Precio a revisar', tone:'warn', f:p => p.estadoML === 'precio_sospechoso'},
   {k:'cambiaron', l:'Cambiaron', tone:'ok', f:p => p.estadoML === 'actualizado'},
@@ -299,6 +304,7 @@ function reindex() {
   for (const cat of Object.keys(DB)) for (const p of DB[cat]) { const r = {cat, p, key:cat + '|' + p.id}; ROWS.push(r); BYKEY.set(r.key, r); }
 }
 const hay = r => { let h = HAY.get(r.p); if (h == null) { h = norm([r.p.nombre, r.p.marca, r.p.id, r.p.mlId, CATS[r.cat]].join(' ')); HAY.set(r.p, h); } return h; };
+const linkNote = p => p._linkError ? `<div class="note-link bad">⚠ El link ML abre otro producto: ${esc(p._linkError.slice(0, 80))}</div>` : p._linkRevisar ? `<div class="note-link">¿Es el mismo? El link ML abre: ${esc(p._linkRevisar.slice(0, 80))}</div>` : p._linkSinProducto ? '<div class="note-link bad">⚠ El link ML ya no muestra ningún producto</div>' : '';
 const needsAff = p => !p.linkML && (p.estadoML === 'nuevo' || !p.linkAmz);
 const status = p => p.estadoML === 'nuevo' ? 'nuevo' : !p.linkML ? 'solo_amz' : !p.mlId ? 'sin_id' : (p.estadoML || 'sin_revisar');
 
@@ -519,7 +525,7 @@ function rowHtml(r) {
   const cells = COLS.map(c => {
     switch (c.k) {
       case 'chk': return `<td class="c-chk"><input type="checkbox" data-act="sel" aria-label="Seleccionar"${sel ? ' checked' : ''}></td>`;
-      case 'nombre': return `<td><div class="name">${esc(p.nombre)}${needsAff(p) ? ' <span class="note-aff">⚠ Falta link de afiliado</span>' : ''}</div><div class="sub">${esc(p.marca || '')}${S.cat === 'todas' ? ' · ' + esc(CATS[r.cat] || r.cat) : ''} · id ${esc(p.id)}</div></td>`;
+      case 'nombre': return `<td><div class="name">${esc(p.nombre)}${needsAff(p) ? ' <span class="note-aff">⚠ Falta link de afiliado</span>' : ''}</div>${linkNote(p)}<div class="sub">${esc(p.marca || '')}${S.cat === 'todas' ? ' · ' + esc(CATS[r.cat] || r.cat) : ''} · id ${esc(p.id)}</div></td>`;
       case 'mlId': return `<td data-cell="mlId" style="white-space:nowrap">${mlIdCell(p)}</td>`;
       case 'precioML': case 'precioAmz': return `<td class="c-num" data-cell="${c.k}">${priceCell(p, c.k)}</td>`;
       case 'estado': return `<td>${stateCell(p)}</td>`;
@@ -684,7 +690,7 @@ function openEdit(key) {
       <label class="field"><span>Marca</span><input id="e-marca"></label>
       <label class="field"><span>En la web</span><select id="e-activo"><option value="1">Activo</option><option value="0">Pausado</option></select></label>
     </div>
-    <fieldset class="group"><legend>Mercado Libre</legend>
+    <fieldset class="group"><legend>Mercado Libre</legend>${linkNote(p) ? `<div class="span2">${linkNote(p)}</div>` : ''}
       <label class="field span2"><span>Link de afiliado (el que abre la gente)</span><input id="e-ml" type="url" placeholder="https://meli.la/…"></label>
       <label class="field"><span>Link de catálogo (precios y datos)</span><input id="e-mlid" placeholder="https://www.mercadolibre.com.mx/…/p/MLM…" autocomplete="off"><small class="field-msg" id="e-mlid-msg"></small></label>
       <label class="field"><span>Precio ML (MXN)</span><input id="e-pml" type="number" min="0" step="1" inputmode="decimal"></label>
@@ -733,6 +739,7 @@ function submitEdit(form, publish) {
   const fields = {};
   for (const [k, v] of Object.entries(next)) if ((p[k] ?? null) !== v && !(k === 'activo' && (p.activo !== false) === v)) fields[k] = v;
   if ('mlId' in fields) fields.mlIdFuente = fields.mlId ? 'manual' : null;
+  if ('linkML' in fields) Object.assign(fields, {_linkError:null, _linkRevisar:null, _linkSinProducto:null});
   const specInputs = o.querySelectorAll('[data-sk]');
   if (specInputs.length) {
     const especs = Object.assign({}, p.especs || {});
