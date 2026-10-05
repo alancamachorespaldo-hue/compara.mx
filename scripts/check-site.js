@@ -35,10 +35,8 @@ for (const abs of walk(ROOT)) {
   const isRedirect = html.length < 3000 && /http-equiv="refresh"|location\.replace\(/i.test(html);
   isRedirect ? redirects++ : pages++;
 
-  if (!isRedirect) {
-    if (!html.includes('G-9TKZ4ER13X')) err(file, 'falta GA4 G-9TKZ4ER13X');
-    if (file !== '404.html' && !html.includes('/js/onboarding.js')) err(file, 'falta /js/onboarding.js');
-  }
+  if (!html.includes('G-9TKZ4ER13X')) err(file, 'falta GA4 G-9TKZ4ER13X');
+  if (!isRedirect && file !== '404.html' && !html.includes('/js/onboarding.js')) err(file, 'falta /js/onboarding.js');
 
   for (const m of html.matchAll(/[?&](?:amp;)?tag=([\w-]+)/g))
     if (m[1] !== 'comparalo20-20') err(file, `tag de afiliado incorrecto: tag=${m[1]}`);
