@@ -320,6 +320,8 @@ td{padding:8px 10px;vertical-align:middle;font-size:13px}
   <div class="modal">
     <h2 id="m-title">Editar producto</h2>
     <div class="sub" id="m-sub"></div>
+    <label>Nombre del producto</label>
+    <input id="ed-nombre" type="text" placeholder="Ej. ASUS Vivobook 15 Ryzen 5 8GB 512GB">
     <label>Link Mercado Libre</label>
     <input id="ed-ml" type="url" placeholder="https://www.mercadolibre.com.mx/…">
     <label>Precio ML (MXN)</label>
@@ -783,6 +785,7 @@ function openEdit(key){
   if(!p){toast(\'⚠ Producto no encontrado\');return;}
   document.getElementById(\'m-title\').textContent=\'Editar · \'+p.nombre;
   document.getElementById(\'m-sub\').textContent=cat+\' · id \'+p.id;
+  document.getElementById(\'ed-nombre\').value=p.nombre||\'\';\
   document.getElementById(\'ed-ml\').value=p.linkML||\'\';\
   document.getElementById(\'ed-pml\').value=p.precioML||\'\';\
   document.getElementById(\'ed-amz\').value=p.linkAmz||\'\';\
@@ -811,6 +814,8 @@ function saveEdit(){
   if(!editKey)return;
   const [cat,id]=editKey.split(\'|\');
   const p=DB[cat].find(p=>String(p.id)===id);
+  const nuevoNombre=document.getElementById(\'ed-nombre\').value.trim();
+  if(nuevoNombre) p.nombre=nuevoNombre;
   p.linkML=document.getElementById(\'ed-ml\').value.trim()||null;
   p.precioML=parseFloat(document.getElementById(\'ed-pml\').value)||null;
   p.linkAmz=document.getElementById(\'ed-amz\').value.trim()||null;
