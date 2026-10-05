@@ -61,15 +61,23 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
 - `productos.json` — base que `sync-html.js` combina con `merged-admin.json`.
 - `sync-html.js` — aplica `activo`, links y `precioML`/`precioAmz` de la BD a los arrays JS de los HTML.
   Un producto con `activo:false` se elimina del HTML.
-- `ml-update.js [--categoria=X]` — actualiza precios ML vía API; escribe `ml-report.json`.
-  Categorías: `laptops`, `freidoras`, `bicis`, `microondas`, `proteina`, `omega3`, `magnesio`,
-  `creatina`, `complejo_b`, o `suplementos` (todas las anteriores de suplementos).
-- `generar-admin.js` — sincroniza `ml-report.json` → `merged-admin.json` y genera `admin-artifact.html`.
-  El JS del artifact está dentro de un template literal de Node: usar `'` normal, nunca `\\'`.
+- `ml-update.js [--categoria=X] [--dry-run]` — precio ML de cada producto con link ML y `mlId`
+  (ID de catálogo `MLM…` de la ficha `/p/MLM…`) vía `/products/{mlId}/items`; parchea el HTML por `id`
+  y escribe `ml-report.json`. Categorías: `laptops`, `freidoras`, `bicis`, `microondas`, `proteina`,
+  `omega3`, `magnesio`, `creatina`, `complejo_b`, o `suplementos`.
+  `--sugerir` busca candidatos de ID para productos sin `mlId` y los guarda en `ml-sugerencias.json`.
+- Los links `meli.la` no contienen el producto (abren el perfil de afiliado) y la API da 403 para IDs de
+  publicación (`MLM-…`): sin `mlId` de catálogo no hay precio. El `mlId` se asigna en el artifact (Asignar IDs).
+- `generar-admin.js` — completa `mlId` desde links `/p/MLM…`, aplica `ml-report.json` por `id` (si el producto
+  se editó a mano después del reporte, gana la edición), agrega candidatos de `ml-sugerencias.json` y genera
+  `admin-artifact.html` desde `admin-template.html` (el CSS/JS del artifact se edita ahí, como HTML normal).
+- `extraer-artifact.js <archivo.html>` — pasa los datos de un artifact guardado a `merged-admin.json`.
 - `check-site.js` — validaciones del sitio (ver abajo).
 
 Admin: Claude Artifact https://claude.ai/artifact/BTt8aRBCUZQNWvGAS81rTt (se publica desde
-`scripts/admin-artifact.html`). Cada pestaña tiene un botón que abre su workflow de precios.
+`scripts/admin-artifact.html`). Para traer lo que el usuario guardó ahí: leer el artifact con la herramienta
+Artifact, `node scripts/extraer-artifact.js <html guardado>` y luego `node scripts/generar-admin.js`.
+El artifact se reconstruye a sí mismo al guardar; si se edita `admin-template.html`, regenerar y republicar.
 
 ## GitHub Actions
 
