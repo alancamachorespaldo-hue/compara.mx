@@ -575,7 +575,7 @@ const CATALOG_DEFS = {
 // Per-catalog filter state: catKey → {filters: {colKey: Set}, search: ''}
 const catState = {};
 function getCatState(catKey) {
-  if (!catState[catKey]) catState[catKey] = {filters:{}, search:'', plat:null, selected:new Set()};
+  if (!catState[catKey]) catState[catKey] = {filters:{}, search:'', plat:null, selected:new Set(), sortCol:'_updatedAt', sortDir:'desc'};
   return catState[catKey];
 }
 
@@ -974,8 +974,35 @@ function _colVal(p, col) {
   if (col.key === '_actions') return p.activo === false ? 'Pausado' : 'Activo';
   if (col.key === 'precioML') return p.precioML ? '$'+Math.round(p.precioML).toLocaleString('es-MX') : null;
   if (col.key === 'precioAmz') return p.precioAmz ? '$'+Math.round(p.precioAmz).toLocaleString('es-MX') : null;
-  if (col.key === '_updatedAt') return p._updatedAt ? p._updatedAt.slice(0,10) : null;
+  if (col.key === '_updatedAt') {
+    if (!p._updatedAt) return null;
+    const d = new Date(p._updatedAt);
+    return d.toLocaleDateString('es-MX',{timeZone:'America/Mexico_City',year:'numeric',month:'2-digit',day:'2-digit'});
+  }
   return p[col.key] ?? null;
+}
+
+function _renderCatTiles(catKey) {
+  const prods = DB[catKey] || [];
+  const counts = {total:prods.length, actualizado:0, sin_cambio:0, sin_precio:0, no_encontrado:0, precio_sospechoso:0, nuevo:0, pausado:0};
+  prods.forEach(p => {
+    if (p.activo === false) counts.pausado++;
+    if (counts[p.estadoML] !== undefined) counts[p.estadoML]++;
+  });
+  const TILES = [
+    {k:'total',             l:'Total',         cls:'muted', v:counts.total},
+    {k:'actualizado',       l:'Actualizados',  cls:'ok',    v:counts.actualizado},
+    {k:'sin_cambio',        l:'Sin cambio',    cls:'muted', v:counts.sin_cambio},
+    {k:'sin_precio',        l:'Sin precio',    cls:'err',   v:counts.sin_precio},
+    {k:'no_encontrado',     l:'No encontrado', cls:'err',   v:counts.no_encontrado},
+    {k:'precio_sospechoso', l:'Sospechoso',    cls:'blue',  v:counts.precio_sospechoso},
+    {k:'nuevo',             l:'Nuevos ML',     cls:'ok',    v:counts.nuevo},
+    {k:'pausado',           l:'Pausados',      cls:'warn',  v:counts.pausado},
+  ];
+  const el = document.getElementById('ctiles-'+catKey);
+  if (el) el.innerHTML = TILES.map(t =>
+    '<div class="tile" style="cursor:default;min-width:80px;padding:8px 12px"><div class="tile-lbl">'+t.l+'</div><div class="tile-num '+t.cls+'">'+t.v+'</div></div>'
+  ).join('');
 }
 
 function renderCatalog(catKey, container) {
@@ -993,6 +1020,7 @@ function renderCatalog(catKey, container) {
   const platId = 'cpf-'+catKey;
   if (!container.querySelector('[data-cat-key]')) {
     container.innerHTML =
+      '<div class="tiles" id="ctiles-'+catKey+'" style="padding:12px 20px 8px"></div>'+
       '<div class="cat-search"><input id="'+searchId+'" type="search" placeholder="Buscar..."><span id="'+countId+'" style="font-size:12px;color:var(--fg2);white-space:nowrap"></span><button id="'+cfId+'" class="btn-export" style="display:none;background:var(--red);padding:5px 12px;font-size:12px">✕ Filtros</button></div>'+
       '<div style="display:flex;gap:6px;align-items:center;padding:0 20px 8px;flex-wrap:wrap">'+
         '<span style="font-size:11px;color:var(--fg2);font-weight:600;text-transform:uppercase;letter-spacing:.05em">Tienda:</span>'+
@@ -1037,6 +1065,7 @@ function renderCatalog(catKey, container) {
   container.querySelector('#'+searchId).value = st.search;
   _buildCatThead(catKey);
   _updateCatBadges(catKey);
+  _renderCatTiles(catKey);
   _renderCatBody(catKey);
 }
 
@@ -1070,15 +1099,27 @@ function _buildCatThead(catKey) {
   const chkTh = '<th class="chk-col"><input type="checkbox" id="cchk-all-'+catKey+'"'+(allSel?' checked':'')+' title="Seleccionar todos los visibles"></th>';
   tr.innerHTML = chkTh + def.cols.map(col => {
     const active = st.filters[col.key] && st.filters[col.key].size > 0;
-    const lbl = active ? '<span style="color:var(--accent)">'+col.label+'</span>' : col.label;
+    const isSort = st.sortCol === col.key;
+    const sortIco = isSort ? (st.sortDir === 'asc' ? ' ↑' : ' ↓') : '';
+    const lbl = active ? '<span style="color:var(--accent)">'+col.label+sortIco+'</span>' : col.label+sortIco;
     const fBtn = col.filterable
       ? '<button class="col-filter-btn'+(active?' active':'')+'" data-fcat="'+catKey+'" data-fcol="'+col.key+'">▼</button>'
       : '';
-    return '<th data-col="'+col.key+'">'+lbl+fBtn+'</th>';
+    const sortable = col.key !== '_edit' && col.key !== 'enlace';
+    const thStyle = sortable ? ' style="cursor:pointer;user-select:none"' : '';
+    return '<th data-col="'+col.key+'"'+(sortable?' data-sortcat="'+catKey+'" data-sortcol="'+col.key+'"':'')+thStyle+'>'+lbl+fBtn+'</th>';
   }).join('');
   tr.onclick = e => {
-    const btn = e.target.closest('[data-fcat]');
-    if (btn) openCatFilter(e, btn.dataset.fcat, btn.dataset.fcol);
+    const fBtn = e.target.closest('[data-fcat]');
+    if (fBtn) { openCatFilter(e, fBtn.dataset.fcat, fBtn.dataset.fcol); return; }
+    const th = e.target.closest('[data-sortcat]');
+    if (th) {
+      const cst = getCatState(th.dataset.sortcat);
+      if (cst.sortCol === th.dataset.sortcol) cst.sortDir = cst.sortDir === 'asc' ? 'desc' : 'asc';
+      else { cst.sortCol = th.dataset.sortcol; cst.sortDir = 'asc'; }
+      _buildCatThead(th.dataset.sortcat);
+      _renderCatBody(th.dataset.sortcat);
+    }
   };
   const chkAll = document.getElementById('cchk-all-'+catKey);
   if (chkAll) chkAll.addEventListener('change', () => {
@@ -1212,6 +1253,29 @@ function _catVisibleList(catKey) {
     const col = def.cols.find(c => c.key === k);
     if (!col) continue;
     list = list.filter(p => { const v = _colVal(p, col); return v != null && vals.has(String(v)); });
+  }
+  if (st.sortCol) {
+    const col = def.cols.find(c => c.key === st.sortCol);
+    const dir = st.sortDir === 'asc' ? 1 : -1;
+    list = [...list].sort((a, b) => {
+      // Para _updatedAt comparar ISO directamente (orden cronológico exacto)
+      if (st.sortCol === '_updatedAt') {
+        const av = a._updatedAt || '';
+        const bv = b._updatedAt || '';
+        if (!av && !bv) return 0;
+        if (!av) return 1;
+        if (!bv) return -1;
+        return av < bv ? -dir : av > bv ? dir : 0;
+      }
+      const av = col ? _colVal(a, col) : (a[st.sortCol] ?? '');
+      const bv = col ? _colVal(b, col) : (b[st.sortCol] ?? '');
+      if (av == null && bv == null) return 0;
+      if (av == null) return 1;
+      if (bv == null) return -1;
+      const na = parseFloat(av), nb = parseFloat(bv);
+      if (!isNaN(na) && !isNaN(nb)) return (na - nb) * dir;
+      return String(av).localeCompare(String(bv), 'es-MX') * dir;
+    });
   }
   return list;
 }
