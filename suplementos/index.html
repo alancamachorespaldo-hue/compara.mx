@@ -605,71 +605,2615 @@ footer a{color:var(--ac);text-decoration:none}
 <script>
 // ── Datos ─────────────────────────────────────────────────────
 const productos = [
-  {id:1,nombre:'Omega 3 Forte 2000mg – 60 Softgels',marca:'OBY',tipo:'vitaminas',precio:389,peso:'60 softgels',porciones:30,duracion:30,porPorcion:'2 softgels',proteina:0,calorias:18,carbos:0,grasas:2,omegaTotal:2000,epa:1000,dha:400,omegaPorPorcion:1400,costoPorPorcion:12.97,fuenteOmega:'anchoa',forma:'softgel',libreMetalesPesados:true,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.9,resenas:377,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/1CpEJAk',img:'https://http2.mlstatic.com/D_NQ_NP_2X_809253-MLA106059329740_022026-F.webp'},
-  {id:2,nombre:'Omega 3 Ultra Premium EPA 360mg DHA 240mg TG – 60 Cápsulas',marca:'Beyond Vitamins',tipo:'vitaminas',precio:399,peso:'60 cápsulas',porciones:60,duracion:60,porPorcion:'1 cápsula (1300mg)',proteina:0.22,calorias:9.8,carbos:0,grasas:0.99,omegaTotal:990,epa:360,dha:240,omegaPorPorcion:600,costoPorPorcion:6.65,fuenteOmega:'anchoa',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:true,sabores:['Sin sabor'],estrellas:5.0,resenas:19,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/2zGrd5j',img:'https://http2.mlstatic.com/D_NQ_NP_2X_684076-MLA114054614297_072026-F.webp'},
-  {id:3,nombre:'Omega 3 De Salmón Alto EPA y DHA Salmon Oil – 120 Cápsulas',marca:'OBY',tipo:'vitaminas',precio:379,peso:'120 cápsulas',porciones:120,duracion:120,porPorcion:'1 cápsula (1.3g)',proteina:0.22,calorias:9.79,carbos:0,grasas:0.99,omegaTotal:1000,epa:360,dha:240,omegaPorPorcion:600,costoPorPorcion:3.16,fuenteOmega:'salmon',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.9,resenas:4078,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/28sYPqn',img:'https://http2.mlstatic.com/D_NQ_NP_2X_853534-MLA96079139207_102025-F.webp'},
-  {id:4,nombre:'Suplemento Complejo B Magnesio Zinc L-Triptófano – 30 Cápsulas',marca:'Inner Bienestar',tipo:'complejo-b',precio:424,peso:'30 cápsulas',porciones:30,duracion:30,porPorcion:'1 cápsula (500mg)',proteina:0,calorias:0,carbos:0,grasas:0,omegaTotal:0,epa:0,dha:0,omegaPorPorcion:0,costoPorPorcion:14.13,fuenteOmega:'ninguna',forma:'capsula',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.4,resenas:78,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/1ypCbmd',img:'https://http2.mlstatic.com/D_NQ_NP_2X_763454-MLA99515796914_112025-F.webp'},
-  {id:5,nombre:'Omega 3 Platinum 1000mg – 180 Cápsulas',marca:'B Life',tipo:'vitaminas',precio:749,peso:'180 cápsulas',porciones:180,duracion:180,porPorcion:'1 cápsula (1g)',proteina:0,calorias:9,carbos:0,grasas:1,omegaTotal:1000,epa:500,dha:200,omegaPorPorcion:700,costoPorPorcion:4.16,fuenteOmega:'anchoa',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.9,resenas:6908,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/1bCdCuk',img:'https://http2.mlstatic.com/D_NQ_NP_2X_999696-MLA115094763921_072026-F.webp'},
-  {id:6,nombre:'Now Foods Omega 3 1000mg Sin Metales Pesados – 100 Softgels',marca:'Now Foods',tipo:'vitaminas',precio:237,peso:'100 softgels',porciones:50,duracion:50,porPorcion:'2 softgels (2000mg)',proteina:0,calorias:20,carbos:0,grasas:2,omegaTotal:2000,epa:360,dha:240,omegaPorPorcion:600,costoPorPorcion:4.74,fuenteOmega:'anchoa',forma:'softgel',libreMetalesPesados:true,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.9,resenas:2649,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/1QExyyw',img:'https://http2.mlstatic.com/D_NQ_NP_2X_953377-MLA99489778884_112025-F.webp'},
-  {id:7,nombre:'Omega 3 Aceite de Salmón + Vitamina E 365 Cápsulas',marca:'LIFE360+',tipo:'vitaminas',precio:375,peso:'365 cápsulas',porciones:365,duracion:365,porPorcion:'1 cápsula (450mg)',proteina:0.14,calorias:3.53,carbos:0,grasas:0.33,omegaTotal:300,epa:28,dha:24,omegaPorPorcion:52,costoPorPorcion:1.03,fuenteOmega:'salmon',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.8,resenas:4338,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/1wtHcqp',img:'https://http2.mlstatic.com/D_NQ_NP_2X_768270-MLA115778410731_082026-F.webp'},
-  {id:8,nombre:'Vitanna Omega 3 Epax Salmón Noruego EPA 600mg DHA 400mg – 120 Cápsulas',marca:'Vitanna',tipo:'vitaminas',precio:580,peso:'120 cápsulas',porciones:60,duracion:60,porPorcion:'2 cápsulas (2000mg)',proteina:0.54,calorias:21,carbos:0.21,grasas:2,omegaTotal:2000,epa:600,dha:400,omegaPorPorcion:1000,costoPorPorcion:9.67,fuenteOmega:'salmon',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:0,resenas:0,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/1QK4Eqc',img:'https://http2.mlstatic.com/D_NQ_NP_2X_908034-MLM114949055978_082026-F.webp'},
-  {id:9,nombre:'Vitatú Omega 3 Salmón Noruego – 90 Softgels',marca:'Vitatú',tipo:'vitaminas',precio:468,peso:'90 softgels',porciones:45,duracion:45,porPorcion:'2 softgels (2.8g)',proteina:0.54,calorias:21,carbos:0.21,grasas:2,omegaTotal:2000,epa:720,dha:480,omegaPorPorcion:1200,costoPorPorcion:10.40,fuenteOmega:'salmon',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:5.0,resenas:428,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/1EPAShY',img:'https://http2.mlstatic.com/D_NQ_NP_2X_951655-MLA99471258412_112025-F.webp'},
-  {id:10,nombre:'Omega 3-6-9 Naturagel Aceite de Linaza – 60 Cápsulas',marca:'Naturagel',tipo:'vitaminas',precio:130,peso:'60 cápsulas',porciones:30,duracion:30,porPorcion:'2 cápsulas (1400mg)',proteina:0.29,calorias:11,carbos:0.11,grasas:0.99,omegaTotal:1000,epa:0,dha:0,omegaPorPorcion:547,costoPorPorcion:4.33,fuenteOmega:'linaza',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.8,resenas:1103,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/2pE2ExQ',img:'https://http2.mlstatic.com/D_NQ_NP_2X_945473-MLA100108421729_122025-F.webp'},
-  {id:16,nombre:'UPMER Omega 3 Premium 5 en 1 Krill + Pescado – 90 Cápsulas',marca:'UPMER',tipo:'vitaminas',precio:239,peso:'90 cápsulas',porciones:45,duracion:45,porPorcion:'2 softgels',proteina:0,calorias:0,carbos:0,grasas:0,omegaTotal:1000,epa:315,dha:125,omegaPorPorcion:440,costoPorPorcion:5.31,fuenteOmega:'krill+pescado',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:5.0,resenas:40,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/2kYo6Jm',img:'https://http2.mlstatic.com/D_NQ_NP_2X_732671-MLA114618428649_072026-F.webp'},
-  {id:17,nombre:'Omega 3 Aceite de Salmón + Vitamina E 180 Cápsulas',marca:'LIFE360+',tipo:'vitaminas',precio:295,peso:'180 cápsulas',porciones:180,duracion:180,porPorcion:'1 cápsula (450mg)',proteina:0.14,calorias:3.26,carbos:0,grasas:0.33,omegaTotal:300,epa:28,dha:24,omegaPorPorcion:52,costoPorPorcion:1.64,fuenteOmega:'salmon',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.8,resenas:4125,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/272AyXs',img:'https://http2.mlstatic.com/D_NQ_NP_2X_875588-MLA114319085124_082026-F.webp'},
-  {id:18,nombre:'Wellthy Omega 3 Noruego Alta Concentración Epax – 90 Cápsulas',marca:'Wellthy',tipo:'vitaminas',precio:387,peso:'90 cápsulas',porciones:45,duracion:45,porPorcion:'2 cápsulas (2g)',proteina:0.54,calorias:21,carbos:0.21,grasas:2.0,omegaTotal:2000,epa:600,dha:400,omegaPorPorcion:1000,costoPorPorcion:8.60,fuenteOmega:'anchoa',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.9,resenas:367,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/1nUzAs1',img:'https://http2.mlstatic.com/D_NQ_NP_2X_741093-MLA116376618549_082026-F.webp'},
-  {id:19,nombre:'Omega 3 Aceite de Salmón + Vitamina E 360 Cápsulas',marca:'LIFE360+',tipo:'vitaminas',precio:394,peso:'360 cápsulas',porciones:360,duracion:360,porPorcion:'1 cápsula (450mg)',proteina:0.14,calorias:3.26,carbos:0,grasas:0.33,omegaTotal:300,epa:28,dha:24,omegaPorPorcion:52,costoPorPorcion:1.09,fuenteOmega:'salmon',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.6,resenas:3974,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B09S18CZ36?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/71U7h6ri70L._AC_SX679_.jpg'},
-  {id:20,nombre:'Vitanna Omega 3 Epax Salmón Noruego EPA 600mg DHA 400mg TG – 120 Cápsulas',marca:'Vitanna',tipo:'vitaminas',precio:497,peso:'120 cápsulas',porciones:60,duracion:60,porPorcion:'2 cápsulas (2g)',proteina:0.54,calorias:21,carbos:0.21,grasas:2,omegaTotal:2000,epa:600,dha:400,omegaPorPorcion:1000,costoPorPorcion:8.28,fuenteOmega:'salmon',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:5.0,resenas:25,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0G67S94CP?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/61FX0KF0LeL._AC_SX679_.jpg'},
-  {id:21,nombre:'Pronat Omega 3 Premium Concentrado EPA 900mg DHA 600mg + Vit E – 60 Cápsulas',marca:'Pronat',tipo:'vitaminas',precio:384,peso:'60 cápsulas',porciones:30,duracion:30,porPorcion:'2 cápsulas (4.3g)',proteina:0.84,calorias:33,carbos:0.27,grasas:3.18,omegaTotal:1914,epa:900,dha:600,omegaPorPorcion:1500,costoPorPorcion:12.80,fuenteOmega:'anchoa',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Yerbabuena'],estrellas:4.7,resenas:759,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://link.amazon/B09oriGH3?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/61ECf9yykNL._AC_SX679_.jpg'},
-  {id:22,nombre:'B Life Omega 3 Aceite Puro de Salmón – 100 Cápsulas',marca:'B Life',tipo:'vitaminas',precio:269,peso:'100 cápsulas',porciones:100,duracion:100,porPorcion:'1 cápsula (1g)',proteina:0,calorias:0.41,carbos:0,grasas:1,omegaTotal:1000,epa:300,dha:200,omegaPorPorcion:500,costoPorPorcion:2.69,fuenteOmega:'salmon',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.8,resenas:6591,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0BHTTDBC2?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/51TOVyP6LzL._AC_SX679_.jpg'},
-  {id:23,nombre:'Nordic Naturals Omega-3 690mg Sabor Limón – 60 Cápsulas',marca:'Nordic Naturals',tipo:'vitaminas',precio:670,peso:'60 cápsulas',porciones:30,duracion:30,porPorcion:'2 cápsulas (3g)',proteina:0,calorias:18,carbos:0,grasas:2,omegaTotal:690,epa:330,dha:220,omegaPorPorcion:550,costoPorPorcion:22.33,fuenteOmega:'multi-pez',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Limón'],estrellas:4.8,resenas:9097,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0006GZE22?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/61V953uPFPL._AC_SX679_.jpg'},
-  {id:24,nombre:'Now Foods Omega-3 1000mg – 200 Cápsulas Blandas',marca:'Now Foods',tipo:'vitaminas',precio:320,peso:'200 cápsulas',porciones:100,duracion:100,porPorcion:'2 softgels (2000mg)',proteina:0,calorias:20,carbos:0,grasas:2,omegaTotal:2000,epa:360,dha:240,omegaPorPorcion:600,costoPorPorcion:3.20,fuenteOmega:'multi-pez',forma:'softgel',libreMetalesPesados:true,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.8,resenas:16429,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B001GCU6KA?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/71zLG8qwfLL._AC_SX679_.jpg'},
-  {id:25,nombre:'Beyond Vitamins Omega 3-6-9 EPA 288mg DHA 192mg – 180 Cápsulas',marca:'Beyond Vitamins',tipo:'vitaminas',precio:434,peso:'180 cápsulas',porciones:90,duracion:90,porPorcion:'2 cápsulas (2800mg)',proteina:0.54,calorias:20.96,carbos:0.20,grasas:2.00,omegaTotal:780,epa:288,dha:192,omegaPorPorcion:480,costoPorPorcion:4.82,fuenteOmega:'multi-pez+vegetal',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.8,resenas:99,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0DQYRK8M8?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/71xG8Eaoy6L._AC_SX679_.jpg'},
-  {id:26,nombre:'Beyond Vitamins Omega 3 Salmon Oil Ultra Concentrado – 60 Cápsulas',marca:'Beyond Vitamins',tipo:'vitaminas',precio:360,peso:'60 cápsulas',porciones:60,duracion:60,porPorcion:'1 cápsula (1400mg)',proteina:0.27,calorias:10.48,carbos:0.10,grasas:1.00,omegaTotal:1000,epa:310,dha:212,omegaPorPorcion:522,costoPorPorcion:6.00,fuenteOmega:'salmon',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.7,resenas:104,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0F8LMHC6G?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/81ABfJGmWbL._AC_SL1500_.jpg'},
-  {id:27,nombre:'Omega 3 Aceite de Salmón 1200mg EPA + 600mg DHA Mujer – 90 Cápsulas',marca:'Codigo Menstrual',tipo:'vitaminas',precio:399,peso:'90 cápsulas',porciones:30,duracion:30,porPorcion:'3 cápsulas (3.6g)',proteina:0,calorias:0,carbos:0,grasas:0,omegaTotal:3000,epa:1200,dha:600,omegaPorPorcion:1800,costoPorPorcion:13.30,fuenteOmega:'salmon',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.6,resenas:25,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0CH7VBNKY?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/51LwwKEyewL._AC_SY879_.jpg'},
-  {id:28,nombre:'B-FIT Smart Omega 3 1800mg EPA 1080mg DHA 720mg Epax – 90 Softgels',marca:'B-Fit',tipo:'vitaminas',precio:599,peso:'90 softgels',porciones:30,duracion:30,porPorcion:'3 cápsulas',proteina:0.8,calorias:31.5,carbos:0.3,grasas:3,omegaTotal:1800,epa:1080,dha:720,omegaPorPorcion:1800,costoPorPorcion:19.97,fuenteOmega:'salmon',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.8,resenas:375,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B09ZZCNLS9?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/51oFlXhKNhL._AC_SX679_.jpg'},
-  {id:29,nombre:'Sports Research Omega-3 1250mg Sin Eructos Wild Alaska Pollock – 90 Softgels',marca:'Sports Research',tipo:'vitaminas',precio:739,peso:'90 softgels',porciones:90,duracion:90,porPorcion:'1 softgel (1250mg)',proteina:0,calorias:15,carbos:0,grasas:1.5,omegaTotal:1250,epa:690,dha:260,omegaPorPorcion:950,costoPorPorcion:8.21,fuenteOmega:'pollock',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.7,resenas:41748,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B07DX89ZHN?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/61zNAqRyQ5L._AC_SL1500_.jpg'},
-  {id:30,nombre:'Vitatú Omega 3 1200mg EPA 720mg DHA 480mg Epax Noruego – 90 Softgels',marca:'Vitatú',tipo:'vitaminas',precio:467,peso:'90 softgels',porciones:45,duracion:45,porPorcion:'2 softgels (2.8g)',proteina:0.54,calorias:21,carbos:0.21,grasas:2.0,omegaTotal:2000,epa:720,dha:480,omegaPorPorcion:1200,costoPorPorcion:10.37,fuenteOmega:'salmon',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.7,resenas:257,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0CKY3NMGZ?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/41hN40muwRL._AC_.jpg'},
-  {id:31,nombre:'MAV Nutrition Omega-3 3600mg EPA 1300mg DHA 864mg Sin Eructos – 120 Cápsulas',marca:'MAV Nutrition',tipo:'vitaminas',precio:579,peso:'120 cápsulas',porciones:40,duracion:40,porPorcion:'3 cápsulas (4.8g)',proteina:0,calorias:32.4,carbos:0,grasas:3.6,omegaTotal:3600,epa:1300,dha:864,omegaPorPorcion:2164,costoPorPorcion:14.48,fuenteOmega:'anchoa',forma:'softgel',libreMetalesPesados:true,certificadoIFOS:false,sabores:['Limón'],estrellas:4.6,resenas:29992,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B01NBTJFJB?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/71kAk859aoL._AC_SX679_.jpg'},
-  {id:32,nombre:'VitaXtend Norwegian Deep Omega 3 EPA 1200mg DHA 800mg Epax – 180 Cápsulas',marca:'VitaXtend',tipo:'vitaminas',precio:745,peso:'180 cápsulas',porciones:45,duracion:45,porPorcion:'4 cápsulas (4g)',proteina:1.08,calorias:36,carbos:0,grasas:4.0,omegaTotal:4000,epa:1200,dha:800,omegaPorPorcion:2000,costoPorPorcion:16.56,fuenteOmega:'anchoa',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.6,resenas:22,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0GWKMY38X?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/71FixUOvYLL._AC_SX679_.jpg'},
-  {id:33,nombre:'Beyond Vitamins Omega 3 Premium 1000mg IFOS TG Alta Pureza – 180 Cápsulas',marca:'Beyond Vitamins',tipo:'vitaminas',precio:398,peso:'180 cápsulas',porciones:180,duracion:180,porPorcion:'1 cápsula (1300mg)',proteina:0.22,calorias:9.8,carbos:0,grasas:0.99,omegaTotal:990,epa:360,dha:240,omegaPorPorcion:600,costoPorPorcion:2.21,fuenteOmega:'anchoa',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:true,sabores:['Sin sabor'],estrellas:4.8,resenas:903,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B09FKNN3CF?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/71+mBXlIimL._AC_SY879_.jpg'},
-  {id:34,nombre:'GAT Sport Essentials Omega-3 1250mg Purificado – 90 Softgels',marca:'GAT Sport',tipo:'vitaminas',precio:299,peso:'90 softgels',porciones:90,duracion:90,porPorcion:'1 softgel (1250mg)',proteina:0,calorias:15,carbos:0,grasas:1.5,omegaTotal:1250,epa:400,dha:300,omegaPorPorcion:700,costoPorPorcion:3.32,fuenteOmega:'anchoa',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Limón'],estrellas:4.7,resenas:769,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0733Y31K6?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/71xAr9LmakL._AC_SX679_.jpg'},
-  {id:35,nombre:'Viva Naturals Triple-Strength Omega-3 2500mg EPA 1500mg DHA 570mg rTG – 180 Softgels',marca:'Viva Naturals',tipo:'vitaminas',precio:1502,peso:'180 softgels',porciones:90,duracion:90,porPorcion:'2 softgels (2500mg)',proteina:1,calorias:25,carbos:0,grasas:2.5,omegaTotal:2500,epa:1500,dha:570,omegaPorPorcion:2070,costoPorPorcion:16.69,fuenteOmega:'multi-pez',forma:'softgel',libreMetalesPesados:true,certificadoIFOS:true,sabores:['Sin sabor'],estrellas:4.6,resenas:10401,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B014LDT0ZM?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/81zjmc7hY3L._AC_SX679_.jpg'},
-  {id:36,nombre:'Nordic Naturals Prenatal DHA Omega-3 830mg + Vitamina D3 400UI – 90 Cápsulas',marca:'Nordic Naturals',tipo:'vitaminas',precio:970,peso:'90 cápsulas',porciones:45,duracion:45,porPorcion:'2 softgels',proteina:0,calorias:10,carbos:0,grasas:1,omegaTotal:830,epa:205,dha:480,omegaPorPorcion:685,costoPorPorcion:21.56,fuenteOmega:'multi-pez',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.8,resenas:2056,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0058ABILW?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/51zlRFidKqL._AC_SX679_.jpg'},
-  {id:37,nombre:'Vivenia Omega 3 2000mg EPA 360mg DHA 240mg Triglicéridos – 60 Softgels',marca:'Vivenia',tipo:'vitaminas',precio:499,peso:'60 softgels',porciones:30,duracion:30,porPorcion:'2 cápsulas (2g)',proteina:0.54,calorias:21,carbos:0.2,grasas:2,omegaTotal:2000,epa:360,dha:240,omegaPorPorcion:600,costoPorPorcion:16.63,fuenteOmega:'anchoa',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:0,resenas:0,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0GNBCFMDS?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/51vKgHWR%2BBL._AC_SX679_.jpg'},
-  {id:38,nombre:'Wellthy Arctic Omega 3 2000mg EPA 360mg DHA 240mg – 200 Cápsulas',marca:'Wellthy',tipo:'vitaminas',precio:431,peso:'200 cápsulas',porciones:100,duracion:100,porPorcion:'2 cápsulas (2.8g)',proteina:0.54,calorias:20.96,carbos:0.20,grasas:2.00,omegaTotal:2000,epa:360,dha:240,omegaPorPorcion:600,costoPorPorcion:4.31,fuenteOmega:'anchoa',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.7,resenas:731,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0D9R7615K?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/61AW6RF4fUL._AC_SX679_.jpg'},
-  {id:39,nombre:'Vitanna Aceite de Krill Antártico Superba2 1600mg Fosfolípidos + Astaxantina – 60 Softgels',marca:'Vitanna',tipo:'vitaminas',precio:652,peso:'60 softgels',porciones:30,duracion:30,porPorcion:'2 cápsulas (1.6g)',proteina:0.288,calorias:10.6,carbos:0.214,grasas:0.960,omegaTotal:1000,epa:120,dha:56,omegaPorPorcion:176,costoPorPorcion:21.73,fuenteOmega:'krill',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.9,resenas:15,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0G5VSJTPD?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/61ITjjWhfaL._AC_SL1500_.jpg'},
-  {id:40,nombre:'SUPLINT Omega 3 de Aceite de Salmón 3000mg por Porción + Vitamina E – 120 Cápsulas',marca:'SUPLINT',tipo:'vitaminas',precio:399.98,peso:'120 cápsulas',porciones:40,duracion:40,porPorcion:'3 cápsulas (4350mg)',proteina:0,calorias:27,carbos:0,grasas:3,omegaTotal:3000,epa:540,dha:360,omegaPorPorcion:900,costoPorPorcion:10.00,fuenteOmega:'salmon',forma:'softgel',libreMetalesPesados:false,certificadoIFOS:false,sabores:['Sin sabor'],estrellas:4.6,resenas:73,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0GWK56S87?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/81EnYWipPjL._AC_SX679_.jpg'},
-  // ── COMPLEJO B (ids 101–135) ──────────────────────────────────────────
-  {id:101,nombre:'Vitalizate Complejo B Completo Vitamina B12 – 60 Cápsulas',marca:'Vitalizate',tipo:'complejo-b',precio:179,precioML:179,precioAmz:399,porciones:60,capsulasPorDia:1,porPorcion:'1 cápsula (700mg)',costoPorPorcion:2.98,b1:'15 mg',b2:'18 mg',b3:'25 mg',b5:'20 mg',b6:'10 mg',b7:'300 µg',b9:'400 µg',b12:'12 µg',formaB12:'cianocobalamina',vitaminasExtra:[{nombre:'Vitamina A',cantidad:'1,000 µg'},{nombre:'Vitamina C',cantidad:'300 mg'},{nombre:'Vitamina D',cantidad:'10 µg'},{nombre:'Vitamina E',cantidad:'200 mg'},{nombre:'Vitamina K',cantidad:'30 µg'}],certificaciones:[],estrellas:4.9,resenas:41,badges:[{t:'ML',c:'b-ml'},{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0G69764TB?tag=comparabici-20',linkML:'https://meli.la/2L2dD3A',img:'https://http2.mlstatic.com/D_NQ_NP_2X_746788-MLA115220572203_072026-F.webp'},
-  {id:102,nombre:'SUPLINT Complejo B Vegano con Inositol y Colina – 90 Cápsulas',marca:'SUPLINT',tipo:'complejo-b',precio:219.99,precioML:219.99,precioAmz:298.99,porciones:90,capsulasPorDia:1,porPorcion:'1 cápsula (480mg)',costoPorPorcion:2.44,b1:'15 mg',b2:'18 mg',b3:'25 mg',b5:'20 mg',b6:'10 mg',b7:'300 mcg',b9:'400 mcg',b12:'12 mcg',formaB12:'cianocobalamina',vitaminasExtra:[{nombre:'Inositol',cantidad:'150 mg'},{nombre:'Bitartarato de Colina',cantidad:'100 mg'},{nombre:'Leucina',cantidad:'10 mg'}],certificaciones:['100% Vegano','Non GMO'],estrellas:4.8,resenas:88,badges:[{t:'ML',c:'b-ml'},{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0G25J2M6X?tag=comparabici-20',linkML:'https://meli.la/2o86X7Y',img:'https://http2.mlstatic.com/D_NQ_NP_2X_703370-MLA115100352358_082026-F.webp'},
-  {id:103,nombre:'Eternal Nutrition Infinity Complejo B 11 Formas Bioactivas – 300 Cápsulas',marca:'Eternal Nutrition',tipo:'complejo-b',precio:498,precioML:499,precioAmz:498,porciones:300,capsulasPorDia:1,porPorcion:'1 cápsula (520mg)',costoPorPorcion:1.66,b1:'15 mg',b2:'18 mg',b3:'25 mg',b5:'20 mg',b6:'20 mg',b7:'300 µg',b9:'400 µg',b12:'12 µg',formaB12:'metilcobalamina+hidroxicobalamina',vitaminasExtra:[{nombre:'Myo Inositol (B8)',cantidad:'150 mg'},{nombre:'Vitamina C',cantidad:'100 mg'},{nombre:'Colina Bitartrato',cantidad:'100 mg'},{nombre:'GABA',cantidad:'80 mg'}],certificaciones:['GMP'],estrellas:4.9,resenas:182,badges:[{t:'ML',c:'b-ml'},{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0CPQRQ6SL?tag=comparabici-20',linkML:'https://meli.la/11aL1Pd',img:'https://http2.mlstatic.com/D_NQ_NP_2X_837069-MLA99420406006_112025-F.webp'},
-  {id:104,nombre:'Kirkland Signature Super B-Complex y Electrolitos – 500 Tabletas',marca:'Kirkland Signature',tipo:'complejo-b',precio:456.96,porciones:500,capsulasPorDia:1,porPorcion:'1 tableta',costoPorPorcion:0.91,b1:'100 mg',b2:'20 mg',b3:'25 mg',b5:'5.5 mg',b6:'3 mg',b7:'300 mcg',b9:'400 mcg',b12:'100 mcg',formaB12:'cianocobalamina',vitaminasExtra:[{nombre:'Vitamina C',cantidad:'200 mg'},{nombre:'Sodio (electrolito)',cantidad:'90 mg'},{nombre:'Potasio (electrolito)',cantidad:'30 mg'}],certificaciones:[],estrellas:4.9,resenas:23,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/2kTcPd3',img:'https://http2.mlstatic.com/D_NQ_NP_2X_793002-MLA99938310055_112025-F.webp'},
-  {id:105,nombre:'Solanum Complejo B + Jalea Real Vitaminas B1 B2 B3 B5 B6 – 75 Cápsulas',marca:'Solanum',tipo:'complejo-b',precio:199,porciones:75,capsulasPorDia:1,porPorcion:'1 cápsula (560mg)',costoPorPorcion:2.65,b1:'5 mg',b2:'5 mg',b3:'20 mg',b5:'10 mg',b6:'5 mg',b7:'50 µg',b9:'400 µg',b12:'6 µg',formaB12:'cianocobalamina',vitaminasExtra:[{nombre:'Jalea Real Liofilizada',cantidad:'25 mg'},{nombre:'Vitamina A',cantidad:'1,000 µg'},{nombre:'Inositol',cantidad:'20 mg'}],certificaciones:[],estrellas:4.9,resenas:136,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/17L62FJ',img:'https://http2.mlstatic.com/D_NQ_NP_2X_826174-MLA100065376329_122025-F.webp'},
-  {id:106,nombre:'Life Extension Complejo B Completo Bioactivo – 60 Cápsulas',marca:'Life Extension',tipo:'complejo-b',precio:218.50,porciones:30,capsulasPorDia:2,porPorcion:'2 cápsulas vegetales',costoPorPorcion:7.28,b1:'100 mg',b2:'75 mg',b3:'100 mg',b5:'500 mg',b6:'100 mg',b7:'1000 mcg',b9:'680 mcg',b12:'300 mcg',formaB12:'metilcobalamina',vitaminasExtra:[{nombre:'Calcio',cantidad:'50 mg'},{nombre:'Inositol',cantidad:'100 mg'},{nombre:'PABA',cantidad:'50 mg'}],certificaciones:['Vegetariano'],estrellas:4.9,resenas:17,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/2oaV51J',img:'https://http2.mlstatic.com/D_NQ_NP_2X_712981-MLM92661382285_092025-F.webp'},
-  {id:107,nombre:'Nuboost B-Complex Complejo B 510mg con Remolacha y Cúrcuma – 90 Cápsulas',marca:'Nuboost',tipo:'complejo-b',precio:345,porciones:90,capsulasPorDia:1,porPorcion:'1 cápsula (510mg)',costoPorPorcion:3.83,b1:'15 mg',b2:'18 mg',b3:'25 mg',b5:'20 mg',b6:'10 mg',b7:'300 µg',b9:'400 µg',b12:'12 µg',formaB12:'cianocobalamina',vitaminasExtra:[{nombre:'Raíz de Remolacha',cantidad:'350.20 mg'},{nombre:'Raíz de Cúrcuma',cantidad:'61.09 mg'}],certificaciones:[],estrellas:4.7,resenas:37,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/2K94Xpg',img:'https://http2.mlstatic.com/D_NQ_NP_2X_703717-MLA104570343045_012026-F.webp'},
-  {id:108,nombre:'Raíces Zen Complejo B 640mg Suplemento Energético – 120 Cápsulas',marca:'Raíces Zen',tipo:'complejo-b',precio:232.80,porciones:120,capsulasPorDia:1,porPorcion:'1 cápsula (640mg)',costoPorPorcion:1.94,b1:'15 mg',b2:'18 mg',b3:'25 mg',b5:'20 mg',b6:'10 mg',b7:null,b9:null,b12:'12 mcg',formaB12:'cianocobalamina',vitaminasExtra:[{nombre:'Levadura de Cerveza',cantidad:'420 mg'}],certificaciones:['Libre de Gluten','Libre de Lácteos','Integral Sustentable'],estrellas:4.8,resenas:19,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/1PKGHuo',img:'https://http2.mlstatic.com/D_NQ_NP_2X_802953-MLA100075965319_122025-F.webp'},
-  {id:109,nombre:'Smart Vit Anahuac Complejo B 650mg con Zinc, Calcio y Hierro – 75 Cápsulas',marca:'Smart Vit Anahuac',tipo:'complejo-b',precio:229,porciones:75,capsulasPorDia:1,porPorcion:'1 cápsula (650mg)',costoPorPorcion:3.05,b1:'1.433 mg',b2:'1.624 mg',b3:'19.109 mg',b5:null,b6:'1.910 mg',b7:null,b9:'0.381 mg',b12:'5.590 µg',formaB12:'cianocobalamina',vitaminasExtra:[{nombre:'Zinc (Gluconato)',cantidad:'3.427 mg'},{nombre:'Calcio de Coral',cantidad:'9.555 mg'},{nombre:'Hierro (Sulfato Ferroso)',cantidad:'1.756 mg'}],certificaciones:[],estrellas:4.9,resenas:22,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/1y9svSc',img:'https://http2.mlstatic.com/D_NQ_NP_2X_659578-MLA99365838394_112025-F.webp'},
-  {id:110,nombre:'Multiblue Complejo B con Biotina y Ácido Fólico B1 B2 B3 B5 B6 B9 B12 – 60 Cápsulas',marca:'Multiblue',tipo:'complejo-b',precio:339.15,porciones:30,capsulasPorDia:2,porPorcion:'1 cápsula (450mg)',costoPorPorcion:11.31,b1:'15 mg',b2:'18 mg',b3:'25 mg',b5:'20 mg',b6:'10 mg',b7:'300 µg',b9:'400 µg',b12:'12 µg',formaB12:'cianocobalamina',vitaminasExtra:[],certificaciones:['GMP','Sin Gluten','Sin Azúcar','Sin Color Artificial'],estrellas:4.8,resenas:426,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/2q15sbu',img:'https://http2.mlstatic.com/D_NQ_NP_2X_725523-MLA112021283742_062026-F.webp'},
-  {id:111,nombre:'Oby B-Complex Complejo B Completo 8 en 1 Sin Rellenos B12 B1 B2 B3 B5 B6 B7 B9 – 60 Cápsulas',marca:'Oby',tipo:'complejo-b',precio:179,porciones:60,capsulasPorDia:1,porPorcion:'1 cápsula (500mg)',costoPorPorcion:2.98,b1:'15 mg',b2:'18 mg',b3:'25 mg',b5:'20 mg',b6:'10 mg',b7:'300 mcg',b9:'400 mcg',b12:'12 mcg',formaB12:'cianocobalamina',vitaminasExtra:[],certificaciones:['100% Natural','Sin Rellenos'],estrellas:4.8,resenas:1967,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/1xFXTJQ',img:'https://http2.mlstatic.com/D_NQ_NP_2X_775734-MLA106986653570_022026-F.webp'},
-  {id:112,nombre:'Nature Made Complejo B con Vitamina C y Ácido Fólico USP Verified – 140 Tabletas',marca:'Nature Made',tipo:'complejo-b',precio:379,porciones:140,capsulasPorDia:1,porPorcion:'1 tableta',costoPorPorcion:2.71,b1:'100 mg',b2:'20 mg',b3:'25 mg',b5:'5.5 mg',b6:'2 mg',b7:'30 mcg',b9:'400 mcg',b12:'15 mcg',formaB12:'cianocobalamina',vitaminasExtra:[{nombre:'Vitamina C',cantidad:'150 mg'},{nombre:'Calcio',cantidad:'35 mg'}],certificaciones:['USP Verified','Sin Gluten','Sin Color Artificial','Sin Sabor Artificial'],estrellas:4.9,resenas:59,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/2wBoQjk',img:'https://http2.mlstatic.com/D_NQ_NP_2X_698258-MLM92649888979_092025-F.webp'},
-  {id:113,nombre:'Gwynne Vitamina B 12-in-1 Complex con Vitamina C, Magnesio e Inositol – 90 Cápsulas',marca:'Gwynne',tipo:'complejo-b',precio:135,porciones:45,capsulasPorDia:2,porPorcion:'2 cápsulas vegetales',costoPorPorcion:3.00,b1:'100 mg',b2:'100 mg',b3:'20 mg',b5:'150 mg',b6:'86 mg',b7:'500 mcg',b9:'1 mg',b12:'2000 mcg',formaB12:'metilcobalamina',vitaminasExtra:[{nombre:'Vitamina C',cantidad:'151 mg'},{nombre:'Colina (L-bitartrato)',cantidad:'100 mg'},{nombre:'Magnesio (Citrato)',cantidad:'140 mg'},{nombre:'Inositol (Myo-inositol)',cantidad:'150 mg'}],certificaciones:['Vegano','Cápsula Vegetal'],estrellas:4.9,resenas:74,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/1RAxmEq',img:'https://http2.mlstatic.com/D_NQ_NP_2X_717761-MLA112288011178_062026-F.webp'},
-  {id:114,nombre:'Solanum Ginseng + Complejo B Línea Herbal Vegano – 60 Cápsulas',marca:'Solanum',tipo:'complejo-b',precio:179,porciones:30,capsulasPorDia:2,porPorcion:'2 cápsulas (900mg)',costoPorPorcion:5.97,b1:'5 mg',b2:'5 mg',b3:'20 mg',b5:'10 mg',b6:'5 mg',b7:null,b9:'400 µg',b12:'12 µg',formaB12:'cianocobalamina',vitaminasExtra:[{nombre:'Raíz de Ginseng (Panax ginseng)',cantidad:'60 mg'}],certificaciones:['Vegano','Hecho en México'],estrellas:4.8,resenas:12,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/1TTMdN8',img:'https://http2.mlstatic.com/D_NQ_NP_2X_675491-MLM85415499201_052025-F.webp'},
-  {id:115,nombre:'Vital Botanics Complejo B Completo con Biotina y Arándano – 200 Cápsulas',marca:'Vital Botanics',tipo:'complejo-b',precio:498.99,porciones:200,capsulasPorDia:1,porPorcion:'1 cápsula (0.5g)',costoPorPorcion:2.49,b1:'12 mg',b2:'15 mg',b3:'19 mg',b5:'15 mg',b6:'9 mg',b7:'8 µg',b9:null,b12:'12 µg',formaB12:'cianocobalamina',vitaminasExtra:[{nombre:'Arándano Azul (polvo)',cantidad:'150 mg'}],certificaciones:['Sin Aditivos','Sin Gluten'],estrellas:4.7,resenas:433,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/1exaeSy',img:'https://http2.mlstatic.com/D_NQ_NP_2X_929746-MLA109276883756_042026-F.webp'},
-  {id:116,nombre:'Restart B-Complex Completo B12 B1 B2 B3 B5 B6 B7 B9 Premium GMP – 60 Cápsulas',marca:'Restart',tipo:'complejo-b',precio:151,precioML:151,precioAmz:199,porciones:60,capsulasPorDia:1,porPorcion:'1 cápsula (470mg)',costoPorPorcion:2.52,b1:'15 mg',b2:'18 mg',b3:'25 mg',b5:'20 mg',b6:'15 mg',b7:'300 µg',b9:'400 µg',b12:'12 µg',formaB12:'cianocobalamina',vitaminasExtra:[{nombre:'Betabel (Beta vulgaris)',cantidad:'351.29 mg'},{nombre:'Inulina de Agave',cantidad:'30 mg'}],certificaciones:['Vegano','Non-GMO','GMP','FDA Lab'],estrellas:4.9,resenas:87,badges:[{t:'ML',c:'b-ml'},{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0FSG65VG8?tag=comparabici-20',linkML:'https://meli.la/14msVVs',img:'https://http2.mlstatic.com/D_NQ_NP_2X_685209-MLA99489780412_112025-F.webp'},
-  {id:117,nombre:'Lifeed5 LF5 Complejo B Multivitamínico con Té Verde y Calcio – 120 Cápsulas',marca:'Lifeed5',tipo:'complejo-b',precio:329,porciones:120,capsulasPorDia:1,porPorcion:'1 cápsula (565mg)',costoPorPorcion:2.74,b1:'15 mg',b2:'18 mg',b3:'25 mg',b5:'20 mg',b6:'10 mg',b7:'300 µg',b9:'400 µg',b12:'12 µg',formaB12:'cianocobalamina',vitaminasExtra:[{nombre:'Té Verde (Camellia Sinensis)',cantidad:'161.30 mg'},{nombre:'Calcio',cantidad:'81.41 mg'}],certificaciones:['Sin Gluten','Sin Azúcar Añadida','Sin Saborizantes Artificiales'],estrellas:4.8,resenas:52,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/2cX2N1A',img:'https://http2.mlstatic.com/D_NQ_NP_2X_790385-MLA99938847707_112025-F.webp'},
-  {id:118,nombre:'Healthaddiction Bplus B Complex 2 Pack – 120 Porciones',marca:'Healthaddiction',tipo:'complejo-b',precio:419.30,porciones:120,capsulasPorDia:2,porPorcion:'2 tabletas (1.4g)',costoPorPorcion:3.49,b1:'15 mg',b2:'17 mg',b3:'24 mg',b5:'20 mg',b6:'9 mg',b7:'300 µg',b9:'300 µg',b12:'12 µg',formaB12:'cianocobalamina',vitaminasExtra:[],certificaciones:[],estrellas:5.0,resenas:6,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/2FwUbti',img:'https://http2.mlstatic.com/D_NQ_NP_2X_671860-MLM106463065926_022026-F.webp'},
-  {id:119,nombre:'B Life Complejo B y Levadura de Cerveza 180 Días – 180 Cápsulas',marca:'B Life Company',tipo:'complejo-b',precio:399,precioML:399,precioAmz:399,porciones:180,capsulasPorDia:1,porPorcion:'1 cápsula (0.5g)',costoPorPorcion:2.22,b1:'15 mg',b2:'18 mg',b3:'25 mg',b5:'20 mg',b6:'10 mg',b7:null,b9:null,b12:'12 µg',formaB12:'cianocobalamina',vitaminasExtra:[{nombre:'Levadura de Cerveza',cantidad:'420 mg'}],certificaciones:['Hecho en México'],estrellas:4.7,resenas:1709,badges:[{t:'ML',c:'b-ml'},{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B08D4RBX7K?tag=comparabici-20',linkML:'https://meli.la/1PKGHuo',img:'https://m.media-amazon.com/images/I/61m652iRrzL._AC_SL1400_.jpg'},
-  {id:120,nombre:'Spring Valley Vitamina B12 1000mcg – 60 Tabletas',marca:'Spring Valley',tipo:'complejo-b',precio:199,porciones:60,capsulasPorDia:1,porPorcion:'1 tableta',costoPorPorcion:3.32,b1:null,b2:null,b3:null,b5:null,b6:null,b7:null,b9:null,b12:'1000 mcg',formaB12:'cianocobalamina',vitaminasExtra:[],certificaciones:[],estrellas:4.8,resenas:109,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/2KeNhsP',img:'https://http2.mlstatic.com/D_NQ_NP_2X_762843-MLA99938423115_112025-F.webp'},
-  {id:121,nombre:'Beyond Vitamins B-Complex Premium 100% Vegano Sin Rellenos – 60 Cápsulas',marca:'Beyond Vitamins',tipo:'complejo-b',precio:189.04,porciones:60,capsulasPorDia:1,porPorcion:'1 cápsula (500mg)',costoPorPorcion:3.15,b1:'15 mg',b2:'18 mg',b3:'25 mg',b5:'20 mg',b6:'10 mg',b7:'300 µg',b9:'400 µg',b12:'12 µg',formaB12:'cianocobalamina',vitaminasExtra:[{nombre:'Raíz de Betabel',cantidad:'350.20 mg'},{nombre:'Raíz de Cúrcuma',cantidad:'61.09 mg'}],certificaciones:['100% Vegano','Sin Rellenos'],estrellas:4.7,resenas:629,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0CKS1H4X3?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/81DCFG3MfxL._AC_SX679_.jpg'},
-  {id:122,nombre:'NLS Essentials Complejo B B1 B2 B3 B5 B6 B7 B9 B12 con Betabel – 90 Cápsulas',marca:'NLS Essentials',tipo:'complejo-b',precio:264.10,porciones:90,capsulasPorDia:1,porPorcion:'1 cápsula (560mg)',costoPorPorcion:2.93,b1:'15 mg',b2:'18 mg',b3:'25 mg',b5:'20 mg',b6:'10 mg',b7:null,b9:'400 µg',b12:'12 µg',formaB12:'cianocobalamina',vitaminasExtra:[{nombre:'Betabel (Beta vulgaris)',cantidad:'150 mg'}],certificaciones:[],estrellas:4.8,resenas:1997,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0BQZ5C2J2?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/7144viD%2BqOL._AC_SX679_.jpg'},
-  {id:124,nombre:'Nature Made Super B Energy Complex Cápsulas Blandas – 60 Softgels',marca:'Nature Made',tipo:'complejo-b',precio:260,porciones:60,capsulasPorDia:1,porPorcion:'1 softgel',costoPorPorcion:4.33,b1:'1.5 mg',b2:'1.7 mg',b3:'20 mg',b5:'10 mg',b6:'2 mg',b7:'300 mcg',b9:'400 mcg',b12:'6 mcg',formaB12:'cianocobalamina',vitaminasExtra:[],certificaciones:['Sin Gluten','Sin Sabor Artificial','Sin Preservativos'],estrellas:4.6,resenas:18332,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B008PQDCG0?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/71Lp4gJCNJL._AC_SX679_.jpg'},
-  {id:128,nombre:'Vidanat Complejo B con Vitaminas del Grupo B – 90 Cápsulas',marca:'Vidanat',tipo:'complejo-b',precio:176.39,porciones:90,capsulasPorDia:1,porPorcion:'1 cápsula (650mg)',costoPorPorcion:1.96,b1:'1.430 mg',b2:'1.620 mg',b3:'19.11 mg',b5:null,b6:'1.910 mg',b7:null,b9:'0.38 mg',b12:'5.6 mcg',formaB12:'cianocobalamina',vitaminasExtra:[{nombre:'Zinc (Gluconato)',cantidad:'3.43 mg'},{nombre:'Calcio de Coral',cantidad:'9.55 mg'},{nombre:'Hierro (Sulfato Ferroso)',cantidad:'1.76 mg'},{nombre:'Aceite de Germen de Trigo',cantidad:'23.89 mg'}],certificaciones:[],estrellas:4.7,resenas:927,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B07CXZKWHV?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/61ByHV7XppL._AC_SX679_.jpg'},
-  {id:129,nombre:'Vital Botanics Complejo B Completo con Biotina y Arándano AMZ – 60 Cápsulas',marca:'Vital Botanics',tipo:'complejo-b',precio:269.09,porciones:60,capsulasPorDia:1,porPorcion:'1 cápsula (0.5g)',costoPorPorcion:4.48,b1:'12 mg',b2:'15 mg',b3:'19 mg',b5:'15 mg',b6:'9 mg',b7:'8 µg',b9:null,b12:'12 µg',formaB12:'cianocobalamina',vitaminasExtra:[{nombre:'Arándano Azul (Vaccinium Corymbosum)',cantidad:'150 mg'}],certificaciones:['Ingredientes de Origen Natural','Calidad Premium'],estrellas:4.7,resenas:1293,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B09RGMBZCP?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/5129sEhVzaL._AC_SX679_.jpg'},
-  {id:130,nombre:'Wellthy Complejo B 120 Porciones Reforzado con Biotina y Glutamina VCaps Veganas – 120 Cápsulas',marca:'Wellthy',tipo:'complejo-b',precio:299,porciones:120,capsulasPorDia:1,porPorcion:'1 cápsula',costoPorPorcion:2.49,b1:'15 mg',b2:'18 mg',b3:'25 mg',b5:'20 mg',b6:'10 mg',b7:'300 µg',b9:'100 µg',b12:'12 µg',formaB12:'cianocobalamina',vitaminasExtra:[{nombre:'L-Glutamina',cantidad:'420 mg'}],certificaciones:['Vegano','VCaps','Bottle Free'],estrellas:4.7,resenas:138,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0D4R5NDH6?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/61QM3gwnH8L._AC_SL1408_.jpg'},
-  {id:131,nombre:'Oby Complejo B Completo Fórmula 8 en 1 100% Natural AMZ – 60 Cápsulas',marca:'OBY',tipo:'complejo-b',precio:199.99,porciones:60,capsulasPorDia:1,porPorcion:'1 cápsula (500mg)',costoPorPorcion:3.33,b1:'15 mg',b2:'18 mg',b3:'25 mg',b5:'20 mg',b6:'10 mg',b7:'300 mcg',b9:'400 mcg',b12:'12 mcg',formaB12:'cianocobalamina',vitaminasExtra:[],certificaciones:['100% Natural','Sin Rellenos'],estrellas:4.3,resenas:41,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0DJ4DNKHM?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/510vmA+RmYL._AC_SX679_.jpg'},
-  {id:134,nombre:'LIFE 360+ Suplemento Vitamins-B Grape con Pulpa de Uva y Zinc – 220 Cápsulas',marca:'LIFE 360+',tipo:'complejo-b',precio:379.90,porciones:220,capsulasPorDia:1,porPorcion:'1 cápsula (640mg)',costoPorPorcion:1.73,b1:'15 mg',b2:'18 mg',b3:'25 mg',b5:'20 mg',b6:'10 mg',b7:null,b9:null,b12:'12 µg',formaB12:'cianocobalamina',vitaminasExtra:[{nombre:'Pulpa de Uva (Vitis vinifera)',cantidad:null},{nombre:'Zinc (Óxido de Zinc)',cantidad:'15.6 mg'}],certificaciones:[],estrellas:4.9,resenas:44,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0DF8LZLCV?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/61sNjIyHp1L._AC_SX679_.jpg'},
-  {id:135,nombre:'VITAMÍNICA Complejo B B1 B2 B3 B5 B6 B7 B9 B12 Pack 3 Frascos – 90 Cápsulas',marca:'AISSA VITAMÍNICA',tipo:'complejo-b',precio:299,porciones:90,capsulasPorDia:1,porPorcion:'1 cápsula (376mg)',costoPorPorcion:3.32,b1:'15 mg',b2:'18 mg',b3:'25 mg',b5:'20 mg',b6:'10 mg',b7:'300 mcg',b9:'400 mcg',b12:'12 mcg',formaB12:'cianocobalamina',vitaminasExtra:[{nombre:'Inulina de Agave (Agave tequilana)',cantidad:null}],certificaciones:[],estrellas:4.4,resenas:13,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B09ZDPYY1Q?tag=comparabici-20',linkML:'',img:'https://m.media-amazon.com/images/I/71wRj4ZvqgL._AC_SX679_.jpg'},
+  {
+    id: 1,
+    nombre: "Omega 3 Forte 2000mg – 60 Softgels",
+    marca: "OBY",
+    tipo: "vitaminas",
+    precio: 389,
+    peso: "60 softgels",
+    porciones: 30,
+    duracion: 30,
+    porPorcion: "2 softgels",
+    proteina: 0,
+    calorias: 18,
+    carbos: 0,
+    grasas: 2,
+    omegaTotal: 2000,
+    epa: 1000,
+    dha: 400,
+    omegaPorPorcion: 1400,
+    costoPorPorcion: 12.97,
+    fuenteOmega: "anchoa",
+    forma: "softgel",
+    libreMetalesPesados: true,
+    certificadoIFOS: false,
+    sabores: [
+      "Sin sabor"
+    ],
+    estrellas: 4.9,
+    resenas: 377,
+    badges: [
+      {
+        t: "ML",
+        c: "b-ml"
+      }
+    ],
+    linkAmz: "",
+    linkML: "https://meli.la/1CpEJAk",
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_809253-MLA106059329740_022026-F.webp"
+  },
+  {
+    id: 2,
+    nombre: "Omega 3 Ultra Premium EPA 360mg DHA 240mg TG – 60 Cápsulas",
+    marca: "Beyond Vitamins",
+    tipo: "vitaminas",
+    precio: 399,
+    peso: "60 cápsulas",
+    porciones: 60,
+    duracion: 60,
+    porPorcion: "1 cápsula (1300mg)",
+    proteina: 0.22,
+    calorias: 9.8,
+    carbos: 0,
+    grasas: 0.99,
+    omegaTotal: 990,
+    epa: 360,
+    dha: 240,
+    omegaPorPorcion: 600,
+    costoPorPorcion: 6.65,
+    fuenteOmega: "anchoa",
+    forma: "softgel",
+    libreMetalesPesados: false,
+    certificadoIFOS: true,
+    sabores: [
+      "Sin sabor"
+    ],
+    estrellas: 5,
+    resenas: 19,
+    badges: [
+      {
+        t: "ML",
+        c: "b-ml"
+      }
+    ],
+    linkAmz: "",
+    linkML: "https://meli.la/2zGrd5j",
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_684076-MLA114054614297_072026-F.webp"
+  },
+  {
+    id: 3,
+    nombre: "Omega 3 De Salmón Alto EPA y DHA Salmon Oil – 120 Cápsulas",
+    marca: "OBY",
+    tipo: "vitaminas",
+    precio: 379,
+    peso: "120 cápsulas",
+    porciones: 120,
+    duracion: 120,
+    porPorcion: "1 cápsula (1.3g)",
+    proteina: 0.22,
+    calorias: 9.79,
+    carbos: 0,
+    grasas: 0.99,
+    omegaTotal: 1000,
+    epa: 360,
+    dha: 240,
+    omegaPorPorcion: 600,
+    costoPorPorcion: 3.16,
+    fuenteOmega: "salmon",
+    forma: "softgel",
+    libreMetalesPesados: false,
+    certificadoIFOS: false,
+    sabores: [
+      "Sin sabor"
+    ],
+    estrellas: 4.9,
+    resenas: 4078,
+    badges: [
+      {
+        t: "ML",
+        c: "b-ml"
+      }
+    ],
+    linkAmz: "",
+    linkML: "https://meli.la/28sYPqn",
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_853534-MLA96079139207_102025-F.webp"
+  },
+  {
+    id: 4,
+    nombre: "Suplemento Complejo B Magnesio Zinc L-Triptófano – 30 Cápsulas",
+    marca: "Inner Bienestar",
+    tipo: "complejo-b",
+    precio: 424,
+    peso: "30 cápsulas",
+    porciones: 30,
+    duracion: 30,
+    porPorcion: "1 cápsula (500mg)",
+    proteina: 0,
+    calorias: 0,
+    carbos: 0,
+    grasas: 0,
+    omegaTotal: 0,
+    epa: 0,
+    dha: 0,
+    omegaPorPorcion: 0,
+    costoPorPorcion: 14.13,
+    fuenteOmega: "ninguna",
+    forma: "capsula",
+    libreMetalesPesados: false,
+    certificadoIFOS: false,
+    sabores: [
+      "Sin sabor"
+    ],
+    estrellas: 4.4,
+    resenas: 78,
+    badges: [
+      {
+        t: "ML",
+        c: "b-ml"
+      }
+    ],
+    linkAmz: "",
+    linkML: "https://meli.la/1ypCbmd",
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_763454-MLA99515796914_112025-F.webp"
+  },
+  {
+    id: 5,
+    nombre: "Omega 3 Platinum 1000mg – 180 Cápsulas",
+    marca: "B Life",
+    tipo: "vitaminas",
+    precio: 749,
+    peso: "180 cápsulas",
+    porciones: 180,
+    duracion: 180,
+    porPorcion: "1 cápsula (1g)",
+    proteina: 0,
+    calorias: 9,
+    carbos: 0,
+    grasas: 1,
+    omegaTotal: 1000,
+    epa: 500,
+    dha: 200,
+    omegaPorPorcion: 700,
+    costoPorPorcion: 4.16,
+    fuenteOmega: "anchoa",
+    forma: "softgel",
+    libreMetalesPesados: false,
+    certificadoIFOS: false,
+    sabores: [
+      "Sin sabor"
+    ],
+    estrellas: 4.9,
+    resenas: 6908,
+    badges: [
+      {
+        t: "ML",
+        c: "b-ml"
+      }
+    ],
+    linkAmz: "",
+    linkML: "https://meli.la/1bCdCuk",
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_999696-MLA115094763921_072026-F.webp"
+  },
+  {
+    id: 6,
+    nombre: "Now Foods Omega 3 1000mg Sin Metales Pesados – 100 Softgels",
+    marca: "Now Foods",
+    tipo: "vitaminas",
+    precio: 237,
+    peso: "100 softgels",
+    porciones: 50,
+    duracion: 50,
+    porPorcion: "2 softgels (2000mg)",
+    proteina: 0,
+    calorias: 20,
+    carbos: 0,
+    grasas: 2,
+    omegaTotal: 2000,
+    epa: 360,
+    dha: 240,
+    omegaPorPorcion: 600,
+    costoPorPorcion: 4.74,
+    fuenteOmega: "anchoa",
+    forma: "softgel",
+    libreMetalesPesados: true,
+    certificadoIFOS: false,
+    sabores: [
+      "Sin sabor"
+    ],
+    estrellas: 4.9,
+    resenas: 2649,
+    badges: [
+      {
+        t: "ML",
+        c: "b-ml"
+      }
+    ],
+    linkAmz: "",
+    linkML: "https://meli.la/1QExyyw",
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_953377-MLA99489778884_112025-F.webp"
+  },
+  {
+    id: 7,
+    nombre: "Omega 3 Aceite de Salmón + Vitamina E 365 Cápsulas",
+    marca: "LIFE360+",
+    tipo: "vitaminas",
+    precio: 375,
+    peso: "365 cápsulas",
+    porciones: 365,
+    duracion: 365,
+    porPorcion: "1 cápsula (450mg)",
+    proteina: 0.14,
+    calorias: 3.53,
+    carbos: 0,
+    grasas: 0.33,
+    omegaTotal: 300,
+    epa: 28,
+    dha: 24,
+    omegaPorPorcion: 52,
+    costoPorPorcion: 1.03,
+    fuenteOmega: "salmon",
+    forma: "softgel",
+    libreMetalesPesados: false,
+    certificadoIFOS: false,
+    sabores: [
+      "Sin sabor"
+    ],
+    estrellas: 4.8,
+    resenas: 4338,
+    badges: [
+      {
+        t: "ML",
+        c: "b-ml"
+      }
+    ],
+    linkAmz: "",
+    linkML: "https://meli.la/1wtHcqp",
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_768270-MLA115778410731_082026-F.webp"
+  },
+  {
+    id: 8,
+    nombre: "Vitanna Omega 3 Epax Salmón Noruego EPA 600mg DHA 400mg – 120 Cápsulas",
+    marca: "Vitanna",
+    tipo: "vitaminas",
+    precio: 580,
+    peso: "120 cápsulas",
+    porciones: 60,
+    duracion: 60,
+    porPorcion: "2 cápsulas (2000mg)",
+    proteina: 0.54,
+    calorias: 21,
+    carbos: 0.21,
+    grasas: 2,
+    omegaTotal: 2000,
+    epa: 600,
+    dha: 400,
+    omegaPorPorcion: 1000,
+    costoPorPorcion: 9.67,
+    fuenteOmega: "salmon",
+    forma: "softgel",
+    libreMetalesPesados: false,
+    certificadoIFOS: false,
+    sabores: [
+      "Sin sabor"
+    ],
+    estrellas: 0,
+    resenas: 0,
+    badges: [
+      {
+        t: "ML",
+        c: "b-ml"
+      }
+    ],
+    linkAmz: "",
+    linkML: "https://meli.la/1QK4Eqc",
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_908034-MLM114949055978_082026-F.webp"
+  },
+  {
+    id: 9,
+    nombre: "Vitatú Omega 3 Salmón Noruego – 90 Softgels",
+    marca: "Vitatú",
+    tipo: "vitaminas",
+    precio: 468,
+    peso: "90 softgels",
+    porciones: 45,
+    duracion: 45,
+    porPorcion: "2 softgels (2.8g)",
+    proteina: 0.54,
+    calorias: 21,
+    carbos: 0.21,
+    grasas: 2,
+    omegaTotal: 2000,
+    epa: 720,
+    dha: 480,
+    omegaPorPorcion: 1200,
+    costoPorPorcion: 10.4,
+    fuenteOmega: "salmon",
+    forma: "softgel",
+    libreMetalesPesados: false,
+    certificadoIFOS: false,
+    sabores: [
+      "Sin sabor"
+    ],
+    estrellas: 5,
+    resenas: 428,
+    badges: [
+      {
+        t: "ML",
+        c: "b-ml"
+      }
+    ],
+    linkAmz: "",
+    linkML: "https://meli.la/1EPAShY",
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_951655-MLA99471258412_112025-F.webp"
+  },
+  {
+    id: 10,
+    nombre: "Omega 3-6-9 Naturagel Aceite de Linaza – 60 Cápsulas",
+    marca: "Naturagel",
+    tipo: "vitaminas",
+    precio: 130,
+    peso: "60 cápsulas",
+    porciones: 30,
+    duracion: 30,
+    porPorcion: "2 cápsulas (1400mg)",
+    proteina: 0.29,
+    calorias: 11,
+    carbos: 0.11,
+    grasas: 0.99,
+    omegaTotal: 1000,
+    epa: 0,
+    dha: 0,
+    omegaPorPorcion: 547,
+    costoPorPorcion: 4.33,
+    fuenteOmega: "linaza",
+    forma: "softgel",
+    libreMetalesPesados: false,
+    certificadoIFOS: false,
+    sabores: [
+      "Sin sabor"
+    ],
+    estrellas: 4.8,
+    resenas: 1103,
+    badges: [
+      {
+        t: "ML",
+        c: "b-ml"
+      }
+    ],
+    linkAmz: "",
+    linkML: "https://meli.la/2pE2ExQ",
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_945473-MLA100108421729_122025-F.webp"
+  },
+  {
+    id: 16,
+    nombre: "UPMER Omega 3 Premium 5 en 1 Krill + Pescado – 90 Cápsulas",
+    marca: "UPMER",
+    tipo: "vitaminas",
+    precio: 239,
+    peso: "90 cápsulas",
+    porciones: 45,
+    duracion: 45,
+    porPorcion: "2 softgels",
+    proteina: 0,
+    calorias: 0,
+    carbos: 0,
+    grasas: 0,
+    omegaTotal: 1000,
+    epa: 315,
+    dha: 125,
+    omegaPorPorcion: 440,
+    costoPorPorcion: 5.31,
+    fuenteOmega: "krill+pescado",
+    forma: "softgel",
+    libreMetalesPesados: false,
+    certificadoIFOS: false,
+    sabores: [
+      "Sin sabor"
+    ],
+    estrellas: 5,
+    resenas: 40,
+    badges: [
+      {
+        t: "ML",
+        c: "b-ml"
+      }
+    ],
+    linkAmz: "",
+    linkML: "https://meli.la/2kYo6Jm",
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_732671-MLA114618428649_072026-F.webp"
+  },
+  {
+    id: 17,
+    nombre: "Omega 3 Aceite de Salmón + Vitamina E 180 Cápsulas",
+    marca: "LIFE360+",
+    tipo: "vitaminas",
+    precio: 295,
+    peso: "180 cápsulas",
+    porciones: 180,
+    duracion: 180,
+    porPorcion: "1 cápsula (450mg)",
+    proteina: 0.14,
+    calorias: 3.26,
+    carbos: 0,
+    grasas: 0.33,
+    omegaTotal: 300,
+    epa: 28,
+    dha: 24,
+    omegaPorPorcion: 52,
+    costoPorPorcion: 1.64,
+    fuenteOmega: "salmon",
+    forma: "softgel",
+    libreMetalesPesados: false,
+    certificadoIFOS: false,
+    sabores: [
+      "Sin sabor"
+    ],
+    estrellas: 4.8,
+    resenas: 4125,
+    badges: [
+      {
+        t: "ML",
+        c: "b-ml"
+      }
+    ],
+    linkAmz: "",
+    linkML: "https://meli.la/272AyXs",
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_875588-MLA114319085124_082026-F.webp"
+  },
+  {
+    id: 18,
+    nombre: "Wellthy Omega 3 Noruego Alta Concentración Epax – 90 Cápsulas",
+    marca: "Wellthy",
+    tipo: "vitaminas",
+    precio: 387,
+    peso: "90 cápsulas",
+    porciones: 45,
+    duracion: 45,
+    porPorcion: "2 cápsulas (2g)",
+    proteina: 0.54,
+    calorias: 21,
+    carbos: 0.21,
+    grasas: 2,
+    omegaTotal: 2000,
+    epa: 600,
+    dha: 400,
+    omegaPorPorcion: 1000,
+    costoPorPorcion: 8.6,
+    fuenteOmega: "anchoa",
+    forma: "softgel",
+    libreMetalesPesados: false,
+    certificadoIFOS: false,
+    sabores: [
+      "Sin sabor"
+    ],
+    estrellas: 4.9,
+    resenas: 367,
+    badges: [
+      {
+        t: "ML",
+        c: "b-ml"
+      }
+    ],
+    linkAmz: "",
+    linkML: "https://meli.la/1nUzAs1",
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_741093-MLA116376618549_082026-F.webp"
+  },
+  {
+    id: 19,
+    nombre: "Omega 3 Aceite de Salmón + Vitamina E 360 Cápsulas",
+    marca: "LIFE360+",
+    tipo: "vitaminas",
+    precio: 394,
+    peso: "360 cápsulas",
+    porciones: 360,
+    duracion: 360,
+    porPorcion: "1 cápsula (450mg)",
+    proteina: 0.14,
+    calorias: 3.26,
+    carbos: 0,
+    grasas: 0.33,
+    omegaTotal: 300,
+    epa: 28,
+    dha: 24,
+    omegaPorPorcion: 52,
+    costoPorPorcion: 1.09,
+    fuenteOmega: "salmon",
+    forma: "softgel",
+    libreMetalesPesados: false,
+    certificadoIFOS: false,
+    sabores: [
+      "Sin sabor"
+    ],
+    estrellas: 4.6,
+    resenas: 3974,
+    badges: [
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B09S18CZ36?tag=comparalo20-20",
+    linkML: "",
+    img: "https://m.media-amazon.com/images/I/71U7h6ri70L._AC_SX679_.jpg"
+  },
+  {
+    id: 20,
+    nombre: "Vitanna Omega 3 Epax Salmón Noruego EPA 600mg DHA 400mg TG – 120 Cápsulas",
+    marca: "Vitanna",
+    tipo: "vitaminas",
+    precio: 497,
+    peso: "120 cápsulas",
+    porciones: 60,
+    duracion: 60,
+    porPorcion: "2 cápsulas (2g)",
+    proteina: 0.54,
+    calorias: 21,
+    carbos: 0.21,
+    grasas: 2,
+    omegaTotal: 2000,
+    epa: 600,
+    dha: 400,
+    omegaPorPorcion: 1000,
+    costoPorPorcion: 8.28,
+    fuenteOmega: "salmon",
+    forma: "softgel",
+    libreMetalesPesados: false,
+    certificadoIFOS: false,
+    sabores: [
+      "Sin sabor"
+    ],
+    estrellas: 5,
+    resenas: 25,
+    badges: [
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B0G67S94CP?tag=comparalo20-20",
+    linkML: "",
+    img: "https://m.media-amazon.com/images/I/61FX0KF0LeL._AC_SX679_.jpg"
+  },
+  {
+    id: 21,
+    nombre: "Pronat Omega 3 Premium Concentrado EPA 900mg DHA 600mg + Vit E – 60 Cápsulas",
+    marca: "Pronat",
+    tipo: "vitaminas",
+    precio: 384,
+    peso: "60 cápsulas",
+    porciones: 30,
+    duracion: 30,
+    porPorcion: "2 cápsulas (4.3g)",
+    proteina: 0.84,
+    calorias: 33,
+    carbos: 0.27,
+    grasas: 3.18,
+    omegaTotal: 1914,
+    epa: 900,
+    dha: 600,
+    omegaPorPorcion: 1500,
+    costoPorPorcion: 12.8,
+    fuenteOmega: "anchoa",
+    forma: "softgel",
+    libreMetalesPesados: false,
+    certificadoIFOS: false,
+    sabores: [
+      "Yerbabuena"
+    ],
+    estrellas: 4.7,
+    resenas: 759,
+    badges: [
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://link.amazon/B09oriGH3?tag=comparalo20-20",
+    linkML: "",
+    img: "https://m.media-amazon.com/images/I/61ECf9yykNL._AC_SX679_.jpg"
+  },
+  {
+    id: 22,
+    nombre: "B Life Omega 3 Aceite Puro de Salmón – 100 Cápsulas",
+    marca: "B Life",
+    tipo: "vitaminas",
+    precio: 269,
+    peso: "100 cápsulas",
+    porciones: 100,
+    duracion: 100,
+    porPorcion: "1 cápsula (1g)",
+    proteina: 0,
+    calorias: 0.41,
+    carbos: 0,
+    grasas: 1,
+    omegaTotal: 1000,
+    epa: 300,
+    dha: 200,
+    omegaPorPorcion: 500,
+    costoPorPorcion: 2.69,
+    fuenteOmega: "salmon",
+    forma: "softgel",
+    libreMetalesPesados: false,
+    certificadoIFOS: false,
+    sabores: [
+      "Sin sabor"
+    ],
+    estrellas: 4.8,
+    resenas: 6591,
+    badges: [
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B0BHTTDBC2?tag=comparalo20-20",
+    linkML: "",
+    img: "https://m.media-amazon.com/images/I/51TOVyP6LzL._AC_SX679_.jpg"
+  },
+  {
+    id: 23,
+    nombre: "Nordic Naturals Omega-3 690mg Sabor Limón – 60 Cápsulas",
+    marca: "Nordic Naturals",
+    tipo: "vitaminas",
+    precio: 670,
+    peso: "60 cápsulas",
+    porciones: 30,
+    duracion: 30,
+    porPorcion: "2 cápsulas (3g)",
+    proteina: 0,
+    calorias: 18,
+    carbos: 0,
+    grasas: 2,
+    omegaTotal: 690,
+    epa: 330,
+    dha: 220,
+    omegaPorPorcion: 550,
+    costoPorPorcion: 22.33,
+    fuenteOmega: "multi-pez",
+    forma: "softgel",
+    libreMetalesPesados: false,
+    certificadoIFOS: false,
+    sabores: [
+      "Limón"
+    ],
+    estrellas: 4.8,
+    resenas: 9097,
+    badges: [
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B0006GZE22?tag=comparalo20-20",
+    linkML: "",
+    img: "https://m.media-amazon.com/images/I/61V953uPFPL._AC_SX679_.jpg"
+  },
+  {
+    id: 24,
+    nombre: "Now Foods Omega-3 1000mg – 200 Cápsulas Blandas",
+    marca: "Now Foods",
+    tipo: "vitaminas",
+    precio: 320,
+    peso: "200 cápsulas",
+    porciones: 100,
+    duracion: 100,
+    porPorcion: "2 softgels (2000mg)",
+    proteina: 0,
+    calorias: 20,
+    carbos: 0,
+    grasas: 2,
+    omegaTotal: 2000,
+    epa: 360,
+    dha: 240,
+    omegaPorPorcion: 600,
+    costoPorPorcion: 3.2,
+    fuenteOmega: "multi-pez",
+    forma: "softgel",
+    libreMetalesPesados: true,
+    certificadoIFOS: false,
+    sabores: [
+      "Sin sabor"
+    ],
+    estrellas: 4.8,
+    resenas: 16429,
+    badges: [
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B001GCU6KA?tag=comparalo20-20",
+    linkML: "",
+    img: "https://m.media-amazon.com/images/I/71zLG8qwfLL._AC_SX679_.jpg"
+  },
+  {
+    id: 25,
+    nombre: "Beyond Vitamins Omega 3-6-9 EPA 288mg DHA 192mg – 180 Cápsulas",
+    marca: "Beyond Vitamins",
+    tipo: "vitaminas",
+    precio: 434,
+    peso: "180 cápsulas",
+    porciones: 90,
+    duracion: 90,
+    porPorcion: "2 cápsulas (2800mg)",
+    proteina: 0.54,
+    calorias: 20.96,
+    carbos: 0.2,
+    grasas: 2,
+    omegaTotal: 780,
+    epa: 288,
+    dha: 192,
+    omegaPorPorcion: 480,
+    costoPorPorcion: 4.82,
+    fuenteOmega: "multi-pez+vegetal",
+    forma: "softgel",
+    libreMetalesPesados: false,
+    certificadoIFOS: false,
+    sabores: [
+      "Sin sabor"
+    ],
+    estrellas: 4.8,
+    resenas: 99,
+    badges: [
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B0DQYRK8M8?tag=comparalo20-20",
+    linkML: "",
+    img: "https://m.media-amazon.com/images/I/71xG8Eaoy6L._AC_SX679_.jpg"
+  },
+  {
+    id: 26,
+    nombre: "Beyond Vitamins Omega 3 Salmon Oil Ultra Concentrado – 60 Cápsulas",
+    marca: "Beyond Vitamins",
+    tipo: "vitaminas",
+    precio: 360,
+    peso: "60 cápsulas",
+    porciones: 60,
+    duracion: 60,
+    porPorcion: "1 cápsula (1400mg)",
+    proteina: 0.27,
+    calorias: 10.48,
+    carbos: 0.1,
+    grasas: 1,
+    omegaTotal: 1000,
+    epa: 310,
+    dha: 212,
+    omegaPorPorcion: 522,
+    costoPorPorcion: 6,
+    fuenteOmega: "salmon",
+    forma: "softgel",
+    libreMetalesPesados: false,
+    certificadoIFOS: false,
+    sabores: [
+      "Sin sabor"
+    ],
+    estrellas: 4.7,
+    resenas: 104,
+    badges: [
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B0F8LMHC6G?tag=comparalo20-20",
+    linkML: "",
+    img: "https://m.media-amazon.com/images/I/81ABfJGmWbL._AC_SL1500_.jpg"
+  },
+  {
+    id: 27,
+    nombre: "Omega 3 Aceite de Salmón 1200mg EPA + 600mg DHA Mujer – 90 Cápsulas",
+    marca: "Codigo Menstrual",
+    tipo: "vitaminas",
+    precio: 399,
+    peso: "90 cápsulas",
+    porciones: 30,
+    duracion: 30,
+    porPorcion: "3 cápsulas (3.6g)",
+    proteina: 0,
+    calorias: 0,
+    carbos: 0,
+    grasas: 0,
+    omegaTotal: 3000,
+    epa: 1200,
+    dha: 600,
+    omegaPorPorcion: 1800,
+    costoPorPorcion: 13.3,
+    fuenteOmega: "salmon",
+    forma: "softgel",
+    libreMetalesPesados: false,
+    certificadoIFOS: false,
+    sabores: [
+      "Sin sabor"
+    ],
+    estrellas: 4.6,
+    resenas: 25,
+    badges: [
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B0CH7VBNKY?tag=comparalo20-20",
+    linkML: "",
+    img: "https://m.media-amazon.com/images/I/51LwwKEyewL._AC_SY879_.jpg"
+  },
+  {
+    id: 28,
+    nombre: "B-FIT Smart Omega 3 1800mg EPA 1080mg DHA 720mg Epax – 90 Softgels",
+    marca: "B-Fit",
+    tipo: "vitaminas",
+    precio: 599,
+    peso: "90 softgels",
+    porciones: 30,
+    duracion: 30,
+    porPorcion: "3 cápsulas",
+    proteina: 0.8,
+    calorias: 31.5,
+    carbos: 0.3,
+    grasas: 3,
+    omegaTotal: 1800,
+    epa: 1080,
+    dha: 720,
+    omegaPorPorcion: 1800,
+    costoPorPorcion: 19.97,
+    fuenteOmega: "salmon",
+    forma: "softgel",
+    libreMetalesPesados: false,
+    certificadoIFOS: false,
+    sabores: [
+      "Sin sabor"
+    ],
+    estrellas: 4.8,
+    resenas: 375,
+    badges: [
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B09ZZCNLS9?tag=comparalo20-20",
+    linkML: "",
+    img: "https://m.media-amazon.com/images/I/51oFlXhKNhL._AC_SX679_.jpg"
+  },
+  {
+    id: 29,
+    nombre: "Sports Research Omega-3 1250mg Sin Eructos Wild Alaska Pollock – 90 Softgels",
+    marca: "Sports Research",
+    tipo: "vitaminas",
+    precio: 739,
+    peso: "90 softgels",
+    porciones: 90,
+    duracion: 90,
+    porPorcion: "1 softgel (1250mg)",
+    proteina: 0,
+    calorias: 15,
+    carbos: 0,
+    grasas: 1.5,
+    omegaTotal: 1250,
+    epa: 690,
+    dha: 260,
+    omegaPorPorcion: 950,
+    costoPorPorcion: 8.21,
+    fuenteOmega: "pollock",
+    forma: "softgel",
+    libreMetalesPesados: false,
+    certificadoIFOS: false,
+    sabores: [
+      "Sin sabor"
+    ],
+    estrellas: 4.7,
+    resenas: 41748,
+    badges: [
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B07DX89ZHN?tag=comparalo20-20",
+    linkML: "",
+    img: "https://m.media-amazon.com/images/I/61zNAqRyQ5L._AC_SL1500_.jpg"
+  },
+  {
+    id: 30,
+    nombre: "Vitatú Omega 3 1200mg EPA 720mg DHA 480mg Epax Noruego – 90 Softgels",
+    marca: "Vitatú",
+    tipo: "vitaminas",
+    precio: 467,
+    peso: "90 softgels",
+    porciones: 45,
+    duracion: 45,
+    porPorcion: "2 softgels (2.8g)",
+    proteina: 0.54,
+    calorias: 21,
+    carbos: 0.21,
+    grasas: 2,
+    omegaTotal: 2000,
+    epa: 720,
+    dha: 480,
+    omegaPorPorcion: 1200,
+    costoPorPorcion: 10.37,
+    fuenteOmega: "salmon",
+    forma: "softgel",
+    libreMetalesPesados: false,
+    certificadoIFOS: false,
+    sabores: [
+      "Sin sabor"
+    ],
+    estrellas: 4.7,
+    resenas: 257,
+    badges: [
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B0CKY3NMGZ?tag=comparalo20-20",
+    linkML: "",
+    img: "https://m.media-amazon.com/images/I/41hN40muwRL._AC_.jpg"
+  },
+  {
+    id: 31,
+    nombre: "MAV Nutrition Omega-3 3600mg EPA 1300mg DHA 864mg Sin Eructos – 120 Cápsulas",
+    marca: "MAV Nutrition",
+    tipo: "vitaminas",
+    precio: 579,
+    peso: "120 cápsulas",
+    porciones: 40,
+    duracion: 40,
+    porPorcion: "3 cápsulas (4.8g)",
+    proteina: 0,
+    calorias: 32.4,
+    carbos: 0,
+    grasas: 3.6,
+    omegaTotal: 3600,
+    epa: 1300,
+    dha: 864,
+    omegaPorPorcion: 2164,
+    costoPorPorcion: 14.48,
+    fuenteOmega: "anchoa",
+    forma: "softgel",
+    libreMetalesPesados: true,
+    certificadoIFOS: false,
+    sabores: [
+      "Limón"
+    ],
+    estrellas: 4.6,
+    resenas: 29992,
+    badges: [
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B01NBTJFJB?tag=comparalo20-20",
+    linkML: "",
+    img: "https://m.media-amazon.com/images/I/71kAk859aoL._AC_SX679_.jpg"
+  },
+  {
+    id: 32,
+    nombre: "VitaXtend Norwegian Deep Omega 3 EPA 1200mg DHA 800mg Epax – 180 Cápsulas",
+    marca: "VitaXtend",
+    tipo: "vitaminas",
+    precio: 745,
+    peso: "180 cápsulas",
+    porciones: 45,
+    duracion: 45,
+    porPorcion: "4 cápsulas (4g)",
+    proteina: 1.08,
+    calorias: 36,
+    carbos: 0,
+    grasas: 4,
+    omegaTotal: 4000,
+    epa: 1200,
+    dha: 800,
+    omegaPorPorcion: 2000,
+    costoPorPorcion: 16.56,
+    fuenteOmega: "anchoa",
+    forma: "softgel",
+    libreMetalesPesados: false,
+    certificadoIFOS: false,
+    sabores: [
+      "Sin sabor"
+    ],
+    estrellas: 4.6,
+    resenas: 22,
+    badges: [
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B0GWKMY38X?tag=comparalo20-20",
+    linkML: "",
+    img: "https://m.media-amazon.com/images/I/71FixUOvYLL._AC_SX679_.jpg"
+  },
+  {
+    id: 33,
+    nombre: "Beyond Vitamins Omega 3 Premium 1000mg IFOS TG Alta Pureza – 180 Cápsulas",
+    marca: "Beyond Vitamins",
+    tipo: "vitaminas",
+    precio: 398,
+    peso: "180 cápsulas",
+    porciones: 180,
+    duracion: 180,
+    porPorcion: "1 cápsula (1300mg)",
+    proteina: 0.22,
+    calorias: 9.8,
+    carbos: 0,
+    grasas: 0.99,
+    omegaTotal: 990,
+    epa: 360,
+    dha: 240,
+    omegaPorPorcion: 600,
+    costoPorPorcion: 2.21,
+    fuenteOmega: "anchoa",
+    forma: "softgel",
+    libreMetalesPesados: false,
+    certificadoIFOS: true,
+    sabores: [
+      "Sin sabor"
+    ],
+    estrellas: 4.8,
+    resenas: 903,
+    badges: [
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B09FKNN3CF?tag=comparalo20-20",
+    linkML: "",
+    img: "https://m.media-amazon.com/images/I/71+mBXlIimL._AC_SY879_.jpg"
+  },
+  {
+    id: 34,
+    nombre: "GAT Sport Essentials Omega-3 1250mg Purificado – 90 Softgels",
+    marca: "GAT Sport",
+    tipo: "vitaminas",
+    precio: 299,
+    peso: "90 softgels",
+    porciones: 90,
+    duracion: 90,
+    porPorcion: "1 softgel (1250mg)",
+    proteina: 0,
+    calorias: 15,
+    carbos: 0,
+    grasas: 1.5,
+    omegaTotal: 1250,
+    epa: 400,
+    dha: 300,
+    omegaPorPorcion: 700,
+    costoPorPorcion: 3.32,
+    fuenteOmega: "anchoa",
+    forma: "softgel",
+    libreMetalesPesados: false,
+    certificadoIFOS: false,
+    sabores: [
+      "Limón"
+    ],
+    estrellas: 4.7,
+    resenas: 769,
+    badges: [
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B0733Y31K6?tag=comparalo20-20",
+    linkML: "",
+    img: "https://m.media-amazon.com/images/I/71xAr9LmakL._AC_SX679_.jpg"
+  },
+  {
+    id: 35,
+    nombre: "Viva Naturals Triple-Strength Omega-3 2500mg EPA 1500mg DHA 570mg rTG – 180 Softgels",
+    marca: "Viva Naturals",
+    tipo: "vitaminas",
+    precio: 1502,
+    peso: "180 softgels",
+    porciones: 90,
+    duracion: 90,
+    porPorcion: "2 softgels (2500mg)",
+    proteina: 1,
+    calorias: 25,
+    carbos: 0,
+    grasas: 2.5,
+    omegaTotal: 2500,
+    epa: 1500,
+    dha: 570,
+    omegaPorPorcion: 2070,
+    costoPorPorcion: 16.69,
+    fuenteOmega: "multi-pez",
+    forma: "softgel",
+    libreMetalesPesados: true,
+    certificadoIFOS: true,
+    sabores: [
+      "Sin sabor"
+    ],
+    estrellas: 4.6,
+    resenas: 10401,
+    badges: [
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B014LDT0ZM?tag=comparalo20-20",
+    linkML: "",
+    img: "https://m.media-amazon.com/images/I/81zjmc7hY3L._AC_SX679_.jpg"
+  },
+  {
+    id: 36,
+    nombre: "Nordic Naturals Prenatal DHA Omega-3 830mg + Vitamina D3 400UI – 90 Cápsulas",
+    marca: "Nordic Naturals",
+    tipo: "vitaminas",
+    precio: 970,
+    peso: "90 cápsulas",
+    porciones: 45,
+    duracion: 45,
+    porPorcion: "2 softgels",
+    proteina: 0,
+    calorias: 10,
+    carbos: 0,
+    grasas: 1,
+    omegaTotal: 830,
+    epa: 205,
+    dha: 480,
+    omegaPorPorcion: 685,
+    costoPorPorcion: 21.56,
+    fuenteOmega: "multi-pez",
+    forma: "softgel",
+    libreMetalesPesados: false,
+    certificadoIFOS: false,
+    sabores: [
+      "Sin sabor"
+    ],
+    estrellas: 4.8,
+    resenas: 2056,
+    badges: [
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B0058ABILW?tag=comparalo20-20",
+    linkML: "",
+    img: "https://m.media-amazon.com/images/I/51zlRFidKqL._AC_SX679_.jpg"
+  },
+  {
+    id: 37,
+    nombre: "Vivenia Omega 3 2000mg EPA 360mg DHA 240mg Triglicéridos – 60 Softgels",
+    marca: "Vivenia",
+    tipo: "vitaminas",
+    precio: 499,
+    peso: "60 softgels",
+    porciones: 30,
+    duracion: 30,
+    porPorcion: "2 cápsulas (2g)",
+    proteina: 0.54,
+    calorias: 21,
+    carbos: 0.2,
+    grasas: 2,
+    omegaTotal: 2000,
+    epa: 360,
+    dha: 240,
+    omegaPorPorcion: 600,
+    costoPorPorcion: 16.63,
+    fuenteOmega: "anchoa",
+    forma: "softgel",
+    libreMetalesPesados: false,
+    certificadoIFOS: false,
+    sabores: [
+      "Sin sabor"
+    ],
+    estrellas: 0,
+    resenas: 0,
+    badges: [
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B0GNBCFMDS?tag=comparalo20-20",
+    linkML: "",
+    img: "https://m.media-amazon.com/images/I/51vKgHWR%2BBL._AC_SX679_.jpg"
+  },
+  {
+    id: 38,
+    nombre: "Wellthy Arctic Omega 3 2000mg EPA 360mg DHA 240mg – 200 Cápsulas",
+    marca: "Wellthy",
+    tipo: "vitaminas",
+    precio: 431,
+    peso: "200 cápsulas",
+    porciones: 100,
+    duracion: 100,
+    porPorcion: "2 cápsulas (2.8g)",
+    proteina: 0.54,
+    calorias: 20.96,
+    carbos: 0.2,
+    grasas: 2,
+    omegaTotal: 2000,
+    epa: 360,
+    dha: 240,
+    omegaPorPorcion: 600,
+    costoPorPorcion: 4.31,
+    fuenteOmega: "anchoa",
+    forma: "softgel",
+    libreMetalesPesados: false,
+    certificadoIFOS: false,
+    sabores: [
+      "Sin sabor"
+    ],
+    estrellas: 4.7,
+    resenas: 731,
+    badges: [
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B0D9R7615K?tag=comparalo20-20",
+    linkML: "",
+    img: "https://m.media-amazon.com/images/I/61AW6RF4fUL._AC_SX679_.jpg"
+  },
+  {
+    id: 39,
+    nombre: "Vitanna Aceite de Krill Antártico Superba2 1600mg Fosfolípidos + Astaxantina – 60 Softgels",
+    marca: "Vitanna",
+    tipo: "vitaminas",
+    precio: 652,
+    peso: "60 softgels",
+    porciones: 30,
+    duracion: 30,
+    porPorcion: "2 cápsulas (1.6g)",
+    proteina: 0.288,
+    calorias: 10.6,
+    carbos: 0.214,
+    grasas: 0.96,
+    omegaTotal: 1000,
+    epa: 120,
+    dha: 56,
+    omegaPorPorcion: 176,
+    costoPorPorcion: 21.73,
+    fuenteOmega: "krill",
+    forma: "softgel",
+    libreMetalesPesados: false,
+    certificadoIFOS: false,
+    sabores: [
+      "Sin sabor"
+    ],
+    estrellas: 4.9,
+    resenas: 15,
+    badges: [
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B0G5VSJTPD?tag=comparalo20-20",
+    linkML: "",
+    img: "https://m.media-amazon.com/images/I/61ITjjWhfaL._AC_SL1500_.jpg"
+  },
+  {
+    id: 40,
+    nombre: "SUPLINT Omega 3 de Aceite de Salmón 3000mg por Porción + Vitamina E – 120 Cápsulas",
+    marca: "SUPLINT",
+    tipo: "vitaminas",
+    precio: 399.98,
+    peso: "120 cápsulas",
+    porciones: 40,
+    duracion: 40,
+    porPorcion: "3 cápsulas (4350mg)",
+    proteina: 0,
+    calorias: 27,
+    carbos: 0,
+    grasas: 3,
+    omegaTotal: 3000,
+    epa: 540,
+    dha: 360,
+    omegaPorPorcion: 900,
+    costoPorPorcion: 10,
+    fuenteOmega: "salmon",
+    forma: "softgel",
+    libreMetalesPesados: false,
+    certificadoIFOS: false,
+    sabores: [
+      "Sin sabor"
+    ],
+    estrellas: 4.6,
+    resenas: 73,
+    badges: [
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B0GWK56S87?tag=comparalo20-20",
+    linkML: "",
+    img: "https://m.media-amazon.com/images/I/81EnYWipPjL._AC_SX679_.jpg"
+  },
+  {
+    id: 101,
+    nombre: "Vitalizate Complejo B Completo Vitamina B12 – 60 Cápsulas",
+    marca: "Vitalizate",
+    tipo: "complejo-b",
+    precio: 219,
+    precioML: 219,
+    precioAmz: 399,
+    porciones: 60,
+    capsulasPorDia: 1,
+    porPorcion: "1 cápsula (700mg)",
+    costoPorPorcion: 2.98,
+    b1: "15 mg",
+    b2: "18 mg",
+    b3: "25 mg",
+    b5: "20 mg",
+    b6: "10 mg",
+    b7: "300 µg",
+    b9: "400 µg",
+    b12: "12 µg",
+    formaB12: "cianocobalamina",
+    vitaminasExtra: [
+      {
+        nombre: "Vitamina A",
+        cantidad: "1,000 µg"
+      },
+      {
+        nombre: "Vitamina C",
+        cantidad: "300 mg"
+      },
+      {
+        nombre: "Vitamina D",
+        cantidad: "10 µg"
+      },
+      {
+        nombre: "Vitamina E",
+        cantidad: "200 mg"
+      },
+      {
+        nombre: "Vitamina K",
+        cantidad: "30 µg"
+      }
+    ],
+    certificaciones: [],
+    estrellas: 4.9,
+    resenas: 41,
+    badges: [
+      {
+        t: "ML",
+        c: "b-ml"
+      },
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B0G69764TB?tag=comparalo20-20",
+    linkML: "https://meli.la/2L2dD3A",
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_746788-MLA115220572203_072026-F.webp"
+  },
+  {
+    id: 102,
+    nombre: "SUPLINT Complejo B Vegano con Inositol y Colina – 90 Cápsulas",
+    marca: "SUPLINT",
+    tipo: "complejo-b",
+    precio: 250.99,
+    precioML: 250.99,
+    precioAmz: 298.99,
+    porciones: 90,
+    capsulasPorDia: 1,
+    porPorcion: "1 cápsula (480mg)",
+    costoPorPorcion: 2.44,
+    b1: "15 mg",
+    b2: "18 mg",
+    b3: "25 mg",
+    b5: "20 mg",
+    b6: "10 mg",
+    b7: "300 mcg",
+    b9: "400 mcg",
+    b12: "12 mcg",
+    formaB12: "cianocobalamina",
+    vitaminasExtra: [
+      {
+        nombre: "Inositol",
+        cantidad: "150 mg"
+      },
+      {
+        nombre: "Bitartarato de Colina",
+        cantidad: "100 mg"
+      },
+      {
+        nombre: "Leucina",
+        cantidad: "10 mg"
+      }
+    ],
+    certificaciones: [
+      "100% Vegano",
+      "Non GMO"
+    ],
+    estrellas: 4.8,
+    resenas: 88,
+    badges: [
+      {
+        t: "ML",
+        c: "b-ml"
+      },
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B0G25J2M6X?tag=comparalo20-20",
+    linkML: "https://meli.la/2o86X7Y",
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_703370-MLA115100352358_082026-F.webp"
+  },
+  {
+    id: 103,
+    nombre: "Eternal Nutrition Infinity Complejo B 11 Formas Bioactivas – 300 Cápsulas",
+    marca: "Eternal Nutrition",
+    tipo: "complejo-b",
+    precio: 919,
+    precioML: 919,
+    precioAmz: 498,
+    porciones: 300,
+    capsulasPorDia: 1,
+    porPorcion: "1 cápsula (520mg)",
+    costoPorPorcion: 1.66,
+    b1: "15 mg",
+    b2: "18 mg",
+    b3: "25 mg",
+    b5: "20 mg",
+    b6: "20 mg",
+    b7: "300 µg",
+    b9: "400 µg",
+    b12: "12 µg",
+    formaB12: "metilcobalamina+hidroxicobalamina",
+    vitaminasExtra: [
+      {
+        nombre: "Myo Inositol (B8)",
+        cantidad: "150 mg"
+      },
+      {
+        nombre: "Vitamina C",
+        cantidad: "100 mg"
+      },
+      {
+        nombre: "Colina Bitartrato",
+        cantidad: "100 mg"
+      },
+      {
+        nombre: "GABA",
+        cantidad: "80 mg"
+      }
+    ],
+    certificaciones: [
+      "GMP"
+    ],
+    estrellas: 4.9,
+    resenas: 182,
+    badges: [
+      {
+        t: "ML",
+        c: "b-ml"
+      },
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B0CPQRQ6SL?tag=comparalo20-20",
+    linkML: "https://meli.la/11aL1Pd",
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_837069-MLA99420406006_112025-F.webp"
+  },
+  {
+    id: 104,
+    nombre: "Kirkland Signature Super B-Complex y Electrolitos – 500 Tabletas",
+    marca: "Kirkland Signature",
+    tipo: "complejo-b",
+    precio: 456.96,
+    porciones: 500,
+    capsulasPorDia: 1,
+    porPorcion: "1 tableta",
+    costoPorPorcion: 0.91,
+    b1: "100 mg",
+    b2: "20 mg",
+    b3: "25 mg",
+    b5: "5.5 mg",
+    b6: "3 mg",
+    b7: "300 mcg",
+    b9: "400 mcg",
+    b12: "100 mcg",
+    formaB12: "cianocobalamina",
+    vitaminasExtra: [
+      {
+        nombre: "Vitamina C",
+        cantidad: "200 mg"
+      },
+      {
+        nombre: "Sodio (electrolito)",
+        cantidad: "90 mg"
+      },
+      {
+        nombre: "Potasio (electrolito)",
+        cantidad: "30 mg"
+      }
+    ],
+    certificaciones: [],
+    estrellas: 4.9,
+    resenas: 23,
+    badges: [
+      {
+        t: "ML",
+        c: "b-ml"
+      }
+    ],
+    linkAmz: "",
+    linkML: "https://meli.la/2kTcPd3",
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_793002-MLA99938310055_112025-F.webp"
+  },
+  {
+    id: 105,
+    nombre: "Solanum Complejo B + Jalea Real Vitaminas B1 B2 B3 B5 B6 – 75 Cápsulas",
+    marca: "Solanum",
+    tipo: "complejo-b",
+    precio: 199,
+    porciones: 75,
+    capsulasPorDia: 1,
+    porPorcion: "1 cápsula (560mg)",
+    costoPorPorcion: 2.65,
+    b1: "5 mg",
+    b2: "5 mg",
+    b3: "20 mg",
+    b5: "10 mg",
+    b6: "5 mg",
+    b7: "50 µg",
+    b9: "400 µg",
+    b12: "6 µg",
+    formaB12: "cianocobalamina",
+    vitaminasExtra: [
+      {
+        nombre: "Jalea Real Liofilizada",
+        cantidad: "25 mg"
+      },
+      {
+        nombre: "Vitamina A",
+        cantidad: "1,000 µg"
+      },
+      {
+        nombre: "Inositol",
+        cantidad: "20 mg"
+      }
+    ],
+    certificaciones: [],
+    estrellas: 4.9,
+    resenas: 136,
+    badges: [
+      {
+        t: "ML",
+        c: "b-ml"
+      }
+    ],
+    linkAmz: "",
+    linkML: "https://meli.la/17L62FJ",
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_826174-MLA100065376329_122025-F.webp"
+  },
+  {
+    id: 106,
+    nombre: "Life Extension Complejo B Completo Bioactivo – 60 Cápsulas",
+    marca: "Life Extension",
+    tipo: "complejo-b",
+    precio: 218.5,
+    porciones: 30,
+    capsulasPorDia: 2,
+    porPorcion: "2 cápsulas vegetales",
+    costoPorPorcion: 7.28,
+    b1: "100 mg",
+    b2: "75 mg",
+    b3: "100 mg",
+    b5: "500 mg",
+    b6: "100 mg",
+    b7: "1000 mcg",
+    b9: "680 mcg",
+    b12: "300 mcg",
+    formaB12: "metilcobalamina",
+    vitaminasExtra: [
+      {
+        nombre: "Calcio",
+        cantidad: "50 mg"
+      },
+      {
+        nombre: "Inositol",
+        cantidad: "100 mg"
+      },
+      {
+        nombre: "PABA",
+        cantidad: "50 mg"
+      }
+    ],
+    certificaciones: [
+      "Vegetariano"
+    ],
+    estrellas: 4.9,
+    resenas: 17,
+    badges: [
+      {
+        t: "ML",
+        c: "b-ml"
+      }
+    ],
+    linkAmz: "",
+    linkML: "https://meli.la/2oaV51J",
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_712981-MLM92661382285_092025-F.webp"
+  },
+  {
+    id: 107,
+    nombre: "Nuboost B-Complex Complejo B 510mg con Remolacha y Cúrcuma – 90 Cápsulas",
+    marca: "Nuboost",
+    tipo: "complejo-b",
+    precio: 345,
+    porciones: 90,
+    capsulasPorDia: 1,
+    porPorcion: "1 cápsula (510mg)",
+    costoPorPorcion: 3.83,
+    b1: "15 mg",
+    b2: "18 mg",
+    b3: "25 mg",
+    b5: "20 mg",
+    b6: "10 mg",
+    b7: "300 µg",
+    b9: "400 µg",
+    b12: "12 µg",
+    formaB12: "cianocobalamina",
+    vitaminasExtra: [
+      {
+        nombre: "Raíz de Remolacha",
+        cantidad: "350.20 mg"
+      },
+      {
+        nombre: "Raíz de Cúrcuma",
+        cantidad: "61.09 mg"
+      }
+    ],
+    certificaciones: [],
+    estrellas: 4.7,
+    resenas: 37,
+    badges: [
+      {
+        t: "ML",
+        c: "b-ml"
+      }
+    ],
+    linkAmz: "",
+    linkML: "https://meli.la/2K94Xpg",
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_703717-MLA104570343045_012026-F.webp"
+  },
+  {
+    id: 108,
+    nombre: "Raíces Zen Complejo B 640mg Suplemento Energético – 120 Cápsulas",
+    marca: "Raíces Zen",
+    tipo: "complejo-b",
+    precio: 232.8,
+    porciones: 120,
+    capsulasPorDia: 1,
+    porPorcion: "1 cápsula (640mg)",
+    costoPorPorcion: 1.94,
+    b1: "15 mg",
+    b2: "18 mg",
+    b3: "25 mg",
+    b5: "20 mg",
+    b6: "10 mg",
+    b7: null,
+    b9: null,
+    b12: "12 mcg",
+    formaB12: "cianocobalamina",
+    vitaminasExtra: [
+      {
+        nombre: "Levadura de Cerveza",
+        cantidad: "420 mg"
+      }
+    ],
+    certificaciones: [
+      "Libre de Gluten",
+      "Libre de Lácteos",
+      "Integral Sustentable"
+    ],
+    estrellas: 4.8,
+    resenas: 19,
+    badges: [
+      {
+        t: "ML",
+        c: "b-ml"
+      }
+    ],
+    linkAmz: "",
+    linkML: "https://meli.la/1PKGHuo",
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_802953-MLA100075965319_122025-F.webp"
+  },
+  {
+    id: 109,
+    nombre: "Smart Vit Anahuac Complejo B 650mg con Zinc, Calcio y Hierro – 75 Cápsulas",
+    marca: "Smart Vit Anahuac",
+    tipo: "complejo-b",
+    precio: 229,
+    porciones: 75,
+    capsulasPorDia: 1,
+    porPorcion: "1 cápsula (650mg)",
+    costoPorPorcion: 3.05,
+    b1: "1.433 mg",
+    b2: "1.624 mg",
+    b3: "19.109 mg",
+    b5: null,
+    b6: "1.910 mg",
+    b7: null,
+    b9: "0.381 mg",
+    b12: "5.590 µg",
+    formaB12: "cianocobalamina",
+    vitaminasExtra: [
+      {
+        nombre: "Zinc (Gluconato)",
+        cantidad: "3.427 mg"
+      },
+      {
+        nombre: "Calcio de Coral",
+        cantidad: "9.555 mg"
+      },
+      {
+        nombre: "Hierro (Sulfato Ferroso)",
+        cantidad: "1.756 mg"
+      }
+    ],
+    certificaciones: [],
+    estrellas: 4.9,
+    resenas: 22,
+    badges: [
+      {
+        t: "ML",
+        c: "b-ml"
+      }
+    ],
+    linkAmz: "",
+    linkML: "https://meli.la/1y9svSc",
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_659578-MLA99365838394_112025-F.webp"
+  },
+  {
+    id: 110,
+    nombre: "Multiblue Complejo B con Biotina y Ácido Fólico B1 B2 B3 B5 B6 B9 B12 – 60 Cápsulas",
+    marca: "Multiblue",
+    tipo: "complejo-b",
+    precio: 339.15,
+    porciones: 30,
+    capsulasPorDia: 2,
+    porPorcion: "1 cápsula (450mg)",
+    costoPorPorcion: 11.31,
+    b1: "15 mg",
+    b2: "18 mg",
+    b3: "25 mg",
+    b5: "20 mg",
+    b6: "10 mg",
+    b7: "300 µg",
+    b9: "400 µg",
+    b12: "12 µg",
+    formaB12: "cianocobalamina",
+    vitaminasExtra: [],
+    certificaciones: [
+      "GMP",
+      "Sin Gluten",
+      "Sin Azúcar",
+      "Sin Color Artificial"
+    ],
+    estrellas: 4.8,
+    resenas: 426,
+    badges: [
+      {
+        t: "ML",
+        c: "b-ml"
+      }
+    ],
+    linkAmz: "",
+    linkML: "https://meli.la/2q15sbu",
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_725523-MLA112021283742_062026-F.webp"
+  },
+  {
+    id: 111,
+    nombre: "Oby B-Complex Complejo B Completo 8 en 1 Sin Rellenos B12 B1 B2 B3 B5 B6 B7 B9 – 60 Cápsulas",
+    marca: "Oby",
+    tipo: "complejo-b",
+    precio: 179,
+    porciones: 60,
+    capsulasPorDia: 1,
+    porPorcion: "1 cápsula (500mg)",
+    costoPorPorcion: 2.98,
+    b1: "15 mg",
+    b2: "18 mg",
+    b3: "25 mg",
+    b5: "20 mg",
+    b6: "10 mg",
+    b7: "300 mcg",
+    b9: "400 mcg",
+    b12: "12 mcg",
+    formaB12: "cianocobalamina",
+    vitaminasExtra: [],
+    certificaciones: [
+      "100% Natural",
+      "Sin Rellenos"
+    ],
+    estrellas: 4.8,
+    resenas: 1967,
+    badges: [
+      {
+        t: "ML",
+        c: "b-ml"
+      }
+    ],
+    linkAmz: "",
+    linkML: "https://meli.la/1xFXTJQ",
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_775734-MLA106986653570_022026-F.webp"
+  },
+  {
+    id: 112,
+    nombre: "Nature Made Complejo B con Vitamina C y Ácido Fólico USP Verified – 140 Tabletas",
+    marca: "Nature Made",
+    tipo: "complejo-b",
+    precio: 379,
+    porciones: 140,
+    capsulasPorDia: 1,
+    porPorcion: "1 tableta",
+    costoPorPorcion: 2.71,
+    b1: "100 mg",
+    b2: "20 mg",
+    b3: "25 mg",
+    b5: "5.5 mg",
+    b6: "2 mg",
+    b7: "30 mcg",
+    b9: "400 mcg",
+    b12: "15 mcg",
+    formaB12: "cianocobalamina",
+    vitaminasExtra: [
+      {
+        nombre: "Vitamina C",
+        cantidad: "150 mg"
+      },
+      {
+        nombre: "Calcio",
+        cantidad: "35 mg"
+      }
+    ],
+    certificaciones: [
+      "USP Verified",
+      "Sin Gluten",
+      "Sin Color Artificial",
+      "Sin Sabor Artificial"
+    ],
+    estrellas: 4.9,
+    resenas: 59,
+    badges: [
+      {
+        t: "ML",
+        c: "b-ml"
+      }
+    ],
+    linkAmz: "",
+    linkML: "https://meli.la/2wBoQjk",
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_698258-MLM92649888979_092025-F.webp"
+  },
+  {
+    id: 113,
+    nombre: "Gwynne Vitamina B 12-in-1 Complex con Vitamina C, Magnesio e Inositol – 90 Cápsulas",
+    marca: "Gwynne",
+    tipo: "complejo-b",
+    precio: 135,
+    porciones: 45,
+    capsulasPorDia: 2,
+    porPorcion: "2 cápsulas vegetales",
+    costoPorPorcion: 3,
+    b1: "100 mg",
+    b2: "100 mg",
+    b3: "20 mg",
+    b5: "150 mg",
+    b6: "86 mg",
+    b7: "500 mcg",
+    b9: "1 mg",
+    b12: "2000 mcg",
+    formaB12: "metilcobalamina",
+    vitaminasExtra: [
+      {
+        nombre: "Vitamina C",
+        cantidad: "151 mg"
+      },
+      {
+        nombre: "Colina (L-bitartrato)",
+        cantidad: "100 mg"
+      },
+      {
+        nombre: "Magnesio (Citrato)",
+        cantidad: "140 mg"
+      },
+      {
+        nombre: "Inositol (Myo-inositol)",
+        cantidad: "150 mg"
+      }
+    ],
+    certificaciones: [
+      "Vegano",
+      "Cápsula Vegetal"
+    ],
+    estrellas: 4.9,
+    resenas: 74,
+    badges: [
+      {
+        t: "ML",
+        c: "b-ml"
+      }
+    ],
+    linkAmz: "",
+    linkML: "https://meli.la/1RAxmEq",
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_717761-MLA112288011178_062026-F.webp"
+  },
+  {
+    id: 114,
+    nombre: "Solanum Ginseng + Complejo B Línea Herbal Vegano – 60 Cápsulas",
+    marca: "Solanum",
+    tipo: "complejo-b",
+    precio: 179,
+    porciones: 30,
+    capsulasPorDia: 2,
+    porPorcion: "2 cápsulas (900mg)",
+    costoPorPorcion: 5.97,
+    b1: "5 mg",
+    b2: "5 mg",
+    b3: "20 mg",
+    b5: "10 mg",
+    b6: "5 mg",
+    b7: null,
+    b9: "400 µg",
+    b12: "12 µg",
+    formaB12: "cianocobalamina",
+    vitaminasExtra: [
+      {
+        nombre: "Raíz de Ginseng (Panax ginseng)",
+        cantidad: "60 mg"
+      }
+    ],
+    certificaciones: [
+      "Vegano",
+      "Hecho en México"
+    ],
+    estrellas: 4.8,
+    resenas: 12,
+    badges: [
+      {
+        t: "ML",
+        c: "b-ml"
+      }
+    ],
+    linkAmz: "",
+    linkML: "https://meli.la/1TTMdN8",
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_675491-MLM85415499201_052025-F.webp"
+  },
+  {
+    id: 115,
+    nombre: "Vital Botanics Complejo B Completo con Biotina y Arándano – 200 Cápsulas",
+    marca: "Vital Botanics",
+    tipo: "complejo-b",
+    precio: 498.99,
+    porciones: 200,
+    capsulasPorDia: 1,
+    porPorcion: "1 cápsula (0.5g)",
+    costoPorPorcion: 2.49,
+    b1: "12 mg",
+    b2: "15 mg",
+    b3: "19 mg",
+    b5: "15 mg",
+    b6: "9 mg",
+    b7: "8 µg",
+    b9: null,
+    b12: "12 µg",
+    formaB12: "cianocobalamina",
+    vitaminasExtra: [
+      {
+        nombre: "Arándano Azul (polvo)",
+        cantidad: "150 mg"
+      }
+    ],
+    certificaciones: [
+      "Sin Aditivos",
+      "Sin Gluten"
+    ],
+    estrellas: 4.7,
+    resenas: 433,
+    badges: [
+      {
+        t: "ML",
+        c: "b-ml"
+      }
+    ],
+    linkAmz: "",
+    linkML: "https://meli.la/1exaeSy",
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_929746-MLA109276883756_042026-F.webp"
+  },
+  {
+    id: 116,
+    nombre: "Restart B-Complex Completo B12 B1 B2 B3 B5 B6 B7 B9 Premium GMP – 60 Cápsulas",
+    marca: "Restart",
+    tipo: "complejo-b",
+    precio: 151,
+    precioML: 151,
+    precioAmz: 199,
+    porciones: 60,
+    capsulasPorDia: 1,
+    porPorcion: "1 cápsula (470mg)",
+    costoPorPorcion: 2.52,
+    b1: "15 mg",
+    b2: "18 mg",
+    b3: "25 mg",
+    b5: "20 mg",
+    b6: "15 mg",
+    b7: "300 µg",
+    b9: "400 µg",
+    b12: "12 µg",
+    formaB12: "cianocobalamina",
+    vitaminasExtra: [
+      {
+        nombre: "Betabel (Beta vulgaris)",
+        cantidad: "351.29 mg"
+      },
+      {
+        nombre: "Inulina de Agave",
+        cantidad: "30 mg"
+      }
+    ],
+    certificaciones: [
+      "Vegano",
+      "Non-GMO",
+      "GMP",
+      "FDA Lab"
+    ],
+    estrellas: 4.9,
+    resenas: 87,
+    badges: [
+      {
+        t: "ML",
+        c: "b-ml"
+      },
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B0FSG65VG8?tag=comparalo20-20",
+    linkML: "https://meli.la/14msVVs",
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_685209-MLA99489780412_112025-F.webp"
+  },
+  {
+    id: 117,
+    nombre: "Lifeed5 LF5 Complejo B Multivitamínico con Té Verde y Calcio – 120 Cápsulas",
+    marca: "Lifeed5",
+    tipo: "complejo-b",
+    precio: 329,
+    porciones: 120,
+    capsulasPorDia: 1,
+    porPorcion: "1 cápsula (565mg)",
+    costoPorPorcion: 2.74,
+    b1: "15 mg",
+    b2: "18 mg",
+    b3: "25 mg",
+    b5: "20 mg",
+    b6: "10 mg",
+    b7: "300 µg",
+    b9: "400 µg",
+    b12: "12 µg",
+    formaB12: "cianocobalamina",
+    vitaminasExtra: [
+      {
+        nombre: "Té Verde (Camellia Sinensis)",
+        cantidad: "161.30 mg"
+      },
+      {
+        nombre: "Calcio",
+        cantidad: "81.41 mg"
+      }
+    ],
+    certificaciones: [
+      "Sin Gluten",
+      "Sin Azúcar Añadida",
+      "Sin Saborizantes Artificiales"
+    ],
+    estrellas: 4.8,
+    resenas: 52,
+    badges: [
+      {
+        t: "ML",
+        c: "b-ml"
+      }
+    ],
+    linkAmz: "",
+    linkML: "https://meli.la/2cX2N1A",
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_790385-MLA99938847707_112025-F.webp"
+  },
+  {
+    id: 118,
+    nombre: "Healthaddiction Bplus B Complex 2 Pack – 120 Porciones",
+    marca: "Healthaddiction",
+    tipo: "complejo-b",
+    precio: 419.3,
+    porciones: 120,
+    capsulasPorDia: 2,
+    porPorcion: "2 tabletas (1.4g)",
+    costoPorPorcion: 3.49,
+    b1: "15 mg",
+    b2: "17 mg",
+    b3: "24 mg",
+    b5: "20 mg",
+    b6: "9 mg",
+    b7: "300 µg",
+    b9: "300 µg",
+    b12: "12 µg",
+    formaB12: "cianocobalamina",
+    vitaminasExtra: [],
+    certificaciones: [],
+    estrellas: 5,
+    resenas: 6,
+    badges: [
+      {
+        t: "ML",
+        c: "b-ml"
+      }
+    ],
+    linkAmz: "",
+    linkML: "https://meli.la/2FwUbti",
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_671860-MLM106463065926_022026-F.webp"
+  },
+  {
+    id: 119,
+    nombre: "B Life Complejo B y Levadura de Cerveza 180 Días – 180 Cápsulas",
+    marca: "B Life Company",
+    tipo: "complejo-b",
+    precio: 358,
+    precioML: 358,
+    precioAmz: 399,
+    porciones: 180,
+    capsulasPorDia: 1,
+    porPorcion: "1 cápsula (0.5g)",
+    costoPorPorcion: 2.22,
+    b1: "15 mg",
+    b2: "18 mg",
+    b3: "25 mg",
+    b5: "20 mg",
+    b6: "10 mg",
+    b7: null,
+    b9: null,
+    b12: "12 µg",
+    formaB12: "cianocobalamina",
+    vitaminasExtra: [
+      {
+        nombre: "Levadura de Cerveza",
+        cantidad: "420 mg"
+      }
+    ],
+    certificaciones: [
+      "Hecho en México"
+    ],
+    estrellas: 4.7,
+    resenas: 1709,
+    badges: [
+      {
+        t: "ML",
+        c: "b-ml"
+      },
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B08D4RBX7K?tag=comparalo20-20",
+    linkML: "https://meli.la/1PKGHuo",
+    img: "https://m.media-amazon.com/images/I/61m652iRrzL._AC_SL1400_.jpg"
+  },
+  {
+    id: 120,
+    nombre: "Spring Valley Vitamina B12 1000mcg – 60 Tabletas",
+    marca: "Spring Valley",
+    tipo: "complejo-b",
+    precio: 199,
+    porciones: 60,
+    capsulasPorDia: 1,
+    porPorcion: "1 tableta",
+    costoPorPorcion: 3.32,
+    b1: null,
+    b2: null,
+    b3: null,
+    b5: null,
+    b6: null,
+    b7: null,
+    b9: null,
+    b12: "1000 mcg",
+    formaB12: "cianocobalamina",
+    vitaminasExtra: [],
+    certificaciones: [],
+    estrellas: 4.8,
+    resenas: 109,
+    badges: [
+      {
+        t: "ML",
+        c: "b-ml"
+      }
+    ],
+    linkAmz: "",
+    linkML: "https://meli.la/2KeNhsP",
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_762843-MLA99938423115_112025-F.webp"
+  },
+  {
+    id: 121,
+    nombre: "Beyond Vitamins B-Complex Premium 100% Vegano Sin Rellenos – 60 Cápsulas",
+    marca: "Beyond Vitamins",
+    tipo: "complejo-b",
+    precio: 189.04,
+    porciones: 60,
+    capsulasPorDia: 1,
+    porPorcion: "1 cápsula (500mg)",
+    costoPorPorcion: 3.15,
+    b1: "15 mg",
+    b2: "18 mg",
+    b3: "25 mg",
+    b5: "20 mg",
+    b6: "10 mg",
+    b7: "300 µg",
+    b9: "400 µg",
+    b12: "12 µg",
+    formaB12: "cianocobalamina",
+    vitaminasExtra: [
+      {
+        nombre: "Raíz de Betabel",
+        cantidad: "350.20 mg"
+      },
+      {
+        nombre: "Raíz de Cúrcuma",
+        cantidad: "61.09 mg"
+      }
+    ],
+    certificaciones: [
+      "100% Vegano",
+      "Sin Rellenos"
+    ],
+    estrellas: 4.7,
+    resenas: 629,
+    badges: [
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B0CKS1H4X3?tag=comparalo20-20",
+    linkML: "",
+    img: "https://m.media-amazon.com/images/I/81DCFG3MfxL._AC_SX679_.jpg"
+  },
+  {
+    id: 122,
+    nombre: "NLS Essentials Complejo B B1 B2 B3 B5 B6 B7 B9 B12 con Betabel – 90 Cápsulas",
+    marca: "NLS Essentials",
+    tipo: "complejo-b",
+    precio: 264.1,
+    porciones: 90,
+    capsulasPorDia: 1,
+    porPorcion: "1 cápsula (560mg)",
+    costoPorPorcion: 2.93,
+    b1: "15 mg",
+    b2: "18 mg",
+    b3: "25 mg",
+    b5: "20 mg",
+    b6: "10 mg",
+    b7: null,
+    b9: "400 µg",
+    b12: "12 µg",
+    formaB12: "cianocobalamina",
+    vitaminasExtra: [
+      {
+        nombre: "Betabel (Beta vulgaris)",
+        cantidad: "150 mg"
+      }
+    ],
+    certificaciones: [],
+    estrellas: 4.8,
+    resenas: 1997,
+    badges: [
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B0BQZ5C2J2?tag=comparalo20-20",
+    linkML: "",
+    img: "https://m.media-amazon.com/images/I/7144viD%2BqOL._AC_SX679_.jpg"
+  },
+  {
+    id: 124,
+    nombre: "Nature Made Super B Energy Complex Cápsulas Blandas – 60 Softgels",
+    marca: "Nature Made",
+    tipo: "complejo-b",
+    precio: 260,
+    porciones: 60,
+    capsulasPorDia: 1,
+    porPorcion: "1 softgel",
+    costoPorPorcion: 4.33,
+    b1: "1.5 mg",
+    b2: "1.7 mg",
+    b3: "20 mg",
+    b5: "10 mg",
+    b6: "2 mg",
+    b7: "300 mcg",
+    b9: "400 mcg",
+    b12: "6 mcg",
+    formaB12: "cianocobalamina",
+    vitaminasExtra: [],
+    certificaciones: [
+      "Sin Gluten",
+      "Sin Sabor Artificial",
+      "Sin Preservativos"
+    ],
+    estrellas: 4.6,
+    resenas: 18332,
+    badges: [
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B008PQDCG0?tag=comparalo20-20",
+    linkML: "",
+    img: "https://m.media-amazon.com/images/I/71Lp4gJCNJL._AC_SX679_.jpg"
+  },
+  {
+    id: 128,
+    nombre: "Vidanat Complejo B con Vitaminas del Grupo B – 90 Cápsulas",
+    marca: "Vidanat",
+    tipo: "complejo-b",
+    precio: 176.39,
+    porciones: 90,
+    capsulasPorDia: 1,
+    porPorcion: "1 cápsula (650mg)",
+    costoPorPorcion: 1.96,
+    b1: "1.430 mg",
+    b2: "1.620 mg",
+    b3: "19.11 mg",
+    b5: null,
+    b6: "1.910 mg",
+    b7: null,
+    b9: "0.38 mg",
+    b12: "5.6 mcg",
+    formaB12: "cianocobalamina",
+    vitaminasExtra: [
+      {
+        nombre: "Zinc (Gluconato)",
+        cantidad: "3.43 mg"
+      },
+      {
+        nombre: "Calcio de Coral",
+        cantidad: "9.55 mg"
+      },
+      {
+        nombre: "Hierro (Sulfato Ferroso)",
+        cantidad: "1.76 mg"
+      },
+      {
+        nombre: "Aceite de Germen de Trigo",
+        cantidad: "23.89 mg"
+      }
+    ],
+    certificaciones: [],
+    estrellas: 4.7,
+    resenas: 927,
+    badges: [
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B07CXZKWHV?tag=comparalo20-20",
+    linkML: "",
+    img: "https://m.media-amazon.com/images/I/61ByHV7XppL._AC_SX679_.jpg"
+  },
+  {
+    id: 129,
+    nombre: "Vital Botanics Complejo B Completo con Biotina y Arándano AMZ – 60 Cápsulas",
+    marca: "Vital Botanics",
+    tipo: "complejo-b",
+    precio: 269.09,
+    porciones: 60,
+    capsulasPorDia: 1,
+    porPorcion: "1 cápsula (0.5g)",
+    costoPorPorcion: 4.48,
+    b1: "12 mg",
+    b2: "15 mg",
+    b3: "19 mg",
+    b5: "15 mg",
+    b6: "9 mg",
+    b7: "8 µg",
+    b9: null,
+    b12: "12 µg",
+    formaB12: "cianocobalamina",
+    vitaminasExtra: [
+      {
+        nombre: "Arándano Azul (Vaccinium Corymbosum)",
+        cantidad: "150 mg"
+      }
+    ],
+    certificaciones: [
+      "Ingredientes de Origen Natural",
+      "Calidad Premium"
+    ],
+    estrellas: 4.7,
+    resenas: 1293,
+    badges: [
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B09RGMBZCP?tag=comparalo20-20",
+    linkML: "",
+    img: "https://m.media-amazon.com/images/I/5129sEhVzaL._AC_SX679_.jpg"
+  },
+  {
+    id: 130,
+    nombre: "Wellthy Complejo B 120 Porciones Reforzado con Biotina y Glutamina VCaps Veganas – 120 Cápsulas",
+    marca: "Wellthy",
+    tipo: "complejo-b",
+    precio: 299,
+    porciones: 120,
+    capsulasPorDia: 1,
+    porPorcion: "1 cápsula",
+    costoPorPorcion: 2.49,
+    b1: "15 mg",
+    b2: "18 mg",
+    b3: "25 mg",
+    b5: "20 mg",
+    b6: "10 mg",
+    b7: "300 µg",
+    b9: "100 µg",
+    b12: "12 µg",
+    formaB12: "cianocobalamina",
+    vitaminasExtra: [
+      {
+        nombre: "L-Glutamina",
+        cantidad: "420 mg"
+      }
+    ],
+    certificaciones: [
+      "Vegano",
+      "VCaps",
+      "Bottle Free"
+    ],
+    estrellas: 4.7,
+    resenas: 138,
+    badges: [
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B0D4R5NDH6?tag=comparalo20-20",
+    linkML: "",
+    img: "https://m.media-amazon.com/images/I/61QM3gwnH8L._AC_SL1408_.jpg"
+  },
+  {
+    id: 131,
+    nombre: "Oby Complejo B Completo Fórmula 8 en 1 100% Natural AMZ – 60 Cápsulas",
+    marca: "OBY",
+    tipo: "complejo-b",
+    precio: 199.99,
+    porciones: 60,
+    capsulasPorDia: 1,
+    porPorcion: "1 cápsula (500mg)",
+    costoPorPorcion: 3.33,
+    b1: "15 mg",
+    b2: "18 mg",
+    b3: "25 mg",
+    b5: "20 mg",
+    b6: "10 mg",
+    b7: "300 mcg",
+    b9: "400 mcg",
+    b12: "12 mcg",
+    formaB12: "cianocobalamina",
+    vitaminasExtra: [],
+    certificaciones: [
+      "100% Natural",
+      "Sin Rellenos"
+    ],
+    estrellas: 4.3,
+    resenas: 41,
+    badges: [
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B0DJ4DNKHM?tag=comparalo20-20",
+    linkML: "",
+    img: "https://m.media-amazon.com/images/I/510vmA+RmYL._AC_SX679_.jpg"
+  },
+  {
+    id: 134,
+    nombre: "LIFE 360+ Suplemento Vitamins-B Grape con Pulpa de Uva y Zinc – 220 Cápsulas",
+    marca: "LIFE 360+",
+    tipo: "complejo-b",
+    precio: 379.9,
+    porciones: 220,
+    capsulasPorDia: 1,
+    porPorcion: "1 cápsula (640mg)",
+    costoPorPorcion: 1.73,
+    b1: "15 mg",
+    b2: "18 mg",
+    b3: "25 mg",
+    b5: "20 mg",
+    b6: "10 mg",
+    b7: null,
+    b9: null,
+    b12: "12 µg",
+    formaB12: "cianocobalamina",
+    vitaminasExtra: [
+      {
+        nombre: "Pulpa de Uva (Vitis vinifera)",
+        cantidad: null
+      },
+      {
+        nombre: "Zinc (Óxido de Zinc)",
+        cantidad: "15.6 mg"
+      }
+    ],
+    certificaciones: [],
+    estrellas: 4.9,
+    resenas: 44,
+    badges: [
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B0DF8LZLCV?tag=comparalo20-20",
+    linkML: "",
+    img: "https://m.media-amazon.com/images/I/61sNjIyHp1L._AC_SX679_.jpg"
+  },
+  {
+    id: 135,
+    nombre: "VITAMÍNICA Complejo B B1 B2 B3 B5 B6 B7 B9 B12 Pack 3 Frascos – 90 Cápsulas",
+    marca: "AISSA VITAMÍNICA",
+    tipo: "complejo-b",
+    precio: 299,
+    porciones: 90,
+    capsulasPorDia: 1,
+    porPorcion: "1 cápsula (376mg)",
+    costoPorPorcion: 3.32,
+    b1: "15 mg",
+    b2: "18 mg",
+    b3: "25 mg",
+    b5: "20 mg",
+    b6: "10 mg",
+    b7: "300 mcg",
+    b9: "400 mcg",
+    b12: "12 mcg",
+    formaB12: "cianocobalamina",
+    vitaminasExtra: [
+      {
+        nombre: "Inulina de Agave (Agave tequilana)",
+        cantidad: null
+      }
+    ],
+    certificaciones: [],
+    estrellas: 4.4,
+    resenas: 13,
+    badges: [
+      {
+        t: "AMZ",
+        c: "b-amz"
+      }
+    ],
+    linkAmz: "https://www.amazon.com.mx/dp/B09ZDPYY1Q?tag=comparalo20-20",
+    linkML: "",
+    img: "https://m.media-amazon.com/images/I/71wRj4ZvqgL._AC_SX679_.jpg"
+  }
 ];
 
 // ── Toggle filtros móvil ──────────────────────────────────────
