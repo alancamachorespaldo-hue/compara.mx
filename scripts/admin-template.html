@@ -428,7 +428,7 @@ function columns() {
     for (const [sk, l] of specs) cols.push({k:'spec', sk, l, sort:'spec:' + sk, filter:true, w:132});
     cols.push({k:'web', l:'Web', sort:'activo', w:108}, {k:'edit', w:46});
   } else {
-    cols.push({k:'mlId', l:'ID catálogo ML', sort:'mlId', w:184}, {k:'precioML', l:'Precio ML', sort:'precioML', num:true, w:112}, {k:'precioAmz', l:'Precio AMZ', sort:'precioAmz', num:true, w:112},
+    cols.push({k:'mlId', l:'Catálogo ML', sort:'mlId', w:184}, {k:'precioML', l:'Precio ML', sort:'precioML', num:true, w:112}, {k:'precioAmz', l:'Precio AMZ', sort:'precioAmz', num:true, w:112},
       {k:'estado', l:'Estado ML', sort:'estado', w:122}, {k:'links', l:'Links', w:124}, {k:'upd', l:'Modificado', sort:'_updatedAt', w:100}, {k:'web', l:'Web', sort:'activo', w:108}, {k:'edit', w:46});
   }
   return cols;
@@ -597,7 +597,7 @@ function startInline(key, field) {
   input.type = isId ? 'text' : 'number';
   if (!isId) { input.min = '0'; input.step = '1'; input.inputMode = 'decimal'; }
   input.value = isId ? (r.p.mlId || '') : (r.p[field] ?? '');
-  input.placeholder = isId ? 'URL /p/MLM… o ID' : '0';
+  input.placeholder = isId ? 'Pega el link de catálogo /p/MLM…' : '0';
   input.setAttribute('aria-label', isId ? 'ID de catálogo de Mercado Libre' : (field === 'precioML' ? 'Precio ML' : 'Precio Amazon'));
   td.replaceChildren(input);
   input.focus(); input.select();
@@ -680,8 +680,8 @@ function openEdit(key) {
       <label class="field"><span>En la web</span><select id="e-activo"><option value="1">Activo</option><option value="0">Pausado</option></select></label>
     </div>
     <fieldset class="group"><legend>Mercado Libre</legend>
-      <label class="field span2"><span>Link de afiliado</span><input id="e-ml" type="url" placeholder="https://meli.la/…"></label>
-      <label class="field"><span>ID de catálogo (para precios)</span><input id="e-mlid" placeholder="URL /p/MLM… o ID" autocomplete="off"><small class="field-msg" id="e-mlid-msg"></small></label>
+      <label class="field span2"><span>Link de afiliado (el que abre la gente)</span><input id="e-ml" type="url" placeholder="https://meli.la/…"></label>
+      <label class="field"><span>Link de catálogo (precios y datos)</span><input id="e-mlid" placeholder="https://www.mercadolibre.com.mx/…/p/MLM…" autocomplete="off"><small class="field-msg" id="e-mlid-msg"></small></label>
       <label class="field"><span>Precio ML (MXN)</span><input id="e-pml" type="number" min="0" step="1" inputmode="decimal"></label>
       <a class="link-sm span2" href="${safeUrl(searchUrl(p))}" target="_blank" rel="noopener">Buscar este producto en Mercado Libre ↗</a>
     </fieldset>
@@ -776,8 +776,8 @@ function openAdd() {
       <label class="field"><span>Categoría</span><select id="a-cat">${cats.map(c => `<option value="${esc(c)}"${c === S.cat ? ' selected' : ''}>${esc(CATS[c] || c)}</option>`).join('')}</select></label>
       <label class="field"><span>Marca</span><input id="a-marca" placeholder="Ej. ASUS"></label>
       <label class="field span2"><span>Nombre</span><input id="a-nombre" placeholder="Ej. ASUS Vivobook 15 Core i5 16GB 512GB"></label>
-      <label class="field span2"><span>Link Mercado Libre (afiliado)</span><input id="a-ml" type="url" placeholder="https://meli.la/…"></label>
-      <label class="field"><span>ID de catálogo ML</span><input id="a-mlid" placeholder="URL /p/MLM… o ID" autocomplete="off"><small class="field-msg" id="a-mlid-msg"></small></label>
+      <label class="field span2"><span>Link de afiliado ML (el que abre la gente)</span><input id="a-ml" type="url" placeholder="https://meli.la/…"></label>
+      <label class="field"><span>Link de catálogo ML (precios y datos)</span><input id="a-mlid" placeholder="https://www.mercadolibre.com.mx/…/p/MLM…" autocomplete="off"><small class="field-msg" id="a-mlid-msg"></small></label>
       <label class="field"><span>Precio ML (MXN)</span><input id="a-pml" type="number" min="0" step="1" inputmode="decimal"></label>
       <label class="field span2"><span>Link Amazon (con ?tag=${AMZ_TAG})</span><input id="a-amz" type="url"><small class="field-msg" id="a-amz-msg"></small></label>
       <label class="field"><span>Precio Amazon (MXN)</span><input id="a-pamz" type="number" min="0" step="1" inputmode="decimal"></label>
