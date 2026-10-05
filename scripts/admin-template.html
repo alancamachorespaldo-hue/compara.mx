@@ -222,7 +222,7 @@ const PKEY = 'cmx-admin-pendiente-v1';
 const UKEY = 'cmx-admin-ui-v1';
 
 const CATS = {laptops:'Laptops', freidoras:'Freidoras', bicis:'Bicis', microondas:'Microondas', proteina:'Proteína', omega3:'Omega 3', magnesio:'Magnesio', creatina:'Creatina', complejo_b:'Complejo B'};
-const WORKFLOW = {todas:'ml-update.yml', laptops:'update-prices-laptops.yml', freidoras:'update-prices-freidoras.yml', bicis:'update-prices-bicis.yml', microondas:'update-prices-microondas.yml', proteina:'update-prices-suplementos.yml', omega3:'update-prices-suplementos.yml', magnesio:'update-prices-suplementos.yml', creatina:'update-prices-suplementos.yml', complejo_b:'update-prices-suplementos.yml'};
+const PRICE_WF = GH + '/workflows/update-prices.yml';
 const SPECS = {
   laptops:[['procesador','Procesador'],['ram','RAM'],['almacenamiento','Almacen.'],['pantalla','Pantalla'],['resolucion','Resolución'],['gpu','GPU'],['so','SO'],['peso','Peso'],['touch','Touch']],
   freidoras:[['tipo','Tipo'],['capacidad','Capacidad'],['potencia','Potencia'],['tempMax','Temp. máx.'],['panel','Panel'],['canastos','Canastos'],['ventana','Ventana'],['antiadherente','Antiadh.']],
@@ -545,8 +545,7 @@ function renderTable() {
   };
   setTimeout(() => more(FIRST_CHUNK), 30);
   $('#empty').hidden = CURRENT.length > 0;
-  const wf = WORKFLOW[S.cat];
-  $('#count').innerHTML = esc(plural(CURRENT.length, 'producto', 'productos')) + (wf ? ` · <a href="${GH}/workflows/${wf}" target="_blank" rel="noopener">Correr actualización de precios ↗</a>` : '');
+  $('#count').innerHTML = esc(plural(CURRENT.length, 'producto', 'productos')) + ` · <a href="${PRICE_WF}" target="_blank" rel="noopener">Actualizar precios Mercado Libre ↗</a>`;
   renderSelbar();
 }
 function rowEl(key) { return $('#tbody').querySelector(`tr[data-key="${CSS.escape(key)}"]`); }

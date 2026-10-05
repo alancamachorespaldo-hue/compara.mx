@@ -2,9 +2,15 @@ name: Actualizar precios Mercado Libre
 
 on:
   schedule:
-    # Corre cada día a las 6:00 AM hora Ciudad de México (UTC-6 → 12:00 UTC)
+    # Cada día a las 6:00 AM hora Ciudad de México (12:00 UTC)
     - cron: '0 12 * * *'
-  workflow_dispatch: # permite lanzarlo manualmente
+  workflow_dispatch:
+    inputs:
+      categoria:
+        description: 'Categoría a actualizar'
+        type: choice
+        default: all
+        options: [all, laptops, freidoras, bicis, microondas, suplementos, proteina, omega3, magnesio, creatina, complejo_b]
 
 jobs:
   update-prices:
@@ -13,107 +19,42 @@ jobs:
       contents: write
 
     steps:
-      - name: Checkout repositorio
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Obtener token de Mercado Libre
-        id: get_token
-        run: |
-          RESPONSE=$(curl -s -X POST "https://api.mercadolibre.com/oauth/token" \
-            -H "Content-Type: application/x-www-form-urlencoded" \
-            -d "grant_type=client_credentials&client_id=${{ secrets.ML_CLIENT_ID }}&client_secret=${{ secrets.ML_CLIENT_SECRET }}")
-          TOKEN=$(echo "$RESPONSE" | python3 -c "import sys,json; print(json.load(sys.stdin).get('access_token',''))")
-          if [ -z "$TOKEN" ]; then
-            echo "Error obteniendo token: $RESPONSE"
-            exit 1
-          fi
-          echo "token=$TOKEN" >> $GITHUB_OUTPUT
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
 
-      - name: Actualizar precios buscando por nombre en ML México
-        run: |
-          python3 << 'PYEOF'
-          import urllib.request
-          import urllib.parse
-          import json
-          import re
+      - run: npm install
 
-          TOKEN = "${{ steps.get_token.outputs.token }}"
-          TARGET = "suplementos/creatina/index.html"
+      - name: Actualizar precios ML por ID de catálogo
+        env:
+          ML_CLIENT_ID:     ${{ secrets.ML_CLIENT_ID }}
+          ML_CLIENT_SECRET: ${{ secrets.ML_CLIENT_SECRET }}
+          ML_REFRESH_TOKEN: ${{ secrets.ML_REFRESH_TOKEN }}
+          CATEGORIA:        ${{ inputs.categoria || 'all' }}
+        run: node scripts/ml-update.js --categoria="$CATEGORIA"
 
-          with open(TARGET, "r", encoding="utf-8") as f:
-            lines = f.readlines()
+      - name: Sincronizar merged-admin.json y regenerar artifact
+        run: node scripts/generar-admin.js
 
-          # Cada producto está en una línea — extraer nombre y linkML por línea
-          pairs = []
-          for line in lines:
-            m_nombre = re.search(r'nombre:"([^"]+)"', line)
-            m_link = re.search(r'linkML:"(https://meli\.la/[^"]+)"', line)
-            if m_nombre and m_link:
-              pairs.append((m_nombre.group(1), m_link.group(1), line))
-
-          html = "".join(lines)
-          print(f"Productos encontrados: {len(pairs)}")
-
-          prices_by_link = {}
-          headers = {"Authorization": f"Bearer {TOKEN}"}
-
-          for nombre, link, _ in pairs:
-            query = urllib.parse.quote(nombre)
-            # Search API de ML con token de la app
-            url = f"https://api.mercadolibre.com/sites/MLM/search?q={query}&limit=1&attributes=results.id,results.price,results.title"
-            req = urllib.request.Request(url, headers=headers)
-            try:
-              with urllib.request.urlopen(req, timeout=15) as resp:
-                data = json.loads(resp.read())
-                results = data.get("results", [])
-                if results:
-                  price = results[0].get("price")
-                  found_title = results[0].get("title", "")
-                  if price is not None:
-                    prices_by_link[link] = price
-                    print(f"OK  {nombre[:50]} → ${price:,.0f} [{found_title[:40]}]")
-                  else:
-                    print(f"SIN PRECIO: {nombre[:50]}")
-                else:
-                  print(f"SIN RESULTADO: {nombre[:50]}")
-            except Exception as e:
-              print(f"ERROR {nombre[:40]}: {e}")
-
-          print(f"\nPrecios obtenidos: {len(prices_by_link)} de {len(pairs)}")
-
-          if not prices_by_link:
-            print("Sin precios. Abortando.")
-            exit(0)
-
-          updated = 0
-          new_lines = []
-          for line in lines:
-            m_link = re.search(r'linkML:"(https://meli\.la/[^"]+)"', line)
-            if m_link:
-              link = m_link.group(1)
-              if link in prices_by_link:
-                price = prices_by_link[link]
-                new_line = re.sub(r'precioML:\d+(\.\d+)?', f'precioML:{price}', line)
-                if new_line != line:
-                  updated += 1
-                new_lines.append(new_line)
-                continue
-            new_lines.append(line)
-
-          with open(TARGET, "w", encoding="utf-8") as f:
-            f.writelines(new_lines)
-
-          print(f"Precios actualizados en HTML: {updated}")
-          PYEOF
+      - name: Revisar el sitio
+        run: node scripts/check-site.js
 
       - name: Commit y push si hay cambios
         run: |
-          git config user.name "github-actions[bot]"
+          git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add suplementos/creatina/index.html
+          git add laptops/index.html bicis/index.html \
+            electrodomesticos/freidoras/index.html electrodomesticos/microondas/index.html \
+            suplementos/proteina/index.html suplementos/omega3/index.html suplementos/magnesio/index.html \
+            suplementos/creatina/index.html suplementos/complejo-b/index.html \
+            scripts/ml-report.json scripts/merged-admin.json scripts/admin-artifact.html
           if git diff --staged --quiet; then
-            echo "Sin cambios de precios, nada que commitear."
+            echo "Sin cambios de precios."
           else
-            git commit -m "chore: actualizar precios ML $(date +'%Y-%m-%d')"
+            git commit -m "chore(precios): actualizar precios ML $(date +'%Y-%m-%d')"
+            git pull --rebase
             git push
           fi

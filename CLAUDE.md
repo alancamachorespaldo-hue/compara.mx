@@ -81,8 +81,10 @@ El artifact se reconstruye a sí mismo al guardar; si se edita `admin-template.h
 
 ## GitHub Actions
 
-- `update-prices-<categoria>.yml` — manual (`workflow_dispatch`) por categoría: laptops, freidoras,
-  bicis, microondas, suplementos. Corren `ml-update.js` + `generar-admin.js` y hacen commit.
+- `update-prices.yml` ("Actualizar precios Mercado Libre") — **el que usa el usuario** para actualizar
+  precios: diario 6:00 CDMX y manual con selector de categoría. Corre `ml-update.js` + `generar-admin.js` +
+  `check-site.js` y hace commit. El artifact enlaza a este workflow.
+- `update-prices-<categoria>.yml` — manual por categoría (mismo pipeline, sin `check-site.js`).
 - `sync-productos.yml` — al cambiar `productos.json` o `merged-admin.json`, corre `sync-html.js`.
 - `check-site.yml` — corre `check-site.js` en cada push y PR.
 - Secrets: `ML_CLIENT_ID`, `ML_CLIENT_SECRET`, `ML_REFRESH_TOKEN`.
