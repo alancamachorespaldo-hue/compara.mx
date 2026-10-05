@@ -1,0 +1,19 @@
+name: ✅ Chequeo del sitio
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Validar páginas (GA4, onboarding, tag afiliado, links, sintaxis)
+        run: node scripts/check-site.js

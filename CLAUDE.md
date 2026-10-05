@@ -1,0 +1,92 @@
+# comparalo.mx
+
+Sitio estático de afiliados que compara el mismo producto en Amazon MX y Mercado Libre.
+HTML/CSS/JS puro publicado con **GitHub Pages** desde `alancamachorespaldo-hue/compara.mx`, rama `main`
+(el deploy es automático 1-2 min después del push; no se usa Netlify).
+
+## Reglas que nunca se rompen
+
+- **Tag de afiliado Amazon: `tag=comparalo20-20`.** No cambiarlo ni volver a `comparabici-20`.
+- **GA4 `G-9TKZ4ER13X`** debe estar en todas las páginas HTML. No quitarlo, reemplazarlo ni reimplementarlo.
+- No modificar `/assets/js/analytics.js`.
+- No cambiar precios, especificaciones, ratings, número de reseñas, imágenes, links ni IDs de productos
+  salvo que el usuario lo pida explícitamente para ese producto.
+- No introducir React, Next.js, Astro, Vue ni ningún framework o build step.
+- Todas las páginas cargan `<script src="/js/onboarding.js" defer></script>` antes de `</body>`.
+
+## Git: cómo trabajar sin pisar trabajo previo
+
+En oct-2026 un `git stash pop` aplicó un stash olvidado del 16-sep y sobrescribió 13 páginas públicas
+con versiones de 3 semanas atrás (commit `40259fe`, revertido en `4aec04d`). Para que no se repita:
+
+0. **Una sola sesión de Claude a la vez en esta carpeta.** Dos sesiones en el mismo directorio se pisan
+   (una hace stash o commit de lo que la otra está editando). Para trabajo en paralelo, usar un worktree
+   aparte por sesión.
+1. **Al iniciar cada sesión: `git status` y luego `git pull --rebase`.** Si `git status` muestra cambios
+   que esta sesión no hizo, son de otra sesión o del usuario: no tocarlos, no descartarlos, preguntar.
+   Los workflows de GitHub Actions hacen commits (precios, syncs), así que el remoto casi siempre va adelante.
+2. **No usar `git stash`** (bloqueado en `.claude/settings.json`). Si hay cambios sin commit que estorban,
+   hacer commit o preguntar.
+3. **Agregar archivos por nombre**, nunca `git add -A` ni `git add .` (también bloqueados).
+4. **Antes de cada commit revisar `git status` y `git diff --stat`.** Si aparecen páginas públicas que
+   no se tocaron a propósito, detenerse y averiguar por qué.
+5. Un commit = un tema. Un cambio del admin no debe incluir páginas públicas.
+6. Antes de hacer push: `node scripts/check-site.js` (lo mismo corre en CI en cada push).
+
+## Estructura de URLs
+
+URLs limpias con slash final; **no se enlaza a archivos `.html`** (excepto `aviso-afiliados.html`,
+`privacidad.html`, `terminos.html`). Los `.html` en la raíz son redirecciones de URLs viejas: no editarlos
+como páginas ni enlazarlos.
+
+| Sección | Ruta | Array JS de productos |
+|---|---|---|
+| Inicio | `/index.html` | — (hero con carrusel "Cómo usar", sección "Nuestro método" y leads) |
+| Laptops | `/laptops/` | `productos` |
+| Bicis | `/bicis/` | `ELECTRICAS`, `MONTANA`, `RUTA`, `GRAVEL` |
+| Electrodomésticos | `/electrodomesticos/` | — (portada) |
+| Freidoras | `/electrodomesticos/freidoras/` | `productos` |
+| Microondas | `/electrodomesticos/microondas/` | `micros` |
+| Suplementos | `/suplementos/` | `productos` (hub de categorías) |
+| Proteína / Omega 3 / Magnesio / Creatina | `/suplementos/<sub>/` | `productos` |
+| Complejo B | `/suplementos/complejo-b/` | `PRODUCTOS` |
+| Celulares | `/celulares/`, `/celulares/iphone/`, `/celulares/android/` | — |
+
+`/celulares/alta-gama/` y `/celulares/smartphones/` redirigen a `/celulares/android/` a propósito.
+Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (falta la barra).
+
+## Datos y scripts (`scripts/`)
+
+- `merged-admin.json` — **fuente de verdad** de productos (precios, links, `activo`, specs) por categoría.
+- `productos.json` — base que `sync-html.js` combina con `merged-admin.json`.
+- `sync-html.js` — aplica `activo`, links y `precioML`/`precioAmz` de la BD a los arrays JS de los HTML.
+  Un producto con `activo:false` se elimina del HTML.
+- `ml-update.js [--categoria=X]` — actualiza precios ML vía API; escribe `ml-report.json`.
+  Categorías: `laptops`, `freidoras`, `bicis`, `microondas`, `proteina`, `omega3`, `magnesio`,
+  `creatina`, `complejo_b`, o `suplementos` (todas las anteriores de suplementos).
+- `generar-admin.js` — sincroniza `ml-report.json` → `merged-admin.json` y genera `admin-artifact.html`.
+  El JS del artifact está dentro de un template literal de Node: usar `'` normal, nunca `\\'`.
+- `check-site.js` — validaciones del sitio (ver abajo).
+
+Admin: Claude Artifact https://claude.ai/artifact/BTt8aRBCUZQNWvGAS81rTt (se publica desde
+`scripts/admin-artifact.html`). Cada pestaña tiene un botón que abre su workflow de precios.
+
+## GitHub Actions
+
+- `update-prices-<categoria>.yml` — manual (`workflow_dispatch`) por categoría: laptops, freidoras,
+  bicis, microondas, suplementos. Corren `ml-update.js` + `generar-admin.js` y hacen commit.
+- `sync-productos.yml` — al cambiar `productos.json` o `merged-admin.json`, corre `sync-html.js`.
+- `check-site.yml` — corre `check-site.js` en cada push y PR.
+- Secrets: `ML_CLIENT_ID`, `ML_CLIENT_SECRET`, `ML_REFRESH_TOKEN`.
+
+## Validación
+
+`node scripts/check-site.js` revisa en todas las páginas: GA4 presente, onboarding presente, tag de
+afiliado correcto, sin links a `.html` de categorías, sin URLs sin barra tipo `/celularesalta-gama`,
+y que los scripts inline y el JSON-LD no tengan errores de sintaxis. Si falla, no hacer push.
+
+## Diseño
+
+Plantilla de referencia: `/electrodomesticos/freidoras/`. Colores `--ac:#006847`, `--ml:#f0c000`,
+`--amz:#f90`. Fuente Satoshi (fontshare). Antes de dar por terminado un cambio visual, probarlo en el
+navegador (`.claude/launch.json` levanta el sitio en http://localhost:8765).

@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "deny": [
+      "Bash(git stash:*)",
+      "Bash(git stash)",
+      "Bash(git add -A:*)",
+      "Bash(git add -A)",
+      "Bash(git add --all:*)",
+      "Bash(git add .:*)",
+      "Bash(git add .)",
+      "Bash(git pull --autostash:*)",
+      "Bash(git pull --rebase --autostash:*)",
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)"
+    ]
+  }
+}
