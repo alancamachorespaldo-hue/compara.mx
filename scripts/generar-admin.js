@@ -575,7 +575,7 @@ const CATALOG_DEFS = {
 // Per-catalog filter state: catKey → {filters: {colKey: Set}, search: ''}
 const catState = {};
 function getCatState(catKey) {
-  if (!catState[catKey]) catState[catKey] = {filters:{}, search:'', plat:null, selected:new Set(), sortCol:'_updatedAt', sortDir:'desc'};
+  if (!catState[catKey]) catState[catKey] = {filters:{}, search:'', plat:null, selected:new Set(), sortCol:'_updatedAt', sortDir:'desc', tileFilter:null};
   return catState[catKey];
 }
 
@@ -1000,9 +1000,21 @@ function _renderCatTiles(catKey) {
     {k:'pausado',           l:'Pausados',      cls:'warn',  v:counts.pausado},
   ];
   const el = document.getElementById('ctiles-'+catKey);
-  if (el) el.innerHTML = TILES.map(t =>
-    '<div class="tile" style="cursor:default;min-width:80px;padding:8px 12px"><div class="tile-lbl">'+t.l+'</div><div class="tile-num '+t.cls+'">'+t.v+'</div></div>'
-  ).join('');
+  if (!el) return;
+  const active = getCatState(catKey).tileFilter;
+  el.innerHTML = TILES.map(t => {
+    const isOn = active === t.k || (t.k === 'total' && !active);
+    return '<div class="tile'+(isOn?' on':'')+'" data-ctile="'+catKey+'" data-ctileval="'+t.k+'" style="min-width:80px;padding:8px 12px"><div class="tile-lbl">'+t.l+'</div><div class="tile-num '+t.cls+'">'+t.v+'</div></div>';
+  }).join('');
+  el.querySelectorAll('[data-ctile]').forEach(tile => {
+    tile.addEventListener('click', () => {
+      const cst = getCatState(tile.dataset.ctile);
+      const val = tile.dataset.ctileval;
+      cst.tileFilter = (cst.tileFilter === val || val === 'total') ? null : val;
+      _renderCatTiles(tile.dataset.ctile);
+      _renderCatBody(tile.dataset.ctile);
+    });
+  });
 }
 
 function renderCatalog(catKey, container) {
@@ -1241,6 +1253,8 @@ function _catVisibleList(catKey) {
   if (!def) return [];
   const st = getCatState(catKey);
   let list = (DB[catKey]||[]);
+  if (st.tileFilter === 'pausado') list = list.filter(p => p.activo === false);
+  else if (st.tileFilter) list = list.filter(p => p.estadoML === st.tileFilter);
   if (st.search) {
     const q = st.search.toLowerCase();
     list = list.filter(p => (p.nombre+' '+p.marca).toLowerCase().includes(q));
