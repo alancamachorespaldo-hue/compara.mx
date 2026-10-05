@@ -1,0 +1,1086 @@
+<title>Gestión Productos</title>
+<style id="css">
+/* Layout: barra de acciones fija → categorías → colas de trabajo → tabla densa editable en línea */
+:root{
+  --bg:#f4f6f5;--surface:#ffffff;--surface-2:#eef2f0;--line:#d9e0dc;--line-soft:#e7ece9;
+  --fg:#15211b;--fg-2:#53625b;--fg-3:#7b8882;
+  --accent:#006847;--accent-hover:#00573b;--accent-fg:#ffffff;--accent-soft:#e1f0e8;
+  --ok:#1a7f43;--ok-soft:#e2f3e7;--warn:#9a5600;--warn-soft:#fbf0dc;--err:#bf3328;--err-soft:#fbe8e6;--info:#2350c0;--info-soft:#e6ecfb;
+  --ml:#ffe600;--ml-fg:#2d3277;--amz:#ff9900;--amz-fg:#3d2200;
+  --scrim:rgba(12,24,18,.45);--shadow:0 12px 40px rgba(16,32,24,.18);
+  --font-ui:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --font-data:ui-monospace,"Cascadia Mono","SF Mono",Menlo,Consolas,monospace;
+  --radius:8px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0e1311;--surface:#151c19;--surface-2:#1c2521;--line:#2a3530;--line-soft:#212b27;
+  --fg:#e3ebe7;--fg-2:#9caba3;--fg-3:#74837c;
+  --accent:#37b680;--accent-hover:#48c791;--accent-fg:#04140d;--accent-soft:#12302a;
+  --ok:#4cc77e;--ok-soft:#10291b;--warn:#f0b04a;--warn-soft:#2c2212;--err:#f07a70;--err-soft:#331614;--info:#88a9ff;--info-soft:#16213d;
+  --ml:#ffe600;--ml-fg:#1e2257;--amz:#ff9900;--amz-fg:#2a1700;
+  --scrim:rgba(0,0,0,.6);--shadow:0 12px 40px rgba(0,0,0,.5);color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0e1311;--surface:#151c19;--surface-2:#1c2521;--line:#2a3530;--line-soft:#212b27;
+  --fg:#e3ebe7;--fg-2:#9caba3;--fg-3:#74837c;
+  --accent:#37b680;--accent-hover:#48c791;--accent-fg:#04140d;--accent-soft:#12302a;
+  --ok:#4cc77e;--ok-soft:#10291b;--warn:#f0b04a;--warn-soft:#2c2212;--err:#f07a70;--err-soft:#331614;--info:#88a9ff;--info-soft:#16213d;
+  --ml:#ffe600;--ml-fg:#1e2257;--amz:#ff9900;--amz-fg:#2a1700;
+  --scrim:rgba(0,0,0,.6);--shadow:0 12px 40px rgba(0,0,0,.5);color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--fg);font:14px/1.45 var(--font-ui)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.mono{font-family:var(--font-data);font-size:12px}
+.muted{color:var(--fg-3)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+kbd{font-family:var(--font-data);font-size:11px;padding:0 5px;border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;color:var(--fg-2);background:var(--surface-2)}
+
+/* Barra superior */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;padding:10px 16px;background:var(--surface);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:baseline;gap:8px;margin-right:auto;min-width:0}
+.brand b{font-size:15px;color:var(--accent);letter-spacing:-.01em}
+.brand span{color:var(--fg-2);font-size:13px}
+.status{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--fg-2)}
+.status.dirty{color:var(--warn);font-weight:600}
+.status .dot{width:8px;height:8px;border-radius:50%;background:currentColor}
+.actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:34px;padding:0 12px;border-radius:var(--radius);border:1px solid var(--line);background:var(--surface);color:var(--fg);font:inherit;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn:hover{background:var(--surface-2)}
+.btn:disabled{opacity:.5;cursor:default}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
+.btn-primary:hover{background:var(--accent-hover)}
+.btn-danger{background:var(--err);border-color:var(--err);color:var(--surface)}
+.btn-ghost-danger{background:transparent;border-color:transparent;color:var(--err)}
+.btn-ghost-danger:hover{background:var(--err-soft)}
+.btn-sm{height:28px;padding:0 10px;font-size:12px}
+.pill{font-family:var(--font-data);font-size:11px;padding:0 6px;border-radius:9px;background:color-mix(in srgb,var(--accent-fg) 22%,transparent)}
+.menu{position:relative}
+.menu-list{position:absolute;right:0;top:calc(100% + 6px);z-index:60;min-width:240px;padding:6px;border:1px solid var(--line);border-radius:10px;background:var(--surface);box-shadow:var(--shadow);display:grid}
+.menu-list button,.menu-list a{all:unset;cursor:pointer;padding:8px 10px;border-radius:6px;font-size:13px;color:var(--fg)}
+.menu-list button:hover,.menu-list button:focus-visible,.menu-list a:hover,.menu-list a:focus-visible{background:var(--surface-2)}
+.menu-list .danger{color:var(--err)}
+
+/* Categorías y colas */
+.cats{display:flex;gap:6px;overflow-x:auto;padding:12px 16px 4px;scrollbar-width:thin}
+.chip{flex:none;display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 12px;border-radius:15px;border:1px solid var(--line);background:var(--surface);color:var(--fg-2);font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.chip .n{font-family:var(--font-data);font-size:11px;color:var(--fg-3)}
+.chip[aria-pressed="true"]{background:var(--fg);border-color:var(--fg);color:var(--bg)}
+.chip[aria-pressed="true"] .n{color:inherit;opacity:.7}
+.queues{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:8px;padding:8px 16px}
+.q{display:flex;flex-direction:column;gap:1px;padding:8px 12px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);color:var(--fg);font:inherit;text-align:left;cursor:pointer}
+.q:hover{border-color:var(--fg-3)}
+.q[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent);background:var(--accent-soft)}
+.q .lbl{font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--fg-2)}
+.q .num{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.2}
+.tone-warn .num{color:var(--warn)}.tone-err .num{color:var(--err)}.tone-ok .num{color:var(--ok)}.tone-info .num{color:var(--info)}
+.callout{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin:4px 16px 8px;padding:10px 14px;border-radius:var(--radius);background:var(--warn-soft);border:1px solid color-mix(in srgb,var(--warn) 30%,transparent)}
+.callout p{margin:0;flex:1 1 320px;min-width:0}
+
+/* Barra de herramientas */
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;padding:4px 16px 10px}
+.search{position:relative;flex:1 1 260px;min-width:0}
+.search input{width:100%;height:34px;padding:0 36px 0 12px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);color:var(--fg);font:inherit}
+.search input:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--accent-soft)}
+.search kbd{position:absolute;right:9px;top:50%;transform:translateY(-50%);pointer-events:none}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--surface)}
+.seg button{height:32px;padding:0 10px;border:0;background:transparent;color:var(--fg-2);font:inherit;font-size:12px;font-weight:600;cursor:pointer}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--surface-2);color:var(--fg)}
+.seg button:disabled{opacity:.45;cursor:default}
+.meta{font-size:12.5px;color:var(--fg-2)}
+.meta a{color:var(--accent);font-weight:600}
+
+/* Tabla */
+.table-wrap{margin:0 16px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);overflow:auto;max-height:calc(100dvh - 120px)}
+table{width:100%;table-layout:fixed;border-collapse:separate;border-spacing:0;font-size:13px}
+thead th{position:sticky;top:0;z-index:2;padding:8px 10px;background:var(--surface-2);border-bottom:1px solid var(--line);text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--fg-2);white-space:nowrap}
+.th-sort{all:unset;cursor:pointer}
+.th-sort:hover{color:var(--fg)}
+.fbtn{all:unset;cursor:pointer;margin-left:4px;padding:0 3px;border-radius:3px;font-size:10px;color:var(--fg-3)}
+.fbtn.on{color:var(--accent)}
+td{padding:7px 10px;border-bottom:1px solid var(--line-soft);vertical-align:middle;overflow-wrap:anywhere}
+tbody tr:hover{background:var(--surface-2)}
+tbody tr.is-sel{background:var(--accent-soft)}
+tr.is-paused .name{color:var(--fg-3);text-decoration:line-through}
+.c-num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.c-date{white-space:nowrap;font-size:12px;color:var(--fg-2)}
+.name{font-weight:600;line-height:1.3}
+.sub{margin-top:1px;font-size:11.5px;color:var(--fg-3)}
+.cell-edit{all:unset;cursor:text;display:inline-block;min-width:64px;padding:3px 6px;border:1px dashed transparent;border-radius:5px;font-weight:600;font-variant-numeric:tabular-nums}
+.cell-edit:hover{border-color:var(--line);background:var(--surface)}
+.cell-edit:focus-visible{outline:2px solid var(--accent)}
+.inline-input{width:110px;height:28px;padding:0 6px;border:1px solid var(--accent);border-radius:5px;background:var(--surface);color:var(--fg);font:inherit;font-variant-numeric:tabular-nums;text-align:right}
+.inline-input.wide{width:230px;text-align:left;font-family:var(--font-data);font-size:12px}
+.inline-input.bad{border-color:var(--err);background:var(--err-soft)}
+.delta{display:block;font-size:11px;font-weight:700}
+.delta.up{color:var(--err)}.delta.down{color:var(--ok)}
+.mlid{font-family:var(--font-data);font-size:12px;color:var(--fg);text-decoration:none;padding:2px 6px;border:1px solid var(--line);border-radius:5px;background:var(--surface-2)}
+.mlid:hover{border-color:var(--fg-3)}
+.add-id{all:unset;cursor:pointer;padding:2px 7px;border:1px dashed color-mix(in srgb,var(--accent) 50%,transparent);border-radius:5px;font-size:12px;font-weight:600;color:var(--accent)}
+.sug{all:unset;cursor:pointer;margin-right:4px;padding:2px 8px;border-radius:10px;font-size:12px;font-weight:700;color:var(--info);background:var(--info-soft)}
+.mini{all:unset;cursor:pointer;margin-left:4px;padding:0 4px;border-radius:4px;color:var(--fg-3);font-size:12px}
+.mini:hover{color:var(--fg);background:var(--surface-2)}
+.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:10px;font-size:11.5px;font-weight:700;white-space:nowrap}
+.t-ok{background:var(--ok-soft);color:var(--ok)}.t-warn{background:var(--warn-soft);color:var(--warn)}.t-err{background:var(--err-soft);color:var(--err)}.t-info{background:var(--info-soft);color:var(--info)}.t-muted{background:var(--surface-2);color:var(--fg-2)}.t-neutral{background:var(--surface-2);color:var(--fg)}
+.when{display:block;margin-top:2px;font-size:11px;color:var(--fg-3);white-space:nowrap}
+.lk{display:inline-flex;align-items:center;height:22px;padding:0 7px;margin-right:4px;border-radius:5px;font-size:11px;font-weight:800;text-decoration:none}
+.lk-ml{background:var(--ml);color:var(--ml-fg)}.lk-amz{background:var(--amz);color:var(--amz-fg)}
+.sw{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 9px;border-radius:12px;font-size:12px;font-weight:700;background:var(--surface-2);color:var(--fg-2)}
+.sw::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.sw.on{background:var(--ok-soft);color:var(--ok)}
+.sw:focus-visible{outline:2px solid var(--accent)}
+.btn-icon{all:unset;cursor:pointer;display:inline-grid;place-items:center;width:28px;height:28px;border-radius:6px;color:var(--fg-2)}
+.btn-icon:hover{background:var(--surface-2);color:var(--fg)}
+.spec{font-size:12px}
+.empty{padding:40px 16px;text-align:center;color:var(--fg-2)}
+.foot{display:flex;flex-wrap:wrap;gap:6px 18px;margin:0;padding:14px 16px 90px;font-size:12px;color:var(--fg-3)}
+
+/* Selección múltiple */
+.selbar{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:40;display:flex;flex-wrap:wrap;align-items:center;gap:8px;max-width:calc(100% - 32px);padding:8px 10px 8px 14px;border-radius:12px;background:var(--fg);color:var(--bg);box-shadow:var(--shadow)}
+.selbar .btn{background:transparent;color:inherit;border-color:color-mix(in srgb,var(--bg) 35%,transparent)}
+.selbar .btn:hover{background:color-mix(in srgb,var(--bg) 12%,transparent)}
+
+/* Paneles */
+.overlay{position:fixed;inset:0;z-index:100;display:flex;align-items:flex-start;justify-content:center;padding:max(16px,env(safe-area-inset-top,0px)) 16px 16px;overflow-y:auto;background:var(--scrim)}
+.sheet{display:flex;flex-direction:column;gap:14px;width:100%;max-width:660px;margin:auto 0;padding:20px;border-radius:12px;background:var(--surface);color:var(--fg);box-shadow:var(--shadow)}
+.sheet.wide{max-width:840px}
+.sheet:focus{outline:none}
+.sheet-head{display:flex;align-items:flex-start;gap:12px}
+.sheet-head>div{flex:1;min-width:0}
+.sheet-head h2{margin:0;font-size:17px;line-height:1.3;text-wrap:balance}
+.sheet-head p{margin:3px 0 0;font-size:12.5px}
+.sheet-foot{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.spacer{flex:1}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 14px}
+.span2{grid-column:1/-1}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field>span{font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--fg-2)}
+.field input,.field select{width:100%;min-width:0;height:36px;padding:0 10px;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--fg);font:inherit}
+.field input:focus,.field select:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--accent-soft)}
+.field-msg{min-height:1.2em;font-size:12px;color:var(--fg-3)}
+.field-msg.ok{color:var(--ok)}.field-msg.bad{color:var(--err)}.field-msg.warn{color:var(--warn)}
+fieldset.group{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 14px;margin:0;padding:12px 14px 14px;border:1px solid var(--line);border-radius:10px}
+fieldset.group legend{padding:0 6px;font-size:12.5px;font-weight:800}
+.link-sm{font-size:12.5px;font-weight:600;color:var(--accent)}
+.confirm{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px 12px;border-radius:8px;background:var(--err-soft);color:var(--err);font-weight:600}
+.row{display:flex;gap:8px}
+.row input{flex:1}
+
+/* Revisión rápida de IDs */
+.progress{height:4px;border-radius:2px;background:var(--surface-2);overflow:hidden}
+.progress i{display:block;height:100%;background:var(--accent)}
+.rv-product{display:grid;gap:4px;padding:12px 14px;border-radius:10px;background:var(--surface-2)}
+.rv-product h3{margin:0;font-size:16px;line-height:1.3;text-wrap:balance}
+.rv-links{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px}
+.rv-links a{color:var(--accent);font-weight:600}
+.cands{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.cand{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;align-items:center;gap:6px 12px;padding:10px 12px;border:1px solid var(--line);border-radius:10px}
+.cand:hover{border-color:var(--fg-3)}
+.cand-name{font-weight:600;line-height:1.3}
+.cand-meta{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;margin-top:3px;font-size:12px;color:var(--fg-2)}
+.cand-price{text-align:right;white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
+.cand-price small{display:block;font-size:11px;font-weight:600;color:var(--fg-3)}
+.cand-actions{display:flex;gap:6px}
+.conf{font-weight:700}.conf-alta{color:var(--ok)}.conf-media{color:var(--warn)}.conf-baja{color:var(--fg-3)}
+.note{margin:0;padding:12px 14px;border:1px dashed var(--line);border-radius:10px;color:var(--fg-2)}
+
+/* Filtro por columna */
+.dd{position:fixed;z-index:120;min-width:190px;max-width:280px;max-height:320px;overflow:auto;padding:6px;border:1px solid var(--line);border-radius:10px;background:var(--surface);box-shadow:var(--shadow)}
+.dd label{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:6px;font-size:12.5px;cursor:pointer}
+.dd label:hover{background:var(--surface-2)}
+.dd-foot{position:sticky;bottom:-6px;display:flex;gap:6px;margin-top:4px;padding:6px 2px 2px;border-top:1px solid var(--line);background:var(--surface)}
+
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:200;max-width:min(560px,calc(100% - 32px));padding:10px 16px;border-radius:10px;background:var(--fg);color:var(--bg);font-size:13px;font-weight:600;box-shadow:var(--shadow);opacity:0;transform:translate(-50%,12px);transition:opacity .2s,transform .2s;pointer-events:none}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+.menu-only-phone{display:none}
+@media (max-width:620px){
+  .bar{gap:8px;padding:8px 16px}
+  .brand span,.status,.bar-publish{display:none}
+  .menu-list .menu-only-phone{display:block}
+  .bar .btn{height:32px;padding:0 10px}
+  .grid2,fieldset.group{grid-template-columns:1fr}
+  .cand{grid-template-columns:auto minmax(0,1fr)}
+  .cand-price{grid-column:2;text-align:left}
+  .cand-actions{grid-column:1/-1}
+  .table-wrap{max-height:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<div id="app"></div>
+<!--DATA-->
+<script id="app-js">
+(() => {
+'use strict';
+const TITLE = 'Gestión Productos';
+const RESET = ':root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}';
+const GH = 'https://github.com/alancamachorespaldo-hue/compara.mx/actions';
+const AMZ_TAG = 'comparalo20-20';
+const PKEY = 'cmx-admin-pendiente-v1';
+const UKEY = 'cmx-admin-ui-v1';
+
+const CATS = {laptops:'Laptops', freidoras:'Freidoras', bicis:'Bicis', microondas:'Microondas', proteina:'Proteína', omega3:'Omega 3', magnesio:'Magnesio', creatina:'Creatina', complejo_b:'Complejo B'};
+const WORKFLOW = {todas:'ml-update.yml', laptops:'update-prices-laptops.yml', freidoras:'update-prices-freidoras.yml', bicis:'update-prices-bicis.yml', microondas:'update-prices-microondas.yml', proteina:'update-prices-suplementos.yml', omega3:'update-prices-suplementos.yml', magnesio:'update-prices-suplementos.yml', creatina:'update-prices-suplementos.yml', complejo_b:'update-prices-suplementos.yml'};
+const SPECS = {
+  laptops:[['procesador','Procesador'],['ram','RAM'],['almacenamiento','Almacen.'],['pantalla','Pantalla'],['resolucion','Resolución'],['gpu','GPU'],['so','SO'],['peso','Peso'],['touch','Touch']],
+  freidoras:[['tipo','Tipo'],['capacidad','Capacidad'],['potencia','Potencia'],['tempMax','Temp. máx.'],['panel','Panel'],['canastos','Canastos'],['ventana','Ventana'],['antiadherente','Antiadh.']],
+  bicis:[['tipo','Tipo'],['autonomia','Autonomía'],['velocidad','Vel. máx.'],['motor','Motor'],['bateria','Batería'],['rueda','Rueda'],['cargaMax','Carga máx.'],['ip','IP']],
+  proteina:[['tipoProteina','Tipo'],['fuenteProteina','Fuente'],['gramosPorPorcion','g/porción'],['proteinaPorPorcion','Prot./porción'],['costoPorPorcion','Costo/porción'],['vegana','Vegana'],['glutenFree','Sin gluten']],
+  omega3:[['epa','EPA'],['dha','DHA'],['omegaTotal','Omega total'],['fuenteOmega','Fuente'],['ifos','IFOS'],['metalesPesados','Sin metales'],['costoPorPorcion','Costo/porción']],
+  magnesio:[['formaMagnesio','Forma'],['mgMagnesio','mg'],['mgElemental','mg elemental'],['absorcion','Absorción'],['vegano','Vegano'],['costoPorPorcion','Costo/porción']],
+  creatina:[['tipoCreatina','Tipo'],['presentacion','Presentación'],['grPorPorcion','g/porción'],['pura','Pura'],['costoPorPorcion','Costo/porción'],['costoPor5g','Costo/5 g']],
+  complejo_b:[['capsulasPorDia','Cáps./día'],['costoPorPorcion','Costo/porción'],['b1','B1'],['b6','B6'],['b9','B9'],['b12','B12'],['formaB12','Forma B12']],
+};
+const ST = {
+  solo_amz:['Solo Amazon','muted'], sin_id:['Falta ID','warn'], actualizado:['Cambió','ok'], sin_cambio:['Al día','neutral'],
+  sin_precio:['Sin ofertas','err'], precio_sospechoso:['Revisar','warn'], no_encontrado:['No encontrado','err'], nuevo:['Nuevo','info'], sin_revisar:['Sin revisar','muted'],
+};
+const hasTag = u => new RegExp('[?&]tag=' + AMZ_TAG + '(?:[&#]|$)').test(u || '');
+const QUEUES = [
+  {k:'todos', l:'Todos', f:() => true},
+  {k:'falta_id', l:'Falta ID ML', tone:'warn', f:p => !!p.linkML && !p.mlId},
+  {k:'sugerencias', l:'Con candidatos', tone:'info', f:p => !!p.linkML && !p.mlId && Array.isArray(p._mlSug) && p._mlSug.length > 0},
+  {k:'sin_precio', l:'Sin ofertas ML', tone:'err', f:p => !!p.mlId && p.estadoML === 'sin_precio'},
+  {k:'revisar', l:'Precio a revisar', tone:'warn', f:p => p.estadoML === 'precio_sospechoso'},
+  {k:'cambiaron', l:'Cambiaron', tone:'ok', f:p => p.estadoML === 'actualizado'},
+  {k:'nuevos', l:'Nuevos', tone:'info', f:p => p.estadoML === 'nuevo', optional:true},
+  {k:'pausados', l:'Pausados', f:p => p.activo === false},
+  {k:'amz_tag', l:'Amazon sin tag', tone:'err', f:p => !!p.linkAmz && !hasTag(p.linkAmz), optional:true},
+  {k:'sin_link', l:'Sin links', tone:'err', f:p => !p.linkML && !p.linkAmz, optional:true},
+];
+const QF = Object.fromEntries(QUEUES.map(q => [q.k, q.f]));
+
+// ── Utilidades ──────────────────────────────────────────────────────────────
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const safeUrl = u => /^https?:\/\//i.test(u || '') ? esc(u) : '#';
+const norm = s => String(s ?? '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+const NF = new Intl.NumberFormat('es-MX', {maximumFractionDigits:0});
+const DF = new Intl.DateTimeFormat('es-MX', {day:'numeric', month:'short'});
+const DFL = new Intl.DateTimeFormat('es-MX', {day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit'});
+const money = n => (n == null || n === '' || !isFinite(n)) ? '' : '$' + NF.format(Math.round(n));
+const fmtShort = iso => { const d = new Date(iso); return isNaN(d) ? '' : DF.format(d); };
+const fmtLong = iso => { const d = new Date(iso); return isNaN(d) ? '' : DFL.format(d); };
+const safeJson = v => JSON.stringify(v).replace(/</g, '\\u003c');
+const splitKey = k => { const i = k.indexOf('|'); return [k.slice(0, i), k.slice(i + 1)]; };
+const lsGet = k => { try { const s = localStorage.getItem(k); return s ? JSON.parse(s) : null; } catch (e) { return null; } };
+const lsSet = (k, v) => { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+const use = name => (window.claude && typeof window.claude.use === 'function') ? Promise.resolve(window.claude.use(name)).catch(() => null) : Promise.resolve(null);
+const readJson = id => { const el = document.getElementById(id); if (!el) return null; try { return JSON.parse(el.textContent); } catch (e) { console.error('JSON inválido en #' + id, e); return null; } };
+const searchUrl = p => 'https://listado.mercadolibre.com.mx/' + encodeURIComponent(norm((p.marca || '') + ' ' + p.nombre).replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''));
+const catalogUrl = id => 'https://www.mercadolibre.com.mx/p/' + encodeURIComponent(id);
+const plural = (n, a, b) => n + ' ' + (n === 1 ? a : b);
+
+function parseMlId(raw) {
+  const s = String(raw || '').trim();
+  if (!s) return {id:null};
+  if (/meli\.la\//i.test(s)) return {error:'Los links meli.la no traen el ID. Abre el producto en Mercado Libre y copia la URL de la ficha (…/p/MLM…).'};
+  const cat = s.match(/\/p\/(MLM\d{6,12})/i);
+  if (cat) return {id:cat[1].toUpperCase()};
+  if (/\/up\/MLMU/i.test(s)) return {error:'Ese link es de una variante (MLMU…). Usa la URL de la ficha de catálogo (…/p/MLM…).'};
+  if (/MLM-\d{6,}/i.test(s) || /articulo\.mercadolibre/i.test(s)) return {error:'Es el link de una publicación (MLM-…). La API solo da precio con la ficha de catálogo: busca la URL que contiene /p/MLM….'};
+  const bare = s.match(/^(?:MLM)?(\d{6,12})$/i);
+  if (bare) return {id:'MLM' + bare[1]};
+  return {error:'No reconozco ese formato. Pega la URL de la ficha (…/p/MLM12345678) o el ID (MLM12345678).'};
+}
+
+// ── Datos ───────────────────────────────────────────────────────────────────
+const META = readJson('meta') || {};
+const SAVE_ID = readJson('save') || '';
+let DB = readJson('db') || {};
+let ROWS = [], BYKEY = new Map(), HAY = new WeakMap();
+function reindex() {
+  ROWS = []; BYKEY = new Map();
+  for (const cat of Object.keys(DB)) for (const p of DB[cat]) { const r = {cat, p, key:cat + '|' + p.id}; ROWS.push(r); BYKEY.set(r.key, r); }
+}
+const hay = r => { let h = HAY.get(r.p); if (h == null) { h = norm([r.p.nombre, r.p.marca, r.p.id, r.p.mlId, CATS[r.cat]].join(' ')); HAY.set(r.p, h); } return h; };
+const status = p => !p.linkML ? 'solo_amz' : !p.mlId ? 'sin_id' : (p.estadoML || 'sin_revisar');
+
+// Cambios sin guardar: se guardan en este navegador y se vuelven a aplicar sobre cualquier versión nueva.
+const emptyPending = () => ({ops:{}, added:{}, deleted:[], savingAs:null});
+let PENDING = emptyPending();
+let restored = 0;
+(function bootPending() {
+  const saved = lsGet(PKEY);
+  if (!saved) return;
+  if (saved.savingAs && saved.savingAs === SAVE_ID) { lsSet(PKEY, null); return; }
+  PENDING = Object.assign(emptyPending(), saved, {savingAs:null});
+  for (const [key, prod] of Object.entries(PENDING.added)) {
+    const [cat, id] = splitKey(key);
+    if (!DB[cat]) DB[cat] = [];
+    if (!DB[cat].some(p => String(p.id) === id)) DB[cat].push(prod);
+  }
+  for (const key of PENDING.deleted) { const [cat, id] = splitKey(key); if (DB[cat]) DB[cat] = DB[cat].filter(p => String(p.id) !== id); }
+  for (const [key, fields] of Object.entries(PENDING.ops)) {
+    const [cat, id] = splitKey(key);
+    const p = (DB[cat] || []).find(x => String(x.id) === id);
+    if (p) Object.assign(p, fields);
+  }
+  restored = pendingCount();
+  lsSet(PKEY, PENDING);
+})();
+function pendingCount() { return new Set([...Object.keys(PENDING.ops), ...Object.keys(PENDING.added), ...PENDING.deleted]).size; }
+function persist() { lsSet(PKEY, pendingCount() ? PENDING : null); renderStatus(); }
+
+function update(key, fields) {
+  const r = BYKEY.get(key);
+  if (!r) return;
+  fields._updatedAt = new Date().toISOString();
+  Object.assign(r.p, fields);
+  PENDING.ops[key] = Object.assign(PENDING.ops[key] || {}, fields);
+  HAY.delete(r.p);
+  persist();
+}
+
+// ── Estado de la vista ──────────────────────────────────────────────────────
+const UI = Object.assign({cat:'todas', view:'resumen'}, lsGet(UKEY) || {});
+const S = {cat:'todas', queue:'todos', plat:'', q:'', view:UI.view === 'specs' ? 'specs' : 'resumen', sort:null, dir:1, colf:{}, sel:new Set()};
+let COLS = [], CURRENT = [], OVERLAY = null, SAVING = false, READONLY = false, DL = null;
+let RV = {list:[], i:0, done:0};
+
+reindex();
+if (UI.cat === 'todas' || DB[UI.cat]) S.cat = UI.cat;
+
+const SHELL = `
+<header class="bar">
+  <div class="brand"><b>comparalo.mx</b><span>Gestión de productos</span></div>
+  <span class="status" id="status" role="status" aria-live="polite"></span>
+  <div class="actions">
+    <button class="btn" data-act="add">+ Agregar</button>
+    <a class="btn bar-publish" href="${GH}" target="_blank" rel="noopener">Publicar sitio ↗</a>
+    <div class="menu">
+      <button class="btn" data-act="menu" aria-haspopup="true" aria-expanded="false">Más</button>
+      <div class="menu-list" id="menu" hidden>
+        <a class="menu-only-phone" href="${GH}" target="_blank" rel="noopener">Publicar sitio ↗</a>
+        <button data-act="copy-all">Copiar JSON de todos los productos</button>
+        <button data-act="download" id="mi-download" hidden>Descargar merged-admin.json</button>
+        <button data-act="discard" id="mi-discard" class="danger" hidden>Descartar cambios sin guardar</button>
+      </div>
+    </div>
+    <button class="btn btn-primary" id="btn-save" data-act="save">Guardar</button>
+  </div>
+</header>
+<nav class="cats" id="cats" aria-label="Categorías"></nav>
+<section class="queues" id="queues" aria-label="Filtros de trabajo"></section>
+<div id="callout"></div>
+<div class="toolbar">
+  <label class="search"><span class="sr">Buscar</span><input id="q" type="search" placeholder="Buscar por nombre, marca, id o MLM…" autocomplete="off"><kbd>/</kbd></label>
+  <div class="seg" id="plat" role="group" aria-label="Tienda"><button data-plat="">Todas</button><button data-plat="ml">Con ML</button><button data-plat="amz">Con Amazon</button><button data-plat="ambas">Ambas</button></div>
+  <div class="seg" id="view" role="group" aria-label="Vista"><button data-view="resumen">Resumen</button><button data-view="specs">Especificaciones</button></div>
+  <span class="meta" id="count"></span>
+</div>
+<div class="table-wrap" id="table-wrap"><table id="table"><colgroup id="cg"></colgroup><thead id="thead"></thead><tbody id="tbody"></tbody></table><div class="empty" id="empty" hidden>Nada coincide con estos filtros.</div></div>
+<p class="foot" id="foot"></p>
+<div class="selbar" id="selbar" hidden></div>
+<div class="overlay" id="overlay" hidden></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>`;
+
+// ── Render ──────────────────────────────────────────────────────────────────
+function renderStatus() {
+  const n = pendingCount(), el = $('#status'), b = $('#btn-save');
+  if (READONLY) { el.className = 'status'; el.textContent = 'Solo lectura: los cambios quedan en este navegador'; }
+  else if (SAVING) { el.className = 'status'; el.textContent = 'Guardando…'; }
+  else if (n) { el.className = 'status dirty'; el.innerHTML = '<i class="dot"></i>' + esc(plural(n, 'cambio sin guardar', 'cambios sin guardar')); }
+  else { el.className = 'status'; el.textContent = 'Todo guardado'; }
+  b.disabled = !n || SAVING || READONLY;
+  b.innerHTML = SAVING ? 'Guardando…' : 'Guardar' + (n ? ' <span class="pill">' + n + '</span>' : '');
+  $('#mi-discard').hidden = !n;
+}
+
+function renderCats() {
+  const counts = {};
+  for (const r of ROWS) counts[r.cat] = (counts[r.cat] || 0) + 1;
+  const keys = ['todas', ...Object.keys(CATS).filter(k => DB[k]), ...Object.keys(DB).filter(k => !CATS[k])];
+  $('#cats').innerHTML = keys.map(k => `<button class="chip" data-cat="${esc(k)}" aria-pressed="${S.cat === k}">${esc(k === 'todas' ? 'Todas' : (CATS[k] || k))}<span class="n">${k === 'todas' ? ROWS.length : (counts[k] || 0)}</span></button>`).join('');
+}
+
+function baseRows() { return S.cat === 'todas' ? ROWS : ROWS.filter(r => r.cat === S.cat); }
+
+function renderQueues() {
+  const base = baseRows();
+  const counts = Object.fromEntries(QUEUES.map(q => [q.k, 0]));
+  let mlTotal = 0, mlWithId = 0;
+  for (const r of base) {
+    for (const q of QUEUES) if (q.f(r.p)) counts[q.k]++;
+    if (r.p.linkML) { mlTotal++; if (r.p.mlId) mlWithId++; }
+  }
+  $('#queues').innerHTML = QUEUES.filter(q => !q.optional || counts[q.k] || S.queue === q.k).map(q =>
+    `<button class="q tone-${q.tone || 'none'}" data-queue="${q.k}" aria-pressed="${S.queue === q.k}"><span class="lbl">${q.l}</span><span class="num">${counts[q.k]}</span></button>`).join('');
+  const n = counts.falta_id, s = counts.sugerencias;
+  $('#callout').innerHTML = n ? `<div class="callout"><p><b>${n}</b> de ${mlTotal} productos con link de Mercado Libre no ${n === 1 ? 'tiene' : 'tienen'} ID de catálogo, así que el actualizador no puede leer su precio${mlWithId ? ` (${mlWithId} ya lo tienen)` : ''}.${s ? ` <b>${s}</b> ya tienen candidatos listos para confirmar.` : ''}</p><button class="btn btn-primary" data-act="review">Asignar IDs</button></div>` : '';
+}
+
+function specCols(cat) {
+  if (SPECS[cat]) return SPECS[cat];
+  const freq = {};
+  for (const p of DB[cat] || []) for (const k of Object.keys(p.especs || {})) freq[k] = (freq[k] || 0) + 1;
+  return Object.entries(freq).sort((a, b) => b[1] - a[1]).slice(0, 8).map(([k]) => [k, k.replace(/([A-Z])/g, ' $1').replace(/^./, c => c.toUpperCase())]);
+}
+const specText = (p, sk) => { const v = (p.especs || {})[sk]; return Array.isArray(v) ? v.join(', ') : (v == null ? '' : String(v)); };
+
+function columns() {
+  const specs = S.view === 'specs' && S.cat !== 'todas' ? specCols(S.cat) : null;
+  const cols = [{k:'chk', w:38}, {k:'nombre', l:'Producto', sort:'nombre', min:260}];
+  if (specs) {
+    cols.push({k:'precioML', l:'Precio ML', sort:'precioML', num:true, w:112}, {k:'precioAmz', l:'Precio AMZ', sort:'precioAmz', num:true, w:112});
+    for (const [sk, l] of specs) cols.push({k:'spec', sk, l, sort:'spec:' + sk, filter:true, w:132});
+    cols.push({k:'web', l:'Web', sort:'activo', w:108}, {k:'edit', w:46});
+  } else {
+    cols.push({k:'mlId', l:'ID catálogo ML', sort:'mlId', w:184}, {k:'precioML', l:'Precio ML', sort:'precioML', num:true, w:112}, {k:'precioAmz', l:'Precio AMZ', sort:'precioAmz', num:true, w:112},
+      {k:'estado', l:'Estado ML', sort:'estado', w:122}, {k:'links', l:'Links', w:124}, {k:'upd', l:'Modificado', sort:'_updatedAt', w:100}, {k:'web', l:'Web', sort:'activo', w:108}, {k:'edit', w:46});
+  }
+  return cols;
+}
+
+const SORTERS = {
+  nombre:r => norm(r.p.nombre), mlId:r => r.p.mlId || null, precioML:r => r.p.precioML ?? null, precioAmz:r => r.p.precioAmz ?? null,
+  estado:r => status(r.p), _updatedAt:r => r.p._updatedAt || null, activo:r => r.p.activo === false ? 1 : 0,
+};
+function sortValue(r, key) {
+  if (key.startsWith('spec:')) { const t = specText(r.p, key.slice(5)); if (!t) return null; const n = parseFloat(t.replace(',', '.')); return isNaN(n) ? norm(t) : n; }
+  return SORTERS[key](r);
+}
+
+function visible() {
+  const terms = norm(S.q).split(/\s+/).filter(Boolean);
+  const qf = QF[S.queue] || QF.todos;
+  const colf = Object.entries(S.colf);
+  const out = [];
+  for (const r of ROWS) {
+    if (S.cat !== 'todas' && r.cat !== S.cat) continue;
+    const p = r.p;
+    if (!qf(p)) continue;
+    if (S.plat === 'ml' && !p.linkML) continue;
+    if (S.plat === 'amz' && !p.linkAmz) continue;
+    if (S.plat === 'ambas' && !(p.linkML && p.linkAmz)) continue;
+    if (terms.length) { const h = hay(r); if (!terms.every(t => h.includes(t))) continue; }
+    if (colf.length && !colf.every(([sk, set]) => set.has(specText(p, sk)))) continue;
+    out.push(r);
+  }
+  if (S.sort) {
+    const d = S.dir;
+    const keyed = out.map(r => [sortValue(r, S.sort), r]);
+    keyed.sort((a, b) => {
+      if (a[0] == null && b[0] == null) return 0;
+      if (a[0] == null) return 1;
+      if (b[0] == null) return -1;
+      return (typeof a[0] === 'number' && typeof b[0] === 'number' ? a[0] - b[0] : String(a[0]).localeCompare(String(b[0]), 'es')) * d;
+    });
+    return keyed.map(x => x[1]);
+  }
+  return out;
+}
+
+function renderHead() {
+  $('#cg').innerHTML = COLS.map(c => c.w ? `<col style="width:${c.w}px">` : '<col>').join('');
+  $('#table').style.minWidth = COLS.reduce((s, c) => s + (c.w || c.min || 0), 0) + 'px';
+  const allSel = CURRENT.length > 0 && CURRENT.every(r => S.sel.has(r.key));
+  $('#thead').innerHTML = '<tr>' + COLS.map(c => {
+    if (c.k === 'chk') return `<th class="c-chk"><input type="checkbox" data-act="sel-all" aria-label="Seleccionar los productos visibles"${allSel ? ' checked' : ''}></th>`;
+    if (c.k === 'edit') return '<th><span class="sr">Editar</span></th>';
+    const arrow = S.sort === c.sort ? (S.dir > 0 ? ' ↑' : ' ↓') : '';
+    const lbl = c.sort ? `<button class="th-sort" data-sort="${esc(c.sort)}">${esc(c.l)}${arrow}</button>` : esc(c.l);
+    const f = c.filter ? `<button class="fbtn${S.colf[c.sk] ? ' on' : ''}" data-filter="${esc(c.sk)}" aria-label="Filtrar ${esc(c.l)}">▾</button>` : '';
+    return `<th class="${c.num ? 'c-num' : ''}">${lbl}${f}</th>`;
+  }).join('') + '</tr>';
+}
+
+function priceCell(p, field) {
+  const v = p[field];
+  let delta = '';
+  if (field === 'precioML' && p._precioMLAntes && v && p.estadoML === 'actualizado') {
+    const pct = (v - p._precioMLAntes) / p._precioMLAntes * 100;
+    if (Math.abs(pct) >= 0.05) delta = `<span class="delta ${pct > 0 ? 'up' : 'down'}">${pct > 0 ? '▲' : '▼'} ${Math.abs(pct).toFixed(1)}%</span>`;
+  }
+  return `<button class="cell-edit" data-act="inline" data-field="${field}" title="Editar ${field === 'precioML' ? 'precio ML' : 'precio Amazon'}">${v != null ? money(v) : '<span class="muted">—</span>'}</button>${delta}`;
+}
+function mlIdCell(p) {
+  if (p.mlId) return `<a class="mlid" href="${safeUrl(catalogUrl(p.mlId))}" target="_blank" rel="noopener" title="Abrir la ficha en Mercado Libre">${esc(p.mlId)}</a><button class="mini" data-act="inline" data-field="mlId" title="Cambiar ID">✎</button>`;
+  if (!p.linkML) return '<span class="muted">—</span>';
+  const n = Array.isArray(p._mlSug) ? p._mlSug.length : 0;
+  return (n ? `<button class="sug" data-act="review-one" title="Ver candidatos">${plural(n, 'candidato', 'candidatos')}</button>` : '') + '<button class="add-id" data-act="inline" data-field="mlId">+ ID</button>';
+}
+function stateCell(p) {
+  const st = status(p), [l, tone] = ST[st] || [st, 'muted'];
+  let sub = '';
+  if (st === 'precio_sospechoso' && p._precioMLSospechoso) sub = 'ML marca ' + money(p._precioMLSospechoso);
+  else if (p.mlId && p._mlCheckedAt) sub = 'rev. ' + fmtShort(p._mlCheckedAt);
+  return `<span class="badge t-${tone}">${esc(l)}</span>${sub ? `<span class="when">${esc(sub)}</span>` : ''}`;
+}
+function rowHtml(r) {
+  const p = r.p, on = p.activo !== false, sel = S.sel.has(r.key);
+  const cells = COLS.map(c => {
+    switch (c.k) {
+      case 'chk': return `<td class="c-chk"><input type="checkbox" data-act="sel" aria-label="Seleccionar"${sel ? ' checked' : ''}></td>`;
+      case 'nombre': return `<td><div class="name">${esc(p.nombre)}</div><div class="sub">${esc(p.marca || '')}${S.cat === 'todas' ? ' · ' + esc(CATS[r.cat] || r.cat) : ''} · id ${esc(p.id)}</div></td>`;
+      case 'mlId': return `<td data-cell="mlId" style="white-space:nowrap">${mlIdCell(p)}</td>`;
+      case 'precioML': case 'precioAmz': return `<td class="c-num" data-cell="${c.k}">${priceCell(p, c.k)}</td>`;
+      case 'estado': return `<td>${stateCell(p)}</td>`;
+      case 'links': return `<td style="white-space:nowrap">${p.linkML ? `<a class="lk lk-ml" href="${safeUrl(p.linkML)}" target="_blank" rel="noopener">ML ↗</a>` : ''}${p.linkAmz ? `<a class="lk lk-amz" href="${safeUrl(p.linkAmz)}" target="_blank" rel="noopener"${hasTag(p.linkAmz) ? '' : ' title="Falta el tag de afiliado"'}>AMZ${hasTag(p.linkAmz) ? '' : ' ⚠'} ↗</a>` : ''}${!p.linkML && !p.linkAmz ? '<span class="muted">—</span>' : ''}</td>`;
+      case 'upd': return `<td class="c-date">${p._updatedAt ? esc(fmtShort(p._updatedAt)) : '<span class="muted">—</span>'}</td>`;
+      case 'web': return `<td><button class="sw${on ? ' on' : ''}" data-act="toggle" aria-pressed="${on}">${on ? 'Activo' : 'Pausado'}</button></td>`;
+      case 'edit': return '<td><button class="btn-icon" data-act="edit" aria-label="Editar producto">✎</button></td>';
+      case 'spec': { const t = specText(p, c.sk); return `<td>${t ? `<span class="spec">${esc(t)}</span>` : '<span class="muted">—</span>'}</td>`; }
+    }
+    return '<td></td>';
+  }).join('');
+  return `<tr data-key="${esc(r.key)}" class="${on ? '' : 'is-paused'}${sel ? ' is-sel' : ''}">${cells}</tr>`;
+}
+
+// Las primeras filas se pintan de inmediato y el resto llega por bloques, para no bloquear la página con el layout de toda la tabla.
+const FIRST_CHUNK = 50, CHUNK = 120;
+let renderToken = 0;
+function renderTable() {
+  COLS = columns();
+  CURRENT = visible();
+  renderHead();
+  const token = ++renderToken, tbody = $('#tbody');
+  tbody.innerHTML = CURRENT.slice(0, FIRST_CHUNK).map(rowHtml).join('');
+  const more = from => {
+    if (token !== renderToken || from >= CURRENT.length) return;
+    tbody.insertAdjacentHTML('beforeend', CURRENT.slice(from, from + CHUNK).map(rowHtml).join(''));
+    setTimeout(() => more(from + CHUNK), 16);
+  };
+  setTimeout(() => more(FIRST_CHUNK), 30);
+  $('#empty').hidden = CURRENT.length > 0;
+  const wf = WORKFLOW[S.cat];
+  $('#count').innerHTML = esc(plural(CURRENT.length, 'producto', 'productos')) + (wf ? ` · <a href="${GH}/workflows/${wf}" target="_blank" rel="noopener">Correr actualización de precios ↗</a>` : '');
+  renderSelbar();
+}
+function rowEl(key) { return $('#tbody').querySelector(`tr[data-key="${CSS.escape(key)}"]`); }
+function replaceRow(key) {
+  const tr = rowEl(key), r = BYKEY.get(key);
+  if (!tr) return;
+  if (!r) { tr.remove(); return; }
+  tr.outerHTML = rowHtml(r);
+}
+
+function renderSelbar() {
+  const n = S.sel.size, el = $('#selbar');
+  el.hidden = !n;
+  if (!n) return;
+  el.innerHTML = `<b>${esc(plural(n, 'seleccionado', 'seleccionados'))}</b><button class="btn btn-sm" data-act="bulk-pause">Pausar</button><button class="btn btn-sm" data-act="bulk-play">Activar</button><button class="btn btn-sm" data-act="copy-sel">Copiar JSON</button><button class="btn btn-sm" data-act="sel-clear">Quitar selección</button>`;
+}
+
+function renderControls() {
+  document.querySelectorAll('#plat [data-plat]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.plat === S.plat)));
+  document.querySelectorAll('#view [data-view]').forEach(b => { b.setAttribute('aria-pressed', String(b.dataset.view === S.view)); b.disabled = b.dataset.view === 'specs' && S.cat === 'todas'; });
+  $('#view').title = S.cat === 'todas' ? 'Elige una categoría para ver sus especificaciones' : '';
+}
+
+function renderFoot() {
+  const parts = [];
+  const rep = META.reporte;
+  if (rep && rep.generado) parts.push('Última revisión de precios ML: ' + fmtLong(rep.generado) + (rep.categorias ? ' (' + rep.categorias.map(c => CATS[c] || c).join(', ') + ')' : ''));
+  if (META.sugerencias && META.sugerencias.generado) parts.push('Candidatos de ID buscados: ' + fmtLong(META.sugerencias.generado));
+  if (META.built) parts.push('Datos generados desde el repo: ' + fmtLong(META.built));
+  parts.push('Guardar actualiza este artifact; para publicarlo en comparalo.mx, Claude sincroniza merged-admin.json al repo.');
+  parts.push('Atajos: / buscar · Ctrl+S guardar · Enter o ↑↓ entre celdas · Esc cerrar');
+  $('#foot').innerHTML = parts.map(s => `<span>${esc(s)}</span>`).join('');
+}
+
+function renderAll() { renderStatus(); renderCats(); renderQueues(); renderControls(); renderTable(); }
+
+let toastT;
+function toast(msg) { const el = $('#toast'); el.textContent = msg; el.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => el.classList.remove('show'), 3600); }
+
+// ── Edición en línea ────────────────────────────────────────────────────────
+function startInline(key, field) {
+  const tr = rowEl(key), r = BYKEY.get(key);
+  if (!tr || !r) return;
+  const td = tr.querySelector(`[data-cell="${field}"]`);
+  if (!td) return;
+  const isId = field === 'mlId';
+  const input = document.createElement('input');
+  input.className = 'inline-input' + (isId ? ' wide' : '');
+  input.type = isId ? 'text' : 'number';
+  if (!isId) { input.min = '0'; input.step = '1'; input.inputMode = 'decimal'; }
+  input.value = isId ? (r.p.mlId || '') : (r.p[field] ?? '');
+  input.placeholder = isId ? 'URL /p/MLM… o ID' : '0';
+  input.setAttribute('aria-label', isId ? 'ID de catálogo de Mercado Libre' : (field === 'precioML' ? 'Precio ML' : 'Precio Amazon'));
+  td.replaceChildren(input);
+  input.focus(); input.select();
+  let done = false;
+  const finish = (commit, move, fromBlur) => {
+    if (done) return;
+    done = true;
+    if (commit && !applyInline(key, field, input.value)) {
+      if (!fromBlur) { done = false; input.classList.add('bad'); input.focus(); return; }
+    }
+    replaceRow(key);
+    if (move) {
+      const nx = CURRENT[CURRENT.findIndex(x => x.key === key) + move];
+      if (nx) startInline(nx.key, field);
+    }
+  };
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === 'ArrowDown' || e.key === 'Tab') { e.preventDefault(); finish(true, e.shiftKey ? -1 : 1); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); finish(true, -1); }
+    else if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); finish(false); }
+  });
+  input.addEventListener('blur', () => finish(true, 0, true));
+}
+function applyInline(key, field, raw) {
+  const p = BYKEY.get(key).p;
+  if (field === 'mlId') {
+    const res = parseMlId(raw);
+    if (res.error) { toast(res.error); return false; }
+    if ((res.id || null) === (p.mlId || null)) return true;
+    update(key, {mlId:res.id, mlIdFuente:res.id ? 'manual' : null});
+    toast(res.id ? res.id + ' asignado. El próximo chequeo leerá su precio.' : 'ID quitado');
+  } else {
+    const t = String(raw).trim();
+    const v = t === '' ? null : Math.round(Number(t) * 100) / 100;
+    if (v != null && (!isFinite(v) || v < 0)) { toast('Escribe un precio válido, por ejemplo 12999'); return false; }
+    if (v === (p[field] ?? null)) return true;
+    update(key, {[field]:v});
+  }
+  renderQueues();
+  return true;
+}
+
+// ── Paneles: editar / agregar ───────────────────────────────────────────────
+function showOverlay(kind, html, focusSel) {
+  const o = $('#overlay');
+  o.innerHTML = html; o.hidden = false; OVERLAY = kind;
+  document.body.style.overflow = 'hidden';
+  const f = focusSel ? o.querySelector(focusSel) : o.querySelector('input, select');
+  if (f) f.focus();
+}
+function closeOverlay() { const o = $('#overlay'); o.hidden = true; o.innerHTML = ''; OVERLAY = null; document.body.style.overflow = ''; }
+
+function specKeysFor(cat, p) {
+  const base = specCols(cat), seen = new Set(base.map(x => x[0]));
+  const extra = Object.keys(p.especs || {}).filter(k => !seen.has(k)).map(k => [k, k.replace(/([A-Z])/g, ' $1').replace(/^./, c => c.toUpperCase())]);
+  return p.especs || base.length ? [...base, ...extra] : [];
+}
+function mlIdMessage(input, msgEl) {
+  const res = parseMlId(input.value);
+  msgEl.className = 'field-msg' + (res.error ? ' bad' : res.id ? ' ok' : '');
+  msgEl.textContent = res.error || (res.id ? 'Ficha de catálogo ' + res.id + ': se podrá leer su precio por API.' : 'Opcional. Sin ID el actualizador no lee el precio.');
+}
+function amzMessage(input, msgEl) {
+  const v = input.value.trim();
+  const ok = !v || hasTag(v);
+  msgEl.className = 'field-msg' + (ok ? '' : ' warn');
+  msgEl.textContent = ok ? '' : 'Falta ?tag=' + AMZ_TAG + ': sin el tag no se registran comisiones.';
+}
+
+function openEdit(key) {
+  const r = BYKEY.get(key);
+  if (!r) return;
+  const {p, cat} = r;
+  const specs = specKeysFor(cat, p);
+  showOverlay('edit', `<form class="sheet" id="f-edit" novalidate data-key="${esc(key)}">
+    <header class="sheet-head"><div><h2>${esc(p.nombre)}</h2><p class="muted">${esc(CATS[cat] || cat)} · id ${esc(p.id)}${p._updatedAt ? ' · modificado ' + esc(fmtLong(p._updatedAt)) : ''}</p></div><button type="button" class="btn-icon" data-close aria-label="Cerrar">✕</button></header>
+    <div class="grid2">
+      <label class="field span2"><span>Nombre</span><input id="e-nombre" required></label>
+      <label class="field"><span>Marca</span><input id="e-marca"></label>
+      <label class="field"><span>En la web</span><select id="e-activo"><option value="1">Activo</option><option value="0">Pausado</option></select></label>
+    </div>
+    <fieldset class="group"><legend>Mercado Libre</legend>
+      <label class="field span2"><span>Link de afiliado</span><input id="e-ml" type="url" placeholder="https://meli.la/…"></label>
+      <label class="field"><span>ID de catálogo (para precios)</span><input id="e-mlid" placeholder="URL /p/MLM… o ID" autocomplete="off"><small class="field-msg" id="e-mlid-msg"></small></label>
+      <label class="field"><span>Precio ML (MXN)</span><input id="e-pml" type="number" min="0" step="1" inputmode="decimal"></label>
+      <a class="link-sm span2" href="${safeUrl(searchUrl(p))}" target="_blank" rel="noopener">Buscar este producto en Mercado Libre ↗</a>
+    </fieldset>
+    <fieldset class="group"><legend>Amazon</legend>
+      <label class="field span2"><span>Link (con ?tag=${AMZ_TAG})</span><input id="e-amz" type="url" placeholder="https://www.amazon.com.mx/dp/…?tag=${AMZ_TAG}"><small class="field-msg" id="e-amz-msg"></small></label>
+      <label class="field"><span>Precio Amazon (MXN)</span><input id="e-pamz" type="number" min="0" step="1" inputmode="decimal"></label>
+    </fieldset>
+    ${specs.length ? `<fieldset class="group"><legend>Especificaciones</legend>${specs.map(([sk, l], i) => `<label class="field"><span>${esc(l)}</span><input id="e-sk-${i}" data-sk="${esc(sk)}"></label>`).join('')}</fieldset>` : ''}
+    <div class="confirm" id="e-confirm" hidden>¿Eliminar este producto del registro? <button type="button" class="btn btn-danger btn-sm" data-act="del-yes">Sí, eliminar</button><button type="button" class="btn btn-sm" data-act="del-no">Cancelar</button></div>
+    <footer class="sheet-foot"><button type="button" class="btn btn-ghost-danger" data-act="del">Eliminar</button><span class="spacer"></span><button type="button" class="btn" data-close>Cancelar</button><button type="submit" class="btn btn-primary">Aplicar cambios</button></footer>
+  </form>`);
+  const o = $('#overlay');
+  $('#e-nombre', o).value = p.nombre || '';
+  $('#e-marca', o).value = p.marca || '';
+  $('#e-activo', o).value = p.activo === false ? '0' : '1';
+  $('#e-ml', o).value = p.linkML || '';
+  $('#e-mlid', o).value = p.mlId || '';
+  $('#e-pml', o).value = p.precioML ?? '';
+  $('#e-amz', o).value = p.linkAmz || '';
+  $('#e-pamz', o).value = p.precioAmz ?? '';
+  o.querySelectorAll('[data-sk]').forEach(inp => { inp.value = specText(p, inp.dataset.sk); });
+  mlIdMessage($('#e-mlid', o), $('#e-mlid-msg', o));
+  amzMessage($('#e-amz', o), $('#e-amz-msg', o));
+}
+
+function numOrNull(v) { const t = String(v).trim(); if (t === '') return null; const n = Number(t); return isFinite(n) && n >= 0 ? Math.round(n * 100) / 100 : undefined; }
+
+function submitEdit(form) {
+  const key = form.dataset.key, r = BYKEY.get(key);
+  if (!r) return closeOverlay();
+  const p = r.p, o = form;
+  const nombre = $('#e-nombre', o).value.trim();
+  if (!nombre) { toast('El nombre no puede quedar vacío'); $('#e-nombre', o).focus(); return; }
+  const id = parseMlId($('#e-mlid', o).value);
+  if (id.error) { toast(id.error); $('#e-mlid', o).focus(); return; }
+  const pml = numOrNull($('#e-pml', o).value), pamz = numOrNull($('#e-pamz', o).value);
+  if (pml === undefined || pamz === undefined) { toast('Revisa los precios: deben ser números positivos'); return; }
+  const next = {
+    nombre, marca:$('#e-marca', o).value.trim(), activo:$('#e-activo', o).value === '1',
+    linkML:$('#e-ml', o).value.trim() || null, linkAmz:$('#e-amz', o).value.trim() || null,
+    mlId:id.id || null, precioML:pml, precioAmz:pamz,
+  };
+  const fields = {};
+  for (const [k, v] of Object.entries(next)) if ((p[k] ?? null) !== v && !(k === 'activo' && (p.activo !== false) === v)) fields[k] = v;
+  if ('mlId' in fields) fields.mlIdFuente = fields.mlId ? 'manual' : null;
+  const specInputs = o.querySelectorAll('[data-sk]');
+  if (specInputs.length) {
+    const especs = Object.assign({}, p.especs || {});
+    let changed = false;
+    specInputs.forEach(inp => {
+      const sk = inp.dataset.sk, val = inp.value.trim(), prev = especs[sk];
+      if (val === specText(p, sk)) return;
+      changed = true;
+      if (!val) delete especs[sk];
+      else if (Array.isArray(prev)) especs[sk] = val.split(',').map(s => s.trim()).filter(Boolean);
+      else especs[sk] = val;
+    });
+    if (changed) fields.especs = especs;
+  }
+  closeOverlay();
+  if (!Object.keys(fields).length) { toast('Sin cambios'); return; }
+  update(key, fields);
+  replaceRow(key); renderQueues();
+  toast('Cambios aplicados. Recuerda Guardar.');
+}
+
+function deleteProduct(key) {
+  const [cat, id] = splitKey(key);
+  DB[cat] = (DB[cat] || []).filter(p => String(p.id) !== id);
+  if (PENDING.added[key]) delete PENDING.added[key]; else if (!PENDING.deleted.includes(key)) PENDING.deleted.push(key);
+  delete PENDING.ops[key];
+  S.sel.delete(key);
+  reindex(); persist(); closeOverlay();
+  renderCats(); renderQueues(); renderTable();
+  toast('Producto eliminado del registro');
+}
+
+function newId(cat, nombre) {
+  const ids = (DB[cat] || []).map(p => p.id);
+  const nums = ids.filter(x => typeof x === 'number');
+  if (nums.length || !ids.length) return (nums.length ? Math.max(...nums) : 0) + 1;
+  const base = norm(nombre).replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40) || 'producto';
+  let nid = base, i = 2;
+  while (ids.includes(nid)) nid = base + '-' + (i++);
+  return nid;
+}
+function openAdd() {
+  const cats = Object.keys(DB);
+  showOverlay('add', `<form class="sheet" id="f-add" novalidate>
+    <header class="sheet-head"><div><h2>Agregar producto</h2><p class="muted">Queda en el registro; aparece en la web cuando se agrega al HTML de la categoría.</p></div><button type="button" class="btn-icon" data-close aria-label="Cerrar">✕</button></header>
+    <div class="grid2">
+      <label class="field"><span>Categoría</span><select id="a-cat">${cats.map(c => `<option value="${esc(c)}"${c === S.cat ? ' selected' : ''}>${esc(CATS[c] || c)}</option>`).join('')}</select></label>
+      <label class="field"><span>Marca</span><input id="a-marca" placeholder="Ej. ASUS"></label>
+      <label class="field span2"><span>Nombre</span><input id="a-nombre" placeholder="Ej. ASUS Vivobook 15 Core i5 16GB 512GB"></label>
+      <label class="field span2"><span>Link Mercado Libre (afiliado)</span><input id="a-ml" type="url" placeholder="https://meli.la/…"></label>
+      <label class="field"><span>ID de catálogo ML</span><input id="a-mlid" placeholder="URL /p/MLM… o ID" autocomplete="off"><small class="field-msg" id="a-mlid-msg"></small></label>
+      <label class="field"><span>Precio ML (MXN)</span><input id="a-pml" type="number" min="0" step="1" inputmode="decimal"></label>
+      <label class="field span2"><span>Link Amazon (con ?tag=${AMZ_TAG})</span><input id="a-amz" type="url"><small class="field-msg" id="a-amz-msg"></small></label>
+      <label class="field"><span>Precio Amazon (MXN)</span><input id="a-pamz" type="number" min="0" step="1" inputmode="decimal"></label>
+    </div>
+    <footer class="sheet-foot"><span class="spacer"></span><button type="button" class="btn" data-close>Cancelar</button><button type="submit" class="btn btn-primary">Agregar</button></footer>
+  </form>`, '#a-marca');
+  mlIdMessage($('#a-mlid'), $('#a-mlid-msg'));
+}
+function submitAdd(form) {
+  const o = form;
+  const cat = $('#a-cat', o).value, nombre = $('#a-nombre', o).value.trim(), marca = $('#a-marca', o).value.trim();
+  if (!nombre || !marca) { toast('Nombre y marca son obligatorios'); return; }
+  const id = parseMlId($('#a-mlid', o).value);
+  if (id.error) { toast(id.error); return; }
+  const pml = numOrNull($('#a-pml', o).value), pamz = numOrNull($('#a-pamz', o).value);
+  if (pml === undefined || pamz === undefined) { toast('Revisa los precios: deben ser números positivos'); return; }
+  const p = {id:newId(cat, nombre), nombre, marca, linkML:$('#a-ml', o).value.trim() || null, linkAmz:$('#a-amz', o).value.trim() || null,
+    mlId:id.id || null, mlIdFuente:id.id ? 'manual' : null, precioML:pml, precioAmz:pamz, activo:true, estadoML:null, especs:{}, _updatedAt:new Date().toISOString()};
+  if (!DB[cat]) DB[cat] = [];
+  DB[cat].push(p);
+  const key = cat + '|' + p.id;
+  PENDING.added[key] = p;
+  reindex(); persist(); closeOverlay();
+  renderCats(); renderQueues(); renderTable();
+  toast('Producto agregado a ' + (CATS[cat] || cat));
+}
+
+// ── Revisión rápida de IDs ──────────────────────────────────────────────────
+function openReview(startKey) {
+  const rank = r => Array.isArray(r.p._mlSug) ? (r.p._mlSug.length ? 2000 + (r.p._mlSug[0].s || 0) : 0) : 1000;
+  RV.list = baseRows().filter(r => r.p.linkML && !r.p.mlId).sort((a, b) => rank(b) - rank(a)).map(r => r.key);
+  RV.done = 0;
+  RV.i = startKey ? Math.max(0, RV.list.indexOf(startKey)) : 0;
+  if (!RV.list.length) { toast('Todos los productos con link de ML ya tienen ID de catálogo'); return; }
+  renderReview();
+}
+function candHtml(c, i, ref) {
+  const conf = c.s >= 70 ? ['alta', 'Coincidencia alta'] : c.s >= 45 ? ['media', 'Coincidencia media'] : ['baja', 'Coincidencia baja'];
+  const d = ref && c.p ? Math.round((c.p - ref) / ref * 100) : null;
+  return `<li class="cand"><kbd>${i + 1}</kbd><div style="min-width:0"><div class="cand-name">${esc(c.n)}</div><div class="cand-meta"><span class="mono">${esc(c.id)}</span><span class="conf conf-${conf[0]}">${conf[1]}</span></div></div>
+    <div class="cand-price">${c.p ? money(c.p) : '<span class="muted">sin ofertas</span>'}${d != null ? `<small>${d > 0 ? '+' : ''}${d}% vs precio actual</small>` : ''}</div>
+    <div class="cand-actions"><a class="btn btn-sm" href="${safeUrl(catalogUrl(c.id))}" target="_blank" rel="noopener">Ver ficha ↗</a><button class="btn btn-sm btn-primary" data-act="rv-use" data-i="${i}">Usar</button></div></li>`;
+}
+function renderReview() {
+  while (RV.i < RV.list.length && !(BYKEY.get(RV.list[RV.i]) && !BYKEY.get(RV.list[RV.i]).p.mlId)) RV.i++;
+  const total = RV.list.length;
+  if (RV.i >= total) {
+    showOverlay('review', `<div class="sheet" tabindex="-1"><header class="sheet-head"><div><h2>Revisión terminada</h2><p class="muted">Asignaste ${esc(plural(RV.done, 'ID', 'IDs'))} en esta sesión.</p></div><button type="button" class="btn-icon" data-close aria-label="Cerrar">✕</button></header>
+      <p>Guarda para conservarlos. En la siguiente actualización de precios se leerá el precio de esos productos directo de la API.</p>
+      <footer class="sheet-foot"><span class="spacer"></span><button class="btn" data-close>Cerrar</button><button class="btn btn-primary" data-act="save">Guardar ahora</button></footer></div>`, '.sheet');
+    return;
+  }
+  const r = BYKEY.get(RV.list[RV.i]), p = r.p;
+  const ref = p.precioML || p.precio || p.precioAmz || null;
+  const sug = Array.isArray(p._mlSug) ? p._mlSug : [];
+  const pct = Math.round(RV.i / total * 100);
+  showOverlay('review', `<div class="sheet wide" tabindex="-1">
+    <header class="sheet-head"><div><h2>Asignar ID de catálogo de Mercado Libre</h2><p class="muted">${RV.i + 1} de ${total} · ${esc(plural(RV.done, 'asignado', 'asignados'))} en esta sesión</p></div><button type="button" class="btn-icon" data-close aria-label="Cerrar">✕</button></header>
+    <div class="progress" aria-hidden="true"><i style="width:${pct}%"></i></div>
+    <div class="rv-product"><span class="muted" style="font-size:12px">${esc(CATS[r.cat] || r.cat)} · id ${esc(p.id)}</span><h3>${esc(p.nombre)}</h3>
+      <div>${esc(p.marca || '')} · Precio actual ${ref ? money(ref) : '—'}${p.precioAmz ? ' · Amazon ' + money(p.precioAmz) : ''}</div>
+      <div class="rv-links"><a href="${safeUrl(searchUrl(p))}" target="_blank" rel="noopener">Buscar en Mercado Libre ↗</a>${p.linkAmz ? `<a href="${safeUrl(p.linkAmz)}" target="_blank" rel="noopener">Ver en Amazon ↗</a>` : ''}</div></div>
+    ${sug.length ? `<ol class="cands">${sug.map((c, i) => candHtml(c, i, ref)).join('')}</ol>` : `<p class="note">${Array.isArray(p._mlSug) ? 'No hubo candidatos en el catálogo para este producto.' : 'Todavía no se buscaron candidatos para este producto.'} Búscalo en Mercado Libre y pega abajo la URL de su ficha.</p>`}
+    <form id="f-rv" novalidate><label class="field"><span>¿No está en la lista? Pega la URL de la ficha o el ID</span><div class="row"><input id="rv-input" autocomplete="off" aria-label="URL de la ficha o ID de catálogo" placeholder="https://www.mercadolibre.com.mx/…/p/MLM…"><button class="btn btn-primary" type="submit">Usar</button></div><small class="field-msg" id="rv-msg"></small></label></form>
+    <footer class="sheet-foot"><button class="btn" data-act="rv-prev"${RV.i === 0 ? ' disabled' : ''}>← Anterior</button><span class="spacer"></span><span class="muted" style="font-size:12px">${sug.length ? '<kbd>1</kbd>–<kbd>' + sug.length + '</kbd> elegir · ' : ''}<kbd>S</kbd> saltar · <kbd>X</kbd> ninguna</span><button class="btn" data-act="rv-none">Ninguna coincide</button><button class="btn" data-act="rv-skip">Saltar →</button></footer>
+  </div>`, '.sheet');
+}
+function rvAssign(mlId, price) {
+  const key = RV.list[RV.i], r = BYKEY.get(key);
+  if (!r) return;
+  const fields = {mlId, mlIdFuente:'manual', _mlSug:[]};
+  if (price) fields.precioML = price;
+  update(key, fields);
+  RV.done++;
+  replaceRow(key); renderQueues();
+  toast(mlId + ' asignado a ' + r.p.nombre.slice(0, 48));
+  RV.i++; renderReview();
+}
+function rvNone() {
+  const key = RV.list[RV.i];
+  if (BYKEY.get(key)) { update(key, {_mlSug:[]}); replaceRow(key); renderQueues(); }
+  RV.i++; renderReview();
+}
+
+// ── Filtro por columna ──────────────────────────────────────────────────────
+function closeDropdown() { const d = $('#dd'); if (d) { d.remove(); return true; } return false; }
+function openFilter(btn, sk) {
+  closeDropdown();
+  const vals = [...new Set(baseRows().map(r => specText(r.p, sk)))].sort((a, b) => {
+    const na = parseFloat(a), nb = parseFloat(b);
+    return !isNaN(na) && !isNaN(nb) ? na - nb : a.localeCompare(b, 'es');
+  });
+  const cur = S.colf[sk];
+  const dd = document.createElement('div');
+  dd.className = 'dd'; dd.id = 'dd';
+  dd.innerHTML = vals.map(v => `<label><input type="checkbox" value="${esc(v)}"${!cur || cur.has(v) ? ' checked' : ''}> ${v ? esc(v) : '<span class="muted">(vacío)</span>'}</label>`).join('') +
+    '<div class="dd-foot"><button class="btn btn-sm" data-dd="all">Todos</button><button class="btn btn-sm" data-dd="none">Ninguno</button><button class="btn btn-sm btn-primary" data-dd="ok">Listo</button></div>';
+  document.body.append(dd);
+  const rect = btn.getBoundingClientRect();
+  dd.style.top = Math.min(rect.bottom + 4, window.innerHeight - dd.offsetHeight - 8) + 'px';
+  dd.style.left = Math.max(8, Math.min(rect.left - 20, window.innerWidth - dd.offsetWidth - 8)) + 'px';
+  const apply = () => {
+    const checked = [...dd.querySelectorAll('input:checked')].map(i => i.value);
+    if (checked.length === vals.length) delete S.colf[sk]; else S.colf[sk] = new Set(checked);
+    renderTable();
+  };
+  dd.addEventListener('change', apply);
+  dd.addEventListener('click', e => {
+    const b = e.target.closest('[data-dd]');
+    if (!b) return;
+    if (b.dataset.dd === 'ok') { closeDropdown(); return; }
+    dd.querySelectorAll('input').forEach(i => { i.checked = b.dataset.dd === 'all'; });
+    apply();
+  });
+}
+
+// ── Guardar ─────────────────────────────────────────────────────────────────
+function buildDocument(saveId) {
+  const css = $('#css').textContent, js = $('#app-js').textContent, meta = $('#meta').textContent;
+  const data = `<script type="application/json" id="meta">${meta}<\/script>\n<script type="application/json" id="db">${safeJson(DB)}<\/script>\n<script type="application/json" id="save">${safeJson(saveId)}<\/script>`;
+  const page = `<title>${TITLE}</title>\n<style id="css">${css}</style>\n<div id="app"></div>\n${data}\n<script id="app-js">${js}<\/script>\n`;
+  return `<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>${RESET}</style></head><body>\n${page}\n</body></html>`;
+}
+async function save() {
+  if (SAVING || READONLY) return;
+  if (!pendingCount()) { toast('No hay cambios por guardar'); return; }
+  SAVING = true; renderStatus();
+  const artifact = await use('artifact');
+  if (!artifact) {
+    SAVING = false; renderStatus();
+    toast('Guardar no está disponible en esta vista. Tus cambios siguen en este navegador.');
+    return;
+  }
+  const saveId = 'v-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 7);
+  PENDING.savingAs = saveId; lsSet(PKEY, PENDING);
+  try {
+    await artifact.publish(buildDocument(saveId));
+    PENDING = emptyPending(); lsSet(PKEY, null);
+    SAVING = false; renderStatus();
+    toast('Guardado');
+  } catch (e) {
+    PENDING.savingAs = null; lsSet(PKEY, PENDING);
+    SAVING = false;
+    const code = e && e.code;
+    if (code === 'conflict') toast('Había una versión más nueva. Se recarga y tus cambios se vuelven a aplicar; revisa y guarda otra vez.');
+    else if (['not_writer', 'not_granted', 'not_declared', 'consent_required', 'capability_disabled', 'capability_removed'].includes(code)) { READONLY = true; toast('Esta vista es de solo lectura. Tus cambios quedan en este navegador.'); }
+    else if (code === 'rate_limited') toast('Demasiados guardados seguidos. Espera unos segundos e intenta otra vez.');
+    else toast('No se pudo guardar (' + (code || (e && e.message) || 'error') + '). Tus cambios siguen en este navegador.');
+    renderStatus();
+  }
+}
+function discardPending() {
+  DB = readJson('db') || {};
+  PENDING = emptyPending(); lsSet(PKEY, null);
+  S.sel.clear(); HAY = new WeakMap();
+  reindex(); renderAll();
+  toast('Cambios descartados');
+}
+
+function exportRows(rows) {
+  const out = {};
+  for (const {cat, p} of rows) {
+    (out[cat] = out[cat] || []).push({id:p.id, nombre:p.nombre, marca:p.marca, linkML:p.linkML || null, linkAmz:p.linkAmz || null, mlId:p.mlId || null,
+      precioML:p.precioML ?? null, precioAmz:p.precioAmz ?? null, activo:p.activo !== false, especs:p.especs || undefined});
+  }
+  return JSON.stringify(out, null, 2);
+}
+function copyText(text, msg) {
+  const fallback = () => {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.cssText = 'position:fixed;opacity:0';
+    document.body.append(ta); ta.select();
+    try { document.execCommand('copy'); toast(msg); } catch (e) { toast('No se pudo copiar'); }
+    ta.remove();
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(() => toast(msg), fallback);
+  else fallback();
+}
+function bulkActivo(on) {
+  let n = 0;
+  for (const key of S.sel) { const r = BYKEY.get(key); if (r && (r.p.activo !== false) !== on) { update(key, {activo:on}); n++; } }
+  renderQueues(); renderTable();
+  toast(n ? plural(n, 'producto', 'productos') + (on ? ' activados' : ' pausados') : 'Ya estaban así');
+}
+function saveUI() { lsSet(UKEY, {cat:S.cat, view:S.view}); }
+
+// ── Eventos ─────────────────────────────────────────────────────────────────
+function onClick(e) {
+  const t = e.target;
+  const dd = $('#dd');
+  if (dd && !dd.contains(t) && !t.closest('[data-filter]')) closeDropdown();
+  const menu = $('#menu');
+  if (!menu.hidden && !t.closest('.menu')) { menu.hidden = true; $('[data-act="menu"]').setAttribute('aria-expanded', 'false'); }
+  if (t === $('#overlay')) { closeOverlay(); return; }
+  if (t.closest('[data-close]')) { closeOverlay(); return; }
+
+  const cat = t.closest('[data-cat]');
+  if (cat) { S.cat = cat.dataset.cat; S.colf = {}; S.sort = null; if (S.cat === 'todas' && S.view === 'specs') S.view = 'resumen'; saveUI(); renderCats(); renderQueues(); renderControls(); renderTable(); return; }
+  const q = t.closest('[data-queue]');
+  if (q) { S.queue = q.dataset.queue === S.queue && q.dataset.queue !== 'todos' ? 'todos' : q.dataset.queue; renderQueues(); renderTable(); return; }
+  const plat = t.closest('[data-plat]');
+  if (plat) { S.plat = plat.dataset.plat; renderControls(); renderTable(); return; }
+  const view = t.closest('[data-view]');
+  if (view && !view.disabled) { S.view = view.dataset.view; S.colf = {}; saveUI(); renderControls(); renderTable(); return; }
+  const sort = t.closest('[data-sort]');
+  if (sort) { const k = sort.dataset.sort; if (S.sort === k) S.dir = -S.dir; else { S.sort = k; S.dir = k === '_updatedAt' ? -1 : 1; } renderTable(); return; }
+  const filt = t.closest('[data-filter]');
+  if (filt) { if ($('#dd')) closeDropdown(); else openFilter(filt, filt.dataset.filter); return; }
+
+  const a = t.closest('[data-act]');
+  if (!a) return;
+  const act = a.dataset.act;
+  const tr = a.closest('tr[data-key]');
+  const key = tr && tr.dataset.key;
+  switch (act) {
+    case 'save': save(); break;
+    case 'add': openAdd(); break;
+    case 'menu': { const open = menu.hidden; menu.hidden = !open; a.setAttribute('aria-expanded', String(open)); break; }
+    case 'copy-all': menu.hidden = true; copyText(exportRows(ROWS), 'JSON de ' + ROWS.length + ' productos copiado'); break;
+    case 'download': menu.hidden = true; download(); break;
+    case 'discard':
+      if (a.dataset.confirm) { menu.hidden = true; delete a.dataset.confirm; discardPending(); }
+      else { a.dataset.confirm = '1'; a.textContent = '¿Seguro? Clic otra vez para descartar ' + pendingCount(); setTimeout(() => { delete a.dataset.confirm; a.textContent = 'Descartar cambios sin guardar'; }, 4000); }
+      break;
+    case 'review': openReview(); break;
+    case 'review-one': openReview(key); break;
+    case 'inline': if (key) startInline(key, a.dataset.field); break;
+    case 'toggle': if (key) { const on = BYKEY.get(key).p.activo === false; update(key, {activo:on}); replaceRow(key); renderQueues(); toast(on ? 'Activado en la web' : 'Pausado: se quita de la web al publicar'); } break;
+    case 'edit': if (key) openEdit(key); break;
+    case 'sel': if (key) { if (a.checked) S.sel.add(key); else S.sel.delete(key); tr.classList.toggle('is-sel', a.checked); renderSelbar(); const all = $('[data-act="sel-all"]'); if (all) all.checked = CURRENT.length > 0 && CURRENT.every(r => S.sel.has(r.key)); } break;
+    case 'sel-all': CURRENT.forEach(r => a.checked ? S.sel.add(r.key) : S.sel.delete(r.key)); renderTable(); break;
+    case 'sel-clear': S.sel.clear(); renderTable(); break;
+    case 'bulk-pause': bulkActivo(false); break;
+    case 'bulk-play': bulkActivo(true); break;
+    case 'copy-sel': copyText(exportRows([...S.sel].map(k => BYKEY.get(k)).filter(Boolean)), 'JSON de ' + plural(S.sel.size, 'producto', 'productos') + ' copiado'); break;
+    case 'del': $('#e-confirm').hidden = false; break;
+    case 'del-no': $('#e-confirm').hidden = true; break;
+    case 'del-yes': deleteProduct($('#f-edit').dataset.key); break;
+    case 'rv-use': { const p = BYKEY.get(RV.list[RV.i]).p, c = p._mlSug[+a.dataset.i]; if (c) rvAssign(c.id, c.p); break; }
+    case 'rv-skip': RV.i++; renderReview(); break;
+    case 'rv-prev': RV.i = Math.max(0, RV.i - 1); while (RV.i > 0 && BYKEY.get(RV.list[RV.i]) && BYKEY.get(RV.list[RV.i]).p.mlId) RV.i--; renderReview(); break;
+    case 'rv-none': rvNone(); break;
+  }
+}
+async function download() {
+  if (!DL) { toast('Las descargas no están disponibles en esta vista'); return; }
+  try { await DL.save({filename:'merged-admin.json', data:JSON.stringify(DB, null, 2)}); toast('merged-admin.json listo'); }
+  catch (e) { if (!e || e.code !== 'declined') toast('No se pudo descargar (' + ((e && e.code) || 'error') + ')'); }
+}
+function onSubmit(e) {
+  e.preventDefault();
+  const f = e.target;
+  if (f.id === 'f-edit') submitEdit(f);
+  else if (f.id === 'f-add') submitAdd(f);
+  else if (f.id === 'f-rv') {
+    const res = parseMlId($('#rv-input').value);
+    const msg = $('#rv-msg');
+    if (res.error || !res.id) { msg.className = 'field-msg bad'; msg.textContent = res.error || 'Pega una URL o un ID'; return; }
+    rvAssign(res.id, null);
+  }
+}
+function onInput(e) {
+  const t = e.target;
+  if (t.id === 'q') { clearTimeout(onInput.t); onInput.t = setTimeout(() => { S.q = t.value; renderTable(); }, 120); }
+  else if (t.id === 'e-mlid') mlIdMessage(t, $('#e-mlid-msg'));
+  else if (t.id === 'a-mlid') mlIdMessage(t, $('#a-mlid-msg'));
+  else if (t.id === 'e-amz') amzMessage(t, $('#e-amz-msg'));
+  else if (t.id === 'a-amz') amzMessage(t, $('#a-amz-msg'));
+}
+function onKey(e) {
+  const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName);
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') { e.preventDefault(); save(); return; }
+  if (e.key === 'Escape') {
+    if (closeDropdown()) return;
+    if (OVERLAY) { closeOverlay(); return; }
+    const menu = $('#menu'); if (!menu.hidden) { menu.hidden = true; return; }
+    if (S.sel.size) { S.sel.clear(); renderTable(); }
+    return;
+  }
+  if (OVERLAY === 'review' && !typing && !e.ctrlKey && !e.metaKey && !e.altKey) {
+    const p = BYKEY.get(RV.list[RV.i]) && BYKEY.get(RV.list[RV.i]).p;
+    if (!p) return;
+    const n = parseInt(e.key, 10);
+    if (n >= 1 && Array.isArray(p._mlSug) && p._mlSug[n - 1]) { e.preventDefault(); rvAssign(p._mlSug[n - 1].id, p._mlSug[n - 1].p); }
+    else if (e.key === 's' || e.key === 'S' || e.key === 'ArrowRight') { e.preventDefault(); RV.i++; renderReview(); }
+    else if (e.key === 'x' || e.key === 'X') { e.preventDefault(); rvNone(); }
+    else if (e.key === 'ArrowLeft' && RV.i > 0) { e.preventDefault(); RV.i--; renderReview(); }
+    return;
+  }
+  if (!typing && !OVERLAY && e.key === '/') { e.preventDefault(); $('#q').focus(); }
+}
+
+// ── Arranque ────────────────────────────────────────────────────────────────
+document.getElementById('app').innerHTML = SHELL;
+document.addEventListener('click', onClick);
+document.addEventListener('submit', onSubmit);
+document.addEventListener('input', onInput);
+document.addEventListener('keydown', onKey);
+renderAll();
+renderFoot();
+if (!ROWS.length) $('#empty').textContent = 'No se pudieron leer los datos de productos.';
+if (restored) toast((restored === 1 ? 'Se recuperó ' : 'Se recuperaron ') + plural(restored, 'cambio sin guardar', 'cambios sin guardar') + ' de tu sesión anterior');
+use('downloads').then(d => { DL = d; $('#mi-download').hidden = !d; });
+})();
+</script>
