@@ -181,13 +181,14 @@ async function updateCategory(key, config, admin, REPORT) {
   let soloAmz = 0, sinId = 0;
   for (const p of list) {
     const id = catalogId(p);
-    if (!p.linkML && !id) { soloAmz++; continue; }
+    // Sin link de afiliado ML el sitio no muestra precio ML: el catálogo solo sirve para leer características.
+    if (!p.linkML && p.estadoML !== 'nuevo') { soloAmz++; continue; }
     if (!id) {
       sinId++;
       REPORT.push({ categoria: key, id: p.id, nombre: p.nombre, marca: p.marca, estado: 'sin_id', mlId: null, precioML: null });
       continue;
     }
-    targets.push({ p, mlId: id, html: htmlById.get(String(p.id)) || null });
+    targets.push({ p, mlId: id, html: p.linkML ? htmlById.get(String(p.id)) || null : null });
   }
 
   console.log(`\n📄 ${key} — ${targets.length} con ID de catálogo · ${sinId} sin ID · ${soloAmz} solo Amazon`);

@@ -46,7 +46,7 @@ if (report) {
     else { delete p._precioMLSospechoso; if (row.precioML != null) p.precioML = row.precioML; }
     if (row.estado === 'actualizado' && row.precioAntes != null) p._precioMLAntes = row.precioAntes;
     else delete p._precioMLAntes;
-    p.estadoML = row.estado;
+    if (p.estadoML !== 'nuevo') p.estadoML = row.estado;
     if (gen) p._mlCheckedAt = gen;
     synced++;
   }

@@ -140,4 +140,47 @@ for (const [cat, { file, varName }] of Object.entries(CATALOG)) {
   totalLinksActualizados += linksActualizados;
 }
 
+// ── Bicis nuevas publicadas desde el artifact (_publicar): se agregan a ELECTRICAS; si se pausan, se quitan ──
+const toNum = s => { const m = String(s ?? '').match(/(\d+(?:[.,]\d+)?)/); return m ? parseFloat(m[1].replace(',', '.')) : null; };
+const siNo = v => v == null ? null : v === 'Sí';
+function bikeForHtml(p) {
+  const e = p.especs || {};
+  return {
+    id: p.id, nombre: p.nombre, marca: p.marca, tipo: e.tipo || 'urbana',
+    precio: p.precioML ?? p.precioAmz ?? p.precio ?? null, precioML: p.precioML ?? null, precioAmz: p.precioAmz ?? null,
+    linkML: p.linkML || null, linkAmz: p.linkAmz || null, img: p.imagen || null,
+    estrellas: p.estrellas ?? null, resenas: p.resenas ?? null, vendidosDeclarados: null,
+    autonomia: toNum(e.autonomia), autonomiaStr: e.autonomia || null, velocidad: toNum(e.velocidad), peso: toNum(e.peso),
+    motorStr: e.motor || null, batWh: toNum(e.bateria), batTipo: e.batTipo || null, batRemovible: siNo(e.removible),
+    rueda: e.rueda || null, velocidades: null, tiempoCarga: e.tiempoCarga || null, cargaMax: toNum(e.cargaMax), ip: e.ip || null,
+    batV: toNum(e.voltaje), plegable: siNo(e.plegable), luces: siNo(e.luces),
+    ofertaColor: null, discrepanciasCount: 0, pendientes: [],
+    badges: [...(p.linkML ? [{ t: 'ML', c: 'b-ml' }] : []), ...(p.linkAmz ? [{ t: 'AMZ', c: 'b-amz' }] : [])],
+  };
+}
+{
+  const publicar = (mergedAdmin.bicis || []).filter(p => p._publicar);
+  if (publicar.length) {
+    const filePath = resolve(ROOT, CATALOG.bicis.file);
+    const html = readFileSync(filePath, 'utf8');
+    const m = html.match(/((?:const|var|let)\s+ELECTRICAS\s*=\s*)\[/m);
+    const start = html.indexOf('[', m.index);
+    let depth = 0, end = -1;
+    for (let i = start; i < html.length; i++) { if (html[i] === '[') depth++; else if (html[i] === ']' && --depth === 0) { end = i; break; } }
+    let prods = new Function('return ' + html.slice(start, end + 1))();
+    const enHtml = new Set(prods.map(p => String(p.id)));
+    let agregadas = 0, quitadas = 0;
+    for (const p of publicar) {
+      const listo = p.activo !== false && (p.linkML || p.linkAmz);
+      if (listo && !enHtml.has(String(p.id))) { prods.push(bikeForHtml(p)); agregadas++; }
+      if (!listo && enHtml.has(String(p.id))) { prods = prods.filter(x => String(x.id) !== String(p.id)); quitadas++; }
+    }
+    if (agregadas || quitadas) {
+      const text = JSON.stringify(prods, null, 2).replace(/"([a-zA-Z_$][a-zA-Z0-9_$]*)"\s*:/g, '$1:');
+      if (!DRY_RUN) writeFileSync(filePath, html.slice(0, start) + text + html.slice(end + 1), 'utf8');
+      console.log(`✓ bicis nuevas: ${agregadas} publicadas, ${quitadas} retiradas${DRY_RUN ? ' (dry-run)' : ''}`);
+    }
+  }
+}
+
 console.log(`\n✅ Total: ${totalPausados} productos pausados, ${totalLinksActualizados} links actualizados`);

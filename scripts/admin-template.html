@@ -122,6 +122,9 @@ tr.is-paused .name{color:var(--fg-3);text-decoration:line-through}
 .sug{all:unset;cursor:pointer;margin-right:4px;padding:2px 8px;border-radius:10px;font-size:12px;font-weight:700;color:var(--info);background:var(--info-soft)}
 .mini{all:unset;cursor:pointer;margin-left:4px;padding:0 4px;border-radius:4px;color:var(--fg-3);font-size:12px}
 .mini:hover{color:var(--fg);background:var(--surface-2)}
+.note-aff{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:9px;font-size:11px;font-weight:700;color:var(--warn);background:var(--warn-soft);white-space:nowrap}
+.publish-box{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;padding:12px 14px;border-radius:10px;background:var(--info-soft)}
+.publish-box p{margin:0;flex:1 1 280px;font-size:13px}
 .badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:10px;font-size:11.5px;font-weight:700;white-space:nowrap}
 .t-ok{background:var(--ok-soft);color:var(--ok)}.t-warn{background:var(--warn-soft);color:var(--warn)}.t-err{background:var(--err-soft);color:var(--err)}.t-info{background:var(--info-soft);color:var(--info)}.t-muted{background:var(--surface-2);color:var(--fg-2)}.t-neutral{background:var(--surface-2);color:var(--fg)}
 .when{display:block;margin-top:2px;font-size:11px;color:var(--fg-3);white-space:nowrap}
@@ -226,7 +229,7 @@ const PRICE_WF = GH + '/workflows/update-prices.yml';
 const SPECS = {
   laptops:[['procesador','Procesador'],['ram','RAM'],['almacenamiento','Almacen.'],['pantalla','Pantalla'],['resolucion','Resolución'],['gpu','GPU'],['so','SO'],['peso','Peso'],['touch','Touch']],
   freidoras:[['tipo','Tipo'],['capacidad','Capacidad'],['potencia','Potencia'],['tempMax','Temp. máx.'],['panel','Panel'],['canastos','Canastos'],['ventana','Ventana'],['antiadherente','Antiadh.']],
-  bicis:[['tipo','Tipo'],['autonomia','Autonomía'],['velocidad','Vel. máx.'],['motor','Motor'],['bateria','Batería'],['rueda','Rueda'],['cargaMax','Carga máx.'],['ip','IP']],
+  bicis:[['tipo','Tipo'],['autonomia','Autonomía'],['velocidad','Vel. máx.'],['motor','Motor'],['bateria','Batería'],['voltaje','Voltaje'],['rueda','Rueda'],['peso','Peso'],['cargaMax','Carga máx.'],['plegable','Plegable'],['luces','Luces'],['ip','IP']],
   proteina:[['tipoProteina','Tipo'],['fuenteProteina','Fuente'],['gramosPorPorcion','g/porción'],['proteinaPorPorcion','Prot./porción'],['costoPorPorcion','Costo/porción'],['vegana','Vegana'],['glutenFree','Sin gluten']],
   omega3:[['epa','EPA'],['dha','DHA'],['omegaTotal','Omega total'],['fuenteOmega','Fuente'],['ifos','IFOS'],['metalesPesados','Sin metales'],['costoPorPorcion','Costo/porción']],
   magnesio:[['formaMagnesio','Forma'],['mgMagnesio','mg'],['mgElemental','mg elemental'],['absorcion','Absorción'],['vegano','Vegano'],['costoPorPorcion','Costo/porción']],
@@ -235,7 +238,7 @@ const SPECS = {
 };
 const ST = {
   solo_amz:['Solo Amazon','muted'], sin_id:['Falta ID','warn'], actualizado:['Cambió','ok'], sin_cambio:['Al día','neutral'],
-  sin_precio:['Sin ofertas','err'], precio_sospechoso:['Revisar','warn'], no_encontrado:['No encontrado','err'], nuevo:['Nuevo','info'], sin_revisar:['Sin revisar','muted'],
+  sin_precio:['Sin ofertas','err'], precio_sospechoso:['Revisar','warn'], no_encontrado:['No encontrado','err'], nuevo:['Nuevo · revisar','info'], sin_revisar:['Sin revisar','muted'],
 };
 const hasTag = u => new RegExp('[?&]tag=' + AMZ_TAG + '(?:[&#]|$)').test(u || '');
 const QUEUES = [
@@ -245,8 +248,8 @@ const QUEUES = [
   {k:'sin_precio', l:'Sin ofertas ML', tone:'err', f:p => !!p.mlId && p.estadoML === 'sin_precio'},
   {k:'revisar', l:'Precio a revisar', tone:'warn', f:p => p.estadoML === 'precio_sospechoso'},
   {k:'cambiaron', l:'Cambiaron', tone:'ok', f:p => p.estadoML === 'actualizado'},
-  {k:'nuevos', l:'Nuevos', tone:'info', f:p => p.estadoML === 'nuevo', optional:true},
-  {k:'pausados', l:'Pausados', f:p => p.activo === false},
+  {k:'nuevos', l:'Nuevos por revisar', tone:'info', f:p => p.estadoML === 'nuevo'},
+  {k:'pausados', l:'Pausados', f:p => p.activo === false && p.estadoML !== 'nuevo'},
   {k:'amz_tag', l:'Amazon sin tag', tone:'err', f:p => !!p.linkAmz && !hasTag(p.linkAmz), optional:true},
   {k:'sin_link', l:'Sin links', tone:'err', f:p => !p.linkML && !p.linkAmz, optional:true},
 ];
@@ -296,7 +299,8 @@ function reindex() {
   for (const cat of Object.keys(DB)) for (const p of DB[cat]) { const r = {cat, p, key:cat + '|' + p.id}; ROWS.push(r); BYKEY.set(r.key, r); }
 }
 const hay = r => { let h = HAY.get(r.p); if (h == null) { h = norm([r.p.nombre, r.p.marca, r.p.id, r.p.mlId, CATS[r.cat]].join(' ')); HAY.set(r.p, h); } return h; };
-const status = p => !p.linkML ? 'solo_amz' : !p.mlId ? 'sin_id' : (p.estadoML || 'sin_revisar');
+const needsAff = p => !p.linkML && (p.estadoML === 'nuevo' || !p.linkAmz);
+const status = p => p.estadoML === 'nuevo' ? 'nuevo' : !p.linkML ? 'solo_amz' : !p.mlId ? 'sin_id' : (p.estadoML || 'sin_revisar');
 
 // Cambios sin guardar: se guardan en este navegador y se vuelven a aplicar sobre cualquier versión nueva.
 const emptyPending = () => ({ops:{}, added:{}, deleted:[], savingAs:null});
@@ -506,6 +510,7 @@ function stateCell(p) {
   const st = status(p), [l, tone] = ST[st] || [st, 'muted'];
   let sub = '';
   if (st === 'precio_sospechoso' && p._precioMLSospechoso) sub = 'ML marca ' + money(p._precioMLSospechoso);
+  else if (st === 'nuevo' && p._nuevo) sub = '#' + p._nuevo.ranking + ' en ventas' + (p._nuevo.full ? ' · Full' : '');
   else if (p.mlId && p._mlCheckedAt) sub = 'rev. ' + fmtShort(p._mlCheckedAt);
   return `<span class="badge t-${tone}">${esc(l)}</span>${sub ? `<span class="when">${esc(sub)}</span>` : ''}`;
 }
@@ -514,19 +519,19 @@ function rowHtml(r) {
   const cells = COLS.map(c => {
     switch (c.k) {
       case 'chk': return `<td class="c-chk"><input type="checkbox" data-act="sel" aria-label="Seleccionar"${sel ? ' checked' : ''}></td>`;
-      case 'nombre': return `<td><div class="name">${esc(p.nombre)}</div><div class="sub">${esc(p.marca || '')}${S.cat === 'todas' ? ' · ' + esc(CATS[r.cat] || r.cat) : ''} · id ${esc(p.id)}</div></td>`;
+      case 'nombre': return `<td><div class="name">${esc(p.nombre)}${needsAff(p) ? ' <span class="note-aff">⚠ Falta link de afiliado</span>' : ''}</div><div class="sub">${esc(p.marca || '')}${S.cat === 'todas' ? ' · ' + esc(CATS[r.cat] || r.cat) : ''} · id ${esc(p.id)}</div></td>`;
       case 'mlId': return `<td data-cell="mlId" style="white-space:nowrap">${mlIdCell(p)}</td>`;
       case 'precioML': case 'precioAmz': return `<td class="c-num" data-cell="${c.k}">${priceCell(p, c.k)}</td>`;
       case 'estado': return `<td>${stateCell(p)}</td>`;
       case 'links': return `<td style="white-space:nowrap">${p.linkML ? `<a class="lk lk-ml" href="${safeUrl(p.linkML)}" target="_blank" rel="noopener">ML ↗</a>` : ''}${p.linkAmz ? `<a class="lk lk-amz" href="${safeUrl(p.linkAmz)}" target="_blank" rel="noopener"${hasTag(p.linkAmz) ? '' : ' title="Falta el tag de afiliado"'}>AMZ${hasTag(p.linkAmz) ? '' : ' ⚠'} ↗</a>` : ''}${!p.linkML && !p.linkAmz ? '<span class="muted">—</span>' : ''}</td>`;
       case 'upd': return `<td class="c-date">${p._updatedAt ? esc(fmtShort(p._updatedAt)) : '<span class="muted">—</span>'}</td>`;
-      case 'web': return `<td><button class="sw${on ? ' on' : ''}" data-act="toggle" aria-pressed="${on}">${on ? 'Activo' : 'Pausado'}</button></td>`;
+      case 'web': return p.estadoML === 'nuevo' ? '<td><span class="badge t-info">Sin publicar</span></td>' : `<td><button class="sw${on ? ' on' : ''}" data-act="toggle" aria-pressed="${on}">${on ? 'Activo' : 'Pausado'}</button></td>`;
       case 'edit': return '<td><button class="btn-icon" data-act="edit" aria-label="Editar producto">✎</button></td>';
       case 'spec': { const t = specText(p, c.sk); return `<td>${t ? `<span class="spec">${esc(t)}</span>` : '<span class="muted">—</span>'}</td>`; }
     }
     return '<td></td>';
   }).join('');
-  return `<tr data-key="${esc(r.key)}" class="${on ? '' : 'is-paused'}${sel ? ' is-sel' : ''}">${cells}</tr>`;
+  return `<tr data-key="${esc(r.key)}" class="${on || p.estadoML === 'nuevo' ? '' : 'is-paused'}${sel ? ' is-sel' : ''}">${cells}</tr>`;
 }
 
 // Las primeras filas se pintan de inmediato y el resto llega por bloques, para no bloquear la página con el layout de toda la tabla.
@@ -691,6 +696,7 @@ function openEdit(key) {
     </fieldset>
     ${specs.length ? `<fieldset class="group"><legend>Especificaciones</legend>${specs.map(([sk, l], i) => `<label class="field"><span>${esc(l)}</span><input id="e-sk-${i}" data-sk="${esc(sk)}"></label>`).join('')}</fieldset>` : ''}
     <div class="confirm" id="e-confirm" hidden>¿Eliminar este producto del registro? <button type="button" class="btn btn-danger btn-sm" data-act="del-yes">Sí, eliminar</button><button type="button" class="btn btn-sm" data-act="del-no">Cancelar</button></div>
+    ${p.estadoML === 'nuevo' && cat === 'bicis' ? `<div class="publish-box"><p>Bici nueva por revisar. Agrega el link de afiliado y publícala; aparecerá en la web en la próxima sincronización.</p><button type="button" class="btn btn-primary" data-act="publish">Publicar en la web</button></div>` : ''}
     <footer class="sheet-foot"><button type="button" class="btn btn-ghost-danger" data-act="del">Eliminar</button><span class="spacer"></span><button type="button" class="btn" data-close>Cancelar</button><button type="submit" class="btn btn-primary">Aplicar cambios</button></footer>
   </form>`);
   const o = $('#overlay');
@@ -709,7 +715,7 @@ function openEdit(key) {
 
 function numOrNull(v) { const t = String(v).trim(); if (t === '') return null; const n = Number(t); return isFinite(n) && n >= 0 ? Math.round(n * 100) / 100 : undefined; }
 
-function submitEdit(form) {
+function submitEdit(form, publish) {
   const key = form.dataset.key, r = BYKEY.get(key);
   if (!r) return closeOverlay();
   const p = r.p, o = form;
@@ -741,11 +747,15 @@ function submitEdit(form) {
     });
     if (changed) fields.especs = especs;
   }
+  if (publish) {
+    if (!next.linkML && !next.linkAmz) { toast('Agrega primero el link de afiliado para poder publicarla'); $('#e-ml', o).focus(); return; }
+    Object.assign(fields, {activo:true, _publicar:true, estadoML:'sin_revisar'});
+  }
   closeOverlay();
   if (!Object.keys(fields).length) { toast('Sin cambios'); return; }
   update(key, fields);
   replaceRow(key); renderQueues();
-  toast('Cambios aplicados. Recuerda Guardar.');
+  toast(publish ? 'Lista para publicarse. Guarda y pide a Claude sincronizar (o espera al workflow).' : 'Cambios aplicados. Recuerda Guardar.');
 }
 
 function deleteProduct(key) {
@@ -1016,6 +1026,7 @@ function onClick(e) {
     case 'del': $('#e-confirm').hidden = false; break;
     case 'del-no': $('#e-confirm').hidden = true; break;
     case 'del-yes': deleteProduct($('#f-edit').dataset.key); break;
+    case 'publish': submitEdit($('#f-edit'), true); break;
     case 'rv-use': { const p = BYKEY.get(RV.list[RV.i]).p, c = p._mlSug[+a.dataset.i]; if (c) rvAssign(c.id, c.p); break; }
     case 'rv-skip': RV.i++; renderReview(); break;
     case 'rv-prev': RV.i = Math.max(0, RV.i - 1); while (RV.i > 0 && BYKEY.get(RV.list[RV.i]) && BYKEY.get(RV.list[RV.i]).p.mlId) RV.i--; renderReview(); break;
