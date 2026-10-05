@@ -34,7 +34,10 @@ for (const [cat, prods] of Object.entries(productosJson)) {
   config[cat] = prods.map(p => {
     const a = adminById[String(p.id)];
     if (!a) return p;
-    return { ...p, activo: a.activo, linkML: a.linkML ?? p.linkML, linkAmz: a.linkAmz ?? p.linkAmz };
+    return { ...p, activo: a.activo, linkML: a.linkML ?? p.linkML, linkAmz: a.linkAmz ?? p.linkAmz,
+      ...(a.precioML  != null ? {precioML:  a.precioML}  : {}),
+      ...(a.precioAmz != null ? {precioAmz: a.precioAmz} : {}),
+    };
   });
 }
 
@@ -71,7 +74,7 @@ for (const [cat, { file, varName }] of Object.entries(CATALOG)) {
   try { prods = new Function('return ' + arrayStr)(); }
   catch (e) { console.error(`✗ ${cat}: parse error (${e.message.slice(0,60)})`); continue; }
 
-  let pausados = 0, linksActualizados = 0;
+  let pausados = 0, linksActualizados = 0, preciosActualizados = 0;
   const nuevosProds = [];
 
   for (const p of prods) {
@@ -96,10 +99,28 @@ for (const [cat, { file, varName }] of Object.entries(CATALOG)) {
     }
     if (changed) linksActualizados++;
 
+    // Actualizar precios si cambiaron
+    let precioChanged = false;
+    if (cfg.precioML != null && cfg.precioML !== p.precioML) {
+      p.precioML = cfg.precioML;
+      precioChanged = true;
+    }
+    if (cfg.precioAmz != null && cfg.precioAmz !== p.precioAmz) {
+      p.precioAmz = cfg.precioAmz;
+      precioChanged = true;
+    }
+    // precio (campo genérico usado en algunos HTML)
+    const precioAdmin = cfg.precioML ?? cfg.precioAmz ?? cfg.precio;
+    if (precioAdmin != null && precioAdmin !== p.precio) {
+      p.precio = precioAdmin;
+      precioChanged = true;
+    }
+    if (precioChanged) preciosActualizados++;
+
     nuevosProds.push(p);
   }
 
-  if (pausados === 0 && linksActualizados === 0) {
+  if (pausados === 0 && linksActualizados === 0 && preciosActualizados === 0) {
     console.log(`  ${cat}: sin cambios`);
     continue;
   }
@@ -114,7 +135,7 @@ for (const [cat, { file, varName }] of Object.entries(CATALOG)) {
     writeFileSync(filePath, newHtml, 'utf8');
   }
 
-  console.log(`✓ ${cat}: ${pausados} pausados, ${linksActualizados} links actualizados${DRY_RUN ? ' (dry-run)' : ''}`);
+  console.log(`✓ ${cat}: ${pausados} pausados, ${linksActualizados} links, ${preciosActualizados} precios actualizados${DRY_RUN ? ' (dry-run)' : ''}`);
   totalPausados += pausados;
   totalLinksActualizados += linksActualizados;
 }
