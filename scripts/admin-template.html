@@ -318,6 +318,33 @@ const mlRoto = p => p._linkError ? 'El link abre otro producto: ' + p._linkError
 const aNum = v => { const m = String(v ?? '').replace(/,/g, '').match(/-?[\d.]+/); return m ? parseFloat(m[0]) : null; };
 const comoEstaba = (antes, n) => typeof antes === 'string' && antes.trim().startsWith('$') ? '$' + n.toFixed(2) : +n.toFixed(2);
 
+// Los costos derivados dependen del precio de cada tienda, así que se calculan por plataforma:
+// el de ML con el precio de ML, el de Amazon con el de Amazon. Las demás especificaciones son iguales.
+const COSTO_KEYS = { costoPorPorcion: 1, costoPor25g: 1, costoPor5g: 1, costoPor1000ui: 1 };
+const fmtCosto = n => n == null ? null : '$' + n.toFixed(2);
+function costosPlataforma(precioML, precioAmz, especs) {
+  const e = especs || {}, porciones = aNum(e.porciones), prot = aNum(e.proteinaPorPorcion), gr = aNum(e.contenidoGramos), ui = aNum(e.ui);
+  const calc = precio => {
+    if (!(precio > 0)) return null;
+    const porc = porciones > 0 ? precio / porciones : null;
+    return {
+      costoPorPorcion: porc,
+      costoPor25g: (porc != null && prot > 0) ? porc * 25 / prot : null,
+      costoPor5g: gr > 0 ? precio / (gr / 5) : null,
+      costoPor1000ui: (porc != null && ui > 0) ? porc / (ui / 1000) : null,
+    };
+  };
+  return { ml: calc(aNum(precioML)), amz: calc(aNum(precioAmz)) };
+}
+// HTML de un costo por plataforma (ML / AMZ), para el panel y la tabla.
+function costoDualHTML(sk, precioML, precioAmz, especs, sep) {
+  const c = costosPlataforma(precioML, precioAmz, especs);
+  const ml = c.ml && c.ml[sk], amz = c.amz && c.amz[sk], parts = [];
+  if (ml != null) parts.push(`<span style="white-space:nowrap"><span class="muted" style="font-size:10px">ML</span> ${fmtCosto(ml)}</span>`);
+  if (amz != null) parts.push(`<span style="white-space:nowrap"><span class="muted" style="font-size:10px">AMZ</span> ${fmtCosto(amz)}</span>`);
+  return parts.length ? parts.join(sep || '<br>') : '<span class="muted">—</span>';
+}
+
 function recalcCostos(p, fields) {
   const antes = p.especs || {};
   const especs = fields.especs || antes;
@@ -567,7 +594,10 @@ function rowHtml(r) {
       case 'upd': return `<td class="c-date">${p._updatedAt ? esc(fmtShort(p._updatedAt)) : '<span class="muted">—</span>'}</td>`;
       case 'web': return p.estadoML === 'nuevo' ? '<td><span class="badge t-info">Sin publicar</span></td>' : `<td><button class="sw${on ? ' on' : ''}" data-act="toggle" aria-pressed="${on}">${on ? 'Activo' : 'Pausado'}</button></td>`;
       case 'edit': return '<td><button class="btn-icon" data-act="edit" aria-label="Editar producto">✎</button></td>';
-      case 'spec': { const t = specText(p, c.sk); return `<td>${t ? `<span class="spec">${esc(t)}</span>` : '<span class="muted">—</span>'}</td>`; }
+      case 'spec': {
+        if (COSTO_KEYS[c.sk]) return `<td><span class="spec" style="line-height:1.4">${costoDualHTML(c.sk, p.precioML, p.precioAmz, p.especs, ' · ')}</span></td>`;
+        const t = specText(p, c.sk); return `<td>${t ? `<span class="spec">${esc(t)}</span>` : '<span class="muted">—</span>'}</td>`;
+      }
     }
     return '<td></td>';
   }).join('');
@@ -695,9 +725,10 @@ function showOverlay(kind, html, focusSel) {
 }
 function closeOverlay() { const o = $('#overlay'); o.hidden = true; o.innerHTML = ''; OVERLAY = null; document.body.style.overflow = ''; }
 
+const SPEC_LABELS = { costoPor25g: 'Costo/25g prot.', costoPor5g: 'Costo/5 g', costoPor1000ui: 'Costo/1000 UI', costoPorPorcion: 'Costo/porción' };
 function specKeysFor(cat, p) {
   const base = specCols(cat), seen = new Set(base.map(x => x[0]));
-  const extra = Object.keys(p.especs || {}).filter(k => !seen.has(k)).map(k => [k, k.replace(/([A-Z])/g, ' $1').replace(/^./, c => c.toUpperCase())]);
+  const extra = Object.keys(p.especs || {}).filter(k => !seen.has(k)).map(k => [k, SPEC_LABELS[k] || k.replace(/([A-Z])/g, ' $1').replace(/^./, c => c.toUpperCase())]);
   return p.especs || base.length ? [...base, ...extra] : [];
 }
 function mlIdMessage(input, msgEl) {
@@ -734,7 +765,9 @@ function openEdit(key) {
       <label class="field span2"><span>Link (con ?tag=${AMZ_TAG})</span><input id="e-amz" type="url" placeholder="https://www.amazon.com.mx/dp/…?tag=${AMZ_TAG}"><small class="field-msg" id="e-amz-msg"></small></label>
       <label class="field"><span>Precio Amazon (MXN)</span><input id="e-pamz" type="number" min="0" step="1" inputmode="decimal"></label>
     </fieldset>
-    ${specs.length ? `<fieldset class="group"><legend>Especificaciones</legend>${specs.map(([sk, l], i) => `<label class="field"><span>${esc(l)}</span><input id="e-sk-${i}" data-sk="${esc(sk)}"></label>`).join('')}</fieldset>` : ''}
+    ${specs.length ? `<fieldset class="group"><legend>Especificaciones</legend>${specs.map(([sk, l], i) => COSTO_KEYS[sk]
+      ? `<div class="field"><span>${esc(l)} <span class="muted" style="font-weight:400;text-transform:none">· por plataforma</span></span><div class="field-msg" data-costo="${esc(sk)}" style="min-height:36px;display:flex;flex-direction:column;justify-content:center;gap:2px;color:var(--fg);font-variant-numeric:tabular-nums"></div></div>`
+      : `<label class="field"><span>${esc(l)}</span><input id="e-sk-${i}" data-sk="${esc(sk)}"></label>`).join('')}</fieldset>` : ''}
     <div class="confirm" id="e-confirm" hidden>¿Eliminar este producto del registro? <button type="button" class="btn btn-danger btn-sm" data-act="del-yes">Sí, eliminar</button><button type="button" class="btn btn-sm" data-act="del-no">Cancelar</button></div>
     ${p.estadoML === 'nuevo' && cat === 'bicis' ? `<div class="publish-box"><p>Bici nueva por revisar. Agrega el link de afiliado y publícala; aparecerá en la web en la próxima sincronización.</p><button type="button" class="btn btn-primary" data-act="publish">Publicar en la web</button></div>` : ''}
     <footer class="sheet-foot"><button type="button" class="btn btn-ghost-danger" data-act="del">Eliminar</button><span class="spacer"></span><button type="button" class="btn" data-close>Cancelar</button><button type="submit" class="btn btn-primary">Aplicar cambios</button></footer>
@@ -751,6 +784,14 @@ function openEdit(key) {
   o.querySelectorAll('[data-sk]').forEach(inp => { inp.value = specText(p, inp.dataset.sk); });
   mlIdMessage($('#e-mlid', o), $('#e-mlid-msg', o));
   amzMessage($('#e-amz', o), $('#e-amz-msg', o));
+  // Costos derivados: se pintan por plataforma y se actualizan en vivo al mover precio o porciones.
+  const pintarCostos = () => {
+    const especs = {};
+    o.querySelectorAll('[data-sk]').forEach(inp => especs[inp.dataset.sk] = inp.value);
+    o.querySelectorAll('[data-costo]').forEach(el => { el.innerHTML = costoDualHTML(el.dataset.costo, $('#e-pml', o).value, $('#e-pamz', o).value, especs); });
+  };
+  pintarCostos();
+  [$('#e-pml', o), $('#e-pamz', o), ...o.querySelectorAll('[data-sk]')].forEach(inp => inp && inp.addEventListener('input', pintarCostos));
 }
 
 function numOrNull(v) { const t = String(v).trim(); if (t === '') return null; const n = Number(t); return isFinite(n) && n >= 0 ? Math.round(n * 100) / 100 : undefined; }
