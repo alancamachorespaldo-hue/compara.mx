@@ -41,8 +41,9 @@ const CATALOG = {
   magnesio:   { file: 'suplementos/magnesio/index.html',           varName: 'productos'  },
   creatina:   { file: 'suplementos/creatina/index.html',           varName: 'productos'  },
   complejo_b: { file: 'suplementos/complejo-b/index.html',         varName: 'PRODUCTOS'  },
+  vitamina_d: { file: 'suplementos/vitamina-d/index.html',         varName: 'PRODUCTOS'  },
 };
-const SUPLEMENTOS = ['proteina', 'omega3', 'magnesio', 'creatina', 'complejo_b'];
+const SUPLEMENTOS = ['proteina', 'omega3', 'magnesio', 'creatina', 'complejo_b', 'vitamina_d'];
 const ENTRIES =
   CAT_ARG === 'all'         ? Object.entries(CATALOG) :
   CAT_ARG === 'suplementos' ? SUPLEMENTOS.map(k => [k, CATALOG[k]]) :

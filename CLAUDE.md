@@ -50,6 +50,7 @@ como páginas ni enlazarlos.
 | Suplementos | `/suplementos/` | `productos` (hub de categorías) |
 | Proteína / Omega 3 / Magnesio / Creatina | `/suplementos/<sub>/` | `productos` |
 | Complejo B | `/suplementos/complejo-b/` | `PRODUCTOS` |
+| Vitamina D | `/suplementos/vitamina-d/` | `PRODUCTOS` |
 | Celulares | `/celulares/`, `/celulares/iphone/`, `/celulares/android/` | — |
 
 `/celulares/alta-gama/` y `/celulares/smartphones/` redirigen a `/celulares/android/` a propósito.
@@ -60,7 +61,13 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
 - `merged-admin.json` — **fuente de verdad** de productos (precios, links, `activo`, specs) por categoría.
 - `productos.json` — base que `sync-html.js` combina con `merged-admin.json`.
 - `sync-html.js` — aplica `activo`, links y `precioML`/`precioAmz` de la BD a los arrays JS de los HTML.
-  Un producto con `activo:false` se elimina del HTML.
+  Un producto con `activo:false` se elimina del HTML. **Solo cubre las 5 categorías de su `CATALOG`**
+  (laptops, suplementos, bicis, freidoras, microondas) y además necesita que la categoría exista en
+  `productos.json`: las subpáginas de suplementos (creatina, proteína, omega3, magnesio, complejo B,
+  vitamina D) nunca se sincronizan y sus links viven solo en el HTML. Por eso la BD y esas páginas
+  pueden divergir; no sincronizar la BD hacia ellas sin revisar primero (oct-2026: 85 links de Amazon
+  y 65 de ML de la BD están compartidos entre productos distintos de varias categorías, asignados por
+  número de id; los de las páginas son los buenos).
 - `ml-update.js [--categoria=X] [--dry-run]` — precio ML de cada producto con link ML y `mlId`
   (ID de catálogo `MLM…` de la ficha `/p/MLM…`) vía `/products/{mlId}/items`; parchea el HTML por `id`
   y escribe `ml-report.json`. Categorías: `laptops`, `freidoras`, `bicis`, `microondas`, `proteina`,
