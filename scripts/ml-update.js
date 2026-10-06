@@ -162,9 +162,33 @@ function topBlocks(text) {
   return blocks;
 }
 
+// Lee un número de un campo del bloque, venga como 90, "90" o "$2.44".
+const campoNum = (block, campo) => {
+  const m = block.match(new RegExp(`["']?\\b${campo}["']?\\s*:\\s*["']?\\$?([\\d.]+)`));
+  return m ? parseFloat(m[1]) : null;
+};
+// Reescribe un campo derivado conservando su formato (número suelto o cadena con $).
+const setCampo = (block, campo, valor) => block.replace(
+  new RegExp(`(["']?\\b${campo}["']?\\s*:\\s*)(["'])?\\$?[\\d.]+(["'])?`),
+  (_, pre, q1, q2) => pre + (q1 ? `${q1}$${valor.toFixed(2)}${q2 || q1}` : +valor.toFixed(2)),
+);
+
+// Costo por porción (y por 5 g / 1000 UI) = precio ÷ porciones: al cambiar el precio hay que
+// recalcularlos o quedan mintiendo. Usan el precio que muestra la tarjeta (el nuevo precioML).
 function patchBlock(block, price) {
-  if (/["']?\bprecioML["']?\s*:/.test(block)) return block.replace(/(["']?\bprecioML["']?\s*:\s*)(null|[\d.]+)/, `$1${price}`);
-  return block.replace(/(["']?\bprecio["']?\s*:\s*)[\d.]+/, `$1${price}`);
+  let out = /["']?\bprecioML["']?\s*:/.test(block)
+    ? block.replace(/(["']?\bprecioML["']?\s*:\s*)(null|[\d.]+)/, `$1${price}`)
+    : block.replace(/(["']?\bprecio["']?\s*:\s*)[\d.]+/, `$1${price}`);
+  const porciones = campoNum(out, 'porciones');
+  if (porciones > 0) {
+    const porPorcion = price / porciones;
+    if (/["']?\bcostoPorPorcion["']?\s*:/.test(out)) out = setCampo(out, 'costoPorPorcion', porPorcion);
+    const g = campoNum(out, 'contenidoGramos');
+    if (/["']?\bcostoPor5g["']?\s*:/.test(out) && g > 0) out = setCampo(out, 'costoPor5g', price / (g / 5));
+    const ui = campoNum(out, 'ui');
+    if (/["']?\bcostoPor1000ui["']?\s*:/.test(out) && ui > 0) out = setCampo(out, 'costoPor1000ui', porPorcion / (ui / 1000));
+  }
+  return out;
 }
 
 // ── Modo precios ─────────────────────────────────────────────────────────────
