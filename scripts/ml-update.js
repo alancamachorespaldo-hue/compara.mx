@@ -102,21 +102,27 @@ async function pool(items, n, fn) {
   return out;
 }
 
-function minPrice(results = []) {
+// El precio que publicamos tiene que ser el que verá quien dé clic en nuestro link, no el más
+// barato del catálogo: ML elige qué oferta muestra y no siempre es la más barata. La API no expone
+// esa elección (buy_box_winner viene nulo), pero sí devuelve las ofertas en el orden de ML, y la
+// primera es la que muestra la ficha. En 146 de 154 productos coincide con el mínimo; en el resto
+// publicar el mínimo prometía un precio que el visitante no encontraba.
+// Ojo: ML también ajusta la oferta según el CP de quien mira, así que puede diferir por envío.
+function listedPrice(results = []) {
   const ok = results.filter(i => i.price > 0);
   const nuevos = ok.filter(i => i.condition === 'new');
   const pick = nuevos.length ? nuevos : ok;
-  return pick.length ? Math.min(...pick.map(i => i.price)) : null;
+  return pick.length ? pick[0].price : null;
 }
 
-// Precio mínimo de un producto de catálogo; si no tiene ofertas, prueba buy box e hijos (variantes).
+// Precio de un producto de catálogo; si no tiene ofertas, prueba buy box e hijos (variantes).
 async function catalogPrice(id, { deep = true } = {}) {
-  const direct = minPrice((await api(`/products/${id}/items?limit=20`))?.results);
+  const direct = listedPrice((await api(`/products/${id}/items?limit=20`))?.results);
   if (direct || !deep) return direct;
   const prod = await api(`/products/${id}`);
   if (prod?.buy_box_winner?.price > 0) return prod.buy_box_winner.price;
   for (const cid of (prod?.children_ids ?? []).slice(0, 3)) {
-    const p = minPrice((await api(`/products/${cid}/items?limit=20`))?.results);
+    const p = listedPrice((await api(`/products/${cid}/items?limit=20`))?.results);
     if (p) return p;
   }
   return null;

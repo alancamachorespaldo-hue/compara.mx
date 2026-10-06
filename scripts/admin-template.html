@@ -132,6 +132,7 @@ tr.is-paused .name{color:var(--fg-3);text-decoration:line-through}
 .when{display:block;margin-top:2px;font-size:11px;color:var(--fg-3);white-space:nowrap}
 .lk{display:inline-flex;align-items:center;height:22px;padding:0 7px;margin-right:4px;border-radius:5px;font-size:11px;font-weight:800;text-decoration:none}
 .lk-ml{background:var(--ml);color:var(--ml-fg)}.lk-amz{background:var(--amz);color:var(--amz-fg)}
+.lk-roto{background:var(--err-soft);color:var(--err);box-shadow:inset 0 0 0 1px currentColor;text-decoration:line-through}
 .sw{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 9px;border-radius:12px;font-size:12px;font-weight:700;background:var(--surface-2);color:var(--fg-2)}
 .sw::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
 .sw.on{background:var(--ok-soft);color:var(--ok)}
@@ -307,6 +308,9 @@ function reindex() {
 const hay = r => { let h = HAY.get(r.p); if (h == null) { h = norm([r.p.nombre, r.p.marca, r.p.id, r.p.mlId, CATS[r.cat]].join(' ')); HAY.set(r.p, h); } return h; };
 const linkNote = p => p._linkError ? `<div class="note-link bad">⚠ El link ML abre otro producto: ${esc(p._linkError.slice(0, 80))}</div>` : p._linkRevisar ? `<div class="note-link">¿Es el mismo? El link ML abre: ${esc(p._linkRevisar.slice(0, 80))}</div>` : p._linkSinProducto ? '<div class="note-link bad">⚠ El link ML ya no muestra ningún producto</div>' : '';
 const needsAff = p => !p.linkML && (p.estadoML === 'nuevo' || !p.linkAmz);
+// Motivo por el que no hay que fiarse del link ML, para no pintarlo como un link bueno.
+const mlRoto = p => p._linkError ? 'El link abre otro producto: ' + p._linkError.slice(0, 70)
+  : p._linkSinProducto ? 'El link ya no muestra ningún producto' : '';
 const status = p => p.estadoML === 'nuevo' ? 'nuevo' : !p.linkML ? 'solo_amz' : !p.mlId ? 'sin_id' : (p.estadoML || 'sin_revisar');
 
 // Cambios sin guardar: se guardan en este navegador y se vuelven a aplicar sobre cualquier versión nueva.
@@ -530,7 +534,7 @@ function rowHtml(r) {
       case 'mlId': return `<td data-cell="mlId" style="white-space:nowrap">${mlIdCell(p)}</td>`;
       case 'precioML': case 'precioAmz': return `<td class="c-num" data-cell="${c.k}">${priceCell(p, c.k)}</td>`;
       case 'estado': return `<td>${stateCell(p)}</td>`;
-      case 'links': return `<td style="white-space:nowrap">${p.linkML ? `<a class="lk lk-ml" href="${safeUrl(p.linkML)}" target="_blank" rel="noopener">ML ↗</a>` : ''}${p.linkAmz ? `<a class="lk lk-amz" href="${safeUrl(p.linkAmz)}" target="_blank" rel="noopener"${hasTag(p.linkAmz) ? '' : ' title="Falta el tag de afiliado"'}>AMZ${hasTag(p.linkAmz) ? '' : ' ⚠'} ↗</a>` : ''}${!p.linkML && !p.linkAmz ? '<span class="muted">—</span>' : ''}</td>`;
+      case 'links': return `<td style="white-space:nowrap">${p.linkML ? `<a class="lk ${mlRoto(p) ? 'lk-roto' : 'lk-ml'}" href="${safeUrl(p.linkML)}" target="_blank" rel="noopener"${mlRoto(p) ? ` title="${esc(mlRoto(p))}"` : ''}>ML${mlRoto(p) ? ' ⚠' : ''} ↗</a>` : ''}${p.linkAmz ? `<a class="lk lk-amz" href="${safeUrl(p.linkAmz)}" target="_blank" rel="noopener"${hasTag(p.linkAmz) ? '' : ' title="Falta el tag de afiliado"'}>AMZ${hasTag(p.linkAmz) ? '' : ' ⚠'} ↗</a>` : ''}${!p.linkML && !p.linkAmz ? '<span class="muted">—</span>' : ''}</td>`;
       case 'upd': return `<td class="c-date">${p._updatedAt ? esc(fmtShort(p._updatedAt)) : '<span class="muted">—</span>'}</td>`;
       case 'web': return p.estadoML === 'nuevo' ? '<td><span class="badge t-info">Sin publicar</span></td>' : `<td><button class="sw${on ? ' on' : ''}" data-act="toggle" aria-pressed="${on}">${on ? 'Activo' : 'Pausado'}</button></td>`;
       case 'edit': return '<td><button class="btn-icon" data-act="edit" aria-label="Editar producto">✎</button></td>';
