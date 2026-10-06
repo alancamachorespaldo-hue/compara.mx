@@ -459,6 +459,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   </div>
 </div>
 
+<script type="application/json" id="pausas">{}</script>
 <script>
 const productos = [
   {id:1,nombre:'Omega 3 Forte 2000mg – 60 Softgels',marca:'OBY',precio:369,porciones:30,porPorcion:'2 softgels',epa:1000,dha:400,omegaPorPorcion:1400,costoPorPorcion:12.3,fuenteOmega:'anchoa',libreMetalesPesados:true,certificadoIFOS:false,estrellas:4.9,resenas:377,badges:[{t:'ML',c:'b-ml'}],linkAmz:'',linkML:'https://meli.la/1CpEJAk',img:'https://http2.mlstatic.com/D_NQ_NP_2X_809253-MLA106059329740_022026-F.webp'},
@@ -491,6 +492,11 @@ const productos = [
   {id:38,nombre:'Wellthy Arctic Omega 3 2000mg EPA 360mg DHA 240mg – 200 Cápsulas',marca:'Wellthy',precio:431,porciones:100,porPorcion:'2 cápsulas',epa:360,dha:240,omegaPorPorcion:600,costoPorPorcion:4.31,fuenteOmega:'anchoa',libreMetalesPesados:false,certificadoIFOS:false,estrellas:4.7,resenas:731,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0D9R7615K?tag=comparalo20-20',linkML:'',img:'https://m.media-amazon.com/images/I/61AW6RF4fUL._AC_SX679_.jpg'},
   {id:39,nombre:'Vitanna Aceite de Krill Antártico Superba2 1600mg – 60 Softgels',marca:'Vitanna',precio:699,porciones:30,porPorcion:'2 cápsulas',epa:120,dha:56,omegaPorPorcion:176,costoPorPorcion:21.73,fuenteOmega:'krill',libreMetalesPesados:false,certificadoIFOS:false,estrellas:4.9,resenas:15,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0G5VSJTPD?tag=comparalo20-20',linkML:'',img:'https://m.media-amazon.com/images/I/61ITjjWhfaL._AC_SL1500_.jpg'},
 ];
+/*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
+
+
+
 
 // ── Filtros ──
 const filtros = { fuente: 'todos', plataforma: 'todos' };

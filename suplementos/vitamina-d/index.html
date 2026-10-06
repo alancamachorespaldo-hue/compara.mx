@@ -384,6 +384,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
   <a href="/privacidad.html">Privacidad</a> · <a href="/terminos.html">Términos</a> · <a href="/aviso-afiliados.html">Aviso de afiliados</a>
 </footer>
 
+<script type="application/json" id="pausas">{}</script>
 <script>
 const PRODUCTOS = [
   {id:1,nombre:'D Vi Sol Vitamina D Got 10ml Colecalciferol',marca:'Siegfried Rhein',mlId:'MLM66473557',precio:643,precioML:643,precioAmz:null,ui:400,formaVitD:'D3 (colecalciferol)',conK2:'No',formato:'gotas',porciones:40,porPorcion:'1 mL',costoPorPorcion:16.07,costoPor1000ui:40.17,vegano:'Sí',sinGluten:'Sí',sinLactosa:'Sí',edadMinima:'0 meses',estrellas:null,resenas:null,linkML:'',linkAmz:'',img:'https://http2.mlstatic.com/D_NQ_NP_712391-MLA108577101779_032026-F.jpg'},
@@ -392,6 +393,11 @@ const PRODUCTOS = [
   {id:4,nombre:'Vitamina D3 K2 360 Cápsulas Vitamina D3 Y Vitamina K2 | Life 360+',marca:'LIFE360+',mlId:'MLM31825667',precio:459,precioML:459,precioAmz:null,ui:null,formaVitD:'D3 (colecalciferol)',conK2:'Sí',formato:'cápsula',porciones:360,porPorcion:'1 cápsula',costoPorPorcion:1.27,costoPor1000ui:null,vegano:'Sí',sinGluten:'Sí',sinLactosa:'Sí',edadMinima:'18 años',estrellas:null,resenas:null,linkML:'',linkAmz:'',img:'https://http2.mlstatic.com/D_NQ_NP_820431-MLA115266885450_082026-F.jpg'},
   {id:5,nombre:'Vitamina D3 400 Ui (100 Softgel) Solgar',marca:'Solgar',mlId:'MLM21289127',precio:388,precioML:388,precioAmz:null,ui:400,formaVitD:'D3 (colecalciferol)',conK2:'No',formato:'cápsula',porciones:100,porPorcion:'1 cápsula',costoPorPorcion:3.88,costoPor1000ui:9.7,vegano:'No',sinGluten:'Sí',sinLactosa:'Sí',edadMinima:'18 años',estrellas:null,resenas:null,linkML:'',linkAmz:'',img:'https://http2.mlstatic.com/D_NQ_NP_842308-MLA99948555911_112025-F.jpg'},
 ];
+/*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=PRODUCTOS.length-1;_i>=0;_i--){var _z=_PZ[PRODUCTOS[_i].id];if(!_z)continue;if(_z.ml){PRODUCTOS[_i].linkML=null;PRODUCTOS[_i].precioML=null;PRODUCTOS[_i].pausaML=true;}if(_z.amz){PRODUCTOS[_i].linkAmz='';PRODUCTOS[_i].precioAmz=null;PRODUCTOS[_i].pausaAmz=true;}if(_z.ml&&_z.amz)PRODUCTOS.splice(_i,1);}}catch(e){}
+
+
+
+
 
 const filters = {formato:'todos', conK2:'todos', plataforma:'todos'};
 let sortActivo = 'costo-ui';

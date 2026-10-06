@@ -364,6 +364,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
   <a href="/privacidad.html">Privacidad</a> · <a href="/terminos.html">Términos</a> · <a href="/aviso-afiliados.html">Aviso de afiliados</a>
 </footer>
 
+<script type="application/json" id="pausas">{}</script>
 <script>
 const PRODUCTOS = [
   {id:101,nombre:'Vitalizate Complejo B Completo Vitamina B12 – 60 Cápsulas',marca:'Vitalizate',precio:179,precioML:219,precioAmz:399,porciones:60,capsulasPorDia:1,porPorcion:'1 cápsula (700mg)',costoPorPorcion:2.98,b1:'15 mg',b2:'18 mg',b3:'25 mg',b5:'20 mg',b6:'10 mg',b7:'300 µg',b9:'400 µg',b12:'12 µg',formaB12:'cianocobalamina',estrellas:4.9,resenas:41,badges:[{t:'ML',c:'b-ml'},{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0G69764TB?tag=comparalo20-20',linkML:'https://meli.la/2L2dD3A',img:'https://http2.mlstatic.com/D_NQ_NP_2X_746788-MLA115220572203_072026-F.webp'},
@@ -396,6 +397,11 @@ const PRODUCTOS = [
   {id:134,nombre:'LIFE 360+ Suplemento Vitamins-B Grape con Uva y Zinc – 220 Cápsulas',marca:'LIFE 360+',precio:395.90,porciones:220,capsulasPorDia:1,porPorcion:'1 cápsula (640mg)',costoPorPorcion:1.73,b1:'15 mg',b2:'18 mg',b3:'25 mg',b5:'20 mg',b6:'10 mg',b7:null,b9:null,b12:'12 µg',formaB12:'cianocobalamina',estrellas:4.9,resenas:44,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B0DF8LZLCV?tag=comparalo20-20',linkML:'',img:'https://m.media-amazon.com/images/I/61sNjIyHp1L._AC_SX679_.jpg'},
   {id:135,nombre:'VITAMÍNICA Complejo B 8 en 1 Pack 3 Frascos – 90 Cápsulas',marca:'AISSA VITAMÍNICA',precio:299,porciones:90,capsulasPorDia:1,porPorcion:'1 cápsula (376mg)',costoPorPorcion:3.32,b1:'15 mg',b2:'18 mg',b3:'25 mg',b5:'20 mg',b6:'10 mg',b7:'300 mcg',b9:'400 mcg',b12:'12 mcg',formaB12:'cianocobalamina',estrellas:4.4,resenas:13,badges:[{t:'AMZ',c:'b-amz'}],linkAmz:'https://www.amazon.com.mx/dp/B09ZDPYY1Q?tag=comparalo20-20',linkML:'',img:'https://m.media-amazon.com/images/I/71wRj4ZvqgL._AC_SX679_.jpg'},
 ];
+/*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=PRODUCTOS.length-1;_i>=0;_i--){var _z=_PZ[PRODUCTOS[_i].id];if(!_z)continue;if(_z.ml){PRODUCTOS[_i].linkML=null;PRODUCTOS[_i].precioML=null;PRODUCTOS[_i].pausaML=true;}if(_z.amz){PRODUCTOS[_i].linkAmz='';PRODUCTOS[_i].precioAmz=null;PRODUCTOS[_i].pausaAmz=true;}if(_z.ml&&_z.amz)PRODUCTOS.splice(_i,1);}}catch(e){}
+
+
+
+
 
 const filters = {formaB12:'todos', plataforma:'todos'};
 let sortActivo = 'precio-asc';

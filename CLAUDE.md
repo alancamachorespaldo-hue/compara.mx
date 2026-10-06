@@ -81,6 +81,10 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
 - `ml-bicis.js especs|nuevas [--aplicar]` — bicis: llena características vacías desde la ficha ML (nunca
   sobrescribe) y agrega bicis más vendidas con stock como `estadoML:"nuevo"`, `activo:false`. En el artifact se
   publican (requiere link de afiliado) y `sync-html.js` agrega las marcadas `_publicar` a `ELECTRICAS`.
+- `sync-pausas.js` — lleva las pausas por plataforma (`pausaML`/`pausaAmz` de `merged-admin.json`) a las
+  páginas de suplementos sin tocar los links: inyecta un `<script id="pausas">` y un bucle que, antes de
+  render, oculta la plataforma pausada (pone su link y precio en null) y quita el producto si están pausadas
+  ambas. El link no se borra, se reactiva poniendo la pausa en "Se muestra" en el artifact.
 - `extraer-artifact.js <archivo.html>` — pasa los datos de un artifact guardado a `merged-admin.json`.
 - `check-site.js` — validaciones del sitio (ver abajo).
 

@@ -590,7 +590,7 @@ function rowHtml(r) {
       case 'mlId': return `<td data-cell="mlId" style="white-space:nowrap">${mlIdCell(p)}</td>`;
       case 'precioML': case 'precioAmz': return `<td class="c-num" data-cell="${c.k}">${priceCell(p, c.k)}</td>`;
       case 'estado': return `<td>${stateCell(p)}</td>`;
-      case 'links': return `<td style="white-space:nowrap">${p.linkML ? `<a class="lk ${mlRoto(p) ? 'lk-roto' : 'lk-ml'}" href="${safeUrl(p.linkML)}" target="_blank" rel="noopener"${mlRoto(p) ? ` title="${esc(mlRoto(p))}"` : ''}>ML${mlRoto(p) ? ' ⚠' : ''} ↗</a>` : ''}${p.linkAmz ? `<a class="lk lk-amz" href="${safeUrl(p.linkAmz)}" target="_blank" rel="noopener"${hasTag(p.linkAmz) ? '' : ' title="Falta el tag de afiliado"'}>AMZ${hasTag(p.linkAmz) ? '' : ' ⚠'} ↗</a>` : ''}${!p.linkML && !p.linkAmz ? '<span class="muted">—</span>' : ''}</td>`;
+      case 'links': return `<td style="white-space:nowrap">${p.linkML ? `<a class="lk ${(p.pausaML || mlRoto(p)) ? 'lk-roto' : 'lk-ml'}" href="${safeUrl(p.linkML)}" target="_blank" rel="noopener" title="${p.pausaML ? 'Pausado en ML (oculto en la web)' : esc(mlRoto(p) || '')}">ML${p.pausaML ? ' ⏸' : mlRoto(p) ? ' ⚠' : ''} ↗</a>` : ''}${p.linkAmz ? `<a class="lk ${p.pausaAmz ? 'lk-roto' : 'lk-amz'}" href="${safeUrl(p.linkAmz)}" target="_blank" rel="noopener" title="${p.pausaAmz ? 'Pausado en Amazon (oculto en la web)' : (hasTag(p.linkAmz) ? '' : 'Falta el tag de afiliado')}">AMZ${p.pausaAmz ? ' ⏸' : hasTag(p.linkAmz) ? '' : ' ⚠'} ↗</a>` : ''}${!p.linkML && !p.linkAmz ? '<span class="muted">—</span>' : ''}</td>`;
       case 'upd': return `<td class="c-date">${p._updatedAt ? esc(fmtShort(p._updatedAt)) : '<span class="muted">—</span>'}</td>`;
       case 'web': return p.estadoML === 'nuevo' ? '<td><span class="badge t-info">Sin publicar</span></td>' : `<td><button class="sw${on ? ' on' : ''}" data-act="toggle" aria-pressed="${on}">${on ? 'Activo' : 'Pausado'}</button></td>`;
       case 'edit': return '<td><button class="btn-icon" data-act="edit" aria-label="Editar producto">✎</button></td>';
@@ -759,11 +759,13 @@ function openEdit(key) {
       <label class="field span2"><span>Link de afiliado (el que abre la gente)</span><input id="e-ml" type="url" placeholder="https://meli.la/…"></label>
       <label class="field"><span>Link de catálogo (precios y datos)</span><input id="e-mlid" placeholder="https://www.mercadolibre.com.mx/…/p/MLM…" autocomplete="off"><small class="field-msg" id="e-mlid-msg"></small></label>
       <label class="field"><span>Precio ML (MXN)</span><input id="e-pml" type="number" min="0" step="1" inputmode="decimal"></label>
+      <label class="field"><span>Estado en ML</span><select id="e-pausaml"><option value="0">Se muestra</option><option value="1">Pausado (oculto en ML)</option></select></label>
       <a class="link-sm span2" href="${safeUrl(searchUrl(p))}" target="_blank" rel="noopener">Buscar este producto en Mercado Libre ↗</a>
     </fieldset>
     <fieldset class="group"><legend>Amazon</legend>
       <label class="field span2"><span>Link (con ?tag=${AMZ_TAG})</span><input id="e-amz" type="url" placeholder="https://www.amazon.com.mx/dp/…?tag=${AMZ_TAG}"><small class="field-msg" id="e-amz-msg"></small></label>
       <label class="field"><span>Precio Amazon (MXN)</span><input id="e-pamz" type="number" min="0" step="1" inputmode="decimal"></label>
+      <label class="field"><span>Estado en Amazon</span><select id="e-pausaamz"><option value="0">Se muestra</option><option value="1">Pausado (oculto en Amazon)</option></select></label>
     </fieldset>
     ${specs.length ? `<fieldset class="group"><legend>Especificaciones</legend>${specs.map(([sk, l], i) => COSTO_KEYS[sk]
       ? `<div class="field"><span>${esc(l)} <span class="muted" style="font-weight:400;text-transform:none">· por plataforma</span></span><div class="field-msg" data-costo="${esc(sk)}" style="min-height:36px;display:flex;flex-direction:column;justify-content:center;gap:2px;color:var(--fg);font-variant-numeric:tabular-nums"></div></div>`
@@ -781,6 +783,8 @@ function openEdit(key) {
   $('#e-pml', o).value = p.precioML ?? '';
   $('#e-amz', o).value = p.linkAmz || '';
   $('#e-pamz', o).value = p.precioAmz ?? '';
+  $('#e-pausaml', o).value = p.pausaML ? '1' : '0';
+  $('#e-pausaamz', o).value = p.pausaAmz ? '1' : '0';
   o.querySelectorAll('[data-sk]').forEach(inp => { inp.value = specText(p, inp.dataset.sk); });
   mlIdMessage($('#e-mlid', o), $('#e-mlid-msg', o));
   amzMessage($('#e-amz', o), $('#e-amz-msg', o));
@@ -810,9 +814,15 @@ function submitEdit(form, publish) {
     nombre, marca:$('#e-marca', o).value.trim(), activo:$('#e-activo', o).value === '1',
     linkML:$('#e-ml', o).value.trim() || null, linkAmz:$('#e-amz', o).value.trim() || null,
     mlId:id.id || null, precioML:pml, precioAmz:pamz,
+    pausaML:$('#e-pausaml', o).value === '1', pausaAmz:$('#e-pausaamz', o).value === '1',
   };
   const fields = {};
-  for (const [k, v] of Object.entries(next)) if ((p[k] ?? null) !== v && !(k === 'activo' && (p.activo !== false) === v)) fields[k] = v;
+  for (const [k, v] of Object.entries(next)) {
+    if ((p[k] ?? null) === v) continue;
+    if (k === 'activo' && (p.activo !== false) === v) continue;        // activo: ausente = activo
+    if ((k === 'pausaML' || k === 'pausaAmz') && (p[k] || false) === v) continue; // pausa: ausente = no pausado
+    fields[k] = v;
+  }
   if ('mlId' in fields) fields.mlIdFuente = fields.mlId ? 'manual' : null;
   if ('linkML' in fields) Object.assign(fields, {_linkError:null, _linkRevisar:null, _linkSinProducto:null});
   const specInputs = o.querySelectorAll('[data-sk]');

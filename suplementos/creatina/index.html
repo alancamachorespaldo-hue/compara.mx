@@ -493,6 +493,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   </div>
 </div>
 
+<script type="application/json" id="pausas">{}</script>
 <script>
 const productos = [
   {id:1,nombre:"Birdman Creatina Monohidratada Micronizada Alta Pureza 450 g",marca:"Birdman",saboresDisponibles:["Sin sabor"],precio:436,precioAmz:436,precioML:391,estrellasML:4.8,resenasML:76259,estrellasAmz:4.8,resenasAmz:41730,contenidoGramos:450,porciones:90,creatinaGramosPorPorcion:5,costoPorPorcion:4.84,costoPor5gCreatina:4.84,tipoCreatina:"Creatina monohidratada micronizada",presentacion:"polvo",creatinaPura:true,componentesAdicionales:[],certificaciones:["CreaClean"],estrellas:4.8,resenas:76259,linkAmz:"https://www.amazon.com.mx/Birdman-Creatina-Creapure-Monohidratada-Servicios/dp/B089ZWVJ2K?tag=comparalo20-20",linkML:"https://meli.la/29DHHzt",img:"https://http2.mlstatic.com/D_NQ_NP_2X_869964-MLA98924944108_112025-F.webp"},
@@ -548,6 +549,11 @@ const productos = [
   {id:52,nombre:"B Life Creatina Monohidratada Micronizada 240 Cápsulas",marca:"B Life Company",saboresDisponibles:["Sin sabor"],precio:449,precioAmz:449,precioML:null,contenidoGramos:null,porciones:60,creatinaGramosPorPorcion:2,costoPorPorcion:7.48,costoPor5gCreatina:18.70,tipoCreatina:"Creatina monohidratada micronizada",presentacion:"capsulas",creatinaPura:true,componentesAdicionales:[],certificaciones:[],estrellas:4.6,resenas:659,linkAmz:"https://www.amazon.com.mx/Monohidratada-Micronizada-Ingredientes-naturales-Monohydrate/dp/B09VVCSFCZ?tag=comparalo20-20",linkML:"",img:"https://m.media-amazon.com/images/I/61RkrqB6puL._AC_SX679_.jpg"},
   {id:53,nombre:"B-FIT Creabet Creatina Monohidratada y Beta Alanina 300g",marca:"B-FIT",saboresDisponibles:["Sin sabor"],precio:629,precioAmz:569,precioML:null,contenidoGramos:300,porciones:75,creatinaGramosPorPorcion:2.5,costoPorPorcion:7.59,costoPor5gCreatina:15.18,tipoCreatina:"Creatina blend",presentacion:"polvo",creatinaPura:false,componentesAdicionales:["Beta Alanina"],certificaciones:[],estrellas:4.6,resenas:145,linkAmz:"https://www.amazon.com.mx/B-FIT-Creabet-Monohidratada-Suministro-Suplemento/dp/B0B455VS9H?tag=comparalo20-20",linkML:"",img:"https://m.media-amazon.com/images/I/71lBE0SHmQL._AC_SX679_.jpg"}
 ];
+/*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
+
+
+
 
 // Precio vigente: el de la tienda a la que lleva el botón, no el de alta del producto.
 const precioVigente = p => (p.linkML ? p.precioML : p.precioAmz) ?? p.precio ?? null;
