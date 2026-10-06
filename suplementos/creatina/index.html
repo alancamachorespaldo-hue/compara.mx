@@ -549,6 +549,9 @@ const productos = [
   {id:53,nombre:"B-FIT Creabet Creatina Monohidratada y Beta Alanina 300g",marca:"B-FIT",saboresDisponibles:["Sin sabor"],precio:629,precioAmz:569,precioML:null,contenidoGramos:300,porciones:75,creatinaGramosPorPorcion:2.5,costoPorPorcion:7.59,costoPor5gCreatina:15.18,tipoCreatina:"Creatina blend",presentacion:"polvo",creatinaPura:false,componentesAdicionales:["Beta Alanina"],certificaciones:[],estrellas:4.6,resenas:145,linkAmz:"https://www.amazon.com.mx/B-FIT-Creabet-Monohidratada-Suministro-Suplemento/dp/B0B455VS9H?tag=comparalo20-20",linkML:"",img:"https://m.media-amazon.com/images/I/71lBE0SHmQL._AC_SX679_.jpg"}
 ];
 
+// Precio vigente: el de la tienda a la que lleva el botón, no el de alta del producto.
+const precioVigente = p => (p.linkML ? p.precioML : p.precioAmz) ?? p.precio ?? null;
+
 // ── Categoría de tipo para filtros ────────────────────────────
 function getCategoria(p) {
   if (p.saboresDisponibles && p.saboresDisponibles.some(s => s !== 'Sin sabor' && s !== 'Sin Sabor')) {
@@ -692,13 +695,13 @@ function render() {
       const hay = (p.nombre+' '+p.marca+' '+(p.tipoCreatina||'')+' '+(p.presentacion||'')+' '+(p.saboresDisponibles||[]).join(' ')).toLowerCase();
       if (!hay.includes(q)) return false;
     }
-    const _maxP=parseFloat(document.getElementById('precio-max')?.value)||Infinity;if(_maxP<Infinity&&((p.precioML??p.precio)||0)>_maxP)return false;
+    const _maxP=parseFloat(document.getElementById('precio-max')?.value)||Infinity;if(_maxP<Infinity&&(precioVigente(p)||0)>_maxP)return false;
     return true;
   });
 
   lista.sort((a, b) => {
-    if (sortVal === 'precio-asc') return ((a.precioML??a.precio)||99999)-((b.precioML??b.precio)||99999);
-    if (sortVal === 'precio-desc') return ((b.precioML??b.precio)||0)-((a.precioML??a.precio)||0);
+    if (sortVal === 'precio-asc') return (precioVigente(a)||99999)-(precioVigente(b)||99999);
+    if (sortVal === 'precio-desc') return (precioVigente(b)||0)-(precioVigente(a)||0);
     if (sortVal === 'creatina-porcion') return ((b.creatinaGramosPorPorcion ?? b.gramosPorPorcion)||0)-((a.creatinaGramosPorPorcion ?? a.gramosPorPorcion)||0);
     if (sortVal === 'costo-porcion') return (a.costoPorPorcion||99999)-(b.costoPorPorcion||99999);
     if (sortVal === 'costo-5g') return ((a.costoPor5gCreatina ?? a.costoPor5g)||99999)-((b.costoPor5gCreatina ?? b.costoPor5g)||99999);
@@ -766,7 +769,7 @@ function cardHTML(p) {
       </div>
     </div>`;
   } else {
-    const pSingle = p.precioML ?? p.precio;
+    const pSingle = precioVigente(p);
     precioBlock = pSingle != null
       ? `<div class="card-price">${fmt(pSingle)}</div>`
       : '<div class="price-nd">Precio no disponible</div>';
@@ -862,9 +865,9 @@ function openModal() {
   }
 
   function filaPrecio(prods) {
-    const all = prods.map(p => (p.precioML??p.precio)||null);
+    const all = prods.map(p => precioVigente(p)||null);
     const minP = Math.min(...all.filter(Boolean));
-    return prods.map(p => { const v=p.precioML??p.precio; const isWin=v&&v===minP; return `<td class="${isWin?'cmp-winner':''}">${v?'$'+v.toLocaleString('es-MX',{minimumFractionDigits:0,maximumFractionDigits:2}):nd}</td>`; }).join('');
+    return prods.map(p => { const v=precioVigente(p); const isWin=v&&v===minP; return `<td class="${isWin?'cmp-winner':''}">${v?'$'+v.toLocaleString('es-MX',{minimumFractionDigits:0,maximumFractionDigits:2}):nd}</td>`; }).join('');
   }
 
   function filaExtras(prods) {
