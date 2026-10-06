@@ -6477,7 +6477,7 @@
       "precioAmz": 279,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:59:42.486Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://m.media-amazon.com/images/I/61RV774s6lL._AC_SX679_.jpg",
       "estrellas": 4.4,
       "resenas": 707,
@@ -6498,7 +6498,10 @@
         "vegana": "Sí",
         "glutenFree": "Sí",
         "sugarFree": "Sí",
-        "porciones": 30
+        "porciones": 30,
+        "sabores": [
+          "Natural"
+        ]
       },
       "precio": 359,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
@@ -6510,13 +6513,13 @@
       "id": 2,
       "nombre": "Evolution Proteína WP100 + Creatina",
       "marca": "Evolution",
-      "linkML": null,
+      "linkML": "https://meli.la/1o6SLLk",
       "linkAmz": "https://www.amazon.com.mx/dp/B0GZJ2S86Y?&linkCode=ll2&tag=comparalo20-20&linkId=59e2eaea153732f328bab89fba4415e0&ref_=as_li_ss_tl",
-      "precioML": null,
+      "precioML": 1498,
       "precioAmz": 1572.8,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:24:44.840Z",
+      "_updatedAt": "2026-10-06T13:16:50.420Z",
       "imagen": "https://m.media-amazon.com/images/I/61e3Z0OGfML._AC_SX679_.jpg",
       "estrellas": 5,
       "resenas": 4,
@@ -6526,36 +6529,21 @@
         "gramosPorPorcion": "32.8 g",
         "proteinaPorPorcion": "24 g",
         "concentracion": "73.17%",
-        "costoPorPorcion": "$36.83",
+        "costoPorPorcion": "$35.08",
         "costoPor25g": "$38.37",
         "calorias": "96 kcal",
         "carbos": "0 g",
         "grasas": "0 g",
-        "porciones": 42.7
+        "porciones": 42.7,
+        "sabores": [
+          "Chocolate"
+        ]
       },
       "precio": 599,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
-      "_mlSug": [
-        {
-          "id": "MLM19518425",
-          "n": "Proteína Evolution WP100 en polvo sabor Vainilla x 800g",
-          "p": 836,
-          "s": 69
-        },
-        {
-          "id": "MLM66090166",
-          "n": "Proteína Evolution WP100 en polvo sabor Fresa x 800g",
-          "p": 836,
-          "s": 69
-        },
-        {
-          "id": "MLM19699500",
-          "n": "Proteína Evolution WP100 en polvo sabor Natural x 800g",
-          "p": 836,
-          "s": 69
-        }
-      ],
-      "_linkError": null
+      "_linkError": null,
+      "mlId": "MLM18937714",
+      "mlIdFuente": "manual"
     },
     {
       "id": 3,
@@ -6563,11 +6551,11 @@
       "marca": "Birdman",
       "linkML": "https://meli.la/1E2PDXU",
       "linkAmz": "https://www.amazon.com.mx/Performance-Prote%C3%ADna-CreaClean-Chocolate-Porciones/dp/B0GS449G2M?__mk_es_MX=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=39VU23G2JGOYQ&dib=eyJ2IjoiMSJ9.LI7hgnGwG42CGqiDiVIPHSmTR7fyptWDtKpMsFpBWghxFCw1-7SlY3NXqgWJJgH2NwLumB2wiVuVvxCTdNLWH3I5q4f1q1bPhzCj-3HIVMDLux1WAjRybe_TNuP7s_ZsosZu9MLxqua6tkdjmkkzs812RPrXa-4bWkYkul2RNRS5E46Gped6jd9Ab9riymLtEwtld5kTK2qQis0x-g5NtIQwIBoXcdym2j_PsGJGWKxJ81mfX104k5dZpEhSKwxJ_9dZH4vtroeyYN2WV44aRQPK_4HKHTkrA3DUigq6EI8.W34lV018ZqLecdWrrjdC7acdgYo63JvCal6Oj0FKnoU&dib_tag=se&keywords=Birdman%2BFalcon%2BPerformance&qid=1791266348&s=hpc&sprefix=birdman%2Bfalcon%2Bperformance%2Chpc%2C215&sr=1-7&th=1&linkCode=ll2&tag=comparalo20-20&linkId=bb2c9e6ae6a9a2d3e92fec734851bfca&ref_=as_li_ss_tl",
-      "precioML": 599,
-      "precioAmz": 588,
+      "precioML": 479,
+      "precioAmz": 448.99,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:24:44.840Z",
+      "_updatedAt": "2026-10-06T13:16:50.420Z",
       "imagen": "https://m.media-amazon.com/images/I/71R+5pti1BL._AC_SX679_.jpg",
       "estrellas": 4.6,
       "resenas": 3031,
@@ -6581,14 +6569,18 @@
         "gramosPorPorcion": "46 g",
         "proteinaPorPorcion": "30 g",
         "concentracion": "65.22%",
-        "costoPorPorcion": "$49.83",
+        "costoPorPorcion": "$37.42",
         "costoPor25g": "$41.53",
         "calorias": "167 kcal",
         "carbos": "3 g",
         "grasas": "4 g",
         "vegana": "Sí",
         "glutenFree": "Sí",
-        "porciones": 12
+        "porciones": 12,
+        "sabores": [
+          "Vainilla",
+          "Chocolate"
+        ]
       },
       "precio": 379,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
@@ -6600,13 +6592,13 @@
       "id": 4,
       "nombre": "Birdman Falcon Protein",
       "marca": "Birdman",
-      "linkML": "https://meli.la/1ypCbmd",
-      "linkAmz": null,
-      "precioML": null,
-      "precioAmz": 1049,
+      "linkML": "https://meli.la/1xAbua3",
+      "linkAmz": "https://www.amazon.com.mx/dp/B0GM1V5XYB?th=1&linkCode=ll2&tag=comparalo20-20&linkId=ee6093caa8b20dde9e241e28a977d6fe&ref_=as_li_ss_tl",
+      "precioML": 1048.99,
+      "precioAmz": 788.99,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:16:50.420Z",
       "imagen": "https://m.media-amazon.com/images/I/71esIdLWIcL._AC_SX679_.jpg",
       "estrellas": 5,
       "resenas": 10,
@@ -6627,31 +6619,20 @@
         "grasas": "2 g",
         "vegana": "Sí",
         "glutenFree": "Sí",
-        "porciones": 30
+        "porciones": 30,
+        "sabores": [
+          "Chai",
+          "Chocolate",
+          "Fresa",
+          "Natural",
+          "Vainilla"
+        ]
       },
       "precio": 349,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
-      "_mlSug": [
-        {
-          "id": "MLM61066791",
-          "n": "Proteína Vegana Birdman Falcon Protein en Polvo sabor Vainilla, 600g",
-          "p": null,
-          "s": 74
-        },
-        {
-          "id": "MLM18726606",
-          "n": "Proteína Birdman Falcon Protein en polvo sabor Chocolate x 1.8kg",
-          "p": 1147,
-          "s": 63
-        },
-        {
-          "id": "MLM18726607",
-          "n": "Proteína Birdman Falcon Protein en polvo sabor Vainilla x 1.8kg",
-          "p": 1529,
-          "s": 63
-        }
-      ],
-      "_linkError": "Suplemento Nutricional Deportivo F-Cus Complejo B Cápsulas"
+      "_linkError": null,
+      "mlId": "MLM66053354",
+      "mlIdFuente": "manual"
     },
     {
       "id": 5,
@@ -6663,7 +6644,7 @@
       "precioAmz": 565.46,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://m.media-amazon.com/images/I/51zLx98BTZL._AC_SX679_.jpg",
       "estrellas": 4.8,
       "resenas": 1328,
@@ -6673,7 +6654,12 @@
         "proteinaPorPorcion": "21.5 g",
         "costoPorPorcion": "$35.34",
         "vegana": "Sí",
-        "porciones": 16
+        "porciones": 16,
+        "sabores": [
+          "Cacao",
+          "Matcha vainilla",
+          "Vainilla"
+        ]
       },
       "precio": 399,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
@@ -6709,7 +6695,7 @@
       "precioAmz": 665,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": null,
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://m.media-amazon.com/images/I/41HtEuT2QcL._AC_.jpg",
       "estrellas": 4.8,
       "resenas": 19,
@@ -6717,7 +6703,12 @@
         "tipoProteina": "Whey protein Grass-Fed",
         "contenidoGramos": "455 g",
         "proteinaPorPorcion": "25 g",
-        "carbos": "1 g"
+        "carbos": "1 g",
+        "sabores": [
+          "Chai",
+          "Chocolate",
+          "Vainilla"
+        ]
       },
       "precio": 236,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
@@ -6753,7 +6744,7 @@
       "precioAmz": 1499,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://m.media-amazon.com/images/I/61uz7wQZ+0L._AC_SX679_.jpg",
       "estrellas": 4.5,
       "resenas": 280,
@@ -6771,7 +6762,12 @@
         "calorias": "120 kcal",
         "carbos": "2.1 g",
         "grasas": "1.68 g",
-        "porciones": 60
+        "porciones": 60,
+        "sabores": [
+          "Chocolate",
+          "Sin sabor / Natural",
+          "Vainilla"
+        ]
       },
       "precio": 365,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
@@ -6807,7 +6803,7 @@
       "precioAmz": 665,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://m.media-amazon.com/images/I/41+v-FmEMsL._AC_.jpg",
       "estrellas": 4.5,
       "resenas": 24,
@@ -6820,7 +6816,12 @@
         "costoPorPorcion": "$47.50",
         "costoPor25g": "$47.50",
         "carbos": "1 g",
-        "porciones": 14
+        "porciones": 14,
+        "sabores": [
+          "Chocolate",
+          "Chai",
+          "Vainilla"
+        ]
       },
       "precio": 699,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
@@ -6856,7 +6857,7 @@
       "precioAmz": 599.99,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://m.media-amazon.com/images/I/81+rF8o6cWL._AC_SX679_.jpg",
       "estrellas": 4.4,
       "resenas": 316,
@@ -6871,7 +6872,10 @@
         "calorias": "20.6 kcal",
         "carbos": "1.25 g",
         "grasas": "0 g",
-        "porciones": 16
+        "porciones": 16,
+        "sabores": [
+          "Condimentado"
+        ]
       },
       "precio": 424,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
@@ -6907,14 +6911,17 @@
       "precioAmz": 529,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": null,
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://m.media-amazon.com/images/I/71bAFDc2qPL._AC_SX679_.jpg",
       "estrellas": 4.2,
       "resenas": 3022,
       "especs": {
         "tipoProteina": "Bone Broth Grass-Fed",
         "contenidoGramos": "454 g",
-        "proteinaPorPorcion": "21 g"
+        "proteinaPorPorcion": "21 g",
+        "sabores": [
+          "Sin sabor / Natural"
+        ]
       },
       "precio": 130,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
@@ -6950,7 +6957,7 @@
       "precioAmz": 850,
       "estadoML": "sin_cambio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://m.media-amazon.com/images/I/81gWL5d+arL._AC_SY300_SX300_QL70_ML2_.jpg",
       "estrellas": 4.5,
       "resenas": 81,
@@ -6966,7 +6973,14 @@
         "carbos": "1 g",
         "grasas": "1.5 g",
         "vegana": "Sí",
-        "porciones": 17.5
+        "porciones": 17.5,
+        "sabores": [
+          "Chococacahuate",
+          "Chocolate Belga y Menta",
+          "Mix de sabores",
+          "Salty Caramel",
+          "Strawberry Cheesecake"
+        ]
       },
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z"
     },
@@ -6980,7 +6994,7 @@
       "precioAmz": 849,
       "estadoML": "sin_cambio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://m.media-amazon.com/images/I/81Ac3mTLIUL._AC_SY300_SX300_QL70_ML2_.jpg",
       "estrellas": 4.6,
       "resenas": 205,
@@ -7000,7 +7014,17 @@
         "calorias": "150 kcal",
         "carbos": "9 g",
         "grasas": "2.5 g",
-        "porciones": 61
+        "porciones": 61,
+        "sabores": [
+          "Brownie de chocolate",
+          "Chocolate",
+          "Cookies & Cream",
+          "Crema de Fresa",
+          "Cookies & Cream",
+          "Galletas y crema",
+          "Nieve de vainilla",
+          "Vainilla"
+        ]
       },
       "_mlCheckedAt": "2026-10-06T02:45:16.519Z",
       "mlId": "MLM22073694",
@@ -7016,7 +7040,7 @@
       "precioAmz": 359,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://m.media-amazon.com/images/I/61PghcmJoDL._AC_SX679_.jpg",
       "estrellas": 4.7,
       "resenas": 29,
@@ -7035,7 +7059,11 @@
         "carbos": "0.37 g",
         "grasas": "0.84 g",
         "vegana": "Sí",
-        "porciones": 20
+        "porciones": 20,
+        "sabores": [
+          "Chocolate",
+          "Vainilla"
+        ]
       },
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
       "_mlSug": [
@@ -7070,7 +7098,7 @@
       "precioAmz": 1285,
       "estadoML": "sin_cambio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://m.media-amazon.com/images/I/71EjSz9Z1KL._AC_SX679_.jpg",
       "estrellas": 4.9,
       "resenas": 63,
@@ -7087,7 +7115,10 @@
         "grasas": "2.14 g",
         "vegana": "Sí",
         "glutenFree": "Sí",
-        "porciones": 30
+        "porciones": 30,
+        "sabores": [
+          "Vainilla"
+        ]
       },
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z"
     },
@@ -7101,7 +7132,7 @@
       "precioAmz": 957,
       "estadoML": "actualizado",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://m.media-amazon.com/images/I/71C0NKepIRL._AC_SX679_.jpg",
       "estrellas": 4.7,
       "resenas": 950,
@@ -7118,7 +7149,12 @@
         "grasas": "3 g",
         "vegana": "Sí",
         "glutenFree": "Sí",
-        "porciones": 30
+        "porciones": 30,
+        "sabores": [
+          "Blueberry",
+          "Moka",
+          "Vainilla"
+        ]
       },
       "_mlCheckedAt": "2026-10-06T02:45:16.519Z",
       "mlId": "MLM25354677",
@@ -7135,7 +7171,7 @@
       "precioAmz": 1582.09,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": null,
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://m.media-amazon.com/images/I/71ij9uBiDyL._AC_SX679_.jpg",
       "estrellas": 4.5,
       "resenas": 62,
@@ -7152,7 +7188,10 @@
         "calorias": "120 kcal",
         "carbos": "2 g",
         "grasas": "1 g",
-        "glutenFree": "Sí"
+        "glutenFree": "Sí",
+        "sabores": [
+          "Chocolate"
+        ]
       },
       "precio": 339,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
@@ -7188,7 +7227,7 @@
       "precioAmz": 498,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://m.media-amazon.com/images/I/814aXFYxjkL._AC_SX679_.jpg",
       "estrellas": 3.8,
       "resenas": 8,
@@ -7203,7 +7242,14 @@
         "calorias": "135 kcal",
         "carbos": "3 g",
         "grasas": "2.3 g",
-        "porciones": 70
+        "porciones": 70,
+        "sabores": [
+          "Brownie Triple Choco",
+          "Choco Maní",
+          "Cookies & Cream",
+          "Galletas y crema",
+          "Vainilla"
+        ]
       },
       "precio": 285,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
@@ -7239,7 +7285,7 @@
       "precioAmz": 1049,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://m.media-amazon.com/images/I/51HG5MV3E7L._AC_SX679_.jpg",
       "estrellas": null,
       "resenas": null,
@@ -7253,7 +7299,10 @@
         "calorias": "134 kcal",
         "carbos": "3.6 g",
         "grasas": "2.2 g",
-        "porciones": 27
+        "porciones": 27,
+        "sabores": [
+          "Sin sabor / Natural"
+        ]
       },
       "precio": 449,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
@@ -7289,7 +7338,7 @@
       "precioAmz": 319.9,
       "estadoML": "sin_cambio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://m.media-amazon.com/images/I/71UkrFxWIiL._AC_SX679_.jpg",
       "estrellas": 4.4,
       "resenas": 166,
@@ -7306,7 +7355,10 @@
         "grasas": "1.22 g",
         "vegana": "Sí",
         "glutenFree": "Sí",
-        "porciones": 40
+        "porciones": 40,
+        "sabores": [
+          "Sin sabor / Natural"
+        ]
       },
       "precio": 394,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z"
@@ -7321,7 +7373,7 @@
       "precioAmz": 1180,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://m.media-amazon.com/images/I/611HZIJJcfL._AC_SX679_.jpg",
       "estrellas": 5,
       "resenas": 15,
@@ -7336,7 +7388,10 @@
         "calorias": "95.95 kcal",
         "carbos": "1.71 g",
         "grasas": "0.89 g",
-        "porciones": 22.5
+        "porciones": 22.5,
+        "sabores": [
+          "Chocolate"
+        ]
       },
       "precio": 699,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z"
@@ -7351,7 +7406,7 @@
       "precioAmz": 1129,
       "estadoML": "sin_cambio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://m.media-amazon.com/images/I/71R3b3RFqML._AC_SX679_.jpg",
       "estrellas": 4.7,
       "resenas": 2123,
@@ -7372,7 +7427,11 @@
         "grasas": "4 g",
         "vegana": "Sí",
         "glutenFree": "Sí",
-        "porciones": 24
+        "porciones": 24,
+        "sabores": [
+          "Chocolate",
+          "Vainilla"
+        ]
       },
       "precio": 430,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z"
@@ -7387,7 +7446,7 @@
       "precioAmz": 1100,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://m.media-amazon.com/images/I/71ToKV0Vi5L._AC_SY879_.jpg",
       "estrellas": 4.7,
       "resenas": 412,
@@ -7403,7 +7462,10 @@
         "carbos": "0 g",
         "grasas": "0.5 g",
         "glutenFree": "Sí",
-        "porciones": 30
+        "porciones": 30,
+        "sabores": [
+          "Sin sabor / Natural"
+        ]
       },
       "precio": 399,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z"
@@ -7418,7 +7480,7 @@
       "precioAmz": 1549,
       "estadoML": "sin_cambio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://m.media-amazon.com/images/I/71KtI9UDIgL._AC_SX679_.jpg",
       "estrellas": 4.5,
       "resenas": 1351,
@@ -7433,7 +7495,15 @@
         "calorias": "110 kcal",
         "carbos": "1 g",
         "grasas": "0.5 g",
-        "porciones": 44
+        "porciones": 44,
+        "sabores": [
+          "Banana Cream",
+          "Choco Honey",
+          "Chocolate",
+          "Galletas y crema",
+          "Salted Caramel",
+          "Vainilla"
+        ]
       },
       "precio": 670,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z"
@@ -7448,7 +7518,7 @@
       "precioAmz": 314.1,
       "estadoML": "sin_cambio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://m.media-amazon.com/images/I/51oP-4cJtyL._AC_SX679_.jpg",
       "estrellas": 4.8,
       "resenas": 27,
@@ -7465,7 +7535,10 @@
         "grasas": "2.3 g",
         "vegana": "Sí",
         "glutenFree": "Sí",
-        "porciones": 33
+        "porciones": 33,
+        "sabores": [
+          "Sin sabor / Natural"
+        ]
       },
       "precio": 489,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z"
@@ -7480,7 +7553,7 @@
       "precioAmz": 1687,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://m.media-amazon.com/images/I/616fhxxD3gL._AC_SX679_.jpg",
       "estrellas": 4.7,
       "resenas": 775,
@@ -7495,7 +7568,10 @@
         "calorias": "110 kcal",
         "carbos": "1 g",
         "grasas": "0.5 g",
-        "porciones": 41
+        "porciones": 41,
+        "sabores": [
+          "Chocolate"
+        ]
       },
       "precio": 399,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z"
@@ -7510,7 +7586,7 @@
       "precioAmz": 1479,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://m.media-amazon.com/images/I/81KjYx9Fn-L._AC_SX679_.jpg",
       "estrellas": 4.6,
       "resenas": 450,
@@ -7525,7 +7601,11 @@
         "calorias": "135 kcal",
         "carbos": "3 g",
         "grasas": "3 g",
-        "porciones": 61.3
+        "porciones": 61.3,
+        "sabores": [
+          "Galletas con crema",
+          "Helado de Chocolate"
+        ]
       },
       "precio": 756,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z"
@@ -7540,7 +7620,7 @@
       "precioAmz": 840,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://m.media-amazon.com/images/I/71Myeb1qPrL._AC_SY300_SX300_QL70_ML2_.jpg",
       "estrellas": 4.6,
       "resenas": 291,
@@ -7555,7 +7635,10 @@
         "calorias": "202 kcal",
         "carbos": "8.09 g",
         "grasas": "9 g",
-        "porciones": 10
+        "porciones": 10,
+        "sabores": [
+          "Chocolate"
+        ]
       },
       "precio": 399,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z"
@@ -7570,7 +7653,7 @@
       "precioAmz": 298.99,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_878058-MLA100001573311_112025-F.webp",
       "estrellas": 4.9,
       "resenas": 4403,
@@ -7590,7 +7673,12 @@
         "carbos": "1 g",
         "grasas": "1.9 g",
         "vegana": "Sí",
-        "porciones": 16
+        "porciones": 16,
+        "sabores": [
+          "Cacao",
+          "Matcha vainilla",
+          "Vainilla"
+        ]
       },
       "precio": 219.99,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
@@ -7626,7 +7714,7 @@
       "precioAmz": null,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_741333-MLA112809204165_062026-F.webp",
       "estrellas": 4.7,
       "resenas": 3040,
@@ -7645,7 +7733,14 @@
         "carbos": "1.9 g",
         "grasas": "1.9 g",
         "vegana": "No",
-        "porciones": 72
+        "porciones": 72,
+        "sabores": [
+          "Choco Maní",
+          "Choco avellana",
+          "Chocolate con avellana",
+          "Chocolate con maní",
+          "Vainilla"
+        ]
       },
       "precio": 593.96,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
@@ -7681,7 +7776,7 @@
       "precioAmz": null,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_684541-MLA107171602656_022026-F.webp",
       "estrellas": 4.8,
       "resenas": 5415,
@@ -7701,7 +7796,14 @@
         "carbos": "0 g",
         "grasas": "0.45 g",
         "vegana": "No",
-        "porciones": 26.6
+        "porciones": 26.6,
+        "sabores": [
+          "Chocolate",
+          "Fresa",
+          "Moka",
+          "Natural",
+          "Vainilla"
+        ]
       },
       "precio": 145,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
@@ -7737,7 +7839,7 @@
       "precioAmz": null,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_648936-MLA114965001601_072026-F.webp",
       "estrellas": 4.5,
       "resenas": 227,
@@ -7757,7 +7859,12 @@
         "carbos": "9.12 g",
         "grasas": "0.89 g",
         "vegana": "No",
-        "porciones": 60
+        "porciones": 60,
+        "sabores": [
+          "Chocolate",
+          "Cookies & Cream",
+          "Vainilla"
+        ]
       },
       "precio": 345,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
@@ -7793,7 +7900,7 @@
       "precioAmz": null,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_910589-MLA114664194885_072026-F.webp",
       "estrellas": 4.6,
       "resenas": 4283,
@@ -7813,7 +7920,15 @@
         "carbos": "7.48 g",
         "grasas": "1.21 g",
         "vegana": "No",
-        "porciones": 60
+        "porciones": 60,
+        "sabores": [
+          "Cappuccino",
+          "Chocolate",
+          "Cookies & Cream",
+          "Fresas con crema",
+          "Vainilla",
+          "Café caramel macchiato"
+        ]
       },
       "precio": 255.8,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
@@ -7849,7 +7964,7 @@
       "precioAmz": null,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_677400-MLA100083704797_122025-F.webp",
       "estrellas": 4.8,
       "resenas": 39209,
@@ -7870,7 +7985,23 @@
         "carbos": "4 g",
         "grasas": "1 g",
         "vegana": "No",
-        "porciones": 73
+        "porciones": 73,
+        "sabores": [
+          "Café",
+          "Chocolate blanco",
+          "Chocolate coconut",
+          "Chocolate con menta",
+          "Cookies & Cream",
+          "Crema de vainilla francesa",
+          "Double rich chocolate",
+          "Extreme milk chocolate",
+          "Frutilla deliciosa",
+          "Frutilla/Banana",
+          "Malta de chocolate",
+          "Mocha cappuccino",
+          "Nieve de vainilla",
+          "Rocky road"
+        ]
       },
       "precio": 399.15,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
@@ -7906,7 +8037,7 @@
       "precioAmz": null,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_895097-MLA114502276399_072026-F.webp",
       "estrellas": 4.8,
       "resenas": 11786,
@@ -7926,7 +8057,11 @@
         "carbos": "2 g",
         "grasas": "4 g",
         "vegana": "Sí",
-        "porciones": 41
+        "porciones": 41,
+        "sabores": [
+          "Choco bronze",
+          "Vainilla dorada"
+        ]
       },
       "precio": 199,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
@@ -7962,7 +8097,7 @@
       "precioAmz": null,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_913549-MLA113261195160_072026-F.webp",
       "estrellas": 4.8,
       "resenas": 7132,
@@ -7982,7 +8117,14 @@
         "carbos": "2 g",
         "grasas": "2 g",
         "vegana": "Sí",
-        "porciones": 56
+        "porciones": 56,
+        "sabores": [
+          "Chai",
+          "Chocolate",
+          "Fresa",
+          "Natural",
+          "Vainilla"
+        ]
       },
       "precio": 379,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
@@ -8018,7 +8160,7 @@
       "precioAmz": null,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_638309-MLA99925304481_112025-F.webp",
       "estrellas": 4.8,
       "resenas": 855,
@@ -8037,7 +8179,18 @@
         "carbos": "3 g",
         "grasas": "1 g",
         "vegana": "No",
-        "porciones": 74
+        "porciones": 74,
+        "sabores": [
+          "Cappuccino",
+          "Chocobanana",
+          "Chocolate",
+          "Cookies & Cream",
+          "Fresa",
+          "Horchata frutilla",
+          "Moka",
+          "Vainilla",
+          "Vainilla francesa"
+        ]
       },
       "precio": 269.99,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
@@ -8073,7 +8226,7 @@
       "precioAmz": null,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": null,
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_825867-MLM98395723051_112025-F.webp",
       "estrellas": 4.6,
       "resenas": 5,
@@ -8089,7 +8242,14 @@
         "calorias": "152 kcal",
         "carbos": "0 g",
         "grasas": "0 g",
-        "vegana": "No"
+        "vegana": "No",
+        "sabores": [
+          "Cappuccino",
+          "Chocolate",
+          "Fresa",
+          "Galleta",
+          "Vainilla"
+        ]
       },
       "precio": 329,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
@@ -8125,7 +8285,7 @@
       "precioAmz": null,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_799911-MLM107450190503_022026-F.webp",
       "estrellas": null,
       "resenas": null,
@@ -8144,7 +8304,15 @@
         "carbos": "0 g",
         "grasas": "0 g",
         "vegana": "No",
-        "porciones": 32
+        "porciones": 32,
+        "sabores": [
+          "Cappuccino",
+          "Chocolate",
+          "Fresa",
+          "Galleta",
+          "Natural",
+          "Vainilla"
+        ]
       },
       "precio": 499.3,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
@@ -8180,7 +8348,7 @@
       "precioAmz": 399,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_855408-MLA107252349449_022026-F.webp",
       "estrellas": 4.8,
       "resenas": 843,
@@ -8194,7 +8362,13 @@
         "calorias": "125 kcal",
         "carbos": "6 g",
         "grasas": "1 g",
-        "porciones": 129
+        "porciones": 129,
+        "sabores": [
+          "Banana",
+          "Cookies & Cream",
+          "Galleta de canela",
+          "Wild vainilla"
+        ]
       },
       "precio": 399,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
@@ -8230,7 +8404,7 @@
       "precioAmz": null,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_765024-MLA105275899853_012026-F.webp",
       "estrellas": 4.7,
       "resenas": 9,
@@ -8249,7 +8423,12 @@
         "carbos": "2 g",
         "grasas": "0.37 g",
         "vegana": "No",
-        "porciones": 73
+        "porciones": 73,
+        "sabores": [
+          "Ferrero",
+          "Moka",
+          "Mora"
+        ]
       },
       "precio": 239,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
@@ -8285,7 +8464,7 @@
       "precioAmz": null,
       "estadoML": "sin_cambio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_603130-MLA111613168664_062026-F.webp",
       "estrellas": 4.7,
       "resenas": 8884,
@@ -8304,7 +8483,13 @@
         "carbos": "1.5 g",
         "grasas": "1.5 g",
         "vegana": "No",
-        "porciones": 60
+        "porciones": 60,
+        "sabores": [
+          "Chocobrownie",
+          "Cookies & Cream",
+          "Fresas con crema",
+          "Nieve de Nuez"
+        ]
       },
       "precio": 198.04,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z"
@@ -8319,7 +8504,7 @@
       "precioAmz": null,
       "estadoML": "sin_cambio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_909242-MLA115113292514_082026-F.webp",
       "estrellas": 4.8,
       "resenas": 84,
@@ -8338,7 +8523,10 @@
         "carbos": "0.87 g",
         "grasas": "0.2 g",
         "vegana": "No",
-        "porciones": 36
+        "porciones": 36,
+        "sabores": [
+          "Chocolate"
+        ]
       },
       "precio": 264.1,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z"
@@ -8353,7 +8541,7 @@
       "precioAmz": null,
       "estadoML": "actualizado",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_969497-MLA99453439844_112025-F.webp",
       "estrellas": 4.6,
       "resenas": 1472,
@@ -8372,7 +8560,11 @@
         "carbos": "8 g",
         "grasas": "2 g",
         "vegana": "No",
-        "porciones": 63
+        "porciones": 63,
+        "sabores": [
+          "Chocolate",
+          "Vainilla"
+        ]
       },
       "_mlCheckedAt": "2026-10-06T02:45:16.519Z",
       "mlId": "MLM22275454",
@@ -8389,7 +8581,7 @@
       "precioAmz": null,
       "estadoML": "sin_cambio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_905730-MLA99488933356_112025-F.webp",
       "estrellas": 4.5,
       "resenas": 566,
@@ -8408,7 +8600,16 @@
         "carbos": "0 g",
         "grasas": "1 g",
         "vegana": "No",
-        "porciones": 31
+        "porciones": 31,
+        "sabores": [
+          "Chocolate",
+          "Fresa",
+          "Galleta",
+          "Multisabor",
+          "Pay de mora",
+          "Plátano",
+          "Vainilla"
+        ]
       },
       "precio": 887,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z"
@@ -8423,7 +8624,7 @@
       "precioAmz": null,
       "estadoML": "sin_cambio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_956884-MLA115112948000_082026-F.webp",
       "estrellas": 4.7,
       "resenas": 16,
@@ -8437,7 +8638,10 @@
         "gramosPorPorcion": "30 g",
         "costoPorPorcion": "$20.32",
         "vegana": "No",
-        "porciones": 40
+        "porciones": 40,
+        "sabores": [
+          "Sin sabor / Natural"
+        ]
       },
       "_mlCheckedAt": "2026-10-06T02:45:16.519Z",
       "mlId": "MLM69309644",
@@ -8453,7 +8657,7 @@
       "precioAmz": null,
       "estadoML": "sin_cambio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_805206-MLA99520068704_112025-F.webp",
       "estrellas": 4.8,
       "resenas": 5415,
@@ -8469,7 +8673,14 @@
         "carbos": "0 g",
         "grasas": "0 g",
         "vegana": "No",
-        "porciones": 24
+        "porciones": 24,
+        "sabores": [
+          "Chocolate",
+          "Fresa",
+          "Moka",
+          "Natural",
+          "Vainilla"
+        ]
       },
       "_mlCheckedAt": "2026-10-06T02:45:16.519Z",
       "mlId": "MLM19518424",
@@ -8485,7 +8696,7 @@
       "precioAmz": null,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_953166-MLA95496631894_102025-F.webp",
       "estrellas": 4.8,
       "resenas": 4361,
@@ -8504,7 +8715,15 @@
         "carbos": "125 g",
         "grasas": "3 g",
         "vegana": "No",
-        "porciones": 14
+        "porciones": 14,
+        "sabores": [
+          "Chocolate",
+          "Chocolate con mantequilla de maní",
+          "Fresa",
+          "Fudge de chocolate",
+          "Vainilla",
+          "Vainilla/Caramelo"
+        ]
       },
       "precio": 126.39,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z"
@@ -8577,7 +8796,7 @@
       "precioAmz": null,
       "estadoML": "sin_cambio",
       "activo": true,
-      "_updatedAt": null,
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_919138-MLA99926990283_112025-F.webp",
       "estrellas": 4.7,
       "resenas": 334,
@@ -8593,7 +8812,12 @@
         "calorias": "123 kcal",
         "carbos": "0.5 g",
         "grasas": "0.5 g",
-        "vegana": "No"
+        "vegana": "No",
+        "sabores": [
+          "Chocolate",
+          "Moka",
+          "Vainilla"
+        ]
       },
       "precio": 199.99,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z"
@@ -8608,7 +8832,7 @@
       "precioAmz": null,
       "estadoML": "sin_cambio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_976890-MLA111500007143_052026-F.webp",
       "estrellas": 4.6,
       "resenas": 495,
@@ -8628,7 +8852,11 @@
         "carbos": "10 g",
         "grasas": "2 g",
         "vegana": "No",
-        "porciones": 63
+        "porciones": 63,
+        "sabores": [
+          "Chocolate",
+          "Vainilla"
+        ]
       },
       "_mlCheckedAt": "2026-10-06T02:45:16.519Z",
       "mlId": "MLM21080303",
@@ -8644,7 +8872,7 @@
       "precioAmz": null,
       "estadoML": "actualizado",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_863522-MLA107639736133_022026-F.webp",
       "estrellas": 4.8,
       "resenas": 7544,
@@ -8664,7 +8892,13 @@
         "carbos": "2 g",
         "grasas": "2 g",
         "vegana": "Sí",
-        "porciones": 15
+        "porciones": 15,
+        "sabores": [
+          "Chai",
+          "Chocolate",
+          "Fresa",
+          "Natural"
+        ]
       },
       "_mlCheckedAt": "2026-10-06T02:45:16.519Z",
       "mlId": "MLM65973621",
@@ -8681,7 +8915,7 @@
       "precioAmz": null,
       "estadoML": "sin_cambio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_836674-MLA99154587156_112025-F.webp",
       "estrellas": 4.8,
       "resenas": 3111,
@@ -8700,7 +8934,11 @@
         "carbos": "0.3 g",
         "grasas": "0.2 g",
         "vegana": "No",
-        "porciones": 40
+        "porciones": 40,
+        "sabores": [
+          "Nieve de Nuez",
+          "Sin sabor / Natural"
+        ]
       },
       "precio": 395.9,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z"
@@ -8715,7 +8953,7 @@
       "precioAmz": null,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_763979-MLA100048963193_122025-F.webp",
       "estrellas": 4.8,
       "resenas": 2019,
@@ -8735,7 +8973,12 @@
         "carbos": "7.5 g",
         "grasas": "0.7 g",
         "vegana": "No",
-        "porciones": 26.7
+        "porciones": 26.7,
+        "sabores": [
+          "Frappuccino",
+          "Fresa",
+          "Vainilla"
+        ]
       },
       "precio": 299,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z"
@@ -8750,7 +8993,7 @@
       "precioAmz": null,
       "estadoML": "actualizado",
       "activo": true,
-      "_updatedAt": "2026-10-05T14:05:31.324Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_942490-MLA104190176685_012026-F.webp",
       "estrellas": 4.9,
       "resenas": 128,
@@ -8767,7 +9010,13 @@
         "calorias": "130 kcal",
         "carbos": "3 g",
         "grasas": "2 g",
-        "vegana": "No"
+        "vegana": "No",
+        "sabores": [
+          "Cappuccino",
+          "White Chocolate Vainilla",
+          "Coconut Ice Cream",
+          "Horchata"
+        ]
       },
       "_mlCheckedAt": "2026-10-06T02:45:16.519Z",
       "mlId": "MLM64036259",
@@ -8784,7 +9033,7 @@
       "precioAmz": null,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_905556-MLM90305129204_082025-F.webp",
       "estrellas": 5,
       "resenas": 3,
@@ -8803,7 +9052,12 @@
         "carbos": "96 g",
         "grasas": "6 g",
         "vegana": "No",
-        "porciones": 20
+        "porciones": 20,
+        "sabores": [
+          "Chocolate",
+          "Galleta",
+          "Vainilla"
+        ]
       },
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
       "_mlSug": [
@@ -8837,7 +9091,7 @@
       "precioAmz": null,
       "estadoML": "sin_cambio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_759162-MLA99981327787_112025-F.webp",
       "estrellas": 4.7,
       "resenas": 1325,
@@ -8857,7 +9111,11 @@
         "carbos": "180 g",
         "grasas": "6 g",
         "vegana": "No",
-        "porciones": 18
+        "porciones": 18,
+        "sabores": [
+          "Triple Chocolate",
+          "Vainilla"
+        ]
       },
       "_mlCheckedAt": "2026-10-06T02:45:16.519Z",
       "mlId": "MLM20886190",
@@ -8873,7 +9131,7 @@
       "precioAmz": null,
       "estadoML": "actualizado",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_772541-MLA114552685031_072026-F.webp",
       "estrellas": null,
       "resenas": null,
@@ -8892,7 +9150,10 @@
         "carbos": "8.25 g",
         "grasas": "0.42 g",
         "vegana": "No",
-        "porciones": 36
+        "porciones": 36,
+        "sabores": [
+          "Fresas con crema"
+        ]
       },
       "mlId": "MLM28938176",
       "mlIdFuente": "afiliado",
@@ -8909,7 +9170,7 @@
       "precioAmz": null,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_993252-MLA99481600652_112025-F.webp",
       "estrellas": 4.5,
       "resenas": 121,
@@ -8929,7 +9190,11 @@
         "carbos": "1.1 g",
         "grasas": "1.1 g",
         "vegana": "Sí",
-        "porciones": 20
+        "porciones": 20,
+        "sabores": [
+          "Chocolate",
+          "Vainilla"
+        ]
       },
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
       "_mlSug": [
@@ -8964,7 +9229,7 @@
       "precioAmz": null,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_890073-MLA99504971168_112025-F.webp",
       "estrellas": 4.7,
       "resenas": 132,
@@ -8981,7 +9246,11 @@
         "calorias": "107 kcal",
         "carbos": "0.4 g",
         "grasas": "1.5 g",
-        "porciones": 17.5
+        "porciones": 17.5,
+        "sabores": [
+          "Chocolate",
+          "Matcha"
+        ]
       },
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
       "_mlSug": [
@@ -9016,7 +9285,7 @@
       "precioAmz": null,
       "estadoML": "actualizado",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_726962-MLA99984785839_112025-F.webp",
       "estrellas": 4.7,
       "resenas": 610,
@@ -9035,7 +9304,13 @@
         "carbos": "3 g",
         "grasas": "1 g",
         "vegana": "No",
-        "porciones": 74
+        "porciones": 74,
+        "sabores": [
+          "Chocolate",
+          "Cookies & Cream",
+          "Moka",
+          "Vainilla"
+        ]
       },
       "_mlCheckedAt": "2026-10-06T02:45:16.519Z",
       "mlId": "MLM24075924",
@@ -9052,7 +9327,7 @@
       "precioAmz": null,
       "estadoML": "sin_cambio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_990791-MLM107458234845_022026-F.webp",
       "estrellas": 4.9,
       "resenas": 17,
@@ -9071,7 +9346,15 @@
         "carbos": "0 g",
         "grasas": "0 g",
         "vegana": "No",
-        "porciones": 93
+        "porciones": 93,
+        "sabores": [
+          "Cappuccino",
+          "Chocolate",
+          "Fresa",
+          "Galleta",
+          "Natural",
+          "Vainilla"
+        ]
       },
       "_mlCheckedAt": "2026-10-06T02:45:16.519Z",
       "mlId": "MLM70602406",
@@ -9087,7 +9370,7 @@
       "precioAmz": null,
       "estadoML": "sin_cambio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_967753-MLA99536117708_122025-F.webp",
       "estrellas": 4.6,
       "resenas": 5,
@@ -9110,7 +9393,12 @@
         "carbos": "9 g",
         "grasas": "5 g",
         "vegana": "No",
-        "porciones": 12
+        "porciones": 12,
+        "sabores": [
+          "Chocolate",
+          "Fresa",
+          "Vainilla"
+        ]
       },
       "_mlCheckedAt": "2026-10-06T02:45:16.519Z",
       "mlId": "MLM56146749",
@@ -9126,7 +9414,7 @@
       "precioAmz": null,
       "estadoML": "sin_cambio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_806013-MLA99868112833_112025-F.webp",
       "estrellas": 4.6,
       "resenas": 430,
@@ -9145,7 +9433,12 @@
         "carbos": "0.9 g",
         "grasas": "0 g",
         "vegana": "No",
-        "porciones": 26
+        "porciones": 26,
+        "sabores": [
+          "Chocolate",
+          "Fresa",
+          "Vainilla"
+        ]
       },
       "_mlCheckedAt": "2026-10-06T02:45:16.519Z",
       "mlId": "MLM18949713",
@@ -9161,7 +9454,7 @@
       "precioAmz": null,
       "estadoML": "sin_cambio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_775768-MLA111876320612_062026-F.webp",
       "estrellas": 4.8,
       "resenas": 35,
@@ -9180,7 +9473,10 @@
         "carbos": "1.5 g",
         "grasas": "0 g",
         "vegana": "Sí",
-        "porciones": 33
+        "porciones": 33,
+        "sabores": [
+          "Natural"
+        ]
       },
       "_mlCheckedAt": "2026-10-06T02:45:16.519Z",
       "mlId": "MLM49895419",
@@ -9196,7 +9492,7 @@
       "precioAmz": null,
       "estadoML": "sin_cambio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_773383-MLA99981269431_112025-F.webp",
       "estrellas": 4.8,
       "resenas": 43,
@@ -9215,7 +9511,10 @@
         "carbos": "4 g",
         "grasas": "0.5 g",
         "vegana": "No",
-        "porciones": 25
+        "porciones": 25,
+        "sabores": [
+          "Frosted Frenchie Cookies"
+        ]
       },
       "_mlCheckedAt": "2026-10-06T02:45:16.519Z",
       "mlId": "MLM45615471",
@@ -9231,7 +9530,7 @@
       "precioAmz": null,
       "estadoML": "sin_cambio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_624042-MLM109686181461_032026-F.webp",
       "estrellas": 5,
       "resenas": 1,
@@ -9250,7 +9549,14 @@
         "carbos": "0 g",
         "grasas": "0 g",
         "vegana": "No",
-        "porciones": 157
+        "porciones": 157,
+        "sabores": [
+          "Cappuccino",
+          "Chocolate",
+          "Fresa",
+          "Galleta",
+          "Vainilla"
+        ]
       },
       "_mlCheckedAt": "2026-10-06T02:45:16.519Z",
       "mlId": "MLM74764379",
@@ -9266,7 +9572,7 @@
       "precioAmz": null,
       "estadoML": "sin_precio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-10-06T13:15:21.576Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_846315-MLM112458789996_062026-F.webp",
       "estrellas": 5,
       "resenas": 3,
@@ -9285,7 +9591,12 @@
         "carbos": "1.3 g",
         "grasas": "1.76 g",
         "vegana": "No",
-        "porciones": 20
+        "porciones": 20,
+        "sabores": [
+          "Chocolate",
+          "Sin sabor / Natural",
+          "Vainilla"
+        ]
       },
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
       "_mlSug": [
