@@ -102,17 +102,18 @@ async function pool(items, n, fn) {
   return out;
 }
 
-// El precio que publicamos tiene que ser el que verá quien dé clic en nuestro link, no el más
-// barato del catálogo: ML elige qué oferta muestra y no siempre es la más barata. La API no expone
-// esa elección (buy_box_winner viene nulo), pero sí devuelve las ofertas en el orden de ML, y la
-// primera es la que muestra la ficha. En 146 de 154 productos coincide con el mínimo; en el resto
-// publicar el mínimo prometía un precio que el visitante no encontraba.
-// Ojo: ML también ajusta la oferta según el CP de quien mira, así que puede diferir por envío.
+// Publicamos la oferta más barata con envío FULL (fulfillment): es la que se acerca a lo que ML
+// destaca en la ficha para la mayoría de los compradores. La ficha exacta depende del CP de quien
+// mira y del ranking de ML, que no vienen en la API, así que no se puede clavar al 100%.
+// Si el catálogo no tiene ninguna oferta FULL, caemos a la más barata disponible.
 function listedPrice(results = []) {
   const ok = results.filter(i => i.price > 0);
   const nuevos = ok.filter(i => i.condition === 'new');
   const pick = nuevos.length ? nuevos : ok;
-  return pick.length ? pick[0].price : null;
+  if (!pick.length) return null;
+  const full = pick.filter(i => i.shipping?.logistic_type === 'fulfillment');
+  const pool = full.length ? full : pick;
+  return Math.min(...pool.map(i => i.price));
 }
 
 // Precio de un producto de catálogo; si no tiene ofertas, prueba buy box e hijos (variantes).
