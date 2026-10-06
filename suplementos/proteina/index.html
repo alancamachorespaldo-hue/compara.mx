@@ -696,6 +696,14 @@ function render() {
   grid.innerHTML = lista.map(p => cardHTML(p)).join('');
 }
 
+// Amazon: si no hay link de afiliado directo, el botón lleva a una búsqueda del producto en
+// Amazon MX (con el tag de afiliado). Así siempre hay forma de ir a ambas plataformas.
+const AMZ_TAG = 'comparalo20-20';
+const amzUrl = p => p.linkAmz || 'https://www.amazon.com.mx/s?k=' + encodeURIComponent([p.marca, p.nombre].filter(Boolean).join(' ')) + '&tag=' + AMZ_TAG;
+const amzEsBusqueda = p => !p.linkAmz;
+// El costo por porción depende de la tienda: cada precio ÷ las porciones da un costo distinto.
+const costoPorc = (precio, porciones) => (precio > 0 && porciones > 0) ? precio / porciones : null;
+
 function cardHTML(p) {
   const isSelected = selected.includes(p.id);
   const fmt = v => '$'+v.toLocaleString('es-MX',{minimumFractionDigits:0,maximumFractionDigits:2});
@@ -756,7 +764,7 @@ function cardHTML(p) {
       ? `<div class="card-price">${fmt(p.precio)}</div>`
       : '<div class="price-nd">Precio no disponible</div>';
     const btnML  = p.linkML  ? `<a class="btn-ml"  href="${p.linkML}"  target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\//g,'').replace(/\/(?:index\.html)?$/g,'').replace(/\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1});}" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="ML" onerror="this.style.display='none'"></a>` : '';
-    const btnAmz = p.linkAmz ? `<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_amazon',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\//g,'').replace(/\/(?:index\.html)?$/g,'').replace(/\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1});}" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>` : '';
+    const btnAmz = `<a class="btn-amz" href="${amzUrl(p)}" target="_blank" rel="sponsored nofollow noopener" title="${amzEsBusqueda(p)?'Buscar este producto en Amazon':''}" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_amazon',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\//g,'').replace(/\/(?:index\.html)?$/g,'').replace(/\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1});}" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}">${amzEsBusqueda(p)?'Buscar en':'Ver en'} <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>`;
     btnsBlock = `<div class="card-btns">${btnML}${btnAmz}</div>`;
   }
 
@@ -821,7 +829,7 @@ function openModal() {
     const pad = size==='sm'?'5px 8px':'7px 12px';
     const fs = size==='sm'?'11px':'12px';
     const ml  = p.linkML  ? `<a class="btn-ml"  href="${p.linkML}"  target="_blank" rel="sponsored nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}">Ver en <img style="height:${h}" src="/logomercado.png" onerror="this.style.display='none'"></a>` : '';
-    const amz = p.linkAmz ? `<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}">Ver en <img style="height:${h}" src="/logoamazon.png" onerror="this.style.display='none'"></a>` : '';
+    const amz = `<a class="btn-amz" href="${amzUrl(p)}" target="_blank" rel="sponsored nofollow noopener" title="${amzEsBusqueda(p)?'Buscar este producto en Amazon':''}" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}">${amzEsBusqueda(p)?'Buscar en':'Ver en'} <img style="height:${h}" src="/logoamazon.png" onerror="this.style.display='none'"></a>`;
     return `<div class="cmp-prod-btns${ml&&amz?' dual':''}">${ml}${amz}</div>`;
   }
 
@@ -850,6 +858,22 @@ function openModal() {
     const all = prods.map(p => p.precio||null);
     const minP = Math.min(...all.filter(Boolean));
     return prods.map(p => { const v=p.precio; const isWin=v&&v===minP; return `<td class="${isWin?'cmp-winner':''}">${v?'$'+v.toLocaleString('es-MX',{minimumFractionDigits:0,maximumFractionDigits:2}):nd}</td>`; }).join('');
+  }
+
+  // El costo por porción cambia según la tienda, así que mostramos el de cada una por separado.
+  function filaCostoPorcion(prods) {
+    const ml  = prods.map(p => costoPorc(p.precioML,  p.porciones));
+    const amz = prods.map(p => costoPorc(p.precioAmz, p.porciones));
+    const minOf = arr => { const v = arr.filter(n => n != null && n > 0); return v.length > 1 ? Math.min(...v) : null; };
+    const minML = minOf(ml), minAmz = minOf(amz);
+    const line = (lbl, v, best) => `<div style="font-size:12px;${v === best ? 'font-weight:700;color:#006847' : ''}"><span style="color:var(--tx3,#94a3b8);font-size:10px">${lbl}</span> $${v.toFixed(2)}</div>`;
+    const cells = prods.map((p, i) => {
+      const parts = [];
+      if (ml[i]  != null) parts.push(line('ML',  ml[i],  minML));
+      if (amz[i] != null) parts.push(line('AMZ', amz[i], minAmz));
+      return `<td>${parts.length ? parts.join('') : nd}</td>`;
+    }).join('');
+    return `<tr><td>Costo / porción<div style="font-size:10px;color:var(--tx3,#94a3b8);font-weight:400;text-transform:none">según plataforma</div></td>${cells}</tr>`;
   }
 
   function filaCreatina(prods) {
@@ -884,7 +908,7 @@ function openModal() {
 
   const rows = [
     `<tr><td>Precio</td>${filaPrecio(prods)}</tr>`,
-    fila('Costo / porción', prods.map(p=>p.costoPorPorcion), v=>'$'+v.toFixed(2), 'min'),
+    filaCostoPorcion(prods),
     fila('Porciones', prods.map(p=>p.porciones), v=>Math.round(v)+' porc.', 'max'),
     fila('Proteína / porción', prods.map(p=>p.proteinaPorPorcion), v=>v+'g', 'max'),
     fila('Calorías / porción', prods.map(p=>p.caloriasPorPorcion), v=>v+' kcal', 'min'),
