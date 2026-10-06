@@ -1,116 +1,25 @@
 {
   "fecha": "2026-10-06",
-  "generado": "2026-10-06T03:14:20.901Z",
+  "generado": "2026-10-06T03:52:03.805Z",
   "categorias": [
     "creatina"
   ],
   "totales": {
-    "actualizados": 2,
-    "sin_cambio": 9,
-    "sin_precio": 1,
+    "actualizados": 8,
+    "sin_cambio": 13,
+    "sin_precio": 0,
     "precio_sospechoso": 0,
-    "sin_id": 10
+    "sin_id": 0
   },
   "productos": [
-    {
-      "categoria": "creatina",
-      "id": 5,
-      "nombre": "GAT Sport Creatine Pharmaceutical Quality Powder 1 kg",
-      "marca": "GAT Sport",
-      "estado": "sin_id",
-      "mlId": null,
-      "precioML": null
-    },
-    {
-      "categoria": "creatina",
-      "id": 6,
-      "nombre": "Dragon Pharma Creatina Monohidratada Micronizada Sin Sabor 300 g",
-      "marca": "Dragon Pharma",
-      "estado": "sin_id",
-      "mlId": null,
-      "precioML": null
-    },
-    {
-      "categoria": "creatina",
-      "id": 7,
-      "nombre": "Hero Sport Creatina Monohidratada 650 g 130 Servicios",
-      "marca": "Hero Sport",
-      "estado": "sin_id",
-      "mlId": null,
-      "precioML": null
-    },
-    {
-      "categoria": "creatina",
-      "id": 8,
-      "nombre": "Hero Sport Creatina Monohidratada 2 kg 400 Servicios",
-      "marca": "Hero Sport",
-      "estado": "sin_id",
-      "mlId": null,
-      "precioML": null
-    },
-    {
-      "categoria": "creatina",
-      "id": 9,
-      "nombre": "Granalia Lif Creatina Monohidratada 100% Pura 500 g",
-      "marca": "Granalia Lif",
-      "estado": "sin_id",
-      "mlId": null,
-      "precioML": null
-    },
-    {
-      "categoria": "creatina",
-      "id": 10,
-      "nombre": "She Fit Women Creatine Limonada Fresa 490 g",
-      "marca": "She Fit",
-      "estado": "sin_id",
-      "mlId": null,
-      "precioML": null
-    },
-    {
-      "categoria": "creatina",
-      "id": 13,
-      "nombre": "Oby Vitaminas Creatina Monohidratada Micronizada 100% Pura 500 g",
-      "marca": "Oby Vitaminas",
-      "estado": "sin_id",
-      "mlId": null,
-      "precioML": null
-    },
-    {
-      "categoria": "creatina",
-      "id": 16,
-      "nombre": "Meta Nutrition Creatina Monohidratada 250 g 50 Servicios",
-      "marca": "Meta Nutrition",
-      "estado": "sin_id",
-      "mlId": null,
-      "precioML": null
-    },
-    {
-      "categoria": "creatina",
-      "id": 17,
-      "nombre": "B Life Creatina Monohidratada Micronizada 1 kg 200 Tomas",
-      "marca": "B Life",
-      "estado": "sin_id",
-      "mlId": null,
-      "precioML": null
-    },
-    {
-      "categoria": "creatina",
-      "id": 18,
-      "nombre": "MDN Sports Creatina Monohidratada Micronizada Alta Pureza 500 g",
-      "marca": "MDN Sports",
-      "estado": "sin_id",
-      "mlId": null,
-      "precioML": null
-    },
     {
       "categoria": "creatina",
       "id": 1,
       "nombre": "Birdman Creatina Monohidratada Micronizada Alta Pureza 450 g",
       "marca": "Birdman",
       "mlId": "MLM18625838",
-      "precioAntes": 436,
-      "estado": "actualizado",
-      "precioNuevo": 391,
+      "precioAntes": 391,
+      "estado": "sin_cambio",
       "precioML": 391
     },
     {
@@ -119,9 +28,8 @@
       "nombre": "Creatina Monohidratada Micronizada en Polvo 450 g",
       "marca": "Sin marca",
       "mlId": "MLM20722265",
-      "precioAntes": 499,
-      "estado": "actualizado",
-      "precioNuevo": 298,
+      "precioAntes": 298,
+      "estado": "sin_cambio",
       "precioML": 298
     },
     {
@@ -129,10 +37,11 @@
       "id": 3,
       "nombre": "Quotidien Creatina Monohidratada Micronizada Platinum 450 g",
       "marca": "Quotidien",
-      "mlId": "MLM4559913",
+      "mlId": "MLM45599134",
       "precioAntes": 469,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 298,
+      "precioML": 298
     },
     {
       "categoria": "creatina",
@@ -143,6 +52,70 @@
       "precioAntes": 239,
       "estado": "sin_cambio",
       "precioML": 239
+    },
+    {
+      "categoria": "creatina",
+      "id": 5,
+      "nombre": "GAT Sport Creatine Pharmaceutical Quality Powder 1 kg",
+      "marca": "GAT Sport",
+      "mlId": "MLM32471998",
+      "precioAntes": 698,
+      "estado": "actualizado",
+      "precioNuevo": 627,
+      "precioML": 627
+    },
+    {
+      "categoria": "creatina",
+      "id": 6,
+      "nombre": "Dragon Pharma Creatina Monohidratada Micronizada Sin Sabor 300 g",
+      "marca": "Dragon Pharma",
+      "mlId": "MLM59414462",
+      "precioAntes": 497.17,
+      "estado": "actualizado",
+      "precioNuevo": 419,
+      "precioML": 419
+    },
+    {
+      "categoria": "creatina",
+      "id": 7,
+      "nombre": "Hero Sport Creatina Monohidratada 650 g 130 Servicios",
+      "marca": "Hero Sport",
+      "mlId": "MLM29185836",
+      "precioAntes": 299,
+      "estado": "sin_cambio",
+      "precioML": 299
+    },
+    {
+      "categoria": "creatina",
+      "id": 8,
+      "nombre": "Hero Sport Creatina Monohidratada 2 kg 400 Servicios",
+      "marca": "Hero Sport",
+      "mlId": "MLM53547913",
+      "precioAntes": 800,
+      "estado": "sin_cambio",
+      "precioML": 800
+    },
+    {
+      "categoria": "creatina",
+      "id": 9,
+      "nombre": "Granalia Lif Creatina Monohidratada 100% Pura 500 g",
+      "marca": "Granalia Lif",
+      "mlId": "MLM63744056",
+      "precioAntes": 259,
+      "estado": "actualizado",
+      "precioNuevo": 219,
+      "precioML": 219
+    },
+    {
+      "categoria": "creatina",
+      "id": 10,
+      "nombre": "She Fit Women Creatine Limonada Fresa 490 g",
+      "marca": "She Fit",
+      "mlId": "MLM74956289",
+      "precioAntes": 347,
+      "estado": "actualizado",
+      "precioNuevo": 374,
+      "precioML": 374
     },
     {
       "categoria": "creatina",
@@ -166,6 +139,17 @@
     },
     {
       "categoria": "creatina",
+      "id": 13,
+      "nombre": "Oby Vitaminas Creatina Monohidratada Micronizada 100% Pura 500 g",
+      "marca": "Oby Vitaminas",
+      "mlId": "MLM40738543",
+      "precioAntes": 298,
+      "estado": "actualizado",
+      "precioNuevo": 289,
+      "precioML": 289
+    },
+    {
+      "categoria": "creatina",
       "id": 14,
       "nombre": "Hero Sport Creatina Monohidratada Creapure 600 g 120 Servicios",
       "marca": "Hero Sport",
@@ -183,6 +167,27 @@
       "precioAntes": 459,
       "estado": "sin_cambio",
       "precioML": 459
+    },
+    {
+      "categoria": "creatina",
+      "id": 16,
+      "nombre": "Meta Nutrition Creatina Monohidratada 250 g 50 Servicios",
+      "marca": "Meta Nutrition",
+      "mlId": "MLM73959098",
+      "precioAntes": 174.4,
+      "estado": "actualizado",
+      "precioNuevo": 175,
+      "precioML": 175
+    },
+    {
+      "categoria": "creatina",
+      "id": 18,
+      "nombre": "MDN Sports Creatina Monohidratada Micronizada Alta Pureza 500 g",
+      "marca": "MDN Sports",
+      "mlId": "MLM19598413",
+      "precioAntes": 388,
+      "estado": "sin_cambio",
+      "precioML": 388
     },
     {
       "categoria": "creatina",
@@ -221,8 +226,9 @@
       "marca": "ELEMENTAL by PiSA",
       "mlId": "MLM47890238",
       "precioAntes": 468,
-      "estado": "sin_cambio",
-      "precioML": 468
+      "estado": "actualizado",
+      "precioNuevo": 418,
+      "precioML": 418
     }
   ]
 }
