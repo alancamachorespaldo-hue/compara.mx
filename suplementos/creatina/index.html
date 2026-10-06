@@ -692,13 +692,13 @@ function render() {
       const hay = (p.nombre+' '+p.marca+' '+(p.tipoCreatina||'')+' '+(p.presentacion||'')+' '+(p.saboresDisponibles||[]).join(' ')).toLowerCase();
       if (!hay.includes(q)) return false;
     }
-    const _maxP=parseFloat(document.getElementById('precio-max')?.value)||Infinity;if(_maxP<Infinity&&(p.precio||0)>_maxP)return false;
+    const _maxP=parseFloat(document.getElementById('precio-max')?.value)||Infinity;if(_maxP<Infinity&&((p.precioML??p.precio)||0)>_maxP)return false;
     return true;
   });
 
   lista.sort((a, b) => {
-    if (sortVal === 'precio-asc') return (a.precio||99999)-(b.precio||99999);
-    if (sortVal === 'precio-desc') return (b.precio||0)-(a.precio||0);
+    if (sortVal === 'precio-asc') return ((a.precioML??a.precio)||99999)-((b.precioML??b.precio)||99999);
+    if (sortVal === 'precio-desc') return ((b.precioML??b.precio)||0)-((a.precioML??a.precio)||0);
     if (sortVal === 'creatina-porcion') return ((b.creatinaGramosPorPorcion ?? b.gramosPorPorcion)||0)-((a.creatinaGramosPorPorcion ?? a.gramosPorPorcion)||0);
     if (sortVal === 'costo-porcion') return (a.costoPorPorcion||99999)-(b.costoPorPorcion||99999);
     if (sortVal === 'costo-5g') return ((a.costoPor5gCreatina ?? a.costoPor5g)||99999)-((b.costoPor5gCreatina ?? b.costoPor5g)||99999);
@@ -766,8 +766,9 @@ function cardHTML(p) {
       </div>
     </div>`;
   } else {
-    precioBlock = p.precio != null
-      ? `<div class="card-price">${fmt(p.precio)}</div>`
+    const pSingle = p.precioML ?? p.precio;
+    precioBlock = pSingle != null
+      ? `<div class="card-price">${fmt(pSingle)}</div>`
       : '<div class="price-nd">Precio no disponible</div>';
     const btnML  = p.linkML  ? `<a class="btn-ml"  href="${p.linkML}"  target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\//g,'').replace(/\/(?:index\.html)?$/g,'').replace(/\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1});}" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="ML" onerror="this.style.display='none'"></a>` : '';
     const btnAmz = p.linkAmz ? `<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_amazon',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\//g,'').replace(/\/(?:index\.html)?$/g,'').replace(/\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1});}" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>` : '';
@@ -861,9 +862,9 @@ function openModal() {
   }
 
   function filaPrecio(prods) {
-    const all = prods.map(p => p.precio||null);
+    const all = prods.map(p => (p.precioML??p.precio)||null);
     const minP = Math.min(...all.filter(Boolean));
-    return prods.map(p => { const v=p.precio; const isWin=v&&v===minP; return `<td class="${isWin?'cmp-winner':''}">${v?'$'+v.toLocaleString('es-MX',{minimumFractionDigits:0,maximumFractionDigits:2}):nd}</td>`; }).join('');
+    return prods.map(p => { const v=p.precioML??p.precio; const isWin=v&&v===minP; return `<td class="${isWin?'cmp-winner':''}">${v?'$'+v.toLocaleString('es-MX',{minimumFractionDigits:0,maximumFractionDigits:2}):nd}</td>`; }).join('');
   }
 
   function filaExtras(prods) {
