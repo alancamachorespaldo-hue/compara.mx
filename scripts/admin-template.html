@@ -233,11 +233,11 @@ const SPECS = {
   laptops:[['procesador','Procesador'],['ram','RAM'],['almacenamiento','Almacen.'],['pantalla','Pantalla'],['resolucion','Resolución'],['gpu','GPU'],['so','SO'],['peso','Peso'],['touch','Touch']],
   freidoras:[['tipo','Tipo'],['capacidad','Capacidad'],['potencia','Potencia'],['tempMax','Temp. máx.'],['panel','Panel'],['canastos','Canastos'],['ventana','Ventana'],['antiadherente','Antiadh.']],
   bicis:[['tipo','Tipo'],['autonomia','Autonomía'],['velocidad','Vel. máx.'],['motor','Motor'],['bateria','Batería'],['voltaje','Voltaje'],['rueda','Rueda'],['peso','Peso'],['cargaMax','Carga máx.'],['plegable','Plegable'],['luces','Luces'],['ip','IP']],
-  proteina:[['tipoProteina','Tipo'],['fuenteProteina','Fuente'],['gramosPorPorcion','g/porción'],['proteinaPorPorcion','Prot./porción'],['costoPorPorcion','Costo/porción'],['vegana','Vegana'],['glutenFree','Sin gluten']],
-  omega3:[['epa','EPA'],['dha','DHA'],['omegaTotal','Omega total'],['fuenteOmega','Fuente'],['ifos','IFOS'],['metalesPesados','Sin metales'],['costoPorPorcion','Costo/porción']],
-  magnesio:[['formaMagnesio','Forma'],['mgMagnesio','mg'],['mgElemental','mg elemental'],['absorcion','Absorción'],['vegano','Vegano'],['costoPorPorcion','Costo/porción']],
-  creatina:[['tipoCreatina','Tipo'],['presentacion','Presentación'],['grPorPorcion','g/porción'],['pura','Pura'],['costoPorPorcion','Costo/porción'],['costoPor5g','Costo/5 g']],
-  complejo_b:[['capsulasPorDia','Cáps./día'],['costoPorPorcion','Costo/porción'],['b1','B1'],['b6','B6'],['b9','B9'],['b12','B12'],['formaB12','Forma B12']],
+  proteina:[['porciones','Porciones'],['costoPorPorcion','Costo/porción'],['tipoProteina','Tipo'],['fuenteProteina','Fuente'],['gramosPorPorcion','g/porción'],['proteinaPorPorcion','Prot./porción'],['vegana','Vegana'],['glutenFree','Sin gluten']],
+  omega3:[['porciones','Porciones'],['costoPorPorcion','Costo/porción'],['epa','EPA'],['dha','DHA'],['omegaTotal','Omega total'],['fuenteOmega','Fuente'],['ifos','IFOS'],['metalesPesados','Sin metales']],
+  magnesio:[['porciones','Porciones'],['costoPorPorcion','Costo/porción'],['formaMagnesio','Forma'],['mgMagnesio','mg'],['mgElemental','mg elemental'],['absorcion','Absorción'],['vegano','Vegano']],
+  creatina:[['porciones','Porciones'],['costoPorPorcion','Costo/porción'],['costoPor5g','Costo/5 g'],['tipoCreatina','Tipo'],['presentacion','Presentación'],['grPorPorcion','g/porción'],['pura','Pura']],
+  complejo_b:[['porciones','Porciones'],['costoPorPorcion','Costo/porción'],['capsulasPorDia','Cáps./día'],['b1','B1'],['b6','B6'],['b9','B9'],['b12','B12'],['formaB12','Forma B12']],
   vitamina_d:[['ui','UI'],['costoPor1000ui','Costo/1000 UI'],['costoPorPorcion','Costo/porción'],['porciones','Porciones'],['formato','Formato'],['conK2','Con K2'],['formaVitD','Forma'],['vegano','Vegano'],['edadMinima','Edad mín.']],
 };
 const ST = {
@@ -311,6 +311,29 @@ const needsAff = p => !p.linkML && (p.estadoML === 'nuevo' || !p.linkAmz);
 // Motivo por el que no hay que fiarse del link ML, para no pintarlo como un link bueno.
 const mlRoto = p => p._linkError ? 'El link abre otro producto: ' + p._linkError.slice(0, 70)
   : p._linkSinProducto ? 'El link ya no muestra ningún producto' : '';
+
+// Costo/porción y costo/1000 UI son precio ÷ porciones: si cambia el precio o las porciones, el
+// valor guardado deja de ser cierto. Se vuelve a calcular con el mismo formato que ya tenía
+// (unas categorías lo guardan como "$2.98" y otras como 2.98).
+const aNum = v => { const m = String(v ?? '').replace(/,/g, '').match(/-?[\d.]+/); return m ? parseFloat(m[0]) : null; };
+const comoEstaba = (antes, n) => typeof antes === 'string' && antes.trim().startsWith('$') ? '$' + n.toFixed(2) : +n.toFixed(2);
+
+function recalcCostos(p, fields) {
+  const antes = p.especs || {};
+  const especs = fields.especs || antes;
+  const cambioPrecio = 'precioML' in fields || 'precioAmz' in fields;
+  const cambioPorciones = aNum(especs.porciones) !== aNum(antes.porciones);
+  if (!cambioPrecio && !cambioPorciones) return;
+  const base = ('precioML' in fields ? fields.precioML : p.precioML) ?? ('precioAmz' in fields ? fields.precioAmz : p.precioAmz);
+  const porciones = aNum(especs.porciones);
+  if (!base || !porciones) return;
+  const next = Object.assign({}, especs);
+  const porPorcion = base / porciones;
+  if (antes.costoPorPorcion != null) next.costoPorPorcion = comoEstaba(antes.costoPorPorcion, porPorcion);
+  const ui = aNum(especs.ui);
+  if (antes.costoPor1000ui != null && ui) next.costoPor1000ui = comoEstaba(antes.costoPor1000ui, porPorcion / (ui / 1000));
+  fields.especs = next;
+}
 const status = p => p.estadoML === 'nuevo' ? 'nuevo' : !p.linkML ? 'solo_amz' : !p.mlId ? 'sin_id' : (p.estadoML || 'sin_revisar');
 
 // Cambios sin guardar: se guardan en este navegador y se vuelven a aplicar sobre cualquier versión nueva.
@@ -759,6 +782,7 @@ function submitEdit(form, publish) {
     });
     if (changed) fields.especs = especs;
   }
+  recalcCostos(p, fields);
   if (publish) {
     if (!next.linkML && !next.linkAmz) { toast('Agrega primero el link de afiliado para poder publicarla'); $('#e-ml', o).focus(); return; }
     Object.assign(fields, {activo:true, _publicar:true, estadoML:'sin_revisar'});
