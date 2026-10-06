@@ -324,7 +324,13 @@ function recalcCostos(p, fields) {
   const cambioPrecio = 'precioML' in fields || 'precioAmz' in fields;
   const cambioPorciones = aNum(especs.porciones) !== aNum(antes.porciones);
   if (!cambioPrecio && !cambioPorciones) return;
-  const base = ('precioML' in fields ? fields.precioML : p.precioML) ?? ('precioAmz' in fields ? fields.precioAmz : p.precioAmz);
+  // El costo sigue al precio que se acaba de editar: si tocas el de Amazon, se calcula con ese;
+  // si no cambió ningún precio (solo porciones), se usa el vigente (ML si hay, si no Amazon).
+  const nuevoML = 'precioML' in fields ? fields.precioML : p.precioML;
+  const nuevoAmz = 'precioAmz' in fields ? fields.precioAmz : p.precioAmz;
+  const base = ('precioML' in fields && fields.precioML) ? fields.precioML
+    : ('precioAmz' in fields && fields.precioAmz) ? fields.precioAmz
+    : (nuevoML ?? nuevoAmz);
   const porciones = aNum(especs.porciones);
   if (!base || !porciones) return;
   const next = Object.assign({}, especs);
