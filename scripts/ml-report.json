@@ -1,17 +1,732 @@
 {
-  "fecha": "2026-10-06",
-  "generado": "2026-10-06T13:53:45.487Z",
+  "fecha": "2026-10-07",
+  "generado": "2026-10-07T01:26:48.968Z",
   "categorias": [
-    "bicis"
+    "laptops",
+    "freidoras",
+    "bicis",
+    "microondas",
+    "proteina",
+    "omega3",
+    "magnesio",
+    "creatina",
+    "complejo_b",
+    "vitamina_d"
   ],
   "totales": {
-    "actualizados": 0,
-    "sin_cambio": 21,
-    "sin_precio": 0,
+    "actualizados": 29,
+    "sin_cambio": 143,
+    "sin_precio": 4,
     "precio_sospechoso": 0,
-    "sin_id": 7
+    "sin_id": 63
   },
   "productos": [
+    {
+      "categoria": "laptops",
+      "id": 62,
+      "nombre": "Moderness LT1505 Celeron N5095 16GB 512GB",
+      "marca": "Moderness",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "laptops",
+      "id": 64,
+      "nombre": "Acer Aspire Lite 16 Core 5-120U 16GB 512GB WUXGA",
+      "marca": "Acer",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "laptops",
+      "id": 72,
+      "nombre": "Intel Gold 6500y 16gb Ram 240gb Ssd",
+      "marca": "WIPEMIK",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "laptops",
+      "id": 75,
+      "nombre": "Apple MacBook Air 13\" M5 10CPU 10GPU 24GB 1TB Plateado (2026)",
+      "marca": "Apple",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "laptops",
+      "id": 80,
+      "nombre": "Apple MacBook Pro 16\" i7-9750H 16GB 512GB AMD Radeon Pro 5300M A2141 Plateado (Reacondicionado)",
+      "marca": "Apple",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "laptops",
+      "id": "exp_MLM37368856",
+      "nombre": "Laptop Hp",
+      "marca": "HP",
+      "mlId": "MLM37368856",
+      "precioAntes": 6500,
+      "estado": "sin_cambio",
+      "precioML": 6500
+    },
+    {
+      "categoria": "laptops",
+      "id": "exp_MLM20469835",
+      "nombre": "Laptop Hp 14-cf0002la",
+      "marca": "HP",
+      "mlId": "MLM20469835",
+      "precioAntes": 13500,
+      "estado": "sin_cambio",
+      "precioML": 13500
+    },
+    {
+      "categoria": "laptops",
+      "id": "exp_MLM65737068",
+      "nombre": "Laptop Hp 15-fc0217la",
+      "marca": "HP",
+      "mlId": "MLM65737068",
+      "precioAntes": 12000,
+      "estado": "sin_cambio",
+      "precioML": 12000
+    },
+    {
+      "categoria": "laptops",
+      "id": "exp_MLM37103621",
+      "nombre": "Laptop Lenovo",
+      "marca": "Lenovo",
+      "mlId": "MLM37103621",
+      "precioAntes": 7000,
+      "estado": "sin_cambio",
+      "precioML": 7000
+    },
+    {
+      "categoria": "laptops",
+      "id": "exp_MLM28256824",
+      "nombre": "Laptop Asus Vivobook F513IA",
+      "marca": "Asus",
+      "mlId": "MLM28256824",
+      "precioAntes": 8500,
+      "estado": "sin_cambio",
+      "precioML": 8500
+    },
+    {
+      "categoria": "laptops",
+      "id": "exp_MLM21873348",
+      "nombre": "Laptop Asus Vivobook A510uf-br682t",
+      "marca": "Asus",
+      "mlId": "MLM21873348",
+      "precioAntes": 15000,
+      "estado": "sin_cambio",
+      "precioML": 15000
+    },
+    {
+      "categoria": "laptops",
+      "id": "exp_MLM38252408",
+      "nombre": "Laptop Acer A315-510p-38r3",
+      "marca": "Acer",
+      "mlId": "MLM38252408",
+      "precioAntes": 9800,
+      "estado": "sin_cambio",
+      "precioML": 9800
+    },
+    {
+      "categoria": "laptops",
+      "id": "exp_MLM37121960",
+      "nombre": "Laptop Dell",
+      "marca": "Dell",
+      "mlId": "MLM37121960",
+      "precioAntes": 13500,
+      "estado": "sin_cambio",
+      "precioML": 13500
+    },
+    {
+      "categoria": "laptops",
+      "id": "exp_MLM69624388",
+      "nombre": "Laptop Msi Cyborg 15 B2rw 15.6 Core 7 Rtx5050 16gb 512gb Negro",
+      "marca": "MSI",
+      "mlId": "MLM69624388",
+      "precioAntes": 28000,
+      "estado": "sin_cambio",
+      "precioML": 28000
+    },
+    {
+      "categoria": "laptops",
+      "id": "exp_MLM66849697",
+      "nombre": "Laptop Msi Cyborg A15 Ai 15.6 Fhd Ryzen7 Rtx5050 16gb 512gb Negro",
+      "marca": "MSI",
+      "mlId": "MLM66849697",
+      "precioAntes": 36500,
+      "estado": "sin_cambio",
+      "precioML": 36500
+    },
+    {
+      "categoria": "laptops",
+      "id": "exp_MLM27793007",
+      "nombre": "Laptop Gaming Hp Amd Ryzen 5 8gb 512gb Victus Gaming Color Negro",
+      "marca": "HP",
+      "mlId": "MLM27793007",
+      "precioAntes": 18299,
+      "estado": "sin_cambio",
+      "precioML": 18299
+    },
+    {
+      "categoria": "laptops",
+      "id": "exp_MLM20619290",
+      "nombre": "Laptop Lenovo Chromebook 100e Chromebook A4 4gb 32gb Negro Color Black",
+      "marca": "Lenovo",
+      "mlId": "MLM20619290",
+      "precioAntes": 6900,
+      "estado": "sin_cambio",
+      "precioML": 6900
+    },
+    {
+      "categoria": "laptops",
+      "id": "exp_MLM59416379",
+      "nombre": "Laptop Asus Chromebook Kompanio 520 8GB 128SSD",
+      "marca": "Asus",
+      "mlId": "MLM59416379",
+      "precioAntes": 6599,
+      "estado": "sin_cambio",
+      "precioML": 6599
+    },
+    {
+      "categoria": "laptops",
+      "id": "exp_MLM52781194",
+      "nombre": "Laptop Asus Chromebook Cx140 Celeron N4500 8gb 128gb Gris",
+      "marca": "Asus",
+      "mlId": "MLM52781194",
+      "precioAntes": 6500,
+      "estado": "sin_cambio",
+      "precioML": 6500
+    },
+    {
+      "categoria": "laptops",
+      "id": "exp_MLM58579801",
+      "nombre": "Laptop Lenovo Chromebook 11 Amd A4 32gb Ram 4gb Negro",
+      "marca": "Lenovo",
+      "mlId": "MLM58579801",
+      "precioAntes": 4500,
+      "estado": "sin_cambio",
+      "precioML": 4500
+    },
+    {
+      "categoria": "laptops",
+      "id": 52,
+      "nombre": "HP Pavilion 17 Core 5-120U 16GB 1TB Touch HD+",
+      "marca": "HP",
+      "mlId": "MLM28361415",
+      "precioAntes": 18581,
+      "estado": "sin_cambio",
+      "precioML": 18581
+    },
+    {
+      "categoria": "laptops",
+      "id": 53,
+      "nombre": "HP OmniBook 17 Core Ultra 7-258V 32GB 1TB Touch FHD",
+      "marca": "HP",
+      "mlId": "MLM69741169",
+      "precioAntes": 22548,
+      "estado": "sin_cambio",
+      "precioML": 22548
+    },
+    {
+      "categoria": "laptops",
+      "id": 54,
+      "nombre": "Lenovo Legion Pro 7 Ryzen 9 9955HX3D 32GB 1TB RTX 5080 OLED Gaming",
+      "marca": "Lenovo",
+      "mlId": "MLM66602144",
+      "precioAntes": 89699,
+      "estado": "sin_cambio",
+      "precioML": 89699
+    },
+    {
+      "categoria": "laptops",
+      "id": 55,
+      "nombre": "HP 255R G10 Ryzen 5 7535U 8GB 512GB",
+      "marca": "HP",
+      "mlId": "MLM67144918",
+      "precioAntes": 10460,
+      "estado": "actualizado",
+      "precioNuevo": 9599,
+      "precioML": 9599
+    },
+    {
+      "categoria": "laptops",
+      "id": 56,
+      "nombre": "Lenovo IdeaPad Slim 3 Ryzen 5 7520U 8GB 512GB",
+      "marca": "Lenovo",
+      "mlId": "MLM46328059",
+      "precioAntes": 10599,
+      "estado": "sin_cambio",
+      "precioML": 10599
+    },
+    {
+      "categoria": "laptops",
+      "id": 58,
+      "nombre": "HP 255 G10 Ryzen 3 7335U 16GB 512GB",
+      "marca": "HP",
+      "mlId": "MLM64970198",
+      "precioAntes": 10999,
+      "estado": "sin_cambio",
+      "precioML": 10999
+    },
+    {
+      "categoria": "laptops",
+      "id": 59,
+      "nombre": "HP Pavilion 15 Intel N200 4GB 128GB",
+      "marca": "HP",
+      "mlId": "MLM63240659",
+      "precioAntes": 6458,
+      "estado": "sin_cambio",
+      "precioML": 6458
+    },
+    {
+      "categoria": "laptops",
+      "id": 60,
+      "nombre": "Lenovo IdeaPad Slim 3 Core i5-13420H 24GB 1TB Azul",
+      "marca": "Lenovo",
+      "mlId": "MLM53153939",
+      "precioAntes": 14299,
+      "estado": "sin_cambio",
+      "precioML": 14299
+    },
+    {
+      "categoria": "laptops",
+      "id": 61,
+      "nombre": "ASUS Vivobook 14 Core i7-1355U 12GB 512GB",
+      "marca": "ASUS",
+      "mlId": "MLM49901787",
+      "precioAntes": 15500,
+      "estado": "sin_cambio",
+      "precioML": 15500
+    },
+    {
+      "categoria": "laptops",
+      "id": 63,
+      "nombre": "HP 15 Pentium N200 4GB 128GB Azul FD0082",
+      "marca": "HP",
+      "mlId": "MLM63081442",
+      "precioAntes": 5986,
+      "estado": "sin_cambio",
+      "precioML": 5986
+    },
+    {
+      "categoria": "laptops",
+      "id": 69,
+      "nombre": "Lenovo IdeaPad Slim 3 Ryzen 5 7520U 8GB 256GB Azul",
+      "marca": "Lenovo",
+      "mlId": "MLM70394812",
+      "precioAntes": 7871,
+      "estado": "sin_cambio",
+      "precioML": 7871
+    },
+    {
+      "categoria": "laptops",
+      "id": 70,
+      "nombre": "HP Stream 14 Celeron N150 4GB 128GB Rosa",
+      "marca": "HP",
+      "mlId": "MLM53196537",
+      "precioAntes": 6295,
+      "estado": "sin_cambio",
+      "precioML": 6295
+    },
+    {
+      "categoria": "laptops",
+      "id": 71,
+      "nombre": "HP 14 Celeron N150 4GB 128GB Rosa Dorado 14-dq6015dx",
+      "marca": "HP",
+      "mlId": "MLM58343227",
+      "precioAntes": 4739,
+      "estado": "actualizado",
+      "precioNuevo": 4869,
+      "precioML": 4869
+    },
+    {
+      "categoria": "laptops",
+      "id": 73,
+      "nombre": "Apple MacBook Pro 14\" M5 10CPU 10GPU 16GB 1TB Negro Espacial (2025)",
+      "marca": "Apple",
+      "mlId": "MLM1054139854",
+      "precioAntes": 45734,
+      "estado": "actualizado",
+      "precioNuevo": 45729,
+      "precioML": 45729
+    },
+    {
+      "categoria": "laptops",
+      "id": 74,
+      "nombre": "Apple MacBook Neo 13\" A18 Pro 6CPU 5GPU 8GB 512GB Rosa Rubor (2026)",
+      "marca": "Apple",
+      "mlId": "MLM66172744",
+      "precioAntes": 17528,
+      "estado": "sin_cambio",
+      "precioML": 17528
+    },
+    {
+      "categoria": "laptops",
+      "id": 77,
+      "nombre": "Apple MacBook Neo 13\" A18 Pro 6CPU 5GPU 8GB 256GB Índigo (2026)",
+      "marca": "Apple",
+      "mlId": "MLM1066172678",
+      "precioAntes": 14999,
+      "estado": "sin_cambio",
+      "precioML": 14999
+    },
+    {
+      "categoria": "freidoras",
+      "id": 19,
+      "nombre": "Dakuly DK60879 Freidora de Aire Smart 5-en-1 Digital 6L 2400W",
+      "marca": "Dakuly",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "freidoras",
+      "id": 21,
+      "nombre": "Ninja Crispi FN091 Freidora de Aire Portátil Vidrio 3.5L Lila",
+      "marca": "Ninja",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "freidoras",
+      "id": 22,
+      "nombre": "Unifull SY-KX-001 Freidora Horno Aire Digital Touch 15L 3 Rejillas",
+      "marca": "Unifull",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "freidoras",
+      "id": 23,
+      "nombre": "Patbrela AF304 Freidora de Aire 8L Digital con Ventana 8 Programas",
+      "marca": "PATBRELA",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "freidoras",
+      "id": 25,
+      "nombre": "BSMOOM ML619 Freidora de Aire Cristal 5L 1500W 6 Menús Blanco",
+      "marca": "BSMOOM",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "freidoras",
+      "id": 26,
+      "nombre": "Boma BM-068B Freidora de Aire Digital 5L Antiadherente Negro",
+      "marca": "Boma",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "freidoras",
+      "id": 27,
+      "nombre": "T-fal EY855DMX Freidora de Aire Grande 7.5L Plateado",
+      "marca": "T-fal",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "freidoras",
+      "id": 28,
+      "nombre": "Unifull SY-KQZG-001 Freidora de Aire Dual 10L Táctil con Ventana Plateado",
+      "marca": "Unifull",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "freidoras",
+      "id": 29,
+      "nombre": "Patbrela AF310 Freidora de Aire Dual 12L Doble Canasta con Ventana",
+      "marca": "PATBRELA",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "freidoras",
+      "id": 32,
+      "nombre": "GUPMOLI Air Fryer Digital Touch 10L con Ventana 1400W",
+      "marca": "GUPMOLI",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "freidoras",
+      "id": 1,
+      "nombre": "Oster CKSTAF40WDDF Freidora de Aire 4L DiamondForce",
+      "marca": "Oster",
+      "mlId": "MLM41514595",
+      "precioAntes": 1436,
+      "estado": "actualizado",
+      "precioNuevo": 1536,
+      "precioML": 1536
+    },
+    {
+      "categoria": "freidoras",
+      "id": 2,
+      "nombre": "Ninja AF161 Freidora de Aire XL 5L Max Crisp",
+      "marca": "Ninja",
+      "mlId": "MLM22374539",
+      "precioAntes": 2668,
+      "estado": "sin_cambio",
+      "precioML": 2668
+    },
+    {
+      "categoria": "freidoras",
+      "id": 3,
+      "nombre": "Chefman RJ38-SS-6T-MX TurboFry Freidora 5.5L Plateada",
+      "marca": "Chefman",
+      "mlId": "MLM63098614",
+      "precioAntes": 1199,
+      "estado": "sin_cambio",
+      "precioML": 1199
+    },
+    {
+      "categoria": "freidoras",
+      "id": 4,
+      "nombre": "Patbrela AF306 Freidora de Aire 6.5L Cesta de Vidrio",
+      "marca": "Patbrela",
+      "mlId": "MLM68400548",
+      "precioAntes": 1270,
+      "estado": "sin_cambio",
+      "precioML": 1270
+    },
+    {
+      "categoria": "freidoras",
+      "id": 5,
+      "nombre": "Oster CKSTAF60WDDF Freidora de Aire 6L DiamondForce Ventana",
+      "marca": "Oster",
+      "mlId": "MLM42517479",
+      "precioAntes": 1649,
+      "estado": "actualizado",
+      "precioNuevo": 1589,
+      "precioML": 1589
+    },
+    {
+      "categoria": "freidoras",
+      "id": 6,
+      "nombre": "Signa Freidora de Aire Horno Digital 8L 1500W",
+      "marca": "Signa",
+      "mlId": "MLM54483070",
+      "precioAntes": 799,
+      "estado": "sin_cambio",
+      "precioML": 799
+    },
+    {
+      "categoria": "freidoras",
+      "id": 7,
+      "nombre": "Oster CKSTAF75WDSSDF Freidora de Aire 7.5L DiamondForce",
+      "marca": "Oster",
+      "mlId": "MLM45024769",
+      "precioAntes": 2149,
+      "estado": "actualizado",
+      "precioNuevo": 1789,
+      "precioML": 1789
+    },
+    {
+      "categoria": "freidoras",
+      "id": 8,
+      "nombre": "Coriumae Freidora de Aire Digital 6.5L 1500W 7 Programas con Ventana",
+      "marca": "Coriumae",
+      "mlId": "MLM74339345",
+      "precioAntes": 916,
+      "estado": "actualizado",
+      "precioNuevo": 907,
+      "precioML": 907
+    },
+    {
+      "categoria": "freidoras",
+      "id": 9,
+      "nombre": "Welikera Freidora de Aire 7.5L Ventana 8 Funciones",
+      "marca": "Welikera",
+      "mlId": "MLM50785767",
+      "precioAntes": 950,
+      "estado": "sin_cambio",
+      "precioML": 950
+    },
+    {
+      "categoria": "freidoras",
+      "id": 10,
+      "nombre": "Ninja Crispi FN101GY Freidora de Aire Vidrio 4-en-1 3.8L",
+      "marca": "Ninja",
+      "mlId": "MLM65808174",
+      "precioAntes": 3149,
+      "estado": "sin_cambio",
+      "precioML": 3149
+    },
+    {
+      "categoria": "freidoras",
+      "id": 11,
+      "nombre": "Chefman TurboFry RJ38-2D-BLACK-MX Freidora de Aire Digital 1.7L",
+      "marca": "Chefman",
+      "mlId": "MLM62829444",
+      "precioAntes": 799,
+      "estado": "sin_cambio",
+      "precioML": 799
+    },
+    {
+      "categoria": "freidoras",
+      "id": 12,
+      "nombre": "Welikera Freidora de Aire 8L Táctil 3-en-1 15 Accesorios 60-220°C",
+      "marca": "Welikera",
+      "mlId": "MLM61443962",
+      "precioAntes": 1260,
+      "estado": "sin_cambio",
+      "precioML": 1260
+    },
+    {
+      "categoria": "freidoras",
+      "id": 13,
+      "nombre": "F FELICASA Horno Freidora de Aire Multifuncional 12L 1360W 0-230°C",
+      "marca": "F FELICASA",
+      "mlId": "MLM76570630",
+      "precioAntes": 1299,
+      "estado": "sin_cambio",
+      "precioML": 1299
+    },
+    {
+      "categoria": "freidoras",
+      "id": 14,
+      "nombre": "MasterChef Hukën MK-AFO-12DT Horno Freidora de Aire 12L Táctil",
+      "marca": "MasterChef",
+      "mlId": "MLM21855677",
+      "precioAntes": 1999,
+      "estado": "actualizado",
+      "precioNuevo": 1660,
+      "precioML": 1660
+    },
+    {
+      "categoria": "freidoras",
+      "id": 15,
+      "nombre": "MasterChef Huken 920163 Horno Freidora Aire Convección 12L Inox Digital",
+      "marca": "MasterChef",
+      "mlId": "MLM45477125",
+      "precioAntes": 2170,
+      "estado": "sin_cambio",
+      "precioML": 2170
+    },
+    {
+      "categoria": "freidoras",
+      "id": 16,
+      "nombre": "MasterChef MK-AFO-12SS Horno Freidora Aire Multifuncional 12L Inox 10-en-1",
+      "marca": "MasterChef",
+      "mlId": "MLM19631775",
+      "precioAntes": 1999,
+      "estado": "actualizado",
+      "precioNuevo": 1761,
+      "precioML": 1761
+    },
+    {
+      "categoria": "freidoras",
+      "id": 17,
+      "nombre": "Chefman Hi Fry RJ38-RDO-13-MX Freidora Horno Aire 12L Táctil Plateado",
+      "marca": "Chefman",
+      "mlId": "MLM61104752",
+      "precioAntes": 1999,
+      "estado": "sin_cambio",
+      "precioML": 1999
+    },
+    {
+      "categoria": "freidoras",
+      "id": 18,
+      "nombre": "Oster Diamondforce CKSTAF401MDF Freidora de Aire Manual 4L",
+      "marca": "Oster",
+      "mlId": "MLM44586784",
+      "precioAntes": 999,
+      "estado": "sin_cambio",
+      "precioML": 999
+    },
+    {
+      "categoria": "freidoras",
+      "id": 20,
+      "nombre": "Oster CKSTAFOV3 Super Freidora de Aire 10L con Ventana",
+      "marca": "Oster",
+      "mlId": "MLM22313925",
+      "precioAntes": 3789,
+      "estado": "actualizado",
+      "precioNuevo": 2773,
+      "precioML": 2773
+    },
+    {
+      "categoria": "freidoras",
+      "id": 24,
+      "nombre": "RCA RC-110 Freidora de Aire Digital 5L con Ventana",
+      "marca": "RCA",
+      "mlId": "MLM44230015",
+      "precioAntes": 1249,
+      "estado": "sin_cambio",
+      "precioML": 1249
+    },
+    {
+      "categoria": "freidoras",
+      "id": 30,
+      "nombre": "Ninja DoubleStack SL401LAA Freidora de Aire Doble XL 9.5L",
+      "marca": "Ninja",
+      "mlId": "MLM56570065",
+      "precioAntes": 3639,
+      "estado": "sin_cambio",
+      "precioML": 3639
+    },
+    {
+      "categoria": "freidoras",
+      "id": 31,
+      "nombre": "Ninja Foodi DualZone DZ201 Freidora Doble 6-en-1 7.5L Gris Oscuro",
+      "marca": "Ninja",
+      "mlId": "MLM44452194",
+      "precioAntes": 3054,
+      "estado": "actualizado",
+      "precioNuevo": 2979,
+      "precioML": 2979
+    },
+    {
+      "categoria": "freidoras",
+      "id": 33,
+      "nombre": "Chefman TurboFry RJ38-10-RDO-V2-MX Freidora Horno Aire 10L 1700W",
+      "marca": "Chefman",
+      "mlId": "MLM27957540",
+      "precioAntes": 1699,
+      "estado": "sin_cambio",
+      "precioML": 1699
+    },
+    {
+      "categoria": "freidoras",
+      "id": 34,
+      "nombre": "Patbrela AF305 Freidora de Aire 12L Digital con Ventana 11 Funciones",
+      "marca": "PATBRELA",
+      "mlId": "MLM63441514",
+      "precioAntes": 1556,
+      "estado": "sin_cambio",
+      "precioML": 1556
+    },
+    {
+      "categoria": "freidoras",
+      "id": 35,
+      "nombre": "NutriChef NCAF539TB Freidora de Aire Vidrio 5.8L 8-en-1 Táctil LED Blanco",
+      "marca": "NutriChef",
+      "mlId": "MLM44870804",
+      "precioAntes": 1899,
+      "estado": "sin_cambio",
+      "precioML": 1899
+    },
     {
       "categoria": "bicis",
       "id": "kiwo-hikari",
@@ -102,8 +817,8 @@
       "marca": "AMYET",
       "mlId": "MLM74734493",
       "precioAntes": 14499,
-      "estado": "sin_cambio",
-      "precioML": 14499
+      "estado": "sin_precio",
+      "precioML": null
     },
     {
       "categoria": "bicis",
@@ -111,8 +826,9 @@
       "nombre": "Bizmo MKZ-BIZMODYNEG",
       "marca": "Bizmo",
       "mlId": "MLM47011341",
-      "precioAntes": 5990,
-      "estado": "sin_cambio",
+      "precioAntes": 6858,
+      "estado": "actualizado",
+      "precioNuevo": 5990,
       "precioML": 5990
     },
     {
@@ -172,8 +888,8 @@
       "marca": "AMYET",
       "mlId": "MLM74734493",
       "precioAntes": 14499,
-      "estado": "sin_cambio",
-      "precioML": 14499
+      "estado": "sin_precio",
+      "precioML": null
     },
     {
       "categoria": "bicis",
@@ -212,8 +928,8 @@
       "marca": "HONEYWHALE",
       "mlId": "MLM40681806",
       "precioAntes": 12999,
-      "estado": "sin_cambio",
-      "precioML": 12999
+      "estado": "sin_precio",
+      "precioML": null
     },
     {
       "categoria": "bicis",
@@ -284,6 +1000,1382 @@
       "precioAntes": 11800,
       "estado": "sin_cambio",
       "precioML": 11800
+    },
+    {
+      "categoria": "microondas",
+      "id": 1,
+      "nombre": "Horno De Microondas 7 Pies 20 Lts Acero Inox Espejo 120v",
+      "marca": "SHTARK",
+      "mlId": "MLM44355459",
+      "precioAntes": 1599,
+      "estado": "sin_cambio",
+      "precioML": 1599
+    },
+    {
+      "categoria": "microondas",
+      "id": 2,
+      "nombre": "Koblenz MWKM07IRA-PLA 20L Espejo",
+      "marca": "Koblenz",
+      "mlId": "MLM44794962",
+      "precioAntes": 1779,
+      "estado": "sin_cambio",
+      "precioML": 1779
+    },
+    {
+      "categoria": "microondas",
+      "id": 3,
+      "nombre": "Mabe HMM70SEJ 20L Silver Espejo",
+      "marca": "Mabe",
+      "mlId": "MLM9314570",
+      "precioAntes": 1855,
+      "estado": "actualizado",
+      "precioNuevo": 1849,
+      "precioML": 1849
+    },
+    {
+      "categoria": "microondas",
+      "id": 4,
+      "nombre": "Midea MMDF07S2MG 20L Silver Espejo",
+      "marca": "Midea",
+      "mlId": "MLM18553094",
+      "precioAntes": 1409,
+      "estado": "actualizado",
+      "precioNuevo": 1306,
+      "precioML": 1306
+    },
+    {
+      "categoria": "microondas",
+      "id": 5,
+      "nombre": "Westinghouse WKMWW2008 20L Negro",
+      "marca": "Westinghouse",
+      "mlId": "MLM68879392",
+      "precioAntes": 1559,
+      "estado": "sin_cambio",
+      "precioML": 1559
+    },
+    {
+      "categoria": "microondas",
+      "id": 6,
+      "nombre": "White-Westinghouse WWCMV0720WES 20L Silver",
+      "marca": "White-Westinghouse",
+      "mlId": "MLM43424701",
+      "precioAntes": 1599,
+      "estado": "sin_cambio",
+      "precioML": 1599
+    },
+    {
+      "categoria": "microondas",
+      "id": 7,
+      "nombre": "Hisense HMMS2509BP 25L Negro Espejo",
+      "marca": "Hisense",
+      "mlId": "MLM47692410",
+      "precioAntes": 1999,
+      "estado": "sin_cambio",
+      "precioML": 1999
+    },
+    {
+      "categoria": "microondas",
+      "id": 8,
+      "nombre": "Midea MMDT07S2WB Tastexpress 20L Blanco",
+      "marca": "Midea",
+      "mlId": "MLM46684936",
+      "precioAntes": 1699,
+      "estado": "sin_cambio",
+      "precioML": 1699
+    },
+    {
+      "categoria": "microondas",
+      "id": 9,
+      "nombre": "GE Appliances MGE11SEJ 31L Espejo",
+      "marca": "GE Appliances",
+      "mlId": "MLM14957671",
+      "precioAntes": 2352,
+      "estado": "actualizado",
+      "precioNuevo": 2882,
+      "precioML": 2882
+    },
+    {
+      "categoria": "microondas",
+      "id": 10,
+      "nombre": "Chefman RJ55-MR-7-MX 20L Plateado Espejo",
+      "marca": "Chefman",
+      "mlId": "MLM54261065",
+      "precioAntes": 2399,
+      "estado": "actualizado",
+      "precioNuevo": 1999,
+      "precioML": 1999
+    },
+    {
+      "categoria": "microondas",
+      "id": 11,
+      "nombre": "Acros AM1807W 20L Blanco",
+      "marca": "Acros",
+      "mlId": "MLM18568392",
+      "precioAntes": 1988,
+      "estado": "sin_cambio",
+      "precioML": 1988
+    },
+    {
+      "categoria": "microondas",
+      "id": 12,
+      "nombre": "Mirage MWD020E 20L Plata Espejo",
+      "marca": "Mirage",
+      "mlId": "MLM18439163",
+      "precioAntes": 1374,
+      "estado": "sin_cambio",
+      "precioML": 1374
+    },
+    {
+      "categoria": "microondas",
+      "id": 13,
+      "nombre": "Whirlpool WM1811D 31L Silver Espejo",
+      "marca": "Whirlpool",
+      "mlId": "MLM15698137",
+      "precioAntes": 3029,
+      "estado": "sin_cambio",
+      "precioML": 3029
+    },
+    {
+      "categoria": "microondas",
+      "id": 14,
+      "nombre": "Mabe HMM07BBW 19.8L Negro",
+      "marca": "Mabe",
+      "mlId": "MLM65357421",
+      "precioAntes": 1706,
+      "estado": "sin_cambio",
+      "precioML": 1706
+    },
+    {
+      "categoria": "microondas",
+      "id": 15,
+      "nombre": "Acros AM1807D 20L Silver Espejo",
+      "marca": "Acros",
+      "mlId": "MLM18568393",
+      "precioAntes": 1849,
+      "estado": "sin_cambio",
+      "precioML": 1849
+    },
+    {
+      "categoria": "microondas",
+      "id": 16,
+      "nombre": "Midea MMDF07S2BW Practia 20L Blanco",
+      "marca": "Midea",
+      "mlId": "MLM18711597",
+      "precioAntes": 1429,
+      "estado": "sin_cambio",
+      "precioML": 1429
+    },
+    {
+      "categoria": "microondas",
+      "id": 17,
+      "nombre": "Panasonic NN-SU64MBRUH 36L Negro",
+      "marca": "Panasonic",
+      "mlId": "MLM19917229",
+      "precioAntes": 3097,
+      "estado": "sin_cambio",
+      "precioML": 3097
+    },
+    {
+      "categoria": "microondas",
+      "id": 18,
+      "nombre": "Koblenz MWKM-07BHA 20L Blanco",
+      "marca": "Koblenz",
+      "mlId": "MLM45268061",
+      "precioAntes": 1518,
+      "estado": "sin_cambio",
+      "precioML": 1518
+    },
+    {
+      "categoria": "microondas",
+      "id": 19,
+      "nombre": "Midea MMDR07S2MG 20L Gris Espejo",
+      "marca": "Midea",
+      "mlId": "MLM18502711",
+      "precioAntes": 1530,
+      "estado": "sin_cambio",
+      "precioML": 1530
+    },
+    {
+      "categoria": "proteina",
+      "id": 7,
+      "nombre": "HS Hero Sport Whey Natural",
+      "marca": "HS HERO SPORT",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "proteina",
+      "id": 8,
+      "nombre": "Easy Fit Proteína Grass-Fed",
+      "marca": "Easy Fit by Julia Ritz",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "proteina",
+      "id": 9,
+      "nombre": "Health Hack Bone Broth",
+      "marca": "Health Hack",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "proteina",
+      "id": 10,
+      "nombre": "Left Coast Performance Bone Broth",
+      "marca": "Left Coast Performance",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "proteina",
+      "id": 13,
+      "nombre": "Oby Protein Complex",
+      "marca": "Oby",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "proteina",
+      "id": 16,
+      "nombre": "Dymatize ISO100",
+      "marca": "Dymatize",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "proteina",
+      "id": 17,
+      "nombre": "EUPHORIC 100% Whey Protein",
+      "marca": "EUPHORIC",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "proteina",
+      "id": 18,
+      "nombre": "Be Better REBUILD",
+      "marca": "Be Better",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "proteina",
+      "id": 102,
+      "nombre": "Proteína HABITS Cacao 488 g",
+      "marca": "HABITS",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "proteina",
+      "id": 104,
+      "nombre": "Proteína 100% Whey Empower N con Creatina Choco Avellana 2.2 kg",
+      "marca": "Empower N",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "proteina",
+      "id": 105,
+      "nombre": "Evolution WPI100 Whey Zero Carb Fresa 800 g",
+      "marca": "Evolution",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "proteina",
+      "id": 107,
+      "nombre": "BHP Nutrition Whey Ultra Cookies and Cream 5 lb",
+      "marca": "BHP Nutrition",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "proteina",
+      "id": 108,
+      "nombre": "BHP Nutrition Whey Ultra Café Caramel Macchiato 5 lb",
+      "marca": "BHP Nutrition",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "proteina",
+      "id": 110,
+      "nombre": "Optimum Nutrition Gold Standard 100% Whey Nieve de Vainilla 2.27 kg",
+      "marca": "Optimum Nutrition",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "proteina",
+      "id": 111,
+      "nombre": "Birdman Falcon Performance Proteína Vegana Choco Bronze 1.9 kg",
+      "marca": "Birdman",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "proteina",
+      "id": 112,
+      "nombre": "Birdman Falcon Protein Proteína Vegetal Chocolate 1.8 kg",
+      "marca": "Birdman",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "proteina",
+      "id": 115,
+      "nombre": "Myo-Vector Whey Vainilla 2.27 kg",
+      "marca": "Myo-Vector",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "proteina",
+      "id": 117,
+      "nombre": "Golds Protein 100% Whey Hidrolizada Cappuccino 1 kg",
+      "marca": "Golds Protein",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "proteina",
+      "id": 118,
+      "nombre": "Athyra Nutrition Whey Protein Isolate Galleta 1 kg",
+      "marca": "Athyra Nutrition",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "proteina",
+      "id": 119,
+      "nombre": "Meta Nutrition Full Protein Galleta de Canela 10 lb",
+      "marca": "Meta Nutrition",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "proteina",
+      "id": 120,
+      "nombre": "Defender Whey Protein Ferrero 3 kg",
+      "marca": "Defender",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "proteina",
+      "id": 137,
+      "nombre": "Diablo Ultra Mass Gainer Whey Vainilla 2.8 kg",
+      "marca": "Diablo",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "proteina",
+      "id": 141,
+      "nombre": "Health Addiction Proteína Vegana Vainilla 600 g",
+      "marca": "Health Addiction",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "proteina",
+      "id": 142,
+      "nombre": "Total Matter Sport Proteína Sacha Inchi Chocolate",
+      "marca": "Total Matter Sport",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "proteina",
+      "id": 138,
+      "nombre": "Essentials Whey Vainilla 500 g",
+      "marca": "Essentials",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "proteina",
+      "id": 1,
+      "nombre": "Wellthy Proteína Vegana",
+      "marca": "Wellthy",
+      "mlId": "MLM25550741",
+      "precioAntes": 500,
+      "estado": "sin_cambio",
+      "precioML": 500
+    },
+    {
+      "categoria": "proteina",
+      "id": 2,
+      "nombre": "Evolution Proteína WP100 + Creatina",
+      "marca": "Evolution",
+      "mlId": "MLM18937714",
+      "precioAntes": 1498,
+      "estado": "sin_cambio",
+      "precioML": 1498
+    },
+    {
+      "categoria": "proteina",
+      "id": 3,
+      "nombre": "Birdman Falcon Performance",
+      "marca": "Birdman",
+      "mlId": "MLM66417491",
+      "precioAntes": 479,
+      "estado": "sin_cambio",
+      "precioML": 479
+    },
+    {
+      "categoria": "proteina",
+      "id": 4,
+      "nombre": "Birdman Falcon Protein",
+      "marca": "Birdman",
+      "mlId": "MLM66053354",
+      "precioAntes": 1049,
+      "estado": "actualizado",
+      "precioNuevo": 839,
+      "precioML": 839
+    },
+    {
+      "categoria": "proteina",
+      "id": 5,
+      "nombre": "HABITS Proteína Vegetal",
+      "marca": "HABITS BY NOT A FANCY KITCHEN",
+      "mlId": "MLM19639283",
+      "precioAntes": 489,
+      "estado": "actualizado",
+      "precioNuevo": 609,
+      "precioML": 609
+    },
+    {
+      "categoria": "proteina",
+      "id": 6,
+      "nombre": "Easy Fit Proteína + Colágeno Premium",
+      "marca": "Easy Fit by Julia Ritz",
+      "mlId": "MLM46449427",
+      "precioAntes": 729,
+      "estado": "sin_cambio",
+      "precioML": 729
+    },
+    {
+      "categoria": "proteina",
+      "id": 12,
+      "nombre": "Mutant Whey",
+      "marca": "Mutant",
+      "mlId": "MLM22073694",
+      "precioAntes": 1135,
+      "estado": "sin_cambio",
+      "precioML": 1135
+    },
+    {
+      "categoria": "proteina",
+      "id": 15,
+      "nombre": "Birdman Fitmingo",
+      "marca": "Birdman",
+      "mlId": "MLM25354677",
+      "precioAntes": 1116,
+      "estado": "actualizado",
+      "precioNuevo": 959,
+      "precioML": 959
+    },
+    {
+      "categoria": "proteina",
+      "id": 123,
+      "nombre": "Olimpo Zeus 100% Whey Vainilla 2.26 kg",
+      "marca": "Olimpo",
+      "mlId": "MLM22275454",
+      "precioAntes": 989,
+      "estado": "sin_cambio",
+      "precioML": 989
+    },
+    {
+      "categoria": "proteina",
+      "id": 126,
+      "nombre": "Hanuman Proteína con Colágeno Sin Sabor 1.2 kg",
+      "marca": "Hanuman",
+      "mlId": "MLM69309644",
+      "precioAntes": 948,
+      "estado": "sin_cambio",
+      "precioML": 948
+    },
+    {
+      "categoria": "proteina",
+      "id": 127,
+      "nombre": "Evolution WPI100 Whey Zero Carb Chocolate 800 g",
+      "marca": "Evolution",
+      "mlId": "MLM19518424",
+      "precioAntes": 836,
+      "estado": "sin_cambio",
+      "precioML": 836
+    },
+    {
+      "categoria": "proteina",
+      "id": 132,
+      "nombre": "Mad Labz 100% Whey Chocolate 2.26 kg",
+      "marca": "Mad Labz",
+      "mlId": "MLM21080303",
+      "precioAntes": 849,
+      "estado": "sin_cambio",
+      "precioML": 849
+    },
+    {
+      "categoria": "proteina",
+      "id": 133,
+      "nombre": "Birdman Falcon Protein Proteína Vegetal Chocolate 480 g",
+      "marca": "Birdman",
+      "mlId": "MLM65973621",
+      "precioAntes": 479,
+      "estado": "sin_cambio",
+      "precioML": 479
+    },
+    {
+      "categoria": "proteina",
+      "id": 136,
+      "nombre": "Dragon Pharma Whey Phorm Cappuccino 5 lb",
+      "marca": "Dragon Pharma",
+      "mlId": "MLM64036259",
+      "precioAntes": 1885,
+      "estado": "actualizado",
+      "precioNuevo": 2049,
+      "precioML": 2049
+    },
+    {
+      "categoria": "proteina",
+      "id": 139,
+      "nombre": "MDN Sports Wheyner Mass Triple Chocolate 4.5 kg",
+      "marca": "MDN Sports",
+      "mlId": "MLM20886190",
+      "precioAntes": 989,
+      "estado": "sin_cambio",
+      "precioML": 989
+    },
+    {
+      "categoria": "proteina",
+      "id": 140,
+      "nombre": "She Fit Women Protein Fresas con Crema 1.36 kg",
+      "marca": "She Fit",
+      "mlId": "MLM28938176",
+      "precioAntes": 897,
+      "estado": "sin_cambio",
+      "precioML": 897
+    },
+    {
+      "categoria": "proteina",
+      "id": 143,
+      "nombre": "Myo Vector Dragon Whey Chocolate 5 lb",
+      "marca": "Myo Vector",
+      "mlId": "MLM24075924",
+      "precioAntes": 1019,
+      "estado": "sin_cambio",
+      "precioML": 1019
+    },
+    {
+      "categoria": "proteina",
+      "id": 144,
+      "nombre": "Prime Senior Whey Isolate Vainilla 3 kg",
+      "marca": "Prime Senior",
+      "mlId": "MLM70602406",
+      "precioAntes": 437,
+      "estado": "actualizado",
+      "precioNuevo": 440,
+      "precioML": 440
+    },
+    {
+      "categoria": "proteina",
+      "id": 145,
+      "nombre": "Black Fusion Proteína Chocolate 336 g",
+      "marca": "Black Fusion",
+      "mlId": "MLM56146749",
+      "precioAntes": 420,
+      "estado": "sin_cambio",
+      "precioML": 420
+    },
+    {
+      "categoria": "proteina",
+      "id": 146,
+      "nombre": "San Juan Proteína de Clara de Huevo Chocolate 2 lb",
+      "marca": "San Juan",
+      "mlId": "MLM18949713",
+      "precioAntes": 807,
+      "estado": "sin_cambio",
+      "precioML": 807
+    },
+    {
+      "categoria": "proteina",
+      "id": 147,
+      "nombre": "Saisa Herbal Proteína de Soya 90% Natural 1 kg",
+      "marca": "Saisa Herbal",
+      "mlId": "MLM49895419",
+      "precioAntes": 299,
+      "estado": "sin_cambio",
+      "precioML": 299
+    },
+    {
+      "categoria": "proteina",
+      "id": 148,
+      "nombre": "RAW Isolate Frosted Frenchie Cookies 1.9 lb",
+      "marca": "RAW",
+      "mlId": "MLM45615471",
+      "precioAntes": 875,
+      "estado": "sin_cambio",
+      "precioML": 875
+    },
+    {
+      "categoria": "proteina",
+      "id": 149,
+      "nombre": "Hiper Sport Whey Hidrolizada Chocolate 6 kg",
+      "marca": "Hiper Sport",
+      "mlId": "MLM74764379",
+      "precioAntes": 370,
+      "estado": "sin_cambio",
+      "precioML": 370
+    },
+    {
+      "categoria": "omega3",
+      "id": 1,
+      "nombre": "Omega 3 Forte 2000mg – 60 Softgels",
+      "marca": "OBY",
+      "mlId": "MLM65113031",
+      "precioAntes": 369,
+      "estado": "sin_cambio",
+      "precioML": 369
+    },
+    {
+      "categoria": "omega3",
+      "id": 2,
+      "nombre": "Omega 3 Ultra Premium EPA 360mg DHA 240mg TG – 60 Cápsulas",
+      "marca": "Beyond Vitamins",
+      "mlId": "MLM76052334",
+      "precioAntes": 599,
+      "estado": "actualizado",
+      "precioNuevo": 652,
+      "precioML": 652
+    },
+    {
+      "categoria": "omega3",
+      "id": 3,
+      "nombre": "Omega 3 De Salmón Alto EPA y DHA – 120 Cápsulas",
+      "marca": "OBY",
+      "mlId": "MLM24755557",
+      "precioAntes": 379,
+      "estado": "sin_cambio",
+      "precioML": 379
+    },
+    {
+      "categoria": "omega3",
+      "id": 5,
+      "nombre": "Omega 3 Platinum 1000mg – 180 Cápsulas",
+      "marca": "B Life",
+      "mlId": "MLM24106955",
+      "precioAntes": 749,
+      "estado": "actualizado",
+      "precioNuevo": 659,
+      "precioML": 659
+    },
+    {
+      "categoria": "omega3",
+      "id": 6,
+      "nombre": "Now Foods Omega 3 1000mg Sin Metales Pesados – 100 Softgels",
+      "marca": "Now Foods",
+      "mlId": "MLM18924602",
+      "precioAntes": 236,
+      "estado": "sin_cambio",
+      "precioML": 236
+    },
+    {
+      "categoria": "omega3",
+      "id": 7,
+      "nombre": "Omega 3 Aceite de Salmón + Vitamina E 365 Cápsulas",
+      "marca": "LIFE360+",
+      "mlId": "MLM76127265",
+      "precioAntes": 369,
+      "estado": "sin_cambio",
+      "precioML": 369
+    },
+    {
+      "categoria": "omega3",
+      "id": 8,
+      "nombre": "Vitanna Omega 3 Epax Salmón Noruego EPA 600mg DHA 400mg – 120 Cápsulas",
+      "marca": "Vitanna",
+      "mlId": "MLM79087446",
+      "precioAntes": 499,
+      "estado": "sin_cambio",
+      "precioML": 499
+    },
+    {
+      "categoria": "omega3",
+      "id": 9,
+      "nombre": "Vitatú Omega 3 Salmón Noruego – 90 Softgels",
+      "marca": "Vitatú",
+      "mlId": "MLM45098655",
+      "precioAntes": 599,
+      "estado": "sin_cambio",
+      "precioML": 599
+    },
+    {
+      "categoria": "omega3",
+      "id": 10,
+      "nombre": "Omega 3-6-9 Naturagel Aceite de Linaza – 60 Cápsulas",
+      "marca": "Naturagel",
+      "mlId": "MLM19810312",
+      "precioAntes": 130,
+      "estado": "sin_cambio",
+      "precioML": 130
+    },
+    {
+      "categoria": "omega3",
+      "id": 16,
+      "nombre": "UPMER Omega 3 Premium 5 en 1 Krill + Pescado – 90 Cápsulas",
+      "marca": "UPMER",
+      "mlId": "MLM75496865",
+      "precioAntes": 219,
+      "estado": "sin_cambio",
+      "precioML": 219
+    },
+    {
+      "categoria": "omega3",
+      "id": 17,
+      "nombre": "Omega 3 Aceite de Salmón + Vitamina E 180 Cápsulas",
+      "marca": "LIFE360+",
+      "mlId": "MLM26094795",
+      "precioAntes": 285,
+      "estado": "sin_precio",
+      "precioML": null
+    },
+    {
+      "categoria": "omega3",
+      "id": 18,
+      "nombre": "Wellthy Omega 3 Noruego Alta Concentración Epax – 90 Cápsulas",
+      "marca": "Wellthy",
+      "mlId": "MLM30639506",
+      "precioAntes": 485,
+      "estado": "sin_cambio",
+      "precioML": 485
+    },
+    {
+      "categoria": "magnesio",
+      "id": 101,
+      "nombre": "Beyond Vitamins Magnesio Complex – Citrato, Gluconato, Óxido y Glicinato – 180 Cápsulas",
+      "marca": "Beyond Vitamins",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "magnesio",
+      "id": 102,
+      "nombre": "B Life Glicinato de Magnesio 336 mg – 120 Cápsulas",
+      "marca": "B Life",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "magnesio",
+      "id": 103,
+      "nombre": "KAL Glicinato de Magnesio con BioPerine 350 mg – 160 Cápsulas Vegetarianas",
+      "marca": "KAL",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "magnesio",
+      "id": 104,
+      "nombre": "Solaray Glicinato de Magnesio 350 mg – 120 Cápsulas Veganas",
+      "marca": "Solaray",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "magnesio",
+      "id": 5,
+      "nombre": "NATSA Citrato de Magnesio 150 mg – 100 Cápsulas",
+      "marca": "NATSA",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "magnesio",
+      "id": 6,
+      "nombre": "OBY Magnesio Complex 5 – Citrato, Gluconato, Bisglicinato, L-Treonato y Taurato – 60 Cápsulas",
+      "marca": "OBY",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "magnesio",
+      "id": 7,
+      "nombre": "NaturalSlim MagiMag-C Citrato de Magnesio y Potasio – 100 Cápsulas",
+      "marca": "NaturalSlim",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "magnesio",
+      "id": 8,
+      "nombre": "Birdman Mag Trifecta – Citrato, Glicinato y Treonato de Magnesio – 180 Cápsulas",
+      "marca": "Birdman",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "magnesio",
+      "id": 9,
+      "nombre": "B Life 9 Mag Platinum – 9 Tipos de Magnesio, Vitamina C y Colágeno – 240 Cápsulas",
+      "marca": "B Life",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "magnesio",
+      "id": 10,
+      "nombre": "SUPLINT Citrato de Magnesio 200 mg con Vitamina B6 – 90 Cápsulas Veganas",
+      "marca": "SUPLINT",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "magnesio",
+      "id": 11,
+      "nombre": "NATSA Bisglicinato de Magnesio 150 mg – 100 Cápsulas",
+      "marca": "NATSA",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "magnesio",
+      "id": 12,
+      "nombre": "NOW Foods Magnesio 400 mg – Citrato, Glicinato, Malato y Óxido – 90 Cápsulas Blandas",
+      "marca": "NOW Foods",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "magnesio",
+      "id": 16,
+      "nombre": "Endaroo Glicinato de Magnesio 500 mg – 60 Cápsulas",
+      "marca": "Endaroo",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "magnesio",
+      "id": 17,
+      "nombre": "Wellthy Bisglicinato de Magnesio – 300 Cápsulas",
+      "marca": "Wellthy",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "magnesio",
+      "id": 18,
+      "nombre": "Endaroo L-Treonato de Magnesio 500 mg – 60 Cápsulas",
+      "marca": "Endaroo",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "magnesio",
+      "id": 13,
+      "nombre": "Wellthy Citrato de Magnesio en Polvo – 250 g",
+      "marca": "Wellthy",
+      "mlId": "MLM29353891",
+      "precioAntes": 199,
+      "estado": "sin_cambio",
+      "precioML": 199
+    },
+    {
+      "categoria": "magnesio",
+      "id": 14,
+      "nombre": "NIÜ YÜ Magnesio Mag Balance – Citrato, Glicinato, Malato y Magnesio Marino – 200 Cápsulas",
+      "marca": "NIÜ YÜ",
+      "mlId": "MLM75838304",
+      "precioAntes": 629,
+      "estado": "sin_cambio",
+      "precioML": 629
+    },
+    {
+      "categoria": "magnesio",
+      "id": 15,
+      "nombre": "Naíma Glicinato de Magnesio en Polvo – 500 g",
+      "marca": "Naíma",
+      "mlId": "MLM48400940",
+      "precioAntes": 722,
+      "estado": "sin_cambio",
+      "precioML": 722
+    },
+    {
+      "categoria": "creatina",
+      "id": 1,
+      "nombre": "Birdman Creatina Monohidratada Micronizada Alta Pureza 450 g",
+      "marca": "Birdman",
+      "mlId": "MLM18625838",
+      "precioAntes": 363,
+      "estado": "sin_cambio",
+      "precioML": 363
+    },
+    {
+      "categoria": "creatina",
+      "id": 2,
+      "nombre": "Creatina Monohidratada Micronizada en Polvo 450 g",
+      "marca": "Sin marca",
+      "mlId": "MLM20722265",
+      "precioAntes": 298,
+      "estado": "sin_cambio",
+      "precioML": 298
+    },
+    {
+      "categoria": "creatina",
+      "id": 3,
+      "nombre": "Quotidien Creatina Monohidratada Micronizada Platinum 450 g",
+      "marca": "Quotidien",
+      "mlId": "MLM45599134",
+      "precioAntes": 298,
+      "estado": "sin_cambio",
+      "precioML": 298
+    },
+    {
+      "categoria": "creatina",
+      "id": 4,
+      "nombre": "Beyond Vitamins Creatina Monohidratada Micronizada 300 g",
+      "marca": "Beyond Vitamins",
+      "mlId": "MLM64109536",
+      "precioAntes": 239,
+      "estado": "sin_cambio",
+      "precioML": 239
+    },
+    {
+      "categoria": "creatina",
+      "id": 6,
+      "nombre": "Dragon Pharma Creatina Monohidratada Micronizada Sin Sabor 300 g",
+      "marca": "Dragon Pharma",
+      "mlId": "MLM59414462",
+      "precioAntes": 448,
+      "estado": "sin_cambio",
+      "precioML": 448
+    },
+    {
+      "categoria": "creatina",
+      "id": 7,
+      "nombre": "Hero Sport Creatina Monohidratada 650 g 130 Servicios",
+      "marca": "Hero Sport",
+      "mlId": "MLM29185836",
+      "precioAntes": 299,
+      "estado": "sin_cambio",
+      "precioML": 299
+    },
+    {
+      "categoria": "creatina",
+      "id": 8,
+      "nombre": "Hero Sport Creatina Monohidratada 2 kg 400 Servicios",
+      "marca": "Hero Sport",
+      "mlId": "MLM53547913",
+      "precioAntes": 800,
+      "estado": "sin_cambio",
+      "precioML": 800
+    },
+    {
+      "categoria": "creatina",
+      "id": 9,
+      "nombre": "Granalia Lif Creatina Monohidratada 100% Pura 500 g",
+      "marca": "Granalia Lif",
+      "mlId": "MLM63744056",
+      "precioAntes": 219,
+      "estado": "sin_cambio",
+      "precioML": 219
+    },
+    {
+      "categoria": "creatina",
+      "id": 10,
+      "nombre": "She Fit Women Creatine Limonada Fresa 490 g",
+      "marca": "She Fit",
+      "mlId": "MLM74956289",
+      "precioAntes": 374,
+      "estado": "sin_cambio",
+      "precioML": 374
+    },
+    {
+      "categoria": "creatina",
+      "id": 11,
+      "nombre": "Birdman Creatine For Women Pink Lemonade 40 Porciones",
+      "marca": "Birdman",
+      "mlId": "MLM67681202",
+      "precioAntes": 479,
+      "estado": "sin_cambio",
+      "precioML": 479
+    },
+    {
+      "categoria": "creatina",
+      "id": 12,
+      "nombre": "MuscleTech Creatina Ultra Pura 100% Monohidratada 400 g",
+      "marca": "MuscleTech",
+      "mlId": "MLM18725423",
+      "precioAntes": 535,
+      "estado": "sin_cambio",
+      "precioML": 535
+    },
+    {
+      "categoria": "creatina",
+      "id": 13,
+      "nombre": "Oby Vitaminas Creatina Monohidratada Micronizada 100% Pura 500 g",
+      "marca": "Oby Vitaminas",
+      "mlId": "MLM40738543",
+      "precioAntes": 289,
+      "estado": "sin_cambio",
+      "precioML": 289
+    },
+    {
+      "categoria": "creatina",
+      "id": 14,
+      "nombre": "Hero Sport Creatina Monohidratada Creapure 600 g 120 Servicios",
+      "marca": "Hero Sport",
+      "mlId": "MLM36002076",
+      "precioAntes": 559,
+      "estado": "sin_cambio",
+      "precioML": 559
+    },
+    {
+      "categoria": "creatina",
+      "id": 15,
+      "nombre": "Hero Sport Creatina Monohidratada Creapure 450 g 90 Servicios",
+      "marca": "Hero Sport",
+      "mlId": "MLM44424291",
+      "precioAntes": 459,
+      "estado": "sin_cambio",
+      "precioML": 459
+    },
+    {
+      "categoria": "creatina",
+      "id": 16,
+      "nombre": "Meta Nutrition Creatina Monohidratada 250 g 50 Servicios",
+      "marca": "Meta Nutrition",
+      "mlId": "MLM73959098",
+      "precioAntes": 175,
+      "estado": "sin_cambio",
+      "precioML": 175
+    },
+    {
+      "categoria": "creatina",
+      "id": 18,
+      "nombre": "MDN Sports Creatina Monohidratada Micronizada Alta Pureza 500 g",
+      "marca": "MDN Sports",
+      "mlId": "MLM19598413",
+      "precioAntes": 388,
+      "estado": "sin_cambio",
+      "precioML": 388
+    },
+    {
+      "categoria": "creatina",
+      "id": 19,
+      "nombre": "Evogen Creatina Monohidratada Micronizada 300 g 60 Servicios",
+      "marca": "Evogen",
+      "mlId": "MLM29559971",
+      "precioAntes": 321,
+      "estado": "sin_cambio",
+      "precioML": 321
+    },
+    {
+      "categoria": "creatina",
+      "id": 26,
+      "nombre": "Dragon Pharma Creatina Monohidratada 1 kg",
+      "marca": "Dragon Pharma",
+      "mlId": "MLM40348756",
+      "precioAntes": 672,
+      "estado": "actualizado",
+      "precioNuevo": 696,
+      "precioML": 696
+    },
+    {
+      "categoria": "creatina",
+      "id": 27,
+      "nombre": "B Life Creatina Monohidratada Micronizada 600 g",
+      "marca": "B Life",
+      "mlId": "MLM23416069",
+      "precioAntes": 449,
+      "estado": "actualizado",
+      "precioNuevo": 395,
+      "precioML": 395
+    },
+    {
+      "categoria": "creatina",
+      "id": 38,
+      "nombre": "Daimel Creatina Monohidratada 1kg",
+      "marca": "Daimel",
+      "mlId": "MLM58183570",
+      "precioAntes": 290,
+      "estado": "sin_cambio",
+      "precioML": 290
+    },
+    {
+      "categoria": "creatina",
+      "id": 41,
+      "nombre": "Bloom Creatina Monohidratada Limón 40 Porciones",
+      "marca": "Bloom",
+      "mlId": "MLM67633967",
+      "precioAntes": 399,
+      "estado": "sin_cambio",
+      "precioML": 399
+    },
+    {
+      "categoria": "creatina",
+      "id": 42,
+      "nombre": "Wellthy Creatina Monohidratada Creapure® 330g",
+      "marca": "Wellthy",
+      "mlId": "MLM38213387",
+      "precioAntes": 349,
+      "estado": "sin_cambio",
+      "precioML": 349
+    },
+    {
+      "categoria": "creatina",
+      "id": 43,
+      "nombre": "B-FIT B Just Creatine Creapure® 450g",
+      "marca": "B-FIT",
+      "mlId": "MLM25346866",
+      "precioAntes": 322,
+      "estado": "sin_cambio",
+      "precioML": 322
+    },
+    {
+      "categoria": "creatina",
+      "id": 44,
+      "nombre": "ELEMENTAL Creatina para Mujer Pink Lemonade 500g",
+      "marca": "ELEMENTAL by PiSA",
+      "mlId": "MLM47890238",
+      "precioAntes": 418,
+      "estado": "sin_cambio",
+      "precioML": 418
+    },
+    {
+      "categoria": "complejo_b",
+      "id": 118,
+      "nombre": "Healthaddiction Bplus B Complex 2 Pack – 120 Porciones",
+      "marca": "Healthaddiction",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "complejo_b",
+      "id": 101,
+      "nombre": "Vitalizate Complejo B Completo Vitamina B12 – 60 Cápsulas",
+      "marca": "Vitalizate",
+      "mlId": "MLM75802407",
+      "precioAntes": 219,
+      "estado": "sin_cambio",
+      "precioML": 219
+    },
+    {
+      "categoria": "complejo_b",
+      "id": 102,
+      "nombre": "SUPLINT Complejo B Vegano con Inositol y Colina – 90 Cápsulas",
+      "marca": "SUPLINT",
+      "mlId": "MLM59690969",
+      "precioAntes": 220,
+      "estado": "actualizado",
+      "precioNuevo": 213,
+      "precioML": 213
+    },
+    {
+      "categoria": "complejo_b",
+      "id": 103,
+      "nombre": "Eternal Nutrition Infinity Complejo B 11 Formas Bioactivas – 300 Cápsulas",
+      "marca": "Eternal Nutrition",
+      "mlId": "MLM45256097",
+      "precioAntes": 498,
+      "estado": "sin_cambio",
+      "precioML": 498
+    },
+    {
+      "categoria": "complejo_b",
+      "id": 104,
+      "nombre": "Kirkland Signature Super B-Complex y Electrolitos – 500 Tabletas",
+      "marca": "Kirkland Signature",
+      "mlId": "MLM20545045",
+      "precioAntes": 459,
+      "estado": "sin_cambio",
+      "precioML": 459
+    },
+    {
+      "categoria": "complejo_b",
+      "id": 105,
+      "nombre": "Solanum Complejo B + Jalea Real Vitaminas B1 B2 B3 B5 B6 – 75 Cápsulas",
+      "marca": "Solanum",
+      "mlId": "MLM35722409",
+      "precioAntes": 145,
+      "estado": "sin_cambio",
+      "precioML": 145
+    },
+    {
+      "categoria": "complejo_b",
+      "id": 106,
+      "nombre": "Life Extension Complejo B Completo Bioactivo – 60 Cápsulas",
+      "marca": "Life Extension",
+      "mlId": "MLM26822236",
+      "precioAntes": 219,
+      "estado": "actualizado",
+      "precioNuevo": 434,
+      "precioML": 434
+    },
+    {
+      "categoria": "complejo_b",
+      "id": 107,
+      "nombre": "Nuboost B-Complex con Remolacha y Cúrcuma – 90 Cápsulas",
+      "marca": "Nuboost",
+      "mlId": "MLM56219472",
+      "precioAntes": 345,
+      "estado": "actualizado",
+      "precioNuevo": 244,
+      "precioML": 244
+    },
+    {
+      "categoria": "complejo_b",
+      "id": 108,
+      "nombre": "Raíces Zen Complejo B 640mg Suplemento Energético – 120 Cápsulas",
+      "marca": "Raíces Zen",
+      "mlId": "MLM53298156",
+      "precioAntes": 255,
+      "estado": "sin_cambio",
+      "precioML": 255
+    },
+    {
+      "categoria": "complejo_b",
+      "id": 109,
+      "nombre": "Smart Vit Anahuac Complejo B 650mg con Zinc, Calcio y Hierro – 75 Cápsulas",
+      "marca": "Smart Vit Anahuac",
+      "mlId": "MLM40633389",
+      "precioAntes": 206,
+      "estado": "sin_cambio",
+      "precioML": 206
+    },
+    {
+      "categoria": "complejo_b",
+      "id": 110,
+      "nombre": "Multiblue Complejo B con Biotina y Ácido Fólico B1–B12 – 60 Cápsulas",
+      "marca": "Multiblue",
+      "mlId": "MLM19865345",
+      "precioAntes": 399,
+      "estado": "sin_cambio",
+      "precioML": 399
+    },
+    {
+      "categoria": "complejo_b",
+      "id": 111,
+      "nombre": "Oby B-Complex 8 en 1 Sin Rellenos – 60 Cápsulas",
+      "marca": "Oby",
+      "mlId": "MLM42521852",
+      "precioAntes": 179,
+      "estado": "sin_cambio",
+      "precioML": 179
+    },
+    {
+      "categoria": "complejo_b",
+      "id": 112,
+      "nombre": "Nature Made Complejo B con Vitamina C USP Verified – 140 Tabletas",
+      "marca": "Nature Made",
+      "mlId": "MLM25347142",
+      "precioAntes": 449,
+      "estado": "sin_cambio",
+      "precioML": 449
+    },
+    {
+      "categoria": "complejo_b",
+      "id": 113,
+      "nombre": "Gwynne Vitamina B 12-in-1 con Vitamina C, Magnesio e Inositol – 90 Cápsulas",
+      "marca": "Gwynne",
+      "mlId": "MLM64255215",
+      "precioAntes": 145,
+      "estado": "sin_cambio",
+      "precioML": 145
+    },
+    {
+      "categoria": "complejo_b",
+      "id": 115,
+      "nombre": "Vital Botanics Complejo B con Biotina y Arándano – 200 Cápsulas",
+      "marca": "Vital Botanics",
+      "mlId": "MLM45254353",
+      "precioAntes": 269,
+      "estado": "sin_cambio",
+      "precioML": 269
+    },
+    {
+      "categoria": "complejo_b",
+      "id": 116,
+      "nombre": "Restart B-Complex Completo Premium GMP – 60 Cápsulas",
+      "marca": "Restart",
+      "mlId": "MLM61183726",
+      "precioAntes": 151,
+      "estado": "actualizado",
+      "precioNuevo": 190,
+      "precioML": 190
+    },
+    {
+      "categoria": "complejo_b",
+      "id": 117,
+      "nombre": "Lifeed5 Complejo B con Té Verde y Calcio – 120 Cápsulas",
+      "marca": "Lifeed5",
+      "mlId": "MLM34281134",
+      "precioAntes": 315,
+      "estado": "sin_cambio",
+      "precioML": 315
+    },
+    {
+      "categoria": "complejo_b",
+      "id": 119,
+      "nombre": "B Life Complejo B y Levadura de Cerveza 180 Días – 180 Cápsulas",
+      "marca": "B Life Company",
+      "mlId": "MLM53298156",
+      "precioAntes": 255,
+      "estado": "sin_cambio",
+      "precioML": 255
+    },
+    {
+      "categoria": "complejo_b",
+      "id": 120,
+      "nombre": "Spring Valley Vitamina B12 1000mcg – 60 Tabletas",
+      "marca": "Spring Valley",
+      "mlId": "MLM21326330",
+      "precioAntes": 239,
+      "estado": "sin_cambio",
+      "precioML": 239
     }
   ]
 }
