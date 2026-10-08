@@ -112,7 +112,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 @media(max-width:1200px){.grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:560px){.grid{grid-template-columns:1fr}}
+@media(max-width:560px){.grid{grid-template-columns:repeat(2,1fr)}}
 
 /* ── Tarjeta de producto: vertical (imagen arriba + info), 4 por fila ─── */
 .card{background:var(--bg);border:1px solid var(--bd);border-radius:16px;overflow:hidden;transition:box-shadow .2s,transform .15s;cursor:pointer;position:relative;display:flex;flex-direction:column}
@@ -135,14 +135,48 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .pmetric-val{font-size:13px;font-weight:700;color:var(--tx);margin-top:2px;overflow-wrap:anywhere}
 .pcard-plats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:2px}
 .pcard-plats.one{grid-template-columns:1fr}
-.pplat{border:1px solid var(--bd);border-radius:11px;padding:8px 8px 9px;display:flex;flex-direction:column;align-items:center;gap:6px;position:relative}
+.pplat{border:1px solid var(--bd);border-radius:11px;padding:8px 8px 9px;display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;min-width:0}
+.btn-lbl-sm{display:none}
 .pplat.best{border-color:var(--ac);box-shadow:inset 0 0 0 1px var(--ac)}
 .pplat-tag{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:#fff;background:var(--ac);border-radius:20px;padding:1px 8px;position:absolute;top:-8px;left:50%;transform:translateX(-50%);white-space:nowrap}
 .pplat-name{font-size:9.5px;color:var(--tx3);text-transform:uppercase;letter-spacing:.05em;font-weight:700}
 .pplat-price{font-size:1.15rem;font-weight:800;color:var(--tx);letter-spacing:-.02em;line-height:1}
 .pplat-price.nd{font-size:11px;font-weight:500;color:var(--tx3)}
+.pn-sm{display:none}
+/* Corazón para guardar / dar seguimiento */
+.fav-btn{position:absolute;top:10px;right:10px;z-index:4;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.94);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#94a3b8;padding:0;transition:transform .12s,color .15s,box-shadow .15s;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.fav-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;display:block}
+.fav-btn:hover{color:var(--ac);transform:scale(1.08)}
+.fav-btn.on{color:var(--ac)}
+.fav-btn.on svg{fill:var(--ac);stroke:var(--ac)}
+/* Chip "Guardados" en la barra */
+.fav-toggle{display:inline-flex;align-items:center;gap:6px}
+.fav-toggle .fav-count{display:inline-flex;align-items:center;justify-content:center;min-width:17px;height:17px;padding:0 4px;border-radius:9px;background:var(--acd);color:var(--ac);font-size:10px;font-weight:800;line-height:1}
+.fav-toggle.on .fav-count{background:rgba(255,255,255,.25);color:#fff}
 @media(max-width:560px){
-  .pcard-img{height:210px}
+  .pcard-img{height:132px;padding:10px}
+  .pcard-body{padding:10px;gap:6px}
+  .pcard-brand{font-size:9.5px}
+  .pcard-name{font-size:12.5px}
+  .pcard-rating{font-size:12px}
+  .pcard-row-lbl{font-size:8.5px}
+  .pchip{font-size:9.5px;padding:2px 7px}
+  .pcard-metrics{grid-template-columns:1fr 1fr;gap:5px}
+  .pmetric{padding:5px 7px}
+  .pmetric-lbl{font-size:8px}
+  .pmetric-val{font-size:11.5px}
+  .pcard-plats{gap:6px}
+  .pplat{padding:7px 5px 8px;gap:4px}
+  .pplat-name{font-size:8.5px;letter-spacing:.02em}
+  .pplat-price{font-size:1rem}
+  .pplat-tag{font-size:7.5px;padding:1px 6px;top:-7px}
+  .pcard-plats .btn-ml,.pcard-plats .btn-amz{font-size:9.5px!important;padding:6px 3px!important;gap:3px;overflow:hidden;white-space:nowrap}
+  .btn-logo-img{display:none}
+  .btn-lbl-sm{display:inline;font-weight:800}
+  .fav-btn{width:30px;height:30px;top:8px;right:8px}
+  .fav-btn svg{width:16px;height:16px}
+  .pn-lg{display:none}
+  .pn-sm{display:inline}
 }
 .card-img-wrap{background:var(--s1);height:220px;display:flex;align-items:center;justify-content:center;overflow:hidden;border-bottom:1px solid var(--bd)}
 .card-img{width:100%;height:100%;object-fit:contain;display:block;padding:.3rem}
@@ -187,7 +221,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .btn-ml{display:flex;align-items:center;justify-content:center;gap:5px;width:100%;text-align:center;background:var(--ml);color:#3a2e00;border:none;border-radius:8px;padding:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Satoshi',sans-serif;text-decoration:none;transition:opacity .15s}
 .btn-ml:hover{opacity:.9}
 .btn-logo-img{height:20px;width:auto;object-fit:contain;flex-shrink:0}
-.sel-check{position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:var(--ac);display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;font-weight:700;box-shadow:0 2px 8px rgba(0,104,71,.4)}
+.sel-check{position:absolute;top:10px;left:10px;width:22px;height:22px;border-radius:50%;background:var(--ac);display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;font-weight:700;box-shadow:0 2px 8px rgba(0,104,71,.4);z-index:4}
 
 .cmp-bar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:2px solid var(--ac);padding:.875rem 2rem;display:none;align-items:center;justify-content:space-between;z-index:200;gap:12px;box-shadow:0 -4px 20px rgba(0,0,0,.08)}
 .cmp-bar.show{display:flex}
@@ -379,6 +413,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
     <div class="filter-sep"></div>
     <span class="filter-label">Precio máx.</span>
     <input type="number" id="precio-max" placeholder="ej. 8000" class="precio-max-input" oninput="render()" min="0" step="500">
+    <button class="filter fav-toggle" id="btn-favs" type="button" onclick="toggleSoloFavs()" title="Ver solo los productos que guardaste">♥ Guardados <span class="fav-count" id="fav-count">0</span></button>
     <button class="filter" id="btn-clear-filters" onclick="clearFilters()" style="display:none">✕ Limpiar</button>
     <div class="sort-wrap">
       <span class="sort-label">Ordenar:</span>
@@ -593,10 +628,35 @@ function buildSaborDD() {
 }
 
 // ── Estado ────────────────────────────────────────────────────
-const filters = { tipo:'todos', sabor:'todos', plataforma:'todos' };
+const filters = { tipo:'todos', sabor:'todos', plataforma:'todos', soloFavs:false };
+
+// ── Favoritos (guardar / dar seguimiento) ─────────────────────
+// Se guardan en el navegador del usuario (localStorage). No sale del dispositivo.
+const FAV_KEY = 'comparalo:fav:proteina';
+function loadFavs(){ try{ return new Set(JSON.parse(localStorage.getItem(FAV_KEY)||'[]')); }catch(e){ return new Set(); } }
+function saveFavs(){ try{ localStorage.setItem(FAV_KEY, JSON.stringify([...favs])); }catch(e){} }
+let favs = loadFavs();
+function toggleFav(id, ev){
+  if (ev) ev.stopPropagation();
+  if (favs.has(id)) favs.delete(id); else favs.add(id);
+  saveFavs();
+  const b = document.querySelector('#card-'+id+' .fav-btn');
+  if (b){ const on = favs.has(id); b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); b.title = on ? 'Quitar de guardados' : 'Guardar producto'; }
+  if (typeof gtag === 'function'){ try{ gtag('event', favs.has(id)?'save_product':'unsave_product', { item_id:id, page_section:'proteina' }); }catch(e){} }
+  updateFavCount();
+  if (filters.soloFavs) render();
+}
+function updateFavCount(){
+  const el = document.getElementById('fav-count'); if (el) el.textContent = favs.size;
+}
+function toggleSoloFavs(){
+  filters.soloFavs = !filters.soloFavs;
+  const btn = document.getElementById('btn-favs'); if (btn) btn.classList.toggle('on', filters.soloFavs);
+  render();
+}
 
 function clearFilters() {
-  filters.tipo = 'todos'; filters.sabor = 'todos'; filters.plataforma = 'todos';
+  filters.tipo = 'todos'; filters.sabor = 'todos'; filters.plataforma = 'todos'; filters.soloFavs = false;
   // reset plataforma pill
   document.querySelectorAll('#plat-dd-menu .sabor-dd-item').forEach(i => i.classList.remove('on'));
   const platTodos = document.querySelector('#plat-dd-menu .sabor-dd-item');
@@ -719,6 +779,7 @@ function render() {
   const sortVal = document.getElementById('sort-sel').value;
 
   let lista = productos.filter(p => {
+    if (filters.soloFavs && !favs.has(p.id)) return false;
     if (filters.tipo !== 'todos') {
       if (filters.tipo === 'con-creatina') { if (!p.creatina?.tiene) return false; }
       else if (getCategoria(p) !== filters.tipo) return false;
@@ -750,10 +811,17 @@ function render() {
   const grid = document.getElementById('grid');
   const empty = document.getElementById('empty');
   const info = document.getElementById('result-info');
-  if (!lista.length) { grid.innerHTML=''; empty.style.display='block'; info.textContent=''; return; }
+  if (!lista.length) {
+    grid.innerHTML='';
+    empty.textContent = (filters.soloFavs && favs.size===0)
+      ? 'Aún no has guardado productos. Toca el ♥ en una tarjeta para seguirlos.'
+      : 'No hay productos con esos filtros.';
+    empty.style.display='block'; info.textContent=''; return;
+  }
   empty.style.display = 'none';
   info.textContent = `Mostrando ${lista.length} de ${productos.length} productos`;
   grid.innerHTML = lista.map(p => cardHTML(p)).join('');
+  updateFavCount();
 }
 
 // Amazon: si no hay link de afiliado directo, el botón lleva a una búsqueda del producto en
@@ -815,14 +883,17 @@ function cardHTML(p) {
   const gaML  = `onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\//g,'').replace(/\/(?:index\.html)?$/g,'').replace(/\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1});}" data-ga-label="${esc(p.nombre)}" data-ga-val="${p.precio||0}"`;
   const gaAmz = `onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_amazon',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\//g,'').replace(/\/(?:index\.html)?$/g,'').replace(/\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1});}" data-ga-label="${esc(p.nombre)}" data-ga-val="${p.precio||0}"`;
 
-  const mlBox = showML ? `<div class="pplat${bestML?' best':''}">${bestML?'<span class="pplat-tag">Mejor precio</span>':''}<span class="pplat-name">Mercado Libre</span><span class="pplat-price${mlPrice==null?' nd':''}">${mlPrice!=null?fmt(mlPrice):'Ver precio'}</span><a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" ${gaML}>Ver en <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a></div>` : '';
-  const amzBox = showAmz ? `<div class="pplat${bestAmz?' best':''}">${bestAmz?'<span class="pplat-tag">Mejor precio</span>':''}<span class="pplat-name">Amazon</span><span class="pplat-price${amzPrice==null?' nd':''}">${amzPrice!=null?fmt(amzPrice):'Comparar'}</span><a class="btn-amz" href="${amzUrl(p)}" target="_blank" rel="sponsored nofollow noopener" title="${amzEsBusqueda(p)?'Buscar este producto en Amazon':''}" ${gaAmz}>${amzEsBusqueda(p)?'Buscar en':'Ver en'} <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a></div>` : '';
+  const mlBox = showML ? `<div class="pplat${bestML?' best':''}">${bestML?'<span class="pplat-tag">Mejor precio</span>':''}<span class="pplat-name"><span class="pn-lg">Mercado Libre</span><span class="pn-sm">ML</span></span><span class="pplat-price${mlPrice==null?' nd':''}">${mlPrice!=null?fmt(mlPrice):'Ver precio'}</span><a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" ${gaML}>Ver en <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"><span class="btn-lbl-sm">ML</span></a></div>` : '';
+  const amzBox = showAmz ? `<div class="pplat${bestAmz?' best':''}">${bestAmz?'<span class="pplat-tag">Mejor precio</span>':''}<span class="pplat-name"><span class="pn-lg">Amazon</span><span class="pn-sm">AMZ</span></span><span class="pplat-price${amzPrice==null?' nd':''}">${amzPrice!=null?fmt(amzPrice):'Comparar'}</span><a class="btn-amz" href="${amzUrl(p)}" target="_blank" rel="sponsored nofollow noopener" title="${amzEsBusqueda(p)?'Buscar este producto en Amazon':''}" ${gaAmz}>${amzEsBusqueda(p)?'Buscar en':'Ver en'} <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"><span class="btn-lbl-sm">AMZ</span></a></div>` : '';
   const nPlats = (showML?1:0)+(showAmz?1:0);
   const platsHTML = (mlBox||amzBox) ? `<div class="pcard-plats${nPlats<2?' one':''}">${mlBox}${amzBox}</div>` : '';
 
   const _plat = (p.linkML && (p.linkAmz)) ? 'both' : (p.linkML ? 'ml' : 'amz');
+  const isFav = favs.has(p.id);
+  const favBtn = `<button class="fav-btn${isFav?' on':''}" type="button" aria-label="Guardar producto" aria-pressed="${isFav}" title="${isFav?'Quitar de guardados':'Guardar producto'}" onclick="toggleFav(${p.id},event)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></button>`;
   return `<article class="card${isSelected?' selected':''}" data-platform="${_plat}" id="card-${p.id}" onclick="if(!event.target.closest('a,button'))toggleSelect(${p.id})" role="button" tabindex="0" aria-pressed="${isSelected}">
     ${isSelected ? '<div class="sel-check">✓</div>' : ''}
+    ${favBtn}
     <div class="pcard-img">
       <img src="${imgSrc}" alt="${esc(p.nombre)}" loading="lazy">
     </div>
