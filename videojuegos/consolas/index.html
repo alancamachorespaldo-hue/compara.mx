@@ -11,7 +11,7 @@
 <meta property="og:url" content="https://comparalo.mx/videojuegos/consolas/">
 <meta property="og:title" content="Mejores Consolas de Videojuegos en México 2026 — comparalo.mx">
 <meta property="og:description" content="Compara consolas de videojuegos en Amazon MX y Mercado Libre: sobremesa, portátiles y distintas generaciones.">
-<meta property="og:image" content="https://comparalo.mx/fotos/og/electrodomesticos-og.jpg">
+<meta property="og:image" content="https://comparalo.mx/fotos/og/videojuegos-og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:type" content="image/jpeg">
@@ -173,6 +173,13 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   .search-bar{padding:8px 12px}
   .result-info{padding:.35rem 12px}
 }
+.affiliate-cta-banner{display:flex;align-items:center;gap:10px;background:#f0fdf4;border:1.5px solid #16a34a;border-radius:10px;padding:12px 18px;margin-bottom:20px;font-size:.92rem;color:#166534;line-height:1.4}
+.affiliate-cta-banner strong{color:#166534;font-weight:700}
+.affiliate-cta-icon{font-size:1.2rem;flex-shrink:0}
+.affiliate-cta-arrow{font-size:1.1rem;flex-shrink:0;margin-left:auto;animation:bounce 1.2s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+@media(max-width:640px){.affiliate-cta-banner{font-size:.85rem;padding:10px 14px;flex-wrap:wrap}.affiliate-cta-arrow{display:none}}
+
 @media(max-width:360px){
   .card-img-wrap{height:90px}
 }
@@ -296,7 +303,12 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 </div>
 <div class="result-info" id="result-info"></div>
 
-<div class="grid-wrap">
+<div class="grid-wrap" data-ga-section="comparison">
+  <div class="affiliate-cta-banner">
+    <span class="affiliate-cta-icon">👆</span>
+    <span class="affiliate-cta-text">Haz clic en <strong>Ver en Amazon</strong> o <strong>Ver en Mercado Libre</strong> para ir directo a la tienda y ver el precio final</span>
+    <span class="affiliate-cta-arrow">↓</span>
+  </div>
   <div class="grid" id="grid"></div>
   <div id="empty" class="empty" style="display:none">
     <strong>Aún no hay consolas en esta categoría.</strong>
@@ -310,13 +322,31 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   <p style="margin-top:.75rem">¿Tienes dudas entre PS5, Xbox Series X|S y Nintendo Switch 2? Consulta la <a href="/guias/videojuegos/mejores-consolas-videojuegos-mexico-2026/" style="color:var(--ac);text-decoration:underline;text-underline-offset:2px">guía de mejores consolas en México 2026</a> para comparar según tus necesidades y presupuesto.</p>
 </section>
 
+<section style="max-width:900px;margin:0 auto 1.5rem;padding:0 2rem">
+  <h2 style="font-size:1rem;font-weight:800;color:var(--tx);margin-bottom:.75rem;letter-spacing:-.02em">Más en videojuegos</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
+    <a href="/videojuegos/controles/" style="display:flex;align-items:center;gap:10px;background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:14px 16px;text-decoration:none;color:var(--tx);transition:box-shadow .15s" onmouseover="this.style.boxShadow='0 4px 14px rgba(0,0,0,.07)'" onmouseout="this.style.boxShadow='none'">
+      <span style="font-size:1.6rem">🕹️</span>
+      <div><div style="font-weight:700;font-size:.9rem">Controles</div><div style="font-size:.75rem;color:var(--tx2)">Oficiales y de terceros</div></div>
+    </a>
+    <a href="/videojuegos/juegos/" style="display:flex;align-items:center;gap:10px;background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:14px 16px;text-decoration:none;color:var(--tx);transition:box-shadow .15s" onmouseover="this.style.boxShadow='0 4px 14px rgba(0,0,0,.07)'" onmouseout="this.style.boxShadow='none'">
+      <span style="font-size:1.6rem">💿</span>
+      <div><div style="font-weight:700;font-size:.9rem">Títulos</div><div style="font-size:.75rem;color:var(--tx2)">Físicos y digitales</div></div>
+    </a>
+    <a href="/guias/videojuegos/mejores-consolas-videojuegos-mexico-2026/" style="display:flex;align-items:center;gap:10px;background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:14px 16px;text-decoration:none;color:var(--tx);transition:box-shadow .15s" onmouseover="this.style.boxShadow='0 4px 14px rgba(0,0,0,.07)'" onmouseout="this.style.boxShadow='none'">
+      <span style="font-size:1.6rem">📖</span>
+      <div><div style="font-weight:700;font-size:.9rem">Guía de consolas</div><div style="font-size:.75rem;color:var(--tx2)">¿Cuál te conviene comprar?</div></div>
+    </a>
+  </div>
+</section>
+
 <div class="disclaimer">
   * Precios sujetos a cambio. Los enlaces son de afiliado — comparalo.mx puede recibir comisión sin costo adicional para ti.
 </div>
 
 <footer>
   <div class="footer-wordmark">compara<span class="logo-mx">lo</span>.mx</div>
-  <div class="footer-info">© 2026 · Sitio de afiliados · <a href="/">Inicio</a> · <a href="/videojuegos/">Videojuegos</a> · <a href="/videojuegos/consolas/">Consolas</a></div>
+  <div class="footer-info">© 2026 · Sitio de afiliados · <a href="/">Inicio</a> · <a href="/videojuegos/">Videojuegos</a> · <a href="/videojuegos/consolas/">Consolas</a> · <a href="/videojuegos/controles/">Controles</a> · <a href="/videojuegos/juegos/">Títulos</a></div>
 </footer>
 
 <script>
@@ -710,6 +740,7 @@ render();
   </div>
 </div>
 
+<script>try{sessionStorage.setItem('cmx_onboarding_v1','1');}catch(e){}</script>
 <script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
 <script src="/assets/js/share.js" defer></script>
