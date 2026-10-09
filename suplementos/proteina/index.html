@@ -360,7 +360,14 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   .cmp-bar-txt{font-size:12px!important}
   .cmp-bar-sub{font-size:10px!important}
   .cmp-bar-actions{gap:5px!important}
-}</style>
+}
+.affiliate-cta-banner{display:flex;align-items:center;gap:10px;background:#f0fdf4;border:1.5px solid #16a34a;border-radius:10px;padding:12px 18px;margin-bottom:20px;font-size:.92rem;color:#166534;line-height:1.4}
+.affiliate-cta-banner strong{color:#166534;font-weight:700}
+.affiliate-cta-icon{font-size:1.2rem;flex-shrink:0}
+.affiliate-cta-arrow{font-size:1.1rem;flex-shrink:0;margin-left:auto;animation:bounce 1.2s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+@media(max-width:640px){.affiliate-cta-banner{font-size:.85rem;padding:10px 14px;flex-wrap:wrap}.affiliate-cta-arrow{display:none}}
+</style>
 </head>
 <body data-category="suplementos_proteina">
 
@@ -466,6 +473,11 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 </div>
 <div class="result-info" id="result-info"></div>
 
+<div class="affiliate-cta-banner">
+  <span class="affiliate-cta-icon">👆</span>
+  <span class="affiliate-cta-text">Haz clic en <strong>Ver en Amazon</strong> o <strong>Ver en Mercado Libre</strong> para ir directo a la tienda y ver el precio final</span>
+  <span class="affiliate-cta-arrow">↓</span>
+</div>
 <div class="grid-wrap" data-ga-section="comparison">
   <div class="grid" id="grid"></div>
   <div id="empty" class="empty" style="display:none">No hay productos con esos filtros.</div>
@@ -1110,6 +1122,7 @@ function closeModal() { document.getElementById('cmp-overlay').classList.remove(
 buildSaborDD();
 render();
 </script>
+<script>try{sessionStorage.setItem('cmx_onboarding_v1','1');}catch(e){}</script>
 <script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
 <script src="/assets/js/share.js" defer></script>
