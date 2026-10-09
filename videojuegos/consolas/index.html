@@ -189,7 +189,29 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 </footer>
 
 <script>
-const productos = [];
+const productos = [
+  {
+    id: "CON-NS2-001",
+    nombre: "Consola Nintendo Switch 2",
+    marca: "Nintendo",
+    precioML: 9397.62,
+    precioAmz: null,
+    linkML: "https://meli.la/1rogaFi",
+    linkAmz: null,
+    img: "https://http2.mlstatic.com/D_NQ_NP_611101-MLA84512956497_052025-F.jpg",
+    estrellas: null,
+    resenas: null,
+    especs: {
+      generacion: "2da generación",
+      almacenamiento: "256 GB",
+      lectorDiscos: "No",
+      formatoJuegos: "Físico y digital",
+      tipoConsola: "Híbrida",
+      accesorios: "2 Joy-Con inalámbricos, Cable HDMI",
+      condicion: "Nuevo"
+    }
+  }
+];
 
 const precioVigente = p => (p.linkML ? p.precioML : p.precioAmz) ?? p.precio ?? null;
 const SPEC_KEYS = [['generacion','Generación'],['almacenamiento','Almacen.'],['lectorDiscos','Lector discos'],['formatoJuegos','Formato'],['tipoConsola','Tipo'],['accesorios','Accesorios']];
