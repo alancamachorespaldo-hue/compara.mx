@@ -10,7 +10,7 @@ on:
         description: 'Categoría a actualizar'
         type: choice
         default: all
-        options: [all, laptops, freidoras, bicis, microondas, suplementos, proteina, omega3, magnesio, creatina, complejo_b]
+        options: [all, laptops, freidoras, bicis, microondas, suplementos, proteina, omega3, magnesio, creatina, complejo_b, videojuegos_consolas, videojuegos_controles, videojuegos_juegos]
 
 jobs:
   update-prices:
@@ -50,6 +50,7 @@ jobs:
             electrodomesticos/freidoras/index.html electrodomesticos/microondas/index.html \
             suplementos/proteina/index.html suplementos/omega3/index.html suplementos/magnesio/index.html \
             suplementos/creatina/index.html suplementos/complejo-b/index.html \
+            videojuegos/consolas/index.html videojuegos/controles/index.html videojuegos/juegos/index.html \
             scripts/ml-report.json scripts/merged-admin.json scripts/admin-artifact.html
           if git diff --staged --quiet; then
             echo "Sin cambios de precios."
