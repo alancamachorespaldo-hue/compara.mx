@@ -17,6 +17,7 @@
     { icon: '🚲', name: 'Bicicletas', url: '/bicis/', desc: 'Montaña, eléctricas, ruta', sub: ['electrica', 'montaña', 'ruta', 'gravel'] },
     { icon: '🏠', name: 'Electrodomésticos', url: '/electrodomesticos/', desc: 'Freidoras, microondas', sub: ['freidora', 'microondas', 'horno'] },
     { icon: '💻', name: 'Laptops', url: '/laptops/', desc: 'Gaming, trabajo, estudio', sub: ['gaming', 'trabajo', 'chromebook'] },
+    { icon: '🎮', name: 'Videojuegos', url: '/videojuegos/', desc: 'Consolas, controles, juegos', sub: ['consola', 'control', 'nintendo', 'playstation', 'xbox', 'switch'] },
   ];
   // Destinos extra para que el filtro encuentre subcategorías por nombre.
   var SUBS = [
@@ -25,6 +26,7 @@
     { name: 'Complejo B', url: '/suplementos/complejo-b/' }, { name: 'Vitamina D', url: '/suplementos/vitamina-d/' },
     { name: 'Freidoras', url: '/electrodomesticos/freidoras/' }, { name: 'Microondas', url: '/electrodomesticos/microondas/' },
     { name: 'iPhone', url: '/celulares/iphone/' }, { name: 'Android', url: '/celulares/android/' },
+    { name: 'Consolas', url: '/videojuegos/consolas/' }, { name: 'Controles', url: '/videojuegos/controles/' }, { name: 'Juegos', url: '/videojuegos/juegos/' },
   ];
 
   var norm = function (s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); };
@@ -130,7 +132,7 @@
 
   // Oculta en móvil los contenedores del nav con >=2 enlaces de categoría (los botones horizontales).
   function hideHorizontalCats() {
-    var catRe = /\/(celulares|suplementos|bicis|electrodomesticos|laptops)\//;
+    var catRe = /\/(celulares|suplementos|bicis|electrodomesticos|laptops|videojuegos)\//;
     [].forEach.call(document.querySelectorAll('nav'), function (nav) {
       var counts = new Map();
       [].forEach.call(nav.querySelectorAll('a[href]'), function (a) {
