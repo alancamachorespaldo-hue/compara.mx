@@ -2464,10 +2464,10 @@ function cardHTML(p) {
         ${pML ? `<div class="card-btn-col-price">${fmtPrecio(pML)}</div>` : ''}
         <a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'platform':'mercado_libre','product_name':this.dataset.gaLabel||'','price':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\//g,'').replace(/\/(?:index\.html)?$/g,'').replace(/\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1,'category':'laptops'})}" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>
       </div>
-      <div class="card-btn-col">
+      ${p.linkAmz ? `<div class="card-btn-col">
         ${pAmz ? `<div class="card-btn-col-price">${fmtPrecio(pAmz)}</div>` : ''}
         <a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_amazon',{'platform':'amazon','product_name':this.dataset.gaLabel||'','price':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\//g,'').replace(/\/(?:index\.html)?$/g,'').replace(/\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1,'category':'laptops'})}" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>
-      </div>
+      </div>` : ''}
     </div>`;
   } else {
     precioBlock = p.precio
