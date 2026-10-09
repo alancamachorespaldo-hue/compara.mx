@@ -356,6 +356,13 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 .leads-form-iframe-wrap iframe{width:100%;border:none;display:block;border-radius:0 0 12px 12px}
 .leads-privacy{text-align:center;margin-top:12px;font-size:11px;color:rgba(255,255,255,.4);display:flex;align-items:center;justify-content:center;gap:5px}
 @media(max-width:768px){.leads-inner{grid-template-columns:1fr;gap:32px}.leads-title{font-size:26px}.leads-desc{max-width:100%}.leads-form-iframe-wrap{display:none}.leads-form-btn{display:flex!important}}
+.affiliate-cta-banner{display:flex;align-items:center;gap:10px;background:#f0fdf4;border:1.5px solid #16a34a;border-radius:10px;padding:12px 18px;margin-bottom:20px;font-size:.92rem;color:#166534;line-height:1.4}
+.affiliate-cta-banner strong{color:#166534;font-weight:700}
+.affiliate-cta-icon{font-size:1.2rem;flex-shrink:0}
+.affiliate-cta-arrow{font-size:1.1rem;flex-shrink:0;margin-left:auto;animation:bounce 1.2s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+@media(max-width:640px){.affiliate-cta-banner{font-size:.85rem;padding:10px 14px;flex-wrap:wrap}.affiliate-cta-arrow{display:none}}
+
 </style>
 </head>
 <body data-category="bicis">
@@ -492,7 +499,12 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   <div style="max-width:1080px;margin:0 auto;padding:1rem 2rem 0;color:var(--tx2);font-size:13.5px;line-height:1.7">
     <p>Las <strong>bicicletas eléctricas en México</strong> son cada vez más populares para moverse por la ciudad, hacer deporte o simplificar el transporte diario. En comparalo.mx reunimos las mejores opciones disponibles en <strong>Amazon MX</strong> y <strong>Mercado Libre</strong>, con precios actualizados, ficha técnica completa y comparativa directa para que tomes la mejor decisión. Filtra por tipo (plegable, urbana o montaña), rango de precio y ordena por autonomía, calificación o número de reseñas.</p>
   </div>
-  <div class="grid-wrap" data-ga-section="comparison">
+  <div class="affiliate-cta-banner">
+  <span class="affiliate-cta-icon">👆</span>
+  <span class="affiliate-cta-text">Haz clic en <strong>Ver en Amazon</strong> o <strong>Ver en Mercado Libre</strong> para ir directo a la tienda y ver el precio final</span>
+  <span class="affiliate-cta-arrow">↓</span>
+</div>
+<div class="grid-wrap" data-ga-section="comparison">
     <div class="grid" id="grid-elec"></div>
     <div class="empty" id="empty-elec" style="display:none">No hay bicis con ese filtro.</div>
   <noscript><ul style="margin:1rem 2rem;padding:0;list-style:disc;font-size:13px;line-height:2">
@@ -3326,6 +3338,7 @@ document.addEventListener('click', function(e) {
   });
 });
 </script>
+<script>try{sessionStorage.setItem('cmx_onboarding_v1','1');}catch(e){}</script>
 <script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
 <script src="/assets/js/share.js" defer></script>
