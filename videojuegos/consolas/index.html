@@ -176,6 +176,53 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 @media(max-width:360px){
   .card-img-wrap{height:90px}
 }
+
+/* COMPARE */
+.card{cursor:pointer;transition:box-shadow .15s,outline .15s}
+.card:hover{box-shadow:0 4px 20px rgba(0,104,71,.12)}
+.card.selected{outline:2.5px solid var(--ac);background:var(--s1)}
+.card::after{content:'+ Comparar';display:block;border:1px solid #16a34a;color:#16a34a;font-size:11px;padding:3px 8px;border-radius:20px;text-align:center;margin:6px 8px 8px;font-family:inherit;font-weight:500;cursor:pointer}
+.card.selected::after{content:'✓ Seleccionada';background:var(--ac);color:#fff;border-color:var(--ac)}
+
+/* COMPARE BAR */
+.cmp-bar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:2px solid var(--ac);padding:.875rem 2rem;display:none;align-items:center;justify-content:space-between;z-index:200;gap:12px;box-shadow:0 -4px 20px rgba(0,0,0,.08)}
+.cmp-bar.show{display:flex}
+.cmp-bar-txt{font-size:14px;color:var(--tx);font-weight:600}
+.cmp-bar-sub{font-size:11px;color:var(--tx2)}
+.cmp-bar-actions{display:flex;gap:8px}
+.btn-do-cmp{background:var(--ac);color:#fff;border:none;border-radius:var(--r);padding:9px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Satoshi',sans-serif}
+.btn-clear{background:transparent;color:var(--tx2);border:1px solid var(--bd2);border-radius:var(--r);padding:9px 14px;font-size:13px;cursor:pointer;font-family:'Satoshi',sans-serif}
+
+/* COMPARE MODAL */
+.cmp-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;display:none;align-items:center;justify-content:center;padding:20px}
+.cmp-overlay.open{display:flex}
+.cmp-modal{background:#fff;border-radius:16px;width:100%;max-width:960px;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.18)}
+.cmp-modal-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--bd);flex-shrink:0}
+.cmp-modal-header h2{font-size:1rem;font-weight:700;letter-spacing:-.02em}
+.cmp-modal-close{background:none;border:none;font-size:1.2rem;cursor:pointer;color:var(--tx2);padding:4px 8px;border-radius:6px;line-height:1}
+.cmp-modal-close:hover{background:var(--s1)}
+.cmp-diffs-section{border-bottom:1px solid var(--bd)}.cmp-diffs-inner{display:flex;align-items:flex-start;gap:16px;padding:10px 14px}.cmp-diffs-label-col{flex-shrink:0;width:145px;padding-top:2px}.cmp-diffs-title{font-size:14px;font-weight:700;color:var(--tx);display:block;margin-bottom:4px}.cmp-diffs-sub{font-size:11.5px;color:var(--tx2);line-height:1.35;display:block}.cmp-diff-chips{display:flex;gap:8px;flex:1;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}.cmp-diff-chip{display:flex;flex-direction:column;gap:2px;background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:8px 10px;flex:0 0 128px}.cmp-diff-chip-head{display:flex;align-items:center;gap:5px;margin-bottom:2px}.cmp-diff-chip-icon{font-size:14px;line-height:1}.cmp-diff-chip-label{font-size:11px;color:var(--tx2);font-weight:500}.cmp-diff-chip-badge{font-size:9.5px;font-weight:700;padding:2px 6px;border-radius:20px;white-space:nowrap;width:fit-content}.cmp-chip-badge-green{background:#d4f0e3;color:#004d34}.cmp-chip-badge-blue{background:#dbeafe;color:#1e40af}.cmp-chip-badge-gray{background:var(--s1);color:var(--tx3);border:1px solid var(--bd)}.cmp-diff-chip-val{font-size:14px;font-weight:700;color:var(--tx)}.cmp-diff-chip-sub{font-size:10.5px;color:var(--tx2);line-height:1.3}
+.cmp-table-wrap{overflow:auto;flex:1}
+.cmp-table{width:100%;border-collapse:collapse;font-size:13px;min-width:520px}
+.cmp-table th{padding:12px 14px;text-align:center;color:var(--tx3);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--s1);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:10}
+.cmp-table td{padding:11px 14px;border-bottom:1px solid var(--bd);color:var(--tx);vertical-align:middle;text-align:center}
+.cmp-table td:first-child{color:var(--tx2);font-size:12px;font-weight:600;background:var(--s1);text-transform:uppercase;letter-spacing:.04em;text-align:left;position:sticky;top:0;z-index:10}
+.cmp-table tr:last-child td{border-bottom:none}
+.cmp-winner{background:#d4f0e3;color:#004d34;font-weight:800}
+.cmp-prod-img{width:90px;height:90px;object-fit:contain;border-radius:8px;background:var(--s1);margin:0 auto 8px;display:block}
+.cmp-prod-name{font-size:.8rem;font-weight:700;line-height:1.3;margin-bottom:4px}
+.cmp-prod-brand{font-size:.72rem;color:var(--tx3);margin-bottom:8px}
+.cmp-prod-btns{display:grid;gap:4px;margin-top:6px}
+.cmp-prod-btns.dual{grid-template-columns:1fr 1fr}
+
+/* FAB móvil */
+@media(max-width:600px){
+  .cmp-fab{display:none;position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));right:14px;z-index:300;flex-direction:column;align-items:flex-end;gap:6px}
+  .cmp-fab.show{display:flex}
+  .cmp-fab-btn{background:var(--ac);color:#fff;border:none;border-radius:50px;padding:12px 18px;font-size:.88rem;font-weight:800;cursor:pointer;font-family:'Satoshi',sans-serif;box-shadow:0 4px 20px rgba(0,104,71,.5);display:flex;align-items:center;gap:8px}
+  .cmp-fab-count{background:#fff;color:var(--ac);border-radius:50%;width:22px;height:22px;font-size:.78rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  body{padding-bottom:80px}
+}
 </style>
 </head>
 <body data-category="videojuegos_consolas">
@@ -415,17 +462,18 @@ function cardHtml(p) {
     const pML = p.precioML != null ? `$${Math.round(p.precioML).toLocaleString('es-MX')}` : '';
     const pAmz = p.precioAmz != null ? `$${Math.round(p.precioAmz).toLocaleString('es-MX')}` : '';
     btns = `<div class="card-btns-dual">
-      <div class="card-btn-col">${pML ? `<span class="card-btn-col-price">${pML}</span>` : ''}<a class="btn-ml" href="${p.linkML}" target="_blank" rel="nofollow sponsored noopener">Mercado Libre</a></div>
-      <div class="card-btn-col">${pAmz ? `<span class="card-btn-col-price">${pAmz}</span>` : ''}<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow sponsored noopener">Amazon</a></div>
+      <div class="card-btn-col">${pML ? `<span class="card-btn-col-price">${pML}</span>` : ''}<a class="btn-ml" href="${p.linkML}" target="_blank" rel="nofollow sponsored noopener" onclick="event.stopPropagation()">Mercado Libre</a></div>
+      <div class="card-btn-col">${pAmz ? `<span class="card-btn-col-price">${pAmz}</span>` : ''}<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow sponsored noopener" onclick="event.stopPropagation()">Amazon</a></div>
     </div>`;
   } else if (hasML) {
     const priceHtml = p.precioML != null ? `<div class="card-price">$${Math.round(p.precioML).toLocaleString('es-MX')}</div>` : '';
-    btns = `${priceHtml}<a class="btn-ml" href="${p.linkML}" target="_blank" rel="nofollow sponsored noopener">Ver en Mercado Libre</a>`;
+    btns = `${priceHtml}<a class="btn-ml" href="${p.linkML}" target="_blank" rel="nofollow sponsored noopener" onclick="event.stopPropagation()">Ver en Mercado Libre</a>`;
   } else if (hasAmz) {
     const priceHtml = p.precioAmz != null ? `<div class="card-price">$${Math.round(p.precioAmz).toLocaleString('es-MX')}</div>` : '';
-    btns = `${priceHtml}<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow sponsored noopener">Ver en Amazon</a>`;
+    btns = `${priceHtml}<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow sponsored noopener" onclick="event.stopPropagation()">Ver en Amazon</a>`;
   }
-  return `<div class="card" data-platform="${platform}">
+  const isSelected = selected.includes(p.id);
+  return `<div class="card${isSelected ? ' selected' : ''}" data-platform="${platform}" id="card-${p.id}" onclick="toggleSelect('${p.id}')">
     <div class="card-img-wrap"><img class="card-img" src="${p.img || ''}" alt="${p.nombre}" loading="lazy"></div>
     <div class="card-body">
       <div class="card-name">${p.nombre}</div>
@@ -465,6 +513,159 @@ function render() {
   btn.classList.toggle('show', isActive());
 }
 
+/* ── COMPARADOR ─────────────────────────────────── */
+let selected = [];
+
+function toggleSelect(id) {
+  const idx = selected.indexOf(id);
+  if (idx !== -1) {
+    selected.splice(idx, 1);
+  } else {
+    if (selected.length >= 3) { alert('Máximo 3 consolas para comparar.'); return; }
+    selected.push(id);
+  }
+  updateBar();
+  render();
+}
+
+function clearSelection() {
+  selected = [];
+  updateBar();
+  render();
+}
+
+function updateBar() {
+  const bar = document.getElementById('cmp-bar');
+  const txt = document.getElementById('cmp-bar-txt');
+  const btn = document.getElementById('btn-do-cmp');
+  const fab = document.getElementById('cmp-fab');
+  const fabBtn = document.getElementById('cmp-fab-btn');
+  const fabCount = document.getElementById('cmp-fab-count');
+  if (!selected.length) {
+    bar.classList.remove('show');
+    if (fab) fab.classList.remove('show');
+    return;
+  }
+  bar.classList.add('show');
+  txt.textContent = selected.length === 1 ? '1 consola seleccionada — selecciona otra para comparar' : `${selected.length} consolas seleccionadas`;
+  btn.disabled = selected.length < 2;
+  if (fab) {
+    fab.classList.add('show');
+    fabCount.textContent = selected.length;
+    fabBtn.disabled = selected.length < 2;
+  }
+}
+
+function winIdxs(vals, dir) {
+  if (dir === 'neutral') return [];
+  const valid = vals.filter(v => v !== null && v !== undefined);
+  if (!valid.length) return [];
+  const best = dir === 'lower' ? Math.min(...valid) : Math.max(...valid);
+  return vals.reduce((acc, v, i) => { if (v === best) acc.push(i); return acc; }, []);
+}
+
+function openModal() {
+  if (selected.length < 2) return;
+  const prods = selected.map(id => productos.find(p => p.id === id));
+
+  function prodBtns(p, size) {
+    const h = size === 'sm' ? '16px' : '18px';
+    const pad = size === 'sm' ? '5px 8px' : '7px 12px';
+    const fs = size === 'sm' ? '11px' : '12px';
+    const ml = p.linkML ? `<a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;" onclick="event.stopPropagation()">Ver en <img style="height:${h}" src="/logomercado.png" alt="" onerror="this.style.display='none'"></a>` : '';
+    const amz = p.linkAmz ? `<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;" onclick="event.stopPropagation()">Ver en <img style="height:${h}" src="/logoamazon.png" alt="" onerror="this.style.display='none'"></a>` : '';
+    const isDual = ml && amz;
+    return `<div class="cmp-prod-btns${isDual ? ' dual' : ''}">${ml}${amz}</div>`;
+  }
+
+  const headers = prods.map(p =>
+    `<th><img class="cmp-prod-img" src="${p.img}" alt="${p.nombre}"><div class="cmp-prod-name">${p.nombre}</div><div class="cmp-prod-brand">${p.marca}</div>${prodBtns(p, 'sm')}</th>`
+  ).join('');
+
+  function fila(label, rawVals, fmt, best) {
+    const nums = rawVals.map(v => (v !== null && v !== undefined && typeof v === 'number' && !isNaN(v)) ? v : null);
+    let winner = null;
+    if (best === 'max') { const valid = nums.filter(n => n !== null); if (valid.length > 1) winner = Math.max(...valid); }
+    if (best === 'min') { const valid = nums.filter(n => n !== null && n > 0); if (valid.length > 1) winner = Math.min(...valid); }
+    const cells = rawVals.map((v, i) => {
+      const isWin = winner !== null && nums[i] === winner;
+      const display = (v !== null && v !== undefined) ? fmt(v) : '—';
+      return `<td class="${isWin ? 'cmp-winner' : ''}">${display}</td>`;
+    }).join('');
+    return `<tr><td>${label}</td>${cells}</tr>`;
+  }
+
+  function filaPrecio(prods) {
+    const all = prods.map(p => p.precioML || p.precioAmz || null);
+    const minP = Math.min(...all.filter(Boolean));
+    const cells = prods.map(p => {
+      if (p.precioML && p.precioAmz) {
+        return `<td><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:12px">
+          <div><div style="font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px">ML</div><div style="font-weight:700">$${Math.round(p.precioML).toLocaleString('es-MX')}</div></div>
+          <div><div style="font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px">Amazon</div><div style="font-weight:700">$${Math.round(p.precioAmz).toLocaleString('es-MX')}</div></div>
+        </div></td>`;
+      }
+      const v = p.precioML || p.precioAmz;
+      const isWin = v && v === minP;
+      return `<td class="${isWin ? 'cmp-winner' : ''}">${v ? '$' + Math.round(v).toLocaleString('es-MX') : '—'}</td>`;
+    }).join('');
+    return `<tr><td>Precio</td>${cells}</tr>`;
+  }
+
+  const rows = [
+    filaPrecio(prods),
+    fila('Generación',    prods.map(p => p.especs?.generacion),    v => v, null),
+    fila('Tipo',          prods.map(p => p.especs?.tipoConsola),   v => v, null),
+    fila('Almacenamiento',prods.map(p => p.especs?.almacenamiento),v => v, null),
+    fila('Lector discos', prods.map(p => p.especs?.lectorDiscos),  v => v, null),
+    fila('Formato juegos',prods.map(p => p.especs?.formatoJuegos), v => v, null),
+    fila('Condición',     prods.map(p => p.especs?.condicion),     v => v, null),
+    fila('Accesorios',    prods.map(p => p.especs?.accesorios),    v => v, null),
+  ].join('');
+
+  const btnRows = prods.map(p => `<td>${prodBtns(p, 'md')}</td>`).join('');
+
+  document.getElementById('cmp-table').innerHTML =
+    `<thead><tr><th style="text-align:left">Característica</th>${headers}</tr></thead>
+     <tbody>${rows}<tr><td>Comprar</td>${btnRows}</tr></tbody>`;
+
+  const METRICS = [
+    {key:'precioML',dir:'lower',label:'Precio',icon:'💰',get:p=>p.precioML||p.precioAmz||null,fmt:x=>'$'+Math.round(x).toLocaleString('es-MX')},
+  ];
+  const n = prods.length;
+  const diffChipsHtml = [];
+  for (const m of METRICS) {
+    const vals = prods.map(p => m.get(p));
+    const valid = vals.filter(v => v !== null && v !== undefined);
+    if (valid.length < 1) continue;
+    const ws = winIdxs(vals, m.dir);
+    const allSame = valid.length >= 2 && valid.every(v => v === valid[0]);
+    let badgeText = '', badgeClass = '', chipVal = '', chipSub = '';
+    if (allSame || m.dir === 'neutral') {
+      badgeText = 'Igual'; badgeClass = 'cmp-chip-badge-gray';
+      chipVal = m.fmt(valid[0]); chipSub = 'En las ' + n + ' consolas';
+    } else if (ws.length === 1) {
+      const wv = vals[ws[0]];
+      chipVal = wv !== null ? m.fmt(wv) : '—';
+      badgeText = m.dir === 'lower' ? 'Menor precio' : 'Mayor'; badgeClass = 'cmp-chip-badge-green';
+      chipSub = prods[ws[0]].nombre.substring(0, 24) + (prods[ws[0]].nombre.length > 24 ? '…' : '');
+    } else if (ws.length > 1) {
+      badgeText = 'Empate'; badgeClass = 'cmp-chip-badge-blue';
+      chipVal = vals[ws[0]] !== null ? m.fmt(vals[ws[0]]) : '—';
+      chipSub = 'Varios modelos';
+    }
+    diffChipsHtml.push(`<div class="cmp-diff-chip"><div class="cmp-diff-chip-head"><span class="cmp-diff-chip-icon">${m.icon}</span><span class="cmp-diff-chip-label">${m.label}</span></div><span class="cmp-diff-chip-badge ${badgeClass}">${badgeText}</span><span class="cmp-diff-chip-val">${chipVal}</span><span class="cmp-diff-chip-sub">${chipSub}</span></div>`);
+  }
+  const diffsHtml = diffChipsHtml.length ? `<section class="cmp-diffs-section"><div class="cmp-diffs-inner"><div class="cmp-diffs-label-col"><span class="cmp-diffs-title">Diferencias clave</span><span class="cmp-diffs-sub">Métricas destacadas entre los modelos</span></div><div class="cmp-diff-chips">${diffChipsHtml.join('')}</div></div></section>` : '';
+  document.getElementById('cmp-diffs-wrap').innerHTML = diffsHtml;
+  document.getElementById('cmp-overlay').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('cmp-overlay').classList.remove('open');
+}
+/* ── /COMPARADOR ─────────────────────────────────── */
+
 initFilters();
 // en móvil colapsar filtros por defecto
 if (window.innerWidth <= 640) {
@@ -474,6 +675,40 @@ if (window.innerWidth <= 640) {
 }
 render();
 </script>
+
+<!-- COMPARE BAR (desktop) -->
+<div class="cmp-bar" id="cmp-bar">
+  <div>
+    <div class="cmp-bar-txt" id="cmp-bar-txt">Selecciona 2 o 3 consolas para comparar</div>
+    <div class="cmp-bar-sub">Haz clic en cualquier tarjeta</div>
+  </div>
+  <div class="cmp-bar-actions">
+    <button class="btn-clear" onclick="clearSelection()">Limpiar</button>
+    <button class="btn-do-cmp" id="btn-do-cmp" onclick="openModal()" disabled>Comparar</button>
+  </div>
+</div>
+
+<!-- FAB móvil -->
+<div class="cmp-fab" id="cmp-fab">
+  <button class="cmp-fab-btn" id="cmp-fab-btn" onclick="openModal()" disabled>
+    <span class="cmp-fab-count" id="cmp-fab-count">0</span>
+    Comparar
+  </button>
+</div>
+
+<!-- COMPARE MODAL -->
+<div class="cmp-overlay" id="cmp-overlay" onclick="if(event.target===this)closeModal()">
+  <div class="cmp-modal">
+    <div class="cmp-modal-header">
+      <h2>Comparativa de Consolas</h2>
+      <button class="cmp-modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div id="cmp-diffs-wrap"></div>
+    <div class="cmp-table-wrap">
+      <table class="cmp-table" id="cmp-table"></table>
+    </div>
+  </div>
+</div>
 
 <script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
