@@ -13,6 +13,7 @@
 import 'dotenv/config';
 import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { resolve } from 'path';
+import { pathToFileURL } from 'url';
 
 const CLIENT_ID     = process.env.ML_CLIENT_ID;
 const CLIENT_SECRET = process.env.ML_CLIENT_SECRET;
@@ -42,6 +43,9 @@ const CATALOG = {
   creatina:   { file: 'suplementos/creatina/index.html',           varName: 'productos'  },
   complejo_b: { file: 'suplementos/complejo-b/index.html',         varName: 'PRODUCTOS'  },
   vitamina_d: { file: 'suplementos/vitamina-d/index.html',         varName: 'PRODUCTOS'  },
+  videojuegos_consolas:  { file: 'videojuegos/consolas/index.html',  varName: 'productos' },
+  videojuegos_controles: { file: 'videojuegos/controles/index.html', varName: 'productos' },
+  videojuegos_juegos:    { file: 'videojuegos/juegos/index.html',    varName: 'productos' },
 };
 const SUPLEMENTOS = ['proteina', 'omega3', 'magnesio', 'creatina', 'complejo_b', 'vitamina_d'];
 const ENTRIES =
@@ -338,7 +342,7 @@ async function suggestAll(admin) {
 }
 
 // ── Main ─────────────────────────────────────────────────────────────────────
-(async () => {
+async function main() {
   if (!ENTRIES.length) {
     console.error(`❌ Categoría "${CAT_ARG}". Opciones: ${Object.keys(CATALOG).join(', ')}, suplementos, all`);
     process.exit(1);
@@ -371,4 +375,12 @@ async function suggestAll(admin) {
     console.log('📊 Reporte guardado en scripts/ml-report.json');
   }
   console.log('\n✅ Listo\n');
-})();
+}
+
+// Solo corre el actualizador cuando el archivo se ejecuta directamente (node ml-update.js),
+// nunca al importarlo — así se puede inspeccionar CATALOG u otras exportaciones sin efectos secundarios.
+if (import.meta.url === pathToFileURL(process.argv[1] || '').href) {
+  main();
+}
+
+export { CATALOG };
