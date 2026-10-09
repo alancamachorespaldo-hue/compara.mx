@@ -130,8 +130,26 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 .footer-info{font-size:12px;color:var(--tx3);margin-top:.25rem}
 .footer-info a{color:var(--ac);text-decoration:none}
 
+/* filtros */
+.filters{background:var(--s1);border-bottom:1px solid var(--bd);padding:10px 2rem 0}
+.filters-row{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:flex-end;padding-bottom:10px}
+.filter-group{display:flex;flex-direction:column;gap:5px;min-width:0}
+.filter-label{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tx3)}
+.filter-pills{display:flex;flex-wrap:wrap;gap:4px}
+.pill-btn{height:28px;padding:0 11px;border:1.5px solid var(--bd2);border-radius:14px;background:var(--bg);color:var(--tx2);font-size:12px;font-weight:600;cursor:pointer;font-family:'Satoshi',sans-serif;white-space:nowrap;transition:all .12s}
+.pill-btn:hover{border-color:var(--ac);color:var(--ac)}
+.pill-btn.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.sort-sel{height:28px;padding:0 10px;border:1.5px solid var(--bd2);border-radius:8px;background:var(--bg);color:var(--tx);font-size:12px;font-weight:600;cursor:pointer;font-family:'Satoshi',sans-serif}
+.price-range-row{display:flex;align-items:center;gap:8px}
+.price-range-row input[type=range]{width:150px;accent-color:var(--ac);cursor:pointer}
+.price-range-val{font-size:12px;font-weight:700;color:var(--tx);white-space:nowrap;min-width:68px}
+.btn-reset{height:28px;padding:0 12px;border:1.5px solid var(--bd2);border-radius:8px;background:transparent;color:var(--tx3);font-size:12px;font-weight:600;cursor:pointer;font-family:'Satoshi',sans-serif;display:none;align-self:flex-end}
+.btn-reset.show{display:block}
+
 @media(max-width:620px){
   .nav-links{display:none}
+  .filters{padding:8px 12px 0}
+  .price-range-row input[type=range]{width:120px}
 }
 </style>
 </head>
@@ -163,6 +181,39 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 
 <div class="search-bar">
   <input id="search" type="text" placeholder="🔍 Buscar por marca o modelo…" oninput="render()">
+</div>
+
+<div class="filters">
+  <div class="filters-row">
+    <div class="filter-group">
+      <span class="filter-label">Precio máximo</span>
+      <div class="price-range-row">
+        <input type="range" id="f-precio" min="0" max="20000" step="500" value="20000" oninput="onRangeInput(this)">
+        <span class="price-range-val" id="f-precio-val">Todos</span>
+      </div>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Tipo</span>
+      <div class="filter-pills" id="f-tipo"></div>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Marca</span>
+      <div class="filter-pills" id="f-marca"></div>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Estado</span>
+      <div class="filter-pills" id="f-cond"></div>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Ordenar</span>
+      <select class="sort-sel" id="f-sort" onchange="render()">
+        <option value="">Relevancia</option>
+        <option value="asc">Precio: menor a mayor</option>
+        <option value="desc">Precio: mayor a menor</option>
+      </select>
+    </div>
+    <button class="btn-reset" id="btn-reset" onclick="resetFilters()">✕ Limpiar</button>
+  </div>
 </div>
 <div class="result-info" id="result-info"></div>
 
@@ -225,6 +276,77 @@ const productos = [
 const precioVigente = p => (p.linkML ? p.precioML : p.precioAmz) ?? p.precio ?? null;
 const SPEC_KEYS = [['generacion','Generación'],['almacenamiento','Almacen.'],['lectorDiscos','Lector discos'],['formatoJuegos','Formato'],['tipoConsola','Tipo'],['accesorios','Accesorios']];
 
+// ── filtros ──────────────────────────────────────────────
+const PRECIO_MAX = 20000;
+let fPrecio = PRECIO_MAX;
+let selTipos = new Set();
+let selMarcas = new Set();
+let selCond = '';
+
+function normCond(p) {
+  const c = (p.especs?.condicion || '').toLowerCase();
+  if (c.includes('reacond') || p.nombre.toLowerCase().includes('reacond')) return 'reacond';
+  return 'nuevo';
+}
+
+function buildPills(containerId, values, selSet, onChange) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = values.map(v =>
+    `<button class="pill-btn" data-val="${v}" onclick="${onChange}('${v}',this)">${v}</button>`
+  ).join('');
+}
+
+function togglePill(val, btn, selSet) {
+  if (selSet.has(val)) { selSet.delete(val); btn.classList.remove('on'); }
+  else { selSet.add(val); btn.classList.add('on'); }
+  render();
+}
+
+function toggleTipo(val, btn) { togglePill(val, btn, selTipos); }
+function toggleMarca(val, btn) { togglePill(val, btn, selMarcas); }
+
+function setCond(val, btn) {
+  selCond = selCond === val ? '' : val;
+  document.querySelectorAll('#f-cond .pill-btn').forEach(b => b.classList.toggle('on', b.dataset.val === selCond));
+  render();
+}
+
+function onRangeInput(el) {
+  fPrecio = +el.value;
+  const txt = fPrecio >= PRECIO_MAX ? 'Todos' : '$' + fPrecio.toLocaleString('es-MX');
+  document.getElementById('f-precio-val').textContent = txt;
+  render();
+}
+
+function resetFilters() {
+  fPrecio = PRECIO_MAX;
+  selTipos.clear();
+  selMarcas.clear();
+  selCond = '';
+  document.getElementById('f-precio').value = PRECIO_MAX;
+  document.getElementById('f-precio-val').textContent = 'Todos';
+  document.getElementById('search').value = '';
+  document.getElementById('f-sort').value = '';
+  document.querySelectorAll('#f-tipo .pill-btn, #f-marca .pill-btn, #f-cond .pill-btn').forEach(b => b.classList.remove('on'));
+  render();
+}
+
+function initFilters() {
+  const tipos = [...new Set(productos.map(p => p.especs?.tipoConsola).filter(Boolean))].sort();
+  const marcas = [...new Set(productos.map(p => p.marca).filter(Boolean))].sort();
+  buildPills('f-tipo', tipos, selTipos, 'toggleTipo');
+  buildPills('f-marca', marcas, selMarcas, 'toggleMarca');
+  const condEl = document.getElementById('f-cond');
+  condEl.innerHTML = ['nuevo','reacond'].map(v =>
+    `<button class="pill-btn" data-val="${v}" onclick="setCond('${v}',this)">${v === 'reacond' ? 'Reacondicionado' : 'Nuevo'}</button>`
+  ).join('');
+}
+
+function isActive() {
+  return fPrecio < PRECIO_MAX || selTipos.size || selMarcas.size || selCond ||
+    document.getElementById('f-sort').value || (document.getElementById('search').value || '').trim();
+}
+
 function cardHtml(p) {
   const hasML = !!p.linkML, hasAmz = !!p.linkAmz;
   const platform = hasML && hasAmz ? 'both' : hasML ? 'ml' : hasAmz ? 'amz' : 'none';
@@ -262,18 +384,32 @@ function render() {
   const grid = document.getElementById('grid');
   const empty = document.getElementById('empty');
   const info = document.getElementById('result-info');
-  if (!productos.length) {
-    grid.innerHTML = '';
-    empty.style.display = 'block';
-    info.textContent = '';
-    return;
-  }
   const q = (document.getElementById('search').value || '').toLowerCase();
-  const lista = productos.filter(p => !q || `${p.nombre} ${p.marca || ''}`.toLowerCase().includes(q));
+  const sortDir = document.getElementById('f-sort').value;
+
+  let lista = productos.filter(p => {
+    if (q && !`${p.nombre} ${p.marca || ''}`.toLowerCase().includes(q)) return false;
+    const precio = precioVigente(p);
+    if (fPrecio < PRECIO_MAX && (precio == null || precio > fPrecio)) return false;
+    if (selTipos.size && !selTipos.has(p.especs?.tipoConsola)) return false;
+    if (selMarcas.size && !selMarcas.has(p.marca)) return false;
+    if (selCond && normCond(p) !== selCond) return false;
+    return true;
+  });
+
+  if (sortDir === 'asc') lista.sort((a, b) => (precioVigente(a) ?? Infinity) - (precioVigente(b) ?? Infinity));
+  else if (sortDir === 'desc') lista.sort((a, b) => (precioVigente(b) ?? -Infinity) - (precioVigente(a) ?? -Infinity));
+
   empty.style.display = lista.length ? 'none' : 'block';
-  info.textContent = `${lista.length} de ${productos.length} consolas`;
+  const total = productos.length;
+  info.textContent = lista.length === total ? `${total} consolas` : `${lista.length} de ${total} consolas`;
   grid.innerHTML = lista.map(cardHtml).join('');
+
+  const btn = document.getElementById('btn-reset');
+  btn.classList.toggle('show', isActive());
 }
+
+initFilters();
 render();
 </script>
 
