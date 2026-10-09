@@ -3316,14 +3316,13 @@ document.addEventListener('click', function(e) {
   var btn = e.target.closest ? e.target.closest('.btn-amz,.btn-ml') : null;
   if (!btn || typeof gtag === 'undefined') return;
   var isAmz = btn.classList.contains('btn-amz');
-  var label = btn.dataset.gaLabel || '';
-  var val   = parseFloat(btn.dataset.gaVal) || 0;
   gtag('event', isAmz ? 'affiliate_click_amazon' : 'affiliate_click_ml', {
-    event_category: 'afiliado',
-    event_label: label,
-    value: val,
+    platform: isAmz ? 'amazon' : 'mercado_libre',
+    product_name: btn.dataset.gaLabel || '',
+    price: parseFloat(btn.dataset.gaVal) || 0,
     page_section: location.pathname.replace(/^\//g,'').replace(/\/(?:index\.html)?$/g,'').replace(/\//g,'_')||'home',
-    item_position: Array.from(document.querySelectorAll('.card')).indexOf(btn.closest('.card'))+1
+    item_position: Array.from(document.querySelectorAll('.card')).indexOf(btn.closest('.card'))+1,
+    category: 'bicis'
   });
 });
 </script>
