@@ -227,7 +227,7 @@ const AMZ_TAG = 'comparalo20-20';
 const PKEY = 'cmx-admin-pendiente-v1';
 const UKEY = 'cmx-admin-ui-v1';
 
-const CATS = {laptops:'Laptops', freidoras:'Freidoras', bicis:'Bicis', microondas:'Microondas', proteina:'Proteína', omega3:'Omega 3', magnesio:'Magnesio', creatina:'Creatina', complejo_b:'Complejo B', vitamina_d:'Vitamina D'};
+const CATS = {laptops:'Laptops', freidoras:'Freidoras', bicis:'Bicis', microondas:'Microondas', proteina:'Proteína', omega3:'Omega 3', magnesio:'Magnesio', creatina:'Creatina', complejo_b:'Complejo B', vitamina_d:'Vitamina D', videojuegos_consolas:'Consolas', videojuegos_controles:'Controles', videojuegos_juegos:'Videojuegos'};
 const PRICE_WF = GH + '/workflows/update-prices.yml';
 const SPECS = {
   laptops:[['procesador','Procesador'],['ram','RAM'],['almacenamiento','Almacen.'],['pantalla','Pantalla'],['resolucion','Resolución'],['gpu','GPU'],['so','SO'],['peso','Peso'],['touch','Touch']],
@@ -239,6 +239,9 @@ const SPECS = {
   creatina:[['porciones','Porciones'],['costoPorPorcion','Costo/porción'],['costoPor5g','Costo/5 g'],['tipoCreatina','Tipo'],['presentacion','Presentación'],['grPorPorcion','g/porción'],['pura','Pura']],
   complejo_b:[['porciones','Porciones'],['costoPorPorcion','Costo/porción'],['capsulasPorDia','Cáps./día'],['b1','B1'],['b6','B6'],['b9','B9'],['b12','B12'],['formaB12','Forma B12']],
   vitamina_d:[['ui','UI'],['costoPor1000ui','Costo/1000 UI'],['costoPorPorcion','Costo/porción'],['porciones','Porciones'],['formato','Formato'],['conK2','Con K2'],['formaVitD','Forma'],['vegano','Vegano'],['edadMinima','Edad mín.']],
+  videojuegos_consolas:[['generacion','Generación/versión'],['almacenamiento','Almacenamiento'],['lectorDiscos','Lector de discos'],['formatoJuegos','Formato de juegos'],['tipoConsola','Tipo de consola'],['accesorios','Accesorios incluidos'],['condicion','Condición']],
+  videojuegos_controles:[['modelo','Modelo'],['plataforma','Plataforma compatible'],['tipoConexion','Conexión'],['alimentacion','Alimentación'],['bateria','Duración batería'],['funcionesEspeciales','Funciones especiales'],['condicion','Condición']],
+  videojuegos_juegos:[['plataforma','Plataforma'],['edicion','Edición'],['formato','Formato físico/digital'],['genero','Género'],['clasificacion','Clasificación por edad'],['idiomas','Idiomas'],['condicion','Condición']],
 };
 const ST = {
   solo_amz:['Solo Amazon','muted'], sin_id:['Falta ID','warn'], actualizado:['Cambió','ok'], sin_cambio:['Al día','neutral'],
