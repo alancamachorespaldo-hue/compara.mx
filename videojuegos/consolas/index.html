@@ -148,8 +148,33 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 
 @media(max-width:620px){
   .nav-links{display:none}
-  .filters{padding:8px 12px 0}
-  .price-range-row input[type=range]{width:120px}
+}
+
+/* móvil */
+.filters-toggle{display:none}
+@media(max-width:640px){
+  .filters-toggle{display:flex;align-items:center;gap:7px;width:100%;padding:9px 12px;border:none;background:var(--s1);border-bottom:1px solid var(--bd);color:var(--tx);font-size:13px;font-weight:700;cursor:pointer;font-family:'Satoshi',sans-serif;text-align:left}
+  .filters-toggle .ft-arrow{margin-left:auto;font-size:11px;transition:transform .2s}
+  .filters-toggle[aria-expanded="true"] .ft-arrow{transform:rotate(180deg)}
+  .filters-inner{display:none}
+  .filters-inner.open{display:block}
+  .filters{padding:0;background:var(--s1)}
+  .filters-row{padding:10px 12px;gap:8px 12px}
+  .price-range-row input[type=range]{width:130px}
+  .grid-wrap{padding:.8rem .6rem}
+  .grid{grid-template-columns:repeat(2,1fr)!important;gap:8px}
+  .card-body{padding:.65rem}
+  .card-name{font-size:12.5px;line-height:1.25}
+  .card-brand{font-size:10px}
+  .card-specs{display:none!important}
+  .card-price{font-size:1.1rem;margin-bottom:.5rem}
+  .btn-ml,.btn-amz{font-size:11px;padding:7px 6px}
+  .card-btn-col-price{font-size:11px}
+  .search-bar{padding:8px 12px}
+  .result-info{padding:.35rem 12px}
+}
+@media(max-width:360px){
+  .card-img-wrap{height:90px}
 }
 </style>
 </head>
@@ -183,7 +208,13 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   <input id="search" type="text" placeholder="🔍 Buscar por marca o modelo…" oninput="render()">
 </div>
 
+<button class="filters-toggle" id="filters-toggle" aria-expanded="false" onclick="toggleFiltersPanel()">
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+  Filtros y orden
+  <span class="ft-arrow">▼</span>
+</button>
 <div class="filters">
+  <div class="filters-inner open" id="filters-inner">
   <div class="filters-row">
     <div class="filter-group">
       <span class="filter-label">Precio máximo</span>
@@ -213,6 +244,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       </select>
     </div>
     <button class="btn-reset" id="btn-reset" onclick="resetFilters()">✕ Limpiar</button>
+  </div>
   </div>
 </div>
 <div class="result-info" id="result-info"></div>
@@ -283,10 +315,33 @@ let selTipos = new Set();
 let selMarcas = new Set();
 let selCond = '';
 
+// normaliza texto quitando acentos y poniendo Title Case
+function normTxt(s) {
+  return s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+}
+// mapeo canónico de tipoConsola
+const TIPO_CANON = {};
+productos.forEach(p => {
+  const raw = p.especs?.tipoConsola;
+  if (!raw) return;
+  const key = normTxt(raw);
+  if (!TIPO_CANON[key]) TIPO_CANON[key] = raw; // primera ocurrencia es la canónica
+});
+function canonTipo(raw) {
+  return raw ? TIPO_CANON[normTxt(raw)] || raw : null;
+}
+
 function normCond(p) {
   const c = (p.especs?.condicion || '').toLowerCase();
   if (c.includes('reacond') || p.nombre.toLowerCase().includes('reacond')) return 'reacond';
   return 'nuevo';
+}
+
+function toggleFiltersPanel() {
+  const inner = document.getElementById('filters-inner');
+  const toggle = document.getElementById('filters-toggle');
+  const open = inner.classList.toggle('open');
+  toggle.setAttribute('aria-expanded', open);
 }
 
 function buildPills(containerId, values, selSet, onChange) {
@@ -332,7 +387,7 @@ function resetFilters() {
 }
 
 function initFilters() {
-  const tipos = [...new Set(productos.map(p => p.especs?.tipoConsola).filter(Boolean))].sort();
+  const tipos = [...new Set(productos.map(p => canonTipo(p.especs?.tipoConsola)).filter(Boolean))].sort();
   const marcas = [...new Set(productos.map(p => p.marca).filter(Boolean))].sort();
   buildPills('f-tipo', tipos, selTipos, 'toggleTipo');
   buildPills('f-marca', marcas, selMarcas, 'toggleMarca');
@@ -391,7 +446,7 @@ function render() {
     if (q && !`${p.nombre} ${p.marca || ''}`.toLowerCase().includes(q)) return false;
     const precio = precioVigente(p);
     if (fPrecio < PRECIO_MAX && (precio == null || precio > fPrecio)) return false;
-    if (selTipos.size && !selTipos.has(p.especs?.tipoConsola)) return false;
+    if (selTipos.size && !selTipos.has(canonTipo(p.especs?.tipoConsola))) return false;
     if (selMarcas.size && !selMarcas.has(p.marca)) return false;
     if (selCond && normCond(p) !== selCond) return false;
     return true;
@@ -410,6 +465,12 @@ function render() {
 }
 
 initFilters();
+// en móvil colapsar filtros por defecto
+if (window.innerWidth <= 640) {
+  const inner = document.getElementById('filters-inner');
+  inner.classList.remove('open');
+  document.getElementById('filters-toggle').setAttribute('aria-expanded','false');
+}
 render();
 </script>
 
