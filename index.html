@@ -230,7 +230,9 @@ h1 em{font-style:normal;color:var(--ac)}
 .cat-cel .go{color:#a5b4fc}
 .cat-elec{background:#7c3d0f}
 .cat-elec .go{color:#fcd34d}
-.cats-row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.cat-game{background:#12034a}
+.cat-game .go{color:#c4b5fd}
+.cats-row2{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
 .cat:hover .go{text-decoration:underline}
 
 /* artículos */
@@ -293,6 +295,7 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
   .btn,.btn2{width:100%}
   .cat-sm .thumb{width:76px;height:76px}
   .cats-row2{grid-template-columns:1fr}
+  .cat-game .go{margin-top:10px}
   .cat-elec .go{margin-top:10px}
   .cat-elec .body{flex:1}
   .art .ph,.art img{height:84px}
@@ -355,6 +358,8 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
         <a href="/electrodomesticos/freidoras/" data-search="freidoras aire airfryer"><span class="sd-icon">🍟</span><span>Freidoras de Aire<span class="sd-sub">Sin aceite, digital, compactas</span></span></a>
         <a href="/celulares/android/" data-search="celulares android smartphones samsung pixel motorola"><span class="sd-icon">📱</span><span>Android<span class="sd-sub">Samsung, Pixel, Motorola y más</span></span></a>
         <a href="/celulares/iphone/" data-search="iphone apple ios iphone 17 iphone 18"><span class="sd-icon">🍎</span><span>iPhone<span class="sd-sub">iPhone 17, 18 Pro, 18 Pro Max</span></span></a>
+        <a href="/videojuegos/" data-search="videojuegos consolas nintendo playstation xbox switch"><span class="sd-icon">🎮</span><span>Videojuegos<span class="sd-sub">Consolas Nintendo, PlayStation, Xbox</span></span></a>
+        <a href="/videojuegos/consolas/" data-search="consolas nintendo playstation xbox switch meta asus"><span class="sd-icon">🕹️</span><span>Consolas<span class="sd-sub">Switch 2, PS5, Xbox Series X</span></span></a>
       </div>
     </div>
     <button class="nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" onclick="var p=document.getElementById('nav-panel');var o=p.getAttribute('data-open')==='1';p.setAttribute('data-open',o?'0':'1');this.setAttribute('aria-expanded',String(!o));this.setAttribute('aria-label',o?'Abrir menú':'Cerrar menú')">
@@ -375,6 +380,8 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
       <li data-search="bicicletas bici ciclismo"><a href="/bicis/">Bicicletas</a></li>
       <li data-search="electrodomesticos microondas freidoras aire"><a href="/electrodomesticos/">Electrodomésticos</a></li>
       <li data-search="laptops computadoras notebooks universidad gamer"><a href="/laptops/">Laptops</a></li>
+      <li data-search="videojuegos consolas nintendo playstation xbox switch"><a href="/videojuegos/">Videojuegos</a></li>
+      <li data-search="consolas videojuegos nintendo playstation xbox switch"><a href="/videojuegos/consolas/">Consolas</a></li>
       <li data-search="como usar paso a paso"><a href="#como-usar">Cómo comparamos</a></li>
     </ul>
   </div>
@@ -384,6 +391,7 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
     <a href="/bicis/">Bicicletas</a>
     <a href="/electrodomesticos/">Electrodomésticos</a>
     <a href="/laptops/">Laptops</a>
+    <a href="/videojuegos/">🎮 Videojuegos</a>
   </div>
 </header>
 
@@ -421,6 +429,8 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
           <a href="/electrodomesticos/freidoras/" data-search="freidoras aire airfryer"><span class="sd-icon">🍟</span><span>Freidoras de Aire<span class="sd-sub">Sin aceite, digital, compactas</span></span></a>
           <a href="/celulares/android/" data-search="celulares android smartphones samsung pixel motorola"><span class="sd-icon">📱</span><span>Android<span class="sd-sub">Samsung, Pixel, Motorola y más</span></span></a>
           <a href="/celulares/iphone/" data-search="iphone apple ios iphone 17 iphone 18"><span class="sd-icon">🍎</span><span>iPhone<span class="sd-sub">iPhone 17, 18 Pro, 18 Pro Max</span></span></a>
+          <a href="/videojuegos/" data-search="videojuegos consolas nintendo playstation xbox switch"><span class="sd-icon">🎮</span><span>Videojuegos<span class="sd-sub">Consolas Nintendo, PlayStation, Xbox</span></span></a>
+          <a href="/videojuegos/consolas/" data-search="consolas nintendo playstation xbox switch meta asus"><span class="sd-icon">🕹️</span><span>Consolas<span class="sd-sub">Switch 2, PS5, Xbox Series X</span></span></a>
         </div>
       </div>
       <script>
@@ -497,7 +507,7 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
         <p class="kicker">Qué comparamos</p>
         <h2 id="cats-h">Categorías disponibles</h2>
       </div>
-      <p>Suplementos, bicicletas, laptops y electrodomésticos</p>
+      <p>Suplementos, bicicletas, laptops, electrodomésticos y videojuegos</p>
     </div>
     <div class="cats-grid">
       <a class="cat cat-big" href="/suplementos/" title="Comparar precios de suplementos en Amazon MX y Mercado Libre">
@@ -541,6 +551,13 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
           <div class="go">Ver electrodomésticos →</div>
         </div>
         <div class="thumb"><img src="/fotos/imgelectrodomesticos.png" alt="Electrodomésticos comparados en Amazon México y Mercado Libre" width="1448" height="1086" loading="lazy" decoding="async" style="object-position:center 40%"></div>
+      </a>
+      <a class="cat cat-sm cat-game" href="/videojuegos/" title="Comparar precios de consolas y videojuegos en Amazon MX y Mercado Libre">
+        <div class="body">
+          <div><h3>Videojuegos</h3><div class="subs"><span>Consolas</span><span>Nintendo</span><span>PlayStation</span><span>Xbox</span></div></div>
+          <div class="go">Ver videojuegos →</div>
+        </div>
+        <div class="thumb"><img src="https://http2.mlstatic.com/D_NQ_NP_611101-MLA84512956497_052025-F.jpg" alt="Consolas de videojuegos Nintendo Switch 2, PS5 y Xbox comparados en México" width="400" height="400" loading="lazy" decoding="async" style="object-fit:contain;background:#12034a"></div>
       </a>
     </div>
   </div>
