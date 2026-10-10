@@ -269,6 +269,22 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .cmp-costo.best{color:#006847}
 .cmp-costo-badge{display:inline-block;font-size:8px;font-weight:800;text-transform:uppercase;color:#fff;background:var(--ac);border-radius:10px;padding:1px 6px;margin-left:3px}
 .cmp-section-sep td{background:var(--s2);font-size:10px;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;font-weight:700;padding:6px 14px}
+/* Etiqueta de fila con icono */
+.cmp-row-lbl{display:flex;align-items:flex-start;gap:6px}
+.cmp-row-lbl svg{flex-shrink:0;color:var(--ac);opacity:.85;margin-top:1px}
+.cmp-row-lbl-sub{font-size:9px;color:var(--tx3);text-transform:none;font-weight:400;letter-spacing:0;margin-top:1px;display:block}
+/* Cajas de precio lado a lado */
+.cmp-plat-wrap{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+/* Badge en la parte superior de la caja de precio */
+.cmp-badge-top{display:block;font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:#fff;background:var(--ac);border-radius:6px;padding:2px 6px;margin-bottom:4px;text-align:center}
+/* Badge "Mejor"/"Menor" compacto dentro de la celda ganadora */
+.cmp-win-pill{display:inline-block;font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;color:#fff;background:var(--ac);border-radius:10px;padding:1px 6px;margin-top:2px;line-height:1.4}
+/* Costo por porción en línea */
+.cmp-costo-row{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;align-items:baseline}
+.cmp-costo-item{font-size:12px;font-weight:700;color:var(--tx);display:flex;flex-direction:column;align-items:center;gap:1px}
+.cmp-costo-item.best{color:var(--ac)}
+.cmp-costo-sep{color:var(--bd2);font-size:12px}
+.cmp-costo-lbl2{font-size:9px;color:var(--tx3);font-weight:600;text-transform:uppercase;letter-spacing:.03em}
 
 .empty{text-align:center;padding:3rem;color:var(--tx3);font-size:14px}
 .disclaimer{max-width:1100px;margin:0 auto;padding:1.25rem 2rem;font-size:12px;color:var(--tx3);border-top:1px solid var(--bd)}
@@ -977,6 +993,21 @@ function updateBar() {
   if (fab) { fab.classList.add('show'); fabCount.textContent=selected.length; fabBtn.disabled=selected.length<2; }
 }
 
+// ── Iconos del modal comparador ───────────────────────────────
+const ico = {
+  precio:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>`,
+  costo:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>`,
+  porciones:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>`,
+  proteina:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.31l-3.72 6.53A1 1 0 007.15 17h9.7a1 1 0 00.87-1.16L14 9.31V2"/><line x1="8.5" y1="2" x2="15.5" y2="2"/></svg>`,
+  concentracion:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="16" r="3"/><line x1="20" y1="4" x2="4" y2="20"/></svg>`,
+  calorias:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 11-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 002.5 3z"/></svg>`,
+  azucares:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></svg>`,
+  creatina:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="6" rx="3"/><line x1="12" y1="9" x2="12" y2="15"/></svg>`,
+  extras:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
+  sabores:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 011.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>`,
+  valoracion:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
+};
+
 // ── Modal comparador ──────────────────────────────────────────
 function openModal() {
   if (selected.length < 2) return;
@@ -1017,20 +1048,22 @@ function openModal() {
   function val(v, suffix) { return (v !== null && v !== undefined) ? v + (suffix||'') : nd; }
   function valFixed(v, d, suffix) { return (v !== null && v !== undefined) ? v.toFixed(d) + (suffix||'') : nd; }
 
-  function fila(label, rawVals, fmt, best) {
+  function fila(label, rawVals, fmt, best, icon) {
     const nums = rawVals.map(v => (v !== null && v !== undefined && typeof v === 'number' && !isNaN(v)) ? v : null);
     let winner = null;
     if (best==='max') { const valid=nums.filter(n=>n!==null); if(valid.length>1) winner=Math.max(...valid); }
     if (best==='min') { const valid=nums.filter(n=>n!==null&&n>0); if(valid.length>1) winner=Math.min(...valid); }
     const cells = rawVals.map((v,i) => {
       const isWin = winner!==null && nums[i]===winner;
-      return `<td class="${isWin?'cmp-winner':''}">${(v!==null&&v!==undefined)?fmt(v):nd}</td>`;
+      const pill = isWin ? `<div><span class="cmp-win-pill">${best==='min'?'Menor':'Mejor'}</span></div>` : '';
+      return `<td class="${isWin?'cmp-winner':''}">${(v!==null&&v!==undefined)?fmt(v)+pill:nd}</td>`;
     }).join('');
-    return `<tr><td>${label}</td>${cells}</tr>`;
+    const lbl = icon ? `<div class="cmp-row-lbl">${icon}<span>${label}</span></div>` : label;
+    return `<tr><td>${lbl}</td>${cells}</tr>`;
   }
 
   const fmtP = v => '$'+v.toLocaleString('es-MX',{minimumFractionDigits:0,maximumFractionDigits:2});
-  // Precio: caja ML y caja Amazon dentro de la celda; "Mejor precio" en la más barata del producto.
+  // Precio: caja ML y caja Amazon dentro de la celda lado a lado; badge "Mejor precio" arriba.
   function filaPrecio(prods) {
     const cells = prods.map(p => {
       const showML = !p.pausaML && !!p.linkML;
@@ -1039,37 +1072,40 @@ function openModal() {
       const amzP = (showAmz && p.linkAmz) ? (p.precioAmz ?? null) : null;
       let bML=false,bAmz=false;
       if (mlP!=null && amzP!=null) { if (mlP<amzP) bML=true; else if (amzP<mlP) bAmz=true; }
-      const mlBox = showML ? `<div class="cmp-plat${bML?' best':''}"><div class="cmp-plat-name">Mercado Libre</div><div class="cmp-plat-price${mlP==null?' nd':''}">${mlP!=null?fmtP(mlP):'Ver precio'}</div>${bML?'<div class="cmp-badge">Mejor precio</div>':''}<a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" style="padding:6px;font-size:11px" ${gaAttr('ml',p)}>Ver en <img style="height:14px" src="/logomercado.png" onerror="this.style.display='none'"></a></div>` : '';
-      const amzBox = showAmz ? `<div class="cmp-plat${bAmz?' best':''}"><div class="cmp-plat-name">Amazon</div><div class="cmp-plat-price${amzP==null?' nd':''}">${amzP!=null?fmtP(amzP):'Comparar'}</div>${bAmz?'<div class="cmp-badge">Mejor precio</div>':''}<a class="btn-amz" href="${amzUrl(p)}" target="_blank" rel="sponsored nofollow noopener" title="${amzEsBusqueda(p)?'Buscar este producto en Amazon':''}" style="padding:6px;font-size:11px" ${gaAttr('amz',p)}>${amzEsBusqueda(p)?'Buscar en':'Ver en'} <img style="height:14px" src="/logoamazon.png" onerror="this.style.display='none'"></a></div>` : '';
-      return `<td>${mlBox||amzBox?mlBox+amzBox:nd}</td>`;
+      const mlBox = showML ? `<div class="cmp-plat${bML?' best':''}">${bML?'<span class="cmp-badge-top">Mejor precio</span>':''}<div class="cmp-plat-name">Mercado Libre</div><div class="cmp-plat-price${mlP==null?' nd':''}">${mlP!=null?fmtP(mlP):'Ver precio'}</div><a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" style="padding:6px;font-size:11px;margin-top:4px" ${gaAttr('ml',p)}>Ver en <img style="height:14px" src="/logomercado.png" onerror="this.style.display='none'"></a></div>` : '';
+      const amzBox = showAmz ? `<div class="cmp-plat${bAmz?' best':''}">${bAmz?'<span class="cmp-badge-top">Mejor precio</span>':''}<div class="cmp-plat-name">Amazon</div><div class="cmp-plat-price${amzP==null?' nd':''}">${amzP!=null?fmtP(amzP):'Comparar'}</div><a class="btn-amz" href="${amzUrl(p)}" target="_blank" rel="sponsored nofollow noopener" title="${amzEsBusqueda(p)?'Buscar este producto en Amazon':''}" style="padding:6px;font-size:11px;margin-top:4px" ${gaAttr('amz',p)}>${amzEsBusqueda(p)?'Buscar en':'Ver en'} <img style="height:14px" src="/logoamazon.png" onerror="this.style.display='none'"></a></div>` : '';
+      const content = mlBox || amzBox ? `<div class="cmp-plat-wrap">${mlBox}${amzBox}</div>` : nd;
+      return `<td>${content}</td>`;
     }).join('');
-    return `<tr><td>Precio<div style="font-size:10px;color:var(--tx3);font-weight:400;text-transform:none">por plataforma</div></td>${cells}</tr>`;
+    const lbl = `<div class="cmp-row-lbl">${ico.precio}<span>Precio<span class="cmp-row-lbl-sub">por plataforma</span></span></div>`;
+    return `<tr><td>${lbl}</td>${cells}</tr>`;
   }
 
-  // El costo por porción cambia según la tienda, así que mostramos el de cada una por separado.
+  // El costo por porción cambia según la tienda, mostramos ML y AMZ en línea.
   function filaCostoPorcion(prods) {
     const ml  = prods.map(p => costoPorc(p.precioML,  p.porciones));
     const amz = prods.map(p => costoPorc(p.precioAmz, p.porciones));
     const minOf = arr => { const v = arr.filter(n => n != null && n > 0); return v.length > 1 ? Math.min(...v) : null; };
     const minML = minOf(ml), minAmz = minOf(amz);
-    const line = (lbl, v, best) => `<div class="cmp-costo${v===best?' best':''}"><span class="l">${lbl}</span> $${v.toFixed(2)}${v===best?'<span class="cmp-costo-badge">Menor costo</span>':''}</div>`;
     const cells = prods.map((p, i) => {
       const parts = [];
-      if (ml[i]  != null) parts.push(line('ML',  ml[i],  minML));
-      if (amz[i] != null) parts.push(line('AMZ', amz[i], minAmz));
-      return `<td>${parts.length ? parts.join('') : nd}</td>`;
+      if (ml[i]  != null) parts.push(`<span class="cmp-costo-item${ml[i]===minML?' best':''}"><span class="cmp-costo-lbl2">ML</span>$${ml[i].toFixed(2)}${ml[i]===minML?'<span class="cmp-win-pill">Menor</span>':''}</span>`);
+      if (amz[i] != null) parts.push(`<span class="cmp-costo-item${amz[i]===minAmz?' best':''}"><span class="cmp-costo-lbl2">AMZ</span>$${amz[i].toFixed(2)}${amz[i]===minAmz?'<span class="cmp-win-pill">Menor</span>':''}</span>`);
+      return `<td>${parts.length ? `<div class="cmp-costo-row">${parts.join('<span class="cmp-costo-sep">|</span>')}</div>` : nd}</td>`;
     }).join('');
-    return `<tr><td>Costo / porción<div style="font-size:10px;color:var(--tx3,#94a3b8);font-weight:400;text-transform:none">según plataforma</div></td>${cells}</tr>`;
+    const lbl = `<div class="cmp-row-lbl">${ico.costo}<span>Costo / porción<span class="cmp-row-lbl-sub">según plataforma</span></span></div>`;
+    return `<tr><td>${lbl}</td>${cells}</tr>`;
   }
 
   function filaCreatina(prods) {
     const cells = prods.map(p => {
       if (!p.creatina?.tiene) return `<td>No</td>`;
       if (p.creatina.presentacionSeparada) return `<td>Sí (separada, ${p.creatina.gramosIncluidos||'?'}g incluidos)</td>`;
-      if (p.creatina.gramosPorPorcion) return `<td class="cmp-winner">${p.creatina.gramosPorPorcion}g por porción</td>`;
-      return `<td>Sí (cantidad no especificada)</td>`;
+      if (p.creatina.gramosPorPorcion) return `<td class="cmp-winner">${p.creatina.gramosPorPorcion}g por porción<div><span class="cmp-win-pill">Mejor</span></div></td>`;
+      return `<td>Sí (no especificada)</td>`;
     }).join('');
-    return `<tr><td>Creatina</td>${cells}</tr>`;
+    const lbl = `<div class="cmp-row-lbl">${ico.creatina}<span>Creatina</span></div>`;
+    return `<tr><td>${lbl}</td>${cells}</tr>`;
   }
 
   function filaValoracion(prods) {
@@ -1079,9 +1115,10 @@ function openModal() {
     const cells = prods.map(p => {
       if (!p.estrellas) return `<td>${nd}</td>`;
       const w = maxE != null && p.estrellas === maxE;
-      return `<td class="${w?'cmp-winner':''}"><span style="color:#e6900a;font-weight:700">★ ${p.estrellas.toFixed(1)}</span> <span style="font-size:11px;color:var(--tx3)">(${(p.resenas||0).toLocaleString('es-MX')})</span>${w?'<div class="cmp-badge" style="margin-top:3px">Mejor calificación</div>':''}</td>`;
+      return `<td class="${w?'cmp-winner':''}"><span style="color:#e6900a;font-weight:700">★ ${p.estrellas.toFixed(1)}</span> <span style="font-size:11px;color:var(--tx3)">(${(p.resenas||0).toLocaleString('es-MX')})</span>${w?'<div><span class="cmp-win-pill">Mejor</span></div>':''}</td>`;
     }).join('');
-    return `<tr><td>Valoración</td>${cells}</tr>`;
+    const lbl = `<div class="cmp-row-lbl">${ico.valoracion}<span>Valoración</span></div>`;
+    return `<tr><td>${lbl}</td>${cells}</tr>`;
   }
 
   function filaExtras(prods) {
@@ -1089,7 +1126,8 @@ function openModal() {
       const lista = p.componentesAdicionales||[];
       return `<td style="font-size:11px;text-align:left;line-height:1.6">${lista.length ? lista.join('<br>') : nd}</td>`;
     }).join('');
-    return `<tr><td>Extras</td>${cells}</tr>`;
+    const lbl = `<div class="cmp-row-lbl">${ico.extras}<span>Extras</span></div>`;
+    return `<tr><td>${lbl}</td>${cells}</tr>`;
   }
 
   function sep(label) {
@@ -1099,14 +1137,14 @@ function openModal() {
   const rows = [
     filaPrecio(prods),
     filaCostoPorcion(prods),
-    fila('Porciones', prods.map(p=>p.porciones), v=>Math.round(v)+' porc.', 'max'),
-    fila('Proteína / porción', prods.map(p=>p.proteinaPorPorcion), v=>v+' g', 'max'),
-    fila('Concentración de proteína', prods.map(p=>p.concentracionProteina), v=>v.toFixed(1)+'%', 'max'),
-    fila('Calorías / porción', prods.map(p=>p.caloriasPorPorcion), v=>v+' kcal', 'min'),
-    fila('Azúcares / porción', prods.map(p=>p.azucaresPorPorcion), v=>v+' g', 'min'),
+    fila('Porciones', prods.map(p=>p.porciones), v=>Math.round(v)+' porc.', 'max', ico.porciones),
+    fila('Proteína / porción', prods.map(p=>p.proteinaPorPorcion), v=>v+' g', 'max', ico.proteina),
+    fila('Concentración de proteína', prods.map(p=>p.concentracionProteina), v=>v.toFixed(1)+'%', 'max', ico.concentracion),
+    fila('Calorías / porción', prods.map(p=>p.caloriasPorPorcion), v=>v+' kcal', 'min', ico.calorias),
+    fila('Azúcares / porción', prods.map(p=>p.azucaresPorPorcion), v=>v+' g', 'min', ico.azucares),
     filaCreatina(prods),
     filaExtras(prods),
-    fila('Sabores disponibles', prods.map(p=>(p.saboresDisponibles||[]).join(', ')), v=>v, null),
+    fila('Sabores disponibles', prods.map(p=>(p.saboresDisponibles||[]).join(', ')), v=>v, null, ico.sabores),
     filaValoracion(prods),
   ].join('');
 
