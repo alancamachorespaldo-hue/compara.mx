@@ -214,6 +214,39 @@ fieldset.group legend{padding:0 6px;font-size:12.5px;font-weight:800}
   .table-wrap{max-height:none}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+/* ── Dashboard de analíticas ──────────────────────────────────────── */
+.dash{padding:16px;display:flex;flex-direction:column;gap:16px;max-width:1200px;margin:0 auto}
+.dash-head{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.dash-wk-row{display:flex;flex-wrap:wrap;gap:5px;flex:1;min-width:0}
+.dash-metric-row{display:flex;gap:4px}
+.dash-filter-btn{height:28px;padding:0 12px;border-radius:20px;border:1px solid var(--line);background:var(--surface);color:var(--fg-2);font:inherit;font-size:12px;font-weight:600;cursor:pointer;transition:background .12s,border-color .12s}
+.dash-filter-btn:hover:not(.on){background:var(--surface-2)}
+.dash-filter-btn.on{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
+.dash-metric-btn{height:26px;padding:0 10px;border-radius:4px;border:1px solid var(--line);background:transparent;color:var(--fg-3);font:inherit;font-size:11px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:.04em;transition:background .12s,color .12s}
+.dash-metric-btn.on{background:var(--surface-2);color:var(--fg);border-color:var(--fg-3)}
+.dash-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
+.dash-tile{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;position:relative;transition:border-color .12s,box-shadow .12s}
+.dash-tile.is-sel{border-color:var(--accent)}
+.dash-tile-val{font-size:24px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--accent);line-height:1;margin-bottom:4px}
+.dash-tile-lbl{font-size:11px;color:var(--fg-2)}
+.dash-tile-delta{position:absolute;top:8px;right:8px;font-size:10px;font-weight:700;padding:2px 5px;border-radius:3px;line-height:1.2}
+.dash-tile-delta.up{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}
+.dash-tile-delta.dn{background:color-mix(in srgb,var(--err) 18%,transparent);color:var(--err)}
+.dash-tile-delta.fl{background:var(--surface-2);color:var(--fg-3)}
+.dash-charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.dash-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 18px;overflow:hidden}
+.dash-card h3{font-size:12.5px;font-weight:700;color:var(--fg);margin:0}
+.dash-card-hd{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.dash-cats{display:flex;flex-wrap:wrap;gap:6px}
+.dash-note{font-size:11px;color:var(--fg-3);margin-top:6px}
+.dash-legend{display:flex;gap:12px;font-size:11px;color:var(--fg-2);margin-bottom:10px}
+.dash-legend span{display:flex;align-items:center;gap:5px}
+.dash-legend b{display:inline-block;width:10px;height:10px;border-radius:2px}
+.utm-presets{display:flex;flex-wrap:wrap;gap:6px}
+.utm-lbl{display:block;font-size:11px;font-weight:600;color:var(--fg-2);margin-bottom:4px}
+.utm-input{width:100%;height:32px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--fg);padding:0 8px;font:inherit;font-size:13px}
+.utm-input:focus{border-color:var(--accent);outline:none}
+@media (max-width:620px){.dash-charts{grid-template-columns:1fr}.dash-tiles{grid-template-columns:repeat(2,1fr)}#utm-fields-row{grid-template-columns:1fr!important}.dash-head{flex-direction:column;align-items:flex-start}.dash-metric-row{margin-left:0}}
 </style>
 <div id="app"></div>
 <!--DATA-->
@@ -226,6 +259,308 @@ const GH = 'https://github.com/alancamachorespaldo-hue/compara.mx/actions';
 const AMZ_TAG = 'comparalo20-20';
 const PKEY = 'cmx-admin-pendiente-v1';
 const UKEY = 'cmx-admin-ui-v1';
+
+// ── Datos de analíticas (Google Analytics semanal) ───────────────────
+const ANALYTICS = {
+  weeks:[
+    {l:'31 ago–6 sep', u:8,   v:131, e:307,  ml:0, amz:0, evts:{page_view:131,scroll:128,first_visit:8, session_start:22,comparison_section_view:18}},
+    {l:'7–13 sep',     u:9,   v:98,  e:218,  ml:0, amz:0, evts:{page_view:98, scroll:95, first_visit:9, session_start:14,comparison_section_view:11}},
+    {l:'14–20 sep',    u:151, v:578, e:1333, ml:1, amz:2, evts:{page_view:578,scroll:560,first_visit:151,session_start:185,comparison_section_view:79,affiliate_click_ml:1,affiliate_click_amazon:2}},
+    {l:'21–27 sep',    u:64,  v:313, e:979,  ml:3, amz:3, evts:{page_view:313,scroll:308,first_visit:64, session_start:88, comparison_section_view:42,affiliate_click_ml:3,affiliate_click_amazon:3}},
+    {l:'28 sep–4 oct', u:94,  v:239, e:730,  ml:5, amz:3, evts:{page_view:239,scroll:232,first_visit:94, session_start:102,comparison_section_view:38,affiliate_click_ml:5,affiliate_click_amazon:3}},
+  ],
+  pagesByWeek:[null, null, null, null, [
+    {p:'/', cat:'inicio', u:37},
+    {p:'/laptops/', cat:'laptops', u:13},
+    {p:'/electrodomesticos/', cat:'electrodomesticos', u:13},
+    {p:'/suplementos/creatina/', cat:'suplementos', u:11},
+    {p:'/suplementos/proteina/', cat:'suplementos', u:11},
+    {p:'/electrodomesticos/freidoras/', cat:'freidoras', u:10},
+    {p:'/suplementos/', cat:'suplementos', u:6},
+    {p:'/celulares/android/', cat:'celulares', u:4},
+    {p:'/electrodomesticos/microondas/', cat:'microondas', u:3},
+    {p:'/bicis/', cat:'bicis', u:2},
+    {p:'/celulares/iphone/', cat:'celulares', u:2},
+  ]],
+};
+const DASH_CATS = [{k:'',lbl:'Todas'},{k:'inicio',lbl:'Inicio'},{k:'laptops',lbl:'Laptops'},{k:'suplementos',lbl:'Suplementos'},{k:'freidoras',lbl:'Freidoras'},{k:'bicis',lbl:'Bicis'},{k:'celulares',lbl:'Celulares'},{k:'microondas',lbl:'Microondas'},{k:'electrodomesticos',lbl:'Electrod.'}];
+const DASH_CAT_COLOR = {inicio:'var(--accent)',laptops:'var(--info)',suplementos:'var(--ok)',freidoras:'var(--amz)',bicis:'var(--accent-hover)',celulares:'#9b59b6',microondas:'var(--warn)',electrodomesticos:'var(--fg-3)'};
+const DKEY = 'cmx-dash-v1';
+function loadDS(){const s=lsGet(DKEY)||{};return{cat:s.cat||'',week:s.week??-1,metric:s.metric||'u'};}
+function saveDS(){lsSet(DKEY,{cat:DS.cat,week:DS.week,metric:DS.metric});}
+let DS = loadDS();
+
+function vBarSvg(weeks, key, color, sel) {
+  const W=380, H=120, BOTTOM=32, LEFT=4, RIGHT=4;
+  const n = weeks.length;
+  const gap = 10, barW = Math.floor((W - LEFT - RIGHT - (n-1)*gap) / n);
+  const maxV = Math.max(...weeks.map(w=>w[key]), 1);
+  const chartH = H - BOTTOM;
+  let bars='', vals='', labels='';
+  weeks.forEach((w,i) => {
+    const v = w[key], bh = Math.max(Math.round(v/maxV*chartH), v?2:0);
+    const x = LEFT + i*(barW+gap), y = chartH - bh;
+    const dim = sel >= 0 && i !== sel;
+    const fillCol = dim ? 'color-mix(in srgb,'+color+' 28%,var(--surface))' : color;
+    const txtCol = dim ? 'var(--fg-4,var(--fg-3))' : 'var(--fg-2)';
+    bars += `<rect x="${x}" y="${y}" width="${barW}" height="${bh}" rx="3" style="fill:${fillCol}"/>`;
+    if(v) vals += `<text x="${x+barW/2}" y="${y-3}" text-anchor="middle" style="font-size:9.5px;font-variant-numeric:tabular-nums;fill:${txtCol}">${v>999?(v/1000).toFixed(1)+'k':v}</text>`;
+    labels += `<text x="${x+barW/2}" y="${H-18}" text-anchor="middle" style="font-size:8px;fill:${txtCol}">${w.l.split('–')[0]}</text>`;
+    labels += `<text x="${x+barW/2}" y="${H-6}" text-anchor="middle" style="font-size:8px;fill:${txtCol}">–${w.l.split('–')[1]||''}</text>`;
+  });
+  return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block;overflow:visible"><line x1="${LEFT}" y1="${H-BOTTOM}" x2="${W-RIGHT}" y2="${H-BOTTOM}" style="stroke:var(--line);stroke-width:1"/>${bars}${vals}${labels}</svg>`;
+}
+
+function groupBarSvg(weeks, sel) {
+  const W=380, H=120, BOTTOM=32, LEFT=4, RIGHT=4;
+  const n = weeks.length, BW=16, GAP=4, GRP=36;
+  const maxV = Math.max(...weeks.flatMap(w=>[w.ml,w.amz]), 1);
+  const chartH = H - BOTTOM;
+  let rects='', labels='';
+  weeks.forEach((w,i) => {
+    const xBase = LEFT + i*GRP;
+    const bmL = Math.max(Math.round(w.ml/maxV*chartH),w.ml?2:0);
+    const bmA = Math.max(Math.round(w.amz/maxV*chartH),w.amz?2:0);
+    const dim = sel >= 0 && i !== sel;
+    const mlFill = dim ? 'color-mix(in srgb,var(--ml) 30%,var(--surface))' : 'var(--ml)';
+    const amzFill = dim ? 'color-mix(in srgb,var(--amz) 30%,var(--surface))' : 'var(--amz)';
+    const txtCol = dim ? 'var(--fg-4,var(--fg-3))' : 'var(--fg-2)';
+    rects += `<rect x="${xBase}" y="${chartH-bmL}" width="${BW}" height="${bmL}" rx="2" style="fill:${mlFill}"/>`;
+    rects += `<rect x="${xBase+BW+GAP}" y="${chartH-bmA}" width="${BW}" height="${bmA}" rx="2" style="fill:${amzFill}"/>`;
+    if(w.ml) rects += `<text x="${xBase+BW/2}" y="${chartH-bmL-3}" text-anchor="middle" style="font-size:9px;fill:${txtCol}">${w.ml}</text>`;
+    if(w.amz) rects += `<text x="${xBase+BW+GAP+BW/2}" y="${chartH-bmA-3}" text-anchor="middle" style="font-size:9px;fill:${txtCol}">${w.amz}</text>`;
+    labels += `<text x="${xBase+BW+GAP/2}" y="${H-18}" text-anchor="middle" style="font-size:8px;fill:${txtCol}">${w.l.split('–')[0]}</text>`;
+    labels += `<text x="${xBase+BW+GAP/2}" y="${H-6}" text-anchor="middle" style="font-size:8px;fill:${txtCol}">–${w.l.split('–')[1]||''}</text>`;
+  });
+  return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block;overflow:visible"><line x1="${LEFT}" y1="${H-BOTTOM}" x2="${W-RIGHT}" y2="${H-BOTTOM}" style="stroke:var(--line);stroke-width:1"/>${rects}${labels}</svg>`;
+}
+
+function hBarSvg(pages) {
+  const ROW=22, GAP=5, W=400, LABEL_W=160, NUM_W=28;
+  const barZone = W - LABEL_W - NUM_W - 8;
+  const maxV = Math.max(...pages.map(p=>p.u), 1);
+  const H = pages.length * (ROW+GAP) - GAP;
+  let rows = '';
+  pages.forEach((pg, i) => {
+    const y = i*(ROW+GAP);
+    const bw = Math.round(pg.u/maxV*barZone);
+    const col = DASH_CAT_COLOR[pg.cat] || 'var(--accent)';
+    const lbl = pg.p.length > 22 ? pg.p.slice(0,22)+'…' : pg.p;
+    rows += `<text x="${LABEL_W-4}" y="${y+ROW/2+4}" text-anchor="end" style="font-size:10px;fill:var(--fg-2)">${lbl}</text>`;
+    rows += `<rect x="${LABEL_W}" y="${y}" width="${bw}" height="${ROW}" rx="3" style="fill:${col}"/>`;
+    rows += `<text x="${LABEL_W+bw+5}" y="${y+ROW/2+4}" style="font-size:10px;fill:var(--fg-2);font-weight:600">${pg.u}</text>`;
+  });
+  return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:${H}px;display:block;overflow:visible">${rows}</svg>`;
+}
+
+function deltaBadge(curr, prev) {
+  if (prev == null) return '';
+  if (prev === 0) return curr > 0 ? '<span class="dash-tile-delta up">▲ nuevo</span>' : '';
+  const pct = Math.round((curr - prev) / prev * 100);
+  if (pct === 0) return '<span class="dash-tile-delta fl">→ 0%</span>';
+  return `<span class="dash-tile-delta ${pct>0?'up':'dn'}">${pct>0?'▲':'▼'} ${Math.abs(pct)}%</span>`;
+}
+function evtsSvg(wk) {
+  const EVT_LBL = {page_view:'page_view',scroll:'scroll',first_visit:'first_visit',session_start:'session_start',comparison_section_view:'comp._section',affiliate_click_ml:'aff. ML',affiliate_click_amazon:'aff. Amazon'};
+  const EVT_COL = {page_view:'var(--info)',scroll:'var(--accent)',first_visit:'var(--ok)',session_start:'var(--fg-3)',comparison_section_view:'var(--amz)',affiliate_click_ml:'var(--ml)',affiliate_click_amazon:'var(--amz)'};
+  const entries = Object.entries(wk.evts||{}).sort((a,b)=>b[1]-a[1]).slice(0,7);
+  if (!entries.length) return '<p class="muted" style="font-size:12px;margin:0">Sin datos de eventos.</p>';
+  const ROW=20, GAP=4, W=400, LW=110, NW=32, BZ=W-LW-NW-8;
+  const maxV = Math.max(...entries.map(e=>e[1]), 1);
+  const H = entries.length*(ROW+GAP)-GAP;
+  let rows='';
+  entries.forEach(([k,v],i)=>{
+    const y=i*(ROW+GAP), bw=Math.max(Math.round(v/maxV*BZ),2);
+    rows+=`<text x="${LW-4}" y="${y+ROW/2+4}" text-anchor="end" style="font-size:9.5px;fill:var(--fg-2)">${EVT_LBL[k]||k}</text>`;
+    rows+=`<rect x="${LW}" y="${y}" width="${bw}" height="${ROW}" rx="3" style="fill:${EVT_COL[k]||'var(--accent)'}"/>`;
+    rows+=`<text x="${LW+bw+5}" y="${y+ROW/2+4}" style="font-size:9.5px;fill:var(--fg-2);font-weight:600">${v}</text>`;
+  });
+  return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:${H}px;display:block;overflow:visible">${rows}</svg>`;
+}
+
+const UTM_PRESETS = {
+  'ig-story':      {source:'instagram', medium:'story',        campaign:'social'},
+  'ig-bio':        {source:'instagram', medium:'bio',          campaign:'social'},
+  'fb-post':       {source:'facebook',  medium:'post',         campaign:'social'},
+  'fb-story':      {source:'facebook',  medium:'story',        campaign:'social'},
+  'reddit-post':   {source:'reddit',    medium:'post',         campaign:'social'},
+  'reddit-comment':{source:'reddit',    medium:'comment',      campaign:'social'},
+  'reddit-profile':{source:'reddit',    medium:'profile',      campaign:'social'},
+  'tiktok':        {source:'tiktok',    medium:'video',        campaign:'social'},
+  'whatsapp':      {source:'whatsapp',  medium:'share',        campaign:'social'},
+};
+function buildUtmUrl() {
+  const base = 'https://comparalo.mx';
+  const page = ($('#utm-page') && $('#utm-page').value) || '/';
+  const src = ($('#utm-source') && $('#utm-source').value.trim()) || '';
+  const med = ($('#utm-medium') && $('#utm-medium').value.trim()) || '';
+  const cam = ($('#utm-campaign') && $('#utm-campaign').value.trim()) || '';
+  const con = ($('#utm-content') && $('#utm-content').value.trim()) || '';
+  if (!src && !med) { const out=$('#utm-out'); if(out) out.value=''; return; }
+  const p = new URLSearchParams();
+  if (src) p.set('utm_source', src);
+  if (med) p.set('utm_medium', med);
+  if (cam) p.set('utm_campaign', cam);
+  if (con) p.set('utm_content', con);
+  const out = $('#utm-out');
+  if (out) out.value = base + page + '?' + p.toString();
+}
+function applyUtmPreset(key) {
+  const pr = UTM_PRESETS[key]; if (!pr) return;
+  const s=$('#utm-source'), m=$('#utm-medium'), c=$('#utm-campaign');
+  if (s) s.value = pr.source;
+  if (m) m.value = pr.medium;
+  if (c) c.value = pr.campaign;
+  document.querySelectorAll('[data-utm]').forEach(b => b.classList.toggle('on', b.dataset.utm===key));
+  buildUtmUrl();
+}
+
+function renderDash() {
+  const el = $('#dash');
+  if (el.hidden) return;
+  const wks = ANALYTICS.weeks;
+  const wi = DS.week; // -1 = todas las semanas
+  const wk = wi >= 0 ? wks[wi] : null;
+  const prevWk = wi > 0 ? wks[wi-1] : null;
+
+  // Totales acumulados
+  const totU = wks.reduce((s,w)=>s+w.u,0);
+  const totV = wks.reduce((s,w)=>s+w.v,0);
+  const totE = wks.reduce((s,w)=>s+w.e,0);
+  const totML = wks.reduce((s,w)=>s+w.ml,0);
+  const totAMZ = wks.reduce((s,w)=>s+w.amz,0);
+
+  const tileU = wk?wk.u:totU, tileV = wk?wk.v:totV, tileE = wk?wk.e:totE;
+  const tileML = wk?wk.ml:totML, tileAMZ = wk?wk.amz:totAMZ;
+  const suf = wk ? '' : ' <span style="font-size:10px;font-weight:400;color:var(--fg-3)">5 sem.</span>';
+
+  // Deltas vs semana anterior
+  const dU = wk?deltaBadge(wk.u,prevWk?.u):'', dV = wk?deltaBadge(wk.v,prevWk?.v):'';
+  const dE = wk?deltaBadge(wk.e,prevWk?.e):'', dML = wk?deltaBadge(wk.ml,prevWk?.ml):'';
+  const dAMZ = wk?deltaBadge(wk.amz,prevWk?.amz):'';
+
+  // Semana seleccionada
+  const wkBtns = [
+    `<button class="dash-filter-btn${wi===-1?' on':''}" data-dash-wk="-1">Todas</button>`,
+    ...wks.map((w,i)=>`<button class="dash-filter-btn${wi===i?' on':''}" data-dash-wk="${i}">${w.l}</button>`)
+  ].join('');
+
+  // Métrica del gráfico de tendencia
+  const METRICS = [{k:'u',l:'Usuarios',color:'var(--accent)'},{k:'v',l:'Vistas',color:'var(--info)'},{k:'e',l:'Eventos',color:'var(--ok)'},{k:'aff',l:'Afiliados',color:'var(--ml)'}];
+  const mCfg = METRICS.find(m=>m.k===DS.metric)||METRICS[0];
+  const metricBtns = METRICS.map(m=>`<button class="dash-metric-btn${DS.metric===m.k?' on':''}" data-dash-metric="${m.k}">${m.l}</button>`).join('');
+  const trendChart = DS.metric==='aff' ? groupBarSvg(wks,wi) : vBarSvg(wks,mCfg.k,mCfg.color,wi);
+
+  // Eventos del gráfico: semana seleccionada o la última (con más datos)
+  const evtsWk = wk||wks[4];
+  const evtsTitle = wk ? `Eventos · ${wk.l}` : 'Eventos clave · 28 sep–4 oct';
+
+  // Páginas (solo semana 4 tiene datos)
+  const allPages = ANALYTICS.pagesByWeek[4]||[];
+  const filteredPages = DS.cat ? allPages.filter(p=>p.cat===DS.cat) : allPages;
+  const catBtns = DASH_CATS.map(c=>`<button class="dash-filter-btn${DS.cat===c.k?' on':''}" data-dash-cat="${esc(c.k)}">${esc(c.lbl)}</button>`).join('');
+
+  el.innerHTML = `<div class="dash">
+    <div class="dash-head">
+      <div class="dash-wk-row">${wkBtns}</div>
+    </div>
+    <div class="dash-tiles">
+      <div class="dash-tile${DS.metric==='u'?' is-sel':''}">
+        ${dU}<div class="dash-tile-val">${tileU}</div>
+        <div class="dash-tile-lbl">Usuarios activos${suf}</div>
+      </div>
+      <div class="dash-tile${DS.metric==='v'?' is-sel':''}">
+        ${dV}<div class="dash-tile-val">${tileV.toLocaleString('es-MX')}</div>
+        <div class="dash-tile-lbl">Vistas${suf}</div>
+      </div>
+      <div class="dash-tile${DS.metric==='e'?' is-sel':''}">
+        ${dE}<div class="dash-tile-val">${tileE.toLocaleString('es-MX')}</div>
+        <div class="dash-tile-lbl">Eventos clave${suf}</div>
+      </div>
+      <div class="dash-tile${DS.metric==='aff'?' is-sel':''}">
+        ${dML}<div class="dash-tile-val">${tileML}</div>
+        <div class="dash-tile-lbl">Clics ML${suf}</div>
+      </div>
+      <div class="dash-tile">
+        ${dAMZ}<div class="dash-tile-val">${tileAMZ}</div>
+        <div class="dash-tile-lbl">Clics Amazon${suf}</div>
+      </div>
+    </div>
+    <div class="dash-card">
+      <div class="dash-card-hd">
+        <h3>Tendencia semanal</h3>
+        <div class="dash-metric-row">${metricBtns}</div>
+      </div>
+      ${trendChart}
+    </div>
+    <div class="dash-charts">
+      <div class="dash-card">
+        <h3 style="margin-bottom:10px">Afiliados por semana</h3>
+        <div class="dash-legend"><span><b style="background:var(--ml)"></b>Mercado Libre</span><span><b style="background:var(--amz)"></b>Amazon</span></div>
+        ${groupBarSvg(wks,wi)}
+      </div>
+      <div class="dash-card">
+        <h3 style="margin-bottom:14px">${evtsTitle}</h3>
+        ${evtsSvg(evtsWk)}
+      </div>
+    </div>
+    <div class="dash-card">
+      <div class="dash-card-hd"><h3>Páginas más visitadas · 28 sep–4 oct</h3></div>
+      <div class="dash-cats">${catBtns}</div>
+      <div style="margin-top:14px">${filteredPages.length ? hBarSvg(filteredPages) : '<p class="muted" style="font-size:12px;margin:0">Sin páginas en esta categoría esta semana.</p>'}</div>
+      <p class="dash-note">Usuarios activos únicos · datos de Google Analytics · solo disponible para la semana 28 sep–4 oct.</p>
+    </div>
+    <div class="dash-card">
+      <div class="dash-card-hd"><h3>Generador de enlaces UTM</h3></div>
+      <p class="dash-note" style="margin:0 0 12px">Crea URLs para rastrear el origen del tráfico en GA4. Selecciona una fuente, elige la página y copia el enlace.</p>
+      <div class="utm-presets">
+        <button class="dash-filter-btn" data-utm="ig-story">IG Historia</button>
+        <button class="dash-filter-btn" data-utm="ig-bio">IG Perfil / Bio</button>
+        <button class="dash-filter-btn" data-utm="fb-post">FB Publicación</button>
+        <button class="dash-filter-btn" data-utm="fb-story">FB Historia</button>
+        <button class="dash-filter-btn" data-utm="reddit-post">Reddit Post</button>
+        <button class="dash-filter-btn" data-utm="reddit-comment">Reddit Comentario</button>
+        <button class="dash-filter-btn" data-utm="reddit-profile">Reddit Perfil</button>
+        <button class="dash-filter-btn" data-utm="tiktok">TikTok</button>
+        <button class="dash-filter-btn" data-utm="whatsapp">WhatsApp</button>
+      </div>
+      <div class="utm-form" style="margin-top:14px;display:grid;gap:10px">
+        <div class="utm-row"><label class="utm-lbl">Página del sitio</label>
+          <select id="utm-page" style="width:100%;height:32px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--fg);padding:0 8px;font:inherit;font-size:13px">
+            <option value="/">/  (Inicio)</option>
+            <option value="/laptops/">/laptops/</option>
+            <option value="/bicis/">/bicis/</option>
+            <option value="/electrodomesticos/freidoras/">/electrodomesticos/freidoras/</option>
+            <option value="/electrodomesticos/microondas/">/electrodomesticos/microondas/</option>
+            <option value="/suplementos/">/suplementos/</option>
+            <option value="/suplementos/proteina/">/suplementos/proteina/</option>
+            <option value="/suplementos/creatina/">/suplementos/creatina/</option>
+            <option value="/suplementos/omega3/">/suplementos/omega3/</option>
+            <option value="/suplementos/magnesio/">/suplementos/magnesio/</option>
+            <option value="/suplementos/complejo-b/">/suplementos/complejo-b/</option>
+            <option value="/suplementos/vitamina-d/">/suplementos/vitamina-d/</option>
+            <option value="/celulares/android/">/celulares/android/</option>
+            <option value="/celulares/iphone/">/celulares/iphone/</option>
+            <option value="/videojuegos/">/videojuegos/</option>
+            <option value="/videojuegos/consolas/">/videojuegos/consolas/</option>
+            <option value="/videojuegos/juegos/">/videojuegos/juegos/</option>
+            <option value="/videojuegos/controles/">/videojuegos/controles/</option>
+          </select>
+        </div>
+        <div class="utm-row" id="utm-fields-row" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+          <div><label class="utm-lbl">Fuente (utm_source)</label><input id="utm-source" class="utm-input" placeholder="instagram"></div>
+          <div><label class="utm-lbl">Medio (utm_medium)</label><input id="utm-medium" class="utm-input" placeholder="story"></div>
+          <div><label class="utm-lbl">Campaña (utm_campaign)</label><input id="utm-campaign" class="utm-input" placeholder="social"></div>
+        </div>
+        <div class="utm-row"><label class="utm-lbl">Contenido (utm_content) <span class="muted">· opcional</span></label><input id="utm-content" class="utm-input" placeholder="p.ej. creatina-post-oct2026"></div>
+        <div class="utm-row" style="display:flex;gap:8px;align-items:center">
+          <input id="utm-out" readonly style="flex:1;height:34px;border:1px solid var(--accent);border-radius:6px;background:var(--surface-2);color:var(--fg);padding:0 10px;font:12px/1 var(--font-data);cursor:text">
+          <button class="btn btn-primary" data-act="utm-copy" style="flex-shrink:0">Copiar</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
 
 const CATS = {laptops:'Laptops', freidoras:'Freidoras', bicis:'Bicis', microondas:'Microondas', proteina:'Proteína', omega3:'Omega 3', magnesio:'Magnesio', creatina:'Creatina', complejo_b:'Complejo B', vitamina_d:'Vitamina D', videojuegos_consolas:'Consolas', videojuegos_controles:'Controles', videojuegos_juegos:'Videojuegos'};
 const PRICE_WF = GH + '/workflows/update-prices.yml';
@@ -433,13 +768,15 @@ const SHELL = `
         <button data-act="discard" id="mi-discard" class="danger" hidden>Descartar cambios sin guardar</button>
       </div>
     </div>
+    <button class="btn btn-sm" id="btn-dash" data-act="dash" title="Dashboard de analíticas">📊</button>
     <button class="btn btn-primary" id="btn-save" data-act="save">Guardar</button>
   </div>
 </header>
 <nav class="cats" id="cats" aria-label="Categorías"></nav>
+<section id="dash" hidden></section>
 <section class="queues" id="queues" aria-label="Filtros de trabajo"></section>
 <div id="callout"></div>
-<div class="toolbar">
+<div class="toolbar" id="toolbar">
   <label class="search"><span class="sr">Buscar</span><input id="q" type="search" placeholder="Buscar por nombre, marca, id o MLM…" autocomplete="off"><kbd>/</kbd></label>
   <div class="seg" id="plat" role="group" aria-label="Tienda"><button data-plat="">Todas</button><button data-plat="ml">Con ML</button><button data-plat="amz">Con Amazon</button><button data-plat="ambas">Ambas</button></div>
   <div class="seg" id="view" role="group" aria-label="Vista"><button data-view="resumen">Resumen</button><button data-view="specs">Especificaciones</button></div>
@@ -1093,6 +1430,16 @@ function onClick(e) {
   const filt = t.closest('[data-filter]');
   if (filt) { if ($('#dd')) closeDropdown(); else openFilter(filt, filt.dataset.filter); return; }
 
+  // Dashboard filters & UTM presets (no data-act)
+  const dashCatBtn = t.closest('[data-dash-cat]');
+  if (dashCatBtn) { DS.cat = dashCatBtn.dataset.dashCat; saveDS(); renderDash(); return; }
+  const dashWkBtn = t.closest('[data-dash-wk]');
+  if (dashWkBtn) { DS.week = +dashWkBtn.dataset.dashWk; saveDS(); renderDash(); return; }
+  const dashMetricBtn = t.closest('[data-dash-metric]');
+  if (dashMetricBtn) { DS.metric = dashMetricBtn.dataset.dashMetric; saveDS(); renderDash(); return; }
+  const utmPreBtn = t.closest('[data-utm]');
+  if (utmPreBtn) { applyUtmPreset(utmPreBtn.dataset.utm); return; }
+
   const a = t.closest('[data-act]');
   if (!a) return;
   const act = a.dataset.act;
@@ -1127,6 +1474,21 @@ function onClick(e) {
     case 'rv-skip': RV.i++; renderReview(); break;
     case 'rv-prev': RV.i = Math.max(0, RV.i - 1); while (RV.i > 0 && BYKEY.get(RV.list[RV.i]) && BYKEY.get(RV.list[RV.i]).p.mlId) RV.i--; renderReview(); break;
     case 'rv-none': rvNone(); break;
+    case 'dash': {
+      const dash = $('#dash'), btn = $('#btn-dash');
+      const show = dash.hidden;
+      dash.hidden = !show;
+      ['#toolbar','#table-wrap','#queues','#callout'].forEach(sel => { const el2=$(sel); if(el2) el2.hidden = show; });
+      btn.classList.toggle('btn-primary', show);
+      btn.setAttribute('aria-pressed', String(show));
+      if (show) renderDash();
+      break;
+    }
+    case 'utm-copy': {
+      const out = $('#utm-out');
+      if (out && out.value) { navigator.clipboard.writeText(out.value).then(()=>toast('URL copiada')).catch(()=>{ out.select(); document.execCommand('copy'); toast('URL copiada'); }); }
+      break;
+    }
   }
 }
 async function download() {
@@ -1153,6 +1515,7 @@ function onInput(e) {
   else if (t.id === 'a-mlid') mlIdMessage(t, $('#a-mlid-msg'));
   else if (t.id === 'e-amz') amzMessage(t, $('#e-amz-msg'));
   else if (t.id === 'a-amz') amzMessage(t, $('#a-amz-msg'));
+  else if (['utm-source','utm-medium','utm-campaign','utm-content','utm-page'].includes(t.id)) buildUtmUrl();
 }
 function onKey(e) {
   const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName);
