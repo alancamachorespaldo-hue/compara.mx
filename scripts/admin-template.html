@@ -286,8 +286,8 @@ const ANALYTICS = {
 const DASH_CATS = [{k:'',lbl:'Todas'},{k:'inicio',lbl:'Inicio'},{k:'laptops',lbl:'Laptops'},{k:'suplementos',lbl:'Suplementos'},{k:'freidoras',lbl:'Freidoras'},{k:'bicis',lbl:'Bicis'},{k:'celulares',lbl:'Celulares'},{k:'microondas',lbl:'Microondas'},{k:'electrodomesticos',lbl:'Electrod.'}];
 const DASH_CAT_COLOR = {inicio:'var(--accent)',laptops:'var(--info)',suplementos:'var(--ok)',freidoras:'var(--amz)',bicis:'var(--accent-hover)',celulares:'#9b59b6',microondas:'var(--warn)',electrodomesticos:'var(--fg-3)'};
 const DKEY = 'cmx-dash-v1';
-function loadDS(){const s=lsGet(DKEY)||{};return{cat:s.cat||'',week:s.week??-1,metric:s.metric||'u'};}
-function saveDS(){lsSet(DKEY,{cat:DS.cat,week:DS.week,metric:DS.metric});}
+function loadDS(){try{const s=JSON.parse(localStorage.getItem(DKEY)||'{}');return{cat:s.cat||'',week:s.week??-1,metric:s.metric||'u'};}catch(e){return{cat:'',week:-1,metric:'u'};}}
+function saveDS(){try{localStorage.setItem(DKEY,JSON.stringify({cat:DS.cat,week:DS.week,metric:DS.metric}));}catch(e){}}
 let DS = loadDS();
 
 function vBarSvg(weeks, key, color, sel) {
