@@ -317,9 +317,25 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 </div>
 
 <section style="max-width:760px;margin:0 auto 2.5rem;padding:0 2rem;color:var(--tx2);font-size:.9rem;line-height:1.8">
-  <h2 style="font-size:1.1rem;font-weight:800;color:var(--tx);margin-bottom:.6rem;letter-spacing:-.02em">¿Qué considerar al comprar una consola en México?</h2>
-  <p>Antes de elegir una consola conviene revisar la generación (y si incluye lector de discos o es solo digital), el almacenamiento disponible y si el paquete incluye accesorios o juegos adicionales. Compara el mismo modelo en Amazon MX y Mercado Libre para encontrar el mejor precio antes de comprar.</p>
-  <p style="margin-top:.75rem">¿Tienes dudas entre PS5, Xbox Series X|S y Nintendo Switch 2? Consulta la <a href="/guias/videojuegos/mejores-consolas-videojuegos-mexico-2026/" style="color:var(--ac);text-decoration:underline;text-underline-offset:2px">guía de mejores consolas en México 2026</a> para comparar según tus necesidades y presupuesto.</p>
+  <h2 style="font-size:1.15rem;font-weight:800;color:var(--tx);margin-bottom:.75rem;letter-spacing:-.02em">Consolas de videojuegos en México: cómo elegir y dónde comprar</h2>
+  <p>Elegir una consola depende de los juegos que quieres disfrutar, tu presupuesto y la forma en que prefieres jugar. PlayStation, Xbox y Nintendo Switch ofrecen experiencias diferentes, mientras que las consolas portátiles permiten jugar fuera de casa. Compara los modelos disponibles y revisa sus características antes de decidir.</p>
+
+  <h3 style="font-size:1rem;font-weight:700;color:var(--tx);margin-top:1.25rem;margin-bottom:.5rem;letter-spacing:-.01em">¿Qué debes revisar antes de comprar una consola?</h3>
+  <ul style="list-style:disc;padding-left:1.2rem;display:flex;flex-direction:column;gap:.35rem">
+    <li>Generación y modelo exacto.</li>
+    <li>Capacidad de almacenamiento.</li>
+    <li>Lector de discos o versión exclusivamente digital.</li>
+    <li>Juegos incluidos y compatibilidad con los títulos que te interesan.</li>
+    <li>Controles, accesorios y suscripciones que podrías necesitar.</li>
+    <li>Precio total, garantía y condiciones de compra.</li>
+  </ul>
+
+  <h3 style="font-size:1rem;font-weight:700;color:var(--tx);margin-top:1.25rem;margin-bottom:.5rem;letter-spacing:-.01em">¿Dónde comprar consolas de videojuegos en México?</h3>
+  <p>Mercado Libre México ofrece publicaciones de distintos vendedores y puede haber productos nuevos, usados o reacondicionados. Antes de comprar, verifica el estado del equipo, el modelo exacto, la reputación del vendedor, el costo de envío y las condiciones de garantía y devolución.</p>
+  <p style="margin-top:.6rem">Evita comparar como si fueran idénticas dos versiones que tienen diferencias importantes, por ejemplo, una consola digital y otra con lector de discos. Consulta la <a href="/guias/videojuegos/mejores-consolas-videojuegos-mexico-2026/" style="color:var(--ac);text-decoration:underline;text-underline-offset:2px">guía de mejores consolas en México 2026</a> para elegir según tus necesidades.</p>
+
+  <h3 style="font-size:1rem;font-weight:700;color:var(--tx);margin-top:1.25rem;margin-bottom:.5rem;letter-spacing:-.01em">Compara consolas antes de decidir</h3>
+  <p>En Compáralo.mx puedes consultar los modelos disponibles y evaluar sus diferencias para encontrar la opción que mejor se adapte a tus necesidades y presupuesto. Explora también <a href="/videojuegos/controles/" style="color:var(--ac);text-decoration:underline;text-underline-offset:2px">controles</a>, <a href="/videojuegos/juegos/" style="color:var(--ac);text-decoration:underline;text-underline-offset:2px">títulos de videojuegos</a> o regresa al <a href="/videojuegos/" style="color:var(--ac);text-decoration:underline;text-underline-offset:2px">hub de videojuegos</a>.</p>
 </section>
 
 <section style="max-width:900px;margin:0 auto 1.5rem;padding:0 2rem">
@@ -497,7 +513,7 @@ function cardHtml(p) {
     </div>`;
   } else if (hasML) {
     const priceHtml = p.precioML != null ? `<div class="card-price">$${Math.round(p.precioML).toLocaleString('es-MX')}</div>` : '';
-    btns = `${priceHtml}<a class="btn-ml" href="${p.linkML}" target="_blank" rel="nofollow sponsored noopener" onclick="event.stopPropagation()">Ver en Mercado Libre</a>`;
+    btns = `${priceHtml}<a class="btn-ml" href="${p.linkML}" target="_blank" rel="nofollow sponsored noopener" onclick="event.stopPropagation()">Ver en <img style="height:16px;vertical-align:middle" src="/logomercado.png" alt="" onerror="this.style.display='none'"></a>`;
   } else if (hasAmz) {
     const priceHtml = p.precioAmz != null ? `<div class="card-price">$${Math.round(p.precioAmz).toLocaleString('es-MX')}</div>` : '';
     btns = `${priceHtml}<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow sponsored noopener" onclick="event.stopPropagation()">Ver en Amazon</a>`;

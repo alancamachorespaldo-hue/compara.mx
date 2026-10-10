@@ -337,9 +337,31 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 </div>
 
 <section style="max-width:760px;margin:0 auto 2.5rem;padding:0 2rem;color:var(--tx2);font-size:.9rem;line-height:1.8">
-  <h2 style="font-size:1.1rem;font-weight:800;color:var(--tx);margin-bottom:.6rem;letter-spacing:-.02em">¿Qué considerar al comprar un videojuego en México?</h2>
-  <p>Revisa para qué plataforma y generación es el título, si es versión física o digital, y la clasificación por edad antes de comprar. Compara el mismo juego en Amazon MX y Mercado Libre para encontrar el mejor precio.</p>
-  <p style="margin-top:.75rem">¿Tienes dudas sobre formatos, ediciones o compatibilidad? Consulta la <a href="/guias/videojuegos/como-elegir-controles-y-videojuegos/" style="color:var(--ac);text-decoration:underline;text-underline-offset:2px">guía para elegir controles y videojuegos</a>.</p>
+  <h2 style="font-size:1.15rem;font-weight:800;color:var(--tx);margin-bottom:.75rem;letter-spacing:-.02em">Videojuegos en México: encuentra juegos para tu consola</h2>
+  <p>¿Buscas videojuegos para <a href="/videojuegos/consolas/" style="color:var(--ac);text-decoration:underline;text-underline-offset:2px">PlayStation 5, Xbox o Nintendo Switch</a>? Antes de elegir un título, revisa la plataforma compatible, la edición, el formato y las características que más te interesan. Estos detalles ayudan a evitar compras equivocadas y a comparar productos equivalentes.</p>
+
+  <h3 style="font-size:1rem;font-weight:700;color:var(--tx);margin-top:1.25rem;margin-bottom:.5rem;letter-spacing:-.01em">Cómo elegir un videojuego para PS5, Xbox o Nintendo Switch</h3>
+  <p style="margin-bottom:.5rem">Antes de comprar, verifica:</p>
+  <ul style="list-style:disc;padding-left:1.2rem;display:flex;flex-direction:column;gap:.35rem">
+    <li>Plataforma y generación compatibles.</li>
+    <li>Género y estilo de juego.</li>
+    <li>Clasificación por edad.</li>
+    <li>Idiomas disponibles y contenido de la edición.</li>
+    <li>Requisitos de conexión a internet o suscripciones, cuando correspondan.</li>
+    <li>Modos individual, cooperativo o multijugador, si son relevantes para ti.</li>
+  </ul>
+  <p style="margin-top:.6rem">Si compras un videojuego para regalar, confirma primero la consola de la persona que lo recibirá.</p>
+
+  <h3 style="font-size:1rem;font-weight:700;color:var(--tx);margin-top:1.25rem;margin-bottom:.5rem;letter-spacing:-.01em">Videojuegos físicos vs. digitales: ¿cuál te conviene?</h3>
+  <p>Los videojuegos físicos pueden resultar útiles para quienes prefieren conservar el disco o cartucho y, dependiendo del producto y las condiciones, prestarlo o revenderlo. En cambio, las versiones digitales se compran o canjean en formato electrónico y quedan sujetas a las condiciones de la plataforma.</p>
+  <p style="margin-top:.6rem">Antes de comprar, confirma si la publicación corresponde a un disco, cartucho, descarga o código digital. Comprueba también la región, la plataforma y el contenido exacto. Evita asumir que un código o una cuenta digital equivale a una copia física del juego.</p>
+
+  <h3 style="font-size:1rem;font-weight:700;color:var(--tx);margin-top:1.25rem;margin-bottom:.5rem;letter-spacing:-.01em">Comprar videojuegos en Mercado Libre México</h3>
+  <p>Compara siempre el mismo título, plataforma, edición y formato. Revisa el precio final, el envío, la reputación del vendedor y las condiciones de devolución.</p>
+  <p style="margin-top:.6rem">Si compras un juego físico usado, comprueba el estado del disco o cartucho, la caja y los artículos incluidos. Si se trata de un código digital, verifica qué contenido incluye, para qué plataforma sirve y cuáles son sus condiciones de canje.</p>
+
+  <h3 style="font-size:1rem;font-weight:700;color:var(--tx);margin-top:1.25rem;margin-bottom:.5rem;letter-spacing:-.01em">Compara videojuegos antes de comprar</h3>
+  <p>En Compáralo.mx estamos ampliando el catálogo de videojuegos para facilitar la comparación entre opciones. Mientras se incorporan nuevos títulos, consulta nuestras <a href="/guias/videojuegos/como-elegir-controles-y-videojuegos/" style="color:var(--ac);text-decoration:underline;text-underline-offset:2px">guías para elegir videojuegos</a>, la <a href="/guias/videojuegos/mejores-consolas-videojuegos-mexico-2026/" style="color:var(--ac);text-decoration:underline;text-underline-offset:2px">guía de consolas 2026</a>, las <a href="/videojuegos/consolas/" style="color:var(--ac);text-decoration:underline;text-underline-offset:2px">consolas disponibles</a>, los <a href="/videojuegos/controles/" style="color:var(--ac);text-decoration:underline;text-underline-offset:2px">controles</a> o el <a href="/videojuegos/" style="color:var(--ac);text-decoration:underline;text-underline-offset:2px">hub de videojuegos</a>.</p>
 </section>
 
 <section style="max-width:900px;margin:0 auto 1.5rem;padding:0 2rem">
@@ -537,7 +559,7 @@ function cardHtml(p, isMejor){
     </div>`;
   } else if(hasML){
     const priceHtml = p.precioML!=null ? `<div class="card-price">$${Math.round(p.precioML).toLocaleString('es-MX')}</div>` : '';
-    btns = `${priceHtml}<a class="btn-ml" href="${p.linkML}" target="_blank" rel="nofollow sponsored noopener" onclick="event.stopPropagation();trackClick('ml','${p.id}','${(p.nombre||'').replace(/'/g,"\\'")}')">Ver en Mercado Libre</a>`;
+    btns = `${priceHtml}<a class="btn-ml" href="${p.linkML}" target="_blank" rel="nofollow sponsored noopener" onclick="event.stopPropagation();trackClick('ml','${p.id}','${(p.nombre||'').replace(/'/g,"\\'")}')">Ver en <img style="height:16px;vertical-align:middle" src="/logomercado.png" alt="" onerror="this.style.display='none'"></a>`;
   } else if(hasAmz){
     const priceHtml = p.precioAmz!=null ? `<div class="card-price">$${Math.round(p.precioAmz).toLocaleString('es-MX')}</div>` : '';
     btns = `${priceHtml}<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow sponsored noopener" onclick="event.stopPropagation();trackClick('amz','${p.id}','${(p.nombre||'').replace(/'/g,"\\'")}')">Ver en Amazon</a>`;
