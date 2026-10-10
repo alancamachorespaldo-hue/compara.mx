@@ -392,6 +392,13 @@
   }
   .fuentes a { color: var(--verde); }
 
+  .cta-guide{background:var(--verde-bg);border:1px solid var(--borde);border-radius:var(--r);padding:1.1rem 1.3rem;margin:0 0 1.75rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+  .cta-guide-txt{font-size:14px;color:var(--negro);font-weight:700}
+  .cta-guide-txt span{display:block;font-size:12.5px;color:var(--gris);font-weight:400;margin-top:2px}
+  .cta-guide-actions{display:flex;gap:8px;flex-wrap:wrap}
+  .cta-guide-btn{display:inline-flex;align-items:center;padding:9px 18px;background:var(--verde);color:#fff;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap}
+  .cta-guide-btn:hover{opacity:.9}
+
   /* ── Responsive ── */
   @media (max-width: 600px) {
     .art-wrap { padding: 2rem 1rem 4rem; }
@@ -444,6 +451,11 @@
       <li><a href="#elegir">Cómo elegir sin caer en marketing vacío</a></li>
       <li><a href="#donde">Dónde comprar al mejor precio</a></li>
     </ol>
+  </div>
+
+  <div class="cta-guide">
+    <div class="cta-guide-txt">Compara suplementos en México<span>Proteína, creatina, omega 3, magnesio y más — Amazon MX y Mercado Libre</span></div>
+    <div class="cta-guide-actions"><a class="cta-guide-btn" href="/suplementos/">Ver comparador →</a></div>
   </div>
 
   <div class="art-body">
@@ -773,6 +785,7 @@
 
 </article>
 
+<script>try{sessionStorage.setItem('cmx_onboarding_v1','1');}catch(e){}</script>
 <script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
 </body>

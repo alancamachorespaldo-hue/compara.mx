@@ -218,6 +218,14 @@ footer strong{color:var(--tx2)}
   .stats-row{grid-template-columns:1fr 1fr}
   .rank-btns{flex-direction:column}
 }
+
+.cta-guide{background:var(--acd);border:1px solid var(--acd2);border-radius:var(--r);padding:1.1rem 1.3rem;margin:0 0 1.75rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.cta-guide-txt{font-size:14px;color:var(--tx);font-weight:700}
+.cta-guide-txt span{display:block;font-size:12.5px;color:var(--tx2);font-weight:400;margin-top:2px}
+.cta-guide-actions{display:flex;gap:8px;flex-wrap:wrap}
+.cta-guide-btn{display:inline-flex;align-items:center;padding:9px 18px;background:var(--ac);color:#fff;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap}
+.cta-guide-btn:hover{opacity:.9}
+.cta-guide-btn.alt{background:#fff;color:var(--ac);border:1.5px solid var(--acd2)}
 </style>
 </head>
 <body>
@@ -268,6 +276,11 @@ footer strong{color:var(--tx2)}
       <li><a href="#faq">Preguntas frecuentes</a></li>
     </ol>
   </nav>
+  <div class="cta-guide">
+    <div class="cta-guide-txt">Compara proteína en México<span>Precios actualizados en Amazon MX y Mercado Libre</span></div>
+    <div class="cta-guide-actions"><a class="cta-guide-btn" href="/suplementos/proteina/">Ver comparador →</a></div>
+  </div>
+
 
   <!-- ═══ MERCADO ═══ -->
   <h2 id="mercado">Por qué la proteína vegana crece tan rápido en México en 2026</h2>
@@ -709,11 +722,11 @@ footer strong{color:var(--tx2)}
     <a class="cta-btn" href="https://comparalo.mx/suplementos/proteina/">Ver comparador completo de proteínas →</a>
   </div>
 
-  <p class="afil" role="note">Como afiliados de Amazon MX (tag: comparabici-20) y Mercado Libre MX, podemos recibir una comisión por compras realizadas a través de nuestros enlaces, sin costo adicional para ti. Los precios son orientativos y pueden variar. Última revisión: agosto 2026.</p>
+  <p class="afil" role="note">Como afiliados de Amazon MX (tag: comparalo20-20) y Mercado Libre MX, podemos recibir una comisión por compras realizadas a través de nuestros enlaces, sin costo adicional para ti. Los precios son orientativos y pueden variar. Última revisión: agosto 2026.</p>
 
 </article>
 
-<footer><strong>comparalo.mx</strong> · Afiliados Amazon MX (comparabici-20) · Afiliados Mercado Libre MX · Actualizado agosto 2026</footer>
+<footer><strong>comparalo.mx</strong> · Afiliados Amazon MX (comparalo20-20) · Afiliados Mercado Libre MX · Actualizado agosto 2026</footer>
 
 <script>
 /* affiliate click tracking */
@@ -729,6 +742,7 @@ document.addEventListener('click',function(e){
   gtag('event',evt,{event_category:'afiliado',event_label:label,value:parseFloat(btn.dataset.gaVal)||0,page_section:sec,item_position:pos});
 });
 </script>
+<script>try{sessionStorage.setItem('cmx_onboarding_v1','1');}catch(e){}</script>
 <script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
 <script src="/assets/js/share.js" defer></script>
