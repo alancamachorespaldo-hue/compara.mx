@@ -196,6 +196,46 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 @media(max-width:360px){
   .card-img-wrap{height:90px}
 }
+
+/* comparar */
+.card{cursor:pointer}
+.card.selected{outline:2.5px solid var(--ac);background:var(--s1)}
+.card::after{content:'+ Comparar';display:block;border:1px solid #16a34a;color:#16a34a;font-size:11px;padding:3px 8px;border-radius:20px;text-align:center;margin:6px 8px 8px;font-family:'Satoshi',sans-serif;font-weight:500;transition:all .15s}
+.card.selected::after{content:'✓ Seleccionado';background:var(--ac);color:#fff;border-color:var(--ac)}
+.cmp-bar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:2px solid var(--ac);padding:.875rem 2rem;display:none;align-items:center;justify-content:space-between;z-index:200;gap:12px;box-shadow:0 -4px 20px rgba(0,0,0,.08)}
+.cmp-bar.show{display:flex}
+.cmp-bar-txt{font-size:13px;font-weight:600;color:var(--tx2)}
+.cmp-bar-btns{display:flex;gap:10px;align-items:center}
+.btn-cmp-open{background:var(--ac);color:#fff;border:none;border-radius:9px;padding:9px 22px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Satoshi',sans-serif}
+.btn-cmp-clear{background:transparent;border:1.5px solid var(--bd2);color:var(--tx3);border-radius:9px;padding:9px 14px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Satoshi',sans-serif}
+.cmp-fab{position:fixed;bottom:20px;right:20px;z-index:201;display:none}
+.cmp-fab.show{display:block}
+.cmp-fab-btn{background:var(--ac);color:#fff;border:none;border-radius:50%;width:52px;height:52px;font-size:1.25rem;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.18);display:flex;align-items:center;justify-content:center}
+.cmp-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;display:none;align-items:center;justify-content:center;padding:20px}
+.cmp-overlay.open{display:flex}
+.cmp-modal{background:#fff;border-radius:16px;width:100%;max-width:960px;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.18)}
+.cmp-modal-header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid var(--bd);flex-shrink:0}
+.cmp-modal-header h2{font-size:1rem;font-weight:800;color:var(--tx)}
+.btn-cmp-close{background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--tx3);padding:2px 8px;border-radius:6px}
+.cmp-diffs{display:flex;flex-wrap:wrap;gap:8px;padding:.75rem 1.25rem;border-bottom:1px solid var(--bd);flex-shrink:0}
+.cmp-diff-chip{font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0}
+.cmp-table-wrap{overflow:auto;flex:1}
+.cmp-table{width:100%;border-collapse:collapse;font-size:13px;min-width:480px}
+.cmp-table th,.cmp-table td{padding:.55rem .875rem;border-bottom:1px solid var(--bd);text-align:left;vertical-align:top}
+.cmp-table th{background:var(--s1);font-weight:700;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--tx3);position:sticky;top:0;z-index:1}
+.cmp-table td:first-child{font-weight:600;color:var(--tx2);white-space:nowrap;background:var(--s1);position:sticky;left:0;z-index:1}
+.cmp-table tr:last-child td{border-bottom:none}
+.cmp-win{background:#f0fdf4;font-weight:700;color:#166534}
+.cmp-prod-img{width:64px;height:64px;object-fit:contain;border-radius:8px;border:1px solid var(--bd);display:block;margin:0 auto 6px}
+.cmp-prod-name{font-size:11px;font-weight:600;color:var(--tx);line-height:1.3;text-align:center;max-width:160px;margin:0 auto 4px}
+.cmp-prod-price{font-size:.95rem;font-weight:800;color:var(--ac);text-align:center}
+.cmp-prod-btn{display:block;background:var(--ml);color:#3a2e00;border-radius:7px;padding:5px 10px;font-size:11px;font-weight:700;text-decoration:none;text-align:center;margin:6px auto 0;max-width:130px}
+@media(max-width:640px){
+  .cmp-bar{padding:.75rem 1rem;flex-direction:column;align-items:stretch}
+  .cmp-bar-btns{justify-content:flex-end}
+  .cmp-modal{max-height:95vh}
+  .cmp-modal-header{padding:.875rem 1rem}
+}
 </style>
 </head>
 <body data-category="videojuegos_juegos">
@@ -386,7 +426,7 @@ const productos = [
 ];
 
 const precioVigente = p => (p.linkML ? p.precioML : p.precioAmz) ?? p.precio ?? null;
-const SPEC_KEYS = [['plataforma','Plataforma'],['genero','Género'],['modoJuego','Modo'],['clasificacion','Clasif.'],['formato','Formato'],['desarrollador','Dev'],['anio','Año'],['idiomas','Idiomas'],['condicion','Condición']];
+const SPEC_KEYS = [['genero','Género'],['modoJuego','Modo'],['clasificacion','Clasif.'],['formato','Formato'],['desarrollador','Dev'],['anio','Año'],['idiomas','Idiomas'],['condicion','Condición']];
 const PRECIO_MAX = 3000;
 
 let fPrecio = PRECIO_MAX;
@@ -460,6 +500,9 @@ function initFilters(){
   buildPills('f-plat', plats, selPlats, 'togglePlat');
   buildPills('f-gen',  gens,  selGens,  'toggleGen');
   buildPills('f-fmt',  fmts,  selFmts,  'toggleFmt');
+  // ocultar grupos sin valores
+  if(!gens.length)  document.getElementById('f-gen').closest('.filter-group').style.display='none';
+  if(!fmts.length)  document.getElementById('f-fmt').closest('.filter-group').style.display='none';
 }
 
 function cardHtml(p, isMejor){
@@ -477,17 +520,18 @@ function cardHtml(p, isMejor){
     const pML  = p.precioML  != null ? `$${Math.round(p.precioML).toLocaleString('es-MX')}`  : '';
     const pAmz = p.precioAmz != null ? `$${Math.round(p.precioAmz).toLocaleString('es-MX')}` : '';
     btns = `<div class="card-btns-dual">
-      <div class="card-btn-col">${pML?`<span class="card-btn-col-price">${pML}</span>`:''}<a class="btn-ml" href="${p.linkML}" target="_blank" rel="nofollow sponsored noopener" onclick="trackClick('ml','${p.id}','${(p.nombre||'').replace(/'/g,"\\'")}')">Mercado Libre</a></div>
-      <div class="card-btn-col">${pAmz?`<span class="card-btn-col-price">${pAmz}</span>`:''}<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow sponsored noopener" onclick="trackClick('amz','${p.id}','${(p.nombre||'').replace(/'/g,"\\'")}')">Amazon</a></div>
+      <div class="card-btn-col">${pML?`<span class="card-btn-col-price">${pML}</span>`:''}<a class="btn-ml" href="${p.linkML}" target="_blank" rel="nofollow sponsored noopener" onclick="event.stopPropagation();trackClick('ml','${p.id}','${(p.nombre||'').replace(/'/g,"\\'")}')">Mercado Libre</a></div>
+      <div class="card-btn-col">${pAmz?`<span class="card-btn-col-price">${pAmz}</span>`:''}<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow sponsored noopener" onclick="event.stopPropagation();trackClick('amz','${p.id}','${(p.nombre||'').replace(/'/g,"\\'")}')">Amazon</a></div>
     </div>`;
   } else if(hasML){
     const priceHtml = p.precioML!=null ? `<div class="card-price">$${Math.round(p.precioML).toLocaleString('es-MX')}</div>` : '';
-    btns = `${priceHtml}<a class="btn-ml" href="${p.linkML}" target="_blank" rel="nofollow sponsored noopener" onclick="trackClick('ml','${p.id}','${(p.nombre||'').replace(/'/g,"\\'")}')">Ver en Mercado Libre</a>`;
+    btns = `${priceHtml}<a class="btn-ml" href="${p.linkML}" target="_blank" rel="nofollow sponsored noopener" onclick="event.stopPropagation();trackClick('ml','${p.id}','${(p.nombre||'').replace(/'/g,"\\'")}')">Ver en Mercado Libre</a>`;
   } else if(hasAmz){
     const priceHtml = p.precioAmz!=null ? `<div class="card-price">$${Math.round(p.precioAmz).toLocaleString('es-MX')}</div>` : '';
-    btns = `${priceHtml}<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow sponsored noopener" onclick="trackClick('amz','${p.id}','${(p.nombre||'').replace(/'/g,"\\'")}')">Ver en Amazon</a>`;
+    btns = `${priceHtml}<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow sponsored noopener" onclick="event.stopPropagation();trackClick('amz','${p.id}','${(p.nombre||'').replace(/'/g,"\\'")}')">Ver en Amazon</a>`;
   }
-  return `<div class="card" data-platform="${platform}">
+  const isSel = selected.includes(p.id);
+  return `<div class="card${isSel?' selected':''}" id="card-${p.id}" onclick="toggleSelect('${p.id}')" data-platform="${platform}">
     ${mejorBadge}
     <div class="card-img-wrap"><img class="card-img" src="${p.img||''}" alt="${p.nombre}" loading="lazy"></div>
     <div class="card-body">
@@ -549,9 +593,127 @@ function render(){
   document.getElementById('btn-reset').classList.toggle('show', isActive());
 }
 
+// ── comparar ─────────────────────────────────────────────────────────────
+let selected = [];
+
+function toggleSelect(id){
+  const idx = selected.indexOf(id);
+  if(idx > -1){ selected.splice(idx,1); }
+  else if(selected.length < 3){ selected.push(id); }
+  else { return; }
+  updateBar();
+  render();
+}
+
+function clearSelection(){ selected=[]; updateBar(); render(); }
+
+function updateBar(){
+  const bar = document.getElementById('cmp-bar');
+  const fab = document.getElementById('cmp-fab');
+  const n = selected.length;
+  if(n >= 2){
+    document.getElementById('cmp-bar-txt').textContent =
+      n === 3 ? '3 juegos seleccionados — máximo alcanzado' :
+                `${n} juegos seleccionados — elige hasta 3`;
+    bar.classList.add('show');
+    fab.classList.add('show');
+  } else {
+    bar.classList.remove('show');
+    fab.classList.remove('show');
+  }
+}
+
+function winIdxs(prods, keyFn){
+  const vals = prods.map(keyFn);
+  if(vals.some(v=>v==null)) return [];
+  const best = Math.min(...vals);
+  return vals.map((v,i)=>v===best?i:-1).filter(i=>i>-1);
+}
+
+function openModal(){
+  const prods = selected.map(id=>productos.find(p=>p.id===id)).filter(Boolean);
+  if(prods.length < 2) return;
+
+  const thead = `<thead><tr>
+    <th style="min-width:90px">Detalle</th>
+    ${prods.map(p=>`<th>
+      <img class="cmp-prod-img" src="${p.img}" alt="${p.nombre}" loading="lazy">
+      <div class="cmp-prod-name">${p.nombre}</div>
+      <div class="cmp-prod-price">${p.precioML!=null?'$'+Math.round(p.precioML).toLocaleString('es-MX'):''}</div>
+      ${p.linkML?`<a class="cmp-prod-btn" href="${p.linkML}" target="_blank" rel="nofollow sponsored noopener" onclick="trackClick('ml','${p.id}','${(p.nombre||'').replace(/'/g,"\\'")}')">Ver en ML</a>`:''}
+    </th>`).join('')}
+  </tr></thead>`;
+
+  const filaPrecio = () => {
+    const wins = winIdxs(prods, p=>precioVigente(p));
+    return `<tr><td>Precio</td>${prods.map((p,i)=>{
+      const v = precioVigente(p);
+      const cls = wins.includes(i) ? ' class="cmp-win"' : '';
+      return `<td${cls}>${v!=null?'$'+Math.round(v).toLocaleString('es-MX'):'—'}</td>`;
+    }).join('')}</tr>`;
+  };
+
+  const MODAL_SPECS = [
+    ['plataforma','Plataforma'],['genero','Género'],['modoJuego','Modo juego'],
+    ['clasificacion','Clasificación'],['formato','Formato'],['desarrollador','Desarrollador'],
+    ['anio','Año'],['idiomas','Idiomas'],['condicion','Condición']
+  ];
+
+  const fila = ([k, label]) => {
+    const vals = prods.map(p=>(p.especs||{})[k]||null);
+    if(vals.every(v=>!v)) return '';
+    return `<tr><td>${label}</td>${vals.map(v=>`<td>${v||'—'}</td>`).join('')}</tr>`;
+  };
+
+  const tbody = `<tbody>${filaPrecio()}${MODAL_SPECS.map(fila).join('')}</tbody>`;
+
+  const wins = winIdxs(prods, p=>precioVigente(p));
+  let chips = '';
+  if(wins.length > 0 && wins.length < prods.length){
+    const winner = prods[wins[0]];
+    const losers = prods.filter((_,i)=>!wins.includes(i));
+    const diff = Math.min(...losers.map(p=>precioVigente(p)||0)) - (precioVigente(winner)||0);
+    const nm = winner.nombre.slice(0,32)+(winner.nombre.length>32?'…':'');
+    chips = `<div class="cmp-diff-chip">💰 ${nm} — $${Math.abs(Math.round(diff)).toLocaleString('es-MX')} más barato</div>`;
+  }
+
+  document.getElementById('cmp-table').innerHTML = thead + tbody;
+  document.getElementById('cmp-diffs-wrap').innerHTML = chips ? `<div class="cmp-diffs">${chips}</div>` : '';
+  document.getElementById('cmp-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(){
+  document.getElementById('cmp-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
+
 initFilters();
 render();
 </script>
+
+<div class="cmp-bar" id="cmp-bar">
+  <span class="cmp-bar-txt" id="cmp-bar-txt"></span>
+  <div class="cmp-bar-btns">
+    <button class="btn-cmp-clear" onclick="clearSelection()">✕ Limpiar</button>
+    <button class="btn-cmp-open" onclick="openModal()">Comparar →</button>
+  </div>
+</div>
+<div class="cmp-fab" id="cmp-fab">
+  <button class="cmp-fab-btn" onclick="openModal()" title="Comparar seleccionados">⚖️</button>
+</div>
+<div class="cmp-overlay" id="cmp-overlay" onclick="if(event.target===this)closeModal()">
+  <div class="cmp-modal">
+    <div class="cmp-modal-header">
+      <h2>Comparativa de Juegos</h2>
+      <button class="btn-cmp-close" onclick="closeModal()" aria-label="Cerrar">✕</button>
+    </div>
+    <div id="cmp-diffs-wrap"></div>
+    <div class="cmp-table-wrap"><table class="cmp-table" id="cmp-table"></table></div>
+  </div>
+</div>
 
 <script>try{sessionStorage.setItem('cmx_onboarding_v1','1');}catch(e){}</script>
 <script src="/js/onboarding.js" defer></script>
