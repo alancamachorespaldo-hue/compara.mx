@@ -719,7 +719,18 @@ function openModal(){
     return `<tr><td>${label}</td>${vals.map(v=>`<td>${v||'—'}</td>`).join('')}</tr>`;
   };
 
-  const tbody = `<tbody>${filaPrecio()}${MODAL_SPECS.map(fila).join('')}</tbody>`;
+  const filaCatalogo = () => {
+    const vals = prods.map(p=>p.mlId||null);
+    if(vals.every(v=>!v)) return '';
+    return `<tr><td>Catálogo ML</td>${vals.map(v=>v?`<td><a href="https://www.mercadolibre.com.mx/p/${v}" target="_blank" rel="noopener" style="font-size:12px;font-weight:700;color:var(--ac)">${v}</a></td>`:'<td>—</td>').join('')}</tr>`;
+  };
+  const filaAfiliado = () => {
+    const vals = prods.map(p=>p.linkML||null);
+    if(vals.every(v=>!v)) return '';
+    return `<tr><td>Link afiliado</td>${vals.map(v=>v?`<td><a href="${v}" target="_blank" rel="nofollow sponsored noopener" style="font-size:12px;font-weight:700;color:var(--ac)">Ver en ML →</a></td>`:'<td>—</td>').join('')}</tr>`;
+  };
+
+  const tbody = `<tbody>${filaPrecio()}${MODAL_SPECS.map(fila).join('')}${filaCatalogo()}${filaAfiliado()}</tbody>`;
 
   let chips = '';
   if(wins.length > 0 && wins.length < prods.length){
