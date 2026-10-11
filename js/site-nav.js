@@ -43,9 +43,10 @@
       '  #sitenav-bar button:focus-visible{outline:2px solid #006847;outline-offset:2px}',
       '  #sitenav-dsk-btn{display:none!important}',
       '}',
-      '#sitenav-dsk-btn{display:flex;align-items:center;gap:6px;padding:7px 13px;border:1.5px solid #e2e2dc;border-radius:20px;background:#f7f7f5;color:#64748b;font:inherit;font-size:13px;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0}',
-      '#sitenav-dsk-btn:hover{background:#eef0ee;color:#0F172A}',
+      '#sitenav-dsk-btn{flex:1;min-width:0;display:flex;align-items:center;gap:8px;height:36px;padding:0 14px;margin-left:20px;border:1.5px solid #e2e2dc;border-radius:20px;background:#f7f7f5;color:#94a3b8;font:inherit;font-size:13px;cursor:pointer;font-family:inherit;text-align:left;white-space:nowrap;max-width:480px}',
+      '#sitenav-dsk-btn:hover{background:#eef0ee;border-color:#c0c8c0;color:#475569}',
       '#sitenav-dsk-btn svg{flex-shrink:0}',
+      '#sitenav-dsk-btn span{flex:1;text-align:left;overflow:hidden;text-overflow:ellipsis}',
       '#sitenav-ov{position:fixed;inset:0;z-index:300;background:rgba(15,23,42,.5);display:none;align-items:flex-start;justify-content:center;padding:0}',
       '#sitenav-ov.open{display:flex}',
       '#sitenav-panel{background:#fff;width:100%;max-width:560px;max-height:100dvh;display:flex;flex-direction:column;border-radius:0 0 16px 16px;box-shadow:0 12px 40px rgba(0,0,0,.2)}',
@@ -171,9 +172,12 @@
     btn.id = 'sitenav-dsk-btn';
     btn.type = 'button';
     btn.setAttribute('aria-label', 'Buscar productos o categorías');
-    btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Buscar';
+    btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Buscar productos o categorías…</span>';
     btn.addEventListener('click', openPanel);
-    nav.appendChild(btn);
+    // Insert inside the breadcrumb so it fills the middle flex space
+    var bc = nav.querySelector('.nav-breadcrumb');
+    if (bc) bc.appendChild(btn);
+    else nav.appendChild(btn);
   }
 
   function init() {
