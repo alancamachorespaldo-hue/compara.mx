@@ -18,6 +18,7 @@
     { icon: '🏠', name: 'Electrodomésticos', url: '/electrodomesticos/', desc: 'Freidoras, microondas', sub: ['freidora', 'microondas', 'horno'] },
     { icon: '💻', name: 'Laptops', url: '/laptops/', desc: 'Gaming, trabajo, estudio', sub: ['gaming', 'trabajo', 'chromebook'] },
     { icon: '🎮', name: 'Videojuegos', url: '/videojuegos/', desc: 'Consolas, controles, juegos', sub: ['consola', 'control', 'nintendo', 'playstation', 'xbox', 'switch'] },
+    { icon: '🎧', name: 'Tecnología', url: '/tecnologia/', desc: 'Alexas, audífonos, smartwatches', sub: ['alexa', 'bocina inteligente', 'echo', 'audifonos', 'auriculares', 'smartwatch', 'reloj inteligente'] },
   ];
   // Destinos extra para que el filtro encuentre subcategorías por nombre.
   var SUBS = [
@@ -27,6 +28,7 @@
     { name: 'Freidoras', url: '/electrodomesticos/freidoras/' }, { name: 'Microondas', url: '/electrodomesticos/microondas/' },
     { name: 'iPhone', url: '/celulares/iphone/' }, { name: 'Android', url: '/celulares/android/' },
     { name: 'Consolas', url: '/videojuegos/consolas/' }, { name: 'Controles', url: '/videojuegos/controles/' }, { name: 'Juegos', url: '/videojuegos/juegos/' },
+    { name: 'Alexas', url: '/tecnologia/alexas/' }, { name: 'Audífonos', url: '/tecnologia/audifonos/' }, { name: 'Smartwatches', url: '/tecnologia/smartwatches/' },
   ];
 
   var norm = function (s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); };
@@ -137,7 +139,7 @@
 
   // Oculta en móvil los contenedores del nav con >=2 enlaces de categoría (los botones horizontales).
   function hideHorizontalCats() {
-    var catRe = /\/(celulares|suplementos|bicis|electrodomesticos|laptops|videojuegos)\//;
+    var catRe = /\/(celulares|suplementos|bicis|electrodomesticos|laptops|videojuegos|tecnologia)\//;
     [].forEach.call(document.querySelectorAll('nav'), function (nav) {
       var counts = new Map();
       [].forEach.call(nav.querySelectorAll('a[href]'), function (a) {
