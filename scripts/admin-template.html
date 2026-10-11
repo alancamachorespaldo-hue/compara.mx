@@ -247,6 +247,33 @@ fieldset.group legend{padding:0 6px;font-size:12.5px;font-weight:800}
 .utm-input{width:100%;height:32px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--fg);padding:0 8px;font:inherit;font-size:13px}
 .utm-input:focus{border-color:var(--accent);outline:none}
 @media (max-width:620px){.dash-charts{grid-template-columns:1fr}.dash-tiles{grid-template-columns:repeat(2,1fr)}#utm-fields-row{grid-template-columns:1fr!important}.dash-head{flex-direction:column;align-items:flex-start}.dash-metric-row{margin-left:0}}
+/* Importar desde HTML */
+.imp-wrap{padding:16px;max-width:780px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.imp-drop{border:2px dashed var(--line);border-radius:12px;padding:32px 24px;text-align:center;cursor:pointer;transition:border-color .15s,background .15s;user-select:none}
+.imp-drop:hover,.imp-drop.over{border-color:var(--accent);background:var(--accent-soft)}
+.imp-drop h3{margin:0 0 6px;font-size:15px;font-weight:700}
+.imp-drop p{margin:4px 0 0;color:var(--fg-2);font-size:13px}
+.imp-drop-icon{font-size:32px;line-height:1;margin-bottom:10px}
+.imp-result{display:none;flex-direction:column;gap:14px;padding:16px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+.imp-result.show{display:flex}
+.imp-header{display:flex;gap:12px;align-items:flex-start}
+.imp-preview-img{width:72px;height:72px;object-fit:contain;border:1px solid var(--line);border-radius:6px;flex-shrink:0;background:var(--surface-2)}
+.imp-field-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.imp-field{display:flex;flex-direction:column;gap:4px}
+.imp-field.span2{grid-column:1/-1}
+.imp-field span{font-size:11px;font-weight:600;color:var(--fg-2);text-transform:uppercase;letter-spacing:.04em}
+.imp-field input{height:32px;padding:0 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--fg);font:inherit;font-size:13px}
+.imp-field input:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--accent-soft)}
+.imp-specs{border:1px solid var(--line-soft);border-radius:6px;padding:0 12px}
+.imp-specs summary{cursor:pointer;padding:10px 0;font-size:13px;font-weight:600;list-style:none}
+.imp-specs summary::before{content:'▶ '}
+.imp-specs[open] summary::before{content:'▼ '}
+.imp-specs[open] summary{border-bottom:1px solid var(--line-soft);padding-bottom:10px}
+.imp-specs-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;margin-bottom:12px}
+.imp-specs-grid .imp-field input{height:32px}
+.imp-specs-grid select{height:32px;padding:0 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--fg);font:inherit;font-size:13px}
+.imp-specs-grid select:focus{border-color:var(--accent);outline:none}
+@media(max-width:520px){.imp-field-grid{grid-template-columns:1fr}.imp-field.span2{grid-column:1}.imp-specs-grid{grid-template-columns:1fr}}
 </style>
 <div id="app"></div>
 <!--DATA-->
@@ -768,12 +795,58 @@ const SHELL = `
         <button data-act="discard" id="mi-discard" class="danger" hidden>Descartar cambios sin guardar</button>
       </div>
     </div>
+    <button class="btn btn-sm" id="btn-importar" data-act="importar" title="Importar producto desde HTML de Amazon">📥</button>
     <button class="btn btn-sm" id="btn-dash" data-act="dash" title="Dashboard de analíticas">📊</button>
     <button class="btn btn-primary" id="btn-save" data-act="save">Guardar</button>
   </div>
 </header>
 <nav class="cats" id="cats" aria-label="Categorías"></nav>
 <section id="dash" hidden></section>
+<section id="importar" hidden>
+<div class="imp-wrap">
+  <div class="imp-drop" id="imp-drop" role="button" tabindex="0" aria-label="Zona de carga de HTML de Amazon">
+    <input type="file" id="imp-file" accept=".html,.htm" style="display:none" aria-hidden="true">
+    <div class="imp-drop-icon">📄</div>
+    <h3>Importar producto desde página de Amazon MX</h3>
+    <p>Suelta aquí el archivo HTML, o <u>haz clic para seleccionarlo</u></p>
+    <p style="font-size:12px;color:var(--fg-3);margin-top:6px">En Amazon MX abre el producto → Guardar como… → Página web, solo HTML (.html)</p>
+  </div>
+  <div class="imp-result" id="imp-result">
+    <div class="imp-header">
+      <img id="imp-preview-img" class="imp-preview-img" hidden alt="Imagen del producto">
+      <div style="flex:1;min-width:0">
+        <h3 style="margin:0 0 4px;font-size:14px">Datos extraídos — revisa antes de agregar</h3>
+        <p style="margin:0;font-size:12px;color:var(--fg-2)">Los campos vacíos se pueden completar después desde el admin</p>
+      </div>
+    </div>
+    <div class="imp-field-grid">
+      <label class="imp-field span2"><span>Nombre del producto</span><input id="imp-nombre" autocomplete="off" placeholder="Ej. ASUS Vivobook 15 Core i5 16GB 512GB"></label>
+      <label class="imp-field"><span>Marca</span><input id="imp-marca" autocomplete="off" placeholder="Ej. ASUS"></label>
+      <label class="imp-field"><span>Precio de lista Amazon (MXN)</span><input id="imp-precio" type="number" min="0" step="1" inputmode="decimal"></label>
+      <label class="imp-field"><span>Estrellas (0–5)</span><input id="imp-estrellas" type="number" min="0" max="5" step="0.1" inputmode="decimal"></label>
+      <label class="imp-field"><span>Reseñas</span><input id="imp-resenas" type="number" min="0" step="1" inputmode="numeric"></label>
+      <label class="imp-field span2"><span>Link Amazon (el tag de afiliado se agrega automáticamente)</span><input id="imp-link-amz" type="url" placeholder="https://www.amazon.com.mx/dp/…" autocomplete="off"></label>
+      <label class="imp-field span2"><span>URL de imagen principal</span><input id="imp-imagen" type="url" placeholder="https://m.media-amazon.com/images/I/…" autocomplete="off"></label>
+    </div>
+    <details class="imp-specs" id="imp-specs-details">
+      <summary>Especificaciones detectadas</summary>
+      <div class="imp-specs-grid">
+        <label class="imp-field"><span>Procesador</span><input id="imp-procesador" autocomplete="off" placeholder="Ej. Intel Core i5-13420H"></label>
+        <label class="imp-field"><span>RAM</span><input id="imp-ram" autocomplete="off" placeholder="Ej. 16 GB"></label>
+        <label class="imp-field"><span>Almacenamiento</span><input id="imp-almacenamiento" autocomplete="off" placeholder="Ej. 512 GB SSD"></label>
+        <label class="imp-field"><span>Pantalla</span><input id="imp-pantalla" autocomplete="off" placeholder="Ej. 15.6 pulgadas FHD"></label>
+        <label class="imp-field"><span>GPU dedicada</span><select id="imp-gpuDedicada"><option value="">No especificado</option><option value="si">Sí</option><option value="no">No</option></select></label>
+        <label class="imp-field"><span>Sistema operativo</span><input id="imp-so" autocomplete="off" placeholder="Ej. Windows 11 Home"></label>
+      </div>
+    </details>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <button class="btn btn-primary" data-act="imp-add">+ Agregar a Laptops</button>
+      <button class="btn" data-act="imp-copy">Copiar JSON</button>
+      <button class="btn" data-act="imp-reset">Limpiar</button>
+    </div>
+  </div>
+</div>
+</section>
 <section class="queues" id="queues" aria-label="Filtros de trabajo"></section>
 <div id="callout"></div>
 <div class="toolbar" id="toolbar">
@@ -1497,6 +1570,8 @@ function onClick(e) {
     case 'rv-prev': RV.i = Math.max(0, RV.i - 1); while (RV.i > 0 && BYKEY.get(RV.list[RV.i]) && BYKEY.get(RV.list[RV.i]).p.mlId) RV.i--; renderReview(); break;
     case 'rv-none': rvNone(); break;
     case 'dash': {
+      const imp2 = $('#importar'), impBtn2 = $('#btn-importar');
+      if (imp2 && !imp2.hidden) { imp2.hidden = true; if(impBtn2){impBtn2.classList.remove('btn-primary');impBtn2.setAttribute('aria-pressed','false');} }
       const dash = $('#dash'), btn = $('#btn-dash');
       const show = dash.hidden;
       dash.hidden = !show;
@@ -1504,6 +1579,77 @@ function onClick(e) {
       btn.classList.toggle('btn-primary', show);
       btn.setAttribute('aria-pressed', String(show));
       if (show) renderDash();
+      break;
+    }
+    case 'importar': {
+      const dash2 = $('#dash'), dashBtn2 = $('#btn-dash');
+      if (dash2 && !dash2.hidden) { dash2.hidden = true; if(dashBtn2){dashBtn2.classList.remove('btn-primary');dashBtn2.setAttribute('aria-pressed','false');} }
+      const panel = $('#importar'), btn = $('#btn-importar');
+      const show = panel.hidden;
+      panel.hidden = !show;
+      ['#toolbar','#table-wrap','#queues','#callout'].forEach(sel => { const el2=$(sel); if(el2) el2.hidden = show; });
+      btn.classList.toggle('btn-primary', show);
+      btn.setAttribute('aria-pressed', String(show));
+      if (show) initImport();
+      break;
+    }
+    case 'imp-add': {
+      const g = id => ($('#imp-' + id) && $('#imp-' + id).value || '').trim();
+      const nombre = g('nombre'), marca = g('marca');
+      if (!nombre || !marca) { toast('Nombre y marca son obligatorios'); return; }
+      const precio = numOrNull(g('precio'));
+      if (precio === undefined) { toast('El precio debe ser un número positivo o estar vacío'); return; }
+      const estrellas = g('estrellas') ? parseFloat(g('estrellas').replace(',','.')) : null;
+      const resenas = g('resenas') ? parseInt(g('resenas'), 10) : null;
+      const imagen = g('imagen') || null;
+      let linkAmz = g('link-amz') || null;
+      if (linkAmz && !linkAmz.includes('tag=')) { try { const u=new URL(linkAmz); u.searchParams.set('tag',AMZ_TAG); linkAmz=u.toString(); } catch(e){} }
+      const especs = {};
+      ['procesador','ram','almacenamiento','pantalla','so'].forEach(k => { const v=g(k); if(v) especs[k]=v; });
+      const gpu = g('gpuDedicada'); if (gpu==='si') especs.gpuDedicada=true; else if (gpu==='no') especs.gpuDedicada=false;
+      const cat = 'laptops';
+      if (!DB[cat]) DB[cat] = [];
+      const id = newId(cat, nombre);
+      const p = { id, nombre, marca, activo:true, linkAmz, precioAmz:null, linkML:null, precioML:null, mlId:null, mlIdFuente:null,
+        ...(imagen?{imagen}:{}), ...(estrellas!==null&&!isNaN(estrellas)?{estrellas}:{}),
+        ...(resenas!==null&&!isNaN(resenas)?{resenas}:{}), ...(precio!==null?{precio}:{}),
+        especs:Object.keys(especs).length?especs:{}, estadoML:null, _updatedAt:new Date().toISOString() };
+      DB[cat].push(p);
+      const key = cat + '|' + id;
+      PENDING.added[key] = p;
+      reindex(); persist();
+      renderCats(); renderQueues(); renderTable();
+      toast('"' + nombre.slice(0,40) + '" agregado a Laptops');
+      const res = $('#imp-result'); if(res) res.classList.remove('show');
+      const fi = $('#imp-file'); if(fi) fi.value = '';
+      break;
+    }
+    case 'imp-copy': {
+      const g = id => ($('#imp-' + id) && $('#imp-' + id).value || '').trim();
+      const nombre = g('nombre'), marca = g('marca');
+      const precio = numOrNull(g('precio'));
+      const estrellas = g('estrellas') ? parseFloat(g('estrellas').replace(',','.')) : null;
+      const resenas = g('resenas') ? parseInt(g('resenas'),10) : null;
+      const imagen = g('imagen') || null;
+      let linkAmz = g('link-amz') || null;
+      if (linkAmz && !linkAmz.includes('tag=')) { try { const u=new URL(linkAmz); u.searchParams.set('tag',AMZ_TAG); linkAmz=u.toString(); } catch(e){} }
+      const especs = {};
+      ['procesador','ram','almacenamiento','pantalla','so'].forEach(k => { const v=g(k); if(v) especs[k]=v; });
+      const gpu = g('gpuDedicada'); if (gpu==='si') especs.gpuDedicada=true; else if (gpu==='no') especs.gpuDedicada=false;
+      const obj = { id: newId('laptops', nombre||'nuevo'), nombre:nombre||'', marca:marca||'', activo:true, linkAmz,
+        precioAmz:null, linkML:null, precioML:null, mlId:null,
+        ...(imagen?{imagen}:{}), ...(estrellas!==null&&!isNaN(estrellas)?{estrellas}:{}),
+        ...(resenas!==null&&!isNaN(resenas)?{resenas}:{}), ...(precio!==null?{precio}:{}),
+        especs:Object.keys(especs).length?especs:{}, estadoML:null };
+      copyText(JSON.stringify(obj, null, 2), 'JSON copiado');
+      break;
+    }
+    case 'imp-reset': {
+      const res = $('#imp-result'); if(res) res.classList.remove('show');
+      const fi = $('#imp-file'); if(fi) fi.value = '';
+      ['nombre','marca','imagen','precio','estrellas','resenas','link-amz','procesador','ram','almacenamiento','pantalla','so'].forEach(id => { const el = $('#imp-' + id); if(el) el.value=''; });
+      const gpuSel = $('#imp-gpuDedicada'); if(gpuSel) gpuSel.value = '';
+      const img = $('#imp-preview-img'); if(img) { img.src=''; img.hidden=true; }
       break;
     }
     case 'utm-copy': {
@@ -1560,6 +1706,129 @@ function onKey(e) {
     return;
   }
   if (!typing && !OVERLAY && e.key === '/') { e.preventDefault(); $('#q').focus(); }
+}
+
+// ── Importar desde HTML de Amazon ───────────────────────────────────────────
+let IMP_INIT = false;
+function initImport() {
+  if (IMP_INIT) return;
+  IMP_INIT = true;
+  const zone = $('#imp-drop'), fileInput = $('#imp-file');
+  if (!zone || !fileInput) return;
+  zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('over'); });
+  zone.addEventListener('dragleave', e => { if (!zone.contains(e.relatedTarget)) zone.classList.remove('over'); });
+  zone.addEventListener('drop', e => {
+    e.preventDefault(); zone.classList.remove('over');
+    const f = e.dataTransfer.files[0];
+    if (f && /\.html?$/i.test(f.name)) loadImportFile(f);
+    else toast('Selecciona un archivo .html');
+  });
+  zone.addEventListener('click', e => { if (e.target !== fileInput) fileInput.click(); });
+  zone.addEventListener('keydown', e => { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); fileInput.click(); } });
+  fileInput.addEventListener('change', () => { const f=fileInput.files[0]; if(f) loadImportFile(f); });
+}
+function loadImportFile(file) {
+  const reader = new FileReader();
+  reader.onload = e => parseAmazonHtml(e.target.result);
+  reader.onerror = () => toast('No se pudo leer el archivo');
+  reader.readAsText(file, 'utf-8');
+}
+function parseAmazonHtml(html) {
+  let doc;
+  try { doc = new DOMParser().parseFromString(html, 'text/html'); }
+  catch(e) { toast('Error al parsear el HTML'); return; }
+
+  const nombre = (doc.querySelector('#productTitle,#title,h1.a-size-large') || {}).textContent?.trim() || '';
+
+  const marcaEl = doc.querySelector('#bylineInfo a,#bylineInfo_feature_div a,.po-brand .a-span9,.po-brand td:last-child');
+  let marca = marcaEl?.textContent?.trim().replace(/^Marca:\s*/i,'') || '';
+  if (!marca && nombre) {
+    const first = nombre.split(' ')[0];
+    if (first && first.length > 1 && first.length < 20) marca = first;
+  }
+
+  let imagen = '';
+  const imgEl = doc.querySelector('#landingImage,#main-image-container img,#imgTagWrappingLink img');
+  if (imgEl) {
+    imagen = imgEl.getAttribute('data-old-hires') || imgEl.src || '';
+    if (!imagen) {
+      const dynRaw = imgEl.getAttribute('data-a-dynamic-image') || '';
+      const m = dynRaw.match(/"(https:[^"]+)"/); if(m) imagen = m[1];
+    }
+  }
+  if (!imagen) {
+    for (const s of doc.querySelectorAll('script')) {
+      const m = s.textContent.match(/"large"\s*:\s*"(https:\/\/m\.media-amazon\.com\/images\/I\/[^"]+)"/);
+      if (m) { imagen = m[1]; break; }
+    }
+  }
+
+  let precio = '';
+  for (const sel of ['#corePriceDisplay_desktop_feature_div .a-price .a-offscreen','.a-price .a-offscreen','#priceblock_ourprice','#price_inside_buybox']) {
+    const el = doc.querySelector(sel);
+    if (el) { precio = el.textContent.replace(/[^\d]/g,'').trim(); if(precio) break; }
+  }
+
+  let estrellas = '';
+  for (const sel of ['#acrPopover .a-icon-alt','[data-hook="average-stars-rating-anywhere"] .a-icon-alt','#averageCustomerReviews .a-icon-alt']) {
+    const el = doc.querySelector(sel);
+    if (el) { const m = el.textContent.match(/[\d,.]+/); if(m){estrellas=m[0].replace(',','.');break;} }
+  }
+
+  let resenas = '';
+  for (const sel of ['#acrCustomerReviewText','[data-hook="total-review-count"]','#acrCustomerReviewLink']) {
+    const el = doc.querySelector(sel);
+    if (el) { resenas = el.textContent.replace(/[^\d]/g,'').trim(); if(resenas) break; }
+  }
+
+  let linkAmz = doc.querySelector('link[rel="canonical"]')?.href || doc.querySelector('meta[property="og:url"]')?.content || '';
+  if (!linkAmz.includes('amazon.com.mx')) linkAmz = '';
+  if (linkAmz) {
+    try {
+      const u = new URL(linkAmz);
+      const dp = u.pathname.match(/\/dp\/([A-Z0-9]{10})/);
+      if (dp) linkAmz = 'https://www.amazon.com.mx/dp/' + dp[1];
+    } catch(e) {}
+  }
+
+  const specs = {};
+  const specMap = [
+    [/procesador|cpu|marca.*procesador/i,'procesador'],
+    [/RAM|memoria.*RAM|memoria.*instalada/i,'ram'],
+    [/disco|almacen|SSD|HDD|memoria.*interna/i,'almacenamiento'],
+    [/pantalla|tamaño.*pant|screen.*size/i,'pantalla'],
+    [/sistema.*op|SO\b|OS\b/i,'so'],
+  ];
+  doc.querySelectorAll('#productOverview_feature_div tr,#tech-specs-full tr,.a-normal.a-spacing-micro tr,[data-feature-name="technicalSpecifications"] tr').forEach(tr => {
+    const cells = tr.querySelectorAll('td,th');
+    if (cells.length < 2) return;
+    const key = cells[0].textContent.trim(), val = cells[1].textContent.trim();
+    for (const [re, field] of specMap) { if (re.test(key) && !specs[field]) specs[field] = val; }
+  });
+
+  const bodyText = (doc.querySelector('#feature-bullets') || {}).textContent || '';
+  const gpuDedicada = /NVIDIA|GeForce|RTX|GTX|AMD Radeon RX\b/i.test(nombre + bodyText) ? 'si'
+    : /Gráficos integrados|Intel UHD|Intel Iris/i.test(bodyText) ? 'no' : '';
+
+  showImportResult({ nombre, marca, imagen, precio, estrellas, resenas, linkAmz, specs, gpuDedicada });
+}
+function showImportResult(data) {
+  const res = $('#imp-result'); if (!res) return;
+  res.classList.add('show');
+  const set = (id, val) => { const el = $('#imp-' + id); if(el) el.value = val||''; };
+  set('nombre', data.nombre); set('marca', data.marca); set('imagen', data.imagen);
+  set('precio', data.precio); set('estrellas', data.estrellas); set('resenas', data.resenas);
+  set('link-amz', data.linkAmz);
+  set('procesador', data.specs?.procesador||''); set('ram', data.specs?.ram||'');
+  set('almacenamiento', data.specs?.almacenamiento||''); set('pantalla', data.specs?.pantalla||'');
+  set('so', data.specs?.so||'');
+  const gpuSel = $('#imp-gpuDedicada'); if(gpuSel) gpuSel.value = data.gpuDedicada||'';
+  const img = $('#imp-preview-img');
+  if (img) { img.src = data.imagen||''; img.hidden = !data.imagen; }
+  if (data.specs && Object.keys(data.specs).length) {
+    const det = $('#imp-specs-details'); if(det) det.open = true;
+  }
+  res.scrollIntoView({behavior:'smooth', block:'start'});
 }
 
 // ── Arranque ────────────────────────────────────────────────────────────────
