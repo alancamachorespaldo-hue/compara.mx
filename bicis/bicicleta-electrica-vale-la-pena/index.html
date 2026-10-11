@@ -658,8 +658,8 @@ footer strong{color:var(--tx2)}
         <div class="prod-desc">Motor 440 W · Autonomía 35 km · IP54 · 21 kg · Batería Li-ion · Vel. máx. 32 km/h · Amazon + Mercado Libre</div>
         <div class="prod-precio">$6,599 <span>MXN</span></div>
         <div class="prod-btns">
-          <a class="btn-ml" href="https://meli.la/13mxVr4" target="_blank" rel="nofollow sponsored" aria-label="Ver HONEYWHALE B20 en Mercado Libre">Ver en ML →</a>
-          <a class="btn-amz" href="https://www.amazon.com.mx/HONEYWHALE-B20-Bicicleta-Electrica-Conducci%C3%B3n/dp/B0FK298YDN?th=1&linkCode=ll2&tag=comparalo20-20" target="_blank" rel="nofollow sponsored" aria-label="Ver HONEYWHALE B20 en Amazon">Ver en Amazon →</a>
+          <a class="btn-ml" href="https://meli.la/13mxVr4" target="_blank" rel="nofollow sponsored" aria-label="Ver HONEYWHALE B20 en Mercado Libre">Ir a ML →</a>
+          <a class="btn-amz" href="https://www.amazon.com.mx/HONEYWHALE-B20-Bicicleta-Electrica-Conducci%C3%B3n/dp/B0FK298YDN?th=1&linkCode=ll2&tag=comparalo20-20" target="_blank" rel="nofollow sponsored" aria-label="Ver HONEYWHALE B20 en Amazon">Ir a Amazon →</a>
           <a class="btn-comparalo" href="/bicis/" aria-label="Comparar bicis eléctricas en comparalo.mx">Comparar modelos →</a>
         </div>
       </div>
@@ -681,7 +681,7 @@ footer strong{color:var(--tx2)}
         <div class="prod-desc">Motor 750 W pico · Autonomía 40 km · IP54 · Batería removible 499 Wh · Vel. máx. 35 km/h</div>
         <div class="prod-precio">$7,598 <span>MXN</span></div>
         <div class="prod-btns">
-          <a class="btn-ml" href="https://meli.la/1bjtgkL" target="_blank" rel="nofollow sponsored" aria-label="Ver HONEYWHALE S6-S en Mercado Libre">Ver en ML →</a>
+          <a class="btn-ml" href="https://meli.la/1bjtgkL" target="_blank" rel="nofollow sponsored" aria-label="Ver HONEYWHALE S6-S en Mercado Libre">Ir a ML →</a>
           <a class="btn-comparalo" href="/bicis/" aria-label="Comparar bicis eléctricas en comparalo.mx">Comparar modelos →</a>
         </div>
       </div>
@@ -703,7 +703,7 @@ footer strong{color:var(--tx2)}
         <div class="prod-desc">Motor 750 W pico · Autonomía 50 km · Batería removible 720 Wh · IP54 · 526 reseñas</div>
         <div class="prod-precio">$8,999 <span>MXN</span></div>
         <div class="prod-btns">
-          <a class="btn-ml" href="https://meli.la/1kjrpQP" target="_blank" rel="nofollow sponsored" aria-label="Ver HONEYWHALE S6 PRO-S en Mercado Libre">Ver en ML →</a>
+          <a class="btn-ml" href="https://meli.la/1kjrpQP" target="_blank" rel="nofollow sponsored" aria-label="Ver HONEYWHALE S6 PRO-S en Mercado Libre">Ir a ML →</a>
           <a class="btn-comparalo" href="/bicis/" aria-label="Comparar bicis eléctricas en comparalo.mx">Comparar modelos →</a>
         </div>
       </div>
@@ -725,7 +725,7 @@ footer strong{color:var(--tx2)}
         <div class="prod-desc">Motor 750 W pico · Autonomía 28–32 km · Batería removible 384 Wh · IPX4 · Vel. máx. 35 km/h</div>
         <div class="prod-precio">$6,599 <span>MXN</span></div>
         <div class="prod-btns">
-          <a class="btn-ml" href="https://meli.la/2GzSAbQ" target="_blank" rel="nofollow sponsored" aria-label="Ver POP SHOPPE S6 en Mercado Libre">Ver en ML →</a>
+          <a class="btn-ml" href="https://meli.la/2GzSAbQ" target="_blank" rel="nofollow sponsored" aria-label="Ver POP SHOPPE S6 en Mercado Libre">Ir a ML →</a>
           <a class="btn-comparalo" href="/bicis/" aria-label="Comparar bicis eléctricas en comparalo.mx">Comparar modelos →</a>
         </div>
       </div>
@@ -747,7 +747,7 @@ footer strong{color:var(--tx2)}
         <div class="prod-desc">Motor 500 W · Autonomía 60 km · Batería removible 960 Wh · Carga máx. 200 kg · 8–10 h carga</div>
         <div class="prod-precio">$9,999 <span>MXN</span></div>
         <div class="prod-btns">
-          <a class="btn-ml" href="https://meli.la/1utSy9X" target="_blank" rel="nofollow sponsored" aria-label="Ver NEON EBIKE500 en Mercado Libre">Ver en ML →</a>
+          <a class="btn-ml" href="https://meli.la/1utSy9X" target="_blank" rel="nofollow sponsored" aria-label="Ver NEON EBIKE500 en Mercado Libre">Ir a ML →</a>
           <a class="btn-comparalo" href="/bicis/" aria-label="Comparar bicis eléctricas en comparalo.mx">Comparar modelos →</a>
         </div>
       </div>
@@ -826,6 +826,20 @@ footer strong{color:var(--tx2)}
 </section>
 
 <footer><strong>comparalo.mx</strong> · Afiliados Amazon MX (comparalo20-20) · Afiliados Mercado Libre MX · Actualizado septiembre 2026</footer>
+<script>
+/* affiliate click tracking */
+document.addEventListener('click',function(e){
+  var btn=e.target.closest('.btn-amz,.btn-ml');
+  if(!btn)return;
+  if(typeof gtag!=='function')return;
+  var evt=btn.classList.contains('btn-ml')?'affiliate_click_ml':'affiliate_click_amazon';
+  var label=btn.dataset.gaLabel||btn.getAttribute('aria-label')||'';
+  var cards=Array.from(document.querySelectorAll('.card,.prod-card'));
+  var pos=cards.indexOf(btn.closest('.card,.prod-card'))+1;
+  var sec=location.pathname.replace(/^\//,'').replace(/\/(?:index\.html)?$/,'').replace(/\//g,'_')||'home';
+  gtag('event',evt,{event_category:'afiliado',event_label:label,value:parseFloat(btn.dataset.gaVal)||0,page_section:sec,item_position:pos});
+});
+</script>
 <script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
 <script src="/assets/js/share.js" defer></script>

@@ -470,7 +470,7 @@ footer strong{color:var(--tx2)}
         <div class="card-ideal"><strong>Ideal para:</strong> quien usa la laptop también para clases o trabajo — pantalla IPS de 144Hz y RAM DDR5 en un chasis de gaming casual.</div>
         <div class="card-price">$16,999 <span class="card-price-sub">MXN</span></div>
         <div class="card-btns">
-          <a class="btn-amz" href="https://www.amazon.com.mx/dp/B0H8B9FM1T?tag=comparalo20-20" target="_blank" rel="nofollow sponsored">Ver en Amazon MX →</a>
+          <a class="btn-amz" href="https://www.amazon.com.mx/dp/B0H8B9FM1T?tag=comparalo20-20" target="_blank" rel="nofollow sponsored">Ir a Amazon MX →</a>
           <a class="btn-compare" href="https://comparalo.mx/laptops/" aria-label="Comparar laptops gamer en comparalo.mx">Comparar precios →</a>
         </div>
       </div>
@@ -500,7 +500,7 @@ footer strong{color:var(--tx2)}
         <div class="card-ideal"><strong>Ideal para:</strong> quien quiere 16 GB de RAM de fábrica en el segmento de entrada — útil si corres el juego y otras apps abiertas al mismo tiempo.</div>
         <div class="card-price">$18,577 <span class="card-price-sub">MXN</span></div>
         <div class="card-btns">
-          <a class="btn-amz" href="https://www.amazon.com.mx/dp/B0FPRHGSWS?tag=comparalo20-20" target="_blank" rel="nofollow sponsored">Ver en Amazon MX →</a>
+          <a class="btn-amz" href="https://www.amazon.com.mx/dp/B0FPRHGSWS?tag=comparalo20-20" target="_blank" rel="nofollow sponsored">Ir a Amazon MX →</a>
           <a class="btn-compare" href="https://comparalo.mx/laptops/" aria-label="Comparar laptops gamer en comparalo.mx">Comparar precios →</a>
         </div>
       </div>
@@ -530,7 +530,7 @@ footer strong{color:var(--tx2)}
         <div class="card-ideal"><strong>Ideal para:</strong> presupuesto más ajustado del grupo sin bajar de pantalla 144Hz — la opción más ligera junto con buen precio.</div>
         <div class="card-price">$16,899 <span class="card-price-sub">MXN</span></div>
         <div class="card-btns">
-          <a class="btn-amz" href="https://www.amazon.com.mx/dp/B0H5YDGV8B?tag=comparalo20-20" target="_blank" rel="nofollow sponsored">Ver en Amazon MX →</a>
+          <a class="btn-amz" href="https://www.amazon.com.mx/dp/B0H5YDGV8B?tag=comparalo20-20" target="_blank" rel="nofollow sponsored">Ir a Amazon MX →</a>
           <a class="btn-compare" href="https://comparalo.mx/laptops/" aria-label="Comparar laptops gamer en comparalo.mx">Comparar precios →</a>
         </div>
       </div>
@@ -559,7 +559,7 @@ footer strong{color:var(--tx2)}
         <div class="card-ideal"><strong>Ideal para:</strong> quien prioriza la generación de GPU más reciente (RTX 4050 con DLSS 3) sobre el tamaño de pantalla — además rinde para trabajo visual por su color 100% sRGB.</div>
         <div class="card-price">$16,499 <span class="card-price-sub">MXN</span></div>
         <div class="card-btns">
-          <a class="btn-amz" href="https://www.amazon.com.mx/dp/B0F3B6TL7C?tag=comparalo20-20" target="_blank" rel="nofollow sponsored">Ver en Amazon MX →</a>
+          <a class="btn-amz" href="https://www.amazon.com.mx/dp/B0F3B6TL7C?tag=comparalo20-20" target="_blank" rel="nofollow sponsored">Ir a Amazon MX →</a>
           <a class="btn-compare" href="https://comparalo.mx/laptops/" aria-label="Comparar laptops gamer en comparalo.mx">Comparar precios →</a>
         </div>
       </div>
@@ -589,7 +589,7 @@ footer strong{color:var(--tx2)}
         <div class="card-ideal"><strong>Ideal para:</strong> quien quiere la GPU más potente del grupo (RTX 3050 Ti) y acepta un equipo reacondicionado para bajar el precio frente a un TUF nuevo — revisa la política de garantía del vendedor antes de comprar.</div>
         <div class="card-price">$18,017 <span class="card-price-sub">MXN</span></div>
         <div class="card-btns">
-          <a class="btn-amz" href="https://www.amazon.com.mx/dp/B0BNW9FZDC?tag=comparalo20-20" target="_blank" rel="nofollow sponsored">Ver en Amazon MX →</a>
+          <a class="btn-amz" href="https://www.amazon.com.mx/dp/B0BNW9FZDC?tag=comparalo20-20" target="_blank" rel="nofollow sponsored">Ir a Amazon MX →</a>
           <a class="btn-compare" href="https://comparalo.mx/laptops/" aria-label="Comparar laptops gamer en comparalo.mx">Comparar precios →</a>
         </div>
       </div>
@@ -846,6 +846,20 @@ footer strong{color:var(--tx2)}
   <strong>comparalo.mx</strong> · Afiliados Amazon MX (comparalo20-20) · Afiliados Mercado Libre MX · Actualizado octubre 2026
 </footer>
 
+<script>
+/* affiliate click tracking */
+document.addEventListener('click',function(e){
+  var btn=e.target.closest('.btn-amz,.btn-ml');
+  if(!btn)return;
+  if(typeof gtag!=='function')return;
+  var evt=btn.classList.contains('btn-ml')?'affiliate_click_ml':'affiliate_click_amazon';
+  var label=btn.dataset.gaLabel||btn.getAttribute('aria-label')||'';
+  var cards=Array.from(document.querySelectorAll('.card,.prod-card'));
+  var pos=cards.indexOf(btn.closest('.card,.prod-card'))+1;
+  var sec=location.pathname.replace(/^\//,'').replace(/\/(?:index\.html)?$/,'').replace(/\//g,'_')||'home';
+  gtag('event',evt,{event_category:'afiliado',event_label:label,value:parseFloat(btn.dataset.gaVal)||0,page_section:sec,item_position:pos});
+});
+</script>
 <script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
 <script src="/assets/js/share.js" defer></script>

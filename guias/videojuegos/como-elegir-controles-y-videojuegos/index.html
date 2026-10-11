@@ -183,7 +183,7 @@ footer a{color:var(--ac);text-decoration:none}
       <div class="pcard-brand">Nintendo</div>
       <div class="pcard-name">Switch 2 · Joy-Con magnéticos</div>
       <div class="pcard-price">$9,398</div>
-      <span class="pcard-btn">Ver en Mercado Libre</span>
+      <span class="pcard-btn">Ir a Mercado Libre</span>
     </div>
   </a>
   <a class="pcard" href="https://meli.la/2ep6axk" target="_blank" rel="nofollow sponsored noopener">
@@ -192,7 +192,7 @@ footer a{color:var(--ac);text-decoration:none}
       <div class="pcard-brand">Sony</div>
       <div class="pcard-name">PS5 Slim Digital · DualSense</div>
       <div class="pcard-price">$13,999</div>
-      <span class="pcard-btn">Ver en Mercado Libre</span>
+      <span class="pcard-btn">Ir a Mercado Libre</span>
     </div>
   </a>
   <a class="pcard" href="https://meli.la/2Kb9TT3" target="_blank" rel="nofollow sponsored noopener">
@@ -201,7 +201,7 @@ footer a{color:var(--ac);text-decoration:none}
       <div class="pcard-brand">Microsoft</div>
       <div class="pcard-name">Xbox Series S · Control inalámbrico</div>
       <div class="pcard-price">$9,799</div>
-      <span class="pcard-btn">Ver en Mercado Libre</span>
+      <span class="pcard-btn">Ir a Mercado Libre</span>
     </div>
   </a>
   <a class="pcard" href="https://meli.la/1ozJLjm" target="_blank" rel="nofollow sponsored noopener">
@@ -210,7 +210,7 @@ footer a{color:var(--ac);text-decoration:none}
       <div class="pcard-brand">Sony</div>
       <div class="pcard-name">PS5 1TB + Astro Bot + GT7</div>
       <div class="pcard-price">$9,999</div>
-      <span class="pcard-btn">Ver en Mercado Libre</span>
+      <span class="pcard-btn">Ir a Mercado Libre</span>
     </div>
   </a>
 </div>
@@ -331,6 +331,22 @@ footer a{color:var(--ac);text-decoration:none}
   <a href="/aviso-afiliados/">Aviso de afiliados</a>
 </footer>
 
+<script>
+/* affiliate click tracking */
+document.addEventListener('click',function(e){
+  var btn=e.target.closest('.pcard');
+  if(!btn)return;
+  if(typeof gtag!=='function')return;
+  var href=btn.getAttribute('href')||'';
+  var evt=/amazon\.com\.mx|amzn\.to/.test(href)?'affiliate_click_amazon':'affiliate_click_ml';
+  var nameEl=btn.querySelector('.pcard-name');
+  var label=nameEl?nameEl.textContent:'';
+  var cards=Array.from(document.querySelectorAll('.pcard'));
+  var pos=cards.indexOf(btn)+1;
+  var sec=location.pathname.replace(/^\//,'').replace(/\/(?:index\.html)?$/,'').replace(/\//g,'_')||'home';
+  gtag('event',evt,{event_category:'afiliado',event_label:label,page_section:sec,item_position:pos});
+});
+</script>
 <script>try{sessionStorage.setItem('cmx_onboarding_v1','1');}catch(e){}</script>
 <script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
