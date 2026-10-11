@@ -1065,7 +1065,7 @@ function showOverlay(kind, html, focusSel) {
 }
 function closeOverlay() { const o = $('#overlay'); o.hidden = true; o.innerHTML = ''; OVERLAY = null; document.body.style.overflow = ''; }
 
-const SPEC_LABELS = { costoPor25g: 'Costo/25g prot.', costoPor5g: 'Costo/5 g', costoPor1000ui: 'Costo/1000 UI', costoPorPorcion: 'Costo/porción' };
+const SPEC_LABELS = { costoPor25g: 'Costo/25g prot.', costoPor5g: 'Costo/5 g', costoPor1000ui: 'Costo/1000 UI', costoPorPorcion: 'Costo/porción', bateria: 'Batería', uso: 'Uso', gpuDedicada: 'GPU dedicada' };
 function specKeysFor(cat, p) {
   const base = specCols(cat), seen = new Set(base.map(x => x[0]));
   const extra = Object.keys(p.especs || {}).filter(k => !seen.has(k)).map(k => [k, SPEC_LABELS[k] || k.replace(/([A-Z])/g, ' $1').replace(/^./, c => c.toUpperCase())]);
@@ -1107,6 +1107,12 @@ function openEdit(key) {
       <label class="field"><span>Precio Amazon (MXN)</span><input id="e-pamz" type="number" min="0" step="1" inputmode="decimal"></label>
       <label class="field"><span>Estado en Amazon</span><select id="e-pausaamz"><option value="0">Se muestra</option><option value="1">Pausado (oculto en Amazon)</option></select></label>
     </fieldset>
+    ${cat === 'laptops' ? `<fieldset class="group"><legend>Ficha del producto</legend>
+      <label class="field span2"><span>Imagen (URL)</span><input id="e-imagen" type="url" placeholder="https://m.media-amazon.com/images/I/…"></label>
+      <label class="field"><span>Estrellas (0–5)</span><input id="e-estrellas" type="number" min="0" max="5" step="0.1" inputmode="decimal"></label>
+      <label class="field"><span>Reseñas</span><input id="e-resenas" type="number" min="0" step="1" inputmode="numeric"></label>
+      <label class="field span2"><span>Precio de lista Amazon (MXN) <span class="muted" style="font-weight:400;text-transform:none">· puede diferir del precio de oferta</span></span><input id="e-precio" type="number" min="0" step="1" inputmode="decimal"></label>
+    </fieldset>` : ''}
     ${specs.length ? `<fieldset class="group"><legend>Especificaciones</legend>${specs.map(([sk, l], i) => COSTO_KEYS[sk]
       ? `<div class="field"><span>${esc(l)} <span class="muted" style="font-weight:400;text-transform:none">· por plataforma</span></span><div class="field-msg" data-costo="${esc(sk)}" style="min-height:36px;display:flex;flex-direction:column;justify-content:center;gap:2px;color:var(--fg);font-variant-numeric:tabular-nums"></div></div>`
       : `<label class="field"><span>${esc(l)}</span><input id="e-sk-${i}" data-sk="${esc(sk)}"></label>`).join('')}</fieldset>` : ''}
@@ -1126,6 +1132,10 @@ function openEdit(key) {
   $('#e-pausaml', o).value = p.pausaML ? '1' : '0';
   $('#e-pausaamz', o).value = p.pausaAmz ? '1' : '0';
   o.querySelectorAll('[data-sk]').forEach(inp => { inp.value = specText(p, inp.dataset.sk); });
+  if (cat === 'laptops') {
+    const ei=$('#e-imagen',o),ee=$('#e-estrellas',o),er=$('#e-resenas',o),ep=$('#e-precio',o);
+    if(ei) ei.value=p.imagen||''; if(ee) ee.value=p.estrellas??''; if(er) er.value=p.resenas??''; if(ep) ep.value=p.precio??'';
+  }
   mlIdMessage($('#e-mlid', o), $('#e-mlid-msg', o));
   amzMessage($('#e-amz', o), $('#e-amz-msg', o));
   // Costos derivados: se pintan por plataforma y se actualizan en vivo al mover precio o porciones.
@@ -1178,6 +1188,18 @@ function submitEdit(form, publish) {
       else especs[sk] = val;
     });
     if (changed) fields.especs = especs;
+  }
+  // Campos de ficha de producto (solo laptops)
+  if (r.cat === 'laptops') {
+    const ei=$('#e-imagen',o),ee=$('#e-estrellas',o),er=$('#e-resenas',o),ep=$('#e-precio',o);
+    const img=(ei&&ei.value.trim())||null;
+    const est=ee&&ee.value.trim()!==''?parseFloat(ee.value):null;
+    const res=er&&er.value.trim()!==''?parseInt(er.value,10):null;
+    const pre=ep&&ep.value.trim()!==''?Math.round(parseFloat(ep.value)):null;
+    if(img!==(p.imagen||null)) fields.imagen=img;
+    if(isFinite(est)&&est!==p.estrellas) fields.estrellas=est; else if(est===null&&p.estrellas!=null) fields.estrellas=null;
+    if(isFinite(res)&&res!==p.resenas) fields.resenas=res; else if(res===null&&p.resenas!=null) fields.resenas=null;
+    if(isFinite(pre)&&pre!==p.precio) fields.precio=pre; else if(pre===null&&p.precio!=null) fields.precio=null;
   }
   recalcCostos(p, fields);
   if (publish) {
