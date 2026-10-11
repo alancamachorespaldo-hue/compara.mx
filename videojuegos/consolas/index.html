@@ -310,7 +310,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 <div class="grid-wrap" data-ga-section="comparison">
   <div class="affiliate-cta-banner">
     <span class="affiliate-cta-icon">👆</span>
-    <span class="affiliate-cta-text">Haz clic en <strong>Ver en Amazon</strong> o <strong>Ver en Mercado Libre</strong> para ir directo a la tienda y ver el precio final</span>
+    <span class="affiliate-cta-text">Haz clic en <strong>Ir a Amazon</strong> o <strong>Ir a Mercado Libre</strong> para ir directo a la tienda y ver el precio final</span>
     <span class="affiliate-cta-arrow">↓</span>
   </div>
   <div class="grid" id="grid"></div>
@@ -517,10 +517,10 @@ function cardHtml(p) {
     </div>`;
   } else if (hasML) {
     const priceHtml = p.precioML != null ? `<div class="card-price">$${Math.round(p.precioML).toLocaleString('es-MX')}</div>` : '';
-    btns = `${priceHtml}<a class="btn-ml" href="${p.linkML}" target="_blank" rel="nofollow sponsored noopener" onclick="event.stopPropagation()">Ver en <img style="height:16px;vertical-align:middle" src="/logomercado.png" alt="" onerror="this.style.display='none'"></a>`;
+    btns = `${priceHtml}<a class="btn-ml" href="${p.linkML}" target="_blank" rel="nofollow sponsored noopener" onclick="event.stopPropagation()">Ir a <img style="height:16px;vertical-align:middle" src="/logomercado.png" alt="" onerror="this.style.display='none'"></a>`;
   } else if (hasAmz) {
     const priceHtml = p.precioAmz != null ? `<div class="card-price">$${Math.round(p.precioAmz).toLocaleString('es-MX')}</div>` : '';
-    btns = `${priceHtml}<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow sponsored noopener" onclick="event.stopPropagation()">Ver en Amazon</a>`;
+    btns = `${priceHtml}<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow sponsored noopener" onclick="event.stopPropagation()">Ir a Amazon</a>`;
   }
   const isSelected = selected.includes(p.id);
   return `<div class="card${isSelected ? ' selected' : ''}" data-platform="${platform}" id="card-${p.id}" onclick="toggleSelect('${p.id}')">
@@ -622,8 +622,8 @@ function openModal() {
     const h = size === 'sm' ? '16px' : '18px';
     const pad = size === 'sm' ? '5px 8px' : '7px 12px';
     const fs = size === 'sm' ? '11px' : '12px';
-    const ml = p.linkML ? `<a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;" onclick="event.stopPropagation()">Ver en <img style="height:${h}" src="/logomercado.png" alt="" onerror="this.style.display='none'"></a>` : '';
-    const amz = p.linkAmz ? `<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;" onclick="event.stopPropagation()">Ver en <img style="height:${h}" src="/logoamazon.png" alt="" onerror="this.style.display='none'"></a>` : '';
+    const ml = p.linkML ? `<a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;" onclick="event.stopPropagation()">Ir a <img style="height:${h}" src="/logomercado.png" alt="" onerror="this.style.display='none'"></a>` : '';
+    const amz = p.linkAmz ? `<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;" onclick="event.stopPropagation()">Ir a <img style="height:${h}" src="/logoamazon.png" alt="" onerror="this.style.display='none'"></a>` : '';
     const isDual = ml && amz;
     return `<div class="cmp-prod-btns${isDual ? ' dual' : ''}">${ml}${amz}</div>`;
   }

@@ -502,7 +502,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   </div>
   <div class="affiliate-cta-banner">
   <span class="affiliate-cta-icon">👆</span>
-  <span class="affiliate-cta-text">Haz clic en <strong>Ver en Amazon</strong> o <strong>Ver en Mercado Libre</strong> para ir directo a la tienda y ver el precio final</span>
+  <span class="affiliate-cta-text">Haz clic en <strong>Ir a Amazon</strong> o <strong>Ir a Mercado Libre</strong> para ir directo a la tienda y ver el precio final</span>
   <span class="affiliate-cta-arrow">↓</span>
 </div>
 <div class="grid-wrap" data-ga-section="comparison">
@@ -3029,8 +3029,8 @@ function cardConv(b, sec){
       </div>
       <div class="card-price">$${b.precio.toLocaleString('es-MX')} <span class="card-price-sub">MXN</span></div>
       <div class="card-btns" onclick="event.stopPropagation()">
-        ${b.linkAmz?`<a class="btn-amz" href="${b.linkAmz}" target="_blank" rel="nofollow sponsored" data-ga-label="${b.nombre||''}" data-ga-val="${b.precio||0}">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="" onerror="this.style.display='none'"></a>`:''}
-        ${b.linkML?`<a class="btn-ml" href="${b.linkML}" target="_blank" rel="nofollow sponsored" data-ga-label="${b.nombre||''}" data-ga-val="${b.precio||0}">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="" onerror="this.style.display='none'"></a>`:''}
+        ${b.linkAmz?`<a class="btn-amz" href="${b.linkAmz}" target="_blank" rel="nofollow sponsored" data-ga-label="${b.nombre||''}" data-ga-val="${b.precio||0}">Ir a <img class="btn-logo-img" src="/logoamazon.png" alt="" onerror="this.style.display='none'"></a>`:''}
+        ${b.linkML?`<a class="btn-ml" href="${b.linkML}" target="_blank" rel="nofollow sponsored" data-ga-label="${b.nombre||''}" data-ga-val="${b.precio||0}">Ir a <img class="btn-logo-img" src="/logomercado.png" alt="" onerror="this.style.display='none'"></a>`:''}
       </div>
       <div class="card-tip">Toca para comparar · <span style="color:var(--ac);cursor:pointer" onclick="toggleCross('${sec}',${b.id},event)">${inCross?'✓ En comparativa cruzada':'+ Comparar secciones'}</span></div>
     </div>
@@ -3086,16 +3086,16 @@ function renderGrid(sec){
         ? `<div class="card-btns-dual" onclick="event.stopPropagation()">
             <div class="card-btn-col">
               <div class="card-btn-col-price">${fmtP(b.precioML||b.precio)}</div>
-              <a class="btn-ml" href="${b.linkML}" rel="sponsored nofollow noopener" target="_blank" data-ga-label="${b.nombre||''}" data-ga-val="${b.precio||0}">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>
+              <a class="btn-ml" href="${b.linkML}" rel="sponsored nofollow noopener" target="_blank" data-ga-label="${b.nombre||''}" data-ga-val="${b.precio||0}">Ir a <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>
             </div>
             <div class="card-btn-col">
               <div class="card-btn-col-price">${fmtP(b.precioAmz||b.precio)}</div>
-              <a class="btn-amz" href="${b.linkAmz}" rel="sponsored nofollow noopener" target="_blank" data-ga-label="${b.nombre||''}" data-ga-val="${b.precio||0}">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>
+              <a class="btn-amz" href="${b.linkAmz}" rel="sponsored nofollow noopener" target="_blank" data-ga-label="${b.nombre||''}" data-ga-val="${b.precio||0}">Ir a <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>
             </div>
           </div>`
         : `<div class="card-btns" onclick="event.stopPropagation()">
-            ${b.linkAmz?`<a class="btn-amz" href="${b.linkAmz}" rel="sponsored nofollow noopener" target="_blank" data-ga-label="${b.nombre||''}" data-ga-val="${b.precio||0}">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>`:''}
-            ${b.linkML?`<a class="btn-ml" href="${b.linkML}" rel="sponsored nofollow noopener" target="_blank" data-ga-label="${b.nombre||''}" data-ga-val="${b.precio||0}">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>`:''}
+            ${b.linkAmz?`<a class="btn-amz" href="${b.linkAmz}" rel="sponsored nofollow noopener" target="_blank" data-ga-label="${b.nombre||''}" data-ga-val="${b.precio||0}">Ir a <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>`:''}
+            ${b.linkML?`<a class="btn-ml" href="${b.linkML}" rel="sponsored nofollow noopener" target="_blank" data-ga-label="${b.nombre||''}" data-ga-val="${b.precio||0}">Ir a <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>`:''}
           </div>`;
 
       return `<div class="card${isSel?' selected':''}" onclick="toggleSel('elec','${b.id}')">
@@ -3197,8 +3197,8 @@ function showCmp(){
 
   const btns='<tr><td style="text-align:left">Comprar</td>'+list.map(b=>`
     <td><div style="display:flex;flex-direction:column;gap:6px;max-width:150px;margin:0 auto">
-      ${b.linkAmz?`<a class="btn-amz" href="${b.linkAmz}" target="_blank" rel="nofollow sponsored" style="display:flex;align-items:center;justify-content:center;gap:5px;padding:7px 10px;border-radius:7px;text-decoration:none" data-ga-label="${b.nombre||''}" data-ga-val="${b.precio||0}">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="" onerror="this.style.display='none'"></a>`:''}
-      ${b.linkML?`<a class="btn-ml" href="${b.linkML}" target="_blank" rel="nofollow sponsored" style="display:flex;align-items:center;justify-content:center;gap:5px;padding:7px 10px;border-radius:7px;text-decoration:none" data-ga-label="${b.nombre||''}" data-ga-val="${b.precio||0}">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="" onerror="this.style.display='none'"></a>`:''}
+      ${b.linkAmz?`<a class="btn-amz" href="${b.linkAmz}" target="_blank" rel="nofollow sponsored" style="display:flex;align-items:center;justify-content:center;gap:5px;padding:7px 10px;border-radius:7px;text-decoration:none" data-ga-label="${b.nombre||''}" data-ga-val="${b.precio||0}">Ir a <img class="btn-logo-img" src="/logoamazon.png" alt="" onerror="this.style.display='none'"></a>`:''}
+      ${b.linkML?`<a class="btn-ml" href="${b.linkML}" target="_blank" rel="nofollow sponsored" style="display:flex;align-items:center;justify-content:center;gap:5px;padding:7px 10px;border-radius:7px;text-decoration:none" data-ga-label="${b.nombre||''}" data-ga-val="${b.precio||0}">Ir a <img class="btn-logo-img" src="/logomercado.png" alt="" onerror="this.style.display='none'"></a>`:''}
     </div></td>`).join('')+'</tr>';
 
   const METRICS_ELEC=[
@@ -3295,8 +3295,8 @@ function showCross(){
 
   const btns='<tr><td style="text-align:left">Comprar</td>'+list.map(b=>`
     <td><div style="display:flex;flex-direction:column;gap:6px;max-width:150px;margin:0 auto">
-      ${b.linkAmz?`<a class="btn-amz" href="${b.linkAmz}" target="_blank" rel="nofollow sponsored" style="display:flex;align-items:center;justify-content:center;gap:5px;padding:7px 10px;border-radius:7px;text-decoration:none" data-ga-label="${b.nombre||''}" data-ga-val="${b.precio||0}">Ver en <img class="btn-logo-img" src="/logoamazon.png" alt="" onerror="this.style.display='none'"></a>`:''}
-      ${b.linkML?`<a class="btn-ml" href="${b.linkML}" target="_blank" rel="nofollow sponsored" style="display:flex;align-items:center;justify-content:center;gap:5px;padding:7px 10px;border-radius:7px;text-decoration:none" data-ga-label="${b.nombre||''}" data-ga-val="${b.precio||0}">Ver en <img class="btn-logo-img" src="/logomercado.png" alt="" onerror="this.style.display='none'"></a>`:''}
+      ${b.linkAmz?`<a class="btn-amz" href="${b.linkAmz}" target="_blank" rel="nofollow sponsored" style="display:flex;align-items:center;justify-content:center;gap:5px;padding:7px 10px;border-radius:7px;text-decoration:none" data-ga-label="${b.nombre||''}" data-ga-val="${b.precio||0}">Ir a <img class="btn-logo-img" src="/logoamazon.png" alt="" onerror="this.style.display='none'"></a>`:''}
+      ${b.linkML?`<a class="btn-ml" href="${b.linkML}" target="_blank" rel="nofollow sponsored" style="display:flex;align-items:center;justify-content:center;gap:5px;padding:7px 10px;border-radius:7px;text-decoration:none" data-ga-label="${b.nombre||''}" data-ga-val="${b.precio||0}">Ir a <img class="btn-logo-img" src="/logomercado.png" alt="" onerror="this.style.display='none'"></a>`:''}
     </div></td>`).join('')+'</tr>';
 
   tbl.innerHTML=heads+body+btns;

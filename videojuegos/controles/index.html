@@ -226,9 +226,9 @@ function cardHtml(p) {
       <div class="card-btn-col"><span class="card-btn-col-price">$${Math.round(p.precioAmz).toLocaleString('es-MX')}</span><a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow sponsored noopener">Amazon</a></div>
     </div>`;
   } else if (hasML) {
-    btns = `<div class="card-price">$${Math.round(p.precioML).toLocaleString('es-MX')}</div><a class="btn-ml" href="${p.linkML}" target="_blank" rel="nofollow sponsored noopener">Ver en Mercado Libre</a>`;
+    btns = `<div class="card-price">$${Math.round(p.precioML).toLocaleString('es-MX')}</div><a class="btn-ml" href="${p.linkML}" target="_blank" rel="nofollow sponsored noopener">Ir a Mercado Libre</a>`;
   } else if (hasAmz) {
-    btns = `<div class="card-price">$${Math.round(p.precioAmz).toLocaleString('es-MX')}</div><a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow sponsored noopener">Ver en Amazon</a>`;
+    btns = `<div class="card-price">$${Math.round(p.precioAmz).toLocaleString('es-MX')}</div><a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow sponsored noopener">Ir a Amazon</a>`;
   }
   return `<div class="card" data-platform="${platform}">
     <div class="card-img-wrap"><img class="card-img" src="${p.img || ''}" alt="${p.nombre}" loading="lazy"></div>
