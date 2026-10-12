@@ -344,7 +344,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 const productos = [];
 
 const precioVigente = p => (p.linkML ? p.precioML : p.precioAmz) ?? p.precio ?? null;
-const SPEC_KEYS = [['tipo','Tipo'],['cancelacionRuido','Cancel. ruido'],['bateria','Batería'],['resistenciaAgua','Resist. agua'],['conectividad','Conectividad']];
+const SPEC_KEYS = [['formato','Formato'],['inalambrico','Inalámbrico'],['microfono','Micrófono'],['resistenciaAgua','Resist. agua'],['bateria','Batería'],['manosLibres','Manos libres'],['cancelacionRuido','Cancel. ruido'],['cargaInalambrica','Carga inalám.']];
 
 function cardHtml(p) {
   const hasML = !!p.linkML, hasAmz = !!p.linkAmz;
