@@ -214,6 +214,49 @@ fieldset.group legend{padding:0 6px;font-size:12.5px;font-weight:800}
   .table-wrap{max-height:none}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+/* ── Generador de publicaciones ─────────────────────────────────────────── */
+.pub-wrap{padding:16px;max-width:960px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.pub-step{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px;display:flex;flex-direction:column;gap:12px}
+.pub-step-head{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700}
+.pub-step-num{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--accent-fg);font-size:12px;font-weight:800;flex-shrink:0}
+.pub-cat-grid{display:flex;flex-wrap:wrap;gap:6px}
+.pub-cat-btn{height:30px;padding:0 12px;border-radius:15px;border:1px solid var(--line);background:var(--surface);color:var(--fg-2);font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;transition:background .12s,border-color .12s}
+.pub-cat-btn:hover{background:var(--surface-2)}
+.pub-cat-btn.on{background:var(--fg);border-color:var(--fg);color:var(--bg)}
+.pub-search-wrap{max-width:420px}
+.pub-search-wrap input{width:100%;height:34px;padding:0 12px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);color:var(--fg);font:inherit}
+.pub-search-wrap input:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--accent-soft)}
+.pub-prod-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px;max-height:300px;overflow-y:auto;padding-right:2px}
+.pub-prod-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--line);border-radius:var(--radius);cursor:pointer;background:var(--surface);transition:border-color .12s,background .12s;user-select:none}
+.pub-prod-item:hover{border-color:var(--fg-3);background:var(--surface-2)}
+.pub-prod-item.on{border-color:var(--accent);background:var(--accent-soft)}
+.pub-prod-item img{width:38px;height:38px;object-fit:contain;border-radius:4px;background:var(--surface-2);flex-shrink:0}
+.pub-prod-item .pname{font-size:12.5px;font-weight:600;line-height:1.3;flex:1;min-width:0;word-break:break-word}
+.pub-prod-item .pbrand{font-size:11px;color:var(--fg-3)}
+.pub-prod-item .pck{flex-shrink:0;width:18px;height:18px;border-radius:50%;border:2px solid var(--line);display:inline-flex;align-items:center;justify-content:center;color:var(--accent-fg);font-size:10px;font-weight:800;transition:background .12s,border-color .12s}
+.pub-prod-item.on .pck{background:var(--accent);border-color:var(--accent)}
+.pub-sel-row{display:flex;flex-wrap:wrap;gap:6px;min-height:28px;align-items:center}
+.pub-sel-chip{display:flex;align-items:center;gap:5px;height:26px;padding:0 8px 0 10px;border-radius:13px;background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);font-size:12px;font-weight:600;color:var(--accent)}
+.pub-sel-chip button{all:unset;cursor:pointer;color:var(--accent);font-size:14px;line-height:1;padding:0 2px;opacity:.7}
+.pub-sel-chip button:hover{opacity:1}
+.pub-tipo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px}
+.pub-tipo-btn{padding:10px 12px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);color:var(--fg);font:inherit;font-size:13px;font-weight:600;cursor:pointer;text-align:left;line-height:1.3;transition:border-color .12s,background .12s}
+.pub-tipo-btn:hover{border-color:var(--fg-3);background:var(--surface-2)}
+.pub-tipo-btn.on{border-color:var(--accent);background:var(--accent-soft)}
+.pub-tipo-btn small{display:block;font-size:11px;font-weight:400;color:var(--fg-3);margin-top:3px}
+.pub-img-area{display:flex;flex-direction:column;gap:8px}
+.pub-img-preview{max-width:320px;max-height:220px;object-fit:contain;border-radius:var(--radius);border:1px solid var(--line)}
+.pub-preview{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius);padding:16px;white-space:pre-wrap;font-size:14px;line-height:1.7;color:var(--fg);max-height:420px;overflow-y:auto;word-break:break-word;font-family:inherit}
+.pub-actions{display:flex;flex-wrap:wrap;gap:8px}
+.pub-lib-list{display:flex;flex-direction:column;gap:8px}
+.pub-lib-item{display:flex;align-items:flex-start;gap:12px;padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+.pub-lib-meta{flex:1;min-width:0}
+.pub-lib-title{font-size:13px;font-weight:700;margin-bottom:3px}
+.pub-lib-sub{font-size:12px;color:var(--fg-3);white-space:pre-wrap;word-break:break-word}
+.pub-lib-badge{display:inline-flex;align-items:center;padding:1px 7px;border-radius:8px;font-size:11px;font-weight:700;margin-left:6px}
+.pub-lib-actions{display:flex;gap:6px;flex-shrink:0}
+.pub-empty{padding:30px;text-align:center;color:var(--fg-3);font-size:13px}
+@media(max-width:620px){.pub-prod-list{grid-template-columns:1fr}.pub-tipo-grid{grid-template-columns:1fr 1fr}}
 /* ── Dashboard de analíticas ──────────────────────────────────────── */
 .dash{padding:16px;display:flex;flex-direction:column;gap:16px;max-width:1200px;margin:0 auto}
 .dash-head{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding-bottom:12px;border-bottom:1px solid var(--line)}
@@ -800,6 +843,7 @@ const SHELL = `
     </div>
     <button class="btn btn-sm" id="btn-importar" data-act="importar" title="Importar producto desde HTML de Amazon">📥</button>
     <button class="btn btn-sm" id="btn-dash" data-act="dash" title="Dashboard de analíticas">📊</button>
+    <button class="btn btn-sm" id="btn-pub" data-act="pub" title="Generador de publicaciones de Facebook">✍️</button>
     <button class="btn btn-primary" id="btn-save" data-act="save">Guardar</button>
   </div>
 </header>
@@ -850,6 +894,52 @@ const SHELL = `
   </div>
 </div>
 </section>
+
+<section id="pub" hidden>
+<div class="pub-wrap">
+  <div class="pub-step" id="pub-step1">
+    <div class="pub-step-head"><span class="pub-step-num">1</span>Elige categoría y productos</div>
+    <div class="pub-cat-grid" id="pub-cats"></div>
+    <div class="pub-search-wrap"><input id="pub-q" type="search" placeholder="Buscar producto…" autocomplete="off"></div>
+    <div class="pub-prod-list" id="pub-prods"></div>
+    <div style="font-size:12px;color:var(--fg-3)">Selecciona entre 2 y 5 productos · <span id="pub-sel-count">0 seleccionados</span></div>
+    <div class="pub-sel-row" id="pub-sel-row"></div>
+  </div>
+  <div class="pub-step" id="pub-step2">
+    <div class="pub-step-head"><span class="pub-step-num">2</span>Tipo de publicación</div>
+    <div class="pub-tipo-grid" id="pub-tipos"></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px">
+      <button class="btn btn-primary" id="pub-gen-btn" data-act="pub-gen" disabled>✨ Generar publicación</button>
+    </div>
+  </div>
+  <div class="pub-step" id="pub-step3" hidden>
+    <div class="pub-step-head"><span class="pub-step-num">3</span>Vista previa y copia</div>
+    <div class="pub-img-area">
+      <label style="font-size:12px;font-weight:700;color:var(--fg-2)">Imagen opcional — adjunta una imagen previa (ej. generada con ChatGPT)</label>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <input type="file" id="pub-img-file" accept="image/*" style="display:none">
+        <button class="btn btn-sm" data-act="pub-img-pick">📎 Adjuntar imagen</button>
+        <button class="btn btn-sm" id="pub-img-remove" data-act="pub-img-remove" hidden>✕ Quitar</button>
+      </div>
+      <img id="pub-img-preview" class="pub-img-preview" hidden alt="Vista previa">
+    </div>
+    <div class="pub-preview" id="pub-preview"></div>
+    <div class="pub-actions">
+      <button class="btn btn-primary" data-act="pub-copy">📋 Copiar publicación</button>
+      <button class="btn" data-act="pub-copy-text">Copiar solo texto</button>
+      <button class="btn" data-act="pub-copy-links">Copiar enlaces</button>
+      <button class="btn" data-act="pub-gen">🔄 Otra versión</button>
+      <button class="btn" data-act="pub-save">💾 Guardar borrador</button>
+      <button class="btn btn-ghost-danger" data-act="pub-clear">Limpiar</button>
+    </div>
+  </div>
+  <div class="pub-step" id="pub-lib">
+    <div class="pub-step-head"><span class="pub-step-num" style="background:var(--surface-2);color:var(--fg-2);font-size:15px">📚</span>Biblioteca de publicaciones</div>
+    <div class="pub-lib-list" id="pub-lib-list"></div>
+  </div>
+</div>
+</section>
+
 <section class="queues" id="queues" aria-label="Filtros de trabajo"></section>
 <div id="callout"></div>
 <div class="toolbar" id="toolbar">
@@ -1538,6 +1628,7 @@ function onClick(e) {
   const utmPreBtn = t.closest('[data-utm]');
   if (utmPreBtn) { applyUtmPreset(utmPreBtn.dataset.utm); return; }
 
+  if (!$('#pub').hidden) { if (pubHandleClick(t)) return; }
   const a = t.closest('[data-act]');
   if (!a) return;
   const act = a.dataset.act;
@@ -1594,6 +1685,66 @@ function onClick(e) {
       btn.classList.toggle('btn-primary', show);
       btn.setAttribute('aria-pressed', String(show));
       if (show) initImport();
+      break;
+    }
+
+    case 'pub': {
+      const OTHER_PANELS = ['#dash','#importar'];
+      OTHER_PANELS.forEach(sel => {
+        const el = $(sel); if(!el||el.hidden) return;
+        el.hidden = true;
+        const id = sel.slice(1);
+        const bId = id==='dash'?'btn-dash':('btn-'+id);
+        const b = $('#'+bId); if(b){b.classList.remove('btn-primary');b.setAttribute('aria-pressed','false');}
+      });
+      const panel = $('#pub'), btn = $('#btn-pub');
+      const show = panel.hidden;
+      panel.hidden = !show;
+      ['#toolbar','#table-wrap','#queues','#callout'].forEach(sel => { const el2=$(sel); if(el2) el2.hidden = show; });
+      btn.classList.toggle('btn-primary', show);
+      btn.setAttribute('aria-pressed', String(show));
+      if (show) initPub();
+      break;
+    }
+    case 'pub-gen': {
+      const selRows = pubGetSel();
+      if (selRows.length < 2 || !PUB.tipo) { toast('Selecciona al menos 2 productos y un tipo de publicación'); return; }
+      PUB.version = (PUB.version||0)+1;
+      PUB.draft = pubGenText(PUB.tipo);
+      renderPub();
+      setTimeout(() => $('#pub-step3')?.scrollIntoView({behavior:'smooth',block:'start'}), 80);
+      break;
+    }
+    case 'pub-copy': if(PUB.draft) copyText(PUB.draft,'✅ Publicación copiada al portapapeles'); break;
+    case 'pub-copy-text': {
+      if (!PUB.draft) return;
+      const t2 = PUB.draft.replace(/\n+🔗.*[\s\S]*/,'').replace(/\n+🛒.*[\s\S]*/,'').trim();
+      copyText(t2,'Texto copiado');
+      break;
+    }
+    case 'pub-copy-links': {
+      const selPs = pubGetSel().map(r=>r.p);
+      const lines2 = [];
+      const cu = PUB_URLS[PUB.cat]||'';
+      if(cu) lines2.push('Comparativa: '+cu);
+      selPs.forEach(p => { if(p.linkML)lines2.push(p.nombre+' (ML): '+p.linkML); if(p.linkAmz)lines2.push(p.nombre+' (Amazon): '+p.linkAmz); });
+      copyText(lines2.join('\n'),'Enlaces copiados');
+      break;
+    }
+    case 'pub-save': {
+      if(!PUB.draft){toast('Genera una publicación primero');return;}
+      pubSaveDraft({cat:PUB.cat,tipo:PUB.tipo,text:PUB.draft,prods:PUB.selIds});
+      renderPubLib(); toast('💾 Borrador guardado en la biblioteca');
+      break;
+    }
+    case 'pub-clear':
+      PUB = {cat:'',selIds:[],tipo:'',draft:null,imgData:null,version:0};
+      renderPub(); break;
+    case 'pub-img-pick': { const f2=$('#pub-img-file'); if(f2) f2.click(); break; }
+    case 'pub-img-remove': {
+      PUB.imgData=null;
+      const img=$('#pub-img-preview'); if(img){img.src='';img.hidden=true;}
+      const rm=$('#pub-img-remove'); if(rm) rm.hidden=true;
       break;
     }
     case 'imp-add': {
@@ -1833,6 +1984,378 @@ function showImportResult(data) {
   }
   res.scrollIntoView({behavior:'smooth', block:'start'});
 }
+
+// ── Generador de publicaciones ──────────────────────────────────────────────
+const PUB_URLS = {
+  laptops:'https://comparalo.mx/laptops/',
+  freidoras:'https://comparalo.mx/electrodomesticos/freidoras/',
+  bicis:'https://comparalo.mx/bicis/',
+  microondas:'https://comparalo.mx/electrodomesticos/microondas/',
+  proteina:'https://comparalo.mx/suplementos/proteina/',
+  omega3:'https://comparalo.mx/suplementos/omega3/',
+  magnesio:'https://comparalo.mx/suplementos/magnesio/',
+  creatina:'https://comparalo.mx/suplementos/creatina/',
+  complejo_b:'https://comparalo.mx/suplementos/complejo-b/',
+  vitamina_d:'https://comparalo.mx/suplementos/vitamina-d/',
+  videojuegos_consolas:'https://comparalo.mx/videojuegos/consolas/',
+  videojuegos_controles:'https://comparalo.mx/videojuegos/controles/',
+  videojuegos_juegos:'https://comparalo.mx/videojuegos/juegos/',
+  tecnologia_bocinas:'https://comparalo.mx/tecnologia/bocinas/',
+  tecnologia_audifonos:'https://comparalo.mx/tecnologia/audifonos/',
+  tecnologia_smartwatches:'https://comparalo.mx/tecnologia/smartwatches/',
+};
+const PUB_TIPOS = [
+  {k:'comparativa',l:'🔍 Comparativa',d:'Compara 2–5 opciones entre sí'},
+  {k:'precio',l:'💰 Mejor precio',d:'¿Cuál conviene más al bolsillo?'},
+  {k:'caracteristicas',l:'⭐ Mejores características',d:'¿Cuál destaca por sus specs?'},
+  {k:'valor',l:'⚖️ Calidad/precio',d:'La opción más balanceada'},
+  {k:'guia',l:'📋 Guía rápida de compra',d:'Qué buscar + recomendaciones'},
+  {k:'educativa',l:'📚 Publicación educativa',d:'Explica las métricas clave'},
+  {k:'destacado',l:'🌟 Producto destacado',d:'Resalta un solo producto'},
+];
+const PUB_KEY = 'cmx-pub-v1';
+let PUB_INIT = false;
+let PUB = {cat:'',selIds:[],tipo:'',draft:null,imgData:null,version:0};
+
+function pubRows() { return ROWS.filter(r => r.cat === PUB.cat && r.p.activo !== false); }
+function pubGetSel() { return PUB.selIds.map(id => ROWS.find(r => r.cat === PUB.cat && String(r.p.id) === String(id))).filter(Boolean); }
+function pubPrice(p) { return p.precioML || p.precioAmz || null; }
+function pubPriceStr(p) { const v = pubPrice(p); return v ? '$' + Math.round(v).toLocaleString('es-MX') : 'Sin precio'; }
+function pubLoadLib() { return lsGet(PUB_KEY) || []; }
+function pubSaveLib(lib) { lsSet(PUB_KEY, lib); }
+function pubSaveDraft(d) { const lib = pubLoadLib(); lib.unshift({...d,id:Date.now(),fecha:new Date().toISOString()}); if(lib.length>60)lib.length=60; pubSaveLib(lib); }
+function pubDeleteDraft(id) { pubSaveLib(pubLoadLib().filter(d => d.id !== +id)); }
+
+function pubAnalyze(selRows) {
+  const ps = selRows.map(r => r.p);
+  const cat = PUB.cat;
+  let cheapestIdx = -1, cheapestVal = Infinity;
+  ps.forEach((p,i) => { const v = pubPrice(p); if (v != null && v < cheapestVal) { cheapestVal = v; cheapestIdx = i; } });
+  const ex = {};
+  if (cat === 'omega3') {
+    ps.forEach((p,i) => {
+      const e = p.especs || {};
+      if (e.costoPorPorcion && +e.costoPorPorcion < (ex.cheapPorcVal ?? Infinity)) { ex.cheapPorc = i; ex.cheapPorcVal = +e.costoPorPorcion; }
+      const epa = parseFloat(e.epa)||0, dha = parseFloat(e.dha)||0, tot = epa+dha;
+      if (tot > (ex.bestEpaDhaVal || 0)) { ex.bestEpaDha = i; ex.bestEpaDhaVal = tot; }
+    });
+  }
+  if (cat === 'proteina') {
+    ps.forEach((p,i) => {
+      const e = p.especs || {};
+      if (e.costoPorPorcion && +e.costoPorPorcion < (ex.cheapPorcVal ?? Infinity)) { ex.cheapPorc = i; ex.cheapPorcVal = +e.costoPorPorcion; }
+      const gr = parseFloat(e.proteinaPorPorcion)||parseFloat(e.gramosPorPorcion)||0;
+      if (gr > (ex.bestProtVal || 0)) { ex.bestProt = i; ex.bestProtVal = gr; }
+    });
+  }
+  if (cat === 'freidoras') {
+    ps.forEach((p,i) => {
+      const cap = parseFloat((p.especs||{}).capacidad)||0;
+      if (cap > (ex.bestCapVal||0)) { ex.bestCap = i; ex.bestCapVal = cap; }
+    });
+  }
+  if (cat === 'laptops') {
+    ps.forEach((p,i) => {
+      const ramGb = parseFloat((p.especs||{}).ram)||0;
+      if (ramGb > (ex.bestRamVal||0)) { ex.bestRam = i; ex.bestRamVal = ramGb; }
+    });
+  }
+  return {cheapestIdx, ex};
+}
+
+function pubSpecLine(p) {
+  const e = p.especs || {}, cat = PUB.cat, parts = [];
+  if (cat==='omega3') {
+    if (e.porciones) parts.push(e.porciones + ' porciones');
+    if (e.epa && e.dha) parts.push('EPA ' + e.epa + ' mg / DHA ' + e.dha + ' mg');
+    else if (e.omegaTotal) parts.push('Omega 3: ' + e.omegaTotal + ' mg');
+    if (e.costoPorPorcion) parts.push('$' + e.costoPorPorcion + '/porción');
+    if (e.ifos) parts.push('IFOS: ' + e.ifos);
+  } else if (cat==='proteina') {
+    if (e.proteinaPorPorcion||e.gramosPorPorcion) parts.push((e.proteinaPorPorcion||e.gramosPorPorcion) + ' g proteína/porción');
+    if (e.porciones) parts.push(e.porciones + ' porciones');
+    if (e.costoPorPorcion) parts.push('$' + e.costoPorPorcion + '/porción');
+    if (e.tipoProteina) parts.push(e.tipoProteina);
+  } else if (cat==='freidoras') {
+    if (e.capacidad) parts.push(e.capacidad + ' L');
+    if (e.potencia) parts.push(e.potencia + ' W');
+    if (e.tipo) parts.push(e.tipo);
+  } else if (cat==='laptops') {
+    if (e.procesador) parts.push(e.procesador);
+    if (e.ram) parts.push(e.ram + ' RAM');
+    if (e.almacenamiento) parts.push(e.almacenamiento);
+    if (e.pantalla) parts.push(e.pantalla);
+  } else if (cat==='bicis') {
+    if (e.tipo) parts.push(e.tipo);
+    if (e.motor) parts.push('Motor: ' + e.motor);
+    if (e.autonomia) parts.push('Autonomía: ' + e.autonomia);
+    if (e.velocidades) parts.push(e.velocidades + ' vel.');
+  } else if (cat==='microondas') {
+    if (e.capacidad) parts.push(e.capacidad + ' L');
+    if (e.potencia) parts.push(e.potencia + ' W');
+    if (e.tipo) parts.push(e.tipo);
+  } else if (cat==='magnesio') {
+    if (e.formaMagnesio) parts.push(e.formaMagnesio);
+    if (e.mgElemental) parts.push(e.mgElemental + ' mg elemental');
+    if (e.porciones) parts.push(e.porciones + ' porciones');
+    if (e.costoPorPorcion) parts.push('$' + e.costoPorPorcion + '/porción');
+  } else if (cat==='creatina') {
+    if (e.tipoCreatina) parts.push(e.tipoCreatina);
+    if (e.grPorPorcion) parts.push(e.grPorPorcion + ' g/porción');
+    if (e.porciones) parts.push(e.porciones + ' porciones');
+    if (e.costoPor5g) parts.push('$' + e.costoPor5g + '/5 g');
+  } else if (cat==='vitamina_d') {
+    if (e.ui) parts.push(e.ui + ' UI');
+    if (e.conK2) parts.push('Con K2: ' + e.conK2);
+    if (e.porciones) parts.push(e.porciones + ' porciones');
+    if (e.costoPorPorcion) parts.push('$' + e.costoPorPorcion + '/porción');
+  } else if (cat.startsWith('tecnologia_')) {
+    if (e.modelo) parts.push(e.modelo);
+    if (e.bateria) parts.push('Batería: ' + e.bateria);
+    if (e.potencia) parts.push(e.potencia);
+  } else if (cat.startsWith('videojuegos_')) {
+    if (e.plataforma) parts.push(e.plataforma);
+    if (e.generacion) parts.push(e.generacion);
+    if (e.almacenamiento) parts.push(e.almacenamiento);
+  }
+  return parts.join(' · ') || null;
+}
+
+function pubGenText(tipo) {
+  const selRows = pubGetSel();
+  if (!selRows.length) return '';
+  const prods = selRows.map(r => r.p);
+  const cat = PUB.cat;
+  const catLabel = CATS[cat] || cat;
+  const url = PUB_URLS[cat] || '';
+  const {cheapestIdx, ex} = pubAnalyze(selRows);
+
+  const prodLines = prods.map(p => {
+    const sl = pubSpecLine(p);
+    return '• ' + (p.marca ? p.marca + ' ' : '') + p.nombre + '\n' +
+      '  Precio: ' + pubPriceStr(p) + (sl ? '\n  ' + sl : '') +
+      ((p.estrellas && p.resenas) ? '\n  ⭐ ' + p.estrellas + '/5 (' + p.resenas + ' reseñas)' : '');
+  }).join('\n\n');
+
+  const simpleList = prods.map(p => '• ' + p.nombre + ' — ' + pubPriceStr(p)).join('\n');
+
+  let winnerNote = '';
+  if (cheapestIdx >= 0) winnerNote += '\n💸 El más económico: ' + prods[cheapestIdx].nombre + ' (' + pubPriceStr(prods[cheapestIdx]) + ')';
+  if (cat==='omega3' && ex.bestEpaDha != null) winnerNote += '\n🧪 Mayor EPA+DHA: ' + prods[ex.bestEpaDha].nombre + ' (' + ex.bestEpaDhaVal + ' mg/porción)';
+  if ((cat==='omega3'||cat==='proteina'||cat==='creatina'||cat==='magnesio') && ex.cheapPorc != null) winnerNote += '\n💰 Menor costo/porción: ' + prods[ex.cheapPorc].nombre + ' ($' + ex.cheapPorcVal + ')';
+  if (cat==='proteina' && ex.bestProt != null) winnerNote += '\n💪 Más proteína/porción: ' + prods[ex.bestProt].nombre + ' (' + ex.bestProtVal + ' g)';
+  if (cat==='freidoras' && ex.bestCap != null) winnerNote += '\n🍟 Mayor capacidad: ' + prods[ex.bestCap].nombre + ' (' + ex.bestCapVal + ' L)';
+  if (cat==='laptops' && ex.bestRam != null) winnerNote += '\n🖥️ Más RAM: ' + prods[ex.bestRam].nombre + ' (' + ex.bestRamVal + ' GB)';
+
+  const buyCtas = prods.map(p => {
+    const btns = [];
+    if (p.linkML) btns.push('🟡 ' + (p.marca||p.nombre.split(' ')[0]) + ' en Mercado Libre: ' + p.linkML);
+    if (p.linkAmz) btns.push('🟠 ' + (p.marca||p.nombre.split(' ')[0]) + ' en Amazon: ' + p.linkAmz);
+    return btns.join('\n');
+  }).filter(Boolean).join('\n');
+
+  const footer = (url ? '\n\n🔗 Compara todos los detalles:\n' + url : '') +
+    (buyCtas ? '\n\n🛒 Dónde comprar:\n' + buyCtas : '');
+
+  const guiaIntros = {
+    omega3:'✅ Concentración de EPA+DHA por porción\n✅ Pureza y certificaciones (IFOS, sin metales pesados)\n✅ Número de porciones\n✅ Costo por porción',
+    proteina:'✅ Gramos de proteína por porción\n✅ Fuente de proteína (whey, vegetal, caseína)\n✅ Número de porciones\n✅ Costo por porción',
+    freidoras:'✅ Capacidad en litros (1-2 pers: 2-3 L / familias: 4+ L)\n✅ Potencia en watts\n✅ Funciones adicionales (deshidratar, hornear, etc.)\n✅ Facilidad de limpieza',
+    laptops:'✅ Procesador y generación\n✅ RAM (mínimo 8 GB, idealmente 16 GB)\n✅ Almacenamiento SSD\n✅ Pantalla, resolución y duración de batería',
+    bicis:'✅ Tipo de bicicleta (ciudad, montaña, ruta, eléctrica)\n✅ Autonomía de batería (en eléctricas)\n✅ Velocidades y frenos\n✅ Peso máximo soportado',
+    microondas:'✅ Capacidad en litros\n✅ Potencia\n✅ Funciones (grill, convección)\n✅ Tipo de control (digital/botones)',
+    magnesio:'✅ Forma de magnesio (glicinato, citrato, malato: mejor absorción)\n✅ mg de magnesio elemental por porción\n✅ Número de porciones\n✅ Costo por porción',
+    creatina:'✅ Tipo (monohidrato: el más estudiado)\n✅ Gramos por porción (5 g estándar)\n✅ Pureza (sin rellenos)\n✅ Costo por 5 g',
+  };
+  const guiaIntro = guiaIntros[cat] || '✅ Precio\n✅ Características principales\n✅ Garantía\n✅ Reseñas de compradores';
+
+  const educTexts = {
+    omega3:'¿Sabes qué mirar en un Omega 3?\n\n→ Lo que importa NO es el contenido total de aceite, sino los mg de EPA y DHA por porción.\n→ Un suplemento de calidad suele aportar 500 mg o más de EPA+DHA por cápsula.\n→ Busca certificaciones de pureza (IFOS, sin metales pesados).\n→ Compara el costo por porción, no solo el precio del frasco.',
+    proteina:'¿Cómo elegir una proteína en polvo?\n\n→ Compara los gramos de proteína por porción, no el tamaño del bote.\n→ Revisa la fuente: whey (rápida absorción), caseína (lenta), vegetal (sin lactosa).\n→ Calcula el costo por porción dividiendo el precio entre el número de porciones.\n→ Evita productos con muchos aditivos si tu objetivo es nutrición limpia.',
+    freidoras:'Freidoras de aire: lo que debes saber\n\n→ Para 1-2 personas basta con 2-3 litros. Para familias, busca 4+ litros.\n→ Más potencia (watts) = tiempos de cocción más cortos.\n→ Las digitales son más precisas; las de perilla, más simples de usar.\n→ Algunas permiten deshidratar, hornear e incluso hacer pan.',
+    laptops:'¿Cuánta RAM necesitas en tu laptop?\n\n→ 8 GB: suficiente para tareas básicas (navegación, documentos, clases en línea).\n→ 16 GB: ideal para trabajo profesional, edición ligera y multitarea.\n→ 32 GB o más: edición de video, diseño 3D, programación intensa.\n→ Recuerda: el SSD importa tanto como la RAM para la velocidad general.',
+    magnesio:'Tipos de magnesio: no todos son iguales\n\n→ Glicinato: alta absorción, suave para el estómago, ideal para sueño y estrés.\n→ Citrato: buena absorción, efecto laxante leve.\n→ Malato: útil para energía y rendimiento físico.\n→ Óxido: económico pero baja biodisponibilidad; mejor evitarlo.\n→ Lo importante: los mg de magnesio ELEMENTAL, no el total del compuesto.',
+    creatina:'Creatina monohidrato: la más estudiada\n\n→ Es el suplemento más investigado en nutrición deportiva.\n→ 3-5 g diarios es la dosis estándar efectiva.\n→ No necesitas "cargar" si la tomas consistentemente.\n→ Funciona mejor hidratándote bien. No tiene efectos secundarios comprobados en personas sanas.',
+  };
+  const educText = educTexts[cat] || ('¿Qué considerar al comprar ' + catLabel.toLowerCase() + '?\n\nCada modelo tiene características distintas. En Compáralo.mx analizamos las opciones disponibles para que tomes la mejor decisión con información real.');
+
+  const variants = {
+    comparativa: () =>
+'🔍 Comparamos ' + prods.length + ' ' + catLabel.toLowerCase() + (prods.length === 1 ? '' : 's') + ' para que no tengas que hacerlo tú\n\n' +
+prodLines +
+(winnerNote ? '\n' + winnerNote : '') +
+footer,
+
+    precio: () =>
+'💰 ¿Cuál ' + catLabel.toLowerCase() + ' conviene más a tu bolsillo?\n\n' +
+'Esto encontramos comparando las opciones disponibles:\n\n' +
+simpleList +
+(cheapestIdx >= 0 ? '\n\n✅ La más accesible: ' + prods[cheapestIdx].nombre + ' — ' + pubPriceStr(prods[cheapestIdx]) : '') +
+footer,
+
+    caracteristicas: () =>
+'⭐ ¿Cuál ' + catLabel.toLowerCase() + ' tiene mejores características?\n\n' +
+'Analizamos lo más importante:\n\n' +
+prodLines +
+(winnerNote ? '\n' + winnerNote : '') +
+'\n\n¿Cuál tiene lo que necesitas?' +
+footer,
+
+    valor: () =>
+'⚖️ Mejor relación calidad/precio en ' + catLabel + '\n\n' +
+'No siempre la más cara es la mejor opción. Esto encontramos:\n\n' +
+prodLines +
+(winnerNote ? '\n' + winnerNote : '') +
+'\n\nDescubre cuál se ajusta mejor a tus necesidades:' +
+footer,
+
+    guia: () =>
+'📋 Guía rápida: cómo elegir tu ' + catLabel.toLowerCase() + '\n\n' +
+'Antes de comprar, revisa:\n' + guiaIntro + '\n\n' +
+'Opciones que analizamos hoy:\n\n' +
+prodLines +
+(winnerNote ? '\n' + winnerNote : '') +
+'\n\nComparativa completa:' +
+footer,
+
+    educativa: () =>
+'📚 ' + educText + '\n\n' +
+'Algunas opciones analizadas:\n\n' +
+simpleList +
+footer,
+
+    destacado: () => {
+      const p = prods[0];
+      const sl = pubSpecLine(p);
+      return '🌟 ' + (p.marca ? p.marca + ': ' : '') + p.nombre + '\n\n' +
+        '💵 Precio: ' + pubPriceStr(p) + '\n' +
+        (sl ? sl + '\n' : '') +
+        (p.estrellas ? '⭐ ' + p.estrellas + '/5' + (p.resenas ? ' (' + p.resenas + ' reseñas)' : '') + '\n' : '') +
+        (prods.length > 1 ? '\n¿Quieres compararlo con otras opciones?\n' + (url ? '👉 ' + url : '') + '\n\n🛒 Comprar:\n' + buyCtas : '\n\n🛒 Comprar:\n' + buyCtas);
+    },
+  };
+
+  return (variants[tipo] || variants.comparativa)().trim();
+}
+
+function renderPub() {
+  if (!PUB_INIT) return;
+  const catsEl = $('#pub-cats');
+  if (catsEl) {
+    catsEl.innerHTML = Object.entries(CATS).map(([k,label]) =>
+      '<button class="pub-cat-btn' + (PUB.cat===k?' on':'') + '" data-pub-cat="' + esc(k) + '">' + esc(label) + '</button>'
+    ).join('');
+  }
+  const q = ($('#pub-q') && $('#pub-q').value || '').toLowerCase();
+  const prodsEl = $('#pub-prods');
+  if (prodsEl) {
+    if (!PUB.cat) {
+      prodsEl.innerHTML = '<div style="padding:10px 0;color:var(--fg-3);font-size:13px">Selecciona una categoría arriba para ver sus productos</div>';
+    } else {
+      const rows = ROWS.filter(r => r.cat===PUB.cat && r.p.activo!==false && (!q || norm(r.p.nombre+' '+(r.p.marca||'')).includes(norm(q))));
+      if (!rows.length) {
+        prodsEl.innerHTML = '<div style="padding:10px 0;color:var(--fg-3);font-size:13px">' + (q ? 'Sin resultados para esa búsqueda' : 'No hay productos activos en esta categoría') + '</div>';
+      } else {
+        prodsEl.innerHTML = rows.map(r => {
+          const p = r.p, on = PUB.selIds.includes(String(p.id)), dis = !on && PUB.selIds.length>=5;
+          return '<div class="pub-prod-item' + (on?' on':'') + '" data-pub-prod="' + esc(String(p.id)) + '" role="checkbox" aria-checked="' + on + '" tabindex="0"' + (dis?' style="opacity:.4;pointer-events:none"':'') + '>' +
+            '<img src="' + esc(p.imagen||'') + '" alt="" onerror="this.style.display=\'none\'" loading="lazy">' +
+            '<div style="flex:1;min-width:0"><div class="pname">' + esc(p.nombre) + '</div><div class="pbrand">' + esc(p.marca||'') + ' · ' + pubPriceStr(p) + '</div></div>' +
+            '<div class="pck">' + (on?'✓':'') + '</div>' +
+            '</div>';
+        }).join('');
+      }
+    }
+  }
+  const selRow = $('#pub-sel-row'), selCount = $('#pub-sel-count');
+  const selRows = pubGetSel();
+  if (selRow) selRow.innerHTML = selRows.length
+    ? selRows.map(r => '<span class="pub-sel-chip">' + esc(r.p.nombre) + '<button data-pub-desel="' + esc(String(r.p.id)) + '" title="Quitar">×</button></span>').join('')
+    : '<span style="font-size:12px;color:var(--fg-3)">Ningún producto seleccionado</span>';
+  if (selCount) selCount.textContent = selRows.length + (selRows.length===1?' seleccionado':' seleccionados');
+  const tiposEl = $('#pub-tipos');
+  if (tiposEl) tiposEl.innerHTML = PUB_TIPOS.map(t =>
+    '<button class="pub-tipo-btn' + (PUB.tipo===t.k?' on':'') + '" data-pub-tipo="' + t.k + '">' + t.l + '<small>' + t.d + '</small></button>'
+  ).join('');
+  const genBtn = $('#pub-gen-btn');
+  if (genBtn) genBtn.disabled = selRows.length<2 || !PUB.tipo;
+  const step3 = $('#pub-step3');
+  if (step3) step3.hidden = !PUB.draft;
+  if (PUB.draft) { const prev = $('#pub-preview'); if(prev) prev.textContent = PUB.draft; }
+  renderPubLib();
+}
+
+function renderPubLib() {
+  const libEl = $('#pub-lib-list');
+  if (!libEl) return;
+  const lib = pubLoadLib();
+  if (!lib.length) { libEl.innerHTML = '<div class="pub-empty">No hay publicaciones guardadas aún.<br>Genera una y haz clic en "Guardar borrador".</div>'; return; }
+  libEl.innerHTML = lib.map(d => {
+    const catLabel = CATS[d.cat]||d.cat||'—';
+    const tipoLabel = (PUB_TIPOS.find(t=>t.k===d.tipo)||{}).l||d.tipo||'—';
+    const date = d.fecha ? fmtShort(d.fecha) : '';
+    const preview = (d.text||'').substring(0,140) + ((d.text||'').length>140?'…':'');
+    return '<div class="pub-lib-item">' +
+      '<div class="pub-lib-meta">' +
+        '<div class="pub-lib-title">' + esc(catLabel) + ' · ' + esc(tipoLabel) + '<span class="pub-lib-badge t-muted">' + esc(date) + '</span></div>' +
+        '<div class="pub-lib-sub">' + esc(preview) + '</div>' +
+      '</div>' +
+      '<div class="pub-lib-actions">' +
+        '<button class="btn btn-sm" data-pub-lib-copy="' + d.id + '" title="Copiar texto">📋</button>' +
+        '<button class="btn btn-sm" data-pub-lib-restore="' + d.id + '" title="Restaurar selección">↩</button>' +
+        '<button class="btn btn-sm btn-ghost-danger" data-pub-lib-del="' + d.id + '" title="Eliminar">✕</button>' +
+      '</div>' +
+      '</div>';
+  }).join('');
+}
+
+function initPub() {
+  if (PUB_INIT) { renderPub(); return; }
+  PUB_INIT = true;
+  const qEl = $('#pub-q');
+  if (qEl) qEl.addEventListener('input', () => renderPub());
+  const imgFile = $('#pub-img-file');
+  if (imgFile) imgFile.addEventListener('change', () => {
+    const f = imgFile.files[0]; if(!f) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      PUB.imgData = ev.target.result;
+      const img = $('#pub-img-preview'); if(img){img.src=PUB.imgData;img.hidden=false;}
+      const rm = $('#pub-img-remove'); if(rm) rm.hidden=false;
+    };
+    reader.readAsDataURL(f);
+  });
+  renderPub();
+}
+
+function pubHandleClick(t) {
+  const catBtn = t.closest('[data-pub-cat]');
+  if (catBtn) { PUB.cat=catBtn.dataset.pubCat; PUB.selIds=[]; PUB.draft=null; PUB.tipo=''; renderPub(); return true; }
+  const prodBtn = t.closest('[data-pub-prod]');
+  if (prodBtn) {
+    const id = prodBtn.dataset.pubProd;
+    const idx = PUB.selIds.indexOf(id);
+    if (idx>=0) PUB.selIds.splice(idx,1);
+    else if (PUB.selIds.length<5) PUB.selIds.push(id);
+    renderPub(); return true;
+  }
+  const deselBtn = t.closest('[data-pub-desel]');
+  if (deselBtn) { PUB.selIds=PUB.selIds.filter(x=>x!==deselBtn.dataset.pubDesel); renderPub(); return true; }
+  const tipoBtn = t.closest('[data-pub-tipo]');
+  if (tipoBtn) { PUB.tipo=tipoBtn.dataset.pubTipo; renderPub(); return true; }
+  const libCopy = t.closest('[data-pub-lib-copy]');
+  if (libCopy) { const d=pubLoadLib().find(x=>x.id===+libCopy.dataset.pubLibCopy); if(d) copyText(d.text,'Publicación copiada'); return true; }
+  const libRestore = t.closest('[data-pub-lib-restore]');
+  if (libRestore) {
+    const d=pubLoadLib().find(x=>x.id===+libRestore.dataset.pubLibRestore);
+    if (d) { PUB.cat=d.cat||PUB.cat; PUB.selIds=d.prods||[]; PUB.tipo=d.tipo||''; PUB.draft=d.text||null; renderPub(); toast('Borrador restaurado'); }
+    return true;
+  }
+  const libDel = t.closest('[data-pub-lib-del]');
+  if (libDel) { pubDeleteDraft(+libDel.dataset.pubLibDel); renderPubLib(); toast('Borrador eliminado'); return true; }
+  return false;
+}
+// ── /Generador de publicaciones ─────────────────────────────────────────────
 
 // ── Arranque ────────────────────────────────────────────────────────────────
 document.getElementById('app').innerHTML = SHELL;
