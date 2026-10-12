@@ -121,6 +121,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .btn-amz:hover{opacity:.9}
 .btn-ml{display:flex;align-items:center;justify-content:center;gap:5px;width:100%;text-align:center;background:var(--ml);color:#3a2e00;border:none;border-radius:8px;padding:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Satoshi',sans-serif;text-decoration:none;transition:opacity .15s;white-space:nowrap}
 .btn-ml:hover{opacity:.9}
+.btn-logo-img{height:20px;width:auto;object-fit:contain;flex-shrink:0}
 
 .empty{text-align:center;padding:3rem 1.5rem;color:var(--tx3);font-size:14px}
 .empty strong{display:block;color:var(--tx2);font-size:15px;margin-bottom:6px}
@@ -1163,16 +1164,17 @@ function cardHtml(p) {
   const specsHtml = SPEC_KEYS.filter(([k]) => specs[k]).map(([k,label]) =>
     `<div class="spec"><div class="spec-label">${label}</div><div class="spec-val">${specs[k]}</div></div>`
   ).join('');
+  const gaClick = (ev) => `onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_${ev}',{'platform':'${ev === 'ml' ? 'mercado_libre' : 'amazon'}','product_name':this.dataset.gaLabel||'','price':parseFloat(this.dataset.gaVal)||0,'page_section':'tecnologia_audifonos','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1,'category':'tecnologia_audifonos'})}"`;
   let btns = '';
   if (hasML && hasAmz) {
     btns = `<div class="card-btns-dual">
-      <div class="card-btn-col"><span class="card-btn-col-price">$${Math.round(p.precioML).toLocaleString('es-MX')}</span><a class="btn-ml" href="${p.linkML}" target="_blank" rel="nofollow sponsored noopener">Mercado Libre</a></div>
-      <div class="card-btn-col"><span class="card-btn-col-price">$${Math.round(p.precioAmz).toLocaleString('es-MX')}</span><a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow sponsored noopener">Amazon</a></div>
+      <div class="card-btn-col"><span class="card-btn-col-price">${Math.round(p.precioML).toLocaleString('es-MX')}</span><a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" ${gaClick('ml')} data-ga-label="${p.nombre||''}" data-ga-val="${p.precioML||0}">Ir a <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a></div>
+      <div class="card-btn-col"><span class="card-btn-col-price">${Math.round(p.precioAmz).toLocaleString('es-MX')}</span><a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" ${gaClick('amazon')} data-ga-label="${p.nombre||''}" data-ga-val="${p.precioAmz||0}">Ir a <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a></div>
     </div>`;
   } else if (hasML) {
-    btns = `<div class="card-price">$${Math.round(p.precioML).toLocaleString('es-MX')}</div><a class="btn-ml" href="${p.linkML}" target="_blank" rel="nofollow sponsored noopener">Ir a Mercado Libre</a>`;
+    btns = `<div class="card-price">${Math.round(p.precioML).toLocaleString('es-MX')}</div><a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" ${gaClick('ml')} data-ga-label="${p.nombre||''}" data-ga-val="${p.precioML||0}">Ir a <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>`;
   } else if (hasAmz) {
-    btns = `<div class="card-price">$${Math.round(p.precioAmz).toLocaleString('es-MX')}</div><a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow sponsored noopener">Ir a Amazon</a>`;
+    btns = `<div class="card-price">${Math.round(p.precioAmz).toLocaleString('es-MX')}</div><a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" ${gaClick('amazon')} data-ga-label="${p.nombre||''}" data-ga-val="${p.precioAmz||0}">Ir a <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>`;
   }
   return `<div class="card" data-platform="${platform}">
     <div class="card-img-wrap"><img class="card-img" src="${p.imagen || ''}" alt="${p.nombre}" loading="lazy"></div>
