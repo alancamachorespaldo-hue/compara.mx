@@ -1,6 +1,6 @@
 {
-  "fecha": "2026-10-11",
-  "generado": "2026-10-11T17:28:08.949Z",
+  "fecha": "2026-10-12",
+  "generado": "2026-10-12T17:08:39.182Z",
   "categorias": [
     "laptops",
     "freidoras",
@@ -17,11 +17,11 @@
     "videojuegos_juegos"
   ],
   "totales": {
-    "actualizados": 3,
-    "sin_cambio": 189,
-    "sin_precio": 9,
+    "actualizados": 87,
+    "sin_cambio": 187,
+    "sin_precio": 10,
     "precio_sospechoso": 0,
-    "sin_id": 49
+    "sin_id": 76
   },
   "productos": [
     {
@@ -226,8 +226,9 @@
       "marca": "HP",
       "mlId": "MLM28361415",
       "precioAntes": 18581,
-      "estado": "sin_cambio",
-      "precioML": 18581
+      "estado": "actualizado",
+      "precioNuevo": 20439,
+      "precioML": 20439
     },
     {
       "categoria": "laptops",
@@ -236,8 +237,9 @@
       "marca": "HP",
       "mlId": "MLM69741169",
       "precioAntes": 22660,
-      "estado": "sin_cambio",
-      "precioML": 22660
+      "estado": "actualizado",
+      "precioNuevo": 22971,
+      "precioML": 22971
     },
     {
       "categoria": "laptops",
@@ -256,8 +258,9 @@
       "marca": "HP",
       "mlId": "MLM67144918",
       "precioAntes": 10688,
-      "estado": "sin_cambio",
-      "precioML": 10688
+      "estado": "actualizado",
+      "precioNuevo": 10460,
+      "precioML": 10460
     },
     {
       "categoria": "laptops",
@@ -265,10 +268,10 @@
       "nombre": "Lenovo IdeaPad Slim 3 Ryzen 5 7520U 8GB 512GB",
       "marca": "Lenovo",
       "mlId": "MLM46328059",
-      "precioAntes": 11023,
+      "precioAntes": 10981,
       "estado": "actualizado",
-      "precioNuevo": 10981,
-      "precioML": 10981
+      "precioNuevo": 11199,
+      "precioML": 11199
     },
     {
       "categoria": "laptops",
@@ -287,8 +290,9 @@
       "marca": "HP",
       "mlId": "MLM63240659",
       "precioAntes": 6490,
-      "estado": "sin_cambio",
-      "precioML": 6490
+      "estado": "actualizado",
+      "precioNuevo": 6579,
+      "precioML": 6579
     },
     {
       "categoria": "laptops",
@@ -317,8 +321,9 @@
       "marca": "HP",
       "mlId": "MLM63081442",
       "precioAntes": 6016,
-      "estado": "sin_cambio",
-      "precioML": 6016
+      "estado": "actualizado",
+      "precioNuevo": 6098,
+      "precioML": 6098
     },
     {
       "categoria": "laptops",
@@ -327,8 +332,9 @@
       "marca": "Lenovo",
       "mlId": "MLM70394812",
       "precioAntes": 7910,
-      "estado": "sin_cambio",
-      "precioML": 7910
+      "estado": "actualizado",
+      "precioNuevo": 8019,
+      "precioML": 8019
     },
     {
       "categoria": "laptops",
@@ -337,8 +343,9 @@
       "marca": "HP",
       "mlId": "MLM53196537",
       "precioAntes": 6326,
-      "estado": "sin_cambio",
-      "precioML": 6326
+      "estado": "actualizado",
+      "precioNuevo": 6413,
+      "precioML": 6413
     },
     {
       "categoria": "laptops",
@@ -357,8 +364,9 @@
       "marca": "Apple",
       "mlId": "MLM1054139854",
       "precioAntes": 45729,
-      "estado": "sin_cambio",
-      "precioML": 45729
+      "estado": "actualizado",
+      "precioNuevo": 45596,
+      "precioML": 45596
     },
     {
       "categoria": "laptops",
@@ -367,8 +375,9 @@
       "marca": "Apple",
       "mlId": "MLM66172744",
       "precioAntes": 17615,
-      "estado": "sin_cambio",
-      "precioML": 17615
+      "estado": "actualizado",
+      "precioNuevo": 17857,
+      "precioML": 17857
     },
     {
       "categoria": "laptops",
@@ -486,9 +495,8 @@
       "nombre": "Ninja AF161 Freidora de Aire XL 5L Max Crisp",
       "marca": "Ninja",
       "mlId": "MLM22374539",
-      "precioAntes": 2572,
-      "estado": "actualizado",
-      "precioNuevo": 2668,
+      "precioAntes": 2668,
+      "estado": "sin_cambio",
       "precioML": 2668
     },
     {
@@ -508,8 +516,9 @@
       "marca": "Patbrela",
       "mlId": "MLM68400548",
       "precioAntes": 984,
-      "estado": "sin_cambio",
-      "precioML": 984
+      "estado": "actualizado",
+      "precioNuevo": 1075,
+      "precioML": 1075
     },
     {
       "categoria": "freidoras",
@@ -518,8 +527,9 @@
       "marca": "Oster",
       "mlId": "MLM42517479",
       "precioAntes": 1589,
-      "estado": "sin_cambio",
-      "precioML": 1589
+      "estado": "actualizado",
+      "precioNuevo": 1199,
+      "precioML": 1199
     },
     {
       "categoria": "freidoras",
@@ -588,8 +598,9 @@
       "marca": "Welikera",
       "mlId": "MLM61443962",
       "precioAntes": 1260,
-      "estado": "sin_cambio",
-      "precioML": 1260
+      "estado": "actualizado",
+      "precioNuevo": 1281,
+      "precioML": 1281
     },
     {
       "categoria": "freidoras",
@@ -708,8 +719,9 @@
       "marca": "PATBRELA",
       "mlId": "MLM63441514",
       "precioAntes": 1504,
-      "estado": "sin_cambio",
-      "precioML": 1504
+      "estado": "actualizado",
+      "precioNuevo": 1354,
+      "precioML": 1354
     },
     {
       "categoria": "freidoras",
@@ -780,6 +792,249 @@
       "id": "moboss-prince-blanco",
       "nombre": "Moboss Prince",
       "marca": "Moboss",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "bicis",
+      "id": 101,
+      "nombre": "Terrafit Venum R26",
+      "marca": "Terrafit",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "bicis",
+      "id": 102,
+      "nombre": "Kubor Cosmo 26",
+      "marca": "Kubor",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "bicis",
+      "id": 103,
+      "nombre": "Terrafit Spider R29",
+      "marca": "Terrafit",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "bicis",
+      "id": 104,
+      "nombre": "Kubor Calipso 3 R29",
+      "marca": "Kubor",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "bicis",
+      "id": 105,
+      "nombre": "Kubor Calipso 4 R29",
+      "marca": "Kubor",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "bicis",
+      "id": 106,
+      "nombre": "Centurfit R29",
+      "marca": "Centurfit",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "bicis",
+      "id": 201,
+      "nombre": "Lagom Shimano 500-7 R29 21v",
+      "marca": "Lagom",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "bicis",
+      "id": 202,
+      "nombre": "Kubor Octopus R29 9V Shimano Acera",
+      "marca": "Kubor",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "bicis",
+      "id": 203,
+      "nombre": "Kubor Calipso 3 R27.5 Rojo",
+      "marca": "Kubor",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "bicis",
+      "id": 204,
+      "nombre": "Kubor Calipso 3 R27 Blanco",
+      "marca": "Kubor",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "bicis",
+      "id": 205,
+      "nombre": "Kubor Calipso 4 R29 Azul",
+      "marca": "Kubor",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "bicis",
+      "id": 206,
+      "nombre": "Terrafit Venum R26 Verde",
+      "marca": "Terrafit",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "bicis",
+      "id": 301,
+      "nombre": "Terrafit Atenea R700 1v",
+      "marca": "Terrafit",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "bicis",
+      "id": 111,
+      "nombre": "Monk Flug R700",
+      "marca": "Monk",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "bicis",
+      "id": 302,
+      "nombre": "Benotto Ruta 590 R700 14v",
+      "marca": "Benotto",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "bicis",
+      "id": 305,
+      "nombre": "Gravel Fixie R700c Rosa",
+      "marca": "Gravel",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "bicis",
+      "id": 306,
+      "nombre": "Gravel Fixie R700c Amarillo",
+      "marca": "Gravel",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "bicis",
+      "id": 307,
+      "nombre": "Gravel Fixie R700c Blanco",
+      "marca": "Gravel",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "bicis",
+      "id": 110,
+      "nombre": "Alubike Mazzima",
+      "marca": "Alubike",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "bicis",
+      "id": 112,
+      "nombre": "Gravel Armstrong R700",
+      "marca": "Gravel",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "bicis",
+      "id": 303,
+      "nombre": "Turbo Technik R700 14v",
+      "marca": "Turbo",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "bicis",
+      "id": 109,
+      "nombre": "RAM Road R700 14v",
+      "marca": "RAM",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "bicis",
+      "id": 304,
+      "nombre": "Turbo Strada R700 20v",
+      "marca": "Turbo",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "bicis",
+      "id": 113,
+      "nombre": "Hiland Ruta R26",
+      "marca": "Hiland",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "bicis",
+      "id": 107,
+      "nombre": "Gravel Asphalt R700c 14v",
+      "marca": "Gravel",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "bicis",
+      "id": 108,
+      "nombre": "Java Sequoia Gravel L-twoo R3 2x8v",
+      "marca": "Java",
+      "estado": "sin_id",
+      "mlId": null,
+      "precioML": null
+    },
+    {
+      "categoria": "bicis",
+      "id": 401,
+      "nombre": "Gravel Tucson 2024 Shimano Sora 18v",
+      "marca": "Tucson",
       "estado": "sin_id",
       "mlId": null,
       "precioML": null
@@ -891,8 +1146,9 @@
       "marca": "AMYET",
       "mlId": "MLM74880440",
       "precioAntes": 11999,
-      "estado": "sin_cambio",
-      "precioML": 11999
+      "estado": "actualizado",
+      "precioNuevo": 12348,
+      "precioML": 12348
     },
     {
       "categoria": "bicis",
@@ -1010,9 +1266,8 @@
       "nombre": "Koblenz MWKM07IRA-PLA 20L Espejo",
       "marca": "Koblenz",
       "mlId": "MLM44794962",
-      "precioAntes": 1779,
-      "estado": "actualizado",
-      "precioNuevo": 1599,
+      "precioAntes": 1599,
+      "estado": "sin_cambio",
       "precioML": 1599
     },
     {
@@ -1052,8 +1307,9 @@
       "marca": "White-Westinghouse",
       "mlId": "MLM43424701",
       "precioAntes": 1599,
-      "estado": "sin_cambio",
-      "precioML": 1599
+      "estado": "actualizado",
+      "precioNuevo": 1598,
+      "precioML": 1598
     },
     {
       "categoria": "microondas",
@@ -1311,8 +1567,9 @@
       "marca": "Birdman",
       "mlId": "MLM66417491",
       "precioAntes": 569,
-      "estado": "sin_cambio",
-      "precioML": 569
+      "estado": "actualizado",
+      "precioNuevo": 559,
+      "precioML": 559
     },
     {
       "categoria": "proteina",
@@ -1341,8 +1598,9 @@
       "marca": "Easy Fit by Julia Ritz",
       "mlId": "MLM46449427",
       "precioAntes": 620,
-      "estado": "sin_cambio",
-      "precioML": 620
+      "estado": "actualizado",
+      "precioNuevo": 729,
+      "precioML": 729
     },
     {
       "categoria": "proteina",
@@ -1461,8 +1719,9 @@
       "marca": "SCIFIT",
       "mlId": "MLM19807099",
       "precioAntes": 1479,
-      "estado": "sin_cambio",
-      "precioML": 1479
+      "estado": "actualizado",
+      "precioNuevo": 1819,
+      "precioML": 1819
     },
     {
       "categoria": "proteina",
@@ -1741,8 +2000,9 @@
       "marca": "Saisa Herbal",
       "mlId": "MLM49895419",
       "precioAntes": 286,
-      "estado": "sin_cambio",
-      "precioML": 286
+      "estado": "actualizado",
+      "precioNuevo": 299,
+      "precioML": 299
     },
     {
       "categoria": "proteina",
@@ -2056,8 +2316,9 @@
       "marca": "Birdman",
       "mlId": "MLM18625838",
       "precioAntes": 491,
-      "estado": "sin_cambio",
-      "precioML": 491
+      "estado": "actualizado",
+      "precioNuevo": 479,
+      "precioML": 479
     },
     {
       "categoria": "creatina",
@@ -2166,8 +2427,9 @@
       "marca": "Oby Vitaminas",
       "mlId": "MLM40738543",
       "precioAntes": 289,
-      "estado": "sin_cambio",
-      "precioML": 289
+      "estado": "actualizado",
+      "precioNuevo": 279,
+      "precioML": 279
     },
     {
       "categoria": "creatina",
@@ -2236,8 +2498,9 @@
       "marca": "B Life",
       "mlId": "MLM23416069",
       "precioAntes": 449,
-      "estado": "sin_cambio",
-      "precioML": 449
+      "estado": "actualizado",
+      "precioNuevo": 394,
+      "precioML": 394
     },
     {
       "categoria": "creatina",
@@ -2256,8 +2519,9 @@
       "marca": "Bloom",
       "mlId": "MLM67633967",
       "precioAntes": 339,
-      "estado": "sin_cambio",
-      "precioML": 339
+      "estado": "actualizado",
+      "precioNuevo": 399,
+      "precioML": 399
     },
     {
       "categoria": "creatina",
@@ -2395,8 +2659,9 @@
       "marca": "Multiblue",
       "mlId": "MLM19865345",
       "precioAntes": 319,
-      "estado": "sin_cambio",
-      "precioML": 319
+      "estado": "actualizado",
+      "precioNuevo": 399,
+      "precioML": 399
     },
     {
       "categoria": "complejo_b",
@@ -2477,6 +2742,898 @@
       "precioAntes": 399,
       "estado": "sin_cambio",
       "precioML": 399
+    },
+    {
+      "categoria": "videojuegos_controles",
+      "id": "ctrl_MLM51396508",
+      "nombre": "Controles Inalámbricos Joy-Con para Nintendo Switch Rojo y Negro",
+      "marca": "CNJcon",
+      "mlId": "MLM51396508",
+      "precioAntes": 589.92,
+      "estado": "actualizado",
+      "precioNuevo": 593,
+      "precioML": 593
+    },
+    {
+      "categoria": "videojuegos_controles",
+      "id": "ctrl_MLM60044094",
+      "nombre": "Kuake Control Gamepad Para Xbox 360 Alámbrico Pc Windows Azul",
+      "marca": "KUAKE",
+      "mlId": "MLM60044094",
+      "precioAntes": 212.5,
+      "estado": "actualizado",
+      "precioNuevo": 213,
+      "precioML": 213
+    },
+    {
+      "categoria": "videojuegos_controles",
+      "id": "ctrl_MLM64368352",
+      "nombre": "Sony Interactive Entertainment - DualSense Wireless Controller for PS5, PC, Mac & Mobile - Remix Green",
+      "marca": "Sony Interactive Entertainment",
+      "mlId": "MLM64368352",
+      "precioAntes": 1377.09,
+      "estado": "actualizado",
+      "precioNuevo": 1396,
+      "precioML": 1396
+    },
+    {
+      "categoria": "videojuegos_controles",
+      "id": "ctrl_MLM18917848",
+      "nombre": "Control joystick inalámbrico Sony PlayStation DualSense Wireless Controller PS5 galactic purple",
+      "marca": "PlayStation",
+      "mlId": "MLM18917848",
+      "precioAntes": 1348.84,
+      "estado": "actualizado",
+      "precioNuevo": 1290,
+      "precioML": 1290
+    },
+    {
+      "categoria": "videojuegos_controles",
+      "id": "ctrl_MLM58870769",
+      "nombre": "Controles Inalámbricos LED para Nintendo Switch con Vibración y Giroscopio",
+      "marca": "CNJcon",
+      "mlId": "MLM58870769",
+      "precioAntes": 499,
+      "estado": "actualizado",
+      "precioNuevo": 599,
+      "precioML": 599
+    },
+    {
+      "categoria": "videojuegos_controles",
+      "id": "ctrl_MLM41089200",
+      "nombre": "Gamepad EasySMX M15 USB-C Para Smartphones Android y iPhone 15 Con Joysticks Hall",
+      "marca": "EasySMX",
+      "mlId": "MLM41089200",
+      "precioAntes": 608.34,
+      "estado": "actualizado",
+      "precioNuevo": 708,
+      "precioML": 708
+    },
+    {
+      "categoria": "videojuegos_controles",
+      "id": "ctrl_MLM67645801",
+      "nombre": "Control Genérico Inalámbrico Compatible Con Play Station 4 Color Negro",
+      "marca": "Genérica",
+      "mlId": "MLM67645801",
+      "precioAntes": 241,
+      "estado": "actualizado",
+      "precioNuevo": 248,
+      "precioML": 248
+    },
+    {
+      "categoria": "videojuegos_controles",
+      "id": "ctrl_MLM53225642",
+      "nombre": "Control Alámbrico GameSir G7 Pro para Xbox Series X|S y Xbox One, Gamepad Inalámbrico para PC y Android con Palancas TMR, Gatillos Analógicos Hall Effect y Tasa de Sondeo de 1000Hz",
+      "marca": "GameSir",
+      "mlId": "MLM53225642",
+      "precioAntes": 1512.91,
+      "estado": "actualizado",
+      "precioNuevo": 1534,
+      "precioML": 1534
+    },
+    {
+      "categoria": "videojuegos_controles",
+      "id": "ctrl_MLM59819659",
+      "nombre": "GameSir G7 Pro Wireless Controller for Xbox, PC & Android with TMR Sticks, Hall Effect Analog Triggers, 1000Hz Polling Rate, 3.5mm Audio Jack - Wuchang: Fallen Feathers Edition",
+      "marca": "GameSir",
+      "mlId": "MLM59819659",
+      "precioAntes": 1895.74,
+      "estado": "actualizado",
+      "precioNuevo": 1859,
+      "precioML": 1859
+    },
+    {
+      "categoria": "videojuegos_controles",
+      "id": "ctrl_MLM70107397",
+      "nombre": "GameSir G7 Pro Edición Dragon's Dogma 2: mando oficial con modo triple, TMR anti-drift, gatillo dual, giroscopio mapeable y 4 motores de vibración.",
+      "marca": "GameSir",
+      "mlId": "MLM70107397",
+      "precioAntes": 1814.82,
+      "estado": "actualizado",
+      "precioNuevo": 1815,
+      "precioML": 1815
+    },
+    {
+      "categoria": "videojuegos_controles",
+      "id": "ctrl_MLM54456290",
+      "nombre": "Gamesir X3 Pro Type-c Deadpool Edition Con Ventilador",
+      "marca": "GameSir",
+      "mlId": "MLM54456290",
+      "precioAntes": 1750.44,
+      "estado": "actualizado",
+      "precioNuevo": 1774,
+      "precioML": 1774
+    },
+    {
+      "categoria": "videojuegos_controles",
+      "id": "ctrl_MLM70104327",
+      "nombre": "GameSir G7 Pro 8K PC Edición Nioh 3: Mando oficial con sincronización 8 kHz, joysticks TMR Gen-2, gatillos duales, 4 macros y giroscopio – para conquistar el Crisol, Only for Windows PC",
+      "marca": "GameSir",
+      "mlId": "MLM70104327",
+      "precioAntes": 1591.3,
+      "estado": "actualizado",
+      "precioNuevo": 1613,
+      "precioML": 1613
+    },
+    {
+      "categoria": "videojuegos_controles",
+      "id": "ctrl_MLM77547119",
+      "nombre": "Controlador Gamesir T3 Pro para Xbox PC inalámbrico Hall Effect blanco",
+      "marca": "Gamesir Hk",
+      "mlId": "MLM77547119",
+      "precioAntes": 1240.92,
+      "estado": "actualizado",
+      "precioNuevo": 1258,
+      "precioML": 1258
+    },
+    {
+      "categoria": "videojuegos_controles",
+      "id": "ctrl_MLM54226965",
+      "nombre": "Gamesir X5s Controlador Con Bluetooth Para Switch 2/switch Diseño ligero Vibración HD Con Diseño ergonómico Negro",
+      "marca": "GameSir",
+      "mlId": "MLM54226965",
+      "precioAntes": 907.67,
+      "estado": "actualizado",
+      "precioNuevo": 920,
+      "precioML": 920
+    },
+    {
+      "categoria": "videojuegos_controles",
+      "id": "ctrl_MLM67160446",
+      "nombre": "Mandos Inalámbricos Para Switch Tipo Joycon Con Diseño Gamer",
+      "marca": "CNJcon",
+      "mlId": "MLM67160446",
+      "precioAntes": 484.03,
+      "estado": "actualizado",
+      "precioNuevo": 484,
+      "precioML": 484
+    },
+    {
+      "categoria": "videojuegos_controles",
+      "id": "ctrl_MLM23249699",
+      "nombre": "Control Joystick Inalámbrico Microsoft Xbox Wireless Controller Robot White",
+      "marca": "Xbox",
+      "mlId": "MLM23249699",
+      "precioAntes": 1330.79,
+      "estado": "actualizado",
+      "precioNuevo": 1339,
+      "precioML": 1339
+    },
+    {
+      "categoria": "videojuegos_controles",
+      "id": "ctrl_MLM2070731793",
+      "nombre": "8bitdo N64 For Gamepad For Analogue 3d For Switch Switch 2",
+      "marca": "8BitDo",
+      "mlId": "MLM2070731793",
+      "precioAntes": 730.84,
+      "estado": "actualizado",
+      "precioNuevo": 741,
+      "precioML": 741
+    },
+    {
+      "categoria": "videojuegos_controles",
+      "id": "ctrl_MLM15646212",
+      "nombre": "Control joystick inalámbrico Microsoft Mando inalámbrico Xbox 360 special edition chrome series red",
+      "marca": "Microsoft",
+      "mlId": "MLM15646212",
+      "precioAntes": 730,
+      "estado": "sin_cambio",
+      "precioML": 730
+    },
+    {
+      "categoria": "videojuegos_controles",
+      "id": "ctrl_MLM15144673",
+      "nombre": "Control Xbox 360 y Windows PC USB Alambrico Microsoft Negro",
+      "marca": "Microsoft",
+      "mlId": "MLM15144673",
+      "precioAntes": 750,
+      "estado": "sin_cambio",
+      "precioML": 750
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-001",
+      "nombre": "The Legend Of Zelda Breath Of The Wild Nintendo Switch 2",
+      "marca": "",
+      "mlId": "MLM52858284",
+      "precioAntes": 1599,
+      "estado": "sin_cambio",
+      "precioML": 1599
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-002",
+      "nombre": "Resident Evil Requiem Nintendo Switch 2 Eur Físico",
+      "marca": "Capcom",
+      "mlId": "MLM80273818",
+      "precioAntes": 1299,
+      "estado": "sin_cambio",
+      "precioML": 1299
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-003",
+      "nombre": "Resident Evil 3 Remake Ps5 Eur Físico",
+      "marca": "Capcom",
+      "mlId": "MLM80318454",
+      "precioAntes": 499.23,
+      "estado": "actualizado",
+      "precioNuevo": 599,
+      "precioML": 599
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-004",
+      "nombre": "Videojuego The Legend of Zelda: Ocarina of Time Nintendo Switch 2",
+      "marca": "Nintendo",
+      "mlId": "MLM79125357",
+      "precioAntes": 1451.67,
+      "estado": "actualizado",
+      "precioNuevo": 1449,
+      "precioML": 1449
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-005",
+      "nombre": "Wreckfest Standard Edition (Físico)",
+      "marca": "",
+      "mlId": "MLM57341538",
+      "precioAntes": 1189,
+      "estado": "sin_cambio",
+      "precioML": 1189
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-006",
+      "nombre": "Resident Evil: Origins Collection Capcom Ps4 Físico",
+      "marca": "Capcom",
+      "mlId": "MLM6162905",
+      "precioAntes": 295.87,
+      "estado": "actualizado",
+      "precioNuevo": 399,
+      "precioML": 399
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-007",
+      "nombre": "Resident Evil 6 Ps4 Formato Fisico - Zonagamerchile",
+      "marca": "",
+      "mlId": "MLM20890459",
+      "precioAntes": 295.87,
+      "estado": "actualizado",
+      "precioNuevo": 279,
+      "precioML": 279
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-008",
+      "nombre": "Super Mario Party Jamboree Nsw 2 Edition + Jamboree Tv",
+      "marca": "Nintendo",
+      "mlId": "MLM54452896",
+      "precioAntes": 1352,
+      "estado": "actualizado",
+      "precioNuevo": 1399,
+      "precioML": 1399
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-009",
+      "nombre": "Star Fox Nintendo Switch 2 Físico",
+      "marca": "Nintendo",
+      "mlId": "MLM69446233",
+      "precioAntes": 1148,
+      "estado": "actualizado",
+      "precioNuevo": 1129,
+      "precioML": 1129
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-010",
+      "nombre": "Videojuego Konami Silent Hill: Townfall para PlayStation",
+      "marca": "Konami",
+      "mlId": "MLM67412190",
+      "precioAntes": 883.97,
+      "estado": "actualizado",
+      "precioNuevo": 924,
+      "precioML": 924
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-011",
+      "nombre": "The Last Of Us Remastered Hits Ps4 Físico",
+      "marca": "PlayStation",
+      "mlId": "MLM6084032",
+      "precioAntes": 264.52,
+      "estado": "actualizado",
+      "precioNuevo": 447,
+      "precioML": 447
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-012",
+      "nombre": "Resident Evil 3 Xbox One",
+      "marca": "",
+      "mlId": "MLM25211190",
+      "precioAntes": 546.72,
+      "estado": "actualizado",
+      "precioNuevo": 554,
+      "precioML": 554
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-013",
+      "nombre": "Wwe 2k25 Xbox Series X | Xbox One Físico",
+      "marca": "2K",
+      "mlId": "MLM46318951",
+      "precioAntes": 528.85,
+      "estado": "actualizado",
+      "precioNuevo": 536,
+      "precioML": 536
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-014",
+      "nombre": "Ea Sports Fc 27 Nintendo Switch 1 Estándar Físico",
+      "marca": "EA Sports",
+      "mlId": "MLM77515508",
+      "precioAntes": 1399,
+      "estado": "sin_cambio",
+      "precioML": 1399
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-015",
+      "nombre": "Mario Kart World",
+      "marca": "Nintendo",
+      "mlId": "MLM48926357",
+      "precioAntes": 1498,
+      "estado": "actualizado",
+      "precioNuevo": 1493,
+      "precioML": 1493
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-016",
+      "nombre": "Video Juego HMC-P-BPDPA Super Mario Galaxy + Super Mario Galaxy 2 Nintendo Switch",
+      "marca": "Nintendo Switch",
+      "mlId": "MLM66533157",
+      "precioAntes": 1034.04,
+      "estado": "actualizado",
+      "precioNuevo": 1055,
+      "precioML": 1055
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-017",
+      "nombre": "Super Mario Party Jamboree para Nintendo Switch",
+      "marca": "Nintendo",
+      "mlId": "MLM61495764",
+      "precioAntes": 999,
+      "estado": "sin_cambio",
+      "precioML": 999
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-018",
+      "nombre": "Grand Theft Auto V Premium Edition Ps4 EUR Físico",
+      "marca": "Rockstar Games",
+      "mlId": "MLM80271090",
+      "precioAntes": 419.34,
+      "estado": "actualizado",
+      "precioNuevo": 499,
+      "precioML": 499
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-019",
+      "nombre": "Rockstar Games Video Juego Red Dead Redemption 2 PlayStation 4 Físico +18",
+      "marca": "Rockstar Games",
+      "mlId": "MLM14807280",
+      "precioAntes": 409,
+      "estado": "sin_cambio",
+      "precioML": 409
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-020",
+      "nombre": "Hyrule Warriors: Age Of Imprisonment",
+      "marca": "Nintendo",
+      "mlId": "MLM61058489",
+      "precioAntes": 1199.34,
+      "estado": "actualizado",
+      "precioNuevo": 1299,
+      "precioML": 1299
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-021",
+      "nombre": "Ea Sports Fc 27 Xbox Series X/ Xbox One Estándar Físico",
+      "marca": "EA Sports",
+      "mlId": "MLM77515504",
+      "precioAntes": 1239.46,
+      "estado": "actualizado",
+      "precioNuevo": 1256,
+      "precioML": 1256
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-022",
+      "nombre": "Red Dead Redemption 2 Xbox One Físico",
+      "marca": "Rockstar Games",
+      "mlId": "MLM14807282",
+      "precioAntes": 474.89,
+      "estado": "actualizado",
+      "precioNuevo": 481,
+      "precioML": 481
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-023",
+      "nombre": "Dead Or Alive Xtreme 3 Scarlet - Playstation 4 Fisico",
+      "marca": "",
+      "mlId": "MLM25891185",
+      "precioAntes": 1249,
+      "estado": "sin_cambio",
+      "precioML": 1249
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-024",
+      "nombre": "Digimon Survive Para Xbox One (Físico)",
+      "marca": "",
+      "mlId": "MLM19518391",
+      "precioAntes": 239.72,
+      "estado": "actualizado",
+      "precioNuevo": 243,
+      "precioML": 243
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-025",
+      "nombre": "BioShock The Collection Xbox One (Físico)",
+      "marca": "",
+      "mlId": "MLM6244239",
+      "precioAntes": 627.84,
+      "estado": "actualizado",
+      "precioNuevo": 628,
+      "precioML": 628
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-026",
+      "nombre": "Assassin's Creed Mirage Físico Ubisoft Xbox Series X One",
+      "marca": "Microsoft",
+      "mlId": "MLM26882384",
+      "precioAntes": 510.08,
+      "estado": "actualizado",
+      "precioNuevo": 517,
+      "precioML": 517
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-027",
+      "nombre": "Grand Theft Auto V Premium Edition Xbox One / Series",
+      "marca": "Microsoft",
+      "mlId": "MLM24577346",
+      "precioAntes": 536.69,
+      "estado": "actualizado",
+      "precioNuevo": 544,
+      "precioML": 544
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-028",
+      "nombre": "The Legend Of Zelda Tears Of The Kingdom Nsw 2 Edition",
+      "marca": "",
+      "mlId": "MLM51976279",
+      "precioAntes": 1599,
+      "estado": "sin_cambio",
+      "precioML": 1599
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-029",
+      "nombre": "Videojuego Marvel's Wolverine Ps5 Físico Playstation 5",
+      "marca": "PlayStation",
+      "mlId": "MLM66764100",
+      "precioAntes": 1184.77,
+      "estado": "actualizado",
+      "precioNuevo": 1201,
+      "precioML": 1201
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-030",
+      "nombre": "Grand Theft Auto VI GTA VI Caja física con código de descarga para Xbox Series X",
+      "marca": "Rockstar Games",
+      "mlId": "MLM74151710",
+      "precioAntes": 1614.05,
+      "estado": "actualizado",
+      "precioNuevo": 1699,
+      "precioML": 1699
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-031",
+      "nombre": "Gears Of War: E-day - Xbox Series X",
+      "marca": "Microsoft",
+      "mlId": "MLM73134263",
+      "precioAntes": 1540.25,
+      "estado": "actualizado",
+      "precioNuevo": 1478,
+      "precioML": 1478
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-032",
+      "nombre": "Ea Sports Fc 27 Playstation 5 Estándar Físico",
+      "marca": "EA Sports",
+      "mlId": "MLM77515512",
+      "precioAntes": 1184.77,
+      "estado": "actualizado",
+      "precioNuevo": 1127,
+      "precioML": 1127
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-033",
+      "nombre": "Assassin's Creed Odyssey Xbox One Juego Físico Aventura Ubisoft",
+      "marca": "",
+      "mlId": "MLM22827998",
+      "precioAntes": 469,
+      "estado": "sin_precio",
+      "precioML": null
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-034",
+      "nombre": "Pokémon Pokopia Nintendo Switch 2 Eur Físico",
+      "marca": "Nintendo",
+      "mlId": "MLM80271377",
+      "precioAntes": 1159.72,
+      "estado": "actualizado",
+      "precioNuevo": 1200,
+      "precioML": 1200
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-035",
+      "nombre": "Fifa 17 Para Xbox One",
+      "marca": "Ea Fifa",
+      "mlId": "MLM22914541",
+      "precioAntes": 500,
+      "estado": "sin_cambio",
+      "precioML": 500
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-036",
+      "nombre": "Dark Souls 3 The Fire Fades Edition XBOX ONE Edición Física The Fire Fades Edition PlayStation 5 (Físico)",
+      "marca": "PlayStation",
+      "mlId": "MLM9835319",
+      "precioAntes": 430,
+      "estado": "sin_cambio",
+      "precioML": 430
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-037",
+      "nombre": "Paw Patrol: Championship Ed. Estándar - Switch Físico",
+      "marca": "",
+      "mlId": "MLM65705152",
+      "precioAntes": 699,
+      "estado": "sin_cambio",
+      "precioML": 699
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-038",
+      "nombre": "Videojuego Konami Metal Gear Solid Master Collection Ps5",
+      "marca": "Konami",
+      "mlId": "MLM66910108",
+      "precioAntes": 887.07,
+      "estado": "actualizado",
+      "precioNuevo": 899,
+      "precioML": 899
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-039",
+      "nombre": "Lego Dc Super Villanos Nintendo Switch 1 Eur Físico",
+      "marca": "Warner",
+      "mlId": "MLM80274101",
+      "precioAntes": 529.48,
+      "estado": "actualizado",
+      "precioNuevo": 600,
+      "precioML": 600
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-040",
+      "nombre": "Mario + Rabbids Sparks Of Hope Nintendo Switch 1 Eur Físico",
+      "marca": "Ubisoft",
+      "mlId": "MLM80318142",
+      "precioAntes": 599.33,
+      "estado": "actualizado",
+      "precioNuevo": 699,
+      "precioML": 699
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-041",
+      "nombre": "LEGO Batman Legacy of the Dark Knight - Nintendo Switch 2",
+      "marca": "Switch",
+      "mlId": "MLM75434376",
+      "precioAntes": 1079.5,
+      "estado": "actualizado",
+      "precioNuevo": 1109,
+      "precioML": 1109
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-042",
+      "nombre": "Bandai namco de jump force, standard edition (Físico)",
+      "marca": "Bandai Namco",
+      "mlId": "MLM14141441",
+      "precioAntes": 714.62,
+      "estado": "actualizado",
+      "precioNuevo": 724,
+      "precioML": 724
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-043",
+      "nombre": "Minecraft Nintendo Switch Standard Físico",
+      "marca": "Switch",
+      "mlId": "MLM22619571",
+      "precioAntes": 451.98,
+      "estado": "actualizado",
+      "precioNuevo": 452,
+      "precioML": 452
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-044",
+      "nombre": "EA SPORTS FC 26 - Nintendo Switch 2",
+      "marca": "",
+      "mlId": "MLM57015563",
+      "precioAntes": 688.91,
+      "estado": "actualizado",
+      "precioNuevo": 691,
+      "precioML": 691
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-045",
+      "nombre": "Captain Tsubasa II World Fighters Estándar (Físico)",
+      "marca": "Nintendo",
+      "mlId": "MLM71513168",
+      "precioAntes": 699.46,
+      "estado": "actualizado",
+      "precioNuevo": 799,
+      "precioML": 799
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-046",
+      "nombre": "Dragon Ball Z: Kakarot Xbox One Físico",
+      "marca": "Bandai Namco",
+      "mlId": "MLM15393901",
+      "precioAntes": 468.15,
+      "estado": "actualizado",
+      "precioNuevo": 475,
+      "precioML": 475
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-047",
+      "nombre": "Videojuego Battlefield 2042 Xbox Series X Español Físico",
+      "marca": "Electronics Art",
+      "mlId": "MLM18616305",
+      "precioAntes": 209.3,
+      "estado": "actualizado",
+      "precioNuevo": 209,
+      "precioML": 209
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-048",
+      "nombre": "Super Mario Bros Wonder Nintendo Switch 2 Edition + Meetup In Bellabel Park",
+      "marca": "Nintendo",
+      "mlId": "MLM67210884",
+      "precioAntes": 1221.23,
+      "estado": "actualizado",
+      "precioNuevo": 1238,
+      "precioML": 1238
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-049",
+      "nombre": "Capcom Fighting Collection 2 Switch",
+      "marca": "",
+      "mlId": "MLM50240114",
+      "precioAntes": 625.11,
+      "estado": "actualizado",
+      "precioNuevo": 634,
+      "precioML": 634
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-050",
+      "nombre": "Red Dead Redemption Ps4",
+      "marca": "",
+      "mlId": "MLM27823721",
+      "precioAntes": 507.16,
+      "estado": "actualizado",
+      "precioNuevo": 514,
+      "precioML": 514
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-051",
+      "nombre": "Metal Gear Solid: Master Collection Vol 2 - Nintendo Switch",
+      "marca": "Nintendo Switch",
+      "mlId": "MLM74344570",
+      "precioAntes": 887.07,
+      "estado": "actualizado",
+      "precioNuevo": 878,
+      "precioML": 878
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-052",
+      "nombre": "Ea Sports Fc 27 Nintendo Switch 2 Estándar Físico",
+      "marca": "EA Sports",
+      "mlId": "MLM77515506",
+      "precioAntes": 1174.92,
+      "estado": "actualizado",
+      "precioNuevo": 1256,
+      "precioML": 1256
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-053",
+      "nombre": "Videojuego Físico Nintendo Switch Pokémon Legends: Arceus",
+      "marca": "Nintendo",
+      "mlId": "MLM18758238",
+      "precioAntes": 902,
+      "estado": "actualizado",
+      "precioNuevo": 896,
+      "precioML": 896
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-054",
+      "nombre": "Videojuego Fifa 22 Standard Xbox Series X Español Físico",
+      "marca": "",
+      "mlId": "MLM18437550",
+      "precioAntes": 185,
+      "estado": "sin_cambio",
+      "precioML": 185
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-055",
+      "nombre": "Fifa 23 Xbox Series X Eur Físico",
+      "marca": "EA Sports",
+      "mlId": "MLM80271561",
+      "precioAntes": 229.35,
+      "estado": "actualizado",
+      "precioNuevo": 179,
+      "precioML": 179
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-056",
+      "nombre": "EA Sports FC 24 Xbox Juego Físico",
+      "marca": "EA Sports",
+      "mlId": "MLM26103564",
+      "precioAntes": 499,
+      "estado": "sin_cambio",
+      "precioML": 499
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-057",
+      "nombre": "FC 26 Standard para PS4 Sony",
+      "marca": "",
+      "mlId": "MLM75630401",
+      "precioAntes": 1804.05,
+      "estado": "actualizado",
+      "precioNuevo": 1804,
+      "precioML": 1804
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-058",
+      "nombre": "Fc 25 Fifa Easports Xbox Series X / Xbox One Físico Meda",
+      "marca": "EA",
+      "mlId": "MLM43537279",
+      "precioAntes": 700,
+      "estado": "sin_cambio",
+      "precioML": 700
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-059",
+      "nombre": "Ea Sports Fc 26 Fifa Soccer 2026 -- Nintendo Switch 2",
+      "marca": "Nintendo Of America",
+      "mlId": "MLM59417784",
+      "precioAntes": 718.99,
+      "estado": "actualizado",
+      "precioNuevo": 729,
+      "precioML": 729
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-060",
+      "nombre": "Videojuego Fifa 23 Estándar Ps5 Físico Español",
+      "marca": "EA Sports",
+      "mlId": "MLM19540152",
+      "precioAntes": 499,
+      "estado": "sin_cambio",
+      "precioML": 499
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-061",
+      "nombre": "FIFA 20 De lanzamiento (Físico)",
+      "marca": "EA Sports",
+      "mlId": "MLM15246346",
+      "precioAntes": 399,
+      "estado": "sin_cambio",
+      "precioML": 399
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-062",
+      "nombre": "Videojuego FIFA 21 Legacy Edition para Nintendo Switch Físico",
+      "marca": "",
+      "mlId": "MLM16142550",
+      "precioAntes": 978,
+      "estado": "sin_cambio",
+      "precioML": 978
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-063",
+      "nombre": "Fifa 22 Xbox One",
+      "marca": "",
+      "mlId": "MLM18437543",
+      "precioAntes": 899,
+      "estado": "sin_cambio",
+      "precioML": 899
+    },
+    {
+      "categoria": "videojuegos_juegos",
+      "id": "JUE-064",
+      "nombre": "Ea Sports Madden Nfl 27 - Playstation 5",
+      "marca": "PlayStation",
+      "mlId": "MLM74430324",
+      "precioAntes": 999.18,
+      "estado": "actualizado",
+      "precioNuevo": 1200,
+      "precioML": 1200
     }
   ]
 }
