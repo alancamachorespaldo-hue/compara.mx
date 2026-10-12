@@ -589,12 +589,12 @@ function renderDash() {
   </div>`;
 }
 
-const CATS = {laptops:'Laptops', freidoras:'Freidoras', bicis:'Bicis', microondas:'Microondas', proteina:'Proteína', omega3:'Omega 3', magnesio:'Magnesio', creatina:'Creatina', complejo_b:'Complejo B', vitamina_d:'Vitamina D', videojuegos_consolas:'Consolas', videojuegos_controles:'Controles', videojuegos_juegos:'Videojuegos'};
+const CATS = {laptops:'Laptops', freidoras:'Freidoras', bicis:'Bicis', microondas:'Microondas', proteina:'Proteína', omega3:'Omega 3', magnesio:'Magnesio', creatina:'Creatina', complejo_b:'Complejo B', vitamina_d:'Vitamina D', videojuegos_consolas:'Consolas', videojuegos_controles:'Controles', videojuegos_juegos:'Videojuegos', tecnologia_alexas:'Alexas', tecnologia_audifonos:'Audífonos', tecnologia_smartwatches:'Smartwatches'};
 const PRICE_WF = GH + '/workflows/update-prices.yml';
 const SPECS = {
   laptops:[['procesador','Procesador'],['ram','RAM'],['almacenamiento','Almacen.'],['pantalla','Pantalla'],['resolucion','Resolución'],['gpu','GPU'],['so','SO'],['peso','Peso'],['touch','Touch']],
   freidoras:[['tipo','Tipo'],['capacidad','Capacidad'],['potencia','Potencia'],['tempMax','Temp. máx.'],['panel','Panel'],['canastos','Canastos'],['ventana','Ventana'],['antiadherente','Antiadh.']],
-  bicis:[['tipo','Tipo'],['autonomia','Autonomía'],['velocidad','Vel. máx.'],['motor','Motor'],['bateria','Batería'],['voltaje','Voltaje'],['rueda','Rueda'],['peso','Peso'],['cargaMax','Carga máx.'],['plegable','Plegable'],['luces','Luces'],['ip','IP']],
+  bicis:[['tipo','Tipo'],['rueda','Rueda'],['velocidades','Velocidades'],['peso','Peso'],['cargaMax','Carga máx.'],['autonomia','Autonomía'],['motor','Motor'],['bateria','Batería'],['voltaje','Voltaje'],['plegable','Plegable'],['luces','Luces']],
   proteina:[['porciones','Porciones'],['costoPorPorcion','Costo/porción'],['sabores','Sabores'],['tipoProteina','Tipo'],['fuenteProteina','Fuente'],['gramosPorPorcion','g/porción'],['proteinaPorPorcion','Prot./porción'],['vegana','Vegana'],['glutenFree','Sin gluten']],
   omega3:[['porciones','Porciones'],['costoPorPorcion','Costo/porción'],['epa','EPA'],['dha','DHA'],['omegaTotal','Omega total'],['fuenteOmega','Fuente'],['ifos','IFOS'],['metalesPesados','Sin metales']],
   magnesio:[['porciones','Porciones'],['costoPorPorcion','Costo/porción'],['formaMagnesio','Forma'],['mgMagnesio','mg'],['mgElemental','mg elemental'],['absorcion','Absorción'],['vegano','Vegano']],
@@ -604,6 +604,9 @@ const SPECS = {
   videojuegos_consolas:[['generacion','Generación/versión'],['almacenamiento','Almacenamiento'],['lectorDiscos','Lector de discos'],['formatoJuegos','Formato de juegos'],['tipoConsola','Tipo de consola'],['accesorios','Accesorios incluidos'],['condicion','Condición']],
   videojuegos_controles:[['modelo','Modelo'],['plataforma','Plataforma compatible'],['tipoConexion','Conexión'],['alimentacion','Alimentación'],['bateria','Duración batería'],['funcionesEspeciales','Funciones especiales'],['condicion','Condición']],
   videojuegos_juegos:[['plataforma','Plataforma'],['edicion','Edición'],['formato','Formato físico/digital'],['genero','Género'],['clasificacion','Clasificación por edad'],['idiomas','Idiomas'],['condicion','Condición']],
+  tecnologia_alexas:[['compatibilidad','Compatibilidad'],['pantalla','Pantalla'],['hubDomotica','Hub domótica'],['conectividad','Conectividad'],['dimensiones','Dimensiones']],
+  tecnologia_audifonos:[['tipo','Tipo'],['cancelacionRuido','Cancel. ruido'],['bateria','Batería'],['resistenciaAgua','Resist. agua'],['conectividad','Conectividad']],
+  tecnologia_smartwatches:[['compatibilidad','Compatibilidad'],['bateria','Batería'],['gps','GPS'],['resistenciaAgua','Resist. agua'],['tamanoCaja','Tamaño caja']],
 };
 const ST = {
   solo_amz:['Solo Amazon','muted'], sin_id:['Falta ID','warn'], actualizado:['Cambió','ok'], sin_cambio:['Al día','neutral'],
