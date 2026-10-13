@@ -307,6 +307,22 @@ footer a{color:var(--ac);text-decoration:none}
   <a href="/aviso-afiliados/">Aviso de afiliados</a>
 </footer>
 
+<script>
+/* affiliate click tracking */
+document.addEventListener('click',function(e){
+  var btn=e.target.closest('.pcard');
+  if(!btn)return;
+  if(typeof gtag!=='function')return;
+  var href=btn.getAttribute('href')||'';
+  var evt=/amazon\.com\.mx|amzn\.to/.test(href)?'affiliate_click_amazon':'affiliate_click_ml';
+  var nameEl=btn.querySelector('.pcard-name');
+  var label=nameEl?nameEl.textContent:'';
+  var cards=Array.from(document.querySelectorAll('.pcard'));
+  var pos=cards.indexOf(btn)+1;
+  var sec=location.pathname.replace(/^\//,'').replace(/\/(?:index\.html)?$/,'').replace(/\//g,'_')||'home';
+  gtag('event',evt,{event_category:'afiliado',event_label:label,page_section:sec,item_position:pos});
+});
+</script>
 <script>try{sessionStorage.setItem('cmx_onboarding_v1','1');}catch(e){}</script>
 <script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>

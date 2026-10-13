@@ -140,12 +140,12 @@ function catLabel(cat) {
   return map[cat] || cat;
 }
 
-function prodBtns(item, size) {
+function prodBtns(item, size, idx) {
   const h = size === 'sm' ? '16px' : '18px';
   const pad = size === 'sm' ? '5px 8px' : '7px 12px';
   const fs = size === 'sm' ? '11px' : '12px';
-  const ml = item.linkML  ? `<a class="btn-ml"  href="${item.linkML}"  target="_blank" rel="sponsored nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;">Ir a <img style="height:${h}" src="/logomercado.png" alt="" onerror="this.style.display='none'"></a>` : '';
-  const amz = item.linkAmz ? `<a class="btn-amz" href="${item.linkAmz}" target="_blank" rel="sponsored nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;">Ir a <img style="height:${h}" src="/logoamazon.png" alt="" onerror="this.style.display='none'"></a>` : '';
+  const ml = item.linkML  ? `<a class="btn-ml"  href="${item.linkML}"  target="_blank" rel="sponsored nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;" data-ga-label="${item.nombre||''}" data-ga-val="${item.precio||0}" data-ga-pos="${idx+1}">Ir a <img style="height:${h}" src="/logomercado.png" alt="" onerror="this.style.display='none'"></a>` : '';
+  const amz = item.linkAmz ? `<a class="btn-amz" href="${item.linkAmz}" target="_blank" rel="sponsored nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:${pad};border-radius:8px;font-size:${fs};font-weight:700;text-decoration:none;" data-ga-label="${item.nombre||''}" data-ga-val="${item.precio||0}" data-ga-pos="${idx+1}">Ir a <img style="height:${h}" src="/logoamazon.png" alt="" onerror="this.style.display='none'"></a>` : '';
   const dual = ml && amz ? ' dual' : '';
   return `<div class="cmp-prod-btns${dual}">${ml}${amz}</div>`;
 }
@@ -194,7 +194,7 @@ function render() {
       <div class="cmp-prod-name">${item.nombre}</div>
       <span class="cmp-prod-cat ${item.categoria}">${catLabel(item.categoria)}</span>
       <div class="cmp-prod-stor">${storageLbl(item.almacenamiento)}${item.ram ? ' · ' + item.ram + ' GB RAM' : ''}</div>
-      ${prodBtns(item, 'sm')}
+      ${prodBtns(item, 'sm', idx)}
     </th>`).join('');
 
   const prices = items.map(i => i.precio || null);
@@ -224,7 +224,7 @@ function render() {
     valorRow,
   ].join('');
 
-  const btnRows = items.map(i => `<td>${prodBtns(i, 'md')}</td>`).join('');
+  const btnRows = items.map((i, idx) => `<td>${prodBtns(i, 'md', idx)}</td>`).join('');
 
   content.innerHTML = `
     <div class="table-wrap">
@@ -268,9 +268,9 @@ document.addEventListener('click',function(e){
   var evt=btn.classList.contains('btn-ml')?'affiliate_click_ml':'affiliate_click_amazon';
   var label=btn.dataset.gaLabel||btn.getAttribute('aria-label')||'';
   var cards=Array.from(document.querySelectorAll('.card,.prod-card'));
-  var pos=cards.indexOf(btn.closest('.card,.prod-card'))+1;
+  var pos=btn.dataset.gaPos?parseInt(btn.dataset.gaPos,10):cards.indexOf(btn.closest('.card,.prod-card'))+1;
   var sec=location.pathname.replace(/^\//,'').replace(/\/(?:index\.html)?$/,'').replace(/\//g,'_')||'home';
-  gtag('event',evt,{event_category:'afiliado',event_label:label,value:parseFloat(btn.dataset.gaVal)||0,page_section:sec,item_position:pos});
+  gtag('event',evt,{event_category:'afiliado',event_label:label,value:parseFloat(btn.dataset.gaVal)||0,page_section:sec,item_position:pos,category:'celulares_comparar'});
 });
 </script>
 <script src="/js/onboarding.js" defer></script>
