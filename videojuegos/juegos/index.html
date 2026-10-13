@@ -838,7 +838,7 @@ function openModal(){
   };
 
   const MODAL_SPECS = [
-    ['plataforma','Plataforma'],['genero','Género'],['modoJuego','Modo juego'],
+    ['plataforma','Plataforma'],['genero','Género'],['multijugador','Es multijugador'],['modoJuego','Modo juego'],
     ['clasificacion','Clasificación'],['formato','Formato'],['desarrollador','Desarrollador'],
     ['anio','Año'],['idiomas','Idiomas'],['condicion','Condición']
   ];
@@ -849,18 +849,13 @@ function openModal(){
     return `<tr><td>${label}</td>${vals.map(v=>`<td>${v||'—'}</td>`).join('')}</tr>`;
   };
 
-  const filaCatalogo = () => {
-    const vals = prods.map(p=>p.mlId||null);
-    if(vals.every(v=>!v)) return '';
-    return `<tr><td>Catálogo ML</td>${vals.map(v=>v?`<td><a href="https://www.mercadolibre.com.mx/p/${v}" target="_blank" rel="noopener" style="font-size:12px;font-weight:700;color:var(--ac)">${v}</a></td>`:'<td>—</td>').join('')}</tr>`;
-  };
-  const filaAfiliado = () => {
+  const filaIrML = () => {
     const vals = prods.map(p=>p.linkML||null);
     if(vals.every(v=>!v)) return '';
-    return `<tr><td>Link afiliado</td>${vals.map(v=>v?`<td><a href="${v}" target="_blank" rel="nofollow sponsored noopener" style="font-size:12px;font-weight:700;color:var(--ac)">Ver en ML →</a></td>`:'<td>—</td>').join('')}</tr>`;
+    return `<tr><td>Comprar</td>${vals.map((v,i)=>v?`<td><a class="cmp-prod-btn" href="${v}" target="_blank" rel="nofollow sponsored noopener" onclick="trackClick('ml','${prods[i].id}','${(prods[i].nombre||'').replace(/'/g,"\\'")}')">Ir a <img style="height:14px;vertical-align:middle" src="/logomercado.png" alt="" onerror="this.style.display='none'"></a></td>`:'<td>—</td>').join('')}</tr>`;
   };
 
-  const tbody = `<tbody>${filaPrecio()}${MODAL_SPECS.map(fila).join('')}${filaCatalogo()}${filaAfiliado()}</tbody>`;
+  const tbody = `<tbody>${filaPrecio()}${MODAL_SPECS.map(fila).join('')}${filaIrML()}</tbody>`;
 
   let chips = '';
   if(wins.length > 0 && wins.length < prods.length){
