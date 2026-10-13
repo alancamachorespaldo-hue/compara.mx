@@ -122,6 +122,12 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .btn-ml{display:flex;align-items:center;justify-content:center;gap:5px;width:100%;text-align:center;background:var(--ml);color:#3a2e00;border:none;border-radius:8px;padding:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Satoshi',sans-serif;text-decoration:none;transition:opacity .15s;white-space:nowrap}
 .btn-ml:hover{opacity:.9}
 
+/* Juegos: solo 4 características (Género, Plataforma, Desarrollador, Año) en grid 2×2 */
+.card-specs{grid-template-columns:repeat(2,1fr)!important}
+/* Juegos: precio ML y Amazon lado a lado en vez de apilados */
+.card[data-platform="both"] .card-btns-dual{flex-direction:row!important;gap:6px!important}
+.card[data-platform="both"] .card-btn-col{flex:1;min-width:0}
+
 .empty{text-align:center;padding:3rem 1.5rem;color:var(--tx3);font-size:14px}
 .empty strong{display:block;color:var(--tx2);font-size:15px;margin-bottom:6px}
 .disclaimer{max-width:1100px;margin:0 auto;padding:1.25rem 2rem;font-size:12px;color:var(--tx3);border-top:1px solid var(--bd)}
@@ -599,7 +605,7 @@ const productos = [
 ];
 
 const precioVigente = p => (p.linkML ? p.precioML : p.precioAmz) ?? p.precio ?? null;
-const SPEC_KEYS = [['genero','Género'],['edicion','Edición'],['multijugador','Multijugador'],['modoJuego','Modo'],['clasificacion','Clasif.'],['formato','Formato'],['desarrollador','Dev'],['anio','Año'],['idiomas','Idiomas'],['condicion','Condición']];
+const SPEC_KEYS = [['genero','Género'],['plataforma','Plataforma'],['desarrollador','Desarrollador'],['anio','Año']];
 const PRECIO_MAX = 3000;
 
 let fPrecio = PRECIO_MAX;
