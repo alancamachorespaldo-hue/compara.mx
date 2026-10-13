@@ -256,6 +256,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 .cmp-prod-price{font-size:1.55rem;font-weight:800;color:var(--ac);letter-spacing:-.03em}
 .cmp-best-badge{font-size:9px;font-weight:800;padding:3px 7px;border-radius:20px;background:var(--ac);color:#fff;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
 .cmp-prod-btn{display:flex;align-items:center;justify-content:center;gap:5px;background:var(--ml);color:#3a2e00;border-radius:8px;padding:9px 12px;font-size:12px;font-weight:700;text-decoration:none;width:100%;box-sizing:border-box}
+.cmp-prod-btn.btn-amz{background:var(--amz);color:#000}
 @media(max-width:640px){
   .cmp-bar{padding:.75rem 1rem;flex-direction:column;align-items:stretch}
   .cmp-bar-btns{justify-content:flex-end}
@@ -819,19 +820,31 @@ function openModal(){
   const thead = `<thead><tr>
     <th class="cmp-label-col">Detalle</th>
     ${prods.map((p,i)=>{
-      const precio = precioVigente(p);
       const isWin = wins.includes(i) && wins.length < prods.length;
       const tags = [p.especs?.plataforma, p.especs?.formato].filter(Boolean)
         .map(t=>`<span class="cmp-tag">${t}</span>`).join('');
+      const hasML = !!p.linkML, hasAmz = !!p.linkAmz;
+      let btnsBlock = '';
+      if(hasML && hasAmz){
+        const pML  = p.precioML  != null ? `$${Math.round(p.precioML).toLocaleString('es-MX')}`  : '';
+        const pAmz = p.precioAmz != null ? `$${Math.round(p.precioAmz).toLocaleString('es-MX')}` : '';
+        btnsBlock = `<div class="card-btns-dual">
+          <div class="card-btn-col">${pML?`<span class="card-btn-col-price">${pML}</span>`:''}<a class="btn-ml" href="${p.linkML}" target="_blank" rel="nofollow sponsored noopener" onclick="trackClick('ml','${p.id}','${(p.nombre||'').replace(/'/g,"\\'")}')">Ir a <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a></div>
+          <div class="card-btn-col">${pAmz?`<span class="card-btn-col-price">${pAmz}</span>`:''}<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow sponsored noopener" onclick="trackClick('amz','${p.id}','${(p.nombre||'').replace(/'/g,"\\'")}')">Ir a <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a></div>
+        </div>`;
+      } else if(hasML){
+        const priceHtml = p.precioML!=null ? `<div class="card-price">$${Math.round(p.precioML).toLocaleString('es-MX')}</div>` : '';
+        btnsBlock = `${priceHtml}<a class="btn-ml" href="${p.linkML}" target="_blank" rel="nofollow sponsored noopener" onclick="trackClick('ml','${p.id}','${(p.nombre||'').replace(/'/g,"\\'")}')">Ir a <img style="height:16px;vertical-align:middle" src="/logomercado.png" alt="" onerror="this.style.display='none'"></a>`;
+      } else if(hasAmz){
+        const priceHtml = p.precioAmz!=null ? `<div class="card-price">$${Math.round(p.precioAmz).toLocaleString('es-MX')}</div>` : '';
+        btnsBlock = `${priceHtml}<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow sponsored noopener" onclick="trackClick('amz','${p.id}','${(p.nombre||'').replace(/'/g,"\\'")}')">Ir a <img style="height:16px;vertical-align:middle" src="/logoamazon.png" alt="" onerror="this.style.display='none'"></a>`;
+      }
       return `<th class="cmp-prod-col">
         <div class="cmp-prod-cover"><img class="cmp-prod-img" src="${p.img}" alt="${p.nombre}" loading="lazy"></div>
         <div class="cmp-prod-name">${p.nombre}</div>
         ${tags ? `<div class="cmp-prod-tags">${tags}</div>` : ''}
-        <div class="cmp-prod-price-row">
-          <span class="cmp-prod-price">${precio!=null?'$'+Math.round(precio).toLocaleString('es-MX'):''}</span>
-          ${isWin?'<span class="cmp-best-badge">MEJOR PRECIO</span>':''}
-        </div>
-        ${p.linkML?`<a class="cmp-prod-btn" href="${p.linkML}" target="_blank" rel="nofollow sponsored noopener" onclick="trackClick('ml','${p.id}','${(p.nombre||'').replace(/'/g,"\\'")}')">Ir a <img style="height:14px;vertical-align:middle" src="/logomercado.png" alt="" onerror="this.style.display='none'"></a>`:''}
+        ${isWin?'<div class="cmp-prod-price-row"><span class="cmp-best-badge">MEJOR PRECIO</span></div>':''}
+        ${btnsBlock}
       </th>`;
     }).join('')}
   </tr></thead>`;
@@ -857,9 +870,13 @@ function openModal(){
   };
 
   const filaIrML = () => {
-    const vals = prods.map(p=>p.linkML||null);
-    if(vals.every(v=>!v)) return '';
-    return `<tr><td>Comprar</td>${vals.map((v,i)=>v?`<td><a class="cmp-prod-btn" href="${v}" target="_blank" rel="nofollow sponsored noopener" onclick="trackClick('ml','${prods[i].id}','${(prods[i].nombre||'').replace(/'/g,"\\'")}')">Ir a <img style="height:14px;vertical-align:middle" src="/logomercado.png" alt="" onerror="this.style.display='none'"></a></td>`:'<td>—</td>').join('')}</tr>`;
+    if(prods.every(p=>!p.linkML && !p.linkAmz)) return '';
+    return `<tr><td>Comprar</td>${prods.map(p=>{
+      const ml  = p.linkML  ? `<a class="cmp-prod-btn" href="${p.linkML}" target="_blank" rel="nofollow sponsored noopener" onclick="trackClick('ml','${p.id}','${(p.nombre||'').replace(/'/g,"\\'")}')">Ir a <img style="height:14px;vertical-align:middle" src="/logomercado.png" alt="" onerror="this.style.display='none'"></a>` : '';
+      const amz = p.linkAmz ? `<a class="cmp-prod-btn btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow sponsored noopener" onclick="trackClick('amz','${p.id}','${(p.nombre||'').replace(/'/g,"\\'")}')">Ir a <img style="height:14px;vertical-align:middle" src="/logoamazon.png" alt="" onerror="this.style.display='none'"></a>` : '';
+      if(!ml && !amz) return '<td>—</td>';
+      return `<td><div style="display:flex;flex-direction:column;gap:5px">${ml}${amz}</div></td>`;
+    }).join('')}</tr>`;
   };
 
   const tbody = `<tbody>${filaPrecio()}${MODAL_SPECS.map(fila).join('')}${filaIrML()}</tbody>`;
