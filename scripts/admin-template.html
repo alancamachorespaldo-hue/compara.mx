@@ -691,6 +691,7 @@ const lsSet = (k, v) => { try { v == null ? localStorage.removeItem(k) : localSt
 const use = name => (window.claude && typeof window.claude.use === 'function') ? Promise.resolve(window.claude.use(name)).catch(() => null) : Promise.resolve(null);
 const readJson = id => { const el = document.getElementById(id); if (!el) return null; try { return JSON.parse(el.textContent); } catch (e) { console.error('JSON inválido en #' + id, e); return null; } };
 const searchUrl = p => 'https://listado.mercadolibre.com.mx/' + encodeURIComponent(norm((p.marca || '') + ' ' + p.nombre).replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''));
+const searchUrlAmz = p => 'https://www.amazon.com.mx/s?k=' + encodeURIComponent(((p.marca ? p.marca + ' ' : '') + p.nombre).trim()) + '&tag=' + AMZ_TAG;
 const catalogUrl = id => 'https://www.mercadolibre.com.mx/p/' + encodeURIComponent(id);
 const plural = (n, a, b) => n + ' ' + (n === 1 ? a : b);
 
@@ -1272,6 +1273,7 @@ function openEdit(key) {
       <label class="field span2"><span>Link (con ?tag=${AMZ_TAG})</span><input id="e-amz" type="url" placeholder="https://www.amazon.com.mx/dp/…?tag=${AMZ_TAG}"><small class="field-msg" id="e-amz-msg"></small></label>
       <label class="field"><span>Precio Amazon (MXN)</span><input id="e-pamz" type="number" min="0" step="1" inputmode="decimal"></label>
       <label class="field"><span>Estado en Amazon</span><select id="e-pausaamz"><option value="0">Se muestra</option><option value="1">Pausado (oculto en Amazon)</option></select></label>
+      <a class="link-sm span2" href="${safeUrl(searchUrlAmz(p))}" target="_blank" rel="noopener">Buscar este producto en Amazon ↗</a>
     </fieldset>
     ${cat === 'laptops' ? `<fieldset class="group"><legend>Ficha del producto</legend>
       <label class="field span2"><span>Imagen (URL)</span><input id="e-imagen" type="url" placeholder="https://m.media-amazon.com/images/I/…"></label>
