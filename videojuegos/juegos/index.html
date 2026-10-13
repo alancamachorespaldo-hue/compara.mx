@@ -121,6 +121,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .btn-amz:hover{opacity:.9}
 .btn-ml{display:flex;align-items:center;justify-content:center;gap:5px;width:100%;text-align:center;background:var(--ml);color:#3a2e00;border:none;border-radius:8px;padding:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Satoshi',sans-serif;text-decoration:none;transition:opacity .15s;white-space:nowrap}
 .btn-ml:hover{opacity:.9}
+.btn-logo-img{height:16px;width:auto;object-fit:contain;flex-shrink:0;vertical-align:middle}
 
 /* Juegos: solo 4 características (Género, Plataforma, Desarrollador, Año) en grid 2×2 */
 .card-specs{grid-template-columns:repeat(2,1fr)!important}
@@ -699,15 +700,15 @@ function cardHtml(p, isMejor){
     const pML  = p.precioML  != null ? `$${Math.round(p.precioML).toLocaleString('es-MX')}`  : '';
     const pAmz = p.precioAmz != null ? `$${Math.round(p.precioAmz).toLocaleString('es-MX')}` : '';
     btns = `<div class="card-btns-dual">
-      <div class="card-btn-col">${pML?`<span class="card-btn-col-price">${pML}</span>`:''}<a class="btn-ml" href="${p.linkML}" target="_blank" rel="nofollow sponsored noopener" onclick="event.stopPropagation();trackClick('ml','${p.id}','${(p.nombre||'').replace(/'/g,"\\'")}')">Mercado Libre</a></div>
-      <div class="card-btn-col">${pAmz?`<span class="card-btn-col-price">${pAmz}</span>`:''}<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow sponsored noopener" onclick="event.stopPropagation();trackClick('amz','${p.id}','${(p.nombre||'').replace(/'/g,"\\'")}')">Amazon</a></div>
+      <div class="card-btn-col">${pML?`<span class="card-btn-col-price">${pML}</span>`:''}<a class="btn-ml" href="${p.linkML}" target="_blank" rel="nofollow sponsored noopener" onclick="event.stopPropagation();trackClick('ml','${p.id}','${(p.nombre||'').replace(/'/g,"\\'")}')">Ir a <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a></div>
+      <div class="card-btn-col">${pAmz?`<span class="card-btn-col-price">${pAmz}</span>`:''}<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow sponsored noopener" onclick="event.stopPropagation();trackClick('amz','${p.id}','${(p.nombre||'').replace(/'/g,"\\'")}')">Ir a <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a></div>
     </div>`;
   } else if(hasML){
     const priceHtml = p.precioML!=null ? `<div class="card-price">$${Math.round(p.precioML).toLocaleString('es-MX')}</div>` : '';
     btns = `${priceHtml}<a class="btn-ml" href="${p.linkML}" target="_blank" rel="nofollow sponsored noopener" onclick="event.stopPropagation();trackClick('ml','${p.id}','${(p.nombre||'').replace(/'/g,"\\'")}')">Ir a <img style="height:16px;vertical-align:middle" src="/logomercado.png" alt="" onerror="this.style.display='none'"></a>`;
   } else if(hasAmz){
     const priceHtml = p.precioAmz!=null ? `<div class="card-price">$${Math.round(p.precioAmz).toLocaleString('es-MX')}</div>` : '';
-    btns = `${priceHtml}<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow sponsored noopener" onclick="event.stopPropagation();trackClick('amz','${p.id}','${(p.nombre||'').replace(/'/g,"\\'")}')">Ir a Amazon</a>`;
+    btns = `${priceHtml}<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow sponsored noopener" onclick="event.stopPropagation();trackClick('amz','${p.id}','${(p.nombre||'').replace(/'/g,"\\'")}')">Ir a <img style="height:16px;vertical-align:middle" src="/logoamazon.png" alt="" onerror="this.style.display='none'"></a>`;
   }
   const isSel = selected.includes(p.id);
   return `<div class="card${isSel?' selected':''}" id="card-${p.id}" onclick="toggleSelect('${p.id}')" data-platform="${platform}">
