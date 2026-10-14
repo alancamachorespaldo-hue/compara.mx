@@ -1,6 +1,6 @@
 {
   "fecha": "2026-10-14",
-  "generado": "2026-10-14T13:11:15.490Z",
+  "generado": "2026-10-14T16:44:03.196Z",
   "categorias": [
     "laptops",
     "freidoras",
@@ -17,9 +17,9 @@
     "videojuegos_juegos"
   ],
   "totales": {
-    "actualizados": 18,
-    "sin_cambio": 88,
-    "sin_precio": 177,
+    "actualizados": 64,
+    "sin_cambio": 207,
+    "sin_precio": 12,
     "precio_sospechoso": 0,
     "sin_id": 76
   },
@@ -76,8 +76,8 @@
       "marca": "HP",
       "mlId": "MLM37368856",
       "precioAntes": 6500,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 6500
     },
     {
       "categoria": "laptops",
@@ -96,8 +96,8 @@
       "marca": "HP",
       "mlId": "MLM65737068",
       "precioAntes": 17999,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 17999
     },
     {
       "categoria": "laptops",
@@ -106,8 +106,8 @@
       "marca": "Lenovo",
       "mlId": "MLM37103621",
       "precioAntes": 7000,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 7000
     },
     {
       "categoria": "laptops",
@@ -136,8 +136,8 @@
       "marca": "Acer",
       "mlId": "MLM38252408",
       "precioAntes": 9800,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 9800
     },
     {
       "categoria": "laptops",
@@ -176,8 +176,8 @@
       "marca": "HP",
       "mlId": "MLM27793007",
       "precioAntes": 15513,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 15513
     },
     {
       "categoria": "laptops",
@@ -186,8 +186,8 @@
       "marca": "Lenovo",
       "mlId": "MLM20619290",
       "precioAntes": 6900,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 6900
     },
     {
       "categoria": "laptops",
@@ -226,8 +226,8 @@
       "marca": "HP",
       "mlId": "MLM28361415",
       "precioAntes": 20439,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 20439
     },
     {
       "categoria": "laptops",
@@ -236,8 +236,9 @@
       "marca": "HP",
       "mlId": "MLM69741169",
       "precioAntes": 22759,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 22958,
+      "precioML": 22958
     },
     {
       "categoria": "laptops",
@@ -256,8 +257,8 @@
       "marca": "HP",
       "mlId": "MLM67144918",
       "precioAntes": 10460,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 10460
     },
     {
       "categoria": "laptops",
@@ -266,8 +267,8 @@
       "marca": "Lenovo",
       "mlId": "MLM46328059",
       "precioAntes": 11199,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 11199
     },
     {
       "categoria": "laptops",
@@ -276,8 +277,8 @@
       "marca": "HP",
       "mlId": "MLM64970198",
       "precioAntes": 11579,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 11579
     },
     {
       "categoria": "laptops",
@@ -285,9 +286,8 @@
       "nombre": "HP Pavilion 15 Intel N200 4GB 128GB",
       "marca": "HP",
       "mlId": "MLM63240659",
-      "precioAntes": 6518,
-      "estado": "actualizado",
-      "precioNuevo": 6575,
+      "precioAntes": 6575,
+      "estado": "sin_cambio",
       "precioML": 6575
     },
     {
@@ -297,8 +297,8 @@
       "marca": "Lenovo",
       "mlId": "MLM53153939",
       "precioAntes": 23499,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 23499
     },
     {
       "categoria": "laptops",
@@ -307,8 +307,9 @@
       "marca": "ASUS",
       "mlId": "MLM49901787",
       "precioAntes": 19999,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 15500,
+      "precioML": 15500
     },
     {
       "categoria": "laptops",
@@ -317,8 +318,9 @@
       "marca": "HP",
       "mlId": "MLM63081442",
       "precioAntes": 6042,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 6095,
+      "precioML": 6095
     },
     {
       "categoria": "laptops",
@@ -327,8 +329,9 @@
       "marca": "Lenovo",
       "mlId": "MLM70394812",
       "precioAntes": 7945,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 8015,
+      "precioML": 8015
     },
     {
       "categoria": "laptops",
@@ -336,10 +339,9 @@
       "nombre": "HP Stream 14 Celeron N150 4GB 128GB Rosa",
       "marca": "HP",
       "mlId": "MLM53196537",
-      "precioAntes": 6354,
-      "estado": "actualizado",
-      "precioNuevo": 6409,
-      "precioML": 6409
+      "precioAntes": 6409,
+      "estado": "sin_precio",
+      "precioML": null
     },
     {
       "categoria": "laptops",
@@ -347,10 +349,10 @@
       "nombre": "HP 14 Celeron N150 4GB 128GB Rosa Dorado 14-dq6015dx",
       "marca": "HP",
       "mlId": "MLM58343227",
-      "precioAntes": 4709,
+      "precioAntes": 4559,
       "estado": "actualizado",
-      "precioNuevo": 4559,
-      "precioML": 4559
+      "precioNuevo": 4439,
+      "precioML": 4439
     },
     {
       "categoria": "laptops",
@@ -359,8 +361,8 @@
       "marca": "Apple",
       "mlId": "MLM1054139854",
       "precioAntes": 45596,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 45596
     },
     {
       "categoria": "laptops",
@@ -369,8 +371,9 @@
       "marca": "Apple",
       "mlId": "MLM66172744",
       "precioAntes": 17693,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 17847,
+      "precioML": 17847
     },
     {
       "categoria": "laptops",
@@ -489,8 +492,8 @@
       "marca": "Ninja",
       "mlId": "MLM22374539",
       "precioAntes": 2599,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 2599
     },
     {
       "categoria": "freidoras",
@@ -499,8 +502,8 @@
       "marca": "Chefman",
       "mlId": "MLM63098614",
       "precioAntes": 1199,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 1199
     },
     {
       "categoria": "freidoras",
@@ -539,8 +542,8 @@
       "marca": "Oster",
       "mlId": "MLM45024769",
       "precioAntes": 2149,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 2149
     },
     {
       "categoria": "freidoras",
@@ -548,9 +551,8 @@
       "nombre": "Coriumae Freidora de Aire Digital 6.5L 1500W 7 Programas con Ventana",
       "marca": "Coriumae",
       "mlId": "MLM74339345",
-      "precioAntes": 916,
-      "estado": "actualizado",
-      "precioNuevo": 900,
+      "precioAntes": 900,
+      "estado": "sin_cambio",
       "precioML": 900
     },
     {
@@ -559,9 +561,8 @@
       "nombre": "Welikera Freidora de Aire 7.5L Ventana 8 Funciones",
       "marca": "Welikera",
       "mlId": "MLM50785767",
-      "precioAntes": 989,
-      "estado": "actualizado",
-      "precioNuevo": 997,
+      "precioAntes": 997,
+      "estado": "sin_cambio",
       "precioML": 997
     },
     {
@@ -571,8 +572,8 @@
       "marca": "Ninja",
       "mlId": "MLM65808174",
       "precioAntes": 3149,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 3149
     },
     {
       "categoria": "freidoras",
@@ -581,8 +582,8 @@
       "marca": "Chefman",
       "mlId": "MLM62829444",
       "precioAntes": 799,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 799
     },
     {
       "categoria": "freidoras",
@@ -590,9 +591,8 @@
       "nombre": "Welikera Freidora de Aire 8L Táctil 3-en-1 15 Accesorios 60-220°C",
       "marca": "Welikera",
       "mlId": "MLM61443962",
-      "precioAntes": 1269,
-      "estado": "actualizado",
-      "precioNuevo": 1280,
+      "precioAntes": 1280,
+      "estado": "sin_cambio",
       "precioML": 1280
     },
     {
@@ -602,8 +602,8 @@
       "marca": "F FELICASA",
       "mlId": "MLM76570630",
       "precioAntes": 1399,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 1399
     },
     {
       "categoria": "freidoras",
@@ -612,8 +612,9 @@
       "marca": "MasterChef",
       "mlId": "MLM21855677",
       "precioAntes": 1660,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 1819,
+      "precioML": 1819
     },
     {
       "categoria": "freidoras",
@@ -642,8 +643,8 @@
       "marca": "Chefman",
       "mlId": "MLM61104752",
       "precioAntes": 1999,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 1999
     },
     {
       "categoria": "freidoras",
@@ -652,8 +653,8 @@
       "marca": "Oster",
       "mlId": "MLM44586784",
       "precioAntes": 999,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 999
     },
     {
       "categoria": "freidoras",
@@ -661,9 +662,8 @@
       "nombre": "Oster CKSTAFOV3 Super Freidora de Aire 10L con Ventana",
       "marca": "Oster",
       "mlId": "MLM22313925",
-      "precioAntes": 2773,
-      "estado": "actualizado",
-      "precioNuevo": 2519,
+      "precioAntes": 2519,
+      "estado": "sin_cambio",
       "precioML": 2519
     },
     {
@@ -673,8 +673,8 @@
       "marca": "RCA",
       "mlId": "MLM44230015",
       "precioAntes": 1229,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 1229
     },
     {
       "categoria": "freidoras",
@@ -683,8 +683,9 @@
       "marca": "Ninja",
       "mlId": "MLM56570065",
       "precioAntes": 3457,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 3639,
+      "precioML": 3639
     },
     {
       "categoria": "freidoras",
@@ -693,8 +694,8 @@
       "marca": "Ninja",
       "mlId": "MLM44452194",
       "precioAntes": 3054,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 3054
     },
     {
       "categoria": "freidoras",
@@ -1039,8 +1040,8 @@
       "marca": "HONEYWHALE",
       "mlId": "MLM53624671",
       "precioAntes": 6599,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 6599
     },
     {
       "categoria": "bicis",
@@ -1069,8 +1070,8 @@
       "marca": "Bizmo",
       "mlId": "MLM47011341",
       "precioAntes": 7249,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 7249
     },
     {
       "categoria": "bicis",
@@ -1099,8 +1100,8 @@
       "marca": "Moboss",
       "mlId": "MLM61776907",
       "precioAntes": 7499,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 7499
     },
     {
       "categoria": "bicis",
@@ -1109,8 +1110,8 @@
       "marca": "Kiwo",
       "mlId": "MLM47902385",
       "precioAntes": 7899,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 7899
     },
     {
       "categoria": "bicis",
@@ -1138,9 +1139,8 @@
       "nombre": "AMYET SE1",
       "marca": "AMYET",
       "mlId": "MLM74880440",
-      "precioAntes": 12348,
-      "estado": "actualizado",
-      "precioNuevo": 11639,
+      "precioAntes": 11639,
+      "estado": "sin_cambio",
       "precioML": 11639
     },
     {
@@ -1160,8 +1160,8 @@
       "marca": "NEON",
       "mlId": "MLM46957968",
       "precioAntes": 9999,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 9999
     },
     {
       "categoria": "bicis",
@@ -1190,8 +1190,9 @@
       "marca": "NEON",
       "mlId": "MLM62104962",
       "precioAntes": 7499,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 8799,
+      "precioML": 8799
     },
     {
       "categoria": "bicis",
@@ -1220,8 +1221,8 @@
       "marca": "HONEYWHALE",
       "mlId": "MLM26917329",
       "precioAntes": 17999,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 17999
     },
     {
       "categoria": "bicis",
@@ -1229,9 +1230,8 @@
       "nombre": "Bicicleta Eléctrica Amyet S8 Doble Motor de 2000W para Adulto, Rodada de 20\" y Batería de 25Ah",
       "marca": "Amyet",
       "mlId": "MLM52585009",
-      "precioAntes": 17999,
-      "estado": "actualizado",
-      "precioNuevo": 17459,
+      "precioAntes": 17459,
+      "estado": "sin_cambio",
       "precioML": 17459
     },
     {
@@ -1241,8 +1241,8 @@
       "marca": "HONEYWHALE",
       "mlId": "MLM50661201",
       "precioAntes": 11899,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 11899
     },
     {
       "categoria": "microondas",
@@ -1251,8 +1251,8 @@
       "marca": "SHTARK",
       "mlId": "MLM44355459",
       "precioAntes": 1551,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 1551
     },
     {
       "categoria": "microondas",
@@ -1261,8 +1261,8 @@
       "marca": "Koblenz",
       "mlId": "MLM44794962",
       "precioAntes": 1599,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 1599
     },
     {
       "categoria": "microondas",
@@ -1271,8 +1271,8 @@
       "marca": "Mabe",
       "mlId": "MLM9314570",
       "precioAntes": 1849,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 1849
     },
     {
       "categoria": "microondas",
@@ -1281,8 +1281,8 @@
       "marca": "Midea",
       "mlId": "MLM18553094",
       "precioAntes": 1409,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 1409
     },
     {
       "categoria": "microondas",
@@ -1291,8 +1291,8 @@
       "marca": "Westinghouse",
       "mlId": "MLM68879392",
       "precioAntes": 1479,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 1479
     },
     {
       "categoria": "microondas",
@@ -1311,8 +1311,8 @@
       "marca": "Hisense",
       "mlId": "MLM47692410",
       "precioAntes": 1999,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 1999
     },
     {
       "categoria": "microondas",
@@ -1321,8 +1321,8 @@
       "marca": "Midea",
       "mlId": "MLM46684936",
       "precioAntes": 1699,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 1699
     },
     {
       "categoria": "microondas",
@@ -1331,8 +1331,8 @@
       "marca": "GE Appliances",
       "mlId": "MLM14957671",
       "precioAntes": 2751,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 2751
     },
     {
       "categoria": "microondas",
@@ -1341,8 +1341,8 @@
       "marca": "Chefman",
       "mlId": "MLM54261065",
       "precioAntes": 1999,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 1999
     },
     {
       "categoria": "microondas",
@@ -1361,8 +1361,9 @@
       "marca": "Mirage",
       "mlId": "MLM18439163",
       "precioAntes": 1374,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 1332,
+      "precioML": 1332
     },
     {
       "categoria": "microondas",
@@ -1371,8 +1372,8 @@
       "marca": "Whirlpool",
       "mlId": "MLM15698137",
       "precioAntes": 3029,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 3029
     },
     {
       "categoria": "microondas",
@@ -1381,8 +1382,8 @@
       "marca": "Mabe",
       "mlId": "MLM65357421",
       "precioAntes": 1755,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 1755
     },
     {
       "categoria": "microondas",
@@ -1401,8 +1402,8 @@
       "marca": "Midea",
       "mlId": "MLM18711597",
       "precioAntes": 1429,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 1429
     },
     {
       "categoria": "microondas",
@@ -1411,8 +1412,8 @@
       "marca": "Panasonic",
       "mlId": "MLM19917229",
       "precioAntes": 3097,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 3097
     },
     {
       "categoria": "microondas",
@@ -1421,8 +1422,9 @@
       "marca": "Koblenz",
       "mlId": "MLM45268061",
       "precioAntes": 1501,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 1499,
+      "precioML": 1499
     },
     {
       "categoria": "microondas",
@@ -1431,8 +1433,9 @@
       "marca": "Midea",
       "mlId": "MLM18502711",
       "precioAntes": 1530,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 1549,
+      "precioML": 1549
     },
     {
       "categoria": "proteina",
@@ -1560,8 +1563,9 @@
       "marca": "Birdman",
       "mlId": "MLM66417491",
       "precioAntes": 569,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 539,
+      "precioML": 539
     },
     {
       "categoria": "proteina",
@@ -1570,8 +1574,8 @@
       "marca": "Birdman",
       "mlId": "MLM66053354",
       "precioAntes": 1034,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 1034
     },
     {
       "categoria": "proteina",
@@ -1580,8 +1584,9 @@
       "marca": "HABITS BY NOT A FANCY KITCHEN",
       "mlId": "MLM19639283",
       "precioAntes": 565,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 609,
+      "precioML": 609
     },
     {
       "categoria": "proteina",
@@ -1600,8 +1605,8 @@
       "marca": "Easy Fit by Julia Ritz",
       "mlId": "MLM46321498",
       "precioAntes": 729,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 729
     },
     {
       "categoria": "proteina",
@@ -1620,8 +1625,9 @@
       "marca": "Mutant",
       "mlId": "MLM22073694",
       "precioAntes": 1132,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 1039,
+      "precioML": 1039
     },
     {
       "categoria": "proteina",
@@ -1640,8 +1646,9 @@
       "marca": "Birdman",
       "mlId": "MLM25354677",
       "precioAntes": 1009,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 958,
+      "precioML": 958
     },
     {
       "categoria": "proteina",
@@ -1659,9 +1666,8 @@
       "nombre": "EUPHORIC 100% Whey Protein",
       "marca": "EUPHORIC",
       "mlId": "MLM35239341",
-      "precioAntes": 399,
-      "estado": "actualizado",
-      "precioNuevo": 386,
+      "precioAntes": 386,
+      "estado": "sin_cambio",
       "precioML": 386
     },
     {
@@ -1671,8 +1677,9 @@
       "marca": "NATSA",
       "mlId": "MLM26057701",
       "precioAntes": 320,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 330,
+      "precioML": 330
     },
     {
       "categoria": "proteina",
@@ -1691,8 +1698,8 @@
       "marca": "Optimum Nutrition",
       "mlId": "MLM65615592",
       "precioAntes": 1499,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 1499
     },
     {
       "categoria": "proteina",
@@ -1701,8 +1708,8 @@
       "marca": "NAIMA",
       "mlId": "MLM48509351",
       "precioAntes": 269,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 269
     },
     {
       "categoria": "proteina",
@@ -1731,8 +1738,8 @@
       "marca": "Empower N",
       "mlId": "MLM63419742",
       "precioAntes": 353,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 353
     },
     {
       "categoria": "proteina",
@@ -1751,8 +1758,8 @@
       "marca": "BHP Nutrition",
       "mlId": "MLM24221146",
       "precioAntes": 897,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 897
     },
     {
       "categoria": "proteina",
@@ -1761,8 +1768,8 @@
       "marca": "BHP Nutrition",
       "mlId": "MLM63073548",
       "precioAntes": 891,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 891
     },
     {
       "categoria": "proteina",
@@ -1781,8 +1788,9 @@
       "marca": "Birdman",
       "mlId": "MLM18486369",
       "precioAntes": 1559,
-      "estado": "sin_cambio",
-      "precioML": 1559
+      "estado": "actualizado",
+      "precioNuevo": 1351,
+      "precioML": 1351
     },
     {
       "categoria": "proteina",
@@ -1811,8 +1819,8 @@
       "marca": "Meta Nutrition",
       "mlId": "MLM25550284",
       "precioAntes": 1859,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 1859
     },
     {
       "categoria": "proteina",
@@ -1821,8 +1829,8 @@
       "marca": "Holix Lab",
       "mlId": "MLM32493477",
       "precioAntes": 1001,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 1001
     },
     {
       "categoria": "proteina",
@@ -1861,8 +1869,8 @@
       "marca": "Evolution",
       "mlId": "MLM19518424",
       "precioAntes": 836,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 836
     },
     {
       "categoria": "proteina",
@@ -1871,8 +1879,8 @@
       "marca": "MuscleMeds",
       "mlId": "MLM24569635",
       "precioAntes": 960,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 960
     },
     {
       "categoria": "proteina",
@@ -1881,8 +1889,8 @@
       "marca": "Diamondtech",
       "mlId": "MLM35821586",
       "precioAntes": 1359,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 1359
     },
     {
       "categoria": "proteina",
@@ -1891,8 +1899,8 @@
       "marca": "Mad Labz",
       "mlId": "MLM21080303",
       "precioAntes": 890,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 890
     },
     {
       "categoria": "proteina",
@@ -1941,8 +1949,8 @@
       "marca": "Total Matter Sport",
       "mlId": "MLM57629720",
       "precioAntes": 674,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 674
     },
     {
       "categoria": "proteina",
@@ -1951,8 +1959,8 @@
       "marca": "Myo Vector",
       "mlId": "MLM24075924",
       "precioAntes": 1019,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 1019
     },
     {
       "categoria": "proteina",
@@ -1961,8 +1969,9 @@
       "marca": "Prime Senior",
       "mlId": "MLM70602406",
       "precioAntes": 440,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 422,
+      "precioML": 422
     },
     {
       "categoria": "proteina",
@@ -1971,8 +1980,8 @@
       "marca": "Black Fusion",
       "mlId": "MLM56146749",
       "precioAntes": 420,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 420
     },
     {
       "categoria": "proteina",
@@ -1981,8 +1990,8 @@
       "marca": "San Juan",
       "mlId": "MLM18949713",
       "precioAntes": 849,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 849
     },
     {
       "categoria": "proteina",
@@ -1991,8 +2000,9 @@
       "marca": "Saisa Herbal",
       "mlId": "MLM49895419",
       "precioAntes": 299,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 284,
+      "precioML": 284
     },
     {
       "categoria": "proteina",
@@ -2001,8 +2011,8 @@
       "marca": "RAW",
       "mlId": "MLM45615471",
       "precioAntes": 875,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 875
     },
     {
       "categoria": "proteina",
@@ -2011,8 +2021,8 @@
       "marca": "Hiper Sport",
       "mlId": "MLM74764379",
       "precioAntes": 370,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 370
     },
     {
       "categoria": "omega3",
@@ -2051,8 +2061,8 @@
       "marca": "B Life",
       "mlId": "MLM24106955",
       "precioAntes": 749,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 749
     },
     {
       "categoria": "omega3",
@@ -2061,8 +2071,8 @@
       "marca": "Now Foods",
       "mlId": "MLM18924602",
       "precioAntes": 236,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 236
     },
     {
       "categoria": "omega3",
@@ -2071,8 +2081,8 @@
       "marca": "LIFE360+",
       "mlId": "MLM76127265",
       "precioAntes": 369,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 369
     },
     {
       "categoria": "omega3",
@@ -2091,8 +2101,8 @@
       "marca": "Vitatú",
       "mlId": "MLM45098655",
       "precioAntes": 599,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 599
     },
     {
       "categoria": "omega3",
@@ -2286,8 +2296,9 @@
       "marca": "NIÜ YÜ",
       "mlId": "MLM75838304",
       "precioAntes": 524,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 629,
+      "precioML": 629
     },
     {
       "categoria": "magnesio",
@@ -2296,8 +2307,8 @@
       "marca": "Naíma",
       "mlId": "MLM48400940",
       "precioAntes": 722,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 722
     },
     {
       "categoria": "creatina",
@@ -2306,8 +2317,9 @@
       "marca": "Birdman",
       "mlId": "MLM18625838",
       "precioAntes": 479,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 480,
+      "precioML": 480
     },
     {
       "categoria": "creatina",
@@ -2326,8 +2338,8 @@
       "marca": "Quotidien",
       "mlId": "MLM45599134",
       "precioAntes": 298,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 298
     },
     {
       "categoria": "creatina",
@@ -2346,8 +2358,8 @@
       "marca": "Dragon Pharma",
       "mlId": "MLM59414462",
       "precioAntes": 448,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 448
     },
     {
       "categoria": "creatina",
@@ -2386,8 +2398,8 @@
       "marca": "She Fit",
       "mlId": "MLM74956289",
       "precioAntes": 263,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 263
     },
     {
       "categoria": "creatina",
@@ -2396,8 +2408,9 @@
       "marca": "Birdman",
       "mlId": "MLM67681202",
       "precioAntes": 599,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 509,
+      "precioML": 509
     },
     {
       "categoria": "creatina",
@@ -2406,8 +2419,9 @@
       "marca": "MuscleTech",
       "mlId": "MLM18725423",
       "precioAntes": 529,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 524,
+      "precioML": 524
     },
     {
       "categoria": "creatina",
@@ -2426,8 +2440,8 @@
       "marca": "Hero Sport",
       "mlId": "MLM36002076",
       "precioAntes": 559,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 559
     },
     {
       "categoria": "creatina",
@@ -2436,8 +2450,9 @@
       "marca": "Hero Sport",
       "mlId": "MLM44424291",
       "precioAntes": 285,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 459,
+      "precioML": 459
     },
     {
       "categoria": "creatina",
@@ -2466,8 +2481,9 @@
       "marca": "Evogen",
       "mlId": "MLM29559971",
       "precioAntes": 319,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 449,
+      "precioML": 449
     },
     {
       "categoria": "creatina",
@@ -2476,8 +2492,8 @@
       "marca": "Dragon Pharma",
       "mlId": "MLM40348756",
       "precioAntes": 718,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 718
     },
     {
       "categoria": "creatina",
@@ -2486,8 +2502,8 @@
       "marca": "B Life",
       "mlId": "MLM23416069",
       "precioAntes": 394,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 394
     },
     {
       "categoria": "creatina",
@@ -2536,8 +2552,9 @@
       "marca": "ELEMENTAL by PiSA",
       "mlId": "MLM47890238",
       "precioAntes": 418,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 473,
+      "precioML": 473
     },
     {
       "categoria": "complejo_b",
@@ -2555,8 +2572,8 @@
       "marca": "Vitalizate",
       "mlId": "MLM75802407",
       "precioAntes": 219,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 219
     },
     {
       "categoria": "complejo_b",
@@ -2565,8 +2582,9 @@
       "marca": "SUPLINT",
       "mlId": "MLM59690969",
       "precioAntes": 213,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 299,
+      "precioML": 299
     },
     {
       "categoria": "complejo_b",
@@ -2575,8 +2593,8 @@
       "marca": "Eternal Nutrition",
       "mlId": "MLM45256097",
       "precioAntes": 498,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 498
     },
     {
       "categoria": "complejo_b",
@@ -2615,8 +2633,8 @@
       "marca": "Nuboost",
       "mlId": "MLM56219472",
       "precioAntes": 244,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 244
     },
     {
       "categoria": "complejo_b",
@@ -2625,8 +2643,8 @@
       "marca": "Raíces Zen",
       "mlId": "MLM53298156",
       "precioAntes": 255,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 255
     },
     {
       "categoria": "complejo_b",
@@ -2635,8 +2653,8 @@
       "marca": "Smart Vit Anahuac",
       "mlId": "MLM40633389",
       "precioAntes": 206,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 206
     },
     {
       "categoria": "complejo_b",
@@ -2654,9 +2672,8 @@
       "nombre": "Oby B-Complex 8 en 1 Sin Rellenos – 60 Cápsulas",
       "marca": "Oby",
       "mlId": "MLM42521852",
-      "precioAntes": 179,
-      "estado": "actualizado",
-      "precioNuevo": 199,
+      "precioAntes": 199,
+      "estado": "sin_cambio",
       "precioML": 199
     },
     {
@@ -2666,8 +2683,9 @@
       "marca": "Nature Made",
       "mlId": "MLM25347142",
       "precioAntes": 449,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 448,
+      "precioML": 448
     },
     {
       "categoria": "complejo_b",
@@ -2696,8 +2714,8 @@
       "marca": "Restart",
       "mlId": "MLM61183726",
       "precioAntes": 169,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 169
     },
     {
       "categoria": "complejo_b",
@@ -2716,8 +2734,8 @@
       "marca": "B Life Company",
       "mlId": "MLM53298156",
       "precioAntes": 255,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 255
     },
     {
       "categoria": "complejo_b",
@@ -2726,8 +2744,8 @@
       "marca": "Spring Valley",
       "mlId": "MLM21326330",
       "precioAntes": 399,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 399
     },
     {
       "categoria": "videojuegos_controles",
@@ -2746,8 +2764,8 @@
       "marca": "KUAKE",
       "mlId": "MLM60044094",
       "precioAntes": 213,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 213
     },
     {
       "categoria": "videojuegos_controles",
@@ -2756,8 +2774,9 @@
       "marca": "Sony Interactive Entertainment",
       "mlId": "MLM64368352",
       "precioAntes": 1383,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 1395,
+      "precioML": 1395
     },
     {
       "categoria": "videojuegos_controles",
@@ -2766,8 +2785,8 @@
       "marca": "PlayStation",
       "mlId": "MLM18917848",
       "precioAntes": 1290,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 1290
     },
     {
       "categoria": "videojuegos_controles",
@@ -2776,8 +2795,9 @@
       "marca": "CNJcon",
       "mlId": "MLM58870769",
       "precioAntes": 484,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 659,
+      "precioML": 659
     },
     {
       "categoria": "videojuegos_controles",
@@ -2786,8 +2806,9 @@
       "marca": "EasySMX",
       "mlId": "MLM41089200",
       "precioAntes": 595,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 600,
+      "precioML": 600
     },
     {
       "categoria": "videojuegos_controles",
@@ -2795,9 +2816,8 @@
       "nombre": "Control Genérico Inalámbrico Compatible Con Play Station 4 Color Negro",
       "marca": "Genérica",
       "mlId": "MLM67645801",
-      "precioAntes": 246,
-      "estado": "actualizado",
-      "precioNuevo": 242,
+      "precioAntes": 242,
+      "estado": "sin_cambio",
       "precioML": 242
     },
     {
@@ -2807,8 +2827,9 @@
       "marca": "GameSir",
       "mlId": "MLM53225642",
       "precioAntes": 1520,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 1533,
+      "precioML": 1533
     },
     {
       "categoria": "videojuegos_controles",
@@ -2817,8 +2838,9 @@
       "marca": "GameSir",
       "mlId": "MLM59819659",
       "precioAntes": 1904,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 1921,
+      "precioML": 1921
     },
     {
       "categoria": "videojuegos_controles",
@@ -2827,8 +2849,8 @@
       "marca": "GameSir",
       "mlId": "MLM70107397",
       "precioAntes": 1815,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 1815
     },
     {
       "categoria": "videojuegos_controles",
@@ -2837,8 +2859,9 @@
       "marca": "GameSir",
       "mlId": "MLM54456290",
       "precioAntes": 1758,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 1773,
+      "precioML": 1773
     },
     {
       "categoria": "videojuegos_controles",
@@ -2847,8 +2870,9 @@
       "marca": "GameSir",
       "mlId": "MLM70104327",
       "precioAntes": 1598,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 1612,
+      "precioML": 1612
     },
     {
       "categoria": "videojuegos_controles",
@@ -2867,8 +2891,9 @@
       "marca": "GameSir",
       "mlId": "MLM54226965",
       "precioAntes": 912,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 920,
+      "precioML": 920
     },
     {
       "categoria": "videojuegos_controles",
@@ -2877,8 +2902,8 @@
       "marca": "CNJcon",
       "mlId": "MLM67160446",
       "precioAntes": 484,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 484
     },
     {
       "categoria": "videojuegos_controles",
@@ -2887,8 +2912,9 @@
       "marca": "Xbox",
       "mlId": "MLM23249699",
       "precioAntes": 1263,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 1274,
+      "precioML": 1274
     },
     {
       "categoria": "videojuegos_controles",
@@ -2897,8 +2923,9 @@
       "marca": "8BitDo",
       "mlId": "MLM2070731793",
       "precioAntes": 734,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 713,
+      "precioML": 713
     },
     {
       "categoria": "videojuegos_controles",
@@ -2917,8 +2944,9 @@
       "marca": "Microsoft",
       "mlId": "MLM15144673",
       "precioAntes": 750,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 449,
+      "precioML": 449
     },
     {
       "categoria": "videojuegos_juegos",
@@ -2927,8 +2955,8 @@
       "marca": "",
       "mlId": "MLM52858284",
       "precioAntes": 1449,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 1449
     },
     {
       "categoria": "videojuegos_juegos",
@@ -2937,8 +2965,8 @@
       "marca": "Capcom",
       "mlId": "MLM80273818",
       "precioAntes": 1299,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 1299
     },
     {
       "categoria": "videojuegos_juegos",
@@ -2957,8 +2985,8 @@
       "marca": "Nintendo",
       "mlId": "MLM79125357",
       "precioAntes": 1449,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 1449
     },
     {
       "categoria": "videojuegos_juegos",
@@ -2967,8 +2995,8 @@
       "marca": "",
       "mlId": "MLM57341538",
       "precioAntes": 1189,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 1189
     },
     {
       "categoria": "videojuegos_juegos",
@@ -2977,8 +3005,8 @@
       "marca": "Capcom",
       "mlId": "MLM6162905",
       "precioAntes": 399,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 399
     },
     {
       "categoria": "videojuegos_juegos",
@@ -2987,8 +3015,9 @@
       "marca": "",
       "mlId": "MLM20890459",
       "precioAntes": 277,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 279,
+      "precioML": 279
     },
     {
       "categoria": "videojuegos_juegos",
@@ -2997,8 +3026,9 @@
       "marca": "Nintendo",
       "mlId": "MLM54452896",
       "precioAntes": 1399,
-      "estado": "sin_cambio",
-      "precioML": 1399
+      "estado": "actualizado",
+      "precioNuevo": 1385,
+      "precioML": 1385
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3007,8 +3037,9 @@
       "marca": "Nintendo",
       "mlId": "MLM69446233",
       "precioAntes": 1129,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 1099,
+      "precioML": 1099
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3017,8 +3048,9 @@
       "marca": "Konami",
       "mlId": "MLM67412190",
       "precioAntes": 915,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 923,
+      "precioML": 923
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3027,8 +3059,9 @@
       "marca": "PlayStation",
       "mlId": "MLM6084032",
       "precioAntes": 447,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 442,
+      "precioML": 442
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3037,8 +3070,9 @@
       "marca": "",
       "mlId": "MLM25211190",
       "precioAntes": 549,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 554,
+      "precioML": 554
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3046,9 +3080,8 @@
       "nombre": "Wwe 2k25 Xbox Series X | Xbox One Físico",
       "marca": "2K",
       "mlId": "MLM46318951",
-      "precioAntes": 531,
-      "estado": "actualizado",
-      "precioNuevo": 536,
+      "precioAntes": 536,
+      "estado": "sin_cambio",
       "precioML": 536
     },
     {
@@ -3058,8 +3091,8 @@
       "marca": "EA Sports",
       "mlId": "MLM77515508",
       "precioAntes": 1399,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 1399
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3068,8 +3101,8 @@
       "marca": "Nintendo",
       "mlId": "MLM48926357",
       "precioAntes": 1493,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 1493
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3078,8 +3111,8 @@
       "marca": "Nintendo Switch",
       "mlId": "MLM66533157",
       "precioAntes": 1055,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 1055
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3088,8 +3121,8 @@
       "marca": "Nintendo",
       "mlId": "MLM61495764",
       "precioAntes": 999,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 999
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3108,8 +3141,8 @@
       "marca": "Rockstar Games",
       "mlId": "MLM14807280",
       "precioAntes": 409,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 409
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3128,8 +3161,9 @@
       "marca": "EA Sports",
       "mlId": "MLM77515504",
       "precioAntes": 1282,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 1293,
+      "precioML": 1293
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3137,9 +3171,8 @@
       "nombre": "Red Dead Redemption 2 Xbox One Físico",
       "marca": "Rockstar Games",
       "mlId": "MLM14807282",
-      "precioAntes": 477,
-      "estado": "actualizado",
-      "precioNuevo": 481,
+      "precioAntes": 481,
+      "estado": "sin_cambio",
       "precioML": 481
     },
     {
@@ -3149,8 +3182,8 @@
       "marca": "",
       "mlId": "MLM25891185",
       "precioAntes": 1249,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 1249
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3159,8 +3192,9 @@
       "marca": "",
       "mlId": "MLM19518391",
       "precioAntes": 241,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 243,
+      "precioML": 243
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3168,9 +3202,8 @@
       "nombre": "BioShock The Collection Xbox One (Físico)",
       "marca": "",
       "mlId": "MLM6244239",
-      "precioAntes": 622,
-      "estado": "actualizado",
-      "precioNuevo": 628,
+      "precioAntes": 628,
+      "estado": "sin_cambio",
       "precioML": 628
     },
     {
@@ -3180,8 +3213,9 @@
       "marca": "Microsoft",
       "mlId": "MLM26882384",
       "precioAntes": 512,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 517,
+      "precioML": 517
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3189,9 +3223,8 @@
       "nombre": "Grand Theft Auto V Premium Edition Xbox One / Series",
       "marca": "Microsoft",
       "mlId": "MLM24577346",
-      "precioAntes": 539,
-      "estado": "actualizado",
-      "precioNuevo": 544,
+      "precioAntes": 544,
+      "estado": "sin_cambio",
       "precioML": 544
     },
     {
@@ -3201,8 +3234,8 @@
       "marca": "",
       "mlId": "MLM51976279",
       "precioAntes": 1599,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 1599
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3211,8 +3244,9 @@
       "marca": "PlayStation",
       "mlId": "MLM66764100",
       "precioAntes": 1227,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 1237,
+      "precioML": 1237
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3221,8 +3255,8 @@
       "marca": "Rockstar Games",
       "mlId": "MLM74151710",
       "precioAntes": 1699,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 1699
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3231,8 +3265,9 @@
       "marca": "Microsoft",
       "mlId": "MLM73134263",
       "precioAntes": 1465,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 1477,
+      "precioML": 1477
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3241,8 +3276,9 @@
       "marca": "EA Sports",
       "mlId": "MLM77515512",
       "precioAntes": 1117,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 1126,
+      "precioML": 1126
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3251,8 +3287,9 @@
       "marca": "Nintendo",
       "mlId": "MLM80271377",
       "precioAntes": 1200,
-      "estado": "sin_cambio",
-      "precioML": 1200
+      "estado": "actualizado",
+      "precioNuevo": 1099,
+      "precioML": 1099
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3281,8 +3318,8 @@
       "marca": "",
       "mlId": "MLM65705152",
       "precioAntes": 699,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 699
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3291,8 +3328,9 @@
       "marca": "Konami",
       "mlId": "MLM66910108",
       "precioAntes": 891,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 899,
+      "precioML": 899
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3311,8 +3349,8 @@
       "marca": "Ubisoft",
       "mlId": "MLM80318142",
       "precioAntes": 699,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 699
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3321,8 +3359,9 @@
       "marca": "Switch",
       "mlId": "MLM75434376",
       "precioAntes": 1098,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 1108,
+      "precioML": 1108
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3331,8 +3370,9 @@
       "marca": "Bandai Namco",
       "mlId": "MLM14141441",
       "precioAntes": 718,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 724,
+      "precioML": 724
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3341,8 +3381,8 @@
       "marca": "Switch",
       "mlId": "MLM22619571",
       "precioAntes": 452,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 452
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3351,8 +3391,9 @@
       "marca": "",
       "mlId": "MLM57015563",
       "precioAntes": 685,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 691,
+      "precioML": 691
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3361,8 +3402,8 @@
       "marca": "Nintendo",
       "mlId": "MLM71513168",
       "precioAntes": 799,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 799
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3371,8 +3412,9 @@
       "marca": "Bandai Namco",
       "mlId": "MLM15393901",
       "precioAntes": 470,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 474,
+      "precioML": 474
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3381,8 +3423,8 @@
       "marca": "Electronics Art",
       "mlId": "MLM18616305",
       "precioAntes": 209,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 209
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3391,8 +3433,9 @@
       "marca": "Nintendo",
       "mlId": "MLM67210884",
       "precioAntes": 1282,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 1293,
+      "precioML": 1293
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3401,8 +3444,9 @@
       "marca": "",
       "mlId": "MLM50240114",
       "precioAntes": 628,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 633,
+      "precioML": 633
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3410,9 +3454,8 @@
       "nombre": "Red Dead Redemption Ps4",
       "marca": "",
       "mlId": "MLM27823721",
-      "precioAntes": 509,
-      "estado": "actualizado",
-      "precioNuevo": 514,
+      "precioAntes": 514,
+      "estado": "sin_cambio",
       "precioML": 514
     },
     {
@@ -3422,8 +3465,9 @@
       "marca": "Nintendo Switch",
       "mlId": "MLM74344570",
       "precioAntes": 870,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 877,
+      "precioML": 877
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3431,9 +3475,8 @@
       "nombre": "Ea Sports Fc 27 Nintendo Switch 2 Estándar Físico",
       "marca": "EA Sports",
       "mlId": "MLM77515506",
-      "precioAntes": 1282,
-      "estado": "actualizado",
-      "precioNuevo": 1293,
+      "precioAntes": 1293,
+      "estado": "sin_cambio",
       "precioML": 1293
     },
     {
@@ -3443,8 +3486,9 @@
       "marca": "Nintendo",
       "mlId": "MLM18758238",
       "precioAntes": 888,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 896,
+      "precioML": 896
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3453,8 +3497,8 @@
       "marca": "",
       "mlId": "MLM18437550",
       "precioAntes": 185,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 185
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3473,8 +3517,8 @@
       "marca": "EA Sports",
       "mlId": "MLM26103564",
       "precioAntes": 499,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 499
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3493,8 +3537,8 @@
       "marca": "EA",
       "mlId": "MLM43537279",
       "precioAntes": 700,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 700
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3503,8 +3547,9 @@
       "marca": "Nintendo Of America",
       "mlId": "MLM59417784",
       "precioAntes": 722,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 728,
+      "precioML": 728
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3513,8 +3558,9 @@
       "marca": "EA Sports",
       "mlId": "MLM19540152",
       "precioAntes": 499,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 599,
+      "precioML": 599
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3523,8 +3569,8 @@
       "marca": "EA Sports",
       "mlId": "MLM15246346",
       "precioAntes": 399,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "sin_cambio",
+      "precioML": 399
     },
     {
       "categoria": "videojuegos_juegos",
