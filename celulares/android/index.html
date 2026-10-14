@@ -126,10 +126,9 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 
 .result-info{padding:.5rem 2rem;font-size:12px;color:var(--tx3)}
 
-.grid-wrap{max-width:1400px;margin:0 auto;padding:1.2rem 2rem}
-@media(max-width:480px){.grid-wrap{padding:1rem .75rem}}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-@media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
+.grid-wrap{padding:1.2rem 0}
+@media(max-width:480px){.grid-wrap{padding:1rem 0}}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 @media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:480px){.grid{grid-template-columns:repeat(2,1fr)}}
 
@@ -416,7 +415,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 }
 
 /* ── and-*: layout de dos columnas (filtros + catálogo) ─────────── */
-.and-layout{max-width:1500px;margin:0 auto;padding:1rem 2rem 0;display:grid;grid-template-columns:290px 1fr;gap:20px;align-items:start}
+.and-layout{max-width:1800px;margin:0 auto;padding:1rem 2rem 0;display:grid;grid-template-columns:290px 1fr;gap:20px;align-items:start}
 .and-content{min-width:0}
 .and-filters{background:#fff;border:1px solid var(--bd);border-radius:14px;padding:16px;position:sticky;top:76px;max-height:calc(100vh - 92px);overflow-y:auto}
 .and-filters-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--bd)}
@@ -471,6 +470,14 @@ details.and-section summary:focus-visible{outline:2px solid var(--ac);outline-of
 }
 @media(max-width:480px){
   .and-chips-row{padding:.5rem .75rem 0}
+}
+
+/* ── Tarjetas más compactas en escritorio (3 por fila) ──────────── */
+@media(min-width:761px){
+  .card-img-wrap{min-height:168px!important;padding:10px 8px!important}
+  .card-body{padding:.8rem!important}
+  .card-name{font-size:17px!important}
+  .spec{padding:4px 7px}
 }
 </style>
 </head>
