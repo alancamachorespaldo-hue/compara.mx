@@ -102,6 +102,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 
 .card{background:var(--bg);border:1px solid var(--bd);border-radius:14px;overflow:hidden;transition:box-shadow .2s,outline .15s;position:relative;min-height:200px;grid-template-columns:165px 1fr!important}
 .card:hover{box-shadow:0 5px 22px rgba(0,0,0,.09)}
+.card-highlight{outline:3px solid var(--ac);outline-offset:2px;box-shadow:0 0 0 7px var(--acd2)}
 .card-img-wrap{background:var(--s1);display:flex!important;align-items:center;justify-content:center;overflow:hidden;padding:6px!important;min-height:195px!important}
 .card-img{width:100%!important;height:100%!important;max-height:none!important;object-fit:contain!important;display:block;padding:0}
 .card-body{padding:.75rem .7rem .6rem}
@@ -311,6 +312,30 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   .how-modal-ov{padding:0;align-items:flex-end}
   .how-modal{border-radius:20px 20px 0 0;max-height:85dvh}
 }
+
+.seo-genres{max-width:1400px;margin:0 auto 2.5rem;padding:0 2rem}
+.seo-genres-intro{max-width:820px;margin-bottom:1.75rem}
+.seo-genres-intro h2{font-size:1.4rem;font-weight:800;color:var(--tx);margin-bottom:.6rem;letter-spacing:-.02em}
+.seo-genres-intro p{color:var(--tx2);font-size:.92rem;line-height:1.75}
+.seo-genres-intro p a{color:var(--ac);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+.seo-cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:18px;margin-bottom:2rem}
+.seo-cat{background:var(--s1);border:1px solid var(--bd);border-radius:16px;padding:1.3rem 1.4rem}
+.seo-cat-title{font-size:1.02rem;font-weight:800;color:var(--tx);margin-bottom:1rem;letter-spacing:-.015em;display:flex;align-items:center;gap:8px}
+.seo-game{padding:.85rem 0;border-top:1px solid var(--bd)}
+.seo-game:first-of-type{border-top:none;padding-top:0}
+.seo-game-head{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:.3rem}
+.seo-game-link{color:var(--ac);font-weight:700;font-size:.92rem;text-decoration:none;border-bottom:1.5px solid var(--acd2);transition:border-color .15s}
+.seo-game-link:hover{border-color:var(--ac)}
+.seo-game-tag{font-size:.7rem;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:.03em;white-space:nowrap}
+.seo-game p{color:var(--tx2);font-size:.85rem;line-height:1.65;margin:0}
+.seo-genres-outro{max-width:820px;margin-top:.5rem}
+.seo-genres-outro h3{font-size:1rem;font-weight:700;color:var(--tx);margin-top:1.4rem;margin-bottom:.5rem;letter-spacing:-.01em}
+.seo-genres-outro p{color:var(--tx2);font-size:.9rem;line-height:1.75;margin-bottom:.6rem}
+.seo-genres-outro p a{color:var(--ac);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+@media(max-width:480px){
+  .seo-genres{padding:0 1rem}
+  .seo-cat-grid{grid-template-columns:1fr;gap:14px}
+}
 </style>
 </head>
 <body data-category="videojuegos_juegos">
@@ -482,6 +507,106 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
     <a href="/videojuegos/consolas/" style="color:var(--ac);font-weight:700;text-decoration:underline;text-underline-offset:2px">Ver consolas disponibles →</a>
   </div>
 </div>
+
+<section class="seo-genres">
+  <div class="seo-genres-intro">
+    <h2>Géneros de videojuegos: descubre títulos para todos los gustos</h2>
+    <p>¿Buscas videojuegos de acción, carreras, deportes, aventuras o mundos abiertos? Cada género ofrece una experiencia distinta. En Compáralo.mx puedes explorar videojuegos para <a href="/videojuegos/consolas/">Nintendo Switch, Nintendo Switch 2, PlayStation y Xbox</a>, filtrar por género y plataforma y comparar opciones antes de comprar.</p>
+  </div>
+
+  <div class="seo-cat-grid">
+    <div class="seo-cat">
+      <div class="seo-cat-title">🗺️ Videojuegos de aventura y acción</div>
+      <div class="seo-game">
+        <div class="seo-game-head"><a href="#card-JUE-001" class="seo-game-link" onclick="return irACard('JUE-001')">The Legend of Zelda: Breath of the Wild</a><span class="seo-game-tag">Aventura y exploración</span></div>
+        <p>Acompaña a Link en un extenso mundo abierto donde puedes explorar paisajes, resolver acertijos, descubrir secretos y enfrentarte a enemigos. Es una opción para quienes disfrutan la exploración libre y la aventura.</p>
+      </div>
+      <div class="seo-game">
+        <div class="seo-game-head"><a href="#card-JUE-019" class="seo-game-link" onclick="return irACard('JUE-019')">Red Dead Redemption 2</a><span class="seo-game-tag">Acción y mundo abierto</span></div>
+        <p>Ambientado en el Viejo Oeste, combina una historia narrativa con exploración, misiones y actividades en un mundo abierto. Destaca por la libertad para recorrer su entorno y descubrir historias secundarias.</p>
+      </div>
+      <div class="seo-game">
+        <div class="seo-game-head"><a href="#card-JUE-018" class="seo-game-link" onclick="return irACard('JUE-018')">Grand Theft Auto V</a><span class="seo-game-tag">Acción y mundo abierto</span></div>
+        <p>Permite explorar una ciudad ficticia, completar misiones y alternar entre distintos protagonistas. Es conocido por combinar conducción, acción y libertad de exploración. Revisa su clasificación por edad antes de comprarlo.</p>
+      </div>
+      <div class="seo-game">
+        <div class="seo-game-head"><a href="#card-JUE-026" class="seo-game-link" onclick="return irACard('JUE-026')">Assassin's Creed Mirage</a><span class="seo-game-tag">Acción y sigilo</span></div>
+        <p>Ofrece una aventura centrada en el sigilo, la infiltración y los desplazamientos por una ciudad histórica. Es una alternativa para quienes prefieren planear sus movimientos y evitar enfrentamientos directos cuando sea posible.</p>
+      </div>
+    </div>
+
+    <div class="seo-cat">
+      <div class="seo-cat-title">🏁 Videojuegos de carreras y deportes</div>
+      <div class="seo-game">
+        <div class="seo-game-head"><a href="#card-JUE-015" class="seo-game-link" onclick="return irACard('JUE-015')">Mario Kart World</a><span class="seo-game-tag">Carreras</span></div>
+        <p>Compite con personajes del universo de Mario en carreras llenas de obstáculos, objetos y situaciones inesperadas. Es una alternativa para quienes buscan carreras arcade y partidas competitivas.</p>
+      </div>
+      <div class="seo-game">
+        <div class="seo-game-head"><a href="#card-JUE-044" class="seo-game-link" onclick="return irACard('JUE-044')">EA SPORTS FC</a><span class="seo-game-tag">Fútbol</span></div>
+        <p>La saga EA SPORTS FC permite disputar partidos de fútbol, crear equipos y competir en distintos modos de juego, según la edición. Antes de comprar, verifica el año, la plataforma y las diferencias entre versiones.</p>
+      </div>
+      <div class="seo-game">
+        <div class="seo-game-head"><a href="#card-JUE-013" class="seo-game-link" onclick="return irACard('JUE-013')">WWE 2K25</a><span class="seo-game-tag">Lucha libre</span></div>
+        <p>Reúne combates de lucha libre con diferentes personajes, movimientos y modos de juego. Puede interesar a quienes disfrutan los enfrentamientos deportivos y la personalización de sus combates.</p>
+      </div>
+    </div>
+
+    <div class="seo-cat">
+      <div class="seo-cat-title">🧟 Videojuegos de terror y supervivencia</div>
+      <div class="seo-game">
+        <div class="seo-game-head"><a href="#card-JUE-003" class="seo-game-link" onclick="return irACard('JUE-003')">Resident Evil 3</a><span class="seo-game-tag">Survival horror y acción</span></div>
+        <p>Jill Valentine intenta escapar de Raccoon City mientras enfrenta amenazas y recursos limitados. Combina terror, exploración y combate en una experiencia de ritmo intenso.</p>
+      </div>
+      <div class="seo-game">
+        <div class="seo-game-head"><a href="#card-JUE-006" class="seo-game-link" onclick="return irACard('JUE-006')">Resident Evil: Origins Collection</a><span class="seo-game-tag">Terror y supervivencia</span></div>
+        <p>Esta colección reúne experiencias clásicas de Resident Evil, con exploración, resolución de acertijos y administración de recursos. Comprueba qué juegos incluye la edición específica antes de comprarla.</p>
+      </div>
+      <div class="seo-game">
+        <div class="seo-game-head"><a href="#card-JUE-011" class="seo-game-link" onclick="return irACard('JUE-011')">The Last of Us Remastered</a><span class="seo-game-tag">Acción, aventura y supervivencia</span></div>
+        <p>Sigue una historia centrada en la supervivencia en un mundo devastado. Combina exploración, sigilo, combate y narrativa, con énfasis en las decisiones que toman sus protagonistas.</p>
+      </div>
+    </div>
+
+    <div class="seo-cat">
+      <div class="seo-cat-title">⚔️ RPG y juegos de combate</div>
+      <div class="seo-game">
+        <div class="seo-game-head"><a href="#card-JUE-036" class="seo-game-link" onclick="return irACard('JUE-036')">Dark Souls III</a><span class="seo-game-tag">RPG de acción</span></div>
+        <p>Explora escenarios oscuros, combate contra enemigos exigentes y mejora las habilidades de tu personaje. Es una opción para jugadores que buscan desafíos, aprendizaje de patrones y enfrentamientos difíciles.</p>
+      </div>
+      <div class="seo-game">
+        <div class="seo-game-head"><a href="#card-JUE-046" class="seo-game-link" onclick="return irACard('JUE-046')">Dragon Ball Z: Kakarot</a><span class="seo-game-tag">RPG de acción</span></div>
+        <p>Revive momentos importantes de la historia de Dragon Ball Z mediante combates, exploración y progresión del personaje. Puede interesar especialmente a quienes conocen la serie y quieren recorrer sus principales acontecimientos.</p>
+      </div>
+      <div class="seo-game">
+        <div class="seo-game-head"><a href="#card-JUE-053" class="seo-game-link" onclick="return irACard('JUE-053')">Pokémon Legends: Arceus</a><span class="seo-game-tag">Aventura y RPG</span></div>
+        <p>Explora la región de Hisui, captura Pokémon e investiga sus comportamientos en una experiencia centrada en la exploración y la colección. Es importante confirmar la plataforma y la edición antes de comprar.</p>
+      </div>
+    </div>
+
+    <div class="seo-cat">
+      <div class="seo-cat-title">🧱 Plataformas, estrategia y creatividad</div>
+      <div class="seo-game">
+        <div class="seo-game-head"><a href="#card-JUE-043" class="seo-game-link" onclick="return irACard('JUE-043')">Minecraft</a><span class="seo-game-tag">Sandbox y construcción</span></div>
+        <p>Permite construir estructuras, explorar mundos generados y reunir recursos para crear tus propios proyectos. Puedes jugar de forma creativa o sobrevivir a los peligros del entorno, según el modo elegido.</p>
+      </div>
+      <div class="seo-game">
+        <div class="seo-game-head"><a href="#card-JUE-040" class="seo-game-link" onclick="return irACard('JUE-040')">Mario + Rabbids Sparks of Hope</a><span class="seo-game-tag">Estrategia por turnos</span></div>
+        <p>Combina personajes de Nintendo y los Rabbids en combates tácticos donde la posición, las habilidades y la planificación influyen en el resultado. Es una opción para quienes disfrutan pensar cada movimiento.</p>
+      </div>
+      <div class="seo-game">
+        <div class="seo-game-head"><a href="#card-JUE-008" class="seo-game-link" onclick="return irACard('JUE-008')">Super Mario Party Jamboree</a><span class="seo-game-tag">Party y minijuegos</span></div>
+        <p>Reúne tableros y minijuegos para competir con amigos o familiares. Antes de comprar, verifica qué modos admite la versión y qué opciones de juego local o en línea ofrece.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="seo-genres-outro">
+    <h3>¿Cómo elegir y comparar videojuegos antes de comprar?</h3>
+    <p>Además del género, revisa la plataforma compatible, la clasificación por edad, la edición y el formato físico o digital. Dos publicaciones con el mismo nombre pueden corresponder a versiones distintas, por lo que conviene verificar todos los detalles.</p>
+    <p>En Compáralo.mx puedes filtrar el catálogo por género y plataforma para encontrar opciones que se ajusten a tus preferencias. Después, compara el precio y las condiciones de compra en Mercado Libre México o Amazon México, revisando también el vendedor, el envío y las devoluciones.</p>
+    <p>Consulta nuestra <a href="/guias/videojuegos/como-elegir-controles-y-videojuegos/">guía para elegir controles y videojuegos</a> o explora las <a href="/videojuegos/consolas/">consolas de videojuegos disponibles</a>.</p>
+  </div>
+</section>
 
 <section style="max-width:760px;margin:0 auto 2.5rem;padding:0 2rem;color:var(--tx2);font-size:.9rem;line-height:1.8">
   <h2 style="font-size:1.15rem;font-weight:800;color:var(--tx);margin-bottom:.75rem;letter-spacing:-.02em">Videojuegos en México: encuentra juegos para tu consola</h2>
@@ -672,6 +797,17 @@ function resetFilters(){
 function isActive(){
   return fPrecio < PRECIO_MAX || selPlats.size || selGens.size || selFmts.size ||
     document.getElementById('f-sort').value || (document.getElementById('search').value||'').trim();
+}
+
+function irACard(id){
+  if(isActive()) resetFilters();
+  const el = document.getElementById('card-'+id);
+  if(el){
+    el.scrollIntoView({behavior:'smooth', block:'center'});
+    el.classList.add('card-highlight');
+    setTimeout(()=>el.classList.remove('card-highlight'), 1800);
+  }
+  return false;
 }
 
 function initFilters(){
