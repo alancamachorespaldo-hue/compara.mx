@@ -453,8 +453,9 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   .pplat-price{font-size:1rem}
   .pplat-tag{font-size:7.5px;padding:1px 6px;top:-7px}
   .pcard-plats .btn-ml,.pcard-plats .btn-amz{font-size:9.5px!important;padding:6px 3px!important;gap:3px;overflow:hidden;white-space:nowrap}
-  .btn-logo-img{display:none}
-  .btn-lbl-sm{display:inline;font-weight:800}
+  .pcard-plats .btn-logo-img{height:13px;max-width:100%}
+  .pcard-plats .btn-ira-txt{display:none}
+  .pcard-plats .btn-ml,.pcard-plats .btn-amz{padding:7px 2px!important}
   .pn-lg{display:none}
   .pn-sm{display:inline}
 }
@@ -1096,8 +1097,8 @@ function cardHTML(p) {
   const drop = getDrop(p);
   const dropHTML = drop ? `<span class="crt-bajada"><s>${fmt(drop.antes)}</s>↓ ${drop.pct}%</span>` : '';
 
-  const mlBox = showML ? `<div class="pplat${bestML?' best':''}">${bestML?'<span class="pplat-tag">Mejor precio</span>':''}<span class="pplat-name"><span class="pn-lg">Mercado Libre</span><span class="pn-sm">ML</span></span><span class="pplat-price${mlPrice==null?' nd':''}">${mlPrice!=null?fmt(mlPrice):'Ver precio'}</span>${dropHTML}<a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" ${gaML}>Ir a <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"><span class="btn-lbl-sm">ML</span></a></div>` : '';
-  const amzBox = showAmz ? `<div class="pplat${bestAmz?' best':''}">${bestAmz?'<span class="pplat-tag">Mejor precio</span>':''}<span class="pplat-name"><span class="pn-lg">Amazon</span><span class="pn-sm">AMZ</span></span><span class="pplat-price${amzPrice==null?' nd':''}">${amzPrice!=null?fmt(amzPrice):'Ver precio'}</span><a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" ${gaAmz}>Ir a <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"><span class="btn-lbl-sm">AMZ</span></a></div>` : '';
+  const mlBox = showML ? `<div class="pplat${bestML?' best':''}">${bestML?'<span class="pplat-tag">Mejor precio</span>':''}<span class="pplat-name"><span class="pn-lg">Mercado Libre</span><span class="pn-sm">ML</span></span><span class="pplat-price${mlPrice==null?' nd':''}">${mlPrice!=null?fmt(mlPrice):'Ver precio'}</span>${dropHTML}<a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" ${gaML}><span class="btn-ira-txt">Ir a</span> <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"><span class="btn-lbl-sm">ML</span></a></div>` : '';
+  const amzBox = showAmz ? `<div class="pplat${bestAmz?' best':''}">${bestAmz?'<span class="pplat-tag">Mejor precio</span>':''}<span class="pplat-name"><span class="pn-lg">Amazon</span><span class="pn-sm">AMZ</span></span><span class="pplat-price${amzPrice==null?' nd':''}">${amzPrice!=null?fmt(amzPrice):'Ver precio'}</span><a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" ${gaAmz}><span class="btn-ira-txt">Ir a</span> <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"><span class="btn-lbl-sm">AMZ</span></a></div>` : '';
   const nPlats = (showML?1:0)+(showAmz?1:0);
   const platsHTML = (mlBox||amzBox) ? `<div class="pcard-plats${nPlats<2?' one':''}">${mlBox}${amzBox}</div>` : '';
 
