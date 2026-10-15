@@ -175,7 +175,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.grid{grid-template-columns:repeat(2,1fr)}}
 
-.card{background:var(--bg);border:1px solid var(--bd);border-radius:14px;overflow:hidden;transition:box-shadow .2s,transform .15s;cursor:pointer;position:relative}
+.card{background:var(--bg);border:1px solid var(--bd);border-radius:14px;overflow:hidden;transition:box-shadow .2s,transform .15s;cursor:pointer;position:relative;display:flex!important;flex-direction:column!important;grid-template-columns:unset!important}
 .card:hover{box-shadow:0 4px 20px rgba(0,0,0,.07);transform:translateY(-2px)}
 .card.selected{border:2px solid var(--ac);box-shadow:0 0 0 4px var(--acd2)}
 .card-img-wrap{background:var(--s1);height:220px;display:flex;align-items:center;justify-content:center;overflow:hidden;border-bottom:1px solid var(--bd)}
