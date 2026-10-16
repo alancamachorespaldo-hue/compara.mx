@@ -649,6 +649,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <div style="display:flex;align-items:center;gap:8px">
         <span class="sort-label">Ordenar:</span>
         <select class="sort-sel" id="sort-sel" onchange="render()">
+          <option value="popularidad">Popularidad</option>
           <option value="precio-asc">Precio más bajo ↑</option>
           <option value="precio-desc">Precio más alto ↑</option>
           <option value="nombre">Nombre A → Z</option>
@@ -2261,6 +2262,7 @@ function render() {
   lista.sort((a, b) => {
     const pA = activeVariante(a).precio || 0;
     const pB = activeVariante(b).precio || 0;
+    if (sortVal === 'popularidad')  return Math.max(...b.variantes.map(v=>v.resenas||0)) - Math.max(...a.variantes.map(v=>v.resenas||0));
     if (sortVal === 'precio-asc')  return pA - pB;
     if (sortVal === 'precio-desc') return pB - pA;
     if (sortVal === 'nombre')      return a.nombre.localeCompare(b.nombre, 'es');
@@ -2356,9 +2358,9 @@ function cardHTML(familia) {
         <div class="card-name">${familia.nombre}${prevBadge ? ' '+prevBadge : ''}</div>
         ${reacondBadge}
       </div>
+      ${(()=>{const _c=getColoresIph(familia);return _c.length?`<div class="color-dots">${_c.map(c=>`<span class="color-dot" style="background:${COLOR_SWATCHES_IPH[c]||'#ccc'}" data-color="${c}" aria-label="${c}" title="${c}"></span>`).join('')}<span class="color-dots-total">${_c.length} color${_c.length!==1?'es':''} disp.</span></div>`:'';})()}
       <div id="stars-${mb}">${starsInner}</div>
       ${specs}
-      ${(()=>{const _c=getColoresIph(familia);return _c.length?`<div class="color-dots">${_c.map(c=>`<span class="color-dot" style="background:${COLOR_SWATCHES_IPH[c]||'#ccc'}" data-color="${c}" aria-label="${c}" title="${c}"></span>`).join('')}<span class="color-dots-total">${_c.length} color${_c.length!==1?'es':''} disp.</span></div>`:'';})()}
       ${_hasMultiStor ? `<div class="stor-row">${storBtns}</div>` : ''}
       <div class="card-commercial">
         <div id="btns-${mb}">${btnsHTML(variante, familia.nombre)}</div>
