@@ -101,55 +101,117 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .hstat-num{font-size:1.1rem;font-weight:800}
 .hstat-label{font-size:.7rem;opacity:.7}
 
-.search-wrap{background:#fff;border-bottom:1px solid var(--bd);padding:10px 2rem}
+.nav-fav-btn{background:none;border:1px solid var(--bd);border-radius:8px;padding:5px 10px;cursor:pointer;color:var(--tx2);display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;font-family:'Satoshi',sans-serif;transition:background .15s,color .15s,border-color .15s;white-space:nowrap;flex-shrink:0}
+.nav-fav-btn:hover{background:var(--s1);color:var(--tx);border-color:var(--bd2)}
+.nav-fav-btn svg{display:block;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:2}
+.nav-fav-btn.on{color:var(--ac);border-color:var(--acd2)}
+.nav-fav-btn.on svg{fill:var(--ac);stroke:var(--ac)}
+.nav-fav-btn .nav-fav-count{display:inline-flex;align-items:center;justify-content:center;min-width:16px;height:16px;padding:0 4px;border-radius:9px;background:var(--s2);color:var(--tx2);font-size:10px;font-weight:800;line-height:1}
+.nav-fav-btn.on .nav-fav-count{background:var(--acd2);color:var(--ac)}
+@media(max-width:640px){.nav-fav-btn .nav-fav-txt{display:none}}
+
+.search-wrap{background:#fff;border-bottom:1px solid var(--bd);padding:10px 0}
 .search-input{width:100%;max-width:600px;padding:9px 14px;border:1.5px solid var(--bd2);border-radius:10px;font-size:.84rem;font-family:'Satoshi',sans-serif;color:var(--tx);outline:none;transition:border-color .15s}
 .search-input:focus{border-color:var(--ac)}
-
-.toolbar{background:var(--bg);border-bottom:1px solid var(--bd);padding:.75rem 2rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.filter-label{font-size:11px;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;margin-right:2px;font-weight:600}
 .filter{font-size:12px;padding:4px 14px;border-radius:20px;border:1px solid var(--bd2);background:var(--bg);color:var(--tx2);cursor:pointer;transition:all .15s;font-family:'Satoshi',sans-serif;font-weight:500}
 .filter:hover{border-color:var(--ac);color:var(--ac)}
 .filter.on{background:var(--ac);color:#fff;border-color:var(--ac)}
-.sort-wrap{margin-left:auto;display:flex;align-items:center;gap:8px}
 .sort-label{font-size:12px;color:var(--tx3)}
 .sort-sel{font-size:12px;background:var(--bg);border:1px solid var(--bd2);border-radius:8px;color:var(--tx2);padding:4px 8px;font-family:'Satoshi',sans-serif;cursor:pointer}
 
-.intro-text{max-width:1080px;margin:0 auto;padding:1rem 2rem 0;color:var(--tx2);font-size:13.5px;line-height:1.7}
+.intro-text{max-width:1080px;margin:1rem auto 0;color:var(--tx2);font-size:13.5px;line-height:1.7}
 
-.grid-wrap{max-width:1400px;margin:0 auto;padding:1.2rem 2rem}
-@media(max-width:480px){.grid-wrap{padding:1rem .75rem}}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-@media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:480px){.grid{grid-template-columns:repeat(2,1fr)}}
+/* ── bgv-*: layout de dos columnas (filtros + catálogo) ──────────── */
+.bgv-layout{max-width:1800px;margin:0 auto;padding:1rem 2rem 0;display:grid;grid-template-columns:280px 1fr;gap:20px;align-items:start}
+.bgv-content{min-width:0}
+.bgv-filters{background:#fff;border:1px solid var(--bd);border-radius:14px;padding:16px;position:sticky;top:76px;max-height:calc(100vh - 92px);overflow-y:auto}
+.bgv-filters-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--bd)}
+.bgv-filters-title{font-size:15px;font-weight:800;color:var(--tx);letter-spacing:-.01em}
+.bgv-clear-all{font-size:12px;color:var(--ac);background:none;border:none;cursor:pointer;font-family:inherit;font-weight:600;padding:2px 0}
+.bgv-clear-all:hover{text-decoration:underline}
+.bgv-section{padding:12px 0;border-bottom:1px solid var(--bd)}
+.bgv-section:last-child{border-bottom:none;padding-bottom:0}
+.bgv-section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--tx2);margin-bottom:9px;display:block}
+.bgv-check-list{display:flex;flex-direction:column}
+.bgv-check-item{display:flex;align-items:center;gap:8px;padding:4px 2px;font-size:12.5px;color:var(--tx2);cursor:pointer;line-height:1.3}
+.bgv-check-item input[type=checkbox]{width:15px;height:15px;accent-color:var(--ac);cursor:pointer;flex-shrink:0}
+.bgv-check-item .bgv-cnt{margin-left:auto;color:var(--tx3);font-size:11px;flex-shrink:0}
+.bgv-range-row{display:flex;align-items:center;gap:8px}
+.bgv-range-sep{color:var(--tx3);font-size:12px;flex-shrink:0}
+.precio-max-input{font-size:12px;padding:4px 8px;border-radius:20px;border:1px solid var(--bd2);background:var(--bg);color:var(--tx);font-family:inherit;font-weight:500;width:100%;outline:none;-moz-appearance:textfield}
+.precio-max-input::-webkit-outer-spin-button,.precio-max-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.precio-max-input:focus{border-color:var(--ac)}
 
-.card{background:var(--bg);border:1px solid var(--bd);border-radius:14px;transition:box-shadow .2s,transform .15s;cursor:pointer;position:relative}
-.card:hover{box-shadow:0 4px 20px rgba(0,0,0,.07);transform:translateY(-2px)}
+.bgv-filtrar-btn{display:none}
+.bgv-backdrop{display:none}
+.bgv-filters-foot{display:none}
+.bgv-filters-close{display:none}
+@media(max-width:860px){
+  .bgv-layout{display:block;padding:1rem 1rem 0}
+  .bgv-filtrar-btn{display:flex;align-items:center;gap:7px;width:100%;justify-content:center;background:#fff;border:1.5px solid var(--bd2);color:var(--tx);font-weight:700;font-size:13px;padding:10px;border-radius:10px;font-family:inherit;cursor:pointer;margin-bottom:12px}
+  .bgv-filtrar-btn .bgv-filtrar-count{background:var(--ac);color:#fff;font-size:11px;font-weight:700;border-radius:20px;padding:1px 7px;min-width:18px;text-align:center}
+  .bgv-backdrop{display:none;position:fixed;inset:0;background:rgba(15,23,42,.5);z-index:300}
+  .bgv-backdrop.open{display:block}
+  .bgv-filters{position:fixed;top:0;left:0;bottom:0;width:min(85vw,340px);max-height:none;border-radius:0 16px 16px 0;z-index:301;transform:translateX(-105%);transition:transform .22s ease;display:flex;flex-direction:column}
+  .bgv-filters.open{transform:translateX(0)}
+  .bgv-filters-scroll{overflow-y:auto;flex:1}
+  .bgv-filters-foot{display:flex;gap:8px;padding-top:12px;margin-top:4px;border-top:1px solid var(--bd);flex-shrink:0}
+  .bgv-filters-foot button{flex:1;padding:10px;border-radius:9px;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer}
+  .bgv-apply-btn{background:var(--ac);color:#fff;border:none}
+  .bgv-limpiar-btn{background:none;border:1.5px solid var(--bd2);color:var(--tx2)}
+  .bgv-filters-close{all:unset;display:flex;cursor:pointer;color:var(--tx3);padding:4px;line-height:0}
+}
+
+.grid-wrap{padding:1.2rem 0}
+@media(max-width:480px){.grid-wrap{padding:1rem 0}}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(min-width:1700px){.grid{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:1300px){.grid{grid-template-columns:repeat(2,1fr)}}
+
+/* ── Tarjeta de producto: vertical (imagen arriba + info) ─────────── */
+.card{background:var(--bg);border:1px solid var(--bd);border-radius:16px;overflow:hidden;transition:box-shadow .2s,transform .15s;cursor:pointer;position:relative;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.card:hover{box-shadow:0 6px 24px rgba(0,0,0,.1);transform:translateY(-2px)}
 .card.selected{border:2px solid var(--ac);box-shadow:0 0 0 4px var(--acd2)}
-.card::after{content:'+ Comparar';display:block;border:1px solid var(--ac);color:var(--ac);font-size:11px;padding:3px 8px;border-radius:20px;text-align:center;margin:6px 8px 8px;font-family:inherit;font-weight:500;cursor:pointer}
-.card.selected::after{background:var(--ac);color:#fff;content:'Seleccionado \2713'}
-.card-img-wrap{background:var(--s1);height:260px;display:flex;align-items:center;justify-content:center;overflow:hidden;border-bottom:1px solid var(--bd)}
-.card-img{max-width:95%;max-height:240px;object-fit:contain;display:block;padding:.75rem}
+.sel-check{position:absolute;top:10px;left:10px;width:22px;height:22px;border-radius:50%;background:var(--ac);display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;font-weight:700;box-shadow:0 2px 8px rgba(0,104,71,.4);z-index:4}
+.pcard-img{background:var(--s1);display:flex;align-items:center;justify-content:center;padding:14px;border-bottom:1px solid var(--bd);height:210px;min-width:0;width:100%}
+.pcard-img img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
 .card-img-ph{font-size:3rem;opacity:.2}
-.card-body{padding:1.1rem}
-.card-name{font-family:'Satoshi',sans-serif;font-size:15px;font-weight:700;color:var(--tx);margin-bottom:1px;line-height:1.3;letter-spacing:-.02em}
-.card-brand{font-size:11px;color:var(--tx3);margin-bottom:.5rem;font-weight:500;text-transform:uppercase;letter-spacing:.05em}
-.card-stars-dual{display:grid;grid-template-columns:1fr;gap:6px;margin-bottom:.75rem}
-.card-stars-dual .stars-col{background:var(--s1);border-radius:7px;padding:5px 8px}
-.card-stars-dual .stars-plat{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-bottom:2px}
-.card-stars-dual .stars-val{font-size:13px;color:#e6900a;font-weight:700}
-.card-stars-dual .stars-cnt{font-size:11px;color:var(--tx3);font-weight:400}
-.card-specs{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:.75rem}
-.spec{background:var(--s1);border-radius:7px;padding:5px 8px}
-.spec-label{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
-.spec-val{font-size:12px;font-weight:600;color:var(--tx);margin-top:1px;font-family:'Satoshi',sans-serif}
-.card-price{font-family:'Satoshi',sans-serif;font-size:1.35rem;font-weight:700;color:var(--tx);margin-bottom:.75rem;letter-spacing:-.03em}
-.card-price-sub{font-size:11px;color:var(--tx3);font-weight:400;font-family:'Satoshi',sans-serif}
+.pcard-body{padding:13px 14px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.pcard-brand{font-size:11px;color:var(--tx3);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.pcard-name{font-size:15px;font-weight:700;color:var(--tx);line-height:1.25;letter-spacing:-.01em;margin:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pcard-rating{font-size:14px;color:#e6900a;font-weight:700;display:flex;align-items:center;gap:5px}
+.pcard-rating span{color:var(--tx3);font-size:12px;font-weight:400}
+.pcard-metrics{display:flex;flex-direction:column;gap:0;margin-bottom:.4rem}
+.pmetric-row{display:flex;align-items:flex-start;gap:7px;padding:5px 1px;border-bottom:1px dashed var(--bd)}
+.pmetric-row:last-child{border-bottom:none}
+.pmetric-ic{color:var(--ac);flex-shrink:0;display:flex;opacity:.85;margin-top:2px}
+.pmetric-lbl2{font-size:11.5px;color:var(--tx2);flex:1;min-width:0;padding-top:1px}
+.pmetric-val2{font-size:12.5px;font-weight:700;color:var(--tx);text-align:right;white-space:normal;overflow-wrap:anywhere;margin-left:6px;max-width:58%}
+.card-price{font-size:1.25rem;font-weight:700;color:var(--tx);letter-spacing:-.03em;margin-top:auto;padding-top:8px}
+.card-price-sub{font-size:11px;color:var(--tx3);font-weight:400}
 .card-btns{display:flex;flex-direction:column;gap:6px}
 .btn-ml{display:flex;align-items:center;justify-content:center;gap:5px;width:100%;text-align:center;background:var(--ml);color:#3a2e00;border:none;border-radius:8px;padding:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Satoshi',sans-serif;text-decoration:none;transition:opacity .15s;white-space:nowrap}
 .btn-ml:hover{opacity:.9}
-.btn-logo-img{height:22px;width:auto;object-fit:contain;flex-shrink:0}
-.sel-check{position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:var(--ac);display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;font-weight:700;box-shadow:0 2px 8px rgba(0,104,71,.4)}
+.btn-logo-img{height:20px;width:auto;object-fit:contain;flex-shrink:0}
+/* Corazón para guardar / dar seguimiento */
+.fav-btn{position:absolute;top:10px;right:10px;z-index:4;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.94);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#94a3b8;padding:0;transition:transform .12s,color .15s,box-shadow .15s;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.fav-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;display:block}
+.fav-btn:hover{color:var(--ac);transform:scale(1.08)}
+.fav-btn.on{color:var(--ac)}
+.fav-btn.on svg{fill:var(--ac);stroke:var(--ac)}
+.fav-toggle{display:inline-flex;align-items:center;gap:6px}
+.fav-toggle .fav-count{display:inline-flex;align-items:center;justify-content:center;min-width:17px;height:17px;padding:0 4px;border-radius:9px;background:var(--acd2);color:var(--ac);font-size:10px;font-weight:800;line-height:1}
+.fav-toggle.on .fav-count{background:rgba(255,255,255,.25);color:#fff}
+@media(max-width:560px){
+  .pcard-img{height:132px;padding:10px}
+  .pcard-body{padding:10px;gap:6px}
+  .pcard-brand{font-size:9.5px}
+  .pcard-name{font-size:12.5px}
+  .pmetric-lbl2{font-size:10.5px}
+  .pmetric-val2{font-size:11.5px}
+  .fav-btn{width:30px;height:30px;top:8px;right:8px}
+  .fav-btn svg{width:16px;height:16px}
+}
 .card-tip{font-size:10px;color:var(--tx3);margin-top:.5rem;text-align:center}
 .empty{text-align:center;padding:3rem;color:var(--tx3);font-size:14px}
 
@@ -196,8 +258,6 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   .cmp-bar-sub{font-size:10px!important}
   .cmp-bar-actions{gap:5px!important}
 }
-.filter-logo{padding:4px 10px;display:inline-flex;align-items:center;justify-content:center}
-.filter-logo.on img{filter:brightness(0) invert(1)}
 </style>
 </head>
 <body data-category="bicis_gravel">
@@ -219,6 +279,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 
       <a class="nav-link" href="/tecnologia/">🎧 Tecnología</a>
   </div>
+  <button class="nav-fav-btn" id="nav-fav-btn" type="button" onclick="toggleSoloFavs();document.getElementById('grid-gravel')?.scrollIntoView({behavior:'smooth',block:'start'})" title="Ver tus bicis guardadas" aria-pressed="false"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg><span class="nav-fav-txt">Guardados</span> <span class="nav-fav-count" id="nav-fav-count">0</span></button>
   <button class="btn-share" onclick="shareCurrentPage()" title="Compartir esta p&#225;gina" aria-label="Compartir"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg><span class="share-txt">Compartir</span></button>
 </nav>
 
@@ -235,46 +296,98 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   </div>
 </div>
 
-<div class="search-wrap">
-  <input id="bici-search" type="text" class="search-input" placeholder="Buscar bicicleta, marca o característica…" oninput="onSearch()">
-</div>
-
-<div class="toolbar">
-  <span class="filter-label">Precio:</span>
-  <button class="filter on" data-group="precio" onclick="applyPrecio('all',this)">Todos</button>
-  <button class="filter" data-group="precio" onclick="applyPrecio('low',this)">— $10,000</button>
-  <button class="filter" data-group="precio" onclick="applyPrecio('high',this)">$10,000+</button>
-  <div class="filter-sep"></div>
-  <span class="filter-label">Tienda</span>
-  <button class="filter on" data-group="plat" onclick="applyPlat('all',this)">Ambas</button>
-  <button class="filter filter-logo" data-group="plat" onclick="applyPlat('amz',this)"><img src="/logoamazon.png" alt="Amazon" style="height:16px;width:auto;object-fit:contain" onerror="this.outerHTML='Amazon'"></button>
-  <button class="filter filter-logo" data-group="plat" onclick="applyPlat('ml',this)"><img src="/logomercado.png" alt="Mercado Libre" style="height:16px;width:auto;object-fit:contain" onerror="this.outerHTML='ML'"></button>
-
-  <div class="sort-wrap">
-    <span class="sort-label">Ordenar:</span>
-    <select class="sort-sel" onchange="applySort(this.value)">
-      <option value="default">Destacadas</option>
-      <option value="precio-asc">Precio ↑</option>
-      <option value="precio-desc">Precio ↓</option>
-      <option value="stars">Mejor calificadas</option>
-      <option value="resenas">Más reseñas</option>
-    </select>
-  </div>
-</div>
-
-<div class="intro-text">
+<div class="intro-text" style="padding:1rem 2rem 0">
   <p>Las <strong>bicicletas gravel en México</strong> combinan la versatilidad de la ruta con la robustez para caminos sin pavimentar. En comparalo.mx reunimos los modelos disponibles en <strong>Mercado Libre</strong> con ficha técnica completa para que tomes la mejor decisión.</p>
 </div>
 
-<div class="grid-wrap" data-ga-section="comparison">
-  <div class="grid" id="grid-gravel"></div>
-  <div class="empty" id="empty-gravel" style="display:none">No hay bicis con ese filtro.</div>
-  <noscript><ul style="margin:1rem 2rem;padding:0;list-style:disc;font-size:13px;line-height:2">
-    <li>Gravel Asphalt R700c 14v Shimano — $6,616 MXN</li>
-    <li>Java Sequoia Gravel L-twoo R3 2x8v — $19,000 MXN</li>
-    <li>Gravel Tucson 2024 Shimano Sora 18v — $25,999 MXN</li>
-  </ul></noscript>
-</div>
+<div class="bgv-layout">
+  <button class="bgv-filtrar-btn" id="bgv-filtrar-btn" onclick="openFiltersDrawer()" aria-haspopup="dialog" aria-expanded="false" aria-controls="bgv-filters">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+    Filtrar
+    <span class="bgv-filtrar-count" id="bgv-filtrar-count" style="display:none">0</span>
+  </button>
+  <div class="bgv-backdrop" id="bgv-backdrop" onclick="closeFiltersDrawer()"></div>
+
+  <!-- FILTROS -->
+  <aside class="bgv-filters" id="bgv-filters" role="region" aria-label="Filtros">
+    <div class="bgv-filters-scroll">
+      <div class="bgv-filters-head">
+        <span class="bgv-filters-title">Filtros</span>
+        <div style="display:flex;align-items:center;gap:12px">
+          <button class="bgv-clear-all" onclick="clearFilters()">Limpiar filtros</button>
+          <button class="bgv-filters-close" onclick="closeFiltersDrawer()" aria-label="Cerrar filtros">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="bgv-section">
+        <span class="bgv-section-title">Precio (MXN)</span>
+        <div class="bgv-range-row">
+          <input type="number" id="precio-min" placeholder="Mín." class="precio-max-input" oninput="onPrecioInput()" min="0" step="500" aria-label="Precio mínimo">
+          <span class="bgv-range-sep">–</span>
+          <input type="number" id="precio-max" placeholder="Máx." class="precio-max-input" oninput="onPrecioInput()" min="0" step="500" aria-label="Precio máximo">
+        </div>
+      </div>
+
+      <div class="bgv-section">
+        <span class="bgv-section-title">Guardados</span>
+        <button class="filter fav-toggle" id="btn-favs" type="button" onclick="toggleSoloFavs()" title="Ver solo las bicis que guardaste" style="width:100%;justify-content:center">♥ Ver solo guardados <span class="fav-count" id="fav-count">0</span></button>
+      </div>
+
+      <div class="bgv-section">
+        <span class="bgv-section-title">Marca</span>
+        <div class="bgv-check-list" id="bgv-list-marca"></div>
+      </div>
+
+      <div class="bgv-section">
+        <span class="bgv-section-title">Rueda</span>
+        <div class="bgv-check-list" id="bgv-list-rueda"></div>
+      </div>
+
+      <div class="bgv-section">
+        <span class="bgv-section-title">Velocidades</span>
+        <div class="bgv-check-list" id="bgv-list-velocidades"></div>
+      </div>
+    </div>
+
+    <div class="bgv-filters-foot">
+      <button class="bgv-limpiar-btn" onclick="clearFilters()">Limpiar</button>
+      <button class="bgv-apply-btn" onclick="closeFiltersDrawer()">Aplicar filtros</button>
+    </div>
+  </aside>
+
+  <!-- CATÁLOGO -->
+  <div class="bgv-content">
+    <div class="search-wrap" style="padding:0 0 10px">
+      <input id="bici-search" type="text" class="search-input" placeholder="Buscar bicicleta, marca o característica…" oninput="onSearch()">
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:.4rem 0;flex-wrap:wrap">
+      <div class="result-info" id="result-info" style="font-size:12px;color:var(--tx3)"></div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="sort-label">Ordenar:</span>
+        <select class="sort-sel" onchange="applySort(this.value)">
+          <option value="default">Destacadas</option>
+          <option value="precio-asc">Precio ↑</option>
+          <option value="precio-desc">Precio ↓</option>
+          <option value="stars">Mejor calificadas</option>
+          <option value="resenas">Más reseñas</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="grid-wrap" data-ga-section="comparison">
+      <div class="grid" id="grid-gravel"></div>
+      <div class="empty" id="empty-gravel" style="display:none">No hay bicis con ese filtro.</div>
+      <noscript><ul style="margin:1rem 2rem;padding:0;list-style:disc;font-size:13px;line-height:2">
+        <li>Gravel Asphalt R700c 14v Shimano — $6,616 MXN</li>
+        <li>Java Sequoia Gravel L-twoo R3 2x8v — $19,000 MXN</li>
+        <li>Gravel Tucson 2024 Shimano Sora 18v — $25,999 MXN</li>
+      </ul></noscript>
+    </div>
+  </div><!-- /bgv-content -->
+</div><!-- /bgv-layout -->
 
 <div class="cmp-overlay" id="cmp-overlay" onclick="if(event.target===this)closeCmp()">
   <div class="cmp-modal">
@@ -334,18 +447,132 @@ const GRAVEL = [
    img:'https://http2.mlstatic.com/D_NQ_NP_2X_903671-MLA99451385324_112025-F.webp'},
 ];
 
-let state = { precio:'all', sort:'default', sel:[], plat:'all' };
+let state = { sort:'default', sel:[] };
 let searchQuery = '';
+const filters = { marcas: new Set(), ruedas: new Set(), velocidades: new Set(), soloFavs: false };
 
 function starsStr(n){ return n?'★ '+n.toFixed(1):'—'; }
 
+// ── Favoritos (guardar / dar seguimiento) — se guardan en el navegador
+// del usuario (localStorage), no salen del dispositivo. ─────────────
+const FAV_KEY = 'comparalo:fav:bici-gravel';
+function loadFavs(){ try{ return new Set(JSON.parse(localStorage.getItem(FAV_KEY)||'[]')); }catch(e){ return new Set(); } }
+function saveFavs(){ try{ localStorage.setItem(FAV_KEY, JSON.stringify([...favs])); }catch(e){} }
+let favs = loadFavs();
+function toggleFav(id, ev){
+  if (ev) ev.stopPropagation();
+  if (favs.has(id)) favs.delete(id); else favs.add(id);
+  saveFavs();
+  const b = document.querySelector('#card-'+id+' .fav-btn');
+  if (b){ const on = favs.has(id); b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); b.title = on ? 'Quitar de guardados' : 'Guardar producto'; }
+  if (typeof gtag === 'function'){ try{ gtag('event', favs.has(id)?'save_product':'unsave_product', { item_id:id, page_section:'bicis_gravel' }); }catch(e){} }
+  updateFavCount();
+  if (filters.soloFavs) renderGrid();
+}
+function updateFavCount(){
+  const el = document.getElementById('fav-count'); if (el) el.textContent = favs.size;
+  const navEl = document.getElementById('nav-fav-count'); if (navEl) navEl.textContent = favs.size;
+}
+function toggleSoloFavs(){
+  filters.soloFavs = !filters.soloFavs;
+  const btn = document.getElementById('btn-favs'); if (btn) btn.classList.toggle('on', filters.soloFavs);
+  const navBtn = document.getElementById('nav-fav-btn'); if (navBtn) { navBtn.classList.toggle('on', filters.soloFavs); navBtn.setAttribute('aria-pressed', filters.soloFavs); }
+  afterFilterChange();
+}
+
+// ── Filtros: listas de checkboxes con conteo real ────────────────
+const marcaCount = m => GRAVEL.filter(b => b.marca === m).length;
+const ruedaCount = r => GRAVEL.filter(b => b.rueda === r).length;
+const velCount = v => GRAVEL.filter(b => b.velocidades === v).length;
+
+function buildCheckList(containerId, entries, selectedSet, handlerName) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  el.innerHTML = entries.map(entry => {
+    const esc = String(entry.value).replace(/'/g, "\\'");
+    return `<label class="bgv-check-item">
+      <input type="checkbox" ${selectedSet.has(entry.value)?'checked':''} onchange="${handlerName}('${esc}', this.checked)">
+      ${entry.label}<span class="bgv-cnt">(${entry.count})</span>
+    </label>`;
+  }).join('');
+}
+function toggleSetValue(set, value, checked) { if (checked) set.add(value); else set.delete(value); }
+function toggleMarca(value, checked) { toggleSetValue(filters.marcas, value, checked); afterFilterChange(); }
+function toggleRueda(value, checked) { toggleSetValue(filters.ruedas, value, checked); afterFilterChange(); }
+function toggleVelocidad(value, checked) { toggleSetValue(filters.velocidades, value, checked); afterFilterChange(); }
+
+function initFilterLists() {
+  const marcas = [...new Set(GRAVEL.map(b => b.marca).filter(Boolean))].sort((a,b)=>marcaCount(b)-marcaCount(a));
+  buildCheckList('bgv-list-marca', marcas.map(m => ({ value: m, label: m, count: marcaCount(m) })), filters.marcas, 'toggleMarca');
+
+  const ruedas = [...new Set(GRAVEL.map(b => b.rueda).filter(Boolean))].sort();
+  buildCheckList('bgv-list-rueda', ruedas.map(r => ({ value: r, label: r, count: ruedaCount(r) })), filters.ruedas, 'toggleRueda');
+
+  const vels = [...new Set(GRAVEL.map(b => b.velocidades).filter(Boolean))].sort((a,b)=>parseInt(b)-parseInt(a));
+  buildCheckList('bgv-list-velocidades', vels.map(v => ({ value: v, label: v+' vel.', count: velCount(v) })), filters.velocidades, 'toggleVelocidad');
+}
+
+function updateFiltrarBadge() {
+  const badge = document.getElementById('bgv-filtrar-count');
+  if (!badge) return;
+  let n = filters.marcas.size + filters.ruedas.size + filters.velocidades.size;
+  if (filters.soloFavs) n++;
+  if (document.getElementById('precio-min')?.value) n++;
+  if (document.getElementById('precio-max')?.value) n++;
+  badge.textContent = n;
+  badge.style.display = n > 0 ? '' : 'none';
+}
+
+function openFiltersDrawer() {
+  document.getElementById('bgv-filters').classList.add('open');
+  document.getElementById('bgv-backdrop').classList.add('open');
+  document.getElementById('bgv-filtrar-btn').setAttribute('aria-expanded', 'true');
+  document.body.style.overflow = 'hidden';
+}
+function closeFiltersDrawer() {
+  document.getElementById('bgv-filters').classList.remove('open');
+  document.getElementById('bgv-backdrop').classList.remove('open');
+  document.getElementById('bgv-filtrar-btn').setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeFiltersDrawer(); });
+
+let _precioTimer;
+function onPrecioInput(){ clearTimeout(_precioTimer); _precioTimer = setTimeout(afterFilterChange, 500); }
+function afterFilterChange(){ updateFiltrarBadge(); renderGrid(); }
+
+function clearFilters() {
+  filters.marcas.clear(); filters.ruedas.clear(); filters.velocidades.clear(); filters.soloFavs = false;
+  document.getElementById('bici-search').value = ''; searchQuery = '';
+  const pmin = document.getElementById('precio-min'); if (pmin) pmin.value = '';
+  const pmax = document.getElementById('precio-max'); if (pmax) pmax.value = '';
+  document.querySelectorAll('.bgv-check-item input[type=checkbox]').forEach(cb => cb.checked = false);
+  document.getElementById('btn-favs')?.classList.remove('on');
+  document.getElementById('nav-fav-btn')?.classList.remove('on');
+  afterFilterChange();
+}
+
+// ── Iconos de las características ────────────────────────────────
+const ico = {
+  velocidades:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+  peso:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L4 9v6l8 6 8-6V9z"/><line x1="12" y1="3" x2="12" y2="21"/></svg>`,
+  rueda:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="3" x2="12" y2="8"/><line x1="12" y1="16" x2="12" y2="21"/><line x1="3" y1="12" x2="8" y2="12"/><line x1="16" y1="12" x2="21" y2="12"/></svg>`,
+  cargaMax:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>`,
+};
+
 function getList(){
-  let list = [...GRAVEL];
-  if(state.precio==='low') list=list.filter(b=>b.precio<10000);
-  else if(state.precio==='high') list=list.filter(b=>b.precio>=10000);
-  if(searchQuery) list=list.filter(b=>(b.nombre+' '+b.marca).toLowerCase().includes(searchQuery));
-  if(state.plat==='amz') list=list.filter(b=>b.linkAmz);
-  else if(state.plat==='ml') list=list.filter(b=>b.linkML);
+  let list = GRAVEL.filter(b => {
+    if (filters.soloFavs && !favs.has(b.id)) return false;
+    if (filters.marcas.size && !filters.marcas.has(b.marca)) return false;
+    if (filters.ruedas.size && !filters.ruedas.has(b.rueda)) return false;
+    if (filters.velocidades.size && !filters.velocidades.has(b.velocidades)) return false;
+    if (searchQuery && !`${b.nombre} ${b.marca}`.toLowerCase().includes(searchQuery)) return false;
+    const _maxP = parseFloat(document.getElementById('precio-max')?.value) || Infinity;
+    if (_maxP < Infinity && b.precio > _maxP) return false;
+    const _minP = parseFloat(document.getElementById('precio-min')?.value) || 0;
+    if (_minP > 0 && b.precio < _minP) return false;
+    return true;
+  });
   if(state.sort==='precio-asc') list.sort((a,b)=>a.precio-b.precio);
   else if(state.sort==='precio-desc') list.sort((a,b)=>b.precio-a.precio);
   else if(state.sort==='stars') list.sort((a,b)=>(b.estrellas||0)-(a.estrellas||0));
@@ -357,43 +584,49 @@ function renderGrid(){
   const list = getList();
   const grid = document.getElementById('grid-gravel');
   const empty = document.getElementById('empty-gravel');
-  if(!list.length){grid.innerHTML='';empty.style.display='block';return;}
+  const info = document.getElementById('result-info');
+  if(!list.length){
+    grid.innerHTML='';
+    empty.innerHTML = (filters.soloFavs && favs.size===0) ? '<strong>Aún no has guardado bicis.</strong> Toca el ♥ en una tarjeta para seguirlas.' : 'No hay bicis con ese filtro.';
+    empty.style.display='block';
+    if (info) info.textContent='';
+    return;
+  }
   empty.style.display='none';
+  if (info) info.textContent = `${list.length} de ${GRAVEL.length} bicis gravel`;
+  const esc = s => String(s==null?'':s).replace(/"/g,'&quot;');
   grid.innerHTML = list.map(b=>{
     const isSel = state.sel.includes(b.id);
-    const starsBlock = `<div class="card-stars-dual">
-      <div class="stars-col">
-        <div class="stars-plat">Mercado Libre</div>
-        ${b.estrellas?`<div class="stars-val">★ ${b.estrellas.toFixed(1)} <span class="stars-cnt">(${(b.resenas||0).toLocaleString('es-MX')})</span></div>`:'<div class="stars-val" style="color:var(--tx3)">Sin datos</div>'}
-      </div>
-    </div>`;
-    const _plat = (b.linkML && b.linkAmz) ? 'both' : (b.linkML ? 'ml' : 'amz');
-    return `<div class="card${isSel?' selected':''}" data-platform="${_plat}" onclick="toggleSel(${b.id})">
+    const isFav = favs.has(b.id);
+    const metrics = [
+      ['velocidades','Velocidades', b.velocidades || null],
+      ['peso','Peso', b.peso ? b.peso+' kg' : null],
+      ['rueda','Rueda', b.rueda || null],
+      ['cargaMax','Carga máx.', b.cargaMax ? b.cargaMax+' kg' : null],
+    ].filter(m=>m[2]!=null);
+    const metricsHTML = metrics.length ? `<div class="pcard-metrics">${metrics.map(m=>`<div class="pmetric-row"><span class="pmetric-ic" aria-hidden="true">${ico[m[0]]}</span><span class="pmetric-lbl2">${m[1]}</span><span class="pmetric-val2">${esc(m[2])}</span></div>`).join('')}</div>` : '';
+    const rating = b.estrellas ? `<div class="pcard-rating">★ ${b.estrellas.toFixed(1)} <span>(${(b.resenas||0).toLocaleString('es-MX')})</span></div>` : '';
+    const favBtn = `<button class="fav-btn${isFav?' on':''}" type="button" aria-label="Guardar producto" aria-pressed="${isFav}" title="${isFav?'Quitar de guardados':'Guardar producto'}" onclick="toggleFav(${b.id},event)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></button>`;
+    return `<article class="card${isSel?' selected':''}" data-platform="ml" id="card-${b.id}" onclick="if(!event.target.closest('a,button'))toggleSel(${b.id})" role="button" tabindex="0" aria-pressed="${isSel}" aria-label="${isSel?'Quitar de la comparación: ':'Agregar a comparación: '}${esc(b.nombre)}">
       ${isSel?'<div class="sel-check">✓</div>':''}
-      <div class="card-img-wrap">
-        ${b.img?`<img class="card-img" src="${b.img}" alt="${b.nombre}" loading="lazy" onerror="this.outerHTML='<div class=card-img-ph>🪨</div>'">`:'<div class="card-img-ph">🪨</div>'}
+      ${favBtn}
+      <div class="pcard-img">
+        ${b.img?`<img src="${b.img}" alt="${esc(b.nombre)}" loading="lazy" onerror="this.outerHTML='<div class=card-img-ph>🪨</div>'">`:'<div class="card-img-ph">🪨</div>'}
       </div>
-      <div class="card-body">
-        <div class="card-name">${b.nombre}</div>
-        <div class="card-brand">${b.marca} · Gravel</div>
-        ${starsBlock}
-        <div class="card-specs">
-          <div class="spec"><div class="spec-label">Velocidades</div><div class="spec-val">${b.velocidades||'—'}</div></div>
-          <div class="spec"><div class="spec-label">Peso</div><div class="spec-val">${b.peso?b.peso+' kg':'N/D'}</div></div>
-          <div class="spec"><div class="spec-label">Rueda</div><div class="spec-val">${b.rueda||'—'}</div></div>
-          <div class="spec"><div class="spec-label">Carga máx.</div><div class="spec-val">${b.cargaMax?b.cargaMax+' kg':'N/D'}</div></div>
+      <div class="pcard-body">
+        <div class="pcard-brand">${esc(b.marca)} · Gravel</div>
+        <h3 class="pcard-name">${esc(b.nombre)}</h3>
+        ${rating}
+        ${metricsHTML}
+        <div class="card-price">$${b.precio.toLocaleString('es-MX')} <span class="card-price-sub">MXN</span></div>
+        <div class="card-btns">
+          <a class="btn-ml" href="${b.linkML}" rel="sponsored nofollow noopener" target="_blank" data-ga-label="${esc(b.nombre)}" data-ga-val="${b.precio||0}" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0,'page_section':'bicis_gravel','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1});}">Ir a <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>
         </div>
-        <div class="card-commercial">
-          <div class="card-price">$${b.precio.toLocaleString('es-MX')} <span class="card-price-sub">MXN</span></div>
-          <div class="card-btns" onclick="event.stopPropagation()">
-            <a class="btn-ml" href="${b.linkML}" rel="sponsored nofollow noopener" target="_blank" data-ga-label="${b.nombre||''}" data-ga-val="${b.precio||0}" onclick="if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\\//g,'').replace(/\\/(?:index\\.html)?$/g,'').replace(/\\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1});}">Ir a <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>
-          </div>
-        </div>
-        <div class="card-tip">Toca para comparar</div>
       </div>
-    </div>`;
+    </article>`;
   }).join('');
   updateCmpBar();
+  updateFavCount();
 }
 
 function toggleSel(id){
@@ -416,20 +649,6 @@ function updateCmpBar(){
 }
 
 function clearSel(){state.sel=[];renderGrid();}
-
-function applyPrecio(v,el){
-  state.precio=v;
-  document.querySelectorAll('[data-group="precio"]').forEach(x=>x.classList.remove('on'));
-  el.classList.add('on');
-  renderGrid();
-}
-
-function applyPlat(v,el){
-  state.plat=v;
-  document.querySelectorAll('[data-group="plat"]').forEach(x=>x.classList.remove('on'));
-  el.classList.add('on');
-  renderGrid();
-}
 
 function applySort(v){ state.sort=v; renderGrid(); }
 
@@ -461,6 +680,8 @@ function showCmp(){
 
 function closeCmp(){ document.getElementById('cmp-overlay').classList.remove('open'); }
 
+initFilterLists();
+updateFavCount();
 renderGrid();
 </script>
 <script src="/js/onboarding.js" defer></script>
