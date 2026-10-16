@@ -509,11 +509,15 @@ details.and-section summary:focus-visible{outline:2px solid var(--ac);outline-of
   .and-chips-row{padding:.5rem .75rem 0}
 }
 
+/* ── Marca y colores ─────────────────────────────────────────────── */
+.card-brand{font-size:10.5px;color:var(--tx3);font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:-3px;line-height:1.3}
+.color-dots-total{font-size:11px;color:var(--tx3);font-weight:500;white-space:nowrap;margin-left:3px}
+
 /* ── Tarjetas más compactas en escritorio (4 por fila) ───────────── */
 @media(min-width:761px){
   .card-img-wrap{height:140px!important;min-height:0!important;padding:10px 8px!important}
-  .card-body{padding:.7rem!important}
-  .card-name{font-size:14.5px!important}
+  .card-body{padding:.7rem!important;gap:5px!important}
+  .card-name{font-size:16px!important}
   .spec{padding:4px 7px}
 }
 </style>
@@ -2657,6 +2661,16 @@ const ico = {
   nfc:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8.82a15 15 0 0120 0"/><path d="M5 12.86a10 10 0 0114 0"/><path d="M8.5 16.43a5 5 0 017 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>`,
 };
 
+/* ─── BRAND LABELS ───────────────────────────────────────── */
+const BRAND_LABELS = {
+  samsung:'Samsung', google:'Google Pixel', motorola:'Motorola', xiaomi:'Xiaomi',
+  oppo:'OPPO', honor:'HONOR', huawei:'Huawei', doogee:'Doogee', oscal:'Oscal',
+  blackview:'Blackview', w555:'W555', generica:'Genérica', htc:'HTC',
+  infinix:'Infinix', nothing:'Nothing', nubia:'Nubia', oukitel:'Oukitel',
+  philips:'Philips', realme:'realme', poco:'POCO',
+};
+function brandLabel(m){ return BRAND_LABELS[m] || (m ? m[0].toUpperCase()+m.slice(1) : ''); }
+
 /* ─── CARD HTML ──────────────────────────────────────────── */
 function metricsHTML(f, v) {
   const esc = s => String(s==null?'':s).replace(/"/g,'&quot;');
@@ -2705,7 +2719,7 @@ function cardHTML(f) {
 
   const colores = getColores(f);
   const MAX_DOTS = 5;
-  const colorDots = colores.length ? `<div class="color-dots">${colores.slice(0,MAX_DOTS).map(c => `<span class="color-dot" style="background:${COLOR_SWATCHES[c]||'#ccc'}" data-color="${c}" aria-label="${c}" title="${c}"></span>`).join('')}${colores.length>MAX_DOTS?`<span class="color-dots-more">+${colores.length-MAX_DOTS}</span>`:''}</div>` : '';
+  const colorDots = colores.length ? `<div class="color-dots">${colores.slice(0,MAX_DOTS).map(c => `<span class="color-dot" style="background:${COLOR_SWATCHES[c]||'#ccc'}" data-color="${c}" aria-label="${c}" title="${c}"></span>`).join('')}${colores.length>MAX_DOTS?`<span class="color-dots-more">+${colores.length-MAX_DOTS}</span>`:''}<span class="color-dots-total">${colores.length} color${colores.length!==1?'es':''} disp.</span></div>` : '';
 
   const _plat = (v.linkML && v.linkAmz) ? 'both' : (v.linkML ? 'ml' : 'amz');
   const isFav = favs.has(f.modeloBase);
@@ -2718,6 +2732,7 @@ function cardHTML(f) {
       <img class="card-img" src="${f.img}" alt="${f.nombre}" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'88\' height=\'88\'><rect fill=\'%23f1f5f9\' width=\'88\' height=\'88\'/></svg>'">
     </div>
     <div class="card-body">
+      <div class="card-brand">${brandLabel(f.marca)}</div>
       <div class="card-name" id="name-${f.modeloBase}">${esc(f.nombre)} <span id="namestor-${f.modeloBase}">${storageLbl(v.storage)}</span></div>
       ${stars}
       ${colorDots}
