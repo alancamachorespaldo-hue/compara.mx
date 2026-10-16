@@ -141,9 +141,9 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 /* ── GRID ── */
 .grid-wrap{padding:1.2rem 0}
 @media(max-width:480px){.grid-wrap{padding:1rem 0}}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-@media(min-width:1700px){.grid{grid-template-columns:repeat(4,1fr)}}
-@media(max-width:1300px){.grid{grid-template-columns:repeat(2,1fr)}}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:1200px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}}
 
 /* ── CARD ── */
 .card{background:var(--bg);border:1px solid var(--bd);border-radius:14px;overflow:hidden;transition:box-shadow .2s,transform .15s;cursor:pointer;position:relative;display:flex;flex-direction:column}
@@ -341,10 +341,38 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 }
 /* ── Tarjeta vertical: imagen arriba a todo lo ancho, siempre ──── */
 .card{grid-template-columns:unset!important;display:flex!important;flex-direction:column!important}
-.card-img-wrap{height:auto!important;align-self:stretch!important;min-height:210px!important;padding:14px 10px!important;border-right:none!important;border-bottom:1px solid var(--bd)!important}
+.card-img-wrap{height:180px!important;min-height:0!important;align-self:stretch!important;padding:12px 10px!important;border-right:none!important;border-bottom:1px solid var(--bd)!important}
 .card-img{width:auto!important;height:auto!important;object-fit:contain!important;max-width:100%!important;max-height:100%!important}
 @media(max-width:560px){
-  .card-img-wrap{min-height:140px!important;padding:10px!important}
+  .card-img-wrap{height:130px!important;min-height:0!important;padding:8px!important}
+}
+
+/* ── Características: lista vertical icono + etiqueta + valor ──── */
+.pcard-metrics{display:flex;flex-direction:column;gap:0}
+.pmetric-row{display:flex;align-items:flex-start;gap:7px;padding:5px 1px;border-bottom:1px dashed var(--bd)}
+.pmetric-row:last-child{border-bottom:none}
+.pmetric-ic{color:var(--ac);flex-shrink:0;display:flex;opacity:.85;margin-top:2px}
+.pmetric-lbl2{font-size:13px;color:var(--tx2);flex:1 1 42%;min-width:0;padding-top:1px}
+.pmetric-val2{font-size:14px;font-weight:700;color:var(--tx);text-align:right;white-space:normal;overflow-wrap:anywhere;margin-left:6px;max-width:54%;flex-shrink:0}
+
+/* ── Ofertas por plataforma: cajas lado a lado ───────────────── */
+.pcard-plats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pcard-plats.one{grid-template-columns:1fr}
+.pplat{border:1px solid var(--bd);border-radius:11px;padding:8px 8px 9px;display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;min-width:0}
+.pplat.best{border-color:var(--ac);box-shadow:inset 0 0 0 1px var(--ac)}
+.pplat-tag{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:#fff;background:var(--ac);border-radius:20px;padding:1px 8px;position:absolute;top:-8px;left:50%;transform:translateX(-50%);white-space:nowrap}
+.pplat-name{font-size:9.5px;color:var(--tx3);text-transform:uppercase;letter-spacing:.05em;font-weight:700}
+.pplat-price{font-size:1.1rem;font-weight:800;color:var(--tx);letter-spacing:-.02em;line-height:1}
+.pplat-price.nd{font-size:11px;font-weight:500;color:var(--tx3)}
+
+/* ── Color dots: contador ────────────────────────────────────── */
+.color-dots-total{font-size:11px;color:var(--tx3);font-weight:500;white-space:nowrap;margin-left:3px}
+
+/* ── Tarjetas compactas en escritorio (4 por fila) ───────────── */
+@media(min-width:761px){
+  .card-img-wrap{height:160px!important;min-height:0!important;padding:10px 8px!important}
+  .card-body{padding:.7rem!important;gap:5px!important}
+  .card-name{font-size:17px!important}
 }
 
 /* ── Guardados (nav + corazón por tarjeta) ───────────────────── */
@@ -2040,25 +2068,17 @@ function starsHTML(variante) {
 }
 
 function btnsHTML(variante, nombre) {
-  const dual = variante.linkML && variante.linkAmz;
-  if (dual) {
-    const pML  = variante.precioML  || variante.precio;
-    const pAmz = variante.precioAmz || variante.precio;
-    return `<div class="card-btns-dual">
-      <div class="card-btn-col">
-        <div class="card-btn-col-price">${fmt(pML)}</div>
-        <a class="btn-ml" href="${variante.linkML}" target="_blank" rel="sponsored nofollow noopener" aria-label="Ver ${nombre||''} en Mercado Libre" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'platform':'mercado_libre','product_name':this.dataset.gaLabel||'','price':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\\//g,'').replace(/\\/(?:index\\.html)?$/g,'').replace(/\\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1,'category':'iphone'})}" data-ga-label="${nombre||''}" data-ga-val="${variante.precio||0}">Ir a Mercado Libre</a>
-      </div>
-      <div class="card-btn-col">
-        <div class="card-btn-col-price">${fmt(pAmz)}</div>
-        <a class="btn-amz" href="${variante.linkAmz}" target="_blank" rel="sponsored nofollow noopener" aria-label="Ver ${nombre||''} en Amazon" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_amazon',{'platform':'amazon','product_name':this.dataset.gaLabel||'','price':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\\//g,'').replace(/\\/(?:index\\.html)?$/g,'').replace(/\\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1,'category':'iphone'})}" data-ga-label="${nombre||''}" data-ga-val="${variante.precio||0}">Ir a Amazon</a>
-      </div>
-    </div>`;
-  }
-  const btnML  = variante.linkML  ? `<a class="btn-ml" href="${variante.linkML}" target="_blank" rel="sponsored nofollow noopener" aria-label="Ver ${nombre||''} en Mercado Libre" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'platform':'mercado_libre','product_name':this.dataset.gaLabel||'','price':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\\//g,'').replace(/\\/(?:index\\.html)?$/g,'').replace(/\\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1,'category':'iphone'})}" data-ga-label="${nombre||''}" data-ga-val="${variante.precio||0}">Ir a Mercado Libre</a>` : '';
-  const btnAmz = variante.linkAmz ? `<a class="btn-amz" href="${variante.linkAmz}" target="_blank" rel="sponsored nofollow noopener" aria-label="Ver ${nombre||''} en Amazon" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_amazon',{'platform':'amazon','product_name':this.dataset.gaLabel||'','price':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\\//g,'').replace(/\\/(?:index\\.html)?$/g,'').replace(/\\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1,'category':'iphone'})}" data-ga-label="${nombre||''}" data-ga-val="${variante.precio||0}">Ir a Amazon</a>` : '';
-  if (!btnML && !btnAmz) return `<div class="card-btns"><div class="price-nd" style="font-size:11px;text-align:center">Próximamente con enlace</div></div>`;
-  return `<div class="card-btns">${btnML}${btnAmz}</div>`;
+  const pML  = variante.linkML  ? (variante.precioML  || variante.precio) : null;
+  const pAmz = variante.linkAmz ? (variante.precioAmz || variante.precio) : null;
+  let bestML = false, bestAmz = false;
+  if (pML != null && pAmz != null) { if (pML < pAmz) bestML = true; else if (pAmz < pML) bestAmz = true; }
+  const gaML  = `onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'platform':'mercado_libre','product_name':this.dataset.gaLabel||'','price':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\\//g,'').replace(/\\/(?:index\\.html)?$/g,'').replace(/\\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1,'category':'iphone'})}" data-ga-label="${nombre||''}" data-ga-val="${variante.precio||0}"`;
+  const gaAmz = `onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_amazon',{'platform':'amazon','product_name':this.dataset.gaLabel||'','price':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\\//g,'').replace(/\\/(?:index\\.html)?$/g,'').replace(/\\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1,'category':'iphone'})}" data-ga-label="${nombre||''}" data-ga-val="${variante.precio||0}"`;
+  const mlBox  = variante.linkML  ? `<div class="pplat${bestML?' best':''}">${bestML?'<span class="pplat-tag">Mejor precio</span>':''}<span class="pplat-name">Mercado Libre</span><span class="pplat-price">${fmt(pML)}</span><a class="btn-ml" href="${variante.linkML}" target="_blank" rel="sponsored nofollow noopener" aria-label="Ver ${nombre||''} en Mercado Libre" ${gaML}>Ir a <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a></div>` : '';
+  const amzBox = variante.linkAmz ? `<div class="pplat${bestAmz?' best':''}">${bestAmz?'<span class="pplat-tag">Mejor precio</span>':''}<span class="pplat-name">Amazon</span><span class="pplat-price">${fmt(pAmz)}</span><a class="btn-amz" href="${variante.linkAmz}" target="_blank" rel="sponsored nofollow noopener" aria-label="Ver ${nombre||''} en Amazon" ${gaAmz}>Ir a <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a></div>` : '';
+  if (!mlBox && !amzBox) return `<div class="pcard-plats one"><div class="pplat"><span class="pplat-name">Próximamente</span></div></div>`;
+  const n = (variante.linkML ? 1 : 0) + (variante.linkAmz ? 1 : 0);
+  return `<div class="pcard-plats${n < 2 ? ' one' : ''}">${mlBox}${amzBox}</div>`;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -2289,18 +2309,27 @@ function cardHTML(familia) {
   // Stars — per variante
   const starsInner = starsHTML(variante);
 
-  // Specs — solo tiles con dato real
-  const _si = [];
-  if (familia.pantalla) _si.push({l:'Pantalla', v:familia.pantalla+'"'});
+  // Iconos para filas de specs
+  const ICO = {
+    pantalla:      `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>`,
+    chip:          `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg>`,
+    ram:           `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="9" width="20" height="7" rx="1"/><path d="M6 9V6M10 9V6M14 9V6M18 9V6"/></svg>`,
+    almacenamiento:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 9h18M7 5v4"/></svg>`,
+    camara:        `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>`,
+    hz:            `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l3-9 4 18 3-9h4"/></svg>`,
+  };
+  // Specs — lista de filas icono + etiqueta + valor
   const _almacVal = fmtGB(variante.almacenamientoGB);
-  if (_almacVal) _si.push({l:'Almac.', v:_almacVal, id:`spec-stor-${mb}`});
-  if (familia.camPrincipal) _si.push({l:'Cámara', v:familia.camPrincipal+' MP'});
-  if (familia.chip) _si.push({l:'Chip', v:familia.chip});
   const _ramVal = variante.ram ? variante.ram+' GB' : (familia.ram ? familia.ram+' GB' : null);
-  if (_ramVal) _si.push({l:'RAM', v:_ramVal});
-  if (familia.hz) _si.push({l:'Hz', v:familia.hz+' Hz'});
-  const _specCols = _si.length <= 4 ? 2 : 3;
-  const specs = `<div class="card-specs" data-cols="${_specCols}">${_si.map(s=>`<div class="spec"><div class="spec-label">${s.l}</div><div class="spec-val"${s.id?` id="${s.id}"`:''}>${s.v}</div></div>`).join('')}</div>`;
+  const _rows = [
+    ['pantalla',      'Pantalla',     familia.pantalla ? familia.pantalla+'"' : null, null],
+    ['chip',          'Chip',         familia.chip || null, null],
+    ['ram',           'RAM',          _ramVal, null],
+    ['almacenamiento','Almac.',       _almacVal || null, `alm-${mb}`],
+    ['camara',        'Cámara',       familia.camPrincipal ? familia.camPrincipal+' MP' : null, null],
+    ['hz',            'Hz',           familia.hz ? familia.hz+' Hz' : null, null],
+  ].filter(r => r[2] != null);
+  const specs = `<div class="pcard-metrics">${_rows.map(r=>`<div class="pmetric-row"><span class="pmetric-ic" aria-hidden="true">${ICO[r[0]]}</span><span class="pmetric-lbl2">${r[1]}</span><span class="pmetric-val2"${r[3]?` id="${r[3]}"`:''}>${r[2]}</span></div>`).join('')}</div>`;
 
   // Placeholder image fallback
   const imgSrc = variante.img || '';
@@ -2329,10 +2358,9 @@ function cardHTML(familia) {
       </div>
       <div id="stars-${mb}">${starsInner}</div>
       ${specs}
-      ${(()=>{const _c=getColoresIph(familia);return _c.length?`<div class="color-dots">${_c.map(c=>`<span class="color-dot" style="background:${COLOR_SWATCHES_IPH[c]||'#ccc'}" data-color="${c}" aria-label="${c}" title="${c}"></span>`).join('')}</div>`:'';})()}
+      ${(()=>{const _c=getColoresIph(familia);return _c.length?`<div class="color-dots">${_c.map(c=>`<span class="color-dot" style="background:${COLOR_SWATCHES_IPH[c]||'#ccc'}" data-color="${c}" aria-label="${c}" title="${c}"></span>`).join('')}<span class="color-dots-total">${_c.length} color${_c.length!==1?'es':''} disp.</span></div>`:'';})()}
       ${_hasMultiStor ? `<div class="stor-row">${storBtns}</div>` : ''}
       <div class="card-commercial">
-        <div class="card-price" id="price-${mb}">${fmt(variante.precio)}</div>
         <div id="btns-${mb}">${btnsHTML(variante, familia.nombre)}</div>
         <div class="card-sel-row" id="selrow-${mb}">${isSelected ? '✓ Seleccionado' : '○ Seleccionar para comparar'}</div>
       </div>
@@ -2361,13 +2389,9 @@ function selectStorage(event, modeloBase, idx) {
   const insightEl = document.getElementById(`insight-${modeloBase}`);
   if (insightEl) insightEl.innerHTML = insightHTML(familia, idx);
 
-  // Precio
-  const priceEl = document.getElementById(`price-${modeloBase}`);
-  if (priceEl) priceEl.textContent = fmt(variante.precio);
-
-  // Spec: almacenamiento
-  const specStorEl = document.getElementById(`spec-stor-${modeloBase}`);
-  if (specStorEl) specStorEl.textContent = fmtGB(variante.almacenamientoGB);
+  // Spec: almacenamiento (actualiza fila icono)
+  const almEl = document.getElementById(`alm-${modeloBase}`);
+  if (almEl) almEl.textContent = fmtGB(variante.almacenamientoGB);
 
   // Imagen (si la variante tiene imagen propia)
   if (variante.img) {
