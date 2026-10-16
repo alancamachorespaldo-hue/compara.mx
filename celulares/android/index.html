@@ -352,21 +352,37 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   .cmp-bar-sub{font-size:10px!important}
   .cmp-bar-actions{gap:5px!important}
 }
-/* ── Imagen protagonista (override cards.css) ──────────── */
-.card{grid-template-columns:40% 1fr!important}
-.card-img-wrap{height:auto!important;align-self:stretch!important;min-height:200px!important;padding:14px 10px!important}
+/* ── Tarjeta vertical: imagen arriba a todo lo ancho, siempre ──── */
+.card{grid-template-columns:unset!important;display:flex!important;flex-direction:column!important}
+.card-img-wrap{height:auto!important;align-self:stretch!important;min-height:210px!important;padding:14px 10px!important;border-right:none!important;border-bottom:1px solid var(--bd)!important}
 .card-img{max-width:100%!important;max-height:100%!important;width:auto!important;height:auto!important;object-fit:contain!important}
-@media(max-width:768px){
-  .card{grid-template-columns:38% 1fr!important}
-  .card-img-wrap{min-height:140px!important}
-}
-@media(max-width:540px){
-  .card{grid-template-columns:1fr!important}
-  .card-img-wrap{min-height:190px!important;max-height:240px!important;border-right:none!important;border-bottom:1px solid var(--bd)!important}
-  .card-img{max-height:220px!important;width:100%!important;height:auto!important}
+@media(max-width:560px){
+  .card-img-wrap{min-height:140px!important;padding:10px!important}
 }
 .filter-logo{padding:4px 10px;display:inline-flex;align-items:center;justify-content:center}
 .filter-logo.on img{filter:brightness(0) invert(1)}
+
+/* ── Guardados (nav + corazón por tarjeta) ───────────────────── */
+.nav-fav-btn{background:none;border:1px solid var(--bd);border-radius:8px;padding:5px 10px;cursor:pointer;color:var(--tx2);display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;font-family:'Satoshi',sans-serif;transition:background .15s,color .15s,border-color .15s;white-space:nowrap;flex-shrink:0}
+.nav-fav-btn:hover{background:var(--s1);color:var(--tx);border-color:var(--bd2)}
+.nav-fav-btn svg{display:block;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:2}
+.nav-fav-btn.on{color:var(--ac);border-color:var(--acd2)}
+.nav-fav-btn.on svg{fill:var(--ac);stroke:var(--ac)}
+.nav-fav-btn .nav-fav-count{display:inline-flex;align-items:center;justify-content:center;min-width:16px;height:16px;padding:0 4px;border-radius:9px;background:var(--s2);color:var(--tx2);font-size:10px;font-weight:800;line-height:1}
+.nav-fav-btn.on .nav-fav-count{background:var(--acd2);color:var(--ac)}
+@media(max-width:640px){.nav-fav-btn .nav-fav-txt{display:none}}
+.fav-btn{position:absolute;top:10px;right:10px;z-index:4;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.94);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#94a3b8;padding:0;transition:transform .12s,color .15s,box-shadow .15s;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.fav-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;display:block}
+.fav-btn:hover{color:var(--ac);transform:scale(1.08)}
+.fav-btn.on{color:var(--ac)}
+.fav-btn.on svg{fill:var(--ac);stroke:var(--ac)}
+.fav-toggle{display:inline-flex;align-items:center;gap:6px}
+.fav-toggle .fav-count{display:inline-flex;align-items:center;justify-content:center;min-width:17px;height:17px;padding:0 4px;border-radius:9px;background:var(--acd2);color:var(--ac);font-size:10px;font-weight:800;line-height:1}
+.fav-toggle.on .fav-count{background:rgba(255,255,255,.25);color:#fff}
+@media(max-width:560px){
+  .fav-btn{width:30px;height:30px;top:8px;right:8px}
+  .fav-btn svg{width:16px;height:16px}
+}
 
 /* ── How-to guide ─────────────────────────────────────────────── */
 .how-strip{display:flex;align-items:center;gap:20px;background:#006847;color:#fff;padding:11px 2rem;flex-wrap:wrap}
@@ -500,6 +516,7 @@ details.and-section summary:focus-visible{outline:2px solid var(--ac);outline-of
 
       <a class="nav-link" href="/tecnologia/">🎧 Tecnología</a>
   </div>
+  <button class="nav-fav-btn" id="nav-fav-btn" type="button" onclick="toggleSoloFavs();document.getElementById('grid')?.scrollIntoView({behavior:'smooth',block:'start'})" title="Ver tus celulares guardados" aria-pressed="false"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg><span class="nav-fav-txt">Guardados</span> <span class="nav-fav-count" id="nav-fav-count">0</span></button>
   <button class="btn-share" onclick="shareCurrentPage()" title="Compartir esta p&#225;gina" aria-label="Compartir"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg><span class="share-txt">Compartir</span></button>
 </nav>
 
@@ -538,6 +555,11 @@ details.and-section summary:focus-visible{outline:2px solid var(--ac);outline-of
           <span class="and-price-sep">–</span>
           <input type="number" id="precio-max" placeholder="Máx." class="precio-max-input" oninput="onPrecioMaxInput()" min="0" step="500" aria-label="Precio máximo">
         </div>
+      </div>
+
+      <div class="and-section">
+        <span class="and-section-title">Guardados</span>
+        <button class="filter fav-toggle" id="btn-favs" type="button" onclick="toggleSoloFavs()" title="Ver solo los celulares que guardaste" style="width:100%;justify-content:center">♥ Ver solo guardados <span class="fav-count" id="fav-count">0</span></button>
       </div>
 
       <div class="and-section">
@@ -1584,7 +1606,7 @@ const storageState = {};
 familias.forEach(f => { storageState[f.modeloBase] = 0; });
 
 const CATALOG_UPDATED = '20 de septiembre de 2026';
-const filterState = { marca: 'todos', ram: 'todos', almacenamiento: 'todos', plat: 'todos', procesador: 'todos', camara: 'todos', pantalla: 'todos' };
+const filterState = { marca: 'todos', ram: 'todos', almacenamiento: 'todos', plat: 'todos', procesador: 'todos', camara: 'todos', pantalla: 'todos', soloFavs: false };
 const FILTER_LABELS = {
   marca: { samsung:'Samsung', xiaomi:'Xiaomi', google:'Google Pixel', motorola:'Motorola', oppo:'OPPO', honor:'Honor', huawei:'Huawei' },
   ram: { '4':'4 GB', '6':'6 GB', '8':'8 GB', '12':'12 GB', '16':'16 GB+' },
@@ -1613,6 +1635,34 @@ function pantallaBucket(inches) {
 /* ─── HELPERS ────────────────────────────────────────────── */
 const fmt = v => '$' + Number(v).toLocaleString('es-MX', {minimumFractionDigits:0, maximumFractionDigits:2});
 function storageLbl(gb) { return gb >= 1000 ? (gb/1024) + ' TB' : gb + ' GB'; }
+
+/* ─── FAVORITOS (guardar / dar seguimiento) ──────────────────
+   Se guardan en el navegador del usuario (localStorage), no salen
+   del dispositivo. ──────────────────────────────────────────── */
+const FAV_KEY = 'comparalo:fav:celulares-android';
+function loadFavs(){ try{ return new Set(JSON.parse(localStorage.getItem(FAV_KEY)||'[]')); }catch(e){ return new Set(); } }
+function saveFavs(){ try{ localStorage.setItem(FAV_KEY, JSON.stringify([...favs])); }catch(e){} }
+let favs = loadFavs();
+function toggleFav(id, ev){
+  if (ev) ev.stopPropagation();
+  if (favs.has(id)) favs.delete(id); else favs.add(id);
+  saveFavs();
+  const b = document.querySelector('#card-'+id+' .fav-btn');
+  if (b){ const on = favs.has(id); b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); b.title = on ? 'Quitar de guardados' : 'Guardar producto'; }
+  if (typeof gtag === 'function'){ try{ gtag('event', favs.has(id)?'save_product':'unsave_product', { item_id:id, page_section:'celulares_android' }); }catch(e){} }
+  updateFavCount();
+  if (filterState.soloFavs) render();
+}
+function updateFavCount(){
+  const el = document.getElementById('fav-count'); if (el) el.textContent = favs.size;
+  const navEl = document.getElementById('nav-fav-count'); if (navEl) navEl.textContent = favs.size;
+}
+function toggleSoloFavs(){
+  filterState.soloFavs = !filterState.soloFavs;
+  const btn = document.getElementById('btn-favs'); if (btn) btn.classList.toggle('on', filterState.soloFavs);
+  const navBtn = document.getElementById('nav-fav-btn'); if (navBtn) { navBtn.classList.toggle('on', filterState.soloFavs); navBtn.setAttribute('aria-pressed', filterState.soloFavs); }
+  render();
+}
 
 const COLOR_SWATCHES = {
   'Negro': '#1a1a1a', 'Blanco': '#f0efe9', 'Gris': '#6b7280', 'Plateado': '#d1d5db',
@@ -1671,12 +1721,14 @@ function onPrecioMinInput() {
 /* ─── FILTROS ────────────────────────────────────────────── */
 function clearFilters() {
   filterState.marca = 'todos'; filterState.ram = 'todos'; filterState.almacenamiento = 'todos'; filterState.plat = 'todos';
-  filterState.procesador = 'todos'; filterState.camara = 'todos'; filterState.pantalla = 'todos';
+  filterState.procesador = 'todos'; filterState.camara = 'todos'; filterState.pantalla = 'todos'; filterState.soloFavs = false;
   const _pm=document.getElementById('precio-max');if(_pm)_pm.value='';
   const _pmin=document.getElementById('precio-min');if(_pmin)_pmin.value='';
   document.getElementById('search').value = '';
   document.querySelectorAll('.filter.on').forEach(b => b.classList.remove('on'));
   document.querySelectorAll('.filter[onclick*="\'todos\'"]').forEach(b => b.classList.add('on'));
+  document.getElementById('btn-favs')?.classList.remove('on');
+  document.getElementById('nav-fav-btn')?.classList.remove('on');
   render();
 }
 
@@ -1742,6 +1794,7 @@ function updateFiltrarBadge() {
   ['marca','ram','almacenamiento','plat','procesador','camara','pantalla'].forEach(key => { if (filterState[key] !== 'todos') n++; });
   if (document.getElementById('precio-min')?.value) n++;
   if (document.getElementById('precio-max')?.value) n++;
+  if (filterState.soloFavs) n++;
   badge.textContent = n;
   badge.style.display = n > 0 ? '' : 'none';
 }
@@ -1794,6 +1847,7 @@ function render() {
   updateFiltrarBadge();
 
   let lista = familias.filter(f => {
+    if (filterState.soloFavs && !favs.has(f.modeloBase)) return false;
     if (filterState.marca !== 'todos' && f.marca !== filterState.marca) return false;
     if (filterState.ram !== 'todos') {
       const ramVal = filterState.ram === '16' ? 16 : Number(filterState.ram);
@@ -1838,9 +1892,11 @@ function render() {
     if (!empty) {
       empty = document.createElement('div');
       empty.id = 'empty'; empty.className = 'empty';
-      empty.innerHTML = 'No hay celulares con esos filtros.<br><button class="and-clear-all" style="margin-top:8px;font-size:13px" onclick="clearFilters()">✕ Limpiar filtros</button>';
       grid.parentNode.insertBefore(empty, grid.nextSibling);
     }
+    empty.innerHTML = (filterState.soloFavs && favs.size === 0)
+      ? 'Aún no has guardado celulares. Toca el ♥ en una tarjeta para seguirlos.'
+      : 'No hay celulares con esos filtros.<br><button class="and-clear-all" style="margin-top:8px;font-size:13px" onclick="clearFilters()">✕ Limpiar filtros</button>';
     empty.style.display = 'block';
     info.textContent = '';
     return;
@@ -1849,6 +1905,7 @@ function render() {
   if (emptyEl) emptyEl.style.display = 'none';
   info.textContent = lista.length + ' celular' + (lista.length !== 1 ? 'es' : '');
   grid.innerHTML = lista.map(f => cardHTML(f)).join('');
+  updateFavCount();
 }
 
 /* ─── CARD HTML ──────────────────────────────────────────── */
@@ -1875,9 +1932,12 @@ function cardHTML(f) {
   const btnAmz = v.linkAmz ? `<a class="btn-amz" href="${v.linkAmz}" id="lnk-amz-${f.modeloBase}" target="_blank" rel="sponsored nofollow noopener" aria-label="Ver ${f.nombre||''} en Amazon" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_amazon',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\\//g,'').replace(/\\/(?:index\\.html)?$/g,'').replace(/\\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1});}" data-ga-label="${f.nombre||''}" data-ga-val="${v.precio||0}">Ir a Amazon</a>` : '';
 
   const _plat = (v.linkML && v.linkAmz) ? 'both' : (v.linkML ? 'ml' : 'amz');
+  const isFav = favs.has(f.modeloBase);
+  const favBtn = `<button class="fav-btn${isFav?' on':''}" type="button" aria-label="Guardar producto" aria-pressed="${isFav}" title="${isFav?'Quitar de guardados':'Guardar producto'}" onclick="toggleFav('${f.modeloBase}',event)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></button>`;
   return `
-  <div class="card${isSel?' selected':''}" data-platform="${_plat}" id="card-${f.modeloBase}" onclick="toggleSelect('${f.modeloBase}')">
+  <div class="card${isSel?' selected':''}" data-platform="${_plat}" id="card-${f.modeloBase}" onclick="if(!event.target.closest('a,button'))toggleSelect('${f.modeloBase}')">
     ${isSel ? '<div class="sel-check">✓</div>' : ''}
+    ${favBtn}
     <div class="card-img-wrap">
       <img class="card-img" src="${f.img}" alt="${f.nombre}" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'88\' height=\'88\'><rect fill=\'%23f1f5f9\' width=\'88\' height=\'88\'/></svg>'">
     </div>
@@ -2225,6 +2285,7 @@ function closeModal() {
 }
 
 initCounts();
+updateFavCount();
 render();
 </script>
 
