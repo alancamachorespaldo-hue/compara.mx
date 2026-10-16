@@ -574,6 +574,16 @@ details.and-section summary:focus-visible{outline:2px solid var(--ac);outline-of
           <button class="filter" onclick="toggleFilter('marca','oppo',this)">OPPO<span class="and-count" id="cnt-marca-oppo"></span></button>
           <button class="filter" onclick="toggleFilter('marca','honor',this)">Honor<span class="and-count" id="cnt-marca-honor"></span></button>
           <button class="filter" onclick="toggleFilter('marca','huawei',this)">Huawei<span class="and-count" id="cnt-marca-huawei"></span></button>
+          <button class="filter" onclick="toggleFilter('marca','doogee',this)">Doogee<span class="and-count" id="cnt-marca-doogee"></span></button>
+          <button class="filter" onclick="toggleFilter('marca','oscal',this)">Oscal<span class="and-count" id="cnt-marca-oscal"></span></button>
+          <button class="filter" onclick="toggleFilter('marca','infinix',this)">Infinix<span class="and-count" id="cnt-marca-infinix"></span></button>
+          <button class="filter" onclick="toggleFilter('marca','blackview',this)">Blackview<span class="and-count" id="cnt-marca-blackview"></span></button>
+          <button class="filter" onclick="toggleFilter('marca','realme',this)">Realme<span class="and-count" id="cnt-marca-realme"></span></button>
+          <button class="filter" onclick="toggleFilter('marca','oukitel',this)">Oukitel<span class="and-count" id="cnt-marca-oukitel"></span></button>
+          <button class="filter" onclick="toggleFilter('marca','nothing',this)">Nothing<span class="and-count" id="cnt-marca-nothing"></span></button>
+          <button class="filter" onclick="toggleFilter('marca','nubia',this)">Nubia<span class="and-count" id="cnt-marca-nubia"></span></button>
+          <button class="filter" onclick="toggleFilter('marca','htc',this)">HTC<span class="and-count" id="cnt-marca-htc"></span></button>
+          <button class="filter" onclick="toggleFilter('marca','philips',this)">Philips<span class="and-count" id="cnt-marca-philips"></span></button>
         </div>
       </div>
 
@@ -1215,6 +1225,666 @@ details.and-section summary:focus-visible{outline:2px solid var(--ac);outline-of
 <script>
 /* ─── DATOS ────────────────────────────────────────────────── */
 const familias = [
+  // ── Agregados 2026-10-16 (catálogo IDs proporcionados por el usuario) ──────────────
+  {
+    modeloBase: 'samsung-a16-5g',
+    nombre: 'Samsung A16 5G',
+    marca: 'samsung',
+    chip: null,
+    camPrincipal: 50,
+    pantalla: 6.7,
+    hz: null, usb: null, zoom: null,
+    colores: ['Azul oscuro'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_802041-MLA99444576642_112025-F.jpg',
+    variantes: [
+      { storage: 128, ram: 4, precio: 2639, linkML: 'https://meli.la/2odmD8G', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'motorola-moto-g75',
+    nombre: 'Motorola Moto G75',
+    marca: 'motorola',
+    chip: 'Snapdragon 6 Gen 3',
+    camPrincipal: 50,
+    pantalla: 6.8,
+    hz: null, usb: null, zoom: null,
+    colores: ['Negro'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_724003-MLA99989849311_112025-F.jpg',
+    variantes: [
+      { storage: 256, ram: 8, precio: 4190.34, linkML: 'https://meli.la/1YNrnqo', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'samsung-a16',
+    nombre: 'Samsung A16',
+    marca: 'samsung',
+    chip: 'OCTA-CORE',
+    camPrincipal: 50,
+    pantalla: 6.7,
+    hz: null, usb: null, zoom: null,
+    colores: ['Negro'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_790939-MLA99551674904_122025-F.jpg',
+    variantes: [
+      { storage: 128, ram: 4, precio: 2899, linkML: 'https://meli.la/2x52VQA', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'doogee-bladegtpro',
+    nombre: 'Doogee BLADEGTPRO',
+    marca: 'doogee',
+    chip: 'Dimensity 7025',
+    camPrincipal: 100,
+    pantalla: 6.72,
+    hz: 120, usb: null, zoom: null,
+    colores: ['Negro'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_873263-MLA118086745269_092026-F.jpg',
+    variantes: [
+      { storage: 512, ram: 32, precio: 6463.48, linkML: 'https://meli.la/2MqK2z8', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'google-pixel-9a',
+    nombre: 'Google Pixel 9a',
+    marca: 'google',
+    chip: 'Google Tensor G4',
+    camPrincipal: 48,
+    pantalla: 5,
+    hz: null, usb: null, zoom: null,
+    colores: ['Negro'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_973131-MLA99392824964_112025-F.jpg',
+    variantes: [
+      { storage: 128, ram: 8, precio: 8999, linkML: 'https://meli.la/1EUpGXo', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'samsung-a17-samsung-exynos-1330',
+    nombre: 'Samsung A17 (Samsung Exynos 1330)',
+    marca: 'samsung',
+    chip: 'Samsung Exynos 1330',
+    camPrincipal: 50,
+    pantalla: 6.7,
+    hz: 90, usb: null, zoom: null,
+    colores: ['Gris'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_873869-MLA92299394919_092025-F.jpg',
+    variantes: [
+      { storage: 128, ram: 4, precio: 2906, linkML: 'https://meli.la/1ydGzeS', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'samsung-a17-mediatek-helio-g99',
+    nombre: 'Samsung A17 (MediaTek Helio G99)',
+    marca: 'samsung',
+    chip: 'MediaTek Helio G99',
+    camPrincipal: 50,
+    pantalla: 6.7,
+    hz: null, usb: null, zoom: null,
+    colores: ['Negro'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_840481-MLA100006971367_122025-F.jpg',
+    variantes: [
+      { storage: 128, ram: 4, precio: 2844, linkML: 'https://meli.la/23RnkQB', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'doogee-note58-pro',
+    nombre: 'Doogee Note58 Pro',
+    marca: 'doogee',
+    chip: 'UNISOC T7250',
+    camPrincipal: 16,
+    pantalla: 6.75,
+    hz: null, usb: null, zoom: null,
+    colores: ['Negro'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_911140-MLA114522910323_072026-F.jpg',
+    variantes: [
+      { storage: 256, ram: 32, precio: 3085.32, linkML: 'https://meli.la/11kSR9w', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'motorola-celular-moto-edge-60-neo-12',
+    nombre: 'Motorola Celular Moto Edge 60 Neo 12',
+    marca: 'motorola',
+    chip: null,
+    camPrincipal: 50,
+    pantalla: 6.36,
+    hz: null, usb: null, zoom: null,
+    colores: ['Grisaille'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_958337-MLA96849840669_102025-F.jpg',
+    variantes: [
+      { storage: 256, ram: 12, precio: 5919, linkML: 'https://meli.la/1svqh4u', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'oppo-reno14-f-5g',
+    nombre: 'Oppo Reno14 F 5g',
+    marca: 'oppo',
+    chip: 'Snapdragon 6 Gen 1',
+    camPrincipal: 50,
+    pantalla: 6.57,
+    hz: 120, usb: null, zoom: null,
+    colores: ['Azul'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_829308-MLA110797037765_042026-F.jpg',
+    variantes: [
+      { storage: 256, ram: 12, precio: 8059, linkML: 'https://meli.la/1e5Awxf', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'oppo-cph2743gbb3',
+    nombre: 'Oppo CPH2743GBB3',
+    marca: 'oppo',
+    chip: 'Snapdragon 6 Gen 1',
+    camPrincipal: 50,
+    pantalla: 6.59,
+    hz: 120, usb: null, zoom: null,
+    colores: ['Verde'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_710365-MLA111926209093_052026-F.jpg',
+    variantes: [
+      { storage: 512, ram: 12, precio: 10899, linkML: 'https://meli.la/16N1iB5', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'w555-w-555',
+    nombre: 'W555 W-555',
+    marca: 'w555',
+    chip: 'MT6761 Cortex-A53',
+    camPrincipal: null,
+    pantalla: 5.71,
+    hz: null, usb: null, zoom: null,
+    colores: ['Negro'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_964074-MLA108112370391_032026-F.jpg',
+    variantes: [
+      { storage: 64, ram: 4, precio: 1160, linkML: 'https://meli.la/1sh3Kfr', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'blackview-fort',
+    nombre: 'Blackview FORT',
+    marca: 'blackview',
+    chip: 'UNISOC Tiger T615',
+    camPrincipal: 16,
+    pantalla: 6.56,
+    hz: null, usb: null, zoom: null,
+    colores: ['Verde'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_964870-MLA117732735651_092026-F.jpg',
+    variantes: [
+      { storage: 256, ram: 18, precio: 3636.59, linkML: 'https://meli.la/1Bjt6JQ', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'motorola-edge-70',
+    nombre: 'Motorola Edge 70',
+    marca: 'motorola',
+    chip: 'Snapdragon 7 gen 4',
+    camPrincipal: 50,
+    pantalla: 6.7,
+    hz: 120, usb: null, zoom: null,
+    colores: ['Gris'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_918573-MLA104335915482_012026-F.jpg',
+    variantes: [
+      { storage: 512, ram: 12, precio: 7199, linkML: 'https://meli.la/2mP6nni', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'motorola-g86',
+    nombre: 'Motorola G86',
+    marca: 'motorola',
+    chip: 'MediaTek Dimensity 7300',
+    camPrincipal: 50,
+    pantalla: 6.7,
+    hz: null, usb: null, zoom: null,
+    colores: ['Verde'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_626714-MLA105597355234_012026-F.jpg',
+    variantes: [
+      { storage: 512, ram: 8, precio: 4588.43, linkML: 'https://meli.la/1A7T9CX', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'philips-philips-s8310',
+    nombre: 'Philips PHILIPS S8310',
+    marca: 'philips',
+    chip: 'SC T620 Octa core',
+    camPrincipal: 48,
+    pantalla: 6.745,
+    hz: null, usb: null, zoom: null,
+    colores: ['Negro'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_696355-MLA108673289754_032026-F.jpg',
+    variantes: [
+      { storage: 128, ram: 12, precio: 3085.5, linkML: 'https://meli.la/2g8F7Si', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'honor-magic-8-lite',
+    nombre: 'Honor Magic 8 lite',
+    marca: 'honor',
+    chip: 'Snapdragon 6 Gen4',
+    camPrincipal: 108,
+    pantalla: 6.79,
+    hz: 120, usb: null, zoom: null,
+    colores: ['Negro'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_893328-MLA107413938419_022026-F.jpg',
+    variantes: [
+      { storage: 256, ram: 8, precio: 6199, linkML: 'https://meli.la/2JvrPvr', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'motorola-motorola-g67-4gb-256gb',
+    nombre: 'Motorola Motorola G67 4GB 256GB',
+    marca: 'motorola',
+    chip: null,
+    camPrincipal: null,
+    pantalla: 6.78,
+    hz: null, usb: null, zoom: null,
+    colores: ['Verde'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_872085-MLA108375300757_032026-F.jpg',
+    variantes: [
+      { storage: 256, ram: 4, precio: 4606.53, linkML: 'https://meli.la/161eYvC', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'samsung-s25fe',
+    nombre: 'Samsung S25FE',
+    marca: 'samsung',
+    chip: null,
+    camPrincipal: null,
+    pantalla: 6.7,
+    hz: null, usb: null, zoom: null,
+    colores: ['Negro'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_895786-MLA108039773934_032026-F.jpg',
+    variantes: [
+      { storage: 128, ram: 8, precio: 8548, linkML: 'https://meli.la/23RbBGC', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'oscal-marine-2',
+    nombre: 'Oscal Marine 2',
+    marca: 'oscal',
+    chip: 'T615',
+    camPrincipal: 16,
+    pantalla: 6.56,
+    hz: null, usb: null, zoom: null,
+    colores: ['Nergo'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_633765-MLA118496653763_092026-F.jpg',
+    variantes: [
+      { storage: 256, ram: 24, precio: 3657.06, linkML: 'https://meli.la/1iEY4L5', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'oppo-reno14',
+    nombre: 'Oppo Reno14',
+    marca: 'oppo',
+    chip: 'dimensity 8350',
+    camPrincipal: 50,
+    pantalla: 6.59,
+    hz: null, usb: null, zoom: null,
+    colores: ['Blanco'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_617221-MLA110191604105_042026-F.jpg',
+    variantes: [
+      { storage: 512, ram: 12, precio: 10383.92, linkML: 'https://meli.la/2E4BX8h', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'oscal-marine-se',
+    nombre: 'Oscal MARINE SE',
+    marca: 'oscal',
+    chip: 'T615',
+    camPrincipal: 16,
+    pantalla: 6.56,
+    hz: null, usb: null, zoom: null,
+    colores: ['Negro'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_672958-MLA118480614715_092026-F.jpg',
+    variantes: [
+      { storage: 128, ram: 128, precio: 3169.83, linkML: 'https://meli.la/2hSZfPW', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'infinix-gt-50-pro-dual-sim',
+    nombre: 'Infinix Gt 50 Pro Dual SIM',
+    marca: 'infinix',
+    chip: 'MTK Dimensity 8400 Ultimate',
+    camPrincipal: null,
+    pantalla: 6.78,
+    hz: null, usb: null, zoom: null,
+    colores: ['Plateado'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_852292-MLA112495611926_062026-F.jpg',
+    variantes: [
+      { storage: 256, ram: 12, precio: 9311.03, linkML: 'https://meli.la/1D9rBxN', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'doogee-b10-pro',
+    nombre: 'Doogee B10 Pro',
+    marca: 'doogee',
+    chip: 'Mediatek Helio G100',
+    camPrincipal: 64,
+    pantalla: 6.63,
+    hz: 120, usb: null, zoom: null,
+    colores: ['Gris'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_792236-MLA115912225355_082026-F.jpg',
+    variantes: [
+      { storage: 256, ram: 64, precio: 4749.18, linkML: 'https://meli.la/2WEkqbj', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'motorola-razr-fold',
+    nombre: 'Motorola razr fold',
+    marca: 'motorola',
+    chip: 'Qualcomm Snapdragon 8 Gen 5',
+    camPrincipal: null,
+    pantalla: 8.1,
+    hz: 165, usb: null, zoom: null,
+    colores: ['Negro'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_892718-MLA110696822522_052026-F.jpg',
+    variantes: [
+      { storage: 1, ram: 16, precio: 39999.19, linkML: 'https://meli.la/22BWGxp', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'google-pixel-10a',
+    nombre: 'Google Pixel 10a',
+    marca: 'google',
+    chip: 'Google Tensor',
+    camPrincipal: 64,
+    pantalla: 6.1,
+    hz: 60, usb: null, zoom: null,
+    colores: ['Lavanda', 'Rosa'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_796148-MLA111850766621_052026-F.jpg',
+    variantes: [
+      { storage: 128, ram: 8, precio: 10539.13, linkML: 'https://meli.la/24WNqkD', estrellas: null, resenas: null },
+      { storage: 256, ram: 8, precio: 12103.85, linkML: 'https://meli.la/18qzSzX', estrellas: null, resenas: null, salto: { texto: 'Duplicas el almacenamiento', diff: 1564.72 } },
+    ]
+  },
+  {
+    modeloBase: 'samsung-galaxy-a57',
+    nombre: 'Samsung Galaxy-A57',
+    marca: 'samsung',
+    chip: 'Exynos 1680',
+    camPrincipal: 50,
+    pantalla: 6.7,
+    hz: 120, usb: null, zoom: null,
+    colores: ['Gris'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_606900-MLA111905100945_052026-F.jpg',
+    variantes: [
+      { storage: 256, ram: 8, precio: 7649, linkML: 'https://meli.la/2awa3qT', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'doogee-s200e',
+    nombre: 'Doogee S200E',
+    marca: 'doogee',
+    chip: 'Dimensity 7050',
+    camPrincipal: 100,
+    pantalla: 6.72,
+    hz: 120, usb: null, zoom: null,
+    colores: ['Gris'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_828473-MLA113429749078_072026-F.jpg',
+    variantes: [
+      { storage: 256, ram: 48, precio: 8184.91, linkML: 'https://meli.la/2gEWvxZ', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'infinix-hot-70',
+    nombre: 'Infinix HOT 70',
+    marca: 'infinix',
+    chip: 'MediaTek Helio G100 Ultimate',
+    camPrincipal: null,
+    pantalla: 6.78,
+    hz: null, usb: null, zoom: null,
+    colores: ['Pulso nocturno'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_725513-MLA114223842359_072026-F.jpg',
+    variantes: [
+      { storage: 128, ram: 4, precio: 3999.45, linkML: 'https://meli.la/2jFpaTv', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'oppo-reno14-5g',
+    nombre: 'Oppo Reno14 5G',
+    marca: 'oppo',
+    chip: 'MediaTek Dimensity 8350',
+    camPrincipal: 50,
+    pantalla: 6.59,
+    hz: 120, usb: null, zoom: null,
+    colores: ['Verde'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_960952-MLA112448716996_062026-F.jpg',
+    variantes: [
+      { storage: 512, ram: 12, precio: 10288.74, linkML: 'https://meli.la/2m2kRHD', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'oukitel-g7',
+    nombre: 'Oukitel G7',
+    marca: 'oukitel',
+    chip: 'Unisoc T615',
+    camPrincipal: 64,
+    pantalla: 6.52,
+    hz: null, usb: null, zoom: null,
+    colores: ['Lila'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_725029-MLA115840013384_092026-F.jpg',
+    variantes: [
+      { storage: 256, ram: 24, precio: 4540.48, linkML: 'https://meli.la/32ZkeyH', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'oukitel-c62pro',
+    nombre: 'Oukitel C62pro',
+    marca: 'oukitel',
+    chip: null,
+    camPrincipal: null,
+    pantalla: 6.88,
+    hz: null, usb: null, zoom: null,
+    colores: ['Azul'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_715571-MLA118433989505_092026-F.jpg',
+    variantes: [
+      { storage: 256, ram: 8, precio: 3587.69, linkML: 'https://meli.la/2dthrWq', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'motorola-edge-60-fusion-5g',
+    nombre: 'Motorola Edge 60 Fusion 5G',
+    marca: 'motorola',
+    chip: 'Mediatek Dimensity 7300',
+    camPrincipal: 50,
+    pantalla: 6.67,
+    hz: null, usb: null, zoom: null,
+    colores: ['Rosa'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_992103-MLA115144677070_082026-F.jpg',
+    variantes: [
+      { storage: 128, ram: 128, precio: 5129, linkML: 'https://meli.la/1m7nuZG', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'honor-x5c-plus',
+    nombre: 'Honor X5C Plus',
+    marca: 'honor',
+    chip: 'Mediatek Helio G81',
+    camPrincipal: 50,
+    pantalla: 6.74,
+    hz: null, usb: null, zoom: null,
+    colores: ['Negro'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_924638-MLA115381726358_082026-F.jpg',
+    variantes: [
+      { storage: 128, ram: 4, precio: 2399.43, linkML: 'https://meli.la/1y5gxUN', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'realme-edicion-harry-potter',
+    nombre: 'Realme Edición Harry Potter',
+    marca: 'realme',
+    chip: 'MediaTek Dimensity 7300 Max',
+    camPrincipal: 200,
+    pantalla: 6.78,
+    hz: null, usb: null, zoom: null,
+    colores: ['Café'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_811657-MLA116477102558_092026-F.jpg',
+    variantes: [
+      { storage: 256, ram: 12, precio: 14999.13, linkML: 'https://meli.la/1zTyd1o', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'blackview-wave-7c',
+    nombre: 'Blackview WAVE 7C',
+    marca: 'blackview',
+    chip: 'Unisoc Tiger T310',
+    camPrincipal: 32,
+    pantalla: 6.56,
+    hz: null, usb: null, zoom: null,
+    colores: ['Azul'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_953330-MLA117121001943_092026-F.jpg',
+    variantes: [
+      { storage: 64, ram: 16, precio: 1758.1, linkML: 'https://meli.la/16J5qik', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'huawei-nova-14',
+    nombre: 'Huawei nova 14',
+    marca: 'huawei',
+    chip: 'Kirin 8000',
+    camPrincipal: null,
+    pantalla: null,
+    hz: null, usb: null, zoom: null,
+    colores: ['Blanco'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_740567-MLA116212863666_092026-F.jpg',
+    variantes: [
+      { storage: 256, ram: 12, precio: 7572.7, linkML: 'https://meli.la/2RSank9', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'htc-wildfire-e9-plus',
+    nombre: 'HTC Wildfire E9 Plus',
+    marca: 'htc',
+    chip: 'UNISOC T7300',
+    camPrincipal: 64,
+    pantalla: 6.745,
+    hz: 120, usb: null, zoom: null,
+    colores: ['Naranja'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_642261-MLA119017840235_102026-F.jpg',
+    variantes: [
+      { storage: 256, ram: 8, precio: 3986.62, linkML: 'https://meli.la/2Vo9h6U', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'nothing-nothing-phone-3a',
+    nombre: 'Nothing NOTHING Phone (3a)',
+    marca: 'nothing',
+    chip: 'Snapdragon 7s Gen 3',
+    camPrincipal: 50,
+    pantalla: 6.77,
+    hz: 120, usb: null, zoom: null,
+    colores: ['Blanco'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_951294-MLA99937583997_112025-F.jpg',
+    variantes: [
+      { storage: 128, ram: 8, precio: 7003.92, linkML: 'https://meli.la/1PzhA82', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'doogee-v-max-2',
+    nombre: 'Doogee V MAX 2',
+    marca: 'doogee',
+    chip: 'MediaTek Dimensity 8300',
+    camPrincipal: 200,
+    pantalla: 6.78,
+    hz: 120, usb: null, zoom: null,
+    colores: ['Dorado'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_674520-MLA112583056050_062026-F.jpg',
+    variantes: [
+      { storage: 512, ram: 48, precio: 15523.02, linkML: 'https://meli.la/2hWoCWf', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'oppo-reno16-pro-5g-negro',
+    nombre: 'Oppo Reno16 Pro 5G Negro',
+    marca: 'oppo',
+    chip: null,
+    camPrincipal: 200,
+    pantalla: null,
+    hz: null, usb: null, zoom: null,
+    colores: ['Negro'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_781199-MLA115524012363_082026-F.jpg',
+    variantes: [
+      { storage: 256, ram: 12, precio: 17999, linkML: 'https://meli.la/2HGQMjY', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'doogee-note-57-lite',
+    nombre: 'Doogee NOTE 57 LITE',
+    marca: 'doogee',
+    chip: 'Unisoc SC9863A',
+    camPrincipal: 13,
+    pantalla: 6.56,
+    hz: 90, usb: null, zoom: null,
+    colores: ['Negro'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_939892-MLA115372770710_082026-F.jpg',
+    variantes: [
+      { storage: 40, ram: 14, precio: 2236.02, linkML: 'https://meli.la/32uPLWc', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'nubia-z70-ultra',
+    nombre: 'Nubia Z70 Ultra',
+    marca: 'nubia',
+    chip: 'Snapdragon 8 Elite',
+    camPrincipal: 50,
+    pantalla: 6.85,
+    hz: null, usb: null, zoom: null,
+    colores: ['Negro'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_640142-MLA99593991848_122025-F.jpg',
+    variantes: [
+      { storage: 256, ram: 12, precio: 12473.04, linkML: 'https://meli.la/2XQZsHa', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'oscal-flat-3c-mini',
+    nombre: 'Oscal FLAT 3C Mini',
+    marca: 'oscal',
+    chip: null,
+    camPrincipal: null,
+    pantalla: null,
+    hz: null, usb: null, zoom: null,
+    colores: ['Negro'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_846097-MLA115134843426_082026-F.jpg',
+    variantes: [
+      { storage: 32, ram: 12, precio: 1574.75, linkML: 'https://meli.la/1osfiFb', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'doogee-s-cyber',
+    nombre: 'Doogee S Cyber',
+    marca: 'doogee',
+    chip: null,
+    camPrincipal: 50,
+    pantalla: 6.58,
+    hz: 60, usb: null, zoom: null,
+    colores: ['Rojo'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_910490-MLA115883694554_092026-F.jpg',
+    variantes: [
+      { storage: 256, ram: 20, precio: 4174.49, linkML: 'https://meli.la/2veLLz7', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'doogee-note-58',
+    nombre: 'Doogee NOTE 58',
+    marca: 'doogee',
+    chip: null,
+    camPrincipal: 16,
+    pantalla: 6.75,
+    hz: null, usb: null, zoom: null,
+    colores: ['Beige'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_813898-MLA118430329835_092026-F.jpg',
+    variantes: [
+      { storage: 128, ram: 8, precio: 2843.7, linkML: 'https://meli.la/29dh5Ji', estrellas: null, resenas: null },
+    ]
+  },
+  {
+    modeloBase: 'generica-i14-pro-max',
+    nombre: 'Genérica i14 Pro Max',
+    marca: 'generica',
+    chip: null,
+    camPrincipal: 2,
+    pantalla: 6.8,
+    hz: null, usb: null, zoom: null,
+    colores: ['Negro'],
+    img: 'https://http2.mlstatic.com/D_NQ_NP_629001-MLU54983837060_042023-F.jpg',
+    variantes: [
+      { storage: 16, ram: 2, precio: 998.99, linkML: 'https://meli.la/1bEqaFq', estrellas: null, resenas: null },
+    ]
+  },
   {
     modeloBase: 'samsung-galaxy-s26-ultra',
     nombre: 'Samsung Galaxy S26 Ultra',
