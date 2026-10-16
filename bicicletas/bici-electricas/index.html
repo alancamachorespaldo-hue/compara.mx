@@ -145,40 +145,90 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .hstat-num{font-size:1.1rem;font-weight:800}
 .hstat-label{font-size:.7rem;opacity:.7}
 
-.search-wrap{background:#fff;border-bottom:1px solid var(--bd);padding:10px 2rem}
+.nav-fav-btn{background:none;border:1px solid var(--bd);border-radius:8px;padding:5px 10px;cursor:pointer;color:var(--tx2);display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;font-family:'Satoshi',sans-serif;transition:background .15s,color .15s,border-color .15s;white-space:nowrap;flex-shrink:0}
+.nav-fav-btn:hover{background:var(--s1);color:var(--tx);border-color:var(--bd2)}
+.nav-fav-btn svg{display:block;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:2}
+.nav-fav-btn.on{color:var(--ac);border-color:var(--acd2)}
+.nav-fav-btn.on svg{fill:var(--ac);stroke:var(--ac)}
+.nav-fav-btn .nav-fav-count{display:inline-flex;align-items:center;justify-content:center;min-width:16px;height:16px;padding:0 4px;border-radius:9px;background:var(--s2);color:var(--tx2);font-size:10px;font-weight:800;line-height:1}
+.nav-fav-btn.on .nav-fav-count{background:var(--acd2);color:var(--ac)}
+@media(max-width:640px){.nav-fav-btn .nav-fav-txt{display:none}}
+
+.search-wrap{background:#fff;border-bottom:1px solid var(--bd);padding:10px 0}
 .search-input{width:100%;max-width:600px;padding:9px 14px;border:1.5px solid var(--bd2);border-radius:10px;font-size:.84rem;font-family:'Satoshi',sans-serif;color:var(--tx);outline:none;transition:border-color .15s}
 .search-input:focus{border-color:var(--ac)}
-
-.toolbar{background:var(--bg);border-bottom:1px solid var(--bd);padding:.75rem 2rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.filter-label{font-size:11px;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;margin-right:2px;font-weight:600}
 .filter{font-size:12px;padding:4px 14px;border-radius:20px;border:1px solid var(--bd2);background:var(--bg);color:var(--tx2);cursor:pointer;transition:all .15s;font-family:'Satoshi',sans-serif;font-weight:500}
 .filter:hover{border-color:var(--ac);color:var(--ac)}
 .filter.on{background:var(--ac);color:#fff;border-color:var(--ac)}
-.filter-logo{padding:4px 10px;display:inline-flex;align-items:center;justify-content:center}
-.filter-logo.on img{filter:brightness(0) invert(1)}
-.sort-wrap{margin-left:auto;display:flex;align-items:center;gap:8px}
 .sort-label{font-size:12px;color:var(--tx3)}
 .sort-sel{font-size:12px;background:var(--bg);border:1px solid var(--bd2);border-radius:8px;color:var(--tx2);padding:4px 8px;font-family:'Satoshi',sans-serif;cursor:pointer}
 
-.intro-text{max-width:1080px;margin:0 auto;padding:1rem 2rem 0;color:var(--tx2);font-size:13.5px;line-height:1.7}
+.intro-text{max-width:1080px;margin:1rem auto 0;color:var(--tx2);font-size:13.5px;line-height:1.7}
 
-.grid-wrap{max-width:1400px;margin:0 auto;padding:1.2rem 2rem}
-@media(max-width:480px){.grid-wrap{padding:1rem .75rem}}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-@media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:480px){.grid{grid-template-columns:repeat(2,1fr)}}
+/* ── bel-*: layout de dos columnas (filtros + catálogo) ──────────── */
+.bel-layout{max-width:1800px;margin:0 auto;padding:1rem 2rem 0;display:grid;grid-template-columns:280px 1fr;gap:20px;align-items:start}
+.bel-content{min-width:0}
+.bel-filters{background:#fff;border:1px solid var(--bd);border-radius:14px;padding:16px;position:sticky;top:76px;max-height:calc(100vh - 92px);overflow-y:auto}
+.bel-filters-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--bd)}
+.bel-filters-title{font-size:15px;font-weight:800;color:var(--tx);letter-spacing:-.01em}
+.bel-clear-all{font-size:12px;color:var(--ac);background:none;border:none;cursor:pointer;font-family:inherit;font-weight:600;padding:2px 0}
+.bel-clear-all:hover{text-decoration:underline}
+.bel-section{padding:12px 0;border-bottom:1px solid var(--bd)}
+.bel-section:last-child{border-bottom:none;padding-bottom:0}
+.bel-section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--tx2);margin-bottom:9px;display:block}
+.bel-search-input{width:100%;padding:6px 10px;border:1.5px solid var(--bd2);border-radius:8px;font-size:12px;font-family:'Satoshi',sans-serif;color:var(--tx);outline:none;margin-bottom:7px}
+.bel-search-input:focus{border-color:var(--ac)}
+.bel-check-list{display:flex;flex-direction:column}
+.bel-check-item{display:flex;align-items:center;gap:8px;padding:4px 2px;font-size:12.5px;color:var(--tx2);cursor:pointer;line-height:1.3}
+.bel-check-item input[type=checkbox]{width:15px;height:15px;accent-color:var(--ac);cursor:pointer;flex-shrink:0}
+.bel-check-item .bel-cnt{margin-left:auto;color:var(--tx3);font-size:11px;flex-shrink:0}
+.bel-check-item.bel-hidden{display:none}
+.bel-vermas{font-size:12px;color:var(--ac);background:none;border:none;cursor:pointer;font-family:inherit;font-weight:600;padding:5px 2px 0;text-align:left}
+.bel-range-row{display:flex;align-items:center;gap:8px}
+.bel-range-sep{color:var(--tx3);font-size:12px;flex-shrink:0}
+.bel-pills{display:flex;flex-wrap:wrap;gap:6px}
+.precio-max-input{font-size:12px;padding:4px 8px;border-radius:20px;border:1px solid var(--bd2);background:var(--bg);color:var(--tx);font-family:inherit;font-weight:500;width:100%;outline:none;-moz-appearance:textfield}
+.precio-max-input::-webkit-outer-spin-button,.precio-max-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.precio-max-input:focus{border-color:var(--ac)}
 
-.card{background:var(--bg);border:1px solid var(--bd);border-radius:14px;transition:box-shadow .2s,transform .15s;cursor:pointer;position:relative}
-.card:hover{box-shadow:0 4px 20px rgba(0,0,0,.07);transform:translateY(-2px)}
+.bel-filtrar-btn{display:none}
+.bel-backdrop{display:none}
+.bel-filters-foot{display:none}
+.bel-filters-close{display:none}
+@media(max-width:860px){
+  .bel-layout{display:block;padding:1rem 1rem 0}
+  .bel-filtrar-btn{display:flex;align-items:center;gap:7px;width:100%;justify-content:center;background:#fff;border:1.5px solid var(--bd2);color:var(--tx);font-weight:700;font-size:13px;padding:10px;border-radius:10px;font-family:inherit;cursor:pointer;margin-bottom:12px}
+  .bel-filtrar-btn .bel-filtrar-count{background:var(--ac);color:#fff;font-size:11px;font-weight:700;border-radius:20px;padding:1px 7px;min-width:18px;text-align:center}
+  .bel-backdrop{display:none;position:fixed;inset:0;background:rgba(15,23,42,.5);z-index:300}
+  .bel-backdrop.open{display:block}
+  .bel-filters{position:fixed;top:0;left:0;bottom:0;width:min(85vw,340px);max-height:none;border-radius:0 16px 16px 0;z-index:301;transform:translateX(-105%);transition:transform .22s ease;display:flex;flex-direction:column}
+  .bel-filters.open{transform:translateX(0)}
+  .bel-filters-scroll{overflow-y:auto;flex:1}
+  .bel-filters-foot{display:flex;gap:8px;padding-top:12px;margin-top:4px;border-top:1px solid var(--bd);flex-shrink:0}
+  .bel-filters-foot button{flex:1;padding:10px;border-radius:9px;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer}
+  .bel-apply-btn{background:var(--ac);color:#fff;border:none}
+  .bel-limpiar-btn{background:none;border:1.5px solid var(--bd2);color:var(--tx2)}
+  .bel-filters-close{all:unset;display:flex;cursor:pointer;color:var(--tx3);padding:4px;line-height:0}
+}
+
+.grid-wrap{padding:1.2rem 0}
+@media(max-width:480px){.grid-wrap{padding:1rem 0}}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(min-width:1700px){.grid{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:1300px){.grid{grid-template-columns:repeat(2,1fr)}}
+
+/* ── Tarjeta de producto: vertical (imagen arriba + info) ─────────── */
+.card{background:var(--bg);border:1px solid var(--bd);border-radius:16px;overflow:hidden;transition:box-shadow .2s,transform .15s;cursor:pointer;position:relative;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.card:hover{box-shadow:0 6px 24px rgba(0,0,0,.1);transform:translateY(-2px)}
 .card.selected{border:2px solid var(--ac);box-shadow:0 0 0 4px var(--acd2)}
-.card::after{content:'+ Comparar';display:block;border:1px solid var(--ac);color:var(--ac);font-size:11px;padding:3px 8px;border-radius:20px;text-align:center;margin:6px 8px 8px;font-family:inherit;font-weight:500;cursor:pointer}
-.card.selected::after{background:var(--ac);color:#fff;content:'Seleccionado \2713'}
-.card-img-wrap{background:var(--s1);height:260px;display:flex;align-items:center;justify-content:center;overflow:hidden;border-bottom:1px solid var(--bd)}
-.card-img{max-width:95%;max-height:240px;object-fit:contain;display:block;padding:.75rem}
+.sel-check{position:absolute;top:10px;left:10px;width:22px;height:22px;border-radius:50%;background:var(--ac);display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;font-weight:700;box-shadow:0 2px 8px rgba(0,104,71,.4);z-index:4}
+.pcard-img{background:var(--s1);display:flex;align-items:center;justify-content:center;padding:14px;border-bottom:1px solid var(--bd);height:210px;min-width:0;width:100%}
+.pcard-img img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
 .card-img-ph{font-size:3rem;opacity:.2}
-.card-body{padding:1.1rem}
-.card-badges{display:flex;gap:5px;margin-bottom:.5rem;flex-wrap:wrap}
+.pcard-body{padding:13px 14px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.pcard-brand{font-size:11px;color:var(--tx3);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.pcard-name{font-size:15px;font-weight:700;color:var(--tx);line-height:1.25;letter-spacing:-.01em;margin:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-badges{display:flex;gap:5px;margin-bottom:0;flex-wrap:wrap}
 .badge{font-size:10px;font-weight:600;padding:2px 7px;border-radius:20px}
 .b-amz{background:var(--amzd);color:#c47000;border:1px solid var(--amzd2)}
 .b-ml{background:var(--mld);color:#8a6f00;border:1px solid var(--mld2)}
@@ -187,40 +237,71 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .b-sale{background:var(--redd);color:var(--red);border:1px solid var(--redd2)}
 .b-discr{background:#fff8e1;color:#b45309;border:1px solid #fde68a}
 .b-color{background:#e0f2fe;color:#0369a1;border:1px solid #bae6fd}
-.card-discrepancias{margin:.4rem 0;padding:.35rem .6rem;background:#fff8e1;border-left:3px solid #f59e0b;border-radius:0 6px 6px 0;font-size:11px;color:#92400e}
-.card-bat-nd{margin-bottom:.75rem;font-size:12px;color:var(--tx3);font-style:italic}
-.card-pendientes{margin:.5rem 0;font-size:11px}
+.card-discrepancias{padding:.35rem .6rem;background:#fff8e1;border-left:3px solid #f59e0b;border-radius:0 6px 6px 0;font-size:11px;color:#92400e}
+.card-bat-nd{font-size:12px;color:var(--tx3);font-style:italic}
+.card-pendientes{font-size:11px}
 .card-pendientes summary{cursor:pointer;color:var(--tx3);padding:.2rem 0}
 .card-pendientes ul{margin:.3rem 0 0 1rem;padding:0;color:var(--tx3);line-height:1.6}
-.card-name{font-family:'Satoshi',sans-serif;font-size:15px;font-weight:700;color:var(--tx);margin-bottom:1px;line-height:1.3;letter-spacing:-.02em}
-.card-brand{font-size:11px;color:var(--tx3);margin-bottom:.5rem;font-weight:500;text-transform:uppercase;letter-spacing:.05em}
-.card-stars{font-size:13px;font-weight:700;color:#e6900a;margin-bottom:.75rem;display:flex;align-items:center;gap:6px}
-.card-stars-count{color:var(--tx3);font-size:11px;font-weight:400}
-.card-bat{margin-bottom:.75rem}
-.bat-header{display:flex;justify-content:space-between;font-size:11px;color:var(--tx2);margin-bottom:4px}
-.bat-track{height:5px;background:var(--s2);border-radius:3px;overflow:hidden}
-.bat-fill{height:100%;border-radius:3px;background:var(--ac);transition:width .6s}
-.card-specs{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:.75rem}
-.spec{background:var(--s1);border-radius:7px;padding:5px 8px}
-.spec-label{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
-.spec-val{font-size:12px;font-weight:600;color:var(--tx);margin-top:1px;font-family:'Satoshi',sans-serif}
-.card-price{font-family:'Satoshi',sans-serif;font-size:1.35rem;font-weight:700;color:var(--tx);margin-bottom:.75rem;letter-spacing:-.03em}
-.card-price-sub{font-size:11px;color:var(--tx3);font-weight:400;font-family:'Satoshi',sans-serif}
-.card-btns{display:flex;flex-direction:column;gap:6px}
-.card-stars-dual{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:.75rem}
+.card-stars-dual{display:grid;grid-template-columns:1fr 1fr;gap:6px}
 .card-stars-dual .stars-col{background:var(--s1);border-radius:7px;padding:5px 8px}
 .card-stars-dual .stars-plat{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-bottom:2px}
 .card-stars-dual .stars-val{font-size:13px;color:#e6900a;font-weight:700}
 .card-stars-dual .stars-cnt{font-size:11px;color:var(--tx3);font-weight:400}
-.card-btns-dual{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.card-btn-col{display:flex;flex-direction:column;gap:3px}
-.card-btn-col-price{font-size:12px;font-weight:700;color:var(--tx);text-align:center}
+.card-bat{display:block}
+.bat-header{display:flex;justify-content:space-between;font-size:11px;color:var(--tx2);margin-bottom:4px}
+.bat-track{height:5px;background:var(--s2);border-radius:3px;overflow:hidden}
+.bat-fill{height:100%;border-radius:3px;background:var(--ac);transition:width .6s}
+.pcard-metrics{display:flex;flex-direction:column;gap:0}
+.pmetric-row{display:flex;align-items:flex-start;gap:7px;padding:5px 1px;border-bottom:1px dashed var(--bd)}
+.pmetric-row:last-child{border-bottom:none}
+.pmetric-ic{color:var(--ac);flex-shrink:0;display:flex;opacity:.85;margin-top:2px}
+.pmetric-lbl2{font-size:11.5px;color:var(--tx2);flex:1;min-width:0;padding-top:1px}
+.pmetric-val2{font-size:12.5px;font-weight:700;color:var(--tx);text-align:right;white-space:normal;overflow-wrap:anywhere;margin-left:6px;max-width:58%}
+.pcard-plats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:auto;padding-top:4px}
+.pcard-plats.one{grid-template-columns:1fr}
+.pplat{border:1px solid var(--bd);border-radius:11px;padding:8px 8px 9px;display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;min-width:0}
+.btn-lbl-sm{display:none}
+.pplat.best{border-color:var(--ac);box-shadow:inset 0 0 0 1px var(--ac)}
+.pplat-tag{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:#fff;background:var(--ac);border-radius:20px;padding:1px 8px;position:absolute;top:-8px;left:50%;transform:translateX(-50%);white-space:nowrap}
+.pplat-name{font-size:9.5px;color:var(--tx3);text-transform:uppercase;letter-spacing:.05em;font-weight:700}
+.pplat-price{font-size:1.1rem;font-weight:800;color:var(--tx);letter-spacing:-.02em;line-height:1}
+.pplat-price.nd{font-size:11px;font-weight:500;color:var(--tx3)}
+.pn-sm{display:none}
 .btn-amz{display:flex;align-items:center;justify-content:center;gap:5px;width:100%;text-align:center;background:var(--amz);color:#000;border:none;border-radius:8px;padding:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Satoshi',sans-serif;text-decoration:none;transition:opacity .15s;white-space:nowrap}
 .btn-amz:hover{opacity:.9}
 .btn-ml{display:flex;align-items:center;justify-content:center;gap:5px;width:100%;text-align:center;background:var(--ml);color:#3a2e00;border:none;border-radius:8px;padding:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Satoshi',sans-serif;text-decoration:none;transition:opacity .15s;white-space:nowrap}
 .btn-ml:hover{opacity:.9}
-.btn-logo-img{height:22px;width:auto;object-fit:contain;flex-shrink:0}
-.sel-check{position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:var(--ac);display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;font-weight:700;box-shadow:0 2px 8px rgba(0,104,71,.4)}
+.btn-logo-img{height:20px;width:auto;object-fit:contain;flex-shrink:0}
+/* Corazón para guardar / dar seguimiento */
+.fav-btn{position:absolute;top:10px;right:10px;z-index:4;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.94);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#94a3b8;padding:0;transition:transform .12s,color .15s,box-shadow .15s;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.fav-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;display:block}
+.fav-btn:hover{color:var(--ac);transform:scale(1.08)}
+.fav-btn.on{color:var(--ac)}
+.fav-btn.on svg{fill:var(--ac);stroke:var(--ac)}
+.fav-toggle{display:inline-flex;align-items:center;gap:6px}
+.fav-toggle .fav-count{display:inline-flex;align-items:center;justify-content:center;min-width:17px;height:17px;padding:0 4px;border-radius:9px;background:var(--acd2);color:var(--ac);font-size:10px;font-weight:800;line-height:1}
+.fav-toggle.on .fav-count{background:rgba(255,255,255,.25);color:#fff}
+@media(max-width:560px){
+  .pcard-img{height:132px;padding:10px}
+  .pcard-body{padding:10px;gap:6px}
+  .pcard-brand{font-size:9.5px}
+  .pcard-name{font-size:12.5px}
+  .pmetric-lbl2{font-size:10.5px}
+  .pmetric-val2{font-size:11.5px}
+  .pcard-plats{gap:6px}
+  .pplat{padding:7px 5px 8px;gap:4px}
+  .pplat-name{font-size:8.5px;letter-spacing:.02em}
+  .pplat-price{font-size:1rem}
+  .pplat-tag{font-size:7.5px;padding:1px 6px;top:-7px}
+  .pcard-plats .btn-ml,.pcard-plats .btn-amz{font-size:9.5px!important;padding:6px 3px!important;gap:3px;overflow:hidden;white-space:nowrap}
+  .pcard-plats .btn-logo-img{height:13px;max-width:100%}
+  .pcard-plats .btn-ira-txt{display:none}
+  .pcard-plats .btn-ml,.pcard-plats .btn-amz{padding:7px 2px!important}
+  .fav-btn{width:30px;height:30px;top:8px;right:8px}
+  .fav-btn svg{width:16px;height:16px}
+  .pn-lg{display:none}
+  .pn-sm{display:inline}
+}
 .card-tip{font-size:10px;color:var(--tx3);margin-top:.5rem;text-align:center}
 .empty{text-align:center;padding:3rem;color:var(--tx3);font-size:14px}
 
@@ -287,6 +368,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 
       <a class="nav-link" href="/tecnologia/">🎧 Tecnología</a>
   </div>
+  <button class="nav-fav-btn" id="nav-fav-btn" type="button" onclick="toggleSoloFavs();document.getElementById('grid-elec')?.scrollIntoView({behavior:'smooth',block:'start'})" title="Ver tus bicis guardadas" aria-pressed="false"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg><span class="nav-fav-txt">Guardados</span> <span class="nav-fav-count" id="nav-fav-count">0</span></button>
   <button class="btn-share" onclick="shareCurrentPage()" title="Compartir esta p&#225;gina" aria-label="Compartir"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg><span class="share-txt">Compartir</span></button>
 </nav>
 
@@ -303,44 +385,107 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   </div>
 </div>
 
-<div class="search-wrap">
-  <input id="bici-search" type="text" class="search-input" placeholder="Buscar bicicleta eléctrica, marca o característica…" oninput="onSearch()">
+<div class="intro-text" style="padding:1rem 2rem 0">
+  <p>Las <strong>bicicletas eléctricas en México</strong> son una alternativa cada vez más práctica para moverse por la ciudad, hacer deporte o simplificar el transporte diario. En comparalo.mx reunimos los modelos disponibles en <strong>Amazon MX</strong> y <strong>Mercado Libre</strong> con ficha técnica completa, discrepancias documentadas y datos a verificar para que tomes una decisión informada.</p>
 </div>
 
-<div class="toolbar">
-  <span class="filter-label">Tipo:</span>
-  <button class="filter on" data-group="tipo" onclick="applyFilter('all',this)">Todas</button>
-  <button class="filter" data-group="tipo" onclick="applyFilter('plegable',this)">Plegable</button>
-  <button class="filter" data-group="tipo" onclick="applyFilter('urbana',this)">Urbana</button>
-  <button class="filter" data-group="tipo" onclick="applyFilter('montana',this)">Montaña</button>
-  <button class="filter filter-logo" data-group="tipo" onclick="applyFilter('amz',this)"><img src="/logoamazon.png" alt="Amazon" style="height:16px;width:auto;object-fit:contain" onerror="this.outerHTML='Amazon'"></button>
-  <button class="filter filter-logo" data-group="tipo" onclick="applyFilter('ml',this)"><img src="/logomercado.png" alt="Mercado Libre" style="height:16px;width:auto;object-fit:contain" onerror="this.outerHTML='ML'"></button>
-  <span class="filter-label" style="margin-left:8px">Precio:</span>
-  <button class="filter on" data-group="precio" onclick="applyPrecio('all',this)">Todos</button>
-  <button class="filter" data-group="precio" onclick="applyPrecio('low',this)">— $7,000</button>
-  <button class="filter" data-group="precio" onclick="applyPrecio('mid',this)">$7k–$10k</button>
-  <button class="filter" data-group="precio" onclick="applyPrecio('high',this)">$10,000+</button>
-  <div class="sort-wrap">
-    <span class="sort-label">Ordenar:</span>
-    <select class="sort-sel" onchange="applySort(this.value)">
-      <option value="default">Destacadas</option>
-      <option value="precio-asc">Precio ↑</option>
-      <option value="precio-desc">Precio ↓</option>
-      <option value="stars">Mejor calificadas</option>
-      <option value="autonomia">Mayor autonomía</option>
-      <option value="resenas">Más reseñas</option>
-    </select>
-  </div>
-</div>
+<div class="bel-layout">
+  <button class="bel-filtrar-btn" id="bel-filtrar-btn" onclick="openFiltersDrawer()" aria-haspopup="dialog" aria-expanded="false" aria-controls="bel-filters">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+    Filtrar
+    <span class="bel-filtrar-count" id="bel-filtrar-count" style="display:none">0</span>
+  </button>
+  <div class="bel-backdrop" id="bel-backdrop" onclick="closeFiltersDrawer()"></div>
 
-<div class="intro-text">
-  <p>Las <strong>bicicletas eléctricas en México</strong> son una alternativa cada vez más práctica para moverse por la ciudad, hacer deporte o simplificar el transporte diario. En comparalo.mx reunimos los modelos disponibles en <strong>Amazon MX</strong> y <strong>Mercado Libre</strong> con ficha técnica completa, discrepancias documentadas y datos a verificar para que tomes una decisión informada. Filtra por tipo, precio y ordena por autonomía, calificación o reseñas.</p>
-</div>
+  <!-- FILTROS -->
+  <aside class="bel-filters" id="bel-filters" role="region" aria-label="Filtros">
+    <div class="bel-filters-scroll">
+      <div class="bel-filters-head">
+        <span class="bel-filters-title">Filtros</span>
+        <div style="display:flex;align-items:center;gap:12px">
+          <button class="bel-clear-all" onclick="clearFilters()">Limpiar filtros</button>
+          <button class="bel-filters-close" onclick="closeFiltersDrawer()" aria-label="Cerrar filtros">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
 
-<div class="grid-wrap" data-ga-section="comparison">
-  <div class="grid" id="grid-elec"></div>
-  <div class="empty" id="empty-elec" style="display:none">No hay bicis con ese filtro.</div>
-  <noscript><ul style="margin:1rem 2rem;padding:0;list-style:disc;font-size:13px;line-height:2">
+      <div class="bel-section">
+        <span class="bel-section-title">Precio (MXN)</span>
+        <div class="bel-range-row">
+          <input type="number" id="precio-min" placeholder="Mín." class="precio-max-input" oninput="onPrecioInput()" min="0" step="500" aria-label="Precio mínimo">
+          <span class="bel-range-sep">–</span>
+          <input type="number" id="precio-max" placeholder="Máx." class="precio-max-input" oninput="onPrecioInput()" min="0" step="500" aria-label="Precio máximo">
+        </div>
+      </div>
+
+      <div class="bel-section">
+        <span class="bel-section-title">Plataforma</span>
+        <div class="bel-pills" id="bel-pills-plat">
+          <button class="filter on" onclick="setPlataforma('todos',this)">Ambas</button>
+          <button class="filter" onclick="setPlataforma('ml',this)">Mercado Libre</button>
+          <button class="filter" onclick="setPlataforma('amz',this)">Amazon</button>
+        </div>
+      </div>
+
+      <div class="bel-section">
+        <span class="bel-section-title">Guardados</span>
+        <button class="filter fav-toggle" id="btn-favs" type="button" onclick="toggleSoloFavs()" title="Ver solo las bicis que guardaste" style="width:100%;justify-content:center">♥ Ver solo guardados <span class="fav-count" id="fav-count">0</span></button>
+      </div>
+
+      <div class="bel-section">
+        <span class="bel-section-title">Tipo</span>
+        <div class="bel-check-list" id="bel-list-tipo"></div>
+      </div>
+
+      <div class="bel-section">
+        <span class="bel-section-title">Marca</span>
+        <input type="text" class="bel-search-input" id="bel-marca-search" placeholder="Buscar marca…" oninput="filterCheckList('bel-list-marca', this.value)" aria-label="Buscar marca">
+        <div class="bel-check-list" id="bel-list-marca"></div>
+        <button class="bel-vermas" id="bel-vermas-marca" onclick="toggleVerMas('bel-list-marca', this)"></button>
+      </div>
+
+      <div class="bel-section">
+        <span class="bel-section-title">Autonomía (km)</span>
+        <div class="bel-range-row">
+          <input type="number" id="autonomia-min" placeholder="Mín." class="precio-max-input" oninput="onAutonomiaInput()" min="0" step="5" aria-label="Autonomía mínima">
+          <span class="bel-range-sep">–</span>
+          <input type="number" id="autonomia-max" placeholder="Máx." class="precio-max-input" oninput="onAutonomiaInput()" min="0" step="5" aria-label="Autonomía máxima">
+        </div>
+      </div>
+    </div>
+
+    <div class="bel-filters-foot">
+      <button class="bel-limpiar-btn" onclick="clearFilters()">Limpiar</button>
+      <button class="bel-apply-btn" onclick="closeFiltersDrawer()">Aplicar filtros</button>
+    </div>
+  </aside>
+
+  <!-- CATÁLOGO -->
+  <div class="bel-content">
+    <div class="search-wrap" style="padding:0 0 10px">
+      <input id="bici-search" type="text" class="search-input" placeholder="Buscar bicicleta eléctrica, marca o característica…" oninput="onSearch()">
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:.4rem 0;flex-wrap:wrap">
+      <div class="result-info" id="result-info" style="font-size:12px;color:var(--tx3)"></div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="sort-label">Ordenar:</span>
+        <select class="sort-sel" onchange="applySort(this.value)">
+          <option value="default">Destacadas</option>
+          <option value="precio-asc">Precio ↑</option>
+          <option value="precio-desc">Precio ↓</option>
+          <option value="stars">Mejor calificadas</option>
+          <option value="autonomia">Mayor autonomía</option>
+          <option value="resenas">Más reseñas</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="grid-wrap" data-ga-section="comparison">
+      <div class="grid" id="grid-elec"></div>
+      <div class="empty" id="empty-elec" style="display:none">No hay bicis con ese filtro.</div>
+      <noscript><ul style="margin:1rem 2rem;padding:0;list-style:disc;font-size:13px;line-height:2">
     <li>HONEYWHALE B20 Plegable 440W — $6,599 MXN</li>
     <li>POP SHOPPE S6 Negro 750W — $8,499 MXN</li>
     <li>POP SHOPPE S6 Blanco 750W — $8,499 MXN</li>
@@ -364,7 +509,9 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
     <li>HONEYWHALE U1s</li>
     <li>Red Velvet EAGOEZL-01</li>
   </ul></noscript>
-</div>
+    </div>
+  </div><!-- /bel-content -->
+</div><!-- /bel-layout -->
 
 <div class="cmp-overlay" id="cmp-overlay" onclick="if(event.target===this)closeCmp()">
   <div class="cmp-modal">
@@ -1426,94 +1573,12 @@ const ELECTRICAS = [
   },
 ];
 
-
-
-
-// ============================================================
-// DATOS — MONTAÑA (tipo:'mtb')
-// ============================================================
-const MONTANA = [
-  {id:101,nombre:'Terrafit Venum R26',marca:'Terrafit',tipo:'mtb',
-   precio:4359,velocidad:0,peso:18,rueda:'26"',velocidades:'21',cargaMax:120,
-   estrellas:4.8,resenas:459,
-   badges:[{t:'ML',c:'b-ml'},{t:'Más vendida',c:'b-best'},{t:'459 reseñas',c:'b-pop'}],
-   linkML:'https://meli.la/1z195hd',
-   img:'https://http2.mlstatic.com/D_NQ_NP_2X_821602-MLA110863985818_052026-F.webp'},
-  {id:102,nombre:'Kubor Cosmo 26',marca:'Kubor',tipo:'mtb',
-   precio:5749,velocidad:0,peso:14,rueda:'26"',velocidades:'21',cargaMax:120,
-   estrellas:4.7,resenas:536,
-   badges:[{t:'ML',c:'b-ml'},{t:'536 reseñas',c:'b-pop'}],
-   linkML:'https://meli.la/2KKZNgU',
-   img:'https://http2.mlstatic.com/D_NQ_NP_2X_970460-MLA97356510755_112025-F.webp'},
-  {id:103,nombre:'Terrafit Spider R29',marca:'Terrafit',tipo:'mtb',
-   precio:5189,velocidad:0,peso:15,rueda:'29"',velocidades:'21',cargaMax:130,
-   estrellas:4.7,resenas:212,
-   badges:[{t:'ML',c:'b-ml'},{t:'Doble suspensión',c:'b-pop'}],
-   linkML:'https://meli.la/1J6QUWi',
-   img:'https://http2.mlstatic.com/D_NQ_NP_2X_701859-MLA113098539003_062026-F.webp'},
-  {id:104,nombre:'Kubor Calipso 3 R29',marca:'Kubor',tipo:'mtb',
-   precio:7239,velocidad:0,peso:0,rueda:'29"',velocidades:'21',cargaMax:0,
-   estrellas:4.7,resenas:1147,
-   badges:[{t:'ML',c:'b-ml'},{t:'1,147 reseñas',c:'b-best'},{t:'3ª más vendida',c:'b-pop'}],
-   linkML:'https://meli.la/2jyzTcR',
-   img:'https://http2.mlstatic.com/D_NQ_NP_2X_618596-MLA96798702060_112025-F.webp'},
-  {id:105,nombre:'Kubor Calipso 4 R29',marca:'Kubor',tipo:'mtb',
-   precio:8805,velocidad:0,peso:17,rueda:'29"',velocidades:'9',cargaMax:120,
-   estrellas:4.7,resenas:83,
-   badges:[{t:'ML',c:'b-ml'},{t:'Disco hidráulico',c:'b-pop'}],
-   linkML:'https://meli.la/1SHfv2C',
-   img:'https://http2.mlstatic.com/D_NQ_NP_2X_933562-MLA97670768816_112025-F.webp'},
-  {id:106,nombre:'Centurfit R29',marca:'Centurfit',tipo:'mtb',
-   precio:8499,velocidad:0,peso:16,rueda:'29"',velocidades:'21',cargaMax:140,
-   estrellas:0,resenas:0,
-   badges:[{t:'ML',c:'b-ml'}],
-   linkML:'https://meli.la/1Ex8GXS',
-   img:'https://http2.mlstatic.com/D_NQ_NP_2X_993963-MLM116127531687_082026-F.webp'},
-  {id:201,nombre:'Lagom Shimano 500-7 R29 21v',marca:'Lagom',tipo:'mtb',
-   precio:6299,velocidad:0,peso:0,rueda:'29"',velocidades:'21',cargaMax:0,
-   estrellas:4.5,resenas:15,
-   badges:[{t:'ML',c:'b-ml'},{t:'Shimano',c:'b-pop'}],
-   linkML:'https://meli.la/1YqtNuV',
-   img:'https://http2.mlstatic.com/D_NQ_NP_2X_997546-MLA106163254840_022026-F.webp'},
-  {id:202,nombre:'Kubor Octopus R29 9V Shimano Acera',marca:'Kubor',tipo:'mtb',
-   precio:9219,velocidad:0,peso:0,rueda:'29"',velocidades:'9',cargaMax:0,
-   estrellas:4.8,resenas:123,
-   badges:[{t:'ML',c:'b-ml'},{t:'Shimano Acera',c:'b-pop'},{t:'123 reseñas',c:'b-best'}],
-   linkML:'https://meli.la/16qSVsg',
-   img:'https://http2.mlstatic.com/D_NQ_NP_2X_674174-MLA96904338186_112025-F.webp'},
-  {id:203,nombre:'Kubor Calipso 3 R27.5 Rojo',marca:'Kubor',tipo:'mtb',
-   precio:7543,velocidad:0,peso:0,rueda:'27.5"',velocidades:'21',cargaMax:0,
-   estrellas:4.7,resenas:1147,
-   badges:[{t:'ML',c:'b-ml'},{t:'2ª más vendida',c:'b-best'}],
-   linkML:'https://meli.la/2GtxKLu',
-   img:'https://http2.mlstatic.com/D_NQ_NP_2X_793344-MLA109236862708_042026-F.webp'},
-  {id:204,nombre:'Kubor Calipso 3 R27 Blanco',marca:'Kubor',tipo:'mtb',
-   precio:6799,velocidad:0,peso:0,rueda:'27"',velocidades:'9',cargaMax:0,
-   estrellas:4.9,resenas:31,
-   badges:[{t:'ML',c:'b-ml'},{t:'4.9★',c:'b-best'}],
-   linkML:'https://meli.la/2Nu3SVW',
-   img:'https://http2.mlstatic.com/D_NQ_NP_2X_697441-MLA84770963326_052025-F.webp'},
-  {id:205,nombre:'Kubor Calipso 4 R29 Azul',marca:'Kubor',tipo:'mtb',
-   precio:8805,velocidad:0,peso:0,rueda:'29"',velocidades:'9',cargaMax:120,
-   estrellas:3.7,resenas:3,
-   badges:[{t:'ML',c:'b-ml'}],
-   linkAmz:'',linkML:'https://meli.la/2QdfY8b',
-   img:'https://http2.mlstatic.com/D_NQ_NP_2X_954423-MLA109810886695_032026-F.webp'},
-  {id:206,nombre:'Terrafit Venum R26 Verde',marca:'Terrafit',tipo:'mtb',
-   precio:4359,velocidad:0,peso:0,rueda:'26"',velocidades:'21',cargaMax:120,
-   estrellas:4.8,resenas:464,
-   badges:[{t:'ML',c:'b-ml'},{t:'Más vendida',c:'b-best'},{t:'464 reseñas',c:'b-pop'}],
-   linkAmz:'',linkML:'https://meli.la/2JhMu8g',
-   img:'https://http2.mlstatic.com/D_NQ_NP_2X_896574-MLA95658117002_102025-F.webp'},
-];
-
 // ============================================================
 // ESTADO
 // ============================================================
-let curFilter = 'all';
-let curPrecio = 'all';
 let curSort = 'default';
 let selIds = [];
+const filters = { marcas: new Set(), tipos: new Set(), plataforma: 'todos', soloFavs: false };
 let searchQuery = '';
 
 // ============================================================
@@ -1523,20 +1588,6 @@ function starsStr(n){ return n?'★ '+n.toFixed(1):'—'; }
 
 function onSearch(){
   searchQuery = document.getElementById('bici-search').value.toLowerCase().trim();
-  renderGrid();
-}
-
-function applyFilter(f, el){
-  curFilter = f;
-  el.closest('.toolbar').querySelectorAll('[data-group="tipo"]').forEach(x=>x.classList.remove('on'));
-  el.classList.add('on');
-  renderGrid();
-}
-
-function applyPrecio(p, el){
-  curPrecio = p;
-  el.closest('.toolbar').querySelectorAll('[data-group="precio"]').forEach(x=>x.classList.remove('on'));
-  el.classList.add('on');
   renderGrid();
 }
 
@@ -1563,29 +1614,180 @@ function updateBar(){
   } else { bar.classList.remove('show'); }
 }
 
+// ── Favoritos (guardar / dar seguimiento) — se guardan en el navegador
+// del usuario (localStorage), no salen del dispositivo. ─────────────
+const FAV_KEY = 'comparalo:fav:bici-electricas';
+function loadFavs(){ try{ return new Set(JSON.parse(localStorage.getItem(FAV_KEY)||'[]')); }catch(e){ return new Set(); } }
+function saveFavs(){ try{ localStorage.setItem(FAV_KEY, JSON.stringify([...favs])); }catch(e){} }
+let favs = loadFavs();
+function toggleFav(id, ev){
+  if (ev) ev.stopPropagation();
+  if (favs.has(id)) favs.delete(id); else favs.add(id);
+  saveFavs();
+  const b = document.querySelector('#card-'+id+' .fav-btn');
+  if (b){ const on = favs.has(id); b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); b.title = on ? 'Quitar de guardados' : 'Guardar producto'; }
+  if (typeof gtag === 'function'){ try{ gtag('event', favs.has(id)?'save_product':'unsave_product', { item_id:id, page_section:'bicis_electricas' }); }catch(e){} }
+  updateFavCount();
+  if (filters.soloFavs) renderGrid();
+}
+function updateFavCount(){
+  const el = document.getElementById('fav-count'); if (el) el.textContent = favs.size;
+  const navEl = document.getElementById('nav-fav-count'); if (navEl) navEl.textContent = favs.size;
+}
+function toggleSoloFavs(){
+  filters.soloFavs = !filters.soloFavs;
+  const btn = document.getElementById('btn-favs'); if (btn) btn.classList.toggle('on', filters.soloFavs);
+  const navBtn = document.getElementById('nav-fav-btn'); if (navBtn) { navBtn.classList.toggle('on', filters.soloFavs); navBtn.setAttribute('aria-pressed', filters.soloFavs); }
+  afterFilterChange();
+}
+
+// ── Filtros: listas de checkboxes con conteo real ────────────────
+const TIPO_LABELS = { plegable:'Plegable', urbana:'Urbana', montana:'Montaña' };
+const marcaCount = m => ELECTRICAS.filter(b => b.marca === m).length;
+const tipoCount = t => ELECTRICAS.filter(b => b.tipo === t).length;
+
+function buildCheckList(containerId, entries, selectedSet, handlerName, visibleInitial) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  el.innerHTML = entries.map((entry, i) => {
+    const esc = String(entry.value).replace(/'/g, "\\'");
+    return `<label class="bel-check-item${i>=visibleInitial?' bel-hidden':''}" data-search="${entry.label.toLowerCase()}">
+      <input type="checkbox" ${selectedSet.has(entry.value)?'checked':''} onchange="${handlerName}('${esc}', this.checked)">
+      ${entry.label}<span class="bel-cnt">(${entry.count})</span>
+    </label>`;
+  }).join('');
+}
+function setupVerMas(btnId, total, initial) {
+  const btn = document.getElementById(btnId);
+  if (!btn) return;
+  if (total <= initial) { btn.style.display = 'none'; return; }
+  btn.style.display = '';
+  btn.textContent = 'Ver más';
+  btn.dataset.initial = initial;
+  btn.dataset.expanded = '0';
+}
+function toggleSetValue(set, value, checked) { if (checked) set.add(value); else set.delete(value); }
+function toggleMarca(value, checked) { toggleSetValue(filters.marcas, value, checked); afterFilterChange(); }
+function toggleTipo(value, checked) { toggleSetValue(filters.tipos, value, checked); afterFilterChange(); }
+
+function setPlataforma(val, btn) {
+  filters.plataforma = val;
+  document.querySelectorAll('#bel-pills-plat .filter').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  afterFilterChange();
+}
+
+function filterCheckList(containerId, query) {
+  const q = query.trim().toLowerCase();
+  document.querySelectorAll('#'+containerId+' .bel-check-item').forEach(item => {
+    item.classList.toggle('bel-hidden', !(!q || item.dataset.search.includes(q)));
+  });
+}
+function toggleVerMas(containerId, btn) {
+  const items = document.querySelectorAll('#'+containerId+' .bel-check-item');
+  const expanded = btn.dataset.expanded === '1';
+  const initial = Number(btn.dataset.initial);
+  items.forEach((item, i) => { if (i >= initial) item.classList.toggle('bel-hidden', expanded); });
+  btn.textContent = expanded ? 'Ver más' : 'Ver menos';
+  btn.dataset.expanded = expanded ? '0' : '1';
+}
+
+function initFilterLists() {
+  const tipos = [...new Set(ELECTRICAS.map(b => b.tipo).filter(Boolean))];
+  buildCheckList('bel-list-tipo', tipos.map(t => ({ value: t, label: TIPO_LABELS[t]||t, count: tipoCount(t) })), filters.tipos, 'toggleTipo', tipos.length);
+
+  const marcas = [...new Set(ELECTRICAS.map(b => b.marca).filter(Boolean))].sort((a,b)=>marcaCount(b)-marcaCount(a));
+  buildCheckList('bel-list-marca', marcas.map(m => ({ value: m, label: m, count: marcaCount(m) })), filters.marcas, 'toggleMarca', 8);
+  setupVerMas('bel-vermas-marca', marcas.length, 8);
+}
+
+function updateFiltrarBadge() {
+  const badge = document.getElementById('bel-filtrar-count');
+  if (!badge) return;
+  let n = filters.marcas.size + filters.tipos.size;
+  if (filters.plataforma !== 'todos') n++;
+  if (filters.soloFavs) n++;
+  if (document.getElementById('precio-min')?.value) n++;
+  if (document.getElementById('precio-max')?.value) n++;
+  if (document.getElementById('autonomia-min')?.value) n++;
+  if (document.getElementById('autonomia-max')?.value) n++;
+  badge.textContent = n;
+  badge.style.display = n > 0 ? '' : 'none';
+}
+
+function openFiltersDrawer() {
+  document.getElementById('bel-filters').classList.add('open');
+  document.getElementById('bel-backdrop').classList.add('open');
+  document.getElementById('bel-filtrar-btn').setAttribute('aria-expanded', 'true');
+  document.body.style.overflow = 'hidden';
+}
+function closeFiltersDrawer() {
+  document.getElementById('bel-filters').classList.remove('open');
+  document.getElementById('bel-backdrop').classList.remove('open');
+  document.getElementById('bel-filtrar-btn').setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeFiltersDrawer(); });
+
+let _precioTimer, _autonomiaTimer;
+function onPrecioInput(){ clearTimeout(_precioTimer); _precioTimer = setTimeout(afterFilterChange, 500); }
+function onAutonomiaInput(){ clearTimeout(_autonomiaTimer); _autonomiaTimer = setTimeout(afterFilterChange, 500); }
+function afterFilterChange(){ updateFiltrarBadge(); renderGrid(); }
+
+function clearFilters() {
+  filters.marcas.clear(); filters.tipos.clear(); filters.plataforma = 'todos'; filters.soloFavs = false;
+  document.getElementById('bici-search').value = ''; searchQuery = '';
+  const pmin = document.getElementById('precio-min'); if (pmin) pmin.value = '';
+  const pmax = document.getElementById('precio-max'); if (pmax) pmax.value = '';
+  const amin = document.getElementById('autonomia-min'); if (amin) amin.value = '';
+  const amax = document.getElementById('autonomia-max'); if (amax) amax.value = '';
+  document.querySelectorAll('.bel-check-item input[type=checkbox]').forEach(cb => cb.checked = false);
+  document.querySelectorAll('#bel-pills-plat .filter').forEach(b => b.classList.remove('on'));
+  document.querySelector('#bel-pills-plat .filter')?.classList.add('on');
+  document.getElementById('btn-favs')?.classList.remove('on');
+  document.getElementById('nav-fav-btn')?.classList.remove('on');
+  afterFilterChange();
+}
+
+// ── Iconos de las características ────────────────────────────────
+const ico = {
+  autonomia:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+  motor:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+  bateria:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="7" width="18" height="10" rx="2" ry="2"/><line x1="23" y1="11" x2="23" y2="13"/></svg>`,
+  peso:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L4 9v6l8 6 8-6V9z"/><line x1="12" y1="3" x2="12" y2="21"/></svg>`,
+  rueda:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="3" x2="12" y2="8"/><line x1="12" y1="16" x2="12" y2="21"/><line x1="3" y1="12" x2="8" y2="12"/><line x1="16" y1="12" x2="21" y2="12"/></svg>`,
+  cargaMax:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>`,
+};
+
 // ============================================================
 // GETLIST
 // ============================================================
 function getList(){
-  let list = [...ELECTRICAS];
-
-  if(curFilter==='plegable') list=list.filter(b=>b.tipo==='plegable');
-  else if(curFilter==='urbana') list=list.filter(b=>b.tipo==='urbana');
-  else if(curFilter==='montana') list=list.filter(b=>b.tipo==='montana');
-  else if(curFilter==='amz') list=list.filter(b=>b.linkAmz);
-  else if(curFilter==='ml') list=list.filter(b=>b.linkML);
-
-  if(curPrecio==='low') list=list.filter(b=>b.precio&&b.precio<7000);
-  else if(curPrecio==='mid') list=list.filter(b=>b.precio&&b.precio>=7000&&b.precio<=10000);
-  else if(curPrecio==='high') list=list.filter(b=>b.precio&&b.precio>10000);
+  let list = ELECTRICAS.filter(b => {
+    if (filters.soloFavs && !favs.has(b.id)) return false;
+    if (filters.tipos.size && !filters.tipos.has(b.tipo)) return false;
+    if (filters.marcas.size && !filters.marcas.has(b.marca)) return false;
+    if (filters.plataforma !== 'todos') {
+      if (filters.plataforma === 'ml' && !b.linkML) return false;
+      if (filters.plataforma === 'amz' && !b.linkAmz) return false;
+    }
+    if (searchQuery && !(b.nombre+' '+b.marca+' '+(b.tipo||'')+' '+(b.motorStr||'')).toLowerCase().includes(searchQuery)) return false;
+    const _maxP = parseFloat(document.getElementById('precio-max')?.value) || Infinity;
+    if (_maxP < Infinity && (b.precio||0) > _maxP) return false;
+    const _minP = parseFloat(document.getElementById('precio-min')?.value) || 0;
+    if (_minP > 0 && (b.precio||0) < _minP) return false;
+    const _maxA = parseFloat(document.getElementById('autonomia-max')?.value) || Infinity;
+    if (_maxA < Infinity && (b.autonomia==null || b.autonomia > _maxA)) return false;
+    const _minA = parseFloat(document.getElementById('autonomia-min')?.value) || 0;
+    if (_minA > 0 && (b.autonomia==null || b.autonomia < _minA)) return false;
+    return true;
+  });
 
   if(curSort==='precio-asc') list.sort((a,b)=>a.precio-b.precio);
   else if(curSort==='precio-desc') list.sort((a,b)=>b.precio-a.precio);
   else if(curSort==='stars') list.sort((a,b)=>(b.estrellas||0)-(a.estrellas||0));
   else if(curSort==='autonomia') list.sort((a,b)=>(b.autonomia||0)-(a.autonomia||0));
   else if(curSort==='resenas') list.sort((a,b)=>(b.resenas||0)-(a.resenas||0));
-
-  if(searchQuery) list=list.filter(b=>(b.nombre+' '+b.marca+' '+(b.tipo||'')+' '+(b.motorStr||'')).toLowerCase().includes(searchQuery));
 
   return list;
 }
@@ -1597,20 +1799,28 @@ function renderGrid(){
   const list = getList();
   const grid = document.getElementById('grid-elec');
   const empty = document.getElementById('empty-elec');
-  if(!list.length){grid.innerHTML='';empty.style.display='block';return;}
+  const info = document.getElementById('result-info');
+  if(!list.length){
+    grid.innerHTML='';
+    empty.innerHTML = (filters.soloFavs && favs.size===0) ? '<strong>Aún no has guardado bicis.</strong> Toca el ♥ en una tarjeta para seguirlas.' : 'No hay bicis con ese filtro.';
+    empty.style.display='block';
+    if (info) info.textContent='';
+    return;
+  }
   empty.style.display='none';
+  if (info) info.textContent = `${list.length} de ${ELECTRICAS.length} bicis eléctricas`;
 
   const maxAuto = Math.max(...ELECTRICAS.filter(b=>b.autonomia!=null).map(b=>b.autonomia));
+  const esc = s => String(s==null?'':s).replace(/"/g,'&quot;');
+  const fmtP = v => '$' + Math.round(v).toLocaleString('es-MX');
 
   grid.innerHTML = list.map(b=>{
     const isSel = selIds.includes(b.id);
+    const isFav = favs.has(b.id);
     const pct = b.autonomia!=null?Math.round(b.autonomia/maxAuto*100):0;
     const autoStr = b.autonomiaStr || 'N/D';
-    const velStr = b.velocidad!=null ? b.velocidad+' km/h' : 'N/D';
-    const pesoStr = b.peso!=null ? b.peso+' kg' : 'N/D';
 
     const dual = !!(b.linkML && b.linkAmz);
-
     const starsBlock = dual
       ? `<div class="card-stars-dual">
           <div class="stars-col">
@@ -1629,69 +1839,60 @@ function renderGrid(){
           </div>
         </div>`;
 
-    const precioBlock = dual
-      ? ''
-      : (b.precio
-          ? `<div class="card-price">$${b.precio.toLocaleString('es-MX')} <span class="card-price-sub">MXN</span></div>`
-          : `<div class="card-price"><span style="font-size:.85rem;color:var(--tx2)">Ver precio en plataforma</span></div>`);
+    const batBlock = b.autonomia!=null
+      ? `<div class="card-bat"><div class="bat-header"><span>Autonomía</span><span>${autoStr}</span></div><div class="bat-track"><div class="bat-fill" style="width:${pct}%"></div></div></div>`
+      : `<div class="card-bat-nd">Autonomía: N/D</div>`;
 
-    const fmtP = v => '$' + v.toLocaleString('es-MX', {minimumFractionDigits:0, maximumFractionDigits:2});
+    const metrics = [
+      ['motor','Motor', b.motorStr || null],
+      ['bateria','Batería', b.batWh!=null ? b.batWh+' Wh' : null],
+      ['peso','Peso', b.peso!=null ? b.peso+' kg' : null],
+      ['rueda','Rueda', b.rueda || null],
+      ['cargaMax','Carga máx.', b.cargaMax!=null ? b.cargaMax+' kg' : null],
+    ].filter(m=>m[2]!=null);
+    const metricsHTML = metrics.length ? `<div class="pcard-metrics">${metrics.map(m=>`<div class="pmetric-row"><span class="pmetric-ic" aria-hidden="true">${ico[m[0]]}</span><span class="pmetric-lbl2">${m[1]}</span><span class="pmetric-val2">${esc(m[2])}</span></div>`).join('')}</div>` : '';
 
-    const btnsBlock = dual
-      ? `<div class="card-btns-dual" onclick="event.stopPropagation()">
-          <div class="card-btn-col">
-            <div class="card-btn-col-price">${fmtP(b.precioML||b.precio)}</div>
-            <a class="btn-ml" href="${b.linkML}" rel="sponsored nofollow noopener" target="_blank" data-ga-label="${b.nombre||''}" data-ga-val="${b.precio||0}" onclick="if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\\//g,'').replace(/\\/(?:index\\.html)?$/g,'').replace(/\\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1});}">Ir a <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>
-          </div>
-          <div class="card-btn-col">
-            <div class="card-btn-col-price">${fmtP(b.precioAmz||b.precio)}</div>
-            <a class="btn-amz" href="${b.linkAmz}" rel="sponsored nofollow noopener" target="_blank" data-ga-label="${b.nombre||''}" data-ga-val="${b.precio||0}" onclick="if(typeof gtag==='function'){gtag('event','affiliate_click_amazon',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\\//g,'').replace(/\\/(?:index\\.html)?$/g,'').replace(/\\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1});}">Ir a <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>
-          </div>
-        </div>`
-      : `<div class="card-btns" onclick="event.stopPropagation()">
-          ${b.linkAmz?`<a class="btn-amz" href="${b.linkAmz}" rel="sponsored nofollow noopener" target="_blank" data-ga-label="${b.nombre||''}" data-ga-val="${b.precio||0}" onclick="if(typeof gtag==='function'){gtag('event','affiliate_click_amazon',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\\//g,'').replace(/\\/(?:index\\.html)?$/g,'').replace(/\\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1});}">Ir a <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>`:''}
-          ${b.linkML?`<a class="btn-ml" href="${b.linkML}" rel="sponsored nofollow noopener" target="_blank" data-ga-label="${b.nombre||''}" data-ga-val="${b.precio||0}" onclick="if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\\//g,'').replace(/\\/(?:index\\.html)?$/g,'').replace(/\\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1});}">Ir a <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>`:''}
-        </div>`;
+    const badgesHTML = (b.badges&&b.badges.length) ? `<div class="card-badges">${b.badges.map(bd=>`<span class="badge ${bd.c}">${esc(bd.t)}</span>`).join('')}</div>` : '';
 
     const discr = b.discrepanciasCount>0
       ? `<div class="card-discrepancias">⚠ ${b.discrepanciasCount} dato${b.discrepanciasCount>1?'s':''} a verificar entre plataformas</div>`
       : '';
-
     const pendList = (b.pendientes&&b.pendientes.length)
-      ? `<details class="card-pendientes"><summary>Aspectos a revisar (${b.pendientes.length})</summary><ul>${b.pendientes.map(p=>`<li>${p}</li>`).join('')}</ul></details>`
+      ? `<details class="card-pendientes"><summary>Aspectos a revisar (${b.pendientes.length})</summary><ul>${b.pendientes.map(p=>`<li>${esc(p)}</li>`).join('')}</ul></details>`
       : '';
 
+    const mlPrice = b.linkML ? (b.precioML ?? b.precio ?? null) : null;
+    const amzPrice = b.linkAmz ? (b.precioAmz ?? b.precio ?? null) : null;
+    let bestML=false, bestAmz=false;
+    if (mlPrice!=null && amzPrice!=null) { if (mlPrice<amzPrice) bestML=true; else if (amzPrice<mlPrice) bestAmz=true; }
+    const gaClick = (ev) => `onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_${ev==='ml'?'ml':'amazon'}',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0,'page_section':'bicis_electricas','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1})}" data-ga-label="${esc(b.nombre)}" data-ga-val="${b.precio||0}"`;
+    const mlBox = b.linkML ? `<div class="pplat${bestML?' best':''}">${bestML?'<span class="pplat-tag">Mejor precio</span>':''}<span class="pplat-name"><span class="pn-lg">Mercado Libre</span><span class="pn-sm">ML</span></span><span class="pplat-price${mlPrice==null?' nd':''}">${mlPrice!=null?fmtP(mlPrice):'Ver precio'}</span><a class="btn-ml" href="${b.linkML}" target="_blank" rel="sponsored nofollow noopener" ${gaClick('ml')}><span class="btn-ira-txt">Ir a</span> <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"><span class="btn-lbl-sm">ML</span></a></div>` : '';
+    const amzBox = b.linkAmz ? `<div class="pplat${bestAmz?' best':''}">${bestAmz?'<span class="pplat-tag">Mejor precio</span>':''}<span class="pplat-name"><span class="pn-lg">Amazon</span><span class="pn-sm">AMZ</span></span><span class="pplat-price${amzPrice==null?' nd':''}">${amzPrice!=null?fmtP(amzPrice):'Ver precio'}</span><a class="btn-amz" href="${b.linkAmz}" target="_blank" rel="sponsored nofollow noopener" ${gaClick('amazon')}><span class="btn-ira-txt">Ir a</span> <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"><span class="btn-lbl-sm">AMZ</span></a></div>` : '';
+    const nPlats = (b.linkML?1:0)+(b.linkAmz?1:0);
+    const platsHTML = (mlBox||amzBox) ? `<div class="pcard-plats${nPlats<2?' one':''}">${mlBox}${amzBox}</div>` : '';
+
+    const favBtn = `<button class="fav-btn${isFav?' on':''}" type="button" aria-label="Guardar producto" aria-pressed="${isFav}" title="${isFav?'Quitar de guardados':'Guardar producto'}" onclick="toggleFav('${b.id}',event)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></button>`;
     const _plat = dual ? 'both' : (b.linkML ? 'ml' : 'amz');
-    return `<div class="card${isSel?' selected':''}" data-platform="${_plat}" onclick="toggleSel('${b.id}')">
+    return `<article class="card${isSel?' selected':''}" data-platform="${_plat}" id="card-${b.id}" onclick="if(!event.target.closest('a,button'))toggleSel('${b.id}')" role="button" tabindex="0" aria-pressed="${isSel}" aria-label="${isSel?'Quitar de la comparación: ':'Agregar a comparación: '}${esc(b.nombre)}">
       ${isSel?'<div class="sel-check">✓</div>':''}
-      <div class="card-img-wrap">
-        ${b.img?`<img class="card-img" src="${b.img}" alt="${b.nombre}" loading="lazy" onerror="this.outerHTML='<div class=card-img-ph>⚡</div>'">`:'<div class="card-img-ph">⚡</div>'}
+      ${favBtn}
+      <div class="pcard-img">
+        ${b.img?`<img src="${b.img}" alt="${esc(b.nombre)}" loading="lazy" onerror="this.outerHTML='<div class=card-img-ph>⚡</div>'">`:'<div class="card-img-ph">⚡</div>'}
       </div>
-      <div class="card-body">
-        <div class="card-name">${b.nombre}</div>
-        <div class="card-brand">${b.marca} · ${b.tipo}${b.ofertaColor?' · '+b.ofertaColor:''}</div>
+      <div class="pcard-body">
+        <div class="pcard-brand">${esc(b.marca)} · ${TIPO_LABELS[b.tipo]||b.tipo||''}${b.ofertaColor?' · '+esc(b.ofertaColor):''}</div>
+        <h3 class="pcard-name">${esc(b.nombre)}</h3>
+        ${badgesHTML}
         ${starsBlock}
-        ${b.autonomia!=null
-          ?`<div class="card-bat"><div class="bat-header"><span>Autonomía</span><span>${autoStr}</span></div><div class="bat-track"><div class="bat-fill" style="width:${pct}%"></div></div></div>`
-          :`<div class="card-bat-nd">Autonomía: N/D</div>`}
-        <div class="card-specs">
-          <div class="spec"><div class="spec-label">Autonomía</div><div class="spec-val">${b.autonomia!=null?b.autonomia+' km':'N/D'}</div></div>
-          <div class="spec"><div class="spec-label">Motor</div><div class="spec-val">${b.motorStr||'N/D'}</div></div>
-          <div class="spec"><div class="spec-label">Batería</div><div class="spec-val">${b.batWh!=null?b.batWh+' Wh':'N/D'}</div></div>
-          <div class="spec"><div class="spec-label">Peso</div><div class="spec-val">${pesoStr}</div></div>
-          <div class="spec"><div class="spec-label">Rueda</div><div class="spec-val">${b.rueda||'N/D'}</div></div>
-          <div class="spec"><div class="spec-label">Carga máx.</div><div class="spec-val">${b.cargaMax!=null?b.cargaMax+' kg':'N/D'}</div></div>
-        </div>
+        ${batBlock}
+        ${metricsHTML}
         ${discr}
-        <div class="card-commercial">
-          ${precioBlock}
-          ${btnsBlock}
-        </div>
+        ${platsHTML}
         ${pendList}
-        <div class="card-tip">Toca para comparar hasta 3 modelos</div>
       </div>
-    </div>`;
+    </article>`;
   }).join('');
+  updateFavCount();
 }
 
 // ============================================================
@@ -1754,6 +1955,8 @@ function closeCmp(){
 // ============================================================
 // INIT
 // ============================================================
+initFilterLists();
+updateFavCount();
 renderGrid();
 </script>
 <script src="/js/onboarding.js" defer></script>
