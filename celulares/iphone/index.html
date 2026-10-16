@@ -139,12 +139,11 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .result-info{padding:.5rem 2rem;font-size:12px;color:var(--tx3)}
 
 /* ── GRID ── */
-.grid-wrap{max-width:1400px;margin:0 auto;padding:1.2rem 2rem}
-@media(max-width:480px){.grid-wrap{padding:1rem .75rem}}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-@media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:750px){.grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:480px){.grid{grid-template-columns:1fr}}
+.grid-wrap{padding:1.2rem 0}
+@media(max-width:480px){.grid-wrap{padding:1rem 0}}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(min-width:1700px){.grid{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:1300px){.grid{grid-template-columns:repeat(2,1fr)}}
 
 /* ── CARD ── */
 .card{background:var(--bg);border:1px solid var(--bd);border-radius:14px;overflow:hidden;transition:box-shadow .2s,transform .15s;cursor:pointer;position:relative;display:flex;flex-direction:column}
@@ -340,19 +339,73 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   .cmp-bar-sub{font-size:10px!important}
   .cmp-bar-actions{gap:5px!important}
 }
-/* ── Imagen protagonista (override cards.css) ──────────── */
-.card{grid-template-columns:42% 1fr!important}
-.card-img-wrap{height:280px!important;align-self:stretch!important;min-height:280px!important;padding:10px 6px!important}
-.card-img{width:95%!important;height:95%!important;object-fit:contain!important;max-width:100%!important;max-height:100%!important}
-@media(max-width:768px){
-  .card{grid-template-columns:38% 1fr!important}
-  .card-img-wrap{min-height:140px!important}
-  .card-img{width:88%!important;height:88%!important}
+/* ── Tarjeta vertical: imagen arriba a todo lo ancho, siempre ──── */
+.card{grid-template-columns:unset!important;display:flex!important;flex-direction:column!important}
+.card-img-wrap{height:auto!important;align-self:stretch!important;min-height:210px!important;padding:14px 10px!important;border-right:none!important;border-bottom:1px solid var(--bd)!important}
+.card-img{width:auto!important;height:auto!important;object-fit:contain!important;max-width:100%!important;max-height:100%!important}
+@media(max-width:560px){
+  .card-img-wrap{min-height:140px!important;padding:10px!important}
 }
-@media(max-width:540px){
-  .card{grid-template-columns:1fr!important}
-  .card-img-wrap{min-height:190px!important;max-height:240px!important;border-right:none!important;border-bottom:1px solid var(--bd)!important}
-  .card-img{width:100%!important;height:auto!important;max-height:220px!important}
+
+/* ── Guardados (nav + corazón por tarjeta) ───────────────────── */
+.nav-fav-btn{background:none;border:1px solid var(--bd);border-radius:8px;padding:5px 10px;cursor:pointer;color:var(--tx2);display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;font-family:'Satoshi',sans-serif;transition:background .15s,color .15s,border-color .15s;white-space:nowrap;flex-shrink:0}
+.nav-fav-btn:hover{background:var(--s1);color:var(--tx);border-color:var(--bd2)}
+.nav-fav-btn svg{display:block;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:2}
+.nav-fav-btn.on{color:var(--ac);border-color:var(--acd2)}
+.nav-fav-btn.on svg{fill:var(--ac);stroke:var(--ac)}
+.nav-fav-btn .nav-fav-count{display:inline-flex;align-items:center;justify-content:center;min-width:16px;height:16px;padding:0 4px;border-radius:9px;background:var(--s2);color:var(--tx2);font-size:10px;font-weight:800;line-height:1}
+.nav-fav-btn.on .nav-fav-count{background:var(--acd2);color:var(--ac)}
+@media(max-width:640px){.nav-fav-btn .nav-fav-txt{display:none}}
+.fav-btn{position:absolute;top:10px;right:10px;z-index:4;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.94);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#94a3b8;padding:0;transition:transform .12s,color .15s,box-shadow .15s;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.fav-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;display:block}
+.fav-btn:hover{color:var(--ac);transform:scale(1.08)}
+.fav-btn.on{color:var(--ac)}
+.fav-btn.on svg{fill:var(--ac);stroke:var(--ac)}
+.fav-toggle{display:inline-flex;align-items:center;gap:6px}
+.fav-toggle .fav-count{display:inline-flex;align-items:center;justify-content:center;min-width:17px;height:17px;padding:0 4px;border-radius:9px;background:var(--acd2);color:var(--ac);font-size:10px;font-weight:800;line-height:1}
+.fav-toggle.on .fav-count{background:rgba(255,255,255,.25);color:#fff}
+@media(max-width:560px){
+  .fav-btn{width:30px;height:30px;top:8px;right:8px}
+  .fav-btn svg{width:16px;height:16px}
+}
+
+/* ── iph-*: layout de dos columnas (filtros + catálogo) ──────────── */
+.iph-layout{max-width:1800px;margin:0 auto;padding:1rem 2rem 0;display:grid;grid-template-columns:280px 1fr;gap:20px;align-items:start}
+.iph-content{min-width:0}
+.iph-filters{background:#fff;border:1px solid var(--bd);border-radius:14px;padding:16px;position:sticky;top:76px;max-height:calc(100vh - 92px);overflow-y:auto}
+.iph-filters-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--bd)}
+.iph-filters-title{font-size:15px;font-weight:800;color:var(--tx);letter-spacing:-.01em}
+.iph-clear-all{font-size:12px;color:var(--ac);background:none;border:none;cursor:pointer;font-family:inherit;font-weight:600;padding:2px 0}
+.iph-clear-all:hover{text-decoration:underline}
+.iph-section{padding:12px 0;border-bottom:1px solid var(--bd)}
+.iph-section:last-child{border-bottom:none;padding-bottom:0}
+.iph-section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--tx2);margin-bottom:9px;display:block}
+.iph-check-list{display:flex;flex-direction:column}
+.iph-check-item{display:flex;align-items:center;gap:8px;padding:4px 2px;font-size:12.5px;color:var(--tx2);cursor:pointer;line-height:1.3}
+.iph-check-item input[type=checkbox]{width:15px;height:15px;accent-color:var(--ac);cursor:pointer;flex-shrink:0}
+.iph-check-item .iph-cnt{margin-left:auto;color:var(--tx3);font-size:11px;flex-shrink:0}
+.iph-pills{display:flex;flex-wrap:wrap;gap:6px}
+.iph-price-row{display:flex;align-items:center;gap:8px}
+.iph-price-sep{color:var(--tx3);font-size:12px;flex-shrink:0}
+
+.iph-filtrar-btn{display:none}
+.iph-backdrop{display:none}
+.iph-filters-foot{display:none}
+.iph-filters-close{display:none}
+@media(max-width:860px){
+  .iph-layout{display:block;padding:1rem 1rem 0}
+  .iph-filtrar-btn{display:flex;align-items:center;gap:7px;width:100%;justify-content:center;background:#fff;border:1.5px solid var(--bd2);color:var(--tx);font-weight:700;font-size:13px;padding:10px;border-radius:10px;font-family:inherit;cursor:pointer;margin-bottom:12px}
+  .iph-filtrar-btn .iph-filtrar-count{background:var(--ac);color:#fff;font-size:11px;font-weight:700;border-radius:20px;padding:1px 7px;min-width:18px;text-align:center}
+  .iph-backdrop{display:none;position:fixed;inset:0;background:rgba(15,23,42,.5);z-index:300}
+  .iph-backdrop.open{display:block}
+  .iph-filters{position:fixed;top:0;left:0;bottom:0;width:min(85vw,340px);max-height:none;border-radius:0 16px 16px 0;z-index:301;transform:translateX(-105%);transition:transform .22s ease;display:flex;flex-direction:column}
+  .iph-filters.open{transform:translateX(0)}
+  .iph-filters-scroll{overflow-y:auto;flex:1}
+  .iph-filters-foot{display:flex;gap:8px;padding-top:12px;margin-top:4px;border-top:1px solid var(--bd);flex-shrink:0}
+  .iph-filters-foot button{flex:1;padding:10px;border-radius:9px;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer}
+  .iph-apply-btn{background:var(--ac);color:#fff;border:none}
+  .iph-limpiar-btn{background:none;border:1.5px solid var(--bd2);color:var(--tx2)}
+  .iph-filters-close{all:unset;display:flex;cursor:pointer;color:var(--tx3);padding:4px;line-height:0}
 }
 /* ── Fase 3 Mobile: comparador compacto ─────────────────────── */
 .cmp-table tbody tr.cmp-group-hdr td{background:var(--s2)!important;color:var(--tx2);font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:6px 8px!important;text-align:left!important;border-top:2px solid var(--bd);border-bottom:1px solid var(--bd);position:static!important;z-index:auto!important;white-space:nowrap;min-width:0!important;max-width:none!important;width:auto!important}
@@ -473,6 +526,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 
       <a class="nav-link" href="/tecnologia/">🎧 Tecnología</a>
   </div>
+  <button class="nav-fav-btn" id="nav-fav-btn" type="button" onclick="toggleSoloFavs();document.getElementById('grid')?.scrollIntoView({behavior:'smooth',block:'start'})" title="Ver tus iPhone guardados" aria-pressed="false"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg><span class="nav-fav-txt">Guardados</span> <span class="nav-fav-count" id="nav-fav-count">0</span></button>
   <button class="btn-share" onclick="shareCurrentPage()" title="Compartir esta p&#225;gina" aria-label="Compartir"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg><span class="share-txt">Compartir</span></button>
 </nav>
 
@@ -483,54 +537,98 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   </div>
 </div>
 
-<div class="toolbar" id="toolbar">
-  <span class="filter-label">Serie</span>
-  <button class="filter on" onclick="toggleFilter('serie','todos',this)">Todas</button>
-  <button class="filter" onclick="toggleFilter('serie','14',this)">iPhone 14</button>
-  <button class="filter" onclick="toggleFilter('serie','15',this)">iPhone 15</button>
-  <button class="filter" onclick="toggleFilter('serie','16',this)">iPhone 16</button>
-  <button class="filter" onclick="toggleFilter('serie','17',this)">iPhone 17</button>
-  <button class="filter" onclick="toggleFilter('serie','18',this)">iPhone 18</button>
-  <span class="filter-sep"></span>
-  <span class="filter-label">Condición</span>
-  <button class="filter on" onclick="toggleFilter('condicion','todos',this)">Todas</button>
-  <button class="filter" onclick="toggleFilter('condicion','nuevo',this)">Nuevo</button>
-  <button class="filter" onclick="toggleFilter('condicion','reacond',this)">Reacondicionado</button>
-  <span class="filter-sep"></span>
-  <span class="filter-label">Color</span>
-  <div class="color-filter-wrap">
-    <button class="filter" id="btn-color-iphone" onclick="toggleColorDropdown()">Todos ▾</button>
-    <div class="color-dropdown" id="color-dd-iphone"></div>
-  </div>
+<div class="iph-layout">
+  <button class="iph-filtrar-btn" id="iph-filtrar-btn" onclick="openFiltersDrawer()" aria-haspopup="dialog" aria-expanded="false" aria-controls="iph-filters">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+    Filtrar
+    <span class="iph-filtrar-count" id="iph-filtrar-count" style="display:none">0</span>
+  </button>
+  <div class="iph-backdrop" id="iph-backdrop" onclick="closeFiltersDrawer()"></div>
 
-  <span class="filter-sep"></span>
-  <span class="filter-label">Tienda</span>
-  <button class="filter on" data-group="plat" onclick="toggleFilter('plat','todos',this)">Ambas</button>
-  <button class="filter filter-logo" data-group="plat" onclick="toggleFilter('plat','amz',this)"><img src="/logoamazon.png" alt="Amazon" style="height:16px;width:auto;object-fit:contain" onerror="this.outerHTML='Amazon'"></button>
-  <button class="filter filter-logo" data-group="plat" onclick="toggleFilter('plat','ml',this)"><img src="/logomercado.png" alt="Mercado Libre" style="height:16px;width:auto;object-fit:contain" onerror="this.outerHTML='ML'"></button>
+  <!-- FILTROS -->
+  <aside class="iph-filters" id="iph-filters" role="region" aria-label="Filtros">
+    <div class="iph-filters-scroll">
+      <div class="iph-filters-head">
+        <span class="iph-filters-title">Filtros</span>
+        <div style="display:flex;align-items:center;gap:12px">
+          <button class="iph-clear-all" onclick="clearFilters()">Limpiar todos</button>
+          <button class="iph-filters-close" onclick="closeFiltersDrawer()" aria-label="Cerrar filtros">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
 
+      <div class="iph-section">
+        <span class="iph-section-title">Precio (MXN)</span>
+        <div class="iph-price-row">
+          <input type="number" id="precio-min" placeholder="Mín." class="precio-max-input" oninput="render()" min="0" step="500" aria-label="Precio mínimo">
+          <span class="iph-price-sep">–</span>
+          <input type="number" id="precio-max" placeholder="Máx." class="precio-max-input" oninput="render()" min="0" step="500" aria-label="Precio máximo">
+        </div>
+      </div>
 
-  <div class="sort-wrap">
-    <div class="filter-sep"></div>
-    <span class="filter-label">Precio máx.</span>
-    <input type="number" id="precio-max" placeholder="ej. 8000" class="precio-max-input" oninput="render()" min="0" step="500">
-    <button class="filter" id="btn-clear-filters" onclick="clearFilters()" style="display:none">✕ Limpiar filtros</button>
-    <span class="sort-label">Ordenar:</span>
-    <select class="sort-sel" id="sort-sel" onchange="render()">
-      <option value="precio-asc">Precio más bajo ↑</option>
-      <option value="precio-desc">Precio más alto ↑</option>
-      <option value="nombre">Nombre A → Z</option>
-    </select>
-  </div>
-</div>
+      <div class="iph-section">
+        <span class="iph-section-title">Guardados</span>
+        <button class="filter fav-toggle" id="btn-favs" type="button" onclick="toggleSoloFavs()" title="Ver solo los iPhone que guardaste" style="width:100%;justify-content:center">♥ Ver solo guardados <span class="fav-count" id="fav-count">0</span></button>
+      </div>
 
-<div class="search-bar">
-  <input id="search" type="text" placeholder="🔍 Buscar por modelo o almacenamiento…" oninput="render()">
-</div>
+      <div class="iph-section">
+        <span class="iph-section-title">Serie</span>
+        <div class="iph-check-list" id="iph-list-serie"></div>
+      </div>
 
-<div class="result-info" id="result-info"></div>
+      <div class="iph-section">
+        <span class="iph-section-title">Condición</span>
+        <div class="iph-pills">
+          <button class="filter on" onclick="toggleFilter('condicion','todos',this)">Todas</button>
+          <button class="filter" onclick="toggleFilter('condicion','nuevo',this)">Nuevo</button>
+          <button class="filter" onclick="toggleFilter('condicion','reacond',this)">Reacondicionado</button>
+        </div>
+      </div>
 
-<!-- GUÍA: franja desktop + tarjeta móvil -->
+      <div class="iph-section">
+        <span class="iph-section-title">Color</span>
+        <div class="color-filter-wrap">
+          <button class="filter" id="btn-color-iphone" onclick="toggleColorDropdown()" style="width:100%">Todos ▾</button>
+          <div class="color-dropdown" id="color-dd-iphone"></div>
+        </div>
+      </div>
+
+      <div class="iph-section">
+        <span class="iph-section-title">Tienda</span>
+        <div class="iph-pills">
+          <button class="filter on" data-group="plat" onclick="toggleFilter('plat','todos',this)">Ambas</button>
+          <button class="filter filter-logo" data-group="plat" onclick="toggleFilter('plat','amz',this)"><img src="/logoamazon.png" alt="Amazon" style="height:16px;width:auto;object-fit:contain" onerror="this.outerHTML='Amazon'"></button>
+          <button class="filter filter-logo" data-group="plat" onclick="toggleFilter('plat','ml',this)"><img src="/logomercado.png" alt="Mercado Libre" style="height:16px;width:auto;object-fit:contain" onerror="this.outerHTML='ML'"></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="iph-filters-foot">
+      <button class="iph-limpiar-btn" onclick="clearFilters()">Limpiar</button>
+      <button class="iph-apply-btn" onclick="closeFiltersDrawer()">Aplicar filtros</button>
+    </div>
+  </aside>
+
+  <!-- CATÁLOGO -->
+  <div class="iph-content">
+    <div class="search-bar" style="padding:0 0 10px">
+      <input id="search" type="text" placeholder="🔍 Buscar por modelo o almacenamiento…" oninput="render()">
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:.4rem 0;flex-wrap:wrap">
+      <div class="result-info" id="result-info"></div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="sort-label">Ordenar:</span>
+        <select class="sort-sel" id="sort-sel" onchange="render()">
+          <option value="precio-asc">Precio más bajo ↑</option>
+          <option value="precio-desc">Precio más alto ↑</option>
+          <option value="nombre">Nombre A → Z</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- GUÍA: franja desktop + tarjeta móvil -->
 <div class="how-strip" role="note">
   <div class="how-strip-lead">
     <span class="how-strip-icon">📱</span>
@@ -888,7 +986,9 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       </div>
     </article>
   </div>
-</div>
+  </div>
+  </div><!-- /iph-content -->
+</div><!-- /iph-layout -->
 
 <!-- SEO content block -->
 <section style="max-width:860px;margin:2.5rem auto;padding:0 2rem;color:var(--tx2);font-size:.9rem;line-height:1.8">
@@ -1964,7 +2064,81 @@ function btnsHTML(variante, nombre) {
 // ─────────────────────────────────────────────────────────────────────────────
 // RENDER GRID
 // ─────────────────────────────────────────────────────────────────────────────
-const filterState = { serie: 'todos', condicion: 'todos', color: 'todos', plat: 'todos' };
+const filterState = { series: new Set(), condicion: 'todos', color: 'todos', plat: 'todos', soloFavs: false };
+
+/* ─── FAVORITOS (guardar / dar seguimiento) ──────────────────
+   Se guardan en el navegador del usuario (localStorage), no salen
+   del dispositivo. ──────────────────────────────────────────── */
+const FAV_KEY = 'comparalo:fav:celulares-iphone';
+function loadFavs(){ try{ return new Set(JSON.parse(localStorage.getItem(FAV_KEY)||'[]')); }catch(e){ return new Set(); } }
+function saveFavs(){ try{ localStorage.setItem(FAV_KEY, JSON.stringify([...favs])); }catch(e){} }
+let favs = loadFavs();
+function toggleFav(id, ev){
+  if (ev) ev.stopPropagation();
+  if (favs.has(id)) favs.delete(id); else favs.add(id);
+  saveFavs();
+  const b = document.querySelector('#card-'+id+' .fav-btn');
+  if (b){ const on = favs.has(id); b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); b.title = on ? 'Quitar de guardados' : 'Guardar producto'; }
+  if (typeof gtag === 'function'){ try{ gtag('event', favs.has(id)?'save_product':'unsave_product', { item_id:id, page_section:'celulares_iphone' }); }catch(e){} }
+  updateFavCount();
+  if (filterState.soloFavs) render();
+}
+function updateFavCount(){
+  const el = document.getElementById('fav-count'); if (el) el.textContent = favs.size;
+  const navEl = document.getElementById('nav-fav-count'); if (navEl) navEl.textContent = favs.size;
+}
+function toggleSoloFavs(){
+  filterState.soloFavs = !filterState.soloFavs;
+  const btn = document.getElementById('btn-favs'); if (btn) btn.classList.toggle('on', filterState.soloFavs);
+  const navBtn = document.getElementById('nav-fav-btn'); if (navBtn) { navBtn.classList.toggle('on', filterState.soloFavs); navBtn.setAttribute('aria-pressed', filterState.soloFavs); }
+  updateFiltrarBadge();
+  render();
+}
+
+/* ─── SERIE: checklist con conteo real ───────────────────────── */
+const serieCount = s => familias.filter(f => f.serie === s).length;
+function buildSerieList() {
+  const el = document.getElementById('iph-list-serie');
+  if (!el) return;
+  const series = [...new Set(familias.map(f => f.serie).filter(Boolean))].sort((a,b)=>Number(b)-Number(a));
+  el.innerHTML = series.map(s => `<label class="iph-check-item">
+    <input type="checkbox" ${filterState.series.has(s)?'checked':''} onchange="toggleSerie('${s}', this.checked)">
+    iPhone ${s}<span class="iph-cnt">(${serieCount(s)})</span>
+  </label>`).join('');
+}
+function toggleSerie(value, checked) {
+  if (checked) filterState.series.add(value); else filterState.series.delete(value);
+  updateFiltrarBadge();
+  render();
+}
+
+function updateFiltrarBadge() {
+  const badge = document.getElementById('iph-filtrar-count');
+  if (!badge) return;
+  let n = filterState.series.size;
+  if (filterState.condicion !== 'todos') n++;
+  if (filterState.color !== 'todos') n++;
+  if (filterState.plat !== 'todos') n++;
+  if (filterState.soloFavs) n++;
+  if (document.getElementById('precio-min')?.value) n++;
+  if (document.getElementById('precio-max')?.value) n++;
+  badge.textContent = n;
+  badge.style.display = n > 0 ? '' : 'none';
+}
+
+function openFiltersDrawer() {
+  document.getElementById('iph-filters').classList.add('open');
+  document.getElementById('iph-backdrop').classList.add('open');
+  document.getElementById('iph-filtrar-btn').setAttribute('aria-expanded', 'true');
+  document.body.style.overflow = 'hidden';
+}
+function closeFiltersDrawer() {
+  document.getElementById('iph-filters').classList.remove('open');
+  document.getElementById('iph-backdrop').classList.remove('open');
+  document.getElementById('iph-filtrar-btn').setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeFiltersDrawer(); });
 
 const COLOR_SWATCHES = {
   'Negro':    '#1c1c1e',
@@ -2006,8 +2180,7 @@ function applyColor(color, el) {
   if (color === 'todos') { btn.textContent = 'Todos ▾'; btn.classList.remove('on'); }
   else { btn.textContent = color + ' ▾'; btn.classList.add('on'); }
   document.getElementById('color-dd-iphone').classList.remove('open');
-  const dirty = filterState.serie !== 'todos' || filterState.condicion !== 'todos' || filterState.color !== 'todos' || filterState.plat !== 'todos';
-  document.getElementById('btn-clear-filters').style.display = dirty ? '' : 'none';
+  updateFiltrarBadge();
   render();
 }
 
@@ -2019,29 +2192,31 @@ document.addEventListener('click', function(e) {
 
 function toggleFilter(key, val, btn) {
   filterState[key] = val;
-  const group = Array.from(btn.closest('.toolbar').querySelectorAll('.filter')).filter(b =>
-    b.getAttribute('onclick') && b.getAttribute('onclick').includes(`'${key}'`)
-  );
+  const group = Array.from(btn.closest('.iph-pills').querySelectorAll('.filter'));
   group.forEach(b => b.classList.remove('on'));
   btn.classList.add('on');
-  const dirty = filterState.serie !== 'todos' || filterState.condicion !== 'todos' || filterState.color !== 'todos' || filterState.plat !== 'todos';
-  document.getElementById('btn-clear-filters').style.display = dirty ? '' : 'none';
+  updateFiltrarBadge();
   render();
 }
 
 function clearFilters() {
-  filterState.serie = 'todos';
+  filterState.series.clear();
   filterState.condicion = 'todos';
   filterState.color = 'todos';
   filterState.plat = 'todos';
+  filterState.soloFavs = false;
+  const _pmin=document.getElementById('precio-min');if(_pmin)_pmin.value='';
   const _pm=document.getElementById('precio-max');if(_pm)_pm.value='';
   document.getElementById('search').value = '';
+  document.querySelectorAll('.iph-check-item input[type=checkbox]').forEach(cb => cb.checked = false);
   document.querySelectorAll('.filter.on').forEach(b => b.classList.remove('on'));
   document.querySelectorAll('.filter[onclick*="\'todos\'"]').forEach(b => b.classList.add('on'));
   document.getElementById('btn-color-iphone').textContent = 'Todos ▾';
   document.getElementById('btn-color-iphone').classList.remove('on');
   document.querySelectorAll('#color-dd-iphone .color-opt').forEach((x,i) => x.classList.toggle('on', i===0));
-  document.getElementById('btn-clear-filters').style.display = 'none';
+  document.getElementById('btn-favs')?.classList.remove('on');
+  document.getElementById('nav-fav-btn')?.classList.remove('on');
+  updateFiltrarBadge();
   render();
 }
 
@@ -2050,12 +2225,14 @@ function render() {
   const sortVal = document.getElementById('sort-sel').value;
 
   let lista = familias.filter(f => {
-    if (filterState.serie !== 'todos' && f.serie !== filterState.serie) return false;
+    if (filterState.soloFavs && !favs.has(f.modeloBase)) return false;
+    if (filterState.series.size && !filterState.series.has(f.serie)) return false;
     if (filterState.condicion === 'nuevo'   &&  f.reacondicionado) return false;
     if (filterState.condicion === 'reacond' && !f.reacondicionado) return false;
     if (filterState.color !== 'todos' && f.colores && !f.colores.includes(filterState.color)) return false;
     if (q && !f.nombre.toLowerCase().includes(q)) return false;
     const _maxP=parseFloat(document.getElementById('precio-max')?.value)||Infinity;if(_maxP<Infinity){const _minV=Math.min(...f.variantes.map(v=>v.precio||Infinity));if(_minV>_maxP)return false;}
+    const _minP=parseFloat(document.getElementById('precio-min')?.value)||0;if(_minP>0){const _maxV=Math.max(...f.variantes.map(v=>v.precio||0));if(_maxV<_minP)return false;}
     if (filterState.plat === 'amz' && !f.variantes.some(v=>v.linkAmz)) return false;
     if (filterState.plat === 'ml' && !f.variantes.some(v=>v.linkML)) return false;
     return true;
@@ -2079,9 +2256,11 @@ function render() {
     if (!empty) {
       empty = document.createElement('div');
       empty.id = 'empty'; empty.className = 'empty';
-      empty.textContent = 'No hay modelos con esos filtros.';
       grid.parentNode.insertBefore(empty, grid.nextSibling);
     }
+    empty.textContent = (filterState.soloFavs && favs.size === 0)
+      ? 'Aún no has guardado iPhone. Toca el ♥ en una tarjeta para seguirlos.'
+      : 'No hay modelos con esos filtros.';
     empty.style.display = 'block';
     info.textContent = '';
     return;
@@ -2090,6 +2269,7 @@ function render() {
   if (emptyEl) emptyEl.style.display = 'none';
   info.textContent = lista.length + ' modelo' + (lista.length !== 1 ? 's' : '');
   grid.innerHTML = lista.map(f => cardHTML(f)).join('');
+  updateFavCount();
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -2133,9 +2313,12 @@ function cardHTML(familia) {
 
   const _plat = (variante.linkML && variante.linkAmz) ? 'both' : (variante.linkML ? 'ml' : 'amz');
   const _hasMultiStor = familia.variantes.length > 1;
+  const isFav = favs.has(mb);
+  const favBtn = `<button class="fav-btn${isFav?' on':''}" type="button" aria-label="Guardar producto" aria-pressed="${isFav}" title="${isFav?'Quitar de guardados':'Guardar producto'}" onclick="toggleFav('${mb}',event)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></button>`;
   return `
-  <div class="card${isSelected ? ' selected' : ''}" data-platform="${_plat}" id="card-${mb}" onclick="toggleSelect('${mb}')">
+  <div class="card${isSelected ? ' selected' : ''}" data-platform="${_plat}" id="card-${mb}" onclick="if(!event.target.closest('a,button'))toggleSelect('${mb}')">
     ${isSelected ? '<div class="sel-check">✓</div>' : ''}
+    ${favBtn}
     <div class="card-img-wrap">
       <img class="card-img" id="img-${mb}" src="${imgSrc}" alt="${familia.nombre}" loading="lazy" onerror="${imgFallback}">
     </div>
@@ -2541,6 +2724,8 @@ function closeModal() {
 // INIT
 // ─────────────────────────────────────────────────────────────────────────────
 buildColorDropdown();
+buildSerieList();
+updateFavCount();
 render();
 </script>
 
