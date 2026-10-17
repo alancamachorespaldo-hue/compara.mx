@@ -83,9 +83,20 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .nav-link:hover{color:var(--ac)}
 .nav-link.active{color:var(--ac);font-weight:700}
 
-.hero{background:linear-gradient(135deg,#006847 0%,#004d34 100%);color:#fff;padding:14px 20px 12px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.hero h1{font-size:1.05rem;font-weight:800;letter-spacing:-.02em}
-.hero p{opacity:.8;font-size:.78rem}
+.hero{background:linear-gradient(135deg,#006847 0%,#004d34 60%,#003829 100%);color:#fff;padding:1.75rem 2.5rem 1.5rem;display:grid;grid-template-columns:1fr 200px;gap:2rem;align-items:center;overflow:hidden}
+@media(max-width:1000px){.hero{grid-template-columns:1fr}}
+.hero h1{font-size:2rem;font-weight:800;letter-spacing:-.03em;line-height:1.1;margin-bottom:.4rem}
+.hero p{opacity:.8;font-size:.9rem;margin-bottom:1.25rem;line-height:1.5}
+.hero-steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:620px){.hero{padding:1.25rem 1.25rem 1rem}.hero h1{font-size:1.5rem}.hero-steps-grid{grid-template-columns:1fr;gap:6px}}
+.hero-step-card{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:.875rem 1rem;display:flex;align-items:flex-start;gap:10px}
+.hero-step-num{width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0;margin-top:1px}
+.hero-step-body .t{display:block;font-size:13px;font-weight:700;line-height:1.2}
+.hero-step-body .d{display:block;font-size:11px;opacity:.72;margin-top:2px;line-height:1.3}
+.hero-imgs{display:flex;flex-direction:column;gap:8px;align-items:center}
+.hero-imgs-row{display:flex;gap:8px}
+.hero-thumb{width:88px;height:88px;object-fit:contain;border-radius:12px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);padding:6px}
+@media(max-width:1000px){.hero-imgs{display:none}}
 
 .search-bar{background:#fff;border-bottom:1px solid var(--bd);padding:10px 2rem}
 .search-bar input{width:100%;max-width:520px;padding:9px 14px;border:1.5px solid var(--bd2);border-radius:10px;font-size:.84rem;font-family:'Satoshi',sans-serif;color:var(--tx);outline:none;transition:border-color .15s}
@@ -225,6 +236,54 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   .cmp-fab-count{background:#fff;color:var(--ac);border-radius:50%;width:22px;height:22px;font-size:.78rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0}
   body{padding-bottom:80px}
 }
+
+/* ── Layout con sidebar ──────────────────────────────────────────── */
+.aud-layout{max-width:1400px;margin:0 auto;padding:0 2rem 1.2rem;display:grid;grid-template-columns:260px 1fr;gap:24px;align-items:start}
+@media(max-width:860px){.aud-layout{grid-template-columns:1fr;padding:0 .75rem 1rem}}
+/* sidebar */
+.aud-filters{background:var(--bg);border:1px solid var(--bd);border-radius:14px;overflow:hidden;position:sticky;top:80px;max-height:calc(100vh - 96px);overflow-y:auto;scrollbar-width:thin}
+.aud-filters-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 12px;border-bottom:1px solid var(--bd);position:sticky;top:0;background:var(--bg);z-index:2}
+.aud-filters-title{font-size:14px;font-weight:700;color:var(--tx)}
+.aud-clear-all{background:none;border:none;color:var(--ac);font-size:12px;font-weight:600;cursor:pointer;font-family:'Satoshi',sans-serif;padding:4px 0;visibility:hidden}
+.aud-clear-all:hover{text-decoration:underline}
+.aud-section{padding:14px 16px;border-bottom:1px solid var(--bd)}
+.aud-section:last-child{border-bottom:none}
+.aud-section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--tx3);margin-bottom:10px;display:block}
+.aud-price-row{display:grid;grid-template-columns:1fr auto 1fr;gap:6px;align-items:center}
+.aud-price-input{width:100%;padding:7px 10px;border:1.5px solid var(--bd2);border-radius:8px;font-size:12px;font-family:'Satoshi',sans-serif;color:var(--tx);outline:none;background:var(--bg)}
+.aud-price-input:focus{border-color:var(--ac)}
+.aud-price-sep{text-align:center;color:var(--tx3);font-size:12px}
+.filter-check{display:flex;align-items:center;gap:8px;padding:5px 0;cursor:pointer;user-select:none}
+.filter-check input{width:15px;height:15px;accent-color:var(--ac);cursor:pointer;flex-shrink:0}
+.filter-check-label{font-size:13px;color:var(--tx);flex:1}
+.filter-check-count{font-size:11px;color:var(--tx3);margin-left:2px}
+/* mobile filter button */
+.aud-filtrar-btn{display:none;align-items:center;gap:6px;background:var(--bg);border:1.5px solid var(--bd2);border-radius:10px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Satoshi',sans-serif;color:var(--tx);margin:10px 0 0}
+.aud-filtrar-count{background:var(--ac);color:#fff;border-radius:50%;width:18px;height:18px;font-size:11px;font-weight:700;display:none;align-items:center;justify-content:center;flex-shrink:0}
+.aud-filtrar-count.show{display:flex}
+.aud-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:299}
+.aud-backdrop.show{display:block}
+.aud-filters-close{all:unset;cursor:pointer;color:var(--tx3);padding:4px;border-radius:8px;display:none;line-height:0}
+.aud-filters-close:hover{background:var(--s2);color:var(--tx)}
+/* sort row */
+.aud-sort-row{display:flex;align-items:center;justify-content:space-between;padding:.5rem 0 .65rem;gap:12px;flex-wrap:wrap}
+.aud-result-count{font-size:12px;color:var(--tx3)}
+.aud-sort-row select{border:1.5px solid var(--bd2);border-radius:8px;padding:7px 10px;font-size:12px;font-family:'Satoshi',sans-serif;color:var(--tx);background:var(--bg);outline:none;cursor:pointer}
+.aud-sort-row select:focus{border-color:var(--ac)}
+/* ── Sticky how-strip ─────────────────────────────────────────────── */
+.how-strip.sticky{position:fixed;top:64px;left:0;right:0;z-index:95;border-radius:0;box-shadow:0 2px 10px rgba(0,0,0,.18)}
+#how-strip-spacer{display:none;pointer-events:none;flex-shrink:0}
+@media(min-width:861px){
+  body.how-sticky .aud-filters{top:var(--sf-top,122px);max-height:var(--sf-mh,calc(100vh - 138px))}
+}
+@media(prefers-reduced-motion:reduce){.how-strip{transition:none!important;box-shadow:none}}
+/* mobile: filters drawer */
+@media(max-width:860px){
+  .aud-filtrar-btn{display:flex}
+  .aud-filters{display:none;position:fixed;left:0;top:0;bottom:0;z-index:300;width:280px;max-height:100%;border-radius:0;border:none;border-right:1px solid var(--bd);box-shadow:4px 0 24px rgba(0,0,0,.15);overflow-y:auto}
+  .aud-filters.open{display:block}
+  .aud-filters-close{display:flex}
+}
 </style>
 </head>
 <body data-category="tecnologia_audifonos">
@@ -247,52 +306,119 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   <button class="btn-share" onclick="shareCurrentPage()" title="Compartir esta p&#225;gina" aria-label="Compartir"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg><span class="share-txt">Compartir</span></button>
 </nav>
 
-<div class="hero">
-  <div>
+<div class="hero" id="hero">
+  <div class="hero-left">
     <h1>Audífonos en México</h1>
-    <p>In-ear · Over-ear · True wireless · Amazon MX y Mercado Libre</p>
+    <p>Compara audífonos in-ear, over-ear y true wireless de las mejores marcas.<br>Encuentra el modelo ideal según tu uso, sonido, batería y presupuesto.</p>
+    <div class="hero-steps-grid">
+      <div class="hero-step-card">
+        <span class="hero-step-num">1</span>
+        <div class="hero-step-body">
+          <span class="t">Filtra</span>
+          <span class="d">Elige tipo, marca, precio y más.</span>
+        </div>
+      </div>
+      <div class="hero-step-card">
+        <span class="hero-step-num">2</span>
+        <div class="hero-step-body">
+          <span class="t">Compara</span>
+          <span class="d">Revisa sonido, batería, cancelación de ruido y características.</span>
+        </div>
+      </div>
+      <div class="hero-step-card">
+        <span class="hero-step-num">3</span>
+        <div class="hero-step-body">
+          <span class="t">Elige dónde comprar</span>
+          <span class="d">Consulta Amazon y Mercado Libre.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-imgs" aria-hidden="true">
+    <div class="hero-imgs-row">
+      <img class="hero-thumb" src="https://http2.mlstatic.com/D_NQ_NP_963414-MLA99445666920_112025-F.jpg" alt="" loading="lazy">
+      <img class="hero-thumb" src="https://http2.mlstatic.com/D_NQ_NP_714087-MLA96151231035_102025-F.jpg" alt="" loading="lazy">
+    </div>
+    <div class="hero-imgs-row">
+      <img class="hero-thumb" src="https://http2.mlstatic.com/D_NQ_NP_659945-MLA114453334781_072026-F.jpg" alt="" loading="lazy">
+      <img class="hero-thumb" src="https://http2.mlstatic.com/D_NQ_NP_882020-MLA96100284675_102025-F.jpg" alt="" loading="lazy">
+    </div>
   </div>
 </div>
 
-<div class="search-bar">
-  <input id="search" type="text" placeholder="🔍 Buscar por marca o modelo…" oninput="render()">
-</div>
-<div class="result-info" id="result-info"></div>
+<div class="aud-layout">
+  <!-- botón filtrar mobile -->
+  <button class="aud-filtrar-btn" id="aud-filtrar-btn" onclick="openAudFilters()" aria-haspopup="dialog" aria-expanded="false" aria-controls="aud-filters">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+    Filtrar
+    <span class="aud-filtrar-count" id="aud-filtrar-count">0</span>
+  </button>
+  <div class="aud-backdrop" id="aud-backdrop" onclick="closeAudFilters()"></div>
 
-<!-- GUÍA: franja desktop + tarjeta móvil -->
-<div class="how-strip" role="note">
-  <div class="how-strip-lead">
-    <span class="how-strip-icon">🎧</span>
-    <div>
-      <div class="how-strip-title">Encuentra tus audífonos ideales</div>
-      <div class="how-strip-sub">en Compáralo.mx</div>
+  <!-- SIDEBAR FILTROS -->
+  <aside class="aud-filters" id="aud-filters" role="region" aria-label="Filtros">
+    <div class="aud-filters-head">
+      <span class="aud-filters-title">Filtros</span>
+      <div style="display:flex;align-items:center;gap:10px">
+        <button class="aud-clear-all" id="aud-clear-all" onclick="clearFilters()">Limpiar todos</button>
+        <button class="aud-filters-close" onclick="closeAudFilters()" aria-label="Cerrar filtros">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
     </div>
-  </div>
-  <div class="how-steps">
-    <div class="how-step">
-      <span class="how-step-num">1</span>
-      <div><div class="how-step-title">Filtra</div><div class="how-step-desc">Busca por marca o modelo.</div></div>
+    <div class="aud-section">
+      <span class="aud-section-title">Precio (MXN)</span>
+      <div class="aud-price-row">
+        <input type="number" id="precio-min" placeholder="Mín." class="aud-price-input" oninput="onAudPrecioMin()" min="0" step="100" aria-label="Precio mínimo">
+        <span class="aud-price-sep">–</span>
+        <input type="number" id="precio-max" placeholder="Máx." class="aud-price-input" oninput="onAudPrecioMax()" min="0" step="100" aria-label="Precio máximo">
+      </div>
     </div>
-    <span class="how-arrow" aria-hidden="true">›</span>
-    <div class="how-step">
-      <span class="how-step-num">2</span>
-      <div><div class="how-step-title">Compara</div><div class="how-step-desc">Revisa batería, cancelación de ruido y resistencia al agua.</div></div>
+    <div class="aud-section">
+      <span class="aud-section-title">Tipo</span>
+      <label class="filter-check"><input type="checkbox" value="In-ear" onchange="toggleTipo(this.value,this.checked)"><span class="filter-check-label">In-ear</span><span class="filter-check-count" id="cnt-tipo-in-ear"></span></label>
+      <label class="filter-check"><input type="checkbox" value="Over-ear" onchange="toggleTipo(this.value,this.checked)"><span class="filter-check-label">Over-ear</span><span class="filter-check-count" id="cnt-tipo-over-ear"></span></label>
+      <label class="filter-check"><input type="checkbox" value="On-ear" onchange="toggleTipo(this.value,this.checked)"><span class="filter-check-label">On-ear</span><span class="filter-check-count" id="cnt-tipo-on-ear"></span></label>
+      <label class="filter-check"><input type="checkbox" value="Headset" onchange="toggleTipo(this.value,this.checked)"><span class="filter-check-label">Gaming / Headset</span><span class="filter-check-count" id="cnt-tipo-headset"></span></label>
+      <label class="filter-check"><input type="checkbox" value="Neckband" onchange="toggleTipo(this.value,this.checked)"><span class="filter-check-label">Neckband</span><span class="filter-check-count" id="cnt-tipo-neckband"></span></label>
     </div>
-    <span class="how-arrow" aria-hidden="true">›</span>
-    <div class="how-step">
-      <span class="how-step-num">3</span>
-      <div><div class="how-step-title">Consulta el precio</div><div class="how-step-desc">Haz clic en "Ir a Amazon" o "Ir a ML" en la tarjeta.</div></div>
+    <div class="aud-section">
+      <span class="aud-section-title">Marca</span>
+      <div id="aud-marcas"></div>
     </div>
-  </div>
-</div>
-<button class="how-card" id="howCard" onclick="openHowModal()" aria-expanded="false" aria-haspopup="dialog">
-  <span class="how-card-icon">🎧</span>
-  <span>
-    <span class="how-card-title">¿Cómo funciona?</span>
-    <span class="how-card-sub">Encuentra tus audífonos ideales en 3 pasos</span>
-  </span>
-  <span class="how-card-arrow" aria-hidden="true">›</span>
-</button>
+    <div class="aud-section">
+      <span class="aud-section-title">Cancelación de ruido</span>
+      <label class="filter-check"><input type="checkbox" id="filter-anc" onchange="toggleANC(this.checked)"><span class="filter-check-label">Solo con ANC</span><span class="filter-check-count" id="cnt-anc"></span></label>
+    </div>
+  </aside>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="aud-content">
+    <!-- GUÍA: franja desktop + tarjeta móvil -->
+    <div class="how-strip" id="how-strip" role="note">
+      <div class="how-strip-lead">
+        <span class="how-strip-icon">🎧</span>
+        <div>
+          <div class="how-strip-title">Encuentra tus audífonos ideales</div>
+          <div class="how-strip-sub">en Compáralo.mx</div>
+        </div>
+      </div>
+      <div class="how-steps">
+        <div class="how-step"><span class="how-step-num">1</span><div><div class="how-step-title">Filtra</div><div class="how-step-desc">Elige tipo, marca y precio.</div></div></div>
+        <span class="how-arrow" aria-hidden="true">›</span>
+        <div class="how-step"><span class="how-step-num">2</span><div><div class="how-step-title">Compara</div><div class="how-step-desc">Revisa batería, cancelación de ruido y resistencia al agua.</div></div></div>
+        <span class="how-arrow" aria-hidden="true">›</span>
+        <div class="how-step"><span class="how-step-num">3</span><div><div class="how-step-title">Consulta el precio</div><div class="how-step-desc">Haz clic en "Ir a Amazon" o "Ir a ML" en la tarjeta.</div></div></div>
+      </div>
+    </div>
+    <button class="how-card" id="howCard" onclick="openHowModal()" aria-expanded="false" aria-haspopup="dialog">
+      <span class="how-card-icon">🎧</span>
+      <span>
+        <span class="how-card-title">¿Cómo funciona?</span>
+        <span class="how-card-sub">Encuentra tus audífonos ideales en 3 pasos</span>
+      </span>
+      <span class="how-card-arrow" aria-hidden="true">›</span>
+    </button>
 
 <!-- Modal guía -->
 <div class="how-modal-ov" id="howModalOv" role="dialog" aria-modal="true" aria-labelledby="howModalTitle">
@@ -347,14 +473,29 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   </div>
 </div>
 
-<div class="grid-wrap">
-  <div class="grid" id="grid"></div>
-  <div id="empty" class="empty" style="display:none">
-    <strong>Audífonos en camino.</strong>
-    Estamos agregando productos — vuelve pronto.<br><br>
-    <a href="/tecnologia/" style="color:var(--ac);font-weight:700;text-decoration:underline;text-underline-offset:2px">Ver tecnología disponible →</a>
-  </div>
-</div>
+    <!-- Buscador -->
+    <div class="search-bar" style="padding:10px 0;border:none;background:transparent">
+      <input id="search" type="text" placeholder="🔍 Buscar por marca o modelo…" oninput="render()">
+    </div>
+
+    <!-- Resultado + ordenar -->
+    <div class="aud-sort-row">
+      <div class="aud-result-count" id="result-info"></div>
+      <select id="sort-sel" onchange="render()" aria-label="Ordenar productos">
+        <option value="pop">Ordenar por: Popularidad</option>
+        <option value="price-asc">Precio: menor a mayor</option>
+        <option value="price-desc">Precio: mayor a menor</option>
+      </select>
+    </div>
+
+    <div class="grid" id="grid"></div>
+    <div id="empty" class="empty" style="display:none">
+      <strong>Audífonos en camino.</strong>
+      Estamos agregando productos — vuelve pronto.<br><br>
+      <a href="/tecnologia/" style="color:var(--ac);font-weight:700;text-decoration:underline;text-underline-offset:2px">Ver tecnología disponible →</a>
+    </div>
+  </div><!-- /aud-content -->
+</div><!-- /aud-layout -->
 
 <section style="max-width:760px;margin:0 auto 2.5rem;padding:0 2rem;color:var(--tx2);font-size:.9rem;line-height:1.8">
   <h2 style="font-size:1.15rem;font-weight:800;color:var(--tx);margin-bottom:.75rem;letter-spacing:-.02em">Audífonos: qué revisar antes de comprar</h2>
@@ -1217,6 +1358,13 @@ const productos = [
 const precioVigente = p => (p.linkML ? p.precioML : p.precioAmz) ?? p.precio ?? null;
 const SPEC_KEYS = [['formato','Formato'],['inalambrico','Inalámbrico'],['microfono','Micrófono'],['bateria','Batería'],['manosLibres','Manos libres'],['cancelacionRuido','Cancel. ruido'],['cargaInalambrica','Carga inalám.']];
 
+/* ── Estado de filtros ── */
+let filtroTipo = new Set();
+let filtroMarca = new Set();
+let filtroANC = false;
+let filtroPrecioMin = '';
+let filtroPrecioMax = '';
+
 let selected = [];
 function cardHtml(p) {
   const hasML = !!p.linkML, hasAmz = !!p.linkAmz;
@@ -1253,16 +1401,86 @@ function render() {
   const empty = document.getElementById('empty');
   const info = document.getElementById('result-info');
   if (!productos.length) {
-    grid.innerHTML = '';
-    empty.style.display = 'block';
-    info.textContent = '';
+    if (grid) grid.innerHTML = '';
+    if (empty) empty.style.display = 'block';
+    if (info) info.textContent = '';
     return;
   }
-  const q = (document.getElementById('search').value || '').toLowerCase();
-  const lista = productos.filter(p => !q || `${p.nombre} ${p.marca || ''}`.toLowerCase().includes(q));
-  empty.style.display = lista.length ? 'none' : 'block';
-  info.textContent = `${lista.length} de ${productos.length} audífonos`;
-  grid.innerHTML = lista.map(cardHtml).join('');
+  const q = (document.getElementById('search')?.value || '').toLowerCase();
+  const pmin = parseFloat(filtroPrecioMin) || null;
+  const pmax = parseFloat(filtroPrecioMax) || null;
+  const lista = productos.filter(p => {
+    if (q && !`${p.nombre} ${p.marca || ''}`.toLowerCase().includes(q)) return false;
+    if (filtroTipo.size && !filtroTipo.has(p.especs?.formato)) return false;
+    if (filtroMarca.size && !filtroMarca.has(p.marca)) return false;
+    if (filtroANC) { const anc = p.especs?.cancelacionRuido; if (!anc || anc === 'No') return false; }
+    const precio = precioVigente(p);
+    if (pmin !== null && precio !== null && precio < pmin) return false;
+    if (pmax !== null && precio !== null && precio > pmax) return false;
+    return true;
+  });
+  const sortSel = document.getElementById('sort-sel')?.value || 'pop';
+  if (sortSel === 'price-asc') lista.sort((a,b) => (precioVigente(a)||Infinity) - (precioVigente(b)||Infinity));
+  else if (sortSel === 'price-desc') lista.sort((a,b) => (precioVigente(b)||0) - (precioVigente(a)||0));
+  if (empty) empty.style.display = lista.length ? 'none' : 'block';
+  if (info) info.textContent = `${lista.length} de ${productos.length} audífonos`;
+  if (grid) grid.innerHTML = lista.map(cardHtml).join('');
+}
+
+/* ── Funciones de filtros ── */
+function toggleTipo(tipo, checked) {
+  if (checked) filtroTipo.add(tipo); else filtroTipo.delete(tipo);
+  updateAudClearBtn(); render();
+}
+function toggleMarca(marca, checked) {
+  if (checked) filtroMarca.add(marca); else filtroMarca.delete(marca);
+  updateAudClearBtn(); render();
+}
+function toggleANC(checked) { filtroANC = checked; updateAudClearBtn(); render(); }
+function onAudPrecioMin() { filtroPrecioMin = document.getElementById('precio-min')?.value || ''; updateAudClearBtn(); render(); }
+function onAudPrecioMax() { filtroPrecioMax = document.getElementById('precio-max')?.value || ''; updateAudClearBtn(); render(); }
+function clearFilters() {
+  filtroTipo.clear(); filtroMarca.clear(); filtroANC = false; filtroPrecioMin = ''; filtroPrecioMax = '';
+  const pmin = document.getElementById('precio-min'); if (pmin) pmin.value = '';
+  const pmax = document.getElementById('precio-max'); if (pmax) pmax.value = '';
+  const fanc = document.getElementById('filter-anc'); if (fanc) fanc.checked = false;
+  document.querySelectorAll('.aud-section input[type="checkbox"]').forEach(el => el.checked = false);
+  updateAudClearBtn(); render();
+}
+function updateAudClearBtn() {
+  const count = filtroTipo.size + filtroMarca.size + (filtroANC ? 1 : 0) + (filtroPrecioMin ? 1 : 0) + (filtroPrecioMax ? 1 : 0);
+  const btn = document.getElementById('aud-clear-all');
+  if (btn) btn.style.visibility = count > 0 ? 'visible' : 'hidden';
+  const fc = document.getElementById('aud-filtrar-count');
+  if (fc) { fc.textContent = count; fc.classList.toggle('show', count > 0); }
+}
+function openAudFilters() {
+  const f = document.getElementById('aud-filters'), b = document.getElementById('aud-backdrop'), btn = document.getElementById('aud-filtrar-btn');
+  if (f) { f.classList.add('open'); f.removeAttribute('aria-hidden'); }
+  if (b) b.classList.add('show');
+  if (btn) btn.setAttribute('aria-expanded','true');
+  document.body.style.overflow = 'hidden';
+}
+function closeAudFilters() {
+  const f = document.getElementById('aud-filters'), b = document.getElementById('aud-backdrop'), btn = document.getElementById('aud-filtrar-btn');
+  if (f) { f.classList.remove('open'); f.setAttribute('aria-hidden','true'); }
+  if (b) b.classList.remove('show');
+  if (btn) btn.setAttribute('aria-expanded','false');
+  document.body.style.overflow = '';
+}
+function initAudFilters() {
+  const tipoCounts = {}, marcaCounts = {};
+  productos.forEach(p => {
+    const t = p.especs?.formato; if (t) tipoCounts[t] = (tipoCounts[t]||0)+1;
+    const m = p.marca; if (m) marcaCounts[m] = (marcaCounts[m]||0)+1;
+  });
+  const tipoMap = [['In-ear','in-ear'],['Over-ear','over-ear'],['On-ear','on-ear'],['Headset','headset'],['Neckband','neckband']];
+  tipoMap.forEach(([tipo,id]) => { const el = document.getElementById('cnt-tipo-'+id); if (el) el.textContent = tipoCounts[tipo] ? `(${tipoCounts[tipo]})` : ''; });
+  const ancCount = productos.filter(p => p.especs?.cancelacionRuido && p.especs.cancelacionRuido !== 'No').length;
+  const ancEl = document.getElementById('cnt-anc'); if (ancEl) ancEl.textContent = ancCount ? `(${ancCount})` : '';
+  const marcas = Object.entries(marcaCounts).sort((a,b) => b[1]-a[1]||a[0].localeCompare(b[0]));
+  const marcasDiv = document.getElementById('aud-marcas');
+  if (marcasDiv) marcasDiv.innerHTML = marcas.map(([m,c]) => `<label class="filter-check"><input type="checkbox" value="${m.replace(/"/g,'&quot;')}" onchange="toggleMarca(this.value,this.checked)"><span class="filter-check-label">${m}</span><span class="filter-check-count">(${c})</span></label>`).join('');
 }
 
 /* ── COMPARADOR ─────────────────────────────────── */
@@ -1370,6 +1588,7 @@ function openModal() {
 }
 function closeModal() { document.getElementById('cmp-overlay').classList.remove('open'); }
 /* ── /COMPARADOR ─────────────────────────────────── */
+initAudFilters();
 render();
 </script>
 
@@ -1422,6 +1641,41 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeHowModa
 document.getElementById('howModalOv').addEventListener('click',function(e){if(e.target===this)closeHowModal()});
 </script>
 <script>try{sessionStorage.setItem('cmx_onboarding_v1','1');}catch(e){}</script>
+<script>
+/* ── Franja verde sticky + filtros persistentes (IntersectionObserver) ── */
+(function(){
+  var hero  = document.getElementById('hero');
+  var strip = document.getElementById('how-strip');
+  if (!hero || !strip) return;
+  /* espaciador: evita salto de contenido al pasar a fixed */
+  var spacer = document.createElement('div');
+  spacer.id = 'how-strip-spacer';
+  spacer.setAttribute('aria-hidden','true');
+  strip.parentNode.insertBefore(spacer, strip.nextSibling);
+  function applySticky() {
+    var h = strip.getBoundingClientRect().height || 46;
+    spacer.style.height = h + 'px';
+    spacer.style.display = 'block';
+    strip.classList.add('sticky');
+    document.body.classList.add('how-sticky');
+    var t = 64 + h;
+    document.body.style.setProperty('--sf-top',  t + 'px');
+    document.body.style.setProperty('--sf-mh',   'calc(100vh - ' + (t + 16) + 'px)');
+  }
+  function removeSticky() {
+    spacer.style.display = 'none';
+    strip.classList.remove('sticky');
+    document.body.classList.remove('how-sticky');
+    document.body.style.removeProperty('--sf-top');
+    document.body.style.removeProperty('--sf-mh');
+  }
+  /* observa el borde inferior del hero; cuando sale del viewport sticky (64px) → activar */
+  var io = new IntersectionObserver(function(entries) {
+    entries[0].isIntersecting ? removeSticky() : applySticky();
+  }, { threshold: 0, rootMargin: '-64px 0px 0px 0px' });
+  io.observe(hero);
+})();
+</script>
 <script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
 <script src="/assets/js/share.js" defer></script>
