@@ -632,7 +632,7 @@ function renderDash() {
   </div>`;
 }
 
-const CATS = {laptops:'Laptops', freidoras:'Freidoras', bicis:'Bicis', microondas:'Microondas', proteina:'Proteína', omega3:'Omega 3', magnesio:'Magnesio', creatina:'Creatina', complejo_b:'Complejo B', vitamina_d:'Vitamina D', videojuegos_consolas:'Consolas', videojuegos_controles:'Controles', videojuegos_juegos:'Videojuegos', tecnologia_bocinas:'Bocinas int.', tecnologia_audifonos:'Audífonos', tecnologia_smartwatches:'Smartwatches'};
+const CATS = {laptops:'Laptops', freidoras:'Freidoras', bicis:'Bicis', microondas:'Microondas', proteina:'Proteína', omega3:'Omega 3', magnesio:'Magnesio', creatina:'Creatina', complejo_b:'Complejo B', vitamina_d:'Vitamina D', videojuegos_consolas:'Consolas', videojuegos_controles:'Controles', videojuegos_juegos:'Videojuegos', tecnologia_bocinas:'Bocinas int.', tecnologia_audifonos:'Audífonos', tecnologia_smartwatches:'Smartwatches', celulares_android:'Android', celulares_iphone:'iPhone'};
 const PRICE_WF = GH + '/workflows/update-prices.yml';
 const SPECS = {
   laptops:[['procesador','Procesador'],['ram','RAM'],['almacenamiento','Almacen.'],['pantalla','Pantalla'],['resolucion','Resolución'],['gpu','GPU'],['so','SO'],['peso','Peso'],['touch','Touch']],
@@ -650,6 +650,8 @@ const SPECS = {
   tecnologia_bocinas:[['modelo','Modelo'],['asistentes','Asistentes'],['potencia','Potencia'],['alimentacion','Alimentación'],['sistemas','S.O. compat.'],['camara','Cámara'],['pantallaTactil','Pant. táctil']],
   tecnologia_audifonos:[['formato','Formato'],['inalambrico','Inalámbrico'],['microfono','Micrófono'],['bateria','Batería'],['manosLibres','Manos libres'],['cancelacionRuido','Cancel. ruido'],['cargaInalambrica','Carga inalám.']],
   tecnologia_smartwatches:[['compatibilidad','Compatibilidad'],['bateria','Batería'],['gps','GPS'],['resistenciaAgua','Resist. agua'],['tamanoCaja','Tamaño caja']],
+  celulares_android:[['chip','Chip'],['pantalla','Pantalla'],['hz','Hz'],['bateria','Batería'],['nfc','NFC'],['almacenamiento','Almacen.'],['ram','RAM'],['cam','Cámara']],
+  celulares_iphone:[['chip','Chip'],['pantalla','Pantalla'],['hz','Hz'],['usb','USB'],['zoom','Zoom'],['almacenamiento','Almacen.'],['serie','Serie']],
 };
 const ST = {
   solo_amz:['Solo Amazon','muted'], sin_id:['Falta ID','warn'], actualizado:['Cambió','ok'], sin_cambio:['Al día','neutral'],
@@ -2005,6 +2007,8 @@ const PUB_URLS = {
   tecnologia_bocinas:'https://comparalo.mx/tecnologia/bocinas/',
   tecnologia_audifonos:'https://comparalo.mx/tecnologia/audifonos/',
   tecnologia_smartwatches:'https://comparalo.mx/tecnologia/smartwatches/',
+  celulares_android:'https://comparalo.mx/celulares/android/',
+  celulares_iphone:'https://comparalo.mx/celulares/iphone/',
 };
 const PUB_TIPOS = [
   {k:'comparativa',l:'🔍 Comparativa',d:'Compara 2–5 opciones entre sí'},
@@ -2119,6 +2123,13 @@ function pubSpecLine(p) {
     if (e.plataforma) parts.push(e.plataforma);
     if (e.generacion) parts.push(e.generacion);
     if (e.almacenamiento) parts.push(e.almacenamiento);
+  } else if (cat.startsWith('celulares_')) {
+    if (e.chip) parts.push(e.chip);
+    if (e.ram) parts.push(e.ram + ' RAM');
+    if (e.almacenamiento) parts.push(e.almacenamiento);
+    if (e.bateria) parts.push(e.bateria);
+    if (e.hz) parts.push(e.hz);
+    if (e.nfc && e.nfc === 'Sí') parts.push('NFC');
   }
   return parts.join(' · ') || null;
 }
@@ -2168,6 +2179,8 @@ function pubGenText(tipo) {
     microondas:'✅ Capacidad en litros\n✅ Potencia\n✅ Funciones (grill, convección)\n✅ Tipo de control (digital/botones)',
     magnesio:'✅ Forma de magnesio (glicinato, citrato, malato: mejor absorción)\n✅ mg de magnesio elemental por porción\n✅ Número de porciones\n✅ Costo por porción',
     creatina:'✅ Tipo (monohidrato: el más estudiado)\n✅ Gramos por porción (5 g estándar)\n✅ Pureza (sin rellenos)\n✅ Costo por 5 g',
+    celulares_android:'✅ Chip y rendimiento\n✅ RAM y almacenamiento\n✅ Batería (mAh)\n✅ Pantalla (pulgadas y Hz)\n✅ NFC (pago sin contacto)',
+    celulares_iphone:'✅ Chip (A-Series)\n✅ Almacenamiento\n✅ Pantalla y Hz\n✅ Puerto (USB-C vs Lightning)\n✅ Zoom óptico',
   };
   const guiaIntro = guiaIntros[cat] || '✅ Precio\n✅ Características principales\n✅ Garantía\n✅ Reseñas de compradores';
 
