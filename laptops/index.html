@@ -106,7 +106,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .card{background:var(--bg);border:1px solid var(--bd);border-radius:14px;overflow:hidden;transition:box-shadow .2s,transform .15s;cursor:pointer;position:relative}
 .card:hover{box-shadow:0 4px 20px rgba(0,0,0,.07);transform:translateY(-2px)}
 .card.selected{border:2px solid var(--ac);box-shadow:0 0 0 4px var(--acd2)}
-.card-img-wrap{background:#fff;height:220px;display:flex;align-items:center;justify-content:center;overflow:hidden;border-bottom:1px solid var(--bd)}
+.card-img-wrap{background:#fff;height:240px;display:flex;align-items:center;justify-content:center;overflow:hidden;border-bottom:1px solid var(--bd)}
 .card-img{width:100%;height:100%;object-fit:contain;display:block;padding:.3rem}
 .card-body{padding:1rem}
 .card-badges{display:flex;gap:5px;margin-bottom:.45rem;flex-wrap:wrap}
@@ -114,13 +114,14 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .b-amz{background:var(--amzd);color:#c47000;border:1px solid var(--amzd2)}
 .b-ml{background:var(--mld);color:#8a6f00;border:1px solid var(--mld2)}
 .b-best{background:var(--acd);color:var(--ac);border:1px solid var(--acd2)}
-.card-name{font-size:14px;font-weight:700;color:var(--tx);margin-bottom:1px;line-height:1.3;letter-spacing:-.02em}
+.card-brand{font-size:10px;font-weight:700;color:var(--ac);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px}
+.card-name{font-size:14px;font-weight:700;color:var(--tx);margin-bottom:4px;line-height:1.3;letter-spacing:-.02em}
 .card-brand{font-size:11px;color:var(--tx3);margin-bottom:.45rem;font-weight:500;text-transform:uppercase;letter-spacing:.05em}
 .card-stars{font-size:15px;color:#e6900a;margin-bottom:.65rem;display:flex;align-items:center;gap:5px;font-weight:700}
 .card-stars-count{color:var(--tx3);font-size:13px;font-weight:400}
 .card-stars-empty{display:none}
 .card-stars-dual{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:.65rem}
-.card-stars-dual .stars-col{background:var(--s1);border-radius:7px;padding:5px 8px}
+.card-stars-dual .stars-col{background:transparent;border-radius:7px;padding:3px 0}
 .card-stars-dual .stars-plat{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-bottom:2px}
 .card-stars-dual .stars-val{font-size:13px;color:#e6900a;font-weight:700}
 .card-stars-dual .stars-cnt{font-size:11px;color:var(--tx3);font-weight:400}
@@ -128,6 +129,13 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .spec{background:var(--s1);border-radius:7px;padding:5px 8px}
 .spec-label{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
 .spec-val{font-size:12px;font-weight:600;color:var(--tx);margin-top:1px}
+/* ── Spec 2-column grid (laptops) ─────────────────────────── */
+.card-specs-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:.6rem}
+.spec-cell{background:var(--s1);border-radius:8px;padding:5px 7px 5px;min-width:0}
+.spec-cell-head{display:flex;align-items:center;gap:4px;margin-bottom:3px}
+.spec-cell-ico{color:var(--ac);flex-shrink:0;display:flex;opacity:.85}
+.spec-cell-lbl{font-size:9px;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:.05em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.spec-cell-val{font-size:12px;font-weight:700;color:var(--tx);line-height:1.25;overflow-wrap:break-word}
 .card-price{font-size:1.3rem;font-weight:700;color:var(--tx);margin-bottom:.65rem;letter-spacing:-.03em}
 .price-nd{font-size:13px;color:var(--tx3);font-weight:400;margin-bottom:.65rem}
 .card-btns{display:flex;flex-direction:column;gap:6px}
@@ -207,7 +215,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 }
 /* ── Mobile improvements ─────────────────────────────────── */
 @media(max-width:768px){
-  .card-img-wrap{height:150px!important}
+  .card-img-wrap{height:160px!important}
   .card-body{padding:.6rem!important}
   .card-name{font-size:12px!important;-webkit-line-clamp:2!important;display:-webkit-box!important;-webkit-box-orient:vertical!important;overflow:hidden!important;line-clamp:2!important}
   .btn-ml,.btn-amz{font-size:11px!important;padding:5px 4px!important}
@@ -302,13 +310,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 .content-result-info{font-size:12px;color:var(--tx3);white-space:nowrap}
 .content-sort-sel{font-size:12px;background:var(--bg);border:1px solid var(--bd2);border-radius:8px;color:var(--tx2);padding:5px 8px;font-family:'Satoshi',sans-serif;cursor:pointer}
 
-/* ── Icon-row specs ────────────────────────────────────────── */
-.pcard-metrics{display:flex;flex-direction:column;gap:0;margin-bottom:.5rem}
-.pmetric-row{display:flex;align-items:flex-start;gap:7px;padding:4px 1px;border-bottom:1px dashed var(--bd)}
-.pmetric-row:last-child{border-bottom:none}
-.pmetric-ic{color:var(--ac);flex-shrink:0;display:flex;opacity:.85;margin-top:2px}
-.pmetric-lbl2{font-size:12px;color:var(--tx2);flex:1 1 40%;min-width:0;padding-top:1px}
-.pmetric-val2{font-size:13px;font-weight:700;color:var(--tx);text-align:right;overflow-wrap:anywhere;margin-left:6px;flex-shrink:0;max-width:58%}
+/* (pmetric-row kept for other pages; laptops uses card-specs-grid) */
 
 /* ── pcard-plats (price boxes) ─────────────────────────────── */
 .pcard-plats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -2700,7 +2702,7 @@ function cardHTML(p) {
     ['gpu',    'GPU',        p.gpu || null],
     ['weight', 'Peso',       p.peso ? p.peso+' kg' : null],
   ].filter(r => r[2] != null);
-  const specs = `<div class="pcard-metrics">${_rows.map(r=>`<div class="pmetric-row"><span class="pmetric-ic" aria-hidden="true">${ICO[r[0]]}</span><span class="pmetric-lbl2">${r[1]}</span><span class="pmetric-val2">${r[2]}</span></div>`).join('')}</div>`;
+  const specs = `<div class="card-specs-grid">${_rows.map(r=>`<div class="spec-cell"><div class="spec-cell-head"><span class="spec-cell-ico" aria-hidden="true">${ICO[r[0]]}</span><span class="spec-cell-lbl">${r[1]}</span></div><div class="spec-cell-val">${r[2]}</div></div>`).join('')}</div>`;
 
   // Price boxes (pcard-plats)
   const pML  = p.linkML  ? (p.precioML  || p.precio) : null;
@@ -2723,6 +2725,7 @@ function cardHTML(p) {
       <img class="card-img" src="${p.img}" alt="${p.nombre}" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'88\' height=\'88\'><rect fill=\'%23f1f5f9\' width=\'88\' height=\'88\'/></svg>'">
     </div>
     <div class="card-body">
+      <div class="card-brand">${p.marca}</div>
       <div class="card-name">${p.nombre}</div>
       ${stars}
       ${specs}
