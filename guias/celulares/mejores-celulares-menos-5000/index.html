@@ -136,7 +136,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 @media(max-width:420px){.picks-grid{grid-template-columns:1fr}}
 .pick-card{background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:14px 14px 12px;display:flex;flex-direction:column;gap:4px}
 .pick-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ac)}
-.pick-name{font-size:14px;font-weight:700;color:var(--tx);line-height:1.3}
+.pick-name{font-family:'Anton',sans-serif;font-size:16px;font-weight:400;text-transform:uppercase;letter-spacing:.02em;color:var(--tx);line-height:1.1}
 .pick-why{font-size:12px;color:var(--tx2);line-height:1.4}
 .pick-btn{margin-top:8px;display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:var(--ac);background:none;border:1.5px solid rgba(0,104,71,.35);border-radius:8px;padding:6px 12px;cursor:pointer;font-family:inherit;text-decoration:none;transition:all .15s;width:fit-content}
 .pick-btn:hover{background:var(--acd);border-color:var(--ac)}
@@ -161,8 +161,8 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .pcard-img-wrap{background:var(--s1);display:flex;align-items:center;justify-content:center;padding:20px 16px;min-height:160px}
 .pcard-img{width:auto;max-width:100%;max-height:130px;object-fit:contain;display:block}
 .pcard-body{padding:.9rem;display:flex;flex-direction:column;flex:1}
-.pcard-badge{font-size:10px;font-weight:700;background:var(--acd);color:var(--ac);border-radius:20px;padding:2px 8px;display:inline-block;margin-bottom:6px;letter-spacing:.04em;text-transform:uppercase;width:fit-content}
-.pcard-name{font-size:15px;font-weight:700;color:var(--tx);margin-bottom:8px;line-height:1.3;letter-spacing:-.01em}
+.pcard-badge{font-family:'Anton',sans-serif;font-size:10px;font-weight:400;background:var(--acd);color:var(--ac);border-radius:20px;padding:2px 9px;display:inline-block;margin-bottom:6px;letter-spacing:.1em;text-transform:uppercase;width:fit-content}
+.pcard-name{font-family:'Anton',sans-serif;font-size:17px;font-weight:400;text-transform:uppercase;color:var(--tx);margin-bottom:8px;line-height:1.1;letter-spacing:.02em}
 .pcard-specs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin-bottom:8px}
 .spec{background:var(--s1);border-radius:7px;padding:5px 7px}
 .spec-label{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
@@ -221,6 +221,40 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .method-item{display:flex;gap:12px;align-items:flex-start}
 .method-num{width:24px;height:24px;border-radius:50%;background:var(--ac);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
 .method-txt{font-size:.9rem;color:var(--tx2);line-height:1.5}
+
+/* SIDEBAR COMPARADOR */
+.sidebar{position:fixed;left:0;top:50%;transform:translateY(-50%);z-index:160;display:flex;align-items:center;opacity:0;pointer-events:none;transition:opacity .35s}
+.sidebar.visible{opacity:1;pointer-events:auto}
+.sidebar-panel{background:var(--bg);border:1.5px solid var(--bd2);border-left:none;border-radius:0 14px 14px 0;width:220px;max-height:72vh;overflow-y:auto;box-shadow:6px 0 28px rgba(0,0,0,.1);transform:translateX(-100%);transition:transform .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
+.sidebar.open .sidebar-panel{transform:translateX(0)}
+.sidebar-header{padding:12px 14px 10px;border-bottom:1px solid var(--bd);flex-shrink:0}
+.sidebar-htitle{font-family:'Anton',sans-serif;font-size:15px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--tx);display:block}
+.sidebar-hsub{font-size:11px;color:var(--tx3);display:block;margin-top:2px}
+.sidebar-phones{display:flex;flex-direction:column;flex:1}
+.sidebar-phone{padding:9px 14px 9px 12px;cursor:pointer;transition:background .12s;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:10px;position:relative}
+.sidebar-phone:last-child{border-bottom:none}
+.sidebar-phone:hover,.sidebar-phone:focus{background:var(--acd);outline:none}
+.sidebar-phone.sp-sel{background:var(--acd2)}
+.sidebar-phone-info{flex:1;min-width:0}
+.sidebar-phone-price{font-family:'Anton',sans-serif;font-size:17px;font-weight:400;color:var(--ac);letter-spacing:.01em;line-height:1}
+.sidebar-phone-name{font-size:12px;font-weight:600;color:var(--tx);line-height:1.3;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sidebar-phone-tag{font-size:10px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-top:1px}
+.sidebar-phone-chk{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--bd2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;font-weight:700;color:transparent;transition:all .15s}
+.sidebar-phone.sp-sel .sidebar-phone-chk{background:var(--ac);border-color:var(--ac);color:#fff}
+.sidebar-banners{flex-shrink:0;border-top:1px solid var(--bd)}
+.sidebar-banner{display:flex;align-items:center;gap:10px;padding:11px 14px;text-decoration:none;transition:background .12s;border-bottom:1px solid var(--bd)}
+.sidebar-banner:last-child{border-bottom:none}
+.sidebar-banner:hover{background:var(--s2)}
+.sidebar-banner-ico{font-size:20px;flex-shrink:0;line-height:1}
+.sidebar-banner-ttl{font-family:'Anton',sans-serif;font-size:11px;font-weight:400;letter-spacing:.07em;text-transform:uppercase;color:var(--tx);display:block}
+.sidebar-banner-sub{font-size:10px;color:var(--tx2);margin-top:1px;display:block}
+.sidebar-toggle{background:var(--ac);color:#fff;border:none;cursor:pointer;border-radius:0 10px 10px 0;padding:16px 8px 16px 9px;display:flex;flex-direction:column;align-items:center;gap:10px;font-family:'Anton',sans-serif;transition:background .15s;flex-shrink:0;box-shadow:3px 0 14px rgba(0,104,71,.3);min-height:100px}
+.sidebar-toggle:hover{background:#00573b}
+.sidebar-toggle-ico{font-size:17px;line-height:1}
+.sidebar-toggle-lbl{writing-mode:vertical-rl;text-orientation:mixed;font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-family:'Anton',sans-serif;opacity:.9;line-height:1}
+.sidebar-badge{display:none;width:17px;height:17px;border-radius:50%;background:#fff;color:var(--ac);font-size:9px;font-weight:800;align-items:center;justify-content:center;flex-shrink:0}
+.sidebar-badge.show{display:flex}
+@media(max-width:1040px){.sidebar{display:none!important}}
 
 /* DISCLOSURE */
 .disclosure{font-size:11.5px;color:var(--tx3);background:var(--s1);border-radius:8px;padding:.75rem 1rem;margin-top:1.5rem;line-height:1.55}
@@ -687,6 +721,36 @@ body.bar-active{padding-bottom:64px}
 
 </div><!-- /content -->
 
+<!-- SIDEBAR COMPARADOR -->
+<aside class="sidebar" id="sidebar" aria-label="Comparador rápido de celulares">
+  <div class="sidebar-panel" role="region">
+    <div class="sidebar-header">
+      <span class="sidebar-htitle">📱 Comparador</span>
+      <span class="sidebar-hsub">Selecciona y compara lado a lado</span>
+    </div>
+    <div class="sidebar-phones" id="sidebar-phones"></div>
+    <div class="sidebar-banners">
+      <a class="sidebar-banner" href="/celulares/android/" onclick="gtag('event','cta_click',{cta:'sidebar_android',location:'sidebar'})">
+        <span class="sidebar-banner-ico">🤖</span>
+        <div><span class="sidebar-banner-ttl">Más Android</span><span class="sidebar-banner-sub">Ver catálogo completo →</span></div>
+      </a>
+      <a class="sidebar-banner" href="/celulares/iphone/" onclick="gtag('event','cta_click',{cta:'sidebar_iphone',location:'sidebar'})">
+        <span class="sidebar-banner-ico">🍎</span>
+        <div><span class="sidebar-banner-ttl">¿Prefieres iPhone?</span><span class="sidebar-banner-sub">Ver iPhone en México →</span></div>
+      </a>
+      <a class="sidebar-banner" href="/laptops/" onclick="gtag('event','cta_click',{cta:'sidebar_laptops',location:'sidebar'})">
+        <span class="sidebar-banner-ico">💻</span>
+        <div><span class="sidebar-banner-ttl">También: Laptops</span><span class="sidebar-banner-sub">Compara precio en Amazon y ML →</span></div>
+      </a>
+    </div>
+  </div>
+  <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Abrir comparador rápido" aria-expanded="false">
+    <span class="sidebar-toggle-ico">📱</span>
+    <span class="sidebar-badge" id="sidebar-badge">0</span>
+    <span class="sidebar-toggle-lbl">COMPARAR</span>
+  </button>
+</aside>
+
 <!-- COMPARE BAR -->
 <div class="cmp-bar" id="cmp-bar" role="status" aria-live="polite">
   <div>
@@ -973,6 +1037,67 @@ function goCompare() {
 }
 
 renderCards();
+
+/* ── SIDEBAR ── */
+(function(){
+  const sb   = document.getElementById('sidebar');
+  const tog  = document.getElementById('sidebar-toggle');
+  const phEl = document.getElementById('sidebar-phones');
+  const badg = document.getElementById('sidebar-badge');
+  if (!sb || !tog || !phEl) return;
+
+  function renderSb() {
+    phEl.innerHTML = familias5k.map(f => {
+      const v   = f.variantes[0];
+      const sel = selected5k.includes(f.modeloBase);
+      return `<div class="sidebar-phone${sel?' sp-sel':''}" role="button" tabindex="0"
+          onclick="selectFromPick('${f.modeloBase}')"
+          onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault()}"
+          aria-label="${sel?'Quitar':'Seleccionar'} ${f.nombre} · $${Number(v.precio).toLocaleString('es-MX')}">
+        <div class="sidebar-phone-info">
+          <div class="sidebar-phone-price">$${Number(v.precio).toLocaleString('es-MX')}</div>
+          <div class="sidebar-phone-name">${f.nombre}</div>
+          <div class="sidebar-phone-tag">${f.destaca}</div>
+        </div>
+        <div class="sidebar-phone-chk" aria-hidden="true">${sel?'✓':''}</div>
+      </div>`;
+    }).join('');
+    if (badg) {
+      if (selected5k.length > 0) { badg.textContent = selected5k.length; badg.classList.add('show'); }
+      else { badg.classList.remove('show'); }
+    }
+  }
+  renderSb();
+
+  const _origUpdateBar = updateBar5k;
+  updateBar5k = function(){ _origUpdateBar(); renderSb(); };
+
+  tog.addEventListener('click', e => {
+    e.stopPropagation();
+    const open = sb.classList.toggle('open');
+    tog.setAttribute('aria-expanded', String(open));
+  });
+
+  document.addEventListener('click', e => {
+    if (!sb.contains(e.target) && sb.classList.contains('open')) {
+      sb.classList.remove('open');
+      tog.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  const hero = document.querySelector('.hero');
+  function onScroll() {
+    const threshold = hero ? hero.offsetTop + hero.offsetHeight - 60 : 200;
+    if (window.scrollY > threshold) {
+      sb.classList.add('visible');
+    } else {
+      sb.classList.remove('visible', 'open');
+      tog.setAttribute('aria-expanded', 'false');
+    }
+  }
+  window.addEventListener('scroll', onScroll, {passive: true});
+  onScroll();
+})();
 </script>
 <script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
