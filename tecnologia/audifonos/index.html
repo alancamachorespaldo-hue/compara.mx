@@ -124,11 +124,14 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .aud-content .card{display:flex!important;flex-direction:column!important;grid-template-columns:unset!important}
 .aud-content .card-img-wrap{width:100%!important;min-height:160px!important;max-height:180px!important;border-right:none!important;border-bottom:1px solid var(--bd)!important;padding:10px!important}
 .aud-content .card-body{width:auto!important;padding:12px!important;display:flex!important;flex-direction:column!important;flex:1!important}
-/* Specs: grid 2 columnas, label arriba, valor abajo */
-.aud-content .card-specs{display:grid!important;flex-direction:unset!important;grid-template-columns:1fr 1fr!important;gap:4px!important;margin:0 0 8px!important;width:auto!important}
-.aud-content .spec{display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:flex-start!important;padding:5px 7px!important;background:var(--s1)!important;border-radius:6px!important;min-width:0!important;overflow:hidden!important}
-.aud-content .spec-label{font-size:9px!important;color:var(--tx3)!important;text-transform:uppercase!important;letter-spacing:.04em!important;font-weight:600!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;width:100%!important;margin-top:0!important}
-.aud-content .spec-val{font-size:12px!important;font-weight:700!important;color:var(--tx)!important;margin-top:2px!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;width:100%!important}
+/* Specs: filas con icono */
+.aud-specs{margin:6px 0 10px;width:100%}
+.aud-spec-row{display:flex;align-items:center;gap:7px;padding:5px 0;border-bottom:1px solid var(--bd)}
+.aud-spec-row:last-child{border-bottom:none}
+.aud-spec-left{display:flex;align-items:center;gap:6px;flex:1;min-width:0;color:var(--tx3)}
+.aud-spec-left svg{flex-shrink:0;opacity:.65}
+.aud-spec-name{font-size:11.5px;color:var(--tx3);white-space:nowrap}
+.aud-spec-val{font-size:12px;font-weight:700;color:var(--tx);white-space:nowrap;text-align:right}
 /* Fix borde derecho por plataforma */
 .aud-content .card[data-platform="ml"] .card-img-wrap{border-right:none!important;border-bottom:1px solid #e8d600!important}
 .aud-content .card[data-platform="amz"] .card-img-wrap{border-right:none!important;border-bottom:1px solid #f0a060!important}
@@ -247,7 +250,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 }
 
 /* ── Layout con sidebar ──────────────────────────────────────────── */
-.aud-layout{max-width:1400px;margin:0 auto;padding:0 2rem 1.2rem;display:grid;grid-template-columns:260px 1fr;gap:24px;align-items:start}
+.aud-layout{max-width:100%;margin:0;padding:0 1.5rem 1.2rem;display:grid;grid-template-columns:260px 1fr;gap:24px;align-items:start}
 @media(max-width:860px){.aud-layout{grid-template-columns:1fr;padding:0 .75rem 1rem}}
 /* sidebar */
 .aud-filters{background:var(--bg);border:1px solid var(--bd);border-radius:14px;overflow:hidden;position:sticky;top:80px;max-height:calc(100vh - 96px);overflow-y:auto;scrollbar-width:thin}
@@ -1366,6 +1369,12 @@ const productos = [
 
 const precioVigente = p => (p.linkML ? p.precioML : p.precioAmz) ?? p.precio ?? null;
 const SPEC_KEYS = [['formato','Tipo'],['inalambrico','Inalámbrico'],['bateria','Batería'],['cancelacionRuido','Cancel. ruido']];
+const SPEC_ICONS = {
+  formato: '<svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor"><path d="M8 2a6 6 0 00-5.95 5.25H2.5a1 1 0 00-1 1V10a1 1 0 001 1H3a1 1 0 001-1V8.75A5 5 0 018 4a5 5 0 015 4.75V10a1 1 0 001 1h.5a1 1 0 001-1V8.25a1 1 0 00-1-1h-.55A6 6 0 008 2z"/></svg>',
+  inalambrico: '<svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor"><circle cx="8" cy="13" r="1.5"/><path d="M5.2 10.8a4 4 0 015.6 0l.7-.7a5 5 0 00-7 0l.7.7zm-2-2a7 7 0 019.6 0l.7-.7A8 8 0 004.5 8.1l.7.7z"/></svg>',
+  bateria: '<svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor"><path d="M1.5 5.5A1.5 1.5 0 013 4h8.5A1.5 1.5 0 0113 5.5v5A1.5 1.5 0 0111.5 12H3A1.5 1.5 0 011.5 10.5v-5zm1 0v5a.5.5 0 00.5.5h8.5a.5.5 0 00.5-.5v-5a.5.5 0 00-.5-.5H3a.5.5 0 00-.5.5zm11.5 1v3H15a.5.5 0 000-1h-.5V7zM3.5 7h3.5v2H3.5V7z"/></svg>',
+  cancelacionRuido: '<svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor"><path d="M8 1.5a2.5 2.5 0 00-2.5 2.5v4a2.5 2.5 0 005 0V4A2.5 2.5 0 008 1.5zM7 4a1 1 0 012 0v4a1 1 0 01-2 0V4zM5 9.5a3 3 0 006 0V9h1v.5a4 4 0 01-8 0V9h1v.5zM7.5 13h1v2h-1v-2z"/></svg>'
+};
 
 /* ── Estado de filtros ── */
 let filtroTipo = new Set();
@@ -1380,26 +1389,26 @@ function cardHtml(p) {
   const platform = hasML && hasAmz ? 'both' : hasML ? 'ml' : hasAmz ? 'amz' : 'none';
   const specs = p.especs || {};
   const specsHtml = SPEC_KEYS.filter(([k]) => specs[k]).slice(0,4).map(([k,label]) =>
-    `<div class="spec"><div class="spec-label">${label}</div><div class="spec-val">${specs[k]}</div></div>`
+    `<div class="aud-spec-row"><span class="aud-spec-left">${SPEC_ICONS[k]||''}<span class="aud-spec-name">${label}</span></span><span class="aud-spec-val">${specs[k]}</span></div>`
   ).join('');
   const gaClick = (ev) => `onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_${ev}',{'platform':'${ev === 'ml' ? 'mercado_libre' : 'amazon'}','product_name':this.dataset.gaLabel||'','price':parseFloat(this.dataset.gaVal)||0,'page_section':'tecnologia_audifonos','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1,'category':'tecnologia_audifonos'})}"`;
   let btns = '';
   if (hasML && hasAmz) {
     btns = `<div class="card-btns-dual">
-      <div class="card-btn-col"><span class="card-btn-col-price">${Math.round(p.precioML).toLocaleString('es-MX')}</span><a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" ${gaClick('ml')} data-ga-label="${p.nombre||''}" data-ga-val="${p.precioML||0}">Ir a <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a></div>
-      <div class="card-btn-col"><span class="card-btn-col-price">${Math.round(p.precioAmz).toLocaleString('es-MX')}</span><a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" ${gaClick('amazon')} data-ga-label="${p.nombre||''}" data-ga-val="${p.precioAmz||0}">Ir a <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a></div>
+      <div class="card-btn-col"><span class="card-btn-col-price">$${Math.round(p.precioML).toLocaleString('es-MX')}</span><a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" ${gaClick('ml')} data-ga-label="${p.nombre||''}" data-ga-val="${p.precioML||0}">Ir a <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a></div>
+      <div class="card-btn-col"><span class="card-btn-col-price">$${Math.round(p.precioAmz).toLocaleString('es-MX')}</span><a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" ${gaClick('amazon')} data-ga-label="${p.nombre||''}" data-ga-val="${p.precioAmz||0}">Ir a <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a></div>
     </div>`;
   } else if (hasML) {
-    btns = `<div class="card-price">${Math.round(p.precioML).toLocaleString('es-MX')}</div><a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" ${gaClick('ml')} data-ga-label="${p.nombre||''}" data-ga-val="${p.precioML||0}">Ir a <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>`;
+    btns = `<div class="card-price">$${Math.round(p.precioML).toLocaleString('es-MX')}</div><a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" ${gaClick('ml')} data-ga-label="${p.nombre||''}" data-ga-val="${p.precioML||0}">Ir a <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>`;
   } else if (hasAmz) {
-    btns = `<div class="card-price">${Math.round(p.precioAmz).toLocaleString('es-MX')}</div><a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" ${gaClick('amazon')} data-ga-label="${p.nombre||''}" data-ga-val="${p.precioAmz||0}">Ir a <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>`;
+    btns = `<div class="card-price">$${Math.round(p.precioAmz).toLocaleString('es-MX')}</div><a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" ${gaClick('amazon')} data-ga-label="${p.nombre||''}" data-ga-val="${p.precioAmz||0}">Ir a <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>`;
   }
   return `<div class="card${selected.includes(p.id)?' selected':''}" data-platform="${platform}" onclick="toggleSelect('${p.id}')">
     <div class="card-img-wrap"><img class="card-img" src="${p.imagen || ''}" alt="${p.nombre}" loading="lazy"></div>
     <div class="card-body">
       <div class="card-name">${p.nombre}</div>
       <div class="card-brand">${p.marca || ''}</div>
-      ${specsHtml ? `<div class="card-specs">${specsHtml}</div>` : ''}
+      ${specsHtml ? `<div class="aud-specs">${specsHtml}</div>` : ''}
       <div class="card-btns">${btns}</div>
     </div>
   </div>`;
