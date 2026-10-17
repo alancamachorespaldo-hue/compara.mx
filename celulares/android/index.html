@@ -375,10 +375,10 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 }
 /* ── Tarjeta vertical: imagen arriba a todo lo ancho, siempre ──── */
 .card{grid-template-columns:unset!important;display:flex!important;flex-direction:column!important}
-.card-img-wrap{height:160px!important;min-height:0!important;align-self:stretch!important;padding:12px 10px!important;border-right:none!important;border-bottom:1px solid var(--bd)!important}
+.card-img-wrap{height:200px!important;min-height:0!important;align-self:stretch!important;padding:14px 12px!important;border-right:none!important;border-bottom:1px solid var(--bd)!important;background:#fff!important}
 .card-img{max-width:100%!important;max-height:100%!important;width:auto!important;height:auto!important;object-fit:contain!important}
 @media(max-width:560px){
-  .card-img-wrap{height:120px!important;min-height:0!important;padding:8px!important}
+  .card-img-wrap{height:150px!important;min-height:0!important;padding:10px!important}
 }
 .filter-logo{padding:4px 10px;display:inline-flex;align-items:center;justify-content:center}
 .filter-logo.on img{filter:brightness(0) invert(1)}
@@ -515,9 +515,9 @@ details.and-section summary:focus-visible{outline:2px solid var(--ac);outline-of
 
 /* ── Tarjetas más compactas en escritorio (4 por fila) ───────────── */
 @media(min-width:761px){
-  .card-img-wrap{height:140px!important;min-height:0!important;padding:10px 8px!important}
-  .card-body{padding:.7rem!important;gap:5px!important}
-  .card-name{font-size:16px!important}
+  .card-img-wrap{height:220px!important;min-height:0!important;padding:14px 10px!important}
+  .card-body{padding:.75rem!important;gap:5px!important}
+  .card-name{font-size:16px!important;display:-webkit-box!important;-webkit-line-clamp:2!important;-webkit-box-orient:vertical!important;overflow:hidden!important}
   .spec{padding:4px 7px}
 }
 </style>
