@@ -532,6 +532,16 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   .how-modal-ov{padding:0;align-items:flex-end}
   .how-modal{border-radius:20px 20px 0 0;max-height:85dvh}
 }
+/* ── Sticky how-strip ─────────────────────────────────────────────── */
+.how-strip.sticky{position:fixed;top:64px;left:0;right:0;z-index:95;border-radius:0;box-shadow:0 2px 10px rgba(0,0,0,.18)}
+#how-strip-spacer{display:none;pointer-events:none;flex-shrink:0}
+@media(min-width:861px){
+  body.how-sticky .iph-filters{
+    top:var(--sf-top,122px);
+    max-height:var(--sf-mh,calc(100vh - 138px));
+  }
+}
+@media(prefers-reduced-motion:reduce){.how-strip{transition:none!important;box-shadow:none}}
 
 </style>
 </head>
@@ -658,7 +668,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
     </div>
 
     <!-- GUÍA: franja desktop + tarjeta móvil -->
-<div class="how-strip" role="note">
+<div class="how-strip" id="how-strip" role="note">
   <div class="how-strip-lead">
     <span class="how-strip-icon">📱</span>
     <div>
@@ -2785,6 +2795,37 @@ function closeHowModal(){
 }
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeHowModal()});
 document.getElementById('howModalOv').addEventListener('click',function(e){if(e.target===this)closeHowModal()});
+</script>
+<script>
+(function(){
+  var hero  = document.querySelector('.hero');
+  var strip = document.getElementById('how-strip');
+  if (!hero || !strip) return;
+  var spacer = document.createElement('div');
+  spacer.id = 'how-strip-spacer';
+  spacer.setAttribute('aria-hidden', 'true');
+  strip.parentNode.insertBefore(spacer, strip.nextSibling);
+  function applySticky() {
+    var h = strip.getBoundingClientRect().height || 46;
+    spacer.style.height = h + 'px'; spacer.style.display = 'block';
+    strip.classList.add('sticky');
+    document.body.classList.add('how-sticky');
+    var t = 64 + h;
+    document.body.style.setProperty('--sf-top',  t + 'px');
+    document.body.style.setProperty('--sf-mh',   'calc(100vh - ' + (t + 16) + 'px)');
+  }
+  function removeSticky() {
+    spacer.style.display = 'none';
+    strip.classList.remove('sticky');
+    document.body.classList.remove('how-sticky');
+    document.body.style.removeProperty('--sf-top');
+    document.body.style.removeProperty('--sf-mh');
+  }
+  var io = new IntersectionObserver(function(entries) {
+    entries[0].isIntersecting ? removeSticky() : applySticky();
+  }, { threshold: 0, rootMargin: '-64px 0px 0px 0px' });
+  io.observe(hero);
+})();
 </script>
 <script>try{sessionStorage.setItem('cmx_onboarding_v1','1');}catch(e){}</script>
 <script src="/js/onboarding.js" defer></script>
