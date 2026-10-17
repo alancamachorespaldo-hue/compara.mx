@@ -343,6 +343,31 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   .how-card-sub{font-size:12px;color:var(--tx2);margin-top:2px}
   .how-card-arrow{color:var(--ac);font-size:1.3rem;margin-left:auto;flex-shrink:0;font-weight:300}
 }
+/* == Vertical card layout (overrides cards.css horizontal) == */
+body .card{display:flex !important;flex-direction:column !important;grid-template-columns:none !important}
+body .card-img-wrap{width:100% !important;height:220px !important;min-height:unset !important;border-right:none !important;border-bottom:1px solid var(--bd) !important;align-self:auto !important;padding:12px 12px 10px !important}
+body .card-body{padding:1rem !important;min-width:0 !important}
+@media(max-width:768px){body .card-img-wrap{height:160px !important;padding:8px !important}}
+
+/* == Platform-colored prices == */
+.pplat-price{font-size:17px;font-weight:800;letter-spacing:-.03em}
+.pplat-amz .pplat-price{color:#c05c00}
+.pplat-ml .pplat-price{color:#8a6f00}
+
+/* == Hero guide steps == */
+.hero{padding:20px 24px;gap:24px}
+.hero-content{flex:1;min-width:200px}
+.hero h1{font-size:1.25rem}
+.hero p{margin-top:4px}
+.hero-guide{display:flex;align-items:center;gap:6px;flex-wrap:wrap;flex-shrink:0}
+.hero-hstep{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.12);border-radius:10px;padding:8px 11px}
+.hero-hnum{width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0}
+.hero-htitle{font-size:12px;font-weight:700;line-height:1.15}
+.hero-hdesc{font-size:10px;opacity:.65;line-height:1.3;margin-top:1px}
+.hero-harrow{font-size:1.2rem;opacity:.35;flex-shrink:0}
+@media(max-width:820px){.hero-guide{display:none}}
+.how-strip{display:none !important}
+
 /* modal guía — rediseño */
 .how-modal-ov{position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:400;display:none;align-items:center;justify-content:center;padding:20px}
 .how-modal-ov.open{display:flex}
@@ -392,9 +417,25 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 </nav>
 
 <div class="hero">
-  <div>
+  <div class="hero-content">
     <h1>Laptops en México</h1>
     <p>Compara procesador, RAM y almacenamiento en Amazon MX y Mercado Libre · Decide con datos</p>
+  </div>
+  <div class="hero-guide" aria-label="Cómo usar el comparador">
+    <div class="hero-hstep">
+      <span class="hero-hnum">1</span>
+      <div><div class="hero-htitle">Filtra</div><div class="hero-hdesc">Marca, RAM y precio</div></div>
+    </div>
+    <span class="hero-harrow" aria-hidden="true">›</span>
+    <div class="hero-hstep">
+      <span class="hero-hnum">2</span>
+      <div><div class="hero-htitle">Compara</div><div class="hero-hdesc">Hasta 3 laptops</div></div>
+    </div>
+    <span class="hero-harrow" aria-hidden="true">›</span>
+    <div class="hero-hstep">
+      <span class="hero-hnum">3</span>
+      <div><div class="hero-htitle">Consulta el precio</div><div class="hero-hdesc">En Amazon o ML</div></div>
+    </div>
   </div>
 </div>
 
@@ -2710,8 +2751,8 @@ function cardHTML(p) {
   let bestML = false, bestAmz = false;
   if (pML != null && pAmz != null) { if (pML < pAmz) bestML = true; else if (pAmz < pML) bestAmz = true; }
   const _GA = (ev, plat) => `onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','${ev}',{'platform':'${plat}','product_name':this.dataset.gaLabel||'','price':parseFloat(this.dataset.gaVal)||0,'page_section':'laptops','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1,'category':'laptops'})}" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}"`;
-  const mlBox  = p.linkML  ? `<div class="pplat${bestML?' best':''}">${bestML?'<span class="pplat-tag">Mejor precio</span>':''}<span class="pplat-name">Mercado Libre</span>${pML?`<span class="pplat-price">${fmt(pML)}</span>`:''}<a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" ${_GA('affiliate_click_ml','mercado_libre')}>Ir a <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a></div>` : '';
-  const amzBox = p.linkAmz ? `<div class="pplat${bestAmz?' best':''}">${bestAmz?'<span class="pplat-tag">Mejor precio</span>':''}<span class="pplat-name">Amazon</span>${pAmz?`<span class="pplat-price">${fmt(pAmz)}</span>`:''}<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" ${_GA('affiliate_click_amazon','amazon')}>Ir a <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a></div>` : '';
+  const mlBox  = p.linkML  ? `<div class="pplat pplat-ml${bestML?' best':''}">${bestML?'<span class="pplat-tag">Mejor precio</span>':''}<span class="pplat-name">Mercado Libre</span>${pML?`<span class="pplat-price">${fmt(pML)}</span>`:''}<a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" ${_GA('affiliate_click_ml','mercado_libre')}>Ir a <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a></div>` : '';
+  const amzBox = p.linkAmz ? `<div class="pplat pplat-amz${bestAmz?' best':''}">${bestAmz?'<span class="pplat-tag">Mejor precio</span>':''}<span class="pplat-name">Amazon</span>${pAmz?`<span class="pplat-price">${fmt(pAmz)}</span>`:''}<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" ${_GA('affiliate_click_amazon','amazon')}>Ir a <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a></div>` : '';
   const _n = (p.linkML?1:0) + (p.linkAmz?1:0);
   const btnsBlock = (mlBox || amzBox)
     ? `<div class="pcard-plats${_n<2?' one':''}">${mlBox}${amzBox}</div>`
