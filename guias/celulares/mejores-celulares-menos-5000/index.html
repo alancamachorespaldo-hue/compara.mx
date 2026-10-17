@@ -49,6 +49,10 @@
 <link rel="preload" as="style" href="https://api.fontshare.com/v2/css?f[]=satoshi@800,700,600,500,400,300&display=swap">
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@800,700,600,500,400,300&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <noscript><link href="https://api.fontshare.com/v2/css?f[]=satoshi@800,700,600,500,400,300&display=swap" rel="stylesheet"></noscript>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet"></noscript>
 <script>if(location.search.includes('bot=claude'))window['ga-disable-G-9TKZ4ER13X']=true;</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9TKZ4ER13X"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-9TKZ4ER13X');</script>
@@ -85,8 +89,8 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 /* HERO */
 .hero{background:linear-gradient(135deg,#006847 0%,#004d34 100%);color:#fff;padding:2.5rem 2rem 2rem}
 .hero-eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.65;margin-bottom:.5rem;font-weight:600}
-.hero h1{font-size:1.9rem;font-weight:800;line-height:1.15;letter-spacing:-.03em;margin-bottom:.4rem;max-width:680px}
-@media(max-width:480px){.hero h1{font-size:1.5rem}}
+.hero h1{font-family:'Anton',sans-serif;font-size:3rem;font-weight:400;line-height:1.05;letter-spacing:.02em;text-transform:uppercase;margin-bottom:.4rem;max-width:760px}
+@media(max-width:480px){.hero h1{font-size:2.2rem}}
 .hero-meta{font-size:12px;opacity:.65;margin-bottom:.75rem}
 .hero-intro{font-size:.9rem;opacity:.82;max-width:620px;line-height:1.55}
 
@@ -98,7 +102,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .section{padding:2.5rem 0}
 .section+.section{border-top:1px solid var(--bd)}
 .section-eyebrow{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ac);margin-bottom:.35rem}
-.section h2{font-size:1.35rem;font-weight:700;letter-spacing:-.025em;color:var(--tx);margin-bottom:1rem;line-height:1.25}
+.section h2{font-family:'Anton',sans-serif;font-size:1.7rem;font-weight:400;letter-spacing:.02em;text-transform:uppercase;color:var(--tx);margin-bottom:1rem;line-height:1.1}
 .section h3{font-size:1.05rem;font-weight:700;letter-spacing:-.015em;color:var(--tx);margin-bottom:.5rem;margin-top:1.5rem}
 .section p{font-size:.93rem;color:var(--tx2);margin-bottom:.75rem;line-height:1.65}
 .section p:last-child{margin-bottom:0}
@@ -139,7 +143,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 
 /* CTA BLOCK */
 .cta-block{background:var(--s1);border:1px solid var(--bd);border-radius:14px;padding:1.5rem;margin:1.5rem 0;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap}
-.cta-block-txt h3{font-size:1.05rem;font-weight:700;color:var(--tx);margin-bottom:.3rem}
+.cta-block-txt h3{font-family:'Anton',sans-serif;font-size:1.3rem;font-weight:400;letter-spacing:.02em;text-transform:uppercase;color:var(--tx);margin-bottom:.3rem}
 .cta-block-txt p{font-size:.88rem;color:var(--tx2);margin:0}
 .cta-block-actions{display:flex;gap:8px;flex-wrap:wrap;flex-shrink:0}
 .btn-primary{display:inline-flex;align-items:center;padding:10px 20px;background:var(--ac);color:#fff;border:none;border-radius:var(--r);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:none;white-space:nowrap;transition:opacity .15s}
@@ -187,7 +191,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 
 /* EDITORIAL SECTIONS */
 .ed-section{padding:2rem 0;border-top:1px solid var(--bd)}
-.ed-section h2{font-size:1.25rem;font-weight:700;letter-spacing:-.02em;margin-bottom:.75rem;color:var(--tx);line-height:1.3}
+.ed-section h2{font-family:'Anton',sans-serif;font-size:1.55rem;font-weight:400;letter-spacing:.02em;text-transform:uppercase;margin-bottom:.75rem;color:var(--tx);line-height:1.1}
 .ed-section p{font-size:.93rem;color:var(--tx2);line-height:1.7;margin-bottom:.65rem}
 .ed-section p:last-child{margin-bottom:0}
 .ed-section ul,.ed-section ol{padding-left:1.3rem;color:var(--tx2);font-size:.93rem;line-height:1.8;margin-bottom:.75rem}
@@ -223,7 +227,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 
 /* FINAL CTA */
 .final-cta{background:linear-gradient(135deg,#006847 0%,#004d34 100%);color:#fff;border-radius:16px;padding:2rem;margin:2rem 0;text-align:center}
-.final-cta h2{font-size:1.4rem;font-weight:800;letter-spacing:-.025em;margin-bottom:.5rem}
+.final-cta h2{font-family:'Anton',sans-serif;font-size:2rem;font-weight:400;letter-spacing:.03em;text-transform:uppercase;margin-bottom:.5rem}
 .final-cta p{font-size:.9rem;opacity:.82;margin-bottom:1.25rem;max-width:520px;margin-left:auto;margin-right:auto}
 .final-cta-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
 .btn-final-pri{display:inline-flex;align-items:center;padding:11px 22px;background:#fff;color:var(--ac);border:none;border-radius:var(--r);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:none;transition:opacity .15s}
