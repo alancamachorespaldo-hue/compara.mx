@@ -1,6 +1,6 @@
 {
-  "fecha": "2026-10-18",
-  "generado": "2026-10-18T15:31:18.026Z",
+  "fecha": "2026-10-19",
+  "generado": "2026-10-19T15:08:16.344Z",
   "categorias": [
     "laptops",
     "freidoras",
@@ -14,12 +14,15 @@
     "vitamina_d",
     "videojuegos_consolas",
     "videojuegos_controles",
-    "videojuegos_juegos"
+    "videojuegos_juegos",
+    "tecnologia_bocinas",
+    "tecnologia_audifonos"
   ],
   "totales": {
-    "actualizados": 1,
-    "sin_cambio": 268,
-    "sin_precio": 14,
+    "actualizados": 168,
+    "sin_cambio": 253,
+    "sin_precio": 16,
+    "no_encontrado": 2,
     "precio_sospechoso": 0,
     "sin_id": 76
   },
@@ -236,8 +239,9 @@
       "marca": "HP",
       "mlId": "MLM69741169",
       "precioAntes": 22983,
-      "estado": "sin_cambio",
-      "precioML": 22983
+      "estado": "actualizado",
+      "precioNuevo": 23033,
+      "precioML": 23033
     },
     {
       "categoria": "laptops",
@@ -286,8 +290,9 @@
       "marca": "HP",
       "mlId": "MLM63240659",
       "precioAntes": 6724,
-      "estado": "sin_cambio",
-      "precioML": 6724
+      "estado": "actualizado",
+      "precioNuevo": 6738,
+      "precioML": 6738
     },
     {
       "categoria": "laptops",
@@ -306,8 +311,8 @@
       "marca": "ASUS",
       "mlId": "MLM49901787",
       "precioAntes": 15500,
-      "estado": "sin_cambio",
-      "precioML": 15500
+      "estado": "sin_precio",
+      "precioML": null
     },
     {
       "categoria": "laptops",
@@ -316,8 +321,9 @@
       "marca": "HP",
       "mlId": "MLM63081442",
       "precioAntes": 6102,
-      "estado": "sin_cambio",
-      "precioML": 6102
+      "estado": "actualizado",
+      "precioNuevo": 6115,
+      "precioML": 6115
     },
     {
       "categoria": "laptops",
@@ -326,8 +332,9 @@
       "marca": "Lenovo",
       "mlId": "MLM70394812",
       "precioAntes": 8023,
-      "estado": "sin_cambio",
-      "precioML": 8023
+      "estado": "actualizado",
+      "precioNuevo": 8041,
+      "precioML": 8041
     },
     {
       "categoria": "laptops",
@@ -336,7 +343,7 @@
       "marca": "HP",
       "mlId": "MLM53196537",
       "precioAntes": 6326,
-      "estado": "sin_precio",
+      "estado": "no_encontrado",
       "precioML": null
     },
     {
@@ -346,8 +353,9 @@
       "marca": "HP",
       "mlId": "MLM58343227",
       "precioAntes": 4699,
-      "estado": "sin_cambio",
-      "precioML": 4699
+      "estado": "actualizado",
+      "precioNuevo": 4569,
+      "precioML": 4569
     },
     {
       "categoria": "laptops",
@@ -366,8 +374,9 @@
       "marca": "Apple",
       "mlId": "MLM66172744",
       "precioAntes": 17867,
-      "estado": "sin_cambio",
-      "precioML": 17867
+      "estado": "actualizado",
+      "precioNuevo": 17905,
+      "precioML": 17905
     },
     {
       "categoria": "laptops",
@@ -476,8 +485,9 @@
       "marca": "Oster",
       "mlId": "MLM41514595",
       "precioAntes": 999,
-      "estado": "sin_cambio",
-      "precioML": 999
+      "estado": "actualizado",
+      "precioNuevo": 1436,
+      "precioML": 1436
     },
     {
       "categoria": "freidoras",
@@ -506,8 +516,9 @@
       "marca": "Patbrela",
       "mlId": "MLM68400548",
       "precioAntes": 965,
-      "estado": "sin_cambio",
-      "precioML": 965
+      "estado": "actualizado",
+      "precioNuevo": 968,
+      "precioML": 968
     },
     {
       "categoria": "freidoras",
@@ -556,8 +567,9 @@
       "marca": "Welikera",
       "mlId": "MLM50785767",
       "precioAntes": 968,
-      "estado": "sin_cambio",
-      "precioML": 968
+      "estado": "actualizado",
+      "precioNuevo": 970,
+      "precioML": 970
     },
     {
       "categoria": "freidoras",
@@ -586,8 +598,9 @@
       "marca": "Welikera",
       "mlId": "MLM61443962",
       "precioAntes": 1308,
-      "estado": "sin_cambio",
-      "precioML": 1308
+      "estado": "actualizado",
+      "precioNuevo": 1300,
+      "precioML": 1300
     },
     {
       "categoria": "freidoras",
@@ -666,8 +679,9 @@
       "marca": "RCA",
       "mlId": "MLM44230015",
       "precioAntes": 1430,
-      "estado": "sin_cambio",
-      "precioML": 1430
+      "estado": "actualizado",
+      "precioNuevo": 1250,
+      "precioML": 1250
     },
     {
       "categoria": "freidoras",
@@ -686,8 +700,9 @@
       "marca": "Ninja",
       "mlId": "MLM44452194",
       "precioAntes": 3054,
-      "estado": "sin_cambio",
-      "precioML": 3054
+      "estado": "actualizado",
+      "precioNuevo": 3356,
+      "precioML": 3356
     },
     {
       "categoria": "freidoras",
@@ -706,8 +721,9 @@
       "marca": "PATBRELA",
       "mlId": "MLM63441514",
       "precioAntes": 1183,
-      "estado": "sin_cambio",
-      "precioML": 1183
+      "estado": "actualizado",
+      "precioNuevo": 1186,
+      "precioML": 1186
     },
     {
       "categoria": "freidoras",
@@ -1062,8 +1078,9 @@
       "marca": "Bizmo",
       "mlId": "MLM47011341",
       "precioAntes": 15999,
-      "estado": "sin_cambio",
-      "precioML": 15999
+      "estado": "actualizado",
+      "precioNuevo": 7249,
+      "precioML": 7249
     },
     {
       "categoria": "bicis",
@@ -1072,8 +1089,9 @@
       "marca": "NEON",
       "mlId": "MLM47065211",
       "precioAntes": 9299,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 9999,
+      "precioML": 9999
     },
     {
       "categoria": "bicis",
@@ -1202,8 +1220,8 @@
       "marca": "Amyet",
       "mlId": "MLM72071440",
       "precioAntes": 23354,
-      "estado": "sin_cambio",
-      "precioML": 23354
+      "estado": "sin_precio",
+      "precioML": null
     },
     {
       "categoria": "bicis",
@@ -1252,8 +1270,9 @@
       "marca": "Koblenz",
       "mlId": "MLM44794962",
       "precioAntes": 1599,
-      "estado": "sin_cambio",
-      "precioML": 1599
+      "estado": "actualizado",
+      "precioNuevo": 1663,
+      "precioML": 1663
     },
     {
       "categoria": "microondas",
@@ -1272,8 +1291,9 @@
       "marca": "Midea",
       "mlId": "MLM18553094",
       "precioAntes": 1408,
-      "estado": "sin_cambio",
-      "precioML": 1408
+      "estado": "actualizado",
+      "precioNuevo": 1363,
+      "precioML": 1363
     },
     {
       "categoria": "microondas",
@@ -1312,8 +1332,9 @@
       "marca": "Midea",
       "mlId": "MLM46684936",
       "precioAntes": 1690,
-      "estado": "sin_cambio",
-      "precioML": 1690
+      "estado": "actualizado",
+      "precioNuevo": 1790,
+      "precioML": 1790
     },
     {
       "categoria": "microondas",
@@ -1352,8 +1373,9 @@
       "marca": "Mirage",
       "mlId": "MLM18439163",
       "precioAntes": 1374,
-      "estado": "sin_cambio",
-      "precioML": 1374
+      "estado": "actualizado",
+      "precioNuevo": 1360,
+      "precioML": 1360
     },
     {
       "categoria": "microondas",
@@ -1382,8 +1404,9 @@
       "marca": "Acros",
       "mlId": "MLM18568393",
       "precioAntes": 1849,
-      "estado": "sin_cambio",
-      "precioML": 1849
+      "estado": "actualizado",
+      "precioNuevo": 2235,
+      "precioML": 2235
     },
     {
       "categoria": "microondas",
@@ -1422,8 +1445,9 @@
       "marca": "Midea",
       "mlId": "MLM18502711",
       "precioAntes": 1882,
-      "estado": "sin_cambio",
-      "precioML": 1882
+      "estado": "actualizado",
+      "precioNuevo": 1792,
+      "precioML": 1792
     },
     {
       "categoria": "proteina",
@@ -1561,8 +1585,9 @@
       "marca": "Birdman",
       "mlId": "MLM66053354",
       "precioAntes": 984,
-      "estado": "sin_cambio",
-      "precioML": 984
+      "estado": "actualizado",
+      "precioNuevo": 1034,
+      "precioML": 1034
     },
     {
       "categoria": "proteina",
@@ -1611,8 +1636,9 @@
       "marca": "Mutant",
       "mlId": "MLM22073694",
       "precioAntes": 1039,
-      "estado": "sin_cambio",
-      "precioML": 1039
+      "estado": "actualizado",
+      "precioNuevo": 1149,
+      "precioML": 1149
     },
     {
       "categoria": "proteina",
@@ -1621,8 +1647,9 @@
       "marca": "Oby",
       "mlId": "MLM53448139",
       "precioAntes": 349,
-      "estado": "sin_cambio",
-      "precioML": 349
+      "estado": "actualizado",
+      "precioNuevo": 319,
+      "precioML": 319
     },
     {
       "categoria": "proteina",
@@ -1691,8 +1718,9 @@
       "marca": "NAIMA",
       "mlId": "MLM48509351",
       "precioAntes": 269,
-      "estado": "sin_cambio",
-      "precioML": 269
+      "estado": "actualizado",
+      "precioNuevo": 284,
+      "precioML": 284
     },
     {
       "categoria": "proteina",
@@ -1981,8 +2009,9 @@
       "marca": "Saisa Herbal",
       "mlId": "MLM49895419",
       "precioAntes": 286,
-      "estado": "sin_cambio",
-      "precioML": 286
+      "estado": "actualizado",
+      "precioNuevo": 299,
+      "precioML": 299
     },
     {
       "categoria": "proteina",
@@ -2296,8 +2325,9 @@
       "marca": "Birdman",
       "mlId": "MLM18625838",
       "precioAntes": 480,
-      "estado": "sin_cambio",
-      "precioML": 480
+      "estado": "actualizado",
+      "precioNuevo": 494,
+      "precioML": 494
     },
     {
       "categoria": "creatina",
@@ -2406,8 +2436,9 @@
       "marca": "Oby Vitaminas",
       "mlId": "MLM40738543",
       "precioAntes": 289,
-      "estado": "sin_cambio",
-      "precioML": 289
+      "estado": "actualizado",
+      "precioNuevo": 279,
+      "precioML": 279
     },
     {
       "categoria": "creatina",
@@ -2456,8 +2487,9 @@
       "marca": "Evogen",
       "mlId": "MLM29559971",
       "precioAntes": 405,
-      "estado": "sin_cambio",
-      "precioML": 405
+      "estado": "actualizado",
+      "precioNuevo": 393,
+      "precioML": 393
     },
     {
       "categoria": "creatina",
@@ -2496,8 +2528,9 @@
       "marca": "Bloom",
       "mlId": "MLM67633967",
       "precioAntes": 319,
-      "estado": "sin_cambio",
-      "precioML": 319
+      "estado": "actualizado",
+      "precioNuevo": 399,
+      "precioML": 399
     },
     {
       "categoria": "creatina",
@@ -2635,8 +2668,9 @@
       "marca": "Multiblue",
       "mlId": "MLM19865345",
       "precioAntes": 309,
-      "estado": "sin_cambio",
-      "precioML": 309
+      "estado": "actualizado",
+      "precioNuevo": 399,
+      "precioML": 399
     },
     {
       "categoria": "complejo_b",
@@ -2745,8 +2779,9 @@
       "marca": "Sony Interactive Entertainment",
       "mlId": "MLM64368352",
       "precioAntes": 1397,
-      "estado": "sin_cambio",
-      "precioML": 1397
+      "estado": "actualizado",
+      "precioNuevo": 1400,
+      "precioML": 1400
     },
     {
       "categoria": "videojuegos_controles",
@@ -2755,8 +2790,9 @@
       "marca": "PlayStation",
       "mlId": "MLM18917848",
       "precioAntes": 1368,
-      "estado": "sin_cambio",
-      "precioML": 1368
+      "estado": "actualizado",
+      "precioNuevo": 1371,
+      "precioML": 1371
     },
     {
       "categoria": "videojuegos_controles",
@@ -2795,8 +2831,9 @@
       "marca": "GameSir",
       "mlId": "MLM53225642",
       "precioAntes": 1534,
-      "estado": "sin_cambio",
-      "precioML": 1534
+      "estado": "actualizado",
+      "precioNuevo": 1538,
+      "precioML": 1538
     },
     {
       "categoria": "videojuegos_controles",
@@ -2805,8 +2842,9 @@
       "marca": "GameSir",
       "mlId": "MLM59819659",
       "precioAntes": 1923,
-      "estado": "sin_cambio",
-      "precioML": 1923
+      "estado": "actualizado",
+      "precioNuevo": 1927,
+      "precioML": 1927
     },
     {
       "categoria": "videojuegos_controles",
@@ -2815,8 +2853,9 @@
       "marca": "GameSir",
       "mlId": "MLM70107397",
       "precioAntes": 1849,
-      "estado": "sin_cambio",
-      "precioML": 1849
+      "estado": "actualizado",
+      "precioNuevo": 1852,
+      "precioML": 1852
     },
     {
       "categoria": "videojuegos_controles",
@@ -2825,8 +2864,9 @@
       "marca": "GameSir",
       "mlId": "MLM54456290",
       "precioAntes": 1775,
-      "estado": "sin_cambio",
-      "precioML": 1775
+      "estado": "actualizado",
+      "precioNuevo": 1779,
+      "precioML": 1779
     },
     {
       "categoria": "videojuegos_controles",
@@ -2835,8 +2875,9 @@
       "marca": "GameSir",
       "mlId": "MLM70104327",
       "precioAntes": 1614,
-      "estado": "sin_cambio",
-      "precioML": 1614
+      "estado": "actualizado",
+      "precioNuevo": 1617,
+      "precioML": 1617
     },
     {
       "categoria": "videojuegos_controles",
@@ -2845,8 +2886,9 @@
       "marca": "Gamesir Hk",
       "mlId": "MLM77547119",
       "precioAntes": 1506,
-      "estado": "sin_cambio",
-      "precioML": 1506
+      "estado": "actualizado",
+      "precioNuevo": 1556,
+      "precioML": 1556
     },
     {
       "categoria": "videojuegos_controles",
@@ -2855,8 +2897,9 @@
       "marca": "GameSir",
       "mlId": "MLM54226965",
       "precioAntes": 921,
-      "estado": "sin_cambio",
-      "precioML": 921
+      "estado": "actualizado",
+      "precioNuevo": 923,
+      "precioML": 923
     },
     {
       "categoria": "videojuegos_controles",
@@ -2875,8 +2918,9 @@
       "marca": "Xbox",
       "mlId": "MLM23249699",
       "precioAntes": 1276,
-      "estado": "sin_cambio",
-      "precioML": 1276
+      "estado": "actualizado",
+      "precioNuevo": 1278,
+      "precioML": 1278
     },
     {
       "categoria": "videojuegos_controles",
@@ -2885,8 +2929,9 @@
       "marca": "8BitDo",
       "mlId": "MLM2070731793",
       "precioAntes": 714,
-      "estado": "sin_cambio",
-      "precioML": 714
+      "estado": "actualizado",
+      "precioNuevo": 715,
+      "precioML": 715
     },
     {
       "categoria": "videojuegos_controles",
@@ -2925,8 +2970,8 @@
       "marca": "Capcom",
       "mlId": "MLM80273818",
       "precioAntes": 1299,
-      "estado": "sin_cambio",
-      "precioML": 1299
+      "estado": "sin_precio",
+      "precioML": null
     },
     {
       "categoria": "videojuegos_juegos",
@@ -2965,8 +3010,9 @@
       "marca": "Capcom",
       "mlId": "MLM6162905",
       "precioAntes": 451,
-      "estado": "sin_cambio",
-      "precioML": 451
+      "estado": "actualizado",
+      "precioNuevo": 430,
+      "precioML": 430
     },
     {
       "categoria": "videojuegos_juegos",
@@ -2975,8 +3021,9 @@
       "marca": "",
       "mlId": "MLM20890459",
       "precioAntes": 268,
-      "estado": "sin_cambio",
-      "precioML": 268
+      "estado": "actualizado",
+      "precioNuevo": 269,
+      "precioML": 269
     },
     {
       "categoria": "videojuegos_juegos",
@@ -2994,10 +3041,10 @@
       "nombre": "Star Fox Nintendo Switch 2 Físico",
       "marca": "Nintendo",
       "mlId": "MLM69446233",
-      "precioAntes": 1069,
+      "precioAntes": 1099,
       "estado": "actualizado",
-      "precioNuevo": 1099,
-      "precioML": 1099
+      "precioNuevo": 1059,
+      "precioML": 1059
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3006,8 +3053,9 @@
       "marca": "Konami",
       "mlId": "MLM67412190",
       "precioAntes": 878,
-      "estado": "sin_cambio",
-      "precioML": 878
+      "estado": "actualizado",
+      "precioNuevo": 880,
+      "precioML": 880
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3016,8 +3064,9 @@
       "marca": "PlayStation",
       "mlId": "MLM6084032",
       "precioAntes": 261,
-      "estado": "sin_cambio",
-      "precioML": 261
+      "estado": "actualizado",
+      "precioNuevo": 262,
+      "precioML": 262
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3026,8 +3075,9 @@
       "marca": "",
       "mlId": "MLM25211190",
       "precioAntes": 555,
-      "estado": "sin_cambio",
-      "precioML": 555
+      "estado": "actualizado",
+      "precioNuevo": 556,
+      "precioML": 556
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3036,8 +3086,9 @@
       "marca": "2K",
       "mlId": "MLM46318951",
       "precioAntes": 536,
-      "estado": "sin_cambio",
-      "precioML": 536
+      "estado": "actualizado",
+      "precioNuevo": 538,
+      "precioML": 538
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3046,8 +3097,9 @@
       "marca": "EA Sports",
       "mlId": "MLM77515508",
       "precioAntes": 1399,
-      "estado": "sin_cambio",
-      "precioML": 1399
+      "estado": "actualizado",
+      "precioNuevo": 1260,
+      "precioML": 1260
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3076,8 +3128,9 @@
       "marca": "Nintendo",
       "mlId": "MLM61495764",
       "precioAntes": 999,
-      "estado": "sin_cambio",
-      "precioML": 999
+      "estado": "actualizado",
+      "precioNuevo": 987,
+      "precioML": 987
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3106,8 +3159,9 @@
       "marca": "Nintendo",
       "mlId": "MLM61058489",
       "precioAntes": 1299,
-      "estado": "sin_cambio",
-      "precioML": 1299
+      "estado": "actualizado",
+      "precioNuevo": 1200,
+      "precioML": 1200
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3116,8 +3170,9 @@
       "marca": "EA Sports",
       "mlId": "MLM77515504",
       "precioAntes": 1189,
-      "estado": "sin_cambio",
-      "precioML": 1189
+      "estado": "actualizado",
+      "precioNuevo": 1191,
+      "precioML": 1191
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3126,8 +3181,9 @@
       "marca": "Rockstar Games",
       "mlId": "MLM14807282",
       "precioAntes": 481,
-      "estado": "sin_cambio",
-      "precioML": 481
+      "estado": "actualizado",
+      "precioNuevo": 483,
+      "precioML": 483
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3146,8 +3202,9 @@
       "marca": "",
       "mlId": "MLM19518391",
       "precioAntes": 243,
-      "estado": "sin_cambio",
-      "precioML": 243
+      "estado": "actualizado",
+      "precioNuevo": 244,
+      "precioML": 244
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3156,8 +3213,9 @@
       "marca": "",
       "mlId": "MLM6244239",
       "precioAntes": 627,
-      "estado": "sin_cambio",
-      "precioML": 627
+      "estado": "actualizado",
+      "precioNuevo": 618,
+      "precioML": 618
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3166,8 +3224,9 @@
       "marca": "Microsoft",
       "mlId": "MLM26882384",
       "precioAntes": 517,
-      "estado": "sin_cambio",
-      "precioML": 517
+      "estado": "actualizado",
+      "precioNuevo": 518,
+      "precioML": 518
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3176,8 +3235,9 @@
       "marca": "Microsoft",
       "mlId": "MLM24577346",
       "precioAntes": 543,
-      "estado": "sin_cambio",
-      "precioML": 543
+      "estado": "actualizado",
+      "precioNuevo": 544,
+      "precioML": 544
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3196,8 +3256,9 @@
       "marca": "PlayStation",
       "mlId": "MLM66764100",
       "precioAntes": 1165,
-      "estado": "sin_cambio",
-      "precioML": 1165
+      "estado": "actualizado",
+      "precioNuevo": 1167,
+      "precioML": 1167
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3216,8 +3277,9 @@
       "marca": "Microsoft",
       "mlId": "MLM73134263",
       "precioAntes": 1479,
-      "estado": "sin_cambio",
-      "precioML": 1479
+      "estado": "actualizado",
+      "precioNuevo": 1482,
+      "precioML": 1482
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3276,8 +3338,9 @@
       "marca": "Konami",
       "mlId": "MLM66910108",
       "precioAntes": 869,
-      "estado": "sin_cambio",
-      "precioML": 869
+      "estado": "actualizado",
+      "precioNuevo": 871,
+      "precioML": 871
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3306,8 +3369,9 @@
       "marca": "Switch",
       "mlId": "MLM75434376",
       "precioAntes": 1109,
-      "estado": "sin_cambio",
-      "precioML": 1109
+      "estado": "actualizado",
+      "precioNuevo": 1100,
+      "precioML": 1100
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3316,8 +3380,9 @@
       "marca": "Bandai Namco",
       "mlId": "MLM14141441",
       "precioAntes": 725,
-      "estado": "sin_cambio",
-      "precioML": 725
+      "estado": "actualizado",
+      "precioNuevo": 726,
+      "precioML": 726
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3326,8 +3391,9 @@
       "marca": "Switch",
       "mlId": "MLM22619571",
       "precioAntes": 452,
-      "estado": "sin_cambio",
-      "precioML": 452
+      "estado": "actualizado",
+      "precioNuevo": 529,
+      "precioML": 529
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3336,8 +3402,9 @@
       "marca": "",
       "mlId": "MLM57015563",
       "precioAntes": 692,
-      "estado": "sin_cambio",
-      "precioML": 692
+      "estado": "actualizado",
+      "precioNuevo": 693,
+      "precioML": 693
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3346,8 +3413,9 @@
       "marca": "Nintendo",
       "mlId": "MLM71513168",
       "precioAntes": 799,
-      "estado": "sin_cambio",
-      "precioML": 799
+      "estado": "actualizado",
+      "precioNuevo": 760,
+      "precioML": 760
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3356,8 +3424,9 @@
       "marca": "Bandai Namco",
       "mlId": "MLM15393901",
       "precioAntes": 469,
-      "estado": "sin_cambio",
-      "precioML": 469
+      "estado": "actualizado",
+      "precioNuevo": 470,
+      "precioML": 470
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3366,8 +3435,9 @@
       "marca": "Electronics Art",
       "mlId": "MLM18616305",
       "precioAntes": 209,
-      "estado": "sin_cambio",
-      "precioML": 209
+      "estado": "actualizado",
+      "precioNuevo": 299,
+      "precioML": 299
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3376,8 +3446,9 @@
       "marca": "Nintendo",
       "mlId": "MLM67210884",
       "precioAntes": 1220,
-      "estado": "sin_cambio",
-      "precioML": 1220
+      "estado": "actualizado",
+      "precioNuevo": 1223,
+      "precioML": 1223
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3386,8 +3457,9 @@
       "marca": "",
       "mlId": "MLM50240114",
       "precioAntes": 629,
-      "estado": "sin_cambio",
-      "precioML": 629
+      "estado": "actualizado",
+      "precioNuevo": 635,
+      "precioML": 635
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3396,8 +3468,9 @@
       "marca": "",
       "mlId": "MLM27823721",
       "precioAntes": 514,
-      "estado": "sin_cambio",
-      "precioML": 514
+      "estado": "actualizado",
+      "precioNuevo": 515,
+      "precioML": 515
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3406,8 +3479,9 @@
       "marca": "Nintendo Switch",
       "mlId": "MLM74344570",
       "precioAntes": 877,
-      "estado": "sin_cambio",
-      "precioML": 877
+      "estado": "actualizado",
+      "precioNuevo": 879,
+      "precioML": 879
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3416,8 +3490,9 @@
       "marca": "EA Sports",
       "mlId": "MLM77515506",
       "precioAntes": 1128,
-      "estado": "sin_cambio",
-      "precioML": 1128
+      "estado": "actualizado",
+      "precioNuevo": 1130,
+      "precioML": 1130
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3426,8 +3501,9 @@
       "marca": "Nintendo",
       "mlId": "MLM18758238",
       "precioAntes": 849,
-      "estado": "sin_cambio",
-      "precioML": 849
+      "estado": "actualizado",
+      "precioNuevo": 851,
+      "precioML": 851
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3446,8 +3522,9 @@
       "marca": "EA Sports",
       "mlId": "MLM80271561",
       "precioAntes": 179,
-      "estado": "sin_cambio",
-      "precioML": 179
+      "estado": "actualizado",
+      "precioNuevo": 159,
+      "precioML": 159
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3486,8 +3563,9 @@
       "marca": "Nintendo Of America",
       "mlId": "MLM59417784",
       "precioAntes": 729,
-      "estado": "sin_cambio",
-      "precioML": 729
+      "estado": "actualizado",
+      "precioNuevo": 731,
+      "precioML": 731
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3536,8 +3614,1581 @@
       "marca": "PlayStation",
       "mlId": "MLM74430324",
       "precioAntes": 1099,
+      "estado": "actualizado",
+      "precioNuevo": 1000,
+      "precioML": 1000
+    },
+    {
+      "categoria": "tecnologia_bocinas",
+      "id": "boc_mlm19795010",
+      "nombre": "Amazon Dot Echo Dot 5th Gen con asistente virtual Alexa color negro 127/220V",
+      "marca": "Amazon",
+      "mlId": "MLM19795010",
+      "precioAntes": 894,
+      "estado": "actualizado",
+      "precioNuevo": 959,
+      "precioML": 959
+    },
+    {
+      "categoria": "tecnologia_bocinas",
+      "id": "boc_mlm23995388",
+      "nombre": "Amazon Echo Pop C2H4R9 con asistente virtual Alexa Control de Voz Charcoal",
+      "marca": "Alexa",
+      "mlId": "MLM23995388",
+      "precioAntes": 709,
+      "estado": "actualizado",
+      "precioNuevo": 849,
+      "precioML": 849
+    },
+    {
+      "categoria": "tecnologia_bocinas",
+      "id": "boc_mlm61324434",
+      "nombre": "Alexa+ Echo Dot Max Sonido Envolvente, Color Grafito Graphite",
+      "marca": "Amazon",
+      "mlId": "MLM61324434",
+      "precioAntes": 1541,
+      "estado": "actualizado",
+      "precioNuevo": 1649,
+      "precioML": 1649
+    },
+    {
+      "categoria": "tecnologia_bocinas",
+      "id": "boc_mlm62734836",
+      "nombre": "Amazon Echo Dot Max (modelo Más Reciente), Altavoz Alexa Con",
+      "marca": "Amazon",
+      "mlId": "MLM62734836",
+      "precioAntes": 1459,
       "estado": "sin_cambio",
-      "precioML": 1099
+      "precioML": 1459
+    },
+    {
+      "categoria": "tecnologia_bocinas",
+      "id": "boc_mlm58978915",
+      "nombre": "Asistente Virtual Amazon Echo Dot 5ta Gen Blanco Glacier White",
+      "marca": "Amazon",
+      "mlId": "MLM58978915",
+      "precioAntes": 899,
+      "estado": "actualizado",
+      "precioNuevo": 964,
+      "precioML": 964
+    },
+    {
+      "categoria": "tecnologia_bocinas",
+      "id": "boc_mlm68975072",
+      "nombre": "Amazon Echo Spot Bocina Inteligente Pantalla Con Reloj White Blanco",
+      "marca": "Amazon",
+      "mlId": "MLM68975072",
+      "precioAntes": 1199,
+      "estado": "actualizado",
+      "precioNuevo": 1017,
+      "precioML": 1017
+    },
+    {
+      "categoria": "tecnologia_bocinas",
+      "id": "boc_mlm43330156",
+      "nombre": "Despertador Inteligente Alexa Amazon Echo Spot 2024 Azul",
+      "marca": "Amazon",
+      "mlId": "MLM43330156",
+      "precioAntes": 1139,
+      "estado": "actualizado",
+      "precioNuevo": 1549,
+      "precioML": 1549
+    },
+    {
+      "categoria": "tecnologia_bocinas",
+      "id": "boc_mlm25436011",
+      "nombre": "Bocina Amazon Echo Show 5 3ra Generación 5.5 Pulgadas Negra Color Negro",
+      "marca": "Alexa",
+      "mlId": "MLM25436011",
+      "precioAntes": 1299,
+      "estado": "actualizado",
+      "precioNuevo": 1471,
+      "precioML": 1471
+    },
+    {
+      "categoria": "tecnologia_bocinas",
+      "id": "boc_mlm62334925",
+      "nombre": "Amazon Echo Dot Max Altavoz Alexa Color Amatista",
+      "marca": "Amazon",
+      "mlId": "MLM62334925",
+      "precioAntes": 1454,
+      "estado": "sin_cambio",
+      "precioML": 1454
+    },
+    {
+      "categoria": "tecnologia_bocinas",
+      "id": "boc_mlm66677203",
+      "nombre": "Bocina Inteligente Amazon Echo Pop con Alexa y Wi-Fi Verde Azulado",
+      "marca": "Alexa",
+      "mlId": "MLM66677203",
+      "precioAntes": 709,
+      "estado": "actualizado",
+      "precioNuevo": 1029,
+      "precioML": 1029
+    },
+    {
+      "categoria": "tecnologia_bocinas",
+      "id": "boc_mlm38462705",
+      "nombre": "Amazon Echo Spot Bocina Y Despertador Inteligente Negro B0bf",
+      "marca": "Alexa",
+      "mlId": "MLM38462705",
+      "precioAntes": 1119,
+      "estado": "actualizado",
+      "precioNuevo": 1229,
+      "precioML": 1229
+    },
+    {
+      "categoria": "tecnologia_bocinas",
+      "id": "boc_mlm77326871",
+      "nombre": "Amazon Echo Studio Alexa Bocina Audio Espacial Negra",
+      "marca": "Amazon",
+      "mlId": "MLM77326871",
+      "precioAntes": 3799,
+      "estado": "actualizado",
+      "precioNuevo": 3999,
+      "precioML": 3999
+    },
+    {
+      "categoria": "tecnologia_bocinas",
+      "id": "boc_mlm20659980",
+      "nombre": "Amazon Echo Dot Echo Dot 5th Gen Kids con asistente virtual Alexa color dragon",
+      "marca": "Amazon",
+      "mlId": "MLM20659980",
+      "precioAntes": 800,
+      "estado": "sin_cambio",
+      "precioML": 800
+    },
+    {
+      "categoria": "tecnologia_bocinas",
+      "id": "boc_mlm64180519",
+      "nombre": "Pantalla Inteligente Amazon Echo Show 8 2025 Hd Con",
+      "marca": "Amazon",
+      "mlId": "MLM64180519",
+      "precioAntes": 2999,
+      "estado": "actualizado",
+      "precioNuevo": 3999,
+      "precioML": 3999
+    },
+    {
+      "categoria": "tecnologia_bocinas",
+      "id": "boc_mlm63425652",
+      "nombre": "Amazon Echo Show 11 – Pantalla Inteligente Full HD de 11\" con Alexa",
+      "marca": "Amazon",
+      "mlId": "MLM63425652",
+      "precioAntes": 3779,
+      "estado": "actualizado",
+      "precioNuevo": 3842,
+      "precioML": 3842
+    },
+    {
+      "categoria": "tecnologia_bocinas",
+      "id": "boc_mlm17385336",
+      "nombre": "Bocina Bluetooth Portátil 1Hora BOC060 5.1 Altavoz Inalámbrico con Sonido Estére",
+      "marca": "1Hora",
+      "mlId": "MLM17385336",
+      "precioAntes": 209,
+      "estado": "actualizado",
+      "precioNuevo": 220,
+      "precioML": 220
+    },
+    {
+      "categoria": "tecnologia_bocinas",
+      "id": "boc_mlm44711929",
+      "nombre": "Sonos Era 300 Bocina Inalámbrica de diseño innovador para audio espacial envolve",
+      "marca": "Sonos",
+      "mlId": "MLM44711929",
+      "precioAntes": 7999,
+      "estado": "sin_cambio",
+      "precioML": 7999
+    },
+    {
+      "categoria": "tecnologia_bocinas",
+      "id": "boc_mlm44720956",
+      "nombre": "Sonos Era 100 Bocina Inalámbrica con acústica y conectividad de última generació",
+      "marca": "Sonos",
+      "mlId": "MLM44720956",
+      "precioAntes": 3200,
+      "estado": "actualizado",
+      "precioNuevo": 4399,
+      "precioML": 4399
+    },
+    {
+      "categoria": "tecnologia_bocinas",
+      "id": "boc_mlm41864928",
+      "nombre": "Bocina Altavoz GOCHANMI Patanlla Tactil Inalambrica 2 Microfonos Man Color Negro",
+      "marca": "Rodeo Sonido",
+      "mlId": "MLM41864928",
+      "precioAntes": 4913,
+      "estado": "sin_cambio",
+      "precioML": 4913
+    },
+    {
+      "categoria": "tecnologia_bocinas",
+      "id": "boc_mlm56412948",
+      "nombre": "Bocina Inteligente Portátil Altavoz Bluetooth Cargador Inalambrico Luces Colores",
+      "marca": "Ele-Gate",
+      "mlId": "MLM56412948",
+      "precioAntes": 349,
+      "estado": "sin_cambio",
+      "precioML": 349
+    },
+    {
+      "categoria": "tecnologia_bocinas",
+      "id": "boc_mlm63399322",
+      "nombre": "Amazon Echo Pop Con Asistente Virtual Alexa Colores Color Lavender Bloom Lila",
+      "marca": "Alexa",
+      "mlId": "MLM63399322",
+      "precioAntes": 829,
+      "estado": "actualizado",
+      "precioNuevo": 939,
+      "precioML": 939
+    },
+    {
+      "categoria": "tecnologia_bocinas",
+      "id": "boc_mlm2062190498",
+      "nombre": "+` Parlante Inalámbrico Portátil Xb100 Color Negro *\\",
+      "marca": "",
+      "mlId": "MLM2062190498",
+      "precioAntes": 582,
+      "estado": "actualizado",
+      "precioNuevo": 488,
+      "precioML": 488
+    },
+    {
+      "categoria": "tecnologia_bocinas",
+      "id": "boc_mlm26047900",
+      "nombre": "Bocina Amazon Echo Show 5 3ra Generación 5.5 Pulgadas Azul Color Cloud blue",
+      "marca": "Alexa",
+      "mlId": "MLM26047900",
+      "precioAntes": 1449,
+      "estado": "actualizado",
+      "precioNuevo": 1373,
+      "precioML": 1373
+    },
+    {
+      "categoria": "tecnologia_bocinas",
+      "id": "boc_mlm30164524",
+      "nombre": "Amazon Echo Hub Color Blanco",
+      "marca": "Amazon",
+      "mlId": "MLM30164524",
+      "precioAntes": 2270,
+      "estado": "actualizado",
+      "precioNuevo": 2307,
+      "precioML": 2307
+    },
+    {
+      "categoria": "tecnologia_bocinas",
+      "id": "boc_mlm27951975",
+      "nombre": "Parlante Inteligente Xiaomi (ir Control)",
+      "marca": "Xiaomi",
+      "mlId": "MLM27951975",
+      "precioAntes": 548,
+      "estado": "sin_cambio",
+      "precioML": 548
+    },
+    {
+      "categoria": "tecnologia_bocinas",
+      "id": "boc_mlm16259426",
+      "nombre": "Asistente Virtual Google Assistant Nest Audio Gris Wi-fi Gris",
+      "marca": "Google",
+      "mlId": "MLM16259426",
+      "precioAntes": 1605,
+      "estado": "actualizado",
+      "precioNuevo": 1639,
+      "precioML": 1639
+    },
+    {
+      "categoria": "tecnologia_bocinas",
+      "id": "boc_mlm18439250",
+      "nombre": "Google Nest Hub 2nd Gen con asistente virtual Google Assistant, pantalla integra",
+      "marca": "Google",
+      "mlId": "MLM18439250",
+      "precioAntes": 4999,
+      "estado": "sin_cambio",
+      "precioML": 4999
+    },
+    {
+      "categoria": "tecnologia_bocinas",
+      "id": "boc_mlm15536759",
+      "nombre": "Bocina Inteligente Google Home con Asistente Virtual y Wi-Fi en Blanco/Gris",
+      "marca": "Google",
+      "mlId": "MLM15536759",
+      "precioAntes": 3000,
+      "estado": "sin_cambio",
+      "precioML": 3000
+    },
+    {
+      "categoria": "tecnologia_bocinas",
+      "id": "boc_mlm19043724",
+      "nombre": "Bocina inteligente Harman Kardon Citation 200 con asistente virtual Google Assis",
+      "marca": "Harman Kardon",
+      "mlId": "MLM19043724",
+      "precioAntes": 4500,
+      "estado": "sin_cambio",
+      "precioML": 4500
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm29045971",
+      "nombre": "Auriculares On-ear Inalámbricos Bluetooth Aiwa Awk17 Negro",
+      "marca": "Aiwa",
+      "mlId": "MLM29045971",
+      "precioAntes": 292,
+      "estado": "sin_cambio",
+      "precioML": 292
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm42865017",
+      "nombre": "Auriculares In-ear Inalámbricos Aiwa Awtwsgprob Con Cancelación De Ruido Negro",
+      "marca": "Aiwa",
+      "mlId": "MLM42865017",
+      "precioAntes": 418,
+      "estado": "sin_cambio",
+      "precioML": 418
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm45741743",
+      "nombre": "Auriculares Bluetooth Inalámbricos TWS 5.3 Mini Color Negro",
+      "marca": "Skululu",
+      "mlId": "MLM45741743",
+      "precioAntes": 74,
+      "estado": "sin_cambio",
+      "precioML": 74
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm23138487",
+      "nombre": "Audífonos Inalámbricos Sony Wh-ch520 Negro",
+      "marca": "Sony",
+      "mlId": "MLM23138487",
+      "precioAntes": 683,
+      "estado": "actualizado",
+      "precioNuevo": 674,
+      "precioML": 674
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm47259580",
+      "nombre": "Audífonos Inalambricos XIAOMI Redmi Buds 6 Play Bluetooth 10M Rosa M2420E1",
+      "marca": "Xiaomi",
+      "mlId": "MLM47259580",
+      "precioAntes": 260,
+      "estado": "actualizado",
+      "precioNuevo": 255,
+      "precioML": 255
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm20922199",
+      "nombre": "Audífonos Inalámbricos 1HORA AUT205 In-Ear Bluetooth 6.0 con Micrófono, Auricula",
+      "marca": "1Hora",
+      "mlId": "MLM20922199",
+      "precioAntes": 169,
+      "estado": "actualizado",
+      "precioNuevo": 166,
+      "precioML": 166
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm41149389",
+      "nombre": "Audífonos Inalambricos Xiaomi Redmi Buds 6 Play White Color Blanco",
+      "marca": "Xiaomi",
+      "mlId": "MLM41149389",
+      "precioAntes": 230,
+      "estado": "actualizado",
+      "precioNuevo": 226,
+      "precioML": 226
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm16280514",
+      "nombre": "Audífonos Gamer Razer Blackshark V2 X RZ0403240100R3M1 Classic Black",
+      "marca": "Razer",
+      "mlId": "MLM16280514",
+      "precioAntes": 690,
+      "estado": "actualizado",
+      "precioNuevo": 867,
+      "precioML": 867
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm27648241",
+      "nombre": "Audifonos HUAWEI Freebuds SE 2 Blanco",
+      "marca": "Huawei",
+      "mlId": "MLM27648241",
+      "precioAntes": 375,
+      "estado": "actualizado",
+      "precioNuevo": 389,
+      "precioML": 389
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm63723026",
+      "nombre": "Audífonos Huawei FreeBuds SE 2 Azul",
+      "marca": "Huawei",
+      "mlId": "MLM63723026",
+      "precioAntes": 353,
+      "estado": "sin_cambio",
+      "precioML": 353
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm44007277",
+      "nombre": "Audífonos In-ear Bluetooth Para Celulares, Tablets y Laptops, Conexión Automátic",
+      "marca": "MVPSMART",
+      "mlId": "MLM44007277",
+      "precioAntes": 129,
+      "estado": "sin_cambio",
+      "precioML": 129
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm62995693",
+      "nombre": "Audífonos Inalámbricos Xiaomi Redmi Buds 8 Lite Batería Hasta 36Hrs Black",
+      "marca": "Xiaomi",
+      "mlId": "MLM62995693",
+      "precioAntes": 377,
+      "estado": "actualizado",
+      "precioNuevo": 425,
+      "precioML": 425
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm72907969",
+      "nombre": "Audífonos Traductores In-ear Htc Ne76 Bluetooth Con Cancelación De Ruido Y Modo ",
+      "marca": "HTC",
+      "mlId": "MLM72907969",
+      "precioAntes": 355,
+      "estado": "sin_cambio",
+      "precioML": 355
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm42426328",
+      "nombre": "Auriculares In-ear Inalámbricos Aiwa Awtwsg50ancb Noise Cancelling Negro",
+      "marca": "Aiwa",
+      "mlId": "MLM42426328",
+      "precioAntes": 340,
+      "estado": "sin_cambio",
+      "precioML": 340
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm64876639",
+      "nombre": "Auriculares Bluetooth 5.3 In-ear Gamer Inalámbricos Keluona Audífonos Air31 T6 C",
+      "marca": "Keluona",
+      "mlId": "MLM64876639",
+      "precioAntes": 70,
+      "estado": "sin_cambio",
+      "precioML": 70
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm27883580",
+      "nombre": "Audifonos Bluetooth Deportivos Para Conducción Aiwa Aw-acf1 Color Blanco",
+      "marca": "Aiwa",
+      "mlId": "MLM27883580",
+      "precioAntes": 390,
+      "estado": "sin_cambio",
+      "precioML": 390
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm39962085",
+      "nombre": "Auriculares Inalámbricos Xiaomi Redmi Buds 6 Play Negro",
+      "marca": "Xiaomi",
+      "mlId": "MLM39962085",
+      "precioAntes": 233,
+      "estado": "sin_cambio",
+      "precioML": 233
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm68725493",
+      "nombre": "Audífonos In-ear Inalámbricos 1hora Auriculares Inalambricos Bluetooth 5.4 Con M",
+      "marca": "1Hora",
+      "mlId": "MLM68725493",
+      "precioAntes": 159,
+      "estado": "sin_cambio",
+      "precioML": 159
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm32109460",
+      "nombre": "Audífonos Skullcandy Inalámbricos Dime 3 Auriculares In-ear",
+      "marca": "Skullcandy",
+      "mlId": "MLM32109460",
+      "precioAntes": 399,
+      "estado": "actualizado",
+      "precioNuevo": 349,
+      "precioML": 349
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm75462057",
+      "nombre": "Audífonos In-Ear 1Hora con Micrófono y Sonido HiFi, para Dispositivos USB-C",
+      "marca": "1Hora",
+      "mlId": "MLM75462057",
+      "precioAntes": 100,
+      "estado": "actualizado",
+      "precioNuevo": 67,
+      "precioML": 67
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm23138483",
+      "nombre": "Audífonos Inalámbricos Sony Wh-ch520 color Azul",
+      "marca": "Sony",
+      "mlId": "MLM23138483",
+      "precioAntes": 699,
+      "estado": "sin_cambio",
+      "precioML": 699
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm63192085",
+      "nombre": "Audífonos Inalámbricos Occiam B15 Gamer con Cancelación de Ruido y Baja Latencia",
+      "marca": "Occiam",
+      "mlId": "MLM63192085",
+      "precioAntes": 565,
+      "estado": "actualizado",
+      "precioNuevo": 574,
+      "precioML": 574
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm77855017",
+      "nombre": "Kit de 2 Pares Audífonos Bluetooth Para Smartphones, Tablets y Laptops, Conexión",
+      "marca": "MVPSMART",
+      "mlId": "MLM77855017",
+      "precioAntes": 239,
+      "estado": "sin_cambio",
+      "precioML": 239
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm64211649",
+      "nombre": "Audífonos Gamer In-Ear Occiam GM06 con Cancelación de Ruido y Luces RGB",
+      "marca": "Occiam",
+      "mlId": "MLM64211649",
+      "precioAntes": 454,
+      "estado": "sin_cambio",
+      "precioML": 454
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm23138485",
+      "nombre": "Audífonos Inalámbricos Wh-ch520 Color Beige",
+      "marca": "Sony",
+      "mlId": "MLM23138485",
+      "precioAntes": 699,
+      "estado": "sin_cambio",
+      "precioML": 699
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm62700853",
+      "nombre": "Audífonos Bluetooth Compatible Con iPhone Xiaomi Android",
+      "marca": "Genérica",
+      "mlId": "MLM62700853",
+      "precioAntes": 95,
+      "estado": "sin_cambio",
+      "precioML": 95
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm45894293",
+      "nombre": "2 Pares Audífonos Semi-in-ear Bluetooth, Conexión Automática al Celulares, Table",
+      "marca": "MVPSMART",
+      "mlId": "MLM45894293",
+      "precioAntes": 203,
+      "estado": "sin_cambio",
+      "precioML": 203
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm29045974",
+      "nombre": "Audífonos Inalámbricos Aiwa Awk17u, Color Azul Azul",
+      "marca": "Aiwa",
+      "mlId": "MLM29045974",
+      "precioAntes": 290,
+      "estado": "sin_cambio",
+      "precioML": 290
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm18278194",
+      "nombre": "Audífonos Anker soundcore Q30, Cancelación Híbrida De Ruido Activa, Sonido Hi-re",
+      "marca": "Anker",
+      "mlId": "MLM18278194",
+      "precioAntes": 999,
+      "estado": "sin_cambio",
+      "precioML": 999
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm68574612",
+      "nombre": "Audífonos Traductores In-ear Htc Ne76 Bluetooth Con Cancelación De Ruido Y Modo ",
+      "marca": "HTC",
+      "mlId": "MLM68574612",
+      "precioAntes": 355,
+      "estado": "actualizado",
+      "precioNuevo": 363,
+      "precioML": 363
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm74347113",
+      "nombre": "Audífonos Inalámbricos Lenovo Bluetooth Lenovo Ea289 Negro",
+      "marca": "Lenovo",
+      "mlId": "MLM74347113",
+      "precioAntes": 222,
+      "estado": "actualizado",
+      "precioNuevo": 226,
+      "precioML": 226
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm18627231",
+      "nombre": "Audífonos 1HORA Inalámbricos Bluetooth 6.0, In-ear con Pantalla LED, Micrófono y",
+      "marca": "1Hora",
+      "mlId": "MLM18627231",
+      "precioAntes": 150,
+      "estado": "actualizado",
+      "precioNuevo": 147,
+      "precioML": 147
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm20922200",
+      "nombre": "Audífonos Inalámbricos 1HORA AUT205 In-Ear Bluetooth 6.0 con Micrófono, Auricula",
+      "marca": "1Hora",
+      "mlId": "MLM20922200",
+      "precioAntes": 174,
+      "estado": "sin_cambio",
+      "precioML": 174
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm65699480",
+      "nombre": "Audífonos In-Ear Lenovo EA166 Bluetooth con Micrófono y Estuche de Carga",
+      "marca": "Lenovo",
+      "mlId": "MLM65699480",
+      "precioAntes": 195,
+      "estado": "no_encontrado",
+      "precioML": null
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm65477067",
+      "nombre": "Audífonos Traductores In-ear HTC NE76 Bluetooth con Cancelación de Ruido y Modo ",
+      "marca": "HTC",
+      "mlId": "MLM65477067",
+      "precioAntes": 355,
+      "estado": "sin_cambio",
+      "precioML": 355
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm75276998",
+      "nombre": "Audífonos In-ear Bluetooth Hifi Auriculares Hd Call ,resistente Al Agua Y Polvo ",
+      "marca": "Keluona",
+      "mlId": "MLM75276998",
+      "precioAntes": 109,
+      "estado": "actualizado",
+      "precioNuevo": 114,
+      "precioML": 114
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm29378214",
+      "nombre": "Auriculares Inalámbricos Cowin E7C Rojo ANC Bluetooth 5.0 30h Micrófono Integrad",
+      "marca": "Cowin",
+      "mlId": "MLM29378214",
+      "precioAntes": 376,
+      "estado": "sin_cambio",
+      "precioML": 376
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm19477286",
+      "nombre": "Audifonos 1hora Negro",
+      "marca": "1Hora",
+      "mlId": "MLM19477286",
+      "precioAntes": 60,
+      "estado": "sin_cambio",
+      "precioML": 60
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm24028629",
+      "nombre": "Audífonos Inalámbrico In-ear Bluetooth gamer Anker Soundcore P20i con Manos Libr",
+      "marca": "Anker",
+      "mlId": "MLM24028629",
+      "precioAntes": 360,
+      "estado": "actualizado",
+      "precioNuevo": 371,
+      "precioML": 371
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm23138486",
+      "nombre": "Audífonos Inalámbricos Wh-ch520 Color Blanco",
+      "marca": "Sony",
+      "mlId": "MLM23138486",
+      "precioAntes": 699,
+      "estado": "sin_cambio",
+      "precioML": 699
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm18278193",
+      "nombre": "Audífonos Anker soundcore Q30, Cancelación Híbrida De Ruido Activa, Sonido Hi-re",
+      "marca": "Anker",
+      "mlId": "MLM18278193",
+      "precioAntes": 999,
+      "estado": "sin_cambio",
+      "precioML": 999
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm62969387",
+      "nombre": "Audífonos Moto Buds Bass Con Cancelación De Ruido, Azul Azul",
+      "marca": "Motorola",
+      "mlId": "MLM62969387",
+      "precioAntes": 580,
+      "estado": "actualizado",
+      "precioNuevo": 558,
+      "precioML": 558
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm38176139",
+      "nombre": "Audífonos Anker Soundcore P30i In-ear Bluetooth Inalámbrico Cancelación De Ruido",
+      "marca": "Anker",
+      "mlId": "MLM38176139",
+      "precioAntes": 537,
+      "estado": "actualizado",
+      "precioNuevo": 599,
+      "precioML": 599
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm69966383",
+      "nombre": "Jiditech Audífonos Invisibles Auriculares Inalámbricos J11 Para Dormir Bluetooth",
+      "marca": "Jiditech",
+      "mlId": "MLM69966383",
+      "precioAntes": 135,
+      "estado": "actualizado",
+      "precioNuevo": 129,
+      "precioML": 129
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm19837562",
+      "nombre": "Audífonos in-ear KZ EDX Pro Gamer Con Micrófono color negro con luz cristal",
+      "marca": "KZ",
+      "mlId": "MLM19837562",
+      "precioAntes": 179,
+      "estado": "actualizado",
+      "precioNuevo": 180,
+      "precioML": 180
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm44787399",
+      "nombre": "audifonos Anker Soundcore V20i de oído abierto con ganchos ajustables, ultra cóm",
+      "marca": "Anker",
+      "mlId": "MLM44787399",
+      "precioAntes": 498,
+      "estado": "actualizado",
+      "precioNuevo": 569,
+      "precioML": 569
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm44417681",
+      "nombre": "Audífonos Inalámbricos HUAWEI FreeBuds SE 3 Negro",
+      "marca": "Huawei",
+      "mlId": "MLM44417681",
+      "precioAntes": 560,
+      "estado": "actualizado",
+      "precioNuevo": 620,
+      "precioML": 620
+    },
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm56651728",
+      "nombre": "Audifonos HUAWEI Freebuds 7i Negro",
+      "marca": "Huawei",
+      "mlId": "MLM56651728",
+      "precioAntes": 1313,
+      "estado": "sin_cambio",
+      "precioML": 1313
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-samsung-a16-5g-128gb-4gb",
+      "nombre": "Samsung A16 5G",
+      "mlId": "MLM44113911",
+      "precioAntes": 2639,
+      "estado": "actualizado",
+      "precioNuevo": 2899,
+      "precioML": 2899
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-motorola-moto-g75-256gb-8gb",
+      "nombre": "Motorola Moto G75",
+      "mlId": "MLM45512984",
+      "precioAntes": 4190.34,
+      "estado": "actualizado",
+      "precioNuevo": 4190,
+      "precioML": 4190
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-samsung-a16-128gb-4gb",
+      "nombre": "Samsung A16",
+      "mlId": "MLM45806032",
+      "precioAntes": 2899,
+      "estado": "actualizado",
+      "precioNuevo": 2599,
+      "precioML": 2599
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-doogee-bladegtpro-512gb-32gb",
+      "nombre": "Doogee BLADEGTPRO",
+      "mlId": "MLM51756542",
+      "precioAntes": 6463.48,
+      "estado": "actualizado",
+      "precioNuevo": 6472,
+      "precioML": 6472
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-google-pixel-9a-128gb-8gb",
+      "nombre": "Google Pixel 9a",
+      "mlId": "MLM52678417",
+      "precioAntes": 8999,
+      "estado": "actualizado",
+      "precioNuevo": 8699,
+      "precioML": 8699
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-samsung-a17-samsung-exynos-1330-128gb-4gb",
+      "nombre": "Samsung A17 (Samsung Exynos 1330)",
+      "mlId": "MLM55521828",
+      "precioAntes": 2906,
+      "estado": "sin_cambio",
+      "precioML": 2906
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-samsung-a17-mediatek-helio-g99-128gb-4gb",
+      "nombre": "Samsung A17 (MediaTek Helio G99)",
+      "mlId": "MLM56601052",
+      "precioAntes": 2844,
+      "estado": "sin_cambio",
+      "precioML": 2844
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-doogee-note58-pro-256gb-32gb",
+      "nombre": "Doogee Note58 Pro",
+      "mlId": "MLM56763787",
+      "precioAntes": 3085.32,
+      "estado": "actualizado",
+      "precioNuevo": 3087,
+      "precioML": 3087
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-motorola-celular-moto-edge-60-neo-12-256gb-12gb",
+      "nombre": "Motorola Celular Moto Edge 60 Neo 12",
+      "mlId": "MLM61500237",
+      "precioAntes": 5919,
+      "estado": "sin_cambio",
+      "precioML": 5919
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-oppo-reno14-f-5g-256gb-12gb",
+      "nombre": "Oppo Reno14 F 5g",
+      "mlId": "MLM61815901",
+      "precioAntes": 8059,
+      "estado": "actualizado",
+      "precioNuevo": 7669,
+      "precioML": 7669
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-oppo-cph2743gbb3-512gb-12gb",
+      "nombre": "Oppo CPH2743GBB3",
+      "mlId": "MLM61815932",
+      "precioAntes": 10899,
+      "estado": "actualizado",
+      "precioNuevo": 9679,
+      "precioML": 9679
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-w555-w-555-64gb-4gb",
+      "nombre": "W555 W-555",
+      "mlId": "MLM62784937",
+      "precioAntes": 1160,
+      "estado": "sin_cambio",
+      "precioML": 1160
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-blackview-fort-256gb-18gb",
+      "nombre": "Blackview FORT",
+      "mlId": "MLM62887231",
+      "precioAntes": 3636.59,
+      "estado": "actualizado",
+      "precioNuevo": 3631,
+      "precioML": 3631
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-motorola-edge-70-512gb-12gb",
+      "nombre": "Motorola Edge 70",
+      "mlId": "MLM64319028",
+      "precioAntes": 7199,
+      "estado": "actualizado",
+      "precioNuevo": 8075,
+      "precioML": 8075
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-motorola-g86-512gb-8gb",
+      "nombre": "Motorola G86",
+      "mlId": "MLM65105913",
+      "precioAntes": 4588.43,
+      "estado": "actualizado",
+      "precioNuevo": 4588,
+      "precioML": 4588
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-philips-philips-s8310-128gb-12gb",
+      "nombre": "Philips PHILIPS S8310",
+      "mlId": "MLM65461314",
+      "precioAntes": 3085.5,
+      "estado": "actualizado",
+      "precioNuevo": 3087,
+      "precioML": 3087
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-honor-magic-8-lite-256gb-8gb",
+      "nombre": "Honor Magic 8 lite",
+      "mlId": "MLM65759875",
+      "precioAntes": 6199,
+      "estado": "sin_cambio",
+      "precioML": 6199
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-motorola-motorola-g67-4gb-256gb-256gb-4gb",
+      "nombre": "Motorola Motorola G67 4GB 256GB",
+      "mlId": "MLM66374558",
+      "precioAntes": 4606.53,
+      "estado": "actualizado",
+      "precioNuevo": 4749,
+      "precioML": 4749
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-samsung-s25fe-128gb-8gb",
+      "nombre": "Samsung S25FE",
+      "mlId": "MLM66706811",
+      "precioAntes": 8548,
+      "estado": "sin_cambio",
+      "precioML": 8548
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-oscal-marine-2-64gb-4gb",
+      "nombre": "Oscal Marine 2",
+      "mlId": "MLM76488016",
+      "precioAntes": 2920,
+      "estado": "sin_cambio",
+      "precioML": 2920
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-oscal-marine-2-256gb-24gb",
+      "nombre": "Oscal Marine 2",
+      "mlId": "MLM67188293",
+      "precioAntes": 3657.06,
+      "estado": "actualizado",
+      "precioNuevo": 3669,
+      "precioML": 3669
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-oppo-reno14-512gb-12gb",
+      "nombre": "Oppo Reno14",
+      "mlId": "MLM67716741",
+      "precioAntes": 10383.92,
+      "estado": "actualizado",
+      "precioNuevo": 9999,
+      "precioML": 9999
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-oscal-marine-se-128gb-128gb",
+      "nombre": "Oscal MARINE SE",
+      "mlId": "MLM68004450",
+      "precioAntes": 3169.83,
+      "estado": "actualizado",
+      "precioNuevo": 3170,
+      "precioML": 3170
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-infinix-gt-50-pro-dual-sim-256gb-12gb",
+      "nombre": "Infinix Gt 50 Pro Dual SIM",
+      "mlId": "MLM68453464",
+      "precioAntes": 9311.03,
+      "estado": "actualizado",
+      "precioNuevo": 9311,
+      "precioML": 9311
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-infinix-gt-50-pro-dual-sim-512gb-12gb",
+      "nombre": "Infinix Gt 50 Pro Dual SIM",
+      "mlId": "MLM68453461",
+      "precioAntes": 10789,
+      "estado": "sin_cambio",
+      "precioML": 10789
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-doogee-b10-pro-256gb-64gb",
+      "nombre": "Doogee B10 Pro",
+      "mlId": "MLM68721471",
+      "precioAntes": 4749.18,
+      "estado": "actualizado",
+      "precioNuevo": 4749,
+      "precioML": 4749
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-motorola-razr-fold-1gb-16gb",
+      "nombre": "Motorola razr fold",
+      "mlId": "MLM69631057",
+      "precioAntes": 39999.19,
+      "estado": "actualizado",
+      "precioNuevo": 39999,
+      "precioML": 39999
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-google-pixel-10a-128gb-8gb",
+      "nombre": "Google Pixel 10a",
+      "mlId": "MLM69962599",
+      "precioAntes": 10539.13,
+      "estado": "actualizado",
+      "precioNuevo": 10539,
+      "precioML": 10539
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-google-pixel-10a-256gb-8gb",
+      "nombre": "Google Pixel 10a",
+      "mlId": "MLM69970263",
+      "precioAntes": 12103.85,
+      "estado": "actualizado",
+      "precioNuevo": 12104,
+      "precioML": 12104
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-samsung-galaxy-a57-256gb-8gb",
+      "nombre": "Samsung Galaxy-A57",
+      "mlId": "MLM69994229",
+      "precioAntes": 7649,
+      "estado": "actualizado",
+      "precioNuevo": 9999,
+      "precioML": 9999
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-doogee-s200e-256gb-48gb",
+      "nombre": "Doogee S200E",
+      "mlId": "MLM73678815",
+      "precioAntes": 8184.91,
+      "estado": "actualizado",
+      "precioNuevo": 8189,
+      "precioML": 8189
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-infinix-hot-70-128gb-4gb",
+      "nombre": "Infinix HOT 70",
+      "mlId": "MLM74002146",
+      "precioAntes": 3999.45,
+      "estado": "actualizado",
+      "precioNuevo": 3999,
+      "precioML": 3999
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-oppo-reno14-5g-512gb-12gb",
+      "nombre": "Oppo Reno14 5G",
+      "mlId": "MLM74343693",
+      "precioAntes": 10288.74,
+      "estado": "actualizado",
+      "precioNuevo": 10289,
+      "precioML": 10289
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-oukitel-g7-256gb-24gb",
+      "nombre": "Oukitel G7",
+      "mlId": "MLM75620530",
+      "precioAntes": 4540.48,
+      "estado": "actualizado",
+      "precioNuevo": 4545,
+      "precioML": 4545
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-oukitel-c62pro-256gb-8gb",
+      "nombre": "Oukitel C62pro",
+      "mlId": "MLM77922980",
+      "precioAntes": 3587.69,
+      "estado": "actualizado",
+      "precioNuevo": 3582,
+      "precioML": 3582
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-motorola-edge-60-fusion-5g-128gb-128gb",
+      "nombre": "Motorola Edge 60 Fusion 5G",
+      "mlId": "MLM77968225",
+      "precioAntes": 5129,
+      "estado": "sin_cambio",
+      "precioML": 5129
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-honor-x5c-plus-128gb-4gb",
+      "nombre": "Honor X5C Plus",
+      "mlId": "MLM78602793",
+      "precioAntes": 2399.43,
+      "estado": "actualizado",
+      "precioNuevo": 2399,
+      "precioML": 2399
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-realme-edicion-harry-potter-256gb-12gb",
+      "nombre": "Realme Edición Harry Potter",
+      "mlId": "MLM78756621",
+      "precioAntes": 14999.13,
+      "estado": "actualizado",
+      "precioNuevo": 14999,
+      "precioML": 14999
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-blackview-wave-7c-64gb-16gb",
+      "nombre": "Blackview WAVE 7C",
+      "mlId": "MLM78860275",
+      "precioAntes": 1758.1,
+      "estado": "actualizado",
+      "precioNuevo": 1759,
+      "precioML": 1759
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-huawei-nova-14-256gb-12gb",
+      "nombre": "Huawei nova 14",
+      "mlId": "MLM79374850",
+      "precioAntes": 7572.7,
+      "estado": "actualizado",
+      "precioNuevo": 7573,
+      "precioML": 7573
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-htc-wildfire-e9-plus-256gb-8gb",
+      "nombre": "HTC Wildfire E9 Plus",
+      "mlId": "MLM79644447",
+      "precioAntes": 3986.62,
+      "estado": "actualizado",
+      "precioNuevo": 3980,
+      "precioML": 3980
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-nothing-nothing-phone-3a-128gb-8gb",
+      "nombre": "Nothing NOTHING Phone (3a)",
+      "mlId": "MLM50911552",
+      "precioAntes": 7003.92,
+      "estado": "actualizado",
+      "precioNuevo": 7004,
+      "precioML": 7004
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-doogee-v-max-2-512gb-48gb",
+      "nombre": "Doogee V MAX 2",
+      "mlId": "MLM72897269",
+      "precioAntes": 15523.02,
+      "estado": "actualizado",
+      "precioNuevo": 15565,
+      "precioML": 15565
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-oppo-reno16-pro-5g-negro-256gb-12gb",
+      "nombre": "Oppo Reno16 Pro 5G Negro",
+      "mlId": "MLM75632657",
+      "precioAntes": 17999,
+      "estado": "actualizado",
+      "precioNuevo": 16799,
+      "precioML": 16799
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-doogee-note-57-lite-40gb-14gb",
+      "nombre": "Doogee NOTE 57 LITE",
+      "mlId": "MLM78565663",
+      "precioAntes": 2236.02,
+      "estado": "actualizado",
+      "precioNuevo": 2237,
+      "precioML": 2237
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-nubia-z70-ultra-256gb-12gb",
+      "nombre": "Nubia Z70 Ultra",
+      "mlId": "MLM51987324",
+      "precioAntes": 12473.04,
+      "estado": "actualizado",
+      "precioNuevo": 12480,
+      "precioML": 12480
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-oscal-flat-3c-mini-32gb-12gb",
+      "nombre": "Oscal FLAT 3C Mini",
+      "mlId": "MLM77952476",
+      "precioAntes": 1574.75,
+      "estado": "actualizado",
+      "precioNuevo": 1575,
+      "precioML": 1575
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-doogee-s-cyber-256gb-20gb",
+      "nombre": "Doogee S Cyber",
+      "mlId": "MLM52103306",
+      "precioAntes": 4174.49,
+      "estado": "actualizado",
+      "precioNuevo": 4174,
+      "precioML": 4174
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-doogee-note-58-128gb-8gb",
+      "nombre": "Doogee NOTE 58",
+      "mlId": "MLM77683806",
+      "precioAntes": 2843.7,
+      "estado": "actualizado",
+      "precioNuevo": 2844,
+      "precioML": 2844
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-generica-i14-pro-max-16gb-2gb",
+      "nombre": "Genérica i14 Pro Max",
+      "mlId": "MLM22968710",
+      "precioAntes": 998.99,
+      "estado": "sin_precio",
+      "precioML": null
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-xiaomi-redmi-17-256gb-4gb",
+      "nombre": "Xiaomi Redmi 17",
+      "mlId": "MLM78780777",
+      "precioAntes": 4599,
+      "estado": "sin_cambio",
+      "precioML": 4599
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-motorola-edge-70-pro-512gb-12gb",
+      "nombre": "Motorola Edge 70 Pro",
+      "mlId": "MLM69323684",
+      "precioAntes": 15299,
+      "estado": "actualizado",
+      "precioNuevo": 10332,
+      "precioML": 10332
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-honor-600-5g-512gb-8gb",
+      "nombre": "HONOR 600 5G",
+      "mlId": "MLM76292185",
+      "precioAntes": 10265.43,
+      "estado": "actualizado",
+      "precioNuevo": 11120,
+      "precioML": 11120
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-xiaomi-poco-c85-256gb-8gb",
+      "nombre": "Xiaomi Poco C85",
+      "mlId": "MLM54068750",
+      "precioAntes": 3082,
+      "estado": "actualizado",
+      "precioNuevo": 3299,
+      "precioML": 3299
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-oukitel-wp100plus-512gb-12gb",
+      "nombre": "Oukitel WP100Plus",
+      "mlId": "MLM77576635",
+      "precioAntes": 7760,
+      "estado": "actualizado",
+      "precioNuevo": 8259,
+      "precioML": 8259
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-lagenio-eagle-pro-256gb-16gb",
+      "nombre": "Lagenio Eagle Pro",
+      "mlId": "MLM72980921",
+      "precioAntes": 8505,
+      "estado": "sin_cambio",
+      "precioML": 8505
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-doogee-s119-512gb-32gb",
+      "nombre": "Doogee S119",
+      "mlId": "MLM47060160",
+      "precioAntes": 5843,
+      "estado": "actualizado",
+      "precioNuevo": 5917,
+      "precioML": 5917
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-oppo-reno13-5g-256gb-12gb",
+      "nombre": "Oppo Reno13 5G",
+      "mlId": "MLM66797493",
+      "precioAntes": 8857,
+      "estado": "sin_cambio",
+      "precioML": 8857
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-wo-s26mini-64gb-4gb",
+      "nombre": "W&O S26mini",
+      "mlId": "MLM75626530",
+      "precioAntes": 1164,
+      "estado": "sin_cambio",
+      "precioML": 1164
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-motorola-moto-g17-128gb-4gb",
+      "nombre": "Motorola Moto G17",
+      "mlId": "MLM65041644",
+      "precioAntes": 2792,
+      "estado": "sin_cambio",
+      "precioML": 2792
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-blackview-bv4800-pro-128gb-12gb",
+      "nombre": "Blackview BV4800 Pro",
+      "mlId": "MLM73143488",
+      "precioAntes": 3037,
+      "estado": "sin_cambio",
+      "precioML": 3037
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-doogee-fire-7-128gb-8gb",
+      "nombre": "Doogee Fire 7",
+      "mlId": "MLM75991843",
+      "precioAntes": 5243,
+      "estado": "sin_cambio",
+      "precioML": 5243
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-vivo-y28-256gb-8gb",
+      "nombre": "Vivo Y28",
+      "mlId": "MLM60948980",
+      "precioAntes": 3999,
+      "estado": "sin_cambio",
+      "precioML": 3999
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-motorola-g34-128gb-8gb",
+      "nombre": "Motorola G34",
+      "mlId": "MLM51695075",
+      "precioAntes": 2961,
+      "estado": "actualizado",
+      "precioNuevo": 2965,
+      "precioML": 2965
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-motorola-s50-neo-256gb-12gb",
+      "nombre": "Motorola S50 Neo",
+      "mlId": "MLM61678628",
+      "precioAntes": 4364,
+      "estado": "sin_cambio",
+      "precioML": 4364
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-tecno-pova-8-pro-256gb-8gb",
+      "nombre": "Tecno Pova 8 Pro",
+      "mlId": "MLM75077002",
+      "precioAntes": 8499,
+      "estado": "actualizado",
+      "precioNuevo": 8299,
+      "precioML": 8299
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-cubot-p90-256gb-12gb",
+      "nombre": "Cubot P90",
+      "mlId": "MLM53790138",
+      "precioAntes": 3524,
+      "estado": "sin_cambio",
+      "precioML": 3524
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-infinix-note-60-pro-256gb-8gb",
+      "nombre": "Infinix Note 60 Pro",
+      "mlId": "MLM67280073",
+      "precioAntes": 7079,
+      "estado": "sin_cambio",
+      "precioML": 7079
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-honor-x7d-256gb-8gb",
+      "nombre": "Honor X7d",
+      "mlId": "MLM60050127",
+      "precioAntes": 4064,
+      "estado": "sin_cambio",
+      "precioML": 4064
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-motorola-moto-g06-256gb-4gb",
+      "nombre": "Motorola Moto G06",
+      "mlId": "MLM63043377",
+      "precioAntes": 2699,
+      "estado": "sin_cambio",
+      "precioML": 2699
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-honor-x9d-5g-512gb-8gb",
+      "nombre": "Honor X9d 5G",
+      "mlId": "MLM64802000",
+      "precioAntes": 6999,
+      "estado": "sin_cambio",
+      "precioML": 6999
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-motorola-g86-power-256gb-8gb",
+      "nombre": "Motorola G86 Power",
+      "mlId": "MLM68228277",
+      "precioAntes": 4649,
+      "estado": "actualizado",
+      "precioNuevo": 4640,
+      "precioML": 4640
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-samsung-galaxy-a37-5g-256gb-8gb",
+      "nombre": "Samsung Galaxy A37 5G",
+      "mlId": "MLM68213245",
+      "precioAntes": 6119,
+      "estado": "sin_cambio",
+      "precioML": 6119
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-samsung-galaxy-a56-256gb-12gb",
+      "nombre": "Samsung Galaxy A56",
+      "mlId": "MLM47797906",
+      "precioAntes": 7078,
+      "estado": "actualizado",
+      "precioNuevo": 7299,
+      "precioML": 7299
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-samsung-galaxy-s25-ultra-512gb-12gb",
+      "nombre": "Samsung Galaxy S25 Ultra",
+      "mlId": "MLM45515203",
+      "precioAntes": 17076,
+      "estado": "sin_cambio",
+      "precioML": 17076
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-nothing-phone-3-512gb-16gb",
+      "nombre": "Nothing Phone (3)",
+      "mlId": "MLM60828833",
+      "precioAntes": 12909,
+      "estado": "sin_cambio",
+      "precioML": 12909
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-xiaomi-redmi-note-14-pro-plus-5g-256gb-8gb",
+      "nombre": "Xiaomi Redmi Note 14 Pro Plus 5G",
+      "mlId": "MLM45744358",
+      "precioAntes": 6500,
+      "estado": "actualizado",
+      "precioNuevo": 6299,
+      "precioML": 6299
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-vivo-x300-512gb-16gb",
+      "nombre": "Vivo X300",
+      "mlId": "MLM62624773",
+      "precioAntes": 24999,
+      "estado": "sin_cambio",
+      "precioML": 24999
+    },
+    {
+      "categoria": "celulares_android",
+      "id": "android-nothing-phone-3a-lite-256gb-8gb",
+      "nombre": "Nothing Phone (3a) Lite",
+      "mlId": "MLM62368078",
+      "precioAntes": 5310,
+      "estado": "actualizado",
+      "precioNuevo": 5374,
+      "precioML": 5374
     }
   ]
 }
