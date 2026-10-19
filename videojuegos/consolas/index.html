@@ -499,6 +499,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   <div class="footer-info">© 2026 · Sitio de afiliados · <a href="/">Inicio</a> · <a href="/videojuegos/">Videojuegos</a> · <a href="/videojuegos/consolas/">Consolas</a> · <a href="/videojuegos/controles/">Controles</a> · <a href="/videojuegos/juegos/">Títulos</a></div>
 </footer>
 
+<script type="application/json" id="pausas">{}</script>
 <script>
 const productos = [
   {"id":"CON-NS2-001","nombre":"Consola Nintendo Switch 2","marca":"Nintendo","img":"https://http2.mlstatic.com/D_NQ_NP_611101-MLA84512956497_052025-F.jpg","linkML":"https://meli.la/1rogaFi","precioML":9397.62,"especs":{"generacion":"2da generación","tipoConsola":"Híbrida","almacenamiento":"256 GB","lectorDiscos":"No","formatoJuegos":"Físico y digital","accesorios":"2 Joy-Con inalámbricos, Cable HDMI","condicion":"Nuevo"}},
@@ -532,6 +533,8 @@ const productos = [
   {"id":"CON-ROGAL-001","nombre":"Consola ASUS ROG Xbox Ally Ryzen Z2A 16GB 512GB","marca":"ASUS","img":"https://http2.mlstatic.com/D_NQ_NP_865800-MLA99701453536_122025-F.jpg","linkML":"https://meli.la/1xvdri3","precioML":12799,"especs":{"generacion":"PC Portatil Gaming","almacenamiento":"512 GB SSD","lectorDiscos":"No","formatoJuegos":"PC (Xbox/Steam)","tipoConsola":"Portatil","condicion":"Nuevo"}},
   {"id":"CON-LLGOS-001","nombre":"Consola Lenovo Legion Go S 16GB 512GB Blanco","marca":"Lenovo","img":"https://http2.mlstatic.com/D_NQ_NP_712725-MLA99524045220_122025-F.jpg","linkML":"https://meli.la/2xjtYUr","precioML":13999,"especs":{"generacion":"PC Portatil Gaming","almacenamiento":"512 GB SSD","lectorDiscos":"No","formatoJuegos":"PC (Windows)","tipoConsola":"Portatil","condicion":"Nuevo"}}
 ];
+/*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 const precioVigente = p => (p.linkML ? p.precioML : p.precioAmz) ?? p.precio ?? null;
 const SPEC_KEYS = [['generacion','Generación'],['almacenamiento','Almacen.'],['lectorDiscos','Lector discos'],['formatoJuegos','Formato'],['tipoConsola','Tipo'],['accesorios','Accesorios']];

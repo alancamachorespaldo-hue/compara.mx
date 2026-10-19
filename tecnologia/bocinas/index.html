@@ -592,6 +592,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   <div class="footer-info">© 2026 · Sitio de afiliados · <a href="/">Inicio</a> · <a href="/tecnologia/">Tecnología</a> · <a href="/tecnologia/bocinas/">Bocinas inteligentes</a> · <a href="/tecnologia/audifonos/">Audífonos</a> · <a href="/tecnologia/smartwatches/">Smartwatches</a></div>
 </footer>
 
+<script type="application/json" id="pausas">{"boc_mlm20659980":{"amz":1},"boc_mlm17385336":{"amz":1}}</script>
 <script>
 const productos = [
   {
@@ -1132,6 +1133,8 @@ const productos = [
     "mlId": "MLM19043724"
   }
 ];
+/*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 const precioVigente = p => (p.linkML ? p.precioML : p.precioAmz) ?? p.precio ?? null;
 const potenciaNum = p => { const m = /(\d+(?:\.\d+)?)/.exec(p.especs?.potencia || ''); return m ? parseFloat(m[1]) : null; };

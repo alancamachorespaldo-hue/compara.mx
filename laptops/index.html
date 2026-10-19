@@ -749,6 +749,7 @@ body .card-body{padding:1rem !important;min-width:0 !important}
   </div>
 </div>
 
+<script type="application/json" id="pausas">{}</script>
 <script>
 const productos = [
   {
@@ -2619,6 +2620,8 @@ const productos = [
     img: "https://http2.mlstatic.com/D_NQ_NP_2X_815361-MLM113584304304_072026-F.webp"
   }
 ];
+/*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 // ── Estado de filtros ─────────────────────────────────────────
 const filters = { marca:'todos', ram:'todos', uso:'todos', gpuDedicada:'todos', nvme:'todos', pantalla15:'todos', plat:'todos' };

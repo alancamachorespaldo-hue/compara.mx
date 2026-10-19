@@ -342,6 +342,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   <div class="footer-info">© 2026 · Sitio de afiliados · <a href="/">Inicio</a> · <a href="/videojuegos/">Videojuegos</a> · <a href="/videojuegos/consolas/">Consolas</a> · <a href="/videojuegos/controles/">Controles</a> · <a href="/videojuegos/juegos/">Títulos</a></div>
 </footer>
 
+<script type="application/json" id="pausas">{}</script>
 <script>
 const productos = [
   {id:"ctrl_MLM51396508",nombre:"Controles Inalámbricos Joy-Con para Nintendo Switch Rojo y Negro",marca:"CNJcon",linkML:"https://meli.la/1M7twHN",linkAmz:null,precioML:593,precioAmz:null,imagen:"https://http2.mlstatic.com/D_NQ_NP_916766-MLA99513226582_112025-F.jpg",especs:{dispositivosCompatibles:"Nintendo Switch Nintendo Switch Lite Nintendo Switch OLED",inalambrico:"Sí",vibracion:"Sí",sensorMovimiento:"Sí",barraLuz:"No",alimentacion:"Batería",condicion:"Nuevo"}},
@@ -364,6 +365,8 @@ const productos = [
   {id:"ctrl_MLM15646212",nombre:"Control joystick inalámbrico Microsoft Mando inalámbrico Xbox 360 special edition chrome series red",marca:"Microsoft",linkML:"https://meli.la/1aQ6Ttp",linkAmz:null,precioML:750,precioAmz:null,imagen:"https://mla-s1-p.mlstatic.com/887205-MLA41558209572_042020-F.jpg",especs:{dispositivosCompatibles:"Xbox 360",inalambrico:"Sí",vibracion:"Sí",sensorMovimiento:"No",barraLuz:"No",alimentacion:"Pila",condicion:"Nuevo"}},
   {id:"ctrl_MLM15144673",nombre:"Control Xbox 360 y Windows PC USB Alambrico Microsoft Negro",marca:"Microsoft",linkML:"https://meli.la/2SwtW1v",linkAmz:null,precioML:449,precioAmz:null,imagen:"https://http2.mlstatic.com/D_NQ_NP_679697-MLA95406916912_102025-F.jpg",especs:{dispositivosCompatibles:"Xbox 360 Computadoras Microsoft",inalambrico:"No",vibracion:"Sí",sensorMovimiento:"No",barraLuz:"No",alimentacion:"Pila",condicion:"Nuevo"}}
 ];
+/*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 const precioVigente = p => (p.linkML ? p.precioML : p.precioAmz) ?? p.precio ?? null;
 const SPEC_KEYS = [['dispositivosCompatibles','Dispositivos comp.'],['inalambrico','Inalámbrico'],['vibracion','Vibración'],['sensorMovimiento','Sensor movimiento'],['barraLuz','Barra de luz'],['alimentacion','Alimentación']];

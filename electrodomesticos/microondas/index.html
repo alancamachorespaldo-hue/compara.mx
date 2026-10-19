@@ -613,6 +613,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   </div>
 </footer>
 
+<script type="application/json" id="pausas">{}</script>
 <script>
 // ── DATA ─────────────────────────────────────────────────────────────────────
 const micros = [
@@ -1445,6 +1446,8 @@ const micros = [
     precioML: 1882
   }
 ];
+/*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=micros.length-1;_i>=0;_i--){var _z=_PZ[micros[_i].id];if(!_z)continue;if(_z.ml){micros[_i].linkML=null;micros[_i].precioML=null;micros[_i].pausaML=true;}if(_z.amz){micros[_i].linkAmz='';micros[_i].precioAmz=null;micros[_i].pausaAmz=true;}if(_z.ml&&_z.amz)micros.splice(_i,1);}}catch(e){}
+
 
 // ── STATE ────────────────────────────────────────────────────────────────────
 let activeTab = 'basico';

@@ -46,6 +46,12 @@ if (report) {
     else { delete p._precioMLSospechoso; if (row.precioML != null) p.precioML = row.precioML; }
     if (row.estado === 'actualizado' && row.precioAntes != null) p._precioMLAntes = row.precioAntes;
     else delete p._precioMLAntes;
+    // Pausa automática: 404/inactivo en ML → pausaML:true; si el catálogo vuelve → se limpia
+    if (row.estado === 'no_encontrado') {
+      p.pausaML = true;
+    } else if ((row.estado === 'actualizado' || row.estado === 'sin_cambio') && p.estadoML === 'no_encontrado') {
+      delete p.pausaML; // catálogo restaurado → quitar pausa automática
+    }
     if (p.estadoML !== 'nuevo') p.estadoML = row.estado;
     if (gen) p._mlCheckedAt = gen;
     synced++;

@@ -120,6 +120,22 @@ async function pool(items, n, fn) {
   return out;
 }
 
+// Comprueba si el catálogo ya no existe (404) o está pausado/inactivo en ML.
+// Devuelve 'not_found' | 'paused' | 'active' | null (null = error de red, no cambiar estado).
+async function checkCatalog(id) {
+  CALLS++;
+  try {
+    const res = await fetch(`${API}/products/${id}`, {
+      headers: { Authorization: `Bearer ${TOKEN}` },
+      signal: AbortSignal.timeout(10000),
+    });
+    if (res.status === 404) return 'not_found';
+    if (!res.ok) return null;
+    const data = await res.json();
+    return (data?.status === 'active') ? 'active' : 'paused';
+  } catch { return null; }
+}
+
 // Publicamos la oferta más barata con envío FULL (fulfillment): es la que se acerca a lo que ML
 // destaca en la ficha para la mayoría de los compradores. La ficha exacta depende del CP de quien
 // mira y del ranking de ML, que no vienen en la API, así que no se puede clavar al 100%.
@@ -245,6 +261,14 @@ async function updateCategory(key, config, admin, REPORT) {
   const t0 = Date.now();
   const prices = await pool(targets, CONCURRENCY, t => catalogPrice(t.mlId));
 
+  // Para los sin precio: verificar si el catálogo ya no existe/está pausado
+  const noPrice = targets.map((t, i) => prices[i] === null ? i : -1).filter(i => i >= 0);
+  const statusMap = new Map();
+  if (noPrice.length) {
+    const checks = await pool(noPrice, CONCURRENCY, i => checkCatalog(targets[i].mlId).then(s => ({ i, s })));
+    checks.forEach(({ i, s }) => statusMap.set(i, s));
+  }
+
   const patches = [];
   targets.forEach((t, i) => {
     const raw = prices[i];
@@ -252,8 +276,14 @@ async function updateCategory(key, config, admin, REPORT) {
     const actual = t.html ? (t.html.obj.precioML ?? t.html.obj.precio ?? null) : (t.p.precioML ?? null);
     const row = { categoria: key, id: t.p.id, nombre: t.p.nombre, marca: t.p.marca, mlId: t.mlId, precioAntes: actual };
     if (!raw) {
-      console.log(`  ✗ ${label} ${t.mlId} sin ofertas`);
-      REPORT.push({ ...row, estado: 'sin_precio', precioML: null });
+      const catStatus = statusMap.get(i);
+      if (catStatus === 'not_found' || catStatus === 'paused') {
+        console.log(`  🗑 ${label} ${t.mlId} no encontrado/pausado en ML`);
+        REPORT.push({ ...row, estado: 'no_encontrado', precioML: null });
+      } else {
+        console.log(`  ✗ ${label} ${t.mlId} sin ofertas`);
+        REPORT.push({ ...row, estado: 'sin_precio', precioML: null });
+      }
       return;
     }
     const nuevo = Math.round(raw);
@@ -400,14 +430,27 @@ async function updateCelulares(key, config, admin, REPORT) {
   const t0 = Date.now();
   const prices = await pool(targets, CONCURRENCY, t => catalogPrice(t.mlId));
 
+  const noPrice = targets.map((t, i) => prices[i] === null ? i : -1).filter(i => i >= 0);
+  const statusMapCel = new Map();
+  if (noPrice.length) {
+    const checks = await pool(noPrice, CONCURRENCY, i => checkCatalog(targets[i].mlId).then(s => ({ i, s })));
+    checks.forEach(({ i, s }) => statusMapCel.set(i, s));
+  }
+
   const patches = [];
   targets.forEach((t, i) => {
     const raw = prices[i];
     const label = `${t.nombre} ${t.storage}/${t.ram}GB`.substring(0, 45).padEnd(45);
     const row = { categoria: key, id: t.id, nombre: t.nombre, mlId: t.mlId, precioAntes: t.precioBefore };
     if (!raw) {
-      console.log(`  ✗ ${label} ${t.mlId} sin ofertas`);
-      REPORT.push({ ...row, estado: 'sin_precio', precioML: null });
+      const catStatus = statusMapCel.get(i);
+      if (catStatus === 'not_found' || catStatus === 'paused') {
+        console.log(`  🗑 ${label} ${t.mlId} no encontrado/pausado en ML`);
+        REPORT.push({ ...row, estado: 'no_encontrado', precioML: null });
+      } else {
+        console.log(`  ✗ ${label} ${t.mlId} sin ofertas`);
+        REPORT.push({ ...row, estado: 'sin_precio', precioML: null });
+      }
       return;
     }
     const nuevo = Math.round(raw);
@@ -474,7 +517,7 @@ async function main() {
   const count = e => REPORT.filter(r => r.estado === e).length;
   const totales = {
     actualizados: count('actualizado'), sin_cambio: count('sin_cambio'), sin_precio: count('sin_precio'),
-    precio_sospechoso: count('precio_sospechoso'), sin_id: count('sin_id'),
+    no_encontrado: count('no_encontrado'), precio_sospechoso: count('precio_sospechoso'), sin_id: count('sin_id'),
   };
   console.log(`\n📊 ${JSON.stringify(totales)} · ${CALLS} llamadas · ${((Date.now() - t0) / 1000).toFixed(1)} s`);
 
