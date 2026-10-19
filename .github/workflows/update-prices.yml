@@ -10,7 +10,7 @@ on:
         description: 'Categoría a actualizar'
         type: choice
         default: all
-        options: [all, laptops, freidoras, bicis, microondas, suplementos, proteina, omega3, magnesio, creatina, complejo_b, videojuegos_consolas, videojuegos_controles, videojuegos_juegos]
+        options: [all, laptops, freidoras, bicis, microondas, suplementos, proteina, omega3, magnesio, creatina, complejo_b, videojuegos_consolas, videojuegos_controles, videojuegos_juegos, tecnologia_bocinas, tecnologia_audifonos]
 
 jobs:
   update-prices:

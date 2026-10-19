@@ -46,6 +46,12 @@ const CATALOG = {
   videojuegos_consolas:  { file: 'videojuegos/consolas/index.html',  varName: 'productos' },
   videojuegos_controles: { file: 'videojuegos/controles/index.html', varName: 'productos' },
   videojuegos_juegos:    { file: 'videojuegos/juegos/index.html',    varName: 'productos' },
+  // Tecnología — agregar aquí cualquier nueva categoría con array "productos" y mlId
+  tecnologia_bocinas:    { file: 'tecnologia/bocinas/index.html',    varName: 'productos' },
+  tecnologia_audifonos:  { file: 'tecnologia/audifonos/index.html',  varName: 'productos' },
+  // tecnologia_smartwatches: sin productos aún; agregar cuando se pueble:
+  // tecnologia_smartwatches: { file: 'tecnologia/smartwatches/index.html', varName: 'productos' },
+  // Celulares usan estructura "familias+variantes", incompatible con este script.
 };
 const SUPLEMENTOS = ['proteina', 'omega3', 'magnesio', 'creatina', 'complejo_b', 'vitamina_d'];
 const ENTRIES =
