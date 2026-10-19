@@ -51,13 +51,21 @@ const CATALOG = {
   tecnologia_audifonos:  { file: 'tecnologia/audifonos/index.html',  varName: 'productos' },
   // tecnologia_smartwatches: sin productos aún; agregar cuando se pueble:
   // tecnologia_smartwatches: { file: 'tecnologia/smartwatches/index.html', varName: 'productos' },
-  // Celulares usan estructura "familias+variantes", incompatible con este script.
+};
+// Celulares: estructura "familias + variantes" — manejado por updateCelulares().
+// ID por variante: "{prefix}-{familia.modeloBase}-{storage}gb-{ram}gb"
+const CATALOG_CEL = {
+  celulares_android: { file: 'celulares/android/index.html', varName: 'familias', prefix: 'android' },
 };
 const SUPLEMENTOS = ['proteina', 'omega3', 'magnesio', 'creatina', 'complejo_b', 'vitamina_d'];
 const ENTRIES =
   CAT_ARG === 'all'         ? Object.entries(CATALOG) :
   CAT_ARG === 'suplementos' ? SUPLEMENTOS.map(k => [k, CATALOG[k]]) :
   Object.entries(CATALOG).filter(([k]) => k === CAT_ARG);
+const CEL_ENTRIES =
+  CAT_ARG === 'all' || CAT_ARG === 'celulares_android'
+    ? Object.entries(CATALOG_CEL).filter(([k]) => CAT_ARG === 'all' || k === CAT_ARG)
+    : [];
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 const MLID_RX = /^MLM\d{6,12}$/;
@@ -347,10 +355,106 @@ async function suggestAll(admin) {
   console.log('   Guardado en scripts/ml-sugerencias.json — corre generar-admin.js para verlos en el artifact.\n');
 }
 
+// ── Celulares (familias + variantes) ─────────────────────────────────────────
+// Cada variante se identifica en merged-admin.json como: {prefix}-{modeloBase}-{storage}gb-{ram}gb
+// El campo linkML de cada variante es único y se usa para localizar el bloque en el texto del HTML.
+function locateFamilias(html, varName) {
+  const m = html.match(new RegExp(`(?:const|var|let)\\s+${varName}\\s*=\\s*\\[`, 'm'));
+  if (!m) return null;
+  const start = html.indexOf('[', m.index);
+  let depth = 0;
+  for (let i = start; i < html.length; i++) {
+    if (html[i] === '[') depth++;
+    else if (html[i] === ']' && --depth === 0) return { start, end: i + 1 };
+  }
+  return null;
+}
+
+async function updateCelulares(key, config, admin, REPORT) {
+  const abs = resolve(ROOT, config.file);
+  if (!existsSync(abs)) { console.log(`  ⚠ No encontrado: ${config.file}`); return; }
+  let html = readFileSync(abs, 'utf8');
+  const loc = locateFamilias(html, config.varName);
+  if (!loc) { console.log(`  ⚠ Sin array ${config.varName} en ${config.file}`); return; }
+
+  const arrayText = html.slice(loc.start, loc.end);
+  const familias = new Function(`return ${arrayText}`)();
+
+  // Mapa id → { mlId, precioML } desde merged-admin.json
+  const adminMap = new Map();
+  (admin[key] || []).forEach(p => { if (p.mlId) adminMap.set(p.id, p); });
+
+  // Recopilar variantes con mlId
+  const targets = [];
+  let sinId = 0;
+  for (const f of familias) {
+    for (const v of (f.variantes || [])) {
+      const id = `${config.prefix}-${f.modeloBase}-${v.storage}gb-${v.ram}gb`;
+      const admin = adminMap.get(id);
+      if (!admin) { sinId++; continue; }
+      targets.push({ id, mlId: admin.mlId, linkML: v.linkML, precioBefore: v.precio, nombre: f.nombre, storage: v.storage, ram: v.ram });
+    }
+  }
+
+  console.log(`\n📄 ${key} — ${targets.length} con ID de catálogo · ${sinId} sin ID`);
+  const t0 = Date.now();
+  const prices = await pool(targets, CONCURRENCY, t => catalogPrice(t.mlId));
+
+  const patches = [];
+  targets.forEach((t, i) => {
+    const raw = prices[i];
+    const label = `${t.nombre} ${t.storage}/${t.ram}GB`.substring(0, 45).padEnd(45);
+    const row = { categoria: key, id: t.id, nombre: t.nombre, mlId: t.mlId, precioAntes: t.precioBefore };
+    if (!raw) {
+      console.log(`  ✗ ${label} ${t.mlId} sin ofertas`);
+      REPORT.push({ ...row, estado: 'sin_precio', precioML: null });
+      return;
+    }
+    const nuevo = Math.round(raw);
+    const ratio = t.precioBefore ? nuevo / t.precioBefore : 1;
+    if (ratio < 0.2 || ratio > 4) {
+      console.log(`  ⚠ ${label} $${t.precioBefore} → $${nuevo} sospechoso (${ratio.toFixed(1)}x), ignorado`);
+      REPORT.push({ ...row, estado: 'precio_sospechoso', precioML: nuevo });
+      return;
+    }
+    if (t.precioBefore === nuevo) {
+      console.log(`  = ${label} $${nuevo.toLocaleString('es-MX')}`);
+      REPORT.push({ ...row, estado: 'sin_cambio', precioML: nuevo });
+      return;
+    }
+    console.log(`  ✅ ${label} $${t.precioBefore ?? '—'} → $${nuevo.toLocaleString('es-MX')}`);
+    REPORT.push({ ...row, estado: 'actualizado', precioNuevo: nuevo, precioML: nuevo });
+    patches.push({ t, nuevo });
+  });
+
+  console.log(`  ⏱ ${((Date.now() - t0) / 1000).toFixed(1)} s`);
+  if (!patches.length) { console.log('  ✓ Sin cambios en el HTML'); return; }
+
+  // Reemplazar precio en cada variante localizando su linkML (único por variante) en el texto
+  let text = arrayText;
+  for (const { t, nuevo } of patches) {
+    if (!t.linkML) continue;
+    const idx = text.indexOf(t.linkML);
+    if (idx === -1) continue;
+    const blockStart = text.lastIndexOf('{', idx);
+    const blockEnd = text.indexOf('}', idx) + 1;
+    const block = text.slice(blockStart, blockEnd);
+    const newBlock = block.replace(/(precio:\s*)[\d.]+/, `$1${nuevo}`);
+    text = text.slice(0, blockStart) + newBlock + text.slice(blockEnd);
+  }
+
+  html = html.slice(0, loc.start) + text + html.slice(loc.end);
+  if (DRY_RUN) { console.log(`  🔍 DRY RUN — ${patches.length} precios cambiarían`); return; }
+  writeFileSync(abs, html, 'utf8');
+  console.log(`  💾 ${config.file}: ${patches.length} precios actualizados`);
+}
+
 // ── Main ─────────────────────────────────────────────────────────────────────
 async function main() {
-  if (!ENTRIES.length) {
-    console.error(`❌ Categoría "${CAT_ARG}". Opciones: ${Object.keys(CATALOG).join(', ')}, suplementos, all`);
+  const allUnknown = !ENTRIES.length && !CEL_ENTRIES.length;
+  if (allUnknown) {
+    const allKeys = [...Object.keys(CATALOG), ...Object.keys(CATALOG_CEL), 'suplementos', 'all'];
+    console.error(`❌ Categoría "${CAT_ARG}". Opciones: ${allKeys.join(', ')}`);
     process.exit(1);
   }
   console.log(`\n🛒 comparalo.mx — ${SUGERIR ? 'Sugerencias de ID ML' : 'Actualizador de precios ML'}`);
@@ -365,6 +469,7 @@ async function main() {
   const REPORT = [];
   const t0 = Date.now();
   for (const [key, config] of ENTRIES) await updateCategory(key, config, admin, REPORT);
+  for (const [key, config] of CEL_ENTRIES) await updateCelulares(key, config, admin, REPORT);
 
   const count = e => REPORT.filter(r => r.estado === e).length;
   const totales = {
