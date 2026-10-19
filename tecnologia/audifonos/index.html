@@ -554,7 +554,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   <div class="footer-info">© 2026 · Sitio de afiliados · <a href="/">Inicio</a> · <a href="/tecnologia/">Tecnología</a> · <a href="/tecnologia/bocinas/">Bocinas inteligentes</a> · <a href="/tecnologia/audifonos/">Audífonos</a> · <a href="/tecnologia/smartwatches/">Smartwatches</a></div>
 </footer>
 
-<script type="application/json" id="pausas">{}</script>
+<script type="application/json" id="pausas">{"aud_mlm65699480":{"ml":1}}</script>
 <script>
 const productos = [
   {
@@ -627,7 +627,7 @@ const productos = [
     "nombre": "Audífonos Inalambricos XIAOMI Redmi Buds 6 Play Bluetooth 10M Rosa M2420E1",
     "marca": "Xiaomi",
     "linkML": "https://meli.la/2QFWmqp",
-    "precioML": 255,
+    "precioML": 200,
     "imagen": "https://http2.mlstatic.com/D_NQ_NP_714087-MLA96151231035_102025-F.jpg",
     "especs": {
       "formato": "In-ear",
@@ -644,7 +644,7 @@ const productos = [
     "nombre": "Audífonos Inalámbricos 1HORA AUT205 In-Ear Bluetooth 6.0 con Micrófono, Auricula",
     "marca": "1Hora",
     "linkML": "https://meli.la/1uVS3UV",
-    "precioML": 166,
+    "precioML": 97,
     "imagen": "https://http2.mlstatic.com/D_NQ_NP_725168-MLA100077728739_122025-F.jpg",
     "especs": {
       "formato": "In-ear",
@@ -781,7 +781,7 @@ const productos = [
     "nombre": "Auriculares In-ear Inalámbricos Aiwa Awtwsg50ancb Noise Cancelling Negro",
     "marca": "Aiwa",
     "linkML": "https://meli.la/2TWzaBT",
-    "precioML": 340,
+    "precioML": 336,
     "imagen": "https://http2.mlstatic.com/D_NQ_NP_611245-MLA99370121676_112025-F.jpg",
     "especs": {
       "formato": "In-ear",
@@ -1251,7 +1251,7 @@ const productos = [
     "nombre": "Audífonos Moto Buds Bass Con Cancelación De Ruido, Azul Azul",
     "marca": "Motorola",
     "linkML": "https://meli.la/2CEzViz",
-    "precioML": 558,
+    "precioML": 566,
     "imagen": "https://http2.mlstatic.com/D_NQ_NP_851402-MLA100765282069_122025-F.jpg",
     "especs": {
       "formato": "In-ear",
@@ -1336,7 +1336,7 @@ const productos = [
     "nombre": "Audífonos Inalámbricos HUAWEI FreeBuds SE 3 Negro",
     "marca": "Huawei",
     "linkML": "https://meli.la/1K2xPj4",
-    "precioML": 620,
+    "precioML": 619,
     "imagen": "https://http2.mlstatic.com/D_NQ_NP_712855-MLA99459851170_112025-F.jpg",
     "especs": {
       "formato": "In-ear",
@@ -1368,6 +1368,7 @@ const productos = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 
 const precioVigente = p => (p.linkML ? p.precioML : p.precioAmz) ?? p.precio ?? null;

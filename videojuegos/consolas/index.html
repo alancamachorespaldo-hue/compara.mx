@@ -536,6 +536,7 @@ const productos = [
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
 
 
+
 const precioVigente = p => (p.linkML ? p.precioML : p.precioAmz) ?? p.precio ?? null;
 const SPEC_KEYS = [['generacion','Generación'],['almacenamiento','Almacen.'],['lectorDiscos','Lector discos'],['formatoJuegos','Formato'],['tipoConsola','Tipo'],['accesorios','Accesorios']];
 
