@@ -1090,6 +1090,8 @@ function cardHTML5k(f) {
   const v = f.variantes[0];
   const isSel = selected5k.includes(f.modeloBase);
   const specs = [];
+  if (f.chip) specs.push({l:'Chip', v: f.chip});
+  if (f.camPrincipal) specs.push({l:'Cámara', v: f.camPrincipal});
   if (v.ram) specs.push({l:'RAM', v: v.ram+' GB'});
   specs.push({l:'Almac.', v: storageLbl5k(v.storage)});
   if (f.pantalla) specs.push({l:'Pantalla', v: f.pantalla+'"'});
@@ -1101,7 +1103,7 @@ function cardHTML5k(f) {
     ? `<a class="btn-ml" href="${v.linkML}" target="_blank" rel="sponsored nofollow noopener"
         aria-label="Ver ${f.nombre} en Mercado Libre"
         onclick="event.stopPropagation();gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'${f.nombre}',value:${v.precio||0},page_section:location.pathname.replace(/^\\//g,'').replace(/\\/(?:index\\.html)?$/g,'').replace(/\\//g,'_')||'home',item_position:Array.from(document.querySelectorAll('.pcard')).indexOf(this.closest('.pcard'))+1})"
-        data-ga-label="${f.nombre}" data-ga-val="${v.precio||0}">Ver en Mercado Libre</a>`
+        data-ga-label="${f.nombre}" data-ga-val="${v.precio||0}"><img src="/logomercado.png" style="height:16px;vertical-align:middle;margin-right:3px" alt="" onerror="this.style.display='none'">Ver en Mercado Libre</a>`
     : '';
 
   return `<div class="pcard${isSel?' selected':''}" id="pcard-${f.modeloBase}"

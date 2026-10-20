@@ -1102,12 +1102,14 @@ function cardHTML(f) {
     ? `<div style="font-size:12px;color:#e6900a;font-weight:700;margin-bottom:4px">★ ${v.estrellas.toFixed(1)} <span style="color:var(--tx3);font-weight:400">(${(v.resenas||0).toLocaleString('es-MX')})</span></div>`
     : '';
   const specs = [];
+  if (f.chip) specs.push({l:'Chip', v: f.chip});
+  if (f.camPrincipal) specs.push({l:'Cámara', v: f.camPrincipal});
   if (v.ram) specs.push({l:'RAM', v: v.ram+' GB'});
   specs.push({l:'Almac.', v: storageLbl(v.storage)});
+  if (f.pantalla) specs.push({l:'Pantalla', v: f.pantalla+'"'});
   if (f.hz) specs.push({l:'Hz', v: f.hz+' Hz'});
   if (f.bateria) specs.push({l:'Batería', v: f.bateria});
   if (f.red) specs.push({l:'Red', v: f.red});
-  if (f.chip) specs.push({l:'Chip', v: f.chip});
 
   const amzBtn = v.linkAmz
     ? `<a class="btn-amz" href="${v.linkAmz}" target="_blank" rel="sponsored nofollow noopener"
