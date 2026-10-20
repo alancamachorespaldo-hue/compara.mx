@@ -3559,6 +3559,73 @@ document.getElementById('howModalOv').addEventListener('click',function(e){if(e.
   io.observe(hero);
 })();
 </script>
+<style>
+  .desc-android-section{background:var(--s1);border-top:1px solid var(--bd);padding:2.5rem 1.5rem;margin-top:0}
+  .desc-android-inner{max-width:1100px;margin:0 auto}
+  .desc-android-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ac);margin-bottom:.35rem}
+  .desc-android-title{font-size:1.5rem;font-weight:700;letter-spacing:-.03em;color:var(--tx);margin-bottom:1.25rem}
+  .desc-android-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .desc-android-card{background:#fff;border:1px solid var(--bd);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+  .desc-android-img{height:168px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;border-bottom:1px solid var(--bd);flex-shrink:0}
+  .desc-android-img img{max-width:100%;max-height:100%;object-fit:contain;padding:12px}
+  .desc-android-body{padding:14px 15px;display:flex;flex-direction:column;gap:8px;flex:1}
+  .desc-android-name{font-size:1rem;font-weight:700;color:var(--tx);line-height:1.3}
+  .desc-android-badge{display:inline-block;background:#dcf5e4;color:#0a6631;font-size:.75rem;font-weight:800;border-radius:999px;padding:3px 9px;margin-left:6px}
+  .desc-android-specs{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:4px 8px;margin:0;padding:0}
+  .desc-android-specs li{display:flex;flex-direction:column;gap:1px}
+  .desc-android-specs .spec-k{font-size:.68rem;color:var(--tx2);font-weight:500;text-transform:uppercase;letter-spacing:.04em}
+  .desc-android-specs .spec-v{font-size:.77rem;font-weight:700;color:var(--tx)}
+  .desc-android-price{font-size:1.08rem;font-weight:800;color:var(--ac);margin:0}
+  .desc-android-antes{text-decoration:line-through;color:var(--tx2);font-size:.88rem;margin-left:6px;font-weight:500}
+  .desc-android-btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:8px}
+  .desc-android-btn{display:inline-flex;justify-content:center;align-items:center;gap:6px;min-height:40px;padding:8px 13px;border-radius:9px;border:none;color:#171717;font-size:.88rem;font-weight:800;text-decoration:none;cursor:pointer;flex:1 1 120px}
+  .desc-android-btn-ml{background:#f0c000}
+  .desc-android-btn-amz{background:#ff9900}
+  @media(max-width:640px){.desc-android-grid{grid-template-columns:1fr}}
+</style>
+<div class="desc-android-section" id="desc-android-section" hidden>
+  <div class="desc-android-inner">
+    <p class="desc-android-label">Ofertas detectadas</p>
+    <p class="desc-android-title">Bajaron de precio hoy</p>
+    <div class="desc-android-grid" id="desc-android-grid"></div>
+  </div>
+</div>
+<script>
+(async function(){
+  try{
+    var r=await fetch('/celulares/descuentos.json');
+    if(!r.ok)return;
+    var data=await r.json();
+    if(!data.descuentos||!data.descuentos.length)return;
+    var grid=document.getElementById('desc-android-grid');
+    var sec=document.getElementById('desc-android-section');
+    if(!grid||!sec)return;
+    data.descuentos.forEach(function(d){
+      var specsLi='';
+      if(d.especs){
+        if(d.especs.pantalla)specsLi+='<li><span class="spec-k">Pantalla</span><span class="spec-v">'+d.especs.pantalla+'</span></li>';
+        if(d.especs.ram)specsLi+='<li><span class="spec-k">RAM</span><span class="spec-v">'+d.especs.ram+'</span></li>';
+        if(d.especs.almacenamiento)specsLi+='<li><span class="spec-k">Almac.</span><span class="spec-v">'+d.especs.almacenamiento+'</span></li>';
+        if(d.especs.cam)specsLi+='<li><span class="spec-k">Cámara</span><span class="spec-v">'+d.especs.cam+'</span></li>';
+      }
+      var amzBtn=d.linkAmz?'<a class="desc-android-btn desc-android-btn-amz" href="'+d.linkAmz+'" rel="sponsored nofollow noopener" target="_blank" onclick="typeof gtag===\'function\'&&gtag(\'event\',\'affiliate_click_amz\',{event_category:\'afiliado\',event_label:\''+d.nombre.replace(/'/g,'\\\'')+'\'  ,value:'+d.precioML+',location:\'hub_descuentos\'})">Amazon →</a>':'';
+      var card=document.createElement('div');
+      card.className='desc-android-card';
+      card.innerHTML=(d.imagen?'<div class="desc-android-img"><img src="'+d.imagen+'" alt="'+d.nombre+'" loading="lazy"></div>':'')
+        +'<div class="desc-android-body">'
+        +'<span class="desc-android-name">'+d.nombre+'<span class="desc-android-badge">-'+d.pct+'%</span></span>'
+        +(specsLi?'<ul class="desc-android-specs">'+specsLi+'</ul>':'')
+        +'<p class="desc-android-price">$'+d.precioML.toLocaleString('es-MX')+' <span class="desc-android-antes">$'+Math.round(d.precioAntes).toLocaleString('es-MX')+'</span></p>'
+        +'<div class="desc-android-btns">'
+        +'<a class="desc-android-btn desc-android-btn-ml" href="'+d.linkML+'" rel="sponsored nofollow noopener" target="_blank" onclick="typeof gtag===\'function\'&&gtag(\'event\',\'affiliate_click_ml\',{event_category:\'afiliado\',event_label:\''+d.nombre.replace(/'/g,'\\\'')+'\'  ,value:'+d.precioML+',location:\'hub_descuentos\'})">'
+        +'<img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-right:3px" alt="" onerror="this.style.display=\'none\'">ML →</a>'
+        +amzBtn+'</div></div>';
+      grid.appendChild(card);
+    });
+    sec.hidden=false;
+  }catch(e){}
+})();
+</script>
 <script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
 <script src="/assets/js/share.js" defer></script>

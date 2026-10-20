@@ -121,21 +121,35 @@ footer a{color:var(--ac);text-decoration:none}
   .nav-links{gap:.75rem}
 }
 
-/* MÁS BUSCADOS */
-.pop-section{background:var(--s1);border-bottom:1px solid var(--bd);padding:2.5rem 2rem}
-.pop-inner,.budget-inner{max-width:1100px;margin:0 auto}
+/* MÁS BUSCADOS + DESCUENTOS */
+.pop-section,.desc-section{background:var(--s1);border-bottom:1px solid var(--bd);padding:2.5rem 2rem}
+.pop-inner,.budget-inner,.desc-inner{max-width:1100px;margin:0 auto}
 .section-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ac);margin-bottom:.35rem}
 .section-title{font-size:1.5rem;font-weight:700;letter-spacing:-.03em;color:var(--tx);margin-bottom:1.25rem}
-.pop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
-.pop-card{background:var(--bg);border:1px solid var(--bd);border-radius:14px;padding:1rem 1.1rem;display:flex;flex-direction:column;gap:7px}
-.pop-card-name{font-size:.88rem;font-weight:700;color:var(--tx);letter-spacing:-.01em}
-.pop-card-price{font-size:1.1rem;font-weight:800;color:var(--tx);letter-spacing:-.03em}
-.pop-card-date{font-size:11px;color:var(--tx3);margin-top:-3px}
-.pop-card-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:3px}
+.pop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+/* card vitrina */
+.pop-card{background:var(--bg);border:1px solid var(--bd);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .18s,transform .18s}
+.pop-card:hover{box-shadow:0 6px 22px rgba(0,0,0,.09);transform:translateY(-3px)}
+.pop-card-img{height:168px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;border-bottom:1px solid var(--bd);flex-shrink:0}
+.pop-card-img img{max-width:100%;max-height:100%;object-fit:contain;padding:12px;display:block}
+.pop-card-body{padding:13px 14px 14px;display:flex;flex-direction:column;gap:8px;flex:1}
+.pop-card-name{font-size:.88rem;font-weight:700;color:var(--tx);letter-spacing:-.01em;line-height:1.3}
+.pop-card-specs{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:4px 8px;margin:0}
+.pop-card-specs li{display:flex;flex-direction:column;gap:1px}
+.spec-key{font-size:.69rem;color:var(--tx3);font-weight:500;text-transform:uppercase;letter-spacing:.04em}
+.spec-val{font-size:.78rem;color:var(--tx2);font-weight:700}
+.pop-card-price-row{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;margin-top:2px}
+.pop-card-price{font-size:1.08rem;font-weight:800;color:var(--tx);letter-spacing:-.03em}
+.pop-card-price small{font-size:.7rem;font-weight:500;color:var(--tx3)}
+.pop-card-date{font-size:11px;color:var(--tx3)}
+.pop-card-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
 .btn-ml-sm{display:inline-flex;align-items:center;gap:4px;padding:7px 14px;border-radius:8px;font-size:13px;font-weight:700;background:var(--ml);color:#5a4200;text-decoration:none;transition:opacity .15s;white-space:nowrap}
 .btn-ml-sm:hover{opacity:.88}
 .btn-amz-sm{display:inline-flex;align-items:center;gap:4px;padding:7px 14px;border-radius:8px;font-size:13px;font-weight:700;background:#ff9900;color:#fff;text-decoration:none;transition:opacity .15s;white-space:nowrap}
 .btn-amz-sm:hover{opacity:.88}
+/* descuentos */
+.desc-badge{display:inline-block;background:#006847;color:#fff;font-size:.72rem;font-weight:800;border-radius:20px;padding:2px 8px;letter-spacing:.03em;flex-shrink:0}
+.desc-price-antes{font-size:.82rem;color:var(--tx3);text-decoration:line-through}
 
 /* POR PRESUPUESTO */
 .budget-section{background:var(--bg);border-bottom:1px solid var(--bd);padding:2.5rem 2rem}
@@ -148,8 +162,9 @@ footer a{color:var(--ac);text-decoration:none}
 
 @media(max-width:640px){
   .pop-grid{grid-template-columns:repeat(2,1fr)}
-  .pop-section,.budget-section{padding:2rem 1rem}
+  .pop-section,.desc-section,.budget-section{padding:2rem 1rem}
   .budget-grid{grid-template-columns:1fr}
+  .pop-card-img{height:140px}
 }
 </style>
 </head>
@@ -213,45 +228,155 @@ footer a{color:var(--ac);text-decoration:none}
     <p class="section-label">Esta semana</p>
     <h2 class="section-title">Más buscados en celulares</h2>
     <div class="pop-grid">
+
       <div class="pop-card">
-        <span class="pop-card-name">Motorola Moto G75 5G</span>
-        <span class="pop-card-price">$4,190 <small style="font-size:.7rem;font-weight:500;color:var(--tx3)">MXN</small></span>
-        <span class="pop-card-date">Precio oct 2026</span>
-        <div class="pop-card-btns">
-          <a class="btn-ml-sm" href="https://meli.la/1YNrnqo" rel="sponsored nofollow noopener" target="_blank" onclick="gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Motorola Moto G75',location:'hub_masbuscados'})">ML →</a>
-          <!-- PENDIENTE: link afiliado Amazon Motorola Moto G75 -->
+        <div class="pop-card-img">
+          <img src="https://http2.mlstatic.com/D_NQ_NP_724003-MLA99989849311_112025-F.jpg" alt="Motorola Moto G75 5G" loading="lazy">
+        </div>
+        <div class="pop-card-body">
+          <span class="pop-card-name">Motorola Moto G75 5G</span>
+          <ul class="pop-card-specs">
+            <li><span class="spec-key">Pantalla</span><span class="spec-val">6.8"</span></li>
+            <li><span class="spec-key">RAM</span><span class="spec-val">8 GB</span></li>
+            <li><span class="spec-key">Almacenamiento</span><span class="spec-val">256 GB</span></li>
+            <li><span class="spec-key">Cámara</span><span class="spec-val">50 MP</span></li>
+          </ul>
+          <div class="pop-card-price-row">
+            <span class="pop-card-price">$4,190 <small>MXN</small></span>
+            <span class="pop-card-date">oct 2026</span>
+          </div>
+          <div class="pop-card-btns">
+            <a class="btn-ml-sm" href="https://meli.la/1YNrnqo" rel="sponsored nofollow noopener" target="_blank"
+               onclick="gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Motorola Moto G75 5G',value:4190,location:'hub_masbuscados'})">
+              <img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-right:3px" alt="" onerror="this.style.display='none'">ML →
+            </a>
+          </div>
         </div>
       </div>
+
       <div class="pop-card">
-        <span class="pop-card-name">Samsung Galaxy A16 5G</span>
-        <span class="pop-card-price">$2,639 <small style="font-size:.7rem;font-weight:500;color:var(--tx3)">MXN</small></span>
-        <span class="pop-card-date">Precio oct 2026</span>
-        <div class="pop-card-btns">
-          <a class="btn-ml-sm" href="https://meli.la/2odmD8G" rel="sponsored nofollow noopener" target="_blank" onclick="gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Samsung Galaxy A16 5G',location:'hub_masbuscados'})">ML →</a>
-          <!-- PENDIENTE: link afiliado Amazon Samsung Galaxy A16 5G -->
+        <div class="pop-card-img">
+          <img src="https://http2.mlstatic.com/D_NQ_NP_802041-MLA99444576642_112025-F.jpg" alt="Samsung Galaxy A16 5G" loading="lazy">
+        </div>
+        <div class="pop-card-body">
+          <span class="pop-card-name">Samsung Galaxy A16 5G</span>
+          <ul class="pop-card-specs">
+            <li><span class="spec-key">Pantalla</span><span class="spec-val">6.7"</span></li>
+            <li><span class="spec-key">RAM</span><span class="spec-val">4 GB</span></li>
+            <li><span class="spec-key">Almacenamiento</span><span class="spec-val">128 GB</span></li>
+            <li><span class="spec-key">Cámara</span><span class="spec-val">50 MP</span></li>
+          </ul>
+          <div class="pop-card-price-row">
+            <span class="pop-card-price">$2,639 <small>MXN</small></span>
+            <span class="pop-card-date">oct 2026</span>
+          </div>
+          <div class="pop-card-btns">
+            <a class="btn-ml-sm" href="https://meli.la/2odmD8G" rel="sponsored nofollow noopener" target="_blank"
+               onclick="gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Samsung Galaxy A16 5G',value:2639,location:'hub_masbuscados'})">
+              <img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-right:3px" alt="" onerror="this.style.display='none'">ML →
+            </a>
+          </div>
         </div>
       </div>
+
       <div class="pop-card">
-        <span class="pop-card-name">Xiaomi Redmi 17</span>
-        <span class="pop-card-price">$4,009 <small style="font-size:.7rem;font-weight:500;color:var(--tx3)">MXN</small></span>
-        <span class="pop-card-date">Precio oct 2026</span>
-        <div class="pop-card-btns">
-          <a class="btn-ml-sm" href="https://meli.la/2nAtP9e" rel="sponsored nofollow noopener" target="_blank" onclick="gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Xiaomi Redmi 17',location:'hub_masbuscados'})">ML →</a>
-          <!-- PENDIENTE: link afiliado Amazon Xiaomi Redmi 17 -->
+        <div class="pop-card-img">
+          <img src="https://http2.mlstatic.com/D_NQ_NP_2X_636342-CBT115285598872_082026-F-xiaomi-redmi-17-4g-4gb-ram-128gb-rom-69-7500mah-45w-negro.webp" alt="Xiaomi Redmi 17" loading="lazy">
+        </div>
+        <div class="pop-card-body">
+          <span class="pop-card-name">Xiaomi Redmi 17</span>
+          <ul class="pop-card-specs">
+            <li><span class="spec-key">Pantalla</span><span class="spec-val">6.79"</span></li>
+            <li><span class="spec-key">RAM</span><span class="spec-val">4 GB</span></li>
+            <li><span class="spec-key">Almacenamiento</span><span class="spec-val">128 GB</span></li>
+            <li><span class="spec-key">Cámara</span><span class="spec-val">108 MP</span></li>
+          </ul>
+          <div class="pop-card-price-row">
+            <span class="pop-card-price">$4,009 <small>MXN</small></span>
+            <span class="pop-card-date">oct 2026</span>
+          </div>
+          <div class="pop-card-btns">
+            <a class="btn-ml-sm" href="https://meli.la/2nAtP9e" rel="sponsored nofollow noopener" target="_blank"
+               onclick="gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Xiaomi Redmi 17',value:4009,location:'hub_masbuscados'})">
+              <img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-right:3px" alt="" onerror="this.style.display='none'">ML →
+            </a>
+          </div>
         </div>
       </div>
+
       <div class="pop-card">
-        <span class="pop-card-name">Motorola G86 5G</span>
-        <span class="pop-card-price">$4,588 <small style="font-size:.7rem;font-weight:500;color:var(--tx3)">MXN</small></span>
-        <span class="pop-card-date">Precio oct 2026</span>
-        <div class="pop-card-btns">
-          <a class="btn-ml-sm" href="https://meli.la/1A7T9CX" rel="sponsored nofollow noopener" target="_blank" onclick="gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Motorola G86',location:'hub_masbuscados'})">ML →</a>
-          <!-- PENDIENTE: link afiliado Amazon Motorola G86 -->
+        <div class="pop-card-img">
+          <img src="https://http2.mlstatic.com/D_NQ_NP_626714-MLA105597355234_012026-F.jpg" alt="Motorola G86 5G" loading="lazy">
+        </div>
+        <div class="pop-card-body">
+          <span class="pop-card-name">Motorola G86 5G</span>
+          <ul class="pop-card-specs">
+            <li><span class="spec-key">Pantalla</span><span class="spec-val">6.7"</span></li>
+            <li><span class="spec-key">RAM</span><span class="spec-val">8 GB</span></li>
+            <li><span class="spec-key">Almacenamiento</span><span class="spec-val">512 GB</span></li>
+            <li><span class="spec-key">Cámara</span><span class="spec-val">50 MP</span></li>
+          </ul>
+          <div class="pop-card-price-row">
+            <span class="pop-card-price">$4,588 <small>MXN</small></span>
+            <span class="pop-card-date">oct 2026</span>
+          </div>
+          <div class="pop-card-btns">
+            <a class="btn-ml-sm" href="https://meli.la/1A7T9CX" rel="sponsored nofollow noopener" target="_blank"
+               onclick="gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Motorola G86 5G',value:4588,location:'hub_masbuscados'})">
+              <img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-right:3px" alt="" onerror="this.style.display='none'">ML →
+            </a>
+          </div>
         </div>
       </div>
+
     </div>
   </div>
 </div>
+
+<!-- DESCUENTOS DEL DÍA -->
+<div class="desc-section" id="desc-section" hidden>
+  <div class="desc-inner">
+    <p class="section-label">Ofertas detectadas</p>
+    <h2 class="section-title">Bajaron de precio</h2>
+    <div class="pop-grid" id="desc-grid"></div>
+  </div>
+</div>
+<script>
+(async function(){
+  try{
+    const r=await fetch('/celulares/descuentos.json');
+    if(!r.ok)return;
+    const data=await r.json();
+    if(!data.descuentos||!data.descuentos.length)return;
+    const grid=document.getElementById('desc-grid');
+    const sec=document.getElementById('desc-section');
+    if(!grid||!sec)return;
+    data.descuentos.forEach(function(d){
+      const specsHtml=d.especs?[
+        d.especs.pantalla?'<li><span class="spec-key">Pantalla</span><span class="spec-val">'+d.especs.pantalla+'</span></li>':'',
+        d.especs.ram?'<li><span class="spec-key">RAM</span><span class="spec-val">'+d.especs.ram+'</span></li>':'',
+        d.especs.almacenamiento?'<li><span class="spec-key">Almacenamiento</span><span class="spec-val">'+d.especs.almacenamiento+'</span></li>':'',
+        d.especs.cam?'<li><span class="spec-key">Cámara</span><span class="spec-val">'+d.especs.cam+'</span></li>':''
+      ].filter(Boolean).join(''):'';
+      const amzBtn=d.linkAmz?'<a class="btn-amz-sm" href="'+d.linkAmz+'" rel="sponsored nofollow noopener" target="_blank" onclick="typeof gtag===\'function\'&&gtag(\'event\',\'affiliate_click_amz\',{event_category:\'afiliado\',event_label:\''+d.nombre.replace(/'/g,'\\\'')+'\'  ,value:'+d.precioML+',location:\'hub_descuentos\'})">Amazon →</a>':'';
+      const card=document.createElement('div');
+      card.className='pop-card';
+      card.innerHTML='<div class="pop-card-img"><img src="'+d.imagen+'" alt="'+d.nombre+'" loading="lazy"></div>'
+        +'<div class="pop-card-body">'
+        +'<div style="display:flex;align-items:flex-start;gap:6px;flex-wrap:wrap"><span class="pop-card-name">'+d.nombre+'</span><span class="desc-badge">-'+d.pct+'%</span></div>'
+        +(specsHtml?'<ul class="pop-card-specs">'+specsHtml+'</ul>':'')
+        +'<div class="pop-card-price-row"><span class="pop-card-price" style="color:var(--ac)">$'+d.precioML.toLocaleString('es-MX')+' <small>MXN</small></span>'
+        +'<span class="desc-price-antes">$'+Math.round(d.precioAntes).toLocaleString('es-MX')+'</span></div>'
+        +'<div class="pop-card-btns">'
+        +'<a class="btn-ml-sm" href="'+d.linkML+'" rel="sponsored nofollow noopener" target="_blank" onclick="typeof gtag===\'function\'&&gtag(\'event\',\'affiliate_click_ml\',{event_category:\'afiliado\',event_label:\''+d.nombre.replace(/'/g,'\\\'')+'\'  ,value:'+d.precioML+',location:\'hub_descuentos\'})">'
+        +'<img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-right:3px" alt="" onerror="this.style.display=\'none\'">ML →</a>'
+        +amzBtn+'</div></div>';
+      grid.appendChild(card);
+    });
+    sec.hidden=false;
+  }catch(e){}
+})();
+</script>
 
 <!-- POR PRESUPUESTO -->
 <div class="budget-section">

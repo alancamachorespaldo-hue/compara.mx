@@ -106,10 +106,18 @@
     .compare-cta { background: #f3f8f4; border: 1px solid #dcebe0; border-radius: 20px; padding: clamp(20px, 4vw, 34px); margin: 30px 0; }
     .compare-cta h2 { margin: 0 0 10px; }
     .model-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 20px; }
-    .model-card { border: 1px solid var(--line); border-radius: 15px; padding: 17px; background: #fff; min-width: 0; }
-    .model-card h3 { font-size: 1.1rem; margin-bottom: 6px; }
-    .model-card .price-line { font-size: 1.12rem; }
-    .model-card .product-actions { margin-top: 12px; }
+    .model-card { border: 1px solid var(--line); border-radius: 15px; overflow: hidden; background: #fff; min-width: 0; display: flex; flex-direction: column; }
+    .model-card-img { height: 158px; background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden; border-bottom: 1px solid var(--line); flex-shrink: 0; }
+    .model-card-img img { max-width: 100%; max-height: 100%; object-fit: contain; padding: 12px; display: block; }
+    .model-card-body { padding: 14px 15px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+    .model-card h3 { font-size: 1rem; margin: 0; line-height: 1.3; }
+    .specs-mini { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 4px 8px; margin: 0; padding: 0; }
+    .specs-mini li { display: flex; flex-direction: column; gap: 1px; }
+    .specs-mini .spec-key { font-size: .68rem; color: var(--muted); font-weight: 500; text-transform: uppercase; letter-spacing: .04em; }
+    .specs-mini .spec-val { font-size: .77rem; font-weight: 700; color: var(--ink); }
+    .model-card .price-line { font-size: 1.08rem; margin: 0; }
+    .model-card .small-note { margin: 0; font-size: .82rem; color: var(--muted); }
+    .model-card .product-actions { margin-top: auto; padding-top: 8px; }
     .model-card .btn { flex: 1 1 130px; }
     .faq-item { padding: 19px 0; border-bottom: 1px solid var(--line); }
     .faq-item h3 { font-size: 1.14rem; margin-bottom: 8px; letter-spacing: -.01em; }
@@ -600,6 +608,7 @@
         id: "motorola-moto-g05", nombre: "Motorola Moto G05",
         aliases: ["moto g05", "motorola g05"],
         precioReferencia: 2399, ram: "4 GB", bateria: "5,200 mAh",
+        pantalla: "6.67\"", almacenamiento: "64 GB", cam: "13 MP", imagen: null,
         mejor: "Batería y uso básico", peor: "Pantalla HD+ y rendimiento de entrada",
         linkAmz: null, linkML: null, pendiente: true
       },
@@ -607,6 +616,7 @@
         id: "samsung-galaxy-a0x", nombre: "Samsung Galaxy A06 / A07",
         aliases: ["samsung galaxy a06", "samsung galaxy a07", "galaxy a06", "galaxy a07"],
         precioReferencia: null, ram: "4 GB en versiones base", bateria: "5,000 mAh",
+        pantalla: "6.7\"", almacenamiento: "128 GB", cam: "50 MP", imagen: null,
         mejor: "Uso diario y marca conocida", peor: "Pantalla HD+ y sin OIS",
         linkAmz: null, linkML: null, pendiente: true
       },
@@ -614,13 +624,16 @@
         id: "xiaomi-redmi-14c", nombre: "Xiaomi Redmi 14C",
         aliases: ["redmi 14c", "xiaomi redmi 14c"],
         precioReferencia: 2798, ram: "4 GB en referencia 4/128 GB", bateria: "5,160 mAh",
+        pantalla: "6.88\"", almacenamiento: "128 GB", cam: "50 MP",
+        imagen: "https://m.media-amazon.com/images/I/81AkmE6j6KL._AC_SX522_.jpg",
         mejor: "Pantalla grande y batería", peor: "Rendimiento de entrada",
-        linkAmz: null, linkML: null, pendiente: true
+        linkAmz: "https://link.amazon/B0ayFg1hL?tag=comparalo20-20", linkML: null, pendiente: false
       },
       {
         id: "infinix-hot-50", nombre: "Infinix HOT 50",
         aliases: ["infinix hot 50", "infinix hot 50 4g", "infinix hot 50 5g"],
         precioReferencia: 2698, ram: "8 GB en anuncios consultados", bateria: "5,000 mAh",
+        pantalla: "6.78\"", almacenamiento: "128 GB", cam: "50 MP", imagen: null,
         mejor: "Almacenamiento en algunas ofertas", peor: "Stock, variantes y garantía variables",
         linkAmz: null, linkML: null, pendiente: true
       },
@@ -628,13 +641,16 @@
         id: "tcl-50-se", nombre: "TCL 50 SE",
         aliases: ["tcl 50 se"],
         precioReferencia: null, ram: "4 o 6 GB según versión", bateria: "5,010 mAh",
+        pantalla: "6.75\"", almacenamiento: "128 GB", cam: "50 MP", imagen: null,
         mejor: "Pantalla Full HD+", peor: "Disponibilidad y soporte por confirmar",
-        linkAmz: "https://link.amazon/B0ayFg1hL?tag=comparalo20-20", linkML: null, pendiente: false
+        linkAmz: null, linkML: null, pendiente: true
       },
       {
         id: "motorola-moto-g75", nombre: "Motorola Moto G75 5G",
         aliases: ["motorola moto g75 5g", "moto g75 5g", "moto g75"],
         precioReferencia: 4190, ram: "8 GB", bateria: "5,000 mAh",
+        pantalla: "6.8\"", almacenamiento: "256 GB", cam: "50 MP",
+        imagen: "https://http2.mlstatic.com/D_NQ_NP_724003-MLA99989849311_112025-F.jpg",
         mejor: "5G, más rendimiento y OIS", peor: "Requiere $1,190 extra frente al presupuesto",
         linkAmz: null, linkML: "https://meli.la/1YNrnqo", pendiente: false
       }
@@ -746,28 +762,93 @@
 
     const grid = document.getElementById("all-models-grid");
     if (grid) {
-      celularesDataGuia.forEach((producto) => {
+      celularesDataGuia.forEach(function(producto) {
         const card = document.createElement("article");
         card.className = "model-card";
+
+        if (producto.imagen) {
+          const wrap = document.createElement("div");
+          wrap.className = "model-card-img";
+          const img = document.createElement("img");
+          img.src = producto.imagen; img.alt = producto.nombre; img.loading = "lazy";
+          img.onerror = function(){ this.parentElement.style.display="none"; };
+          wrap.appendChild(img); card.appendChild(wrap);
+        }
+
+        const body = document.createElement("div");
+        body.className = "model-card-body";
+
         const h3 = document.createElement("h3");
-        h3.textContent = producto.nombre;
-        card.appendChild(h3);
+        h3.textContent = producto.nombre; body.appendChild(h3);
+
+        const specs = [["Pantalla",producto.pantalla],["RAM",producto.ram],["Almacenamiento",producto.almacenamiento],["Cámara",producto.cam]].filter(function(s){return s[1];});
+        if (specs.length) {
+          const ul = document.createElement("ul"); ul.className = "specs-mini";
+          specs.forEach(function(s){ const li = document.createElement("li"); li.innerHTML='<span class="spec-key">'+s[0]+'</span><span class="spec-val">'+s[1]+'</span>'; ul.appendChild(li); });
+          body.appendChild(ul);
+        }
 
         const price = document.createElement("p");
         price.className = "price-line";
         price.textContent = precioMXN(producto.precioReferencia);
-        card.appendChild(price);
+        body.appendChild(price);
 
-        const details = document.createElement("p");
-        details.className = "small-note";
-        details.textContent = "RAM: " + producto.ram + " · Batería: " + producto.bateria;
-        card.appendChild(details);
-
-        const actions = crearAcciones(producto);
-        card.appendChild(actions);
+        body.appendChild(crearAcciones(producto));
+        card.appendChild(body);
         grid.appendChild(card);
       });
     }
+  </script>
+  <style>
+    .desc-guia-section{background:var(--surface);border-top:1px solid var(--line);padding:44px 0 52px;margin-top:48px}
+    .desc-guia-inner{width:min(1120px,calc(100% - 40px));margin:0 auto}
+    .desc-badge-guia{display:inline-block;background:#dcf5e4;color:#0a6631;font-size:.75rem;font-weight:800;border-radius:999px;padding:3px 9px}
+    .desc-price-antes{text-decoration:line-through;color:var(--muted);font-size:.88rem;margin-left:6px}
+  </style>
+  <div class="desc-guia-section" id="desc-guia-section" hidden>
+    <div class="desc-guia-inner">
+      <p style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:.3rem">Ofertas detectadas</p>
+      <h2 style="font-size:1.45rem;margin:0 0 1.2rem">Bajaron de precio hoy</h2>
+      <div class="model-grid" id="desc-guia-grid"></div>
+    </div>
+  </div>
+  <script>
+  (async function(){
+    try{
+      var r=await fetch('/celulares/descuentos.json');
+      if(!r.ok)return;
+      var data=await r.json();
+      if(!data.descuentos||!data.descuentos.length)return;
+      var grid=document.getElementById('desc-guia-grid');
+      var sec=document.getElementById('desc-guia-section');
+      if(!grid||!sec)return;
+      data.descuentos.forEach(function(d){
+        var card=document.createElement('article');
+        card.className='model-card';
+        if(d.imagen){
+          card.innerHTML+='<div class="model-card-img"><img src="'+d.imagen+'" alt="'+d.nombre+'" loading="lazy"></div>';
+        }
+        var specsLi='';
+        if(d.especs){
+          if(d.especs.pantalla)specsLi+='<li><span class="spec-key">Pantalla</span><span class="spec-val">'+d.especs.pantalla+'</span></li>';
+          if(d.especs.ram)specsLi+='<li><span class="spec-key">RAM</span><span class="spec-val">'+d.especs.ram+'</span></li>';
+          if(d.especs.almacenamiento)specsLi+='<li><span class="spec-key">Almac.</span><span class="spec-val">'+d.especs.almacenamiento+'</span></li>';
+          if(d.especs.cam)specsLi+='<li><span class="spec-key">Cámara</span><span class="spec-val">'+d.especs.cam+'</span></li>';
+        }
+        var amzBtn=d.linkAmz?'<a class="btn btn-amazon" href="'+d.linkAmz+'" rel="sponsored nofollow noopener" target="_blank" onclick="typeof gtag===\'function\'&&gtag(\'event\',\'affiliate_click_amz\',{event_category:\'afiliado\',event_label:\''+d.nombre.replace(/'/g,'\\\'')+'\'  ,value:'+d.precioML+',location:\'hub_descuentos\'})">Amazon →</a>':'';
+        card.innerHTML+='<div class="model-card-body">'
+          +'<h3>'+d.nombre+' <span class="desc-badge-guia">-'+d.pct+'%</span></h3>'
+          +(specsLi?'<ul class="specs-mini">'+specsLi+'</ul>':'')
+          +'<p class="price-line" style="color:var(--green)">$'+d.precioML.toLocaleString('es-MX')+' <span class="desc-price-antes">$'+Math.round(d.precioAntes).toLocaleString('es-MX')+'</span></p>'
+          +'<div class="product-actions">'
+          +'<a class="btn btn-ml" href="'+d.linkML+'" rel="sponsored nofollow noopener" target="_blank" onclick="typeof gtag===\'function\'&&gtag(\'event\',\'affiliate_click_ml\',{event_category:\'afiliado\',event_label:\''+d.nombre.replace(/'/g,'\\\'')+'\'  ,value:'+d.precioML+',location:\'hub_descuentos\'})">'
+          +'<img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-right:3px" alt="" onerror="this.style.display=\'none\'">ML →</a>'
+          +amzBtn+'</div></div>';
+        grid.appendChild(card);
+      });
+      sec.hidden=false;
+    }catch(e){}
+  })();
   </script>
   <script src="/js/onboarding.js" defer></script>
 </body>

@@ -39,6 +39,12 @@ jobs:
       - name: Sincronizar merged-admin.json y regenerar artifact
         run: node scripts/generar-admin.js
 
+      - name: Generar catálogo mini de celulares
+        run: node scripts/generar-catalog-mini.js
+
+      - name: Generar descuentos del día (celulares)
+        run: node scripts/generar-descuentos.js
+
       - name: Aplicar pausas a páginas HTML
         run: node scripts/sync-pausas.js
 
@@ -56,6 +62,7 @@ jobs:
             videojuegos/consolas/index.html videojuegos/controles/index.html videojuegos/juegos/index.html \
             tecnologia/bocinas/index.html tecnologia/audifonos/index.html \
             celulares/android/index.html suplementos/vitamina-d/index.html \
+            celulares/catalog-mini.json celulares/descuentos.json \
             scripts/ml-report.json scripts/merged-admin.json scripts/admin-artifact.html
           if git diff --staged --quiet; then
             echo "Sin cambios de precios."
