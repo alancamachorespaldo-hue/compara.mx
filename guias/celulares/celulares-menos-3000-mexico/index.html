@@ -745,9 +745,7 @@
       const acciones = document.createElement("div");
       acciones.className = "product-actions";
       if (producto.linkAmz) acciones.appendChild(botonEnlace(producto.linkAmz, "Ver en Amazon", "btn-amazon", true, producto));
-      else acciones.appendChild(botonPendiente("Amazon"));
       if (producto.linkML) acciones.appendChild(botonEnlace(producto.linkML, "Ver en Mercado Libre", "btn-ml", false, producto));
-      else acciones.appendChild(botonPendiente("Mercado Libre"));
       return acciones;
     }
 
@@ -762,7 +760,7 @@
 
     const grid = document.getElementById("all-models-grid");
     if (grid) {
-      celularesDataGuia.forEach(function(producto) {
+      celularesDataGuia.filter(function(p){ return p.linkML || p.linkAmz; }).forEach(function(producto) {
         const card = document.createElement("article");
         card.className = "model-card";
 

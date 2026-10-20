@@ -817,12 +817,8 @@
     function crearAcciones(producto, compacto) {
       const contenedor = document.createElement("div");
       contenedor.className = "product-actions";
-      const urlAmz = producto.linkAmz || producto.busquedaAmz;
-      const textoAmz = producto.linkAmz ? "Ver en Amazon" : "Buscar en Amazon";
-      const urlML = producto.linkML || producto.busquedaML;
-      const textoML = producto.linkML ? "Ver en Mercado Libre" : "Buscar en Mercado Libre";
-      if (urlAmz) contenedor.appendChild(crearBoton(urlAmz, textoAmz, "btn-amazon", true, producto));
-      if (urlML) contenedor.appendChild(crearBoton(urlML, textoML, "btn-ml", Boolean(producto.linkML), producto));
+      if (producto.linkAmz) contenedor.appendChild(crearBoton(producto.linkAmz, "Ver en Amazon", "btn-amazon", true, producto));
+      if (producto.linkML) contenedor.appendChild(crearBoton(producto.linkML, "Ver en Mercado Libre", "btn-ml", true, producto));
       return contenedor;
     }
 
@@ -837,7 +833,7 @@
 
     const grid = document.getElementById("all-models-grid");
     if (grid) {
-      celularesDataGuia.forEach((producto) => {
+      celularesDataGuia.filter(function(p){ return p.linkML || p.linkAmz; }).forEach((producto) => {
         const card = document.createElement("article");
         card.className = "model-card";
 
