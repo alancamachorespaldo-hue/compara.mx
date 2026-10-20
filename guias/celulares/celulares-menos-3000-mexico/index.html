@@ -84,15 +84,35 @@
     .small-note { font-size: .88rem; color: var(--muted); margin-top: 8px; }
     .product-section { padding-top: 4px; }
     .product-section h2 { margin-top: 52px; }
-    .product-panel { display: grid; grid-template-columns: minmax(0, 1fr) minmax(250px, .8fr); gap: 22px; border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; margin: 20px 0 24px; box-shadow: var(--shadow); }
-    .product-kicker { color: var(--green-dark); text-transform: uppercase; letter-spacing: .08em; font-weight: 800; font-size: .75rem; margin-bottom: 6px; }
+    /* Layout dos columnas: texto editorial + tarjeta pegajosa */
+    .section-layout { display: grid; grid-template-columns: minmax(0,1fr) 292px; gap: 40px; align-items: start; }
+    .section-text { min-width: 0; }
+    .section-text h2 { margin-top: 52px; }
+    .section-sticky { position: sticky; top: 76px; }
+    /* Tarjeta de producto estilo ML */
+    .product-card { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: #fff; box-shadow: var(--shadow); }
+    .product-card + .product-card { margin-top: 16px; }
+    .product-card-img { background: var(--surface); display: flex; align-items: center; justify-content: center; padding: 20px; border-bottom: 1px solid var(--line); min-height: 180px; }
+    .product-card-img img { max-width: 100%; max-height: 180px; object-fit: contain; display: block; }
+    .product-card-body { padding: 16px; }
+    .product-kicker { color: var(--green-dark); text-transform: uppercase; letter-spacing: .08em; font-weight: 800; font-size: .72rem; margin-bottom: 5px; }
+    .product-card-name { font-size: 1rem; font-family: "Outfit", sans-serif; font-weight: 700; margin: 0 0 8px; line-height: 1.3; }
+    .product-card-price { font-size: 1.35rem; font-family: "Outfit", sans-serif; font-weight: 800; margin: 0 0 12px; color: var(--ink); }
+    .product-card-price small { display: block; color: var(--muted); font-family: "DM Sans", sans-serif; font-size: .76rem; font-weight: 500; line-height: 1.45; }
+    .product-card-specs { border-top: 1px solid var(--line); margin: 0 -16px; padding: 0 16px; }
+    .spec-row { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--line); font-size: .84rem; }
+    .spec-row:last-child { border-bottom: 0; }
+    .spec-row-label { color: var(--muted); flex-shrink: 0; }
+    .spec-row-value { font-weight: 700; text-align: right; }
+    .product-actions { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 14px; }
+    /* Legacy — se mantiene por compatibilidad con secciones de modelo-grid */
     .price-line { font-size: 1.25rem; font-family: "Outfit", sans-serif; font-weight: 800; margin: 10px 0; }
     .price-line small { display: block; color: var(--muted); font-family: "DM Sans", sans-serif; font-size: .78rem; font-weight: 500; line-height: 1.45; }
+    .product-panel { display: grid; grid-template-columns: minmax(0, 1fr) minmax(250px, .8fr); gap: 22px; border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; margin: 20px 0 24px; box-shadow: var(--shadow); }
     .spec-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
     .spec { background: var(--surface); border-radius: 10px; padding: 10px 12px; min-width: 0; }
     .spec span { display: block; color: var(--muted); font-size: .78rem; line-height: 1.35; }
     .spec strong { display: block; font-size: .94rem; line-height: 1.45; overflow-wrap: anywhere; }
-    .product-actions { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 15px; }
     .btn { display: inline-flex; justify-content: center; align-items: center; gap: 7px; min-height: 44px; padding: 10px 15px; border-radius: 10px; border: 1px solid transparent; color: #171717; font-size: .9rem; font-weight: 800; line-height: 1.25; text-decoration: none; transition: transform .15s ease, filter .15s ease; }
     .btn:hover { transform: translateY(-1px); filter: brightness(.97); text-decoration: none; }
     .btn-amazon { background: var(--amazon); }
@@ -128,6 +148,11 @@
     .footer-links { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 9px; }
     .footer-links a { color: var(--muted); text-decoration: none; }
     @media (max-width: 680px) { .nav-links { display: none; } }
+    @media (max-width: 900px) {
+      .section-layout { grid-template-columns: 1fr; gap: 0; }
+      .section-sticky { position: relative; top: 0; margin-bottom: 24px; }
+      .section-text h2 { margin-top: 0; }
+    }
     @media (max-width: 760px) {
       .page, .footer-inner { width: min(100% - 28px, 1120px); }
       .page { padding-top: 17px; }
@@ -328,157 +353,217 @@
       </section>
 
       <section id="motorola-g34" class="product-section">
-        <h2>Motorola G34: el mejor procesador del grupo</h2>
-        <p>El Motorola G34 es el modelo más completo de esta selección. Usa el Snapdragon 695 con 8 GB de RAM física, una combinación que no tiene ningún otro equipo de este presupuesto en el catálogo. En comparación con procesadores Helio G81 de la gama de entrada, el Snapdragon 695 ofrece más margen para multitarea y maneja aplicaciones exigentes con mayor soltura. La pantalla de 6.5 pulgadas a 120 Hz también lo distingue: el movimiento se ve más fluido que en los paneles de 60 o 90 Hz habituales en la gama de entrada.</p>
-        <p>Su cámara principal de 50 MP es competente para fotos de día. No tiene OIS, así que en movimiento o poca luz los resultados son los típicos de la gama de entrada. La batería de 5,000 mAh cubre cómodamente un día de uso moderado. El punto fuerte es la combinación de procesador, 8 GB de RAM y pantalla fluida que lo hace claramente el mejor para uso intenso dentro de este presupuesto.</p>
-        <div class="product-panel">
-          <div>
-            <div class="product-kicker">Mejor procesador del grupo</div>
-            <h3>Motorola G34 128GB / 8GB RAM</h3>
-            <div class="price-line">$2,965 MXN<small>Precio verificado en Mercado Libre.</small></div>
-            <div class="product-actions" data-product-actions="android-motorola-g34-128gb-8gb"></div>
+        <div class="section-layout">
+          <div class="section-text">
+            <h2>Motorola G34: el mejor procesador del grupo</h2>
+            <p>El Motorola G34 es el modelo más completo de esta selección. Usa el Snapdragon 695 con 8 GB de RAM física, una combinación que no tiene ningún otro equipo de este presupuesto en el catálogo. En comparación con procesadores Helio G81 de la gama de entrada, el Snapdragon 695 ofrece más margen para multitarea y maneja aplicaciones exigentes con mayor soltura. La pantalla de 6.5 pulgadas a 120 Hz también lo distingue: el movimiento se ve más fluido que en los paneles de 60 o 90 Hz habituales en la gama de entrada.</p>
+            <p>Su cámara principal de 50 MP es competente para fotos de día. No tiene OIS, así que en movimiento o poca luz los resultados son los típicos de la gama de entrada. La batería de 5,000 mAh cubre cómodamente un día de uso moderado. El punto fuerte es la combinación de procesador, 8 GB de RAM y pantalla fluida que lo hace claramente el mejor para uso intenso dentro de este presupuesto.</p>
+            <h4>Puede convenirte si:</h4>
+            <ul>
+              <li>quieres el mejor procesador disponible por menos de $3,000;</li>
+              <li>necesitas 8 GB de RAM física para multitarea sin compromisos;</li>
+              <li>valoras una pantalla fluida de 120 Hz para redes y video;</li>
+              <li>no necesitas 5G y priorizas rendimiento sobre conectividad.</li>
+            </ul>
+            <p><strong>El compromiso:</strong> no tiene 5G ni OIS en la cámara. Para fotografía nocturna o en movimiento los resultados son los de la gama de entrada. Si el 5G es prioridad, revisa el Samsung A16 5G por $264 menos; si quieres más almacenamiento, el G06 ofrece 256 GB por $266 menos.</p>
           </div>
-          <div class="spec-grid">
-            <div class="spec"><span>Procesador</span><strong>Snapdragon 695</strong></div>
-            <div class="spec"><span>Pantalla</span><strong>6.5", 120 Hz</strong></div>
-            <div class="spec"><span>RAM / almacenamiento</span><strong>8 GB / 128 GB</strong></div>
-            <div class="spec"><span>Batería</span><strong>5,000 mAh</strong></div>
+          <div class="section-sticky">
+            <div class="product-card">
+              <div class="product-card-img">
+                <img src="https://http2.mlstatic.com/D_NQ_NP_745169-MLA99996670853_112-F.jpg" alt="Motorola G34 128GB/8GB RAM" loading="lazy">
+              </div>
+              <div class="product-card-body">
+                <div class="product-kicker">Mejor procesador del grupo</div>
+                <h3 class="product-card-name">Motorola G34 128GB / 8GB RAM</h3>
+                <div class="product-card-price">$2,965 MXN<small>Precio verificado en Mercado Libre.</small></div>
+                <div class="product-card-specs">
+                  <div class="spec-row"><span class="spec-row-label">Pantalla</span><span class="spec-row-value">6.5", 120 Hz</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Procesador</span><span class="spec-row-value">Snapdragon 695</span></div>
+                  <div class="spec-row"><span class="spec-row-label">RAM</span><span class="spec-row-value">8 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Almacenamiento</span><span class="spec-row-value">128 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Cámara trasera</span><span class="spec-row-value">50 MP</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Batería</span><span class="spec-row-value">5,000 mAh</span></div>
+                </div>
+                <div class="product-actions" data-product-actions="android-motorola-g34-128gb-8gb"></div>
+              </div>
+            </div>
           </div>
         </div>
-        <h4>Puede convenirte si:</h4>
-        <ul>
-          <li>quieres el mejor procesador disponible por menos de $3,000;</li>
-          <li>necesitas 8 GB de RAM física para multitarea sin compromisos;</li>
-          <li>valoras una pantalla fluida de 120 Hz para redes y video;</li>
-          <li>no necesitas 5G y priorizas rendimiento sobre conectividad.</li>
-        </ul>
-        <p><strong>El compromiso:</strong> no tiene 5G ni OIS en la cámara. Para fotografía nocturna o en movimiento los resultados son los de la gama de entrada. Si el 5G es prioridad, revisa el Samsung A16 5G por $264 menos; si quieres más almacenamiento, el G06 ofrece 256 GB por $266 menos.</p>
       </section>
 
       <section id="samsung-a16-5g" class="product-section">
-        <h2>Samsung A16 5G: el único 5G por debajo de $3,000</h2>
-        <p>El Samsung A16 5G es la opción ideal si la conectividad 5G importa y no quieres superar $2,800. A $2,701 también es el modelo con NFC más económico del grupo, lo que permite usar pagos sin contacto. Su pantalla de 6.7 pulgadas, batería de 5,000 mAh y cámara principal de 50 MP son las especificaciones estándar de la gama de entrada, pero el A16 5G las combina con conectividad de última generación.</p>
-        <p>Con 4 GB de RAM física el rendimiento en multitarea es el justo. Para WhatsApp, YouTube, redes y mapas es suficiente. Si ya tienes 5G disponible con tu operador y planeas conservar el teléfono más de dos años, la inversión tiene sentido; si no usas 5G en tu zona, el G34 te da más rendimiento por $264 más.</p>
-        <div class="product-panel">
-          <div>
-            <div class="product-kicker">5G y NFC en el grupo</div>
-            <h3>Samsung A16 5G 128GB / 4GB RAM</h3>
-            <div class="price-line">$2,701 MXN<small>Precio verificado en Mercado Libre. Confirma bandas 5G con tu operador.</small></div>
-            <div class="product-actions" data-product-actions="android-samsung-a16-5g-128gb-4gb"></div>
+        <div class="section-layout">
+          <div class="section-text">
+            <h2>Samsung A16 5G: el único 5G por debajo de $3,000</h2>
+            <p>El Samsung A16 5G es la opción ideal si la conectividad 5G importa y no quieres superar $2,800. A $2,701 también es el modelo con NFC más económico del grupo, lo que permite usar pagos sin contacto. Su pantalla de 6.7 pulgadas, batería de 5,000 mAh y cámara principal de 50 MP son las especificaciones estándar de la gama de entrada, pero el A16 5G las combina con conectividad de última generación.</p>
+            <p>Con 4 GB de RAM física el rendimiento en multitarea es el justo. Para WhatsApp, YouTube, redes y mapas es suficiente. Si ya tienes 5G disponible con tu operador y planeas conservar el teléfono más de dos años, la inversión tiene sentido; si no usas 5G en tu zona, el G34 te da más rendimiento por $264 más.</p>
+            <h4>Puede convenirte si:</h4>
+            <ul>
+              <li>tu operador tiene cobertura 5G en tu zona;</li>
+              <li>usas o planeas usar pagos NFC;</li>
+              <li>quieres una marca Samsung con amplia distribución;</li>
+              <li>priorizas conectividad sobre rendimiento de procesador.</li>
+            </ul>
+            <p><strong>El compromiso:</strong> 4 GB de RAM física son justos para el uso cotidiano. Sin OIS en cámara y sin la potencia del Snapdragon 695 del G34. Si no usas 5G ni NFC en tu día a día, el G34 puede ser mejor inversión por $264 más.</p>
           </div>
-          <div class="spec-grid">
-            <div class="spec"><span>Conectividad</span><strong>5G · NFC</strong></div>
-            <div class="spec"><span>Pantalla</span><strong>6.7"</strong></div>
-            <div class="spec"><span>RAM / almacenamiento</span><strong>4 GB / 128 GB</strong></div>
-            <div class="spec"><span>Batería</span><strong>5,000 mAh</strong></div>
+          <div class="section-sticky">
+            <div class="product-card">
+              <div class="product-card-img">
+                <img src="https://http2.mlstatic.com/D_NQ_NP_802041-MLA99444576642_112025-F.jpg" alt="Samsung A16 5G 128GB/4GB RAM" loading="lazy">
+              </div>
+              <div class="product-card-body">
+                <div class="product-kicker">5G y NFC en el grupo</div>
+                <h3 class="product-card-name">Samsung A16 5G 128GB / 4GB RAM</h3>
+                <div class="product-card-price">$2,701 MXN<small>Confirma bandas 5G con tu operador.</small></div>
+                <div class="product-card-specs">
+                  <div class="spec-row"><span class="spec-row-label">Pantalla</span><span class="spec-row-value">6.7"</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Conectividad</span><span class="spec-row-value">5G · NFC</span></div>
+                  <div class="spec-row"><span class="spec-row-label">RAM</span><span class="spec-row-value">4 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Almacenamiento</span><span class="spec-row-value">128 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Cámara trasera</span><span class="spec-row-value">50 MP</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Batería</span><span class="spec-row-value">5,000 mAh</span></div>
+                </div>
+                <div class="product-actions" data-product-actions="android-samsung-a16-5g-128gb-4gb"></div>
+              </div>
+            </div>
           </div>
         </div>
-        <h4>Puede convenirte si:</h4>
-        <ul>
-          <li>tu operador tiene cobertura 5G en tu zona;</li>
-          <li>usas o planeas usar pagos NFC;</li>
-          <li>quieres una marca Samsung con amplia distribución;</li>
-          <li>priorizas conectividad sobre rendimiento de procesador.</li>
-        </ul>
-        <p><strong>El compromiso:</strong> 4 GB de RAM física son justos para el uso cotidiano. Sin OIS en cámara y sin la potencia del Snapdragon 695 del G34. Si no usas 5G ni NFC en tu día a día, el G34 puede ser mejor inversión por $264 más.</p>
       </section>
 
       <section id="samsung-a16" class="product-section">
-        <h2>Samsung A16: Samsung con NFC sin 5G</h2>
-        <p>El Samsung A16 sin 5G es la opción Samsung más económica del grupo a $2,599. Comparte el diseño, pantalla de 6.7 pulgadas y batería de 5,000 mAh que su hermano 5G, pero usa conectividad 4G. Conserva el NFC, lo que lo hace útil para pagos sin contacto. La cámara principal de 50 MP cumple para fotos diarias con buena luz.</p>
-        <p>La razón principal para elegirlo sobre el A16 5G es el precio: $102 menos por un teléfono casi idéntico en prestaciones de uso diario cuando el 5G no es prioridad. Samsung tiene buena distribución de accesorios y servicio técnico, lo que puede ser una consideración si compras para un familiar que podría necesitar soporte local.</p>
-        <div class="product-panel">
-          <div>
-            <div class="product-kicker">Samsung accesible con NFC</div>
-            <h3>Samsung A16 128GB / 4GB RAM</h3>
-            <div class="price-line">$2,599 MXN<small>Precio verificado en Mercado Libre.</small></div>
-            <div class="product-actions" data-product-actions="android-samsung-a16-128gb-4gb"></div>
+        <div class="section-layout">
+          <div class="section-text">
+            <h2>Samsung A16: Samsung con NFC sin 5G</h2>
+            <p>El Samsung A16 sin 5G es la opción Samsung más económica del grupo a $2,599. Comparte el diseño, pantalla de 6.7 pulgadas y batería de 5,000 mAh que su hermano 5G, pero usa conectividad 4G. Conserva el NFC, lo que lo hace útil para pagos sin contacto. La cámara principal de 50 MP cumple para fotos diarias con buena luz.</p>
+            <p>La razón principal para elegirlo sobre el A16 5G es el precio: $102 menos por un teléfono casi idéntico en prestaciones de uso diario cuando el 5G no es prioridad. Samsung tiene buena distribución de accesorios y servicio técnico, lo que puede ser una consideración si compras para un familiar que podría necesitar soporte local.</p>
+            <h4>Puede convenirte si:</h4>
+            <ul>
+              <li>quieres marca Samsung con NFC y no necesitas 5G;</li>
+              <li>es para un familiar que necesita un equipo sencillo de una marca conocida;</li>
+              <li>el 5G no está disponible en tu zona;</li>
+              <li>prefieres ahorrar $102 respecto al A16 5G sin sacrificar lo esencial.</li>
+            </ul>
+            <p><strong>El compromiso:</strong> mismo rendimiento de 4 GB de RAM que el A16 5G, sin la mejora de conectividad. Si el 5G está disponible en tu zona y planeas conservar el equipo, vale la pena el A16 5G por $102 más.</p>
           </div>
-          <div class="spec-grid">
-            <div class="spec"><span>Conectividad</span><strong>4G · NFC</strong></div>
-            <div class="spec"><span>Pantalla</span><strong>6.7"</strong></div>
-            <div class="spec"><span>RAM / almacenamiento</span><strong>4 GB / 128 GB</strong></div>
-            <div class="spec"><span>Batería</span><strong>5,000 mAh</strong></div>
+          <div class="section-sticky">
+            <div class="product-card">
+              <div class="product-card-img">
+                <img src="https://http2.mlstatic.com/D_NQ_NP_790939-MLA99551674904_122025-F.jpg" alt="Samsung A16 128GB/4GB RAM" loading="lazy">
+              </div>
+              <div class="product-card-body">
+                <div class="product-kicker">Samsung accesible con NFC</div>
+                <h3 class="product-card-name">Samsung A16 128GB / 4GB RAM</h3>
+                <div class="product-card-price">$2,599 MXN<small>Precio verificado en Mercado Libre.</small></div>
+                <div class="product-card-specs">
+                  <div class="spec-row"><span class="spec-row-label">Pantalla</span><span class="spec-row-value">6.7"</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Conectividad</span><span class="spec-row-value">4G · NFC</span></div>
+                  <div class="spec-row"><span class="spec-row-label">RAM</span><span class="spec-row-value">4 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Almacenamiento</span><span class="spec-row-value">128 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Cámara trasera</span><span class="spec-row-value">50 MP</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Batería</span><span class="spec-row-value">5,000 mAh</span></div>
+                </div>
+                <div class="product-actions" data-product-actions="android-samsung-a16-128gb-4gb"></div>
+              </div>
+            </div>
           </div>
         </div>
-        <h4>Puede convenirte si:</h4>
-        <ul>
-          <li>quieres marca Samsung con NFC y no necesitas 5G;</li>
-          <li>es para un familiar que necesita un equipo sencillo de una marca conocida;</li>
-          <li>el 5G no está disponible en tu zona;</li>
-          <li>prefieres ahorrar $102 respecto al A16 5G sin sacrificar lo esencial.</li>
-        </ul>
-        <p><strong>El compromiso:</strong> mismo rendimiento de 4 GB de RAM que el A16 5G, sin la mejora de conectividad. Si el 5G está disponible en tu zona y planeas conservar el equipo, vale la pena el A16 5G por $102 más.</p>
       </section>
 
       <section id="motorola-g17-g06" class="product-section">
-        <h2>Motorola G17 y G06: dos opciones Motorola para distintas necesidades</h2>
-        <p>Motorola tiene dos modelos en este rango con el procesador MediaTek Helio G81 Extreme y cámara principal de 50 MP. La diferencia es el almacenamiento: el Moto G17 tiene 128 GB a $2,792 y el Moto G06 tiene 256 GB a $2,699. El G06 es $93 más barato y tiene el doble de almacenamiento, lo que lo convierte en la mejor compra si guardas muchas fotos, videos y aplicaciones. Ambos tienen pantalla de 6.67 pulgadas y batería de 5,200 mAh.</p>
-        <p>El Helio G81 Extreme es un procesador de entrada-media adecuado para uso cotidiano: mensajería, navegación, redes, video. Motorola es conocida por su interfaz cercana a Android puro, que puede ser más fluida que otras capas de personalización en gama de entrada. Si tienes que elegir entre los dos, el G06 con 256 GB por $93 menos es la compra más inteligente a menos que el G17 tenga una promoción relevante.</p>
-        <div class="product-panel">
-          <div>
-            <div class="product-kicker">Motorola G06: mejor relación precio-almacenamiento</div>
-            <h3>Motorola Moto G06 256GB / 4GB RAM</h3>
-            <div class="price-line">$2,699 MXN<small>Precio verificado en Mercado Libre.</small></div>
-            <div class="product-actions" data-product-actions="android-motorola-moto-g06-256gb-4gb"></div>
+        <div class="section-layout">
+          <div class="section-text">
+            <h2>Motorola G17 y G06: dos opciones Motorola para distintas necesidades</h2>
+            <p>Motorola tiene dos modelos en este rango con el procesador MediaTek Helio G81 Extreme y cámara principal de 50 MP. La diferencia es el almacenamiento: el Moto G17 tiene 128 GB a $2,792 y el Moto G06 tiene 256 GB a $2,699. El G06 es $93 más barato y tiene el doble de almacenamiento, lo que lo convierte en la mejor compra si guardas muchas fotos, videos y aplicaciones. Ambos tienen pantalla de 6.67 pulgadas y batería de 5,200 mAh.</p>
+            <p>El Helio G81 Extreme es un procesador de entrada-media adecuado para uso cotidiano: mensajería, navegación, redes, video. Motorola es conocida por su interfaz cercana a Android puro, que puede ser más fluida que otras capas de personalización en gama de entrada. Si tienes que elegir entre los dos, el G06 con 256 GB por $93 menos es la compra más inteligente a menos que el G17 tenga una promoción relevante.</p>
+            <h4>Puede convenirte si:</h4>
+            <ul>
+              <li>guardas muchas fotos o instalas muchas aplicaciones (elige el G06 con 256 GB);</li>
+              <li>prefieres una experiencia Android cercana al puro de Motorola;</li>
+              <li>necesitas un celular confiable para uso diario sin necesidad de 5G;</li>
+              <li>el G06 te permite ahorrar vs el G17 por el mismo procesador.</li>
+            </ul>
+            <p><strong>El compromiso:</strong> 4 GB de RAM y Helio G81 Extreme funcionan bien para tareas básicas, pero se notan en multitarea intensa o juegos exigentes. Si quieres más potencia, el G34 con Snapdragon 695 y 8 GB de RAM es la opción por $266 más (G06) o $173 más (G17).</p>
           </div>
-          <div class="spec-grid">
-            <div class="spec"><span>Procesador</span><strong>Helio G81 Extreme</strong></div>
-            <div class="spec"><span>Pantalla</span><strong>6.67"</strong></div>
-            <div class="spec"><span>RAM / almacenamiento</span><strong>4 GB / 256 GB</strong></div>
-            <div class="spec"><span>Batería</span><strong>5,200 mAh</strong></div>
+          <div class="section-sticky">
+            <div class="product-card">
+              <div class="product-card-img">
+                <img src="https://http2.mlstatic.com/D_NQ_NP_819589-MLA100977465205_12-F.jpg" alt="Motorola Moto G06 256GB/4GB RAM" loading="lazy">
+              </div>
+              <div class="product-card-body">
+                <div class="product-kicker">G06: mejor precio-almacenamiento</div>
+                <h3 class="product-card-name">Motorola Moto G06 256GB / 4GB RAM</h3>
+                <div class="product-card-price">$2,699 MXN<small>Precio verificado en Mercado Libre.</small></div>
+                <div class="product-card-specs">
+                  <div class="spec-row"><span class="spec-row-label">Pantalla</span><span class="spec-row-value">6.67"</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Procesador</span><span class="spec-row-value">Helio G81 Extreme</span></div>
+                  <div class="spec-row"><span class="spec-row-label">RAM</span><span class="spec-row-value">4 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Almacenamiento</span><span class="spec-row-value">256 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Cámara trasera</span><span class="spec-row-value">50 MP</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Batería</span><span class="spec-row-value">5,200 mAh</span></div>
+                </div>
+                <div class="product-actions" data-product-actions="android-motorola-moto-g06-256gb-4gb"></div>
+              </div>
+            </div>
+            <div class="product-card">
+              <div class="product-card-img">
+                <img src="https://http2.mlstatic.com/D_NQ_NP_607340-MLA105493148188_01-F.jpg" alt="Motorola Moto G17 128GB/4GB RAM" loading="lazy">
+              </div>
+              <div class="product-card-body">
+                <div class="product-kicker">G17: 128 GB</div>
+                <h3 class="product-card-name">Motorola Moto G17 128GB / 4GB RAM</h3>
+                <div class="product-card-price">$2,792 MXN<small>Precio verificado en Mercado Libre.</small></div>
+                <div class="product-card-specs">
+                  <div class="spec-row"><span class="spec-row-label">Pantalla</span><span class="spec-row-value">6.67"</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Procesador</span><span class="spec-row-value">Helio G81 Extreme</span></div>
+                  <div class="spec-row"><span class="spec-row-label">RAM</span><span class="spec-row-value">4 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Almacenamiento</span><span class="spec-row-value">128 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Cámara trasera</span><span class="spec-row-value">50 MP</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Batería</span><span class="spec-row-value">5,200 mAh</span></div>
+                </div>
+                <div class="product-actions" data-product-actions="android-motorola-moto-g17-128gb-4gb"></div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="product-panel" style="margin-top:16px">
-          <div>
-            <div class="product-kicker">Motorola G17: 128 GB</div>
-            <h3>Motorola Moto G17 128GB / 4GB RAM</h3>
-            <div class="price-line">$2,792 MXN<small>Precio verificado en Mercado Libre.</small></div>
-            <div class="product-actions" data-product-actions="android-motorola-moto-g17-128gb-4gb"></div>
-          </div>
-          <div class="spec-grid">
-            <div class="spec"><span>Procesador</span><strong>Helio G81 Extreme</strong></div>
-            <div class="spec"><span>Pantalla</span><strong>6.67"</strong></div>
-            <div class="spec"><span>RAM / almacenamiento</span><strong>4 GB / 128 GB</strong></div>
-            <div class="spec"><span>Batería</span><strong>5,200 mAh</strong></div>
-          </div>
-        </div>
-        <h4>Puede convenirte si:</h4>
-        <ul>
-          <li>guardas muchas fotos o instalas muchas aplicaciones (elige el G06 con 256 GB);</li>
-          <li>prefieres una experiencia Android cercana al puro de Motorola;</li>
-          <li>necesitas un celular confiable para uso diario sin necesidad de 5G;</li>
-          <li>el G06 te permite ahorrar vs el G17 por el mismo procesador.</li>
-        </ul>
-        <p><strong>El compromiso:</strong> 4 GB de RAM y Helio G81 Extreme funcionan bien para tareas básicas, pero se notan en multitarea intensa o juegos exigentes. Si quieres más potencia, el G34 con Snapdragon 695 y 8 GB de RAM es la opción por $266 más (G06) o $173 más (G17).</p>
       </section>
 
       <section id="honor-x5c-plus" class="product-section">
-        <h2>Honor X5C Plus: el precio más bajo del grupo</h2>
-        <p>El Honor X5C Plus a $2,399 es el modelo más asequible del catálogo en este rango y tiene sentido si el uso principal es mensajería, llamadas, WhatsApp y redes sociales sin exigir más. Su procesador Mediatek Helio G81, 4 GB de RAM y 128 GB de almacenamiento son especificaciones de entrada, pero honestas para lo que promete: un teléfono básico funcional al precio más bajo posible. La pantalla de 6.74 pulgadas y batería de 5,000 mAh son puntos positivos para el precio.</p>
-        <p>A diferencia del G34 o el A16 5G, el X5C Plus no tiene ninguna ventaja en conectividad ni procesador. Su cámara de 50 MP cumple con buena luz. Es una opción razonable como segundo teléfono, para un adulto mayor o como primer celular con uso básico.</p>
-        <div class="product-panel">
-          <div>
-            <div class="product-kicker">Precio más bajo del catálogo</div>
-            <h3>Honor X5C Plus 128GB / 4GB RAM</h3>
-            <div class="price-line">$2,399 MXN<small>Precio verificado en Mercado Libre.</small></div>
-            <div class="product-actions" data-product-actions="android-honor-x5c-plus-128gb-4gb"></div>
+        <div class="section-layout">
+          <div class="section-text">
+            <h2>Honor X5C Plus: el precio más bajo del grupo</h2>
+            <p>El Honor X5C Plus a $2,399 es el modelo más asequible del catálogo en este rango y tiene sentido si el uso principal es mensajería, llamadas, WhatsApp y redes sociales sin exigir más. Su procesador Mediatek Helio G81, 4 GB de RAM y 128 GB de almacenamiento son especificaciones de entrada, pero honestas para lo que promete: un teléfono básico funcional al precio más bajo posible. La pantalla de 6.74 pulgadas y batería de 5,000 mAh son puntos positivos para el precio.</p>
+            <p>A diferencia del G34 o el A16 5G, el X5C Plus no tiene ninguna ventaja en conectividad ni procesador. Su cámara de 50 MP cumple con buena luz. Es una opción razonable como segundo teléfono, para un adulto mayor o como primer celular con uso básico.</p>
+            <h4>Puede convenirte si:</h4>
+            <ul>
+              <li>es para uso básico: llamadas, WhatsApp, redes y video;</li>
+              <li>es como segundo teléfono o para un adulto mayor;</li>
+              <li>el presupuesto es estrictamente limitado y $2,399 es el tope;</li>
+              <li>no necesitas 5G, NFC ni un procesador potente.</li>
+            </ul>
+            <p><strong>El compromiso:</strong> es el modelo con menos potencia del grupo. Si puedes gastar $300 más, el Moto G06 con 256 GB de almacenamiento ofrece más espacio por menos dinero. Para uso más exigente, el G34 a $2,965 marca una diferencia real en rendimiento.</p>
           </div>
-          <div class="spec-grid">
-            <div class="spec"><span>Procesador</span><strong>Mediatek Helio G81</strong></div>
-            <div class="spec"><span>Pantalla</span><strong>6.74"</strong></div>
-            <div class="spec"><span>RAM / almacenamiento</span><strong>4 GB / 128 GB</strong></div>
-            <div class="spec"><span>Batería</span><strong>5,000 mAh</strong></div>
+          <div class="section-sticky">
+            <div class="product-card">
+              <div class="product-card-img">
+                <img src="https://http2.mlstatic.com/D_NQ_NP_924638-MLA115381726358_082026-F.jpg" alt="Honor X5C Plus 128GB/4GB RAM" loading="lazy">
+              </div>
+              <div class="product-card-body">
+                <div class="product-kicker">Precio más bajo del catálogo</div>
+                <h3 class="product-card-name">Honor X5C Plus 128GB / 4GB RAM</h3>
+                <div class="product-card-price">$2,399 MXN<small>Precio verificado en Mercado Libre.</small></div>
+                <div class="product-card-specs">
+                  <div class="spec-row"><span class="spec-row-label">Pantalla</span><span class="spec-row-value">6.74"</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Procesador</span><span class="spec-row-value">Helio G81</span></div>
+                  <div class="spec-row"><span class="spec-row-label">RAM</span><span class="spec-row-value">4 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Almacenamiento</span><span class="spec-row-value">128 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Cámara trasera</span><span class="spec-row-value">50 MP</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Batería</span><span class="spec-row-value">5,000 mAh</span></div>
+                </div>
+                <div class="product-actions" data-product-actions="android-honor-x5c-plus-128gb-4gb"></div>
+              </div>
+            </div>
           </div>
         </div>
-        <h4>Puede convenirte si:</h4>
-        <ul>
-          <li>es para uso básico: llamadas, WhatsApp, redes y video;</li>
-          <li>es como segundo teléfono o para un adulto mayor;</li>
-          <li>el presupuesto es estrictamente limitado y $2,399 es el tope;</li>
-          <li>no necesitas 5G, NFC ni un procesador potente.</li>
-        </ul>
-        <p><strong>El compromiso:</strong> es el modelo con menos potencia del grupo. Si puedes gastar $300 más, el Moto G06 con 256 GB de almacenamiento ofrece más espacio por menos dinero. Para uso más exigente, el G34 a $2,965 marca una diferencia real en rendimiento.</p>
       </section>
 
       <section id="ahorrar-mas">

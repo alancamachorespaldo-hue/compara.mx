@@ -74,15 +74,35 @@
     .small-note { font-size: .88rem; color: var(--muted); margin-top: 8px; }
     .product-section { padding-top: 4px; }
     .product-section h2 { margin-top: 52px; }
-    .product-panel { display: grid; grid-template-columns: minmax(0,1fr) minmax(260px,.85fr); gap: 22px; border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; margin: 20px 0 24px; box-shadow: var(--shadow); }
-    .product-kicker { color: var(--green-dark); text-transform: uppercase; letter-spacing: .08em; font-weight: 800; font-size: .75rem; margin-bottom: 6px; }
+    /* Layout dos columnas: texto editorial + tarjeta pegajosa */
+    .section-layout { display: grid; grid-template-columns: minmax(0,1fr) 292px; gap: 40px; align-items: start; }
+    .section-text { min-width: 0; }
+    .section-text h2 { margin-top: 52px; }
+    .section-sticky { position: sticky; top: 76px; }
+    /* Tarjeta de producto estilo ML */
+    .product-card { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: #fff; box-shadow: var(--shadow); }
+    .product-card + .product-card { margin-top: 16px; }
+    .product-card-img { background: var(--surface); display: flex; align-items: center; justify-content: center; padding: 20px; border-bottom: 1px solid var(--line); min-height: 180px; }
+    .product-card-img img { max-width: 100%; max-height: 180px; object-fit: contain; display: block; }
+    .product-card-body { padding: 16px; }
+    .product-kicker { color: var(--green-dark); text-transform: uppercase; letter-spacing: .08em; font-weight: 800; font-size: .72rem; margin-bottom: 5px; }
+    .product-card-name { font-size: 1rem; font-family: "Outfit",sans-serif; font-weight: 700; margin: 0 0 8px; line-height: 1.3; }
+    .product-card-price { font-size: 1.35rem; font-family: "Outfit",sans-serif; font-weight: 800; margin: 0 0 12px; color: var(--ink); }
+    .product-card-price small { display: block; color: var(--muted); font-family: "DM Sans",sans-serif; font-size: .76rem; font-weight: 500; line-height: 1.45; }
+    .product-card-specs { border-top: 1px solid var(--line); margin: 0 -16px; padding: 0 16px; }
+    .spec-row { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--line); font-size: .84rem; }
+    .spec-row:last-child { border-bottom: 0; }
+    .spec-row-label { color: var(--muted); flex-shrink: 0; }
+    .spec-row-value { font-weight: 700; text-align: right; }
+    .product-actions { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 14px; }
+    /* Legacy */
     .price-line { font-size: 1.25rem; font-family: "Outfit",sans-serif; font-weight: 800; margin: 10px 0; }
     .price-line small { display: block; color: var(--muted); font-family: "DM Sans",sans-serif; font-size: .78rem; font-weight: 500; line-height: 1.45; }
+    .product-panel { display: grid; grid-template-columns: minmax(0,1fr) minmax(260px,.85fr); gap: 22px; border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; margin: 20px 0 24px; box-shadow: var(--shadow); }
     .spec-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 9px; }
     .spec { background: var(--surface); border-radius: 10px; padding: 10px 12px; min-width: 0; }
     .spec span { display: block; color: var(--muted); font-size: .78rem; line-height: 1.35; }
     .spec strong { display: block; font-size: .94rem; line-height: 1.45; overflow-wrap: anywhere; }
-    .product-actions { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 15px; }
     .btn { display: inline-flex; justify-content: center; align-items: center; gap: 7px; min-height: 44px; padding: 10px 15px; border-radius: 10px; border: 1px solid transparent; color: #171717; font-size: .9rem; font-weight: 800; line-height: 1.25; text-decoration: none; transition: transform .15s ease,filter .15s ease; }
     .btn:hover { transform: translateY(-1px); filter: brightness(.97); text-decoration: none; }
     .btn-amazon { background: var(--amazon); }
@@ -117,6 +137,11 @@
     .footer-links { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 9px; }
     .footer-links a { color: var(--muted); text-decoration: none; }
     @media(max-width:680px) { .nav-links { display: none; } }
+    @media(max-width:900px) {
+      .section-layout { grid-template-columns: 1fr; gap: 0; }
+      .section-sticky { position: relative; top: 0; margin-bottom: 24px; }
+      .section-text h2 { margin-top: 0; }
+    }
     @media(max-width:760px) {
       .page,.footer-inner { width: min(100% - 28px,1120px); }
       .page { padding-top: 17px; } .intro { font-size: 1rem; } .toc ul { columns: 1; }
@@ -267,227 +292,315 @@
       </section>
 
       <section id="nothing-3a-lite" class="product-section">
-        <h2>Nothing Phone (3a) Lite: diseño y 5G al precio más bajo</h2>
-        <p>El Nothing Phone (3a) Lite a $5,374 es el punto de entrada más económico del catálogo en este rango. Su interfaz Glyph en la parte trasera, el diseño semitransparente característico de Nothing y la conectividad 5G con procesador Dimensity 7300 Pro son su propuesta de valor. Con 256 GB de almacenamiento y 8 GB de RAM es competitivo para su precio.</p>
-        <p>La cámara principal de 50 MP cumple para fotos diarias. La pantalla de 6.77 pulgadas con 120 Hz es cómoda para video y redes. Nothing OS es más limpia que muchas capas de Android. Si el diseño importa en tu decisión y quieres 5G por menos de $5,500, este es el modelo del catálogo.</p>
-        <div class="product-panel">
-          <div>
-            <div class="product-kicker">5G y diseño al precio más bajo</div>
-            <h3>Nothing Phone (3a) Lite 256GB / 8GB RAM</h3>
-            <div class="price-line">$5,374 MXN<small>Precio verificado en Mercado Libre.</small></div>
-            <div class="product-actions" data-product-actions="android-nothing-phone-3a-lite-256gb-8gb"></div>
+        <div class="section-layout">
+          <div class="section-text">
+            <h2>Nothing Phone (3a) Lite: diseño y 5G al precio más bajo</h2>
+            <p>El Nothing Phone (3a) Lite a $5,374 es el punto de entrada más económico del catálogo en este rango. Su interfaz Glyph en la parte trasera, el diseño semitransparente característico de Nothing y la conectividad 5G con procesador Dimensity 7300 Pro son su propuesta de valor. Con 256 GB de almacenamiento y 8 GB de RAM es competitivo para su precio.</p>
+            <p>La cámara principal de 50 MP cumple para fotos diarias. La pantalla de 6.77 pulgadas con 120 Hz es cómoda para video y redes. Nothing OS es más limpia que muchas capas de Android. Si el diseño importa en tu decisión y quieres 5G por menos de $5,500, este es el modelo del catálogo.</p>
+            <h4>Puede convenirte si:</h4>
+            <ul>
+              <li>el diseño Glyph y la estética Nothing te importan;</li>
+              <li>quieres 5G y 8 GB de RAM al precio más bajo del rango;</li>
+              <li>valoras 256 GB de almacenamiento en este presupuesto;</li>
+              <li>prefieres Nothing OS sobre MIUI, One UI u otras capas.</li>
+            </ul>
+            <p><strong>El compromiso:</strong> la cámara es competente pero no sobresaliente. Si la cámara es prioridad, el Redmi Note 14 Pro Plus ofrece 200 MP con OIS y Snapdragon 7s Gen 3 por $925 más.</p>
           </div>
-          <div class="spec-grid">
-            <div class="spec"><span>Procesador</span><strong>Dimensity 7300 Pro</strong></div>
-            <div class="spec"><span>Pantalla</span><strong>6.77", 120 Hz</strong></div>
-            <div class="spec"><span>RAM / almacenamiento</span><strong>8 GB / 256 GB</strong></div>
-            <div class="spec"><span>Batería</span><strong>5,000 mAh · 5G · NFC</strong></div>
+          <div class="section-sticky">
+            <div class="product-card">
+              <div class="product-card-img">
+                <img src="https://http2.mlstatic.com/D_NQ_NP_920382-MLA98946550853_112-F.jpg" alt="Nothing Phone (3a) Lite 256GB/8GB RAM" loading="lazy">
+              </div>
+              <div class="product-card-body">
+                <div class="product-kicker">5G y diseño al precio más bajo</div>
+                <h3 class="product-card-name">Nothing Phone (3a) Lite 256GB / 8GB RAM</h3>
+                <div class="product-card-price">$5,374 MXN<small>Precio verificado en Mercado Libre.</small></div>
+                <div class="product-card-specs">
+                  <div class="spec-row"><span class="spec-row-label">Pantalla</span><span class="spec-row-value">6.77", 120 Hz</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Procesador</span><span class="spec-row-value">Dimensity 7300 Pro</span></div>
+                  <div class="spec-row"><span class="spec-row-label">RAM</span><span class="spec-row-value">8 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Almacenamiento</span><span class="spec-row-value">256 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Cámara trasera</span><span class="spec-row-value">50 MP</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Batería</span><span class="spec-row-value">5,000 mAh · 5G</span></div>
+                </div>
+                <div class="product-actions" data-product-actions="android-nothing-phone-3a-lite-256gb-8gb"></div>
+              </div>
+            </div>
           </div>
         </div>
-        <h4>Puede convenirte si:</h4>
-        <ul>
-          <li>el diseño Glyph y la estética Nothing te importan;</li>
-          <li>quieres 5G y 8 GB de RAM al precio más bajo del rango;</li>
-          <li>valoras 256 GB de almacenamiento en este presupuesto;</li>
-          <li>prefieres Nothing OS sobre MIUI, One UI u otras capas.</li>
-        </ul>
-        <p><strong>El compromiso:</strong> la cámara es competente pero no sobresaliente. Si la cámara es prioridad, el Redmi Note 14 Pro Plus ofrece 200 MP con OIS y Snapdragon 7s Gen 3 por $925 más.</p>
       </section>
 
       <section id="edge-60-neo" class="product-section">
-        <h2>Motorola Edge 60 Neo: la opción compacta del grupo</h2>
-        <p>El Motorola Edge 60 Neo a $5,919 destaca por su pantalla de 6.36 pulgadas, más compacta que los modelos de 6.7 pulgadas que dominan este rango. Si tienes manos más pequeñas o prefieres un equipo más manejable, es una ventaja real. Con 256 GB de almacenamiento y 12 GB de RAM la ficha es generosa para su precio.</p>
-        <p>La cámara principal de 50 MP y la batería de 5,000 mAh son las especificaciones estándar del segmento. Motorola ofrece una experiencia Android cercana al puro con pocas apps preinstaladas. La conectividad 5G está incluida. Para quien busca un teléfono de gama media compacto, el Edge 60 Neo es la opción diferenciada en el catálogo.</p>
-        <div class="product-panel">
-          <div>
-            <div class="product-kicker">Opción compacta del grupo</div>
-            <h3>Motorola Edge 60 Neo 256GB / 12GB RAM</h3>
-            <div class="price-line">$5,919 MXN<small>Precio verificado en Mercado Libre.</small></div>
-            <div class="product-actions" data-product-actions="android-motorola-celular-moto-edge-60-neo-12-256gb-12gb"></div>
+        <div class="section-layout">
+          <div class="section-text">
+            <h2>Motorola Edge 60 Neo: la opción compacta del grupo</h2>
+            <p>El Motorola Edge 60 Neo a $5,919 destaca por su pantalla de 6.36 pulgadas, más compacta que los modelos de 6.7 pulgadas que dominan este rango. Si tienes manos más pequeñas o prefieres un equipo más manejable, es una ventaja real. Con 256 GB de almacenamiento y 12 GB de RAM la ficha es generosa para su precio.</p>
+            <p>La cámara principal de 50 MP y la batería de 5,000 mAh son las especificaciones estándar del segmento. Motorola ofrece una experiencia Android cercana al puro con pocas apps preinstaladas. La conectividad 5G está incluida. Para quien busca un teléfono de gama media compacto, el Edge 60 Neo es la opción diferenciada en el catálogo.</p>
+            <h4>Puede convenirte si:</h4>
+            <ul>
+              <li>prefieres un celular compacto que sea fácil de usar con una mano;</li>
+              <li>quieres 12 GB de RAM para multitarea sin llegar a $7,000;</li>
+              <li>valoras el ecosistema y la experiencia limpia de Motorola;</li>
+              <li>no necesitas la pantalla más grande del grupo.</li>
+            </ul>
+            <p><strong>El compromiso:</strong> la pantalla más pequeña puede ser un inconveniente si ves mucho video o juegas. Si la cámara es prioridad, el Redmi Note 14 Pro Plus a $6,299 ofrece 200 MP con OIS y mejor procesador por $380 más.</p>
           </div>
-          <div class="spec-grid">
-            <div class="spec"><span>Pantalla</span><strong>6.36" compacto</strong></div>
-            <div class="spec"><span>RAM / almacenamiento</span><strong>12 GB / 256 GB</strong></div>
-            <div class="spec"><span>Cámara</span><strong>50 MP</strong></div>
-            <div class="spec"><span>Batería</span><strong>5,000 mAh · 5G</strong></div>
+          <div class="section-sticky">
+            <div class="product-card">
+              <div class="product-card-img">
+                <img src="https://http2.mlstatic.com/D_NQ_NP_958337-MLA96849840669_102025-F.jpg" alt="Motorola Edge 60 Neo 256GB/12GB RAM" loading="lazy">
+              </div>
+              <div class="product-card-body">
+                <div class="product-kicker">Opción compacta del grupo</div>
+                <h3 class="product-card-name">Motorola Edge 60 Neo 256GB / 12GB RAM</h3>
+                <div class="product-card-price">$5,919 MXN<small>Precio verificado en Mercado Libre.</small></div>
+                <div class="product-card-specs">
+                  <div class="spec-row"><span class="spec-row-label">Pantalla</span><span class="spec-row-value">6.36" compacto</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Conectividad</span><span class="spec-row-value">5G · NFC</span></div>
+                  <div class="spec-row"><span class="spec-row-label">RAM</span><span class="spec-row-value">12 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Almacenamiento</span><span class="spec-row-value">256 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Cámara trasera</span><span class="spec-row-value">50 MP</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Batería</span><span class="spec-row-value">5,000 mAh</span></div>
+                </div>
+                <div class="product-actions" data-product-actions="android-motorola-celular-moto-edge-60-neo-12-256gb-12gb"></div>
+              </div>
+            </div>
           </div>
         </div>
-        <h4>Puede convenirte si:</h4>
-        <ul>
-          <li>prefieres un celular compacto que sea fácil de usar con una mano;</li>
-          <li>quieres 12 GB de RAM para multitarea sin llegar a $7,000;</li>
-          <li>valoras el ecosistema y la experiencia limpia de Motorola;</li>
-          <li>no necesitas la pantalla más grande del grupo.</li>
-        </ul>
-        <p><strong>El compromiso:</strong> la pantalla más pequeña puede ser un inconveniente si ves mucho video o juegas. Si la cámara es prioridad, el Redmi Note 14 Pro Plus a $6,299 ofrece 200 MP con OIS y mejor procesador por $380 más.</p>
       </section>
 
       <section id="galaxy-a37" class="product-section">
-        <h2>Samsung Galaxy A37 5G: Samsung de gama media con 256 GB</h2>
-        <p>El Samsung Galaxy A37 5G a $6,119 es la entrada de Samsung en el sub-rango de $5,000–$7,000 de este catálogo. Con 256 GB de almacenamiento, pantalla de 6.7 pulgadas, batería de 5,000 mAh y cámara de 50 MP es una propuesta equilibrada. Incluye NFC para pagos sin contacto y conectividad 5G. Samsung tiene una de las mejores redes de servicio técnico y disponibilidad de accesorios del mercado mexicano.</p>
-        <p>La razón principal para elegirlo es la marca y su red de soporte. No tiene el Snapdragon 7s Gen 3 del Redmi Note 14 Pro Plus ni el diseño Glyph de Nothing, pero ofrece la confiabilidad y respaldo de Samsung con una ficha técnica sólida para uso general.</p>
-        <div class="product-panel">
-          <div>
-            <div class="product-kicker">Samsung gama media con 256 GB</div>
-            <h3>Samsung Galaxy A37 5G 256GB / 8GB RAM</h3>
-            <div class="price-line">$6,119 MXN<small>Precio verificado en Mercado Libre.</small></div>
-            <div class="product-actions" data-product-actions="android-samsung-galaxy-a37-5g-256gb-8gb"></div>
+        <div class="section-layout">
+          <div class="section-text">
+            <h2>Samsung Galaxy A37 5G: Samsung de gama media con 256 GB</h2>
+            <p>El Samsung Galaxy A37 5G a $6,119 es la entrada de Samsung en el sub-rango de $5,000–$7,000 de este catálogo. Con 256 GB de almacenamiento, pantalla de 6.7 pulgadas, batería de 5,000 mAh y cámara de 50 MP es una propuesta equilibrada. Incluye NFC para pagos sin contacto y conectividad 5G. Samsung tiene una de las mejores redes de servicio técnico y disponibilidad de accesorios del mercado mexicano.</p>
+            <p>La razón principal para elegirlo es la marca y su red de soporte. No tiene el Snapdragon 7s Gen 3 del Redmi Note 14 Pro Plus ni el diseño Glyph de Nothing, pero ofrece la confiabilidad y respaldo de Samsung con una ficha técnica sólida para uso general.</p>
+            <h4>Puede convenirte si:</h4>
+            <ul>
+              <li>quieres marca Samsung con soporte local en México;</li>
+              <li>necesitas 256 GB de almacenamiento en este presupuesto;</li>
+              <li>usas pagos NFC con frecuencia;</li>
+              <li>prefieres la estabilidad de Samsung sobre alternativas menos distribuidas.</li>
+            </ul>
+            <p><strong>El compromiso:</strong> por $180 más, el Redmi Note 14 Pro Plus ofrece procesador Snapdragon 7s Gen 3 y cámara de 200 MP con OIS. Si la marca Samsung no es prioritaria y la cámara importa, el Redmi Note 14 Pro Plus puede ser mejor inversión.</p>
           </div>
-          <div class="spec-grid">
-            <div class="spec"><span>Conectividad</span><strong>5G · NFC</strong></div>
-            <div class="spec"><span>Pantalla</span><strong>6.7"</strong></div>
-            <div class="spec"><span>RAM / almacenamiento</span><strong>8 GB / 256 GB</strong></div>
-            <div class="spec"><span>Batería</span><strong>5,000 mAh</strong></div>
+          <div class="section-sticky">
+            <div class="product-card">
+              <div class="product-card-img">
+                <img src="https://http2.mlstatic.com/D_NQ_NP_953987-MLA110517978499_04-F.jpg" alt="Samsung Galaxy A37 5G 256GB/8GB RAM" loading="lazy">
+              </div>
+              <div class="product-card-body">
+                <div class="product-kicker">Samsung gama media con 256 GB</div>
+                <h3 class="product-card-name">Samsung Galaxy A37 5G 256GB / 8GB RAM</h3>
+                <div class="product-card-price">$6,119 MXN<small>Precio verificado en Mercado Libre.</small></div>
+                <div class="product-card-specs">
+                  <div class="spec-row"><span class="spec-row-label">Pantalla</span><span class="spec-row-value">6.7"</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Conectividad</span><span class="spec-row-value">5G · NFC</span></div>
+                  <div class="spec-row"><span class="spec-row-label">RAM</span><span class="spec-row-value">8 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Almacenamiento</span><span class="spec-row-value">256 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Cámara trasera</span><span class="spec-row-value">50 MP</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Batería</span><span class="spec-row-value">5,000 mAh</span></div>
+                </div>
+                <div class="product-actions" data-product-actions="android-samsung-galaxy-a37-5g-256gb-8gb"></div>
+              </div>
+            </div>
           </div>
         </div>
-        <h4>Puede convenirte si:</h4>
-        <ul>
-          <li>quieres marca Samsung con soporte local en México;</li>
-          <li>necesitas 256 GB de almacenamiento en este presupuesto;</li>
-          <li>usas pagos NFC con frecuencia;</li>
-          <li>prefieres la estabilidad de Samsung sobre alternativas menos distribuidas.</li>
-        </ul>
-        <p><strong>El compromiso:</strong> por $180 más, el Redmi Note 14 Pro Plus ofrece procesador Snapdragon 7s Gen 3 y cámara de 200 MP con OIS. Si la marca Samsung no es prioritaria y la cámara importa, el Redmi Note 14 Pro Plus puede ser mejor inversión.</p>
       </section>
 
       <section id="redmi-note-14-pro" class="product-section">
-        <h2>Xiaomi Redmi Note 14 Pro Plus: 200 MP y Snapdragon por $6,299</h2>
-        <p>El Redmi Note 14 Pro Plus 5G a $6,299 es el mejor modelo del rango hasta $7,000 en términos de hardware. El Snapdragon 7s Gen 3 lo separa del campo de Helio G81 y procesadores Octa-Core básicos de sus competidores en el mismo precio. La cámara principal de 200 MP con OIS es otro diferenciador: permite recortar imágenes y mantener detalle en condiciones que otros modelos no pueden capturar igual.</p>
-        <p>La pantalla de 6.67 pulgadas a 120 Hz, la batería de 5,110 mAh y el NFC completan un paquete muy completo para su precio. Con 256 GB de almacenamiento y 8 GB de RAM la configuración es generosa. Puede ser el modelo del catálogo con mejor relación precio-prestaciones en el rango de $5,000 a $7,000.</p>
-        <div class="product-panel">
-          <div>
-            <div class="product-kicker">Mejor hardware en su sub-rango</div>
-            <h3>Xiaomi Redmi Note 14 Pro Plus 256GB / 8GB RAM</h3>
-            <div class="price-line">$6,299 MXN<small>Precio verificado en Mercado Libre.</small></div>
-            <div class="product-actions" data-product-actions="android-xiaomi-redmi-note-14-pro-plus-5g-256gb-8gb"></div>
+        <div class="section-layout">
+          <div class="section-text">
+            <h2>Xiaomi Redmi Note 14 Pro Plus: 200 MP y Snapdragon por $6,299</h2>
+            <p>El Redmi Note 14 Pro Plus 5G a $6,299 es el mejor modelo del rango hasta $7,000 en términos de hardware. El Snapdragon 7s Gen 3 lo separa del campo de Helio G81 y procesadores Octa-Core básicos de sus competidores en el mismo precio. La cámara principal de 200 MP con OIS es otro diferenciador: permite recortar imágenes y mantener detalle en condiciones que otros modelos no pueden capturar igual.</p>
+            <p>La pantalla de 6.67 pulgadas a 120 Hz, la batería de 5,110 mAh y el NFC completan un paquete muy completo para su precio. Con 256 GB de almacenamiento y 8 GB de RAM la configuración es generosa. Puede ser el modelo del catálogo con mejor relación precio-prestaciones en el rango de $5,000 a $7,000.</p>
+            <h4>Puede convenirte si:</h4>
+            <ul>
+              <li>quieres el mejor procesador disponible por menos de $7,000;</li>
+              <li>la cámara es prioridad y valoras 200 MP con OIS;</li>
+              <li>usas pagos NFC;</li>
+              <li>quieres pantalla de 120 Hz con Snapdragon sin llegar a $7,000.</li>
+            </ul>
+            <p><strong>El compromiso:</strong> el software HyperOS de Xiaomi tiene más apps preinstaladas que Motorola o Nothing. Si el diseño importa, el Nothing Phone (3a) a $7,004 ofrece algo diferente con el mismo procesador y $705 más.</p>
           </div>
-          <div class="spec-grid">
-            <div class="spec"><span>Procesador</span><strong>Snapdragon 7s Gen 3</strong></div>
-            <div class="spec"><span>Pantalla</span><strong>6.67", 120 Hz</strong></div>
-            <div class="spec"><span>Cámara</span><strong>200 MP, f/1.7, OIS</strong></div>
-            <div class="spec"><span>Batería</span><strong>5,110 mAh · NFC · 5G</strong></div>
+          <div class="section-sticky">
+            <div class="product-card">
+              <div class="product-card-img">
+                <img src="https://http2.mlstatic.com/D_NQ_NP_638590-MLA99497214074_112-F.jpg" alt="Xiaomi Redmi Note 14 Pro Plus 256GB/8GB RAM" loading="lazy">
+              </div>
+              <div class="product-card-body">
+                <div class="product-kicker">Mejor hardware en su sub-rango</div>
+                <h3 class="product-card-name">Redmi Note 14 Pro Plus 256GB / 8GB RAM</h3>
+                <div class="product-card-price">$6,299 MXN<small>Precio verificado en Mercado Libre.</small></div>
+                <div class="product-card-specs">
+                  <div class="spec-row"><span class="spec-row-label">Pantalla</span><span class="spec-row-value">6.67", 120 Hz</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Procesador</span><span class="spec-row-value">Snapdragon 7s Gen 3</span></div>
+                  <div class="spec-row"><span class="spec-row-label">RAM</span><span class="spec-row-value">8 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Almacenamiento</span><span class="spec-row-value">256 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Cámara trasera</span><span class="spec-row-value">200 MP · OIS</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Batería</span><span class="spec-row-value">5,110 mAh · 5G</span></div>
+                </div>
+                <div class="product-actions" data-product-actions="android-xiaomi-redmi-note-14-pro-plus-5g-256gb-8gb"></div>
+              </div>
+            </div>
           </div>
         </div>
-        <h4>Puede convenirte si:</h4>
-        <ul>
-          <li>quieres el mejor procesador disponible por menos de $7,000;</li>
-          <li>la cámara es prioridad y valoras 200 MP con OIS;</li>
-          <li>usas pagos NFC;</li>
-          <li>quieres pantalla de 120 Hz con Snapdragon sin llegar a $7,000.</li>
-        </ul>
-        <p><strong>El compromiso:</strong> el software HyperOS de Xiaomi tiene más apps preinstaladas que Motorola o Nothing. Si el diseño importa, el Nothing Phone (3a) a $7,004 ofrece algo diferente con el mismo procesador y $705 más.</p>
       </section>
 
       <section id="nothing-3a" class="product-section">
-        <h2>Nothing Phone (3a): rendimiento y diseño diferenciado</h2>
-        <p>El Nothing Phone (3a) a $7,004 usa el mismo procesador Snapdragon 7s Gen 3 que el Redmi Note 14 Pro Plus pero en un diseño que los distingue claramente. El Glyph Interface en la parte trasera, la carcasa semitransparente y Nothing OS son la propuesta de valor: un teléfono que se ve y se siente diferente sin cobrar el precio de un flagship.</p>
-        <p>La pantalla de 6.77 pulgadas a 120 Hz, 5,000 mAh de batería, NFC y 5G completan una ficha sólida. Con 128 GB de almacenamiento es el modelo con menos espacio del grupo a ese precio; si guardas muchas fotos, el Redmi Note 14 Pro Plus tiene 256 GB por $705 menos. La cámara de 50 MP es buena para uso diario pero no tiene los 200 MP del Redmi.</p>
-        <div class="product-panel">
-          <div>
-            <div class="product-kicker">Diseño y rendimiento Nothing</div>
-            <h3>Nothing Phone (3a) 128GB / 8GB RAM</h3>
-            <div class="price-line">$7,004 MXN<small>Precio verificado en Mercado Libre.</small></div>
-            <div class="product-actions" data-product-actions="android-nothing-nothing-phone-3a-128gb-8gb"></div>
+        <div class="section-layout">
+          <div class="section-text">
+            <h2>Nothing Phone (3a): rendimiento y diseño diferenciado</h2>
+            <p>El Nothing Phone (3a) a $7,004 usa el mismo procesador Snapdragon 7s Gen 3 que el Redmi Note 14 Pro Plus pero en un diseño que los distingue claramente. El Glyph Interface en la parte trasera, la carcasa semitransparente y Nothing OS son la propuesta de valor: un teléfono que se ve y se siente diferente sin cobrar el precio de un flagship.</p>
+            <p>La pantalla de 6.77 pulgadas a 120 Hz, 5,000 mAh de batería, NFC y 5G completan una ficha sólida. Con 128 GB de almacenamiento es el modelo con menos espacio del grupo a ese precio; si guardas muchas fotos, el Redmi Note 14 Pro Plus tiene 256 GB por $705 menos. La cámara de 50 MP es buena para uso diario pero no tiene los 200 MP del Redmi.</p>
+            <h4>Puede convenirte si:</h4>
+            <ul>
+              <li>el diseño Glyph y la estética Nothing son importantes para ti;</li>
+              <li>quieres Snapdragon 7s Gen 3 con Nothing OS;</li>
+              <li>128 GB es suficiente almacenamiento para tu uso;</li>
+              <li>prefieres pagar por diseño diferenciado sobre más cámara o almacenamiento.</li>
+            </ul>
+            <p><strong>El compromiso:</strong> 128 GB de almacenamiento frente a los 256 GB del Redmi Note 14 Pro Plus que cuesta $705 menos. Si la cámara y el almacenamiento importan más que el diseño, el Redmi Note 14 Pro Plus es más práctico.</p>
           </div>
-          <div class="spec-grid">
-            <div class="spec"><span>Procesador</span><strong>Snapdragon 7s Gen 3</strong></div>
-            <div class="spec"><span>Pantalla</span><strong>6.77", 120 Hz</strong></div>
-            <div class="spec"><span>RAM / almacenamiento</span><strong>8 GB / 128 GB</strong></div>
-            <div class="spec"><span>Batería</span><strong>5,000 mAh · NFC · 5G</strong></div>
+          <div class="section-sticky">
+            <div class="product-card">
+              <div class="product-card-img">
+                <img src="https://http2.mlstatic.com/D_NQ_NP_951294-MLA99937583997_112025-F.jpg" alt="Nothing Phone (3a) 128GB/8GB RAM" loading="lazy">
+              </div>
+              <div class="product-card-body">
+                <div class="product-kicker">Diseño y rendimiento Nothing</div>
+                <h3 class="product-card-name">Nothing Phone (3a) 128GB / 8GB RAM</h3>
+                <div class="product-card-price">$7,004 MXN<small>Precio verificado en Mercado Libre.</small></div>
+                <div class="product-card-specs">
+                  <div class="spec-row"><span class="spec-row-label">Pantalla</span><span class="spec-row-value">6.77", 120 Hz</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Procesador</span><span class="spec-row-value">Snapdragon 7s Gen 3</span></div>
+                  <div class="spec-row"><span class="spec-row-label">RAM</span><span class="spec-row-value">8 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Almacenamiento</span><span class="spec-row-value">128 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Cámara trasera</span><span class="spec-row-value">50 MP</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Batería</span><span class="spec-row-value">5,000 mAh · 5G</span></div>
+                </div>
+                <div class="product-actions" data-product-actions="android-nothing-nothing-phone-3a-128gb-8gb"></div>
+              </div>
+            </div>
           </div>
         </div>
-        <h4>Puede convenirte si:</h4>
-        <ul>
-          <li>el diseño Glyph y la estética Nothing son importantes para ti;</li>
-          <li>quieres Snapdragon 7s Gen 3 con Nothing OS;</li>
-          <li>128 GB es suficiente almacenamiento para tu uso;</li>
-          <li>prefieres pagar por diseño diferenciado sobre más cámara o almacenamiento.</li>
-        </ul>
-        <p><strong>El compromiso:</strong> 128 GB de almacenamiento frente a los 256 GB del Redmi Note 14 Pro Plus que cuesta $705 menos. Si la cámara y el almacenamiento importan más que el diseño, el Redmi Note 14 Pro Plus es más práctico.</p>
       </section>
 
       <section id="galaxy-a56" class="product-section">
-        <h2>Samsung Galaxy A56: actualizaciones y equilibrio</h2>
-        <p>El Galaxy A56 a $7,299 es una opción sólida si quieres un celular que haga casi todo bien con el soporte de largo plazo de Samsung. Su pantalla Super AMOLED de 6.7 pulgadas y 120 Hz es cómoda para video, redes y lectura. La cámara principal de 50 MP tiene estabilización óptica, acompañada por un ultra gran angular de 12 MP y una macro de 5 MP. La batería de 5,000 mAh cubre una jornada completa.</p>
-        <p>El punto fuerte más diferenciado es el soporte: Samsung anuncia hasta seis generaciones de actualizaciones del sistema operativo y seis años de actualizaciones de seguridad. Eso puede importar más que ganar puntos en una prueba de rendimiento si planeas conservar el teléfono varios años. No tiene teleobjetivo dedicado, pero para uso general el equilibrio es convincente.</p>
-        <div class="product-panel">
-          <div>
-            <div class="product-kicker">Actualizaciones y equilibrio Samsung</div>
-            <h3>Samsung Galaxy A56 256GB / 12GB RAM</h3>
-            <div class="price-line">$7,299 MXN<small>Precio verificado en Mercado Libre.</small></div>
-            <div class="product-actions" data-product-actions="android-samsung-galaxy-a56-256gb-12gb"></div>
+        <div class="section-layout">
+          <div class="section-text">
+            <h2>Samsung Galaxy A56: actualizaciones y equilibrio</h2>
+            <p>El Galaxy A56 a $7,299 es una opción sólida si quieres un celular que haga casi todo bien con el soporte de largo plazo de Samsung. Su pantalla Super AMOLED de 6.7 pulgadas y 120 Hz es cómoda para video, redes y lectura. La cámara principal de 50 MP tiene estabilización óptica, acompañada por un ultra gran angular de 12 MP y una macro de 5 MP. La batería de 5,000 mAh cubre una jornada completa.</p>
+            <p>El punto fuerte más diferenciado es el soporte: Samsung anuncia hasta seis generaciones de actualizaciones del sistema operativo y seis años de actualizaciones de seguridad. Eso puede importar más que ganar puntos en una prueba de rendimiento si planeas conservar el teléfono varios años. No tiene teleobjetivo dedicado, pero para uso general el equilibrio es convincente.</p>
+            <h4>Puede convenirte si:</h4>
+            <ul>
+              <li>quieres una pantalla AMOLED fluida para usar todo el día;</li>
+              <li>valoras una política de actualizaciones clara de 6 años;</li>
+              <li>tomas fotos cotidianas y te beneficia el OIS;</li>
+              <li>prefieres la red de soporte y accesorios de Samsung en México.</li>
+            </ul>
+            <p><strong>El compromiso:</strong> no tiene teleobjetivo y la carga no es tan rápida como la de rivales chinos. El Redmi Note 14 Pro Plus a $1,000 menos ofrece mejor procesador y cámara de 200 MP. Si las actualizaciones a largo plazo son tu prioridad, el A56 puede ser la compra racional.</p>
           </div>
-          <div class="spec-grid">
-            <div class="spec"><span>Pantalla</span><strong>6.7" Super AMOLED 120 Hz</strong></div>
-            <div class="spec"><span>Cámara</span><strong>50 MP, f/1.8, OIS</strong></div>
-            <div class="spec"><span>RAM / almacenamiento</span><strong>12 GB / 256 GB</strong></div>
-            <div class="spec"><span>Soporte</span><strong>Hasta 6 generaciones de Android</strong></div>
+          <div class="section-sticky">
+            <div class="product-card">
+              <div class="product-card-img">
+                <img src="https://http2.mlstatic.com/D_NQ_NP_720211-MLA99849817993_112-F.jpg" alt="Samsung Galaxy A56 256GB/12GB RAM" loading="lazy">
+              </div>
+              <div class="product-card-body">
+                <div class="product-kicker">Actualizaciones y equilibrio Samsung</div>
+                <h3 class="product-card-name">Samsung Galaxy A56 256GB / 12GB RAM</h3>
+                <div class="product-card-price">$7,299 MXN<small>Precio verificado en Mercado Libre.</small></div>
+                <div class="product-card-specs">
+                  <div class="spec-row"><span class="spec-row-label">Pantalla</span><span class="spec-row-value">6.7" Super AMOLED 120 Hz</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Procesador</span><span class="spec-row-value">Exynos 1580</span></div>
+                  <div class="spec-row"><span class="spec-row-label">RAM</span><span class="spec-row-value">12 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Almacenamiento</span><span class="spec-row-value">256 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Cámara trasera</span><span class="spec-row-value">50 MP · OIS</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Batería</span><span class="spec-row-value">5,000 mAh · 5G</span></div>
+                </div>
+                <div class="product-actions" data-product-actions="android-samsung-galaxy-a56-256gb-12gb"></div>
+              </div>
+            </div>
           </div>
         </div>
-        <h4>Puede convenirte si:</h4>
-        <ul>
-          <li>quieres una pantalla AMOLED fluida para usar todo el día;</li>
-          <li>valoras una política de actualizaciones clara de 6 años;</li>
-          <li>tomas fotos cotidianas y te beneficia el OIS;</li>
-          <li>prefieres la red de soporte y accesorios de Samsung en México.</li>
-        </ul>
-        <p><strong>El compromiso:</strong> no tiene teleobjetivo y la carga no es tan rápida como la de rivales chinos. El Redmi Note 14 Pro Plus a $1,000 menos ofrece mejor procesador y cámara de 200 MP. Si las actualizaciones a largo plazo son tu prioridad, el A56 puede ser la compra racional.</p>
       </section>
 
       <section id="redmi-note-15-pro" class="product-section">
-        <h2>Xiaomi Redmi Note 15 Pro: 512 GB de almacenamiento y 200 MP</h2>
-        <p>El Redmi Note 15 Pro a $7,672 en el catálogo es la configuración de 512 GB con 8 GB de RAM, el modelo con más almacenamiento del grupo. La cámara principal de 200 MP y la pantalla AMOLED de 6.77 pulgadas son sus otros puntos fuertes. Con disponibilidad en Amazon y Mercado Libre tiene la mejor cobertura de canales del catálogo.</p>
-        <p>Los 512 GB lo convierten en la opción ideal para quien guarda muchas fotos, videos y aplicaciones. La pantalla AMOLED hace que el contenido se vea con más contraste que en un panel LCD. Para los 200 MP con mayor certeza de OIS, el Redmi Note 14 Pro Plus a $1,373 menos es la comparación natural.</p>
-        <div class="product-panel">
-          <div>
-            <div class="product-kicker">512 GB y cámara 200 MP</div>
-            <h3>Xiaomi Redmi Note 15 Pro 512GB / 8GB RAM</h3>
-            <div class="price-line">$7,672 MXN<small>Precio verificado. Disponible en Amazon y Mercado Libre.</small></div>
-            <div class="product-actions" data-product-actions="android-xiaomi-redmi-note-15-pro-512gb-8gb"></div>
+        <div class="section-layout">
+          <div class="section-text">
+            <h2>Xiaomi Redmi Note 15 Pro: 512 GB de almacenamiento y 200 MP</h2>
+            <p>El Redmi Note 15 Pro a $7,672 en el catálogo es la configuración de 512 GB con 8 GB de RAM, el modelo con más almacenamiento del grupo. La cámara principal de 200 MP y la pantalla AMOLED de 6.77 pulgadas son sus otros puntos fuertes. Con disponibilidad en Amazon y Mercado Libre tiene la mejor cobertura de canales del catálogo.</p>
+            <p>Los 512 GB lo convierten en la opción ideal para quien guarda muchas fotos, videos y aplicaciones. La pantalla AMOLED hace que el contenido se vea con más contraste que en un panel LCD. Para los 200 MP con mayor certeza de OIS, el Redmi Note 14 Pro Plus a $1,373 menos es la comparación natural.</p>
+            <h4>Puede convenirte si:</h4>
+            <ul>
+              <li>quieres 512 GB de almacenamiento sin gastar $10,000;</li>
+              <li>priorizas una cámara principal de alta resolución;</li>
+              <li>guardas muchas fotos y videos en el dispositivo;</li>
+              <li>quieres disponibilidad en Amazon y Mercado Libre.</li>
+            </ul>
+            <p><strong>El compromiso:</strong> el Galaxy A56 a $373 menos ofrece 12 GB de RAM, mejor política de actualizaciones documentada y marca Samsung. Para cámara de alta resolución por menos, el Redmi Note 14 Pro Plus tiene 200 MP con OIS por $1,373 menos.</p>
           </div>
-          <div class="spec-grid">
-            <div class="spec"><span>Almacenamiento</span><strong>512 GB</strong></div>
-            <div class="spec"><span>Pantalla</span><strong>AMOLED 6.77"</strong></div>
-            <div class="spec"><span>Cámara</span><strong>200 MP</strong></div>
-            <div class="spec"><span>Batería</span><strong>5,000 mAh · 5G</strong></div>
+          <div class="section-sticky">
+            <div class="product-card">
+              <div class="product-card-img">
+                <img src="https://m.media-amazon.com/images/I/71stBIxfW2L._AC_SX679_.jpg" alt="Xiaomi Redmi Note 15 Pro 512GB/8GB RAM" loading="lazy">
+              </div>
+              <div class="product-card-body">
+                <div class="product-kicker">512 GB y cámara 200 MP</div>
+                <h3 class="product-card-name">Redmi Note 15 Pro 512GB / 8GB RAM</h3>
+                <div class="product-card-price">$7,672 MXN<small>Disponible en Amazon y Mercado Libre.</small></div>
+                <div class="product-card-specs">
+                  <div class="spec-row"><span class="spec-row-label">Pantalla</span><span class="spec-row-value">AMOLED 6.77"</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Conectividad</span><span class="spec-row-value">5G</span></div>
+                  <div class="spec-row"><span class="spec-row-label">RAM</span><span class="spec-row-value">8 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Almacenamiento</span><span class="spec-row-value">512 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Cámara trasera</span><span class="spec-row-value">200 MP</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Batería</span><span class="spec-row-value">5,000 mAh</span></div>
+                </div>
+                <div class="product-actions" data-product-actions="android-xiaomi-redmi-note-15-pro-512gb-8gb"></div>
+              </div>
+            </div>
           </div>
         </div>
-        <h4>Puede convenirte si:</h4>
-        <ul>
-          <li>quieres 512 GB de almacenamiento sin gastar $10,000;</li>
-          <li>priorizas una cámara principal de alta resolución;</li>
-          <li>guardas muchas fotos y videos en el dispositivo;</li>
-          <li>quieres disponibilidad en Amazon y Mercado Libre.</li>
-        </ul>
-        <p><strong>El compromiso:</strong> el Galaxy A56 a $373 menos ofrece 12 GB de RAM, mejor política de actualizaciones documentada y marca Samsung. Para cámara de alta resolución por menos, el Redmi Note 14 Pro Plus tiene 200 MP con OIS por $1,373 menos.</p>
       </section>
 
       <section id="pixel-9a" class="product-section">
-        <h2>Google Pixel 9a: fotografía computacional de Google</h2>
-        <p>El Pixel 9a a $8,699 apuesta por una pantalla pOLED de 6.3 pulgadas a 120 Hz, el procesador Tensor G4 y 8 GB de RAM. Su cámara trasera combina un sensor principal de 48 MP con apertura f/1.7 y estabilización óptica, más un ultra gran angular. El software de Google es la parte clave: HDR, tonos de piel, fotografía nocturna y herramientas de edición ofrecen resultados consistentes sin ajustar controles manualmente.</p>
-        <p>Su tamaño compacto (6.3 pulgadas) puede resultar cómodo frente a teléfonos de 6.7 pulgadas. También ofrece batería de 5,100 mAh y carga inalámbrica Qi, una característica que no aparece en todos los rivales del rango. En el catálogo tiene disponibilidad confirmada en Mercado Libre a $8,699.</p>
-        <div class="product-panel">
-          <div>
-            <div class="product-kicker">Fotografía computacional Google</div>
-            <h3>Google Pixel 9a 128GB / 8GB RAM</h3>
-            <div class="price-line">$8,699 MXN<small>Precio verificado en Mercado Libre.</small></div>
-            <div class="product-actions" data-product-actions="android-google-pixel-9a-128gb-8gb"></div>
+        <div class="section-layout">
+          <div class="section-text">
+            <h2>Google Pixel 9a: fotografía computacional de Google</h2>
+            <p>El Pixel 9a a $8,699 apuesta por una pantalla pOLED de 6.3 pulgadas a 120 Hz, el procesador Tensor G4 y 8 GB de RAM. Su cámara trasera combina un sensor principal de 48 MP con apertura f/1.7 y estabilización óptica, más un ultra gran angular. El software de Google es la parte clave: HDR, tonos de piel, fotografía nocturna y herramientas de edición ofrecen resultados consistentes sin ajustar controles manualmente.</p>
+            <p>Su tamaño compacto (6.3 pulgadas) puede resultar cómodo frente a teléfonos de 6.7 pulgadas. También ofrece batería de 5,100 mAh y carga inalámbrica Qi, una característica que no aparece en todos los rivales del rango. En el catálogo tiene disponibilidad confirmada en Mercado Libre a $8,699.</p>
+            <h4>Puede convenirte si:</h4>
+            <ul>
+              <li>priorizas fotos automáticas, HDR y fotografía nocturna de calidad;</li>
+              <li>quieres un celular más compacto que los modelos grandes del rango;</li>
+              <li>te interesan las funciones de software y edición de Google;</li>
+              <li>valoras la carga inalámbrica que la mayoría de rivales no ofrece.</li>
+            </ul>
+            <p><strong>El compromiso:</strong> es el más caro del grupo y tiene el menor almacenamiento (128 GB). Si el almacenamiento importa, el Redmi Note 15 Pro tiene 512 GB por $1,027 menos. Si la cámara importa pero el presupuesto es limitado, el Redmi Note 14 Pro Plus tiene 200 MP con OIS por $2,400 menos.</p>
           </div>
-          <div class="spec-grid">
-            <div class="spec"><span>Procesador</span><strong>Google Tensor G4</strong></div>
-            <div class="spec"><span>Pantalla</span><strong>6.3" pOLED 120 Hz</strong></div>
-            <div class="spec"><span>Cámara</span><strong>48 MP, f/1.7, OIS</strong></div>
-            <div class="spec"><span>Batería</span><strong>5,100 mAh, carga inalámbrica</strong></div>
+          <div class="section-sticky">
+            <div class="product-card">
+              <div class="product-card-img">
+                <img src="https://http2.mlstatic.com/D_NQ_NP_973131-MLA99392824964_112025-F.jpg" alt="Google Pixel 9a 128GB/8GB RAM" loading="lazy">
+              </div>
+              <div class="product-card-body">
+                <div class="product-kicker">Fotografía computacional Google</div>
+                <h3 class="product-card-name">Google Pixel 9a 128GB / 8GB RAM</h3>
+                <div class="product-card-price">$8,699 MXN<small>Precio verificado en Mercado Libre.</small></div>
+                <div class="product-card-specs">
+                  <div class="spec-row"><span class="spec-row-label">Pantalla</span><span class="spec-row-value">6.3" pOLED 120 Hz</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Procesador</span><span class="spec-row-value">Google Tensor G4</span></div>
+                  <div class="spec-row"><span class="spec-row-label">RAM</span><span class="spec-row-value">8 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Almacenamiento</span><span class="spec-row-value">128 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Cámara trasera</span><span class="spec-row-value">48 MP · OIS · f/1.7</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Batería</span><span class="spec-row-value">5,100 mAh · inalámbrica</span></div>
+                </div>
+                <div class="product-actions" data-product-actions="android-google-pixel-9a-128gb-8gb"></div>
+              </div>
+            </div>
           </div>
         </div>
-        <h4>Puede convenirte si:</h4>
-        <ul>
-          <li>priorizas fotos automáticas, HDR y fotografía nocturna de calidad;</li>
-          <li>quieres un celular más compacto que los modelos grandes del rango;</li>
-          <li>te interesan las funciones de software y edición de Google;</li>
-          <li>valoras la carga inalámbrica que la mayoría de rivales no ofrece.</li>
-        </ul>
-        <p><strong>El compromiso:</strong> es el más caro del grupo y tiene el menor almacenamiento (128 GB). Si el almacenamiento importa, el Redmi Note 15 Pro tiene 512 GB por $1,027 menos. Si la cámara importa pero el presupuesto es limitado, el Redmi Note 14 Pro Plus tiene 200 MP con OIS por $2,400 menos.</p>
       </section>
 
       <section id="marca-o-uso">

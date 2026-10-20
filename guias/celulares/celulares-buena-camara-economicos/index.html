@@ -94,16 +94,36 @@
     .small-note { font-size: .88rem; color: var(--muted); margin-top: 8px; }
     .product-section { padding-top: 4px; }
     .product-section h2 { margin-top: 52px; }
-    .product-panel { display: grid; grid-template-columns: minmax(0, 1fr) minmax(250px, .8fr); gap: 22px; border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; margin: 20px 0 24px; box-shadow: var(--shadow); }
-    .product-panel h3 { margin-bottom: 8px; }
-    .product-kicker { color: var(--green-dark); text-transform: uppercase; letter-spacing: .08em; font-weight: 800; font-size: .75rem; margin-bottom: 6px; }
+    /* Layout dos columnas: texto editorial + tarjeta pegajosa */
+    .section-layout { display: grid; grid-template-columns: minmax(0,1fr) 292px; gap: 40px; align-items: start; }
+    .section-text { min-width: 0; }
+    .section-text h2 { margin-top: 52px; }
+    .section-sticky { position: sticky; top: 76px; }
+    /* Tarjeta de producto estilo ML */
+    .product-card { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: #fff; box-shadow: var(--shadow); }
+    .product-card + .product-card { margin-top: 16px; }
+    .product-card-img { background: var(--surface); display: flex; align-items: center; justify-content: center; padding: 20px; border-bottom: 1px solid var(--line); min-height: 180px; }
+    .product-card-img img { max-width: 100%; max-height: 180px; object-fit: contain; display: block; }
+    .product-card-body { padding: 16px; }
+    .product-kicker { color: var(--green-dark); text-transform: uppercase; letter-spacing: .08em; font-weight: 800; font-size: .72rem; margin-bottom: 5px; }
+    .product-card-name { font-size: 1rem; font-family: "Outfit", sans-serif; font-weight: 700; margin: 0 0 8px; line-height: 1.3; }
+    .product-card-price { font-size: 1.35rem; font-family: "Outfit", sans-serif; font-weight: 800; margin: 0 0 12px; color: var(--ink); }
+    .product-card-price small { display: block; color: var(--muted); font-family: "DM Sans", sans-serif; font-size: .76rem; font-weight: 500; line-height: 1.45; }
+    .product-card-specs { border-top: 1px solid var(--line); margin: 0 -16px; padding: 0 16px; }
+    .spec-row { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--line); font-size: .84rem; }
+    .spec-row:last-child { border-bottom: 0; }
+    .spec-row-label { color: var(--muted); flex-shrink: 0; }
+    .spec-row-value { font-weight: 700; text-align: right; }
+    .product-actions { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 14px; }
+    /* Legacy */
     .price-line { font-size: 1.25rem; font-family: "Outfit", sans-serif; font-weight: 800; margin: 10px 0; }
     .price-line small { display: block; color: var(--muted); font-family: "DM Sans", sans-serif; font-size: .78rem; font-weight: 500; line-height: 1.4; }
+    .product-panel { display: grid; grid-template-columns: minmax(0, 1fr) minmax(250px, .8fr); gap: 22px; border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; margin: 20px 0 24px; box-shadow: var(--shadow); }
+    .product-panel h3 { margin-bottom: 8px; }
     .spec-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
     .spec { background: var(--surface); border-radius: 10px; padding: 10px 12px; min-width: 0; }
     .spec span { display: block; color: var(--muted); font-size: .78rem; line-height: 1.35; }
     .spec strong { display: block; font-size: .94rem; line-height: 1.45; overflow-wrap: anywhere; }
-    .product-actions { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 15px; }
     .btn { display: inline-flex; justify-content: center; align-items: center; gap: 7px; min-height: 44px; padding: 10px 15px; border-radius: 10px; border: 1px solid transparent; color: #171717; font-size: .9rem; font-weight: 800; line-height: 1.25; text-decoration: none; transition: transform .15s ease, filter .15s ease; }
     .btn:hover { transform: translateY(-1px); filter: brightness(.97); text-decoration: none; }
     .btn-amazon { background: var(--amazon); }
@@ -138,6 +158,11 @@
     .footer-links { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 9px; }
     .footer-links a { color: var(--muted); text-decoration: none; }
     @media (max-width: 680px) { .nav-links { display: none; } }
+    @media (max-width: 900px) {
+      .section-layout { grid-template-columns: 1fr; gap: 0; }
+      .section-sticky { position: relative; top: 0; margin-bottom: 24px; }
+      .section-text h2 { margin-top: 0; }
+    }
     @media (max-width: 760px) {
       .page, .footer-inner { width: min(100% - 28px, 1120px); }
       .page { padding-top: 17px; }
@@ -386,151 +411,213 @@
       </section>
 
       <section id="redmi-note-15-pro" class="product-section">
-        <h2>Xiaomi Redmi Note 15 Pro: 200 MP, 512 GB y disponible en Amazon</h2>
-        <p>El Redmi Note 15 Pro en el catálogo es la configuración de 512 GB con 8 GB de RAM a $7,672. La cámara principal de 200 MP con apertura f/1.7 es una de las opciones de mayor resolución en este rango de precio. Los 512 GB de almacenamiento son el mayor del grupo y lo distinguen si guardas muchas fotos o videos en el dispositivo. Además es el único modelo del catálogo en esta guía disponible tanto en Mercado Libre como en Amazon.</p>
-        <p>La resolución alta de 200 MP no significa que todas las imágenes se guarden siempre a esa resolución: el teléfono puede combinar píxeles para mejorar resultados en condiciones normales. La cámara ultra gran angular de 8 MP permite ampliar el encuadre para grupos o paisajes. La pantalla AMOLED de 6.77 pulgadas mejora la visualización de las fotos que tomas.</p>
-        <div class="product-panel">
-          <div>
-            <div class="product-kicker">512 GB · Amazon y ML disponibles</div>
-            <h3>Xiaomi Redmi Note 15 Pro 512GB / 8GB RAM</h3>
-            <div class="price-line">$7,672 MXN<small>Precio verificado. Disponible en Mercado Libre y Amazon.</small></div>
-            <div class="product-actions" data-product-actions="android-xiaomi-redmi-note-15-pro-512gb-8gb"></div>
+        <div class="section-layout">
+          <div class="section-text">
+            <h2>Xiaomi Redmi Note 15 Pro: 200 MP, 512 GB y disponible en Amazon</h2>
+            <p>El Redmi Note 15 Pro en el catálogo es la configuración de 512 GB con 8 GB de RAM a $7,672. La cámara principal de 200 MP con apertura f/1.7 es una de las opciones de mayor resolución en este rango de precio. Los 512 GB de almacenamiento son el mayor del grupo y lo distinguen si guardas muchas fotos o videos en el dispositivo. Además es el único modelo del catálogo en esta guía disponible tanto en Mercado Libre como en Amazon.</p>
+            <p>La resolución alta de 200 MP no significa que todas las imágenes se guarden siempre a esa resolución: el teléfono puede combinar píxeles para mejorar resultados en condiciones normales. La cámara ultra gran angular de 8 MP permite ampliar el encuadre para grupos o paisajes. La pantalla AMOLED de 6.77 pulgadas mejora la visualización de las fotos que tomas.</p>
+            <h4>Puede convenirte si:</h4>
+            <ul>
+              <li>quieres 512 GB para guardar todas tus fotos y videos;</li>
+              <li>priorizas una cámara de alta resolución con f/1.7;</li>
+              <li>quieres disponibilidad en Amazon además de Mercado Libre;</li>
+              <li>buscas pantalla AMOLED en este presupuesto.</li>
+            </ul>
+            <p><strong>El compromiso:</strong> el Redmi Note 14 Pro Plus ofrece OIS confirmado y procesador Snapdragon 7s Gen 3 con 256 GB por $1,373 menos. Si el almacenamiento masivo no es prioridad, el 14 Pro Plus puede dar mejores fotos por menos dinero.</p>
           </div>
-          <div class="spec-grid">
-            <div class="spec"><span>Cámara</span><strong>200 MP, f/1.7</strong></div>
-            <div class="spec"><span>Pantalla</span><strong>AMOLED 6.77"</strong></div>
-            <div class="spec"><span>Almacenamiento</span><strong>512 GB</strong></div>
-            <div class="spec"><span>Batería</span><strong>5,000 mAh · 5G</strong></div>
+          <div class="section-sticky">
+            <div class="product-card">
+              <div class="product-card-img">
+                <img src="https://m.media-amazon.com/images/I/71stBIxfW2L._AC_SX679_.jpg" alt="Xiaomi Redmi Note 15 Pro 512GB/8GB RAM" loading="lazy">
+              </div>
+              <div class="product-card-body">
+                <div class="product-kicker">512 GB · Amazon y ML</div>
+                <h3 class="product-card-name">Redmi Note 15 Pro 512GB / 8GB RAM</h3>
+                <div class="product-card-price">$7,672 MXN<small>Disponible en Mercado Libre y Amazon.</small></div>
+                <div class="product-card-specs">
+                  <div class="spec-row"><span class="spec-row-label">Pantalla</span><span class="spec-row-value">AMOLED 6.77"</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Conectividad</span><span class="spec-row-value">5G</span></div>
+                  <div class="spec-row"><span class="spec-row-label">RAM</span><span class="spec-row-value">8 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Almacenamiento</span><span class="spec-row-value">512 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Cámara trasera</span><span class="spec-row-value">200 MP · f/1.7</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Batería</span><span class="spec-row-value">5,000 mAh</span></div>
+                </div>
+                <div class="product-actions" data-product-actions="android-xiaomi-redmi-note-15-pro-512gb-8gb"></div>
+              </div>
+            </div>
           </div>
         </div>
-        <h4>Puede convenirte si:</h4>
-        <ul>
-          <li>quieres 512 GB para guardar todas tus fotos y videos;</li>
-          <li>priorizas una cámara de alta resolución con f/1.7;</li>
-          <li>quieres disponibilidad en Amazon además de Mercado Libre;</li>
-          <li>buscas pantalla AMOLED en este presupuesto.</li>
-        </ul>
-        <p><strong>El compromiso:</strong> el Redmi Note 14 Pro Plus ofrece OIS confirmado y procesador Snapdragon 7s Gen 3 con 256 GB por $1,373 menos. Si el almacenamiento masivo no es prioridad, el 14 Pro Plus puede dar mejores fotos por menos dinero.</p>
       </section>
 
       <section id="redmi-note-14-pro-plus" class="product-section">
-        <h2>Xiaomi Redmi Note 14 Pro Plus: 200 MP con OIS y Snapdragon</h2>
-        <p>El Redmi Note 14 Pro Plus 5G a $6,299 combina la cámara de 200 MP con apertura f/1.7 y estabilización óptica con el procesador Snapdragon 7s Gen 3. Esa combinación lo convierte en el modelo con mejor hardware fotográfico por el precio en este catálogo. El OIS reduce el movimiento de la cámara para lograr fotos más nítidas con poca luz y cuando el sujeto o el fotógrafo se mueve.</p>
-        <p>Con 256 GB de almacenamiento, 8 GB de RAM y pantalla de 6.67 pulgadas a 120 Hz es una ficha muy completa para su precio. La batería de 5,110 mAh y el NFC completan un paquete que pone la calidad de cámara en primer plano sin sacrificar el resto del teléfono.</p>
-        <div class="product-panel">
-          <div>
-            <div class="product-kicker">200 MP + OIS + Snapdragon</div>
-            <h3>Xiaomi Redmi Note 14 Pro Plus 256GB / 8GB RAM</h3>
-            <div class="price-line">$6,299 MXN<small>Precio verificado en Mercado Libre.</small></div>
-            <div class="product-actions" data-product-actions="android-xiaomi-redmi-note-14-pro-plus-5g-256gb-8gb"></div>
+        <div class="section-layout">
+          <div class="section-text">
+            <h2>Xiaomi Redmi Note 14 Pro Plus: 200 MP con OIS y Snapdragon</h2>
+            <p>El Redmi Note 14 Pro Plus 5G a $6,299 combina la cámara de 200 MP con apertura f/1.7 y estabilización óptica con el procesador Snapdragon 7s Gen 3. Esa combinación lo convierte en el modelo con mejor hardware fotográfico por el precio en este catálogo. El OIS reduce el movimiento de la cámara para lograr fotos más nítidas con poca luz y cuando el sujeto o el fotógrafo se mueve.</p>
+            <p>Con 256 GB de almacenamiento, 8 GB de RAM y pantalla de 6.67 pulgadas a 120 Hz es una ficha muy completa para su precio. La batería de 5,110 mAh y el NFC completan un paquete que pone la calidad de cámara en primer plano sin sacrificar el resto del teléfono.</p>
+            <h4>Puede convenirte si:</h4>
+            <ul>
+              <li>quieres la mejor combinación de cámara y procesador del grupo;</li>
+              <li>el OIS es importante para fotos de movimiento o con poca luz;</li>
+              <li>usas pagos NFC;</li>
+              <li>quieres 200 MP con Snapdragon sin gastar más de $7,000.</li>
+            </ul>
+            <p><strong>El compromiso:</strong> 256 GB de almacenamiento frente a los 512 GB del Redmi Note 15 Pro que cuesta $1,373 más. Si el almacenamiento importa más que el procesador, el 15 Pro es la alternativa; si la cámara y el rendimiento son la prioridad, el 14 Pro Plus es la mejor compra del grupo.</p>
           </div>
-          <div class="spec-grid">
-            <div class="spec"><span>Cámara</span><strong>200 MP, f/1.7, OIS</strong></div>
-            <div class="spec"><span>Procesador</span><strong>Snapdragon 7s Gen 3</strong></div>
-            <div class="spec"><span>RAM / almacenamiento</span><strong>8 GB / 256 GB</strong></div>
-            <div class="spec"><span>Batería</span><strong>5,110 mAh · NFC · 5G</strong></div>
+          <div class="section-sticky">
+            <div class="product-card">
+              <div class="product-card-img">
+                <img src="https://http2.mlstatic.com/D_NQ_NP_638590-MLA99497214074_112-F.jpg" alt="Xiaomi Redmi Note 14 Pro Plus 256GB/8GB RAM" loading="lazy">
+              </div>
+              <div class="product-card-body">
+                <div class="product-kicker">200 MP + OIS + Snapdragon</div>
+                <h3 class="product-card-name">Redmi Note 14 Pro Plus 256GB / 8GB RAM</h3>
+                <div class="product-card-price">$6,299 MXN<small>Precio verificado en Mercado Libre.</small></div>
+                <div class="product-card-specs">
+                  <div class="spec-row"><span class="spec-row-label">Pantalla</span><span class="spec-row-value">6.67", 120 Hz</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Procesador</span><span class="spec-row-value">Snapdragon 7s Gen 3</span></div>
+                  <div class="spec-row"><span class="spec-row-label">RAM</span><span class="spec-row-value">8 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Almacenamiento</span><span class="spec-row-value">256 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Cámara trasera</span><span class="spec-row-value">200 MP · f/1.7 · OIS</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Batería</span><span class="spec-row-value">5,110 mAh · 5G</span></div>
+                </div>
+                <div class="product-actions" data-product-actions="android-xiaomi-redmi-note-14-pro-plus-5g-256gb-8gb"></div>
+              </div>
+            </div>
           </div>
         </div>
-        <h4>Puede convenirte si:</h4>
-        <ul>
-          <li>quieres la mejor combinación de cámara y procesador del grupo;</li>
-          <li>el OIS es importante para fotos de movimiento o con poca luz;</li>
-          <li>usas pagos NFC;</li>
-          <li>quieres 200 MP con Snapdragon sin gastar más de $7,000.</li>
-        </ul>
-        <p><strong>El compromiso:</strong> 256 GB de almacenamiento frente a los 512 GB del Redmi Note 15 Pro que cuesta $1,373 más. Si el almacenamiento importa más que el procesador, el 15 Pro es la alternativa; si la cámara y el rendimiento son la prioridad, el 14 Pro Plus es la mejor compra del grupo.</p>
       </section>
 
       <section id="honor-magic-8-lite" class="product-section">
-        <h2>Honor Magic 8 lite: batería de 8,000 mAh y 108 MP</h2>
-        <p>El Honor Magic 8 lite a $6,199 es el modelo con la batería más grande del grupo: 8,000 mAh, el doble o más que la mayoría de los teléfonos de este rango. Si te quedas sin batería antes de terminar el día con frecuencia, o si viajas y no puedes cargar el teléfono con facilidad, esa diferencia es real y notable. La cámara principal de 108 MP con procesador Snapdragon 6 Gen4 es competente para fotografía diaria.</p>
-        <p>Con 256 GB de almacenamiento y 8 GB de RAM la ficha es generosa. La pantalla de 6.79 pulgadas es de las más grandes del grupo. La razón principal para elegirlo sobre los Redmi Note es la autonomía: si la batería importa más que los 200 MP con OIS, el Honor tiene una ventaja difícil de igualar en este rango de precio.</p>
-        <div class="product-panel">
-          <div>
-            <div class="product-kicker">Batería de 8,000 mAh</div>
-            <h3>Honor Magic 8 lite 256GB / 8GB RAM</h3>
-            <div class="price-line">$6,199 MXN<small>Precio verificado en Mercado Libre.</small></div>
-            <div class="product-actions" data-product-actions="android-honor-magic-8-lite-256gb-8gb"></div>
+        <div class="section-layout">
+          <div class="section-text">
+            <h2>Honor Magic 8 lite: batería de 8,000 mAh y 108 MP</h2>
+            <p>El Honor Magic 8 lite a $6,199 es el modelo con la batería más grande del grupo: 8,000 mAh, el doble o más que la mayoría de los teléfonos de este rango. Si te quedas sin batería antes de terminar el día con frecuencia, o si viajas y no puedes cargar el teléfono con facilidad, esa diferencia es real y notable. La cámara principal de 108 MP con procesador Snapdragon 6 Gen4 es competente para fotografía diaria.</p>
+            <p>Con 256 GB de almacenamiento y 8 GB de RAM la ficha es generosa. La pantalla de 6.79 pulgadas es de las más grandes del grupo. La razón principal para elegirlo sobre los Redmi Note es la autonomía: si la batería importa más que los 200 MP con OIS, el Honor tiene una ventaja difícil de igualar en este rango de precio.</p>
+            <h4>Puede convenirte si:</h4>
+            <ul>
+              <li>la autonomía es la prioridad y buscas llegar a más de un día con una carga;</li>
+              <li>viajas frecuentemente o no siempre tienes acceso a cargador;</li>
+              <li>108 MP es suficiente para tu uso fotográfico;</li>
+              <li>quieres una pantalla grande de 6.79 pulgadas.</li>
+            </ul>
+            <p><strong>El compromiso:</strong> 108 MP sin OIS frente a los 200 MP con OIS del Redmi Note 14 Pro Plus por $100 más. Si la cámara es la prioridad, el 14 Pro Plus es mejor; si la batería y la autonomía son lo primero, el Honor Magic 8 lite es difícil de superar en este presupuesto.</p>
           </div>
-          <div class="spec-grid">
-            <div class="spec"><span>Cámara</span><strong>108 MP</strong></div>
-            <div class="spec"><span>Procesador</span><strong>Snapdragon 6 Gen4</strong></div>
-            <div class="spec"><span>Pantalla</span><strong>6.79"</strong></div>
-            <div class="spec"><span>Batería</span><strong>8,000 mAh</strong></div>
+          <div class="section-sticky">
+            <div class="product-card">
+              <div class="product-card-img">
+                <img src="https://http2.mlstatic.com/D_NQ_NP_893328-MLA107413938419_022026-F.jpg" alt="Honor Magic 8 lite 256GB/8GB RAM" loading="lazy">
+              </div>
+              <div class="product-card-body">
+                <div class="product-kicker">Batería de 8,000 mAh</div>
+                <h3 class="product-card-name">Honor Magic 8 lite 256GB / 8GB RAM</h3>
+                <div class="product-card-price">$6,199 MXN<small>Precio verificado en Mercado Libre.</small></div>
+                <div class="product-card-specs">
+                  <div class="spec-row"><span class="spec-row-label">Pantalla</span><span class="spec-row-value">6.79"</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Procesador</span><span class="spec-row-value">Snapdragon 6 Gen4</span></div>
+                  <div class="spec-row"><span class="spec-row-label">RAM</span><span class="spec-row-value">8 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Almacenamiento</span><span class="spec-row-value">256 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Cámara trasera</span><span class="spec-row-value">108 MP</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Batería</span><span class="spec-row-value">8,000 mAh</span></div>
+                </div>
+                <div class="product-actions" data-product-actions="android-honor-magic-8-lite-256gb-8gb"></div>
+              </div>
+            </div>
           </div>
         </div>
-        <h4>Puede convenirte si:</h4>
-        <ul>
-          <li>la autonomía es la prioridad y buscas llegar a más de un día con una carga;</li>
-          <li>viajas frecuentemente o no siempre tienes acceso a cargador;</li>
-          <li>108 MP es suficiente para tu uso fotográfico;</li>
-          <li>quieres una pantalla grande de 6.79 pulgadas.</li>
-        </ul>
-        <p><strong>El compromiso:</strong> 108 MP sin OIS frente a los 200 MP con OIS del Redmi Note 14 Pro Plus por $100 más. Si la cámara es la prioridad, el 14 Pro Plus es mejor; si la batería y la autonomía son lo primero, el Honor Magic 8 lite es difícil de superar en este presupuesto.</p>
       </section>
 
       <section id="redmi-17" class="product-section">
-        <h2>Xiaomi Redmi 17: 108 MP accesible en dos versiones</h2>
-        <p>El Redmi 17 es la opción más accesible del grupo con cámara de 108 MP. Está disponible en dos configuraciones: 256 GB a $4,599 y 128 GB a $4,265. Los 108 MP permiten recortar imágenes con más margen que los sensores de 50 MP típicos de la gama de entrada. Para quien quiere más megapíxeles sin llegar a $5,000, es la opción del catálogo.</p>
-        <p>La diferencia entre las dos versiones es el almacenamiento y el precio: $334 separan las dos configuraciones. Si guardas muchas fotos o instalas muchas aplicaciones, los 256 GB son la compra inteligente por $334 más. Si el presupuesto es muy estricto, los 128 GB a $4,265 son el modelo con más megapíxeles del catálogo por menos de $4,300.</p>
-        <div class="product-panel">
-          <div>
-            <div class="product-kicker">108 MP · 256 GB</div>
-            <h3>Xiaomi Redmi 17 256GB / 4GB RAM</h3>
-            <div class="price-line">$4,599 MXN<small>Precio verificado en Mercado Libre.</small></div>
-            <div class="product-actions" data-product-actions="android-xiaomi-redmi-17-256gb-4gb"></div>
+        <div class="section-layout">
+          <div class="section-text">
+            <h2>Xiaomi Redmi 17: 108 MP accesible en dos versiones</h2>
+            <p>El Redmi 17 es la opción más accesible del grupo con cámara de 108 MP. Está disponible en dos configuraciones: 256 GB a $4,599 y 128 GB a $4,265. Los 108 MP permiten recortar imágenes con más margen que los sensores de 50 MP típicos de la gama de entrada. Para quien quiere más megapíxeles sin llegar a $5,000, es la opción del catálogo.</p>
+            <p>La diferencia entre las dos versiones es el almacenamiento y el precio: $334 separan las dos configuraciones. Si guardas muchas fotos o instalas muchas aplicaciones, los 256 GB son la compra inteligente por $334 más. Si el presupuesto es muy estricto, los 128 GB a $4,265 son el modelo con más megapíxeles del catálogo por menos de $4,300.</p>
+            <h4>Puede convenirte si:</h4>
+            <ul>
+              <li>quieres 108 MP por menos de $5,000;</li>
+              <li>guardas fotos y te interesa poder recortarlas con más margen;</li>
+              <li>el presupuesto es estricto y $4,265 es tu límite;</li>
+              <li>elige el de 256 GB si instalas muchas apps o guardas muchos videos.</li>
+            </ul>
+            <p><strong>El compromiso:</strong> 4 GB de RAM física es el punto débil de las dos configuraciones. Para multitarea más fluida, el Honor Magic 8 lite tiene 8 GB de RAM y batería de 8,000 mAh por $1,600–$1,934 más. Si el procesador y la RAM importan más que el precio, el Redmi Note 14 Pro Plus es notablemente mejor.</p>
           </div>
-          <div class="spec-grid">
-            <div class="spec"><span>Cámara</span><strong>108 MP</strong></div>
-            <div class="spec"><span>RAM / almacenamiento</span><strong>4 GB / 256 GB</strong></div>
+          <div class="section-sticky">
+            <div class="product-card">
+              <div class="product-card-img">
+                <img src="https://http2.mlstatic.com/D_NQ_NP_2X_636342-CBT115285598872_082026-F-xiaomi-redmi-17-4g-4gb-ram-128gb-rom-69-7500mah-45w-negro.webp" alt="Xiaomi Redmi 17 256GB/4GB RAM" loading="lazy">
+              </div>
+              <div class="product-card-body">
+                <div class="product-kicker">108 MP · 256 GB</div>
+                <h3 class="product-card-name">Xiaomi Redmi 17 256GB / 4GB RAM</h3>
+                <div class="product-card-price">$4,599 MXN<small>Precio verificado en Mercado Libre.</small></div>
+                <div class="product-card-specs">
+                  <div class="spec-row"><span class="spec-row-label">Pantalla</span><span class="spec-row-value">6.79"</span></div>
+                  <div class="spec-row"><span class="spec-row-label">RAM</span><span class="spec-row-value">4 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Almacenamiento</span><span class="spec-row-value">256 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Cámara trasera</span><span class="spec-row-value">108 MP</span></div>
+                </div>
+                <div class="product-actions" data-product-actions="android-xiaomi-redmi-17-256gb-4gb"></div>
+              </div>
+            </div>
+            <div class="product-card">
+              <div class="product-card-img">
+                <img src="https://http2.mlstatic.com/D_NQ_NP_2X_636342-CBT115285598872_082026-F-xiaomi-redmi-17-4g-4gb-ram-128gb-rom-69-7500mah-45w-negro.webp" alt="Xiaomi Redmi 17 128GB/4GB RAM" loading="lazy">
+              </div>
+              <div class="product-card-body">
+                <div class="product-kicker">108 MP · 128 GB · precio más bajo</div>
+                <h3 class="product-card-name">Xiaomi Redmi 17 128GB / 4GB RAM</h3>
+                <div class="product-card-price">$4,265 MXN<small>Precio verificado en Mercado Libre.</small></div>
+                <div class="product-card-specs">
+                  <div class="spec-row"><span class="spec-row-label">Pantalla</span><span class="spec-row-value">6.79"</span></div>
+                  <div class="spec-row"><span class="spec-row-label">RAM</span><span class="spec-row-value">4 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Almacenamiento</span><span class="spec-row-value">128 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Cámara trasera</span><span class="spec-row-value">108 MP</span></div>
+                </div>
+                <div class="product-actions" data-product-actions="android-xiaomi-redmi-17-128gb-4gb"></div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="product-panel" style="margin-top:16px">
-          <div>
-            <div class="product-kicker">108 MP · 128 GB · precio más bajo</div>
-            <h3>Xiaomi Redmi 17 128GB / 4GB RAM</h3>
-            <div class="price-line">$4,265 MXN<small>Precio verificado en Mercado Libre.</small></div>
-            <div class="product-actions" data-product-actions="android-xiaomi-redmi-17-128gb-4gb"></div>
-          </div>
-          <div class="spec-grid">
-            <div class="spec"><span>Cámara</span><strong>108 MP</strong></div>
-            <div class="spec"><span>RAM / almacenamiento</span><strong>4 GB / 128 GB</strong></div>
-          </div>
-        </div>
-        <h4>Puede convenirte si:</h4>
-        <ul>
-          <li>quieres 108 MP por menos de $5,000;</li>
-          <li>guardas fotos y te interesa poder recortarlas con más margen;</li>
-          <li>el presupuesto es estricto y $4,265 es tu límite;</li>
-          <li>elige el de 256 GB si instalas muchas apps o guardas muchos videos.</li>
-        </ul>
-        <p><strong>El compromiso:</strong> 4 GB de RAM física es el punto débil de las dos configuraciones. Para multitarea más fluida, el Honor Magic 8 lite tiene 8 GB de RAM y batería de 8,000 mAh por $1,600–$1,934 más. Si el procesador y la RAM importan más que el precio, el Redmi Note 14 Pro Plus es notablemente mejor.</p>
       </section>
 
       <section id="cubot-p90" class="product-section">
-        <h2>Cubot P90: 100 MP al precio más bajo del grupo</h2>
-        <p>El Cubot P90 a $3,524 es el modelo más asequible de esta selección con cámara de 100 MP. Con 256 GB de almacenamiento y 12 GB de RAM es la única opción del grupo con 12 GB de RAM a ese precio, lo cual es inusual para una configuración de $3,524. Para quien busca muchos megapíxeles y almacenamiento al precio más bajo posible, el Cubot P90 es la respuesta directa.</p>
-        <p>Cubot es una marca menos distribuida que Xiaomi, Samsung o Honor en México, lo que puede significar menos opciones de soporte local y accesorios. La cámara de 100 MP es competente para fotos con buena luz. Como en todos los modelos de alta resolución de este rango, la calidad en condiciones difíciles depende del procesamiento, no solo del número de megapíxeles.</p>
-        <div class="product-panel">
-          <div>
-            <div class="product-kicker">100 MP · precio más bajo del grupo</div>
-            <h3>Cubot P90 256GB / 12GB RAM</h3>
-            <div class="price-line">$3,524 MXN<small>Precio verificado en Mercado Libre.</small></div>
-            <div class="product-actions" data-product-actions="android-cubot-p90-256gb-12gb"></div>
+        <div class="section-layout">
+          <div class="section-text">
+            <h2>Cubot P90: 100 MP al precio más bajo del grupo</h2>
+            <p>El Cubot P90 a $3,524 es el modelo más asequible de esta selección con cámara de 100 MP. Con 256 GB de almacenamiento y 12 GB de RAM es la única opción del grupo con 12 GB de RAM a ese precio, lo cual es inusual para una configuración de $3,524. Para quien busca muchos megapíxeles y almacenamiento al precio más bajo posible, el Cubot P90 es la respuesta directa.</p>
+            <p>Cubot es una marca menos distribuida que Xiaomi, Samsung o Honor en México, lo que puede significar menos opciones de soporte local y accesorios. La cámara de 100 MP es competente para fotos con buena luz. Como en todos los modelos de alta resolución de este rango, la calidad en condiciones difíciles depende del procesamiento, no solo del número de megapíxeles.</p>
+            <h4>Puede convenirte si:</h4>
+            <ul>
+              <li>el presupuesto es estrictamente limitado y $3,524 es el tope;</li>
+              <li>quieres 100 MP y 256 GB de almacenamiento al menor precio posible;</li>
+              <li>los 12 GB de RAM te importan a este precio;</li>
+              <li>aceptas una marca con menor presencia en México a cambio del precio.</li>
+            </ul>
+            <p><strong>El compromiso:</strong> Cubot tiene menos red de soporte que las marcas más distribuidas. Por $741 más, el Redmi 17 128GB de Xiaomi ofrece una marca con mayor disponibilidad de accesorios y servicio; por $1,075 más, el Redmi 17 256GB da el mismo almacenamiento con mejor red de soporte.</p>
           </div>
-          <div class="spec-grid">
-            <div class="spec"><span>Cámara</span><strong>100 MP</strong></div>
-            <div class="spec"><span>RAM / almacenamiento</span><strong>12 GB / 256 GB</strong></div>
+          <div class="section-sticky">
+            <div class="product-card">
+              <div class="product-card-img">
+                <img src="https://http2.mlstatic.com/D_NQ_NP_994883-MLA99518097194_112-F.jpg" alt="Cubot P90 256GB/12GB RAM" loading="lazy">
+              </div>
+              <div class="product-card-body">
+                <div class="product-kicker">100 MP · precio más bajo</div>
+                <h3 class="product-card-name">Cubot P90 256GB / 12GB RAM</h3>
+                <div class="product-card-price">$3,524 MXN<small>Precio verificado en Mercado Libre.</small></div>
+                <div class="product-card-specs">
+                  <div class="spec-row"><span class="spec-row-label">Procesador</span><span class="spec-row-value">Helio G100</span></div>
+                  <div class="spec-row"><span class="spec-row-label">RAM</span><span class="spec-row-value">12 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Almacenamiento</span><span class="spec-row-value">256 GB</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Cámara trasera</span><span class="spec-row-value">100 MP</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Pantalla</span><span class="spec-row-value">6.83"</span></div>
+                  <div class="spec-row"><span class="spec-row-label">Batería</span><span class="spec-row-value">5,100 mAh</span></div>
+                </div>
+                <div class="product-actions" data-product-actions="android-cubot-p90-256gb-12gb"></div>
+              </div>
+            </div>
           </div>
         </div>
-        <h4>Puede convenirte si:</h4>
-        <ul>
-          <li>el presupuesto es estrictamente limitado y $3,524 es el tope;</li>
-          <li>quieres 100 MP y 256 GB de almacenamiento al menor precio posible;</li>
-          <li>los 12 GB de RAM te importan a este precio;</li>
-          <li>aceptas una marca con menor presencia en México a cambio del precio.</li>
-        </ul>
-        <p><strong>El compromiso:</strong> Cubot tiene menos red de soporte que las marcas más distribuidas. Por $741 más, el Redmi 17 128GB de Xiaomi ofrece una marca con mayor disponibilidad de accesorios y servicio; por $1,075 más, el Redmi 17 256GB da el mismo almacenamiento con mejor red de soporte.</p>
       </section>
 
       <section id="frontal-vs-trasera">
