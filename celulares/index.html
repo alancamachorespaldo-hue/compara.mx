@@ -120,6 +120,37 @@ footer a{color:var(--ac);text-decoration:none}
   .cat-photo{height:160px}
   .nav-links{gap:.75rem}
 }
+
+/* MÁS BUSCADOS */
+.pop-section{background:var(--s1);border-bottom:1px solid var(--bd);padding:2.5rem 2rem}
+.pop-inner,.budget-inner{max-width:1100px;margin:0 auto}
+.section-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ac);margin-bottom:.35rem}
+.section-title{font-size:1.5rem;font-weight:700;letter-spacing:-.03em;color:var(--tx);margin-bottom:1.25rem}
+.pop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.pop-card{background:var(--bg);border:1px solid var(--bd);border-radius:14px;padding:1rem 1.1rem;display:flex;flex-direction:column;gap:7px}
+.pop-card-name{font-size:.88rem;font-weight:700;color:var(--tx);letter-spacing:-.01em}
+.pop-card-price{font-size:1.1rem;font-weight:800;color:var(--tx);letter-spacing:-.03em}
+.pop-card-date{font-size:11px;color:var(--tx3);margin-top:-3px}
+.pop-card-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:3px}
+.btn-ml-sm{display:inline-flex;align-items:center;gap:4px;padding:7px 14px;border-radius:8px;font-size:13px;font-weight:700;background:var(--ml);color:#5a4200;text-decoration:none;transition:opacity .15s;white-space:nowrap}
+.btn-ml-sm:hover{opacity:.88}
+.btn-amz-sm{display:inline-flex;align-items:center;gap:4px;padding:7px 14px;border-radius:8px;font-size:13px;font-weight:700;background:#ff9900;color:#fff;text-decoration:none;transition:opacity .15s;white-space:nowrap}
+.btn-amz-sm:hover{opacity:.88}
+
+/* POR PRESUPUESTO */
+.budget-section{background:var(--bg);border-bottom:1px solid var(--bd);padding:2.5rem 2rem}
+.budget-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:.25rem}
+.budget-card{border:1.5px solid var(--bd);border-radius:14px;padding:1.25rem 1.35rem;display:flex;flex-direction:column;gap:10px;text-decoration:none;transition:border-color .15s,box-shadow .15s;background:var(--bg)}
+.budget-card:hover{border-color:var(--ac);box-shadow:0 4px 18px rgba(0,104,71,.1)}
+.budget-card-range{font-size:1.1rem;font-weight:800;color:var(--tx);letter-spacing:-.03em}
+.budget-card-desc{font-size:.83rem;color:var(--tx2);line-height:1.45;flex:1}
+.budget-card-cta{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:700;color:var(--ac)}
+
+@media(max-width:640px){
+  .pop-grid{grid-template-columns:repeat(2,1fr)}
+  .pop-section,.budget-section{padding:2rem 1rem}
+  .budget-grid{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
@@ -173,6 +204,77 @@ footer a{color:var(--ac);text-decoration:none}
     <div class="step"><span class="step-num">PASO 1 — ENCUENTRA</span><span class="step-txt">Encuentra tu categoría</span></div>
     <div class="step"><span class="step-num">PASO 2 — SELECCIONA</span><span class="step-txt">Elige 2 o 3 productos</span></div>
     <div class="step"><span class="step-num">PASO 3 — COMPARA</span><span class="step-txt">Compara y decide dónde comprar</span></div>
+  </div>
+</div>
+
+<!-- MÁS BUSCADOS -->
+<div class="pop-section">
+  <div class="pop-inner">
+    <p class="section-label">Esta semana</p>
+    <h2 class="section-title">Más buscados en celulares</h2>
+    <div class="pop-grid">
+      <div class="pop-card">
+        <span class="pop-card-name">Motorola Moto G75 5G</span>
+        <span class="pop-card-price">$4,190 <small style="font-size:.7rem;font-weight:500;color:var(--tx3)">MXN</small></span>
+        <span class="pop-card-date">Precio oct 2026</span>
+        <div class="pop-card-btns">
+          <a class="btn-ml-sm" href="https://meli.la/1YNrnqo" rel="sponsored nofollow noopener" target="_blank" onclick="gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Motorola Moto G75',location:'hub_masbuscados'})">ML →</a>
+          <!-- PENDIENTE: link afiliado Amazon Motorola Moto G75 -->
+        </div>
+      </div>
+      <div class="pop-card">
+        <span class="pop-card-name">Samsung Galaxy A16 5G</span>
+        <span class="pop-card-price">$2,639 <small style="font-size:.7rem;font-weight:500;color:var(--tx3)">MXN</small></span>
+        <span class="pop-card-date">Precio oct 2026</span>
+        <div class="pop-card-btns">
+          <a class="btn-ml-sm" href="https://meli.la/2odmD8G" rel="sponsored nofollow noopener" target="_blank" onclick="gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Samsung Galaxy A16 5G',location:'hub_masbuscados'})">ML →</a>
+          <!-- PENDIENTE: link afiliado Amazon Samsung Galaxy A16 5G -->
+        </div>
+      </div>
+      <div class="pop-card">
+        <span class="pop-card-name">Xiaomi Redmi 17</span>
+        <span class="pop-card-price">$4,009 <small style="font-size:.7rem;font-weight:500;color:var(--tx3)">MXN</small></span>
+        <span class="pop-card-date">Precio oct 2026</span>
+        <div class="pop-card-btns">
+          <a class="btn-ml-sm" href="https://meli.la/2nAtP9e" rel="sponsored nofollow noopener" target="_blank" onclick="gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Xiaomi Redmi 17',location:'hub_masbuscados'})">ML →</a>
+          <!-- PENDIENTE: link afiliado Amazon Xiaomi Redmi 17 -->
+        </div>
+      </div>
+      <div class="pop-card">
+        <span class="pop-card-name">Motorola G86 5G</span>
+        <span class="pop-card-price">$4,588 <small style="font-size:.7rem;font-weight:500;color:var(--tx3)">MXN</small></span>
+        <span class="pop-card-date">Precio oct 2026</span>
+        <div class="pop-card-btns">
+          <a class="btn-ml-sm" href="https://meli.la/1A7T9CX" rel="sponsored nofollow noopener" target="_blank" onclick="gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Motorola G86',location:'hub_masbuscados'})">ML →</a>
+          <!-- PENDIENTE: link afiliado Amazon Motorola G86 -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- POR PRESUPUESTO -->
+<div class="budget-section">
+  <div class="budget-inner">
+    <p class="section-label">Decide cuánto gastar</p>
+    <h2 class="section-title">Por presupuesto</h2>
+    <div class="budget-grid">
+      <a class="budget-card" href="/guias/celulares/mejores-celulares-menos-5000/">
+        <span class="budget-card-range">Hasta $5,000</span>
+        <span class="budget-card-desc">5G, batería de larga duración y suficiente RAM para el día a día. La mejor relación calidad-precio del mercado.</span>
+        <span class="budget-card-cta">Ver comparativa →</span>
+      </a>
+      <a class="budget-card" href="/guias/celulares/mejores-celulares-calidad-precio/">
+        <span class="budget-card-range">$5,000 – $10,000</span>
+        <span class="budget-card-desc">Gama media-alta: pantallas AMOLED, cámaras de 50 MP, más almacenamiento y diseño premium.</span>
+        <span class="budget-card-cta">Ver comparativa →</span>
+      </a>
+      <a class="budget-card" href="/celulares/iphone/">
+        <span class="budget-card-range">Más de $10,000</span>
+        <span class="budget-card-desc">iPhone y Android flagship: máximo rendimiento, cámara profesional y ecosistema completo.</span>
+        <span class="budget-card-cta">Ver iPhones →</span>
+      </a>
+    </div>
   </div>
 </div>
 

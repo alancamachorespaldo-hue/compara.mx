@@ -20,6 +20,7 @@
 <meta property="article:section" content="Celulares">
 <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@comparalomx">
+<meta name="twitter:image" content="https://comparalo.mx/fotos/og/celulares-og.jpg">
 <meta name="twitter:title" content="Mejores celulares calidad-precio en México (2026)">
 <meta name="twitter:description" content="Comparamos los mejores celulares calidad-precio en México por presupuesto: qué obtienes y qué sacrificas en cada rango de precio.">
 <meta name="robots" content="index, follow">
@@ -27,7 +28,7 @@
 
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
-  {"@type":"Article","headline":"Mejores celulares calidad-precio en México 2026","description":"Comparamos los mejores celulares calidad-precio en México por presupuesto: qué obtienes y qué sacrificas en cada rango de precio, de $3,000 a $13,000 pesos.","image":"https://comparalo.mx/fotos/og/celulares-og.jpg","datePublished":"2026-09-23","dateModified":"2026-09-27","author":{"@type":"Organization","name":"comparalo.mx","url":"https://comparalo.mx/sobre-nosotros/"},"publisher":{"@type":"Organization","name":"comparalo.mx","url":"https://comparalo.mx","logo":{"@type":"ImageObject","url":"https://comparalo.mx/logopng.png"}},"url":"https://comparalo.mx/guias/celulares/mejores-celulares-calidad-precio/","inLanguage":"es-MX"},
+  {"@type":"Article","headline":"Mejores celulares calidad-precio en México 2026","description":"Comparamos los mejores celulares calidad-precio en México por presupuesto: qué obtienes y qué sacrificas en cada rango de precio, de $3,000 a $13,000 pesos.","image":"https://comparalo.mx/fotos/og/celulares-og.jpg","datePublished":"2026-09-23","dateModified":"2026-10-19","author":{"@type":"Organization","name":"comparalo.mx","url":"https://comparalo.mx/sobre-nosotros/"},"publisher":{"@type":"Organization","name":"comparalo.mx","url":"https://comparalo.mx","logo":{"@type":"ImageObject","url":"https://comparalo.mx/logopng.png"}},"url":"https://comparalo.mx/guias/celulares/mejores-celulares-calidad-precio/","inLanguage":"es-MX"},
   {"@type":"BreadcrumbList","itemListElement":[
     {"@type":"ListItem","position":1,"name":"Inicio","item":"https://comparalo.mx/"},
     {"@type":"ListItem","position":2,"name":"Celulares","item":"https://comparalo.mx/celulares/"},
@@ -234,6 +235,30 @@ body.bar-active{padding-bottom:64px}
 /* FOOTER */
 footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;text-align:center;font-size:12px;color:var(--tx3)}
 footer a{color:var(--ac);text-decoration:none}
+
+/* BUY BLOCK – botones de afiliado en secciones editoriales */
+.buy-block{background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:.875rem 1rem;margin:.6rem 0 1.25rem;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.buy-block-price{display:flex;flex-direction:column;gap:2px}
+.buy-block-main{font-size:1.1rem;font-weight:700;color:var(--tx);letter-spacing:-.03em}
+.buy-block-date{font-size:11px;color:var(--tx3)}
+.buy-block-btns{display:flex;gap:8px;flex-wrap:wrap}
+.btn-cta-amz{display:inline-flex;align-items:center;gap:5px;background:#ff9900;color:#fff;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:none;transition:opacity .15s;white-space:nowrap}
+.btn-cta-amz:hover{opacity:.9}
+.btn-cta-ml{display:inline-flex;align-items:center;gap:5px;background:var(--ml);color:#5a4200;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:none;transition:opacity .15s;white-space:nowrap}
+.btn-cta-ml:hover{opacity:.9}
+.tbl-btn-ml{display:inline-flex;align-items:center;background:var(--ml);color:#5a4200;border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700;text-decoration:none;white-space:nowrap;transition:opacity .15s}
+.tbl-btn-ml:hover{opacity:.9}
+.tbl-btn-amz{display:inline-flex;align-items:center;background:#ff9900;color:#fff;border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700;text-decoration:none;white-space:nowrap;transition:opacity .15s}
+.tbl-btn-amz:hover{opacity:.9}
+/* DECIDE GRID */
+.decide-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin:1rem 0}
+.decide-card{background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:1rem;display:flex;flex-direction:column;gap:8px}
+.decide-name{font-weight:700;font-size:.95rem;color:var(--tx)}
+.decide-price{font-size:1.1rem;font-weight:700;color:var(--tx);letter-spacing:-.02em}
+.decide-date{font-size:11px;color:var(--tx3)}
+.decide-btns{display:flex;flex-direction:column;gap:6px;margin-top:2px}
+@media(max-width:480px){.buy-block{flex-direction:column;align-items:stretch}.buy-block-btns{flex-direction:column}}
+
 </style>
 </head>
 <body>
@@ -293,6 +318,7 @@ footer a{color:var(--ac);text-decoration:none}
             <th scope="col">Pantalla</th>
             <th scope="col">Red</th>
             <th scope="col">Destaca por</th>
+            <th scope="col">Ver precio</th>
           </tr>
         </thead>
         <tbody>
@@ -303,6 +329,7 @@ footer a{color:var(--ac);text-decoration:none}
             <td>Super AMOLED 90 Hz</td>
             <td><span class="tbl-badge-green">5G</span></td>
             <td style="font-size:12px;color:var(--tx2)">Precio + soporte</td>
+            <td><a class="tbl-btn-amz" href="https://www.amazon.com.mx/s?k=samsung+galaxy+a17+5g&tag=comparalo20-20" target="_blank" rel="sponsored nofollow noopener">AMZ →</a></td>
           </tr>
           <tr>
             <td><strong>Motorola Moto G86 5G</strong></td>
@@ -311,6 +338,7 @@ footer a{color:var(--ac);text-decoration:none}
             <td>AMOLED 120 Hz</td>
             <td><span class="tbl-badge-green">5G</span></td>
             <td style="font-size:12px;color:var(--tx2)">Equilibrio</td>
+            <td><a class="tbl-btn-amz" href="https://www.amazon.com.mx/s?k=motorola+moto+g86+5g+256gb&tag=comparalo20-20" target="_blank" rel="sponsored nofollow noopener">AMZ →</a></td>
           </tr>
           <tr>
             <td><strong>Redmi Note 15</strong></td>
@@ -319,6 +347,7 @@ footer a{color:var(--ac);text-decoration:none}
             <td>AMOLED 120 Hz</td>
             <td>4G</td>
             <td style="font-size:12px;color:var(--tx2)">Pantalla + memoria</td>
+            <td><a class="tbl-btn-amz" href="https://www.amazon.com.mx/XIAOMI-Note-15-G100-Ultra-Resistencia/dp/B0G8D3P12C?th=1&linkCode=ll2&tag=comparalo20-20" target="_blank" rel="sponsored nofollow noopener">AMZ →</a></td>
           </tr>
           <tr>
             <td><strong>Samsung Galaxy A56 5G</strong></td>
@@ -327,6 +356,7 @@ footer a{color:var(--ac);text-decoration:none}
             <td>Super AMOLED 120 Hz</td>
             <td><span class="tbl-badge-green">5G</span></td>
             <td style="font-size:12px;color:var(--tx2)">Soporte</td>
+            <td><a class="tbl-btn-amz" href="https://www.amazon.com.mx/s?k=samsung+galaxy+a56+5g&tag=comparalo20-20" target="_blank" rel="sponsored nofollow noopener">AMZ →</a></td>
           </tr>
           <tr>
             <td><strong>Motorola Edge 60</strong></td>
@@ -335,6 +365,7 @@ footer a{color:var(--ac);text-decoration:none}
             <td>OLED</td>
             <td><span class="tbl-badge-green">5G</span></td>
             <td style="font-size:12px;color:var(--tx2)">Memoria + equilibrio</td>
+            <td><a class="tbl-btn-amz" href="https://www.amazon.com.mx/s?k=motorola+edge+60+512gb&tag=comparalo20-20" target="_blank" rel="sponsored nofollow noopener">AMZ →</a></td>
           </tr>
           <tr>
             <td><strong>POCO X8 Pro</strong></td>
@@ -343,6 +374,7 @@ footer a{color:var(--ac);text-decoration:none}
             <td>AMOLED 1.5K 120 Hz</td>
             <td><span class="tbl-badge-green">5G</span></td>
             <td style="font-size:12px;color:var(--tx2)">Rendimiento</td>
+            <td><a class="tbl-btn-amz" href="https://link.amazon/B08gKd47A?tag=comparalo20-20" target="_blank" rel="sponsored nofollow noopener">AMZ →</a></td>
           </tr>
           <tr>
             <td><strong>Google Pixel 9a</strong></td>
@@ -351,6 +383,7 @@ footer a{color:var(--ac);text-decoration:none}
             <td>OLED 120 Hz</td>
             <td><span class="tbl-badge-green">5G</span></td>
             <td style="font-size:12px;color:var(--tx2)">Cámara + software</td>
+            <td><a class="tbl-btn-amz" href="https://www.amazon.com.mx/s?k=google+pixel+9a+128gb&tag=comparalo20-20" target="_blank" rel="sponsored nofollow noopener">AMZ →</a></td>
           </tr>
           <tr>
             <td><strong>Samsung Galaxy S25</strong></td>
@@ -359,6 +392,7 @@ footer a{color:var(--ac);text-decoration:none}
             <td>Dynamic AMOLED 120 Hz</td>
             <td><span class="tbl-badge-green">5G</span></td>
             <td style="font-size:12px;color:var(--tx2)">Experiencia premium</td>
+            <td><a class="tbl-btn-amz" href="https://www.amazon.com.mx/s?k=samsung+galaxy+s25+256gb&tag=comparalo20-20" target="_blank" rel="sponsored nofollow noopener">AMZ →</a></td>
           </tr>
         </tbody>
       </table>
@@ -385,6 +419,17 @@ footer a{color:var(--ac);text-decoration:none}
     </div>
 
     <h2>Motorola Moto G86 5G: mucho equipo por menos de $5,000</h2>
+<div class="buy-block">
+  <div class="buy-block-price">
+    <span class="buy-block-main">$4,199 MXN</span>
+    <span class="buy-block-date">Precio visto: octubre 2026</span>
+  </div>
+  <div class="buy-block-btns">
+    <a class="btn-cta-amz" href="https://www.amazon.com.mx/s?k=motorola+moto+g86+5g+256gb&tag=comparalo20-20" target="_blank" rel="sponsored nofollow noopener" onclick="gtag('event','affiliate_click_amazon',{event_category:'afiliado',event_label:'Motorola Moto G86 5G',location:'editorial_guide'})">Ir a Amazon MX →</a>
+    <!-- PENDIENTE: link afiliado Mercado Libre Motorola Moto G86 5G -->
+  </div>
+</div>
+
     <p>El Moto G86 demuestra cuánto ha avanzado la gama media económica. La versión de 256 GB cuenta con 8 GB de RAM física, procesador Dimensity 7300, pantalla AMOLED de 120 Hz, batería de 5,200 mAh y conectividad 5G. También incluye NFC y resistencia IP68/IP69.</p>
     <h3>Puede convenirte si:</h3>
     <ul>
@@ -398,6 +443,17 @@ footer a{color:var(--ac);text-decoration:none}
     <button class="compare-cta-btn" onclick="selectFromPick('motorola-moto-g86-5g')" aria-label="Seleccionar Moto G86 5G para comparar">＋ Seleccionar Moto G86 5G para comparar</button>
 
     <h2 style="margin-top:2rem">Redmi Note 15: mucha pantalla, batería y memoria por tu dinero</h2>
+<div class="buy-block">
+  <div class="buy-block-price">
+    <span class="buy-block-main">$4,645 MXN</span>
+    <span class="buy-block-date">Precio visto: octubre 2026</span>
+  </div>
+  <div class="buy-block-btns">
+    <a class="btn-cta-amz" href="https://www.amazon.com.mx/XIAOMI-Note-15-G100-Ultra-Resistencia/dp/B0G8D3P12C?th=1&linkCode=ll2&tag=comparalo20-20" target="_blank" rel="sponsored nofollow noopener" onclick="gtag('event','affiliate_click_amazon',{event_category:'afiliado',event_label:'Xiaomi Redmi Note 15',location:'editorial_guide'})">Ir a Amazon MX →</a>
+    <!-- PENDIENTE: link afiliado Mercado Libre Xiaomi Redmi Note 15 -->
+  </div>
+</div>
+
     <p>La versión mexicana de 8/256 GB combina pantalla AMOLED Full HD+ de 120 Hz con una batería de 6,000 mAh. También ofrece cámara principal de 108 MP y almacenamiento ampliable.</p>
     <div class="callout">El precio de referencia actual en Amazon MX es <strong>$4,645</strong> para la versión de 8 GB / 256 GB.</div>
     <h3>Puede convenirte si:</h3>
@@ -412,6 +468,17 @@ footer a{color:var(--ac);text-decoration:none}
     <button class="compare-cta-btn" onclick="selectFromPick('xiaomi-redmi-note-15')" aria-label="Seleccionar Redmi Note 15 para comparar">＋ Seleccionar Redmi Note 15 para comparar</button>
 
     <h2 style="margin-top:2rem">Samsung Galaxy A17 5G: menos especificaciones, pero una propuesta diferente</h2>
+<div class="buy-block">
+  <div class="buy-block-price">
+    <span class="buy-block-main">$2,879 MXN</span>
+    <span class="buy-block-date">Precio visto: octubre 2026</span>
+  </div>
+  <div class="buy-block-btns">
+    <a class="btn-cta-amz" href="https://www.amazon.com.mx/s?k=samsung+galaxy+a17+5g&tag=comparalo20-20" target="_blank" rel="sponsored nofollow noopener" onclick="gtag('event','affiliate_click_amazon',{event_category:'afiliado',event_label:'Samsung Galaxy A17 5G',location:'editorial_guide'})">Ir a Amazon MX →</a>
+    <!-- PENDIENTE: link afiliado Mercado Libre Samsung Galaxy A17 5G -->
+  </div>
+</div>
+
     <p>El Galaxy A17 5G no intenta competir únicamente mediante números. Ofrece pantalla Super AMOLED FHD+ de 90 Hz, 5G y cámara principal con estabilización óptica.</p>
     <h3>Puede convenirte si:</h3>
     <ul>
@@ -437,6 +504,17 @@ footer a{color:var(--ac);text-decoration:none}
     <p>Para muchos compradores, aquí está actualmente la franja más interesante. El salto desde un teléfono económico empieza a traducirse en procesadores más rápidos, mejores cámaras, OIS, 5G, protección IP, más almacenamiento, mejores materiales y soporte más prolongado.</p>
 
     <h2 style="margin-top:1.5rem">Samsung Galaxy A56 5G: valor a largo plazo</h2>
+<div class="buy-block">
+  <div class="buy-block-price">
+    <span class="buy-block-main">$5,499 MXN</span>
+    <span class="buy-block-date">Precio visto: octubre 2026</span>
+  </div>
+  <div class="buy-block-btns">
+    <a class="btn-cta-amz" href="https://www.amazon.com.mx/s?k=samsung+galaxy+a56+5g&tag=comparalo20-20" target="_blank" rel="sponsored nofollow noopener" onclick="gtag('event','affiliate_click_amazon',{event_category:'afiliado',event_label:'Samsung Galaxy A56 5G',location:'editorial_guide'})">Ir a Amazon MX →</a>
+    <!-- PENDIENTE: link afiliado Mercado Libre Samsung Galaxy A56 5G -->
+  </div>
+</div>
+
     <p>El Galaxy A56 ofrece pantalla Super AMOLED de 120 Hz, 8 GB de RAM, cámara principal de 50 MP con OIS y batería de 5,000 mAh. Su argumento más fuerte no está solamente en el hardware: Samsung promete varias generaciones de Android y seis años de actualizaciones de seguridad.</p>
     <h3>Puede convenirte si:</h3>
     <ul>
@@ -449,6 +527,17 @@ footer a{color:var(--ac);text-decoration:none}
     <button class="compare-cta-btn" onclick="selectFromPick('samsung-galaxy-a56-5g')" aria-label="Seleccionar Galaxy A56 5G para comparar">＋ Seleccionar Galaxy A56 5G para comparar</button>
 
     <h2 style="margin-top:2rem">Motorola Edge 60: mucha memoria cuando aparece en promoción</h2>
+<div class="buy-block">
+  <div class="buy-block-price">
+    <span class="buy-block-main">$6,199 MXN</span>
+    <span class="buy-block-date">Precio visto: octubre 2026</span>
+  </div>
+  <div class="buy-block-btns">
+    <a class="btn-cta-amz" href="https://www.amazon.com.mx/s?k=motorola+edge+60+512gb&tag=comparalo20-20" target="_blank" rel="sponsored nofollow noopener" onclick="gtag('event','affiliate_click_amazon',{event_category:'afiliado',event_label:'Motorola Edge 60',location:'editorial_guide'})">Ir a Amazon MX →</a>
+    <!-- PENDIENTE: link afiliado Mercado Libre Motorola Edge 60 -->
+  </div>
+</div>
+
     <p>Cuando su precio baja hacia los $6,000, el Edge 60 se vuelve especialmente interesante. Se han observado configuraciones de 12 GB de RAM y hasta 512 GB dentro de esa zona de precio.</p>
     <h3>Puede convenirte si:</h3>
     <ul>
@@ -461,6 +550,17 @@ footer a{color:var(--ac);text-decoration:none}
     <button class="compare-cta-btn" onclick="selectFromPick('motorola-edge-60')" aria-label="Seleccionar Motorola Edge 60 para comparar">＋ Seleccionar Motorola Edge 60 para comparar</button>
 
     <h2 style="margin-top:2rem">POCO X8 Pro: rendimiento antes que todo</h2>
+<div class="buy-block">
+  <div class="buy-block-price">
+    <span class="buy-block-main">$8,190 MXN</span>
+    <span class="buy-block-date">Precio visto: octubre 2026</span>
+  </div>
+  <div class="buy-block-btns">
+    <a class="btn-cta-amz" href="https://link.amazon/B08gKd47A?tag=comparalo20-20" target="_blank" rel="sponsored nofollow noopener" onclick="gtag('event','affiliate_click_amazon',{event_category:'afiliado',event_label:'Xiaomi Poco X8 Pro',location:'editorial_guide'})">Ir a Amazon MX →</a>
+    <!-- PENDIENTE: link afiliado Mercado Libre Xiaomi Poco X8 Pro -->
+  </div>
+</div>
+
     <p>El POCO X8 Pro utiliza Dimensity 8500-Ultra, RAM LPDDR5X y almacenamiento UFS 4.1. También cuenta con AMOLED 1.5K de 120 Hz, batería de 6,500 mAh y carga de hasta 100 W.</p>
     <div class="callout">Disponible en Amazon MX. El precio actual puede variar — consulta el comparador para ver el precio al momento.</div>
     <h3>Puede convenirte si:</h3>
@@ -475,6 +575,17 @@ footer a{color:var(--ac);text-decoration:none}
     <button class="compare-cta-btn" onclick="selectFromPick('xiaomi-poco-x8-pro')" aria-label="Seleccionar POCO X8 Pro para comparar">＋ Seleccionar POCO X8 Pro para comparar</button>
 
     <h2 style="margin-top:2rem">Google Pixel 9a: calidad-precio no siempre significa más números</h2>
+<div class="buy-block">
+  <div class="buy-block-price">
+    <span class="buy-block-main">$8,999 MXN</span>
+    <span class="buy-block-date">Precio visto: octubre 2026</span>
+  </div>
+  <div class="buy-block-btns">
+    <a class="btn-cta-amz" href="https://www.amazon.com.mx/s?k=google+pixel+9a+128gb&tag=comparalo20-20" target="_blank" rel="sponsored nofollow noopener" onclick="gtag('event','affiliate_click_amazon',{event_category:'afiliado',event_label:'Google Pixel 9a',location:'editorial_guide'})">Ir a Amazon MX →</a>
+    <!-- PENDIENTE: link afiliado Mercado Libre Google Pixel 9a -->
+  </div>
+</div>
+
     <p>El Pixel 9a es un buen ejemplo de por qué no basta comparar megapíxeles y capacidad de batería. Cuenta con Tensor G4, pantalla OLED de 120 Hz, 8 GB de RAM, cámara principal de 48 MP con OIS y siete años de actualizaciones. Su atractivo está especialmente en cámara, software y soporte.</p>
     <h3>Puede convenirte si:</h3>
     <ul>
@@ -496,6 +607,17 @@ footer a{color:var(--ac);text-decoration:none}
     <p>Superar los $10,000 no garantiza automáticamente una mejor compra. En este punto deberías poder identificar qué característica adicional estás pagando.</p>
 
     <h2 style="margin-top:1.25rem">Samsung Galaxy S25: un gama alta anterior puede tener mucho sentido</h2>
+<div class="buy-block">
+  <div class="buy-block-price">
+    <span class="buy-block-main">$12,899 MXN</span>
+    <span class="buy-block-date">Precio visto: octubre 2026</span>
+  </div>
+  <div class="buy-block-btns">
+    <a class="btn-cta-amz" href="https://www.amazon.com.mx/s?k=samsung+galaxy+s25+256gb&tag=comparalo20-20" target="_blank" rel="sponsored nofollow noopener" onclick="gtag('event','affiliate_click_amazon',{event_category:'afiliado',event_label:'Samsung Galaxy S25',location:'editorial_guide'})">Ir a Amazon MX →</a>
+    <!-- PENDIENTE: link afiliado Mercado Libre Samsung Galaxy S25 -->
+  </div>
+</div>
+
     <p>El Galaxy S25 ha bajado sustancialmente respecto de su precio original. Combina Snapdragon 8 Elite for Galaxy, 12 GB de RAM, pantalla Dynamic AMOLED de 120 Hz y un sistema de cámaras que incluye teleobjetivo óptico.</p>
     <h3>Puede convenirte si:</h3>
     <ul>
@@ -650,7 +772,105 @@ footer a{color:var(--ac);text-decoration:none}
     </div>
   </div>
 
-  <!-- FAQ -->
+  
+<!-- ¿YA DECIDISTE? -->
+<div class="ed-section">
+  <h2>¿Ya decidiste? Compara precios ahora</h2>
+  <p style="font-size:.9rem;color:var(--tx3);margin-bottom:1.25rem">Precios de referencia editorial — octubre 2026. Consulta el precio actual antes de comprar.</p>
+  <div class="decide-grid">
+  <div class="decide-card">
+    <div class="decide-name">Samsung Galaxy A17 5G</div>
+    <div>
+      <div class="decide-price">$2,879 MXN</div>
+      <div class="decide-date">oct. 2026 · ref. editorial</div>
+    </div>
+    <div class="decide-btns">
+      <a class="btn-cta-amz" href="https://www.amazon.com.mx/s?k=samsung+galaxy+a17+5g&tag=comparalo20-20" target="_blank" rel="sponsored nofollow noopener" onclick="gtag('event','affiliate_click_amazon',{event_category:'afiliado',event_label:'Samsung Galaxy A17 5G',location:'decide_section'})">Ir a Amazon MX →</a>
+      <!-- PENDIENTE: link afiliado Mercado Libre Samsung Galaxy A17 5G -->
+    </div>
+  </div>
+  <div class="decide-card">
+    <div class="decide-name">Motorola Moto G86 5G</div>
+    <div>
+      <div class="decide-price">$4,199 MXN</div>
+      <div class="decide-date">oct. 2026 · ref. editorial</div>
+    </div>
+    <div class="decide-btns">
+      <a class="btn-cta-amz" href="https://www.amazon.com.mx/s?k=motorola+moto+g86+5g+256gb&tag=comparalo20-20" target="_blank" rel="sponsored nofollow noopener" onclick="gtag('event','affiliate_click_amazon',{event_category:'afiliado',event_label:'Motorola Moto G86 5G',location:'decide_section'})">Ir a Amazon MX →</a>
+      <!-- PENDIENTE: link afiliado Mercado Libre Motorola Moto G86 5G -->
+    </div>
+  </div>
+  <div class="decide-card">
+    <div class="decide-name">Xiaomi Redmi Note 15</div>
+    <div>
+      <div class="decide-price">$4,645 MXN</div>
+      <div class="decide-date">oct. 2026 · ref. editorial</div>
+    </div>
+    <div class="decide-btns">
+      <a class="btn-cta-amz" href="https://www.amazon.com.mx/XIAOMI-Note-15-G100-Ultra-Resistencia/dp/B0G8D3P12C?th=1&linkCode=ll2&tag=comparalo20-20" target="_blank" rel="sponsored nofollow noopener" onclick="gtag('event','affiliate_click_amazon',{event_category:'afiliado',event_label:'Xiaomi Redmi Note 15',location:'decide_section'})">Ir a Amazon MX →</a>
+      <!-- PENDIENTE: link afiliado Mercado Libre Xiaomi Redmi Note 15 -->
+    </div>
+  </div>
+  <div class="decide-card">
+    <div class="decide-name">Samsung Galaxy A56 5G</div>
+    <div>
+      <div class="decide-price">$5,499 MXN</div>
+      <div class="decide-date">oct. 2026 · ref. editorial</div>
+    </div>
+    <div class="decide-btns">
+      <a class="btn-cta-amz" href="https://www.amazon.com.mx/s?k=samsung+galaxy+a56+5g&tag=comparalo20-20" target="_blank" rel="sponsored nofollow noopener" onclick="gtag('event','affiliate_click_amazon',{event_category:'afiliado',event_label:'Samsung Galaxy A56 5G',location:'decide_section'})">Ir a Amazon MX →</a>
+      <!-- PENDIENTE: link afiliado Mercado Libre Samsung Galaxy A56 5G -->
+    </div>
+  </div>
+  <div class="decide-card">
+    <div class="decide-name">Motorola Edge 60</div>
+    <div>
+      <div class="decide-price">$6,199 MXN</div>
+      <div class="decide-date">oct. 2026 · ref. editorial</div>
+    </div>
+    <div class="decide-btns">
+      <a class="btn-cta-amz" href="https://www.amazon.com.mx/s?k=motorola+edge+60+512gb&tag=comparalo20-20" target="_blank" rel="sponsored nofollow noopener" onclick="gtag('event','affiliate_click_amazon',{event_category:'afiliado',event_label:'Motorola Edge 60',location:'decide_section'})">Ir a Amazon MX →</a>
+      <!-- PENDIENTE: link afiliado Mercado Libre Motorola Edge 60 -->
+    </div>
+  </div>
+  <div class="decide-card">
+    <div class="decide-name">Xiaomi Poco X8 Pro</div>
+    <div>
+      <div class="decide-price">$8,190 MXN</div>
+      <div class="decide-date">oct. 2026 · ref. editorial</div>
+    </div>
+    <div class="decide-btns">
+      <a class="btn-cta-amz" href="https://link.amazon/B08gKd47A?tag=comparalo20-20" target="_blank" rel="sponsored nofollow noopener" onclick="gtag('event','affiliate_click_amazon',{event_category:'afiliado',event_label:'Xiaomi Poco X8 Pro',location:'decide_section'})">Ir a Amazon MX →</a>
+      <!-- PENDIENTE: link afiliado Mercado Libre Xiaomi Poco X8 Pro -->
+    </div>
+  </div>
+  <div class="decide-card">
+    <div class="decide-name">Google Pixel 9a</div>
+    <div>
+      <div class="decide-price">$8,999 MXN</div>
+      <div class="decide-date">oct. 2026 · ref. editorial</div>
+    </div>
+    <div class="decide-btns">
+      <a class="btn-cta-amz" href="https://www.amazon.com.mx/s?k=google+pixel+9a+128gb&tag=comparalo20-20" target="_blank" rel="sponsored nofollow noopener" onclick="gtag('event','affiliate_click_amazon',{event_category:'afiliado',event_label:'Google Pixel 9a',location:'decide_section'})">Ir a Amazon MX →</a>
+      <!-- PENDIENTE: link afiliado Mercado Libre Google Pixel 9a -->
+    </div>
+  </div>
+  <div class="decide-card">
+    <div class="decide-name">Samsung Galaxy S25</div>
+    <div>
+      <div class="decide-price">$12,899 MXN</div>
+      <div class="decide-date">oct. 2026 · ref. editorial</div>
+    </div>
+    <div class="decide-btns">
+      <a class="btn-cta-amz" href="https://www.amazon.com.mx/s?k=samsung+galaxy+s25+256gb&tag=comparalo20-20" target="_blank" rel="sponsored nofollow noopener" onclick="gtag('event','affiliate_click_amazon',{event_category:'afiliado',event_label:'Samsung Galaxy S25',location:'decide_section'})">Ir a Amazon MX →</a>
+      <!-- PENDIENTE: link afiliado Mercado Libre Samsung Galaxy S25 -->
+    </div>
+  </div>
+  </div>
+  <div class="disclosure" style="margin-top:1rem"><strong>Aviso:</strong> Al hacer clic en estos enlaces puedes adquirir el producto en Amazon MX a través de nuestro programa de afiliados. No pagas más — comparalo.mx puede recibir una comisión.</div>
+</div>
+
+<!-- FAQ -->
   <div class="ed-section">
     <h2>Preguntas frecuentes</h2>
     <div class="faq-list">
@@ -711,6 +931,7 @@ footer a{color:var(--ac);text-decoration:none}
 /* ── DATOS ──
    Modelos marcados con fromDB:true usan precio y enlace del catálogo actual.
    El resto son referencias editoriales. */
+/* PRECIOS: para actualizar, edita el array familiasCPV al inicio del script */
 const familiasCPV = [
   {
     modeloBase: 'samsung-galaxy-a17-5g',
