@@ -721,7 +721,7 @@ const productos = [
     "marca": "Amazon",
     "linkML": "https://meli.la/22Gh4yu",
     "linkAmz": "https://www.amazon.com.mx/Amazon-modelo-inteligente-sonido-vibrante/dp/B0BFC8DR7C?dib=eyJ2IjoiMSJ9.mGluGuLWrtHJ0oYW9c5_8CPQK4s5OL1ji-LhkpbT9GoMV_3fPqQpDD7Xa74V1isYKII4bYXWZ3B3NT34Mn0uJ8whozsw5oupdXjjtMCLa5A3qnGgYUrO7l4VHlpLnadeSr6-tiluE_rcZhJUsKIAQ1rzBr04_zYUgOkwwtNBw1ttGlJCFQUqFEsl5hyQBPhrnb6_iQ71iP6Z86Cx-0UtIteWkuzy0Qha3R-vEqh8Z5eqa8qHktTV5vrk8W5OuWnvbi1J0UFzEFD2KuDfKU_u7DBdCWbbybAkbenwwociDfw.XQlO6_ObRryMdzh9WRI1s8xn5DSCkcZ2Dcp6rM9L0z0&dib_tag=se&keywords=Amazon%2BDespertador%2BInteligente%2BAlexa%2BAmazon%2BEcho%2BSpot%2B2024%2BAzul&qid=1791859260&sr=8-1&ufe=app_do%3Aamzn1.fos.106a5c47-3834-496c-bc96-2470107b82ca&th=1&linkCode=ll2&tag=comparalo20-20&linkId=f316716362ef1f21325b02708971fe0e&ref_=as_li_ss_tl",
-    "precioML": 1549,
+    "precioML": 999,
     "precioAmz": 2299,
     "imagen": "https://http2.mlstatic.com/D_NQ_NP_767816-MLA99954081993_112025-F.jpg",
     "especs": {
@@ -1134,6 +1134,7 @@ const productos = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 
 
