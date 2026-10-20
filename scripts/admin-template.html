@@ -1443,7 +1443,16 @@ function submitAdd(form) {
 // ── Revisión rápida de IDs ──────────────────────────────────────────────────
 function openReview(startKey) {
   const rank = r => Array.isArray(r.p._mlSug) ? (r.p._mlSug.length ? 2000 + (r.p._mlSug[0].s || 0) : 0) : 1000;
-  RV.list = baseRows().filter(r => r.p.linkML && !r.p.mlId).sort((a, b) => rank(b) - rank(a)).map(r => r.key);
+  const hasNoId = r => !!r.p.linkML && !r.p.mlId;
+  if (startKey && CURRENT.length > 0) {
+    // Usar el orden visual de la tabla para que "producto 3" aparezca como "3 de N"
+    const visKeys = CURRENT.filter(hasNoId).map(r => r.key);
+    const visSet = new Set(visKeys);
+    const rest = baseRows().filter(r => hasNoId(r) && !visSet.has(r.key)).sort((a, b) => rank(b) - rank(a)).map(r => r.key);
+    RV.list = [...visKeys, ...rest];
+  } else {
+    RV.list = baseRows().filter(hasNoId).sort((a, b) => rank(b) - rank(a)).map(r => r.key);
+  }
   RV.done = 0;
   RV.i = startKey ? Math.max(0, RV.list.indexOf(startKey)) : 0;
   if (!RV.list.length) { toast('Todos los productos con link de ML ya tienen ID de catálogo'); return; }
