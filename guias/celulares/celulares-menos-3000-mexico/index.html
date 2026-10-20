@@ -597,56 +597,102 @@
       : (typeof celularesData !== "undefined" && Array.isArray(celularesData) ? celularesData : []);
 
     const fallbackCelularesData = [
-      {
-        id: "motorola-moto-g05", nombre: "Motorola Moto G05",
-        aliases: ["moto g05", "motorola g05"],
-        precioReferencia: 2399, ram: "4 GB", bateria: "5,200 mAh",
-        pantalla: "6.67\"", almacenamiento: "64 GB", cam: "13 MP", imagen: null,
-        mejor: "Batería y uso básico", peor: "Pantalla HD+ y rendimiento de entrada",
-        linkAmz: null, linkML: null, pendiente: true
-      },
-      {
-        id: "samsung-galaxy-a0x", nombre: "Samsung Galaxy A06 / A07",
-        aliases: ["samsung galaxy a06", "samsung galaxy a07", "galaxy a06", "galaxy a07"],
-        precioReferencia: null, ram: "4 GB en versiones base", bateria: "5,000 mAh",
-        pantalla: "6.7\"", almacenamiento: "128 GB", cam: "50 MP", imagen: null,
-        mejor: "Uso diario y marca conocida", peor: "Pantalla HD+ y sin OIS",
-        linkAmz: null, linkML: null, pendiente: true
-      },
-      {
-        id: "xiaomi-redmi-14c", nombre: "Xiaomi Redmi 14C",
-        aliases: ["redmi 14c", "xiaomi redmi 14c"],
-        precioReferencia: 2798, ram: "4 GB en referencia 4/128 GB", bateria: "5,160 mAh",
-        pantalla: "6.88\"", almacenamiento: "128 GB", cam: "50 MP",
-        imagen: "https://m.media-amazon.com/images/I/81AkmE6j6KL._AC_SX522_.jpg",
-        mejor: "Pantalla grande y batería", peor: "Rendimiento de entrada",
-        linkAmz: "https://link.amazon/B0ayFg1hL?tag=comparalo20-20", linkML: null, pendiente: false
-      },
-      {
-        id: "infinix-hot-50", nombre: "Infinix HOT 50",
-        aliases: ["infinix hot 50", "infinix hot 50 4g", "infinix hot 50 5g"],
-        precioReferencia: 2698, ram: "8 GB en anuncios consultados", bateria: "5,000 mAh",
-        pantalla: "6.78\"", almacenamiento: "128 GB", cam: "50 MP", imagen: null,
-        mejor: "Almacenamiento en algunas ofertas", peor: "Stock, variantes y garantía variables",
-        linkAmz: null, linkML: null, pendiente: true
-      },
-      {
-        id: "tcl-50-se", nombre: "TCL 50 SE",
-        aliases: ["tcl 50 se"],
-        precioReferencia: null, ram: "4 o 6 GB según versión", bateria: "5,010 mAh",
-        pantalla: "6.75\"", almacenamiento: "128 GB", cam: "50 MP", imagen: null,
-        mejor: "Pantalla Full HD+", peor: "Disponibilidad y soporte por confirmar",
-        linkAmz: null, linkML: null, pendiente: true
-      },
-      {
-        id: "motorola-moto-g75", nombre: "Motorola Moto G75 5G",
-        aliases: ["motorola moto g75 5g", "moto g75 5g", "moto g75"],
-        precioReferencia: 4190, ram: "8 GB", bateria: "5,000 mAh",
-        pantalla: "6.8\"", almacenamiento: "256 GB", cam: "50 MP",
-        imagen: "https://http2.mlstatic.com/D_NQ_NP_724003-MLA99989849311_112025-F.jpg",
-        mejor: "5G, más rendimiento y OIS", peor: "Requiere $1,190 extra frente al presupuesto",
-        linkAmz: null, linkML: "https://meli.la/1YNrnqo", pendiente: false
-      }
+        {
+            "id": "android-motorola-g34-128gb-8gb",
+            "nombre": "Motorola G34 128GB/8GB RAM",
+            "imagen": "https://http2.mlstatic.com/D_NQ_NP_745169-MLA99996670853_112-F.jpg",
+            "precioML": 2965,
+            "precioAmz": null,
+            "precioReferencia": 2965,
+            "linkML": "https://meli.la/2Uhrq5w",
+            "linkAmz": null,
+            "pantalla": "6.5\"",
+            "ram": "8 GB",
+            "almacenamiento": "128 GB",
+            "cam": "50 MP",
+            "chip": "Snapdragon 695",
+            "bateria": "5k mAh"
+        },
+        {
+            "id": "android-samsung-a16-5g-128gb-4gb",
+            "nombre": "Samsung A16 5G 128GB/4GB RAM",
+            "imagen": "https://http2.mlstatic.com/D_NQ_NP_802041-MLA99444576642_112025-F.jpg",
+            "precioML": 2701,
+            "precioAmz": null,
+            "precioReferencia": 2701,
+            "linkML": "https://meli.la/26AC4x2",
+            "linkAmz": null,
+            "pantalla": "6.7\"",
+            "ram": "4 GB",
+            "almacenamiento": "128 GB",
+            "cam": "50 MP",
+            "chip": null,
+            "bateria": "5k mAh"
+        },
+        {
+            "id": "android-samsung-a16-128gb-4gb",
+            "nombre": "Samsung A16 128GB/4GB RAM",
+            "imagen": "https://http2.mlstatic.com/D_NQ_NP_790939-MLA99551674904_122025-F.jpg",
+            "precioML": 2599,
+            "precioAmz": null,
+            "precioReferencia": 2599,
+            "linkML": "https://meli.la/2x52VQA",
+            "linkAmz": null,
+            "pantalla": "6.7\"",
+            "ram": "4 GB",
+            "almacenamiento": "128 GB",
+            "cam": "50 MP",
+            "chip": "OCTA-CORE",
+            "bateria": "5k mAh"
+        },
+        {
+            "id": "android-motorola-moto-g17-128gb-4gb",
+            "nombre": "Motorola Moto G17 128GB/4GB RAM",
+            "imagen": "https://http2.mlstatic.com/D_NQ_NP_607340-MLA105493148188_01-F.jpg",
+            "precioML": 2792,
+            "precioAmz": null,
+            "precioReferencia": 2792,
+            "linkML": "https://meli.la/2wJTqPJ",
+            "linkAmz": null,
+            "pantalla": "6.67\"",
+            "ram": "4 GB",
+            "almacenamiento": "128 GB",
+            "cam": "50 MP",
+            "chip": "MediaTek Helio G81 Extreme",
+            "bateria": "5.2k mAh"
+        },
+        {
+            "id": "android-motorola-moto-g06-256gb-4gb",
+            "nombre": "Motorola Moto G06 256GB/4GB RAM",
+            "imagen": "https://http2.mlstatic.com/D_NQ_NP_819589-MLA100977465205_12-F.jpg",
+            "precioML": 2699,
+            "precioAmz": null,
+            "precioReferencia": 2699,
+            "linkML": "https://meli.la/1JvFZd7",
+            "linkAmz": null,
+            "pantalla": "6.67\"",
+            "ram": "4 GB",
+            "almacenamiento": "256 GB",
+            "cam": "50 MP",
+            "chip": "MediaTek Helio G81 Extreme",
+            "bateria": "5.2k mAh"
+        },
+        {
+            "id": "android-honor-x5c-plus-128gb-4gb",
+            "nombre": "Honor X5C Plus 128GB/4GB RAM",
+            "imagen": "https://http2.mlstatic.com/D_NQ_NP_924638-MLA115381726358_082026-F.jpg",
+            "precioML": 2399,
+            "precioAmz": null,
+            "precioReferencia": 2399,
+            "linkML": "https://meli.la/1y5gxUN",
+            "linkAmz": null,
+            "pantalla": "6.74\"",
+            "ram": "4 GB",
+            "almacenamiento": "128 GB",
+            "cam": "50 MP",
+            "chip": "Mediatek Helio G81",
+            "bateria": "5k mAh"
+        }
     ];
 
     function normalizarNombre(valor) {

@@ -542,60 +542,134 @@
       : (typeof celularesData !== "undefined" && Array.isArray(celularesData) ? celularesData : []);
 
     const fallbackCelularesData = [
-      {
-        id: "samsung-galaxy-a56-5g", nombre: "Samsung Galaxy A56 5G",
-        aliases: ["samsung galaxy a56 5g", "galaxy a56 5g", "samsung galaxy a56"],
-        precioReferencia: 7000, rango: "Hasta $7,000",
-        pantalla: "6.7\"", ram: "12 GB", almacenamiento: "256 GB", cam: "50 MP",
-        imagen: "https://http2.mlstatic.com/D_NQ_NP_720211-MLA99849817993_112-F.jpg",
-        linkAmz: null, linkML: "https://meli.la/2yNkMtY",
-        busquedaAmz: "Samsung Galaxy A56 5G", busquedaML: "samsung-galaxy-a56-5g"
-      },
-      {
-        id: "motorola-edge-60-fusion", nombre: "Motorola Edge 60 Fusion",
-        aliases: ["motorola edge 60 fusion", "edge 60 fusion"],
-        precioReferencia: 8999, rango: "$7,000–$10,000",
-        pantalla: "6.67\"", ram: "8 GB", almacenamiento: "128 GB", cam: "50 MP",
-        imagen: "https://http2.mlstatic.com/D_NQ_NP_992103-MLA115144677070_082026-F.jpg",
-        linkAmz: null, linkML: "https://meli.la/1m7nuZG",
-        busquedaAmz: "Motorola Edge 60 Fusion", busquedaML: "motorola-edge-60-fusion"
-      },
-      {
-        id: "poco-x8-pro", nombre: "POCO X8 Pro",
-        aliases: ["poco x8 pro", "xiaomi poco x8 pro"],
-        precioReferencia: 8000, rango: "$7,000–$10,000",
-        pantalla: "6.66\"", ram: "12 GB", almacenamiento: "512 GB", cam: "50 MP",
-        imagen: "https://m.media-amazon.com/images/I/61bdCBz79FL._AC_SX522_.jpg",
-        linkAmz: "https://link.amazon/B08gKd47A?tag=comparalo20-20", linkML: null,
-        busquedaAmz: "POCO X8 Pro", busquedaML: "poco-x8-pro"
-      },
-      {
-        id: "google-pixel-9a", nombre: "Google Pixel 9a",
-        aliases: ["google pixel 9a", "pixel 9a"],
-        precioReferencia: 8699, rango: "$7,000–$10,000",
-        pantalla: "6.3\"", ram: "8 GB", almacenamiento: "128 GB", cam: "48 MP",
-        imagen: "https://http2.mlstatic.com/D_NQ_NP_973131-MLA99392824964_112025-F.jpg",
-        linkAmz: null, linkML: "https://meli.la/1EUpGXo",
-        busquedaAmz: "Google Pixel 9a", busquedaML: "google-pixel-9a"
-      },
-      {
-        id: "redmi-note-15-pro-5g", nombre: "REDMI Note 15 Pro 5G",
-        aliases: ["redmi note 15 pro 5g", "xiaomi redmi note 15 pro 5g"],
-        precioReferencia: 9499, rango: "$7,000–$10,000",
-        pantalla: "6.77\"", ram: "8 GB", almacenamiento: "256 GB", cam: "200 MP",
-        imagen: null,
-        linkAmz: null, linkML: "https://meli.la/2TnzRde",
-        busquedaAmz: "REDMI Note 15 Pro 5G", busquedaML: "redmi-note-15-pro-5g"
-      },
-      {
-        id: "oneplus-nord-4", nombre: "OnePlus Nord 4",
-        aliases: ["oneplus nord 4"],
-        precioReferencia: null, rango: "Disponibilidad por verificar",
-        pantalla: "6.74\"", ram: "12 GB", almacenamiento: "256 GB", cam: "50 MP",
-        imagen: null,
-        linkAmz: null, linkML: null,
-        busquedaAmz: "OnePlus Nord 4", busquedaML: "oneplus-nord-4"
-      }
+        {
+            "id": "android-nothing-phone-3a-lite-256gb-8gb",
+            "nombre": "Nothing Phone (3a) Lite 256GB/8GB RAM",
+            "imagen": "https://http2.mlstatic.com/D_NQ_NP_920382-MLA98946550853_112-F.jpg",
+            "precioML": 5374,
+            "precioAmz": null,
+            "precioReferencia": 5374,
+            "linkML": "https://meli.la/1niPmRP",
+            "linkAmz": null,
+            "pantalla": "6.77\"",
+            "ram": "8 GB",
+            "almacenamiento": "256 GB",
+            "cam": "50 MP",
+            "chip": "MediaTek Dimensity 7300 Pro 5G",
+            "bateria": "5k mAh"
+        },
+        {
+            "id": "android-motorola-celular-moto-edge-60-neo-12-256gb-12gb",
+            "nombre": "Motorola Celular Moto Edge 60 Neo 12 256GB/12GB RAM",
+            "imagen": "https://http2.mlstatic.com/D_NQ_NP_958337-MLA96849840669_102025-F.jpg",
+            "precioML": 5919,
+            "precioAmz": null,
+            "precioReferencia": 5919,
+            "linkML": "https://meli.la/1svqh4u",
+            "linkAmz": null,
+            "pantalla": "6.36\"",
+            "ram": "12 GB",
+            "almacenamiento": "256 GB",
+            "cam": "50 MP",
+            "chip": null,
+            "bateria": "5k mAh"
+        },
+        {
+            "id": "android-samsung-galaxy-a37-5g-256gb-8gb",
+            "nombre": "Samsung Galaxy A37 5G 256GB/8GB RAM",
+            "imagen": "https://http2.mlstatic.com/D_NQ_NP_953987-MLA110517978499_04-F.jpg",
+            "precioML": 6119,
+            "precioAmz": null,
+            "precioReferencia": 6119,
+            "linkML": "https://meli.la/1eDH8AB",
+            "linkAmz": null,
+            "pantalla": "6.7\"",
+            "ram": "8 GB",
+            "almacenamiento": "256 GB",
+            "cam": "50 MP",
+            "chip": "Octa-Core",
+            "bateria": "5k mAh"
+        },
+        {
+            "id": "android-xiaomi-redmi-note-14-pro-plus-5g-256gb-8gb",
+            "nombre": "Xiaomi Redmi Note 14 Pro Plus 5G 256GB/8GB RAM",
+            "imagen": "https://http2.mlstatic.com/D_NQ_NP_638590-MLA99497214074_112-F.jpg",
+            "precioML": 6299,
+            "precioAmz": null,
+            "precioReferencia": 6299,
+            "linkML": "https://meli.la/11Zkzft",
+            "linkAmz": null,
+            "pantalla": "6.67\"",
+            "ram": "8 GB",
+            "almacenamiento": "256 GB",
+            "cam": "200 MP",
+            "chip": "Snapdragon 7s Gen 3",
+            "bateria": "5.11k mAh"
+        },
+        {
+            "id": "android-nothing-nothing-phone-3a-128gb-8gb",
+            "nombre": "Nothing NOTHING Phone (3a) 128GB/8GB RAM",
+            "imagen": "https://http2.mlstatic.com/D_NQ_NP_951294-MLA99937583997_112025-F.jpg",
+            "precioML": 7004,
+            "precioAmz": null,
+            "precioReferencia": 7004,
+            "linkML": "https://meli.la/1PzhA82",
+            "linkAmz": null,
+            "pantalla": "6.77\"",
+            "ram": "8 GB",
+            "almacenamiento": "128 GB",
+            "cam": "50 MP",
+            "chip": "Snapdragon 7s Gen 3",
+            "bateria": "5k mAh"
+        },
+        {
+            "id": "android-samsung-galaxy-a56-256gb-12gb",
+            "nombre": "Samsung Galaxy A56 256GB/12GB RAM",
+            "imagen": "https://http2.mlstatic.com/D_NQ_NP_720211-MLA99849817993_112-F.jpg",
+            "precioML": 7299,
+            "precioAmz": null,
+            "precioReferencia": 7299,
+            "linkML": "https://meli.la/2yNkMtY",
+            "linkAmz": null,
+            "pantalla": "6.7\"",
+            "ram": "12 GB",
+            "almacenamiento": "256 GB",
+            "cam": "50 MP",
+            "chip": "Exynos 1580",
+            "bateria": "5k mAh"
+        },
+        {
+            "id": "android-xiaomi-redmi-note-15-pro-512gb-8gb",
+            "nombre": "Xiaomi Redmi Note 15 Pro 512GB/8GB RAM",
+            "imagen": "https://m.media-amazon.com/images/I/71stBIxfW2L._AC_SX679_.jpg",
+            "precioML": 7672,
+            "precioAmz": null,
+            "precioReferencia": 7672,
+            "linkML": "https://meli.la/2TnzRde",
+            "linkAmz": "https://link.amazon/B0fr9gZFV?tag=comparalo20-20",
+            "pantalla": "6.77\"",
+            "ram": "8 GB",
+            "almacenamiento": "512 GB",
+            "cam": "200 MP",
+            "chip": "MediaTek Helio / Dimensity 7400",
+            "bateria": null
+        },
+        {
+            "id": "android-google-pixel-9a-128gb-8gb",
+            "nombre": "Google Pixel 9a 128GB/8GB RAM",
+            "imagen": "https://http2.mlstatic.com/D_NQ_NP_973131-MLA99392824964_112025-F.jpg",
+            "precioML": 8699,
+            "precioAmz": null,
+            "precioReferencia": 8699,
+            "linkML": "https://meli.la/1EUpGXo",
+            "linkAmz": null,
+            "pantalla": "5\"",
+            "ram": "8 GB",
+            "almacenamiento": "128 GB",
+            "cam": "48 MP",
+            "chip": "Google Tensor G4",
+            "bateria": "5k mAh"
+        }
     ];
 
     function normalizarNombre(valor) {
@@ -605,10 +679,10 @@
     }
 
     function encontrarEnCatalogo(base) {
-      const alias = base.aliases.map(normalizarNombre);
+      const alias = (base.aliases || [base.nombre]).map(normalizarNombre);
       return catalogoGlobal.find((p) => {
         const nombre = normalizarNombre(p.nombre || p.name || p.titulo || p.modelo);
-        return nombre && alias.some((a) => nombre === a);
+        return nombre && alias.some((a) => nombre === a || nombre.startsWith(a + " "));
       });
     }
 
