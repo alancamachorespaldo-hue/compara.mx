@@ -359,6 +359,46 @@ body.bar-active{padding-bottom:64px}
   .section-sticky{position:relative;top:0;margin-bottom:24px}
 }
 
+/* ── PAGE 2-COL LAYOUT ── */
+.page-wrap{display:grid;grid-template-columns:minmax(0,1fr) 232px;gap:24px;max-width:1220px;margin:0 auto;padding:0 2rem;align-items:start}
+.page-wrap>.content{max-width:none;margin:0;padding:0}
+.aside-right-panel{position:sticky;top:80px}
+@media(max-width:1120px){.page-wrap{display:block;max-width:960px}.aside-right-panel{display:none}}
+
+/* ── OFERTA DESTACADA ASIDE ── */
+.oferta-aside-box{background:var(--s1);border:1.5px solid var(--bd2);border-radius:14px;overflow:hidden;margin-bottom:16px}
+.oferta-aside-hdr{background:var(--ac);color:#fff;padding:10px 14px}
+.oferta-aside-hdr-ttl{font-family:'Anton',sans-serif;font-size:12.5px;font-weight:400;letter-spacing:.04em;text-transform:uppercase;display:block;line-height:1.3}
+.oferta-aside-hdr-sub{font-size:9.5px;opacity:.8;display:block;margin-top:2px}
+.oferta-card-aside{display:flex;gap:9px;padding:9px 12px;border-bottom:1px solid var(--bd);text-decoration:none;transition:background .12s}
+.oferta-card-aside:last-child{border-bottom:none}
+.oferta-card-aside:hover{background:var(--acd)}
+.oferta-card-aside-img{width:48px;height:56px;object-fit:contain;flex-shrink:0;border-radius:6px;background:var(--bg);padding:2px}
+.oferta-card-aside-body{flex:1;min-width:0}
+.oferta-card-aside-name{font-size:11px;font-weight:700;color:var(--tx);line-height:1.3;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.oferta-badge{display:inline-flex;align-items:center;background:#dc2626;color:#fff;font-size:9px;font-weight:800;border-radius:4px;padding:1px 5px;margin:2px 0;letter-spacing:.03em}
+.oferta-card-aside-price{display:flex;align-items:baseline;gap:5px;flex-wrap:wrap;margin-top:1px}
+.oferta-nuevo{font-size:.95rem;font-weight:800;color:var(--ac);font-family:'Anton',sans-serif;line-height:1}
+.oferta-antes{font-size:10px;color:var(--tx3);text-decoration:line-through}
+.oferta-aside-more{display:block;padding:8px 12px;font-size:11px;color:var(--ac);font-weight:600;text-decoration:none;text-align:center;border-top:1px solid var(--bd)}
+.oferta-aside-more:hover{background:var(--acd)}
+
+/* ── IR A COMPARATIVAS HUB ── */
+.comp-hub-section{max-width:1220px;margin:0 auto;padding:0 2rem 2.5rem}
+.comp-hub-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.comp-hub-card{position:relative;border-radius:18px;overflow:hidden;min-height:170px;display:flex;flex-direction:column;justify-content:flex-end;padding:22px 24px;text-decoration:none}
+.comp-hub-card-android{background:#006847}
+.comp-hub-card-iphone{background:#111827}
+.comp-hub-card-img{position:absolute;right:0;top:0;bottom:0;width:58%;object-fit:cover;object-position:center top}
+.comp-hub-card-img-android{opacity:.5}
+.comp-hub-card-img-iphone{opacity:.6}
+.comp-hub-card-content{position:relative;z-index:2;max-width:52%}
+.comp-hub-eyebrow{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55);font-weight:700;display:block;margin-bottom:3px}
+.comp-hub-ttl{font-family:'Anton',sans-serif;font-size:1.9rem;font-weight:400;letter-spacing:.04em;text-transform:uppercase;color:#fff;line-height:1;margin:0 0 14px}
+.comp-hub-btn{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.35);color:#fff;border-radius:8px;padding:8px 16px;font-size:12px;font-weight:700;transition:background .15s;white-space:nowrap}
+.comp-hub-card:hover .comp-hub-btn{background:rgba(255,255,255,.25)}
+@media(max-width:640px){.comp-hub-grid{grid-template-columns:1fr}.comp-hub-card-img{opacity:.2}.comp-hub-card-content{max-width:100%}}
+
 </style>
 </head>
 <body>
@@ -394,6 +434,7 @@ body.bar-active{padding-bottom:64px}
   <p class="hero-intro">Si tienes un presupuesto máximo de $5,000 pesos, la clave no es encontrar el celular con la lista más larga de especificaciones, sino elegir dónde invertir ese presupuesto. Aquí comparamos los modelos disponibles y te mostramos qué ofrece cada uno y qué sacrificas a cambio.</p>
 </div>
 
+<div class="page-wrap">
 <div class="content">
 
   <!-- TABLA COMPARATIVA -->
@@ -1017,6 +1058,42 @@ body.bar-active{padding-bottom:64px}
 
 </div><!-- /content -->
 
+<!-- ASIDE DERECHO: Oferta destacada -->
+<aside class="aside-right-panel" aria-label="Oferta destacada">
+  <div class="oferta-aside-box">
+    <div class="oferta-aside-hdr">
+      <span class="oferta-aside-hdr-ttl">Oferta destacada</span>
+      <span class="oferta-aside-hdr-sub">Bajó de precio ahora mismo</span>
+    </div>
+    <div id="ofertas-aside-list"><!-- JS --></div>
+    <a class="oferta-aside-more" href="/celulares/android/" onclick="gtag('event','cta_click',{cta:'ofertas_aside_ver_mas',location:'aside'})">Ver más celulares →</a>
+  </div>
+</aside>
+
+</div><!-- /page-wrap -->
+
+<!-- IR A COMPARATIVAS -->
+<section class="comp-hub-section" aria-label="Ir a comparativas">
+  <div class="comp-hub-grid">
+    <a class="comp-hub-card comp-hub-card-android" href="/celulares/android/" onclick="gtag('event','cta_click',{cta:'comp_hub_android',location:'comp_hub'})">
+      <img class="comp-hub-card-img comp-hub-card-img-android" src="/fotosmartphone.png" alt="" loading="lazy">
+      <div class="comp-hub-card-content">
+        <span class="comp-hub-eyebrow">Ir a comparativas</span>
+        <p class="comp-hub-ttl">Android</p>
+        <span class="comp-hub-btn">Ver comparativa →</span>
+      </div>
+    </a>
+    <a class="comp-hub-card comp-hub-card-iphone" href="/celulares/iphone/" onclick="gtag('event','cta_click',{cta:'comp_hub_iphone',location:'comp_hub'})">
+      <img class="comp-hub-card-img comp-hub-card-img-iphone" src="/fotoIphone.png" alt="" loading="lazy">
+      <div class="comp-hub-card-content">
+        <span class="comp-hub-eyebrow">Ir a comparativas</span>
+        <p class="comp-hub-ttl">iPhone</p>
+        <span class="comp-hub-btn">Ver comparativa →</span>
+      </div>
+    </a>
+  </div>
+</section>
+
 <!-- BOTÓN FLOTANTE DERECHO -->
 <div class="float-right" id="float-right" aria-label="Ir al catálogo de celulares">
   <a class="float-right-btn" href="/celulares/android/" onclick="gtag('event','cta_click',{cta:'float_android',location:'float_right'})">
@@ -1092,7 +1169,7 @@ const familias5k = [
     destaca: 'Rendimiento',
     img: 'https://http2.mlstatic.com/D_NQ_NP_724003-MLA99989849311_112025-F.jpg',
     variantes: [
-      { storage: 256, ram: 8, precio: 4190,
+      { storage: 256, ram: 8, precio: 4190, precioRef: 4799,
         linkML: 'https://meli.la/1YNrnqo',
         estrellas: null, resenas: null }
     ]
@@ -1130,7 +1207,7 @@ const familias5k = [
     destaca: '5G económico',
     img: 'https://http2.mlstatic.com/D_NQ_NP_802041-MLA99444576642_112025-F.jpg',
     variantes: [
-      { storage: 128, ram: 4, precio: 2639,
+      { storage: 128, ram: 4, precio: 2639, precioRef: 3199,
         linkML: 'https://meli.la/2odmD8G',
         estrellas: null, resenas: null }
     ]
@@ -1149,7 +1226,7 @@ const familias5k = [
     destaca: 'Batería',
     img: 'https://http2.mlstatic.com/D_NQ_NP_2X_636342-CBT115285598872_082026-F-xiaomi-redmi-17-4g-4gb-ram-128gb-rom-69-7500mah-45w-negro.webp',
     variantes: [
-      { storage: 128, ram: 4, precio: 4009,
+      { storage: 128, ram: 4, precio: 4009, precioRef: 4499,
         linkML: 'https://meli.la/2nAtP9e',
         estrellas: null, resenas: null }
     ]
@@ -1168,7 +1245,7 @@ const familias5k = [
     destaca: 'Uso diario',
     img: 'https://http2.mlstatic.com/D_NQ_NP_840481-MLA100006971367_122025-F.jpg',
     variantes: [
-      { storage: 128, ram: 4, precio: 2844,
+      { storage: 128, ram: 4, precio: 2844, precioRef: 3499,
         linkML: 'https://meli.la/23RnkQB',
         estrellas: null, resenas: null }
     ]
@@ -1413,6 +1490,32 @@ renderCards();
   }
   window.addEventListener('scroll', onScroll, {passive: true});
   onScroll();
+})();
+
+/* ── ASIDE: Oferta destacada ── */
+(function(){
+  const el = document.getElementById('ofertas-aside-list');
+  if (!el) return;
+  const fmt = n => new Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN',maximumFractionDigits:0}).format(n);
+  const ofertas = familias5k
+    .filter(f => { const v = f.variantes[0]; return v.precioRef && v.precio < v.precioRef; })
+    .map(f => { const v = f.variantes[0]; return {...f, v, pct: Math.round((1 - v.precio/v.precioRef)*100)}; })
+    .sort((a,b) => b.pct - a.pct)
+    .slice(0, 4);
+  if (!ofertas.length) { el.closest('.oferta-aside-box').hidden = true; return; }
+  el.innerHTML = ofertas.map(o => `
+    <a class="oferta-card-aside" href="${o.v.linkML}" target="_blank" rel="sponsored nofollow noopener"
+       onclick="typeof gtag==='function'&&gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'${o.nombre.replace(/'/g,"\\'")}',value:${o.v.precio},page_section:'aside_oferta'})">
+      <img class="oferta-card-aside-img" src="${o.img}" alt="" loading="lazy" onerror="this.style.display='none'">
+      <div class="oferta-card-aside-body">
+        <span class="oferta-card-aside-name">${o.nombre}</span>
+        <span class="oferta-badge">-${o.pct}%</span>
+        <div class="oferta-card-aside-price">
+          <span class="oferta-nuevo">${fmt(o.v.precio)}</span>
+          <span class="oferta-antes">${fmt(o.v.precioRef)}</span>
+        </div>
+      </div>
+    </a>`).join('');
 })();
 </script>
 <script src="/js/onboarding.js" defer></script>
