@@ -866,15 +866,15 @@
       a.href = url;
       a.target = "_blank";
       a.rel = esAfiliado ? "sponsored nofollow noopener noreferrer" : "nofollow noopener noreferrer";
-      if (clase === "btn-ml") {
+      a.appendChild(document.createTextNode(texto));
+      if (clase === "btn-ml" || clase === "btn-amazon") {
         const logo = document.createElement("img");
-        logo.src = "/logomercado.png";
-        logo.style.cssText = "height:16px;vertical-align:middle;margin-right:3px";
-        logo.alt = "";
+        logo.src = clase === "btn-ml" ? "/logomercado.png" : "/logoamazon.png";
+        logo.style.cssText = "height:15px;vertical-align:middle;margin-left:3px";
+        logo.alt = clase === "btn-ml" ? "ML" : "Amazon";
         logo.addEventListener("error", function(){ this.style.display = "none"; });
         a.appendChild(logo);
       }
-      a.appendChild(document.createTextNode(texto));
       a.setAttribute("aria-label", texto + " — se abre en una pestaña nueva");
       if (esAfiliado && producto) {
         const ev = clase === "btn-ml" ? "affiliate_click_ml" : "affiliate_click_amz";
@@ -897,8 +897,8 @@
     function crearAcciones(producto, compacto) {
       const contenedor = document.createElement("div");
       contenedor.className = "product-actions";
-      if (producto.linkAmz) contenedor.appendChild(crearBoton(producto.linkAmz, "Ver en Amazon", "btn-amazon", true, producto));
-      if (producto.linkML) contenedor.appendChild(crearBoton(producto.linkML, "Ver en Mercado Libre", "btn-ml", true, producto));
+      if (producto.linkAmz) contenedor.appendChild(crearBoton(producto.linkAmz, "Clic para ir", "btn-amazon", true, producto));
+      if (producto.linkML) contenedor.appendChild(crearBoton(producto.linkML, "Clic para ir", "btn-ml", true, producto));
       return contenedor;
     }
 
@@ -1020,7 +1020,7 @@
           +'<p class="price-line" style="color:var(--green)">$'+d.precioML.toLocaleString('es-MX')+' <span class="desc-price-antes">$'+Math.round(d.precioAntes).toLocaleString('es-MX')+'</span></p>'
           +'<div class="product-actions">'
           +'<a class="btn btn-ml" href="'+d.linkML+'" rel="sponsored nofollow noopener" target="_blank" onclick="typeof gtag===\'function\'&&gtag(\'event\',\'affiliate_click_ml\',{event_category:\'afiliado\',event_label:\''+d.nombre.replace(/'/g,'\\\'')+'\'  ,value:'+d.precioML+',location:\'hub_descuentos\'})">'
-          +'<img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-right:3px" alt="" onerror="this.style.display=\'none\'">ML →</a>'
+          +'Clic para ir <img src="/logomercado.png" style="height:14px;vertical-align:middle;margin-left:3px" alt="ML" onerror="this.style.display=\'none\'"></a>'
           +amzBtn+'</div></div>';
         grid.appendChild(card);
       });
