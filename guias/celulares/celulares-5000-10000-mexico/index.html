@@ -66,11 +66,13 @@
     .toc ul { columns: 2; margin: 8px 0 0; }
     .toc li { break-inside: avoid; margin: 4px 0; }
     .table-wrap { width: 100%; overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; margin: 20px 0 8px; }
-    table { width: 100%; min-width: 920px; border-collapse: collapse; font-size: .92rem; }
-    th,td { padding: 13px 14px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+    table { width: 100%; min-width: 480px; border-collapse: collapse; font-size: .92rem; }
+    th,td { padding: 11px 12px; text-align: left; vertical-align: middle; border-bottom: 1px solid var(--line); }
     th { background: #f3f7f3; font-weight: 700; font-family: "Outfit",sans-serif; }
     tr:last-child td { border-bottom: 0; }
     td:first-child { font-weight: 700; }
+    .tbl-modelo { display: flex; align-items: center; gap: 10px; min-width: 140px; }
+    .tbl-img { width: 44px; height: 50px; object-fit: contain; background: var(--surface); border-radius: 6px; padding: 3px; display: block; flex-shrink: 0; }
     .small-note { font-size: .88rem; color: var(--muted); margin-top: 8px; }
     .product-section { padding-top: 4px; }
     .product-section h2 { margin-top: 52px; }
@@ -119,14 +121,19 @@
     .model-card-img img { max-width: 100%; max-height: 100%; object-fit: contain; padding: 12px; display: block; }
     .model-card-body { padding: 14px 15px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
     .model-card h3 { font-size: 1rem; margin: 0; line-height: 1.3; }
-    .specs-mini { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 4px 8px; margin: 0; padding: 0; }
-    .specs-mini li { display: flex; flex-direction: column; gap: 1px; }
-    .specs-mini .spec-key { font-size: .68rem; color: var(--muted); font-weight: 500; text-transform: uppercase; letter-spacing: .04em; }
-    .specs-mini .spec-val { font-size: .77rem; font-weight: 700; color: var(--ink); }
+    .specs-mini { list-style: none; display: flex; flex-direction: column; gap: 5px; margin: 0; padding: 0; }
+    .specs-mini li { display: flex; justify-content: space-between; align-items: baseline; gap: 6px; font-size: .8rem; border-bottom: 1px solid var(--line); padding-bottom: 4px; }
+    .specs-mini li:last-child { border-bottom: 0; padding-bottom: 0; }
+    .specs-mini .spec-key { color: var(--muted); font-weight: 500; flex-shrink: 0; }
+    .specs-mini .spec-val { font-weight: 700; color: var(--ink); text-align: right; }
     .model-card .price-line { font-size: 1.08rem; margin: 0; }
     .model-card .small-note { margin: 0; font-size: .82rem; color: var(--muted); }
     .model-card .product-actions { margin-top: auto; padding-top: 8px; }
     .model-card .btn { flex: 1 1 130px; }
+    .mobile-cta-strip { display: none; background: var(--green-soft); border: 1.5px solid rgba(24,131,74,.22); border-radius: 12px; padding: 1rem; margin: 1rem 0; text-align: center; gap: 8px; flex-direction: column; align-items: center; }
+    .mobile-cta-strip p { font-size: .88rem; color: var(--green-dark); font-weight: 600; margin: 0 0 8px; }
+    .mobile-cta-strip .btn-strip-row { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+    @media(max-width:700px) { .mobile-cta-strip { display: flex; } }
     .faq-item { padding: 19px 0; border-bottom: 1px solid var(--line); }
     .faq-item h3 { font-size: 1.14rem; margin-bottom: 8px; letter-spacing: -.01em; }
     .sources { background: var(--surface); border-radius: 14px; padding: 18px 20px; margin-top: 25px; font-size: .9rem; }
@@ -146,8 +153,19 @@
       .page,.footer-inner { width: min(100% - 28px,1120px); }
       .page { padding-top: 17px; } .intro { font-size: 1rem; } .toc ul { columns: 1; }
       .product-panel { grid-template-columns: 1fr; padding: 17px; }
-      .model-grid { grid-template-columns: 1fr; } .spec-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .spec-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
       h2 { margin-top: 44px; }
+    }
+    @media(max-width:500px) {
+      .model-card-img { height: 120px; }
+      .model-card-body { padding: 10px 11px; gap: 6px; }
+      .model-card h3 { font-size: .88rem; }
+      .specs-mini li { font-size: .75rem; }
+      .model-card .price-line { font-size: .95rem; }
+      .model-card .btn { font-size: .8rem; padding: 8px 10px; min-height: 38px; }
+    }
+    @media(max-width:360px) {
+      .model-grid { grid-template-columns: 1fr; }
     }
     @media(prefers-reduced-motion:reduce) { html { scroll-behavior: auto; } *,*::before,*::after { transition: none !important; } }
   </style>
@@ -262,17 +280,49 @@
         <div class="table-wrap">
           <table>
             <thead>
-              <tr><th>Modelo</th><th>Precio ML</th><th>Procesador</th><th>Pantalla</th><th>Cámara</th><th>Batería</th><th>5G</th><th>Lo mejor para</th></tr>
+              <tr><th>Modelo</th><th>RAM</th><th>Almac.</th><th>Cámara trasera</th><th>Precio ML</th><th>Ver en ML</th></tr>
             </thead>
             <tbody>
-              <tr><td>Nothing Phone (3a) Lite</td><td>$5,374</td><td>Dimensity 7300 Pro</td><td>6.77" 120 Hz</td><td>50 MP</td><td>5,000 mAh</td><td>Sí</td><td>Diseño y 5G al precio más bajo del grupo</td></tr>
-              <tr><td>Motorola Edge 60 Neo</td><td>$5,919</td><td>—</td><td>6.36" compacto</td><td>50 MP</td><td>5,000 mAh</td><td>Sí</td><td>Tamaño compacto en la gama media</td></tr>
-              <tr><td>Samsung Galaxy A37 5G</td><td>$6,119</td><td>Octa-Core</td><td>6.7" NFC</td><td>50 MP</td><td>5,000 mAh</td><td>Sí</td><td>Samsung con 256 GB y NFC</td></tr>
-              <tr><td>Redmi Note 14 Pro Plus</td><td>$6,299</td><td>Snapdragon 7s Gen 3</td><td>6.67" 120 Hz</td><td>200 MP OIS</td><td>5,110 mAh</td><td>Sí</td><td>Cámara 200 MP y Snapdragon</td></tr>
-              <tr><td>Nothing Phone (3a)</td><td>$7,004</td><td>Snapdragon 7s Gen 3</td><td>6.77" 120 Hz</td><td>50 MP</td><td>5,000 mAh</td><td>Sí</td><td>Rendimiento y diseño transparente</td></tr>
-              <tr><td>Samsung Galaxy A56</td><td>$7,299</td><td>—</td><td>6.7" AMOLED NFC</td><td>50 MP OIS</td><td>5,000 mAh</td><td>Sí</td><td>Actualizaciones y equilibrio Samsung</td></tr>
-              <tr><td>Redmi Note 15 Pro</td><td>$7,672</td><td>—</td><td>AMOLED 6.77"</td><td>200 MP</td><td>5,000 mAh</td><td>Sí</td><td>512 GB de almacenamiento</td></tr>
-              <tr><td>Google Pixel 9a</td><td>$8,699</td><td>Google Tensor G4</td><td>6.3" pOLED 120 Hz</td><td>48 MP OIS</td><td>5,100 mAh</td><td>Sí</td><td>Fotografía computacional</td></tr>
+              <tr>
+                <td><div class="tbl-modelo"><img class="tbl-img" src="https://http2.mlstatic.com/D_NQ_NP_920382-MLA98946550853_112-F.jpg" alt="" loading="lazy">Nothing Phone (3a) Lite</div></td>
+                <td>8 GB</td><td>256 GB</td><td>50 MP</td><td>$5,374</td>
+                <td><a class="btn btn-ml" href="https://meli.la/1niPmRP" target="_blank" rel="sponsored nofollow noopener" onclick="typeof gtag==='function'&&gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Nothing Phone (3a) Lite',value:5374,page_section:'guia_tabla'})"><img src="/logomercado.png" style="height:14px;vertical-align:middle;margin-right:3px" alt="">Ver</a></td>
+              </tr>
+              <tr>
+                <td><div class="tbl-modelo"><img class="tbl-img" src="https://http2.mlstatic.com/D_NQ_NP_958337-MLA96849840669_102025-F.jpg" alt="" loading="lazy">Moto Edge 60 Neo</div></td>
+                <td>12 GB</td><td>256 GB</td><td>50 MP</td><td>$5,919</td>
+                <td><a class="btn btn-ml" href="https://meli.la/1svqh4u" target="_blank" rel="sponsored nofollow noopener" onclick="typeof gtag==='function'&&gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Motorola Edge 60 Neo',value:5919,page_section:'guia_tabla'})"><img src="/logomercado.png" style="height:14px;vertical-align:middle;margin-right:3px" alt="">Ver</a></td>
+              </tr>
+              <tr>
+                <td><div class="tbl-modelo"><img class="tbl-img" src="https://http2.mlstatic.com/D_NQ_NP_953987-MLA110517978499_04-F.jpg" alt="" loading="lazy">Galaxy A37 5G</div></td>
+                <td>8 GB</td><td>256 GB</td><td>50 MP</td><td>$6,119</td>
+                <td><a class="btn btn-ml" href="https://meli.la/1eDH8AB" target="_blank" rel="sponsored nofollow noopener" onclick="typeof gtag==='function'&&gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Samsung Galaxy A37 5G',value:6119,page_section:'guia_tabla'})"><img src="/logomercado.png" style="height:14px;vertical-align:middle;margin-right:3px" alt="">Ver</a></td>
+              </tr>
+              <tr>
+                <td><div class="tbl-modelo"><img class="tbl-img" src="https://http2.mlstatic.com/D_NQ_NP_638590-MLA99497214074_112-F.jpg" alt="" loading="lazy">Redmi Note 14 Pro Plus</div></td>
+                <td>8 GB</td><td>256 GB</td><td>200 MP · OIS</td><td>$6,299</td>
+                <td><a class="btn btn-ml" href="https://meli.la/11Zkzft" target="_blank" rel="sponsored nofollow noopener" onclick="typeof gtag==='function'&&gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Redmi Note 14 Pro Plus',value:6299,page_section:'guia_tabla'})"><img src="/logomercado.png" style="height:14px;vertical-align:middle;margin-right:3px" alt="">Ver</a></td>
+              </tr>
+              <tr>
+                <td><div class="tbl-modelo"><img class="tbl-img" src="https://http2.mlstatic.com/D_NQ_NP_951294-MLA99937583997_112025-F.jpg" alt="" loading="lazy">Nothing Phone (3a)</div></td>
+                <td>8 GB</td><td>128 GB</td><td>50 MP</td><td>$7,004</td>
+                <td><a class="btn btn-ml" href="https://meli.la/1PzhA82" target="_blank" rel="sponsored nofollow noopener" onclick="typeof gtag==='function'&&gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Nothing Phone (3a)',value:7004,page_section:'guia_tabla'})"><img src="/logomercado.png" style="height:14px;vertical-align:middle;margin-right:3px" alt="">Ver</a></td>
+              </tr>
+              <tr>
+                <td><div class="tbl-modelo"><img class="tbl-img" src="https://http2.mlstatic.com/D_NQ_NP_720211-MLA99849817993_112-F.jpg" alt="" loading="lazy">Galaxy A56</div></td>
+                <td>12 GB</td><td>256 GB</td><td>50 MP · OIS</td><td>$7,299</td>
+                <td><a class="btn btn-ml" href="https://meli.la/2yNkMtY" target="_blank" rel="sponsored nofollow noopener" onclick="typeof gtag==='function'&&gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Samsung Galaxy A56',value:7299,page_section:'guia_tabla'})"><img src="/logomercado.png" style="height:14px;vertical-align:middle;margin-right:3px" alt="">Ver</a></td>
+              </tr>
+              <tr>
+                <td><div class="tbl-modelo"><img class="tbl-img" src="https://m.media-amazon.com/images/I/71stBIxfW2L._AC_SX679_.jpg" alt="" loading="lazy">Redmi Note 15 Pro</div></td>
+                <td>8 GB</td><td>512 GB</td><td>200 MP</td><td>$7,672</td>
+                <td><a class="btn btn-ml" href="https://meli.la/2TnzRde" target="_blank" rel="sponsored nofollow noopener" onclick="typeof gtag==='function'&&gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Redmi Note 15 Pro',value:7672,page_section:'guia_tabla'})"><img src="/logomercado.png" style="height:14px;vertical-align:middle;margin-right:3px" alt="">Ver</a></td>
+              </tr>
+              <tr>
+                <td><div class="tbl-modelo"><img class="tbl-img" src="https://http2.mlstatic.com/D_NQ_NP_973131-MLA99392824964_112025-F.jpg" alt="" loading="lazy">Google Pixel 9a</div></td>
+                <td>8 GB</td><td>128 GB</td><td>48 MP · OIS</td><td>$8,699</td>
+                <td><a class="btn btn-ml" href="https://meli.la/1EUpGXo" target="_blank" rel="sponsored nofollow noopener" onclick="typeof gtag==='function'&&gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Google Pixel 9a',value:8699,page_section:'guia_tabla'})"><img src="/logomercado.png" style="height:14px;vertical-align:middle;margin-right:3px" alt="">Ver</a></td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -323,7 +373,9 @@
                   <div class="spec-row"><span class="spec-row-label">Cámara trasera</span><span class="spec-row-value">50 MP</span></div>
                   <div class="spec-row"><span class="spec-row-label">Batería</span><span class="spec-row-value">5,000 mAh · 5G</span></div>
                 </div>
-                <div class="product-actions" data-product-actions="android-nothing-phone-3a-lite-256gb-8gb"></div>
+                <div class="product-actions" data-product-actions="android-nothing-phone-3a-lite-256gb-8gb">
+                  <a class="btn btn-ml" href="https://meli.la/1niPmRP" target="_blank" rel="sponsored nofollow noopener" onclick="typeof gtag==='function'&&gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Nothing Phone (3a) Lite',value:5374,page_section:'guia_nothing-3a-lite'})"><img src="/logomercado.png" style="height:16px;vertical-align:middle;margin-right:3px" alt="">Ver en Mercado Libre</a>
+                </div>
               </div>
             </div>
           </div>
@@ -362,7 +414,9 @@
                   <div class="spec-row"><span class="spec-row-label">Cámara trasera</span><span class="spec-row-value">50 MP</span></div>
                   <div class="spec-row"><span class="spec-row-label">Batería</span><span class="spec-row-value">5,000 mAh</span></div>
                 </div>
-                <div class="product-actions" data-product-actions="android-motorola-celular-moto-edge-60-neo-12-256gb-12gb"></div>
+                <div class="product-actions" data-product-actions="android-motorola-celular-moto-edge-60-neo-12-256gb-12gb">
+                  <a class="btn btn-ml" href="https://meli.la/1svqh4u" target="_blank" rel="sponsored nofollow noopener" onclick="typeof gtag==='function'&&gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Motorola Edge 60 Neo',value:5919,page_section:'guia_edge-60-neo'})"><img src="/logomercado.png" style="height:16px;vertical-align:middle;margin-right:3px" alt="">Ver en Mercado Libre</a>
+                </div>
               </div>
             </div>
           </div>
@@ -401,7 +455,9 @@
                   <div class="spec-row"><span class="spec-row-label">Cámara trasera</span><span class="spec-row-value">50 MP</span></div>
                   <div class="spec-row"><span class="spec-row-label">Batería</span><span class="spec-row-value">5,000 mAh</span></div>
                 </div>
-                <div class="product-actions" data-product-actions="android-samsung-galaxy-a37-5g-256gb-8gb"></div>
+                <div class="product-actions" data-product-actions="android-samsung-galaxy-a37-5g-256gb-8gb">
+                  <a class="btn btn-ml" href="https://meli.la/1eDH8AB" target="_blank" rel="sponsored nofollow noopener" onclick="typeof gtag==='function'&&gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Samsung Galaxy A37 5G',value:6119,page_section:'guia_galaxy-a37'})"><img src="/logomercado.png" style="height:16px;vertical-align:middle;margin-right:3px" alt="">Ver en Mercado Libre</a>
+                </div>
               </div>
             </div>
           </div>
@@ -440,7 +496,9 @@
                   <div class="spec-row"><span class="spec-row-label">Cámara trasera</span><span class="spec-row-value">200 MP · OIS</span></div>
                   <div class="spec-row"><span class="spec-row-label">Batería</span><span class="spec-row-value">5,110 mAh · 5G</span></div>
                 </div>
-                <div class="product-actions" data-product-actions="android-xiaomi-redmi-note-14-pro-plus-5g-256gb-8gb"></div>
+                <div class="product-actions" data-product-actions="android-xiaomi-redmi-note-14-pro-plus-5g-256gb-8gb">
+                  <a class="btn btn-ml" href="https://meli.la/11Zkzft" target="_blank" rel="sponsored nofollow noopener" onclick="typeof gtag==='function'&&gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Redmi Note 14 Pro Plus',value:6299,page_section:'guia_redmi-note-14-pro'})"><img src="/logomercado.png" style="height:16px;vertical-align:middle;margin-right:3px" alt="">Ver en Mercado Libre</a>
+                </div>
               </div>
             </div>
           </div>
@@ -479,7 +537,9 @@
                   <div class="spec-row"><span class="spec-row-label">Cámara trasera</span><span class="spec-row-value">50 MP</span></div>
                   <div class="spec-row"><span class="spec-row-label">Batería</span><span class="spec-row-value">5,000 mAh · 5G</span></div>
                 </div>
-                <div class="product-actions" data-product-actions="android-nothing-nothing-phone-3a-128gb-8gb"></div>
+                <div class="product-actions" data-product-actions="android-nothing-nothing-phone-3a-128gb-8gb">
+                  <a class="btn btn-ml" href="https://meli.la/1PzhA82" target="_blank" rel="sponsored nofollow noopener" onclick="typeof gtag==='function'&&gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Nothing Phone (3a)',value:7004,page_section:'guia_nothing-3a'})"><img src="/logomercado.png" style="height:16px;vertical-align:middle;margin-right:3px" alt="">Ver en Mercado Libre</a>
+                </div>
               </div>
             </div>
           </div>
@@ -518,7 +578,9 @@
                   <div class="spec-row"><span class="spec-row-label">Cámara trasera</span><span class="spec-row-value">50 MP · OIS</span></div>
                   <div class="spec-row"><span class="spec-row-label">Batería</span><span class="spec-row-value">5,000 mAh · 5G</span></div>
                 </div>
-                <div class="product-actions" data-product-actions="android-samsung-galaxy-a56-256gb-12gb"></div>
+                <div class="product-actions" data-product-actions="android-samsung-galaxy-a56-256gb-12gb">
+                  <a class="btn btn-ml" href="https://meli.la/2yNkMtY" target="_blank" rel="sponsored nofollow noopener" onclick="typeof gtag==='function'&&gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Samsung Galaxy A56',value:7299,page_section:'guia_galaxy-a56'})"><img src="/logomercado.png" style="height:16px;vertical-align:middle;margin-right:3px" alt="">Ver en Mercado Libre</a>
+                </div>
               </div>
             </div>
           </div>
@@ -557,7 +619,10 @@
                   <div class="spec-row"><span class="spec-row-label">Cámara trasera</span><span class="spec-row-value">200 MP</span></div>
                   <div class="spec-row"><span class="spec-row-label">Batería</span><span class="spec-row-value">5,000 mAh</span></div>
                 </div>
-                <div class="product-actions" data-product-actions="android-xiaomi-redmi-note-15-pro-512gb-8gb"></div>
+                <div class="product-actions" data-product-actions="android-xiaomi-redmi-note-15-pro-512gb-8gb">
+                  <a class="btn btn-amazon" href="https://link.amazon/B0fr9gZFV?tag=comparalo20-20" target="_blank" rel="sponsored nofollow noopener" onclick="typeof gtag==='function'&&gtag('event','affiliate_click_amz',{event_category:'afiliado',event_label:'Redmi Note 15 Pro',value:7672,page_section:'guia_redmi-note-15-pro'})">Amazon →</a>
+                  <a class="btn btn-ml" href="https://meli.la/2TnzRde" target="_blank" rel="sponsored nofollow noopener" onclick="typeof gtag==='function'&&gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Redmi Note 15 Pro',value:7672,page_section:'guia_redmi-note-15-pro'})"><img src="/logomercado.png" style="height:16px;vertical-align:middle;margin-right:3px" alt="">Ver en Mercado Libre</a>
+                </div>
               </div>
             </div>
           </div>
@@ -596,7 +661,9 @@
                   <div class="spec-row"><span class="spec-row-label">Cámara trasera</span><span class="spec-row-value">48 MP · OIS · f/1.7</span></div>
                   <div class="spec-row"><span class="spec-row-label">Batería</span><span class="spec-row-value">5,100 mAh · inalámbrica</span></div>
                 </div>
-                <div class="product-actions" data-product-actions="android-google-pixel-9a-128gb-8gb"></div>
+                <div class="product-actions" data-product-actions="android-google-pixel-9a-128gb-8gb">
+                  <a class="btn btn-ml" href="https://meli.la/1EUpGXo" target="_blank" rel="sponsored nofollow noopener" onclick="typeof gtag==='function'&&gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Google Pixel 9a',value:8699,page_section:'guia_pixel-9a'})"><img src="/logomercado.png" style="height:16px;vertical-align:middle;margin-right:3px" alt="">Ver en Mercado Libre</a>
+                </div>
               </div>
             </div>
           </div>
@@ -683,6 +750,13 @@
         </p>
         <div id="all-models-grid" class="model-grid" aria-live="polite"></div>
         <p class="affiliate-note">Aviso de afiliados: los enlaces de Amazon pueden generar una comisión para comparalo.mx sin costo adicional para ti. Los enlaces de búsqueda de Mercado Libre sirven para localizar publicaciones y no se presentan como enlaces de afiliado directos. La comisión no determina nuestras recomendaciones.</p>
+        <div class="mobile-cta-strip">
+          <p>📱 Compara o explora más opciones</p>
+          <div class="btn-strip-row">
+            <a class="btn btn-outline" href="/celulares/" onclick="typeof gtag==='function'&&gtag('event','nav_click',{event_category:'navegacion',event_label:'comparar_celulares',page_section:'guia_cta_strip'})">Comparar celulares</a>
+            <a class="btn btn-outline" href="/celulares/android/" onclick="typeof gtag==='function'&&gtag('event','nav_click',{event_category:'navegacion',event_label:'catalogo_android',page_section:'guia_cta_strip'})">Ver catálogo Android</a>
+          </div>
+        </div>
         <p>Amplía tu búsqueda con <a href="/guias/celulares/mejores-celulares-menos-5000/">los mejores celulares por menos de $5,000</a>, la guía de <a href="/guias/celulares/mejores-celulares-calidad-precio/">celulares calidad-precio</a> y la <a href="/guias/celulares/celulares-buen-fin-2026-segun-presupuesto/">guía del Buen Fin 2026</a>.</p>
       </section>
     </article>
@@ -948,7 +1022,7 @@
           const tag = document.createElement("span"); tag.className = "tag"; tag.textContent = producto.rango; body.appendChild(tag);
         }
 
-        const specs = [["Pantalla",producto.pantalla],["RAM",producto.ram],["Almacenamiento",producto.almacenamiento],["Cámara",producto.cam]].filter(function(s){return s[1];});
+        const specs = [["Pantalla",producto.pantalla],["Procesador",producto.chip],["RAM",producto.ram],["Almacenamiento",producto.almacenamiento],["Cámara trasera",producto.cam]].filter(function(s){return s[1];});
         if (specs.length) {
           const ul = document.createElement("ul"); ul.className = "specs-mini";
           specs.forEach(function(s){ const li=document.createElement("li"); li.innerHTML='<span class="spec-key">'+s[0]+'</span><span class="spec-val">'+s[1]+'</span>'; ul.appendChild(li); });
