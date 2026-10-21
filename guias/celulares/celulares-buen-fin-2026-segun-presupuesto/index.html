@@ -129,19 +129,21 @@ tr:last-child td{border-bottom:none}
 .budget-header p{font-size:.9rem;color:var(--tx2);margin:0}
 
 /* ── Phone grid ─── */
-.phones-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.8rem;margin:1rem 0}
-.ph-card{background:var(--bg);border:1px solid var(--bd);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .15s}
-.ph-card:hover{box-shadow:0 4px 18px rgba(0,0,0,.1)}
-.ph-img{width:100%;height:150px;object-fit:contain;padding:.5rem;background:var(--s1)}
-.ph-body{padding:.75rem;flex:1;display:flex;flex-direction:column;gap:4px}
-.ph-brand{font-size:10px;text-transform:uppercase;letter-spacing:.08em;font-weight:700;color:var(--tx3)}
-.ph-name{font-family:'Anton',sans-serif;font-size:15px;font-weight:400;text-transform:uppercase;color:var(--tx);line-height:1.15;letter-spacing:.02em}
-.ph-specs{font-size:.78rem;color:var(--tx2);margin:2px 0 4px}
-.ph-destaca{font-size:11px;font-weight:700;color:var(--ac);background:var(--acd);border-radius:10px;padding:2px 7px;display:inline-block;width:fit-content;margin-bottom:4px}
-.ph-price{font-family:'Anton',sans-serif;font-size:22px;font-weight:400;color:var(--ac);letter-spacing:.01em;margin-top:auto;padding-top:4px}
-.ph-price span{font-size:11px;color:var(--tx3);font-family:'Satoshi','Arial',sans-serif;font-weight:500;margin-left:4px}
-.ph-btns{padding-top:.5rem}
-.btn-ph-ml{display:flex;align-items:center;justify-content:center;gap:5px;background:var(--ml);color:#0f172a;text-decoration:none;font-weight:700;font-size:12px;padding:.55rem .75rem;border-radius:7px;transition:opacity .15s;width:100%}
+.phones-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin:1rem 0}
+.ph-card{background:var(--bg);border:1.5px solid var(--bd);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .15s;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.ph-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.1)}
+.ph-img-wrap{background:var(--s1);border-bottom:1.5px solid var(--bd);display:flex;align-items:center;justify-content:center;padding:16px;min-height:190px}
+.ph-img{width:auto;max-width:100%;max-height:190px;object-fit:contain;display:block}
+.ph-body{padding:.9rem;flex:1;display:flex;flex-direction:column;gap:0}
+.ph-brand{font-size:10px;text-transform:uppercase;letter-spacing:.08em;font-weight:700;color:var(--tx3);margin-bottom:3px}
+.ph-name{font-family:'Anton',sans-serif;font-size:1.1rem;font-weight:400;text-transform:uppercase;color:var(--tx);line-height:1.15;letter-spacing:.02em;margin-bottom:7px}
+.ph-destaca{font-size:11px;font-weight:700;color:var(--ac);background:var(--acd);border-radius:10px;padding:3px 9px;display:inline-block;width:fit-content;margin-bottom:10px}
+.ph-specs-grid{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
+.ph-spec{background:var(--s1);border:1px solid var(--bd);border-radius:6px;padding:3px 8px;font-size:.75rem;color:var(--tx2);font-weight:500}
+.ph-price{font-family:'Anton',sans-serif;font-size:1.4rem;font-weight:400;color:var(--tx);letter-spacing:.01em;margin-top:auto;padding-top:8px;margin-bottom:4px}
+.ph-price span{font-size:11px;color:var(--tx3);font-family:'Satoshi','Arial',sans-serif;font-weight:500;display:block;margin-top:2px}
+.ph-btns{margin-top:4px}
+.btn-ph-ml{display:flex;align-items:center;justify-content:center;gap:5px;background:var(--ml);color:#0f172a;text-decoration:none;font-weight:700;font-size:12px;padding:.6rem .75rem;border-radius:8px;transition:opacity .15s;width:100%}
 .btn-ph-ml:hover{opacity:.85;color:#0f172a}
 
 /* ── Filter row inside budget section ─── */
@@ -509,16 +511,20 @@ function buildGrid(range){
   if (!grid) return;
   const phones = PHONES_BY_RANGE[range] || [];
   const ab = activeBrand[range];
+  const ERR = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect fill='%23f1f5f9' width='100' height='100'/%3E%3C/svg%3E";
   grid.innerHTML = phones.map((p, idx) => {
     const vis = ab === 'all' || p.marca === ab;
+    const specPills = p.specs.split(' · ').map(s => `<div class="ph-spec">${s}</div>`).join('');
     return `<div class="ph-card"${vis ? '' : ' hidden'} data-marca="${p.marca}">
-      <img class="ph-img" src="${p.img}" alt="${p.nombre}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\'%3E%3Crect fill=\'%23f1f5f9\' width=\'100\' height=\'100\'/%3E%3C/svg%3E'">
+      <div class="ph-img-wrap">
+        <img class="ph-img" src="${p.img}" alt="${p.nombre}" loading="lazy" onerror="this.src='${ERR}'">
+      </div>
       <div class="ph-body">
         <div class="ph-brand">${BRAND_LABEL[p.marca] || p.marca}</div>
         <div class="ph-name">${p.nombre}</div>
-        <div class="ph-specs">${p.specs}</div>
         <div class="ph-destaca">${p.destaca}</div>
-        <div class="ph-price">${fmt(p.precio)} <span>en ML ahora</span></div>
+        <div class="ph-specs-grid">${specPills}</div>
+        <div class="ph-price">${fmt(p.precio)}<span>precio actual en ML</span></div>
         <div class="ph-btns">
           <a class="btn-ph-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener"
             aria-label="Ver ${p.nombre} en Mercado Libre"
