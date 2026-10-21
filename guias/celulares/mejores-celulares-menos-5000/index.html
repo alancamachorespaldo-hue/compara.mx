@@ -246,21 +246,26 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 /* SIDEBAR COMPARADOR */
 .sidebar{position:fixed;left:0;top:50%;transform:translateY(-50%);z-index:160;display:flex;align-items:center;opacity:0;pointer-events:none;transition:opacity .35s}
 .sidebar.visible{opacity:1;pointer-events:auto}
-.sidebar-panel{background:var(--bg);border:1.5px solid var(--bd2);border-left:none;border-radius:0 14px 14px 0;width:220px;max-height:72vh;overflow-y:auto;box-shadow:6px 0 28px rgba(0,0,0,.1);transform:translateX(-100%);transition:transform .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
+.sidebar-panel{background:var(--bg);border:1.5px solid var(--bd2);border-left:none;border-radius:0 14px 14px 0;width:252px;max-height:76vh;overflow-y:auto;box-shadow:6px 0 28px rgba(0,0,0,.1);transform:translateX(-100%);transition:transform .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
 .sidebar.open .sidebar-panel{transform:translateX(0)}
+@media(min-width:1041px){.sidebar.visible .sidebar-panel{transform:translateX(0)}.sidebar-toggle{display:none}}
 .sidebar-header{padding:12px 14px 10px;border-bottom:1px solid var(--bd);flex-shrink:0}
 .sidebar-htitle{font-family:'Anton',sans-serif;font-size:15px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--tx);display:block}
 .sidebar-hsub{font-size:11px;color:var(--tx3);display:block;margin-top:2px}
 .sidebar-phones{display:flex;flex-direction:column;flex:1}
-.sidebar-phone{padding:9px 14px 9px 12px;cursor:pointer;transition:background .12s;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:10px;position:relative}
+.sidebar-phone{padding:8px 12px 8px 10px;cursor:pointer;transition:background .12s;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:8px;position:relative}
 .sidebar-phone:last-child{border-bottom:none}
 .sidebar-phone:hover,.sidebar-phone:focus{background:var(--acd);outline:none}
 .sidebar-phone.sp-sel{background:var(--acd2)}
+.sidebar-phone-img{width:38px;height:44px;object-fit:contain;border-radius:6px;background:var(--s1);padding:2px;flex-shrink:0;display:block}
 .sidebar-phone-info{flex:1;min-width:0}
-.sidebar-phone-price{font-family:'Anton',sans-serif;font-size:17px;font-weight:400;color:var(--ac);letter-spacing:.01em;line-height:1}
-.sidebar-phone-name{font-size:12px;font-weight:600;color:var(--tx);line-height:1.3;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sidebar-phone-tag{font-size:10px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-top:1px}
-.sidebar-phone-chk{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--bd2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;font-weight:700;color:transparent;transition:all .15s}
+.sidebar-phone-price{font-family:'Anton',sans-serif;font-size:16px;font-weight:400;color:var(--ac);letter-spacing:.01em;line-height:1}
+.sidebar-phone-name{font-size:11.5px;font-weight:600;color:var(--tx);line-height:1.3;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sidebar-phone-tag{font-size:9.5px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-top:1px}
+.sidebar-phone-ml{display:inline-flex;align-items:center;gap:3px;margin-top:4px;font-size:9.5px;font-weight:700;background:var(--ml);color:#171717;border-radius:5px;padding:2px 6px;text-decoration:none;line-height:1.4;pointer-events:auto}
+.sidebar-phone-ml:hover{filter:brightness(.92);text-decoration:none}
+.sidebar-phone-ml img{height:10px;display:block}
+.sidebar-phone-chk{width:17px;height:17px;border-radius:50%;border:1.5px solid var(--bd2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;font-weight:700;color:transparent;transition:all .15s}
 .sidebar-phone.sp-sel .sidebar-phone-chk{background:var(--ac);border-color:var(--ac);color:#fff}
 .sidebar-banners{flex-shrink:0;border-top:1px solid var(--bd)}
 .sidebar-banner{display:flex;align-items:center;gap:10px;padding:11px 14px;text-decoration:none;transition:background .12s;border-bottom:1px solid var(--bd)}
@@ -1336,14 +1341,18 @@ renderCards();
     phEl.innerHTML = familias5k.map(f => {
       const v   = f.variantes[0];
       const sel = selected5k.includes(f.modeloBase);
+      const imgTag = f.img ? `<img class="sidebar-phone-img" src="${f.img}" alt="" loading="lazy" onerror="this.style.display='none'">` : '';
+      const mlBtn = v.linkML ? `<a class="sidebar-phone-ml" href="${v.linkML}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();typeof gtag==='function'&&gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'${f.nombre.replace(/'/g,"\\'")}',value:${v.precio},page_section:'sidebar'})"><img src="/logomercado.png" alt="">Ver en ML</a>` : '';
       return `<div class="sidebar-phone${sel?' sp-sel':''}" role="button" tabindex="0"
           onclick="selectFromPick('${f.modeloBase}')"
           onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault()}"
           aria-label="${sel?'Quitar':'Seleccionar'} ${f.nombre} · $${Number(v.precio).toLocaleString('es-MX')}">
+        ${imgTag}
         <div class="sidebar-phone-info">
           <div class="sidebar-phone-price">$${Number(v.precio).toLocaleString('es-MX')}</div>
           <div class="sidebar-phone-name">${f.nombre}</div>
           <div class="sidebar-phone-tag">${f.destaca}</div>
+          ${mlBtn}
         </div>
         <div class="sidebar-phone-chk" aria-hidden="true">${sel?'✓':''}</div>
       </div>`;
