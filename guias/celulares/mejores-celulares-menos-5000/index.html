@@ -364,6 +364,7 @@ body.bar-active{padding-bottom:64px}
 .page-wrap>.content{max-width:none;margin:0;padding:0}
 .aside-right-panel{position:sticky;top:80px}
 @media(max-width:1120px){.page-wrap{display:block;max-width:960px}.aside-right-panel{display:none}}
+@media(min-width:1041px){.page-wrap{padding-left:268px}.comp-hub-section{padding-left:268px}}
 
 /* ── OFERTA DESTACADA ASIDE ── */
 .oferta-aside-box{background:var(--s1);border:1.5px solid var(--bd2);border-radius:14px;overflow:hidden;margin-bottom:16px}
@@ -380,7 +381,7 @@ body.bar-active{padding-bottom:64px}
 .oferta-card-aside-price{display:flex;align-items:baseline;gap:5px;flex-wrap:wrap;margin-top:1px}
 .oferta-nuevo{font-size:.95rem;font-weight:800;color:var(--ac);font-family:'Anton',sans-serif;line-height:1}
 .oferta-antes{font-size:10px;color:var(--tx3);text-decoration:line-through}
-.oferta-aside-cta{display:inline-flex;align-items:center;margin-top:4px;font-size:10px;font-weight:700;color:var(--ac);background:var(--acd);border:1px solid var(--acd2);border-radius:5px;padding:2px 7px}
+.oferta-aside-cta{display:inline-flex;align-items:center;margin-top:4px;font-size:10px;font-weight:700;color:#5a4200;background:var(--ml);border-radius:5px;padding:2px 7px}
 .oferta-aside-more{display:block;padding:8px 12px;font-size:11px;color:var(--ac);font-weight:600;text-decoration:none;text-align:center;border-top:1px solid var(--bd)}
 .oferta-aside-more:hover{background:var(--acd)}
 
@@ -389,15 +390,15 @@ body.bar-active{padding-bottom:64px}
 .comp-hub-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .comp-hub-card{position:relative;border-radius:18px;overflow:hidden;min-height:170px;display:flex;flex-direction:column;justify-content:flex-end;padding:22px 24px;text-decoration:none}
 .comp-hub-card-android{background:#006847}
-.comp-hub-card-iphone{background:#111827}
+.comp-hub-card-iphone{background:#1d4ed8}
 .comp-hub-card-img{position:absolute;right:0;top:0;bottom:0;width:58%;object-fit:cover;object-position:center top}
 .comp-hub-card-img-android{opacity:.5}
-.comp-hub-card-img-iphone{opacity:.6}
+.comp-hub-card-img-iphone{opacity:.65}
 .comp-hub-card-content{position:relative;z-index:2;max-width:52%}
-.comp-hub-eyebrow{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55);font-weight:700;display:block;margin-bottom:3px}
-.comp-hub-ttl{font-family:'Anton',sans-serif;font-size:1.9rem;font-weight:400;letter-spacing:.04em;text-transform:uppercase;color:#fff;line-height:1;margin:0 0 14px}
-.comp-hub-btn{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.35);color:#fff;border-radius:8px;padding:8px 16px;font-size:12px;font-weight:700;transition:background .15s;white-space:nowrap}
-.comp-hub-card:hover .comp-hub-btn{background:rgba(255,255,255,.25)}
+.comp-hub-eyebrow{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.65);font-weight:700;display:block;margin-bottom:4px}
+.comp-hub-ttl{font-family:'Anton',sans-serif;font-size:2rem;font-weight:400;letter-spacing:.04em;text-transform:uppercase;color:#fff;line-height:1;margin:0 0 16px}
+.comp-hub-btn{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.5);color:#fff;border-radius:50%;font-size:16px;font-weight:900;transition:background .15s;flex-shrink:0}
+.comp-hub-card:hover .comp-hub-btn{background:rgba(255,255,255,.35)}
 @media(max-width:640px){.comp-hub-grid{grid-template-columns:1fr}.comp-hub-card-img{opacity:.2}.comp-hub-card-content{max-width:100%}}
 
 </style>
@@ -1081,7 +1082,7 @@ body.bar-active{padding-bottom:64px}
       <div class="comp-hub-card-content">
         <span class="comp-hub-eyebrow">Ir a comparativas</span>
         <p class="comp-hub-ttl">Android</p>
-        <span class="comp-hub-btn">Ver comparativa →</span>
+        <span class="comp-hub-btn">›</span>
       </div>
     </a>
     <a class="comp-hub-card comp-hub-card-iphone" href="/celulares/iphone/" onclick="gtag('event','cta_click',{cta:'comp_hub_iphone',location:'comp_hub'})">
@@ -1089,7 +1090,7 @@ body.bar-active{padding-bottom:64px}
       <div class="comp-hub-card-content">
         <span class="comp-hub-eyebrow">Ir a comparativas</span>
         <p class="comp-hub-ttl">iPhone</p>
-        <span class="comp-hub-btn">Ver comparativa →</span>
+        <span class="comp-hub-btn">›</span>
       </div>
     </a>
   </div>
@@ -1430,7 +1431,7 @@ renderCards();
       const v   = f.variantes[0];
       const sel = selected5k.includes(f.modeloBase);
       const imgTag = f.img ? `<img class="sidebar-phone-img" src="${f.img}" alt="" loading="lazy" onerror="this.style.display='none'">` : '';
-      const mlBtn = v.linkML ? `<a class="sidebar-phone-ml" href="${v.linkML}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();typeof gtag==='function'&&gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'${f.nombre.replace(/'/g,"\\'")}',value:${v.precio},page_section:'sidebar'})"Clic para ir <img src="/logomercado.png" alt="" style="height:10px;display:inline-block;vertical-align:middle;margin-left:2px"></a>` : '';
+      const mlBtn = v.linkML ? `<a class="sidebar-phone-ml" href="${v.linkML}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();typeof gtag==='function'&&gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'${f.nombre.replace(/'/g,"\\'")}',value:${v.precio},page_section:'sidebar'})">Clic para ir <img src="/logomercado.png" alt="" style="height:10px;display:inline-block;vertical-align:middle;margin-left:2px"></a>` : '';
       return `<div class="sidebar-phone${sel?' sp-sel':''}" role="button" tabindex="0"
           onclick="selectFromPick('${f.modeloBase}')"
           onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault()}"
