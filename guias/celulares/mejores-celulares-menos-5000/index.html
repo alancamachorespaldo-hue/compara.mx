@@ -385,6 +385,17 @@ body.bar-active{padding-bottom:64px}
 .oferta-aside-more{display:block;padding:8px 12px;font-size:11px;color:var(--ac);font-weight:600;text-decoration:none;text-align:center;border-top:1px solid var(--bd)}
 .oferta-aside-more:hover{background:var(--acd)}
 
+/* ── ASIDE HUB CARDS ── */
+.aside-hub-card{position:relative;display:flex;align-items:center;gap:10px;border-radius:12px;overflow:hidden;padding:12px 14px;text-decoration:none;margin-top:8px}
+.aside-hub-android{background:#006847}
+.aside-hub-iphone{background:#1d4ed8}
+.aside-hub-img{position:absolute;right:0;top:0;bottom:0;width:52%;object-fit:cover;object-position:center top;opacity:.45}
+.aside-hub-content{position:relative;z-index:2;flex:1;min-width:0}
+.aside-hub-eyebrow{font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.65);font-weight:700;display:block;margin-bottom:2px}
+.aside-hub-ttl{font-family:'Anton',sans-serif;font-size:1.2rem;font-weight:400;letter-spacing:.04em;text-transform:uppercase;color:#fff;line-height:1;display:block}
+.aside-hub-btn{position:relative;z-index:2;display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.45);color:#fff;border-radius:50%;font-size:14px;font-weight:900;flex-shrink:0}
+.aside-hub-card:hover .aside-hub-btn{background:rgba(255,255,255,.35)}
+
 /* ── IR A COMPARATIVAS HUB ── */
 .comp-hub-section{max-width:1220px;margin:0 auto;padding:0 2rem 2.5rem}
 .comp-hub-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
@@ -1070,6 +1081,22 @@ body.bar-active{padding-bottom:64px}
     <div id="ofertas-aside-list"><!-- JS --></div>
     <a class="oferta-aside-more" href="/celulares/android/" onclick="gtag('event','cta_click',{cta:'ofertas_aside_ver_mas',location:'aside'})">Ver más celulares →</a>
   </div>
+  <a class="aside-hub-card aside-hub-android" href="/celulares/android/" onclick="gtag('event','cta_click',{cta:'aside_hub_android',location:'aside'})">
+    <img class="aside-hub-img" src="/fotosmartphone.png" alt="" loading="lazy">
+    <div class="aside-hub-content">
+      <span class="aside-hub-eyebrow">Ir a comparativas</span>
+      <span class="aside-hub-ttl">Android</span>
+    </div>
+    <span class="aside-hub-btn">›</span>
+  </a>
+  <a class="aside-hub-card aside-hub-iphone" href="/celulares/iphone/" onclick="gtag('event','cta_click',{cta:'aside_hub_iphone',location:'aside'})">
+    <img class="aside-hub-img" src="/fotoIphone.png" alt="" loading="lazy">
+    <div class="aside-hub-content">
+      <span class="aside-hub-eyebrow">Ir a comparativas</span>
+      <span class="aside-hub-ttl">iPhone</span>
+    </div>
+    <span class="aside-hub-btn">›</span>
+  </a>
 </aside>
 
 </div><!-- /page-wrap -->
