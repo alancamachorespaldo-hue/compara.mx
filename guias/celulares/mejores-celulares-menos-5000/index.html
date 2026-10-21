@@ -304,6 +304,29 @@ body.bar-active{padding-bottom:64px}
 .decide-btns{display:flex;flex-direction:column;gap:6px;margin-top:2px}
 @media(max-width:480px){.buy-block{flex-direction:column;align-items:stretch}.buy-block-btns{flex-direction:column}}
 
+/* SECTION LAYOUT – texto editorial + tarjeta pegajosa */
+.section-layout{display:grid;grid-template-columns:minmax(0,1fr) 288px;gap:40px;align-items:start}
+.section-text{min-width:0}
+.section-sticky{position:sticky;top:76px}
+.prd-card{border:1.5px solid var(--bd);border-radius:16px;overflow:hidden;background:var(--bg);box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.prd-card-img{background:var(--s1);display:flex;align-items:center;justify-content:center;padding:20px;border-bottom:1.5px solid var(--bd);min-height:180px}
+.prd-card-img img{max-width:100%;max-height:180px;object-fit:contain;display:block}
+.prd-card-body{padding:16px}
+.prd-kicker{color:var(--ac);text-transform:uppercase;letter-spacing:.08em;font-weight:700;font-size:.72rem;margin-bottom:5px}
+.prd-name{font-family:'Anton',sans-serif;font-size:1.05rem;font-weight:400;text-transform:uppercase;letter-spacing:.02em;margin:0 0 8px;line-height:1.2;color:var(--tx)}
+.prd-price{font-family:'Anton',sans-serif;font-size:1.4rem;font-weight:400;margin:0 0 12px;color:var(--tx);letter-spacing:.01em}
+.prd-price small{display:block;color:var(--tx3);font-family:'Satoshi',sans-serif;font-size:.76rem;font-weight:500;line-height:1.45}
+.prd-specs{border-top:1px solid var(--bd);margin:0 -16px;padding:0 16px}
+.spec-row{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding:7px 0;border-bottom:1px solid var(--bd);font-size:.84rem}
+.spec-row:last-child{border-bottom:0}
+.spec-row-label{color:var(--tx2);flex-shrink:0}
+.spec-row-value{font-weight:700;text-align:right;color:var(--tx)}
+.product-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
+@media(max-width:960px){
+  .section-layout{grid-template-columns:1fr;gap:0}
+  .section-sticky{position:relative;top:0;margin-bottom:24px}
+}
+
 </style>
 </head>
 <body>
@@ -464,37 +487,37 @@ body.bar-active{padding-bottom:64px}
         <span class="pick-label">Rendimiento</span>
         <span class="pick-name">Motorola Moto G75</span>
         <span class="pick-why">Puede convenirte si quieres Snapdragon 6 Gen 3, 8 GB de RAM y 5G en Mercado Libre.</span>
-        <button class="pick-btn" onclick="selectFromPick('motorola-moto-g75')" aria-label="Seleccionar Motorola Moto G75 para comparar">＋ Seleccionar</button>
+        <button class="pick-btn" onclick="selectFromPick('android-motorola-moto-g75-256gb-8gb')" aria-label="Seleccionar Motorola Moto G75 para comparar">＋ Seleccionar</button>
       </div>
       <div class="pick-card">
         <span class="pick-label">Almacenamiento</span>
         <span class="pick-name">Motorola G86</span>
         <span class="pick-why">Opción interesante si priorizas 512 GB de almacenamiento con 8 GB de RAM.</span>
-        <button class="pick-btn" onclick="selectFromPick('motorola-g86')" aria-label="Seleccionar Motorola G86 para comparar">＋ Seleccionar</button>
+        <button class="pick-btn" onclick="selectFromPick('android-motorola-g86-512gb-8gb')" aria-label="Seleccionar Motorola G86 para comparar">＋ Seleccionar</button>
       </div>
       <div class="pick-card">
         <span class="pick-label">5G económico</span>
         <span class="pick-name">Samsung Galaxy A16 5G</span>
         <span class="pick-why">Considera este modelo si quieres 5G por menos de $3,000 y marcas confiables.</span>
-        <button class="pick-btn" onclick="selectFromPick('samsung-a16-5g')" aria-label="Seleccionar Samsung Galaxy A16 5G para comparar">＋ Seleccionar</button>
+        <button class="pick-btn" onclick="selectFromPick('android-samsung-a16-5g-128gb-4gb')" aria-label="Seleccionar Samsung Galaxy A16 5G para comparar">＋ Seleccionar</button>
       </div>
       <div class="pick-card">
         <span class="pick-label">Batería</span>
         <span class="pick-name">Xiaomi Redmi 17</span>
         <span class="pick-why">Puede convenirte si priorizas batería de 7,500 mAh y carga rápida de 45W.</span>
-        <button class="pick-btn" onclick="selectFromPick('xiaomi-redmi-17')" aria-label="Seleccionar Xiaomi Redmi 17 para comparar">＋ Seleccionar</button>
+        <button class="pick-btn" onclick="selectFromPick('android-xiaomi-redmi-17-128gb-4gb')" aria-label="Seleccionar Xiaomi Redmi 17 para comparar">＋ Seleccionar</button>
       </div>
       <div class="pick-card">
         <span class="pick-label">Uso diario</span>
         <span class="pick-name">Samsung A17 (Helio G99)</span>
         <span class="pick-why">Opción interesante si buscas Samsung con Helio G99 y NFC por menos de $3,000.</span>
-        <button class="pick-btn" onclick="selectFromPick('samsung-a17-mediatek-helio-g99')" aria-label="Seleccionar Samsung A17 para comparar">＋ Seleccionar</button>
+        <button class="pick-btn" onclick="selectFromPick('android-samsung-a17-mediatek-helio-g99-128gb-4gb')" aria-label="Seleccionar Samsung A17 para comparar">＋ Seleccionar</button>
       </div>
       <div class="pick-card">
         <span class="pick-label">Precio y chip</span>
         <span class="pick-name">Infinix HOT 70</span>
         <span class="pick-why">Considera este modelo si buscas Helio G100 Ultimate con NFC cerca de $4,000.</span>
-        <button class="pick-btn" onclick="selectFromPick('infinix-hot-70')" aria-label="Seleccionar Infinix HOT 70 para comparar">＋ Seleccionar</button>
+        <button class="pick-btn" onclick="selectFromPick('android-infinix-hot-70-128gb-4gb')" aria-label="Seleccionar Infinix HOT 70 para comparar">＋ Seleccionar</button>
       </div>
     </div>
   </div>
@@ -516,156 +539,229 @@ body.bar-active{padding-bottom:64px}
 
   <!-- EDITORIAL: MODELOS -->
   <div class="ed-section">
-    <h2>Motorola Moto G75: Snapdragon 6 Gen 3 con 5G disponible en Mercado Libre</h2>
-<div class="buy-block">
-  <div class="buy-block-price">
-    <span class="buy-block-main">$4,190 MXN</span>
-    <span class="buy-block-date">Precio visto: octubre 2026</span>
-  </div>
-  <div class="buy-block-btns">
-    <a class="btn-cta-ml" href="https://meli.la/1YNrnqo" target="_blank" rel="sponsored nofollow noopener" onclick="gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Motorola Moto G75',location:'editorial_guide'})"><img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-right:3px" alt="" onerror="this.style.display='none'">Ver en Mercado Libre →</a>
-    <!-- PENDIENTE: link afiliado Amazon Motorola Moto G75 -->
-  </div>
-</div>
-
-    <p>El Motorola Moto G75 es la opción de mayor rendimiento en esta selección. La variante disponible en Mercado Libre ofrece 8 GB de RAM y 256 GB de almacenamiento, con procesador Snapdragon 6 Gen 3 y conectividad 5G.</p>
-    <p>Su pantalla de 6.78 pulgadas FHD+ a 120 Hz y batería de 5,000 mAh lo convierten en el modelo más equilibrado si el rendimiento es tu prioridad. Incluye NFC.</p>
-    <h3>Puede convenirte si:</h3>
-    <ul>
-      <li>priorizas rendimiento y multitarea</li>
-      <li>buscas 5G y NFC</li>
-      <li>quieres 8 GB de RAM y 256 GB de almacenamiento</li>
-      <li>prefieres comprar en Mercado Libre</li>
-    </ul>
-    <button class="compare-cta-btn" onclick="selectFromPick('motorola-moto-g75')" aria-label="Seleccionar Motorola Moto G75 para comparar">＋ Seleccionar Motorola Moto G75 para comparar</button>
-  </div>
-
-  <div class="ed-section">
-    <h2>Motorola G86: 512 GB de almacenamiento con Dimensity 7300</h2>
-<div class="buy-block">
-  <div class="buy-block-price">
-    <span class="buy-block-main">$4,588 MXN</span>
-    <span class="buy-block-date">Precio visto: octubre 2026</span>
-  </div>
-  <div class="buy-block-btns">
-    <a class="btn-cta-ml" href="https://meli.la/1A7T9CX" target="_blank" rel="sponsored nofollow noopener" onclick="gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Motorola G86',location:'editorial_guide'})"><img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-right:3px" alt="" onerror="this.style.display='none'">Ver en Mercado Libre →</a>
-    <!-- PENDIENTE: link afiliado Amazon Motorola G86 -->
-  </div>
-</div>
-
-    <p>El Motorola G86 es la opción con mayor almacenamiento de esta comparativa: 512 GB con 8 GB de RAM y procesador MediaTek Dimensity 7300. Incluye NFC y está disponible en Mercado Libre.</p>
-    <p>Si acumulas muchos archivos, fotos, videos o aplicaciones y no quieres depender de la nube, esta configuración ofrece margen considerable dentro del presupuesto de $5,000.</p>
-    <h3>Puede convenirte si:</h3>
-    <ul>
-      <li>necesitas 512 GB sin pagar más</li>
-      <li>quieres 8 GB de RAM</li>
-      <li>el 5G no es una prioridad</li>
-      <li>buscas NFC incluido</li>
-    </ul>
-    <div class="callout"><strong>Toma en cuenta:</strong> utiliza conectividad 4G. Si el 5G es importante para ti, revisa primero el Motorola Moto G75 o el Samsung Galaxy A16 5G.</div>
-    <button class="compare-cta-btn" onclick="selectFromPick('motorola-g86')" aria-label="Seleccionar Motorola G86 para comparar">＋ Seleccionar Motorola G86 para comparar</button>
+    <div class="section-layout">
+      <div class="section-text">
+        <h2>Motorola Moto G75: Snapdragon 6 Gen 3 con 5G disponible en Mercado Libre</h2>
+        <p>El Motorola Moto G75 es la opción de mayor rendimiento en esta selección. La variante disponible en Mercado Libre ofrece 8 GB de RAM y 256 GB de almacenamiento, con procesador Snapdragon 6 Gen 3 y conectividad 5G.</p>
+        <p>Su pantalla de 6.78 pulgadas FHD+ a 120 Hz y batería de 5,000 mAh lo convierten en el modelo más equilibrado si el rendimiento es tu prioridad. Incluye NFC.</p>
+        <h3>Puede convenirte si:</h3>
+        <ul>
+          <li>priorizas rendimiento y multitarea</li>
+          <li>buscas 5G y NFC</li>
+          <li>quieres 8 GB de RAM y 256 GB de almacenamiento</li>
+          <li>prefieres comprar en Mercado Libre</li>
+        </ul>
+        <button class="compare-cta-btn" onclick="selectFromPick('android-motorola-moto-g75-256gb-8gb')" aria-label="Seleccionar Motorola Moto G75 para comparar">＋ Seleccionar para comparar</button>
+      </div>
+      <div class="section-sticky">
+        <div class="prd-card">
+          <div class="prd-card-img">
+            <img src="https://http2.mlstatic.com/D_NQ_NP_724003-MLA99989849311_112025-F.jpg" alt="Motorola Moto G75 256GB/8GB RAM" loading="lazy">
+          </div>
+          <div class="prd-card-body">
+            <div class="prd-kicker">Rendimiento · 5G · NFC</div>
+            <h3 class="prd-name">Moto G75 256 GB / 8 GB RAM</h3>
+            <div class="prd-price">$4,190 MXN<small>Precio visto: octubre 2026</small></div>
+            <div class="prd-specs">
+              <div class="spec-row"><span class="spec-row-label">Pantalla</span><span class="spec-row-value">6.78" FHD+ 120 Hz</span></div>
+              <div class="spec-row"><span class="spec-row-label">Procesador</span><span class="spec-row-value">Snapdragon 6 Gen 3</span></div>
+              <div class="spec-row"><span class="spec-row-label">RAM</span><span class="spec-row-value">8 GB</span></div>
+              <div class="spec-row"><span class="spec-row-label">Almacenamiento</span><span class="spec-row-value">256 GB</span></div>
+              <div class="spec-row"><span class="spec-row-label">Conectividad</span><span class="spec-row-value">5G · NFC</span></div>
+              <div class="spec-row"><span class="spec-row-label">Batería</span><span class="spec-row-value">5,000 mAh</span></div>
+            </div>
+            <div class="product-actions" data-product-actions="android-motorola-moto-g75-256gb-8gb"></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="ed-section">
-    <h2>Samsung Galaxy A16 5G: la opción 5G más accesible de la selección</h2>
-<div class="buy-block">
-  <div class="buy-block-price">
-    <span class="buy-block-main">$2,639 MXN</span>
-    <span class="buy-block-date">Precio visto: octubre 2026</span>
-  </div>
-  <div class="buy-block-btns">
-    <a class="btn-cta-ml" href="https://meli.la/2odmD8G" target="_blank" rel="sponsored nofollow noopener" onclick="gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Samsung Galaxy A16 5G',location:'editorial_guide'})"><img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-right:3px" alt="" onerror="this.style.display='none'">Ver en Mercado Libre →</a>
-    <!-- PENDIENTE: link afiliado Amazon Samsung Galaxy A16 5G -->
-  </div>
-</div>
-
-    <p>El Samsung Galaxy A16 5G es el celular con mejor relación precio-conectividad de esta comparativa. Con $2,639 en Mercado Libre es la alternativa más barata con 5G y NFC incluidos.</p>
-    <p>La variante considerada tiene 4 GB de RAM y 128 GB de almacenamiento. Sus especificaciones son más modestas que el Moto G75, pero si el objetivo principal es 5G y marca reconocida gastando lo menos posible, esta es la opción.</p>
-    <h3>Puede convenirte si:</h3>
-    <ul>
-      <li>quieres 5G gastando menos de $3,000</li>
-      <li>prefieres Samsung</li>
-      <li>4 GB de RAM son suficientes para tu uso</li>
-      <li>128 GB de almacenamiento cubren tus necesidades</li>
-    </ul>
-    <div class="warning">Los 4 GB de RAM son un compromiso real frente a los modelos de 8 GB. Para multitarea intensa o juegos exigentes, considera el Motorola Moto G75.</div>
-    <button class="compare-cta-btn" onclick="selectFromPick('samsung-a16-5g')" aria-label="Seleccionar Samsung Galaxy A16 5G para comparar">＋ Seleccionar Samsung Galaxy A16 5G para comparar</button>
-  </div>
-
-  <div class="ed-section">
-    <h2>Xiaomi Redmi 17: batería de 7,500 mAh con carga de 45W</h2>
-<div class="buy-block">
-  <div class="buy-block-price">
-    <span class="buy-block-main">$4,009 MXN</span>
-    <span class="buy-block-date">Precio visto: octubre 2026</span>
-  </div>
-  <div class="buy-block-btns">
-    <a class="btn-cta-ml" href="https://meli.la/2nAtP9e" target="_blank" rel="sponsored nofollow noopener" onclick="gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Xiaomi Redmi 17',location:'editorial_guide'})"><img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-right:3px" alt="" onerror="this.style.display='none'">Ver en Mercado Libre →</a>
-    <!-- PENDIENTE: link afiliado Amazon Xiaomi Redmi 17 -->
-  </div>
-</div>
-
-    <p>El Xiaomi Redmi 17 es la única opción de esta comparativa con una batería de 7,500 mAh y carga rápida de 45W. Si la autonomía es tu prioridad, este modelo ofrece la mayor capacidad del grupo a $4,009 en Mercado Libre.</p>
-    <p>La variante disponible tiene 4 GB de RAM y 128 GB de almacenamiento. Utiliza conectividad 4G.</p>
-    <h3>Puede convenirte si:</h3>
-    <ul>
-      <li>pasas muchas horas lejos del cargador</li>
-      <li>priorizas la mayor batería posible</li>
-      <li>el 5G no es indispensable para ti</li>
-      <li>4 GB de RAM son suficientes para tu uso diario</li>
-    </ul>
-    <div class="callout"><strong>Toma en cuenta:</strong> es un modelo 4G. Si también necesitas buen rendimiento, compáralo con el Motorola Moto G75 antes de decidir.</div>
-    <button class="compare-cta-btn" onclick="selectFromPick('xiaomi-redmi-17')" aria-label="Seleccionar Xiaomi Redmi 17 para comparar">＋ Seleccionar Xiaomi Redmi 17 para comparar</button>
+    <div class="section-layout">
+      <div class="section-text">
+        <h2>Motorola G86: 512 GB de almacenamiento con Dimensity 7300</h2>
+        <p>El Motorola G86 es la opción con mayor almacenamiento de esta comparativa: 512 GB con 8 GB de RAM y procesador MediaTek Dimensity 7300. Incluye NFC y está disponible en Mercado Libre.</p>
+        <p>Si acumulas muchos archivos, fotos, videos o aplicaciones y no quieres depender de la nube, esta configuración ofrece margen considerable dentro del presupuesto de $5,000.</p>
+        <h3>Puede convenirte si:</h3>
+        <ul>
+          <li>necesitas 512 GB sin pagar más</li>
+          <li>quieres 8 GB de RAM</li>
+          <li>el 5G no es una prioridad</li>
+          <li>buscas NFC incluido</li>
+        </ul>
+        <div class="callout"><strong>Toma en cuenta:</strong> utiliza conectividad 4G. Si el 5G es importante para ti, revisa primero el Motorola Moto G75 o el Samsung Galaxy A16 5G.</div>
+        <button class="compare-cta-btn" onclick="selectFromPick('android-motorola-g86-512gb-8gb')" aria-label="Seleccionar Motorola G86 para comparar">＋ Seleccionar para comparar</button>
+      </div>
+      <div class="section-sticky">
+        <div class="prd-card">
+          <div class="prd-card-img">
+            <img src="https://http2.mlstatic.com/D_NQ_NP_626714-MLA105597355234_012026-F.jpg" alt="Motorola G86 512GB/8GB RAM" loading="lazy">
+          </div>
+          <div class="prd-card-body">
+            <div class="prd-kicker">Almacenamiento · 4G · NFC</div>
+            <h3 class="prd-name">Motorola G86 512 GB / 8 GB RAM</h3>
+            <div class="prd-price">$4,588 MXN<small>Precio visto: octubre 2026</small></div>
+            <div class="prd-specs">
+              <div class="spec-row"><span class="spec-row-label">Procesador</span><span class="spec-row-value">Dimensity 7300</span></div>
+              <div class="spec-row"><span class="spec-row-label">RAM</span><span class="spec-row-value">8 GB</span></div>
+              <div class="spec-row"><span class="spec-row-label">Almacenamiento</span><span class="spec-row-value">512 GB</span></div>
+              <div class="spec-row"><span class="spec-row-label">Conectividad</span><span class="spec-row-value">4G · NFC</span></div>
+            </div>
+            <div class="product-actions" data-product-actions="android-motorola-g86-512gb-8gb"></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="ed-section">
-    <h2>Samsung A17 (Helio G99): uso diario con chip conocido</h2>
-<div class="buy-block">
-  <div class="buy-block-price">
-    <span class="buy-block-main">$2,844 MXN</span>
-    <span class="buy-block-date">Precio visto: octubre 2026</span>
-  </div>
-  <div class="buy-block-btns">
-    <a class="btn-cta-ml" href="https://meli.la/23RnkQB" target="_blank" rel="sponsored nofollow noopener" onclick="gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Samsung A17',location:'editorial_guide'})"><img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-right:3px" alt="" onerror="this.style.display='none'">Ver en Mercado Libre →</a>
-    <!-- PENDIENTE: link afiliado Amazon Samsung A17 (Helio G99) -->
-  </div>
-</div>
-
-    <p>El Samsung A17 con procesador MediaTek Helio G99 es una opción equilibrada para uso cotidiano. Está disponible en Mercado Libre a $2,844, con 4 GB de RAM, 128 GB de almacenamiento y NFC incluido.</p>
-    <p>El Helio G99 es un chip bien probado en la gama media: eficiente para tareas diarias como WhatsApp, redes sociales, navegación y video. No es un chip de alto rendimiento, pero ofrece una experiencia estable para uso moderado.</p>
-    <h3>Puede convenirte si:</h3>
-    <ul>
-      <li>buscas Samsung con chip conocido por menos de $3,000</li>
-      <li>tu uso es principalmente cotidiano sin multitarea pesada</li>
-      <li>quieres NFC incluido</li>
-      <li>128 GB son suficientes para tus archivos</li>
-    </ul>
-    <button class="compare-cta-btn" onclick="selectFromPick('samsung-a17-mediatek-helio-g99')" aria-label="Seleccionar Samsung A17 para comparar">＋ Seleccionar Samsung A17 (Helio G99) para comparar</button>
+    <div class="section-layout">
+      <div class="section-text">
+        <h2>Samsung Galaxy A16 5G: la opción 5G más accesible de la selección</h2>
+        <p>El Samsung Galaxy A16 5G es el celular con mejor relación precio-conectividad de esta comparativa. Con $2,639 en Mercado Libre es la alternativa más barata con 5G y NFC incluidos.</p>
+        <p>La variante considerada tiene 4 GB de RAM y 128 GB de almacenamiento. Sus especificaciones son más modestas que el Moto G75, pero si el objetivo principal es 5G y marca reconocida gastando lo menos posible, esta es la opción.</p>
+        <h3>Puede convenirte si:</h3>
+        <ul>
+          <li>quieres 5G gastando menos de $3,000</li>
+          <li>prefieres Samsung</li>
+          <li>4 GB de RAM son suficientes para tu uso</li>
+          <li>128 GB de almacenamiento cubren tus necesidades</li>
+        </ul>
+        <div class="warning">Los 4 GB de RAM son un compromiso real frente a los modelos de 8 GB. Para multitarea intensa o juegos exigentes, considera el Motorola Moto G75.</div>
+        <button class="compare-cta-btn" onclick="selectFromPick('android-samsung-a16-5g-128gb-4gb')" aria-label="Seleccionar Samsung Galaxy A16 5G para comparar">＋ Seleccionar para comparar</button>
+      </div>
+      <div class="section-sticky">
+        <div class="prd-card">
+          <div class="prd-card-img">
+            <img src="https://http2.mlstatic.com/D_NQ_NP_802041-MLA99444576642_112025-F.jpg" alt="Samsung Galaxy A16 5G 128GB/4GB RAM" loading="lazy">
+          </div>
+          <div class="prd-card-body">
+            <div class="prd-kicker">5G económico · NFC</div>
+            <h3 class="prd-name">Samsung Galaxy A16 5G 128 GB / 4 GB RAM</h3>
+            <div class="prd-price">$2,639 MXN<small>Precio visto: octubre 2026</small></div>
+            <div class="prd-specs">
+              <div class="spec-row"><span class="spec-row-label">RAM</span><span class="spec-row-value">4 GB</span></div>
+              <div class="spec-row"><span class="spec-row-label">Almacenamiento</span><span class="spec-row-value">128 GB</span></div>
+              <div class="spec-row"><span class="spec-row-label">Conectividad</span><span class="spec-row-value">5G · NFC</span></div>
+            </div>
+            <div class="product-actions" data-product-actions="android-samsung-a16-5g-128gb-4gb"></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="ed-section">
-    <h2>Infinix HOT 70: Helio G100 Ultimate con NFC cerca de $4,000</h2>
-<div class="buy-block">
-  <div class="buy-block-price">
-    <span class="buy-block-main">$3,999 MXN</span>
-    <span class="buy-block-date">Precio visto: octubre 2026</span>
+    <div class="section-layout">
+      <div class="section-text">
+        <h2>Xiaomi Redmi 17: batería de 7,500 mAh con carga de 45W</h2>
+        <p>El Xiaomi Redmi 17 es la única opción de esta comparativa con una batería de 7,500 mAh y carga rápida de 45W. Si la autonomía es tu prioridad, este modelo ofrece la mayor capacidad del grupo a $4,009 en Mercado Libre.</p>
+        <p>La variante disponible tiene 4 GB de RAM y 128 GB de almacenamiento. Utiliza conectividad 4G.</p>
+        <h3>Puede convenirte si:</h3>
+        <ul>
+          <li>pasas muchas horas lejos del cargador</li>
+          <li>priorizas la mayor batería posible</li>
+          <li>el 5G no es indispensable para ti</li>
+          <li>4 GB de RAM son suficientes para tu uso diario</li>
+        </ul>
+        <div class="callout"><strong>Toma en cuenta:</strong> es un modelo 4G. Si también necesitas buen rendimiento, compáralo con el Motorola Moto G75 antes de decidir.</div>
+        <button class="compare-cta-btn" onclick="selectFromPick('android-xiaomi-redmi-17-128gb-4gb')" aria-label="Seleccionar Xiaomi Redmi 17 para comparar">＋ Seleccionar para comparar</button>
+      </div>
+      <div class="section-sticky">
+        <div class="prd-card">
+          <div class="prd-card-img">
+            <img src="https://http2.mlstatic.com/D_NQ_NP_2X_636342-CBT115285598872_082026-F-xiaomi-redmi-17-4g-4gb-ram-128gb-rom-69-7500mah-45w-negro.webp" alt="Xiaomi Redmi 17 128GB/4GB RAM" loading="lazy">
+          </div>
+          <div class="prd-card-body">
+            <div class="prd-kicker">Batería · 7,500 mAh · 4G</div>
+            <h3 class="prd-name">Xiaomi Redmi 17 128 GB / 4 GB RAM</h3>
+            <div class="prd-price">$4,009 MXN<small>Precio visto: octubre 2026</small></div>
+            <div class="prd-specs">
+              <div class="spec-row"><span class="spec-row-label">RAM</span><span class="spec-row-value">4 GB</span></div>
+              <div class="spec-row"><span class="spec-row-label">Almacenamiento</span><span class="spec-row-value">128 GB</span></div>
+              <div class="spec-row"><span class="spec-row-label">Conectividad</span><span class="spec-row-value">4G</span></div>
+              <div class="spec-row"><span class="spec-row-label">Batería</span><span class="spec-row-value">7,500 mAh · 45W</span></div>
+            </div>
+            <div class="product-actions" data-product-actions="android-xiaomi-redmi-17-128gb-4gb"></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="buy-block-btns">
-    <a class="btn-cta-ml" href="https://meli.la/2jFpaTv" target="_blank" rel="sponsored nofollow noopener" onclick="gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Infinix HOT 70',location:'editorial_guide'})"><img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-right:3px" alt="" onerror="this.style.display='none'">Ver en Mercado Libre →</a>
-    <!-- PENDIENTE: link afiliado Amazon Infinix HOT 70 -->
-  </div>
-</div>
 
-    <p>El Infinix HOT 70 ofrece el procesador MediaTek Helio G100 Ultimate a $3,999 en Mercado Libre, con 4 GB de RAM, 128 GB de almacenamiento y NFC. Es la opción con mayor potencia de procesamiento dentro del rango de $3,500–$4,100 de esta selección.</p>
-    <h3>Puede convenirte si:</h3>
-    <ul>
-      <li>buscas el mayor procesador posible cerca de $4,000</li>
-      <li>quieres NFC incluido</li>
-      <li>el 4G es suficiente para tu uso</li>
-      <li>128 GB de almacenamiento cubren tus necesidades</li>
-    </ul>
-    <div class="callout"><strong>Toma en cuenta:</strong> Infinix es una marca menos establecida que Samsung o Motorola en México. Si el soporte postventa y las actualizaciones son importantes para ti, compáralo con el Samsung Galaxy A16 5G antes de decidir.</div>
-    <button class="compare-cta-btn" onclick="selectFromPick('infinix-hot-70')" aria-label="Seleccionar Infinix HOT 70 para comparar">＋ Seleccionar Infinix HOT 70 para comparar</button>
+  <div class="ed-section">
+    <div class="section-layout">
+      <div class="section-text">
+        <h2>Samsung A17 (Helio G99): uso diario con chip conocido</h2>
+        <p>El Samsung A17 con procesador MediaTek Helio G99 es una opción equilibrada para uso cotidiano. Está disponible en Mercado Libre a $2,844, con 4 GB de RAM, 128 GB de almacenamiento y NFC incluido.</p>
+        <p>El Helio G99 es un chip bien probado en la gama media: eficiente para tareas diarias como WhatsApp, redes sociales, navegación y video. No es un chip de alto rendimiento, pero ofrece una experiencia estable para uso moderado.</p>
+        <h3>Puede convenirte si:</h3>
+        <ul>
+          <li>buscas Samsung con chip conocido por menos de $3,000</li>
+          <li>tu uso es principalmente cotidiano sin multitarea pesada</li>
+          <li>quieres NFC incluido</li>
+          <li>128 GB son suficientes para tus archivos</li>
+        </ul>
+        <button class="compare-cta-btn" onclick="selectFromPick('android-samsung-a17-mediatek-helio-g99-128gb-4gb')" aria-label="Seleccionar Samsung A17 para comparar">＋ Seleccionar para comparar</button>
+      </div>
+      <div class="section-sticky">
+        <div class="prd-card">
+          <div class="prd-card-img">
+            <img src="https://http2.mlstatic.com/D_NQ_NP_840481-MLA100006971367_122025-F.jpg" alt="Samsung Galaxy A17 Helio G99 128GB/4GB RAM" loading="lazy">
+          </div>
+          <div class="prd-card-body">
+            <div class="prd-kicker">Uso diario · NFC · Samsung</div>
+            <h3 class="prd-name">Samsung Galaxy A17 128 GB / 4 GB RAM</h3>
+            <div class="prd-price">$2,844 MXN<small>Precio visto: octubre 2026</small></div>
+            <div class="prd-specs">
+              <div class="spec-row"><span class="spec-row-label">Procesador</span><span class="spec-row-value">Helio G99</span></div>
+              <div class="spec-row"><span class="spec-row-label">RAM</span><span class="spec-row-value">4 GB</span></div>
+              <div class="spec-row"><span class="spec-row-label">Almacenamiento</span><span class="spec-row-value">128 GB</span></div>
+              <div class="spec-row"><span class="spec-row-label">Conectividad</span><span class="spec-row-value">4G · NFC</span></div>
+            </div>
+            <div class="product-actions" data-product-actions="android-samsung-a17-mediatek-helio-g99-128gb-4gb"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ed-section">
+    <div class="section-layout">
+      <div class="section-text">
+        <h2>Infinix HOT 70: Helio G100 Ultimate con NFC cerca de $4,000</h2>
+        <p>El Infinix HOT 70 ofrece el procesador MediaTek Helio G100 Ultimate a $3,999 en Mercado Libre, con 4 GB de RAM, 128 GB de almacenamiento y NFC. Es la opción con mayor potencia de procesamiento dentro del rango de $3,500–$4,100 de esta selección.</p>
+        <h3>Puede convenirte si:</h3>
+        <ul>
+          <li>buscas el mayor procesador posible cerca de $4,000</li>
+          <li>quieres NFC incluido</li>
+          <li>el 4G es suficiente para tu uso</li>
+          <li>128 GB de almacenamiento cubren tus necesidades</li>
+        </ul>
+        <div class="callout"><strong>Toma en cuenta:</strong> Infinix es una marca menos establecida que Samsung o Motorola en México. Si el soporte postventa y las actualizaciones son importantes para ti, compáralo con el Samsung Galaxy A16 5G antes de decidir.</div>
+        <button class="compare-cta-btn" onclick="selectFromPick('android-infinix-hot-70-128gb-4gb')" aria-label="Seleccionar Infinix HOT 70 para comparar">＋ Seleccionar para comparar</button>
+      </div>
+      <div class="section-sticky">
+        <div class="prd-card">
+          <div class="prd-card-img">
+            <img src="https://http2.mlstatic.com/D_NQ_NP_725513-MLA114223842359_072026-F.jpg" alt="Infinix HOT 70 128GB/4GB RAM" loading="lazy">
+          </div>
+          <div class="prd-card-body">
+            <div class="prd-kicker">Procesador · NFC · 4G</div>
+            <h3 class="prd-name">Infinix HOT 70 128 GB / 4 GB RAM</h3>
+            <div class="prd-price">$3,999 MXN<small>Precio visto: octubre 2026</small></div>
+            <div class="prd-specs">
+              <div class="spec-row"><span class="spec-row-label">Procesador</span><span class="spec-row-value">Helio G100 Ultimate</span></div>
+              <div class="spec-row"><span class="spec-row-label">RAM</span><span class="spec-row-value">4 GB</span></div>
+              <div class="spec-row"><span class="spec-row-label">Almacenamiento</span><span class="spec-row-value">128 GB</span></div>
+              <div class="spec-row"><span class="spec-row-label">Conectividad</span><span class="spec-row-value">4G · NFC</span></div>
+            </div>
+            <div class="product-actions" data-product-actions="android-infinix-hot-70-128gb-4gb"></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- CONCLUSIÓN -->
