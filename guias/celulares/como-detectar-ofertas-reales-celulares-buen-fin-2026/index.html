@@ -591,7 +591,7 @@ function renderPhones(){
     const specPills = p.specs.split(' · ').map(s => `<div class="ph-spec">${s}</div>`).join('');
     return `<div class="ph-card"${vis ? '' : ' hidden'} data-marca="${p.marca}" data-rango="${p.rango}">
       <div class="ph-img-wrap">
-        <img class="ph-img" src="${p.img}" alt="${p.nombre}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\'%3E%3Crect fill=\'%23f1f5f9\' width=\'100\' height=\'100\'/%3E%3C/svg%3E'">
+        <img class="ph-img" src="${p.img}" alt="${p.nombre}" loading="lazy" referrerpolicy="no-referrer" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\'%3E%3Crect fill=\'%23f1f5f9\' width=\'100\' height=\'100\'/%3E%3C/svg%3E'">
       </div>
       <div class="ph-body">
         <div class="ph-brand">${BRAND_LABEL[p.marca] || p.marca}</div>
@@ -631,7 +631,7 @@ renderPhones();
     a.href = p.linkML || '#';
     a.rel = 'sponsored nofollow noopener';
     a.target = '_blank';
-    a.innerHTML = '<img class="aside-prod-img" src="'+p.img+'" alt="'+p.nombre+'" loading="lazy">'
+    a.innerHTML = '<img class="aside-prod-img" src="'+p.img+'" alt="'+p.nombre+'" loading="lazy" referrerpolicy="no-referrer">'
       +'<div class="aside-prod-body">'
       +'<span class="aside-prod-name">'+p.nombre+'</span>'
       +'<span class="aside-prod-price">$'+Number(p.precio).toLocaleString('es-MX')+'</span>'

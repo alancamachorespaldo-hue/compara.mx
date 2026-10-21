@@ -623,7 +623,7 @@ body.bar-active{padding-bottom:64px}
       <div class="section-sticky">
         <div class="prd-card">
           <div class="prd-card-img">
-            <img src="https://http2.mlstatic.com/D_NQ_NP_724003-MLA99989849311_112025-F.jpg" alt="Motorola Moto G75 256GB/8GB RAM" loading="lazy">
+            <img src="https://http2.mlstatic.com/D_NQ_NP_724003-MLA99989849311_112025-F.jpg" alt="Motorola Moto G75 256GB/8GB RAM" loading="lazy" referrerpolicy="no-referrer">
           </div>
           <div class="prd-card-body">
             <div class="prd-kicker">Rendimiento · 5G · NFC</div>
@@ -665,7 +665,7 @@ body.bar-active{padding-bottom:64px}
       <div class="section-sticky">
         <div class="prd-card">
           <div class="prd-card-img">
-            <img src="https://http2.mlstatic.com/D_NQ_NP_626714-MLA105597355234_012026-F.jpg" alt="Motorola G86 512GB/8GB RAM" loading="lazy">
+            <img src="https://http2.mlstatic.com/D_NQ_NP_626714-MLA105597355234_012026-F.jpg" alt="Motorola G86 512GB/8GB RAM" loading="lazy" referrerpolicy="no-referrer">
           </div>
           <div class="prd-card-body">
             <div class="prd-kicker">Almacenamiento · 4G · NFC</div>
@@ -705,7 +705,7 @@ body.bar-active{padding-bottom:64px}
       <div class="section-sticky">
         <div class="prd-card">
           <div class="prd-card-img">
-            <img src="https://http2.mlstatic.com/D_NQ_NP_802041-MLA99444576642_112025-F.jpg" alt="Samsung Galaxy A16 5G 128GB/4GB RAM" loading="lazy">
+            <img src="https://http2.mlstatic.com/D_NQ_NP_802041-MLA99444576642_112025-F.jpg" alt="Samsung Galaxy A16 5G 128GB/4GB RAM" loading="lazy" referrerpolicy="no-referrer">
           </div>
           <div class="prd-card-body">
             <div class="prd-kicker">5G económico · NFC</div>
@@ -744,7 +744,7 @@ body.bar-active{padding-bottom:64px}
       <div class="section-sticky">
         <div class="prd-card">
           <div class="prd-card-img">
-            <img src="https://http2.mlstatic.com/D_NQ_NP_2X_636342-CBT115285598872_082026-F-xiaomi-redmi-17-4g-4gb-ram-128gb-rom-69-7500mah-45w-negro.webp" alt="Xiaomi Redmi 17 128GB/4GB RAM" loading="lazy">
+            <img src="https://http2.mlstatic.com/D_NQ_NP_2X_636342-CBT115285598872_082026-F-xiaomi-redmi-17-4g-4gb-ram-128gb-rom-69-7500mah-45w-negro.webp" alt="Xiaomi Redmi 17 128GB/4GB RAM" loading="lazy" referrerpolicy="no-referrer">
           </div>
           <div class="prd-card-body">
             <div class="prd-kicker">Batería · 7,500 mAh · 4G</div>
@@ -783,7 +783,7 @@ body.bar-active{padding-bottom:64px}
       <div class="section-sticky">
         <div class="prd-card">
           <div class="prd-card-img">
-            <img src="https://http2.mlstatic.com/D_NQ_NP_840481-MLA100006971367_122025-F.jpg" alt="Samsung Galaxy A17 Helio G99 128GB/4GB RAM" loading="lazy">
+            <img src="https://http2.mlstatic.com/D_NQ_NP_840481-MLA100006971367_122025-F.jpg" alt="Samsung Galaxy A17 Helio G99 128GB/4GB RAM" loading="lazy" referrerpolicy="no-referrer">
           </div>
           <div class="prd-card-body">
             <div class="prd-kicker">Uso diario · NFC · Samsung</div>
@@ -822,7 +822,7 @@ body.bar-active{padding-bottom:64px}
       <div class="section-sticky">
         <div class="prd-card">
           <div class="prd-card-img">
-            <img src="https://http2.mlstatic.com/D_NQ_NP_725513-MLA114223842359_072026-F.jpg" alt="Infinix HOT 70 128GB/4GB RAM" loading="lazy">
+            <img src="https://http2.mlstatic.com/D_NQ_NP_725513-MLA114223842359_072026-F.jpg" alt="Infinix HOT 70 128GB/4GB RAM" loading="lazy" referrerpolicy="no-referrer">
           </div>
           <div class="prd-card-body">
             <div class="prd-kicker">Procesador · NFC · 4G</div>
@@ -1457,7 +1457,7 @@ renderCards();
     phEl.innerHTML = familias5k.map(f => {
       const v   = f.variantes[0];
       const sel = selected5k.includes(f.modeloBase);
-      const imgTag = f.img ? `<img class="sidebar-phone-img" src="${f.img}" alt="" loading="lazy" onerror="this.style.display='none'">` : '';
+      const imgTag = f.img ? `<img class="sidebar-phone-img" src="${f.img}" alt="" referrerpolicy="no-referrer" onerror="this.style.display='none'">` : '';
       const mlBtn = v.linkML ? `<a class="sidebar-phone-ml" href="${v.linkML}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();typeof gtag==='function'&&gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'${f.nombre.replace(/'/g,"\\'")}',value:${v.precio},page_section:'sidebar'})">Clic para ir <img src="/logomercado.png" alt="" style="height:10px;display:inline-block;vertical-align:middle;margin-left:2px"></a>` : '';
       return `<div class="sidebar-phone${sel?' sp-sel':''}" role="button" tabindex="0"
           onclick="selectFromPick('${f.modeloBase}')"
