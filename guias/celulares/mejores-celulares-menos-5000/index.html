@@ -282,6 +282,14 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .sidebar-badge.show{display:flex}
 @media(max-width:1040px){.sidebar{display:none!important}}
 
+/* BOTÓN FLOTANTE DERECHO */
+.float-right{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:160;display:flex;flex-direction:column;gap:2px;opacity:0;pointer-events:none;transition:opacity .35s}
+.float-right.visible{opacity:1;pointer-events:auto}
+.float-right-btn{display:flex;align-items:center;gap:6px;writing-mode:vertical-rl;text-orientation:mixed;background:var(--ac);color:#fff;text-decoration:none;font-family:'Anton',sans-serif;font-size:10px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;padding:14px 9px;border-radius:10px 0 0 10px;box-shadow:-3px 0 14px rgba(0,104,71,.25);transition:background .15s;line-height:1}
+.float-right-btn:hover{background:#00573b;text-decoration:none;color:#fff}
+.float-right-btn-ico{font-size:15px;writing-mode:horizontal-tb;line-height:1}
+@media(max-width:1040px){.float-right{display:none!important}}
+
 /* DISCLOSURE */
 .disclosure{font-size:11.5px;color:var(--tx3);background:var(--s1);border-radius:8px;padding:.75rem 1rem;margin-top:1.5rem;line-height:1.55}
 
@@ -1009,6 +1017,16 @@ body.bar-active{padding-bottom:64px}
 
 </div><!-- /content -->
 
+<!-- BOTÓN FLOTANTE DERECHO -->
+<div class="float-right" id="float-right" aria-label="Ir al catálogo de celulares">
+  <a class="float-right-btn" href="/celulares/android/" onclick="gtag('event','cta_click',{cta:'float_android',location:'float_right'})">
+    <span class="float-right-btn-ico">🤖</span>Android
+  </a>
+  <a class="float-right-btn" href="/celulares/iphone/" onclick="gtag('event','cta_click',{cta:'float_iphone',location:'float_right'})">
+    <span class="float-right-btn-ico">🍎</span>iPhone
+  </a>
+</div>
+
 <!-- SIDEBAR COMPARADOR -->
 <aside class="sidebar" id="sidebar" aria-label="Comparador rápido de celulares">
   <div class="sidebar-panel" role="region">
@@ -1335,6 +1353,7 @@ renderCards();
   const tog  = document.getElementById('sidebar-toggle');
   const phEl = document.getElementById('sidebar-phones');
   const badg = document.getElementById('sidebar-badge');
+  const fr   = document.getElementById('float-right');
   if (!sb || !tog || !phEl) return;
 
   function renderSb() {
@@ -1385,8 +1404,10 @@ renderCards();
     const threshold = hero ? hero.offsetTop + hero.offsetHeight - 60 : 200;
     if (window.scrollY > threshold) {
       sb.classList.add('visible');
+      if (fr) fr.classList.add('visible');
     } else {
       sb.classList.remove('visible', 'open');
+      if (fr) fr.classList.remove('visible');
       tog.setAttribute('aria-expanded', 'false');
     }
   }
