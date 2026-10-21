@@ -113,7 +113,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 
 /* COMPARISON TABLE */
 .table-outer{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--bd);border-radius:12px;margin:1.25rem 0}
-.cmp-tbl{width:100%;border-collapse:collapse;font-size:13px;min-width:640px}
+.cmp-tbl{width:100%;border-collapse:collapse;font-size:13px;min-width:480px}
 .cmp-tbl thead tr{background:var(--s1)}
 .cmp-tbl thead th{padding:10px 12px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--tx3);border-bottom:2px solid var(--bd);white-space:nowrap}
 .cmp-tbl thead th:first-child{position:sticky;left:0;background:var(--s1);z-index:5;min-width:160px}
@@ -121,7 +121,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .cmp-tbl tbody tr:nth-child(even) td{background:var(--s1)}
 .cmp-tbl tbody tr:nth-child(even) td:first-child{background:var(--s2)}
 .cmp-tbl td{padding:9px 12px;border-bottom:1px solid var(--bd);vertical-align:middle;color:var(--tx);font-size:13px;text-align:center}
-.cmp-tbl td:first-child{text-align:left;position:sticky;left:0;background:var(--bg);z-index:4;font-weight:600;font-size:13px;border-right:1px solid var(--bd);white-space:nowrap}
+.cmp-tbl td:first-child{text-align:left;position:sticky;left:0;background:var(--bg);z-index:4;font-size:13px;border-right:1px solid var(--bd)}
 .cmp-tbl tbody tr:nth-child(even) td:first-child{background:var(--s1)}
 .cmp-tbl tr:last-child td{border-bottom:none}
 .tbl-badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;white-space:nowrap;display:inline-block}
@@ -131,6 +131,13 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .tbl-destaca{font-size:11px;font-weight:600;color:var(--tx2)}
 .tbl-red{color:var(--red);font-size:10.5px;font-weight:600}
 .tbl-note{font-size:11px;color:var(--tx3);margin-top:.65rem;line-height:1.5}
+.tbl-modelo{display:flex;align-items:center;gap:10px;min-width:140px}
+.tbl-img{width:44px;height:50px;object-fit:contain;background:var(--s1);border-radius:6px;padding:3px;display:block;flex-shrink:0}
+/* MOBILE CTA STRIP */
+.mobile-cta-strip{display:none;background:var(--acd);border:1.5px solid rgba(0,104,71,.22);border-radius:12px;padding:1rem;margin:1rem 0;text-align:center;gap:8px;flex-direction:column;align-items:center}
+.mobile-cta-strip p{font-size:.88rem;color:var(--ac);font-weight:600;margin:0 0 8px}
+.mobile-cta-strip .btn-strip-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+@media(max-width:700px){.mobile-cta-strip{display:flex}}
 
 /* QUICK PICKS */
 .picks-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:1rem 0}
@@ -375,94 +382,66 @@ body.bar-active{padding-bottom:64px}
         <thead>
           <tr>
             <th scope="col">Modelo</th>
-            <th scope="col">Precio ref.*</th>
             <th scope="col">RAM</th>
             <th scope="col">Almac.</th>
-            <th scope="col">Procesador</th>
-            <th scope="col">Pantalla</th>
-            <th scope="col">Red</th>
-            <th scope="col">Batería</th>
-            <th scope="col">Destaca por</th>
-            <th scope="col">Ver precio</th>
+            <th scope="col">Cámara</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Ver en ML</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>Motorola Moto G75</strong></td>
-            <td><span class="tbl-price">$4,190</span><sup class="tbl-sup">*</sup></td>
+            <td><div class="tbl-modelo"><img class="tbl-img" src="https://http2.mlstatic.com/D_NQ_NP_724003-MLA99989849311_112025-F.jpg" alt="" loading="lazy" onerror="this.style.display='none'"><strong>Motorola Moto G75</strong></div></td>
             <td>8 GB</td>
             <td>256 GB</td>
-            <td>Snapdragon 6 Gen 3</td>
-            <td>FHD+ 120 Hz</td>
-            <td><span class="tbl-badge tbl-badge-green">5G</span></td>
-            <td>5,000 mAh</td>
-            <td><span class="tbl-destaca">Rendimiento</span></td>
+            <td>50 MP</td>
+            <td><span class="tbl-price">$4,190</span><sup class="tbl-sup">*</sup></td>
             <td><a class="tbl-btn-ml" href="https://meli.la/1YNrnqo" target="_blank" rel="sponsored nofollow noopener"><img src="/logomercado.png" style="height:13px;vertical-align:middle;margin-right:2px" alt="" onerror="this.style.display='none'"> ML →</a></td>
           </tr>
           <tr>
-            <td><strong>Motorola G86</strong></td>
-            <td><span class="tbl-price">$4,588</span><sup class="tbl-sup">*</sup></td>
+            <td><div class="tbl-modelo"><img class="tbl-img" src="https://http2.mlstatic.com/D_NQ_NP_626714-MLA105597355234_012026-F.jpg" alt="" loading="lazy" onerror="this.style.display='none'"><strong>Motorola G86</strong></div></td>
             <td>8 GB</td>
             <td>512 GB</td>
-            <td>Dimensity 7300</td>
-            <td>—</td>
-            <td>4G</td>
-            <td>—</td>
-            <td><span class="tbl-destaca">Almacenamiento</span></td>
+            <td>50 MP</td>
+            <td><span class="tbl-price">$4,588</span><sup class="tbl-sup">*</sup></td>
             <td><a class="tbl-btn-ml" href="https://meli.la/1A7T9CX" target="_blank" rel="sponsored nofollow noopener"><img src="/logomercado.png" style="height:13px;vertical-align:middle;margin-right:2px" alt="" onerror="this.style.display='none'"> ML →</a></td>
           </tr>
           <tr>
-            <td><strong>Samsung Galaxy A16 5G</strong></td>
-            <td><span class="tbl-price">$2,639</span><sup class="tbl-sup">*</sup></td>
+            <td><div class="tbl-modelo"><img class="tbl-img" src="https://http2.mlstatic.com/D_NQ_NP_802041-MLA99444576642_112025-F.jpg" alt="" loading="lazy" onerror="this.style.display='none'"><strong>Samsung Galaxy A16 5G</strong></div></td>
             <td>4 GB</td>
             <td>128 GB</td>
-            <td>—</td>
-            <td>—</td>
-            <td><span class="tbl-badge tbl-badge-green">5G</span></td>
-            <td>—</td>
-            <td><span class="tbl-destaca">5G económico</span></td>
+            <td>50 MP</td>
+            <td><span class="tbl-price">$2,639</span><sup class="tbl-sup">*</sup></td>
             <td><a class="tbl-btn-ml" href="https://meli.la/2odmD8G" target="_blank" rel="sponsored nofollow noopener"><img src="/logomercado.png" style="height:13px;vertical-align:middle;margin-right:2px" alt="" onerror="this.style.display='none'"> ML →</a></td>
           </tr>
           <tr>
-            <td><strong>Xiaomi Redmi 17</strong></td>
-            <td><span class="tbl-price">$4,009</span><sup class="tbl-sup">*</sup></td>
+            <td><div class="tbl-modelo"><img class="tbl-img" src="https://http2.mlstatic.com/D_NQ_NP_2X_636342-CBT115285598872_082026-F-xiaomi-redmi-17-4g-4gb-ram-128gb-rom-69-7500mah-45w-negro.webp" alt="" loading="lazy" onerror="this.style.display='none'"><strong>Xiaomi Redmi 17</strong></div></td>
             <td>4 GB</td>
             <td>128 GB</td>
-            <td>—</td>
-            <td>—</td>
-            <td>4G</td>
-            <td>7,500 mAh</td>
-            <td><span class="tbl-destaca">Batería</span></td>
+            <td>50 MP</td>
+            <td><span class="tbl-price">$4,009</span><sup class="tbl-sup">*</sup></td>
             <td><a class="tbl-btn-ml" href="https://meli.la/2nAtP9e" target="_blank" rel="sponsored nofollow noopener"><img src="/logomercado.png" style="height:13px;vertical-align:middle;margin-right:2px" alt="" onerror="this.style.display='none'"> ML →</a></td>
           </tr>
           <tr>
-            <td><strong>Samsung A17 (Helio G99)</strong></td>
-            <td><span class="tbl-price">$2,844</span><sup class="tbl-sup">*</sup></td>
+            <td><div class="tbl-modelo"><img class="tbl-img" src="https://http2.mlstatic.com/D_NQ_NP_840481-MLA100006971367_122025-F.jpg" alt="" loading="lazy" onerror="this.style.display='none'"><strong>Samsung A17 (Helio G99)</strong></div></td>
             <td>4 GB</td>
             <td>128 GB</td>
-            <td>Helio G99</td>
-            <td>—</td>
-            <td>4G</td>
-            <td>—</td>
-            <td><span class="tbl-destaca">Uso diario</span></td>
+            <td>50 MP</td>
+            <td><span class="tbl-price">$2,844</span><sup class="tbl-sup">*</sup></td>
             <td><a class="tbl-btn-ml" href="https://meli.la/23RnkQB" target="_blank" rel="sponsored nofollow noopener"><img src="/logomercado.png" style="height:13px;vertical-align:middle;margin-right:2px" alt="" onerror="this.style.display='none'"> ML →</a></td>
           </tr>
           <tr>
-            <td><strong>Infinix HOT 70</strong></td>
-            <td><span class="tbl-price">$3,999</span><sup class="tbl-sup">*</sup></td>
+            <td><div class="tbl-modelo"><img class="tbl-img" src="https://http2.mlstatic.com/D_NQ_NP_725513-MLA114223842359_072026-F.jpg" alt="" loading="lazy" onerror="this.style.display='none'"><strong>Infinix HOT 70</strong></div></td>
             <td>4 GB</td>
             <td>128 GB</td>
-            <td>Helio G100 Ultimate</td>
-            <td>—</td>
-            <td>4G</td>
-            <td>—</td>
-            <td><span class="tbl-destaca">Precio/chip</span></td>
+            <td>108 MP</td>
+            <td><span class="tbl-price">$3,999</span><sup class="tbl-sup">*</sup></td>
             <td><a class="tbl-btn-ml" href="https://meli.la/2jFpaTv" target="_blank" rel="sponsored nofollow noopener"><img src="/logomercado.png" style="height:13px;vertical-align:middle;margin-right:2px" alt="" onerror="this.style.display='none'"> ML →</a></td>
           </tr>
         </tbody>
       </table>
     </div>
-    <p class="tbl-note">* Los precios son referencias editoriales de octubre de 2026. Pueden cambiar según tienda, vendedor, capacidad, color y promociones activas. Consulta el precio actual en la tienda antes de comprar.</p>
+    <p class="tbl-note">* Precios de referencia editorial, octubre 2026. Pueden cambiar según tienda, vendedor, capacidad, color y promociones. Consulta el precio actual antes de comprar.</p>
   </div>
 
   <!-- CTA POST-TABLA -->
@@ -473,7 +452,16 @@ body.bar-active{padding-bottom:64px}
     </div>
     <div class="cta-block-actions">
       <a class="btn-primary" href="/celulares/" onclick="gtag('event','cta_click',{cta:'comparar_celulares',location:'post_table'})">Comparar celulares</a>
-      <a class="btn-secondary" href="/celulares/android/" onclick="gtag('event','cta_click',{cta:'ver_android',location:'post_table'})">Ver celulares Android</a>
+      <a class="btn-secondary" href="/celulares/android/" onclick="gtag('event','cta_click',{cta:'ver_android',location:'post_table'})">Ver catálogo Android →</a>
+    </div>
+  </div>
+
+  <!-- MOBILE STRIP -->
+  <div class="mobile-cta-strip">
+    <p>📱 Compara o explora más opciones</p>
+    <div class="btn-strip-row">
+      <a class="btn-primary" href="/celulares/" style="font-size:13px;padding:10px 18px" onclick="gtag('event','cta_click',{cta:'comparar_celulares',location:'mobile_strip'})">Comparar celulares</a>
+      <a class="btn-secondary" href="/celulares/android/" style="font-size:13px;padding:10px 16px" onclick="gtag('event','cta_click',{cta:'ver_android',location:'mobile_strip'})">Ver catálogo Android</a>
     </div>
   </div>
 
@@ -570,7 +558,9 @@ body.bar-active{padding-bottom:64px}
               <div class="spec-row"><span class="spec-row-label">Conectividad</span><span class="spec-row-value">5G · NFC</span></div>
               <div class="spec-row"><span class="spec-row-label">Batería</span><span class="spec-row-value">5,000 mAh</span></div>
             </div>
-            <div class="product-actions" data-product-actions="android-motorola-moto-g75-256gb-8gb"></div>
+            <div class="product-actions" data-product-actions="android-motorola-moto-g75-256gb-8gb">
+              <a class="btn-cta-ml" href="https://meli.la/1YNrnqo" target="_blank" rel="sponsored nofollow noopener" onclick="gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Motorola Moto G75',location:'editorial_card'})"><img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-right:4px" alt="" onerror="this.style.display='none'">Ver en Mercado Libre</a>
+            </div>
           </div>
         </div>
       </div>
@@ -608,7 +598,9 @@ body.bar-active{padding-bottom:64px}
               <div class="spec-row"><span class="spec-row-label">Almacenamiento</span><span class="spec-row-value">512 GB</span></div>
               <div class="spec-row"><span class="spec-row-label">Conectividad</span><span class="spec-row-value">4G · NFC</span></div>
             </div>
-            <div class="product-actions" data-product-actions="android-motorola-g86-512gb-8gb"></div>
+            <div class="product-actions" data-product-actions="android-motorola-g86-512gb-8gb">
+              <a class="btn-cta-ml" href="https://meli.la/1A7T9CX" target="_blank" rel="sponsored nofollow noopener" onclick="gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Motorola G86',location:'editorial_card'})"><img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-right:4px" alt="" onerror="this.style.display='none'">Ver en Mercado Libre</a>
+            </div>
           </div>
         </div>
       </div>
@@ -645,7 +637,9 @@ body.bar-active{padding-bottom:64px}
               <div class="spec-row"><span class="spec-row-label">Almacenamiento</span><span class="spec-row-value">128 GB</span></div>
               <div class="spec-row"><span class="spec-row-label">Conectividad</span><span class="spec-row-value">5G · NFC</span></div>
             </div>
-            <div class="product-actions" data-product-actions="android-samsung-a16-5g-128gb-4gb"></div>
+            <div class="product-actions" data-product-actions="android-samsung-a16-5g-128gb-4gb">
+              <a class="btn-cta-ml" href="https://meli.la/2odmD8G" target="_blank" rel="sponsored nofollow noopener" onclick="gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Samsung Galaxy A16 5G',location:'editorial_card'})"><img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-right:4px" alt="" onerror="this.style.display='none'">Ver en Mercado Libre</a>
+            </div>
           </div>
         </div>
       </div>
@@ -683,7 +677,9 @@ body.bar-active{padding-bottom:64px}
               <div class="spec-row"><span class="spec-row-label">Conectividad</span><span class="spec-row-value">4G</span></div>
               <div class="spec-row"><span class="spec-row-label">Batería</span><span class="spec-row-value">7,500 mAh · 45W</span></div>
             </div>
-            <div class="product-actions" data-product-actions="android-xiaomi-redmi-17-128gb-4gb"></div>
+            <div class="product-actions" data-product-actions="android-xiaomi-redmi-17-128gb-4gb">
+              <a class="btn-cta-ml" href="https://meli.la/2nAtP9e" target="_blank" rel="sponsored nofollow noopener" onclick="gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Xiaomi Redmi 17',location:'editorial_card'})"><img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-right:4px" alt="" onerror="this.style.display='none'">Ver en Mercado Libre</a>
+            </div>
           </div>
         </div>
       </div>
@@ -720,7 +716,9 @@ body.bar-active{padding-bottom:64px}
               <div class="spec-row"><span class="spec-row-label">Almacenamiento</span><span class="spec-row-value">128 GB</span></div>
               <div class="spec-row"><span class="spec-row-label">Conectividad</span><span class="spec-row-value">4G · NFC</span></div>
             </div>
-            <div class="product-actions" data-product-actions="android-samsung-a17-mediatek-helio-g99-128gb-4gb"></div>
+            <div class="product-actions" data-product-actions="android-samsung-a17-mediatek-helio-g99-128gb-4gb">
+              <a class="btn-cta-ml" href="https://meli.la/23RnkQB" target="_blank" rel="sponsored nofollow noopener" onclick="gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Samsung A17',location:'editorial_card'})"><img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-right:4px" alt="" onerror="this.style.display='none'">Ver en Mercado Libre</a>
+            </div>
           </div>
         </div>
       </div>
@@ -757,7 +755,9 @@ body.bar-active{padding-bottom:64px}
               <div class="spec-row"><span class="spec-row-label">Almacenamiento</span><span class="spec-row-value">128 GB</span></div>
               <div class="spec-row"><span class="spec-row-label">Conectividad</span><span class="spec-row-value">4G · NFC</span></div>
             </div>
-            <div class="product-actions" data-product-actions="android-infinix-hot-70-128gb-4gb"></div>
+            <div class="product-actions" data-product-actions="android-infinix-hot-70-128gb-4gb">
+              <a class="btn-cta-ml" href="https://meli.la/2jFpaTv" target="_blank" rel="sponsored nofollow noopener" onclick="gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Infinix HOT 70',location:'editorial_card'})"><img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-right:4px" alt="" onerror="this.style.display='none'">Ver en Mercado Libre</a>
+            </div>
           </div>
         </div>
       </div>
