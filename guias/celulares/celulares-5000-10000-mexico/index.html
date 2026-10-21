@@ -212,6 +212,57 @@
     .comp-hub-btn{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.5);color:#fff;border-radius:50%;font-size:16px;font-weight:900;transition:background .15s;flex-shrink:0}
     .comp-hub-card:hover .comp-hub-btn{background:rgba(255,255,255,.35)}
     @media(max-width:640px){.comp-hub-grid{grid-template-columns:1fr}.comp-hub-card-img{opacity:.2}.comp-hub-card-content{max-width:100%}}
+    /* ── SIDEBAR COMPARADOR ── */
+    .sidebar{position:fixed;left:0;top:50%;transform:translateY(-50%);z-index:160;display:flex;align-items:center;opacity:0;pointer-events:none;transition:opacity .35s}
+    .sidebar.visible{opacity:1;pointer-events:auto}
+    .sidebar-panel{background:#fff;border:1.5px solid #c8d4cc;border-left:none;border-radius:0 14px 14px 0;width:252px;max-height:76vh;overflow-y:auto;box-shadow:6px 0 28px rgba(0,0,0,.1);transform:translateX(-100%);transition:transform .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
+    .sidebar.open .sidebar-panel{transform:translateX(0)}
+    @media(min-width:1041px){.sidebar.visible .sidebar-panel{transform:translateX(0)}.sidebar-toggle{display:none}}
+    .sidebar-header{padding:12px 14px 10px;border-bottom:1px solid #e4e9e5;flex-shrink:0}
+    .sidebar-htitle{font-family:'Anton',sans-serif;font-size:15px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:#17221c;display:block}
+    .sidebar-hsub{font-size:11px;color:#7a8a82;display:block;margin-top:2px}
+    .sidebar-phones{display:flex;flex-direction:column;flex:1}
+    .sidebar-phone{padding:8px 12px 8px 10px;cursor:pointer;transition:background .12s;border-bottom:1px solid #e4e9e5;display:flex;align-items:center;gap:8px;position:relative}
+    .sidebar-phone:last-child{border-bottom:none}
+    .sidebar-phone:hover,.sidebar-phone:focus{background:#eaf6ee;outline:none}
+    .sidebar-phone.sp-sel{background:#ddf4e5}
+    .sidebar-phone-img{width:38px;height:44px;object-fit:contain;border-radius:6px;background:#f7f9f7;padding:2px;flex-shrink:0;display:block}
+    .sidebar-phone-info{flex:1;min-width:0}
+    .sidebar-phone-price{font-family:'Anton',sans-serif;font-size:16px;font-weight:400;color:#006847;letter-spacing:.01em;line-height:1}
+    .sidebar-phone-name{font-size:11.5px;font-weight:600;color:#17221c;line-height:1.3;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .sidebar-phone-tag{font-size:9.5px;color:#7a8a82;text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-top:1px}
+    .sidebar-phone-ml{display:inline-flex;align-items:center;gap:3px;margin-top:4px;font-size:9.5px;font-weight:700;background:#f0c000;color:#171717;border-radius:5px;padding:2px 6px;text-decoration:none;line-height:1.4;pointer-events:auto}
+    .sidebar-phone-ml:hover{filter:brightness(.92);text-decoration:none}
+    .sidebar-phone-ml img{height:10px;display:block}
+    .sidebar-phone-chk{width:17px;height:17px;border-radius:50%;border:1.5px solid #c8d4cc;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;font-weight:700;color:transparent;transition:all .15s}
+    .sidebar-phone.sp-sel .sidebar-phone-chk{background:#006847;border-color:#006847;color:#fff}
+    .sidebar-banners{flex-shrink:0;border-top:1px solid #e4e9e5}
+    .sidebar-banner{display:flex;align-items:center;gap:10px;padding:11px 14px;text-decoration:none;transition:background .12s;border-bottom:1px solid #e4e9e5}
+    .sidebar-banner:last-child{border-bottom:none}
+    .sidebar-banner:hover{background:#eef2ef}
+    .sidebar-banner-ico{font-size:20px;flex-shrink:0;line-height:1}
+    .sidebar-banner-ttl{font-family:'Anton',sans-serif;font-size:11px;font-weight:400;letter-spacing:.07em;text-transform:uppercase;color:#17221c;display:block}
+    .sidebar-banner-sub{font-size:10px;color:#5e6b64;margin-top:1px;display:block}
+    .sidebar-toggle{background:#006847;color:#fff;border:none;cursor:pointer;border-radius:0 10px 10px 0;padding:16px 8px 16px 9px;display:flex;flex-direction:column;align-items:center;gap:10px;font-family:'Anton',sans-serif;transition:background .15s;flex-shrink:0;box-shadow:3px 0 14px rgba(0,104,71,.3);min-height:100px}
+    .sidebar-toggle:hover{background:#00573b}
+    .sidebar-toggle-ico{font-size:17px;line-height:1}
+    .sidebar-toggle-lbl{writing-mode:vertical-rl;text-orientation:mixed;font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-family:'Anton',sans-serif;opacity:.9;line-height:1}
+    .sidebar-badge{display:none;width:17px;height:17px;border-radius:50%;background:#fff;color:#006847;font-size:9px;font-weight:800;align-items:center;justify-content:center;flex-shrink:0}
+    .sidebar-badge.show{display:flex}
+    @media(max-width:1040px){.sidebar{display:none!important}}
+    /* Offset contenido principal cuando el sidebar está visible */
+    @media(min-width:1041px){.page{padding-left:268px}.comp-hub-section{padding-left:268px}}
+    /* CMP-BAR */
+    .cmp-bar{position:fixed;bottom:-80px;left:50%;transform:translateX(-50%);z-index:200;background:#006847;color:#fff;border-radius:16px;padding:12px 20px;display:flex;align-items:center;gap:20px;box-shadow:0 6px 28px rgba(0,104,71,.4);transition:bottom .35s cubic-bezier(.4,0,.2,1);white-space:nowrap;min-width:300px}
+    .cmp-bar.show{bottom:20px}
+    .cmp-bar-txt{font-weight:700;font-size:.95rem}
+    .cmp-bar-sub{font-size:.8rem;opacity:.78}
+    .cmp-bar-actions{display:flex;gap:10px;margin-left:auto}
+    .btn-clr{background:rgba(255,255,255,.2);color:#fff;border:1.5px solid rgba(255,255,255,.4);border-radius:8px;padding:7px 14px;font-size:.85rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s}
+    .btn-clr:hover{background:rgba(255,255,255,.32)}
+    .btn-do-cmp{background:#f0c000;color:#171717;border:none;border-radius:8px;padding:7px 14px;font-size:.85rem;font-weight:800;cursor:pointer;font-family:inherit;transition:opacity .15s}
+    .btn-do-cmp:disabled{opacity:.5;cursor:not-allowed}
+    .btn-do-cmp:not(:disabled):hover{opacity:.9}
   </style>
 
   <script type="application/ld+json">
@@ -835,6 +886,44 @@
   </aside>
   </div><!-- /guide-wrap -->
 
+  <!-- SIDEBAR COMPARADOR -->
+  <aside class="sidebar" id="sidebar" aria-label="Comparador rápido de celulares">
+    <div class="sidebar-panel" role="region">
+      <div class="sidebar-header">
+        <span class="sidebar-htitle">📱 Comparador</span>
+        <span class="sidebar-hsub">Selecciona y compara lado a lado</span>
+      </div>
+      <div class="sidebar-phones" id="sidebar-phones"></div>
+      <div class="sidebar-banners">
+        <a class="sidebar-banner" href="/celulares/android/" onclick="typeof gtag==='function'&&gtag('event','cta_click',{cta:'sidebar_android',location:'sidebar'})">
+          <span class="sidebar-banner-ico">🤖</span>
+          <div><span class="sidebar-banner-ttl">Más Android</span><span class="sidebar-banner-sub">Ver catálogo completo →</span></div>
+        </a>
+        <a class="sidebar-banner" href="/celulares/iphone/" onclick="typeof gtag==='function'&&gtag('event','cta_click',{cta:'sidebar_iphone',location:'sidebar'})">
+          <span class="sidebar-banner-ico">🍎</span>
+          <div><span class="sidebar-banner-ttl">¿Prefieres iPhone?</span><span class="sidebar-banner-sub">Ver iPhone en México →</span></div>
+        </a>
+      </div>
+    </div>
+    <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Abrir comparador rápido" aria-expanded="false">
+      <span class="sidebar-toggle-ico">📱</span>
+      <span class="sidebar-badge" id="sidebar-badge">0</span>
+      <span class="sidebar-toggle-lbl">COMPARAR</span>
+    </button>
+  </aside>
+
+  <!-- COMPARE BAR -->
+  <div class="cmp-bar" id="cmp-bar-g2" role="status" aria-live="polite">
+    <div>
+      <div class="cmp-bar-txt" id="cmp-bar-txt-g2">1 seleccionado</div>
+      <div class="cmp-bar-sub">Elige uno más para comparar</div>
+    </div>
+    <div class="cmp-bar-actions">
+      <button class="btn-clr" onclick="clearSelectionG2()">Limpiar</button>
+      <button class="btn-do-cmp" id="btn-do-cmp-g2" onclick="goCompareG2()" disabled>Comparar →</button>
+    </div>
+  </div>
+
   <footer class="site-footer">
     <div class="footer-inner">
       <div class="footer-links">
@@ -1119,13 +1208,126 @@
       el.innerHTML = top4.map(d => `
         <a class="aside-prod-card" href="${d.linkML}" target="_blank" rel="sponsored nofollow noopener"
            onclick="typeof gtag==='function'&&gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'${d.nombre.replace(/'/g,"\\'")}',value:${d.precioML},page_section:'aside_prod'})">
-          <img class="aside-prod-img" src="${d.imagen}" alt="" loading="lazy" onerror="this.style.display='none'">
+          <img class="aside-prod-img" src="${d.imagen}" alt="" onerror="this.style.cssText='width:0;height:0;padding:0;margin:0'">
           <div class="aside-prod-body">
             <span class="aside-prod-name">${d.nombre}</span>
             <span class="aside-prod-price">${fmt(d.precioML)}</span>
             <span class="aside-prod-cta">Clic para ir <img src="/logomercado.png" style="height:10px;vertical-align:middle;margin-left:2px" alt="ML" onerror="this.style.display='none'"></span>
           </div>
         </a>`).join('');
+    })();
+
+    /* ── SIDEBAR COMPARADOR G2 ── */
+    var selectedG2 = [];
+
+    function selectFromPickG2(id) {
+      if (!selectedG2.includes(id)) {
+        if (selectedG2.length >= 3) { alert('Máximo 3 celulares para comparar.'); return; }
+        selectedG2.push(id);
+      } else {
+        selectedG2.splice(selectedG2.indexOf(id), 1);
+      }
+      updateBarG2();
+    }
+
+    function clearSelectionG2() {
+      selectedG2 = [];
+      updateBarG2();
+    }
+
+    function updateBarG2() {
+      var bar = document.getElementById('cmp-bar-g2');
+      var txt = document.getElementById('cmp-bar-txt-g2');
+      var btn = document.getElementById('btn-do-cmp-g2');
+      if (!bar) return;
+      if (selectedG2.length > 0) {
+        bar.classList.add('show');
+        var msgs = ['','1 seleccionado · Elige uno más para comparar.','2 seleccionados · Ya puedes comparar.','3 seleccionados · Puedes comparar los 3.'];
+        txt.textContent = msgs[selectedG2.length] || selectedG2.length + ' seleccionados';
+        btn.disabled = selectedG2.length < 2;
+      } else {
+        bar.classList.remove('show');
+      }
+      renderSbG2();
+    }
+
+    function goCompareG2() {
+      if (selectedG2.length < 2) return;
+      typeof gtag==='function'&&gtag('event','compare_start',{count:selectedG2.length,page:'5000_10000'});
+      var items = selectedG2.map(function(id) {
+        var d = celularesDataGuia.find(function(x){ return x.id === id; });
+        if (!d) return null;
+        return {
+          modeloBase: d.id, nombre: d.nombre,
+          img: d.imagen || null, precio: d.precioML,
+          ram: d.ram || null, almacenamiento: d.almacenamiento || null,
+          chip: d.chip || null, camPrincipal: d.cam || null,
+          pantalla: d.pantalla || null, hz: null,
+          usb: null, zoom: null,
+          estrellas: null, resenas: null,
+          linkML: d.linkML || null, linkAmz: d.linkAmz || null,
+          categoria: 'android'
+        };
+      }).filter(Boolean);
+      try {
+        var existing = JSON.parse(localStorage.getItem('cmp_celulares') || '[]');
+        var merged = existing.filter(function(e){ return !items.find(function(i){ return i.modeloBase === e.modeloBase; }); }).concat(items);
+        localStorage.setItem('cmp_celulares', JSON.stringify(merged));
+      } catch(e) {}
+      window.location.href = '/celulares/comparar/';
+    }
+
+    function renderSbG2() {
+      var phEl = document.getElementById('sidebar-phones');
+      var badg = document.getElementById('sidebar-badge');
+      if (!phEl || typeof celularesDataGuia === 'undefined') return;
+      phEl.innerHTML = celularesDataGuia.map(function(d) {
+        var sel = selectedG2.includes(d.id);
+        var imgTag = d.imagen ? '<img class="sidebar-phone-img" src="'+d.imagen+'" alt="" onerror="this.style.display=\'none\'">' : '';
+        var mlBtn = d.linkML ? '<a class="sidebar-phone-ml" href="'+d.linkML+'" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();typeof gtag===\'function\'&&gtag(\'event\',\'affiliate_click_ml\',{event_category:\'afiliado\',event_label:\''+d.nombre.replace(/'/g,"\\'")+'\'  ,value:'+d.precioML+',page_section:\'sidebar\'})">Clic para ir <img src="/logomercado.png" alt="" style="height:10px;display:inline-block;vertical-align:middle;margin-left:2px"></a>' : '';
+        return '<div class="sidebar-phone'+(sel?' sp-sel':'')+'" role="button" tabindex="0"'
+          +' onclick="selectFromPickG2(\''+d.id+'\')"'
+          +' onkeydown="if(event.key===\'Enter\'||event.key===\' \'){this.click();event.preventDefault()}"'
+          +' aria-label="'+(sel?'Quitar':'Seleccionar')+' '+d.nombre+'">'
+          +imgTag
+          +'<div class="sidebar-phone-info">'
+          +'<div class="sidebar-phone-price">$'+Number(d.precioML).toLocaleString('es-MX')+'</div>'
+          +'<div class="sidebar-phone-name">'+d.nombre+'</div>'
+          +'<div class="sidebar-phone-tag">'+(d.chip||d.ram||'')+'</div>'
+          +mlBtn
+          +'</div>'
+          +'<div class="sidebar-phone-chk" aria-hidden="true">'+(sel?'✓':'')+'</div>'
+          +'</div>';
+      }).join('');
+      if (badg) {
+        if (selectedG2.length > 0) { badg.textContent = selectedG2.length; badg.classList.add('show'); }
+        else { badg.classList.remove('show'); }
+      }
+    }
+
+    (function(){
+      var sb   = document.getElementById('sidebar');
+      var tog  = document.getElementById('sidebar-toggle');
+      if (!sb || !tog) return;
+      renderSbG2();
+
+      tog.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var open = sb.classList.toggle('open');
+        tog.setAttribute('aria-expanded', String(open));
+      });
+      document.addEventListener('click', function(e) {
+        if (!sb.contains(e.target) && sb.classList.contains('open')) {
+          sb.classList.remove('open');
+          tog.setAttribute('aria-expanded', 'false');
+        }
+      });
+      function onScroll() {
+        if (window.scrollY > 200) { sb.classList.add('visible'); }
+        else { sb.classList.remove('visible', 'open'); tog.setAttribute('aria-expanded', 'false'); }
+      }
+      window.addEventListener('scroll', onScroll, {passive: true});
+      onScroll();
     })();
   </script>
   <style>
