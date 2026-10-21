@@ -380,6 +380,7 @@ body.bar-active{padding-bottom:64px}
 .oferta-card-aside-price{display:flex;align-items:baseline;gap:5px;flex-wrap:wrap;margin-top:1px}
 .oferta-nuevo{font-size:.95rem;font-weight:800;color:var(--ac);font-family:'Anton',sans-serif;line-height:1}
 .oferta-antes{font-size:10px;color:var(--tx3);text-decoration:line-through}
+.oferta-aside-cta{display:inline-flex;align-items:center;margin-top:4px;font-size:10px;font-weight:700;color:var(--ac);background:var(--acd);border:1px solid var(--acd2);border-radius:5px;padding:2px 7px}
 .oferta-aside-more{display:block;padding:8px 12px;font-size:11px;color:var(--ac);font-weight:600;text-decoration:none;text-align:center;border-top:1px solid var(--bd)}
 .oferta-aside-more:hover{background:var(--acd)}
 
@@ -1094,15 +1095,6 @@ body.bar-active{padding-bottom:64px}
   </div>
 </section>
 
-<!-- BOTÓN FLOTANTE DERECHO -->
-<div class="float-right" id="float-right" aria-label="Ir al catálogo de celulares">
-  <a class="float-right-btn" href="/celulares/android/" onclick="gtag('event','cta_click',{cta:'float_android',location:'float_right'})">
-    <span class="float-right-btn-ico">🤖</span>Android
-  </a>
-  <a class="float-right-btn" href="/celulares/iphone/" onclick="gtag('event','cta_click',{cta:'float_iphone',location:'float_right'})">
-    <span class="float-right-btn-ico">🍎</span>iPhone
-  </a>
-</div>
 
 <!-- SIDEBAR COMPARADOR -->
 <aside class="sidebar" id="sidebar" aria-label="Comparador rápido de celulares">
@@ -1514,6 +1506,7 @@ renderCards();
           <span class="oferta-nuevo">${fmt(o.v.precio)}</span>
           <span class="oferta-antes">${fmt(o.v.precioRef)}</span>
         </div>
+        <span class="oferta-aside-cta">Clic para ir <img src="/logomercado.png" style="height:11px;vertical-align:middle;margin-left:2px" alt="ML" onerror="this.style.display='none'"></span>
       </div>
     </a>`).join('');
 })();
