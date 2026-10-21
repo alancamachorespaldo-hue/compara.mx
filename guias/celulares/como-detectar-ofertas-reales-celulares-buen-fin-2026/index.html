@@ -187,6 +187,50 @@ tr:last-child td{border-bottom:none}
 footer{border-top:1px solid var(--bd);background:var(--s1);padding:1.5rem;text-align:center;color:var(--tx2);font-size:.85rem}
 footer a{color:var(--ac);text-decoration:none}
 footer a:hover{text-decoration:underline}
+    /* ── GUIDE LAYOUT ── */
+    .guide-wrap{display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:24px;align-items:start;max-width:1460px;margin:0 auto;padding:0 2rem}
+    .guide-wrap>.page-body{max-width:none}
+    @media(max-width:1200px){.guide-wrap{display:block;padding:0}.aside-right-panel{display:none!important}}
+    /* ── ASIDE DERECHO ── */
+    .aside-right-panel{position:sticky;top:80px;display:flex;flex-direction:column;gap:8px}
+    .aside-box{background:#f7f7f5;border:1.5px solid #d0d0c8;border-radius:14px;overflow:hidden}
+    .aside-box-hdr{background:#006847;color:#fff;padding:10px 14px}
+    .aside-box-hdr-ttl{font-family:'Anton',sans-serif;font-size:12px;font-weight:400;letter-spacing:.05em;text-transform:uppercase;display:block;line-height:1.3}
+    .aside-prod-card{display:flex;gap:8px;padding:8px 12px;border-bottom:1px solid #e2e2dc;text-decoration:none;transition:background .12s}
+    .aside-prod-card:last-child{border-bottom:none}
+    .aside-prod-card:hover{background:#f0f0ec}
+    .aside-prod-img{width:44px;height:52px;object-fit:contain;flex-shrink:0;border-radius:6px;background:#fff;padding:2px}
+    .aside-prod-body{flex:1;min-width:0}
+    .aside-prod-name{font-size:10.5px;font-weight:700;color:#0F172A;line-height:1.3;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .aside-prod-price{font-family:'Anton',sans-serif;font-size:.95rem;font-weight:400;color:#006847;line-height:1;display:block;margin-top:2px}
+    .aside-prod-cta{display:inline-flex;align-items:center;margin-top:3px;font-size:10px;font-weight:700;color:#5a4200;background:#f0c000;border-radius:5px;padding:2px 6px}
+    .aside-more{display:block;padding:8px 12px;font-size:11px;color:#006847;font-weight:600;text-decoration:none;text-align:center;border-top:1px solid #e2e2dc}
+    .aside-more:hover{background:#f0f0ec}
+    /* ── ASIDE HUB CARDS ── */
+    .aside-hub-card{position:relative;display:flex;align-items:center;gap:10px;border-radius:12px;overflow:hidden;padding:12px 14px;text-decoration:none}
+    .aside-hub-android{background:#006847}
+    .aside-hub-iphone{background:#1d4ed8}
+    .aside-hub-img{position:absolute;right:0;top:0;bottom:0;width:52%;object-fit:cover;object-position:center top;opacity:.45}
+    .aside-hub-content{position:relative;z-index:2;flex:1;min-width:0}
+    .aside-hub-eyebrow{font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.65);font-weight:700;display:block;margin-bottom:2px}
+    .aside-hub-ttl{font-family:'Anton',sans-serif;font-size:1.2rem;font-weight:400;letter-spacing:.04em;text-transform:uppercase;color:#fff;line-height:1;display:block}
+    .aside-hub-btn{position:relative;z-index:2;display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.45);color:#fff;border-radius:50%;font-size:14px;font-weight:900;flex-shrink:0}
+    .aside-hub-card:hover .aside-hub-btn{background:rgba(255,255,255,.35)}
+    /* ── COMP-HUB SECTION ── */
+    .comp-hub-section{max-width:1460px;margin:0 auto;padding:0 2rem 2.5rem}
+    .comp-hub-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .comp-hub-card{position:relative;border-radius:18px;overflow:hidden;min-height:170px;display:flex;flex-direction:column;justify-content:flex-end;padding:22px 24px;text-decoration:none}
+    .comp-hub-card-android{background:#006847}
+    .comp-hub-card-iphone{background:#1d4ed8}
+    .comp-hub-card-img{position:absolute;right:0;top:0;bottom:0;width:58%;object-fit:cover;object-position:center top}
+    .comp-hub-card-img-android{opacity:.5}
+    .comp-hub-card-img-iphone{opacity:.65}
+    .comp-hub-card-content{position:relative;z-index:2;max-width:52%}
+    .comp-hub-eyebrow{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.65);font-weight:700;display:block;margin-bottom:4px}
+    .comp-hub-ttl{font-family:'Anton',sans-serif;font-size:2rem;font-weight:400;letter-spacing:.04em;text-transform:uppercase;color:#fff;line-height:1;margin:0 0 16px}
+    .comp-hub-btn{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.5);color:#fff;border-radius:50%;font-size:16px;font-weight:900;transition:background .15s;flex-shrink:0}
+    .comp-hub-card:hover .comp-hub-btn{background:rgba(255,255,255,.35)}
+    @media(max-width:640px){.comp-hub-grid{grid-template-columns:1fr}.comp-hub-card-img{opacity:.2}.comp-hub-card-content{max-width:100%}}
 </style>
 </head>
 <body>
@@ -220,6 +264,7 @@ footer a:hover{text-decoration:underline}
   </div>
 </header>
 
+<div class="guide-wrap">
 <div class="page-body">
 
   <div class="callout">
@@ -418,6 +463,33 @@ footer a:hover{text-decoration:underline}
 
 </div><!-- /page-body -->
 
+  <aside class="aside-right-panel">
+    <div class="aside-box">
+      <div class="aside-box-hdr">
+        <span class="aside-box-hdr-ttl">Celulares en oferta</span>
+      </div>
+      <div id="aside-prod-list"><!-- JS --></div>
+      <a href="/celulares/android/" class="aside-more">Ver todas las comparativas →</a>
+    </div>
+    <a href="/celulares/android/" class="aside-hub-card aside-hub-android">
+      <img src="https://comparalo.mx/assets/img/android-hero.webp" alt="" class="aside-hub-img" aria-hidden="true">
+      <div class="aside-hub-content">
+        <span class="aside-hub-eyebrow">Comparativa</span>
+        <span class="aside-hub-ttl">Android</span>
+      </div>
+      <span class="aside-hub-btn">›</span>
+    </a>
+    <a href="/celulares/iphone/" class="aside-hub-card aside-hub-iphone">
+      <img src="https://comparalo.mx/assets/img/iphone-hero.webp" alt="" class="aside-hub-img" aria-hidden="true">
+      <div class="aside-hub-content">
+        <span class="aside-hub-eyebrow">Comparativa</span>
+        <span class="aside-hub-ttl">iPhone</span>
+      </div>
+      <span class="aside-hub-btn">›</span>
+    </a>
+  </aside>
+</div><!-- /guide-wrap -->
+
 <footer>
   <div>© 2026 <a href="/">comparalo.mx</a> · <a href="/aviso-afiliados/">Aviso de afiliados</a> · <a href="/privacidad/">Privacidad</a> · <a href="/terminos/">Términos</a></div>
   <div style="margin-top:.4rem;font-size:.78rem;color:var(--tx3)">Guía actualizada: 17 oct 2026 · Buen Fin 2026: 13–17 nov 2026</div>
@@ -548,7 +620,48 @@ function setFilter(group, val, btn){
 }
 
 renderPhones();
+
+// ── ASIDE productos ──
+(function(){
+  const list = document.getElementById('aside-prod-list');
+  if(!list||typeof PHONES==='undefined') return;
+  PHONES.slice(0,5).forEach(function(p){
+    const a = document.createElement('a');
+    a.className = 'aside-prod-card';
+    a.href = p.linkML || '#';
+    a.rel = 'sponsored nofollow noopener';
+    a.target = '_blank';
+    a.innerHTML = '<img class="aside-prod-img" src="'+p.img+'" alt="'+p.nombre+'" loading="lazy">'
+      +'<div class="aside-prod-body">'
+      +'<span class="aside-prod-name">'+p.nombre+'</span>'
+      +'<span class="aside-prod-price">$'+Number(p.precio).toLocaleString('es-MX')+'</span>'
+      +'<span class="aside-prod-cta">Ver oferta</span>'
+      +'</div>';
+    list.appendChild(a);
+  });
+})();
 </script>
+
+  <section class="comp-hub-section">
+    <div class="comp-hub-grid">
+      <a href="/celulares/android/" class="comp-hub-card comp-hub-card-android">
+        <img src="https://comparalo.mx/assets/img/android-hero.webp" alt="" class="comp-hub-card-img comp-hub-card-img-android" aria-hidden="true">
+        <div class="comp-hub-card-content">
+          <span class="comp-hub-eyebrow">Comparativa completa</span>
+          <h2 class="comp-hub-ttl">Android</h2>
+          <span class="comp-hub-btn">›</span>
+        </div>
+      </a>
+      <a href="/celulares/iphone/" class="comp-hub-card comp-hub-card-iphone">
+        <img src="https://comparalo.mx/assets/img/iphone-hero.webp" alt="" class="comp-hub-card-img comp-hub-card-img-iphone" aria-hidden="true">
+        <div class="comp-hub-card-content">
+          <span class="comp-hub-eyebrow">Comparativa completa</span>
+          <h2 class="comp-hub-ttl">iPhone</h2>
+          <span class="comp-hub-btn">›</span>
+        </div>
+      </a>
+    </div>
+  </section>
 
 <script src="/js/onboarding.js" defer></script>
 </body>
