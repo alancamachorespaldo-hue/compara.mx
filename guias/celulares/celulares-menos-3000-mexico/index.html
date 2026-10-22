@@ -491,7 +491,7 @@
           </table>
         </div>
         <p class="small-note">Precios de referencia editorial, octubre 2026. Pueden cambiar según tienda, vendedor, capacidad, color y promociones. Consulta el precio actual antes de comprar.</p>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
+        <div class="tabla-nav-btns" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
           <a href="#en-esta-guia" class="btn" style="background:var(--surface);color:var(--green-dark);border:1.5px solid var(--line);font-size:.88rem;padding:9px 18px;border-radius:10px;text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:6px">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
             Índice de esta guía
@@ -1369,6 +1369,7 @@
   </script>
   <style>
     .tbl-btn{font-size:.78rem!important;padding:5px 10px!important;white-space:nowrap;display:inline-flex;align-items:center}
+    @media(max-width:1040px){.tabla-nav-btns{margin-bottom:260px}}
     .desc-guia-section{background:var(--surface);border-top:1px solid var(--line);padding:44px 0 52px;margin-top:48px}
     .desc-guia-inner{width:min(1120px,calc(100% - 40px));margin:0 auto}
     .desc-badge-guia{display:inline-block;background:#dcf5e4;color:#0a6631;font-size:.75rem;font-weight:800;border-radius:999px;padding:3px 9px}
