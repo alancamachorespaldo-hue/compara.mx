@@ -1001,6 +1001,7 @@
       celularesDataGuia.filter(function(p){ return p.linkML || p.linkAmz; }).forEach((producto) => {
         const card = document.createElement("article");
         card.className = "model-card";
+        card.dataset.productId = producto.id;
 
         if (producto.imagen) {
           const imgWrap = document.createElement("div");
@@ -1176,6 +1177,30 @@
     onScrollMob();
   })();
   </script>
+  <script>
+(function(){
+  fetch('/celulares/catalog-mini.json').then(function(r){return r.ok?r.json():null;}).then(function(cat){
+    if(!cat||typeof celularesDataGuia==='undefined')return;
+    var _map={};
+    Object.values(cat).forEach(function(e){if(e.linkML)_map[e.linkML]=e.precioML;});
+    var _fmt=new Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN',maximumFractionDigits:0});
+    var _ch=false;
+    celularesDataGuia.forEach(function(d){
+      if(d.linkML&&_map[d.linkML]!=null){d.precioML=_map[d.linkML];d.precioReferencia=_map[d.linkML];_ch=true;}
+    });
+    if(!_ch)return;
+    document.querySelectorAll('[data-product-id]').forEach(function(card){
+      var d=celularesDataGuia.find(function(x){return x.id===card.dataset.productId;});
+      if(!d||!d.linkML||_map[d.linkML]==null)return;
+      var el=card.querySelector('.price-line');
+      if(el)el.textContent=_fmt.format(_map[d.linkML]);
+    });
+    if(typeof renderSbG2==='function')renderSbG2();
+    if(typeof renderSbG3K==='function')renderSbG3K();
+    if(typeof renderMobDrawer==='function')renderMobDrawer();
+  }).catch(function(){});
+})();
+</script>
   <script src="/js/onboarding.js" defer></script>
 </body>
 </html>

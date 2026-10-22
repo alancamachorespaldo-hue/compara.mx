@@ -1502,6 +1502,15 @@ function goCompare() {
 renderCards();
 
 // ── ASIDE productos ──
+fetch('/celulares/catalog-mini.json').then(function(r){return r.ok?r.json():null;}).then(function(cat){
+  if(!cat)return;
+  var _map={};
+  Object.values(cat).forEach(function(e){if(e.linkML)_map[e.linkML]=e.precioML;});
+  var _ch=false;
+  familiasCPV.forEach(function(f){f.variantes.forEach(function(v){if(v.linkML&&_map[v.linkML]!=null){v.precio=_map[v.linkML];_ch=true;}});});
+  if(_ch)renderCards();
+}).catch(function(){});
+
 (function(){
   const list = document.getElementById('aside-prod-list');
   if(!list||typeof familiasCPV==='undefined') return;

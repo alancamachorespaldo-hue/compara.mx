@@ -641,6 +641,15 @@ function filterBrand(range, brand, btn){
 ['entry','mid','premium'].forEach(buildGrid);
 
 // ── ASIDE productos ──
+fetch('/celulares/catalog-mini.json').then(function(r){return r.ok?r.json():null;}).then(function(cat){
+  if(!cat)return;
+  var _map={};
+  Object.values(cat).forEach(function(e){if(e.linkML)_map[e.linkML]=e.precioML;});
+  var _ch=false;
+  Object.values(PHONES_BY_RANGE).forEach(function(arr){arr.forEach(function(p){if(p.linkML&&_map[p.linkML]!=null){p.precio=_map[p.linkML];_ch=true;}});});
+  if(_ch)['entry','mid','premium'].forEach(buildGrid);
+}).catch(function(){});
+
 (function(){
   const list = document.getElementById('aside-prod-list');
   if(!list||typeof PHONES_BY_RANGE==='undefined') return;
