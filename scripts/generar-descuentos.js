@@ -15,6 +15,7 @@ const prods = admin.celulares_android || [];
 const drops = prods
   .filter(p =>
     p.activo &&
+    !p.ignorarDescuento &&
     p.precioML &&
     p._precioMLAntes &&
     p._precioMLAntes > p.precioML &&
