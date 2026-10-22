@@ -1087,7 +1087,7 @@ const ELECTRICAS = [
         c: "b-color"
       }
     ],
-    precioML: 6599,
+    precioML: 6401,
     batV: 48,
     plegable: true,
     luces: true
@@ -1748,7 +1748,7 @@ const ELECTRICAS = [
         c: "b-discr"
       }
     ],
-    precioML: 11289,
+    precioML: 11639,
     batV: 48,
     plegable: true
   },
@@ -2584,7 +2584,7 @@ const ELECTRICAS = [
     marca: "Amyet",
     tipo: "urbana",
     precio: 12999,
-    precioML: 23354,
+    precioML: 12999,
     precioAmz: null,
     linkML: "https://meli.la/2DQUDGg",
     linkAmz: null,
@@ -2700,6 +2700,7 @@ const ELECTRICAS = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=ELECTRICAS.length-1;_i>=0;_i--){var _z=_PZ[ELECTRICAS[_i].id];if(!_z)continue;if(_z.ml){ELECTRICAS[_i].linkML=null;ELECTRICAS[_i].precioML=null;ELECTRICAS[_i].pausaML=true;}if(_z.amz){ELECTRICAS[_i].linkAmz='';ELECTRICAS[_i].precioAmz=null;ELECTRICAS[_i].pausaAmz=true;}if(_z.ml&&_z.amz)ELECTRICAS.splice(_i,1);}}catch(e){}
+
 
 
 
