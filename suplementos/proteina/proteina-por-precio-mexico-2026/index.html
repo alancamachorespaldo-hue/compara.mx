@@ -303,6 +303,22 @@ footer strong{color:var(--tx2)}
   .mob-fab-prot{background:#006847;color:#fff}
   .mob-fab-supl{background:#1d1d1f;color:#fff}
 }
+/* ── DESKTOP STICKY SIDEBAR ── */
+.guide-sidebar{display:none}
+@media(min-width:1280px){
+  .guide-sidebar{display:flex;flex-direction:column;gap:8px;position:fixed;right:20px;top:50%;transform:translateY(-50%);width:196px;background:var(--bg);border:1px solid var(--bd);border-radius:14px;padding:18px 16px;box-shadow:0 4px 24px rgba(0,0,0,.09);z-index:100;opacity:0;pointer-events:none;transition:opacity .35s}
+  .guide-sidebar.visible{opacity:1;pointer-events:auto}
+  .guide-sidebar-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--tx3);margin-bottom:2px}
+  .guide-sidebar-sub{font-size:12px;color:var(--tx3);margin:0 0 6px;line-height:1.45}
+  .guide-sidebar-btn{display:flex;align-items:center;gap:7px;padding:10px 12px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;transition:opacity .15s;font-family:'Satoshi',sans-serif;line-height:1.2}
+  .guide-sidebar-btn:hover{opacity:.85}
+  .gs-prot{background:#006847;color:#fff}
+  .gs-supl{background:var(--tx);color:var(--bg)}
+  .guide-sidebar-divider{height:1px;background:var(--bd);margin:4px 0}
+  .guide-sidebar-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--tx3);margin-bottom:2px}
+  .guide-sidebar-link{font-size:12.5px;color:var(--tx2);text-decoration:none;padding:3px 0;transition:color .15s;display:block;font-weight:500}
+  .guide-sidebar-link:hover{color:var(--ac)}
+}
 </style>
 </head>
 <body>
@@ -969,6 +985,32 @@ function toggleFaq(btn) {
 }
 </script>
 
+<!-- DESKTOP STICKY SIDEBAR -->
+<aside class="guide-sidebar" id="guide-sidebar" aria-label="Navegación rápida">
+  <div class="guide-sidebar-title">Comparar proteínas</div>
+  <p class="guide-sidebar-sub">Amazon MX vs Mercado Libre, precios actualizados</p>
+  <a class="guide-sidebar-btn gs-prot" href="/suplementos/proteina/" onclick="typeof gtag==='function'&&gtag('event','cta_click',{cta:'sidebar_proteina',location:'desktop_sidebar'})">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><rect x="2" y="10" width="3" height="4" rx="1"/><rect x="19" y="10" width="3" height="4" rx="1"/><rect x="4.5" y="7.5" width="2.5" height="9" rx="1"/><rect x="17" y="7.5" width="2.5" height="9" rx="1"/><rect x="7" y="11" width="10" height="2" rx="0.5"/></svg>
+    Ver comparador
+  </a>
+  <a class="guide-sidebar-btn gs-supl" href="/suplementos/" onclick="typeof gtag==='function'&&gtag('event','cta_click',{cta:'sidebar_suplementos',location:'desktop_sidebar'})">
+    Todos los suplementos
+  </a>
+  <div class="guide-sidebar-divider"></div>
+  <div class="guide-sidebar-label">Más guías</div>
+  <a class="guide-sidebar-link" href="/suplementos/proteina/proteina-whey-cual-comprar/">¿Cuál whey comprar?</a>
+  <a class="guide-sidebar-link" href="/suplementos/proteina/mejor-proteina-vegana/">Mejor proteína vegana</a>
+  <a class="guide-sidebar-link" href="/suplementos/proteina/proteina-para-mujeres-mexico/">Para mujeres</a>
+</aside>
+<script>
+(function(){
+  var sb = document.getElementById('guide-sidebar');
+  if (!sb) return;
+  function onScrollSb() { sb.classList.toggle('visible', window.scrollY > 200); }
+  window.addEventListener('scroll', onScrollSb, {passive:true});
+  onScrollSb();
+})();
+</script>
 <!-- MOBILE FAB -->
 <div class="mob-fab" id="mob-fab" aria-hidden="true">
   <a class="mob-fab-btn mob-fab-prot" href="/suplementos/proteina/" aria-label="Comparar proteínas" onclick="typeof gtag==='function'&&gtag('event','cta_click',{cta:'mob_fab_proteina',location:'mobile_fab'})">
