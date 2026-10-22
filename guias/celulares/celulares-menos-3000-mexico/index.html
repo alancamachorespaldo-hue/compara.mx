@@ -492,11 +492,11 @@
         </div>
         <p class="small-note">Precios de referencia editorial, octubre 2026. Pueden cambiar según tienda, vendedor, capacidad, color y promociones. Consulta el precio actual antes de comprar.</p>
         <div class="tabla-nav-btns" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
-          <a href="#en-esta-guia" class="btn" style="background:var(--surface);color:var(--green-dark);border:1.5px solid var(--line);font-size:.88rem;padding:9px 18px;border-radius:10px;text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:6px">
+          <a href="#en-esta-guia" class="btn" style="background:var(--surface);color:var(--green-dark);border:1.5px solid var(--line);font-size:.88rem;padding:9px 18px;border-radius:10px;text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:6px" onclick="typeof gtag==='function'&&gtag('event','cta_click',{cta:'nav_indice',location:'tabla_nav'})">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
             Índice de esta guía
           </a>
-          <a href="/guias/" class="btn" style="background:var(--surface);color:var(--green-dark);border:1.5px solid var(--line);font-size:.88rem;padding:9px 18px;border-radius:10px;text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:6px">
+          <a href="/guias/" class="btn" style="background:var(--surface);color:var(--green-dark);border:1.5px solid var(--line);font-size:.88rem;padding:9px 18px;border-radius:10px;text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:6px" onclick="typeof gtag==='function'&&gtag('event','cta_click',{cta:'nav_otras_guias',location:'tabla_nav'})">
             Otras guías
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
           </a>
@@ -881,7 +881,7 @@
       <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/></svg>
       Ofertas
     </a>
-    <button class="mob-fab-btn mob-fab-cmp" id="mob-fab-cmp-btn" aria-label="Abrir comparador de celulares" onclick="openMobDrawer()">
+    <button class="mob-fab-btn mob-fab-cmp" id="mob-fab-cmp-btn" aria-label="Abrir comparador de celulares" onclick="typeof gtag==='function'&&gtag('event','cta_click',{cta:'mob_fab_comparar',location:'mobile_fab'});openMobDrawer()">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
       Comparar
       <span class="mob-fab-badge" id="mob-fab-badge">0</span>
