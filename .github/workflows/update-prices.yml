@@ -45,6 +45,9 @@ jobs:
       - name: Generar descuentos del día (celulares)
         run: node scripts/generar-descuentos.js
 
+      - name: Generar descuentos del día (proteínas)
+        run: node scripts/generar-proteina-descuentos.js
+
       - name: Aplicar pausas a páginas HTML
         run: node scripts/sync-pausas.js
 
@@ -63,6 +66,7 @@ jobs:
             tecnologia/bocinas/index.html tecnologia/audifonos/index.html \
             celulares/android/index.html suplementos/vitamina-d/index.html \
             celulares/catalog-mini.json celulares/descuentos.json \
+            suplementos/proteina/descuentos.json \
             scripts/ml-report.json scripts/merged-admin.json scripts/admin-artifact.html
           if git diff --staged --quiet; then
             echo "Sin cambios de precios."
