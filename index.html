@@ -340,7 +340,8 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
 .deal-prices{display:flex;align-items:baseline;gap:5px;margin-top:auto}
 .deal-now{font-size:15px;font-weight:800;color:#006847}
 .deal-was{font-size:10.5px;color:var(--tx3);text-decoration:line-through}
-.deal-cta{font-size:10.5px;font-weight:700;color:#f0c000;background:#1a1a2e;text-align:center;padding:6px;border-radius:7px;margin-top:4px}
+.deal-cta{font-size:10px;font-weight:700;color:#333;background:#f0c000;text-align:center;padding:6px 8px;border-radius:7px;margin-top:4px;display:flex;align-items:center;justify-content:center;gap:5px;white-space:nowrap}
+.deal-cta img{height:14px;width:auto;flex-shrink:0}
 .deals-row{margin-bottom:28px}.deals-row:last-child{margin-bottom:0}
 .deals-row-label{font-size:13px;font-weight:700;color:var(--tx2);margin-bottom:10px;letter-spacing:.02em}
 @media(max-width:540px){.deal-card{flex:0 0 158px}.deal-card-img{height:100px}}
@@ -802,7 +803,7 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
       +'<div class="deal-card-top"><span class="deal-badge" style="background:'+s.bg+'">'+s.label+'</span>'+pctH+'</div>'
       +'<p class="deal-name">'+nm+'</p>'
       +'<div class="deal-prices"><span class="deal-now">'+fmt(d.precioML)+'</span>'+wasH+'</div>'
-      +'<div class="deal-cta">Ver en Mercado Libre</div>'
+      +'<div class="deal-cta">Clic para ir a <img src="/logomercado.png" alt="Mercado Libre"></div>'
       +'</div></a>';
   }
   Promise.allSettled(SOURCES.map(function(s){
