@@ -166,22 +166,55 @@ footer strong{color:var(--tx2)}
   .mob-fab-prot{background:#006847;color:#fff}
   .mob-fab-supl{background:#1d1d1f;color:#fff}
 }
-/* ── DESKTOP STICKY SIDEBAR ── */
-.guide-sidebar{display:none}
+/* ── SIDEBARS DE ESCRITORIO ── */
+.gsb-right,.gsb-left{display:none}
 @media(min-width:1280px){
-  .guide-sidebar{display:flex;flex-direction:column;gap:8px;position:fixed;right:20px;top:50%;transform:translateY(-50%);width:196px;background:var(--bg);border:1px solid var(--bd);border-radius:14px;padding:18px 16px;box-shadow:0 4px 24px rgba(0,0,0,.09);z-index:100;opacity:0;pointer-events:none;transition:opacity .35s}
-  .guide-sidebar.visible{opacity:1;pointer-events:auto}
-  .guide-sidebar-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--tx3);margin-bottom:2px}
-  .guide-sidebar-sub{font-size:12px;color:var(--tx3);margin:0 0 6px;line-height:1.45}
-  .guide-sidebar-btn{display:flex;align-items:center;gap:7px;padding:10px 12px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;transition:opacity .15s;font-family:'Satoshi',sans-serif;line-height:1.2}
-  .guide-sidebar-btn:hover{opacity:.85}
-  .gs-prot{background:#006847;color:#fff}
-  .gs-supl{background:var(--tx);color:var(--bg)}
-  .guide-sidebar-divider{height:1px;background:var(--bd);margin:4px 0}
-  .guide-sidebar-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--tx3);margin-bottom:2px}
-  .guide-sidebar-link{font-size:12.5px;color:var(--tx2);text-decoration:none;padding:3px 0;transition:color .15s;display:block;font-weight:500}
-  .guide-sidebar-link:hover{color:var(--ac)}
+  .gsb-right{display:flex;flex-direction:column;gap:6px;position:fixed;right:20px;top:50%;transform:translateY(-50%);width:204px;max-height:80vh;overflow-y:auto;scrollbar-width:thin;background:var(--bg);border:1px solid var(--bd);border-radius:14px;padding:14px;box-shadow:0 4px 24px rgba(0,0,0,.09);z-index:100;opacity:0;pointer-events:none;transition:opacity .35s}
+  .gsb-right.visible{opacity:1;pointer-events:auto}
+  .gsb-sec-title{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--tx3);margin-bottom:6px;padding-bottom:5px;border-bottom:1px solid var(--bd)}
+  .gsb-offer{border:1px solid var(--bd);border-radius:10px;padding:9px;display:flex;flex-direction:column;gap:4px;text-decoration:none}
+  .gsb-offer:hover{border-color:var(--ac)}
+  .gsb-offer-badge{font-size:11px;font-weight:800;color:#e53935;background:rgba(229,57,53,.1);border-radius:4px;padding:2px 6px;align-self:flex-start;line-height:1.4}
+  .gsb-offer-img{width:100%;height:52px;object-fit:contain;border-radius:5px;background:var(--s1)}
+  .gsb-offer-name{font-size:11px;font-weight:600;color:var(--tx);line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .gsb-offer-row{display:flex;align-items:baseline;gap:5px;flex-wrap:wrap}
+  .gsb-offer-price{font-size:13px;font-weight:800;color:var(--ac)}
+  .gsb-offer-antes{font-size:10px;color:var(--tx3);text-decoration:line-through}
+  .gsb-offer-btn{display:block;text-align:center;background:var(--ml);color:#5a4000;font-size:11px;font-weight:800;border-radius:6px;padding:5px 0;margin-top:2px;transition:opacity .15s}
+  .gsb-offer-btn:hover{opacity:.85}
 }
+@media(min-width:1400px){
+  .gsb-left{display:flex;flex-direction:column;gap:6px;position:fixed;left:20px;top:50%;transform:translateY(-50%);width:210px;max-height:82vh;overflow-y:auto;scrollbar-width:thin;background:var(--bg);border:1px solid var(--bd);border-radius:14px;padding:14px;box-shadow:0 4px 24px rgba(0,0,0,.09);z-index:100;opacity:0;pointer-events:none;transition:opacity .35s}
+  .gsb-left.visible{opacity:1;pointer-events:auto}
+  .gsb-prod{border:1px solid var(--bd);border-radius:10px;padding:9px;display:flex;flex-direction:column;gap:3px}
+  .gsb-prod:hover{border-color:var(--ac)}
+  .gsb-prod-img{width:100%;height:52px;object-fit:contain;border-radius:5px;background:var(--s1)}
+  .gsb-prod-name{font-size:11px;font-weight:600;color:var(--tx);line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .gsb-prod-tipo{font-size:10px;color:var(--tx3)}
+  .gsb-prod-prot{font-size:10px;color:var(--tx2);font-weight:600}
+  .gsb-prod-prices{display:flex;gap:4px;flex-wrap:wrap;margin-top:1px}
+  .gsb-prod-price{font-size:11px;font-weight:700;padding:2px 5px;border-radius:4px}
+  .gsb-prod-price-ml{background:var(--mld);color:#7a5c00}
+  .gsb-prod-price-amz{background:var(--amzd);color:#a04000}
+  .gsb-prod-btns{display:flex;gap:4px;margin-top:2px}
+  .gsb-prod-btn{flex:1;text-align:center;font-size:10px;font-weight:800;border-radius:5px;padding:5px 2px;text-decoration:none;transition:opacity .15s}
+  .gsb-prod-btn:hover{opacity:.85}
+  .gsb-prod-btn-ml{background:var(--ml);color:#5a4000}
+  .gsb-prod-btn-amz{background:var(--amz);color:#000}
+}
+/* ── MOBILE OFERTAS ── */
+.prot-ofertas-sec{margin:2.5rem 0;padding:1.5rem;background:var(--s1);border-radius:var(--r,12px);border:1px solid var(--bd)}
+.prot-ofertas-sec h3{font-size:1rem;font-weight:700;margin:0 0 1rem;color:var(--tx)}
+.prot-oferta-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.prot-oferta-card{background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:5px;text-decoration:none}
+.prot-oferta-card:hover{border-color:var(--ac)}
+.prot-oferta-badge{font-size:11px;font-weight:800;color:#e53935;background:rgba(229,57,53,.1);border-radius:4px;padding:2px 6px;align-self:flex-start}
+.prot-oferta-img{width:100%;height:60px;object-fit:contain;background:var(--s1);border-radius:6px}
+.prot-oferta-name{font-size:11.5px;font-weight:600;color:var(--tx);line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.prot-oferta-price{font-size:13px;font-weight:800;color:var(--ac)}
+.prot-oferta-antes{font-size:10px;color:var(--tx3);text-decoration:line-through}
+.prot-oferta-cta{margin-top:auto;display:block;text-align:center;background:var(--ml);color:#5a4000;font-size:11px;font-weight:800;border-radius:6px;padding:5px 0}
+.mob-fab-oferta{background:#c62828;color:#fff}
 </style>
 </head>
 <body>
@@ -362,30 +395,94 @@ footer strong{color:var(--tx2)}
   </div>
 </footer>
 
-<!-- DESKTOP STICKY SIDEBAR -->
-<aside class="guide-sidebar" id="guide-sidebar" aria-label="Navegación rápida">
-  <div class="guide-sidebar-title">Comparar proteínas</div>
-  <p class="guide-sidebar-sub">Amazon MX vs Mercado Libre, precios actualizados</p>
-  <a class="guide-sidebar-btn gs-prot" href="/suplementos/proteina/" onclick="typeof gtag==='function'&&gtag('event','cta_click',{cta:'sidebar_proteina',location:'desktop_sidebar'})">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><rect x="2" y="10" width="3" height="4" rx="1"/><rect x="19" y="10" width="3" height="4" rx="1"/><rect x="4.5" y="7.5" width="2.5" height="9" rx="1"/><rect x="17" y="7.5" width="2.5" height="9" rx="1"/><rect x="7" y="11" width="10" height="2" rx="0.5"/></svg>
-    Ver comparador
-  </a>
-  <a class="guide-sidebar-btn gs-supl" href="/suplementos/" onclick="typeof gtag==='function'&&gtag('event','cta_click',{cta:'sidebar_suplementos',location:'desktop_sidebar'})">
-    Todos los suplementos
-  </a>
-  <div class="guide-sidebar-divider"></div>
-  <div class="guide-sidebar-label">Más guías</div>
-  <a class="guide-sidebar-link" href="/suplementos/proteina/proteina-whey-cual-comprar/">¿Cuál whey comprar?</a>
-  <a class="guide-sidebar-link" href="/suplementos/proteina/mejor-proteina-vegana/">Mejor proteína vegana</a>
-  <a class="guide-sidebar-link" href="/suplementos/proteina/proteina-por-precio-mexico-2026/">Mejor por precio</a>
+<!-- DESKTOP SIDEBARS -->
+<aside class="gsb-left" id="gsb-left" aria-label="Productos del comparador">
+  <div class="gsb-sec-title">Del comparador</div>
+  <div id="gsb-left-list"></div>
 </aside>
 <script>
 (function(){
-  var sb = document.getElementById('guide-sidebar');
-  if (!sb) return;
-  function onScrollSb() { sb.classList.toggle('visible', window.scrollY > 200); }
-  window.addEventListener('scroll', onScrollSb, {passive:true});
-  onScrollSb();
+  var sb=document.getElementById('gsb-left');
+  var list=document.getElementById('gsb-left-list');
+  if(!sb||!list)return;
+  var prods=[{"id":15,"nombre":"Birdman Fitmingo","imagen":"https://m.media-amazon.com/images/I/71C0NKepIRL._AC_SX679_.jpg","precioML":958,"precioAmz":957,"linkML":"https://meli.la/17KzfRq","linkAmz":"https://www.amazon.com.mx/dp/B0CD2NH797?tag=comparalo20-20","prot":"21 g","tipo":"Proteína vegetal"},{"id":1,"nombre":"Wellthy Proteína Vegana","imagen":"https://m.media-amazon.com/images/I/61RV774s6lL._AC_SX679_.jpg","precioML":500,"precioAmz":279,"linkML":"https://meli.la/2fp1rSc","linkAmz":"https://www.amazon.com.mx/dp/B07KPP9T58?th=1&linkCode=ll2&tag=comparalo20-20&linkId=c41b6dfa1b4b4c8213f0911847050361&ref_=as_li_ss_tl","prot":"26 g","tipo":"Proteína vegetal"},{"id":3,"nombre":"Birdman Falcon Performance","imagen":"https://m.media-amazon.com/images/I/71R+5pti1BL._AC_SX679_.jpg","precioML":539,"precioAmz":448.99,"linkML":"https://meli.la/1E2PDXU","linkAmz":"https://www.amazon.com.mx/Performance-Prote%C3%ADna-CreaClean-Chocolate-Porciones/dp/B0GS449G2M?th=1&linkCode=ll2&tag=comparalo20-20&linkId=bb2c9e6ae6a9a2d3e92fec734851bfca&ref_=as_li_ss_tl","prot":"30 g","tipo":"Proteína vegetal"},{"id":5,"nombre":"HABITS Proteína Vegetal","imagen":"https://m.media-amazon.com/images/I/51zLx98BTZL._AC_SX679_.jpg","precioML":609,"precioAmz":619,"linkML":"https://meli.la/1AiXFc2","linkAmz":"https://www.amazon.com.mx/dp/B092HHCCNK?linkCode=ll2&tag=comparalo20-20&linkId=0891fd749c7e6b65f82f7a3f28230bef&ref_=as_li_ss_tl","prot":"21.5 g","tipo":"Proteína vegetal"}];
+  list.innerHTML=prods.map(function(p){
+    var ml=p.precioML?'<span class="gsb-prod-price gsb-prod-price-ml">$'+p.precioML.toLocaleString('es-MX')+' ML</span>':'';
+    var amz=p.precioAmz?'<span class="gsb-prod-price gsb-prod-price-amz">$'+Math.round(p.precioAmz).toLocaleString('es-MX')+' AMZ</span>':'';
+    var bML=p.linkML?'<a class="gsb-prod-btn gsb-prod-btn-ml" href="'+p.linkML+'" target="_blank" rel="nofollow noopener" onclick="typeof gtag===\'function\'&&gtag(\'event\',\'affiliate_click_ml\',{item_id:\''+p.id+'\',location:\'desktop_sidebar_prod\'})">ML</a>':'';
+    var bAMZ=p.linkAmz?'<a class="gsb-prod-btn gsb-prod-btn-amz" href="'+p.linkAmz+'" target="_blank" rel="nofollow noopener" onclick="typeof gtag===\'function\'&&gtag(\'event\',\'affiliate_click_amz\',{item_id:\''+p.id+'\',location:\'desktop_sidebar_prod\'})">AMZ</a>':'';
+    return '<div class="gsb-prod">'
+      +'<img class="gsb-prod-img" src="'+p.imagen+'" alt="'+p.nombre+'" loading="lazy">'
+      +'<div class="gsb-prod-name">'+p.nombre+'</div>'
+      +(p.tipo?'<div class="gsb-prod-tipo">'+p.tipo+'</div>':'')
+      +(p.prot?'<div class="gsb-prod-prot">'+p.prot+'/porción</div>':'')
+      +'<div class="gsb-prod-prices">'+ml+amz+'</div>'
+      +'<div class="gsb-prod-btns">'+bML+bAMZ+'</div>'
+      +'</div>';
+  }).join('');
+  function onScroll(){sb.classList.toggle('visible',window.scrollY>200)}
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+})();
+</script>
+<aside class="gsb-right" id="gsb-right" aria-label="Ofertas del día">
+  <div class="gsb-sec-title">Ofertas 🔥</div>
+  <div id="gsb-right-list"><div style="font-size:11px;color:var(--tx3);padding:6px 0">Cargando...</div></div>
+</aside>
+<script>
+(function(){
+  var sb=document.getElementById('gsb-right');
+  var list=document.getElementById('gsb-right-list');
+  if(!sb||!list)return;
+  fetch('/suplementos/proteina/descuentos.json')
+    .then(function(r){return r.json()})
+    .then(function(d){
+      var items=(d.descuentos||[]).slice(0,5);
+      list.innerHTML=items.map(function(o){
+        var badge=o.pct?'<span class="gsb-offer-badge">-'+o.pct+'%</span>':'';
+        var antes=o.precioAntes?'<span class="gsb-offer-antes">$'+o.precioAntes.toLocaleString('es-MX')+'</span>':'';
+        return '<a class="gsb-offer" href="'+o.linkML+'" target="_blank" rel="nofollow noopener" onclick="typeof gtag===\'function\'&&gtag(\'event\',\'affiliate_click_ml\',{item_id:\''+o.id+'\',location:\'desktop_sidebar_oferta\'})">'
+          +badge
+          +'<img class="gsb-offer-img" src="'+o.imagen+'" alt="'+o.nombre+'" loading="lazy">'
+          +'<div class="gsb-offer-name">'+o.nombre+'</div>'
+          +'<div class="gsb-offer-row"><span class="gsb-offer-price">$'+o.precioML.toLocaleString('es-MX')+' ML</span>'+antes+'</div>'
+          +'<span class="gsb-offer-btn">Ver oferta →</span>'
+          +'</a>';
+      }).join('');
+    })
+    .catch(function(){list.innerHTML='';});
+  function onScroll(){sb.classList.toggle('visible',window.scrollY>200)}
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+})();
+</script>
+<section id="prot-ofertas" class="prot-ofertas-sec">
+  <h3>Ofertas del día en proteínas</h3>
+  <div class="prot-oferta-grid" id="prot-ofertas-grid"><p style="font-size:13px;color:var(--tx3)">Cargando ofertas...</p></div>
+</section>
+<script>
+(function(){
+  var grid=document.getElementById('prot-ofertas-grid');
+  if(!grid)return;
+  fetch('/suplementos/proteina/descuentos.json')
+    .then(function(r){return r.json()})
+    .then(function(d){
+      var items=(d.descuentos||[]).slice(0,6);
+      if(!items.length){grid.innerHTML='';return;}
+      grid.innerHTML=items.map(function(o){
+        var badge=o.pct?'<span class="prot-oferta-badge">-'+o.pct+'%</span>':'';
+        var antes=o.precioAntes?'<div class="prot-oferta-antes">Antes: $'+o.precioAntes.toLocaleString('es-MX')+'</div>':'';
+        return '<a class="prot-oferta-card" href="'+o.linkML+'" target="_blank" rel="nofollow noopener" onclick="typeof gtag===\'function\'&&gtag(\'event\',\'affiliate_click_ml\',{item_id:\''+o.id+'\',location:\'mobile_ofertas_sec\'})">'
+          +'<img class="prot-oferta-img" src="'+o.imagen+'" alt="'+o.nombre+'" loading="lazy">'
+          +badge
+          +'<div class="prot-oferta-name">'+o.nombre+'</div>'
+          +'<div class="prot-oferta-price">$'+o.precioML.toLocaleString('es-MX')+' ML</div>'
+          +antes
+          +'<span class="prot-oferta-cta">Ver oferta →</span>'
+          +'</a>';
+      }).join('');
+    })
+    .catch(function(){grid.innerHTML='';});
 })();
 </script>
 <!-- MOBILE FAB -->
@@ -394,8 +491,12 @@ footer strong{color:var(--tx2)}
     <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><rect x="2" y="10" width="3" height="4" rx="1"/><rect x="19" y="10" width="3" height="4" rx="1"/><rect x="4.5" y="7.5" width="2.5" height="9" rx="1"/><rect x="17" y="7.5" width="2.5" height="9" rx="1"/><rect x="7" y="11" width="10" height="2" rx="0.5"/></svg>
     Proteína
   </a>
+    <a class="mob-fab-btn mob-fab-oferta" href="#prot-ofertas" aria-label="Ofertas del día" onclick="typeof gtag==='function'&&gtag('event','cta_click',{cta:'mob_fab_ofertas',location:'mobile_fab'})">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+    Ofertas
+  </a>
   <a class="mob-fab-btn mob-fab-supl" href="/suplementos/" aria-label="Ver suplementos" onclick="typeof gtag==='function'&&gtag('event','cta_click',{cta:'mob_fab_suplementos',location:'mobile_fab'})">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.22 11.29l6.07-6.07a5 5 0 017.07 7.07l-6.07 6.07a5 5 0 01-7.07-7.07z" fill="#fff"/><line x1="8.5" y1="15.5" x2="15.5" y2="8.5" stroke="#1d1d1f" stroke-width="1.5"/></svg>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
     Suplementos
   </a>
 </div>
