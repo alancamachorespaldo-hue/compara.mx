@@ -319,6 +319,29 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
 .leads-form-iframe-wrap iframe{width:100%;border:none;display:block;border-radius:0 0 12px 12px}
 .leads-privacy{text-align:center;margin-top:12px;font-size:11px;color:rgba(255,255,255,.4);display:flex;align-items:center;justify-content:center;gap:5px}
 @media(max-width:768px){.leads-inner{grid-template-columns:1fr;gap:32px}.leads-title{font-size:26px}.leads-desc{max-width:100%}.leads-form-iframe-wrap{display:none}.leads-form-btn{display:flex!important}}
+/* ── Descuentos del día ── */
+.deals-sec{background:var(--s1);padding:36px 0 40px;border-top:1px solid var(--bd)}
+.deals-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.deals-head h2{font-size:22px;font-weight:800;letter-spacing:-.6px;margin:4px 0 0;color:#1E2922}
+.deals-sub{font-size:12px;color:var(--tx3);margin-top:auto;padding-bottom:4px}
+.deals-outer{position:relative}
+.deals-outer::after{content:'';position:absolute;top:0;right:0;bottom:8px;width:48px;background:linear-gradient(to left,var(--s1),transparent);pointer-events:none;z-index:1}
+.deals-track{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:4px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.deals-track::-webkit-scrollbar{display:none}
+.deal-card{flex:0 0 184px;border:1.5px solid var(--bd);border-radius:14px;overflow:hidden;text-decoration:none;color:var(--tx);display:flex;flex-direction:column;scroll-snap-align:start;transition:box-shadow .18s,transform .18s;background:#fff}
+.deal-card:hover{box-shadow:0 6px 18px rgba(0,0,0,.1);transform:translateY(-2px);color:var(--tx)}
+.deal-card-img{height:120px;background:#f8faff;display:flex;align-items:center;justify-content:center;overflow:hidden;border-bottom:1px solid var(--bd)}
+.deal-card-img img{max-width:100%;max-height:100%;object-fit:contain;padding:10px}
+.deal-card-body{padding:10px 11px 12px;display:flex;flex-direction:column;gap:5px;flex:1}
+.deal-card-top{display:flex;align-items:center;justify-content:space-between;gap:4px}
+.deal-badge{font-size:9.5px;font-weight:700;letter-spacing:.05em;color:#fff;border-radius:100px;padding:2px 7px;white-space:nowrap}
+.deal-pct{font-size:13px;font-weight:800;color:#dc2626;white-space:nowrap}
+.deal-name{font-size:11.5px;font-weight:600;line-height:1.4;color:var(--tx);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.deal-prices{display:flex;align-items:baseline;gap:5px;margin-top:auto}
+.deal-now{font-size:15px;font-weight:800;color:#006847}
+.deal-was{font-size:10.5px;color:var(--tx3);text-decoration:line-through}
+.deal-cta{font-size:10.5px;font-weight:700;color:#f0c000;background:#1a1a2e;text-align:center;padding:6px;border-radius:7px;margin-top:4px}
+@media(max-width:540px){.deal-card{flex:0 0 158px}.deal-card-img{height:100px}}
 </style>
 </head>
 <body>
@@ -505,6 +528,21 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
       </div>
     </div>
 
+  </div>
+</section>
+
+<section class="deals-sec" id="deals-sec" hidden aria-labelledby="deals-h">
+  <div class="wrap">
+    <div class="deals-head">
+      <div>
+        <p class="kicker">Mercado Libre</p>
+        <h2 id="deals-h">Bajaron de precio hoy</h2>
+      </div>
+      <p class="deals-sub">Actualizado cada mañana · solo precios verificados</p>
+    </div>
+    <div class="deals-outer">
+      <div class="deals-track" id="deals-track" role="list" aria-label="Descuentos del día"></div>
+    </div>
   </div>
 </section>
 
@@ -739,6 +777,49 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
   });
   if(btn)btn.addEventListener('click',function(){
     typeof gtag!=='undefined'&&gtag('event','leads_form_start',{event_category:'leads',event_label:location.pathname});
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var SOURCES=[
+    {url:'/celulares/descuentos.json',label:'Celular',bg:'#1a1a2e'},
+    {url:'/suplementos/proteina/descuentos.json',label:'Proteína',bg:'#006847'}
+  ];
+  Promise.allSettled(SOURCES.map(function(s){
+    return fetch(s.url).then(function(r){return r.ok?r.json():null;}).then(function(d){
+      return d&&Array.isArray(d.descuentos)?d.descuentos.map(function(p){return Object.assign({},p,{_cat:s.label,_bg:s.bg});}):[];
+    }).catch(function(){return[];});
+  })).then(function(results){
+    var all=results.reduce(function(acc,r){return r.status==='fulfilled'?acc.concat(r.value):acc;},[]);
+    all.sort(function(a,b){return b.pct-a.pct;});
+    var track=document.getElementById('deals-track');
+    var sec=document.getElementById('deals-sec');
+    if(!track||!sec||!all.length)return;
+    var fmt=function(n){return'$'+Number(n).toLocaleString('es-MX');};
+    track.innerHTML=all.map(function(d){
+      var nm=(d.nombre||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+      var lbl=(d.nombre||'').replace(/'/g,"\\'").replace(/"/g,'&quot;');
+      var imgHtml=d.imagen?'<img src="'+d.imagen+'" alt="'+nm+'" loading="lazy" referrerpolicy="no-referrer">':'';
+      return'<a class="deal-card" href="'+d.linkML+'" target="_blank" rel="sponsored nofollow noopener" role="listitem"'
+        +' onclick="typeof gtag===\'function\'&&gtag(\'event\',\'affiliate_click_ml\',{event_category:\'afiliado\',event_label:\''+lbl+'\',value:'+d.precioML+',page_section:\'home_descuentos\'})">'
+        +'<div class="deal-card-img">'+imgHtml+'</div>'
+        +'<div class="deal-card-body">'
+        +'<div class="deal-card-top">'
+        +'<span class="deal-badge" style="background:'+d._bg+'">'+d._cat+'</span>'
+        +'<span class="deal-pct">&#8722;'+d.pct+'%</span>'
+        +'</div>'
+        +'<p class="deal-name">'+nm+'</p>'
+        +'<div class="deal-prices">'
+        +'<span class="deal-now">'+fmt(d.precioML)+'</span>'
+        +'<span class="deal-was">'+fmt(d.precioAntes)+'</span>'
+        +'</div>'
+        +'<div class="deal-cta">Ver en Mercado Libre</div>'
+        +'</div>'
+        +'</a>';
+    }).join('');
+    sec.hidden=false;
   });
 })();
 </script>
