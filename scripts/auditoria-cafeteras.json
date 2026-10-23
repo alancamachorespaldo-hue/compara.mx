@@ -1,0 +1,223 @@
+{
+  "fecha": "2026-10-23",
+  "categoria": "cafeteras",
+  "totalProductos": 34,
+  "correcciones": [
+    {
+      "id": "cafetera-mlm65065757-25",
+      "campo": "capacidad",
+      "anterior": "750 L",
+      "nuevo": "750 mL",
+      "motivo": "Error de unidad: el producto se llama \"750 Ml\", no 750 litros",
+      "fuente": "Nombre del producto en catálogo",
+      "estado": "corregido y verificado",
+      "producto": "Cafetera Timco 750 Ml Filtro Permanente Placa Calefactora Rosa"
+    },
+    {
+      "id": "cafetera-mlm29326829-29",
+      "campo": "capacidad",
+      "anterior": "100 L",
+      "nuevo": "600 mL",
+      "motivo": "Valor imposible para uso doméstico; fuentes oficiales Nespresso indican ~560–600 mL",
+      "fuente": "Nespresso SA, MY, AU (verificación oficial MX pendiente)",
+      "estado": "corregido y verificado",
+      "producto": "Cafetera Nespresso Vertuo Pop Color Negro Con Espumador De Leche Aeroccino + Cápsulas de regalo"
+    },
+    {
+      "id": "cafetera-mlm53207109-1",
+      "campo": "molinillo",
+      "anterior": "No",
+      "nuevo": "Sí",
+      "motivo": "Nombre del producto y página oficial Oster LA confirman molinillo de muelas integrado",
+      "fuente": "osterlatinamerica.com, solotodo.cl, ripley.com.pe",
+      "estado": "corregido y verificado",
+      "producto": "Oster Cafetera, Perfect Brew, de Espresso, con Molinillo de Muelas, 30 Configuraciones de Molienda, Tubo de Vapor Tempsense, Porta filtro de 58 mm, Accesorios Incluidos, BVSTEM7301"
+    },
+    {
+      "id": "cafetera-mlm53625062-6",
+      "campo": "molinillo",
+      "anterior": "No",
+      "nuevo": "Sí",
+      "motivo": "Nombre del producto dice \"con Molinillo\"; fuentes de venta confirman",
+      "fuente": "Nombre del producto + promodescuentos.com",
+      "estado": "corregido y verificado",
+      "producto": "Cafetera Expreso DEAR DAY XH-V9 20 bar con Espumador y Molinillo para Cápsulas y Café Molido"
+    },
+    {
+      "id": "cafetera-mlm51350786-15",
+      "campo": "molinillo",
+      "anterior": "No",
+      "nuevo": "Sí",
+      "motivo": "Nombre del producto dice \"con Molino\"",
+      "fuente": "Nombre del producto",
+      "estado": "corregido y verificado",
+      "producto": "Cafetera Expreso DEAR DAY Semi Automática con Molino, para Cápsulas Nespresso y Leche Espumada"
+    },
+    {
+      "id": "cafetera-mlm65036652-18",
+      "campo": "molinillo",
+      "anterior": "",
+      "nuevo": "Sí",
+      "motivo": "Superautomática Philips 5500: molinillo integrado confirmado por múltiples distribuidores",
+      "fuente": "slickdeals.net, icecat.cn, walmart.com",
+      "estado": "corregido y verificado",
+      "producto": "Cafetera Espresso Ep5544/94 5500 Superautomática Negro Philips 120V"
+    },
+    {
+      "id": "cafetera-mlm28372254-31",
+      "campo": "molinillo",
+      "anterior": "No",
+      "nuevo": "Sí",
+      "motivo": "Distribuidores oficiales confirman molinillo cónico integrado con 8 ajustes",
+      "fuente": "chefsupplies.ca, harveynorman.co.uk, jbhifi.com.au",
+      "estado": "corregido y verificado",
+      "producto": "Maquina de Cafe De'Longhi EC9255M la Specialista Arte Evo color Plateado"
+    },
+    {
+      "id": "cafetera-mlm28372254-31",
+      "campo": "presion",
+      "anterior": "",
+      "nuevo": "15 bar",
+      "motivo": "Distribuidores oficiales indican bomba de 15 bar",
+      "fuente": "chefsupplies.ca",
+      "estado": "corregido y verificado",
+      "producto": "Maquina de Cafe De'Longhi EC9255M la Specialista Arte Evo color Plateado"
+    },
+    {
+      "id": "cafetera-mlm28372254-31",
+      "campo": "capacidad",
+      "anterior": "1.6 L",
+      "nuevo": "1.7 L",
+      "motivo": "Distribuidor oficial indica 1.7 L",
+      "fuente": "chefsupplies.ca",
+      "estado": "corregido y verificado",
+      "producto": "Maquina de Cafe De'Longhi EC9255M la Specialista Arte Evo color Plateado"
+    },
+    {
+      "id": "cafetera-mlm69055537-27",
+      "campo": "molinillo",
+      "anterior": "",
+      "nuevo": "No",
+      "motivo": "Fuentes confirman vaporizador pero no molinillo en el CraftBrew",
+      "fuente": "bjs.com, u-buy.co.uk, target.com",
+      "estado": "corregido y verificado",
+      "producto": "Chefman Craftbrew - Máquina De Café Expreso Digital Con B"
+    },
+    {
+      "id": "cafetera-mlm27289430-23",
+      "campo": "vaporizador",
+      "anterior": "Sí",
+      "nuevo": "No",
+      "motivo": "Los percoladores no tienen vaporizador de leche; ninguna fuente lo confirma para este modelo",
+      "fuente": "homehardware.ca, alkosto.com, ktronix.com",
+      "estado": "corregido y verificado",
+      "producto": "Percolador De Café Hamilton Beach 45 Tazas Color Aluminio"
+    },
+    {
+      "id": "cafetera-mlm43030420-17",
+      "campo": "presion",
+      "anterior": "20 bar",
+      "nuevo": "",
+      "motivo": "Físicamente imposible para cafetera de goteo (opera por gravedad)",
+      "fuente": "Principio técnico + inconsistencia con tipo \"De goteo\"",
+      "estado": "corregido y verificado",
+      "producto": "Cafetera Eléctrica 12 Tazas De Cafe Programable"
+    },
+    {
+      "id": "cafetera-mlm43030420-17",
+      "campo": "vaporizador",
+      "anterior": "Sí",
+      "nuevo": "",
+      "motivo": "Dato sin confirmar para una cafetera de goteo básica programable",
+      "fuente": "Ninguna fuente confirma vaporizador para este modelo",
+      "estado": "pendiente de verificación",
+      "producto": "Cafetera Eléctrica 12 Tazas De Cafe Programable"
+    },
+    {
+      "id": "cafetera-mlm43030420-17",
+      "campo": "compatible",
+      "anterior": "Nespresso",
+      "nuevo": "",
+      "motivo": "Las cafeteras de goteo no son compatibles con cápsulas Nespresso",
+      "fuente": "Principio técnico + inconsistencia con tipo \"De goteo\"",
+      "estado": "corregido y verificado",
+      "producto": "Cafetera Eléctrica 12 Tazas De Cafe Programable"
+    },
+    {
+      "id": "cafetera-mlm43030420-17",
+      "campo": "tipo",
+      "anterior": "De goteo, Cafetera de goteo para 12 tazas",
+      "nuevo": "Goteo",
+      "motivo": "Normalizar valor de tipo para consistencia con otros productos de goteo",
+      "fuente": "Estándar interno del catálogo",
+      "estado": "corregido y verificado",
+      "producto": "Cafetera Eléctrica 12 Tazas De Cafe Programable"
+    },
+    {
+      "id": "cafetera-mlm73944203-33",
+      "campo": "presion",
+      "anterior": "20 bar",
+      "nuevo": "",
+      "motivo": "Físicamente imposible para cafetera de goteo (opera por gravedad)",
+      "fuente": "Principio técnico + inconsistencia con tipo \"Goteo\"",
+      "estado": "corregido y verificado",
+      "producto": "Cafetera de Goteo HESDER Programable Con Pantalla Táctil y Filtro Permanente, Para 12 Tazas"
+    },
+    {
+      "id": "cafetera-mlm73944203-33",
+      "campo": "vaporizador",
+      "anterior": "Sí",
+      "nuevo": "",
+      "motivo": "Dato sin confirmar para una cafetera de goteo programable",
+      "fuente": "Ninguna fuente confirma vaporizador para este modelo",
+      "estado": "pendiente de verificación",
+      "producto": "Cafetera de Goteo HESDER Programable Con Pantalla Táctil y Filtro Permanente, Para 12 Tazas"
+    },
+    {
+      "id": "cafetera-mlm73944203-33",
+      "campo": "compatible",
+      "anterior": "Nespresso",
+      "nuevo": "",
+      "motivo": "Las cafeteras de goteo no son compatibles con cápsulas Nespresso",
+      "fuente": "Principio técnico + inconsistencia con tipo \"Goteo\"",
+      "estado": "corregido y verificado",
+      "producto": "Cafetera de Goteo HESDER Programable Con Pantalla Táctil y Filtro Permanente, Para 12 Tazas"
+    },
+    {
+      "id": "cafetera-mlm63547237-13",
+      "campo": "presion",
+      "anterior": "",
+      "nuevo": "20 bar",
+      "motivo": "El nombre del producto dice explícitamente \"20 Bares\"",
+      "fuente": "Nombre del producto en catálogo",
+      "estado": "corregido y verificado",
+      "producto": "Cafetera Espresso Automática Maquina de Expresso Individual Capuchino Fika Rito 1.5 Litros 20 Bares"
+    }
+  ],
+  "pendientes": [
+    {
+      "id": "cafetera-mlm29326829-29",
+      "nombre": "Nespresso Vertuo Pop + Aeroccino",
+      "campo": "capacidad",
+      "nota": "Corregido a 600 mL estimado; verificar en nespresso.com/mx"
+    },
+    {
+      "id": "cafetera-mlm43030420-17",
+      "nombre": "DEAR DAY Goteo Programable",
+      "campo": "vaporizador",
+      "nota": "Borrado dato posiblemente erróneo; verificar en publicación ML"
+    },
+    {
+      "id": "cafetera-mlm73944203-33",
+      "nombre": "HESDER Goteo Programable",
+      "campo": "vaporizador",
+      "nota": "Borrado dato posiblemente erróneo; verificar en publicación ML"
+    },
+    {
+      "id": "cafetera-mlm63547237-13",
+      "nombre": "Fika Rito espresso",
+      "campo": "molinillo",
+      "nota": "El modelo base sin molinillo puede diferir del SET con molinillo; confirmar en ML"
+    }
+  ]
+}
