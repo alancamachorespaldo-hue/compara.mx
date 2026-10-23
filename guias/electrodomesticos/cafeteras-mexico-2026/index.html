@@ -88,7 +88,8 @@ html{scroll-behavior:smooth;scroll-padding-top:84px}body{background:var(--bg);co
 .aside-prod-body{flex:1;min-width:0}
 .aside-prod-name{font-size:10.5px;font-weight:700;color:#0F172A;line-height:1.3;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .aside-prod-price{font-size:.95rem;font-weight:700;color:#006847;line-height:1;display:block;margin-top:2px}
-.aside-prod-cta{display:inline-flex;align-items:center;margin-top:3px;font-size:10px;font-weight:700;color:#5a4200;background:#f0c000;border-radius:5px;padding:2px 6px}
+.aside-prod-cta{display:inline-flex;align-items:center;margin-top:3px;font-size:10px;font-weight:700;color:#5a4200;background:#f0c000;border-radius:5px;padding:2px 6px;text-decoration:none}
+.aside-disc-corner{position:absolute;top:3px;right:3px;background:#d93025;color:#fff;font-size:9.5px;font-weight:800;border-radius:5px;padding:2px 5px;letter-spacing:.02em;line-height:1.4;pointer-events:none;z-index:2}
 .aside-more{display:block;padding:8px 12px;font-size:11px;color:#006847;font-weight:600;text-decoration:none;text-align:center;border-top:1px solid #e2e2dc}
 .section-layout{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:36px;align-items:start;margin:1.5rem 0}
 .section-text{min-width:0}
@@ -395,8 +396,12 @@ html{scroll-behavior:smooth;scroll-padding-top:84px}body{background:var(--bg);co
 </main>
 <aside class="aside-right-panel" id="aside-panel">
 <div class="aside-box">
-<div class="aside-box-hdr"><span class="aside-box-hdr-ttl">☕ Ofertas en cafeteras</span></div>
+<div class="aside-box-hdr">
+<span class="aside-box-hdr-ttl">☕ Ofertas en cafeteras</span>
+<span class="aside-box-hdr-sub">Toca para seleccionar y comparar</span>
+</div>
 <div id="aside-caf-list"></div>
+<button class="aside-cmp-btn" id="aside-cmp-btn-right" onclick="goCompare()">Comparar →</button>
 <a href="/electrodomesticos/cafeteras/" class="aside-more">Ver todas las cafeteras →</a>
 </div>
 <a href="/electrodomesticos/cafeteras/" class="comp-card" onclick="gtag&&gtag('event','click_comp_cafeteras',{event_category:'aside',event_label:'comp_card'})">
@@ -415,28 +420,36 @@ html{scroll-behavior:smooth;scroll-padding-top:84px}body{background:var(--bg);co
 (function(){
 var ML_LOGO='<img src="/logomercado.png" alt="Mercado Libre" style="height:13px;vertical-align:middle;margin:0 2px" onerror="this.style.display=\'none\'">';
 
-/* --- Aside derecho: tarjetas de oferta --- */
-function mkCard(c,parent,showDisc){
-var disc='';
-if(showDisc&&c.ref&&c.ref>c.p){
-var pct=Math.round((1-c.p/c.ref)*100);
-disc='<span class="aside-disc">-'+pct+'%</span>';
-}
+/* --- Aside derecho: tarjetas de oferta con selector --- */
+function mkCard(c,parent){
+var pct=0;
+if(c.ref&&c.ref>c.p) pct=Math.round((1-c.p/c.ref)*100);
+var discBadge=pct?'<span class="aside-disc-corner">-'+pct+'%</span>':'';
 var chip=c.chip?'<span class="aside-prod-chip">'+c.chip+'</span>':'';
-var a=document.createElement('a');
-a.className='aside-prod-card';
-a.href=c.url;
-a.rel='sponsored nofollow noopener';
-a.target='_blank';
-if(c.ga){a.addEventListener('click',function(){if(window.gtag)gtag('event','click_ml',{event_category:'aside_card',event_label:c.ga});});}
-a.innerHTML='<img class="aside-prod-img" src="'+c.img+'" alt="'+c.n+'" loading="lazy">'
-+'<div class="aside-prod-body">'
+var wrap=document.createElement('div');
+wrap.className='aside-prod-card';
+wrap.style.cursor='pointer';
+wrap.setAttribute('data-cid',c.id);
+var gaEvt=c.ga?'if(window.gtag)gtag(\'event\',\'click_ml\',{event_category:\'aside_card\',event_label:\''+c.ga+'\'});':'';
+wrap.innerHTML='<div style="position:relative;flex-shrink:0">'
++'<img class="aside-prod-img" src="'+c.img+'" alt="'+c.n+'" loading="lazy">'
++discBadge
++'</div>'
++'<div class="aside-prod-body" style="flex:1;min-width:0">'
 +'<span class="aside-prod-name">'+c.n+'</span>'
-+'<span class="aside-prod-price">$'+Number(c.p).toLocaleString('es-MX')+disc+'</span>'
++'<span class="aside-prod-price">$'+Number(c.p).toLocaleString('es-MX')+'</span>'
 +chip
-+'<span class="aside-prod-cta">Clic para ir '+ML_LOGO+' →</span>'
-+'</div>';
-parent.appendChild(a);
++'<a class="aside-prod-cta" href="'+c.url+'" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();'+gaEvt+'">Clic para ir '+ML_LOGO+' →</a>'
++'</div>'
++'<div class="aside-sel-dot" data-dot="'+c.id+'"></div>';
+wrap.addEventListener('click',function(e){
+if(e.target.closest('a'))return;
+var idx=selIds.indexOf(c.id);
+if(idx>-1){selIds.splice(idx,1);}
+else if(selIds.length<3){selIds.push(c.id);}
+updateSel();
+});
+parent.appendChild(wrap);
 }
 
 /* --- Aside izquierdo: COMPARADOR --- */
@@ -459,21 +472,22 @@ e.preventDefault();
 var idx=selIds.indexOf(c.id);
 if(idx>-1){selIds.splice(idx,1);}
 else if(selIds.length<3){selIds.push(c.id);}
-updateLeftSel();
+updateSel();
 });
 parent.appendChild(wrap);
 }
-function updateLeftSel(){
-document.querySelectorAll('#aside-left-list .aside-prod-card').forEach(function(el){
+function updateSel(){
+document.querySelectorAll('.aside-prod-card[data-cid]').forEach(function(el){
 var cid=el.getAttribute('data-cid');
 if(selIds.includes(cid)){el.classList.add('sel');var dot=el.querySelector('.aside-sel-dot');if(dot)dot.textContent='✓';}
 else{el.classList.remove('sel');var dot=el.querySelector('.aside-sel-dot');if(dot)dot.textContent='';}
 });
-var btn=document.getElementById('aside-cmp-btn');
-if(btn){
+['aside-cmp-btn','aside-cmp-btn-right'].forEach(function(id){
+var btn=document.getElementById(id);
+if(!btn)return;
 if(selIds.length>=2){btn.classList.add('show');btn.textContent='Comparar '+selIds.length+' cafeteras →';}
 else{btn.classList.remove('show');}
-}
+});
 }
 window.goCompare=function(){
 if(selIds.length<2)return;
@@ -484,12 +498,12 @@ window.location.href='/electrodomesticos/cafeteras/';
 
 /* --- Datos --- */
 var caf=[
-{n:'Oster BVSTDCS121B 12 tazas',p:399,ref:499,chip:'Goteo · 12 tazas · Filtro reutilizable',ga:'oster_bvstdcs121b',img:'https://http2.mlstatic.com/D_NQ_NP_963719-MLA99942061095_112025-O.jpg',url:'https://meli.la/1Pq4G7y'},
-{n:'Hamilton Beach 49630 programable',p:549,ref:699,chip:'Goteo · 12 tazas · Programable',ga:'hamilton_beach_49630',img:'https://http2.mlstatic.com/D_NQ_NP_978180-MLA99986132803_112025-O.jpg',url:'https://meli.la/1wt3RaH'},
-{n:'Fika goteo 1.7L panel táctil',p:639,chip:'Goteo · 1.7 L · Panel táctil',ga:'fika_goteo_17l',img:'https://http2.mlstatic.com/D_NQ_NP_989224-MLA118559848731_102026-O.jpg',url:'https://meli.la/1EA8NnK'},
-{n:'Fika Rito espresso 20 bares',p:1299,ref:1599,chip:'Espresso · 20 bares',ga:'fika_rito_espresso',img:'https://http2.mlstatic.com/D_NQ_NP_836658-MLA115742816684_092026-O.jpg',url:'https://meli.la/1yTq4tb'},
-{n:'Nespresso Vertuo Pop',p:1709,ref:2299,chip:'Cápsulas · Sistema Vertuo',ga:'nespresso_vertuo_pop',img:'https://http2.mlstatic.com/D_NQ_NP_910114-MLA100001203513_112025-O.jpg',url:'https://meli.la/15UtS7P'},
-{n:"De'Longhi La Specialista Arte Evo",p:10815,ref:13999,chip:'Espresso · Superautomática',ga:'delonghi_specialista',img:'https://http2.mlstatic.com/D_NQ_NP_867147-MLA108909690556_032026-O.jpg',url:'https://meli.la/2P62UGf'}
+{id:'cafetera-mlm53715897-4',n:'Oster BVSTDCS121B 12 tazas',p:399,ref:499,chip:'Goteo · 12 tazas · Filtro reutilizable',ga:'oster_bvstdcs121b',img:'https://http2.mlstatic.com/D_NQ_NP_963719-MLA99942061095_112025-O.jpg',url:'https://meli.la/1Pq4G7y'},
+{id:'cafetera-mlm25172002-8',n:'Hamilton Beach 49630 programable',p:549,ref:699,chip:'Goteo · 12 tazas · Programable',ga:'hamilton_beach_49630',img:'https://http2.mlstatic.com/D_NQ_NP_978180-MLA99986132803_112025-O.jpg',url:'https://meli.la/1wt3RaH'},
+{id:'cafetera-mlm80135052-34',n:'Fika goteo 1.7L panel táctil',p:639,chip:'Goteo · 1.7 L · Panel táctil',ga:'fika_goteo_17l',img:'https://http2.mlstatic.com/D_NQ_NP_989224-MLA118559848731_102026-O.jpg',url:'https://meli.la/1EA8NnK'},
+{id:'cafetera-mlm63547237-13',n:'Fika Rito espresso 20 bares',p:1299,ref:1599,chip:'Espresso · 20 bares',ga:'fika_rito_espresso',img:'https://http2.mlstatic.com/D_NQ_NP_836658-MLA115742816684_092026-O.jpg',url:'https://meli.la/1yTq4tb'},
+{id:'cafetera-mlm49547626-16',n:'Nespresso Vertuo Pop',p:1709,ref:2299,chip:'Cápsulas · Sistema Vertuo',ga:'nespresso_vertuo_pop',img:'https://http2.mlstatic.com/D_NQ_NP_910114-MLA100001203513_112025-O.jpg',url:'https://meli.la/15UtS7P'},
+{id:'cafetera-mlm28372254-31',n:"De'Longhi La Specialista Arte Evo",p:10815,ref:13999,chip:'Espresso · Superautomática',ga:'delonghi_specialista',img:'https://http2.mlstatic.com/D_NQ_NP_867147-MLA108909690556_032026-O.jpg',url:'https://meli.la/2P62UGf'}
 ];
 var cafLeft=[
 {id:'cafetera-mlm53715897-4',n:'Oster BVSTDCS121B 12 tazas',p:399,chip:'Goteo · 12 tazas · Filtro reutilizable',img:'https://http2.mlstatic.com/D_NQ_NP_963719-MLA99942061095_112025-O.jpg'},
@@ -500,7 +514,7 @@ var cafLeft=[
 
 /* --- Render --- */
 var list=document.getElementById('aside-caf-list');
-if(list)caf.forEach(function(c){mkCard(c,list,true);});
+if(list)caf.forEach(function(c){mkCard(c,list);});
 var leftList=document.getElementById('aside-left-list');
 if(leftList)cafLeft.forEach(function(c){mkCardLeft(c,leftList);});
 
