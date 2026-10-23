@@ -136,6 +136,13 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .precio-max-input{font-size:12px;padding:4px 8px;border-radius:20px;border:1px solid var(--bd2);background:var(--bg);color:var(--tx);font-family:inherit;font-weight:500;width:88px;outline:none;-moz-appearance:textfield}
 .precio-max-input::-webkit-outer-spin-button,.precio-max-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 .precio-max-input:focus{border-color:var(--ac)}
+.caf-guia-block{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;margin-bottom:14px;background:var(--acd);border:1px solid var(--acd2);border-radius:12px}
+.caf-guia-icon{flex-shrink:0;width:38px;height:38px;border-radius:9px;background:var(--ac);display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px}
+.caf-guia-body{min-width:0;flex:1}
+.caf-guia-body strong{display:block;font-size:13.5px;font-weight:700;color:var(--tx);line-height:1.3;margin-bottom:3px}
+.caf-guia-body p{font-size:12px;color:var(--tx2);margin:0 0 7px;line-height:1.5}
+.caf-guia-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:var(--ac);text-decoration:none}
+.caf-guia-link:hover{text-decoration:underline}
 
 .result-info{padding:.5rem 2rem;font-size:12px;color:var(--tx3)}
 
@@ -441,6 +448,14 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 
   <!-- CATÁLOGO -->
   <div class="caf-content">
+    <div class="caf-guia-block">
+      <div class="caf-guia-icon">☕</div>
+      <div class="caf-guia-body">
+        <strong>Guía para elegir la mejor cafetera</strong>
+        <p>Descubre las diferencias entre cafeteras espresso, de cápsulas, de goteo y otros métodos. Aprende a elegir la molienda, el tostado y el tipo de preparación según tus gustos y tu rutina.</p>
+        <a class="caf-guia-link" href="/guias/electrodomesticos/cafeteras-mexico-2026/" onclick="gtag&&gtag('event','click_guia_cafeteras',{event_category:'editorial',event_label:'bloque_categoria'})">Leer la guía completa de cafeteras →</a>
+      </div>
+    </div>
     <div class="result-info" id="resultInfo"></div>
     <div class="caf-chips-row" id="cafChipsRow"></div>
     <div class="grid" id="grid"></div>
