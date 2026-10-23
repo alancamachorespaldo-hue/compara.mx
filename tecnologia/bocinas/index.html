@@ -1141,6 +1141,7 @@ const productos = [
 
 
 
+
 const precioVigente = p => (p.linkML ? p.precioML : p.precioAmz) ?? p.precio ?? null;
 const potenciaNum = p => { const m = /(\d+(?:\.\d+)?)/.exec(p.especs?.potencia || ''); return m ? parseFloat(m[1]) : null; };
 const SPEC_KEYS = [['modelo','Modelo'],['asistentes','Asistentes'],['potencia','Potencia'],['alimentacion','Alimentación'],['sistemas','S.O. compat.'],['camara','Cámara'],['pantallaTactil','Pant. táctil']];
