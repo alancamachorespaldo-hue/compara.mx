@@ -256,6 +256,43 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   .toolbar{top:64px;overflow-x:auto;flex-wrap:nowrap;padding:.5rem 1rem}
   .main-wrap{padding:1rem 1rem 0}
 }
+
+/* ── Sidebar filtros ── */
+.caf-layout{max-width:1400px;margin:0 auto;padding:1rem 2rem 0;display:grid;grid-template-columns:260px 1fr;gap:20px;align-items:start}
+.caf-content{min-width:0}
+.caf-filters{background:var(--bg);border:1px solid var(--bd);border-radius:14px;padding:16px;position:sticky;top:76px;max-height:calc(100vh - 92px);overflow-y:auto}
+.caf-section{padding:10px 0;border-bottom:1px solid var(--bd)}
+.caf-section:last-child{border-bottom:none}
+.caf-section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--tx2);margin-bottom:9px;display:block}
+.caf-pills{display:flex;flex-wrap:wrap;gap:6px}
+.caf-filters-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--bd)}
+.caf-filters-title{font-size:14px;font-weight:700;color:var(--tx)}
+.caf-clear-all{font-size:11px;color:var(--ac);background:none;border:none;cursor:pointer;padding:0;font-family:inherit;text-decoration:underline}
+.caf-sort-sel{font-size:12px;background:var(--bg);border:1px solid var(--bd2);border-radius:8px;color:var(--tx2);padding:6px 8px;font-family:'Satoshi',sans-serif;cursor:pointer;width:100%}
+.caf-price-row{display:flex;align-items:center;gap:6px}
+.caf-price-sep{font-size:12px;color:var(--tx3)}
+.caf-filtrar-btn{display:none;align-items:center;gap:7px;background:var(--bg);border:1px solid var(--bd2);border-radius:8px;padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer;color:var(--tx);font-family:inherit;margin:10px 1rem 0}
+.caf-filtrar-count{background:var(--ac);color:#fff;border-radius:20px;font-size:10px;font-weight:700;padding:1px 7px;min-width:20px;text-align:center}
+.caf-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200}
+.caf-backdrop.open{display:block}
+.caf-filters-close{display:none;background:none;border:none;cursor:pointer;color:var(--tx2);padding:4px;border-radius:6px;line-height:1}
+.caf-filters-foot{display:none;padding:12px 0 0;border-top:1px solid var(--bd);margin-top:8px;gap:8px}
+.caf-limpiar-btn{flex:1;background:transparent;color:var(--tx2);border:1px solid var(--bd2);border-radius:8px;padding:9px;font-size:13px;cursor:pointer;font-family:inherit}
+.caf-apply-btn{flex:2;background:var(--ac);color:#fff;border:none;border-radius:8px;padding:9px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+.caf-chips-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.caf-chip{display:flex;align-items:center;gap:5px;background:var(--acd);border:1px solid var(--acd2);color:var(--ac);border-radius:20px;padding:3px 10px;font-size:12px;font-weight:600;cursor:pointer}
+.caf-chip:hover{background:var(--acd2)}
+.caf-chip-x{font-size:14px;line-height:1;opacity:.7}
+@media(max-width:860px){
+  .caf-layout{display:block;padding:.75rem 1rem 0}
+  .caf-filtrar-btn{display:flex}
+  .caf-filters{position:fixed;top:0;left:0;bottom:0;width:min(85vw,320px);transform:translateX(-105%);transition:transform .28s;border-radius:0;border-right:1px solid var(--bd);z-index:300;overflow-y:auto;max-height:none;display:flex;flex-direction:column}
+  .caf-filters.open{transform:translateX(0)}
+  .caf-filters-close{display:flex}
+  .caf-filters-foot{display:flex}
+  .caf-filters-head{flex-shrink:0}
+  .caf-section{flex-shrink:0}
+}
 </style>
 </head>
 <body data-category="cafeteras">
@@ -318,31 +355,98 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   </div>
 </div>
 
-<div class="toolbar">
-  <span class="filter-label">Tipo</span>
-  <button class="filter on" data-tipo="todos" onclick="setTipo(this)">Todos</button>
-  <button class="filter" data-tipo="Espresso" onclick="setTipo(this)">Espresso</button>
-  <button class="filter" data-tipo="Multi-bebidas" onclick="setTipo(this)">Multi-bebidas</button>
-  <div class="filter-sep"></div>
-  <span class="filter-label">Precio máx.</span>
-  <input type="number" class="precio-max-input" id="precioMax" placeholder="Ej: 5000" oninput="renderAll()">
-  <div class="sort-wrap">
-    <span class="sort-label">Ordenar:</span>
-    <select class="sort-sel" id="sortSel" onchange="renderAll()">
-      <option value="default">Relevancia</option>
-      <option value="precio_asc">Precio: menor a mayor</option>
-      <option value="precio_desc">Precio: mayor a menor</option>
-      <option value="estrellas">Mejor valorados</option>
-    </select>
+<!-- Botón filtrar (móvil) -->
+<button class="caf-filtrar-btn" id="caf-filtrar-btn" onclick="openFiltersDrawer()" aria-haspopup="dialog" aria-expanded="false">
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+  Filtrar
+  <span class="caf-filtrar-count" id="caf-filtrar-count" style="display:none">0</span>
+</button>
+<div class="caf-backdrop" id="caf-backdrop" onclick="closeFiltersDrawer()"></div>
+
+<div class="caf-layout">
+  <!-- FILTROS -->
+  <aside class="caf-filters" id="caf-filters" role="region" aria-label="Filtros">
+    <div class="caf-filters-head">
+      <span class="caf-filters-title">Filtros</span>
+      <div style="display:flex;align-items:center;gap:10px">
+        <button class="caf-clear-all" onclick="clearFilters()">Limpiar</button>
+        <button class="caf-filters-close" onclick="closeFiltersDrawer()" aria-label="Cerrar filtros">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="caf-section">
+      <span class="caf-section-title">Tipo</span>
+      <div class="caf-pills" id="caf-pills-tipo">
+        <button class="filter on" id="f-todos-tipo" onclick="toggleCafFilter('tipo','todos',this)">Todos</button>
+        <button class="filter" onclick="toggleCafFilter('tipo','Espresso',this)">Espresso</button>
+        <button class="filter" onclick="toggleCafFilter('tipo','Goteo',this)">Goteo</button>
+        <button class="filter" onclick="toggleCafFilter('tipo','Cápsulas',this)">Cápsulas</button>
+        <button class="filter" onclick="toggleCafFilter('tipo','Percolador',this)">Percolador</button>
+      </div>
+    </div>
+
+    <div class="caf-section">
+      <span class="caf-section-title">Vaporizador</span>
+      <div class="caf-pills" id="caf-pills-vaporizador">
+        <button class="filter on" id="f-todos-vaporizador" onclick="toggleCafFilter('vaporizador','todos',this)">Todos</button>
+        <button class="filter" onclick="toggleCafFilter('vaporizador','Sí',this)">Sí</button>
+        <button class="filter" onclick="toggleCafFilter('vaporizador','No',this)">No</button>
+      </div>
+    </div>
+
+    <div class="caf-section">
+      <span class="caf-section-title">Molinillo</span>
+      <div class="caf-pills" id="caf-pills-molinillo">
+        <button class="filter on" id="f-todos-molinillo" onclick="toggleCafFilter('molinillo','todos',this)">Todos</button>
+        <button class="filter" onclick="toggleCafFilter('molinillo','Sí',this)">Con molinillo</button>
+        <button class="filter" onclick="toggleCafFilter('molinillo','No',this)">Sin molinillo</button>
+      </div>
+    </div>
+
+    <div class="caf-section">
+      <span class="caf-section-title">Compatible con</span>
+      <div class="caf-pills" id="caf-pills-compatible">
+        <button class="filter on" id="f-todos-compatible" onclick="toggleCafFilter('compatible','todos',this)">Todos</button>
+        <button class="filter" onclick="toggleCafFilter('compatible','Nespresso',this)">Nespresso</button>
+        <button class="filter" onclick="toggleCafFilter('compatible','Dolce Gusto',this)">Dolce Gusto</button>
+      </div>
+    </div>
+
+    <div class="caf-section">
+      <span class="caf-section-title">Precio (MXN)</span>
+      <div class="caf-price-row">
+        <input type="number" id="precioMin" placeholder="Mín." class="precio-max-input" oninput="renderAll()" min="0" step="500" aria-label="Precio mínimo" style="width:76px">
+        <span class="caf-price-sep">–</span>
+        <input type="number" id="precioMax" placeholder="Máx." class="precio-max-input" oninput="renderAll()" min="0" step="500" aria-label="Precio máximo" style="width:76px">
+      </div>
+    </div>
+
+    <div class="caf-section">
+      <span class="caf-section-title">Ordenar por</span>
+      <select class="caf-sort-sel" id="sortSel" onchange="renderAll()">
+        <option value="default">Relevancia</option>
+        <option value="precio_asc">Precio: menor a mayor</option>
+        <option value="precio_desc">Precio: mayor a menor</option>
+        <option value="estrellas">Mejor valorados</option>
+      </select>
+    </div>
+
+    <div class="caf-filters-foot">
+      <button class="caf-limpiar-btn" onclick="clearFilters()">Limpiar</button>
+      <button class="caf-apply-btn" onclick="closeFiltersDrawer()">Ver resultados</button>
+    </div>
+  </aside>
+
+  <!-- CATÁLOGO -->
+  <div class="caf-content">
+    <div class="result-info" id="resultInfo"></div>
+    <div class="caf-chips-row" id="cafChipsRow"></div>
+    <div class="grid" id="grid"></div>
+    <div class="empty" id="emptyMsg" style="display:none">No se encontraron cafeteras con esos filtros.</div>
   </div>
 </div>
-
-<div class="result-info" id="resultInfo"></div>
-
-<main class="main-wrap">
-  <div class="grid" id="grid"></div>
-  <div class="empty" id="emptyMsg" style="display:none">No se encontraron cafeteras con esos filtros.</div>
-</main>
 
 <div class="disclaimer">
   <strong>Aviso de afiliados:</strong> Los precios pueden variar. Ganamos una pequeña comisión sin costo adicional para ti. <a href="/aviso-afiliados.html">Más información</a>.
@@ -1296,23 +1400,110 @@ function svgIco(t){
 function fmt(n){return n?new Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN',maximumFractionDigits:0}).format(n):null}
 function stars(n){return '★'.repeat(Math.round(n))+'☆'.repeat(5-Math.round(n))}
 
-let tipoActivo = 'todos';
+function normTipo(t){
+  if(!t) return null;
+  const l = t.toLowerCase();
+  if(l.includes('espresso')||l.includes('expreso')||l.includes('máquina')) return 'Espresso';
+  if(l.includes('goteo')||l.includes('programable')||l==='molinillo') return 'Goteo';
+  if(l.includes('cápsula')||l.includes('capsul')) return 'Cápsulas';
+  if(l.includes('percolador')) return 'Percolador';
+  return t;
+}
+
+const filters = {tipo:'todos',vaporizador:'todos',molinillo:'todos',compatible:'todos'};
 let selected = [];
 
-function setTipo(btn){
-  document.querySelectorAll('[data-tipo]').forEach(b=>b.classList.remove('on'));
+function toggleCafFilter(group, val, btn){
+  filters[group] = val;
+  document.querySelectorAll('#caf-pills-'+group+' .filter').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
-  tipoActivo = btn.dataset.tipo;
   renderAll();
 }
 
+function clearFilters(){
+  ['tipo','vaporizador','molinillo','compatible'].forEach(g=>{
+    filters[g]='todos';
+    document.querySelectorAll('#caf-pills-'+g+' .filter').forEach(b=>b.classList.remove('on'));
+    const t=document.getElementById('f-todos-'+g);
+    if(t) t.classList.add('on');
+  });
+  const minEl=document.getElementById('precioMin');
+  const maxEl=document.getElementById('precioMax');
+  if(minEl) minEl.value='';
+  if(maxEl) maxEl.value='';
+  renderAll();
+}
+
+function openFiltersDrawer(){
+  document.getElementById('caf-filters').classList.add('open');
+  document.getElementById('caf-backdrop').classList.add('open');
+  document.getElementById('caf-filtrar-btn').setAttribute('aria-expanded','true');
+  document.body.style.overflow='hidden';
+}
+
+function closeFiltersDrawer(){
+  document.getElementById('caf-filters').classList.remove('open');
+  document.getElementById('caf-backdrop').classList.remove('open');
+  document.getElementById('caf-filtrar-btn').setAttribute('aria-expanded','false');
+  document.body.style.overflow='';
+}
+
+function renderChips(){
+  const row=document.getElementById('cafChipsRow');
+  if(!row) return;
+  const LABELS={tipo:'Tipo',vaporizador:'Vaporizador',molinillo:'Molinillo',compatible:'Compatible'};
+  const DISPLAY={molinillo:{Sí:'Con molinillo',No:'Sin molinillo'}};
+  const chips=[];
+  ['tipo','vaporizador','molinillo','compatible'].forEach(g=>{
+    if(filters[g]!=='todos'){
+      const disp=(DISPLAY[g]&&DISPLAY[g][filters[g]])||filters[g];
+      chips.push(`<button class="caf-chip" onclick="removeChip('${g}')">${LABELS[g]}: ${disp} <span class="caf-chip-x">×</span></button>`);
+    }
+  });
+  const minEl=document.getElementById('precioMin');
+  const maxEl=document.getElementById('precioMax');
+  if(minEl?.value) chips.push(`<button class="caf-chip" onclick="removeChip('precioMin')">Desde $${parseInt(minEl.value).toLocaleString('es-MX')} <span class="caf-chip-x">×</span></button>`);
+  if(maxEl?.value) chips.push(`<button class="caf-chip" onclick="removeChip('precioMax')">Hasta $${parseInt(maxEl.value).toLocaleString('es-MX')} <span class="caf-chip-x">×</span></button>`);
+  row.innerHTML=chips.join('');
+}
+
+function removeChip(group){
+  if(group==='precioMin'||group==='precioMax'){
+    const el=document.getElementById(group);
+    if(el) el.value='';
+  } else {
+    filters[group]='todos';
+    document.querySelectorAll('#caf-pills-'+group+' .filter').forEach(b=>b.classList.remove('on'));
+    const t=document.getElementById('f-todos-'+group);
+    if(t) t.classList.add('on');
+  }
+  renderAll();
+}
+
+function updateFilterCount(){
+  const badge=document.getElementById('caf-filtrar-count');
+  if(!badge) return;
+  let count=['tipo','vaporizador','molinillo','compatible'].filter(g=>filters[g]!=='todos').length;
+  const minEl=document.getElementById('precioMin');
+  const maxEl=document.getElementById('precioMax');
+  if(minEl?.value) count++;
+  if(maxEl?.value) count++;
+  badge.textContent=count;
+  badge.style.display=count>0?'inline-block':'none';
+}
+
 function getFiltered(){
-  let list = [...productos];
-  if(tipoActivo !== 'todos') list = list.filter(p=>p.especs.tipo===tipoActivo);
-  const maxStr = document.getElementById('precioMax').value;
+  let list=[...productos];
+  if(filters.tipo!=='todos') list=list.filter(p=>normTipo(p.especs.tipo)===filters.tipo);
+  if(filters.vaporizador!=='todos') list=list.filter(p=>p.especs.vaporizador===filters.vaporizador);
+  if(filters.molinillo!=='todos') list=list.filter(p=>p.especs.molinillo===filters.molinillo);
+  if(filters.compatible!=='todos') list=list.filter(p=>p.especs.compatible&&p.especs.compatible.includes(filters.compatible));
+  const minStr=document.getElementById('precioMin')?.value;
+  const maxStr=document.getElementById('precioMax')?.value;
+  if(minStr){const min=parseInt(minStr);list=list.filter(p=>!p.precioML||p.precioML>=min);}
   if(maxStr){const max=parseInt(maxStr);list=list.filter(p=>!p.precioML||p.precioML<=max);}
-  const sort = document.getElementById('sortSel').value;
-  const specScore = p => SPEC_LABELS.filter(([k])=>p.especs[k]).length;
+  const sort=document.getElementById('sortSel').value;
+  const specScore=p=>SPEC_LABELS.filter(([k])=>p.especs[k]).length;
   if(sort==='precio_asc') list.sort((a,b)=>(a.precioML||999999)-(b.precioML||999999));
   else if(sort==='precio_desc') list.sort((a,b)=>(b.precioML||0)-(a.precioML||0));
   else if(sort==='estrellas') list.sort((a,b)=>(b.estrellas||0)-(a.estrellas||0));
@@ -1372,6 +1563,8 @@ function renderAll(){
   else{empty.style.display='none';grid.innerHTML=list.map(cardHTML).join('');}
   info.textContent = list.length === productos.length ? `${list.length} cafeteras` : `${list.length} de ${productos.length} cafeteras`;
   updateBar();
+  renderChips();
+  updateFilterCount();
 }
 
 function toggleSel(id){
