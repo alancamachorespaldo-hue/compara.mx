@@ -1310,9 +1310,11 @@ function getFiltered(){
   const maxStr = document.getElementById('precioMax').value;
   if(maxStr){const max=parseInt(maxStr);list=list.filter(p=>!p.precioML||p.precioML<=max);}
   const sort = document.getElementById('sortSel').value;
+  const specScore = p => SPEC_LABELS.filter(([k])=>p.especs[k]).length;
   if(sort==='precio_asc') list.sort((a,b)=>(a.precioML||999999)-(b.precioML||999999));
   else if(sort==='precio_desc') list.sort((a,b)=>(b.precioML||0)-(a.precioML||0));
   else if(sort==='estrellas') list.sort((a,b)=>(b.estrellas||0)-(a.estrellas||0));
+  else list.sort((a,b)=>specScore(b)-specScore(a));
   return list;
 }
 
