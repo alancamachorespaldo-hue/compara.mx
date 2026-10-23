@@ -477,6 +477,117 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   </div>
 </section>
 
+<section id="seo-cafeteras" style="max-width:860px;margin:2.5rem auto 0;padding:0 24px 2.5rem">
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.8rem;margin-bottom:1.2rem">
+    <h2 style="font-size:1.2rem;font-weight:800;letter-spacing:-.03em;color:var(--tx);margin:0">Todo sobre cafeteras: tipos y características</h2>
+    <button onclick="document.getElementById('caf-filters').scrollIntoView({behavior:'smooth',block:'start'})" style="display:inline-flex;align-items:center;gap:.4rem;background:var(--ac);color:#fff;border:none;border-radius:9px;padding:.5rem 1rem;font-size:.82rem;font-weight:700;cursor:pointer">↑ Ir al comparador</button>
+  </div>
+  <p style="font-size:.92rem;color:var(--tx-2,#666);line-height:1.6;margin:0 0 1.5rem">¿No sabes cuál cafetera elegir? Usa nuestros filtros para comparar precios en Amazon MX y Mercado Libre, o sigue leyendo para entender qué tipo y características se adaptan a tu rutina.</p>
+
+  <h3 style="font-size:.98rem;font-weight:800;letter-spacing:-.02em;color:var(--tx);margin:0 0 .9rem">Tipos de cafeteras</h3>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:.9rem;margin-bottom:2rem">
+
+    <div style="background:var(--s1);border:1.5px solid var(--bd);border-radius:12px;padding:1.1rem 1.2rem">
+      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem;flex-wrap:wrap">
+        <h4 style="font-size:.93rem;font-weight:800;color:var(--tx);margin:0">Cafetera Espresso</h4>
+        <button onclick="seoFilter('tipo','Espresso')" style="font-size:.7rem;font-weight:700;color:var(--ac);background:none;border:1px solid var(--ac);border-radius:6px;padding:.13rem .48rem;cursor:pointer">Ver catálogo ↑</button>
+      </div>
+      <p style="font-size:.83rem;color:var(--tx-2,#666);line-height:1.55;margin:0 0 .8rem">Usa presión de 15–20 bar para extraer café concentrado con crema en segundos. Es la base de cappuccinos y lattes. Las <strong>semiautomáticas</strong> requieren moler y tampar el café; las <strong>superautomáticas</strong> lo hacen solas con un botón. Ideal para quienes valoran sabor intenso y controlan la molienda.</p>
+      <a href="/guias/cafeteras/espresso-menos-2000/" style="display:inline-flex;align-items:center;gap:.3rem;font-size:.79rem;font-weight:700;color:var(--ac);text-decoration:none">☕ Ve a la guía: Espresso por menos de $2,000 →</a>
+    </div>
+
+    <div style="background:var(--s1);border:1.5px solid var(--bd);border-radius:12px;padding:1.1rem 1.2rem">
+      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem;flex-wrap:wrap">
+        <h4 style="font-size:.93rem;font-weight:800;color:var(--tx);margin:0">Cafetera de Goteo</h4>
+        <button onclick="seoFilter('tipo','Goteo')" style="font-size:.7rem;font-weight:700;color:var(--ac);background:none;border:1px solid var(--ac);border-radius:6px;padding:.13rem .48rem;cursor:pointer">Ver catálogo ↑</button>
+      </div>
+      <p style="font-size:.83rem;color:var(--tx-2,#666);line-height:1.55;margin:0 0 .8rem">El agua caliente fluye por gravedad a través del café molido en un filtro. Hace jarras de 6–12 tazas de café suave y limpio, perfecta para familia u oficina. Los modelos <strong>programables</strong> permiten tenerla lista a la hora que necesites. Económica, fácil de limpiar y de bajo mantenimiento.</p>
+      <a href="/guias/electrodomesticos/cafeteras-mexico-2026/" style="display:inline-flex;align-items:center;gap:.3rem;font-size:.79rem;font-weight:700;color:var(--ac);text-decoration:none">☕ Ve a la guía completa de cafeteras México 2026 →</a>
+    </div>
+
+    <div style="background:var(--s1);border:1.5px solid var(--bd);border-radius:12px;padding:1.1rem 1.2rem">
+      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem;flex-wrap:wrap">
+        <h4 style="font-size:.93rem;font-weight:800;color:var(--tx);margin:0">Cafetera de Cápsulas</h4>
+        <button onclick="seoFilter('tipo','Cápsulas')" style="font-size:.7rem;font-weight:700;color:var(--ac);background:none;border:1px solid var(--ac);border-radius:6px;padding:.13rem .48rem;cursor:pointer">Ver catálogo ↑</button>
+      </div>
+      <p style="font-size:.83rem;color:var(--tx-2,#666);line-height:1.55;margin:0 0 .8rem">Usa cápsulas precargadas (Nespresso, Dolce Gusto u otras) para garantizar consistencia en cada taza sin medir ni limpiar el portafiltro. Es la opción más cómoda: solo insertar, pulsar y disfrutar. El costo por taza es mayor que el café molido, pero la velocidad y limpieza son insuperables.</p>
+      <a href="/guias/cafeteras/nespresso-vs-dolce-gusto/" style="display:inline-flex;align-items:center;gap:.3rem;font-size:.79rem;font-weight:700;color:var(--ac);text-decoration:none">☕ Ve a la guía: Nespresso vs. Dolce Gusto →</a>
+    </div>
+
+    <div style="background:var(--s1);border:1.5px solid var(--bd);border-radius:12px;padding:1.1rem 1.2rem">
+      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem;flex-wrap:wrap">
+        <h4 style="font-size:.93rem;font-weight:800;color:var(--tx);margin:0">Percoladora Eléctrica</h4>
+        <button onclick="seoFilter('tipo','Percolador')" style="font-size:.7rem;font-weight:700;color:var(--ac);background:none;border:1px solid var(--ac);border-radius:6px;padding:.13rem .48rem;cursor:pointer">Ver catálogo ↑</button>
+      </div>
+      <p style="font-size:.83rem;color:var(--tx-2,#666);line-height:1.55;margin:0 0 .8rem">Hace grandes cantidades (20–50 tazas) en poco tiempo. Es la favorita para reuniones, eventos y oficinas con mucho personal. Su sabor es clásico y robusto. Los modelos de acero inoxidable mantienen el café caliente durante horas sin quemarlo gracias a la placa calefactora regulada.</p>
+      <a href="/guias/electrodomesticos/cafeteras-mexico-2026/" style="display:inline-flex;align-items:center;gap:.3rem;font-size:.79rem;font-weight:700;color:var(--ac);text-decoration:none">☕ Ve a la guía completa de cafeteras México 2026 →</a>
+    </div>
+
+  </div>
+
+  <h3 style="font-size:.98rem;font-weight:800;letter-spacing:-.02em;color:var(--tx);margin:0 0 .9rem">¿Qué significan las características?</h3>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:.9rem;margin-bottom:2rem">
+
+    <div style="background:var(--s1);border:1.5px solid var(--bd);border-radius:12px;padding:1rem 1.2rem">
+      <div style="display:flex;align-items:center;gap:.45rem;margin-bottom:.4rem">
+        <span style="font-size:1.05rem">🌿</span>
+        <h4 style="font-size:.88rem;font-weight:800;color:var(--tx);margin:0;flex:1">Vaporizador (espumador)</h4>
+        <button onclick="seoFilter('vaporizador','Sí')" style="font-size:.68rem;font-weight:700;color:var(--ac);background:none;border:1px solid var(--ac);border-radius:5px;padding:.1rem .4rem;cursor:pointer">Filtrar ↑</button>
+      </div>
+      <p style="font-size:.82rem;color:var(--tx-2,#666);line-height:1.55;margin:0">Tubo o boquilla de vapor que emulsiona la leche para hacer espuma de cappuccino y latte. Indispensable si te gustan las bebidas con leche texturizada. Exclusivo de cafeteras espresso; en las de goteo y cápsulas no existe esta función.</p>
+    </div>
+
+    <div style="background:var(--s1);border:1.5px solid var(--bd);border-radius:12px;padding:1rem 1.2rem">
+      <div style="display:flex;align-items:center;gap:.45rem;margin-bottom:.4rem">
+        <span style="font-size:1.05rem">⚙️</span>
+        <h4 style="font-size:.88rem;font-weight:800;color:var(--tx);margin:0;flex:1">Molinillo integrado</h4>
+        <button onclick="seoFilter('molinillo','Sí')" style="font-size:.68rem;font-weight:700;color:var(--ac);background:none;border:1px solid var(--ac);border-radius:5px;padding:.1rem .4rem;cursor:pointer">Filtrar ↑</button>
+      </div>
+      <p style="font-size:.82rem;color:var(--tx-2,#666);line-height:1.55;margin:0">Muele el grano justo antes de preparar el café, lo que garantiza máxima frescura y sabor. Elimina la necesidad de comprar café ya molido o un molinillo aparte. Los modelos con <strong>muelas cónicas</strong> producen menos calor y una molienda más uniforme.</p>
+    </div>
+
+    <div style="background:var(--s1);border:1.5px solid var(--bd);border-radius:12px;padding:1rem 1.2rem">
+      <div style="display:flex;align-items:center;gap:.45rem;margin-bottom:.4rem">
+        <span style="font-size:1.05rem">💧</span>
+        <h4 style="font-size:.88rem;font-weight:800;color:var(--tx);margin:0">Presión en bares</h4>
+      </div>
+      <p style="font-size:.82rem;color:var(--tx-2,#666);line-height:1.55;margin:0">Mide la fuerza con que el agua atraviesa el café. <strong>15–20 bar</strong> es el rango ideal para espresso con crema. Más bares no siempre significa mejor calidad: lo importante es la consistencia de presión durante toda la extracción, no el número máximo.</p>
+    </div>
+
+    <div style="background:var(--s1);border:1.5px solid var(--bd);border-radius:12px;padding:1rem 1.2rem">
+      <div style="display:flex;align-items:center;gap:.45rem;margin-bottom:.4rem">
+        <span style="font-size:1.05rem">🫙</span>
+        <h4 style="font-size:.88rem;font-weight:800;color:var(--tx);margin:0">Capacidad del depósito</h4>
+      </div>
+      <p style="font-size:.82rem;color:var(--tx-2,#666);line-height:1.55;margin:0">Indica cuánta agua cabe sin rellenar. Para 1–2 personas, 1–1.5 L es suficiente. Familias y oficinas necesitan 1.8 L o más. Las percoladoras de evento tienen depósitos de 4–6 L para atender a mucha gente de una sola vez.</p>
+    </div>
+
+    <div style="background:var(--s1);border:1.5px solid var(--bd);border-radius:12px;padding:1rem 1.2rem">
+      <div style="display:flex;align-items:center;gap:.45rem;margin-bottom:.4rem">
+        <span style="font-size:1.05rem">📦</span>
+        <h4 style="font-size:.88rem;font-weight:800;color:var(--tx);margin:0;flex:1">Compatibilidad Nespresso</h4>
+        <button onclick="seoFilter('compatible','Nespresso')" style="font-size:.68rem;font-weight:700;color:var(--ac);background:none;border:1px solid var(--ac);border-radius:5px;padding:.1rem .4rem;cursor:pointer">Filtrar ↑</button>
+      </div>
+      <p style="font-size:.82rem;color:var(--tx-2,#666);line-height:1.55;margin:0">Nespresso Original tiene la mayor variedad de cápsulas (incluyendo marcas genéricas más económicas). Nespresso Vertuo usa centrifugación para distintos volúmenes, pero solo acepta cápsulas propias. Dolce Gusto ofrece lattes y capuchinos listos en una sola cápsula.</p>
+    </div>
+
+    <div style="background:var(--s1);border:1.5px solid var(--bd);border-radius:12px;padding:1rem 1.2rem">
+      <div style="display:flex;align-items:center;gap:.45rem;margin-bottom:.4rem">
+        <span style="font-size:1.05rem">🤖</span>
+        <h4 style="font-size:.88rem;font-weight:800;color:var(--tx);margin:0">Super vs. semiautomática</h4>
+      </div>
+      <p style="font-size:.82rem;color:var(--tx-2,#666);line-height:1.55;margin:0 0 .5rem">La <strong>superautomática</strong> muele, tampa y extrae con un solo botón: máxima comodidad. La <strong>semiautomática</strong> te deja controlar la molienda y el tampado para personalizar cada taza. Si valoras la rapidez, superautomática; si valoras el ritual y la precisión, semiautomática.</p>
+      <a href="/guias/cafeteras/superautomatica-vs-semiautomatica/" style="display:inline-flex;align-items:center;gap:.3rem;font-size:.78rem;font-weight:700;color:var(--ac);text-decoration:none">☕ Ve a la guía comparativa →</a>
+    </div>
+
+  </div>
+
+  <div style="background:var(--s1);border:1.5px solid var(--bd);border-radius:12px;padding:1.1rem 1.4rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.8rem">
+    <p style="font-size:.87rem;color:var(--tx-2,#666);margin:0">¿Listo para encontrar tu cafetera? Usa nuestros filtros y compara precios en Amazon MX y Mercado Libre.</p>
+    <button onclick="document.getElementById('caf-filters').scrollIntoView({behavior:'smooth',block:'start'})" style="display:inline-flex;align-items:center;gap:.4rem;background:var(--ac);color:#fff;border:none;border-radius:9px;padding:.55rem 1.1rem;font-size:.84rem;font-weight:700;cursor:pointer">↑ Ir al comparador</button>
+  </div>
+</section>
+
 <footer>
   <div class="footer-wordmark">compara<span class="logo-mx">lo.mx</span></div>
   <div class="footer-info">
@@ -3440,6 +3551,15 @@ try{
     if(selected.length>=2)setTimeout(openCmp,120);
   }
 }catch(e){}
+
+function seoFilter(group,val){
+  var pills=document.querySelectorAll('#caf-pills-'+group+' .filter');
+  for(var i=0;i<pills.length;i++){
+    var oc=pills[i].getAttribute('onclick')||'';
+    if(oc.indexOf("'"+val+"'")!==-1){pills[i].click();break;}
+  }
+  document.getElementById('caf-filters').scrollIntoView({behavior:'smooth',block:'start'});
+}
 </script>
 
 <script src="/js/onboarding.js" defer></script>
