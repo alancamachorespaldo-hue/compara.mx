@@ -632,7 +632,7 @@ function renderDash() {
   </div>`;
 }
 
-const CATS = {laptops:'Laptops', freidoras:'Freidoras', bicis:'Bicis', microondas:'Microondas', proteina:'Proteína', omega3:'Omega 3', magnesio:'Magnesio', creatina:'Creatina', complejo_b:'Complejo B', vitamina_d:'Vitamina D', videojuegos_consolas:'Consolas', videojuegos_controles:'Controles', videojuegos_juegos:'Videojuegos', tecnologia_bocinas:'Bocinas int.', tecnologia_audifonos:'Audífonos', tecnologia_smartwatches:'Smartwatches', celulares_android:'Android', celulares_iphone:'iPhone'};
+const CATS = {laptops:'Laptops', freidoras:'Freidoras', bicis:'Bicis', microondas:'Microondas', cafeteras:'Cafeteras', proteina:'Proteína', omega3:'Omega 3', magnesio:'Magnesio', creatina:'Creatina', complejo_b:'Complejo B', vitamina_d:'Vitamina D', videojuegos_consolas:'Consolas', videojuegos_controles:'Controles', videojuegos_juegos:'Videojuegos', tecnologia_bocinas:'Bocinas int.', tecnologia_audifonos:'Audífonos', tecnologia_smartwatches:'Smartwatches', celulares_android:'Android', celulares_iphone:'iPhone'};
 const PRICE_WF = GH + '/workflows/update-prices.yml';
 const SPECS = {
   laptops:[['procesador','Procesador'],['ram','RAM'],['almacenamiento','Almacen.'],['pantalla','Pantalla'],['resolucion','Resolución'],['gpu','GPU'],['so','SO'],['peso','Peso'],['touch','Touch']],
@@ -652,6 +652,7 @@ const SPECS = {
   tecnologia_smartwatches:[['compatibilidad','Compatibilidad'],['bateria','Batería'],['gps','GPS'],['resistenciaAgua','Resist. agua'],['tamanoCaja','Tamaño caja']],
   celulares_android:[['chip','Chip'],['pantalla','Pantalla'],['hz','Hz'],['bateria','Batería'],['nfc','NFC'],['almacenamiento','Almacen.'],['ram','RAM'],['cam','Cámara']],
   celulares_iphone:[['chip','Chip'],['pantalla','Pantalla'],['hz','Hz'],['usb','USB'],['zoom','Zoom'],['almacenamiento','Almacen.'],['serie','Serie']],
+  cafeteras:[['tipo','Tipo'],['capacidad','Capacidad'],['presion','Presión'],['vaporizador','Vaporizador'],['deposito','Depósito'],['potencia','Potencia'],['compatible','Compatible'],['molinillo','Molinillo']],
 };
 const ST = {
   solo_amz:['Solo Amazon','muted'], sin_id:['Falta ID','warn'], actualizado:['Cambió','ok'], sin_cambio:['Al día','neutral'],
@@ -2018,6 +2019,7 @@ const PUB_URLS = {
   tecnologia_smartwatches:'https://comparalo.mx/tecnologia/smartwatches/',
   celulares_android:'https://comparalo.mx/celulares/android/',
   celulares_iphone:'https://comparalo.mx/celulares/iphone/',
+  cafeteras:'https://comparalo.mx/electrodomesticos/cafeteras/',
 };
 const PUB_TIPOS = [
   {k:'comparativa',l:'🔍 Comparativa',d:'Compara 2–5 opciones entre sí'},
