@@ -1644,6 +1644,16 @@ function closeCmpIfOut(e){if(e.target===e.currentTarget)closeCmp();}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCmp();});
 
 renderAll();
+// Pre-selección desde la guía de cafeteras
+try{
+  var _pre=sessionStorage.getItem('caf_preselect');
+  if(_pre){
+    var _ids=JSON.parse(_pre);
+    sessionStorage.removeItem('caf_preselect');
+    _ids.forEach(function(id){if(selected.length<3)toggleSel(id);});
+    if(selected.length>=2)setTimeout(openCmp,120);
+  }
+}catch(e){}
 </script>
 
 <script src="/js/onboarding.js" defer></script>
