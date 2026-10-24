@@ -353,9 +353,10 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
 .deals-cmp-btn{font-size:11px;font-weight:800;background:var(--ac);color:#fff;border:none;border-radius:8px;padding:5px 12px;cursor:pointer;white-space:nowrap;display:none}
 .deals-cmp-btn.visible{display:inline-flex;align-items:center;gap:5px}
 /* scroll arrows */
-.deal-arrow{position:absolute;top:50%;transform:translateY(-calc(50% + 4px));z-index:5;width:30px;height:30px;border-radius:50%;background:#fff;border:1.5px solid var(--bd);box-shadow:0 2px 6px rgba(0,0,0,.1);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;transition:opacity .18s;line-height:1}
-.deal-arrow[aria-disabled="true"]{opacity:.25;cursor:default;pointer-events:none}
-.deal-arrow-prev{left:-15px}.deal-arrow-next{right:-15px}
+.deal-arrow{position:absolute;top:50%;transform:translateY(-calc(50% + 4px));z-index:5;width:44px;height:44px;border-radius:50%;background:#fff;border:2px solid var(--bd);box-shadow:0 3px 10px rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:20px;transition:opacity .18s,box-shadow .18s;line-height:1}
+.deal-arrow:hover{box-shadow:0 4px 14px rgba(0,0,0,.22)}
+.deal-arrow[aria-disabled="true"]{opacity:.2;cursor:default;pointer-events:none}
+.deal-arrow-prev{left:-22px}.deal-arrow-next{right:-22px}
 @media(max-width:700px){.deal-arrow{display:none}}
 @media(max-width:540px){.deal-card{flex:0 0 158px}.deal-card-img{height:100px}}
 </style>
