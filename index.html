@@ -862,10 +862,12 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
 
   function initArrows(track,outer){
     var prev=document.createElement('button');
+    prev.type='button';
     prev.className='deal-arrow deal-arrow-prev';
     prev.setAttribute('aria-label','Anterior');
     prev.innerHTML='‹';
     var next=document.createElement('button');
+    next.type='button';
     next.className='deal-arrow deal-arrow-next';
     next.setAttribute('aria-label','Siguiente');
     next.innerHTML='›';
@@ -874,13 +876,12 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
       var atEnd=track.scrollLeft+track.clientWidth>=track.scrollWidth-4;
       next.setAttribute('aria-disabled',atEnd?'true':'false');
     }
-    var scroll=track.clientWidth*0.8||600;
-    prev.addEventListener('click',function(){track.scrollBy({left:-scroll,behavior:'smooth'});});
-    next.addEventListener('click',function(){track.scrollBy({left:scroll,behavior:'smooth'});});
+    prev.addEventListener('click',function(){track.scrollBy({left:-(track.clientWidth*0.8||600),behavior:'smooth'});});
+    next.addEventListener('click',function(){track.scrollBy({left:track.clientWidth*0.8||600,behavior:'smooth'});});
     track.addEventListener('scroll',updateArrows,{passive:true});
     outer.appendChild(prev);
     outer.appendChild(next);
-    updateArrows();
+    requestAnimationFrame(updateArrows);
   }
 
   Promise.allSettled(SOURCES.map(function(s){
