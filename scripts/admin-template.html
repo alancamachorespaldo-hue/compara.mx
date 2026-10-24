@@ -656,7 +656,7 @@ const SPECS = {
 };
 const ST = {
   solo_amz:['Solo Amazon','muted'], sin_id:['Falta ID','warn'], actualizado:['Cambió','ok'], sin_cambio:['Al día','neutral'],
-  sin_precio:['Sin ofertas','err'], precio_sospechoso:['Revisar','warn'], no_encontrado:['No encontrado','err'], nuevo:['Nuevo · revisar','info'], sin_revisar:['Sin revisar','muted'],
+  sin_precio:['Sin ofertas','err'], precio_sospechoso:['Revisar','warn'], no_encontrado:['Pausado/Eliminado ML','err'], nuevo:['Nuevo · revisar','info'], sin_revisar:['Sin revisar','muted'],
 };
 const hasTag = u => new RegExp('[?&]tag=' + AMZ_TAG + '(?:[&#]|$)').test(u || '');
 const QUEUES = [
@@ -670,7 +670,8 @@ const QUEUES = [
   {k:'revisar', l:'Precio a revisar', tone:'warn', f:p => p.estadoML === 'precio_sospechoso'},
   {k:'cambiaron', l:'Cambiaron', tone:'ok', f:p => p.estadoML === 'actualizado'},
   {k:'nuevos', l:'Nuevos por revisar', tone:'info', f:p => p.estadoML === 'nuevo'},
-  {k:'pausados', l:'Pausados', f:p => p.activo === false && p.estadoML !== 'nuevo'},
+  {k:'pausado_ml', l:'Pausado/Eliminado ML', tone:'err', f:p => p.estadoML === 'no_encontrado' || !!p.pausaML},
+  {k:'pausados', l:'Pausados web', f:p => p.activo === false && p.estadoML !== 'nuevo'},
   {k:'amz_tag', l:'Amazon sin tag', tone:'err', f:p => !!p.linkAmz && !hasTag(p.linkAmz), optional:true},
   {k:'sin_link', l:'Sin links', tone:'err', f:p => !p.linkML && !p.linkAmz, optional:true},
 ];
@@ -1089,7 +1090,10 @@ function stateCell(p) {
   if (st === 'precio_sospechoso' && p._precioMLSospechoso) sub = 'ML marca ' + money(p._precioMLSospechoso);
   else if (st === 'nuevo' && p._nuevo) sub = '#' + p._nuevo.ranking + ' en ventas' + (p._nuevo.full ? ' · Full' : '');
   else if (p.mlId && p._mlCheckedAt) sub = 'rev. ' + fmtShort(p._mlCheckedAt);
-  return `<span class="badge t-${tone}">${esc(l)}</span>${sub ? `<span class="when">${esc(sub)}</span>` : ''}`;
+  const pausaBadge = (p.pausaML && st !== 'no_encontrado')
+    ? '<span class="badge t-err" style="margin-left:4px" title="Oculto en la web automáticamente">⏸ ML</span>'
+    : '';
+  return `<span class="badge t-${tone}">${esc(l)}</span>${pausaBadge}${sub ? `<span class="when">${esc(sub)}</span>` : ''}`;
 }
 function rowHtml(r) {
   const p = r.p, on = p.activo !== false, sel = S.sel.has(r.key);
