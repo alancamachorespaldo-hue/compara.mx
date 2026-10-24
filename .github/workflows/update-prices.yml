@@ -51,6 +51,9 @@ jobs:
       - name: Generar descuentos del día (laptops)
         run: node scripts/generar-laptops-descuentos.js
 
+      - name: Generar descuentos del día (cafeteras)
+        run: node scripts/generar-cafeteras-descuentos.js
+
       - name: Aplicar pausas a páginas HTML
         run: node scripts/sync-pausas.js
 
