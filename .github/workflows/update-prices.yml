@@ -74,6 +74,7 @@ jobs:
             celulares/android/index.html suplementos/vitamina-d/index.html \
             celulares/catalog-mini.json celulares/descuentos.json \
             suplementos/proteina/descuentos.json laptops/descuentos.json \
+            electrodomesticos/cafeteras/descuentos.json \
             scripts/ml-report.json scripts/merged-admin.json scripts/admin-artifact.html
           if git diff --staged --quiet; then
             echo "Sin cambios de precios."
