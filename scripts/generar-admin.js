@@ -78,7 +78,22 @@ console.log(`✓ merged-admin.json: ${fromLinks} IDs desde links · ${synced} pr
 const safe = v => JSON.stringify(v).replace(/</g, '\\u003c');
 const meta = {
   built: new Date().toISOString(),
-  reporte: report ? { generado: report.generado || null, categorias: report.categorias || null, totales: report.totales || null } : null,
+  reporte: report ? {
+    generado: report.generado || null,
+    categorias: report.categorias || null,
+    totales: report.totales || null,
+    productos: (report.productos || [])
+      .filter(p => p.estado !== 'sin_id' && p.estado !== 'sin_cambio')
+      .map(p => ({
+        categoria:   p.categoria,
+        id:          p.id,
+        nombre:      p.nombre,
+        estado:      p.estado,
+        mlId:        p.mlId || null,
+        precioAntes: p.precioAntes != null ? p.precioAntes : null,
+        precioNuevo: p.precioNuevo != null ? p.precioNuevo : (p.precioML != null ? p.precioML : null),
+      })),
+  } : null,
   sugerencias: sug ? { generado: sug.generado || null } : null,
 };
 const data =

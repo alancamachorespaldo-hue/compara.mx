@@ -290,6 +290,46 @@ fieldset.group legend{padding:0 6px;font-size:12.5px;font-weight:800}
 .utm-input{width:100%;height:32px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--fg);padding:0 8px;font:inherit;font-size:13px}
 .utm-input:focus{border-color:var(--accent);outline:none}
 @media (max-width:620px){.dash-charts{grid-template-columns:1fr}.dash-tiles{grid-template-columns:repeat(2,1fr)}#utm-fields-row{grid-template-columns:1fr!important}.dash-head{flex-direction:column;align-items:flex-start}.dash-metric-row{margin-left:0}}
+/* ── Resumen de actualización ─────────────────────────────────────── */
+.upd{padding:16px;display:flex;flex-direction:column;gap:16px;max-width:1200px;margin:0 auto}
+.upd-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.upd-head h2{margin:0;font-size:15px;font-weight:700}
+.upd-head .muted{font-size:12px;color:var(--fg-3)}
+.upd-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.upd-tile{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:13px 15px}
+.upd-tile-val{font-size:22px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1;margin-bottom:3px}
+.upd-tile-lbl{font-size:11px;color:var(--fg-2)}
+.upd-tile.t-ok .upd-tile-val{color:var(--ok)}
+.upd-tile.t-err .upd-tile-val{color:var(--err)}
+.upd-tile.t-warn .upd-tile-val{color:#d97706}
+.upd-tile.t-acc .upd-tile-val{color:var(--accent)}
+.upd-tile.t-muted .upd-tile-val{color:var(--fg-2)}
+.upd-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.upd-card-hd{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;border-bottom:1px solid var(--line);gap:8px}
+.upd-card-hd h3{margin:0;font-size:13px;font-weight:700}
+.upd-card-count{font-size:12px;color:var(--fg-3);white-space:nowrap}
+.upd-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.upd-table th{padding:7px 11px;text-align:left;font-size:11px;font-weight:700;color:var(--fg-3);text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid var(--line);white-space:nowrap}
+.upd-table td{padding:7px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+.upd-table tr:last-child td{border-bottom:none}
+.upd-table tr:hover td{background:var(--surface-2)}
+.upd-cat-badge{display:inline-block;padding:1px 7px;border-radius:8px;font-size:10.5px;font-weight:700;background:var(--surface-2);color:var(--fg-2)}
+.upd-price-dn{color:var(--ok);font-weight:700}
+.upd-price-up{color:var(--err);font-weight:700}
+.upd-pct{display:inline-block;padding:1px 5px;border-radius:4px;font-size:11px;font-weight:700}
+.upd-pct.dn{background:color-mix(in srgb,var(--ok) 16%,transparent);color:var(--ok)}
+.upd-pct.up{background:color-mix(in srgb,var(--err) 16%,transparent);color:var(--err)}
+.upd-empty{padding:24px;text-align:center;color:var(--fg-3);font-size:13px}
+.upd-cat-row{display:flex;justify-content:space-between;align-items:center;padding:7px 14px;border-bottom:1px solid var(--line);font-size:12.5px;gap:8px}
+.upd-cat-row:last-child{border-bottom:none}
+.upd-cat-name{font-weight:600;flex:1}
+.upd-cat-pills{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.upd-pill{display:inline-flex;align-items:center;gap:3px;padding:1px 7px;border-radius:8px;font-size:11px;font-weight:600}
+.upd-pill.t-acc{background:color-mix(in srgb,var(--accent) 14%,transparent);color:var(--accent)}
+.upd-pill.t-ok{background:color-mix(in srgb,var(--ok) 14%,transparent);color:var(--ok)}
+.upd-pill.t-err{background:color-mix(in srgb,var(--err) 14%,transparent);color:var(--err)}
+.upd-pill.t-muted{background:var(--surface-2);color:var(--fg-3)}
+@media(max-width:620px){.upd-tiles{grid-template-columns:repeat(2,1fr)}}
 /* Importar desde HTML */
 .imp-wrap{padding:16px;max-width:780px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
 .imp-drop{border:2px dashed var(--line);border-radius:12px;padding:32px 24px;text-align:center;cursor:pointer;transition:border-color .15s,background .15s;user-select:none}
@@ -483,6 +523,131 @@ function applyUtmPreset(key) {
   if (c) c.value = pr.campaign;
   document.querySelectorAll('[data-utm]').forEach(b => b.classList.toggle('on', b.dataset.utm===key));
   buildUtmUrl();
+}
+
+function renderUpdate() {
+  const el = $('#update');
+  if (el.hidden) return;
+  const rep = META.reporte;
+  if (!rep) {
+    el.innerHTML = '<div class="upd"><div class="upd-empty">No hay datos de actualización. Ejecuta la acción de GitHub para actualizar precios.</div></div>';
+    return;
+  }
+  const t = rep.totales || {};
+  const productos = rep.productos || [];
+  const fecha = rep.generado ? new Date(rep.generado) : null;
+  const fmtFecha = d => d ? d.toLocaleString('es-MX', {dateStyle:'long', timeStyle:'short'}) : '—';
+  const fmtMXN = n => n != null ? '$' + Number(n).toLocaleString('es-MX') : '—';
+
+  const bajadas = productos.filter(p => p.estado === 'actualizado' && p.precioAntes != null && p.precioNuevo != null && p.precioAntes > p.precioNuevo);
+  const subidas = productos.filter(p => p.estado === 'actualizado' && p.precioAntes != null && p.precioNuevo != null && p.precioAntes < p.precioNuevo);
+  const sinCambio_act = productos.filter(p => p.estado === 'actualizado' && (p.precioAntes == null || p.precioAntes === p.precioNuevo));
+  const pausados = productos.filter(p => p.estado === 'no_encontrado');
+  const sinPrecio = productos.filter(p => p.estado === 'sin_precio');
+
+  const CAT_LABELS = {
+    laptops:'Laptops', freidoras:'Freidoras', bicis:'Bicis', microondas:'Microondas',
+    cafeteras:'Cafeteras', proteina:'Proteína', omega3:'Omega 3', magnesio:'Magnesio',
+    creatina:'Creatina', complejo_b:'Complejo B', vitamina_d:'Vitamina D',
+    videojuegos_consolas:'Consolas', videojuegos_controles:'Controles', videojuegos_juegos:'Juegos',
+    tecnologia_bocinas:'Bocinas', tecnologia_audifonos:'Audífonos', celulares_android:'Celulares Android',
+  };
+  const catLabel = k => CAT_LABELS[k] || k;
+
+  // Per-category stats from DB
+  const catStats = Object.entries(DB)
+    .filter(([,list]) => Array.isArray(list) && list.length)
+    .map(([cat, list]) => ({
+      cat,
+      total: list.length,
+      activos: list.filter(p => p.activo !== false).length,
+      conId: list.filter(p => p.mlId).length,
+      pausadosML: list.filter(p => p.pausaML || p.estadoML === 'no_encontrado').length,
+    }))
+    .sort((a, b) => b.conId - a.conId);
+
+  const pctBadge = (antes, nuevo) => {
+    const pct = Math.round((nuevo - antes) / antes * 100);
+    const cls = pct < 0 ? 'dn' : 'up';
+    const lbl = pct < 0 ? `▼ ${Math.abs(pct)}%` : `▲ ${pct}%`;
+    return `<span class="upd-pct ${cls}">${esc(lbl)}</span>`;
+  };
+
+  const priceRow = p => `<tr>
+    <td><span class="upd-cat-badge">${esc(catLabel(p.categoria))}</span></td>
+    <td>${esc(p.nombre)}</td>
+    <td class="c-num">${fmtMXN(p.precioAntes)}</td>
+    <td class="c-num ${p.precioNuevo < p.precioAntes ? 'upd-price-dn' : 'upd-price-up'}">${fmtMXN(p.precioNuevo)}</td>
+    <td class="c-num">${pctBadge(p.precioAntes, p.precioNuevo)}</td>
+  </tr>`;
+
+  const pausaRow = p => `<tr>
+    <td><span class="upd-cat-badge">${esc(catLabel(p.categoria))}</span></td>
+    <td>${esc(p.nombre)}</td>
+    <td style="color:var(--fg-3);font-size:11.5px">${esc(p.mlId || '—')}</td>
+  </tr>`;
+
+  const sinPrecioRow = p => `<tr>
+    <td><span class="upd-cat-badge">${esc(catLabel(p.categoria))}</span></td>
+    <td>${esc(p.nombre)}</td>
+    <td style="color:var(--fg-3);font-size:11.5px">${esc(p.mlId || '—')}</td>
+  </tr>`;
+
+  const priceChanges = [...bajadas, ...subidas];
+
+  el.innerHTML = `<div class="upd">
+    <div class="upd-head">
+      <h2>Última actualización de precios</h2>
+      <span class="muted">${fmtFecha(fecha)} · Categorías: ${esc((rep.categorias || []).map(catLabel).join(', '))}</span>
+    </div>
+
+    <div class="upd-tiles">
+      <div class="upd-tile t-acc"><div class="upd-tile-val">${t.actualizados || 0}</div><div class="upd-tile-lbl">Actualizados</div></div>
+      <div class="upd-tile t-ok"><div class="upd-tile-val">${bajadas.length}</div><div class="upd-tile-lbl">Bajaron de precio</div></div>
+      <div class="upd-tile t-warn"><div class="upd-tile-val">${subidas.length}</div><div class="upd-tile-lbl">Subieron de precio</div></div>
+      <div class="upd-tile t-err"><div class="upd-tile-val">${pausados.length}</div><div class="upd-tile-lbl">Pausados/No encontrados</div></div>
+      <div class="upd-tile t-muted"><div class="upd-tile-val">${t.sin_precio || 0}</div><div class="upd-tile-lbl">Sin precio</div></div>
+      <div class="upd-tile t-muted"><div class="upd-tile-val">${t.sin_cambio || 0}</div><div class="upd-tile-lbl">Sin cambio</div></div>
+      <div class="upd-tile t-muted"><div class="upd-tile-val">${t.sin_id || 0}</div><div class="upd-tile-lbl">Sin ID de catálogo</div></div>
+    </div>
+
+    ${priceChanges.length ? `<div class="upd-card">
+      <div class="upd-card-hd"><h3>Cambios de precio</h3><span class="upd-card-count">${priceChanges.length} producto${priceChanges.length!==1?'s':''}</span></div>
+      <div style="overflow:auto"><table class="upd-table">
+        <thead><tr><th>Categoría</th><th>Producto</th><th>Antes</th><th>Ahora</th><th>Cambio</th></tr></thead>
+        <tbody>${priceChanges.map(priceRow).join('')}</tbody>
+      </table></div>
+    </div>` : ''}
+
+    ${pausados.length ? `<div class="upd-card">
+      <div class="upd-card-hd"><h3>Pausados / No encontrados en ML</h3><span class="upd-card-count" style="color:var(--err)">${pausados.length} producto${pausados.length!==1?'s':''}</span></div>
+      <div style="overflow:auto"><table class="upd-table">
+        <thead><tr><th>Categoría</th><th>Producto</th><th>ID catálogo ML</th></tr></thead>
+        <tbody>${pausados.map(pausaRow).join('')}</tbody>
+      </table></div>
+    </div>` : ''}
+
+    ${sinPrecio.length ? `<div class="upd-card">
+      <div class="upd-card-hd"><h3>Sin precio en ML</h3><span class="upd-card-count">${sinPrecio.length} producto${sinPrecio.length!==1?'s':''}</span></div>
+      <div style="overflow:auto"><table class="upd-table">
+        <thead><tr><th>Categoría</th><th>Producto</th><th>ID catálogo ML</th></tr></thead>
+        <tbody>${sinPrecio.map(sinPrecioRow).join('')}</tbody>
+      </table></div>
+    </div>` : ''}
+
+    <div class="upd-card">
+      <div class="upd-card-hd"><h3>Productos por categoría</h3><span class="upd-card-count">${catStats.reduce((s,c)=>s+c.conId,0)} con ID de catálogo en total</span></div>
+      ${catStats.map(c => `<div class="upd-cat-row">
+        <span class="upd-cat-name">${esc(catLabel(c.cat))}</span>
+        <div class="upd-cat-pills">
+          <span class="upd-pill t-muted" title="Total de productos">${c.total} productos</span>
+          <span class="upd-pill t-acc" title="Activos en la web">${c.activos} activos</span>
+          <span class="upd-pill t-ok" title="Con ID de catálogo ML">${c.conId} con ID</span>
+          ${c.pausadosML ? `<span class="upd-pill t-err" title="Pausados o eliminados en ML">${c.pausadosML} pausados</span>` : ''}
+        </div>
+      </div>`).join('')}
+    </div>
+  </div>`;
 }
 
 function renderDash() {
@@ -847,12 +1012,14 @@ const SHELL = `
       </div>
     </div>
     <button class="btn btn-sm" id="btn-importar" data-act="importar" title="Importar producto desde HTML de Amazon">📥</button>
+    <button class="btn btn-sm" id="btn-update" data-act="update" title="Resumen de última actualización de precios">📋</button>
     <button class="btn btn-sm" id="btn-dash" data-act="dash" title="Dashboard de analíticas">📊</button>
     <button class="btn btn-sm" id="btn-pub" data-act="pub" title="Generador de publicaciones de Facebook">✍️</button>
     <button class="btn btn-primary" id="btn-save" data-act="save">Guardar</button>
   </div>
 </header>
 <nav class="cats" id="cats" aria-label="Categorías"></nav>
+<section id="update" hidden></section>
 <section id="dash" hidden></section>
 <section id="importar" hidden>
 <div class="imp-wrap">
@@ -1688,7 +1855,26 @@ function onClick(e) {
     case 'rv-skip': RV.i++; renderReview(); break;
     case 'rv-prev': RV.i = Math.max(0, RV.i - 1); while (RV.i > 0 && BYKEY.get(RV.list[RV.i]) && BYKEY.get(RV.list[RV.i]).p.mlId) RV.i--; renderReview(); break;
     case 'rv-none': rvNone(); break;
+    case 'update': {
+      const OTHER_UPD = ['#dash','#importar','#pub'];
+      OTHER_UPD.forEach(sel => {
+        const el2 = $(sel); if(!el2||el2.hidden) return;
+        el2.hidden = true;
+        const bId = sel==='#dash'?'btn-dash':sel==='#importar'?'btn-importar':'btn-pub';
+        const b2 = $('#'+bId); if(b2){b2.classList.remove('btn-primary');b2.setAttribute('aria-pressed','false');}
+      });
+      const upd = $('#update'), btn = $('#btn-update');
+      const show = upd.hidden;
+      upd.hidden = !show;
+      ['#toolbar','#table-wrap','#queues','#callout'].forEach(sel => { const el2=$(sel); if(el2) el2.hidden = show; });
+      btn.classList.toggle('btn-primary', show);
+      btn.setAttribute('aria-pressed', String(show));
+      if (show) renderUpdate();
+      break;
+    }
     case 'dash': {
+      const upd2 = $('#update'), updBtn2 = $('#btn-update');
+      if (upd2 && !upd2.hidden) { upd2.hidden = true; if(updBtn2){updBtn2.classList.remove('btn-primary');updBtn2.setAttribute('aria-pressed','false');} }
       const imp2 = $('#importar'), impBtn2 = $('#btn-importar');
       if (imp2 && !imp2.hidden) { imp2.hidden = true; if(impBtn2){impBtn2.classList.remove('btn-primary');impBtn2.setAttribute('aria-pressed','false');} }
       const dash = $('#dash'), btn = $('#btn-dash');
@@ -1701,6 +1887,8 @@ function onClick(e) {
       break;
     }
     case 'importar': {
+      const upd3 = $('#update'), updBtn3 = $('#btn-update');
+      if (upd3 && !upd3.hidden) { upd3.hidden = true; if(updBtn3){updBtn3.classList.remove('btn-primary');updBtn3.setAttribute('aria-pressed','false');} }
       const dash2 = $('#dash'), dashBtn2 = $('#btn-dash');
       if (dash2 && !dash2.hidden) { dash2.hidden = true; if(dashBtn2){dashBtn2.classList.remove('btn-primary');dashBtn2.setAttribute('aria-pressed','false');} }
       const panel = $('#importar'), btn = $('#btn-importar');
@@ -1714,12 +1902,12 @@ function onClick(e) {
     }
 
     case 'pub': {
-      const OTHER_PANELS = ['#dash','#importar'];
+      const OTHER_PANELS = ['#update','#dash','#importar'];
       OTHER_PANELS.forEach(sel => {
         const el = $(sel); if(!el||el.hidden) return;
         el.hidden = true;
         const id = sel.slice(1);
-        const bId = id==='dash'?'btn-dash':('btn-'+id);
+        const bId = id==='dash'?'btn-dash':id==='update'?'btn-update':('btn-'+id);
         const b = $('#'+bId); if(b){b.classList.remove('btn-primary');b.setAttribute('aria-pressed','false');}
       });
       const panel = $('#pub'), btn = $('#btn-pub');
