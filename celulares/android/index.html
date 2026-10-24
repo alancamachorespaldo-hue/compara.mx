@@ -1575,7 +1575,7 @@ const familias = [
     colores: ['Nergo'],
     img: 'https://http2.mlstatic.com/D_NQ_NP_633765-MLA118496653763_092026-F.jpg',
     variantes: [
-      { storage: 64, ram: 4, precio: 2936, linkML: 'https://meli.la/1wRR9k9', estrellas: null, resenas: null },
+      { storage: 64, ram: 4, precio: 3052, linkML: 'https://meli.la/1wRR9k9', estrellas: null, resenas: null },
       { storage: 256, ram: 24, precio: 3406, linkML: 'https://meli.la/1iEY4L5', estrellas: null, resenas: null },
     ]
   },
@@ -2748,6 +2748,7 @@ const familias = [
   },
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _fi=familias.length-1;_fi>=0;_fi--){var _f=familias[_fi];for(var _vi=(_f.variantes||[]).length-1;_vi>=0;_vi--){var _v=_f.variantes[_vi];var _id='android-'+_f.modeloBase+'-'+_v.storage+'gb-'+_v.ram+'gb';var _z=_PZ[_id];if(!_z)continue;if(_z.ml){_f.variantes[_vi].linkML=null;_f.variantes[_vi].precio=null;_f.variantes[_vi].pausaML=true;}}if(!_f.variantes.some(function(vv){return vv.linkML||vv.linkAmz;}))familias.splice(_fi,1);}}catch(e){}
+
 
 
 
