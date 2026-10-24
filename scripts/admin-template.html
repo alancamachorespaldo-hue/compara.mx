@@ -1149,7 +1149,7 @@ function renderSelbar() {
   const n = S.sel.size, el = $('#selbar');
   el.hidden = !n;
   if (!n) return;
-  el.innerHTML = `<b>${esc(plural(n, 'seleccionado', 'seleccionados'))}</b><button class="btn btn-sm" data-act="bulk-pause">Pausar</button><button class="btn btn-sm" data-act="bulk-play">Activar</button><button class="btn btn-sm" data-act="copy-sel">Copiar JSON</button><button class="btn btn-sm" data-act="sel-clear">Quitar selección</button>`;
+  el.innerHTML = `<b>${esc(plural(n, 'seleccionado', 'seleccionados'))}</b><button class="btn btn-sm" data-act="bulk-pause">Pausar</button><button class="btn btn-sm" data-act="bulk-play">Activar</button><button class="btn btn-sm" data-act="copy-sel">Copiar JSON</button><button class="btn btn-sm" data-act="bulk-delete" style="color:#f87171;border-color:rgba(248,113,113,.35)">🗑 Eliminar</button><button class="btn btn-sm" data-act="sel-clear">Quitar selección</button>`;
 }
 
 function renderControls() {
@@ -1673,6 +1673,7 @@ function onClick(e) {
     case 'bulk-pause': bulkActivo(false); break;
     case 'bulk-play': bulkActivo(true); break;
     case 'copy-sel': copyText(exportRows([...S.sel].map(k => BYKEY.get(k)).filter(Boolean)), 'JSON de ' + plural(S.sel.size, 'producto', 'productos') + ' copiado'); break;
+    case 'bulk-delete': { const keys = [...S.sel]; const n = keys.length; if (!n) break; if (!confirm(`¿Eliminar ${plural(n,'producto','productos')} seleccionado${n>1?'s':''}?\nEsta acción no se puede deshacer (guarda antes si quieres una copia).`)) break; keys.forEach(k => { const [cat,id] = splitKey(k); if(DB[cat]) DB[cat] = DB[cat].filter(p => String(p.id) !== id); if(PENDING.added[k]) delete PENDING.added[k]; else if(!PENDING.deleted.includes(k)) PENDING.deleted.push(k); delete PENDING.ops[k]; S.sel.delete(k); }); reindex(); persist(); renderCats(); renderQueues(); renderTable(); toast(plural(n,'producto eliminado','productos eliminados')); break; }
     case 'del': $('#e-confirm').hidden = false; break;
     case 'del-no': $('#e-confirm').hidden = true; break;
     case 'del-yes': deleteProduct($('#f-edit').dataset.key); break;
