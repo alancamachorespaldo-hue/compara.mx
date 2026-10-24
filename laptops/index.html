@@ -2968,6 +2968,19 @@ function closeModal() {
 
 // Init
 render();
+
+// Pre-selección desde Ofertas del día
+try {
+  var _lapPre = sessionStorage.getItem('lap_preselect');
+  if (_lapPre) {
+    sessionStorage.removeItem('lap_preselect');
+    JSON.parse(_lapPre).forEach(function(sid) {
+      var nid = parseInt(sid, 10);
+      if (!isNaN(nid) && selected.length < 3) toggleSelect(nid);
+    });
+    if (selected.length >= 2) openModal();
+  }
+} catch(e) {}
 </script>
 <script>
 function openHowModal(){
