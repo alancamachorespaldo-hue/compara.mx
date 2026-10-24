@@ -324,12 +324,13 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
 .deals-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:20px;flex-wrap:wrap}
 .deals-head h2{font-size:22px;font-weight:800;letter-spacing:-.6px;margin:4px 0 0;color:#1E2922}
 .deals-sub{font-size:12px;color:var(--tx3);margin-top:auto;padding-bottom:4px}
-.deals-outer{position:relative}
-.deals-outer::after{content:'';position:absolute;top:0;right:0;bottom:8px;width:48px;background:linear-gradient(to left,var(--s1),transparent);pointer-events:none;z-index:1}
-.deals-track{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:4px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.deals-outer{position:relative;padding:0 2px}
+.deals-outer::after{content:'';position:absolute;top:0;right:2px;bottom:8px;width:48px;background:linear-gradient(to left,var(--s1),transparent);pointer-events:none;z-index:1}
+.deals-track{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .deals-track::-webkit-scrollbar{display:none}
-.deal-card{flex:0 0 184px;border:1.5px solid var(--bd);border-radius:14px;overflow:hidden;text-decoration:none;color:var(--tx);display:flex;flex-direction:column;scroll-snap-align:start;transition:box-shadow .18s,transform .18s;background:#fff}
+.deal-card{position:relative;flex:0 0 184px;border:1.5px solid var(--bd);border-radius:14px;overflow:hidden;text-decoration:none;color:var(--tx);display:flex;flex-direction:column;scroll-snap-align:start;transition:box-shadow .18s,transform .18s,border-color .15s;background:#fff}
 .deal-card:hover{box-shadow:0 6px 18px rgba(0,0,0,.1);transform:translateY(-2px);color:var(--tx)}
+.deal-card.deal-selected{border-color:var(--ac);box-shadow:0 0 0 2px rgba(0,104,71,.18)}
 .deal-card-img{height:120px;background:#f8faff;display:flex;align-items:center;justify-content:center;overflow:hidden;border-bottom:1px solid var(--bd)}
 .deal-card-img img{max-width:100%;max-height:100%;object-fit:contain;padding:10px}
 .deal-card-body{padding:10px 11px 12px;display:flex;flex-direction:column;gap:5px;flex:1}
@@ -342,8 +343,20 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
 .deal-was{font-size:10.5px;color:var(--tx3);text-decoration:line-through}
 .deal-cta{font-size:10px;font-weight:700;color:#333;background:#f0c000;text-align:center;padding:6px 8px;border-radius:7px;margin-top:4px;display:flex;align-items:center;justify-content:center;gap:5px;white-space:nowrap}
 .deal-cta img{height:14px;width:auto;flex-shrink:0}
+/* select overlay */
+.deal-sel{position:absolute;top:7px;left:7px;z-index:4;width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.92);border:1.5px solid var(--bd);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:11px;line-height:1;transition:background .15s,border-color .15s;user-select:none}
+.deal-card.deal-selected .deal-sel{background:var(--ac);border-color:var(--ac);color:#fff}
+/* row header */
 .deals-row{margin-bottom:28px}.deals-row:last-child{margin-bottom:0}
-.deals-row-label{font-size:13px;font-weight:700;color:var(--tx2);margin-bottom:10px;letter-spacing:.02em}
+.deals-row-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.deals-row-label{font-size:13px;font-weight:700;color:var(--tx2);letter-spacing:.02em;flex:1}
+.deals-cmp-btn{font-size:11px;font-weight:800;background:var(--ac);color:#fff;border:none;border-radius:8px;padding:5px 12px;cursor:pointer;white-space:nowrap;display:none}
+.deals-cmp-btn.visible{display:inline-flex;align-items:center;gap:5px}
+/* scroll arrows */
+.deal-arrow{position:absolute;top:50%;transform:translateY(-calc(50% + 4px));z-index:5;width:30px;height:30px;border-radius:50%;background:#fff;border:1.5px solid var(--bd);box-shadow:0 2px 6px rgba(0,0,0,.1);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;transition:opacity .18s;line-height:1}
+.deal-arrow[aria-disabled="true"]{opacity:.25;cursor:default;pointer-events:none}
+.deal-arrow-prev{left:-15px}.deal-arrow-next{right:-15px}
+@media(max-width:700px){.deal-arrow{display:none}}
 @media(max-width:540px){.deal-card{flex:0 0 158px}.deal-card-img{height:100px}}
 </style>
 </head>
@@ -538,8 +551,9 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
   <div class="wrap">
     <div class="deals-head">
       <div>
-        <p class="kicker">Mercado Libre</p>
-        <h2 id="deals-h">Ofertas del día</h2>
+        <p class="kicker">Mercado Libre · Precios verificados</p>
+        <h2 id="deals-h">Ofertas del día en México</h2>
+        <p style="font-size:13px;color:var(--tx3);margin:6px 0 0;max-width:520px">Celulares, laptops, suplementos y cafeteras con los mejores precios en Mercado Libre. Selecciona hasta 3 productos para compararlos.</p>
       </div>
       <p class="deals-sub">Actualizado cada mañana · solo precios verificados</p>
     </div>
@@ -785,19 +799,26 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
 <script>
 (function(){
   var SOURCES=[
-    {url:'/celulares/descuentos.json',   label:'Celulares', emoji:'📱', bg:'#1a1a2e'},
-    {url:'/suplementos/proteina/descuentos.json', label:'Proteína',  emoji:'💪', bg:'#006847'},
-    {url:'/laptops/descuentos.json',     label:'Laptops',   emoji:'💻', bg:'#1e40af'}
+    {url:'/celulares/descuentos.json',                     label:'Celulares', emoji:'📱', bg:'#1a1a2e', compareUrl:'/celulares/android/'},
+    {url:'/suplementos/proteina/descuentos.json',          label:'Proteína',  emoji:'💪', bg:'#006847', compareUrl:'/suplementos/proteina/'},
+    {url:'/laptops/descuentos.json',                       label:'Laptops',   emoji:'💻', bg:'#1e40af', compareUrl:'/laptops/'},
+    {url:'/electrodomesticos/cafeteras/descuentos.json',   label:'Cafeteras', emoji:'☕', bg:'#5c3317', compareUrl:'/electrodomesticos/cafeteras/', sesKey:'caf_preselect'}
   ];
   var fmt=function(n){return'$'+Number(n).toLocaleString('es-MX');};
+  var selections={};/* {label: {id: true}} */
+
   function makeCard(d,s){
     var nm=(d.nombre||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
     var lbl=(d.nombre||'').replace(/'/g,"\\'").replace(/"/g,'&quot;');
     var imgH=d.imagen?'<img src="'+d.imagen+'" alt="'+nm+'" loading="lazy" referrerpolicy="no-referrer">':'';
     var pctH=d.pct?'<span class="deal-pct">&#8722;'+d.pct+'%</span>':'';
     var wasH=d.precioAntes?'<span class="deal-was">'+fmt(d.precioAntes)+'</span>':'';
-    return'<a class="deal-card" href="'+d.linkML+'" target="_blank" rel="sponsored nofollow noopener" role="listitem"'
+    var safeId=(d.id||'').replace(/'/g,"\\'");
+    var safeLbl=s.label.replace(/'/g,"\\'");
+    var selBtn='<span class="deal-sel" role="checkbox" aria-checked="false" aria-label="Seleccionar para comparar" onclick="dealToggleSel(\''+safeLbl+'\',\''+safeId+'\',this,event)">○</span>';
+    return'<a class="deal-card" id="dc-'+safeId+'" href="'+d.linkML+'" target="_blank" rel="sponsored nofollow noopener" role="listitem"'
       +' onclick="typeof gtag===\'function\'&&gtag(\'event\',\'affiliate_click_ml\',{event_category:\'afiliado\',event_label:\''+lbl+'\',value:'+d.precioML+',page_section:\'home_descuentos\'})">'
+      +selBtn
       +'<div class="deal-card-img">'+imgH+'</div>'
       +'<div class="deal-card-body">'
       +'<div class="deal-card-top"><span class="deal-badge" style="background:'+s.bg+'">'+s.label+'</span>'+pctH+'</div>'
@@ -806,6 +827,61 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
       +'<div class="deal-cta">Clic para ir a <img src="/logomercado.png" alt="Mercado Libre"></div>'
       +'</div></a>';
   }
+
+  window.dealToggleSel=function(catLabel,id,el,evt){
+    if(evt){evt.preventDefault();evt.stopPropagation();}
+    if(!selections[catLabel])selections[catLabel]={};
+    var card=document.getElementById('dc-'+id);
+    if(selections[catLabel][id]){
+      delete selections[catLabel][id];
+      el.textContent='○';el.setAttribute('aria-checked','false');
+      if(card)card.classList.remove('deal-selected');
+    }else{
+      var count=Object.keys(selections[catLabel]).length;
+      if(count>=3)return;
+      selections[catLabel][id]=true;
+      el.textContent='✓';el.setAttribute('aria-checked','true');
+      if(card)card.classList.add('deal-selected');
+    }
+    /* update compare button */
+    var n=Object.keys(selections[catLabel]||{}).length;
+    var btn=document.getElementById('dcmp-'+catLabel);
+    if(btn){
+      btn.textContent='⚖️ Comparar '+n;
+      btn.classList.toggle('visible',n>=1);
+    }
+  };
+
+  window.dealCompare=function(compareUrl,sesKey,catLabel){
+    var ids=Object.keys(selections[catLabel]||{});
+    if(!ids.length)return;
+    if(sesKey){try{sessionStorage.setItem(sesKey,JSON.stringify(ids));}catch(e){}}
+    location.href=compareUrl;
+  };
+
+  function initArrows(track,outer){
+    var prev=document.createElement('button');
+    prev.className='deal-arrow deal-arrow-prev';
+    prev.setAttribute('aria-label','Anterior');
+    prev.innerHTML='‹';
+    var next=document.createElement('button');
+    next.className='deal-arrow deal-arrow-next';
+    next.setAttribute('aria-label','Siguiente');
+    next.innerHTML='›';
+    function updateArrows(){
+      prev.setAttribute('aria-disabled',track.scrollLeft<=4?'true':'false');
+      var atEnd=track.scrollLeft+track.clientWidth>=track.scrollWidth-4;
+      next.setAttribute('aria-disabled',atEnd?'true':'false');
+    }
+    var scroll=track.clientWidth*0.8||600;
+    prev.addEventListener('click',function(){track.scrollBy({left:-scroll,behavior:'smooth'});});
+    next.addEventListener('click',function(){track.scrollBy({left:scroll,behavior:'smooth'});});
+    track.addEventListener('scroll',updateArrows,{passive:true});
+    outer.appendChild(prev);
+    outer.appendChild(next);
+    updateArrows();
+  }
+
   Promise.allSettled(SOURCES.map(function(s){
     return fetch(s.url).then(function(r){return r.ok?r.json():null;}).then(function(d){
       return{cat:s,items:d&&Array.isArray(d.descuentos)?d.descuentos:[]};
@@ -818,14 +894,23 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
     results.forEach(function(r){
       if(r.status!=='fulfilled'||!r.value.items.length)return;
       var s=r.value.cat,items=r.value.items;
+      var safeLbl=s.label.replace(/'/g,"\\'");
+      var cmpClick='dealCompare(\''+s.compareUrl+'\','+(s.sesKey?'\''+s.sesKey+'\'':'null')+',\''+safeLbl+'\')';
       var row=document.createElement('div');
       row.className='deals-row';
       row.innerHTML='<div class="wrap">'
+        +'<div class="deals-row-head">'
         +'<p class="deals-row-label">'+s.emoji+' '+s.label+'</p>'
+        +'<button class="deals-cmp-btn" id="dcmp-'+s.label+'" onclick="'+cmpClick+'">⚖️ Comparar 0</button>'
+        +'</div>'
         +'<div class="deals-outer"><div class="deals-track" role="list">'
         +items.map(function(d){return makeCard(d,s);}).join('')
         +'</div></div></div>';
       container.appendChild(row);
+      /* init scroll arrows after DOM insert */
+      var outer=row.querySelector('.deals-outer');
+      var track=row.querySelector('.deals-track');
+      if(outer&&track)initArrows(track,outer);
       rendered++;
     });
     if(rendered)sec.hidden=false;
