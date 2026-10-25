@@ -610,7 +610,7 @@ const productos = [
     "nombre": "Audífonos Inalámbricos Sony Wh-ch520 Negro",
     "marca": "Sony",
     "linkML": "https://meli.la/2tcr4rW",
-    "precioML": 674,
+    "precioML": 605,
     "imagen": "https://http2.mlstatic.com/D_NQ_NP_963414-MLA99445666920_112025-F.jpg",
     "especs": {
       "formato": "Headset",
@@ -644,7 +644,7 @@ const productos = [
     "nombre": "Audífonos Inalámbricos 1HORA AUT205 In-Ear Bluetooth 6.0 con Micrófono, Auricula",
     "marca": "1Hora",
     "linkML": "https://meli.la/1uVS3UV",
-    "precioML": 169,
+    "precioML": 160,
     "imagen": "https://http2.mlstatic.com/D_NQ_NP_725168-MLA100077728739_122025-F.jpg",
     "especs": {
       "formato": "In-ear",
@@ -832,7 +832,7 @@ const productos = [
     "nombre": "Auriculares Inalámbricos Xiaomi Redmi Buds 6 Play Negro",
     "marca": "Xiaomi",
     "linkML": "https://meli.la/1JkdZQ5",
-    "precioML": 190,
+    "precioML": 259,
     "imagen": "https://http2.mlstatic.com/D_NQ_NP_715678-MLU78765136521_082024-F.jpg",
     "especs": {
       "formato": "In-ear",
@@ -866,7 +866,7 @@ const productos = [
     "nombre": "Audífonos Skullcandy Inalámbricos Dime 3 Auriculares In-ear",
     "marca": "Skullcandy",
     "linkML": "https://meli.la/1sktTw6",
-    "precioML": 369,
+    "precioML": 379,
     "imagen": "https://http2.mlstatic.com/D_NQ_NP_643099-MLA95662957980_102025-F.jpg",
     "especs": {
       "formato": "In-ear",
@@ -1368,6 +1368,7 @@ const productos = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 
 

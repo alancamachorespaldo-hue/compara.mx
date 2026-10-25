@@ -1188,7 +1188,7 @@ const ELECTRICAS = [
         c: "b-discr"
       }
     ],
-    precioML: 7199,
+    precioML: 15999,
     batV: 12,
     plegable: false,
     luces: true
@@ -3352,6 +3352,7 @@ const ELECTRICAS = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=ELECTRICAS.length-1;_i>=0;_i--){var _z=_PZ[ELECTRICAS[_i].id];if(!_z)continue;if(_z.ml){ELECTRICAS[_i].linkML=null;ELECTRICAS[_i].precioML=null;ELECTRICAS[_i].pausaML=true;}if(_z.amz){ELECTRICAS[_i].linkAmz='';ELECTRICAS[_i].precioAmz=null;ELECTRICAS[_i].pausaAmz=true;}if(_z.ml&&_z.amz)ELECTRICAS.splice(_i,1);}}catch(e){}
+
 
 
 
