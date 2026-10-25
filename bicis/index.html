@@ -3872,8 +3872,8 @@ function renderGrid(sec){
 
       const precioBlock = dual
         ? ''
-        : (b.precio
-            ? `<div class="card-price">$${b.precio.toLocaleString('es-MX')} <span class="card-price-sub">MXN</span></div>`
+        : (b.precio || b.precioML || b.precioAmz
+            ? `<div class="card-price">$${(b.precio || b.precioML || b.precioAmz).toLocaleString('es-MX')} <span class="card-price-sub">MXN</span></div>`
             : `<div class="card-price"><span style="font-size:.85rem;color:var(--tx2)">Ver precio en plataforma</span></div>`);
 
       const fmtP = v => '$' + v.toLocaleString('es-MX', {minimumFractionDigits:0, maximumFractionDigits:2});
