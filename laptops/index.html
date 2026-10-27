@@ -486,12 +486,29 @@ body .card-body{padding:1rem !important;min-width:0 !important}
   </div>
 
   <div class="sidebar-section">
+    <div class="sidebar-sec-title">Procesador</div>
+    <div class="sidebar-filters" id="proc-filters">
+      <button class="filter on" onclick="toggleFilter('procLinea','todos',this)">Todos</button>
+    </div>
+  </div>
+
+  <div class="sidebar-section">
     <div class="sidebar-sec-title">RAM</div>
     <div class="sidebar-filters">
       <button class="filter on" onclick="toggleFilter('ram','todos',this)">Todas</button>
       <button class="filter" onclick="toggleFilter('ram','8o-',this)">≤8 GB</button>
       <button class="filter" onclick="toggleFilter('ram','16',this)">16 GB</button>
       <button class="filter" onclick="toggleFilter('ram','32+',this)">32 GB+</button>
+    </div>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-sec-title">Almacenamiento</div>
+    <div class="sidebar-filters">
+      <button class="filter on" onclick="toggleFilter('almacenamiento','todos',this)">Todas</button>
+      <button class="filter" onclick="toggleFilter('almacenamiento','256o-',this)">≤256 GB</button>
+      <button class="filter" onclick="toggleFilter('almacenamiento','512',this)">512 GB</button>
+      <button class="filter" onclick="toggleFilter('almacenamiento','1000+',this)">1 TB+</button>
     </div>
   </div>
 
@@ -512,6 +529,7 @@ body .card-body{padding:1rem !important;min-width:0 !important}
       <button class="filter" onclick="toggleFilter('gpuDedicada','si',this)">GPU dedicada</button>
       <button class="filter" onclick="toggleFilter('nvme','si',this)">SSD NVMe</button>
       <button class="filter" onclick="toggleFilter('pantalla15','si',this)">Pantalla 15&quot;+</button>
+      <button class="filter" onclick="toggleFilter('touch','si',this)">Pantalla táctil</button>
     </div>
   </div>
 
@@ -2692,8 +2710,37 @@ const productos = [
 
 
 
+// ── Línea de procesador (derivada de p.procesador) ─────────────
+const PROC_ORDEN = ['Celeron / Pentium','Core i3','Core 3','Ryzen 3','Core i5','Core 5','Core Ultra 5','Ryzen 5','Core i7','Core 7','Core Ultra 7','Ryzen 7','Core i9','Ryzen 9','Apple M','Apple M Pro','Apple M Max','Apple A','Snapdragon','MediaTek'];
+function procLinea(p) {
+  const s = p.procesador || '';
+  if (/Celeron|Pentium/i.test(s)) return 'Celeron / Pentium';
+  let m;
+  if (m = s.match(/Ryzen\s*(?:AI\s*)?(\d)/i)) return 'Ryzen ' + m[1];
+  if (m = s.match(/Core\s*Ultra\s*(\d)/i)) return 'Core Ultra ' + m[1];
+  if (m = s.match(/Core\s*i(\d)/i)) return 'Core i' + m[1];
+  if (m = s.match(/Core\s*(\d)/i)) return 'Core ' + m[1];
+  if (/Apple M\d+\s*Max/i.test(s)) return 'Apple M Max';
+  if (/Apple M\d+\s*Pro/i.test(s)) return 'Apple M Pro';
+  if (/Apple M\d+/i.test(s)) return 'Apple M';
+  if (/Apple A\d+/i.test(s)) return 'Apple A';
+  if (/Snapdragon/i.test(s)) return 'Snapdragon';
+  if (/MediaTek|Kompanio/i.test(s)) return 'MediaTek';
+  return null;
+}
+(function buildProcFilters(){
+  const cont = document.getElementById('proc-filters');
+  if (!cont) return;
+  const presentes = new Set();
+  productos.forEach(function(p){ const l = procLinea(p); if (l) presentes.add(l); });
+  const lineas = PROC_ORDEN.filter(function(l){ return presentes.has(l); });
+  cont.innerHTML += lineas.map(function(l){
+    return '<button class="filter" onclick="toggleFilter(\'procLinea\',\''+l+'\',this)">'+l+'</button>';
+  }).join('');
+})();
+
 // ── Estado de filtros ─────────────────────────────────────────
-const filters = { marca:'todos', ram:'todos', uso:'todos', gpuDedicada:'todos', nvme:'todos', pantalla15:'todos', plat:'todos' };
+const filters = { marca:'todos', procLinea:'todos', ram:'todos', almacenamiento:'todos', uso:'todos', gpuDedicada:'todos', nvme:'todos', pantalla15:'todos', touch:'todos', plat:'todos' };
 
 function clearFilters() {
   Object.keys(filters).forEach(k => filters[k] = 'todos');
@@ -2738,13 +2785,18 @@ function render() {
 
   let lista = productos.filter(p => {
     if (filters.marca !== 'todos' && p.marca !== filters.marca) return false;
+    if (filters.procLinea !== 'todos' && procLinea(p) !== filters.procLinea) return false;
     if (filters.ram === '8o-' && p.ram > 8) return false;
     if (filters.ram === '16' && p.ram !== 16) return false;
     if (filters.ram === '32+' && p.ram < 32) return false;
+    if (filters.almacenamiento === '256o-' && p.almacenamiento > 256) return false;
+    if (filters.almacenamiento === '512' && p.almacenamiento !== 512) return false;
+    if (filters.almacenamiento === '1000+' && p.almacenamiento < 1000) return false;
     if (filters.uso !== 'todos' && !p.uso.includes(filters.uso)) return false;
     if (filters.gpuDedicada === 'si' && !p.gpuDedicada) return false;
     if (filters.nvme === 'si' && !p.ssd) return false;
     if (filters.pantalla15 === 'si' && p.pantalla < 15) return false;
+    if (filters.touch === 'si' && !p.touch) return false;
     if (filters.plat === 'amz' && !p.linkAmz) return false;
     if (filters.plat === 'ml' && !p.linkML) return false;
     if (q) {
