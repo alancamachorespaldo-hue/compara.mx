@@ -51,6 +51,9 @@ jobs:
       - name: Generar descuentos del día (laptops)
         run: node scripts/generar-laptops-descuentos.js
 
+      - name: Generar descuentos del día (creatina)
+        run: node scripts/generar-creatina-descuentos.js
+
       - name: Generar descuentos del día (cafeteras)
         run: node scripts/generar-cafeteras-descuentos.js
 
@@ -73,7 +76,7 @@ jobs:
             tecnologia/bocinas/index.html tecnologia/audifonos/index.html \
             celulares/android/index.html suplementos/vitamina-d/index.html \
             celulares/catalog-mini.json celulares/descuentos.json \
-            suplementos/proteina/descuentos.json laptops/descuentos.json \
+            suplementos/proteina/descuentos.json laptops/descuentos.json suplementos/creatina/descuentos.json \
             electrodomesticos/cafeteras/descuentos.json \
             scripts/ml-report.json scripts/merged-admin.json scripts/admin-artifact.html
           if git diff --staged --quiet; then

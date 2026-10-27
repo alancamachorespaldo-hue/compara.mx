@@ -1280,6 +1280,19 @@ function closeModal() { document.getElementById('cmp-overlay').classList.remove(
 
 initFilterLists();
 render();
+
+// Pre-selección desde una guía (Comparador)
+try {
+  var _crePre = sessionStorage.getItem('cre_preselect');
+  if (_crePre) {
+    sessionStorage.removeItem('cre_preselect');
+    JSON.parse(_crePre).forEach(function(sid) {
+      var nid = parseInt(sid, 10);
+      if (!isNaN(nid) && selected.length < 3) toggleSelect(nid);
+    });
+    if (selected.length >= 2) openModal();
+  }
+} catch(e) {}
 </script>
 <script>
 function openHowModal(){
