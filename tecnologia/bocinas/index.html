@@ -778,7 +778,7 @@ const productos = [
     "marca": "Alexa",
     "linkML": "https://meli.la/2qgTB2t",
     "linkAmz": "https://www.amazon.com.mx/dp/B0BFC8DR7C?_encoding=UTF8&th=1&linkCode=ll2&tag=comparalo20-20&linkId=92b5244c474281d78a1ff290b84f2d2a&ref_=as_li_ss_tl",
-    "precioML": 729,
+    "precioML": 1029,
     "precioAmz": 2298,
     "imagen": "https://http2.mlstatic.com/D_NQ_NP_953435-MLA107994915408_032026-F.jpg",
     "especs": {
@@ -1134,6 +1134,7 @@ const productos = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 
 
