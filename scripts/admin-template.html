@@ -1094,11 +1094,16 @@ const SHELL = `
       <label class="imp-field span2"><span>Nombre corto <span class="muted" style="font-weight:400;text-transform:none">· el que se ve en tabla y tarjetas</span></span><input id="pg-nombre-corto" autocomplete="off" placeholder="Ej. Centurfit Bici moto MGJ569"></label>
       <label class="imp-field"><span>Marca</span><input id="pg-marca" autocomplete="off"></label>
     </div>
+    <div class="imp-field-grid">
+      <label class="imp-field span2"><span>Link de afiliado Amazon (con ?tag=${AMZ_TAG})</span><input id="pg-amz" type="url" placeholder="https://www.amazon.com.mx/dp/…" autocomplete="off"><small class="field-msg" id="pg-amz-msg"></small></label>
+      <label class="imp-field"><span>Precio Amazon (MXN)</span><input id="pg-precio" type="number" min="0" step="1" inputmode="decimal"></label>
+      <label class="imp-field"><span>URL de imagen</span><input id="pg-imagen" type="url" placeholder="https://m.media-amazon.com/images/I/…" autocomplete="off"></label>
+    </div>
     <details class="imp-specs" open>
       <summary>Especificaciones detectadas</summary>
       <div class="imp-specs-grid" id="pg-specs-grid"></div>
     </details>
-    <p class="muted" style="font-size:12px;margin:10px 0">Faltan imagen, link de afiliado y precio — complétalos después desde el editor del producto (✎). El producto se agrega pausado hasta entonces.</p>
+    <p class="muted" style="font-size:12px;margin:10px 0">Si llenas link de Amazon (con tag) y precio, el producto se agrega activo; si los dejas vacíos, se agrega pausado y los completas después desde el editor (✎).</p>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
       <button class="btn btn-primary" data-act="pg-add">+ Agregar producto</button>
       <button class="btn" data-act="pg-reset">Limpiar</button>
@@ -2090,6 +2095,7 @@ function onInput(e) {
   else if (t.id === 'a-mlid') mlIdMessage(t, $('#a-mlid-msg'));
   else if (t.id === 'e-amz') amzMessage(t, $('#e-amz-msg'));
   else if (t.id === 'a-amz') amzMessage(t, $('#a-amz-msg'));
+  else if (t.id === 'pg-amz') amzMessage(t, $('#pg-amz-msg'));
   else if (['utm-source','utm-medium','utm-campaign','utm-content','utm-page'].includes(t.id)) buildUtmUrl();
 }
 function onKey(e) {
@@ -2285,6 +2291,7 @@ function pgShowResult(cat, data) {
   $('#pg-nombre').value = data.nombre || '';
   $('#pg-nombre-corto').value = data.nombreCorto || '';
   $('#pg-marca').value = data.marca || '';
+  $('#pg-amz').value = ''; $('#pg-amz-msg').textContent = ''; $('#pg-precio').value = ''; $('#pg-imagen').value = '';
   const fields = SPECS[cat] || [], especs = data.especs || {};
   $('#pg-specs-grid').innerHTML = fields.map(([k, l]) => `<label class="imp-field"><span>${esc(l)}</span><input data-sk="${esc(k)}" value="${esc(especs[k] ?? '')}"></label>`).join('');
   res.scrollIntoView({behavior:'smooth', block:'start'});
@@ -2296,10 +2303,16 @@ function pgAdd() {
   if (!nombre) { toast('El nombre no puede quedar vacío'); $('#pg-nombre').focus(); return; }
   const especs = {};
   $('#pg-specs-grid').querySelectorAll('[data-sk]').forEach(inp => { const v = inp.value.trim(); if (v) especs[inp.dataset.sk] = v; });
+  let linkAmz = $('#pg-amz').value.trim() || null;
+  if (linkAmz && !hasTag(linkAmz)) { try { const u = new URL(linkAmz); u.searchParams.set('tag', AMZ_TAG); linkAmz = u.toString(); } catch (e) {} }
+  const precioAmz = numOrNull($('#pg-precio').value);
+  if (precioAmz === undefined) { toast('El precio debe ser un número positivo o estar vacío'); return; }
+  const imagen = $('#pg-imagen').value.trim() || null;
   if (!DB[cat]) DB[cat] = [];
   const id = newId(cat, nombre);
-  const p = {id, nombre, nombreCorto, marca, activo:false, linkML:null, linkAmz:null, precioML:null, precioAmz:null,
-    mlId:null, mlIdFuente:null, imagen:null, especs, estadoML:null, _updatedAt:new Date().toISOString()};
+  const activo = !!(linkAmz && hasTag(linkAmz) && precioAmz != null);
+  const p = {id, nombre, nombreCorto, marca, activo, linkML:null, linkAmz, precioML:null, precioAmz,
+    mlId:null, mlIdFuente:null, imagen, especs, estadoML:null, _updatedAt:new Date().toISOString()};
   DB[cat].push(p);
   const key = cat + '|' + id;
   PENDING.added[key] = p;
@@ -2307,14 +2320,15 @@ function pgAdd() {
   S.cat = cat; S.queue = 'todos'; S.plat = ''; S.q = ''; const qEl = $('#q'); if (qEl) qEl.value = ''; saveUI();
   closePanel('#pegar');
   renderCats(); renderQueues(); renderControls(); renderTable();
-  toast('"' + nombre.slice(0, 40) + '" agregado a ' + (CATS[cat] || cat) + ', pausado. Agrega imagen, link y precio desde ✎.');
+  toast('"' + nombre.slice(0, 40) + '" agregado a ' + (CATS[cat] || cat) + (activo ? ', activo.' : ', pausado. Agrega link y precio de Amazon desde ✎.'));
   pgReset();
 }
 function pgReset() {
   const texto = $('#pg-texto'), res = $('#pg-result');
   if (texto) texto.value = '';
   if (res) { res.style.display = 'none'; delete res.dataset.cat; }
-  ['pg-nombre', 'pg-nombre-corto', 'pg-marca'].forEach(id => { const el = $('#' + id); if (el) el.value = ''; });
+  ['pg-nombre', 'pg-nombre-corto', 'pg-marca', 'pg-amz', 'pg-precio', 'pg-imagen'].forEach(id => { const el = $('#' + id); if (el) el.value = ''; });
+  const msg = $('#pg-amz-msg'); if (msg) msg.textContent = '';
   const grid = $('#pg-specs-grid'); if (grid) grid.innerHTML = '';
 }
 
