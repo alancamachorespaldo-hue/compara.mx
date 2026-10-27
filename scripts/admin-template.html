@@ -1871,6 +1871,13 @@ function openPanel(sel, onShow) {
   btn.setAttribute('aria-pressed', String(show));
   if (show && onShow) onShow();
 }
+function closePanel(sel) {
+  const panel = $(sel), btn = $('#btn-' + sel.slice(1));
+  if (!panel || panel.hidden) return;
+  panel.hidden = true;
+  ['#toolbar', '#table-wrap', '#queues', '#callout'].forEach(s => { const el = $(s); if (el) el.hidden = false; });
+  if (btn) { btn.classList.remove('btn-primary'); btn.setAttribute('aria-pressed', 'false'); }
+}
 
 // ── Eventos ─────────────────────────────────────────────────────────────────
 function onClick(e) {
@@ -2297,7 +2304,9 @@ function pgAdd() {
   const key = cat + '|' + id;
   PENDING.added[key] = p;
   reindex(); persist();
-  renderCats(); renderQueues(); renderTable();
+  S.cat = cat; S.queue = 'todos'; S.q = ''; const qEl = $('#q'); if (qEl) qEl.value = ''; saveUI();
+  closePanel('#pegar');
+  renderCats(); renderQueues(); renderControls(); renderTable();
   toast('"' + nombre.slice(0, 40) + '" agregado a ' + (CATS[cat] || cat) + ', pausado. Agrega imagen, link y precio desde ✎.');
   pgReset();
 }
