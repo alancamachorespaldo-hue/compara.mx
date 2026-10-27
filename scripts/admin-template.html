@@ -2304,7 +2304,7 @@ function pgAdd() {
   const key = cat + '|' + id;
   PENDING.added[key] = p;
   reindex(); persist();
-  S.cat = cat; S.queue = 'todos'; S.q = ''; const qEl = $('#q'); if (qEl) qEl.value = ''; saveUI();
+  S.cat = cat; S.queue = 'todos'; S.plat = ''; S.q = ''; const qEl = $('#q'); if (qEl) qEl.value = ''; saveUI();
   closePanel('#pegar');
   renderCats(); renderQueues(); renderControls(); renderTable();
   toast('"' + nombre.slice(0, 40) + '" agregado a ' + (CATS[cat] || cat) + ', pausado. Agrega imagen, link y precio desde ✎.');
