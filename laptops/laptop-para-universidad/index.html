@@ -1146,11 +1146,13 @@ function mkCard(c,parent){
 var pct=c.pct||(c.ref&&c.ref>c.p?Math.round((1-c.p/c.ref)*100):0);
 var discBadge=pct?'<span class="aside-disc-corner">-'+pct+'%</span>':'';
 var chip=c.chip?'<span class="aside-prod-chip">'+c.chip+'</span>':'';
+var esAmz=c.plataforma==='amazon';
+var ctaLogo=esAmz?'<img src="/logoamazon.png" alt="Amazon" style="height:13px;vertical-align:middle;margin:0 2px" onerror="this.style.display=\'none\'">':'<img src="/logomercado.png" alt="Mercado Libre" style="height:13px;vertical-align:middle;margin:0 2px" onerror="this.style.display=\'none\'">';
 var wrap=document.createElement('div');
 wrap.className='aside-prod-card';
 wrap.style.cursor='pointer';
 wrap.setAttribute('data-cid',c.id);
-var gaEvt=c.ga?'if(window.gtag)gtag(\'event\',\'click_ml\',{event_category:\'aside_card\',event_label:\''+c.ga+'\'});':'';
+var gaEvt=c.ga?'if(window.gtag)gtag(\'event\',\''+(esAmz?'click_amazon':'click_ml')+'\',{event_category:\'aside_card\',event_label:\''+c.ga+'\'});':'';
 wrap.innerHTML='<div style="position:relative;flex-shrink:0">'
 +'<img class="aside-prod-img" src="'+c.img+'" alt="'+c.n+'" loading="lazy">'
 +discBadge
@@ -1159,7 +1161,7 @@ wrap.innerHTML='<div style="position:relative;flex-shrink:0">'
 +'<span class="aside-prod-name">'+c.n+'</span>'
 +'<span class="aside-prod-price">$'+Number(c.p).toLocaleString('es-MX')+'</span>'
 +chip
-+'<a class="aside-prod-cta" href="'+c.url+'" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();'+gaEvt+'">Clic para ir <img src="/logomercado.png" alt="Mercado Libre" style="height:13px;vertical-align:middle;margin:0 2px" onerror="this.style.display=\'none\'"> →</a>'
++'<a class="aside-prod-cta"'+(esAmz?' style="background:#ff9900"':'')+' href="'+c.url+'" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();'+gaEvt+'">Clic para ir '+ctaLogo+' →</a>'
 +'</div>'
 +'<div class="aside-sel-dot" data-dot="'+c.id+'"></div>';
 wrap.addEventListener('click',function(e){
@@ -1232,7 +1234,7 @@ fetch('/laptops/descuentos.json').then(function(r){return r.ok?r.json():null;}).
 if(!data||!data.descuentos||!data.descuentos.length)return;
 var offers=data.descuentos.slice(0,6).map(function(d){
 var chip=d.especs?[d.especs.procesador,d.especs.ram].filter(Boolean).join(' · '):'';
-return {id:String(d.id),n:d.nombre,p:d.precioOferta,ref:d.precioAntes,pct:d.pct,chip:chip,img:d.imagen,url:d.link,ga:'oferta_'+d.id};
+return {id:String(d.id),n:d.nombre,p:d.precioOferta,ref:d.precioAntes,pct:d.pct,chip:chip,img:d.imagen,url:d.link,plataforma:d.plataforma,ga:'oferta_'+d.id};
 });
 window._mobLapData=offers;
 if(rightList)offers.forEach(function(c){mkCard(c,rightList);});
@@ -1312,8 +1314,10 @@ if(window.buildMobCards)window.buildMobCards();
     if(!data||!data.length)return;
     built=true;
     var ML_LOGO='<img src="/logomercado.png" alt="" style="height:11px;vertical-align:middle;margin:0 2px" onerror="this.style.display=\'none\'">';
+    var AMZ_LOGO='<img src="/logoamazon.png" alt="" style="height:11px;vertical-align:middle;margin:0 2px" onerror="this.style.display=\'none\'">';
     data.forEach(function(c){
       var pct=c.pct||((c.ref&&c.ref>c.p)?Math.round((1-c.p/c.ref)*100):0);
+      var esAmz=c.plataforma==='amazon';
       var el=document.createElement('div');
       el.className='mob-card';el.setAttribute('data-id',c.id);
       el.innerHTML='<img class="mob-card-img" src="'+c.img+'" alt="'+c.n.replace(/"/g,'&quot;')+'" loading="lazy">'
@@ -1321,9 +1325,9 @@ if(window.buildMobCards)window.buildMobCards();
         +'<span class="mob-card-price">$'+Number(c.p).toLocaleString('es-MX')
         +(pct?'<span class="mob-card-disc">−'+pct+'%</span>':'')+'</span>'
         +'<span class="mob-card-chip">'+(c.chip||'')+'</span>'
-        +'<a class="mob-card-cta" href="'+c.url+'" target="_blank" rel="sponsored noopener" onclick="event.stopPropagation()'
-        +(c.ga?';if(window.gtag)gtag(\'event\',\'click_ml\',{event_category:\'mob_sheet\',event_label:\''+c.ga+'\'})':'')+'">'
-        +'Clic para ir '+ML_LOGO+' →</a></div>'
+        +'<a class="mob-card-cta"'+(esAmz?' style="background:#ff9900;color:#fff"':'')+' href="'+c.url+'" target="_blank" rel="sponsored noopener" onclick="event.stopPropagation()'
+        +(c.ga?';if(window.gtag)gtag(\'event\',\''+(esAmz?'click_amazon':'click_ml')+'\',{event_category:\'mob_sheet\',event_label:\''+c.ga+'\'})':'')+'">'
+        +'Clic para ir '+(esAmz?AMZ_LOGO:ML_LOGO)+' →</a></div>'
         +'<div class="mob-card-dot"></div>';
       el.addEventListener('click',function(e){
         if(e.target.closest('a'))return;
