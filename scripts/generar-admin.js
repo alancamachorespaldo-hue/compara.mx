@@ -53,7 +53,7 @@ if (report) {
       delete p.pausaML; // catálogo restaurado → quitar pausa automática
     }
     if (p.estadoML !== 'nuevo') p.estadoML = row.estado;
-    if (gen) p._mlCheckedAt = gen;
+    if (gen) { p._mlCheckedAt = gen; delete p._activadoPendiente; }
     synced++;
   }
 }

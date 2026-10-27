@@ -35,6 +35,7 @@ for (const [cat, prods] of Object.entries(productosJson)) {
     const a = adminById[String(p.id)];
     if (!a) return p;
     return { ...p, activo: a.activo, linkML: a.linkML ?? p.linkML, linkAmz: a.linkAmz ?? p.linkAmz,
+      ...(a.nombreCorto ? {nombreCorto: a.nombreCorto} : {}),
       ...(a.precioML  != null ? {precioML:  a.precioML}  : {}),
       ...(a.precioAmz != null ? {precioAmz: a.precioAmz} : {}),
     };
@@ -95,6 +96,10 @@ for (const [cat, { file, varName }] of Object.entries(CATALOG)) {
     }
     if (cfg.linkAmz !== undefined && cfg.linkAmz !== p.linkAmz) {
       p.linkAmz = cfg.linkAmz;
+      changed = true;
+    }
+    if (cfg.nombreCorto !== undefined && cfg.nombreCorto !== p.nombreCorto) {
+      p.nombreCorto = cfg.nombreCorto;
       changed = true;
     }
     if (changed) linksActualizados++;
@@ -178,7 +183,7 @@ const siNo = v => v == null ? null : v === 'Sí';
 function bikeForHtml(p) {
   const e = p.especs || {};
   return {
-    id: p.id, nombre: p.nombre, marca: p.marca, tipo: e.tipo || 'urbana',
+    id: p.id, nombre: p.nombre, nombreCorto: p.nombreCorto || null, marca: p.marca, tipo: e.tipo || 'urbana',
     precio: p.precioML ?? p.precioAmz ?? p.precio ?? null, precioML: p.precioML ?? null, precioAmz: p.precioAmz ?? null,
     linkML: p.linkML || null, linkAmz: p.linkAmz || null, img: p.imagen || null,
     estrellas: p.estrellas ?? null, resenas: p.resenas ?? null, vendidosDeclarados: null,
@@ -208,7 +213,7 @@ function videojuegoForHtml(specKeys) {
     const especs = {};
     for (const k of specKeys) if (e[k] != null && e[k] !== '') especs[k] = e[k];
     return {
-      id: p.id, nombre: p.nombre, marca: p.marca || null,
+      id: p.id, nombre: p.nombre, nombreCorto: p.nombreCorto || null, marca: p.marca || null,
       precioML: p.precioML ?? null, precioAmz: p.precioAmz ?? null,
       linkML: p.linkML || null, linkAmz: p.linkAmz || null,
       img: p.imagen || null, estrellas: p.estrellas ?? null, resenas: p.resenas ?? null,

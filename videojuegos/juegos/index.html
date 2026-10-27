@@ -867,7 +867,7 @@ function cardHtml(p, isMejor){
     <div class="card-img-wrap"><img class="card-img" src="${p.img||''}" alt="${p.nombre}" loading="lazy"></div>
     <div class="card-body">
       ${platBadge}
-      <div class="card-name">${p.nombre}</div>
+      <div class="card-name">${p.nombreCorto || p.nombre}</div>
       <div class="card-brand">${p.marca||''}</div>
       ${specsHtml?`<div class="card-specs">${specsHtml}</div>`:''}
       <div class="card-btns">${btns}</div>

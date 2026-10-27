@@ -1638,7 +1638,7 @@ function cardHTML(m) {
       <img class="card-img" src="${m.img}" alt="${m.nombre}" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'88\' height=\'88\'><rect fill=\'%23f1f5f9\' width=\'88\' height=\'88\'/></svg>'">
     </div>
     <div class="card-body">
-      <div class="card-name">${m.nombre}</div>
+      <div class="card-name">${m.nombreCorto || m.nombre}</div>
       <div class="card-brand">${m.marca}</div>
       ${stars}
       <div class="card-specs">

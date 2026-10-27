@@ -1127,7 +1127,7 @@ function cardHTML(p) {
       <img class="card-img" src="${p.img}" alt="${p.nombre}" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'88\' height=\'88\'><rect fill=\'%23f1f5f9\' width=\'88\' height=\'88\'/></svg>'">
       <div class="card-info">
         <div class="card-badges">${bdgs}${extras.join('')}</div>
-        <div class="card-name">${p.nombre}</div>
+        <div class="card-name">${p.nombreCorto || p.nombre}</div>
         <div class="card-brand">${p.marca}</div>
         ${stars}
       </div>

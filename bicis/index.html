@@ -3811,7 +3811,7 @@ function cardConv(b, sec){
       ${b.img?`<img class="card-img" src="${b.img}" alt="${b.nombre}" loading="lazy" onerror="this.outerHTML='<div class=card-img-ph>${emoji}</div>'">`:`<div class="card-img-ph">${emoji}</div>`}
     </div>
     <div class="card-body">
-      <div class="card-name">${b.nombre}</div>
+      <div class="card-name">${b.nombreCorto || b.nombre}</div>
       <div class="card-brand">${b.marca} · ${secLabel}</div>
       <div class="card-stars-dual">
         <div class="stars-col">
@@ -3902,7 +3902,7 @@ function renderGrid(sec){
           ${b.img?`<img class="card-img" src="${b.img}" alt="${b.nombre}" loading="lazy" onerror="this.outerHTML='<div class=card-img-ph>⚡</div>'">`:'<div class="card-img-ph">⚡</div>'}
         </div>
         <div class="card-body">
-          <div class="card-name">${b.nombre}</div>
+          <div class="card-name">${b.nombreCorto || b.nombre}</div>
           <div class="card-brand">${b.marca} · ${b.tipo}${b.ofertaColor?' · '+b.ofertaColor:''}</div>
           ${starsBlock}
           ${b.autonomia!=null

@@ -837,6 +837,8 @@ const QUEUES = [
   {k:'nuevos', l:'Nuevos por revisar', tone:'info', f:p => p.estadoML === 'nuevo'},
   {k:'pausado_ml', l:'Pausado/Eliminado ML', tone:'err', f:p => p.estadoML === 'no_encontrado' || !!p.pausaML},
   {k:'pausados', l:'Pausados web', f:p => p.activo === false && p.estadoML !== 'nuevo'},
+  {k:'listos_activar', l:'Listos para activar', tone:'info', f:p => p.activo === false && !!p.linkAmz && hasTag(p.linkAmz) && p.precioAmz != null},
+  {k:'activados_pend', l:'Activados, falta precio ML', tone:'warn', f:p => !!p._activadoPendiente},
   {k:'amz_tag', l:'Amazon sin tag', tone:'err', f:p => !!p.linkAmz && !hasTag(p.linkAmz), optional:true},
   {k:'sin_link', l:'Sin links', tone:'err', f:p => !p.linkML && !p.linkAmz, optional:true},
 ];
@@ -974,7 +976,13 @@ let restored = 0;
   lsSet(PKEY, PENDING);
 })();
 function pendingCount() { return new Set([...Object.keys(PENDING.ops), ...Object.keys(PENDING.added), ...PENDING.deleted]).size; }
-function persist() { lsSet(PKEY, pendingCount() ? PENDING : null); renderStatus(); }
+let autosaveT = null;
+function scheduleAutosave() {
+  clearTimeout(autosaveT);
+  if (!pendingCount() || READONLY) return;
+  autosaveT = setTimeout(() => { if (pendingCount() && !SAVING && !READONLY) save(); }, 4000);
+}
+function persist() { lsSet(PKEY, pendingCount() ? PENDING : null); renderStatus(); scheduleAutosave(); }
 
 function update(key, fields) {
   const r = BYKEY.get(key);
@@ -989,7 +997,7 @@ function update(key, fields) {
 // ── Estado de la vista ──────────────────────────────────────────────────────
 const UI = Object.assign({cat:'todas', view:'resumen'}, lsGet(UKEY) || {});
 const S = {cat:'todas', queue:'todos', plat:'', q:'', view:UI.view === 'specs' ? 'specs' : 'resumen', sort:null, dir:1, colf:{}, sel:new Set(), delPending:false};
-let COLS = [], CURRENT = [], OVERLAY = null, SAVING = false, READONLY = false, DL = null;
+let COLS = [], CURRENT = [], OVERLAY = null, SAVING = false, READONLY = false, DL = null, LAST_ERR = '';
 let RV = {list:[], i:0, done:0};
 
 reindex();
@@ -1012,6 +1020,7 @@ const SHELL = `
       </div>
     </div>
     <button class="btn btn-sm" id="btn-importar" data-act="importar" title="Importar producto desde HTML de Amazon">📥</button>
+    <button class="btn btn-sm" id="btn-pegar" data-act="pegar" title="Crear producto pegando especificaciones de Amazon">🧾</button>
     <button class="btn btn-sm" id="btn-update" data-act="update" title="Resumen de última actualización de precios">📋</button>
     <button class="btn btn-sm" id="btn-dash" data-act="dash" title="Dashboard de analíticas">📊</button>
     <button class="btn btn-sm" id="btn-pub" data-act="pub" title="Generador de publicaciones de Facebook">✍️</button>
@@ -1062,6 +1071,37 @@ const SHELL = `
       <button class="btn btn-primary" data-act="imp-add">+ Agregar a Laptops</button>
       <button class="btn" data-act="imp-copy">Copiar JSON</button>
       <button class="btn" data-act="imp-reset">Limpiar</button>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="pegar" hidden>
+<div class="imp-wrap">
+  <div class="imp-field-grid" style="margin-bottom:10px">
+    <label class="imp-field"><span>Categoría</span><select id="pg-cat"></select></label>
+  </div>
+  <label class="imp-field span2" style="display:block"><span>Pega aquí el bloque "Características y especificaciones" de Amazon</span>
+    <textarea id="pg-texto" rows="10" style="width:100%;margin-top:4px;font-family:var(--font-data);font-size:12px;padding:8px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--fg);resize:vertical" placeholder="Tipo de bicicleta&#9;Bicicleta eléctrica&#10;Número de velocidades&#9;3&#10;…"></textarea>
+  </label>
+  <div style="display:flex;gap:10px;margin:10px 0;align-items:center;flex-wrap:wrap">
+    <button class="btn btn-primary" data-act="pg-extraer" id="pg-extraer-btn">✨ Extraer con IA</button>
+    <span class="muted" id="pg-status" style="font-size:12px"></span>
+  </div>
+  <div id="pg-result" style="display:none">
+    <div class="imp-field-grid">
+      <label class="imp-field span2"><span>Nombre completo</span><input id="pg-nombre" autocomplete="off"></label>
+      <label class="imp-field span2"><span>Nombre corto <span class="muted" style="font-weight:400;text-transform:none">· el que se ve en tabla y tarjetas</span></span><input id="pg-nombre-corto" autocomplete="off" placeholder="Ej. Centurfit Bici moto MGJ569"></label>
+      <label class="imp-field"><span>Marca</span><input id="pg-marca" autocomplete="off"></label>
+    </div>
+    <details class="imp-specs" open>
+      <summary>Especificaciones detectadas</summary>
+      <div class="imp-specs-grid" id="pg-specs-grid"></div>
+    </details>
+    <p class="muted" style="font-size:12px;margin:10px 0">Faltan imagen, link de afiliado y precio — complétalos después desde el editor del producto (✎). El producto se agrega pausado hasta entonces.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn btn-primary" data-act="pg-add">+ Agregar producto</button>
+      <button class="btn" data-act="pg-reset">Limpiar</button>
     </div>
   </div>
 </div>
@@ -1131,6 +1171,7 @@ function renderStatus() {
   const n = pendingCount(), el = $('#status'), b = $('#btn-save');
   if (READONLY) { el.className = 'status'; el.textContent = 'Solo lectura: los cambios quedan en este navegador'; }
   else if (SAVING) { el.className = 'status'; el.textContent = 'Guardando…'; }
+  else if (LAST_ERR) { el.className = 'status dirty'; el.innerHTML = '<i class="dot"></i>' + esc(LAST_ERR) + (n ? ' · ' + esc(plural(n, 'cambio sin guardar', 'cambios sin guardar')) : ''); }
   else if (n) { el.className = 'status dirty'; el.innerHTML = '<i class="dot"></i>' + esc(plural(n, 'cambio sin guardar', 'cambios sin guardar')); }
   else { el.className = 'status'; el.textContent = 'Todo guardado'; }
   b.disabled = !n || SAVING || READONLY;
@@ -1158,7 +1199,22 @@ function renderQueues() {
   $('#queues').innerHTML = QUEUES.filter(q => !q.optional || counts[q.k] || S.queue === q.k).map(q =>
     `<button class="q tone-${q.tone || 'none'}" data-queue="${q.k}" aria-pressed="${S.queue === q.k}"><span class="lbl">${q.l}</span><span class="num">${counts[q.k]}</span></button>`).join('');
   const n = counts.falta_id, s = counts.sugerencias;
-  $('#callout').innerHTML = n ? `<div class="callout"><p><b>${n}</b> de ${mlTotal} productos con link de Mercado Libre no ${n === 1 ? 'tiene' : 'tienen'} ID de catálogo, así que el actualizador no puede leer su precio${mlWithId ? ` (${mlWithId} ya lo tienen)` : ''}.${s ? ` <b>${s}</b> ya tienen candidatos listos para confirmar.` : ''}</p><button class="btn btn-primary" data-act="review">Asignar IDs</button></div>` : '';
+  const callouts = [];
+  if (n) callouts.push(`<div class="callout"><p><b>${n}</b> de ${mlTotal} productos con link de Mercado Libre no ${n === 1 ? 'tiene' : 'tienen'} ID de catálogo, así que el actualizador no puede leer su precio${mlWithId ? ` (${mlWithId} ya lo tienen)` : ''}.${s ? ` <b>${s}</b> ya tienen candidatos listos para confirmar.` : ''}</p><button class="btn btn-primary" data-act="review">Asignar IDs</button></div>`);
+  const la = counts.listos_activar;
+  if (la) callouts.push(`<div class="callout"><p><b>${la}</b> ${la === 1 ? 'producto pausado ya tiene' : 'productos pausados ya tienen'} su link y precio de Amazon completos.</p><button class="btn btn-primary" data-act="activar-listos">Activar ${la === 1 ? '' : 'todos'}</button></div>`);
+  const ap = counts.activados_pend;
+  if (ap) callouts.push(`<div class="callout"><p><b>${ap}</b> ${ap === 1 ? 'producto activado espera' : 'productos activados esperan'} refrescar su precio de Mercado Libre.</p><p class="muted" style="font-size:12px;flex-basis:100%">Pídele a Claude que actualice precios para que se quiten de esta lista.</p></div>`);
+  $('#callout').innerHTML = callouts.join('');
+}
+function bulkActivarListos() {
+  let n = 0;
+  for (const r of ROWS) {
+    const p = r.p;
+    if (p.activo === false && p.linkAmz && hasTag(p.linkAmz) && p.precioAmz != null) { update(r.key, {activo:true, _activadoPendiente:true}); n++; }
+  }
+  renderCats(); renderQueues(); renderTable();
+  toast(n ? plural(n, 'producto activado', 'productos activados') + '. Pide a Claude que actualice los precios de Mercado Libre.' : 'No hay productos listos para activar');
 }
 
 function specCols(cat) {
@@ -1267,7 +1323,7 @@ function rowHtml(r) {
   const cells = COLS.map(c => {
     switch (c.k) {
       case 'chk': return `<td class="c-chk"><input type="checkbox" data-act="sel" aria-label="Seleccionar"${sel ? ' checked' : ''}></td>`;
-      case 'nombre': return `<td><div class="name">${esc(p.nombre)}${needsAff(p) ? ' <span class="note-aff">⚠ Falta link de afiliado</span>' : ''}</div>${linkNote(p)}<div class="sub">${esc(p.marca || '')}${S.cat === 'todas' ? ' · ' + esc(CATS[r.cat] || r.cat) : ''} · id ${esc(p.id)}</div></td>`;
+      case 'nombre': return `<td><div class="name">${esc(p.nombreCorto || p.nombre)}${needsAff(p) ? ' <span class="note-aff">⚠ Falta link de afiliado</span>' : ''}</div>${p.nombreCorto ? `<div class="sub" style="font-style:italic">${esc(p.nombre)}</div>` : ''}${linkNote(p)}<div class="sub">${esc(p.marca || '')}${S.cat === 'todas' ? ' · ' + esc(CATS[r.cat] || r.cat) : ''} · id ${esc(p.id)}</div></td>`;
       case 'mlId': return `<td data-cell="mlId" style="white-space:nowrap">${mlIdCell(p)}</td>`;
       case 'precioML': case 'precioAmz': return `<td class="c-num" data-cell="${c.k}">${priceCell(p, c.k)}</td>`;
       case 'estado': return `<td>${stateCell(p)}</td>`;
@@ -1434,9 +1490,10 @@ function openEdit(key) {
   const {p, cat} = r;
   const specs = specKeysFor(cat, p);
   showOverlay('edit', `<form class="sheet" id="f-edit" novalidate data-key="${esc(key)}">
-    <header class="sheet-head"><div><h2>${esc(p.nombre)}</h2><p class="muted">${esc(CATS[cat] || cat)} · id ${esc(p.id)}${p._updatedAt ? ' · modificado ' + esc(fmtLong(p._updatedAt)) : ''}</p></div><button type="button" class="btn-icon" data-close aria-label="Cerrar">✕</button></header>
+    <header class="sheet-head"><div><h2>${esc(p.nombreCorto || p.nombre)}</h2><p class="muted">${esc(CATS[cat] || cat)} · id ${esc(p.id)}${p._updatedAt ? ' · modificado ' + esc(fmtLong(p._updatedAt)) : ''}</p></div><button type="button" class="btn-icon" data-close aria-label="Cerrar">✕</button></header>
     <div class="grid2">
       <label class="field span2"><span>Nombre</span><input id="e-nombre" required></label>
+      <label class="field span2"><span>Nombre corto <span class="muted" style="font-weight:400;text-transform:none">· para la tabla y las tarjetas del sitio; si se deja vacío se usa el nombre completo</span></span><input id="e-nombre-corto" placeholder="Ej. Centurfit Bici moto MGJ569"></label>
       <label class="field"><span>Marca</span><input id="e-marca"></label>
       <label class="field"><span>En la web</span><select id="e-activo"><option value="1">Activo</option><option value="0">Pausado</option></select></label>
     </div>
@@ -1468,6 +1525,7 @@ function openEdit(key) {
   </form>`);
   const o = $('#overlay');
   $('#e-nombre', o).value = p.nombre || '';
+  $('#e-nombre-corto', o).value = p.nombreCorto || '';
   $('#e-marca', o).value = p.marca || '';
   $('#e-activo', o).value = p.activo === false ? '0' : '1';
   $('#e-ml', o).value = p.linkML || '';
@@ -1507,7 +1565,7 @@ function submitEdit(form, publish) {
   const pml = numOrNull($('#e-pml', o).value), pamz = numOrNull($('#e-pamz', o).value);
   if (pml === undefined || pamz === undefined) { toast('Revisa los precios: deben ser números positivos'); return; }
   const next = {
-    nombre, marca:$('#e-marca', o).value.trim(), activo:$('#e-activo', o).value === '1',
+    nombre, nombreCorto:$('#e-nombre-corto', o).value.trim() || null, marca:$('#e-marca', o).value.trim(), activo:$('#e-activo', o).value === '1',
     linkML:$('#e-ml', o).value.trim() || null, linkAmz:$('#e-amz', o).value.trim() || null,
     mlId:id.id || null, precioML:pml, precioAmz:pamz,
     pausaML:$('#e-pausaml', o).value === '1', pausaAmz:$('#e-pausaamz', o).value === '1',
@@ -1587,6 +1645,7 @@ function openAdd() {
       <label class="field"><span>Categoría</span><select id="a-cat">${cats.map(c => `<option value="${esc(c)}"${c === S.cat ? ' selected' : ''}>${esc(CATS[c] || c)}</option>`).join('')}</select></label>
       <label class="field"><span>Marca</span><input id="a-marca" placeholder="Ej. ASUS"></label>
       <label class="field span2"><span>Nombre</span><input id="a-nombre" placeholder="Ej. ASUS Vivobook 15 Core i5 16GB 512GB"></label>
+      <label class="field span2"><span>Nombre corto <span class="muted" style="font-weight:400;text-transform:none">· opcional, para tabla y tarjetas</span></span><input id="a-nombre-corto" placeholder="Ej. ASUS Vivobook 15"></label>
       <label class="field span2"><span>Link de afiliado ML (el que abre la gente)</span><input id="a-ml" type="url" placeholder="https://meli.la/…"></label>
       <label class="field"><span>Link de catálogo ML (precios y datos)</span><input id="a-mlid" placeholder="https://www.mercadolibre.com.mx/…/p/MLM…" autocomplete="off"><small class="field-msg" id="a-mlid-msg"></small></label>
       <label class="field"><span>Precio ML (MXN)</span><input id="a-pml" type="number" min="0" step="1" inputmode="decimal"></label>
@@ -1605,7 +1664,8 @@ function submitAdd(form) {
   if (id.error) { toast(id.error); return; }
   const pml = numOrNull($('#a-pml', o).value), pamz = numOrNull($('#a-pamz', o).value);
   if (pml === undefined || pamz === undefined) { toast('Revisa los precios: deben ser números positivos'); return; }
-  const p = {id:newId(cat, nombre), nombre, marca, linkML:$('#a-ml', o).value.trim() || null, linkAmz:$('#a-amz', o).value.trim() || null,
+  const nombreCorto = $('#a-nombre-corto', o).value.trim() || null;
+  const p = {id:newId(cat, nombre), nombre, nombreCorto, marca, linkML:$('#a-ml', o).value.trim() || null, linkAmz:$('#a-amz', o).value.trim() || null,
     mlId:id.id || null, mlIdFuente:id.id ? 'manual' : null, precioML:pml, precioAmz:pamz, activo:true, estadoML:null, especs:{}, _updatedAt:new Date().toISOString()};
   if (!DB[cat]) DB[cat] = [];
   DB[cat].push(p);
@@ -1724,11 +1784,15 @@ function buildDocument(saveId) {
 async function save() {
   if (SAVING || READONLY) return;
   if (!pendingCount()) { toast('No hay cambios por guardar'); return; }
-  SAVING = true; renderStatus();
-  const artifact = await use('artifact');
+  clearTimeout(autosaveT);
+  SAVING = true; LAST_ERR = ''; renderStatus();
+  let artifact = await use('artifact');
+  for (let i = 0; i < 4 && !artifact; i++) { await new Promise(res => setTimeout(res, 800)); artifact = await use('artifact'); }
   if (!artifact) {
-    SAVING = false; renderStatus();
-    toast('Guardar no está disponible en esta vista. Tus cambios siguen en este navegador.');
+    SAVING = false; LAST_ERR = 'Guardar no disponible todavía, reintentará solo';
+    renderStatus();
+    toast('Guardar no está disponible en esta vista todavía. Tus cambios siguen en este navegador; se reintentará solo.');
+    scheduleAutosave();
     return;
   }
   const saveId = 'v-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 7);
@@ -1742,10 +1806,16 @@ async function save() {
     PENDING.savingAs = null; lsSet(PKEY, PENDING);
     SAVING = false;
     const code = e && e.code;
-    if (code === 'conflict') toast('Había una versión más nueva. Se recarga y tus cambios se vuelven a aplicar; revisa y guarda otra vez.');
-    else if (['not_writer', 'not_granted', 'not_declared', 'consent_required', 'capability_disabled', 'capability_removed'].includes(code)) { READONLY = true; toast('Esta vista es de solo lectura. Tus cambios quedan en este navegador.'); }
-    else if (code === 'rate_limited') toast('Demasiados guardados seguidos. Espera unos segundos e intenta otra vez.');
-    else toast('No se pudo guardar (' + (code || (e && e.message) || 'error') + '). Tus cambios siguen en este navegador.');
+    if (code === 'conflict') {
+      LAST_ERR = 'Había una versión más nueva: recargando para aplicar tus cambios sobre ella…';
+      toast(LAST_ERR);
+      renderStatus();
+      setTimeout(() => location.reload(), 1400);
+      return;
+    }
+    else if (['not_writer', 'not_granted', 'not_declared', 'consent_required', 'capability_disabled', 'capability_removed'].includes(code)) { READONLY = true; LAST_ERR = 'Solo lectura: tus cambios quedan en este navegador'; toast('Esta vista es de solo lectura. Tus cambios quedan en este navegador.'); }
+    else if (code === 'rate_limited') { LAST_ERR = 'Demasiados guardados seguidos, reintentará solo'; toast('Demasiados guardados seguidos. Espera unos segundos e intenta otra vez.'); scheduleAutosave(); }
+    else { LAST_ERR = 'No se pudo guardar (' + (code || (e && e.message) || 'error') + ')'; toast(LAST_ERR + '. Tus cambios siguen en este navegador.'); scheduleAutosave(); }
     renderStatus();
   }
 }
@@ -1783,6 +1853,24 @@ function bulkActivo(on) {
   toast(n ? plural(n, 'producto', 'productos') + (on ? ' activados' : ' pausados') : 'Ya estaban así');
 }
 function saveUI() { lsSet(UKEY, {cat:S.cat, view:S.view}); }
+
+// ── Paneles alternos (update / dash / importar / pegar / pub) ──────────────
+const PANELS = ['#update', '#dash', '#importar', '#pegar', '#pub'];
+function openPanel(sel, onShow) {
+  const panel = $(sel), btn = $('#btn-' + sel.slice(1));
+  const show = panel.hidden;
+  PANELS.forEach(other => {
+    if (other === sel) return;
+    const el = $(other); if (!el || el.hidden) return;
+    el.hidden = true;
+    const b = $('#btn-' + other.slice(1)); if (b) { b.classList.remove('btn-primary'); b.setAttribute('aria-pressed', 'false'); }
+  });
+  panel.hidden = !show;
+  ['#toolbar', '#table-wrap', '#queues', '#callout'].forEach(s => { const el = $(s); if (el) el.hidden = show; });
+  btn.classList.toggle('btn-primary', show);
+  btn.setAttribute('aria-pressed', String(show));
+  if (show && onShow) onShow();
+}
 
 // ── Eventos ─────────────────────────────────────────────────────────────────
 function onClick(e) {
@@ -1834,6 +1922,7 @@ function onClick(e) {
       else { a.dataset.confirm = '1'; a.textContent = '¿Seguro? Clic otra vez para descartar ' + pendingCount(); setTimeout(() => { delete a.dataset.confirm; a.textContent = 'Descartar cambios sin guardar'; }, 4000); }
       break;
     case 'review': openReview(); break;
+    case 'activar-listos': bulkActivarListos(); break;
     case 'review-one': openReview(key); break;
     case 'inline': if (key) startInline(key, a.dataset.field); break;
     case 'toggle': if (key) { const on = BYKEY.get(key).p.activo === false; update(key, {activo:on}); replaceRow(key); renderQueues(); toast(on ? 'Activado en la web' : 'Pausado: se quita de la web al publicar'); } break;
@@ -1855,70 +1944,11 @@ function onClick(e) {
     case 'rv-skip': RV.i++; renderReview(); break;
     case 'rv-prev': RV.i = Math.max(0, RV.i - 1); while (RV.i > 0 && BYKEY.get(RV.list[RV.i]) && BYKEY.get(RV.list[RV.i]).p.mlId) RV.i--; renderReview(); break;
     case 'rv-none': rvNone(); break;
-    case 'update': {
-      const OTHER_UPD = ['#dash','#importar','#pub'];
-      OTHER_UPD.forEach(sel => {
-        const el2 = $(sel); if(!el2||el2.hidden) return;
-        el2.hidden = true;
-        const bId = sel==='#dash'?'btn-dash':sel==='#importar'?'btn-importar':'btn-pub';
-        const b2 = $('#'+bId); if(b2){b2.classList.remove('btn-primary');b2.setAttribute('aria-pressed','false');}
-      });
-      const upd = $('#update'), btn = $('#btn-update');
-      const show = upd.hidden;
-      upd.hidden = !show;
-      ['#toolbar','#table-wrap','#queues','#callout'].forEach(sel => { const el2=$(sel); if(el2) el2.hidden = show; });
-      btn.classList.toggle('btn-primary', show);
-      btn.setAttribute('aria-pressed', String(show));
-      if (show) renderUpdate();
-      break;
-    }
-    case 'dash': {
-      const upd2 = $('#update'), updBtn2 = $('#btn-update');
-      if (upd2 && !upd2.hidden) { upd2.hidden = true; if(updBtn2){updBtn2.classList.remove('btn-primary');updBtn2.setAttribute('aria-pressed','false');} }
-      const imp2 = $('#importar'), impBtn2 = $('#btn-importar');
-      if (imp2 && !imp2.hidden) { imp2.hidden = true; if(impBtn2){impBtn2.classList.remove('btn-primary');impBtn2.setAttribute('aria-pressed','false');} }
-      const dash = $('#dash'), btn = $('#btn-dash');
-      const show = dash.hidden;
-      dash.hidden = !show;
-      ['#toolbar','#table-wrap','#queues','#callout'].forEach(sel => { const el2=$(sel); if(el2) el2.hidden = show; });
-      btn.classList.toggle('btn-primary', show);
-      btn.setAttribute('aria-pressed', String(show));
-      if (show) renderDash();
-      break;
-    }
-    case 'importar': {
-      const upd3 = $('#update'), updBtn3 = $('#btn-update');
-      if (upd3 && !upd3.hidden) { upd3.hidden = true; if(updBtn3){updBtn3.classList.remove('btn-primary');updBtn3.setAttribute('aria-pressed','false');} }
-      const dash2 = $('#dash'), dashBtn2 = $('#btn-dash');
-      if (dash2 && !dash2.hidden) { dash2.hidden = true; if(dashBtn2){dashBtn2.classList.remove('btn-primary');dashBtn2.setAttribute('aria-pressed','false');} }
-      const panel = $('#importar'), btn = $('#btn-importar');
-      const show = panel.hidden;
-      panel.hidden = !show;
-      ['#toolbar','#table-wrap','#queues','#callout'].forEach(sel => { const el2=$(sel); if(el2) el2.hidden = show; });
-      btn.classList.toggle('btn-primary', show);
-      btn.setAttribute('aria-pressed', String(show));
-      if (show) initImport();
-      break;
-    }
-
-    case 'pub': {
-      const OTHER_PANELS = ['#update','#dash','#importar'];
-      OTHER_PANELS.forEach(sel => {
-        const el = $(sel); if(!el||el.hidden) return;
-        el.hidden = true;
-        const id = sel.slice(1);
-        const bId = id==='dash'?'btn-dash':id==='update'?'btn-update':('btn-'+id);
-        const b = $('#'+bId); if(b){b.classList.remove('btn-primary');b.setAttribute('aria-pressed','false');}
-      });
-      const panel = $('#pub'), btn = $('#btn-pub');
-      const show = panel.hidden;
-      panel.hidden = !show;
-      ['#toolbar','#table-wrap','#queues','#callout'].forEach(sel => { const el2=$(sel); if(el2) el2.hidden = show; });
-      btn.classList.toggle('btn-primary', show);
-      btn.setAttribute('aria-pressed', String(show));
-      if (show) initPub();
-      break;
-    }
+    case 'update': { openPanel('#update', renderUpdate); break; }
+    case 'dash': { openPanel('#dash', renderDash); break; }
+    case 'importar': { openPanel('#importar', initImport); break; }
+    case 'pegar': { openPanel('#pegar', initPegar); break; }
+    case 'pub': { openPanel('#pub', initPub); break; }
     case 'pub-gen': {
       const selRows = pubGetSel();
       if (selRows.length < 2 || !PUB.tipo) { toast('Selecciona al menos 2 productos y un tipo de publicación'); return; }
@@ -2019,6 +2049,9 @@ function onClick(e) {
       const img = $('#imp-preview-img'); if(img) { img.src=''; img.hidden=true; }
       break;
     }
+    case 'pg-extraer': pgExtraer(); break;
+    case 'pg-add': pgAdd(); break;
+    case 'pg-reset': pgReset(); break;
     case 'utm-copy': {
       const out = $('#utm-out');
       if (out && out.value) { navigator.clipboard.writeText(out.value).then(()=>toast('URL copiada')).catch(()=>{ out.select(); document.execCommand('copy'); toast('URL copiada'); }); }
@@ -2196,6 +2229,84 @@ function showImportResult(data) {
     const det = $('#imp-specs-details'); if(det) det.open = true;
   }
   res.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// ── Pegar especificaciones de Amazon (cualquier categoría, vía IA) ──────────
+let PG_INIT = false, SAMPLE_CAP = null;
+function initPegar() {
+  const sel = $('#pg-cat');
+  if (!sel) return;
+  if (!PG_INIT) {
+    sel.innerHTML = Object.keys(DB).map(c => `<option value="${esc(c)}">${esc(CATS[c] || c)}</option>`).join('');
+    PG_INIT = true;
+  }
+  if (DB[S.cat]) sel.value = S.cat;
+}
+async function pgExtraer() {
+  const cat = $('#pg-cat').value;
+  const texto = $('#pg-texto').value.trim();
+  if (!texto) { toast('Pega primero el texto de especificaciones'); return; }
+  const btn = $('#pg-extraer-btn'), st = $('#pg-status');
+  btn.disabled = true; st.textContent = 'Leyendo con IA…';
+  try {
+    if (!SAMPLE_CAP) SAMPLE_CAP = await use('sample');
+    if (!SAMPLE_CAP) { toast('La extracción con IA no está disponible en esta vista'); return; }
+    const fields = SPECS[cat] || [];
+    const keys = fields.map(([k]) => k);
+    const prompt = `Te paso un bloque de "Características y especificaciones" copiado de una página de producto de Amazon México. Devuelve ÚNICAMENTE un objeto JSON (sin texto adicional, sin markdown) con esta forma exacta:
+{"nombre": "título completo del producto tal como lo pondría el vendedor",
+"nombreCorto": "nombre corto para una tabla: marca + modelo, máximo 40 caracteres, sin frases de marketing",
+"marca": "marca del producto",
+"especs": {"clave": "valor breve", "...": "..."}}
+Para "especs" usa EXCLUSIVAMENTE estas claves cuando el texto lo permita deducir (en este formato exacto, sin inventar otras): ${keys.join(', ')}.
+No inventes datos que no estén en el texto; si una clave no aparece, omítela de "especs".
+
+Texto pegado:
+${texto}`;
+    const data = await SAMPLE_CAP.json(prompt, {model: 'claude-haiku-5-5'});
+    if (!data || typeof data !== 'object') throw new Error('respuesta vacía');
+    pgShowResult(cat, data);
+  } catch (e) {
+    toast('No se pudo extraer (' + ((e && e.code) || (e && e.message) || 'error') + '). Puedes llenar los campos a mano.');
+  } finally {
+    btn.disabled = false; st.textContent = '';
+  }
+}
+function pgShowResult(cat, data) {
+  const res = $('#pg-result'); if (!res) return;
+  res.style.display = ''; res.dataset.cat = cat;
+  $('#pg-nombre').value = data.nombre || '';
+  $('#pg-nombre-corto').value = data.nombreCorto || '';
+  $('#pg-marca').value = data.marca || '';
+  const fields = SPECS[cat] || [], especs = data.especs || {};
+  $('#pg-specs-grid').innerHTML = fields.map(([k, l]) => `<label class="imp-field"><span>${esc(l)}</span><input data-sk="${esc(k)}" value="${esc(especs[k] ?? '')}"></label>`).join('');
+  res.scrollIntoView({behavior:'smooth', block:'start'});
+}
+function pgAdd() {
+  const res = $('#pg-result'), cat = (res && res.dataset.cat) || $('#pg-cat').value;
+  const nombre = $('#pg-nombre').value.trim(), marca = $('#pg-marca').value.trim();
+  const nombreCorto = $('#pg-nombre-corto').value.trim() || null;
+  if (!nombre) { toast('El nombre no puede quedar vacío'); $('#pg-nombre').focus(); return; }
+  const especs = {};
+  $('#pg-specs-grid').querySelectorAll('[data-sk]').forEach(inp => { const v = inp.value.trim(); if (v) especs[inp.dataset.sk] = v; });
+  if (!DB[cat]) DB[cat] = [];
+  const id = newId(cat, nombre);
+  const p = {id, nombre, nombreCorto, marca, activo:false, linkML:null, linkAmz:null, precioML:null, precioAmz:null,
+    mlId:null, mlIdFuente:null, imagen:null, especs, estadoML:null, _updatedAt:new Date().toISOString()};
+  DB[cat].push(p);
+  const key = cat + '|' + id;
+  PENDING.added[key] = p;
+  reindex(); persist();
+  renderCats(); renderQueues(); renderTable();
+  toast('"' + nombre.slice(0, 40) + '" agregado a ' + (CATS[cat] || cat) + ', pausado. Agrega imagen, link y precio desde ✎.');
+  pgReset();
+}
+function pgReset() {
+  const texto = $('#pg-texto'), res = $('#pg-result');
+  if (texto) texto.value = '';
+  if (res) { res.style.display = 'none'; delete res.dataset.cat; }
+  ['pg-nombre', 'pg-nombre-corto', 'pg-marca'].forEach(id => { const el = $('#' + id); if (el) el.value = ''; });
+  const grid = $('#pg-specs-grid'); if (grid) grid.innerHTML = '';
 }
 
 // ── Generador de publicaciones ──────────────────────────────────────────────
@@ -2588,6 +2699,7 @@ document.addEventListener('click', onClick);
 document.addEventListener('submit', onSubmit);
 document.addEventListener('input', onInput);
 document.addEventListener('keydown', onKey);
+window.addEventListener('beforeunload', e => { if (pendingCount() && !READONLY) { e.preventDefault(); e.returnValue = ''; } });
 renderAll();
 renderFoot();
 if (!ROWS.length) $('#empty').textContent = 'No se pudieron leer los datos de productos.';

@@ -2790,7 +2790,7 @@ function cardHTML(p) {
     </div>
     <div class="card-body">
       <div class="card-brand">${p.marca}</div>
-      <div class="card-name">${p.nombre}</div>
+      <div class="card-name">${p.nombreCorto || p.nombre}</div>
       ${stars}
       ${specs}
       <div class="card-commercial">
