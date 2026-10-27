@@ -2287,7 +2287,7 @@ ${texto}`;
 }
 function pgShowResult(cat, data) {
   const res = $('#pg-result'); if (!res) return;
-  res.style.display = ''; res.dataset.cat = cat;
+  res.style.display = ''; res.dataset.pgCat = cat;
   $('#pg-nombre').value = data.nombre || '';
   $('#pg-nombre-corto').value = data.nombreCorto || '';
   $('#pg-marca').value = data.marca || '';
@@ -2297,7 +2297,7 @@ function pgShowResult(cat, data) {
   res.scrollIntoView({behavior:'smooth', block:'start'});
 }
 function pgAdd() {
-  const res = $('#pg-result'), cat = (res && res.dataset.cat) || $('#pg-cat').value;
+  const res = $('#pg-result'), cat = (res && res.dataset.pgCat) || $('#pg-cat').value;
   const nombre = $('#pg-nombre').value.trim(), marca = $('#pg-marca').value.trim();
   const nombreCorto = $('#pg-nombre-corto').value.trim() || null;
   if (!nombre) { toast('El nombre no puede quedar vacío'); $('#pg-nombre').focus(); return; }
@@ -2326,7 +2326,7 @@ function pgAdd() {
 function pgReset() {
   const texto = $('#pg-texto'), res = $('#pg-result');
   if (texto) texto.value = '';
-  if (res) { res.style.display = 'none'; delete res.dataset.cat; }
+  if (res) { res.style.display = 'none'; delete res.dataset.pgCat; }
   ['pg-nombre', 'pg-nombre-corto', 'pg-marca', 'pg-amz', 'pg-precio', 'pg-imagen'].forEach(id => { const el = $('#' + id); if (el) el.value = ''; });
   const msg = $('#pg-amz-msg'); if (msg) msg.textContent = '';
   const grid = $('#pg-specs-grid'); if (grid) grid.innerHTML = '';
