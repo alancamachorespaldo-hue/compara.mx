@@ -352,24 +352,25 @@ footer a{color:var(--ac);text-decoration:none}
     const sec=document.getElementById('desc-section');
     if(!grid||!sec)return;
     data.descuentos.forEach(function(d){
+      const esAmz=d.plataforma==='amazon',precio=d.precioOferta||d.precioML;
       const specsHtml=d.especs?[
         d.especs.pantalla?'<li><span class="spec-key">Pantalla</span><span class="spec-val">'+d.especs.pantalla+'</span></li>':'',
         d.especs.ram?'<li><span class="spec-key">RAM</span><span class="spec-val">'+d.especs.ram+'</span></li>':'',
         d.especs.almacenamiento?'<li><span class="spec-key">Almacenamiento</span><span class="spec-val">'+d.especs.almacenamiento+'</span></li>':'',
         d.especs.cam?'<li><span class="spec-key">Cámara</span><span class="spec-val">'+d.especs.cam+'</span></li>':''
       ].filter(Boolean).join(''):'';
-      const amzBtn=d.linkAmz?'<a class="btn-amz-sm" href="'+d.linkAmz+'" rel="sponsored nofollow noopener" target="_blank" onclick="typeof gtag===\'function\'&&gtag(\'event\',\'affiliate_click_amz\',{event_category:\'afiliado\',event_label:\''+d.nombre.replace(/'/g,'\\\'')+'\'  ,value:'+d.precioML+',location:\'hub_descuentos\'})">Amazon →</a>':'';
+      const amzBtn=d.linkAmz?'<a class="btn-amz-sm" href="'+d.linkAmz+'" rel="sponsored nofollow noopener" target="_blank" onclick="typeof gtag===\'function\'&&gtag(\'event\',\'affiliate_click_amz\',{event_category:\'afiliado\',event_label:\''+d.nombre.replace(/'/g,'\\\'')+'\'  ,value:'+precio+',location:\'hub_descuentos\'})">Amazon →</a>':'';
       const card=document.createElement('div');
       card.className='pop-card';
       card.innerHTML='<div class="pop-card-img"><img src="'+d.imagen+'" alt="'+d.nombre+'" loading="lazy"></div>'
         +'<div class="pop-card-body">'
         +'<div style="display:flex;align-items:flex-start;gap:6px;flex-wrap:wrap"><span class="pop-card-name">'+d.nombre+'</span><span class="desc-badge">-'+d.pct+'%</span></div>'
         +(specsHtml?'<ul class="pop-card-specs">'+specsHtml+'</ul>':'')
-        +'<div class="pop-card-price-row"><span class="pop-card-price" style="color:var(--ac)">$'+d.precioML.toLocaleString('es-MX')+' <small>MXN</small></span>'
+        +'<div class="pop-card-price-row"><span class="pop-card-price" style="color:var(--ac)">$'+precio.toLocaleString('es-MX')+' <small>MXN</small></span>'
         +'<span class="desc-price-antes">$'+Math.round(d.precioAntes).toLocaleString('es-MX')+'</span></div>'
         +'<div class="pop-card-btns">'
-        +'<a class="btn-ml-sm" href="'+d.linkML+'" rel="sponsored nofollow noopener" target="_blank" onclick="typeof gtag===\'function\'&&gtag(\'event\',\'affiliate_click_ml\',{event_category:\'afiliado\',event_label:\''+d.nombre.replace(/'/g,'\\\'')+'\'  ,value:'+d.precioML+',location:\'hub_descuentos\'})">'
-        +'<img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-right:3px" alt="" onerror="this.style.display=\'none\'">ML →</a>'
+        +(esAmz||!d.linkML?'':'<a class="btn-ml-sm" href="'+d.linkML+'" rel="sponsored nofollow noopener" target="_blank" onclick="typeof gtag===\'function\'&&gtag(\'event\',\'affiliate_click_ml\',{event_category:\'afiliado\',event_label:\''+d.nombre.replace(/'/g,'\\\'')+'\'  ,value:'+precio+',location:\'hub_descuentos\'})">'
+        +'<img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-right:3px" alt="" onerror="this.style.display=\'none\'">ML →</a>')
         +amzBtn+'</div></div>';
       grid.appendChild(card);
     });

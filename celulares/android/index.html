@@ -3611,6 +3611,7 @@ document.getElementById('howModalOv').addEventListener('click',function(e){if(e.
     var sec=document.getElementById('desc-android-section');
     if(!grid||!sec)return;
     data.descuentos.forEach(function(d){
+      var esAmz=d.plataforma==='amazon',precio=d.precioOferta||d.precioML;
       var specsLi='';
       if(d.especs){
         if(d.especs.pantalla)specsLi+='<li><span class="spec-k">Pantalla</span><span class="spec-v">'+d.especs.pantalla+'</span></li>';
@@ -3618,17 +3619,17 @@ document.getElementById('howModalOv').addEventListener('click',function(e){if(e.
         if(d.especs.almacenamiento)specsLi+='<li><span class="spec-k">Almac.</span><span class="spec-v">'+d.especs.almacenamiento+'</span></li>';
         if(d.especs.cam)specsLi+='<li><span class="spec-k">Cámara</span><span class="spec-v">'+d.especs.cam+'</span></li>';
       }
-      var amzBtn=d.linkAmz?'<a class="desc-android-btn desc-android-btn-amz" href="'+d.linkAmz+'" rel="sponsored nofollow noopener" target="_blank" onclick="typeof gtag===\'function\'&&gtag(\'event\',\'affiliate_click_amz\',{event_category:\'afiliado\',event_label:\''+d.nombre.replace(/'/g,'\\\'')+'\'  ,value:'+d.precioML+',location:\'hub_descuentos\'})">Amazon →</a>':'';
+      var amzBtn=d.linkAmz?'<a class="desc-android-btn desc-android-btn-amz" href="'+d.linkAmz+'" rel="sponsored nofollow noopener" target="_blank" onclick="typeof gtag===\'function\'&&gtag(\'event\',\'affiliate_click_amz\',{event_category:\'afiliado\',event_label:\''+d.nombre.replace(/'/g,'\\\'')+'\'  ,value:'+precio+',location:\'hub_descuentos\'})">Amazon →</a>':'';
       var card=document.createElement('div');
       card.className='desc-android-card';
       card.innerHTML=(d.imagen?'<div class="desc-android-img"><img src="'+d.imagen+'" alt="'+d.nombre+'" loading="lazy"></div>':'')
         +'<div class="desc-android-body">'
         +'<span class="desc-android-name">'+d.nombre+'<span class="desc-android-badge">-'+d.pct+'%</span></span>'
         +(specsLi?'<ul class="desc-android-specs">'+specsLi+'</ul>':'')
-        +'<p class="desc-android-price">$'+d.precioML.toLocaleString('es-MX')+' <span class="desc-android-antes">$'+Math.round(d.precioAntes).toLocaleString('es-MX')+'</span></p>'
+        +'<p class="desc-android-price">$'+precio.toLocaleString('es-MX')+' <span class="desc-android-antes">$'+Math.round(d.precioAntes).toLocaleString('es-MX')+'</span></p>'
         +'<div class="desc-android-btns">'
-        +'<a class="desc-android-btn desc-android-btn-ml" href="'+d.linkML+'" rel="sponsored nofollow noopener" target="_blank" onclick="typeof gtag===\'function\'&&gtag(\'event\',\'affiliate_click_ml\',{event_category:\'afiliado\',event_label:\''+d.nombre.replace(/'/g,'\\\'')+'\'  ,value:'+d.precioML+',location:\'hub_descuentos\'})">'
-        +'<img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-right:3px" alt="" onerror="this.style.display=\'none\'">ML →</a>'
+        +(esAmz||!d.linkML?'':'<a class="desc-android-btn desc-android-btn-ml" href="'+d.linkML+'" rel="sponsored nofollow noopener" target="_blank" onclick="typeof gtag===\'function\'&&gtag(\'event\',\'affiliate_click_ml\',{event_category:\'afiliado\',event_label:\''+d.nombre.replace(/'/g,'\\\'')+'\'  ,value:'+precio+',location:\'hub_descuentos\'})">'
+        +'<img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-right:3px" alt="" onerror="this.style.display=\'none\'">ML →</a>')
         +amzBtn+'</div></div>';
       grid.appendChild(card);
     });

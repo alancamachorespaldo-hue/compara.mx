@@ -343,6 +343,7 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
 .deal-was{font-size:10.5px;color:var(--tx3);text-decoration:line-through}
 .deal-cta{font-size:10px;font-weight:700;color:#333;background:#f0c000;text-align:center;padding:6px 8px;border-radius:7px;margin-top:4px;display:flex;align-items:center;justify-content:center;gap:5px;white-space:nowrap}
 .deal-cta img{height:14px;width:auto;flex-shrink:0}
+.deal-cta-amz{background:#ff9900}
 /* select overlay */
 .deal-sel{position:absolute;top:7px;left:7px;z-index:4;width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.92);border:1.5px solid var(--bd);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:11px;line-height:1;transition:background .15s,border-color .15s;user-select:none}
 .deal-card.deal-selected .deal-sel{background:var(--ac);border-color:var(--ac);color:#fff}
@@ -816,16 +817,17 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
     var wasH=d.precioAntes?'<span class="deal-was">'+fmt(d.precioAntes)+'</span>':'';
     var safeId=(d.id||'').replace(/'/g,"\\'");
     var safeLbl=s.label.replace(/'/g,"\\'");
+    var esAmz=d.plataforma==='amazon',precio=d.precioOferta||d.precioML,href=esAmz?d.linkAmz:d.linkML;
     var selBtn='<span class="deal-sel" role="checkbox" aria-checked="false" aria-label="Seleccionar para comparar" onclick="dealToggleSel(\''+safeLbl+'\',\''+safeId+'\',this,event)">○</span>';
-    return'<a class="deal-card" id="dc-'+safeId+'" href="'+d.linkML+'" target="_blank" rel="sponsored nofollow noopener" role="listitem"'
-      +' onclick="typeof gtag===\'function\'&&gtag(\'event\',\'affiliate_click_ml\',{event_category:\'afiliado\',event_label:\''+lbl+'\',value:'+d.precioML+',page_section:\'home_descuentos\'})">'
+    return'<a class="deal-card" id="dc-'+safeId+'" href="'+href+'" target="_blank" rel="sponsored nofollow noopener" role="listitem"'
+      +' onclick="typeof gtag===\'function\'&&gtag(\'event\',\'affiliate_click_'+(esAmz?'amazon':'ml')+'\',{event_category:\'afiliado\',event_label:\''+lbl+'\',value:'+precio+',page_section:\'home_descuentos\'})">'
       +selBtn
       +'<div class="deal-card-img">'+imgH+'</div>'
       +'<div class="deal-card-body">'
       +'<div class="deal-card-top"><span class="deal-badge" style="background:'+s.bg+'">'+s.label+'</span>'+pctH+'</div>'
       +'<p class="deal-name">'+nm+'</p>'
-      +'<div class="deal-prices"><span class="deal-now">'+fmt(d.precioML)+'</span>'+wasH+'</div>'
-      +'<div class="deal-cta">Clic para ir a <img src="/logomercado.png" alt="Mercado Libre"></div>'
+      +'<div class="deal-prices"><span class="deal-now">'+fmt(precio)+'</span>'+wasH+'</div>'
+      +'<div class="deal-cta'+(esAmz?' deal-cta-amz':'')+'">Clic para ir a '+(esAmz?'<img src="/logoamazon.png" alt="Amazon">':'<img src="/logomercado.png" alt="Mercado Libre">')+'</div>'
       +'</div></a>';
   }
 

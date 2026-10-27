@@ -12,6 +12,7 @@
 import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { amzVigente } from './_ofertas.js';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -114,6 +115,30 @@ if (removed > 0 && !FORZAR) {
   console.error('ejecuta de nuevo con --forzar.');
   console.error('No se escribió ningún cambio.');
   process.exit(1);
+}
+
+// ── 7b. Bajadas de precio de Amazon capturadas con una versión del artifact que no las registraba ──
+// Referencia = precio de la base actual (o su _precioAmzAntes vigente); si el nuevo es menor, queda como oferta.
+{
+  const ahora = new Date().toISOString();
+  let n = 0;
+  for (const [cat, list] of Object.entries(db)) {
+    const prevById = new Map((prev[cat] || []).map(p => [String(p.id), p]));
+    for (const p of list) {
+      const pp = prevById.get(String(p.id));
+      if (!pp || p.precioAmz == null || pp.precioAmz == null || p.precioAmz === pp.precioAmz) continue;
+      const base = amzVigente(pp) ? pp._precioAmzAntes : pp.precioAmz;
+      if (!(p.precioAmz < base)) continue;
+      const vig = amzVigente(p);
+      const antes = vig ? Math.max(p._precioAmzAntes, base) : base;
+      if (vig && antes === p._precioAmzAntes) continue;
+      p._precioAmzAntes = antes;
+      if (!vig) p._precioAmzFecha = ahora;
+      n++;
+      console.log(`   ↓ Amazon ${cat}|${p.id}: $${antes} → $${p.precioAmz} (-${Math.round((antes - p.precioAmz) / antes * 100)}%)`);
+    }
+  }
+  if (n) console.log(`✓ ${n} bajada${n !== 1 ? 's' : ''} de precio de Amazon detectada${n !== 1 ? 's' : ''} contra la base actual`);
 }
 
 // ── 8. Escribir (todas las validaciones pasaron) ─────────────────────────────

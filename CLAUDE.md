@@ -85,7 +85,18 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
   páginas de suplementos sin tocar los links: inyecta un `<script id="pausas">` y un bucle que, antes de
   render, oculta la plataforma pausada (pone su link y precio en null) y quita el producto si están pausadas
   ambas. El link no se borra, se reactiva poniendo la pausa en "Se muestra" en el artifact.
-- `extraer-artifact.js <archivo.html>` — pasa los datos de un artifact guardado a `merged-admin.json`.
+- `extraer-artifact.js <archivo.html>` — pasa los datos de un artifact guardado a `merged-admin.json`. Además detecta
+  bajadas de precio de Amazon capturadas con una versión del artifact que no las registraba (compara contra la base
+  actual y escribe `_precioAmzAntes`/`_precioAmzFecha`). La base de comparación es `merged-admin.json` tal como está:
+  no la confirmes (commit) hasta que el usuario termine de capturar precios, o se pierde la referencia.
+- **Ofertas (`descuentos.json`)** — `_ofertas.js` es la lógica compartida de `generar-descuentos.js` (celulares),
+  `generar-laptops-descuentos.js`, `generar-proteina-descuentos.js` y `generar-cafeteras-descuentos.js`. Hay oferta si
+  `_precioMLAntes > precioML` (lo escribe `generar-admin.js` con cada reporte de ML) o si el precio de Amazon bajó:
+  el artifact guarda `_precioAmzAntes` + `_precioAmzFecha` al capturar un `precioAmz` menor (anclado al precio más alto
+  de la racha; si sube hasta el precio anterior se quita) y la oferta de Amazon vale 7 días (`DIAS_OFERTA_AMZ`, en
+  `_ofertas.js` y en `admin-template.html`; cambiar en ambos). Requiere link con el tag y `pausaAmz` apagado. Gana la
+  tienda con mayor %; cada oferta trae `plataforma` (`ml`|`amazon`), `precioOferta` y `link`. Los consumen la sección
+  de ofertas del inicio, `/celulares/`, `/celulares/android/` y las 3 guías de celulares con `descuentos.json`.
 - `check-site.js` — validaciones del sitio (ver abajo).
 
 Admin: Claude Artifact https://claude.ai/artifact/BTt8aRBCUZQNWvGAS81rTt (se publica desde

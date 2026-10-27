@@ -4,6 +4,7 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { mejorBajada, camposOferta } from './_ofertas.js';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const merged = JSON.parse(readFileSync(join(__dirname, 'merged-admin.json'), 'utf8'));
@@ -11,18 +12,18 @@ const productos = (merged.laptops || []).filter(p =>
   p.activo !== false && p.precioML && p.linkML && p.imagen
 );
 
-const drops = productos
-  .filter(p => p._precioMLAntes && p._precioMLAntes > p.precioML)
-  .map(p => ({
+const drops = (merged.laptops || [])
+  .filter(p => p.activo !== false && p.imagen)
+  .map(p => ({ p, b: mejorBajada(p) }))
+  .filter(x => x.b)
+  .map(({ p, b }) => ({
     id:          String(p.id),
     nombre:      p.nombre,
     imagen:      p.imagen,
-    precioML:    p.precioML,
+    precioML:    p.precioML || null,
     precioAmz:   p.precioAmz || null,
-    precioAntes: p._precioMLAntes,
-    ahorro:      Math.round(p._precioMLAntes - p.precioML),
-    pct:         Math.round((p._precioMLAntes - p.precioML) / p._precioMLAntes * 100),
-    linkML:      p.linkML,
+    ...camposOferta(b),
+    linkML:      p.linkML || null,
     linkAmz:     p.linkAmz || null,
     especs: {
       ram:            (p.especs && p.especs.ram)            || null,
@@ -44,9 +45,12 @@ const relleno = productos
     imagen:      p.imagen,
     precioML:    p.precioML,
     precioAmz:   p.precioAmz || null,
+    plataforma:  'ml',
+    precioOferta: p.precioML,
     precioAntes: null,
     ahorro:      null,
     pct:         null,
+    link:        p.linkML,
     linkML:      p.linkML,
     linkAmz:     p.linkAmz || null,
     especs: {
@@ -66,6 +70,6 @@ const outPath = join(__dirname, '..', 'laptops', 'descuentos.json');
 writeFileSync(outPath, JSON.stringify(output, null, 2));
 console.log(`✓ ${output.descuentos.length} laptops escritos en ${outPath}`);
 output.descuentos.forEach(p => {
-  const tag = p.pct ? `↓${p.pct}%` : 'top precio';
+  const tag = p.pct ? `↓${p.pct}% ${p.plataforma}` : 'top precio';
   console.log(`  [${tag}] ${p.nombre.slice(0, 55)}`);
 });

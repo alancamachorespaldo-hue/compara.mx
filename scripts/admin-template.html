@@ -824,6 +824,10 @@ const ST = {
   sin_precio:['Sin ofertas','err'], precio_sospechoso:['Revisar','warn'], no_encontrado:['Pausado/Eliminado ML','err'], nuevo:['Nuevo · revisar','info'], sin_revisar:['Sin revisar','muted'],
 };
 const hasTag = u => new RegExp('[?&]tag=' + AMZ_TAG + '(?:[&#]|$)').test(u || '');
+// Ofertas de Amazon: al capturar un precio menor se guarda el anterior y la fecha; se publica 7 días (mismo valor en scripts/_ofertas.js).
+const DIAS_OFERTA_AMZ = 7;
+const amzVigente = p => { const t = Date.parse(p._precioAmzFecha); return p._precioAmzAntes > 0 && isFinite(t) && Date.now() - t <= DIAS_OFERTA_AMZ * 864e5; };
+const amzDropPct = p => amzVigente(p) && p.precioAmz != null && p.precioAmz < p._precioAmzAntes ? Math.round((p._precioAmzAntes - p.precioAmz) / p._precioAmzAntes * 100) : 0;
 const QUEUES = [
   {k:'todos', l:'Todos', f:() => true},
   {k:'falta_id', l:'Falta ID ML', tone:'warn', f:p => !!p.linkML && !p.mlId},
@@ -834,6 +838,7 @@ const QUEUES = [
   {k:'sin_precio', l:'Sin ofertas ML', tone:'err', f:p => !!p.mlId && p.estadoML === 'sin_precio'},
   {k:'revisar', l:'Precio a revisar', tone:'warn', f:p => p.estadoML === 'precio_sospechoso'},
   {k:'cambiaron', l:'Cambiaron', tone:'ok', f:p => p.estadoML === 'actualizado'},
+  {k:'bajo_amz', l:'Bajaron en Amazon', tone:'ok', f:p => amzDropPct(p) > 0},
   {k:'nuevos', l:'Nuevos por revisar', tone:'info', f:p => p.estadoML === 'nuevo'},
   {k:'pausado_ml', l:'Pausado/Eliminado ML', tone:'err', f:p => p.estadoML === 'no_encontrado' || !!p.pausaML},
   {k:'pausados', l:'Pausados web', f:p => p.activo === false && p.estadoML !== 'nuevo'},
@@ -984,9 +989,20 @@ function scheduleAutosave() {
 }
 function persist() { lsSet(PKEY, pendingCount() ? PENDING : null); renderStatus(); scheduleAutosave(); }
 
+// Se ancla al precio más alto de la racha: corregir un dedazo no borra la oferta, y subir hasta el precio anterior la quita.
+function amzTrack(p, nuevo) {
+  const viejo = p.precioAmz;
+  const limpiar = p._precioAmzAntes != null ? {_precioAmzAntes:null, _precioAmzFecha:null} : {};
+  if (nuevo == null) return limpiar;
+  if (viejo == null || nuevo === viejo) return {};
+  const vig = amzVigente(p);
+  if (nuevo < viejo) return {_precioAmzAntes: vig ? p._precioAmzAntes : viejo, _precioAmzFecha: new Date().toISOString()};
+  return vig && nuevo < p._precioAmzAntes ? {} : limpiar;
+}
 function update(key, fields) {
   const r = BYKEY.get(key);
   if (!r) return;
+  if ('precioAmz' in fields) Object.assign(fields, amzTrack(r.p, fields.precioAmz));
   fields._updatedAt = new Date().toISOString();
   Object.assign(r.p, fields);
   PENDING.ops[key] = Object.assign(PENDING.ops[key] || {}, fields);
@@ -1304,6 +1320,10 @@ function priceCell(p, field) {
     const pct = (v - p._precioMLAntes) / p._precioMLAntes * 100;
     if (Math.abs(pct) >= 0.05) delta = `<span class="delta ${pct > 0 ? 'up' : 'down'}">${pct > 0 ? '▲' : '▼'} ${Math.abs(pct).toFixed(1)}%</span>`;
   }
+  if (field === 'precioAmz') {
+    const pct = amzDropPct(p);
+    if (pct) delta = `<span class="delta down" title="Antes ${money(p._precioAmzAntes)} · aparece en Ofertas hasta ${fmtShort(new Date(Date.parse(p._precioAmzFecha) + DIAS_OFERTA_AMZ * 864e5).toISOString())}">▼ ${pct}%</span>`;
+  }
   return `<button class="cell-edit" data-act="inline" data-field="${field}" title="Editar ${field === 'precioML' ? 'precio ML' : 'precio Amazon'}">${v != null ? money(v) : '<span class="muted">—</span>'}</button>${delta}`;
 }
 function mlIdCell(p) {
@@ -1456,6 +1476,7 @@ function applyInline(key, field, raw) {
     if (v != null && (!isFinite(v) || v < 0)) { toast('Escribe un precio válido, por ejemplo 12999'); return false; }
     if (v === (p[field] ?? null)) return true;
     update(key, {[field]:v});
+    if (field === 'precioAmz') { const pct = amzDropPct(p); if (pct) toast('Bajó ' + pct + '% en Amazon: saldrá en Ofertas en la próxima actualización'); }
   }
   renderQueues();
   return true;
@@ -1512,6 +1533,7 @@ function openEdit(key) {
     <fieldset class="group"><legend>Amazon</legend>
       <label class="field span2"><span>Link (con ?tag=${AMZ_TAG})</span><input id="e-amz" type="url" placeholder="https://www.amazon.com.mx/dp/…?tag=${AMZ_TAG}"><small class="field-msg" id="e-amz-msg"></small></label>
       <label class="field"><span>Precio Amazon (MXN)</span><input id="e-pamz" type="number" min="0" step="1" inputmode="decimal"></label>
+      <small class="field-msg span2" id="e-amz-drop"></small>
       <label class="field"><span>Estado en Amazon</span><select id="e-pausaamz"><option value="0">Se muestra</option><option value="1">Pausado (oculto en Amazon)</option></select></label>
       <a class="link-sm span2" href="${safeUrl(searchUrlAmz(p))}" target="_blank" rel="noopener">Buscar este producto en Amazon ↗</a>
     </fieldset>
@@ -1555,6 +1577,15 @@ function openEdit(key) {
   };
   pintarCostos();
   [$('#e-pml', o), $('#e-pamz', o), ...o.querySelectorAll('[data-sk]')].forEach(inp => inp && inp.addEventListener('input', pintarCostos));
+  const pintarBajada = () => {
+    const msg = $('#e-amz-drop', o), v = numOrNull($('#e-pamz', o).value);
+    const sim = v == null ? null : Object.assign({}, p, {precioAmz:v}, amzTrack(p, v));
+    const pct = sim ? amzDropPct(sim) : 0;
+    msg.className = 'field-msg span2' + (pct ? ' ok' : '');
+    msg.textContent = pct ? 'Bajó ' + pct + '% (antes ' + money(sim._precioAmzAntes) + '): saldrá en Ofertas en la próxima actualización de precios.' : '';
+  };
+  pintarBajada();
+  $('#e-pamz', o).addEventListener('input', pintarBajada);
 }
 
 function numOrNull(v) { const t = String(v).trim(); if (t === '') return null; const n = Number(t); return isFinite(n) && n >= 0 ? Math.round(n * 100) / 100 : undefined; }

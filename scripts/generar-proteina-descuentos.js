@@ -8,6 +8,7 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { bajadaAmz, camposOferta } from './_ofertas.js';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const { readFileSync: fs_read, writeFileSync: fs_write } = { readFileSync, writeFileSync };
 const fs = { readFileSync, writeFileSync };
@@ -23,15 +24,41 @@ function costoPor25g(especs) {
   return parseFloat(especs.costoPor25g.replace(/[^0-9.]/g, '')) || 999;
 }
 
+// Bajadas capturadas a mano en Amazon (_precioAmzAntes vigente): van primero y no se repiten abajo
+const bajadasAmz = (merged.proteina || [])
+  .filter(p => p.activo !== false && p.imagen)
+  .map(p => ({ p, b: bajadaAmz(p) }))
+  .filter(x => x.b)
+  .map(({ p, b }) => ({
+    id: String(p.id),
+    nombre: p.nombre,
+    imagen: p.imagen,
+    precioML: p.precioML || null,
+    precioAmz: p.precioAmz || null,
+    ...camposOferta(b),
+    linkML: p.linkML || null,
+    linkAmz: p.linkAmz || null,
+    especs: p.especs ? {
+      tipo: p.especs.tipoProteina || null,
+      proteina: p.especs.proteinaPorPorcion || null,
+      costo25g: p.especs.costoPor25g || null,
+    } : null,
+    _updatedAt: p._precioAmzFecha || new Date().toISOString(),
+  }));
+const idsAmz = new Set(bajadasAmz.map(p => p.id));
+
 // Productos con bajada real de precio
-const bajadas = productos
-  .filter(p => p.precio && p.precioML < p.precio)
+const bajadasML = productos
+  .filter(p => !idsAmz.has(String(p.id)) && p.precio && p.precioML < p.precio)
   .map(p => ({
     id: String(p.id),
     nombre: p.nombre,
     imagen: p.imagen,
     precioML: p.precioML,
     precioAmz: p.precioAmz || null,
+    plataforma: 'ml',
+    precioOferta: p.precioML,
+    link: p.linkML,
     precioAntes: p.precio,
     ahorro: Math.round(p.precio - p.precioML),
     pct: Math.round((p.precio - p.precioML) / p.precio * 100),
@@ -46,6 +73,8 @@ const bajadas = productos
   }))
   .sort((a, b) => b.pct - a.pct);
 
+const bajadas = [...bajadasAmz, ...bajadasML].sort((a, b) => b.pct - a.pct);
+
 // Si hay menos de 4 bajadas, completa con mejores precio/calidad (sin repetir)
 const bajadaIds = new Set(bajadas.map(p => p.id));
 const relleno = productos
@@ -58,6 +87,9 @@ const relleno = productos
     imagen: p.imagen,
     precioML: p.precioML,
     precioAmz: p.precioAmz || null,
+    plataforma: 'ml',
+    precioOferta: p.precioML,
+    link: p.linkML,
     precioAntes: null,
     ahorro: null,
     pct: null,
@@ -80,6 +112,6 @@ const outPath = join(__dirname, '..', 'suplementos', 'proteina', 'descuentos.jso
 writeFileSync(outPath, JSON.stringify(output, null, 2));
 console.log(`✓ ${output.descuentos.length} productos escritos en ${outPath}`);
 output.descuentos.forEach(p => {
-  const tag = p.pct ? `↓${p.pct}%` : 'top precio';
+  const tag = p.pct ? `↓${p.pct}% ${p.plataforma}` : 'top precio';
   console.log(`  [${tag}] ${p.nombre.slice(0, 50)}`);
 });
