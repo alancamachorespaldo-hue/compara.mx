@@ -873,9 +873,10 @@ wrap.innerHTML='<div style="position:relative;flex-shrink:0">'
 +'<div class="aside-sel-dot" data-dot="'+c.id+'"></div>';
 wrap.addEventListener('click',function(e){
 if(e.target.closest('a'))return;
-var idx=selIds.indexOf(c.id);
+var cid=String(c.id);
+var idx=selIds.indexOf(cid);
 if(idx>-1){selIds.splice(idx,1);}
-else if(selIds.length<3){selIds.push(c.id);}
+else if(selIds.length<3){selIds.push(cid);}
 updateSel();
 });
 parent.appendChild(wrap);
@@ -896,9 +897,10 @@ wrap.innerHTML='<img class="aside-prod-img" src="'+c.img+'" alt="'+c.n+'" loadin
 +'<div class="aside-sel-dot" data-dot="'+c.id+'"></div>';
 wrap.addEventListener('click',function(e){
 e.preventDefault();
-var idx=selIds.indexOf(c.id);
+var cid=String(c.id);
+var idx=selIds.indexOf(cid);
 if(idx>-1){selIds.splice(idx,1);}
-else if(selIds.length<3){selIds.push(c.id);}
+else if(selIds.length<3){selIds.push(cid);}
 updateSel();
 });
 parent.appendChild(wrap);
