@@ -4,7 +4,7 @@
 import { readFileSync, writeFileSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
-import { mejorBajada, camposOferta } from "./_ofertas.js";
+import { mejorBajada, camposOferta, publicado } from "./_ofertas.js";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const adminPath  = join(__dirname, "merged-admin.json");
@@ -14,7 +14,7 @@ const admin = JSON.parse(readFileSync(adminPath, "utf8"));
 const prods = admin.celulares_android || [];
 
 const drops = prods
-  .filter(p => p.activo && !p.ignorarDescuento && p.imagen)
+  .filter(p => p.activo && !p.ignorarDescuento && p.imagen && publicado(p))
   .map(p => ({ p, b: mejorBajada(p) }))
   .filter(x => x.b)
   .map(({ p, b }) => ({

@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { bajadaAmz, camposOferta } from './_ofertas.js';
+import { bajadaAmz, camposOferta, publicado } from './_ofertas.js';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const { readFileSync: fs_read, writeFileSync: fs_write } = { readFileSync, writeFileSync };
 const fs = { readFileSync, writeFileSync };
@@ -16,7 +16,7 @@ const path = { join };
 
 const merged = JSON.parse(readFileSync(join(__dirname, 'merged-admin.json'), 'utf8'));
 const productos = (merged.proteina || []).filter(p =>
-  p.activo !== false && p.precioML && p.linkML && p.imagen
+  p.activo !== false && p.precioML && p.linkML && p.imagen && publicado(p)
 );
 
 function costoPor25g(especs) {
@@ -26,7 +26,7 @@ function costoPor25g(especs) {
 
 // Bajadas capturadas a mano en Amazon (_precioAmzAntes vigente): van primero y no se repiten abajo
 const bajadasAmz = (merged.proteina || [])
-  .filter(p => p.activo !== false && p.imagen)
+  .filter(p => p.activo !== false && p.imagen && publicado(p))
   .map(p => ({ p, b: bajadaAmz(p) }))
   .filter(x => x.b)
   .map(({ p, b }) => ({

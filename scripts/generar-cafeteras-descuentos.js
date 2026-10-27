@@ -5,11 +5,11 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { mejorBajada, camposOferta } from './_ofertas.js';
+import { mejorBajada, camposOferta, publicado } from './_ofertas.js';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const merged = JSON.parse(readFileSync(join(__dirname, 'merged-admin.json'), 'utf8'));
-const productos = (merged.cafeteras || []).filter(p => p.activo !== false && p.imagen);
+const productos = (merged.cafeteras || []).filter(p => p.activo !== false && p.imagen && publicado(p));
 
 const drops = productos
   .map(p => ({ p, b: mejorBajada(p) }))

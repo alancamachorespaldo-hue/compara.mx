@@ -2,6 +2,8 @@
 // Mercado Libre: _precioMLAntes lo escribe generar-admin.js al aplicar ml-report.json.
 // Amazon: _precioAmzAntes + _precioAmzFecha los escribe el artifact cuando se captura un precio menor.
 export const DIAS_OFERTA_AMZ = 7;
+// Un producto "nuevo" (hallado por la búsqueda de ML) no se muestra hasta que se publica desde el artifact (_publicar).
+export const publicado = p => !(p.estadoML === 'nuevo' && !p._publicar);
 const AMZ_TAG = 'comparalo20-20';
 const tagOk = u => new RegExp('[?&]tag=' + AMZ_TAG + '(?:[&#]|$)').test(u || '');
 

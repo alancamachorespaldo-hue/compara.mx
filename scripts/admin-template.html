@@ -127,6 +127,8 @@ tr.is-paused .name{color:var(--fg-3);text-decoration:line-through}
 .note-aff{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:9px;font-size:11px;font-weight:700;color:var(--warn);background:var(--warn-soft);white-space:nowrap}
 .publish-box{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;padding:12px 14px;border-radius:10px;background:var(--info-soft)}
 .publish-box p{margin:0;flex:1 1 280px;font-size:13px}
+.badge-btn{border:0;cursor:pointer;font-family:inherit}
+.badge-btn:hover{filter:brightness(.95)}
 .badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:10px;font-size:11.5px;font-weight:700;white-space:nowrap}
 .t-ok{background:var(--ok-soft);color:var(--ok)}.t-warn{background:var(--warn-soft);color:var(--warn)}.t-err{background:var(--err-soft);color:var(--err)}.t-info{background:var(--info-soft);color:var(--info)}.t-muted{background:var(--surface-2);color:var(--fg-2)}.t-neutral{background:var(--surface-2);color:var(--fg)}
 .when{display:block;margin-top:2px;font-size:11px;color:var(--fg-3);white-space:nowrap}
@@ -825,6 +827,10 @@ const ST = {
 };
 const hasTag = u => new RegExp('[?&]tag=' + AMZ_TAG + '(?:[&#]|$)').test(u || '');
 // Ofertas de Amazon: al capturar un precio menor se guarda el anterior y la fecha; se publica 7 días (mismo valor en scripts/_ofertas.js).
+// Categorías cuyos productos "nuevos" se publican desde aquí (sync-html.js tiene su convertidor).
+const PUBLICABLE = new Set(['bicis', 'laptops', 'videojuegos_consolas', 'videojuegos_controles', 'videojuegos_juegos']);
+const esCatalogoML = u => /mercadolibre\.com\.mx\/(?:[^?#]*\/)?p\/MLM\d+/i.test(u || '');
+const linkAfiliadoOk = n => !!((n.linkAmz && hasTag(n.linkAmz)) || (n.linkML && !esCatalogoML(n.linkML)));
 const DIAS_OFERTA_AMZ = 7;
 const amzVigente = p => { const t = Date.parse(p._precioAmzFecha); return p._precioAmzAntes > 0 && isFinite(t) && Date.now() - t <= DIAS_OFERTA_AMZ * 864e5; };
 const amzDropPct = p => amzVigente(p) && p.precioAmz != null && p.precioAmz < p._precioAmzAntes ? Math.round((p._precioAmzAntes - p.precioAmz) / p._precioAmzAntes * 100) : 0;
@@ -1354,7 +1360,7 @@ function rowHtml(r) {
       case 'estado': return `<td>${stateCell(p)}</td>`;
       case 'links': return `<td style="white-space:nowrap">${p.linkML ? `<a class="lk ${(p.pausaML || mlRoto(p)) ? 'lk-roto' : 'lk-ml'}" href="${safeUrl(p.linkML)}" target="_blank" rel="noopener" title="${p.pausaML ? 'Pausado en ML (oculto en la web)' : esc(mlRoto(p) || '')}">ML${p.pausaML ? ' ⏸' : mlRoto(p) ? ' ⚠' : ''} ↗</a>` : ''}${p.linkAmz ? `<a class="lk ${p.pausaAmz ? 'lk-roto' : 'lk-amz'}" href="${safeUrl(p.linkAmz)}" target="_blank" rel="noopener" title="${p.pausaAmz ? 'Pausado en Amazon (oculto en la web)' : (hasTag(p.linkAmz) ? '' : 'Falta el tag de afiliado')}">AMZ${p.pausaAmz ? ' ⏸' : hasTag(p.linkAmz) ? '' : ' ⚠'} ↗</a>` : ''}${!p.linkML && !p.linkAmz ? '<span class="muted">—</span>' : ''}</td>`;
       case 'upd': return `<td class="c-date">${p._updatedAt ? esc(fmtShort(p._updatedAt)) : '<span class="muted">—</span>'}</td>`;
-      case 'web': return p.estadoML === 'nuevo' ? '<td><span class="badge t-info">Sin publicar</span></td>' : `<td><button class="sw${on ? ' on' : ''}" data-act="toggle" aria-pressed="${on}">${on ? 'Activo' : 'Pausado'}</button></td>`;
+      case 'web': return p.estadoML === 'nuevo' ? (PUBLICABLE.has(r.cat) ? '<td><button class="badge badge-btn t-info" data-act="edit" title="Abrir para publicarlo en la web">Sin publicar · Publicar</button></td>' : '<td><span class="badge t-info">Sin publicar</span></td>') : `<td><button class="sw${on ? ' on' : ''}" data-act="toggle" aria-pressed="${on}">${on ? 'Activo' : 'Pausado'}</button></td>`;
       case 'edit': return '<td><button class="btn-icon" data-act="edit" aria-label="Editar producto">✎</button></td>';
       case 'spec': {
         if (COSTO_KEYS[c.sk]) return `<td><span class="spec" style="line-height:1.4">${costoDualHTML(c.sk, p.precioML, p.precioAmz, p.especs, ' · ')}</span></td>`;
@@ -1547,7 +1553,7 @@ function openEdit(key) {
       ? `<div class="field"><span>${esc(l)} <span class="muted" style="font-weight:400;text-transform:none">· por plataforma</span></span><div class="field-msg" data-costo="${esc(sk)}" style="min-height:36px;display:flex;flex-direction:column;justify-content:center;gap:2px;color:var(--fg);font-variant-numeric:tabular-nums"></div></div>`
       : `<label class="field"><span>${esc(l)}</span><input id="e-sk-${i}" data-sk="${esc(sk)}"></label>`).join('')}</fieldset>` : ''}
     <div class="confirm" id="e-confirm" hidden>¿Eliminar este producto del registro? <button type="button" class="btn btn-danger btn-sm" data-act="del-yes">Sí, eliminar</button><button type="button" class="btn btn-sm" data-act="del-no">Cancelar</button></div>
-    ${p.estadoML === 'nuevo' && cat === 'bicis' ? `<div class="publish-box"><p>Bici nueva por revisar. Agrega el link de afiliado y publícala; aparecerá en la web en la próxima sincronización.</p><button type="button" class="btn btn-primary" data-act="publish">Publicar en la web</button></div>` : ''}
+    ${p.estadoML === 'nuevo' && PUBLICABLE.has(cat) ? `<div class="publish-box"><p>${cat === 'bicis' ? 'Bici nueva' : 'Producto nuevo'} por revisar. Pega tu link de afiliado (meli.la/… o Amazon con tag) y publícalo con este botón; el interruptor «En la web» por sí solo no lo publica. Aparecerá en el sitio en la próxima sincronización.</p><button type="button" class="btn btn-primary" data-act="publish">Publicar en la web</button></div>` : ''}
     <footer class="sheet-foot"><button type="button" class="btn btn-ghost-danger" data-act="del">Eliminar</button><span class="spacer"></span><button type="button" class="btn" data-close>Cancelar</button><button type="submit" class="btn btn-primary">Aplicar cambios</button></footer>
   </form>`);
   const o = $('#overlay');
@@ -1643,7 +1649,7 @@ function submitEdit(form, publish) {
   }
   recalcCostos(p, fields);
   if (publish) {
-    if (!next.linkML && !next.linkAmz) { toast('Agrega primero el link de afiliado para poder publicarla'); $('#e-ml', o).focus(); return; }
+    if (!linkAfiliadoOk(next)) { toast('Falta el link de afiliado: pega tu link meli.la/… (el de catálogo de Mercado Libre no genera comisión) o un link de Amazon con tag.'); $('#e-ml', o).focus(); return; }
     Object.assign(fields, {activo:true, _publicar:true, estadoML:'sin_revisar'});
   }
   closeOverlay();

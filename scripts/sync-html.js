@@ -150,7 +150,7 @@ for (const [cat, { file, varName }] of Object.entries(CATALOG)) {
 // categoría que tenga su propio array de productos en una página HTML.
 // Un producto entra al array cuando _publicar:true, activo!==false y tiene linkML o linkAmz;
 // si deja de cumplirlo, se retira. Nunca toca productos de otra categoría ni genera enlaces.
-function syncPublicados(cat, config, toHtmlProduct, label) {
+function syncPublicados(cat, config, toHtmlProduct, label, refrescarPrecio = false) {
   const publicar = (mergedAdmin[cat] || []).filter(p => p._publicar);
   if (!publicar.length) return;
   const filePath = resolve(ROOT, config.file);
@@ -164,16 +164,24 @@ function syncPublicados(cat, config, toHtmlProduct, label) {
   if (end === -1) { console.warn(`⚠ No se pudo cerrar array en ${config.file}`); return; }
   let prods = new Function('return ' + html.slice(start, end + 1))();
   const enHtml = new Set(prods.map(p => String(p.id)));
-  let agregadas = 0, quitadas = 0;
+  let agregadas = 0, quitadas = 0, actualizadas = 0;
   for (const p of publicar) {
     const listo = p.activo !== false && (p.linkML || p.linkAmz);
     if (listo && !enHtml.has(String(p.id))) { prods.push(toHtmlProduct(p)); agregadas++; }
+    else if (listo) {
+      // Ya publicado: sigue los cambios del admin (precios y links pueden quedar en null; el resto solo si hay valor)
+      const h = prods.find(x => String(x.id) === String(p.id)), fresh = toHtmlProduct(p);
+      let cambio = false;
+      for (const k of ['precioML', 'precioAmz', 'linkML', 'linkAmz']) if (k in fresh && JSON.stringify(h[k]) !== JSON.stringify(fresh[k])) { h[k] = fresh[k]; cambio = true; }
+      for (const k of refrescarPrecio ? ['precio', 'nombreCorto', 'img'] : ['nombreCorto', 'img']) if (fresh[k] != null && JSON.stringify(h[k]) !== JSON.stringify(fresh[k])) { h[k] = fresh[k]; cambio = true; }
+      if (cambio) actualizadas++;
+    }
     if (!listo && enHtml.has(String(p.id))) { prods = prods.filter(x => String(x.id) !== String(p.id)); quitadas++; }
   }
-  if (agregadas || quitadas) {
+  if (agregadas || quitadas || actualizadas) {
     const text = JSON.stringify(prods, null, 2).replace(/"([a-zA-Z_$][a-zA-Z0-9_$]*)"\s*:/g, '$1:');
     if (!DRY_RUN) writeFileSync(filePath, html.slice(0, start) + text + html.slice(end + 1), 'utf8');
-    console.log(`✓ ${label} nuevos: ${agregadas} publicados, ${quitadas} retirados${DRY_RUN ? ' (dry-run)' : ''}`);
+    console.log(`✓ ${label} nuevos: ${agregadas} publicados, ${quitadas} retirados, ${actualizadas} actualizados${DRY_RUN ? ' (dry-run)' : ''}`);
   }
 }
 
@@ -196,6 +204,29 @@ function bikeForHtml(p) {
   };
 }
 syncPublicados('bicis', CATALOG.bicis, bikeForHtml, 'bicis');
+
+// ── Laptops: el admin guarda texto ("16 GB", "512 GB SSD"); la página usa cifras. Lo que falte queda en null/[] ──
+const marcaCpu = s => /intel|core|celeron|pentium/i.test(s || '') ? 'Intel' : /amd|ryzen|athlon/i.test(s || '') ? 'AMD'
+  : /apple|\bM[1-9]\b/i.test(s || '') ? 'Apple' : /mediatek|kompanio/i.test(s || '') ? 'MediaTek' : /snapdragon|qualcomm/i.test(s || '') ? 'Qualcomm' : null;
+const toGB = s => { const m = String(s ?? '').match(/(\d+(?:[.,]\d+)?)\s*(tb|gb)?/i); if (!m) return null; const n = parseFloat(m[1].replace(',', '.')); return /tb/i.test(m[2] || '') ? Math.round(n * 1000) : n; };
+const esSi = v => v === true || /^s[ií]/i.test(String(v ?? ''));
+function laptopForHtml(p) {
+  const e = p.especs || {};
+  return {
+    id: p.id, nombre: p.nombre, nombreCorto: p.nombreCorto || null, marca: p.marca, color: e.color || null,
+    precio: p.precio ?? p.precioML ?? p.precioAmz ?? null, precioML: p.precioML ?? null, precioAmz: p.precioAmz ?? null,
+    procesador: e.procesador || null, marcaProcesador: marcaCpu(e.procesador),
+    ram: toGB(e.ram), almacenamiento: toGB(e.almacenamiento), ssd: e.almacenamiento ? /ssd|nvme/i.test(e.almacenamiento) : null,
+    pantalla: toNum(e.pantalla), resolucion: e.resolucion || null, touch: esSi(e.touch),
+    gpu: e.gpu || null, gpuDedicada: esSi(e.gpuDedicada), vram: null, duracionBateria: toNum(e.bateria), peso: toNum(e.peso), os: e.so || null,
+    uso: String(e.uso || '').split(',').map(s => s.trim().toLowerCase()).filter(Boolean),
+    estrellas: p.estrellas ?? null, resenas: p.resenas ?? null,
+    estrellasML: null, resenasML: null, estrellasAmz: p.linkAmz ? (p.estrellas ?? null) : null, resenasAmz: p.linkAmz ? (p.resenas ?? null) : null,
+    badges: [...(p.linkML ? [{ t: 'ML', c: 'b-ml' }] : []), ...(p.linkAmz ? [{ t: 'AMZ', c: 'b-amz' }] : [])],
+    linkML: p.linkML || null, linkAmz: p.linkAmz || null, img: p.imagen || null,
+  };
+}
+syncPublicados('laptops', CATALOG.laptops, laptopForHtml, 'laptops', true);
 
 // ── Videojuegos (nuevo: mismo mecanismo, esquema genérico con especs por categoría) ──
 const VIDEOJUEGOS = {

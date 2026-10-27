@@ -4,16 +4,16 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { mejorBajada, camposOferta } from './_ofertas.js';
+import { mejorBajada, camposOferta, publicado } from './_ofertas.js';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const merged = JSON.parse(readFileSync(join(__dirname, 'merged-admin.json'), 'utf8'));
 const productos = (merged.laptops || []).filter(p =>
-  p.activo !== false && p.precioML && p.linkML && p.imagen
+  p.activo !== false && p.precioML && p.linkML && p.imagen && publicado(p)
 );
 
 const drops = (merged.laptops || [])
-  .filter(p => p.activo !== false && p.imagen)
+  .filter(p => p.activo !== false && p.imagen && publicado(p))
   .map(p => ({ p, b: mejorBajada(p) }))
   .filter(x => x.b)
   .map(({ p, b }) => ({
