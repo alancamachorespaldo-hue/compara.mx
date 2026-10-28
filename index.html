@@ -877,7 +877,7 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
     var n=Object.keys(selections[catLabel]||{}).length;
     var btn=document.getElementById('dcmp-'+catLabel);
     if(btn){
-      btn.innerHTML='<img src="/favicon.svg" alt="" style="width:1em;height:1em;vertical-align:-0.15em;filter:brightness(0) invert(1)"> Comparar '+n;
+      btn.innerHTML='<img src="/favicon.svg" alt="" style="width:1em;height:1em;vertical-align:-0.15em;filter:brightness(0) invert(1)"> comparalo '+n;
       btn.classList.toggle('visible',n>=1);
     }
   };
@@ -935,7 +935,7 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
         +'<div class="deals-row-head">'
         +'<p class="deals-row-label">'+s.emoji+' '+s.label+'</p>'
         +'<a class="deals-go-btn" href="'+s.compareUrl+'" onclick="'+goClick+'">Ir a '+s.label+' →</a>'
-        +'<button class="deals-cmp-btn" id="dcmp-'+s.label+'" onclick="'+cmpClick+'"><img src="/favicon.svg" alt="" style="width:1em;height:1em;vertical-align:-0.15em;filter:brightness(0) invert(1)"> Comparar 0</button>'
+        +'<button class="deals-cmp-btn" id="dcmp-'+s.label+'" onclick="'+cmpClick+'"><img src="/favicon.svg" alt="" style="width:1em;height:1em;vertical-align:-0.15em;filter:brightness(0) invert(1)"> comparalo 0</button>'
         +'</div>'
         +'<div class="deals-outer"><div class="deals-track" role="list">'
         +items.map(function(d){return makeCard(d,s);}).join('')
