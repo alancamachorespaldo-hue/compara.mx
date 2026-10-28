@@ -5452,11 +5452,16 @@ function cardHTML(p) {
 
   const rating = p.estrellas ? `<div class="pcard-rating">★ ${p.estrellas.toFixed(1)} <span>(${(p.resenas||0).toLocaleString('es-MX')})</span></div>` : '';
 
+  // Porciones: usar el valor real o estimar desde contenido ÷ tamaño de porción
+  const porcionesEst = p.porciones ?? (p.contenidoGramos && p.gramosPorPorcion
+    ? Math.round(p.contenidoGramos / p.gramosPorPorcion) : null);
+  const porcionesEsEstimado = p.porciones == null && porcionesEst != null;
+
   // Costo/porción de la plataforma vigente más barata
-  const costoML  = (!p.pausaML  && p.linkML)   ? costoPorc(p.precioML,  p.porciones) : null;
-  const costoAmz = (!p.pausaAmz && p.precioAmz) ? costoPorc(p.precioAmz, p.porciones) : null;
+  const costoML  = (!p.pausaML  && p.linkML)   ? costoPorc(p.precioML,  porcionesEst) : null;
+  const costoAmz = (!p.pausaAmz && p.precioAmz) ? costoPorc(p.precioAmz, porcionesEst) : null;
   const costosOk = [costoML, costoAmz].filter(x=>x!=null);
-  const costoPP = costosOk.length ? Math.min(...costosOk) : costoPorc((p.linkML?p.precioML:p.precioAmz)??p.precio, p.porciones);
+  const costoPP = costosOk.length ? Math.min(...costosOk) : costoPorc((p.linkML?p.precioML:p.precioAmz)??p.precio, porcionesEst);
 
   // Métricas (se ocultan las que no existen) — lista vertical, icono + etiqueta + valor
   const tipoTxt = p.tipoProteina ? (p.tipoProteina.replace(/proteína?/i,'').trim()||p.tipoProteina) : null;
@@ -5464,8 +5469,8 @@ function cardHTML(p) {
   const metrics = [
     ['proteina',      'Proteína/porción', p.proteinaPorPorcion!=null  ? `${p.proteinaPorPorcion} g` : null],
     ['concentracion', 'Concentración',    p.concentracionProteina!=null ? `${p.concentracionProteina.toFixed(1)}%` : null],
-    ['porciones',     'Porciones',        p.porciones!=null ? `${Math.round(p.porciones)}` : null],
-    ['costo',         'Costo/porción',    costoPP!=null ? `$${costoPP.toFixed(2)}` : null],
+    ['porciones',     'Porciones',        porcionesEst!=null ? `${Math.round(porcionesEst)}${porcionesEsEstimado?' aprox':''}` : null],
+    ['costo',         'Costo/porción',    costoPP!=null ? `$${costoPP.toFixed(2)}${porcionesEsEstimado?' aprox':''}` : null],
     ['porcion',       'Porción',          p.proteinaPorPorcion==null && p.gramosPorPorcion!=null ? `${p.gramosPorPorcion} g` : null],
     ['tipo',          'Tipo',             tipoTxt],
     ['contenido',     'Contenido',        contenido],
