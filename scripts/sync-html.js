@@ -228,6 +228,24 @@ function laptopForHtml(p) {
 }
 syncPublicados('laptops', CATALOG.laptops, laptopForHtml, 'laptops', true);
 
+// ── Freidoras: el admin guarda texto ("4.5 L", "1300 W", "200 °C"); la página usa cifras ──
+function freidoraForHtml(p) {
+  const e = p.especs || {};
+  return {
+    id: p.id, nombre: p.nombre, marca: p.marca, modelo: e.modelo || null,
+    tipo: e.tipo || 'freidora-aire',
+    precio: p.precioML ?? p.precioAmz ?? p.precio ?? null,
+    capacidad: toNum(e.capacidad), tempMax: toNum(e.tempMax), potencia: toNum(e.potencia), peso: toNum(e.peso),
+    canastos: toNum(e.canastos) || 1, panel: e.panel || null, ventana: siNo(e.ventana), antiadherente: siNo(e.antiadherente),
+    funciones: [], programas: toNum(e.programas),
+    estrellas: p.estrellas ?? null, resenas: p.resenas ?? null,
+    badges: [...(p.linkML ? [{ t: 'ML', c: 'b-ml' }] : []), ...(p.linkAmz ? [{ t: 'AMZ', c: 'b-amz' }] : [])],
+    linkAmz: p.linkAmz || null, linkML: p.linkML || null, img: p.imagen || null,
+    precioML: p.precioML ?? null,
+  };
+}
+syncPublicados('freidoras', CATALOG.freidoras, freidoraForHtml, 'freidoras');
+
 // ── Videojuegos (nuevo: mismo mecanismo, esquema genérico con especs por categoría) ──
 const VIDEOJUEGOS = {
   videojuegos_consolas:  { file: 'videojuegos/consolas/index.html',  varName: 'productos',
