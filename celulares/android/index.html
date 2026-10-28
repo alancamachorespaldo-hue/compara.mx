@@ -1500,7 +1500,7 @@ const familias = [
     colores: ['Verde'],
     img: 'https://http2.mlstatic.com/D_NQ_NP_626714-MLA105597355234_012026-F.jpg',
     variantes: [
-      { storage: 512, ram: 8, precio: 4699, linkML: 'https://meli.la/1A7T9CX', estrellas: null, resenas: null },
+      { storage: 512, ram: 8, precio: 4588, linkML: 'https://meli.la/1A7T9CX', estrellas: null, resenas: null },
     ]
   },
   {
@@ -1530,7 +1530,7 @@ const familias = [
     colores: ['Negro'],
     img: 'https://http2.mlstatic.com/D_NQ_NP_893328-MLA107413938419_022026-F.jpg',
     variantes: [
-      { storage: 256, ram: 8, precio: 6199, linkML: 'https://meli.la/2JvrPvr', estrellas: null, resenas: null },
+      { storage: 256, ram: 8, precio: 6999, linkML: 'https://meli.la/2JvrPvr', estrellas: null, resenas: null },
     ]
   },
   {
@@ -2083,7 +2083,7 @@ const familias = [
     hz: 120, usb: null, zoom: null,
     img: 'https://http2.mlstatic.com/D_NQ_NP_2X_788440-MLA100968904091_122025-F.webp',
     variantes: [
-      { storage: 256, ram: 12, precio: 11823, linkML: 'https://meli.la/2RXgEDV', estrellas: 4.9, resenas: 113 },
+      { storage: 256, ram: 12, precio: 12269, linkML: 'https://meli.la/2RXgEDV', estrellas: 4.9, resenas: 113 },
     ]
   },
   {
@@ -2748,6 +2748,7 @@ const familias = [
   },
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _fi=familias.length-1;_fi>=0;_fi--){var _f=familias[_fi];for(var _vi=(_f.variantes||[]).length-1;_vi>=0;_vi--){var _v=_f.variantes[_vi];var _id='android-'+_f.modeloBase+'-'+_v.storage+'gb-'+_v.ram+'gb';var _z=_PZ[_id];if(!_z)continue;if(_z.ml){_f.variantes[_vi].linkML=null;_f.variantes[_vi].precio=null;_f.variantes[_vi].pausaML=true;}}if(!_f.variantes.some(function(vv){return vv.linkML||vv.linkAmz;}))familias.splice(_fi,1);}}catch(e){}
+
 
 
 
