@@ -27,20 +27,23 @@ const MARKER_END   = '<!-- cupon-banner:end -->';
 
 function buildBanner(c) {
   const safe = s => String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  const storageKey = `cupon-${c.codigo}-closed`;
   const linkHtml = c.linkProductos
-    ? `<a href="${safe(c.linkProductos)}" target="_blank" rel="noopener sponsored" style="color:#006847;font-weight:700;font-size:12px;text-decoration:underline;white-space:nowrap;margin-left:auto">Ver productos válidos →</a>`
+    ? `<a href="${safe(c.linkProductos)}" target="_blank" rel="noopener sponsored" style="color:#006847;font-weight:700;font-size:12px;text-decoration:underline;white-space:nowrap">Ver productos →</a>`
     : '';
   const condHtml = c.condiciones
     ? `<span style="color:#555;font-size:12px">${safe(c.condiciones)}</span>`
     : '';
   return `${MARKER_START}
-<div id="cupon-banner-ml" style="display:flex;align-items:center;flex-wrap:wrap;gap:6px 14px;padding:10px 18px;background:#ffe600;color:#1a1a2e;font:13px/1.35 system-ui,sans-serif;border-bottom:2px solid #d4c100">
+<div id="cupon-banner-ml" style="position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;align-items:center;flex-wrap:wrap;gap:6px 12px;padding:10px 16px;background:#ffe600;color:#1a1a2e;font:13px/1.35 system-ui,sans-serif;border-top:2px solid #d4c100;box-shadow:0 -2px 8px rgba(0,0,0,.15)">
   <span style="font-size:16px">🏷️</span>
   <strong style="font-size:14px">Cupón ML: <span style="font-family:monospace;letter-spacing:.05em">${safe(c.codigo)}</span></strong>
   <span style="font-weight:600;color:#333">${safe(c.descuento)}</span>
   ${condHtml}
   ${linkHtml}
+  <button onclick="var b=document.getElementById('cupon-banner-ml');b.style.display='none';try{localStorage.setItem('${storageKey}','1')}catch(e){}" style="margin-left:auto;background:none;border:none;cursor:pointer;font-size:20px;line-height:1;color:#555;padding:0 2px;flex-shrink:0" aria-label="Cerrar banner">×</button>
 </div>
+<script>try{if(localStorage.getItem('${storageKey}')==='1')document.getElementById('cupon-banner-ml').style.display='none'}catch(e){}<\/script>
 ${MARKER_END}`;
 }
 
