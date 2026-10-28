@@ -1059,9 +1059,9 @@ const productos = [
     nombre: 'Naíma Glicinato de Magnesio en Polvo – 500 g',
     marca: 'Naíma',
     tipo: 'magnesio',
-    precio: 721.79, precioML: 722, precioAmz: null,
+    precio: 721.79, precioML: 599, precioAmz: null,
     porciones: 166, capsulasPorDia: null, porPorcion: '3 g de polvo',
-    costoPorPorcion: 4.35, mgMagnesio: 500, mgMagnesioElemental: 500,
+    costoPorPorcion: 3.61, mgMagnesio: 500, mgMagnesioElemental: 500,
     formaMagnesio: 'glicinato',
     compuestoMagnesio: 'Glicinato de magnesio 3,000 mg · Magnesio elemental 500 mg',
     absorcion: 'muy alta', vegano: true, certificaciones: ['Vegano','Sin gluten','Sin azúcar añadida'],
@@ -1331,6 +1331,7 @@ const productos = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 
 
