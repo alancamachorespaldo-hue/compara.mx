@@ -894,6 +894,8 @@ function parseMlId(raw) {
 const META = readJson('meta') || {};
 const SAVE_ID = readJson('save') || '';
 let DB = readJson('db') || {};
+let CUPON = readJson('cupon') || { activo: false, codigo: '', descuento: '+10% OFF', condiciones: '', linkProductos: '' };
+let cuponDirty = false;
 let ROWS = [], BYKEY = new Map(), HAY = new WeakMap();
 function reindex() {
   ROWS = []; BYKEY = new Map();
@@ -986,7 +988,7 @@ let restored = 0;
   restored = pendingCount();
   lsSet(PKEY, PENDING);
 })();
-function pendingCount() { return new Set([...Object.keys(PENDING.ops), ...Object.keys(PENDING.added), ...PENDING.deleted]).size; }
+function pendingCount() { return new Set([...Object.keys(PENDING.ops), ...Object.keys(PENDING.added), ...PENDING.deleted]).size + (cuponDirty ? 1 : 0); }
 let autosaveT = null;
 function scheduleAutosave() {
   clearTimeout(autosaveT);
@@ -1046,6 +1048,7 @@ const SHELL = `
     <button class="btn btn-sm" id="btn-update" data-act="update" title="Resumen de última actualización de precios">📋</button>
     <button class="btn btn-sm" id="btn-dash" data-act="dash" title="Dashboard de analíticas">📊</button>
     <button class="btn btn-sm" id="btn-pub" data-act="pub" title="Generador de publicaciones de Facebook">✍️</button>
+    <button class="btn btn-sm" id="btn-cupon" data-act="cupon" title="Cupón para tu comunidad (ML)">🏷️</button>
     <button class="btn btn-primary" id="btn-save" data-act="save">Guardar</button>
   </div>
 </header>
@@ -1497,6 +1500,27 @@ function showOverlay(kind, html, focusSel) {
   if (f) f.focus();
 }
 function closeOverlay() { const o = $('#overlay'); o.hidden = true; o.innerHTML = ''; OVERLAY = null; document.body.style.overflow = ''; }
+function renderCuponPanel() {
+  const c = CUPON;
+  const actBg = c.activo ? 'var(--ok-soft)' : 'var(--surface-2)';
+  const actBorder = c.activo ? 'var(--ok)' : 'var(--line)';
+  const actLabel = c.activo ? '🟢 Banner activo — aparecerá en el sitio tras ejecutar sync-cupon.js' : '⚪ Banner inactivo';
+  showOverlay('cupon', `<div class="sheet" tabindex="-1">
+    <header class="sheet-head"><div><h2>🏷️ Cupón para tu comunidad</h2><p class="muted">Banner de ML · aparece en todas las páginas del sitio cuando está activo</p></div><button type="button" class="btn-icon" data-close aria-label="Cerrar">✕</button></header>
+    <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:8px;border:1px solid ${actBorder};background:${actBg};margin-bottom:4px">
+      <span style="flex:1;font-size:13px;font-weight:600">${actLabel}</span>
+      <button class="btn ${c.activo ? 'btn-danger' : 'btn-primary'}" data-act="cupon-toggle">${c.activo ? 'Desactivar' : 'Activar'}</button>
+    </div>
+    <div class="grid2">
+      <div class="field"><span>Código del cupón</span><input type="text" id="cf-codigo" value="${esc(c.codigo)}" placeholder="AHORROESPECIAL"></div>
+      <div class="field"><span>Texto del descuento</span><input type="text" id="cf-descuento" value="${esc(c.descuento)}" placeholder="+10% OFF"></div>
+      <div class="field span2"><span>Condiciones (texto corto)</span><input type="text" id="cf-condiciones" value="${esc(c.condiciones)}" placeholder="Compra mínima $700 · Máx. $88 · Hasta agotar existencias"></div>
+      <div class="field span2"><span>Link "Ver productos válidos" (opcional)</span><input type="url" id="cf-link" value="${esc(c.linkProductos)}" placeholder="https://mercadolibre.com.mx/..."></div>
+    </div>
+    <p class="muted" style="font-size:12px;margin:0">Tras guardar: ejecuta <code>node scripts/sync-cupon.js</code> y haz push para activar el banner en el sitio.</p>
+    <footer class="sheet-foot"><span class="spacer"></span><button class="btn" data-close>Cerrar</button><button class="btn btn-primary" data-act="cupon-save">Aplicar cambios</button></footer>
+  </div>`, '#cf-codigo');
+}
 
 const SPEC_LABELS = { costoPor25g: 'Costo/25g prot.', costoPor5g: 'Costo/5 g', costoPor1000ui: 'Costo/1000 UI', costoPorPorcion: 'Costo/porción', bateria: 'Batería', uso: 'Uso', gpuDedicada: 'GPU dedicada' };
 function specKeysFor(cat, p) {
@@ -1819,7 +1843,7 @@ function openFilter(btn, sk) {
 // ── Guardar ─────────────────────────────────────────────────────────────────
 function buildDocument(saveId) {
   const css = $('#css').textContent, js = $('#app-js').textContent, meta = $('#meta').textContent;
-  const data = `<script type="application/json" id="meta">${meta}<\/script>\n<script type="application/json" id="db">${safeJson(DB)}<\/script>\n<script type="application/json" id="save">${safeJson(saveId)}<\/script>`;
+  const data = `<script type="application/json" id="meta">${meta}<\/script>\n<script type="application/json" id="db">${safeJson(DB)}<\/script>\n<script type="application/json" id="cupon">${safeJson(CUPON)}<\/script>\n<script type="application/json" id="save">${safeJson(saveId)}<\/script>`;
   const page = `<title>${TITLE}</title>\n<style id="css">${css}</style>\n<div id="app"></div>\n${data}\n<script id="app-js">${js}<\/script>\n`;
   return `<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>${RESET}</style></head><body>\n${page}\n</body></html>`;
 }
@@ -1841,7 +1865,7 @@ async function save() {
   PENDING.savingAs = saveId; lsSet(PKEY, PENDING);
   try {
     await artifact.publish(buildDocument(saveId));
-    PENDING = emptyPending(); lsSet(PKEY, null);
+    PENDING = emptyPending(); lsSet(PKEY, null); cuponDirty = false;
     SAVING = false; renderStatus();
     toast('Guardado');
   } catch (e) {
@@ -1863,7 +1887,8 @@ async function save() {
 }
 function discardPending() {
   DB = readJson('db') || {};
-  PENDING = emptyPending(); lsSet(PKEY, null);
+  PENDING = emptyPending(); lsSet(PKEY, null); cuponDirty = false;
+  CUPON = readJson('cupon') || { activo: false, codigo: '', descuento: '+10% OFF', condiciones: '', linkProductos: '' };
   S.sel.clear(); HAY = new WeakMap();
   reindex(); renderAll();
   toast('Cambios descartados');
@@ -1961,6 +1986,13 @@ function onClick(e) {
   const tr = a.closest('tr[data-key]');
   const key = tr && tr.dataset.key;
   switch (act) {
+    case 'cupon': renderCuponPanel(); break;
+    case 'cupon-toggle':
+      CUPON.activo = !CUPON.activo; cuponDirty = true; renderStatus(); closeOverlay(); renderCuponPanel(); break;
+    case 'cupon-save': {
+      CUPON = { activo: CUPON.activo, codigo: ($('#cf-codigo').value||'').trim().toUpperCase(), descuento: ($('#cf-descuento').value||'').trim(), condiciones: ($('#cf-condiciones').value||'').trim(), linkProductos: ($('#cf-link').value||'').trim() };
+      cuponDirty = true; renderStatus(); closeOverlay(); toast('Cupón actualizado · Haz clic en "Guardar" para publicar'); break;
+    }
     case 'save': save(); break;
     case 'add': openAdd(); break;
     case 'menu': { const open = menu.hidden; menu.hidden = !open; a.setAttribute('aria-expanded', String(open)); break; }

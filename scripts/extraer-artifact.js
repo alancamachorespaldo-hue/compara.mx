@@ -15,6 +15,7 @@ import { fileURLToPath } from 'url';
 import { amzVigente } from './_ofertas.js';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const CUPON_PATH = resolve(ROOT, 'scripts/cupon-config.json');
 
 // --test-db=PATH permite apuntar a un merged-admin.json alternativo (solo para pruebas).
 const testDbArg = process.argv.find(a => a.startsWith('--test-db='));
@@ -139,6 +140,20 @@ if (removed > 0 && !FORZAR) {
     }
   }
   if (n) console.log(`✓ ${n} bajada${n !== 1 ? 's' : ''} de precio de Amazon detectada${n !== 1 ? 's' : ''} contra la base actual`);
+}
+
+// ── 7c. Extraer config de cupón (bloque separado, no valida como categoría) ──
+{
+  const cuponBlock = html.match(/<script type="application\/json" id="cupon">([\s\S]*?)<\/script>/);
+  if (cuponBlock) {
+    try {
+      const cupon = JSON.parse(cuponBlock[1]);
+      writeFileSync(CUPON_PATH, JSON.stringify(cupon, null, 2), 'utf8');
+      console.log(`✓  cupon-config.json: activo=${cupon.activo}${cupon.codigo ? ' · código=' + cupon.codigo : ''}`);
+    } catch (e) {
+      console.warn(`⚠  bloque cupon inválido, se omite: ${e.message}`);
+    }
+  }
 }
 
 // ── 8. Escribir (todas las validaciones pasaron) ─────────────────────────────

@@ -17,6 +17,7 @@ const REPORT_PATH   = resolve(ROOT, 'scripts/ml-report.json');
 const SUG_PATH      = resolve(ROOT, 'scripts/ml-sugerencias.json');
 const TEMPLATE_PATH = resolve(ROOT, 'scripts/admin-template.html');
 const OUT_PATH      = resolve(ROOT, 'scripts/admin-artifact.html');
+const CUPON_PATH    = resolve(ROOT, 'scripts/cupon-config.json');
 
 const readJson = p => (existsSync(p) ? JSON.parse(readFileSync(p, 'utf8')) : null);
 const admin = JSON.parse(readFileSync(ADMIN_PATH, 'utf8'));
@@ -76,6 +77,7 @@ console.log(`✓ merged-admin.json: ${fromLinks} IDs desde links · ${synced} pr
 
 // 4. Página
 const safe = v => JSON.stringify(v).replace(/</g, '\\u003c');
+const cupon = readJson(CUPON_PATH) || { activo: false, codigo: '', descuento: '+10% OFF', condiciones: '', linkProductos: '' };
 const meta = {
   built: new Date().toISOString(),
   reporte: report ? {
@@ -99,6 +101,7 @@ const meta = {
 const data =
   `<script type="application/json" id="meta">${safe(meta)}</script>\n` +
   `<script type="application/json" id="db">${safe(admin)}</script>\n` +
+  `<script type="application/json" id="cupon">${safe(cupon)}</script>\n` +
   `<script type="application/json" id="save">${safe('gen-' + Date.now().toString(36))}</script>`;
 
 const tpl = readFileSync(TEMPLATE_PATH, 'utf8').replace(/\r\n/g, '\n');
