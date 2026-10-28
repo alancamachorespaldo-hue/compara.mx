@@ -355,10 +355,12 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
 .deal-card.deal-selected .deal-sel{background:var(--ac);border-color:var(--ac);color:#fff}
 /* row header */
 .deals-row{margin-bottom:28px}.deals-row:last-child{margin-bottom:0}
-.deals-row-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.deals-row-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
 .deals-row-label{font-size:13px;font-weight:700;color:var(--tx2);letter-spacing:.02em;flex:1}
 .deals-cmp-btn{font-size:11px;font-weight:800;background:var(--ac);color:#fff;border:none;border-radius:8px;padding:5px 12px;cursor:pointer;white-space:nowrap;display:none}
 .deals-cmp-btn.visible{display:inline-flex;align-items:center;gap:5px}
+.deals-go-btn{font-size:11.5px;font-weight:700;color:var(--ac);border:1.5px solid var(--ac);border-radius:8px;padding:5px 12px;white-space:nowrap;text-decoration:none;transition:background .15s,color .15s}
+.deals-go-btn:hover{background:var(--ac);color:#fff}
 /* scroll arrows */
 .deal-arrow{position:absolute;top:50%;transform:translateY(-calc(50% + 4px));z-index:5;width:44px;height:44px;border-radius:50%;background:#fff;border:2px solid var(--bd);box-shadow:0 3px 10px rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:20px;transition:opacity .18s,box-shadow .18s;line-height:1}
 .deal-arrow:hover{box-shadow:0 4px 14px rgba(0,0,0,.22)}
@@ -858,7 +860,8 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
     if(evt){evt.preventDefault();evt.stopPropagation();}
     if(!selections[catLabel])selections[catLabel]={};
     var card=document.getElementById('dc-'+id);
-    if(selections[catLabel][id]){
+    var willSelect=!selections[catLabel][id];
+    if(!willSelect){
       delete selections[catLabel][id];
       el.textContent='○';el.setAttribute('aria-checked','false');
       if(card)card.classList.remove('deal-selected');
@@ -869,6 +872,7 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
       el.textContent='✓';el.setAttribute('aria-checked','true');
       if(card)card.classList.add('deal-selected');
     }
+    if(typeof gtag==='function')gtag('event','click_seleccionar_comparar',{event_category:'home_descuentos',event_label:catLabel,value:willSelect?1:0});
     /* update compare button */
     var n=Object.keys(selections[catLabel]||{}).length;
     var btn=document.getElementById('dcmp-'+catLabel);
@@ -881,6 +885,7 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
   window.dealCompare=function(compareUrl,sesKey,catLabel){
     var ids=Object.keys(selections[catLabel]||{});
     if(!ids.length)return;
+    if(typeof gtag==='function')gtag('event','click_comparar_categoria',{event_category:'home_descuentos',event_label:catLabel,value:ids.length});
     if(sesKey){try{sessionStorage.setItem(sesKey,JSON.stringify(ids));}catch(e){}}
     location.href=compareUrl;
   };
@@ -923,11 +928,13 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
       var s=r.value.cat,items=r.value.items;
       var safeLbl=s.label.replace(/'/g,"\\'");
       var cmpClick='dealCompare(\''+s.compareUrl+'\','+(s.sesKey?'\''+s.sesKey+'\'':'null')+',\''+safeLbl+'\')';
+      var goClick='if(typeof gtag===\'function\')gtag(\'event\',\'click_ir_a_categoria\',{event_category:\'home_descuentos\',event_label:\''+safeLbl+'\'})';
       var row=document.createElement('div');
       row.className='deals-row';
       row.innerHTML='<div class="wrap">'
         +'<div class="deals-row-head">'
         +'<p class="deals-row-label">'+s.emoji+' '+s.label+'</p>'
+        +'<a class="deals-go-btn" href="'+s.compareUrl+'" onclick="'+goClick+'">Ir a '+s.label+' →</a>'
         +'<button class="deals-cmp-btn" id="dcmp-'+s.label+'" onclick="'+cmpClick+'">⚖️ Comparar 0</button>'
         +'</div>'
         +'<div class="deals-outer"><div class="deals-track" role="list">'
