@@ -57,6 +57,9 @@ jobs:
       - name: Generar descuentos del día (cafeteras)
         run: node scripts/generar-cafeteras-descuentos.js
 
+      - name: Generar descuentos del día (bicis, freidoras, microondas, omega3, magnesio, complejo B, vitamina D, videojuegos, tecnología)
+        run: node scripts/generar-ofertas-categoria.js --todas
+
       - name: Aplicar pausas a páginas HTML
         run: node scripts/sync-pausas.js
 
@@ -78,6 +81,11 @@ jobs:
             celulares/catalog-mini.json celulares/descuentos.json \
             suplementos/proteina/descuentos.json laptops/descuentos.json suplementos/creatina/descuentos.json \
             electrodomesticos/cafeteras/descuentos.json \
+            bicis/descuentos.json electrodomesticos/freidoras/descuentos.json electrodomesticos/microondas/descuentos.json \
+            suplementos/omega3/descuentos.json suplementos/magnesio/descuentos.json suplementos/complejo-b/descuentos.json \
+            suplementos/vitamina-d/descuentos.json \
+            videojuegos/consolas/descuentos.json videojuegos/controles/descuentos.json videojuegos/juegos/descuentos.json \
+            tecnologia/bocinas/descuentos.json tecnologia/audifonos/descuentos.json \
             scripts/ml-report.json scripts/merged-admin.json scripts/admin-artifact.html
           if git diff --staged --quiet; then
             echo "Sin cambios de precios."

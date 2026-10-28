@@ -57,7 +57,13 @@
   {"@type":"ListItem","position":13,"name":"Calendario de ofertas Amazon y Mercado Libre México 2026","url":"https://comparalo.mx/guias/calendario-ofertas-amazon-mercado-libre-mexico-2026/"},
   {"@type":"ListItem","position":14,"name":"iPhone 18 Pro precio en México: cuánto costará y cuándo saldrá","url":"https://comparalo.mx/celulares/iphone/iphone-18-pro-precio/"},
   {"@type":"ListItem","position":15,"name":"iPhone 18 Pro vs iPhone 17 Pro: diferencias y cuál comprar","url":"https://comparalo.mx/celulares/iphone/iphone-18-pro-vs-iphone-17-pro/"},
-  {"@type":"ListItem","position":16,"name":"iPhone Duo plegable: precio en México y fecha de salida","url":"https://comparalo.mx/celulares/iphone/iphone-duo-plegable-precio/"}]}
+  {"@type":"ListItem","position":16,"name":"iPhone Duo plegable: precio en México y fecha de salida","url":"https://comparalo.mx/celulares/iphone/iphone-duo-plegable-precio/"}]},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"¿Cómo detecta comparalo.mx las bajadas de precio en Mercado Libre?","acceptedAnswer":{"@type":"Answer","text":"Cada mañana consultamos directamente la ficha de catálogo de cada producto en Mercado Libre México por su ID de catálogo y comparamos el precio actual contra el último precio registrado. Cuando el precio nuevo es menor, lo marcamos como oferta del día y calculamos el porcentaje de descuento real sobre el precio anterior verificado, no sobre un precio de referencia inflado."}},
+  {"@type":"Question","name":"¿Las ofertas de comparalo.mx son precios reales?","acceptedAnswer":{"@type":"Answer","text":"Sí. Solo mostramos una oferta cuando el precio verificado en la plataforma (Mercado Libre o Amazon México) bajó respecto al precio anterior que ya habíamos registrado. No usamos precios tachados ni promociones autodeclaradas por el vendedor."}},
+  {"@type":"Question","name":"¿Con qué frecuencia se actualizan los precios?","acceptedAnswer":{"@type":"Answer","text":"Los precios de Mercado Libre se actualizan automáticamente todas las mañanas. Los precios de Amazon México se revisan y capturan manualmente. Cada producto muestra la fecha de su última verificación."}},
+  {"@type":"Question","name":"¿Qué categorías de productos compara comparalo.mx?","acceptedAnswer":{"@type":"Answer","text":"Celulares, laptops, bicicletas eléctricas, freidoras de aire, microondas, suplementos (proteína, creatina, omega 3, magnesio, complejo B), videojuegos y tecnología (bocinas, audífonos), comparando precios entre Amazon México y Mercado Libre."}}
+ ]}
 ]}
 </script>
 
@@ -554,13 +560,19 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
     <div class="deals-head">
       <div>
         <p class="kicker">Mercado Libre · Precios verificados</p>
-        <h2 id="deals-h">Ofertas del día en México</h2>
-        <p style="font-size:13px;color:var(--tx3);margin:6px 0 0;max-width:520px">Celulares, laptops, suplementos y cafeteras con los mejores precios en Mercado Libre. Selecciona hasta 3 productos para compararlos.</p>
+        <h2 id="deals-h">Ofertas del día en México: bajadas de precio reales detectadas en Mercado Libre</h2>
+        <p style="font-size:13px;color:var(--tx3);margin:6px 0 0;max-width:620px">Celulares, laptops, bicicletas, freidoras, microondas, suplementos, videojuegos y tecnología con bajada de precio real. Selecciona hasta 3 productos para compararlos.</p>
       </div>
       <p class="deals-sub">Actualizado cada mañana · solo precios verificados</p>
     </div>
   </div>
   <div id="deals-container"></div>
+  <div class="wrap">
+    <p style="font-size:12.5px;color:var(--tx3);max-width:760px;margin:18px auto 0;line-height:1.6">
+      <strong style="color:var(--tx2)">¿Cómo detectamos estas bajadas de precio?</strong>
+      Cada mañana consultamos directamente la ficha de catálogo de cada producto en Mercado Libre México y comparamos el precio actual contra el último precio registrado. Cuando el precio nuevo es menor, lo marcamos como oferta del día y calculamos el porcentaje de descuento real — no promociones inventadas ni precios "de referencia" artificialmente inflados. Lo mismo hacemos de forma manual con los precios de Amazon México que capturamos. Así evitamos mostrarte descuentos falsos y solo ves bajadas de precio verificadas, con la fecha de la última revisión.
+    </p>
+  </div>
 </section>
 
 <section class="cats" aria-labelledby="cats-h">
@@ -804,7 +816,18 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
     {url:'/celulares/descuentos.json',                     label:'Celulares', emoji:'📱', bg:'#1a1a2e', compareUrl:'/celulares/android/'},
     {url:'/suplementos/proteina/descuentos.json',          label:'Proteína',  emoji:'💪', bg:'#006847', compareUrl:'/suplementos/proteina/'},
     {url:'/laptops/descuentos.json',                       label:'Laptops',   emoji:'💻', bg:'#1e40af', compareUrl:'/laptops/', sesKey:'lap_preselect'},
-    {url:'/electrodomesticos/cafeteras/descuentos.json',   label:'Cafeteras', emoji:'☕', bg:'#5c3317', compareUrl:'/electrodomesticos/cafeteras/', sesKey:'caf_preselect'}
+    {url:'/electrodomesticos/cafeteras/descuentos.json',   label:'Cafeteras', emoji:'☕', bg:'#5c3317', compareUrl:'/electrodomesticos/cafeteras/', sesKey:'caf_preselect'},
+    {url:'/bicis/descuentos.json',                         label:'Bicicletas', emoji:'🚲', bg:'#0f766e', compareUrl:'/bicis/'},
+    {url:'/electrodomesticos/freidoras/descuentos.json',   label:'Freidoras', emoji:'🍟', bg:'#ea580c', compareUrl:'/electrodomesticos/freidoras/'},
+    {url:'/electrodomesticos/microondas/descuentos.json',  label:'Microondas', emoji:'📟', bg:'#475569', compareUrl:'/electrodomesticos/microondas/'},
+    {url:'/suplementos/creatina/descuentos.json',          label:'Creatina',  emoji:'💊', bg:'#be123c', compareUrl:'/suplementos/creatina/', sesKey:'cre_preselect'},
+    {url:'/suplementos/omega3/descuentos.json',            label:'Omega 3',   emoji:'🐟', bg:'#0369a1', compareUrl:'/suplementos/omega3/'},
+    {url:'/suplementos/magnesio/descuentos.json',          label:'Magnesio',  emoji:'🧪', bg:'#7c3aed', compareUrl:'/suplementos/magnesio/'},
+    {url:'/suplementos/complejo-b/descuentos.json',        label:'Complejo B', emoji:'🩹', bg:'#ca8a04', compareUrl:'/suplementos/complejo-b/'},
+    {url:'/videojuegos/controles/descuentos.json',         label:'Controles', emoji:'🎮', bg:'#4338ca', compareUrl:'/videojuegos/controles/'},
+    {url:'/videojuegos/juegos/descuentos.json',            label:'Videojuegos', emoji:'🕹️', bg:'#15803d', compareUrl:'/videojuegos/juegos/'},
+    {url:'/tecnologia/bocinas/descuentos.json',            label:'Bocinas',   emoji:'🔊', bg:'#9333ea', compareUrl:'/tecnologia/bocinas/'},
+    {url:'/tecnologia/audifonos/descuentos.json',          label:'Audífonos', emoji:'🎧', bg:'#0e7490', compareUrl:'/tecnologia/audifonos/'}
   ];
   var fmt=function(n){return'$'+Number(n).toLocaleString('es-MX');};
   var selections={};/* {label: {id: true}} */
@@ -998,7 +1021,7 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
 })();
 </script>
 <script src="/js/onboarding.js" defer></script>
-<script src="/js/site-nav.js" defer></script>
+<script src="/js/site-nav.js" defer></script>
 <!-- cupon-banner:start -->
 <div id="cupon-banner-ml" style="position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;align-items:center;flex-wrap:wrap;gap:6px 12px;padding:10px 16px;background:#ffe600;color:#1a1a2e;font:13px/1.35 system-ui,sans-serif;border-top:2px solid #d4c100;box-shadow:0 -2px 8px rgba(0,0,0,.15)">
   <span style="font-size:16px">🏷️</span>
