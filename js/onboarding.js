@@ -1,3 +1,10 @@
+/* nav-search: carga el buscador de categorías en todas las páginas */
+(function () {
+  var s = document.createElement('script');
+  s.src = '/js/nav-search.js';
+  document.head.appendChild(s);
+})();
+
 /**
  * comparalo.mx — onboarding modal
  * Hero banner arriba (Amazon/ML), pasos debajo.
