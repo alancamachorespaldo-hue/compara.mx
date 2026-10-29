@@ -74,7 +74,7 @@
     if (document.getElementById('cmx-ns-css')) return;
     var css = [
       /* wrapper */
-      '.cmx-ns{position:relative;flex:0 1 220px;min-width:110px;margin:0 8px}',
+      '.cmx-ns{position:relative;flex:0 1 300px;min-width:180px;margin:0 8px}',
       /* input box */
       '.cmx-ns-box{display:flex;align-items:center;background:var(--s1,#f7f7f5);',
       'border:1.5px solid var(--bd,#e2e2dc);border-radius:8px;padding:0 10px;',
@@ -100,7 +100,8 @@
       '.cmx-ns-item-ic{font-size:15px;flex-shrink:0;width:20px;text-align:center;line-height:1}',
       '.cmx-ns-item-nm{white-space:nowrap}',
       /* responsive */
-      '@media(max-width:900px){.cmx-ns{flex:1;max-width:180px}}',
+      '@media(max-width:1100px){.cmx-ns{flex:0 1 220px;min-width:140px}}',
+      '@media(max-width:900px){.cmx-ns{flex:1;max-width:200px}}',
       '@media(max-width:600px){.cmx-ns{flex:1;max-width:none;margin:0 0 0 8px}.cmx-ns-box{height:32px}}',
     ].join('');
     var el = document.createElement('style');
@@ -135,13 +136,13 @@
 
     input.addEventListener('input', function () {
       var q = this.value.trim().toLowerCase();
-      if (!q) { dd.hidden = true; return; }
+      if (!q) { renderDd(dd, CATS.slice(0, 8)); return; }
       renderDd(dd, doSearch(q));
     });
 
     input.addEventListener('focus', function () {
       var q = this.value.trim().toLowerCase();
-      if (q) renderDd(dd, doSearch(q));
+      renderDd(dd, q ? doSearch(q) : CATS.slice(0, 8));
     });
 
     input.addEventListener('keydown', function (e) {
