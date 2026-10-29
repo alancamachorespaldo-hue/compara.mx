@@ -621,7 +621,7 @@ const productos = [
     "marca": "Alexa",
     "linkML": "https://meli.la/2118w2Q",
     "linkAmz": "https://www.amazon.com.mx/Presentamos-el-Echo-Pop/dp/B09WNK39JN?dib=eyJ2IjoiMSJ9.gfdktK-SRwyolSZPe6XUtuMWtTQEpfZoz5xtgF7dfhVtQS-ht3nBePn67sdwckiD19B5tudKnm_c1izA6QByeY8DmzPJu4-lD9fqYHAx712kQArrQy1Jlfomwc-GNYfTCOwXdWcx64jxO6m6Tf7Vef9N06iEM6Klt5vCsN3PgMMmSlbKkRQDlKw2gUnFphUxPgkgGoUuwj1J5LiYUSn5-SQ3RbzguTwnt-cSsiHFKa_4g9cPYb6wgnTuvI5JRQdw7kxC_s8HGeDEVWWH45vpehXlAzZ5bcq9GtRviyL6UTU._s0MrTBJv7zCq_aMDeEbjBI_hJ9KZFLaaKEngJqGqVU&dib_tag=se&keywords=Alexa%2BAmazon%2BEcho%2BPop%2BC2H4R9%2Bcon%2Basistente%2Bvirtual%2BAlexa%2BControl%2Bde%2BVoz%2BCharcoal&qid=1791858896&sr=8-1&ufe=app_do%3Aamzn1.fos.106a5c47-3834-496c-bc96-2470107b82ca&th=1&linkCode=ll2&tag=comparalo20-20&linkId=b4206cc865d2b99b519122c4f0295173&ref_=as_li_ss_tl",
-    "precioML": 919,
+    "precioML": 929,
     "precioAmz": 999,
     "imagen": "https://http2.mlstatic.com/D_NQ_NP_746643-MLA98130317911_112025-F.jpg",
     "especs": {
@@ -1134,6 +1134,7 @@ const productos = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 
 

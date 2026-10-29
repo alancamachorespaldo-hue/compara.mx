@@ -1188,11 +1188,11 @@ const productos = [
     ],
     "precio": 599.99,
     "precioAmz": 496.97,
-    "precioML": 600,
+    "precioML": 570,
     "contenidoGramos": 240,
     "porciones": 16,
     "gramosPorPorcion": 15,
-    "costoPorPorcion": 37.5,
+    "costoPorPorcion": 35.63,
     "proteinaPorPorcion": 9,
     "concentracionProteina": 60,
     "costoPor25gProteina": 104.16,
@@ -2238,11 +2238,11 @@ const productos = [
     ],
     "precio": 1849,
     "precioAmz": 1849,
-    "precioML": 1824,
+    "precioML": 1868,
     "contenidoGramos": 2270,
     "porciones": 73,
     "gramosPorPorcion": 31,
-    "costoPorPorcion": 24.99,
+    "costoPorPorcion": 25.59,
     "proteinaPorPorcion": 24,
     "concentracionProteina": 77.42,
     "costoPor25gProteina": 26.38,
@@ -4260,11 +4260,11 @@ const productos = [
     ],
     "precio": 902,
     "precioAmz": null,
-    "precioML": 948,
+    "precioML": 999,
     "contenidoGramos": 1000,
     "porciones": 40,
     "gramosPorPorcion": 35,
-    "costoPorPorcion": 23.7,
+    "costoPorPorcion": 24.98,
     "proteinaPorPorcion": null,
     "concentracionProteina": null,
     "costoPor25gProteina": null,
@@ -5124,6 +5124,7 @@ const productos = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 
 
