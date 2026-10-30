@@ -94,14 +94,25 @@ html[data-cmx-layout="v2"] .card .card-btn-col,
 html[data-cmx-layout="v2"] .card .btn-row.dual .btn-buy { background: #fff !important; }
 html[data-cmx-layout="v2"] .card.selected { background: #fff; }
 /* Tarjetas con dos tiendas: dos cajas iguales (nombre, precio, botón), como en proteína */
-html[data-cmx-layout="v2"] .card .card-btns-dual { display: grid !important; grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); gap: 8px !important; flex-direction: row !important; margin-top: 4px; overflow: visible; }
+html[data-cmx-layout="v2"] .card .card-btns-dual { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 8px !important; flex-direction: row !important; margin-top: 4px; overflow: visible; }
 html[data-cmx-layout="v2"] .card .card-btns-dual .card-btn-col { position: relative; display: flex !important; flex-direction: column !important; align-items: stretch !important; justify-content: flex-start; gap: 6px !important; min-width: 0; padding: 16px 8px 10px !important; background: #fff !important; border: 1.5px solid #E2E8E4 !important; border-radius: 12px !important; text-align: center; }
 html[data-cmx-layout="v2"] .card .card-btns-dual .card-btn-col:has(.cmx-cheap) { border-color: #006847 !important; }
-html[data-cmx-layout="v2"] .card .card-btn-col-plat { font: 600 10.5px 'Satoshi', system-ui, sans-serif; letter-spacing: .05em; text-transform: uppercase; color: #64748B; }
+html[data-cmx-layout="v2"] .card .card-btn-col-plat { font: 600 10.5px 'Satoshi', system-ui, sans-serif; letter-spacing: .05em; text-transform: uppercase; color: #64748B; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 html[data-cmx-layout="v2"] .card .card-btn-col-price { font-size: 20px !important; font-weight: 800 !important; letter-spacing: -.02em; color: #0F172A !important; flex: none !important; line-height: 1.1; white-space: nowrap; text-align: center; }
 html[data-cmx-layout="v2"] .card .card-btns-dual .btn-ml,
-html[data-cmx-layout="v2"] .card .card-btns-dual .btn-amz { width: 100% !important; flex: none !important; padding: 8px 6px !important; font-size: 12px !important; min-height: 38px; }
+html[data-cmx-layout="v2"] .card .card-btns-dual .btn-amz { width: 100% !important; flex: none !important; padding: 8px 4px !important; font-size: 12px !important; min-height: 38px; }
 html[data-cmx-layout="v2"] .card .card-btn-col .cmx-cheap { position: absolute; top: -9px; left: 50%; transform: translateX(-50%); margin: 0; width: auto; background: #006847; color: #fff; padding: 2px 9px; font-size: 9.5px; letter-spacing: .06em; white-space: nowrap; }
+/* Tarjetas angostas (2 por fila en móvil): las cajas nunca se apilan, solo se achican como en proteína */
+@media (max-width: 480px) {
+  html[data-cmx-layout="v2"] .card .card-btns-dual { gap: 5px !important; }
+  html[data-cmx-layout="v2"] .card .card-btns-dual .card-btn-col { padding: 11px 4px 7px !important; gap: 4px !important; }
+  html[data-cmx-layout="v2"] .card .card-btn-col-plat { font-size: 8.5px !important; letter-spacing: .02em; }
+  html[data-cmx-layout="v2"] .card .card-btn-col-price { font-size: 14px !important; }
+  html[data-cmx-layout="v2"] .card .card-btns-dual .btn-ml,
+  html[data-cmx-layout="v2"] .card .card-btns-dual .btn-amz { font-size: 9.5px !important; padding: 6px 2px !important; gap: 3px; min-height: 32px; }
+  html[data-cmx-layout="v2"] .card .card-btns-dual .btn-logo-img { height: 12px; max-width: 100%; }
+  html[data-cmx-layout="v2"] .card .card-btn-col .cmx-cheap { font-size: 8px; padding: 1px 6px; top: -7px; }
+}
 /* ── Panel de filtros a la izquierda (casillas con contador) ──
    Lo llena assets/js/filters-panel.js moviendo los botones .filter del toolbar original. */
 html[data-cmx-filters="panel"] #toolbar,
