@@ -121,7 +121,11 @@ input:focus-visible,a:focus-visible,button:focus-visible{outline:2px solid var(-
 .nav-links a{font-weight:500;font-size:13.5px;color:#5a6a7e;padding:8px 11px;border-radius:8px;text-decoration:none}
 .nav-links a:hover{background:var(--s1);color:var(--tx)}
 .nav-search-wrap{position:relative;flex-shrink:0}
-.nav-search{display:flex;align-items:center;gap:8px;background:var(--s1);border:1.5px solid var(--bd);border-radius:100px;padding:0 13px;width:196px}
+.nav-search{display:flex;align-items:center;gap:8px;background:var(--s1);border:1.5px solid var(--bd);border-radius:8px;padding:0 12px;width:240px;flex-shrink:1;min-width:0}
+.nav .wrap{max-width:1280px}
+@media(max-width:1240px){.nav-search{width:160px}.nav-links a{padding:8px 6px}}
+@media(max-width:1060px){.nav-search{width:120px}.nav-links a{font-size:13px}}
+@media(max-width:1000px){.nav-search-wrap{display:none}}
 .nav-search input{border:none;background:transparent;font-size:12.5px;color:var(--tx);width:100%;padding:9px 0;outline:none}
 .nav-drop{display:none;position:absolute;top:calc(100% + 6px);right:0;width:280px;background:#fff;border:1.5px solid var(--bd);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.10);z-index:300;overflow:hidden}
 .nav-drop.open{display:block}

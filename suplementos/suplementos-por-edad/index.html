@@ -353,7 +353,7 @@
     margin: 1rem 0 1.25rem;
   }
   .check-lista li {
-    display: flex; align-items: flex-start; gap: .65rem;
+    display: block; position: relative; padding-left: calc(22px + .65rem);
     font-size: 15px; color: var(--negro);
   }
   .check-lista li::before {
@@ -363,7 +363,7 @@
     background: var(--verde-bg);
     width: 22px; height: 22px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; margin-top: 1px;
+    position: absolute; left: 0; top: 1px;
   }
 
   /* ── Disclaimer médico ── */

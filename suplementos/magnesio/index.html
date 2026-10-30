@@ -203,6 +203,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .empty{text-align:center;padding:3rem;color:var(--tx3);font-size:14px}
 .disclaimer{max-width:1100px;margin:0 auto;padding:1.25rem 2rem;font-size:12px;color:var(--tx3);border-top:1px solid var(--bd)}
 footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;text-align:center}
+@media(max-width:700px){.ft-grid{grid-template-columns:1fr 1fr!important;gap:24px!important}}
 .footer-wordmark{font-size:1rem;font-weight:700;color:var(--ac)}
 .footer-wordmark .logo-mx{color:var(--red)}
 .footer-info{font-size:12px;color:var(--tx3);margin-top:.25rem}
@@ -364,7 +365,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   <a href="/index.html" style="display:flex;align-items:center;flex-shrink:0;">
     <img src="/logopng.png" alt="comparalo.mx" width="1254" height="1254" style="height:36px;width:auto;object-fit:contain;" loading="eager">
   </a>
-  <div style="flex:1;min-width:90px;max-width:340px;display:flex;align-items:center;gap:8px;background:#f7f7f5;border:1.5px solid #e2e2dc;border-radius:24px;padding:0 14px;transition:border-color .15s;" onmouseenter="this.style.borderColor='#006847'" onmouseleave="this.style.borderColor='#e2e2dc'">
+  <div style="flex:1;min-width:90px;max-width:340px;display:flex;align-items:center;gap:8px;background:#f7f7f5;border:1.5px solid #e2e2dc;border-radius:8px;padding:0 14px;transition:border-color .15s;" onmouseenter="this.style.borderColor='#006847'" onmouseleave="this.style.borderColor='#e2e2dc'">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
     <input id="nav-search-input" type="search" placeholder="Buscar magnesio…" style="border:none;background:transparent;font-size:13px;font-family:'Satoshi',sans-serif;color:#0F172A;width:100%;padding:9px 0;outline:none;" oninput="document.getElementById('search').value=this.value;render()">
   </div>
@@ -709,7 +710,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 </script>
 
 <footer style="background:#f7f7f5;border-top:1px solid #e2e2dc;padding:40px 2rem 28px;">
-  <div style="max-width:960px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:32px;">
+  <div class="ft-grid" style="max-width:960px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:32px;">
     <div>
       <img src="/logopng.png" alt="comparalo.mx" width="1254" height="1254" style="height:34px;width:auto;object-fit:contain;margin-bottom:12px;display:block;">
       <p style="font-size:13px;color:#64748b;line-height:1.65;max-width:220px;">Compara precios en Amazon MX y Mercado Libre. Encuentra siempre la mejor oferta.</p>
