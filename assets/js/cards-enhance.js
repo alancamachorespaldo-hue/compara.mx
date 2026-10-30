@@ -22,7 +22,7 @@
     if (price.querySelector('.cmx-cheap')) return;
     var chip = document.createElement('span');
     chip.className = 'cmx-cheap';
-    chip.textContent = 'Más barato';
+    chip.textContent = 'Mejor precio';
     price.appendChild(chip);
     card.setAttribute('data-cmx-cheap', '1');
   }

@@ -685,6 +685,7 @@ function cardHTML(p) {
     : '';
 
   const _plat = (tieneML && tieneAmz) ? 'both' : (tieneML ? 'ml' : 'amz');
+const dualBlock = (tieneML && tieneAmz) ? `<div class="card-btns-dual"><div class="card-btn-col"><div class="card-btn-col-plat">Mercado Libre</div><div class="card-btn-col-price">${fmtPrecio(p.precioML ?? precioShow)}</div>${btnML}</div><div class="card-btn-col"><div class="card-btn-col-plat">Amazon</div><div class="card-btn-col-price">${fmtPrecio(p.precioAmz ?? precioShow)}</div>${btnAmz}</div></div>` : '';
   return `<div class="card${sel?' selected':''}" data-platform="${_plat}" onclick="toggleSelect(${p.id})">
     <div class="card-img-wrap"><img class="card-img" src="${p.img}" alt="${p.nombre}" loading="lazy" onerror="this.src='https://via.placeholder.com/200x180?text=Sin+imagen'"></div>
     <div class="card-body">
@@ -701,8 +702,8 @@ function cardHTML(p) {
         <div class="spec"><div class="spec-lbl">K2</div><div class="spec-val">${p.conK2||'—'}</div></div>
       </div>
       <div class="card-commercial">
-        <div class="price-row"><span class="price-main">${fmtPrecio(precioShow)}</span></div>
-        <div class="${btnRowClass}">${btnML}${btnAmz}</div>
+        ${dualBlock ? '' : `<div class="price-row"><span class="price-main">${fmtPrecio(precioShow)}</span></div>`}
+        ${dualBlock || `<div class="${btnRowClass}">${btnML}${btnAmz}</div>`}
       </div>
     </div>
   </div>`;

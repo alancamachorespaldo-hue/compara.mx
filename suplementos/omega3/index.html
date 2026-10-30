@@ -887,10 +887,10 @@ function render() {
     if (p.linkML && p.linkAmz) {
       const pML = p.precioML || p.precio, pAmz = p.precioAmz || p.precio;
       btnsBlock = `<div class="card-btns-dual">
-        <div class="card-btn-col">
+        <div class="card-btn-col"><div class="card-btn-col-plat">Mercado Libre</div><div class="card-btn-col-price">${fmtPrecio(pML)}</div>
           <a class="btn-ml" href="${p.linkML}" target="_blank" rel="nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\\//g,'').replace(/\\/(?:index\\.html)?$/g,'').replace(/\\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1});}"><img class="btn-logo-img" src="/logomercado.png" alt="ML"></a>
         </div>
-        <div class="card-btn-col">
+        <div class="card-btn-col"><div class="card-btn-col-plat">Amazon</div><div class="card-btn-col-price">${fmtPrecio(pAmz)}</div>
           <a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_amazon',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\\//g,'').replace(/\\/(?:index\\.html)?$/g,'').replace(/\\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1});}"><img class="btn-logo-img" src="/logoamazon.png" alt="AMZ"></a>
         </div>
       </div>`;
@@ -913,7 +913,7 @@ function render() {
         ${stars}
         ${specs}
         <div class="card-commercial">
-          <div class="card-price">${fmtPrecio(p.precio)}</div>
+          ${(p.linkML && p.linkAmz) ? '' : `<div class="card-price">${fmtPrecio(p.precio)}</div>`}
           ${btnsBlock}
         </div>
       </div>
