@@ -5734,6 +5734,20 @@ function closeModal() { document.getElementById('cmp-overlay').classList.remove(
 
 initFilterLists();
 render();
+
+// Preselección desde las guías (proteina_preselect) y desde proteína con creatina (prot_preselect)
+try {
+  ['proteina_preselect', 'prot_preselect'].forEach(function (k) {
+    var raw = sessionStorage.getItem(k);
+    if (!raw) return;
+    sessionStorage.removeItem(k);
+    JSON.parse(raw).forEach(function (x) {
+      var id = parseInt(String(x).replace(/\D/g, ''), 10);
+      if (!isNaN(id) && selected.length < 3 && selected.indexOf(id) === -1 && productos.some(function (p) { return p.id === id; })) toggleSelect(id);
+    });
+  });
+  if (selected.length >= 2) openModal();
+} catch (e) {}
 </script>
 <script>
 function openHowModal(){
