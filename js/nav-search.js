@@ -118,6 +118,7 @@
   function init() {
     var nav = document.querySelector('.nav');
     if (!nav || document.getElementById('cmx-ns-wrap')) return;
+    if (nav.querySelector('.nav-search, .nav-search-wrap, input[type=search], input[type=text]')) return;
 
     injectCss();
 
@@ -131,7 +132,7 @@
       + '<div class="cmx-ns-dd" id="cmx-ns-dd" hidden role="listbox"></div>';
 
     var navLinks = nav.querySelector('.nav-links');
-    if (navLinks) nav.insertBefore(wrap, navLinks);
+    if (navLinks && navLinks.parentNode) navLinks.parentNode.insertBefore(wrap, navLinks);
     else nav.appendChild(wrap);
 
     var input = document.getElementById('cmx-ns-in');
