@@ -890,18 +890,9 @@ const filters = { tipos: new Set(), presentaciones: new Set(), marcas: new Set()
 // esto refleja solo el último sync, no una serie histórica. Si el precio ML actual ya
 // no coincide con "ahora" (p. ej. porque volvió a sincronizarse), la alerta se oculta
 // sola en vez de mostrar un dato viejo.
-const ML_PRICE_DROPS = {
-  11: { antes: 599, ahora: 509 },
-  12: { antes: 529, ahora: 524 },
-};
-function getDrop(p) {
-  const d = ML_PRICE_DROPS[p.id];
-  if (!d) return null;
-  if (p.precioML !== d.ahora) return null;
-  if (typeof d.antes !== 'number' || typeof d.ahora !== 'number' || d.antes <= 0 || d.ahora >= d.antes) return null;
-  const pct = Math.round(((d.antes - d.ahora) / d.antes) * 100);
-  return pct > 0 ? { antes: d.antes, ahora: d.ahora, pct } : null;
-}
+function getDrop(p) { return window.cmxGetDrop ? window.cmxGetDrop(p) : null; }
+// Las bajadas llegan de /assets/data/bajadas.json (price-drops.js): al cargarlas se reconstruyen los filtros y la lista
+document.addEventListener('cmx:drops', function () { initFilterLists(); render(); });
 
 // ── Filtros: listas de checkboxes con conteo real ───────────────
 const TIPO_OPTS = [
@@ -1339,6 +1330,7 @@ document.getElementById('howModalOv').addEventListener('click',function(e){if(e.
 <script>try{sessionStorage.setItem('cmx_onboarding_v1','1');}catch(e){}</script>
 <script src="/assets/js/cards-enhance.js" defer></script>
 <script src="/assets/js/filters-scroll.js" defer></script>
+<script src="/assets/js/price-drops.js" defer></script>
 <script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
 <script src="/assets/js/share.js" defer></script>

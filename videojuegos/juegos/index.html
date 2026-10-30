@@ -927,6 +927,7 @@ function render(){
   const sortDir = document.getElementById('f-sort').value;
 
   let lista = productos.filter(p=>{
+    if (window.cmxPass && !cmxPass(p)) return false;
     if(q && !`${p.nombre} ${p.marca||''} ${p.especs?.plataforma||''} ${p.especs?.genero||''}`.toLowerCase().includes(q)) return false;
     const precio = precioVigente(p);
     if(fPrecio < PRECIO_MAX && (precio==null||precio>fPrecio)) return false;
@@ -1123,6 +1124,7 @@ document.getElementById('howModalOv').addEventListener('click',function(e){if(e.
 </script>
 <script>try{sessionStorage.setItem('cmx_onboarding_v1','1');}catch(e){}</script>
 <script src="/assets/js/cards-enhance.js" defer></script>
+<script src="/assets/js/price-drops.js" defer></script>
 <script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
 <script src="/assets/js/share.js" defer></script>

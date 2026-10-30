@@ -49,6 +49,10 @@
   function flags(id, title, list) {
     return { id: id, title: title, mode: 'and', opts: list.map(function (f) { return { v: f[0], label: f[1], test: f[2] }; }) };
   }
+  function dropFacet() {
+    return { id: 'bajada', title: 'Ofertas', mode: 'or', hidden: true, opts: [
+      { v: 'drop', label: 'Bajó de precio', test: function (p) { return !!(window.cmxGetDrop && window.cmxGetDrop(p)); } }] };
+  }
   function brand() { return byValue('marca', 'Marca', function (p) { return p.marca; }); }
   function cost(edges) { return buckets('costo', 'Costo por porción', function (p) { return p.costoPorPorcion; }, edges); }
 
@@ -117,7 +121,11 @@
     }
     return true;
   }
-  window.cmxPass = function (p) { return pass(p, null); };
+  // Filtro común: cada módulo registra su regla y la página solo llama a cmxPass(p)
+  window.cmxPassers = window.cmxPassers || [];
+  window.cmxPass = window.cmxPass || function (p) { return window.cmxPassers.every(function (f) { return f(p); }); };
+  var called = false;
+  window.cmxPassers.push(function (p) { called = true; return pass(p, null); });
   function underPrice(p) { var m = maxPrice(); return !(m < Infinity && (priceOf(p) || 0) > m); }
   function optCount(f, o) {
     return L.filter(function (p) { return underPrice(p) && pass(p, f.id) && o.test(p); }).length;
@@ -141,7 +149,7 @@
     facets.forEach(function (f) {
       f.opts.forEach(function (o) {
         var n = optCount(f, o);
-        o.span.textContent = '(' + n + ')';
+        o.span.textContent = '';
         o.row.classList.toggle('cmx-zero', n === 0 && (sel[f.id] || []).indexOf(o.v) < 0);
       });
     });
@@ -177,7 +185,7 @@
     if (!aside || !tb || !factory) return;
     main = aside.parentNode.querySelector('.cmx-fp-main');
     L = products();
-    facets = factory();
+    facets = [dropFacet()].concat(factory());
     facets.forEach(function (f) { sel[f.id] = []; });
 
     var head = el('div', 'cmx-fp-head');
@@ -207,6 +215,10 @@
     facets.forEach(function (f) {
       var sec = el('div', 'cmx-fp-sec');
       sec.appendChild(el('h3', '', f.title));
+      if (f.hidden) {
+        sec.hidden = true;
+        document.addEventListener('cmx:drops', function () { sec.hidden = !L.some(function (p) { return f.opts[0].test(p); }); });
+      }
       var LIMIT = 7;
       f.opts.forEach(function (o, idx) {
         var row = el('label', 'cmx-fp-row');
@@ -261,6 +273,11 @@
       var orig = window.render;
       window.render = function () { var r = orig.apply(this, arguments); refresh(); return r; };
       window.render();
+      // Si la página quedó guardada en caché sin el enlace a cmxPass, recarga una vez para traer la versión actual
+      if (!called && L.length && !sessionStorage.getItem('cmx_fp_heal')) {
+        try { sessionStorage.setItem('cmx_fp_heal', '1'); } catch (e) {}
+        location.reload();
+      }
     } else refresh();
   }
 

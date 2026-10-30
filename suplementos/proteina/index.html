@@ -5233,19 +5233,9 @@ function toggleSoloFavs(){
 // esto refleja solo el último sync, no una serie histórica. Si el precio ML actual ya
 // no coincide con "ahora" (p. ej. porque volvió a sincronizarse), la alerta se oculta
 // sola en vez de mostrar un dato viejo.
-const ML_PRICE_DROPS = {
-  3:  { antes: 569,  ahora: 539 },
-  12: { antes: 1132, ahora: 1039 },
-  15: { antes: 1009, ahora: 958 },
-};
-function getDrop(p) {
-  const d = ML_PRICE_DROPS[p.id];
-  if (!d) return null;
-  if (p.precioML !== d.ahora) return null;
-  if (typeof d.antes !== 'number' || typeof d.ahora !== 'number' || d.antes <= 0 || d.ahora >= d.antes) return null;
-  const pct = Math.round(((d.antes - d.ahora) / d.antes) * 100);
-  return pct > 0 ? { antes: d.antes, ahora: d.ahora, pct } : null;
-}
+function getDrop(p) { return window.cmxGetDrop ? window.cmxGetDrop(p) : null; }
+// Las bajadas llegan de /assets/data/bajadas.json (price-drops.js): al cargarlas se reconstruyen los filtros y la lista
+document.addEventListener('cmx:drops', function () { initFilterLists(); render(); });
 
 // ── Filtros: listas de checkboxes con conteo real ───────────────
 const TIPO_OPTS = [
@@ -5515,7 +5505,7 @@ function cardHTML(p) {
   const gaAmz = `onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_amazon',{'platform':'amazon','product_name':this.dataset.gaLabel||'','price':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\\//g,'').replace(/\\/(?:index\\.html)?$/g,'').replace(/\\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1,'category':'proteina'})}" data-ga-label="${esc(p.nombre)}" data-ga-val="${p.precio||0}"`;
 
   const drop = getDrop(p);
-  const dropHTML = drop ? `<span class="prt-bajada"><s>${fmt(drop.antes)}</s>↓ ${drop.pct}%</span>` : '';
+  const dropHTML = drop ? `<span class="prt-bajada"><s>${fmt(drop.antes)}</s>↓ ${drop.pct}% · bajó ${fmt(drop.ahorro)}</span>` : '';
   const mlBox = showML ? `<div class="pplat${bestML?' best':''}">${bestML?'<span class="pplat-tag">Mejor precio</span>':''}<span class="pplat-name"><span class="pn-lg">Mercado Libre</span><span class="pn-sm">ML</span></span><span class="pplat-price${mlPrice==null?' nd':''}">${mlPrice!=null?fmt(mlPrice):'Ver precio'}</span>${dropHTML}<a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" ${gaML}><span class="btn-ira-txt">Ir a</span> <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"><span class="btn-lbl-sm">ML</span></a></div>` : '';
   const amzBox = showAmz ? `<div class="pplat${bestAmz?' best':''}">${bestAmz?'<span class="pplat-tag">Mejor precio</span>':''}<span class="pplat-name"><span class="pn-lg">Amazon</span><span class="pn-sm">AMZ</span></span><span class="pplat-price${amzPrice==null?' nd':''}">${amzPrice!=null?fmt(amzPrice):'Comparar'}</span><a class="btn-amz" href="${amzUrl(p)}" target="_blank" rel="sponsored nofollow noopener" title="${amzEsBusqueda(p)?'Buscar este producto en Amazon':''}" ${gaAmz}><span class="btn-ira-txt">${amzEsBusqueda(p)?'Buscar en':'Ir a'}</span> <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"><span class="btn-lbl-sm">AMZ</span></a></div>` : '';
   const nPlats = (showML?1:0)+(showAmz?1:0);
@@ -5769,6 +5759,7 @@ document.getElementById('howModalOv').addEventListener('click',function(e){if(e.
 <script>try{sessionStorage.setItem('cmx_onboarding_v1','1');}catch(e){}</script>
 <script src="/assets/js/cards-enhance.js" defer></script>
 <script src="/assets/js/filters-scroll.js" defer></script>
+<script src="/assets/js/price-drops.js" defer></script>
 <script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
 <script src="/assets/js/share.js" defer></script>

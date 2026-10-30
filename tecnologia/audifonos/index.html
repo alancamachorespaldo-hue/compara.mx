@@ -1469,6 +1469,7 @@ function render() {
   const pmin = parseFloat(filtroPrecioMin) || null;
   const pmax = parseFloat(filtroPrecioMax) || null;
   const lista = productos.filter(p => {
+    if (window.cmxPass && !cmxPass(p)) return false;
     if (q && !`${p.nombre} ${p.marca || ''}`.toLowerCase().includes(q)) return false;
     if (filtroTipo.size && !filtroTipo.has(p.especs?.formato)) return false;
     if (filtroMarca.size && !filtroMarca.has(p.marca)) return false;
@@ -1737,6 +1738,7 @@ document.getElementById('howModalOv').addEventListener('click',function(e){if(e.
 </script>
 <script src="/assets/js/cards-enhance.js" defer></script>
 <script src="/assets/js/filters-scroll.js" defer></script>
+<script src="/assets/js/price-drops.js" defer></script>
 <script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
 <script src="/assets/js/share.js" defer></script>

@@ -105,6 +105,7 @@ html[data-cmx-filters="panel"] #toolbar,
 html[data-cmx-filters="panel"] #toolbar-mobile { display: none !important; }
 .cmx-fp-layout { max-width: 1400px; margin: 0 auto; padding: 16px 24px 24px; display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 24px; align-items: start; }
 .cmx-fp-main { min-width: 0; }
+.cmx-fp-main .result-info { display: none; }
 .cmx-fp { font-family: 'Satoshi', system-ui, sans-serif; background: #fff; border: 1px solid var(--c-bd, #E2E8E4); border-radius: 14px; position: sticky; top: 80px; max-height: calc(100vh - 96px); overflow-y: auto; scrollbar-width: thin; min-height: 200px; }
 .cmx-fp-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 14px 16px 12px; border-bottom: 1px solid #E2E8E4; position: sticky; top: 0; background: #fff; z-index: 2; }
 .cmx-fp-title { font-size: 14px; font-weight: 700; color: #0F172A; }
@@ -160,6 +161,15 @@ html[data-cmx-filters="panel"] #toolbar-mobile { display: none !important; }
 .cmx-more[hidden] { display: none; }
 .cmx-more-btn { font-family: 'Satoshi', system-ui, sans-serif; font-size: 14px; font-weight: 700; color: #006847; background: #fff; border: 1.5px solid #006847; border-radius: 10px; padding: 12px 24px; min-height: 44px; cursor: pointer; transition: background .15s, color .15s; }
 .cmx-more-btn:hover, .cmx-more-btn:focus-visible { background: #006847; color: #fff; outline: none; }
+
+/* ── Bajada de precio: etiqueta en la tarjeta y chip de filtro ── */
+.cmx-drop { position: absolute; top: 8px; left: 8px; z-index: 2; display: flex; flex-direction: column; gap: 1px; background: #D92D20; color: #fff; border-radius: 10px; padding: 5px 9px; font-family: 'Satoshi', system-ui, sans-serif; line-height: 1.25; pointer-events: none; box-shadow: 0 2px 6px rgba(217,45,32,.28); }
+.cmx-drop b { font-size: 13px; font-weight: 800; }
+.cmx-drop span { font-size: 10.5px; font-weight: 600; }
+.cmx-drop s { font-size: 10px; opacity: .85; }
+html[data-cmx-layout="v2"] .cmx-drop { top: 38px; }
+.cmx-drop-chip { display: inline-flex; align-items: center; gap: 6px; margin: 0 0 12px; padding: 8px 14px; min-height: 40px; background: #fff; border: 1.5px solid #D92D20; border-radius: 999px; color: #D92D20; font: 700 13px 'Satoshi', system-ui, sans-serif; cursor: pointer; }
+.cmx-drop-chip.on { background: #D92D20; color: #fff; }
 
 /* ── Chip "Más barato" en tarjetas con dos tiendas ── */
 .cmx-cheap { display: block; width: max-content; max-width: 100%; margin: 3px auto 0; font-family: 'Satoshi', system-ui, sans-serif; font-size: 10px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: #006847; background: #EAF2EE; border-radius: 999px; padding: 1px 8px; }

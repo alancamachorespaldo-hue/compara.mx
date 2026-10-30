@@ -60,6 +60,9 @@ jobs:
       - name: Generar descuentos del día (bicis, freidoras, microondas, omega3, magnesio, complejo B, vitamina D, videojuegos, tecnología)
         run: node scripts/generar-ofertas-categoria.js --todas
 
+      - name: Generar bajadas de precio por categoría (filtro "Bajó de precio")
+        run: node scripts/generar-bajadas.js
+
       - name: Aplicar pausas a páginas HTML
         run: node scripts/sync-pausas.js
 
@@ -86,6 +89,7 @@ jobs:
             suplementos/vitamina-d/descuentos.json \
             videojuegos/consolas/descuentos.json videojuegos/controles/descuentos.json videojuegos/juegos/descuentos.json \
             tecnologia/bocinas/descuentos.json tecnologia/audifonos/descuentos.json \
+            assets/data/bajadas.json \
             scripts/ml-report.json scripts/merged-admin.json scripts/admin-artifact.html
           if git diff --staged --quiet; then
             echo "Sin cambios de precios."

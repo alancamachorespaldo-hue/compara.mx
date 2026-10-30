@@ -250,7 +250,11 @@ const block = (s, name) => {
   const a = s.indexOf(`<!-- ${name}:start -->`), z = s.indexOf(`<!-- ${name}:end -->`);
   return a > -1 && z > a ? [a, z + `<!-- ${name}:end -->`.length] : null;
 };
-const FONT = '<link href="https://api.fontshare.com/v2/css?f[]=satoshi@800,700,600,500,400,300&display=swap" rel="stylesheet">';
+// Categorías con bajadas de precio (assets/js/price-drops.js; datos en assets/data/bajadas.json)
+const DROP_PATHS = new Set(['/suplementos/proteina/', '/suplementos/creatina/', '/suplementos/magnesio/', '/suplementos/omega3/', '/suplementos/complejo-b/', '/suplementos/vitamina-d/',
+  '/laptops/', '/bicis/', '/electrodomesticos/freidoras/', '/electrodomesticos/microondas/', '/electrodomesticos/cafeteras/', '/tecnologia/audifonos/', '/tecnologia/bocinas/',
+  '/videojuegos/consolas/', '/videojuegos/controles/', '/videojuegos/juegos/', '/celulares/android/', '/celulares/iphone/']);
+const FONT ='<link href="https://api.fontshare.com/v2/css?f[]=satoshi@800,700,600,500,400,300&display=swap" rel="stylesheet">';
 
 function locateNav(s) {
   const m = mask(s); const b = Math.max(0, m.indexOf('<body'));
@@ -286,6 +290,10 @@ function processPage(pg) {
     if (s.includes('id="grid"') && /cmx-fp|prt-filters|crt-filters|aud-filters/.test(s) && !/filters-scroll\.js/.test(s)) {
       const t = '<script src="/js/onboarding.js" defer></script>';
       s = s.includes(t) ? s.replace(t, put('<script src="/assets/js/filters-scroll.js" defer></script>\n') + t) : s.replace(/<\/body>/i, put('<script src="/assets/js/filters-scroll.js" defer></script>\n</body>'));
+    }
+    if (DROP_PATHS.has(pg.path) && !s.includes('src="/assets/js/price-drops.js"')) {
+      const t = '<script src="/js/onboarding.js" defer></script>';
+      s = s.includes(t) ? s.replace(t, put('<script src="/assets/js/price-drops.js" defer></script>\n') + t) : s.replace(/<\/body>/i, put('<script src="/assets/js/price-drops.js" defer></script>\n</body>'));
     }
     if (!/js\/site-nav\.js/.test(s)) s = s.replace(/<\/body>/i, put('<script src="/js/site-nav.js" defer></script>\n</body>'));
     if ((s.includes('card-btn-col-price') || s.includes('data-cmx-layout="v2"')) && !/cards-enhance\.js/.test(s)) {

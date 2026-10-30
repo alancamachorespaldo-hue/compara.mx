@@ -97,6 +97,11 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
   `_ofertas.js` y en `admin-template.html`; cambiar en ambos). Requiere link con el tag y `pausaAmz` apagado. Gana la
   tienda con mayor %; cada oferta trae `plataforma` (`ml`|`amazon`), `precioOferta` y `link`. Los consumen la sección
   de ofertas del inicio, `/celulares/`, `/celulares/android/` y las 3 guías de celulares con `descuentos.json`.
+- `generar-bajadas.js` — escribe `assets/data/bajadas.json` con TODOS los productos que bajaron de precio por
+  categoría (bajada oficial de `_ofertas.js` + lo que ya anuncia cada `descuentos.json`, que tiene tope de 5–8).
+  Corre en `update-prices.yml` tras las ofertas. `assets/js/price-drops.js` lo lee: pinta "↓ % · Bajó $ · Antes $"
+  en la tarjeta y da el filtro "Bajó de precio" (chip sobre el listado, sección "Ofertas" en el panel, y en
+  proteína/creatina su filtro propio). Solo muestra una bajada si id, nombre y precio actual coinciden con la página.
 - `sync-site.js [--only=header,footer,related,head] [--check]` — escribe entre marcadores el encabezado
   (`cmx-header`, con el botón de favoritos si la página lo tiene), el breadcrumb (`cmx-bc`, solo en páginas que ya
   lo tenían en el menú; sale del JSON-LD), "Sigue explorando" (`cmx-related`) y el pie con aviso de afiliados

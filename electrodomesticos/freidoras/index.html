@@ -2875,6 +2875,7 @@ function render() {
   const sortVal = document.getElementById('sort-sel').value;
 
   let lista = productos.filter(p => {
+    if (window.cmxPass && !cmxPass(p)) return false;
     // Filtro capacidad
     if (filters.cap === 'pequena' && p.capacidad > 4) return false;
     if (filters.cap === 'mediana' && (p.capacidad <= 4 || p.capacidad > 6)) return false;
@@ -3212,6 +3213,7 @@ document.getElementById('howModalOv').addEventListener('click',function(e){if(e.
 </script>
 <script>try{sessionStorage.setItem('cmx_onboarding_v1','1');}catch(e){}</script>
 <script src="/assets/js/cards-enhance.js" defer></script>
+<script src="/assets/js/price-drops.js" defer></script>
 <script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
 <script src="/assets/js/share.js" defer></script>
