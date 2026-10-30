@@ -1,5 +1,6 @@
-/* comparalo.mx — marca "Más barato" en la tienda con el menor precio de cada tarjeta.
-   Solo compara los dos precios que la tarjeta ya muestra; no cambia datos ni enlaces. */
+/* comparalo.mx — mejoras compartidas de las tarjetas de producto:
+   - "Mejor precio" en la tienda más barata de cada tarjeta con dos tiendas.
+   - Tooltip accesible del círculo de "elegir para comparar" (el círculo en sí es CSS puro, ver cards.css). */
 (function () {
   var queued = false;
 
@@ -27,21 +28,15 @@
     card.setAttribute('data-cmx-cheap', '1');
   }
 
-  var V2 = document.documentElement.getAttribute('data-cmx-layout') === 'v2';
-
-  function tag(card) {
-    if (!V2 || card.querySelector('.cmx-store-tag')) return;
-    var ml = !!card.querySelector('.btn-ml'), amz = !!card.querySelector('.btn-amz');
-    if (!ml && !amz) return;
-    var t = document.createElement('div');
-    t.className = 'cmx-store-tag';
-    t.innerHTML = (ml ? '<span class="ml">Mercado Libre</span>' : '') + (amz ? '<span class="amz">Amazon</span>' : '');
-    card.insertBefore(t, card.firstChild);
+  function label(card) {
+    var on = card.classList.contains('selected');
+    var t = on ? 'Quitar de comparar' : 'Elegir para comparar';
+    if (card.title !== t) card.title = t;
   }
 
   function run() {
     queued = false;
-    [].forEach.call(document.querySelectorAll('.card'), function (c) { mark(c); tag(c); });
+    [].forEach.call(document.querySelectorAll('.card'), function (c) { mark(c); label(c); });
   }
 
   function schedule() {

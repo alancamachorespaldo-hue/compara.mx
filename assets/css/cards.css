@@ -21,12 +21,47 @@
   overflow: hidden;
 }
 
-/* sel-check: esquina superior izquierda sobre la imagen */
-.card > .sel-check {
+/* sel-check (patrón antiguo, por página): reemplazado por el círculo unificado de abajo */
+.card > .sel-check,
+.card::after {
+  display: none !important;
+}
+
+/* Círculo para elegir comparar — unificado en todas las páginas, un solo onclick (el de la tarjeta) */
+.card {
+  position: relative;
+}
+.card::before {
+  content: '+';
   position: absolute;
-  top: 6px;
-  left: 6px;
+  top: 8px;
+  right: 8px;
   z-index: 3;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1.5px solid #cbd5e1;
+  color: #64748b;
+  font: 800 15px/21px 'Satoshi', system-ui, sans-serif;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(15,23,42,.1);
+  pointer-events: none;
+  transition: background .15s, border-color .15s, color .15s;
+}
+.card:hover::before {
+  border-color: var(--ac, #006847);
+  color: var(--ac, #006847);
+}
+.card.selected::before {
+  content: '✓';
+  background: var(--ac, #006847);
+  border-color: var(--ac, #006847);
+  color: #fff;
+}
+/* Cuando la tarjeta ya tiene un botón de favoritos arriba a la derecha, el círculo baja para no encimarse */
+.card:has(.fav-btn)::before {
+  top: 48px;
 }
 
 /* COLUMNA IZQUIERDA — imagen */
@@ -163,13 +198,13 @@
    ================================================================ */
 
 .card[data-platform="ml"] {
-  background: #fffdf0;
-  border-color: #d4b800;
+  background: #fff;
+  border-color: #e2e8e4;
 }
 
 .card[data-platform="ml"] .card-img-wrap {
-  background: #fdf9e0;
-  border-right: 1px solid #e8d600;
+  background: #fff;
+  border-right: 1px solid #e2e8e4;
 }
 
 .card[data-platform="ml"] .spec,
@@ -194,18 +229,18 @@
    ================================================================ */
 
 .card[data-platform="amz"] {
-  background: #fff8f2;
-  border-color: #e8893a;
+  background: #fff;
+  border-color: #e2e8e4;
 }
 
 .card[data-platform="amz"]:hover {
-  box-shadow: 0 4px 20px rgba(232,137,58,.15);
+  box-shadow: 0 4px 20px rgba(15,23,42,.1);
   transform: translateY(-2px);
 }
 
 .card[data-platform="amz"] .card-img-wrap {
-  background: #fff4eb;
-  border-right: 1px solid #f0a060;
+  background: #fff;
+  border-right: 1px solid #e2e8e4;
 }
 
 .card[data-platform="amz"] .spec,

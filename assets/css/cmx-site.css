@@ -102,12 +102,6 @@ html[data-cmx-layout="v2"] .card .card-btn-col-price { font-size: 20px !importan
 html[data-cmx-layout="v2"] .card .card-btns-dual .btn-ml,
 html[data-cmx-layout="v2"] .card .card-btns-dual .btn-amz { width: 100% !important; flex: none !important; padding: 8px 6px !important; font-size: 12px !important; min-height: 38px; }
 html[data-cmx-layout="v2"] .card .card-btn-col .cmx-cheap { position: absolute; top: -9px; left: 50%; transform: translateX(-50%); margin: 0; width: auto; background: #006847; color: #fff; padding: 2px 9px; font-size: 9.5px; letter-spacing: .06em; white-space: nowrap; }
-.cmx-store-tag { position: absolute; top: 8px; left: 8px; z-index: 2; display: inline-flex; gap: 4px; pointer-events: none; font-family: 'Satoshi', system-ui, sans-serif; }
-.cmx-store-tag span { display: inline-flex; align-items: center; gap: 5px; background: #fff; border: 1px solid #E2E8E4; border-radius: 999px; padding: 2px 8px 2px 6px; font-size: 10.5px; font-weight: 700; color: #475569; line-height: 1.4; box-shadow: 0 1px 3px rgba(15,23,42,.06); }
-.cmx-store-tag span::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--dot, #94A3B8); flex-shrink: 0; }
-.cmx-store-tag .ml { --dot: #F0C000; }
-.cmx-store-tag .amz { --dot: #FF9900; }
-
 /* ── Panel de filtros a la izquierda (casillas con contador) ──
    Lo llena assets/js/filters-panel.js moviendo los botones .filter del toolbar original. */
 html[data-cmx-filters="panel"] #toolbar,
@@ -176,7 +170,6 @@ html[data-cmx-filters="panel"] #toolbar-mobile { display: none !important; }
 .cmx-drop b { font-size: 13px; font-weight: 800; }
 .cmx-drop span { font-size: 10.5px; font-weight: 600; }
 .cmx-drop s { font-size: 10px; opacity: .85; }
-html[data-cmx-layout="v2"] .cmx-drop { top: 38px; }
 .cmx-drop-chip { display: inline-flex; align-items: center; gap: 6px; margin: 0 0 12px; padding: 8px 14px; min-height: 40px; background: #fff; border: 1.5px solid #D92D20; border-radius: 999px; color: #D92D20; font: 700 13px 'Satoshi', system-ui, sans-serif; cursor: pointer; }
 .cmx-drop-chip.on { background: #D92D20; color: #fff; }
 
