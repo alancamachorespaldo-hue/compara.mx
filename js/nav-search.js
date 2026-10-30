@@ -121,9 +121,8 @@
   var SEARCH_ICON = '<svg class="cmx-ns-ico" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>';
 
   function init() {
-    var nav = document.querySelector('.nav, nav');
-    if (!nav || document.getElementById('cmx-ns-wrap')) return;
-    if (nav.querySelector('.nav-search, .nav-search-wrap, input[type=search], input[type=text]')) return;
+    var slot = document.getElementById('cmx-hd-search');
+    if (!slot || document.getElementById('cmx-ns-wrap')) return;
 
     CATS = window.CMX_CATS || [];
     SUBS = window.CMX_SUBS || [];
@@ -138,9 +137,7 @@
       + '</div>'
       + '<div class="cmx-ns-dd" id="cmx-ns-dd" hidden role="listbox" aria-label="Categorías"></div>';
 
-    var navLinks = nav.querySelector('.nav-links');
-    if (navLinks && navLinks.parentNode) navLinks.parentNode.insertBefore(wrap, navLinks);
-    else nav.appendChild(wrap);
+    slot.appendChild(wrap);
 
     var input = document.getElementById('cmx-ns-in');
     var dd = document.getElementById('cmx-ns-dd');

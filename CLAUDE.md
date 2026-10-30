@@ -97,6 +97,12 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
   `_ofertas.js` y en `admin-template.html`; cambiar en ambos). Requiere link con el tag y `pausaAmz` apagado. Gana la
   tienda con mayor %; cada oferta trae `plataforma` (`ml`|`amazon`), `precioOferta` y `link`. Los consumen la sección
   de ofertas del inicio, `/celulares/`, `/celulares/android/` y las 3 guías de celulares con `descuentos.json`.
+- `sync-site.js [--only=header,footer,related,head] [--check]` — escribe entre marcadores el encabezado
+  (`cmx-header`, con el botón de favoritos si la página lo tiene), el breadcrumb (`cmx-bc`, solo en páginas que ya
+  lo tenían en el menú; sale del JSON-LD), "Sigue explorando" (`cmx-related`) y el pie con aviso de afiliados
+  (`cmx-footer`). **No editar esos bloques a mano**: se cambian en el script o en `assets/css/cmx-site.css`
+  y se vuelve a correr. Una página nueva debe correrlo (y estar en `sitemap.xml`) o `check-site.js` falla.
+  Las categorías del buscador (escritorio y panel móvil) viven en `js/categorias.js`.
 - `check-site.js` — validaciones del sitio (ver abajo).
 
 Admin: Claude Artifact https://claude.ai/artifact/BTt8aRBCUZQNWvGAS81rTt (se publica desde

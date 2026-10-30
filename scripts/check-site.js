@@ -25,6 +25,10 @@ function walk(dir, out = []) {
   return out;
 }
 
+const SITEMAP = new Set([...readFileSync(join(ROOT, 'sitemap.xml'), 'utf8').matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]));
+const SITEMAP_EXEMPT = new Set(['celulares/comparar/index.html']);
+const LAYOUT_EXEMPT = new Set(['video-resenas.html']); // herramienta interna con noindex
+
 const errors = [];
 const err = (file, msg) => errors.push(`${file}: ${msg}`);
 let pages = 0, redirects = 0;
@@ -59,6 +63,21 @@ for (const abs of walk(ROOT)) {
         try { new vm.Script(m[2]); } catch (e) { err(file, `error de sintaxis JS: ${e.message.slice(0, 80)}`); }
       }
     }
+  }
+
+  // Encabezado y pie compartidos (los escribe scripts/sync-site.js)
+  if (!isRedirect && !LAYOUT_EXEMPT.has(file)) {
+    for (const marker of ['cmx-header', 'cmx-footer'])
+      if (!html.includes(`<!-- ${marker}:start -->`)) err(file, `falta el bloque ${marker}; corre node scripts/sync-site.js`);
+    const ft = html.match(/<!-- cmx-footer:start -->([\s\S]*?)<!-- cmx-footer:end -->/);
+    if (ft && !ft[1].includes('href="/aviso-afiliados/"')) err(file, 'el pie no enlaza al aviso de afiliados');
+    if (!html.includes('/assets/css/cmx-site.css')) err(file, 'falta /assets/css/cmx-site.css');
+  }
+
+  // Sitemap: toda página indexable debe estar listada
+  if (!isRedirect && file.endsWith('/index.html') && !/noindex/i.test(html) && !SITEMAP_EXEMPT.has(file)) {
+    const url = 'https://comparalo.mx/' + file.replace(/index\.html$/, '');
+    if (!SITEMAP.has(url)) err(file, 'no está en sitemap.xml');
   }
 
   for (const needle of MUST_CONTAIN[file] || [])

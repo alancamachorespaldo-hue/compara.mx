@@ -188,7 +188,7 @@ function breadcrumbItems(html, p, catText) {
         return els.map((e, i) => {
           const it = e.item; const url = typeof it === 'string' ? it : it && (it['@id'] || it.url);
           const name = e.name || (it && it.name) || '';
-          const rel = url ? url.replace(/^https?:\/\/(www\.)?comparalo\.mx/, '') : null;
+          const rel = url ? url.replace(/^https?:\/\/(www\.)?comparalo\.mx/, '') || '/' : null;
           return [name, i === els.length - 1 ? null : rel];
         });
       }
@@ -297,7 +297,7 @@ function processPage(pg) {
       if (!loc) { notes.push('sin <nav>'); }
       else {
         const [i, j, navHtml] = loc;
-        if (!/href="\/"/.test(navHtml)) { notes.push('nav sin enlace al inicio, omitido'); }
+        if (!/href="(\/|\/index\.html|https?:\/\/(www\.)?comparalo\.mx\/?)"/.test(navHtml)) { notes.push('nav sin enlace al inicio, omitido'); }
         else {
           const fav = navHtml.match(/<button[^>]*id="nav-fav-btn"[\s\S]*?<\/button>/); extra = fav ? fav[0] : '';
           hasBc = /nav-breadcrumb|nav-bc\b|breadcrumb-cat|class="[^"]*breadcrumb/.test(navHtml);

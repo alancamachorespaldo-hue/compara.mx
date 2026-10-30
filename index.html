@@ -379,49 +379,29 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
 <a class="skip" href="#main">Saltar al contenido</a>
 
 <header class="nav">
-  <nav class="wrap nav-in" aria-label="Navegación principal">
-    <a class="lock" href="/" aria-label="comparalo.mx, inicio">
-      <img src="/logopng.png" alt="comparalo.mx" width="160" height="42">
-      <span>comparalo<i>.mx</i></span>
-    </a>
-    <div class="nav-links">
-      <a href="/bicis/">Bicicletas</a>
-      <a href="/suplementos/">Suplementos</a>
-      <a href="/electrodomesticos/">Electrodomésticos</a>
-      <a href="/laptops/">Laptops</a>
+  <!-- cmx-header:start -->
+<div class="cmx-hd" id="cmx-hd">
+  <div class="cmx-hd-in">
+    <a class="cmx-hd-logo" href="/" aria-label="comparalo.mx, inicio"><img src="/logopng.png" alt="" width="28" height="28"><span>comparalo<i>.mx</i></span></a>
+    <div class="cmx-hd-search" id="cmx-hd-search"></div>
+    <div class="cmx-hd-links" role="navigation" aria-label="Navegación principal">
       <a href="/celulares/">Celulares</a>
-      <a href="/celulares/iphone/">iPhones</a>
-          <a href="/videojuegos/">Videojuegos</a>
-          <a href="/tecnologia/">Tecnología</a>
+      <a href="/laptops/">Laptops</a>
+      <a href="/electrodomesticos/">Electrodomésticos</a>
+      <a href="/suplementos/">Suplementos</a>
+      <a href="/bicis/">Bicicletas</a>
+      <a href="/videojuegos/">Videojuegos</a>
+      <a href="/tecnologia/">Tecnología</a>
+      <a href="/guias/">Guías</a>
     </div>
-    <div class="nav-search-wrap" id="navSearchWrap">
-      <form class="nav-search" action="/suplementos/" method="get" role="search">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        <label class="skip" for="q-nav">Buscar producto</label>
-        <input id="q-nav" name="q" type="search" placeholder="Buscar…" autocomplete="off" onfocus="openNavDrop()" oninput="filterNavDrop(this.value)">
-      </form>
-      <div class="nav-drop" id="navDrop">
-        <div class="search-dropdown-label">Nuestras comparativas</div>
-        <a href="/suplementos/" data-search="suplementos proteína creatina magnesio complejo b omega"><span class="sd-icon">💊</span><span>Suplementos<span class="sd-sub">Proteína, Creatina, Magnesio, Complejo B, Omega 3</span></span></a>
-        <a href="/bicis/" data-search="bicicletas bici ciclismo"><span class="sd-icon">🚲</span><span>Bicicletas<span class="sd-sub">Urbanas, eléctricas, montaña</span></span></a>
-        <a href="/laptops/" data-search="laptops computadoras notebooks universidad gamer"><span class="sd-icon">💻</span><span>Laptops<span class="sd-sub">Universidad, gaming, trabajo</span></span></a>
-        <a href="/electrodomesticos/" data-search="electrodomesticos microondas freidoras aire"><span class="sd-icon">🏠</span><span>Electrodomésticos<span class="sd-sub">Microondas, freidoras de aire</span></span></a>
-        <a href="/electrodomesticos/microondas/" data-search="microondas horno"><span class="sd-icon">📡</span><span>Microondas<span class="sd-sub">Básico, grill, convección</span></span></a>
-        <a href="/electrodomesticos/freidoras/" data-search="freidoras aire airfryer"><span class="sd-icon">🍟</span><span>Freidoras de Aire<span class="sd-sub">Sin aceite, digital, compactas</span></span></a>
-        <a href="/celulares/android/" data-search="celulares android smartphones samsung pixel motorola"><span class="sd-icon">📱</span><span>Android<span class="sd-sub">Samsung, Pixel, Motorola y más</span></span></a>
-        <a href="/celulares/iphone/" data-search="iphone apple ios iphone 17 iphone 18"><span class="sd-icon">🍎</span><span>iPhone<span class="sd-sub">iPhone 17, 18 Pro, 18 Pro Max</span></span></a>
-        <a href="/videojuegos/" data-search="videojuegos consolas nintendo playstation xbox switch"><span class="sd-icon">🎮</span><span>Videojuegos<span class="sd-sub">Consolas Nintendo, PlayStation, Xbox</span></span></a>
-        <a href="/videojuegos/consolas/" data-search="consolas nintendo playstation xbox switch meta asus"><span class="sd-icon">🕹️</span><span>Consolas<span class="sd-sub">Switch 2, PS5, Xbox Series X</span></span></a>
-        <a href="/tecnologia/" data-search="tecnologia alexa bocinas inteligentes audifonos smartwatches"><span class="sd-icon">🎧</span><span>Tecnología<span class="sd-sub">Alexas, audífonos, smartwatches</span></span></a>
-        <a href="/tecnologia/bocinas/" data-search="alexa echo bocinas inteligentes google nest"><span class="sd-icon">🔊</span><span>Bocinas inteligentes<span class="sd-sub">Echo, Echo Dot, Google Nest</span></span></a>
-        <a href="/tecnologia/audifonos/" data-search="audifonos auriculares in-ear over-ear true wireless"><span class="sd-icon">🎧</span><span>Audífonos<span class="sd-sub">In-ear, over-ear, true wireless</span></span></a>
-        <a href="/tecnologia/smartwatches/" data-search="smartwatches relojes inteligentes apple watch galaxy watch"><span class="sd-icon">⌚</span><span>Smartwatches<span class="sd-sub">Compatibles con iOS y Android</span></span></a>
-      </div>
+    <div class="cmx-hd-act">
+      <a class="cmx-hd-guias" href="/guias/">Guías</a>
+      <!-- cmx-hd-extra:start --><!-- cmx-hd-extra:end -->
+      <button class="btn-share" onclick="shareCurrentPage()" title="Compartir esta p&#225;gina" aria-label="Compartir"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg><span class="share-txt">Compartir</span></button>
     </div>
-    <button class="nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" onclick="var p=document.getElementById('nav-panel');var o=p.getAttribute('data-open')==='1';p.setAttribute('data-open',o?'0':'1');this.setAttribute('aria-expanded',String(!o));this.setAttribute('aria-label',o?'Abrir menú':'Cerrar menú')">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0F172A" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="7" x2="21" y2="7"></line><line x1="3" y1="13" x2="21" y2="13"></line><line x1="3" y1="19" x2="15" y2="19"></line></svg>
-    </button>
-  </nav>
+  </div>
+</div>
+<!-- cmx-header:end -->
   <div class="nav-panel" id="nav-panel" data-open="0">
     <form action="/suplementos/" method="get" role="search">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -515,7 +495,8 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
       }
       document.addEventListener('click',function(e){
         if(!document.getElementById('searchWrap').contains(e.target))document.getElementById('searchDrop').classList.remove('open');
-        if(!document.getElementById('navSearchWrap').contains(e.target))document.getElementById('navDrop').classList.remove('open');
+        var nw=document.getElementById('navSearchWrap'),nd=document.getElementById('navDrop');
+        if(nw&&nd&&!nw.contains(e.target))nd.classList.remove('open');
       });
       </script>
       <div class="hero-cta">

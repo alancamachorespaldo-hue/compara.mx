@@ -8,7 +8,7 @@
  */
 (function () {
   'use strict';
-  var MOBILE = 820;
+  var MOBILE = 1100;
 
   // Categorías: lista única en /js/categorias.js (compartida con el buscador de escritorio).
   function withCats(fn) {
@@ -124,26 +124,9 @@
     document.body.style.overflow = '';
   }
 
-  // Oculta en móvil los contenedores del nav con >=2 enlaces de categoría (los botones horizontales).
-  function hideHorizontalCats() {
-    var catRe = /\/(celulares|suplementos|bicis|electrodomesticos|laptops|videojuegos|tecnologia)\//;
-    [].forEach.call(document.querySelectorAll('nav'), function (nav) {
-      var counts = new Map();
-      [].forEach.call(nav.querySelectorAll('a[href]'), function (a) {
-        if (!catRe.test(a.getAttribute('href') || '')) return;
-        var cont = a.parentElement;
-        if (!cont || cont === nav) return;
-        counts.set(cont, (counts.get(cont) || 0) + 1);
-      });
-      counts.forEach(function (n, cont) {
-        if (n >= 2 && !cont.querySelector('input')) cont.setAttribute('data-sitenav-hide', '1');
-      });
-    });
-  }
-
   function injectBar() {
     if (document.getElementById('sitenav-bar')) return;
-    var nav = document.querySelector('nav');
+    var nav = document.getElementById('cmx-hd') || document.querySelector('nav');
     var bar = document.createElement('div');
     bar.id = 'sitenav-bar';
     bar.innerHTML = '<button type="button" aria-label="Buscar categoría"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Buscar categoría…</span></button>';
@@ -162,11 +145,7 @@
 
   function init() {
     injectCSS();
-    hideHorizontalCats();
     injectBar();
-    // En móvil, el input de nav-search.js (si existe) también abre el panel al tocarlo.
-    var navInput = document.querySelector('nav input[type=search], nav input[type=text], nav .nav-search-input');
-    if (navInput) navInput.addEventListener('focus', function () { if (window.matchMedia('(max-width:' + MOBILE + 'px)').matches) { navInput.blur(); openPanel(); } });
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

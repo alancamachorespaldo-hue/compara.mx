@@ -379,25 +379,29 @@ footer a{color:var(--ac);text-decoration:none}
 </head>
 <body data-category="suplementos">
 
-<nav style="background:rgba(255,255,255,.97);backdrop-filter:blur(16px);border-bottom:1px solid #e2e2dc;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px;position:sticky;top:0;z-index:100;">
-  <a href="/" style="display:flex;align-items:center;flex-shrink:0;">
-    <img src="/logopng.png" alt="comparalo.mx" width="1254" height="1254" style="height:36px;width:auto;object-fit:contain;" loading="eager">
-  </a>
-  <div style="flex:1;min-width:90px;max-width:340px;display:flex;align-items:center;gap:8px;background:#f7f7f5;border:1.5px solid #e2e2dc;border-radius:24px;padding:0 14px;transition:border-color .15s;" onmouseenter="this.style.borderColor='#006847'" onmouseleave="this.style.borderColor='#e2e2dc'">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <input class="nav-search-input" id="nav-search-input" type="search" placeholder="Buscar suplemento…" style="border:none;background:transparent;font-size:13px;font-family:'Satoshi',sans-serif;color:#0F172A;width:100%;padding:9px 0;outline:none;" oninput="buscarDesdeNav(this.value)" onkeydown="if(event.key==='Enter')buscarDesdeNav(this.value,true)">
+<!-- cmx-header:start -->
+<div class="cmx-hd" id="cmx-hd">
+  <div class="cmx-hd-in">
+    <a class="cmx-hd-logo" href="/" aria-label="comparalo.mx, inicio"><img src="/logopng.png" alt="" width="28" height="28"><span>comparalo<i>.mx</i></span></a>
+    <div class="cmx-hd-search" id="cmx-hd-search"></div>
+    <div class="cmx-hd-links" role="navigation" aria-label="Navegación principal">
+      <a href="/celulares/">Celulares</a>
+      <a href="/laptops/">Laptops</a>
+      <a href="/electrodomesticos/">Electrodomésticos</a>
+      <a href="/suplementos/" aria-current="page">Suplementos</a>
+      <a href="/bicis/">Bicicletas</a>
+      <a href="/videojuegos/">Videojuegos</a>
+      <a href="/tecnologia/">Tecnología</a>
+      <a href="/guias/">Guías</a>
+    </div>
+    <div class="cmx-hd-act">
+      <a class="cmx-hd-guias" href="/guias/">Guías</a>
+      <!-- cmx-hd-extra:start --><!-- cmx-hd-extra:end -->
+      <button class="btn-share" onclick="shareCurrentPage()" title="Compartir esta p&#225;gina" aria-label="Compartir"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg><span class="share-txt">Compartir</span></button>
+    </div>
   </div>
-  <div class="nav-links" style="display:flex;gap:4px;align-items:center;flex-shrink:1;min-width:0;overflow-x:auto;scrollbar-width:thin;">
-    <a href="/bicis/" style="font-size:13px;font-weight:500;color:#64748b;padding:6px 12px;border-radius:8px;text-decoration:none;white-space:nowrap;flex-shrink:0;transition:background .15s;" onmouseenter="this.style.background='#f7f7f5'" onmouseleave="this.style.background='transparent'">Bicicletas</a>
-    <a href="/suplementos/" style="font-size:13px;font-weight:700;color:#006847;padding:6px 12px;border-radius:8px;text-decoration:none;white-space:nowrap;flex-shrink:0;background:#EAF2EE;">Suplementos</a>
-    <a href="/electrodomesticos/" style="font-size:13px;font-weight:500;color:#64748b;padding:6px 12px;border-radius:8px;text-decoration:none;white-space:nowrap;flex-shrink:0;transition:background .15s;" onmouseenter="this.style.background='#f7f7f5'" onmouseleave="this.style.background='transparent'">Electrodomésticos</a>
-    <a href="/laptops/" style="font-size:13px;font-weight:500;color:#64748b;padding:6px 12px;border-radius:8px;text-decoration:none;white-space:nowrap;flex-shrink:0;transition:background .15s;" onmouseenter="this.style.background='#f7f7f5'" onmouseleave="this.style.background='transparent'">Laptops</a>
-    <a href="/celulares/" style="font-size:13px;font-weight:500;color:#64748b;padding:6px 12px;border-radius:8px;text-decoration:none;white-space:nowrap;flex-shrink:0;transition:background .15s;" onmouseenter="this.style.background='#f7f7f5'" onmouseleave="this.style.background='transparent'">Celulares</a>
-    <a href="/celulares/iphone/" style="font-size:13px;font-weight:500;color:#64748b;padding:6px 12px;border-radius:8px;text-decoration:none;white-space:nowrap;flex-shrink:0;transition:background .15s;" onmouseenter="this.style.background='#f7f7f5'" onmouseleave="this.style.background='transparent'">iPhones</a>
-    <a href="/videojuegos/" style="font-size:13px;font-weight:500;color:#64748b;padding:6px 12px;border-radius:8px;text-decoration:none;white-space:nowrap;flex-shrink:0;transition:background .15s;" onmouseenter="this.style.background='#f7f7f5'" onmouseleave="this.style.background='transparent'">🎮 Videojuegos</a>
-    <a href="/tecnologia/" style="font-size:13px;font-weight:500;color:#64748b;padding:6px 12px;border-radius:8px;text-decoration:none;white-space:nowrap;flex-shrink:0;transition:background .15s;" onmouseenter="this.style.background='#f7f7f5'" onmouseleave="this.style.background='transparent'">🎧 Tecnología</a>
-  </div>
-</nav>
+</div>
+<!-- cmx-header:end -->
 
 
 

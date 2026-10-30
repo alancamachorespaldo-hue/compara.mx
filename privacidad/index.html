@@ -43,19 +43,29 @@ footer a{color:var(--tx2)}
 <link rel="stylesheet" href="/assets/css/cmx-site.css">
 </head>
 <body>
-<nav aria-label="Navegación principal">
-  <a href="/" style="display:flex;align-items:center;flex-shrink:0;">
-    <img src="/logopng.png" alt="comparalo.mx" width="1254" height="1254" height="36" style="height:36px;width:auto;object-fit:contain;">
-  </a>
-  <div class="nav-links">
-    <a class="nav-link" href="/bicis/">Bicicletas</a>
-    <a class="nav-link" href="/suplementos/">Suplementos</a>
-    <a class="nav-link" href="/laptops/">Laptops</a>
-      <a class="nav-link" href="/videojuegos/">🎮 Videojuegos</a>
-
-      <a class="nav-link" href="/tecnologia/">🎧 Tecnología</a>
+<!-- cmx-header:start -->
+<div class="cmx-hd" id="cmx-hd">
+  <div class="cmx-hd-in">
+    <a class="cmx-hd-logo" href="/" aria-label="comparalo.mx, inicio"><img src="/logopng.png" alt="" width="28" height="28"><span>comparalo<i>.mx</i></span></a>
+    <div class="cmx-hd-search" id="cmx-hd-search"></div>
+    <div class="cmx-hd-links" role="navigation" aria-label="Navegación principal">
+      <a href="/celulares/">Celulares</a>
+      <a href="/laptops/">Laptops</a>
+      <a href="/electrodomesticos/">Electrodomésticos</a>
+      <a href="/suplementos/">Suplementos</a>
+      <a href="/bicis/">Bicicletas</a>
+      <a href="/videojuegos/">Videojuegos</a>
+      <a href="/tecnologia/">Tecnología</a>
+      <a href="/guias/">Guías</a>
+    </div>
+    <div class="cmx-hd-act">
+      <a class="cmx-hd-guias" href="/guias/">Guías</a>
+      <!-- cmx-hd-extra:start --><!-- cmx-hd-extra:end -->
+      <button class="btn-share" onclick="shareCurrentPage()" title="Compartir esta p&#225;gina" aria-label="Compartir"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg><span class="share-txt">Compartir</span></button>
+    </div>
   </div>
-</nav>
+</div>
+<!-- cmx-header:end -->
 
 <div class="legal-wrap">
   <p class="legal-eyebrow">Legal</p>
