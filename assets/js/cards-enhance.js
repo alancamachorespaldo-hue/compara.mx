@@ -27,9 +27,21 @@
     card.setAttribute('data-cmx-cheap', '1');
   }
 
+  var V2 = document.documentElement.getAttribute('data-cmx-layout') === 'v2';
+
+  function tag(card) {
+    if (!V2 || card.querySelector('.cmx-store-tag')) return;
+    var ml = !!card.querySelector('.btn-ml'), amz = !!card.querySelector('.btn-amz');
+    if (!ml && !amz) return;
+    var t = document.createElement('div');
+    t.className = 'cmx-store-tag';
+    t.innerHTML = (ml ? '<span class="ml">Mercado Libre</span>' : '') + (amz ? '<span class="amz">Amazon</span>' : '');
+    card.insertBefore(t, card.firstChild);
+  }
+
   function run() {
     queued = false;
-    [].forEach.call(document.querySelectorAll('.card'), mark);
+    [].forEach.call(document.querySelectorAll('.card'), function (c) { mark(c); tag(c); });
   }
 
   function schedule() {
