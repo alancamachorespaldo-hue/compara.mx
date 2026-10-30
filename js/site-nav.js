@@ -33,7 +33,7 @@
       '@media(max-width:' + MOBILE + 'px){',
       '  [data-sitenav-hide]{display:none!important}',
       '  #sitenav-bar{display:flex;align-items:center;gap:10px;position:sticky;top:64px;z-index:95;background:#fff;border-bottom:1px solid #e2e2dc;padding:10px 16px}',
-      '  #sitenav-bar button{flex:1;display:flex;align-items:center;gap:10px;height:44px;padding:0 14px;border:1.5px solid #e2e2dc;border-radius:24px;background:#f7f7f5;color:#94a3b8;font:inherit;font-size:14px;cursor:pointer;text-align:left;font-family:inherit}',
+      '  #sitenav-bar button{flex:1;display:flex;align-items:center;gap:10px;height:44px;padding:0 14px;border:1.5px solid #e2e2dc;border-radius:24px;background:#f7f7f5;color:#64748b;font:inherit;font-size:14px;cursor:pointer;text-align:left;font-family:inherit}',
       '  #sitenav-bar button:focus-visible{outline:2px solid #006847;outline-offset:2px}',
       '}',
       '@media(max-width:' + MOBILE + 'px){#cmx-ns-wrap{display:none!important}}',
@@ -41,12 +41,12 @@
       '#sitenav-ov.open{display:flex}',
       '#sitenav-panel{background:#fff;width:100%;max-width:560px;max-height:100dvh;display:flex;flex-direction:column;border-radius:0 0 16px 16px;box-shadow:0 12px 40px rgba(0,0,0,.2)}',
       '#sitenav-top{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid #eef0ee}',
-      '#sitenav-top .ic{color:#94a3b8;flex-shrink:0}',
+      '#sitenav-top .ic{color:#64748b;flex-shrink:0}',
       '#sitenav-input{flex:1;min-width:0;border:none;outline:none;font:inherit;font-size:16px;color:#0F172A;background:transparent;font-family:inherit}',
       '#sitenav-close{all:unset;cursor:pointer;color:#64748b;font-size:20px;line-height:1;padding:4px 8px;border-radius:8px}',
       '#sitenav-close:hover{background:#f1f5f9}',
       '#sitenav-list{overflow-y:auto;padding:10px 10px 16px}',
-      '#sitenav-list .ttl{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#94a3b8;padding:8px 8px 6px}',
+      '#sitenav-list .ttl{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#64748b;padding:8px 8px 6px}',
       '.sitenav-cat{display:flex;align-items:center;gap:12px;padding:12px 10px;border-radius:12px;text-decoration:none;color:#0F172A}',
       '.sitenav-cat:hover,.sitenav-cat:focus-visible{background:#f3f6f4;outline:none}',
       '.sitenav-cat .em{font-size:22px;width:30px;text-align:center;flex-shrink:0}',
@@ -54,7 +54,7 @@
       '.sitenav-cat .nm{font-size:15px;font-weight:700;letter-spacing:-.01em}',
       '.sitenav-cat .ds{font-size:12px;color:#64748b;margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}',
       '.sitenav-cat .ar{color:#cbd5e1;flex-shrink:0}',
-      '#sitenav-empty{padding:24px 12px;text-align:center;color:#94a3b8;font-size:13px}',
+      '#sitenav-empty{padding:24px 12px;text-align:center;color:#64748b;font-size:13px}',
     ].join('\n');
     var st = document.createElement('style');
     st.id = 'sitenav-css';
@@ -129,7 +129,7 @@
     var nav = document.getElementById('cmx-hd') || document.querySelector('nav');
     var bar = document.createElement('div');
     bar.id = 'sitenav-bar';
-    bar.innerHTML = '<button type="button" aria-label="Buscar categoría"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Buscar categoría…</span></button>';
+    bar.innerHTML = '<button type="button" aria-label="Buscar categoría"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Buscar categoría…</span></button>';
     if (nav && nav.parentNode) nav.parentNode.insertBefore(bar, nav.nextSibling);
     else document.body.insertBefore(bar, document.body.firstChild);
     bar.querySelector('button').addEventListener('click', openPanel);
