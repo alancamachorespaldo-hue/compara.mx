@@ -579,26 +579,6 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 
   <!-- CATÁLOGO -->
   <div class="crt-content">
-    <div class="search-bar" style="padding:0 0 10px">
-      <input id="search" type="text" placeholder="🔍 Buscar por marca, tipo, presentación…" oninput="render()">
-    </div>
-
-    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:.4rem 0;flex-wrap:wrap">
-      <div class="result-info" id="result-info" style="padding:0"></div>
-      <div style="display:flex;align-items:center;gap:8px">
-        <span class="sort-label">Ordenar:</span>
-        <select class="sort-sel" id="sort-sel" onchange="render()">
-          <option value="costo-porcion">Menor costo/porción</option>
-          <option value="precio-asc">Precio más bajo</option>
-          <option value="precio-desc">Precio más alto</option>
-          <option value="creatina-porcion">Más creatina/porción</option>
-          <option value="costo-5g">Menor costo/5g</option>
-          <option value="estrellas">Mejor calificados</option>
-        </select>
-      </div>
-    </div>
-
-<!-- GUÍA: franja desktop + tarjeta móvil -->
 <div class="how-strip" role="note">
   <div class="how-strip-lead">
     <span class="how-strip-icon">💪</span>
@@ -624,6 +604,27 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
     </div>
   </div>
 </div>
+    <div class="search-bar" style="padding:0 0 10px">
+      <input id="search" type="text" placeholder="🔍 Buscar por marca, tipo, presentación…" oninput="render()">
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:.4rem 0;flex-wrap:wrap">
+      <div class="result-info" id="result-info" style="padding:0"></div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="sort-label">Ordenar:</span>
+        <select class="sort-sel" id="sort-sel" onchange="render()">
+          <option value="costo-porcion">Menor costo/porción</option>
+          <option value="precio-asc">Precio más bajo</option>
+          <option value="precio-desc">Precio más alto</option>
+          <option value="creatina-porcion">Más creatina/porción</option>
+          <option value="costo-5g">Menor costo/5g</option>
+          <option value="estrellas">Mejor calificados</option>
+        </select>
+      </div>
+    </div>
+
+<!-- GUÍA: franja desktop + tarjeta móvil -->
+
 <button class="how-card" id="howCard" onclick="openHowModal()" aria-expanded="false" aria-haspopup="dialog">
   <span class="how-card-icon">💪</span>
   <span>
@@ -1337,6 +1338,7 @@ document.getElementById('howModalOv').addEventListener('click',function(e){if(e.
 </script>
 <script>try{sessionStorage.setItem('cmx_onboarding_v1','1');}catch(e){}</script>
 <script src="/assets/js/cards-enhance.js" defer></script>
+<script src="/assets/js/filters-scroll.js" defer></script>
 <script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
 <script src="/assets/js/share.js" defer></script>

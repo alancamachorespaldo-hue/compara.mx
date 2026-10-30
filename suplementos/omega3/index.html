@@ -829,6 +829,7 @@ function render() {
   const q = (document.getElementById('search').value||'').toLowerCase().trim();
   const sortVal = document.getElementById('sort-sel').value;
   let lista = [...productos];
+  if (window.cmxPass) lista = lista.filter(p => cmxPass(p));
 
   if (filtros.fuente !== 'todos') {
     lista = lista.filter(p => (p.fuenteOmega||'').toLowerCase().includes(filtros.fuente));
@@ -939,6 +940,7 @@ document.getElementById('howModalOv').addEventListener('click',function(e){if(e.
 </script>
 <script src="/assets/js/cards-enhance.js" defer></script>
 <script src="/assets/js/filters-panel.js" defer></script>
+<script src="/assets/js/filters-scroll.js" defer></script>
 <script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
 <script src="/assets/js/share.js" defer></script>

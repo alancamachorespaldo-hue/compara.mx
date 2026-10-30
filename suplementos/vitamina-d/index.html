@@ -633,6 +633,7 @@ const precioVigente = p => (p.linkML ? p.precioML : p.precioAmz) ?? p.precio ?? 
 
 function filtrar() {
   return PRODUCTOS.filter(p => {
+    if (window.cmxPass && !cmxPass(p)) return false;
     if (filters.formato !== 'todos' && p.formato !== filters.formato) return false;
     if (filters.conK2 === 'si' && p.conK2 !== 'Sí') return false;
     if (filters.conK2 === 'no' && p.conK2 === 'Sí') return false;
@@ -858,6 +859,7 @@ document.getElementById('howModalOv').addEventListener('click',function(e){if(e.
 </script>
 <script src="/assets/js/filters-panel.js" defer></script>
 <script src="/assets/js/cards-enhance.js" defer></script>
+<script src="/assets/js/filters-scroll.js" defer></script>
 <script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
 <script src="/assets/js/share.js" defer></script>

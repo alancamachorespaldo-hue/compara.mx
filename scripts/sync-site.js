@@ -283,6 +283,10 @@ function processPage(pg) {
       const t = '<script src="/js/onboarding.js" defer></script>';
       s = s.includes(t) ? s.replace(t, put('<script src="/assets/js/filters-panel.js" defer></script>\n') + t) : s.replace(/<\/body>/i, put('<script src="/assets/js/filters-panel.js" defer></script>\n</body>'));
     }
+    if (s.includes('id="grid"') && /cmx-fp|prt-filters|crt-filters|aud-filters/.test(s) && !/filters-scroll\.js/.test(s)) {
+      const t = '<script src="/js/onboarding.js" defer></script>';
+      s = s.includes(t) ? s.replace(t, put('<script src="/assets/js/filters-scroll.js" defer></script>\n') + t) : s.replace(/<\/body>/i, put('<script src="/assets/js/filters-scroll.js" defer></script>\n</body>'));
+    }
     if (!/js\/site-nav\.js/.test(s)) s = s.replace(/<\/body>/i, put('<script src="/js/site-nav.js" defer></script>\n</body>'));
     if ((s.includes('card-btn-col-price') || s.includes('data-cmx-layout="v2"')) && !/cards-enhance\.js/.test(s)) {
       const t = '<script src="/js/onboarding.js" defer></script>';

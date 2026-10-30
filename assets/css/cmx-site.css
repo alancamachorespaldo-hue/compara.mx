@@ -115,13 +115,16 @@ html[data-cmx-filters="panel"] #toolbar-mobile { display: none !important; }
 .cmx-fp-sec { padding: 14px 16px; border-bottom: 1px solid #E2E8E4; }
 .cmx-fp-sec:last-child { border-bottom: none; }
 .cmx-fp-sec h3 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: #64748B; margin: 0 0 10px; font-family: inherit; }
-.cmx-fp .filter { display: flex !important; align-items: center; gap: 8px; width: 100%; margin: 0 !important; padding: 5px 0 !important; background: none !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; font: 400 13px 'Satoshi', system-ui, sans-serif !important; color: #0F172A !important; text-align: left; cursor: pointer; min-height: 28px; white-space: normal; }
-.cmx-fp .filter::before { content: ''; width: 15px; height: 15px; flex-shrink: 0; border: 1.5px solid #94A3B8; border-radius: 50%; background: #fff; box-sizing: border-box; }
-.cmx-fp .filter.on { font-weight: 700 !important; }
-.cmx-fp .filter.on::before { border-color: #006847; background: radial-gradient(circle, #006847 0 42%, #fff 46%); }
-.cmx-fp .filter:hover { color: #006847 !important; }
-.cmx-fp .filter[disabled], .cmx-fp .filter.cmx-zero { opacity: .45; }
+.cmx-fp-row { display: flex; align-items: center; gap: 8px; padding: 5px 0; min-height: 28px; cursor: pointer; user-select: none; font: 400 13px 'Satoshi', system-ui, sans-serif; color: #0F172A; }
+.cmx-fp-row input { width: 15px; height: 15px; accent-color: #006847; cursor: pointer; flex-shrink: 0; margin: 0; }
+.cmx-fp-row:hover .cmx-fp-lbl { color: #006847; }
+.cmx-fp-row.cmx-zero { opacity: .45; }
+.cmx-fp-lbl { flex: 1; min-width: 0; }
 .cmx-fp-n { margin-left: auto; font-size: 11px; font-weight: 500; color: #64748B; }
+.cmx-fp-extra { display: none; }
+.cmx-fp-expanded .cmx-fp-extra { display: flex; }
+.cmx-fp-more { all: unset; cursor: pointer; margin-top: 4px; font: 600 12px 'Satoshi', system-ui, sans-serif; color: #006847; }
+.cmx-fp-more:hover { text-decoration: underline; }
 .cmx-fp input.precio-max-input { width: 100%; padding: 8px 10px; border: 1.5px solid #CBD5E1; border-radius: 8px; font: 400 13px 'Satoshi', system-ui, sans-serif; color: #0F172A; background: #fff; outline: none; box-sizing: border-box; }
 .cmx-fp input.precio-max-input:focus { border-color: #006847; }
 .cmx-fp-sort { display: flex; align-items: center; justify-content: flex-end; gap: 8px; padding: 4px 0 10px; font: 400 12px 'Satoshi', system-ui, sans-serif; color: #64748B; }
@@ -131,6 +134,11 @@ html[data-cmx-filters="panel"] #toolbar-mobile { display: none !important; }
 .cmx-fp-open .n.show { display: inline-flex; }
 .cmx-fp-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 299; }
 .cmx-fp-backdrop.show { display: block; }
+/* Franja de 3 pasos: queda fija arriba mientras se baja por el listado */
+@media (min-width: 861px) {
+  .cmx-fp-main .how-strip, .prt-content .how-strip, .crt-content .how-strip { position: sticky; top: 64px; z-index: 90; }
+}
+
 /* Con panel a la izquierda las tarjetas van en vertical, como en audífonos */
 .cmx-fp-main .grid { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; }
 .cmx-fp-main .card { display: flex !important; flex-direction: column !important; grid-template-columns: unset !important; }
