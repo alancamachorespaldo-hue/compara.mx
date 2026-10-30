@@ -686,7 +686,7 @@ function cardHTML(p) {
 
   const _plat = (tieneML && tieneAmz) ? 'both' : (tieneML ? 'ml' : 'amz');
 const dualBlock = (tieneML && tieneAmz) ? `<div class="card-btns-dual"><div class="card-btn-col"><div class="card-btn-col-plat">Mercado Libre</div><div class="card-btn-col-price">${fmtPrecio(p.precioML ?? precioShow)}</div>${btnML}</div><div class="card-btn-col"><div class="card-btn-col-plat">Amazon</div><div class="card-btn-col-price">${fmtPrecio(p.precioAmz ?? precioShow)}</div>${btnAmz}</div></div>` : '';
-  return `<div class="card${sel?' selected':''}" data-platform="${_plat}" onclick="toggleSelect(${p.id})">
+  return `<div class="card${sel?' selected':''}" data-platform="${_plat}" id="card-${p.id}" onclick="toggleSelect(${p.id})">
     <div class="card-img-wrap"><img class="card-img" src="${p.img}" alt="${p.nombre}" loading="lazy" onerror="this.src='https://via.placeholder.com/200x180?text=Sin+imagen'"></div>
     <div class="card-body">
       <div class="card-badges">${badges}</div>
@@ -858,6 +858,7 @@ function closeHowModal(){
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeHowModal()});
 document.getElementById('howModalOv').addEventListener('click',function(e){if(e.target===this)closeHowModal()});
 </script>
+<script src="/assets/js/favorites.js" defer></script>
 <script src="/assets/js/filters-panel.js" defer></script>
 <script src="/assets/js/cards-enhance.js" defer></script>
 <script src="/assets/js/filters-scroll.js" defer></script>

@@ -255,6 +255,9 @@ const DROP_PATHS = new Set(['/suplementos/proteina/', '/suplementos/creatina/', 
   '/laptops/', '/bicis/', '/electrodomesticos/freidoras/', '/electrodomesticos/microondas/', '/electrodomesticos/cafeteras/', '/tecnologia/audifonos/', '/tecnologia/bocinas/',
   '/videojuegos/consolas/', '/videojuegos/controles/', '/videojuegos/juegos/', '/celulares/android/', '/celulares/iphone/']);
 const FONT ='<link href="https://api.fontshare.com/v2/css?f[]=satoshi@800,700,600,500,400,300&display=swap" rel="stylesheet">';
+// Páginas con el panel genérico (filters-panel.js) que no traen ya su propio sistema de favoritos
+// (proteína y creatina tienen el suyo, nativo, y no cargan este módulo).
+const FAV_PATHS = new Set(['/suplementos/magnesio/', '/suplementos/omega3/', '/suplementos/complejo-b/', '/suplementos/vitamina-d/']);
 
 function locateNav(s) {
   const m = mask(s); const b = Math.max(0, m.indexOf('<body'));
@@ -286,6 +289,15 @@ function processPage(pg) {
     if (s.includes('data-cmx-filters="panel"') && !/filters-panel\.js/.test(s)) {
       const t = '<script src="/js/onboarding.js" defer></script>';
       s = s.includes(t) ? s.replace(t, put('<script src="/assets/js/filters-panel.js" defer></script>\n') + t) : s.replace(/<\/body>/i, put('<script src="/assets/js/filters-panel.js" defer></script>\n</body>'));
+    }
+    if (FAV_PATHS.has(pg.path) && !s.includes('src="/assets/js/favorites.js"')) {
+      // Debe cargar antes que filters-panel.js: build() llama a window.cmxBuildFavSection de forma
+      // síncrona, así que favorites.js tiene que haberse ejecutado (y registrado la función) primero.
+      const favTag = '<script src="/assets/js/favorites.js" defer></script>';
+      const panelTag = '<script src="/assets/js/filters-panel.js" defer></script>';
+      const onboardingTag = '<script src="/js/onboarding.js" defer></script>';
+      const anchor = s.includes(panelTag) ? panelTag : s.includes(onboardingTag) ? onboardingTag : null;
+      s = anchor ? s.replace(anchor, put(favTag + '\n') + anchor) : s.replace(/<\/body>/i, put(favTag + '\n</body>'));
     }
     if (s.includes('id="grid"') && /cmx-fp|prt-filters|crt-filters|aud-filters/.test(s) && !/filters-scroll\.js/.test(s)) {
       const t = '<script src="/js/onboarding.js" defer></script>';
