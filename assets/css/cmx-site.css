@@ -67,6 +67,13 @@
   .cmx-hd .nav-fav-txt { display: none; }
   .cmx-hd-act:has(.nav-fav-btn) .cmx-hd-guias { display: none; }
 }
+/* Pantallas muy angostas (~320px, iPhone SE 1.ª gen. y similares): el botón "Guías" se
+   quita del encabezado (sigue disponible en el menú de categorías) para que no se desborde. */
+@media (max-width: 360px) {
+  .cmx-hd-in { padding: 0 12px; gap: 10px; }
+  .cmx-hd-logo span { font-size: 17px; }
+  .cmx-hd-guias { display: none !important; }
+}
 
 /* ── Tamaños táctiles en pantallas chicas o táctiles (mínimo recomendado ~44 px) ── */
 @media (max-width: 820px), (pointer: coarse) {
