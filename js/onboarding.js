@@ -14,6 +14,8 @@
   'use strict';
 
   var KEY = 'cmx_onboarding_v1';
+  // Solo en el inicio: quien llega a una guía o categoría desde Google quiere leerla, no un tutorial.
+  if (location.pathname.replace(/index\.html$/, '') !== '/') return;
   if (sessionStorage.getItem(KEY)) return;
 
   var steps = [
