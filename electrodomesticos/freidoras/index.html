@@ -372,6 +372,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 
 </style>
 <link rel="stylesheet" href="/assets/css/cmx-site.css">
+<script src="/assets/js/paginate.js"></script>
 </head>
 <body data-category="freidoras">
 
@@ -2919,7 +2920,7 @@ function render() {
   }
   empty.style.display = 'none';
   info.textContent = lista.length + ' freidora' + (lista.length !== 1 ? 's' : '');
-  grid.innerHTML = lista.map(p => cardHTML(p)).join('');
+  grid.innerHTML = cmxPaginate(grid, lista).map(p => cardHTML(p)).join('');
 }
 
 function cardHTML(p) {

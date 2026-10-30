@@ -419,6 +419,7 @@ body .card-body{padding:1rem !important;min-width:0 !important}
 
 </style>
 <link rel="stylesheet" href="/assets/css/cmx-site.css">
+<script src="/assets/js/paginate.js"></script>
 </head>
 <body data-category="laptops">
 
@@ -4693,7 +4694,7 @@ function render() {
   }
   empty.style.display = 'none';
   info.textContent = lista.length + ' laptop' + (lista.length !== 1 ? 's' : '');
-  grid.innerHTML = lista.map(p => cardHTML(p)).join('');
+  grid.innerHTML = cmxPaginate(grid, lista).map(p => cardHTML(p)).join('');
 }
 
 function cardHTML(p) {

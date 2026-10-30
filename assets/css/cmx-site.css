@@ -76,6 +76,12 @@
   .btn-share, .nav-fav-btn, button.btn-filtros { min-height: 36px; }
 }
 
+/* ── "Mostrar más" en listados largos ── */
+.cmx-more { text-align: center; padding: 24px 16px 40px; }
+.cmx-more[hidden] { display: none; }
+.cmx-more-btn { font-family: 'Satoshi', system-ui, sans-serif; font-size: 14px; font-weight: 700; color: #006847; background: #fff; border: 1.5px solid #006847; border-radius: 10px; padding: 12px 24px; min-height: 44px; cursor: pointer; transition: background .15s, color .15s; }
+.cmx-more-btn:hover, .cmx-more-btn:focus-visible { background: #006847; color: #fff; outline: none; }
+
 /* ── Chip "Más barato" en tarjetas con dos tiendas ── */
 .cmx-cheap { display: block; width: max-content; max-width: 100%; margin: 3px auto 0; font-family: 'Satoshi', system-ui, sans-serif; font-size: 10px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: #006847; background: #EAF2EE; border-radius: 999px; padding: 1px 8px; }
 

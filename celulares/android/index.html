@@ -538,6 +538,7 @@ details.and-section summary:focus-visible{outline:2px solid var(--ac);outline-of
 @media(prefers-reduced-motion:reduce){.how-strip{transition:none!important;box-shadow:none}}
 </style>
 <link rel="stylesheet" href="/assets/css/cmx-site.css">
+<script src="/assets/js/paginate.js"></script>
 </head>
 <body data-category="celulares_android">
 
@@ -3089,7 +3090,7 @@ function render() {
   const emptyEl = document.getElementById('empty');
   if (emptyEl) emptyEl.style.display = 'none';
   info.textContent = lista.length + ' celular' + (lista.length !== 1 ? 'es' : '');
-  grid.innerHTML = lista.map(f => cardHTML(f)).join('');
+  grid.innerHTML = cmxPaginate(grid, lista).map(f => cardHTML(f)).join('');
   updateFavCount();
 }
 

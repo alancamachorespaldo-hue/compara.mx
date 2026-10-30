@@ -338,6 +338,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 }
 </style>
 <link rel="stylesheet" href="/assets/css/cmx-site.css">
+<script src="/assets/js/paginate.js"></script>
 </head>
 <body data-category="videojuegos_juegos">
 
@@ -946,7 +947,7 @@ function render(){
   empty.style.display = lista.length ? 'none' : 'block';
   const total = productos.length;
   info.textContent = lista.length===total ? `${total} videojuegos` : `${lista.length} de ${total} videojuegos`;
-  grid.innerHTML = lista.map(p=>cardHtml(p, minPrecio!=null && precioVigente(p)===minPrecio)).join('');
+  grid.innerHTML = cmxPaginate(grid, lista).map(p=>cardHtml(p, minPrecio!=null && precioVigente(p)===minPrecio)).join('');
 
   document.getElementById('btn-reset').classList.toggle('show', isActive());
 }

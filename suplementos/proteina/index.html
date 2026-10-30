@@ -498,6 +498,7 @@ details.prt-section summary:focus-visible{outline:2px solid var(--ac);outline-of
 .prt-bajada s{color:var(--tx3);font-weight:500;margin-right:4px}
 </style>
 <link rel="stylesheet" href="/assets/css/cmx-site.css">
+<script src="/assets/js/paginate.js"></script>
 </head>
 <body data-category="suplementos_proteina">
 
@@ -5443,7 +5444,7 @@ function render() {
   }
   empty.style.display = 'none';
   info.textContent = `Mostrando ${lista.length} de ${productos.length} productos`;
-  grid.innerHTML = lista.map(p => cardHTML(p)).join('');
+  grid.innerHTML = cmxPaginate(grid, lista).map(p => cardHTML(p)).join('');
   updateFavCount();
 }
 
