@@ -4699,7 +4699,7 @@ function render() {
 }
 
 function cardHTML(p) {
-  const isSelected = selected.includes(p.id);
+  const isSelected = selected.includes(String(p.id));
   const fmt = v => '$' + v.toLocaleString('es-MX', {minimumFractionDigits:0, maximumFractionDigits:2});
   const dual = p.linkML && p.linkAmz;
 
@@ -4751,7 +4751,7 @@ function cardHTML(p) {
 
   const _plat = dual ? 'both' : (p.linkML ? 'ml' : 'amz');
   return `
-  <div class="card${isSelected?' selected':''}" data-platform="${_plat}" id="card-${p.id}" onclick="toggleSelect(${p.id})">
+  <div class="card${isSelected?' selected':''}" data-platform="${_plat}" id="card-${p.id}" onclick="toggleSelect('${p.id}')">
     ${isSelected ? '<div class="sel-check">✓</div>' : ''}
     <div class="card-img-wrap">
       <img class="card-img" src="${p.img}" alt="${p.nombre}" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'88\' height=\'88\'><rect fill=\'%23f1f5f9\' width=\'88\' height=\'88\'/></svg>'">
@@ -4772,6 +4772,7 @@ function cardHTML(p) {
 let selected = [];
 
 function toggleSelect(id) {
+  id = String(id);
   const idx = selected.indexOf(id);
   if (idx !== -1) {
     selected.splice(idx, 1);
@@ -4815,7 +4816,7 @@ function updateBar() {
 function winIdxs(vals,dir){if(dir==='neutral')return[];const valid=vals.filter(v=>v!==null&&v!==undefined);if(!valid.length)return[];const best=dir==='lower'?Math.min(...valid):Math.max(...valid);return vals.reduce((acc,v,i)=>{if(v===best)acc.push(i);return acc;},[]);}
 function openModal() {
   if (selected.length < 2) return;
-  const prods = selected.map(id => productos.find(p => p.id === id));
+  const prods = selected.map(id => productos.find(p => String(p.id) === id));
 
   function prodBtns(p, size) {
     const h = size === 'sm' ? '16px' : '18px';
@@ -4947,8 +4948,7 @@ try {
   if (_lapPre) {
     sessionStorage.removeItem('lap_preselect');
     JSON.parse(_lapPre).forEach(function(sid) {
-      var nid = parseInt(sid, 10);
-      if (!isNaN(nid) && selected.length < 3) toggleSelect(nid);
+      if (sid != null && selected.length < 3) toggleSelect(sid);
     });
     if (selected.length >= 2) openModal();
   }
