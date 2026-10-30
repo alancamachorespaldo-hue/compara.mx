@@ -32,6 +32,8 @@
 .cmx-hd-links a:hover, .cmx-hd-links a:focus-visible { background: var(--c-s1); color: var(--c-tx); }
 .cmx-hd-links a[aria-current] { color: var(--c-ac); font-weight: 700; background: var(--c-s2); }
 .cmx-hd-act { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.cmx-hd-searchbtn { display: none; width: 36px; height: 36px; padding: 0; align-items: center; justify-content: center; border: 1px solid var(--c-bd); border-radius: 8px; background: #fff; color: var(--c-tx2); cursor: pointer; }
+.cmx-hd-searchbtn:hover { background: var(--c-s1); color: var(--c-tx); }
 .cmx-hd-guias { display: none; font-size: 13px; font-weight: 600; color: var(--c-tx2); padding: 7px 10px; border-radius: 8px; border: 1px solid var(--c-bd); }
 .cmx-hd a:focus-visible, .cmx-hd button:focus-visible { outline: 2px solid var(--c-ac); outline-offset: 2px; }
 @media (max-width: 1400px) {
@@ -48,6 +50,7 @@
   .cmx-hd-links, .cmx-hd-search { display: none; }
   .cmx-hd-act { margin-left: auto; }
   .cmx-hd-guias { display: inline-flex; }
+  .cmx-hd-searchbtn { display: inline-flex; }
   .cmx-hd-in { padding: 0 16px; }
 }
 
@@ -55,6 +58,14 @@
   .cmx-hd-act { gap: 6px; }
   .cmx-hd .nav-fav-txt { display: none; }
   .cmx-hd-act:has(.nav-fav-btn) .cmx-hd-guias { display: none; }
+}
+
+/* ── Tamaños táctiles en pantallas chicas o táctiles (mínimo recomendado ~44 px) ── */
+@media (max-width: 820px), (pointer: coarse) {
+  a.btn-ml, a.btn-amz, a.btn-buy, button.btn-ml, button.btn-amz { min-height: 44px; }
+  button.filter, button.storage-btn, button.filter-chip { min-height: 36px; }
+  button.fav-btn { min-width: 36px; min-height: 36px; }
+  .btn-share, .nav-fav-btn, button.btn-filtros { min-height: 36px; }
 }
 
 /* ── Breadcrumb ── */

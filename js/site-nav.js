@@ -125,6 +125,8 @@
   }
 
   function injectBar() {
+    var sbtn = document.getElementById('cmx-hd-searchbtn');
+    if (sbtn) { sbtn.addEventListener('click', openPanel); return; }
     if (document.getElementById('sitenav-bar')) return;
     var nav = document.getElementById('cmx-hd') || document.querySelector('nav');
     var bar = document.createElement('div');
