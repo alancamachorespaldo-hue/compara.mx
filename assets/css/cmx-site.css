@@ -68,6 +68,9 @@
   .btn-share, .nav-fav-btn, button.btn-filtros { min-height: 36px; }
 }
 
+/* ── Chip "Más barato" en tarjetas con dos tiendas ── */
+.cmx-cheap { display: block; width: max-content; max-width: 100%; margin: 3px auto 0; font-family: 'Satoshi', system-ui, sans-serif; font-size: 10px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: #006847; background: #EAF2EE; border-radius: 999px; padding: 1px 8px; }
+
 /* ── Breadcrumb ── */
 .cmx-bc { background: #fff; border-bottom: 1px solid var(--c-bd); }
 .cmx-bc ol { list-style: none; display: flex; flex-wrap: nowrap; align-items: center; gap: 6px; max-width: 1400px; margin: 0 auto; padding: 9px 24px; font-size: 13px; color: var(--c-tx3); overflow: hidden; }
