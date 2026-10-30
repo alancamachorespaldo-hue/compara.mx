@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es-MX">
+<html lang="es-MX" data-cmx-layout="v2" data-cmx-filters="panel">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
@@ -417,6 +417,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 </div>
 
 <!-- TOOLBAR -->
+<div class="cmx-fp-layout"><aside class="cmx-fp" id="cmx-fp" aria-label="Filtros"></aside><div class="cmx-fp-main">
 <div class="toolbar" id="toolbar">
   <span class="filter-label">Forma</span>
   <button class="filter on" onclick="toggleFilter('forma','todos',this)">Todos</button>
@@ -596,6 +597,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   <div class="grid" id="grid"></div>
   <div id="empty" class="empty" style="display:none">No hay productos con esos filtros.</div>
 </div>
+</div></div>
 
 <!-- SEO content block -->
 <section style="max-width:860px;margin:2.5rem auto;padding:0 2rem;color:#64748b;font-size:.9rem;line-height:1.8">
@@ -1683,6 +1685,7 @@ document.getElementById('howModalOv').addEventListener('click',function(e){if(e.
 <script>try{sessionStorage.setItem('cmx_onboarding_v1','1');}catch(e){}</script>
 <script src="/assets/js/share.js" defer></script>
 <script src="/assets/js/cards-enhance.js" defer></script>
+<script src="/assets/js/filters-panel.js" defer></script>
 <script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
 </body>

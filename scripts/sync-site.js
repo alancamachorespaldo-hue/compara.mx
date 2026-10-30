@@ -279,6 +279,10 @@ function processPage(pg) {
     if (!s.includes('cmx-site.css')) s = s.replace(/<\/head>/i, put('<link rel="stylesheet" href="/assets/css/cmx-site.css">\n</head>'));
     if (!/fontshare/.test(s)) s = s.replace(/<\/head>/i, put(FONT + '\n</head>'));
     if (s.includes('cmxPaginate(') && !/paginate\.js/.test(s)) s = s.replace(/<\/head>/i, put('<script src="/assets/js/paginate.js"></script>\n</head>'));
+    if (s.includes('data-cmx-filters="panel"') && !/filters-panel\.js/.test(s)) {
+      const t = '<script src="/js/onboarding.js" defer></script>';
+      s = s.includes(t) ? s.replace(t, put('<script src="/assets/js/filters-panel.js" defer></script>\n') + t) : s.replace(/<\/body>/i, put('<script src="/assets/js/filters-panel.js" defer></script>\n</body>'));
+    }
     if (!/js\/site-nav\.js/.test(s)) s = s.replace(/<\/body>/i, put('<script src="/js/site-nav.js" defer></script>\n</body>'));
     if ((s.includes('card-btn-col-price') || s.includes('data-cmx-layout="v2"')) && !/cards-enhance\.js/.test(s)) {
       const t = '<script src="/js/onboarding.js" defer></script>';

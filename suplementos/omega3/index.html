@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es-MX">
+<html lang="es-MX" data-cmx-layout="v2" data-cmx-filters="panel">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -408,6 +408,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 </div>
 
 <!-- TOOLBAR -->
+<div class="cmx-fp-layout"><aside class="cmx-fp" id="cmx-fp" aria-label="Filtros"></aside><div class="cmx-fp-main">
 <div class="toolbar" id="toolbar">
   <span class="filter-label">Fuente</span>
   <button class="filter on" onclick="toggleFilter('fuente','todos',this)">Todos</button>
@@ -540,6 +541,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   <div class="grid" id="grid"></div>
   <div id="empty" class="empty" style="display:none">No hay productos con esos filtros.</div>
 </div>
+</div></div>
 
 <!-- SEO content block -->
 <section style="max-width:860px;margin:2.5rem auto;padding:0 2rem;color:#64748b;font-size:.9rem;line-height:1.8">
@@ -713,7 +715,7 @@ const filtros = { fuente: 'todos', plataforma: 'todos' };
 
 function toggleFilter(dim, val, btn) {
   filtros[dim] = val;
-  btn.closest('.toolbar').querySelectorAll(`[onclick*="toggleFilter('${dim}'"]`).forEach(b => b.classList.remove('on'));
+  document.querySelectorAll(`[onclick*="toggleFilter('${dim}'"]`).forEach(b => b.classList.remove('on'));
   btn.classList.add('on');
   const anyActive = Object.values(filtros).some(v => v !== 'todos');
   document.getElementById('btn-clear-filters').style.display = anyActive ? '' : 'none';
@@ -725,7 +727,7 @@ function clearFilters() {
   filtros.fuente = 'todos';
   filtros.plataforma = 'todos';
   document.querySelectorAll('.filter.on').forEach(b => b.classList.remove('on'));
-  document.querySelectorAll('.toolbar .filter').forEach(b => { if(b.textContent.trim()==='Todos'||b.textContent.trim()==='Todas') b.classList.add('on'); });
+  document.querySelectorAll('.toolbar .filter, #cmx-fp .filter').forEach(b => { if(b.textContent.trim()==='Todos'||b.textContent.trim()==='Todas') b.classList.add('on'); });
   document.getElementById('btn-clear-filters').style.display = 'none';
   render();
 }
@@ -936,6 +938,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeHowModa
 document.getElementById('howModalOv').addEventListener('click',function(e){if(e.target===this)closeHowModal()});
 </script>
 <script src="/assets/js/cards-enhance.js" defer></script>
+<script src="/assets/js/filters-panel.js" defer></script>
 <script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
 <script src="/assets/js/share.js" defer></script>

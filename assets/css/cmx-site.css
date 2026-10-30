@@ -99,6 +99,54 @@ html[data-cmx-layout="v2"] .card.selected { background: #fff; }
 .cmx-store-tag .ml { --dot: #F0C000; }
 .cmx-store-tag .amz { --dot: #FF9900; }
 
+/* ── Panel de filtros a la izquierda (casillas con contador) ──
+   Lo llena assets/js/filters-panel.js moviendo los botones .filter del toolbar original. */
+html[data-cmx-filters="panel"] #toolbar,
+html[data-cmx-filters="panel"] #toolbar-mobile { display: none !important; }
+.cmx-fp-layout { max-width: 1400px; margin: 0 auto; padding: 16px 24px 24px; display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 24px; align-items: start; }
+.cmx-fp-main { min-width: 0; }
+.cmx-fp { font-family: 'Satoshi', system-ui, sans-serif; background: #fff; border: 1px solid var(--c-bd, #E2E8E4); border-radius: 14px; position: sticky; top: 80px; max-height: calc(100vh - 96px); overflow-y: auto; scrollbar-width: thin; min-height: 200px; }
+.cmx-fp-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 14px 16px 12px; border-bottom: 1px solid #E2E8E4; position: sticky; top: 0; background: #fff; z-index: 2; }
+.cmx-fp-title { font-size: 14px; font-weight: 700; color: #0F172A; }
+.cmx-fp-clear { all: unset; cursor: pointer; color: #006847; font-size: 12px; font-weight: 600; visibility: hidden; padding: 4px 0; }
+.cmx-fp-clear.show { visibility: visible; }
+.cmx-fp-clear:hover { text-decoration: underline; }
+.cmx-fp-close { all: unset; cursor: pointer; display: none; color: #64748B; padding: 4px; border-radius: 8px; line-height: 0; }
+.cmx-fp-sec { padding: 14px 16px; border-bottom: 1px solid #E2E8E4; }
+.cmx-fp-sec:last-child { border-bottom: none; }
+.cmx-fp-sec h3 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: #64748B; margin: 0 0 10px; font-family: inherit; }
+.cmx-fp .filter { display: flex !important; align-items: center; gap: 8px; width: 100%; margin: 0 !important; padding: 5px 0 !important; background: none !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; font: 400 13px 'Satoshi', system-ui, sans-serif !important; color: #0F172A !important; text-align: left; cursor: pointer; min-height: 28px; white-space: normal; }
+.cmx-fp .filter::before { content: ''; width: 15px; height: 15px; flex-shrink: 0; border: 1.5px solid #94A3B8; border-radius: 50%; background: #fff; box-sizing: border-box; }
+.cmx-fp .filter.on { font-weight: 700 !important; }
+.cmx-fp .filter.on::before { border-color: #006847; background: radial-gradient(circle, #006847 0 42%, #fff 46%); }
+.cmx-fp .filter:hover { color: #006847 !important; }
+.cmx-fp .filter[disabled], .cmx-fp .filter.cmx-zero { opacity: .45; }
+.cmx-fp-n { margin-left: auto; font-size: 11px; font-weight: 500; color: #64748B; }
+.cmx-fp input.precio-max-input { width: 100%; padding: 8px 10px; border: 1.5px solid #CBD5E1; border-radius: 8px; font: 400 13px 'Satoshi', system-ui, sans-serif; color: #0F172A; background: #fff; outline: none; box-sizing: border-box; }
+.cmx-fp input.precio-max-input:focus { border-color: #006847; }
+.cmx-fp-sort { display: flex; align-items: center; justify-content: flex-end; gap: 8px; padding: 4px 0 10px; font: 400 12px 'Satoshi', system-ui, sans-serif; color: #64748B; }
+.cmx-fp-sort select { border: 1.5px solid #CBD5E1; border-radius: 8px; padding: 7px 10px; font: 400 12px 'Satoshi', system-ui, sans-serif; color: #0F172A; background: #fff; cursor: pointer; }
+.cmx-fp-open { display: none; align-items: center; gap: 6px; background: #fff; border: 1.5px solid #CBD5E1; border-radius: 10px; padding: 8px 14px; min-height: 40px; font: 600 13px 'Satoshi', system-ui, sans-serif; color: #0F172A; cursor: pointer; margin: 0 0 10px; }
+.cmx-fp-open .n { display: none; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: #006847; color: #fff; font-size: 11px; font-weight: 700; }
+.cmx-fp-open .n.show { display: inline-flex; }
+.cmx-fp-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 299; }
+.cmx-fp-backdrop.show { display: block; }
+/* Con panel a la izquierda las tarjetas van en vertical, como en audífonos */
+.cmx-fp-main .grid { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; }
+.cmx-fp-main .card { display: flex !important; flex-direction: column !important; grid-template-columns: unset !important; }
+.cmx-fp-main .card .card-img-wrap { width: 100% !important; min-height: 160px !important; max-height: 190px !important; border-right: 0 !important; border-bottom: 1px solid #E2E8E4 !important; padding: 10px !important; height: auto !important; }
+.cmx-fp-main .card .card-body { width: auto !important; padding: 12px !important; display: flex !important; flex-direction: column !important; flex: 1 !important; }
+@media (max-width: 860px) {
+  .cmx-fp-main .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+}
+@media (max-width: 860px) {
+  .cmx-fp-layout { grid-template-columns: 1fr; padding: 8px 12px 16px; gap: 0; }
+  .cmx-fp-open { display: inline-flex; }
+  .cmx-fp { display: none; position: fixed; left: 0; top: 0; bottom: 0; z-index: 300; width: 290px; max-width: 86vw; max-height: 100%; border-radius: 0; border: 0; box-shadow: 4px 0 24px rgba(0,0,0,.18); }
+  .cmx-fp.open { display: block; }
+  .cmx-fp-close { display: inline-flex; }
+}
+
 /* ── "Mostrar más" en listados largos ── */
 .cmx-more { text-align: center; padding: 24px 16px 40px; }
 .cmx-more[hidden] { display: none; }

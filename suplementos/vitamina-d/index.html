@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es-MX">
+<html lang="es-MX" data-cmx-layout="v2" data-cmx-filters="panel">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -362,6 +362,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
   </div>
 </div>
 
+<div class="cmx-fp-layout"><aside class="cmx-fp" id="cmx-fp" aria-label="Filtros"></aside><div class="cmx-fp-main">
 <div class="toolbar" id="toolbar">
   <span class="filter-label">Formato</span>
   <button class="filter on" onclick="toggleFilter('formato','todos',this)">Todos</button>
@@ -489,6 +490,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 <div class="grid-wrap" data-ga-section="comparison">
   <div class="grid" id="grid"></div>
 </div>
+</div></div>
 
 <div class="compare-bar" id="compareBar">
   <span class="compare-bar-label">Comparar:</span>
@@ -854,6 +856,8 @@ function closeHowModal(){
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeHowModal()});
 document.getElementById('howModalOv').addEventListener('click',function(e){if(e.target===this)closeHowModal()});
 </script>
+<script src="/assets/js/filters-panel.js" defer></script>
+<script src="/assets/js/cards-enhance.js" defer></script>
 <script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
 <script src="/assets/js/share.js" defer></script>
