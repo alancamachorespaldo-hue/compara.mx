@@ -10,26 +10,18 @@
   'use strict';
   var MOBILE = 820;
 
-  // Categorías reales del sitio (enlaces existentes). Imagen opcional por categoría.
-  var CATS = [
-    { icon: '📱', name: 'Celulares', url: '/celulares/', desc: 'iPhone y Android', sub: ['iphone', 'android', 'smartphone'] },
-    { icon: '💊', name: 'Suplementos', url: '/suplementos/', desc: 'Proteína, creatina, magnesio…', sub: ['proteina', 'creatina', 'magnesio', 'omega', 'complejo b', 'vitamina'] },
-    { icon: '🚲', name: 'Bicicletas', url: '/bicis/', desc: 'Montaña, eléctricas, ruta', sub: ['electrica', 'montaña', 'ruta', 'gravel'] },
-    { icon: '🏠', name: 'Electrodomésticos', url: '/electrodomesticos/', desc: 'Freidoras, microondas', sub: ['freidora', 'microondas', 'horno'] },
-    { icon: '💻', name: 'Laptops', url: '/laptops/', desc: 'Gaming, trabajo, estudio', sub: ['gaming', 'trabajo', 'chromebook'] },
-    { icon: '🎮', name: 'Videojuegos', url: '/videojuegos/', desc: 'Consolas, controles, juegos', sub: ['consola', 'control', 'nintendo', 'playstation', 'xbox', 'switch'] },
-    { icon: '🎧', name: 'Tecnología', url: '/tecnologia/', desc: 'Bocinas inteligentes, audífonos, smartwatches', sub: ['alexa', 'bocina inteligente', 'echo', 'audifonos', 'auriculares', 'smartwatch', 'reloj inteligente'] },
-  ];
-  // Destinos extra para que el filtro encuentre subcategorías por nombre.
-  var SUBS = [
-    { name: 'Proteína', url: '/suplementos/proteina/' }, { name: 'Creatina', url: '/suplementos/creatina/' },
-    { name: 'Magnesio', url: '/suplementos/magnesio/' }, { name: 'Omega 3', url: '/suplementos/omega3/' },
-    { name: 'Complejo B', url: '/suplementos/complejo-b/' }, { name: 'Vitamina D', url: '/suplementos/vitamina-d/' },
-    { name: 'Freidoras', url: '/electrodomesticos/freidoras/' }, { name: 'Microondas', url: '/electrodomesticos/microondas/' },
-    { name: 'iPhone', url: '/celulares/iphone/' }, { name: 'Android', url: '/celulares/android/' },
-    { name: 'Consolas', url: '/videojuegos/consolas/' }, { name: 'Controles', url: '/videojuegos/controles/' }, { name: 'Juegos', url: '/videojuegos/juegos/' },
-    { name: 'Bocinas inteligentes', url: '/tecnologia/bocinas/' }, { name: 'Audífonos', url: '/tecnologia/audifonos/' }, { name: 'Smartwatches', url: '/tecnologia/smartwatches/' },
-  ];
+  // Categorías: lista única en /js/categorias.js (compartida con el buscador de escritorio).
+  function withCats(fn) {
+    if (window.CMX_CATS) { fn(); return; }
+    var q = (window.__cmxQ = window.__cmxQ || []);
+    q.push(fn);
+    if (!window.__cmxL) {
+      window.__cmxL = 1;
+      var sc = document.createElement('script');
+      sc.src = '/js/categorias.js';
+      document.head.appendChild(sc);
+    }
+  }
 
   var norm = function (s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); };
   var ga = function (name, params) { if (typeof window.gtag === 'function') { try { window.gtag('event', name, params || {}); } catch (e) {} } };
@@ -43,9 +35,7 @@
       '  #sitenav-bar{display:flex;align-items:center;gap:10px;position:sticky;top:64px;z-index:95;background:#fff;border-bottom:1px solid #e2e2dc;padding:10px 16px}',
       '  #sitenav-bar button{flex:1;display:flex;align-items:center;gap:10px;height:44px;padding:0 14px;border:1.5px solid #e2e2dc;border-radius:24px;background:#f7f7f5;color:#94a3b8;font:inherit;font-size:14px;cursor:pointer;text-align:left;font-family:inherit}',
       '  #sitenav-bar button:focus-visible{outline:2px solid #006847;outline-offset:2px}',
-      '  #sitenav-dsk-btn{display:none!important}',
       '}',
-      '#sitenav-dsk-btn{display:none!important}',
       '@media(max-width:' + MOBILE + 'px){#cmx-ns-wrap{display:none!important}}',
       '#sitenav-ov{position:fixed;inset:0;z-index:300;background:rgba(15,23,42,.5);display:none;align-items:flex-start;justify-content:center;padding:0}',
       '#sitenav-ov.open{display:flex}',
@@ -77,12 +67,12 @@
     var ov = document.createElement('div');
     ov.id = 'sitenav-ov';
     ov.setAttribute('role', 'dialog');
-    ov.setAttribute('aria-label', 'Buscar y explorar categorías');
+    ov.setAttribute('aria-label', 'Buscar categoría');
     ov.innerHTML =
       '<div id="sitenav-panel">' +
       '  <div id="sitenav-top">' +
       '    <svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>' +
-      '    <input id="sitenav-input" type="search" placeholder="Buscar productos o categorías…" autocomplete="off" aria-label="Buscar">' +
+      '    <input id="sitenav-input" type="search" placeholder="Buscar categoría…" autocomplete="off" aria-label="Buscar">' +
       '    <button id="sitenav-close" aria-label="Cerrar">✕</button>' +
       '  </div>' +
       '  <div id="sitenav-list"></div>' +
@@ -97,22 +87,20 @@
 
   function renderList(q) {
     var list = document.getElementById('sitenav-list');
+    var CATS = window.CMX_CATS || [];
+    var SUBS = window.CMX_SUBS || [];
     var n = norm(q);
-    var cats = CATS.filter(function (c) { return !n || norm(c.name).includes(n) || norm(c.desc).includes(n) || (c.sub || []).some(function (s) { return norm(s).includes(n) || n.includes(norm(s)); }); });
-    var subs = n ? SUBS.filter(function (s) { return norm(s.name).includes(n); }) : [];
+    function hit(c) {
+      return norm(c.name).includes(n) || norm(c.sub).includes(n) || (c.tags || []).some(function (t) { return norm(t).includes(n) || n.includes(norm(t)); });
+    }
+    var cats = CATS.filter(function (c) { return !n || hit(c); });
+    var subs = n ? SUBS.filter(function (c) { return hit(c) && !cats.some(function (x) { return x.url === c.url; }); }) : [];
+    function row(c) {
+      return '<a class="sitenav-cat" href="' + c.url + '" data-cat="' + c.name + '"><span class="em">' + c.icon + '</span><span class="tx"><span class="nm">' + c.name + '</span><span class="ds">' + c.sub + '</span></span><span class="ar">›</span></a>';
+    }
     var html = '';
-    if (cats.length) {
-      html += '<div class="ttl">Explora nuestras categorías</div>';
-      html += cats.map(function (c) {
-        return '<a class="sitenav-cat" href="' + c.url + '" data-cat="' + c.name + '"><span class="em">' + c.icon + '</span><span class="tx"><span class="nm">' + c.name + '</span><span class="ds">' + c.desc + '</span></span><span class="ar">›</span></a>';
-      }).join('');
-    }
-    if (subs.length) {
-      html += '<div class="ttl">Subcategorías</div>';
-      html += subs.map(function (s) {
-        return '<a class="sitenav-cat" href="' + s.url + '" data-cat="' + s.name + '"><span class="em">→</span><span class="tx"><span class="nm">' + s.name + '</span></span><span class="ar">›</span></a>';
-      }).join('');
-    }
+    if (cats.length) html += '<div class="ttl">Nuestras comparativas</div>' + cats.map(row).join('');
+    if (subs.length) html += '<div class="ttl">Más destinos</div>' + subs.map(row).join('');
     if (!cats.length && !subs.length) html = '<div id="sitenav-empty">Sin coincidencias. Prueba con «proteína», «celulares», «laptop»…</div>';
     list.innerHTML = html;
     [].forEach.call(list.querySelectorAll('.sitenav-cat'), function (a) {
@@ -122,6 +110,7 @@
 
   function openPanel() {
     buildOverlay();
+    withCats(function () { renderList(''); });
     document.getElementById('sitenav-ov').classList.add('open');
     document.body.style.overflow = 'hidden';
     var inp = document.getElementById('sitenav-input');
@@ -157,10 +146,18 @@
     var nav = document.querySelector('nav');
     var bar = document.createElement('div');
     bar.id = 'sitenav-bar';
-    bar.innerHTML = '<button type="button" aria-label="Buscar productos o categorías"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Buscar productos o categorías…</span></button>';
+    bar.innerHTML = '<button type="button" aria-label="Buscar categoría"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Buscar categoría…</span></button>';
     if (nav && nav.parentNode) nav.parentNode.insertBefore(bar, nav.nextSibling);
     else document.body.insertBefore(bar, document.body.firstChild);
     bar.querySelector('button').addEventListener('click', openPanel);
+    // La barra se pega justo debajo del menú, sea cual sea su altura en cada página.
+    function syncTop() {
+      var pos = nav ? getComputedStyle(nav).position : '';
+      bar.style.top = (pos === 'sticky' || pos === 'fixed') ? nav.offsetHeight + 'px' : '0px';
+    }
+    syncTop();
+    window.addEventListener('resize', syncTop);
+    window.addEventListener('load', syncTop);
   }
 
   function init() {
