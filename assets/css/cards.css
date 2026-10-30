@@ -91,10 +91,14 @@
 
 .card-specs {
   display: grid !important;
-  grid-template-columns: repeat(3, 1fr) !important;
+  grid-template-columns: repeat(auto-fit, minmax(72px, 1fr)) !important;
   gap: 3px !important;
   margin: 0 0 4px;
   flex-shrink: 0;
+}
+
+.card-specs .spec {
+  padding: 4px 5px;
 }
 
 .spec {
@@ -109,12 +113,13 @@
 .spec-lbl {
   font-size: 9px;
   text-transform: uppercase;
-  letter-spacing: .2px;
+  letter-spacing: .1px;
   color: #64748b;
   line-height: 1.15;
   white-space: normal;
   overflow: visible;
-  word-break: break-word;
+  overflow-wrap: normal;
+  word-break: normal;
 }
 
 .spec-val {

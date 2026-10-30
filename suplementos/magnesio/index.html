@@ -141,7 +141,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .card-stars-dual .stars-plat{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-bottom:2px}
 .card-stars-dual .stars-val{font-size:13px;color:#e6900a;font-weight:700}
 .card-stars-dual .stars-cnt{font-size:11px;color:var(--tx3);font-weight:400}
-.card-specs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin-bottom:.65rem}
+.card-specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(76px,1fr));gap:5px;margin-bottom:.65rem}
 .spec{background:var(--s1);border-radius:7px;padding:5px 8px}
 .spec-label{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
 .spec-val{font-size:12px;font-weight:600;color:var(--tx);margin-top:1px}
@@ -1517,7 +1517,7 @@ function cardHTML(p) {
         <div class="spec"><div class="spec-label">Forma</div><div class="spec-val">${formaLabel[p.formaMagnesio] || p.formaMagnesio}</div></div>
         <div class="spec"><div class="spec-label">Porciones</div><div class="spec-val">${p.porciones??'—'}</div></div>
         <div class="spec"><div class="spec-label">Cáps/día</div><div class="spec-val">${p.capsulasPorDia??'—'}</div></div>
-        <div class="spec"><div class="spec-label">Mg compuesto</div><div class="spec-val">${p.mgMagnesio} mg</div></div>
+        <div class="spec"><div class="spec-label">Mg compuesto</div><div class="spec-val">${p.mgMagnesio!=null?p.mgMagnesio+' mg':'—'}</div></div>
         <div class="spec"><div class="spec-label">$/porción</div><div class="spec-val">$${p.costoPorPorcion.toFixed(2)}</div></div>
       </div>
       <div class="card-commercial">

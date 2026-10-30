@@ -166,7 +166,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .stor-insight{display:none!important}
 
 /* ── SPECS ── */
-.card-specs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px}
+.card-specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(76px,1fr));gap:5px}
 .card-specs[data-cols="2"]{grid-template-columns:1fr 1fr!important}
 .spec{background:var(--s1);border-radius:7px;padding:5px 8px}
 .spec-label{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
