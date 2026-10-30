@@ -2339,7 +2339,7 @@ const productos = [
     marca: "HP",
     color: "Rosa Dorado",
     precio: 4539,
-    precioML: 4439,
+    precioML: 4539,
     precioAmz: null,
     procesador: "Intel Celeron N150",
     marcaProcesador: "Intel",
@@ -3905,7 +3905,7 @@ const productos = [
     marca: "Asus",
     color: "Plateado",
     precio: 16570.72,
-    precioML: 16730,
+    precioML: 16621,
     precioAmz: null,
     procesador: "Intel Core i9-13900H",
     marcaProcesador: "Intel",
@@ -4558,6 +4558,7 @@ const productos = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 
 
