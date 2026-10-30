@@ -21,9 +21,6 @@
   <meta name="twitter:description" content="Qué puedes esperar de un celular económico, cuáles son los compromisos y cuándo conviene ahorrar un poco más.">
   <meta name="twitter:image" content="https://comparalo.mx/fotos/og/suplementos-og.jpg">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -31,9 +28,9 @@
       --muted: #5e6b64;
       --line: #e4e9e5;
       --surface: #f7f9f7;
-      --green: #18834a;
-      --green-dark: #11683a;
-      --green-soft: #eaf6ee;
+      --green: #006847;
+      --green-dark: #004D34;
+      --green-soft: #EAF2EE;
       --amazon: #ff9900;
       --ml: #f0c000;
       --radius: 18px;
@@ -43,12 +40,12 @@
     html { scroll-behavior: smooth; scroll-padding-top: 60px; }
     body {
       margin: 0; background: #fff; color: var(--ink);
-      font-family: "DM Sans", sans-serif; font-size: 16px; line-height: 1.72;
+      font-family: 'Satoshi',system-ui,-apple-system,sans-serif; font-size: 16px; line-height: 1.72;
       -webkit-font-smoothing: antialiased;
     }
     a { color: var(--green-dark); text-underline-offset: 3px; }
     a:hover { text-decoration-thickness: 2px; }
-    h1, h2, h3, h4 { font-family: "Outfit", sans-serif; color: #17221c; line-height: 1.2; letter-spacing: -.025em; }
+    h1, h2, h3, h4 { font-family:'Satoshi',system-ui,-apple-system,sans-serif; color: #17221c; line-height: 1.2; letter-spacing: -.025em; }
     h1 { font-size: clamp(2.1rem, 5vw, 3.5rem); margin: 18px 0; max-width: 900px; }
     h2 { font-size: clamp(1.55rem, 3vw, 2.15rem); margin: 58px 0 18px; }
     h3 { font-size: clamp(1.2rem, 2.3vw, 1.55rem); margin: 0 0 12px; }
@@ -72,13 +69,13 @@
     .intro { font-size: 1.08rem; line-height: 1.8; max-width: 900px; }
     .notice { border: 1px solid #f0df9a; border-radius: 14px; padding: 14px 16px; background: #fffbed; color: #51451d; margin: 22px 0 30px; font-size: .94rem; }
     .toc { padding: 20px 24px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); margin: 30px 0 35px; }
-    .toc strong { display: block; margin-bottom: 7px; font-family: "Outfit", sans-serif; }
+    .toc strong { display: block; margin-bottom: 7px; font-family:'Satoshi',system-ui,-apple-system,sans-serif; }
     .toc ul { columns: 2; margin: 8px 0 0; }
     .toc li { break-inside: avoid; margin: 4px 0; }
     .table-wrap { width: 100%; overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; margin: 20px 0 8px; }
     table { width: 100%; min-width: 760px; border-collapse: collapse; font-size: .93rem; }
     th, td { padding: 13px 14px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
-    th { background: #f3f7f3; font-weight: 700; font-family: "Outfit", sans-serif; }
+    th { background: #f3f7f3; font-weight: 700; font-family:'Satoshi',system-ui,-apple-system,sans-serif; }
     tr:last-child td { border-bottom: 0; }
     td:first-child { font-weight: 700; }
     .small-note { font-size: .88rem; color: var(--muted); margin-top: 8px; }
@@ -96,9 +93,9 @@
     .product-card-img img { max-width: 100%; max-height: 180px; object-fit: contain; display: block; }
     .product-card-body { padding: 16px; }
     .product-kicker { color: var(--green-dark); text-transform: uppercase; letter-spacing: .08em; font-weight: 800; font-size: .72rem; margin-bottom: 5px; }
-    .product-card-name { font-size: 1rem; font-family: "Outfit", sans-serif; font-weight: 700; margin: 0 0 8px; line-height: 1.3; }
-    .product-card-price { font-size: 1.35rem; font-family: "Outfit", sans-serif; font-weight: 800; margin: 0 0 12px; color: var(--ink); }
-    .product-card-price small { display: block; color: var(--muted); font-family: "DM Sans", sans-serif; font-size: .76rem; font-weight: 500; line-height: 1.45; }
+    .product-card-name { font-size: 1rem; font-family:'Satoshi',system-ui,-apple-system,sans-serif; font-weight: 700; margin: 0 0 8px; line-height: 1.3; }
+    .product-card-price { font-size: 1.35rem; font-family:'Satoshi',system-ui,-apple-system,sans-serif; font-weight: 800; margin: 0 0 12px; color: var(--ink); }
+    .product-card-price small { display: block; color: var(--muted); font-family: 'Satoshi',system-ui,-apple-system,sans-serif; font-size: .76rem; font-weight: 500; line-height: 1.45; }
     .product-card-specs { border-top: 1px solid var(--line); margin: 0 -16px; padding: 0 16px; }
     .spec-row { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--line); font-size: .84rem; }
     .spec-row:last-child { border-bottom: 0; }
@@ -106,8 +103,8 @@
     .spec-row-value { font-weight: 700; text-align: right; }
     .product-actions { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 14px; }
     /* Legacy — se mantiene por compatibilidad con secciones de modelo-grid */
-    .price-line { font-size: 1.25rem; font-family: "Outfit", sans-serif; font-weight: 800; margin: 10px 0; }
-    .price-line small { display: block; color: var(--muted); font-family: "DM Sans", sans-serif; font-size: .78rem; font-weight: 500; line-height: 1.45; }
+    .price-line { font-size: 1.25rem; font-family:'Satoshi',system-ui,-apple-system,sans-serif; font-weight: 800; margin: 10px 0; }
+    .price-line small { display: block; color: var(--muted); font-family: 'Satoshi',system-ui,-apple-system,sans-serif; font-size: .78rem; font-weight: 500; line-height: 1.45; }
     .product-panel { display: grid; grid-template-columns: minmax(0, 1fr) minmax(250px, .8fr); gap: 22px; border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; margin: 20px 0 24px; box-shadow: var(--shadow); }
     .spec-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
     .spec { background: var(--surface); border-radius: 10px; padding: 10px 12px; min-width: 0; }
@@ -175,14 +172,14 @@
     .aside-right-panel{position:sticky;top:80px;display:flex;flex-direction:column;gap:8px}
     .aside-box{background:#f7f7f5;border:1.5px solid #d0d0c8;border-radius:14px;overflow:hidden}
     .aside-box-hdr{background:#006847;color:#fff;padding:10px 14px}
-    .aside-box-hdr-ttl{font-family:'Anton',sans-serif;font-size:12px;font-weight:400;letter-spacing:.05em;text-transform:uppercase;display:block;line-height:1.3}
+    .aside-box-hdr-ttl{font-family:'Satoshi',system-ui,-apple-system,sans-serif;font-size:12px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;display:block;line-height:1.3}
     .aside-prod-card{display:flex;gap:8px;padding:8px 12px;border-bottom:1px solid #e2e2dc;text-decoration:none;transition:background .12s}
     .aside-prod-card:last-child{border-bottom:none}
     .aside-prod-card:hover{background:#f0f0ec}
     .aside-prod-img{width:44px;height:52px;object-fit:contain;flex-shrink:0;border-radius:6px;background:#fff;padding:2px}
     .aside-prod-body{flex:1;min-width:0}
     .aside-prod-name{font-size:10.5px;font-weight:700;color:#0F172A;line-height:1.3;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .aside-prod-price{font-family:'Anton',sans-serif;font-size:.95rem;font-weight:400;color:#006847;line-height:1;display:block;margin-top:2px}
+    .aside-prod-price{font-family:'Satoshi',system-ui,-apple-system,sans-serif;font-size:.95rem;font-weight:800;color:#006847;line-height:1;display:block;margin-top:2px}
     .aside-prod-cta{display:inline-flex;align-items:center;margin-top:3px;font-size:10px;font-weight:700;color:#5a4200;background:#f0c000;border-radius:5px;padding:2px 6px}
     .aside-more{display:block;padding:8px 12px;font-size:11px;color:#006847;font-weight:600;text-decoration:none;text-align:center;border-top:1px solid #e2e2dc}
     .aside-more:hover{background:#f0f0ec}
@@ -193,7 +190,7 @@
     .aside-hub-img{position:absolute;right:0;top:0;bottom:0;width:52%;object-fit:cover;object-position:center top;opacity:.45}
     .aside-hub-content{position:relative;z-index:2;flex:1;min-width:0}
     .aside-hub-eyebrow{font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.65);font-weight:700;display:block;margin-bottom:2px}
-    .aside-hub-ttl{font-family:'Anton',sans-serif;font-size:1.2rem;font-weight:400;letter-spacing:.04em;text-transform:uppercase;color:#fff;line-height:1;display:block}
+    .aside-hub-ttl{font-family:'Satoshi',system-ui,-apple-system,sans-serif;font-size:1.2rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#fff;line-height:1;display:block}
     .aside-hub-btn{position:relative;z-index:2;display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.45);color:#fff;border-radius:50%;font-size:14px;font-weight:900;flex-shrink:0}
     .aside-hub-card:hover .aside-hub-btn{background:rgba(255,255,255,.35)}
     /* ── COMP-HUB SECTION ── */
@@ -207,7 +204,7 @@
     .comp-hub-card-img-iphone{opacity:.65}
     .comp-hub-card-content{position:relative;z-index:2;max-width:52%}
     .comp-hub-eyebrow{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.65);font-weight:700;display:block;margin-bottom:4px}
-    .comp-hub-ttl{font-family:'Anton',sans-serif;font-size:2rem;font-weight:400;letter-spacing:.04em;text-transform:uppercase;color:#fff;line-height:1;margin:0 0 16px}
+    .comp-hub-ttl{font-family:'Satoshi',system-ui,-apple-system,sans-serif;font-size:2rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#fff;line-height:1;margin:0 0 16px}
     .comp-hub-btn{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.5);color:#fff;border-radius:50%;font-size:16px;font-weight:900;transition:background .15s;flex-shrink:0}
     .comp-hub-card:hover .comp-hub-btn{background:rgba(255,255,255,.35)}
     @media(max-width:640px){.comp-hub-grid{grid-template-columns:1fr}.comp-hub-card-img{opacity:.2}.comp-hub-card-content{max-width:100%}}
@@ -218,16 +215,16 @@
     .sidebar.open .sidebar-panel{transform:translateX(0)}
     @media(min-width:1041px){.sidebar.visible .sidebar-panel{transform:translateX(0)}.sidebar-toggle{display:none}}
     .sidebar-header{padding:12px 14px 10px;border-bottom:1px solid #e4e9e5;flex-shrink:0}
-    .sidebar-htitle{font-family:'Anton',sans-serif;font-size:15px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:#17221c;display:block}
+    .sidebar-htitle{font-family:'Satoshi',system-ui,-apple-system,sans-serif;font-size:15px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#17221c;display:block}
     .sidebar-hsub{font-size:11px;color:#7a8a82;display:block;margin-top:2px}
     .sidebar-phones{display:flex;flex-direction:column;flex:1}
     .sidebar-phone{padding:8px 12px 8px 10px;cursor:pointer;transition:background .12s;border-bottom:1px solid #e4e9e5;display:flex;align-items:center;gap:8px;position:relative}
     .sidebar-phone:last-child{border-bottom:none}
-    .sidebar-phone:hover,.sidebar-phone:focus{background:#eaf6ee;outline:none}
+    .sidebar-phone:hover,.sidebar-phone:focus{background:#EAF2EE;outline:none}
     .sidebar-phone.sp-sel{background:#ddf4e5}
     .sidebar-phone-img{width:38px;height:44px;object-fit:contain;border-radius:6px;background:#f7f9f7;padding:2px;flex-shrink:0;display:block}
     .sidebar-phone-info{flex:1;min-width:0}
-    .sidebar-phone-price{font-family:'Anton',sans-serif;font-size:16px;font-weight:400;color:#006847;letter-spacing:.01em;line-height:1}
+    .sidebar-phone-price{font-family:'Satoshi',system-ui,-apple-system,sans-serif;font-size:16px;font-weight:800;color:#006847;letter-spacing:.01em;line-height:1}
     .sidebar-phone-name{font-size:11.5px;font-weight:600;color:#17221c;line-height:1.3;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .sidebar-phone-tag{font-size:9.5px;color:#7a8a82;text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-top:1px}
     .sidebar-phone-ml{display:inline-flex;align-items:center;gap:3px;margin-top:4px;font-size:9.5px;font-weight:700;background:#f0c000;color:#171717;border-radius:5px;padding:2px 6px;text-decoration:none;line-height:1.4;pointer-events:auto}
@@ -240,12 +237,12 @@
     .sidebar-banner:last-child{border-bottom:none}
     .sidebar-banner:hover{background:#eef2ef}
     .sidebar-banner-ico{font-size:20px;flex-shrink:0;line-height:1}
-    .sidebar-banner-ttl{font-family:'Anton',sans-serif;font-size:11px;font-weight:400;letter-spacing:.07em;text-transform:uppercase;color:#17221c;display:block}
+    .sidebar-banner-ttl{font-family:'Satoshi',system-ui,-apple-system,sans-serif;font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#17221c;display:block}
     .sidebar-banner-sub{font-size:10px;color:#5e6b64;margin-top:1px;display:block}
-    .sidebar-toggle{background:#006847;color:#fff;border:none;cursor:pointer;border-radius:0 10px 10px 0;padding:16px 8px 16px 9px;display:flex;flex-direction:column;align-items:center;gap:10px;font-family:'Anton',sans-serif;transition:background .15s;flex-shrink:0;box-shadow:3px 0 14px rgba(0,104,71,.3);min-height:100px}
+    .sidebar-toggle{background:#006847;color:#fff;border:none;cursor:pointer;border-radius:0 10px 10px 0;padding:16px 8px 16px 9px;display:flex;flex-direction:column;align-items:center;gap:10px;font-family:'Satoshi',system-ui,-apple-system,sans-serif;transition:background .15s;flex-shrink:0;box-shadow:3px 0 14px rgba(0,104,71,.3);min-height:100px;font-weight:800}
     .sidebar-toggle:hover{background:#00573b}
     .sidebar-toggle-ico{font-size:17px;line-height:1}
-    .sidebar-toggle-lbl{writing-mode:vertical-rl;text-orientation:mixed;font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-family:'Anton',sans-serif;opacity:.9;line-height:1}
+    .sidebar-toggle-lbl{writing-mode:vertical-rl;text-orientation:mixed;font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-family:'Satoshi',system-ui,-apple-system,sans-serif;opacity:.9;line-height:1;font-weight:800}
     .sidebar-badge{display:none;width:17px;height:17px;border-radius:50%;background:#fff;color:#006847;font-size:9px;font-weight:800;align-items:center;justify-content:center;flex-shrink:0}
     .sidebar-badge.show{display:flex}
     @media(max-width:1040px){.sidebar{display:none!important}}
@@ -269,7 +266,7 @@
       .mob-fab{display:flex;flex-direction:column;align-items:center;gap:9px;position:fixed;right:14px;bottom:160px;z-index:180;opacity:0;pointer-events:none;transition:opacity .35s,bottom .35s cubic-bezier(.4,0,.2,1)}
       .mob-fab.visible{opacity:1;pointer-events:auto}
       .mob-fab.cmp-open{bottom:240px}
-      .mob-fab-btn{display:flex;align-items:center;justify-content:center;gap:6px;padding:0 14px 0 10px;height:40px;border-radius:999px;box-shadow:0 3px 16px rgba(0,0,0,.22);cursor:pointer;border:none;text-decoration:none;transition:transform .12s;white-space:nowrap;font-family:'Outfit',sans-serif;font-size:12.5px;font-weight:700;letter-spacing:.01em}
+      .mob-fab-btn{display:flex;align-items:center;justify-content:center;gap:6px;padding:0 14px 0 10px;height:40px;border-radius:999px;box-shadow:0 3px 16px rgba(0,0,0,.22);cursor:pointer;border:none;text-decoration:none;transition:transform .12s;white-space:nowrap;font-family:'Satoshi',system-ui,-apple-system,sans-serif;font-size:12.5px;font-weight:700;letter-spacing:.01em}
       .mob-fab-btn:active{transform:scale(.93)}
       .mob-fab-android{background:#3ddc84;color:#1d1d1f}
       .mob-fab-iphone{background:#1d1d1f;color:#fff}
@@ -284,16 +281,16 @@
       .mob-drawer.open{transform:translateY(0)}
       .mob-drawer-handle{width:40px;height:4px;border-radius:2px;background:#d0d8d3;margin:10px auto 0;flex-shrink:0}
       .mob-drawer-header{padding:10px 16px;border-bottom:1px solid #e4e9e5;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-      .mob-drawer-htitle{font-family:'Anton',sans-serif;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#17221c}
+      .mob-drawer-htitle{font-family:'Satoshi',system-ui,-apple-system,sans-serif;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#17221c;font-weight:800}
       .mob-drawer-close{background:none;border:none;font-size:20px;color:#5e6b64;cursor:pointer;padding:4px 8px;line-height:1;font-family:inherit}
       .mob-drawer-phones{overflow-y:auto;flex:1;-webkit-overflow-scrolling:touch}
       .mob-drawer-phone{padding:10px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #e4e9e5;cursor:pointer;transition:background .1s;user-select:none}
       .mob-drawer-phone:last-child{border-bottom:none}
-      .mob-drawer-phone:active{background:#eaf6ee}
+      .mob-drawer-phone:active{background:#EAF2EE}
       .mob-drawer-phone.mp-sel{background:#ddf4e5}
       .mob-drawer-phone-img{width:40px;height:48px;object-fit:contain;border-radius:6px;background:#f7f9f7;padding:2px;flex-shrink:0}
       .mob-drawer-phone-info{flex:1;min-width:0}
-      .mob-drawer-phone-price{font-family:'Anton',sans-serif;font-size:17px;color:#006847;letter-spacing:.01em;line-height:1}
+      .mob-drawer-phone-price{font-family:'Satoshi',system-ui,-apple-system,sans-serif;font-size:17px;color:#006847;letter-spacing:.01em;line-height:1;font-weight:800}
       .mob-drawer-phone-name{font-size:12.5px;font-weight:600;color:#17221c;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
       .mob-drawer-phone-tag{font-size:10px;color:#5e6b64;text-transform:uppercase;letter-spacing:.05em;font-weight:600;margin-top:1px}
       .mob-drawer-phone-chk{width:20px;height:20px;border-radius:50%;border:1.5px solid #c8d4cc;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;font-weight:700;color:transparent;transition:all .15s}

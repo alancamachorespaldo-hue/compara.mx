@@ -2,6 +2,14 @@
    Todo con prefijo cmx- para no chocar con el CSS inline de cada página.
    El HTML lo escribe scripts/sync-site.js; no editar los bloques a mano. */
 
+/* Tokens de marca por defecto. :where() les quita especificidad: cualquier página que ya
+   defina sus propias variables (--ac, --tx, ...) las conserva; una página nueva las hereda. */
+:where(:root) {
+  --ac: #006847; --ac2: #004D34; --tx: #0F172A; --tx2: #475569; --tx3: #64748B;
+  --bd: #E2E8E4; --s1: #F2F4F7; --s2: #EAF2EE; --amz: #FF9900; --ml: #F0C000;
+  --font: 'Satoshi', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
 .cmx-hd, .cmx-bc, .cmx-rel, .cmx-ft {
   --c-ac: #006847; --c-ac2: #004D34; --c-tx: #0F172A; --c-tx2: #475569; --c-tx3: #64748B;
   --c-bd: #E2E8E4; --c-s1: #F2F4F7; --c-s2: #EAF2EE;
