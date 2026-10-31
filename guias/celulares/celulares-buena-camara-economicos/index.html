@@ -1204,7 +1204,7 @@
     var _map={};
     Object.values(cat).forEach(function(e){if(e.linkML)_map[e.linkML]=e.precioML;});
     // Mismo precio en el texto editorial que en las tarjetas
-    if(typeof cmxPreciosGuia==='function')cmxPreciosGuia(celularesDataGuia,_map);
+    if(typeof cmxPreciosGuia==='function')cmxPreciosGuia(celularesDataGuia,_map,{max:7000});
     var _fmt=new Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN',maximumFractionDigits:0});
     var _ch=false;
     celularesDataGuia.forEach(function(d){

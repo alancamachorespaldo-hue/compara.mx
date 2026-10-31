@@ -261,3 +261,16 @@ html[data-cmx-filters="panel"] #toolbar-mobile { display: none !important; }
 .cmx-ft-bottom { margin: 32px 0 0; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.12); font-size: 12px; line-height: 1.6; color: rgba(255,255,255,.55); }
 @media (max-width: 860px) { .cmx-ft-grid { grid-template-columns: 1fr 1fr; } .cmx-ft-grid > div:first-child { grid-column: 1 / -1; } }
 @media (max-width: 480px) { .cmx-ft { padding: 32px 16px 24px; } .cmx-ft-grid { gap: 24px 16px; } }
+
+/* Aviso de precio fuera del rango que promete el título de una guía.
+   Lo pone assets/js/guias-precios.js cuando el precio vivo se sale del {min,max}. */
+.cmx-rango {
+  display: block;
+  margin-top: 7px;
+  padding: 6px 9px;
+  border: 1px solid #FED7AA;
+  border-radius: 8px;
+  background: #FFF7ED;
+  color: #9A3412;
+  font: 600 11.5px/1.45 'Satoshi', system-ui, sans-serif;
+}
