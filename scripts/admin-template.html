@@ -799,12 +799,13 @@ function renderDash() {
   </div>`;
 }
 
-const CATS = {laptops:'Laptops', freidoras:'Freidoras', bicis:'Bicis', microondas:'Microondas', cafeteras:'Cafeteras', proteina:'Proteína', omega3:'Omega 3', magnesio:'Magnesio', creatina:'Creatina', complejo_b:'Complejo B', vitamina_d:'Vitamina D', videojuegos_consolas:'Consolas', videojuegos_controles:'Controles', videojuegos_juegos:'Videojuegos', tecnologia_bocinas:'Bocinas int.', tecnologia_audifonos:'Audífonos', tecnologia_smartwatches:'Smartwatches', celulares_android:'Android', celulares_iphone:'iPhone'};
+const CATS = {laptops:'Laptops', freidoras:'Freidoras', bicis:'Bicis', bicisMontana:'Bicis Montaña', microondas:'Microondas', cafeteras:'Cafeteras', proteina:'Proteína', omega3:'Omega 3', magnesio:'Magnesio', creatina:'Creatina', complejo_b:'Complejo B', vitamina_d:'Vitamina D', videojuegos_consolas:'Consolas', videojuegos_controles:'Controles', videojuegos_juegos:'Videojuegos', tecnologia_bocinas:'Bocinas int.', tecnologia_audifonos:'Audífonos', tecnologia_smartwatches:'Smartwatches', celulares_android:'Android', celulares_iphone:'iPhone'};
 const PRICE_WF = GH + '/workflows/update-prices.yml';
 const SPECS = {
   laptops:[['procesador','Procesador'],['ram','RAM'],['almacenamiento','Almacen.'],['pantalla','Pantalla'],['resolucion','Resolución'],['gpu','GPU'],['so','SO'],['peso','Peso'],['touch','Touch']],
   freidoras:[['tipo','Tipo'],['capacidad','Capacidad'],['potencia','Potencia'],['tempMax','Temp. máx.'],['panel','Panel'],['canastos','Canastos'],['ventana','Ventana'],['antiadherente','Antiadh.']],
   bicis:[['tipo','Tipo'],['rueda','Rueda'],['velocidades','Velocidades'],['peso','Peso'],['cargaMax','Carga máx.'],['autonomia','Autonomía'],['motor','Motor'],['bateria','Batería'],['voltaje','Voltaje'],['plegable','Plegable'],['luces','Luces']],
+  bicisMontana:[['tipo','Tipo'],['rodada','Rodada'],['velocidades','Velocidades'],['suspension','Suspensión'],['frenos','Frenos'],['peso','Peso'],['cargaMax','Carga máx.'],['cambios','Cambios'],['cuadro','Cuadro']],
   proteina:[['porciones','Porciones'],['costoPorPorcion','Costo/porción'],['sabores','Sabores'],['tipoProteina','Tipo'],['fuenteProteina','Fuente'],['gramosPorPorcion','g/porción'],['proteinaPorPorcion','Prot./porción'],['vegana','Vegana'],['glutenFree','Sin gluten']],
   omega3:[['porciones','Porciones'],['costoPorPorcion','Costo/porción'],['epa','EPA'],['dha','DHA'],['omegaTotal','Omega total'],['fuenteOmega','Fuente'],['ifos','IFOS'],['metalesPesados','Sin metales']],
   magnesio:[['porciones','Porciones'],['costoPorPorcion','Costo/porción'],['formaMagnesio','Forma'],['mgMagnesio','mg'],['mgElemental','mg elemental'],['absorcion','Absorción'],['vegano','Vegano']],

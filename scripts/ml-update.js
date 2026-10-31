@@ -50,6 +50,7 @@ const CATALOG = {
   tecnologia_bocinas:    { file: 'tecnologia/bocinas/index.html',    varName: 'productos' },
   tecnologia_audifonos:  { file: 'tecnologia/audifonos/index.html',  varName: 'productos' },
   cafeteras:             { file: 'electrodomesticos/cafeteras/index.html', varName: 'productos' },
+  bicisMontana:          { file: 'bicis/index.html',                      varName: 'MONTANA'   },
   // tecnologia_smartwatches: sin productos aún; agregar cuando se pueble:
   // tecnologia_smartwatches: { file: 'tecnologia/smartwatches/index.html', varName: 'productos' },
 };
