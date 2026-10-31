@@ -68,6 +68,15 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
   pueden divergir; no sincronizar la BD hacia ellas sin revisar primero (oct-2026: 85 links de Amazon
   y 65 de ML de la BD están compartidos entre productos distintos de varias categorías, asignados por
   número de id; los de las páginas son los buenos).
+- `sync-guias-precios.js [--aplicar]` — las guías llevan el precio escrito a mano en la tabla, en las
+  fichas y en su array `familias*`, y `ml-update.js` no las toca, así que se desfasan solas. Este script
+  lleva el `precioML` de la BD a esos tres lugares **sin adivinar nada**: cada familia declara
+  `dbId: '<id de merged-admin.json>'` y cada precio del HTML lleva `data-cmx-precio="<modeloBase>"`.
+  Nunca empareja por nombre ni por número de id. **Tope de seguridad `MAX_SALTO` (25%)**: si la BD se
+  aleja más de eso del precio de la guía no lo escribe y lo manda a `guias-precios-report.json` para
+  revisarlo a mano (oct-2026 la BD tiene un Pixel 9a a $20,794 por un `mlId` mal asignado; el tope
+  existe para que un dato así no acabe en una guía). Corre en `update-prices.yml`.
+  Guías ya anotadas: `mejores-celulares-menos-5000`. Para sumar otra hay que anotarla primero.
 - `ml-update.js [--categoria=X] [--dry-run]` — precio ML de cada producto con link ML y `mlId`
   (ID de catálogo `MLM…` de la ficha `/p/MLM…`) vía `/products/{mlId}/items`; parchea el HTML por `id`
   y escribe `ml-report.json`. Categorías: `laptops`, `freidoras`, `bicis`, `microondas`, `proteina`,
