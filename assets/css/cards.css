@@ -21,8 +21,10 @@
   overflow: hidden;
 }
 
-/* sel-check (patrón antiguo, por página): reemplazado por el círculo unificado de abajo */
+/* sel-check y la línea "○ Seleccionar para comparar" (patrón antiguo, por página):
+   reemplazados por el círculo unificado de abajo */
 .card > .sel-check,
+.card .card-sel-row,
 .card::after {
   display: none !important;
 }
