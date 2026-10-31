@@ -33,13 +33,15 @@
           // Sin dato vivo no se deja una cifra vieja: deja de haber precio en ese punto.
           if (el.classList.contains('cmx-precio-nd')) continue;
           el.classList.add('cmx-precio-nd');
-          el.textContent = 'Consulta el precio en la tienda';
+          el.textContent = 'Ver en Amazon';
           continue;
         }
 
         var t = primerTexto(el);
         if (!t || !/\$[\d,]+/.test(t.nodeValue)) continue;
-        t.nodeValue = t.nodeValue.replace(/\$[\d,]+/, fmt(vivo));
+        // Se sustituye el nodo entero, no solo la cifra: hay celdas con rango o prefijo
+        // ("desde ~$2,900", "~$3,800–$4,500") donde un reemplazo parcial dejaría un texto roto.
+        t.nodeValue = fmt(vivo) + (/MXN/.test(t.nodeValue) ? ' MXN' : '');
 
         // "Precio visto: octubre 2026" deja de ser cierto en cuanto se refresca el número.
         var small = el.querySelector('small');
