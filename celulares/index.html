@@ -257,7 +257,7 @@ footer a{color:var(--ac);text-decoration:none}
           <div class="pop-card-btns">
             <a class="btn-ml-sm" href="https://meli.la/1YNrnqo" rel="sponsored nofollow noopener" target="_blank"
                onclick="gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Motorola Moto G75 5G',value:4190,location:'hub_masbuscados'})">
-              <img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-right:3px" alt="" onerror="this.style.display='none'">ML →
+              Ir a <img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-left:4px" alt="Mercado Libre" onerror="this.style.display='none'">
             </a>
           </div>
         </div>
@@ -282,7 +282,7 @@ footer a{color:var(--ac);text-decoration:none}
           <div class="pop-card-btns">
             <a class="btn-ml-sm" href="https://meli.la/2odmD8G" rel="sponsored nofollow noopener" target="_blank"
                onclick="gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Samsung Galaxy A16 5G',value:2639,location:'hub_masbuscados'})">
-              <img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-right:3px" alt="" onerror="this.style.display='none'">ML →
+              Ir a <img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-left:4px" alt="Mercado Libre" onerror="this.style.display='none'">
             </a>
           </div>
         </div>
@@ -307,7 +307,7 @@ footer a{color:var(--ac);text-decoration:none}
           <div class="pop-card-btns">
             <a class="btn-ml-sm" href="https://meli.la/2nAtP9e" rel="sponsored nofollow noopener" target="_blank"
                onclick="gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Xiaomi Redmi 17',value:4009,location:'hub_masbuscados'})">
-              <img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-right:3px" alt="" onerror="this.style.display='none'">ML →
+              Ir a <img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-left:4px" alt="Mercado Libre" onerror="this.style.display='none'">
             </a>
           </div>
         </div>
@@ -332,7 +332,7 @@ footer a{color:var(--ac);text-decoration:none}
           <div class="pop-card-btns">
             <a class="btn-ml-sm" href="https://meli.la/1A7T9CX" rel="sponsored nofollow noopener" target="_blank"
                onclick="gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'Motorola G86 5G',value:4588,location:'hub_masbuscados'})">
-              <img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-right:3px" alt="" onerror="this.style.display='none'">ML →
+              Ir a <img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-left:4px" alt="Mercado Libre" onerror="this.style.display='none'">
             </a>
           </div>
         </div>
@@ -368,7 +368,7 @@ footer a{color:var(--ac);text-decoration:none}
         d.especs.almacenamiento?'<li><span class="spec-key">Almacenamiento</span><span class="spec-val">'+d.especs.almacenamiento+'</span></li>':'',
         d.especs.cam?'<li><span class="spec-key">Cámara</span><span class="spec-val">'+d.especs.cam+'</span></li>':''
       ].filter(Boolean).join(''):'';
-      const amzBtn=d.linkAmz?'<a class="btn-amz-sm" href="'+d.linkAmz+'" rel="sponsored nofollow noopener" target="_blank" onclick="typeof gtag===\'function\'&&gtag(\'event\',\'affiliate_click_amz\',{event_category:\'afiliado\',event_label:\''+d.nombre.replace(/'/g,'\\\'')+'\'  ,value:'+precio+',location:\'hub_descuentos\'})">Amazon →</a>':'';
+      const amzBtn=d.linkAmz?'<a class="btn-amz-sm" href="'+d.linkAmz+'" rel="sponsored nofollow noopener" target="_blank" onclick="typeof gtag===\'function\'&&gtag(\'event\',\'affiliate_click_amz\',{event_category:\'afiliado\',event_label:\''+d.nombre.replace(/'/g,'\\\'')+'\'  ,value:'+precio+',location:\'hub_descuentos\'})">Ir a <img src="/logoamazon.png" style="height:15px;vertical-align:middle;margin-left:4px" alt="Amazon" onerror="this.style.display=\'none\'"></a>':'';
       const card=document.createElement('div');
       card.className='pop-card';
       card.innerHTML='<div class="pop-card-img"><img src="'+d.imagen+'" alt="'+d.nombre+'" loading="lazy"></div>'
@@ -379,7 +379,7 @@ footer a{color:var(--ac);text-decoration:none}
         +'<span class="desc-price-antes">$'+Math.round(d.precioAntes).toLocaleString('es-MX')+'</span></div>'
         +'<div class="pop-card-btns">'
         +(esAmz||!d.linkML?'':'<a class="btn-ml-sm" href="'+d.linkML+'" rel="sponsored nofollow noopener" target="_blank" onclick="typeof gtag===\'function\'&&gtag(\'event\',\'affiliate_click_ml\',{event_category:\'afiliado\',event_label:\''+d.nombre.replace(/'/g,'\\\'')+'\'  ,value:'+precio+',location:\'hub_descuentos\'})">'
-        +'<img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-right:3px" alt="" onerror="this.style.display=\'none\'">ML →</a>')
+        +'Ir a <img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-left:4px" alt="Mercado Libre" onerror="this.style.display=\'none\'"></a>')
         +amzBtn+'</div></div>';
       grid.appendChild(card);
     });
