@@ -931,7 +931,7 @@ const productos = [
     linkAmz: null,
     linkML: "https://meli.la/1hgPxpz",
     img: "https://http2.mlstatic.com/D_NQ_NP_2X_628664-MLA113412472815_062026-F.webp",
-    precioML: 1535
+    precioML: 1541
   },
   {
     id: 6,
@@ -2813,6 +2813,7 @@ const productos = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 
 

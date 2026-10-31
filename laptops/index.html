@@ -2190,7 +2190,7 @@ const productos = [
     marca: "HP",
     color: "Plateado",
     precio: 6894,
-    precioML: 6894,
+    precioML: 7394,
     precioAmz: null,
     procesador: "Intel Celeron N200",
     marcaProcesador: "Intel",
@@ -3511,7 +3511,7 @@ const productos = [
     marca: "HP",
     color: "Plateado",
     precio: 12563.82,
-    precioML: 14993,
+    precioML: 16002,
     precioAmz: null,
     procesador: "AMD Ryzen 5-7520U",
     marcaProcesador: "AMD",
@@ -4123,7 +4123,7 @@ const productos = [
     marca: "Dell",
     color: null,
     precio: 22502.57,
-    precioML: 22037,
+    precioML: 23800,
     precioAmz: null,
     procesador: "Intel Core i5-Core 5 320",
     marcaProcesador: "Intel",
@@ -4167,7 +4167,7 @@ const productos = [
     marca: "Dell",
     color: "Negro",
     precio: 21755.13,
-    precioML: 21964,
+    precioML: 23662,
     precioAmz: null,
     procesador: "Intel Core 7-150U",
     marcaProcesador: "Intel",
@@ -4558,6 +4558,7 @@ const productos = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 
 
