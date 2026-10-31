@@ -503,7 +503,7 @@
               <div class="product-card-body">
                 <div class="product-kicker">200 MP · 256 GB · Amazon</div>
                 <h3 class="product-card-name">Redmi Note 15 Pro 256GB / 8GB RAM</h3>
-                <div class="product-card-price">$5,084 MXN<small>Disponible en Amazon.</small></div>
+                <div class="product-card-price" data-cmx-precio="android-xiaomi-redmi-note-15-pro-256gb-8gb">$5,084 MXN<small>Disponible en Amazon.</small></div>
                 <div class="product-card-specs">
                   <div class="spec-row"><span class="spec-row-label">Pantalla</span><span class="spec-row-value">AMOLED 6.77"</span></div>
                   <div class="spec-row"><span class="spec-row-label">RAM</span><span class="spec-row-value">8 GB</span></div>
@@ -541,7 +541,7 @@
               <div class="product-card-body">
                 <div class="product-kicker">200 MP + OIS + Snapdragon</div>
                 <h3 class="product-card-name">Redmi Note 14 Pro Plus 256GB / 8GB RAM</h3>
-                <div class="product-card-price">$6,299 MXN<small>Precio verificado en Mercado Libre.</small></div>
+                <div class="product-card-price" data-cmx-precio="android-xiaomi-redmi-note-14-pro-plus-5g-256gb-8gb">$6,299 MXN<small>Precio verificado en Mercado Libre.</small></div>
                 <div class="product-card-specs">
                   <div class="spec-row"><span class="spec-row-label">Pantalla</span><span class="spec-row-value">6.67", 120 Hz</span></div>
                   <div class="spec-row"><span class="spec-row-label">Procesador</span><span class="spec-row-value">Snapdragon 7s Gen 3</span></div>
@@ -580,7 +580,7 @@
               <div class="product-card-body">
                 <div class="product-kicker">Batería de 8,000 mAh</div>
                 <h3 class="product-card-name">Honor Magic 8 lite 256GB / 8GB RAM</h3>
-                <div class="product-card-price">$6,199 MXN<small>Precio verificado en Mercado Libre.</small></div>
+                <div class="product-card-price" data-cmx-precio="android-honor-magic-8-lite-256gb-8gb">$6,199 MXN<small>Precio verificado en Mercado Libre.</small></div>
                 <div class="product-card-specs">
                   <div class="spec-row"><span class="spec-row-label">Pantalla</span><span class="spec-row-value">6.79"</span></div>
                   <div class="spec-row"><span class="spec-row-label">Procesador</span><span class="spec-row-value">Snapdragon 6 Gen4</span></div>
@@ -619,7 +619,7 @@
               <div class="product-card-body">
                 <div class="product-kicker">108 MP · 256 GB</div>
                 <h3 class="product-card-name">Xiaomi Redmi 17 256GB / 4GB RAM</h3>
-                <div class="product-card-price">$4,599 MXN<small>Precio verificado en Mercado Libre.</small></div>
+                <div class="product-card-price" data-cmx-precio="android-xiaomi-redmi-17-256gb-4gb">$4,599 MXN<small>Precio verificado en Mercado Libre.</small></div>
                 <div class="product-card-specs">
                   <div class="spec-row"><span class="spec-row-label">Pantalla</span><span class="spec-row-value">6.79"</span></div>
                   <div class="spec-row"><span class="spec-row-label">RAM</span><span class="spec-row-value">4 GB</span></div>
@@ -636,7 +636,7 @@
               <div class="product-card-body">
                 <div class="product-kicker">108 MP · 128 GB · precio más bajo</div>
                 <h3 class="product-card-name">Xiaomi Redmi 17 128GB / 4GB RAM</h3>
-                <div class="product-card-price">$4,265 MXN<small>Precio verificado en Mercado Libre.</small></div>
+                <div class="product-card-price" data-cmx-precio="android-xiaomi-redmi-17-128gb-4gb">$4,265 MXN<small>Precio verificado en Mercado Libre.</small></div>
                 <div class="product-card-specs">
                   <div class="spec-row"><span class="spec-row-label">Pantalla</span><span class="spec-row-value">6.79"</span></div>
                   <div class="spec-row"><span class="spec-row-label">RAM</span><span class="spec-row-value">4 GB</span></div>
@@ -673,7 +673,7 @@
               <div class="product-card-body">
                 <div class="product-kicker">100 MP · precio más bajo</div>
                 <h3 class="product-card-name">Cubot P90 256GB / 12GB RAM</h3>
-                <div class="product-card-price">$3,524 MXN<small>Precio verificado en Mercado Libre.</small></div>
+                <div class="product-card-price" data-cmx-precio="android-cubot-p90-256gb-12gb">$3,524 MXN<small>Precio verificado en Mercado Libre.</small></div>
                 <div class="product-card-specs">
                   <div class="spec-row"><span class="spec-row-label">Procesador</span><span class="spec-row-value">Helio G100</span></div>
                   <div class="spec-row"><span class="spec-row-label">RAM</span><span class="spec-row-value">12 GB</span></div>
@@ -1195,12 +1195,16 @@
     onScrollMob();
   })();
   </script>
-  <script>
+  <!-- define cmxPreciosGuia; sin defer porque el script de abajo lo usa en cuanto resuelve su fetch -->
+<script src="/assets/js/guias-precios.js"></script>
+<script>
 (function(){
   fetch('/celulares/catalog-mini.json').then(function(r){return r.ok?r.json():null;}).then(function(cat){
     if(!cat||typeof celularesDataGuia==='undefined')return;
     var _map={};
     Object.values(cat).forEach(function(e){if(e.linkML)_map[e.linkML]=e.precioML;});
+    // Mismo precio en el texto editorial que en las tarjetas
+    if(typeof cmxPreciosGuia==='function')cmxPreciosGuia(celularesDataGuia,_map);
     var _fmt=new Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN',maximumFractionDigits:0});
     var _ch=false;
     celularesDataGuia.forEach(function(d){

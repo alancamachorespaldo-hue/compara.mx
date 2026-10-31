@@ -19,12 +19,16 @@
     return null;
   }
 
+  // Acepta las dos formas que usan las guías: {modeloBase, variantes:[{linkML}]} y {id, linkML}.
+  function idDe(f) { return f.modeloBase || f.id; }
+  function linkDe(f) { return f.linkML || (f.variantes && f.variantes[0] && f.variantes[0].linkML) || null; }
+
   window.cmxPreciosGuia = function (familias, mapa) {
     if (!familias || !mapa) return;
     familias.forEach(function (f) {
-      var v = f.variantes && f.variantes[0];
-      var vivo = v && v.linkML ? mapa[v.linkML] : null;
-      var nodos = document.querySelectorAll('[data-cmx-precio="' + f.modeloBase + '"]');
+      var link = linkDe(f);
+      var vivo = link ? mapa[link] : null;
+      var nodos = document.querySelectorAll('[data-cmx-precio="' + idDe(f) + '"]');
 
       for (var i = 0; i < nodos.length; i++) {
         var el = nodos[i];

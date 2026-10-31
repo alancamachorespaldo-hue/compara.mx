@@ -78,6 +78,9 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
      después de que el `fetch` ya había resuelto y la llamada se saltaba en silencio.
   2. `sync-guias-precios.js` mantiene al día el HTML estático (lo que ven los buscadores y quien no
      ejecuta JS). Las dos capas usan la misma anotación `data-cmx-precio`.
+  `cmxPreciosGuia` acepta las dos formas de datos que hay en las guías: `{modeloBase, variantes:[{linkML}]}`
+  (menos-5000, calidad-precio) y `{id, linkML}` (`celularesDataGuia` en menos-3000, 5000-10000 y
+  buena-camara). Las 5 guías con precios ya están anotadas.
 - `sync-guias-precios.js [--aplicar]` — las guías llevan el precio escrito a mano en la tabla, en las
   fichas y en su array `familias*`, y `ml-update.js` no las toca, así que se desfasan solas. Este script
   lleva el `precioML` de la BD a esos tres lugares **sin adivinar nada**: cada familia declara

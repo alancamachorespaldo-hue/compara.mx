@@ -539,7 +539,7 @@
               <div class="product-card-body">
                 <div class="product-kicker">Mejor procesador del grupo</div>
                 <h3 class="product-card-name">Motorola G34 128GB / 8GB RAM</h3>
-                <div class="product-card-price">$2,965 MXN<small>Precio verificado en Mercado Libre.</small></div>
+                <div class="product-card-price" data-cmx-precio="android-motorola-g34-128gb-8gb">$2,965 MXN<small>Precio verificado en Mercado Libre.</small></div>
                 <div class="product-card-specs">
                   <div class="spec-row"><span class="spec-row-label">Pantalla</span><span class="spec-row-value">6.5", 120 Hz</span></div>
                   <div class="spec-row"><span class="spec-row-label">Procesador</span><span class="spec-row-value">Snapdragon 695</span></div>
@@ -578,7 +578,7 @@
               <div class="product-card-body">
                 <div class="product-kicker">5G y NFC en el grupo</div>
                 <h3 class="product-card-name">Samsung A16 5G 128GB / 4GB RAM</h3>
-                <div class="product-card-price">$2,701 MXN<small>Confirma bandas 5G con tu operador.</small></div>
+                <div class="product-card-price" data-cmx-precio="android-samsung-a16-5g-128gb-4gb">$2,701 MXN<small>Confirma bandas 5G con tu operador.</small></div>
                 <div class="product-card-specs">
                   <div class="spec-row"><span class="spec-row-label">Pantalla</span><span class="spec-row-value">6.7"</span></div>
                   <div class="spec-row"><span class="spec-row-label">Conectividad</span><span class="spec-row-value">5G · NFC</span></div>
@@ -617,7 +617,7 @@
               <div class="product-card-body">
                 <div class="product-kicker">Samsung accesible con NFC</div>
                 <h3 class="product-card-name">Samsung A16 128GB / 4GB RAM</h3>
-                <div class="product-card-price">$2,599 MXN<small>Precio verificado en Mercado Libre.</small></div>
+                <div class="product-card-price" data-cmx-precio="android-samsung-a16-128gb-4gb">$2,599 MXN<small>Precio verificado en Mercado Libre.</small></div>
                 <div class="product-card-specs">
                   <div class="spec-row"><span class="spec-row-label">Pantalla</span><span class="spec-row-value">6.7"</span></div>
                   <div class="spec-row"><span class="spec-row-label">Conectividad</span><span class="spec-row-value">4G · NFC</span></div>
@@ -656,7 +656,7 @@
               <div class="product-card-body">
                 <div class="product-kicker">G06: mejor precio-almacenamiento</div>
                 <h3 class="product-card-name">Motorola Moto G06 256GB / 4GB RAM</h3>
-                <div class="product-card-price">$2,699 MXN<small>Precio verificado en Mercado Libre.</small></div>
+                <div class="product-card-price" data-cmx-precio="android-motorola-moto-g06-256gb-4gb">$2,699 MXN<small>Precio verificado en Mercado Libre.</small></div>
                 <div class="product-card-specs">
                   <div class="spec-row"><span class="spec-row-label">Pantalla</span><span class="spec-row-value">6.67"</span></div>
                   <div class="spec-row"><span class="spec-row-label">Procesador</span><span class="spec-row-value">Helio G81 Extreme</span></div>
@@ -675,7 +675,7 @@
               <div class="product-card-body">
                 <div class="product-kicker">G17: 128 GB</div>
                 <h3 class="product-card-name">Motorola Moto G17 128GB / 4GB RAM</h3>
-                <div class="product-card-price">$2,792 MXN<small>Precio verificado en Mercado Libre.</small></div>
+                <div class="product-card-price" data-cmx-precio="android-motorola-moto-g17-128gb-4gb">$2,792 MXN<small>Precio verificado en Mercado Libre.</small></div>
                 <div class="product-card-specs">
                   <div class="spec-row"><span class="spec-row-label">Pantalla</span><span class="spec-row-value">6.67"</span></div>
                   <div class="spec-row"><span class="spec-row-label">Procesador</span><span class="spec-row-value">Helio G81 Extreme</span></div>
@@ -714,7 +714,7 @@
               <div class="product-card-body">
                 <div class="product-kicker">Precio más bajo del catálogo</div>
                 <h3 class="product-card-name">Honor X5C Plus 128GB / 4GB RAM</h3>
-                <div class="product-card-price">$2,399 MXN<small>Precio verificado en Mercado Libre.</small></div>
+                <div class="product-card-price" data-cmx-precio="android-honor-x5c-plus-128gb-4gb">$2,399 MXN<small>Precio verificado en Mercado Libre.</small></div>
                 <div class="product-card-specs">
                   <div class="spec-row"><span class="spec-row-label">Pantalla</span><span class="spec-row-value">6.74"</span></div>
                   <div class="spec-row"><span class="spec-row-label">Procesador</span><span class="spec-row-value">Helio G81</span></div>
@@ -1463,12 +1463,16 @@
     </div>
   </section>
 
-  <script>
+  <!-- define cmxPreciosGuia; sin defer porque el script de abajo lo usa en cuanto resuelve su fetch -->
+<script src="/assets/js/guias-precios.js"></script>
+<script>
 (function(){
   fetch('/celulares/catalog-mini.json').then(function(r){return r.ok?r.json():null;}).then(function(cat){
     if(!cat||typeof celularesDataGuia==='undefined')return;
     var _map={};
     Object.values(cat).forEach(function(e){if(e.linkML)_map[e.linkML]=e.precioML;});
+    // Mismo precio en el texto editorial que en las tarjetas
+    if(typeof cmxPreciosGuia==='function')cmxPreciosGuia(celularesDataGuia,_map);
     var _fmt=new Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN',maximumFractionDigits:0});
     var _ch=false;
     celularesDataGuia.forEach(function(d){
