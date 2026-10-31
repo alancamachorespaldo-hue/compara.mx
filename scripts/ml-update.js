@@ -51,6 +51,7 @@ const CATALOG = {
   tecnologia_audifonos:  { file: 'tecnologia/audifonos/index.html',  varName: 'productos' },
   cafeteras:             { file: 'electrodomesticos/cafeteras/index.html', varName: 'productos' },
   bicisMontana:          { file: 'bicis/index.html',                      varName: 'MONTANA'   },
+  bicisMontanaDed:       { file: 'bicicletas/bici-montana/index.html',    varName: 'MONTANA',  dataKey: 'bicisMontana' },
   // tecnologia_smartwatches: sin productos aún; agregar cuando se pueble:
   // tecnologia_smartwatches: { file: 'tecnologia/smartwatches/index.html', varName: 'productos' },
 };
@@ -244,7 +245,7 @@ async function updateCategory(key, config, admin, REPORT) {
     if (blocks[i] && blocks[i].id === String(p.id)) htmlById.set(String(p.id), { obj: p, block: blocks[i] });
   });
 
-  const list = (admin[key] || []).filter(p => p.activo !== false);
+  const list = (admin[config.dataKey || key] || []).filter(p => p.activo !== false);
   const targets = [];
   let soloAmz = 0, sinId = 0;
   for (const p of list) {
