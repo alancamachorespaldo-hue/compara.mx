@@ -1256,6 +1256,8 @@ body.bar-active{padding-bottom:64px}
 </div></div>
 <!-- cmx-footer:end -->
 
+<!-- define cmxPreciosGuia; sin defer porque el script de abajo lo usa en cuanto resuelve su fetch -->
+<script src="/assets/js/guias-precios.js"></script>
 <script>
 /* PRECIOS: para actualizar, edita el array familias5k al inicio del script */
 /* ── DATOS ── */
@@ -1543,6 +1545,8 @@ fetch('/celulares/catalog-mini.json').then(function(r){return r.ok?r.json():null
   var _ch=false;
   familias5k.forEach(function(f){f.variantes.forEach(function(v){if(v.linkML&&_map[v.linkML]!=null){v.precio=_map[v.linkML];_ch=true;}});});
   if(_ch)renderCards();
+  // Mismo precio en el texto editorial que en las tarjetas
+  if(typeof cmxPreciosGuia==='function')cmxPreciosGuia(familias5k,_map);
 }).catch(function(){});
 
 (function(){

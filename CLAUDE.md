@@ -68,6 +68,16 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
   pueden divergir; no sincronizar la BD hacia ellas sin revisar primero (oct-2026: 85 links de Amazon
   y 65 de ML de la BD están compartidos entre productos distintos de varias categorías, asignados por
   número de id; los de las páginas son los buenos).
+- **Precios de las guías — dos capas.** Las 7 guías de celulares ya bajaban `/celulares/catalog-mini.json`
+  para refrescar sus tarjetas, pero la tabla, las fichas y las tarjetas "decide" llevaban el precio escrito
+  a mano, así que la misma página enseñaba dos cifras distintas del mismo celular. Ahora:
+  1. `assets/js/guias-precios.js` expone `cmxPreciosGuia(familias, mapaPorLinkML)` y la guía lo llama
+     dentro de ese `fetch`. Pinta cada `[data-cmx-precio="<modeloBase>"]` con el precio vivo; si el
+     producto no tiene `linkML` en `catalog-mini.json` **no deja una cifra vieja**, escribe "Consulta el
+     precio en la tienda". Se carga **sin `defer` y antes del script en línea**: con `defer` se ejecutaba
+     después de que el `fetch` ya había resuelto y la llamada se saltaba en silencio.
+  2. `sync-guias-precios.js` mantiene al día el HTML estático (lo que ven los buscadores y quien no
+     ejecuta JS). Las dos capas usan la misma anotación `data-cmx-precio`.
 - `sync-guias-precios.js [--aplicar]` — las guías llevan el precio escrito a mano en la tabla, en las
   fichas y en su array `familias*`, y `ml-update.js` no las toca, así que se desfasan solas. Este script
   lleva el `precioML` de la BD a esos tres lugares **sin adivinar nada**: cada familia declara
