@@ -27,6 +27,7 @@ const MAX_SALTO = 0.25; // 25%
 
 const GUIAS = [
   'guias/celulares/mejores-celulares-menos-5000/index.html',
+  'guias/celulares/mejores-celulares-calidad-precio/index.html',
 ];
 
 const APLICAR = process.argv.includes('--aplicar');
