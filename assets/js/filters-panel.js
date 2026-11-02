@@ -113,6 +113,25 @@
           ['gluten', 'Sin gluten', function (p) { return p.sinGluten === 'Sí'; }],
           ['lactosa', 'Sin lactosa', function (p) { return p.sinLactosa === 'Sí'; }]])
       ];
+    },
+    '/electrodomesticos/refrigeradores/': function () {
+      return [
+        platform([
+          { v: 'todos', label: 'Ambas', all: true, test: function () { return true; } },
+          { v: 'ml', label: 'Mercado Libre', test: function (p) { return !!p.linkML; } },
+          { v: 'amz', label: 'Amazon', test: function (p) { return !!p.linkAmz; } }]),
+        brand(),
+        byValue('puertas', 'Puertas', function (p) { return p.puertas != null ? String(p.puertas) : null; },
+          { 1: '1 puerta', 2: '2 puertas', 3: '3 puertas', 4: '4 puertas' }, ['1', '2', '3', '4']),
+        { id: 'capacidad', title: 'Capacidad', mode: 'or', opts: [
+          { v: 'c1', label: 'Hasta 250 L', test: function (p) { return typeof p.capacidadL === 'number' && p.capacidadL <= 250; } },
+          { v: 'c2', label: '250 a 400 L', test: function (p) { return typeof p.capacidadL === 'number' && p.capacidadL > 250 && p.capacidadL <= 400; } },
+          { v: 'c3', label: '400 a 550 L', test: function (p) { return typeof p.capacidadL === 'number' && p.capacidadL > 400 && p.capacidadL <= 550; } },
+          { v: 'c4', label: 'Más de 550 L', test: function (p) { return typeof p.capacidadL === 'number' && p.capacidadL > 550; } }] },
+        flags('carac', 'Características', [
+          ['freezer', 'Con freezer', function (p) { return p.conFreezer === true; }],
+          ['hielo', 'Dispensador de hielo', function (p) { return p.dispensadorHielo === true; }]])
+      ];
     }
   };
 

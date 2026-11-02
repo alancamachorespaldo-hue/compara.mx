@@ -52,7 +52,7 @@ const HUB = {
   celulares: '/celulares/', iphone: '/celulares/iphone/', proteina: '/suplementos/proteina/', creatina: '/suplementos/creatina/',
   magnesio: '/suplementos/magnesio/', omega3: '/suplementos/omega3/', complejob: '/suplementos/complejo-b/', suplementos: '/suplementos/',
   bicis: '/bicis/', laptops: '/laptops/', cafeteras: '/electrodomesticos/cafeteras/', freidoras: '/electrodomesticos/freidoras/',
-  microondas: '/electrodomesticos/microondas/', electro: '/electrodomesticos/', audifonos: '/tecnologia/audifonos/',
+  microondas: '/electrodomesticos/microondas/', refrigeradores: '/electrodomesticos/refrigeradores/', electro: '/electrodomesticos/', audifonos: '/tecnologia/audifonos/',
   bocinas: '/tecnologia/bocinas/', smartwatches: '/tecnologia/smartwatches/', tecnologia: '/tecnologia/', videojuegos: '/videojuegos/',
 };
 const RELATED_CATS = {
@@ -66,10 +66,11 @@ const RELATED_CATS = {
   suplementos: ['/suplementos/proteina/', '/suplementos/creatina/', '/suplementos/magnesio/'],
   bicis: ['/tecnologia/smartwatches/', '/tecnologia/audifonos/', '/suplementos/'],
   laptops: ['/celulares/', '/tecnologia/audifonos/', '/videojuegos/'],
-  cafeteras: ['/electrodomesticos/freidoras/', '/electrodomesticos/microondas/', '/electrodomesticos/'],
-  freidoras: ['/electrodomesticos/microondas/', '/electrodomesticos/cafeteras/', '/electrodomesticos/'],
-  microondas: ['/electrodomesticos/freidoras/', '/electrodomesticos/cafeteras/', '/electrodomesticos/'],
-  electro: ['/electrodomesticos/freidoras/', '/electrodomesticos/microondas/', '/electrodomesticos/cafeteras/'],
+  cafeteras: ['/electrodomesticos/freidoras/', '/electrodomesticos/microondas/', '/electrodomesticos/refrigeradores/'],
+  freidoras: ['/electrodomesticos/microondas/', '/electrodomesticos/cafeteras/', '/electrodomesticos/refrigeradores/'],
+  microondas: ['/electrodomesticos/freidoras/', '/electrodomesticos/refrigeradores/', '/electrodomesticos/'],
+  refrigeradores: ['/electrodomesticos/freidoras/', '/electrodomesticos/microondas/', '/electrodomesticos/cafeteras/'],
+  electro: ['/electrodomesticos/refrigeradores/', '/electrodomesticos/freidoras/', '/electrodomesticos/microondas/'],
   audifonos: ['/tecnologia/bocinas/', '/tecnologia/smartwatches/', '/celulares/'],
   bocinas: ['/tecnologia/audifonos/', '/tecnologia/smartwatches/', '/celulares/'],
   smartwatches: ['/tecnologia/audifonos/', '/tecnologia/bocinas/', '/celulares/iphone/'],
@@ -92,6 +93,7 @@ function topicOf(p) {
   if (p.startsWith('/electrodomesticos/cafeteras/') || p.startsWith('/guias/cafeteras/') || p.startsWith('/guias/electrodomesticos/')) return 'cafeteras';
   if (p.startsWith('/electrodomesticos/freidoras/')) return 'freidoras';
   if (p.startsWith('/electrodomesticos/microondas/')) return 'microondas';
+  if (p.startsWith('/electrodomesticos/refrigeradores/')) return 'refrigeradores';
   if (p === '/electrodomesticos/') return 'electro';
   if (p.startsWith('/guias/tecnologia/')) {
     if (/audifonos/.test(p)) return 'audifonos';
@@ -113,7 +115,7 @@ function activeSection(p) {
   const t = topicOf(p);
   const map = {
     celulares: '/celulares/', iphone: '/celulares/', laptops: '/laptops/', cafeteras: '/electrodomesticos/', freidoras: '/electrodomesticos/',
-    microondas: '/electrodomesticos/', electro: '/electrodomesticos/', proteina: '/suplementos/', creatina: '/suplementos/',
+    microondas: '/electrodomesticos/', refrigeradores: '/electrodomesticos/', electro: '/electrodomesticos/', proteina: '/suplementos/', creatina: '/suplementos/',
     magnesio: '/suplementos/', omega3: '/suplementos/', complejob: '/suplementos/', suplementos: '/suplementos/', bicis: '/bicis/',
     audifonos: '/tecnologia/', bocinas: '/tecnologia/', smartwatches: '/tecnologia/', tecnologia: '/tecnologia/', videojuegos: '/videojuegos/',
   };
@@ -252,12 +254,12 @@ const block = (s, name) => {
 };
 // Categorías con bajadas de precio (assets/js/price-drops.js; datos en assets/data/bajadas.json)
 const DROP_PATHS = new Set(['/suplementos/proteina/', '/suplementos/creatina/', '/suplementos/magnesio/', '/suplementos/omega3/', '/suplementos/complejo-b/', '/suplementos/vitamina-d/',
-  '/laptops/', '/bicis/', '/electrodomesticos/freidoras/', '/electrodomesticos/microondas/', '/electrodomesticos/cafeteras/', '/tecnologia/audifonos/', '/tecnologia/bocinas/',
+  '/laptops/', '/bicis/', '/electrodomesticos/freidoras/', '/electrodomesticos/microondas/', '/electrodomesticos/cafeteras/', '/electrodomesticos/refrigeradores/', '/tecnologia/audifonos/', '/tecnologia/bocinas/',
   '/videojuegos/consolas/', '/videojuegos/controles/', '/videojuegos/juegos/', '/celulares/android/', '/celulares/iphone/']);
 const FONT ='<link href="https://api.fontshare.com/v2/css?f[]=satoshi@800,700,600,500,400,300&display=swap" rel="stylesheet">';
 // Páginas con el panel genérico (filters-panel.js) que no traen ya su propio sistema de favoritos
 // (proteína y creatina tienen el suyo, nativo, y no cargan este módulo).
-const FAV_PATHS = new Set(['/suplementos/magnesio/', '/suplementos/omega3/', '/suplementos/complejo-b/', '/suplementos/vitamina-d/']);
+const FAV_PATHS = new Set(['/suplementos/magnesio/', '/suplementos/omega3/', '/suplementos/complejo-b/', '/suplementos/vitamina-d/', '/electrodomesticos/refrigeradores/']);
 
 function locateNav(s) {
   const m = mask(s); const b = Math.max(0, m.indexOf('<body'));

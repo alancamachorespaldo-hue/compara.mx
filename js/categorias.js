@@ -28,6 +28,7 @@ window.CMX_SUBS = [
   { name: 'Complejo B',  sub: 'B12, B6, ácido fólico',            icon: '🧬', url: '/suplementos/complejo-b/',     tags: ['complejo b','b12','vitamina b'] },
   { name: 'Vitamina D',  sub: 'D3, con o sin K2',                 icon: '☀️', url: '/suplementos/vitamina-d/',     tags: ['vitamina d','d3'] },
   { name: 'Cafeteras',   sub: 'Espresso, cápsulas, automáticas',  icon: '☕', url: '/electrodomesticos/cafeteras/', tags: ['cafetera','cafe','nespresso','dolce gusto','espresso'] },
+  { name: 'Refrigeradores', sub: 'French door, side by side, top mount', icon: '🧊', url: '/electrodomesticos/refrigeradores/', tags: ['refrigerador','refri','nevera','heladera','frigobar','french door','side by side'] },
   { name: 'Controles',   sub: 'Para consola y PC',                icon: '🎮', url: '/videojuegos/controles/',      tags: ['control','joystick','gamepad'] },
   { name: 'Juegos',      sub: 'Físicos y digitales',              icon: '👾', url: '/videojuegos/juegos/',         tags: ['juego','videojuego'] }
 ];

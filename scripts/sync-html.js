@@ -18,6 +18,7 @@ const CATALOG = {
   bicis:       { file: 'bicis/index.html',                         varName: 'ELECTRICAS' },
   freidoras:   { file: 'electrodomesticos/freidoras/index.html',   varName: 'productos'  },
   microondas:  { file: 'electrodomesticos/microondas/index.html',  varName: 'micros'     },
+  refrigeradores: { file: 'electrodomesticos/refrigeradores/index.html', varName: 'productos' },
 };
 
 const productosJson = JSON.parse(readFileSync(resolve(ROOT, 'scripts/productos.json'), 'utf8'));
