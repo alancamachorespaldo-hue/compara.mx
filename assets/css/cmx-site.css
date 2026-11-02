@@ -124,7 +124,7 @@ html[data-cmx-layout="v2"] .card .card-btn-col .cmx-cheap { position: absolute; 
    Lo llena assets/js/filters-panel.js moviendo los botones .filter del toolbar original. */
 html[data-cmx-filters="panel"] #toolbar,
 html[data-cmx-filters="panel"] #toolbar-mobile { display: none !important; }
-.cmx-fp-layout { max-width: 1400px; margin: 0 auto; padding: 16px 24px 24px; display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 24px; align-items: start; }
+.cmx-fp-layout { max-width: 1800px; margin: 0 auto; padding: 16px 24px 24px; display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 24px; align-items: start; }
 .cmx-fp-main { min-width: 0; }
 .cmx-fp-main .result-info { display: none; }
 .cmx-fp { font-family: 'Satoshi', system-ui, sans-serif; background: #fff; border: 1px solid var(--c-bd, #E2E8E4); border-radius: 14px; position: sticky; top: 80px; max-height: calc(100vh - 96px); overflow-y: auto; scrollbar-width: thin; min-height: 200px; }
