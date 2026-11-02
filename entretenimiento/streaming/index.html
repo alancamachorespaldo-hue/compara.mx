@@ -143,6 +143,56 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;min-h
 .cmx-drop-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;border:1.5px solid #dc2626;background:var(--bg);color:#dc2626;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:10px;transition:background .15s,color .15s}
 .cmx-drop-chip.on{background:#dc2626;color:#fff}
 
+/* ── Comparador ── */
+.pcard{cursor:pointer}
+.pcard.pcard-sel{border-color:var(--ac);box-shadow:0 0 0 3px rgba(0,104,71,.15)}
+.sel-check{position:absolute;top:8px;right:8px;width:22px;height:22px;border-radius:50%;background:var(--ac);display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;font-weight:700;z-index:3;box-shadow:0 2px 8px rgba(0,104,71,.4)}
+.cmp-bar{position:fixed;bottom:0;left:0;right:0;background:var(--bg);border-top:2px solid var(--ac);padding:.875rem 2rem;display:none;align-items:center;justify-content:space-between;z-index:200;gap:12px;box-shadow:0 -4px 20px rgba(0,0,0,.08)}
+.cmp-bar.show{display:flex}
+.cmp-bar-txt{font-size:14px;color:var(--tx);font-weight:600}
+.cmp-bar-sub{font-size:11px;color:var(--tx2)}
+.cmp-bar-actions{display:flex;gap:8px}
+.btn-do-cmp{background:var(--ac);color:#fff;border:none;border-radius:10px;padding:9px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Satoshi',sans-serif}
+.btn-do-cmp:disabled{opacity:.45;cursor:not-allowed}
+.btn-clear-cmp{background:transparent;color:var(--tx2);border:1px solid var(--bd2);border-radius:10px;padding:9px 14px;font-size:13px;cursor:pointer;font-family:'Satoshi',sans-serif}
+.cmp-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;display:none;align-items:center;justify-content:center;padding:20px}
+.cmp-overlay.open{display:flex}
+.cmp-modal{background:var(--bg);border-radius:16px;width:100%;max-width:960px;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.18)}
+.cmp-modal-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--bd);flex-shrink:0}
+.cmp-modal-header h2{font-size:1rem;font-weight:700;letter-spacing:-.02em}
+.cmp-modal-close{background:none;border:none;font-size:1.2rem;cursor:pointer;color:var(--tx2);padding:4px 8px;border-radius:6px;line-height:1}
+.cmp-modal-close:hover{background:var(--s1)}
+.cmp-table-wrap{overflow:auto;flex:1}
+.cmp-table{width:100%;border-collapse:collapse;font-size:13px;min-width:520px}
+.cmp-table th{padding:12px 14px;text-align:center;color:var(--tx3);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--s1);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:10}
+.cmp-table td{padding:11px 14px;border-bottom:1px solid var(--bd);color:var(--tx);vertical-align:middle;text-align:center}
+.cmp-table td:first-child{color:var(--tx2);font-size:12px;font-weight:600;background:var(--s1);text-transform:uppercase;letter-spacing:.04em;text-align:left;position:sticky;left:0;z-index:5}
+.cmp-table tr:last-child td{border-bottom:none}
+.cmp-winner{background:#d4f0e3;color:#004d34;font-weight:800}
+.cmp-prod-img{width:80px;height:80px;object-fit:contain;border-radius:8px;background:var(--s1);margin:0 auto 6px;display:block}
+.cmp-prod-name{font-size:.75rem;font-weight:700;line-height:1.3;margin-bottom:4px}
+.cmp-prod-brand{font-size:.68rem;color:var(--tx3);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px}
+.cmp-prod-btns{display:grid;gap:4px;margin-top:6px}
+.cmp-row-lbl{display:flex;align-items:center;gap:6px}
+.cmp-row-lbl svg{flex-shrink:0;color:var(--ac);opacity:.85}
+.cmp-win-pill{display:inline-block;font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;color:#fff;background:var(--ac);border-radius:10px;padding:1px 6px;margin-top:2px;line-height:1.4}
+@media(max-width:600px){
+  .cmp-fab{display:none;position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));right:14px;z-index:300;flex-direction:column;align-items:flex-end;gap:6px}
+  .cmp-fab.show{display:flex}
+  .cmp-fab-btn{background:var(--ac);color:#fff;border:none;border-radius:50px;padding:12px 18px;font-size:.88rem;font-weight:800;cursor:pointer;font-family:'Satoshi',sans-serif;box-shadow:0 4px 20px rgba(0,104,71,.5);display:flex;align-items:center;gap:8px}
+  .cmp-fab-btn:disabled{opacity:.5}
+  .cmp-fab-count{background:#fff;color:var(--ac);border-radius:50%;width:22px;height:22px;font-size:.78rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  body{padding-bottom:80px}
+}
+@media(max-width:768px){
+  .cmp-table th{min-width:90px;padding:8px 6px}
+  .cmp-table th:first-child{min-width:80px}
+  .cmp-table td{padding:6px 5px;font-size:11px}
+  .cmp-table td:first-child{min-width:80px;max-width:80px;font-size:10px;padding:6px 5px}
+  .cmp-prod-img{width:44px;height:44px}
+  .cmp-prod-name{font-size:.65rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+}
+
 /* Barra de búsqueda + ordenar */
 .search-bar{padding:0 0 10px}
 .search-bar input{width:100%;padding:10px 14px;border:1.5px solid var(--bd2);border-radius:10px;font-size:14px;font-family:inherit;color:var(--tx);outline:none;background:var(--bg)}
@@ -341,6 +391,88 @@ const productos = [
 var precioMin = null, precioMax = null;
 var filtroFormatos = new Set(), filtroResoluciones = new Set(), filtroMarcas = new Set();
 
+/* ── Comparador ── */
+var seleccionados = [];
+
+function toggleSelect(id) {
+  var idx = seleccionados.indexOf(id);
+  if (idx === -1) {
+    if (seleccionados.length >= 3) return;
+    seleccionados.push(id);
+  } else {
+    seleccionados.splice(idx, 1);
+  }
+  actualizarBarraCmp();
+  render();
+}
+
+function actualizarBarraCmp() {
+  var n = seleccionados.length;
+  var bar = document.getElementById('cmp-bar');
+  var fab = document.getElementById('cmp-fab');
+  var btn = document.getElementById('btn-do-cmp');
+  var fabBtn = document.getElementById('cmp-fab-btn');
+  var txt = document.getElementById('cmp-bar-txt');
+  var cnt = document.getElementById('cmp-fab-count');
+  if (n === 0) { bar.classList.remove('show'); if (fab) fab.classList.remove('show'); return; }
+  bar.classList.add('show'); if (fab) fab.classList.add('show');
+  btn.disabled = n < 2; if (fabBtn) fabBtn.disabled = n < 2;
+  if (cnt) cnt.textContent = n;
+  txt.textContent = n === 1 ? 'Selecciona 1 más para comparar' : n === 2 ? 'Listo para comparar (o agrega 1 más)' : 'Comparando 3 productos';
+}
+
+function clearSelection() { seleccionados = []; actualizarBarraCmp(); render(); }
+
+var _icoSvg = {
+  precio:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>',
+  resolucion:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',
+  storage:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4.03 3-9 3S3 13.66 3 12"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/></svg>',
+  formato:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',
+  asistente:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>'
+};
+
+function openModal() {
+  if (seleccionados.length < 2) return;
+  var prods = seleccionados.map(function(id) { return productos.find(function(p) { return p.id === id; }); }).filter(Boolean);
+  var resolScore = {'4K':3,'Full HD':2,'HD':1};
+
+  var cols = prods.map(function(p) {
+    var btnML = p.linkML ? '<a class="btn-ml" href="' + esc(p.linkML) + '" target="_blank" rel="nofollow noopener" style="font-size:11px;padding:6px 8px;margin-top:4px" onclick="event.stopPropagation()">Ir a <img class="btn-logo-img" src="/logomercado.png" alt="ML" style="height:12px"></a>' : '';
+    return '<th><img class="cmp-prod-img" src="' + esc(p.img) + '" alt="' + esc(p.nombre) + '"><div class="cmp-prod-name">' + esc(p.nombre) + '</div><div class="cmp-prod-brand">' + esc(p.marca) + '</div><div class="cmp-prod-btns">' + btnML + '</div></th>';
+  }).join('');
+
+  var rows = [
+    {label:'Precio',        icon:_icoSvg.precio,    vals:prods.map(function(p){return p.precioML ? '$'+Math.round(p.precioML).toLocaleString('es-MX') : '—';}), win:false},
+    {label:'Resolución',    icon:_icoSvg.resolucion, vals:prods.map(function(p){return p.resolucion||'—';}), win:true, score:function(v){return resolScore[v]||0;}},
+    {label:'Almacenamiento',icon:_icoSvg.storage,   vals:prods.map(function(p){return p.almacenamiento||'—';}), win:true, score:function(v){return parseInt(v)||0;}},
+    {label:'Formato',       icon:_icoSvg.formato,   vals:prods.map(function(p){return p.formato||'—';}), win:false},
+    {label:'Asistente',     icon:_icoSvg.asistente, vals:prods.map(function(p){return p.asistente||'—';}), win:false}
+  ].map(function(row) {
+    var winIdx = -1;
+    if (row.win && row.score) {
+      var scores = row.vals.map(row.score);
+      var mx = Math.max.apply(null, scores);
+      if (mx > 0 && scores.filter(function(s){return s===mx;}).length === 1) winIdx = scores.indexOf(mx);
+    }
+    var tds = row.vals.map(function(v, i) {
+      var isWin = i === winIdx;
+      var pill = isWin ? '<div><span class="cmp-win-pill">Mejor</span></div>' : '';
+      return '<td class="' + (isWin ? 'cmp-winner' : '') + '">' + esc(v) + pill + '</td>';
+    }).join('');
+    return '<tr><td><div class="cmp-row-lbl">' + row.icon + '<span>' + row.label + '</span></div></td>' + tds + '</tr>';
+  }).join('');
+
+  document.getElementById('cmp-table').innerHTML = '<thead><tr><th></th>' + cols + '</tr></thead><tbody>' + rows + '</tbody>';
+  document.getElementById('cmp-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('cmp-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+
 /* Para integración con price-drops.js */
 window.cmxPassers = window.cmxPassers || [];
 window.cmxPass = window.cmxPass || function(p) { return window.cmxPassers.every(function(f) { return f(p); }); };
@@ -352,6 +484,7 @@ function cardHTML(p) {
   var precio = p.precioML;
   var precioStr = precio ? '$' + Math.round(precio).toLocaleString('es-MX') : 'Ver precio';
   var precioClass = precio ? '' : ' sin-precio';
+  var isSel = seleccionados.indexOf(p.id) !== -1;
 
   var metricsHTML = '';
   if (p.formato)       metricsHTML += '<div class="pmetric-row"><span class="pmetric-ic">📺</span><span class="pmetric-lbl2">Formato</span><span class="pmetric-val2">' + esc(p.formato) + '</span></div>';
@@ -359,8 +492,9 @@ function cardHTML(p) {
   if (p.almacenamiento) metricsHTML += '<div class="pmetric-row"><span class="pmetric-ic">💾</span><span class="pmetric-lbl2">Almacenamiento</span><span class="pmetric-val2">' + esc(p.almacenamiento) + '</span></div>';
   if (p.asistente)     metricsHTML += '<div class="pmetric-row"><span class="pmetric-ic">🎙</span><span class="pmetric-lbl2">Asistente</span><span class="pmetric-val2">' + esc(p.asistente) + '</span></div>';
 
-  return '<div class="pcard" id="p-' + p.id + '">' +
-    '<a class="pcard-img-link" href="' + esc(link) + '" target="_blank" rel="nofollow noopener sponsored" aria-label="' + esc(p.nombre) + ' en Mercado Libre">' +
+  return '<div class="pcard' + (isSel ? ' pcard-sel' : '') + '" id="p-' + p.id + '" onclick="toggleSelect(' + p.id + ')">' +
+    (isSel ? '<div class="sel-check">✓</div>' : '') +
+    '<a class="pcard-img-link" href="' + esc(link) + '" target="_blank" rel="nofollow noopener sponsored" aria-label="' + esc(p.nombre) + ' en Mercado Libre" onclick="event.stopPropagation()">' +
     '<div class="pcard-img"><img src="' + esc(p.img) + '" alt="' + esc(p.nombre) + '" loading="lazy" width="200" height="200"></div>' +
     '</a>' +
     '<div class="pcard-body">' +
@@ -371,7 +505,7 @@ function cardHTML(p) {
     '<div class="pplat pplat-ml">' +
     '<span class="pplat-label">Mercado Libre</span>' +
     '<span class="pplat-price' + precioClass + '">' + precioStr + '</span>' +
-    '<a href="' + esc(link) + '" class="btn-ml" target="_blank" rel="nofollow noopener sponsored">' +
+    '<a href="' + esc(link) + '" class="btn-ml" target="_blank" rel="nofollow noopener sponsored" onclick="event.stopPropagation()">' +
     'Ir a <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display=\'none\'">' +
     '</a>' +
     '</div>' +
@@ -545,6 +679,39 @@ document.addEventListener('DOMContentLoaded', function() {
   render();
 });
 </script>
+<!-- COMPARE BAR -->
+<div class="cmp-bar" id="cmp-bar">
+  <div>
+    <div class="cmp-bar-txt" id="cmp-bar-txt">Selecciona 2 o 3 productos para comparar</div>
+    <div class="cmp-bar-sub">Haz clic en cualquier tarjeta</div>
+  </div>
+  <div class="cmp-bar-actions">
+    <button class="btn-clear-cmp" onclick="clearSelection()">Limpiar</button>
+    <button class="btn-do-cmp" id="btn-do-cmp" onclick="openModal()" disabled>Comparar</button>
+  </div>
+</div>
+
+<!-- FAB móvil -->
+<div class="cmp-fab" id="cmp-fab">
+  <button class="cmp-fab-btn" id="cmp-fab-btn" onclick="openModal()" disabled>
+    <span class="cmp-fab-count" id="cmp-fab-count">0</span>
+    Comparar
+  </button>
+</div>
+
+<!-- COMPARE MODAL -->
+<div class="cmp-overlay" id="cmp-overlay" onclick="if(event.target===this)closeModal()">
+  <div class="cmp-modal">
+    <div class="cmp-modal-header">
+      <h2>Comparativa de Streaming</h2>
+      <button class="cmp-modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="cmp-table-wrap">
+      <table class="cmp-table" id="cmp-table"></table>
+    </div>
+  </div>
+</div>
+
 <script src="/assets/js/price-drops.js"></script>
 <script src="/assets/js/filters-scroll.js" defer></script>
 <script src="/assets/js/share.js" defer></script>
