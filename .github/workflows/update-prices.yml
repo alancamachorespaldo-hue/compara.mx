@@ -10,7 +10,7 @@ on:
         description: 'Categoría a actualizar'
         type: choice
         default: all
-        options: [all, laptops, freidoras, bicis, bicisMontana, bicisMontanaDed, microondas, cafeteras, suplementos, proteina, omega3, magnesio, creatina, complejo_b, videojuegos_consolas, videojuegos_controles, videojuegos_juegos, tecnologia_bocinas, tecnologia_audifonos, celulares_android]
+        options: [all, laptops, freidoras, bicis, bicisMontana, bicisMontanaDed, microondas, cafeteras, suplementos, proteina, omega3, magnesio, creatina, complejo_b, videojuegos_consolas, videojuegos_controles, videojuegos_juegos, tecnologia_bocinas, tecnologia_audifonos, celulares_android, streaming]
 
 jobs:
   update-prices:
@@ -76,7 +76,7 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add laptops/index.html bicis/index.html bicicletas/bici-montana/index.html \
+          git add laptops/index.html bicis/index.html bicicletas/bici-montana/index.html entretenimiento/streaming/index.html \
             electrodomesticos/freidoras/index.html electrodomesticos/microondas/index.html \
             electrodomesticos/cafeteras/index.html \
             suplementos/proteina/index.html suplementos/omega3/index.html suplementos/magnesio/index.html \

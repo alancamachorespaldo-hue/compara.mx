@@ -10,7 +10,8 @@
     '/laptops/': 'laptops', '/bicis/': 'bicis', '/electrodomesticos/freidoras/': 'freidoras', '/electrodomesticos/microondas/': 'microondas',
     '/electrodomesticos/cafeteras/': 'cafeteras', '/tecnologia/audifonos/': 'tecnologia_audifonos', '/tecnologia/bocinas/': 'tecnologia_bocinas',
     '/videojuegos/consolas/': 'videojuegos_consolas', '/videojuegos/controles/': 'videojuegos_controles', '/videojuegos/juegos/': 'videojuegos_juegos',
-    '/celulares/android/': 'celulares_android', '/celulares/iphone/': 'celulares_iphone'
+    '/celulares/android/': 'celulares_android', '/celulares/iphone/': 'celulares_iphone',
+    '/entretenimiento/streaming/': 'streaming'
   };
   var key = MAP[location.pathname];
   if (!key) return;
