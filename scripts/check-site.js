@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 import vm from 'vm';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const SKIP_DIRS = new Set(['node_modules', '_interno', 'scripts', '.git', '.github', '.claude']);
+const SKIP_DIRS = new Set(['node_modules', '_interno', 'scripts', '.git', '.github', '.claude', 'admin']);
 const HTML_LINK_ALLOW = /^\/?(index|aviso-afiliados|privacidad|terminos)\.html$/;
 const SECTIONS = 'electrodomesticos|celulares|suplementos|bicicletas|laptops|guias';
 

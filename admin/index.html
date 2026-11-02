@@ -216,6 +216,18 @@ fieldset.group legend{padding:0 6px;font-size:12.5px;font-weight:800}
   .table-wrap{max-height:none}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+/* ── Panel Scripts ─────────────────────────────────────────────────────── */
+.run-grid{display:grid;gap:8px;margin-top:4px}
+.run-btn{display:flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);color:var(--fg);font:inherit;font-size:13px;font-weight:600;cursor:pointer;text-align:left}
+.run-btn:hover{border-color:var(--fg-3);background:var(--surface-2)}
+.run-btn:disabled{opacity:.5;cursor:default}
+.run-btn .run-ico{font-size:16px;flex-shrink:0}
+.run-btn .run-lbl{flex:1;min-width:0}
+.run-btn .run-state{font-size:11px;font-weight:700;color:var(--fg-3);flex-shrink:0}
+.run-out{font-family:var(--font-data);font-size:12px;white-space:pre-wrap;padding:12px 14px;border-radius:var(--radius);background:#0e1311;color:#c8d6ce;min-height:64px;max-height:300px;overflow:auto;line-height:1.55;margin-top:10px}
+.run-out .ro-err{color:#f07a70}
+.run-out .ro-ok{color:#4cc77e;font-weight:700}
+.run-out .ro-warn{color:#f0b04a}
 /* ── Generador de publicaciones ─────────────────────────────────────────── */
 .pub-wrap{padding:16px;max-width:960px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
 .pub-step{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px;display:flex;flex-direction:column;gap:12px}
@@ -1049,6 +1061,7 @@ const SHELL = `
     <button class="btn btn-sm" id="btn-dash" data-act="dash" title="Dashboard de analíticas">📊</button>
     <button class="btn btn-sm" id="btn-pub" data-act="pub" title="Generador de publicaciones de Facebook">✍️</button>
     <button class="btn btn-sm" id="btn-cupon" data-act="cupon" title="Cupón para tu comunidad (ML)">🏷️</button>
+    <button class="btn btn-sm" id="btn-scripts" data-act="scripts" title="Ejecutar scripts del sitio">⚙️</button>
     <button class="btn btn-primary" id="btn-save" data-act="save">Guardar</button>
   </div>
 </header>
@@ -1840,6 +1853,93 @@ function openFilter(btn, sk) {
   });
 }
 
+// ── Scripts (modo local: POST a /api/run) ────────────────────────────────────
+const SCRIPTS_META = {
+  'generar-admin':      { ico: '🏗️', desc: 'Reconstruye admin-artifact.html desde merged-admin.json' },
+  'generar-bajadas':    { ico: '📉', desc: 'Actualiza assets/data/bajadas.json con bajadas de precio' },
+  'sync-guias-precios': { ico: '👁️', desc: 'Muestra qué cambiaría en guías (sin escribir nada)' },
+  'sync-guias-aplicar': { ico: '✏️', desc: 'Aplica precios de la BD a las guías de celulares' },
+  'sync-html':          { ico: '🔄', desc: 'Aplica merged-admin.json → arrays JS de las categorías' },
+  'check-site':         { ico: '✅', desc: 'Valida GA4, tag afiliado, links y JSON-LD en todo el sitio' },
+};
+let SCRIPTS_LIST = null;
+let RUN_STATE = {}; // { scriptKey: 'idle' | 'running' | 'ok' | 'err' }
+
+async function loadScriptsList() {
+  if (SCRIPTS_LIST) return SCRIPTS_LIST;
+  const r = await fetch('/api/scripts');
+  SCRIPTS_LIST = await r.json();
+  return SCRIPTS_LIST;
+}
+
+function runOutputHtml(chunks) {
+  if (!chunks || !chunks.length) return '<span class="ro-ok">Sin salida.</span>';
+  return chunks.map(c => {
+    const txt = esc(c.text);
+    return c.stream === 'err'
+      ? `<span class="ro-err">${txt}</span>`
+      : txt;
+  }).join('');
+}
+
+async function renderScriptsPanel() {
+  const list = await loadScriptsList().catch(() => []);
+  const rows = list.map(s => {
+    const m = SCRIPTS_META[s.key] || { ico: '▶️', desc: '' };
+    const st = RUN_STATE[s.key] || 'idle';
+    const stLabel = { idle: '', running: '⟳ Ejecutando…', ok: '✓ Listo', err: '✗ Error' }[st] || '';
+    return `<button class="run-btn" data-act="run-script" data-script="${esc(s.key)}"${st==='running'?' disabled':''}>
+      <span class="run-ico">${m.ico}</span>
+      <span class="run-lbl"><b>${esc(s.label)}</b><br><span class="muted" style="font-size:11.5px">${esc(m.desc)}</span></span>
+      <span class="run-state">${stLabel}</span>
+    </button>`;
+  }).join('');
+  showOverlay('scripts', `<div class="sheet" tabindex="-1">
+    <header class="sheet-head">
+      <div><h2>⚙️ Scripts del sitio</h2><p class="muted">Se ejecutan en el directorio del proyecto. Guarda antes si tienes cambios.</p></div>
+      <button type="button" class="btn-icon" data-close aria-label="Cerrar">✕</button>
+    </header>
+    <div class="run-grid" id="run-grid">${rows}</div>
+    <div id="run-out-wrap" hidden><pre class="run-out" id="run-out"></pre></div>
+    <footer class="sheet-foot"><span class="spacer"></span><button class="btn" data-close>Cerrar</button></footer>
+  </div>`);
+}
+
+async function execScript(scriptKey) {
+  RUN_STATE[scriptKey] = 'running';
+  // Refresh the button row to show spinner
+  if (OVERLAY === 'scripts') renderScriptsPanel();
+  try {
+    const r = await fetch('/api/run', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ script: scriptKey }),
+    });
+    const result = await r.json();
+    RUN_STATE[scriptKey] = result.ok ? 'ok' : 'err';
+    // Re-render panel, then inject output
+    if (OVERLAY === 'scripts') {
+      await renderScriptsPanel();
+      const outWrap = document.getElementById('run-out-wrap');
+      const outEl = document.getElementById('run-out');
+      if (outWrap && outEl) {
+        const allText = (result.chunks || []).map(c => c.text).join('');
+        outEl.innerHTML = result.ok
+          ? runOutputHtml(result.chunks) + `\n<span class="ro-ok">✓ Terminó (exit 0)</span>`
+          : runOutputHtml(result.chunks) + `\n<span class="ro-err">✗ Error (exit ${result.exitCode})</span>`;
+        outWrap.hidden = false;
+        outEl.scrollTop = outEl.scrollHeight;
+        if (!result.ok) toast('Script terminó con error — revisa la salida');
+        else toast('✓ ' + (SCRIPTS_META[scriptKey]?.ico || '') + ' Listo');
+      }
+    }
+  } catch (e) {
+    RUN_STATE[scriptKey] = 'err';
+    toast('Error al llamar al servidor: ' + e.message);
+    if (OVERLAY === 'scripts') renderScriptsPanel();
+  }
+}
+
 // ── Guardar (modo local: POST a /api/save) ───────────────────────────────────
 async function save() {
   if (SAVING || READONLY) return;
@@ -1967,6 +2067,8 @@ function onClick(e) {
   const tr = a.closest('tr[data-key]');
   const key = tr && tr.dataset.key;
   switch (act) {
+    case 'scripts': renderScriptsPanel(); break;
+    case 'run-script': { const sk = a.dataset.script; if (sk) execScript(sk); break; }
     case 'cupon': renderCuponPanel(); break;
     case 'cupon-toggle':
       CUPON.activo = !CUPON.activo; cuponDirty = true; renderStatus(); closeOverlay(); renderCuponPanel(); break;
