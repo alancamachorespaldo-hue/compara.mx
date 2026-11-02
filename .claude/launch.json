@@ -7,6 +7,12 @@
       "runtimeArgs": ["--yes", "http-server", ".", "-p", "8765", "-c-1", "--silent"],
       "port": 8765,
       "autoPort": true
+    },
+    {
+      "name": "admin",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["admin/server.js"],
+      "port": 3737
     }
   ]
 }
