@@ -562,15 +562,22 @@ window.render = function render() {
 function onPrecioMinInput() {
   var v = parseFloat(document.getElementById('precio-min').value);
   precioMin = isNaN(v) ? null : v;
-  updateFilterCount(); render();
+  updateFilterCount(); render(); scrollToGrid();
 }
 function onPrecioMaxInput() {
   var v = parseFloat(document.getElementById('precio-max').value);
   precioMax = isNaN(v) ? null : v;
-  updateFilterCount(); render();
+  updateFilterCount(); render(); scrollToGrid();
 }
 
 /* ── Checkboxes de dimensiones ── */
+function scrollToGrid() {
+  var anchor = document.querySelector('.prt-content') || document.getElementById('grid');
+  if (!anchor) return;
+  var top = anchor.getBoundingClientRect().top + window.scrollY - 80;
+  if (window.scrollY > top) window.scrollTo({ top: top, behavior: 'smooth' });
+}
+
 function buildCheckList(listId, opts, activeSet) {
   var el = document.getElementById(listId);
   if (!el) return;
@@ -582,7 +589,8 @@ function buildCheckList(listId, opts, activeSet) {
       return false;
     }).length;
     var chk = activeSet.has(o) ? ' checked' : '';
-    return '<label class="prt-check-item"><input type="checkbox"' + chk + ' onchange="toggleFilter(this,' + JSON.stringify(listId) + ',' + JSON.stringify(o) + ')"> ' + esc(o) + ' <span class="prt-cnt">' + cnt + '</span></label>';
+    var safeO = o.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+    return '<label class="prt-check-item"><input type="checkbox"' + chk + ' onchange="toggleFilter(this,\'' + listId + '\',\'' + safeO + '\')"> ' + esc(o) + ' <span class="prt-cnt">' + cnt + '</span></label>';
   }).join('');
 }
 
@@ -592,7 +600,7 @@ function toggleFilter(checkbox, listId, value) {
   if (!set) return;
   if (checkbox.checked) set.add(value);
   else set.delete(value);
-  updateFilterCount(); render();
+  updateFilterCount(); render(); scrollToGrid();
 }
 
 function filterCheckList(listId, q) {
