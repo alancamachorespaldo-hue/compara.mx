@@ -143,6 +143,20 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;min-h
 .cmx-drop-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;border:1.5px solid #dc2626;background:var(--bg);color:#dc2626;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:10px;transition:background .15s,color .15s}
 .cmx-drop-chip.on{background:#dc2626;color:#fff}
 
+/* ── How-to strip ── */
+.how-strip{display:flex;align-items:center;gap:20px;background:#006847;color:#fff;padding:11px 2rem;flex-wrap:wrap}
+.how-strip-lead{display:flex;align-items:center;gap:10px;flex-shrink:0;margin-right:4px;padding-right:20px;border-right:1px solid rgba(255,255,255,.2)}
+.how-strip-icon{font-size:1.5rem;line-height:1}
+.how-strip-title{font-size:13px;font-weight:800;letter-spacing:-.01em;line-height:1.2}
+.how-strip-sub{font-size:11px;opacity:.65;margin-top:1px}
+.how-steps{display:flex;align-items:center;gap:10px;flex:1;flex-wrap:wrap}
+.how-step{display:flex;align-items:flex-start;gap:8px;flex:1;min-width:130px}
+.how-step-num{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;margin-top:1px}
+.how-step-title{font-size:12.5px;font-weight:700;line-height:1.2}
+.how-step-desc{font-size:11px;opacity:.72;line-height:1.35;margin-top:2px}
+.how-arrow{font-size:1.3rem;opacity:.35;flex-shrink:0}
+@media(max-width:760px){.how-strip{display:none}}
+
 /* ── Comparador ── */
 .pcard{cursor:pointer}
 .pcard.pcard-sel{border-color:var(--ac);box-shadow:0 0 0 3px rgba(0,104,71,.15)}
@@ -239,6 +253,32 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;min-h
   <p class="hero-eyebrow">Entretenimiento · comparalo.mx</p>
   <h1>Dispositivos Streaming en México <em>2026</em></h1>
   <p class="hero-tagline">Compara Roku, Amazon Fire TV, Chromecast, Google TV, Xiaomi y más · Precios en Mercado Libre</p>
+</div>
+
+<div class="how-strip" role="note">
+  <div class="how-strip-lead">
+    <span class="how-strip-icon">📺</span>
+    <div>
+      <div class="how-strip-title">Encuentra tu dispositivo ideal</div>
+      <div class="how-strip-sub">en Compáralo.mx</div>
+    </div>
+  </div>
+  <div class="how-steps">
+    <div class="how-step">
+      <span class="how-step-num">1</span>
+      <div><div class="how-step-title">Filtra</div><div class="how-step-desc">Elige formato, resolución y presupuesto.</div></div>
+    </div>
+    <span class="how-arrow" aria-hidden="true">›</span>
+    <div class="how-step">
+      <span class="how-step-num">2</span>
+      <div><div class="how-step-title">Compara</div><div class="how-step-desc">Revisa resolución, almacenamiento y asistente.</div></div>
+    </div>
+    <span class="how-arrow" aria-hidden="true">›</span>
+    <div class="how-step">
+      <span class="how-step-num">3</span>
+      <div><div class="how-step-title">Consulta el precio</div><div class="how-step-desc">Haz clic en "Ir a Mercado Libre" en la tarjeta.</div></div>
+    </div>
+  </div>
 </div>
 
 <div class="prt-layout">
