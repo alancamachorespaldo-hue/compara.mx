@@ -68,12 +68,12 @@ kbd{font-family:var(--font-data);font-size:11px;padding:0 5px;border:1px solid v
 .chip .n{font-family:var(--font-data);font-size:11px;color:var(--fg-3)}
 .chip[aria-pressed="true"]{background:var(--fg);border-color:var(--fg);color:var(--bg)}
 .chip[aria-pressed="true"] .n{color:inherit;opacity:.7}
-.queues{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:8px;padding:8px 16px}
-.q{display:flex;flex-direction:column;gap:1px;padding:8px 12px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);color:var(--fg);font:inherit;text-align:left;cursor:pointer}
+.queues{display:flex;gap:6px;overflow-x:auto;padding:6px 16px 8px;scrollbar-width:thin}
+.q{flex:none;display:flex;flex-direction:column;gap:1px;padding:7px 10px;min-width:90px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);color:var(--fg);font:inherit;text-align:left;cursor:pointer}
 .q:hover{border-color:var(--fg-3)}
 .q[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent);background:var(--accent-soft)}
 .q .lbl{font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--fg-2)}
-.q .num{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.2}
+.q .num{font-size:18px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.2}
 .tone-warn .num{color:var(--warn)}.tone-err .num{color:var(--err)}.tone-ok .num{color:var(--ok)}.tone-info .num{color:var(--info)}
 .callout{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin:4px 16px 8px;padding:10px 14px;border-radius:var(--radius);background:var(--warn-soft);border:1px solid color-mix(in srgb,var(--warn) 30%,transparent)}
 .callout p{margin:0;flex:1 1 320px;min-width:0}
@@ -818,7 +818,7 @@ function renderDash() {
   </div>`;
 }
 
-const CATS = {laptops:'Laptops', freidoras:'Freidoras', bicis:'Bicis', bicisMontana:'Bicis Montaña', microondas:'Microondas', cafeteras:'Cafeteras', proteina:'Proteína', omega3:'Omega 3', magnesio:'Magnesio', creatina:'Creatina', complejo_b:'Complejo B', vitamina_d:'Vitamina D', videojuegos_consolas:'Consolas', videojuegos_controles:'Controles', videojuegos_juegos:'Videojuegos', tecnologia_bocinas:'Bocinas int.', tecnologia_audifonos:'Audífonos', tecnologia_smartwatches:'Smartwatches', celulares_android:'Android', celulares_iphone:'iPhone'};
+const CATS = {laptops:'Laptops', freidoras:'Freidoras', bicis:'Bicis', bicisMontana:'Bicis Montaña', microondas:'Microondas', cafeteras:'Cafeteras', proteina:'Proteína', omega3:'Omega 3', magnesio:'Magnesio', creatina:'Creatina', complejo_b:'Complejo B', vitamina_d:'Vitamina D', videojuegos_consolas:'Consolas', videojuegos_controles:'Controles', videojuegos_juegos:'Videojuegos', tecnologia_bocinas:'Bocinas int.', tecnologia_audifonos:'Audífonos', tecnologia_smartwatches:'Smartwatches', celulares_android:'Android', celulares_iphone:'iPhone', streaming:'Streaming', tv:'TV'};
 const PRICE_WF = GH + '/workflows/update-prices.yml';
 const SPECS = {
   laptops:[['procesador','Procesador'],['ram','RAM'],['almacenamiento','Almacen.'],['pantalla','Pantalla'],['resolucion','Resolución'],['gpu','GPU'],['so','SO'],['peso','Peso'],['touch','Touch']],
@@ -1447,7 +1447,7 @@ function renderFoot() {
   if (rep && rep.generado) parts.push('Última revisión de precios ML: ' + fmtLong(rep.generado) + (rep.categorias ? ' (' + rep.categorias.map(c => CATS[c] || c).join(', ') + ')' : ''));
   if (META.sugerencias && META.sugerencias.generado) parts.push('Candidatos de ID buscados: ' + fmtLong(META.sugerencias.generado));
   if (META.built) parts.push('Datos generados desde el repo: ' + fmtLong(META.built));
-  parts.push('Guardar actualiza este artifact; para publicarlo en comparalo.mx, Claude sincroniza merged-admin.json al repo.');
+  parts.push('Guardar escribe en disco (scripts/merged-admin.json). Usa 🚀 Publicar para hacer push al repo y actualizar el sitio.');
   parts.push('Atajos: / buscar · Ctrl+S guardar · Enter o ↑↓ entre celdas · Esc cerrar');
   $('#foot').innerHTML = parts.map(s => `<span>${esc(s)}</span>`).join('');
 }
@@ -1960,6 +1960,7 @@ const WF_CATS = [
   {v:'videojuegos_controles',l:'Controles'},{v:'videojuegos_juegos',l:'Videojuegos'},
   {v:'tecnologia_bocinas',l:'Bocinas'},{v:'tecnologia_audifonos',l:'Audífonos'},
   {v:'celulares_android',l:'Celulares Android'},
+  {v:'streaming',l:'Streaming'},{v:'tv',l:'TV'},
 ];
 
 function renderPublishPanel() {
@@ -3046,7 +3047,9 @@ fetch('/api/data')
     DB = data;
     bootPending();
     reindex();
-    document.getElementById('app').innerHTML = SHELL;
+    const appEl = document.getElementById('app');
+    appEl.removeAttribute('style');
+    appEl.innerHTML = SHELL;
     renderAll();
     renderFoot();
     if (!ROWS.length) $('#empty').textContent = 'No se pudieron leer los datos de productos.';
