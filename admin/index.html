@@ -228,6 +228,14 @@ fieldset.group legend{padding:0 6px;font-size:12.5px;font-weight:800}
 .run-out .ro-err{color:#f07a70}
 .run-out .ro-ok{color:#4cc77e;font-weight:700}
 .run-out .ro-warn{color:#f0b04a}
+/* ── Panel Publicar ────────────────────────────────────────────────────── */
+.pub-section{display:flex;flex-direction:column;gap:10px}
+.pub-h3{margin:0 0 2px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--fg-2)}
+.git-file-list{max-height:180px;overflow:auto;border:1px solid var(--line);border-radius:var(--radius);padding:4px}
+.git-file-row{display:flex;align-items:center;gap:8px;padding:4px 6px;border-radius:5px;cursor:pointer;font-size:12.5px}
+.git-file-row:hover{background:var(--surface-2)}
+.git-file-row code{font-family:var(--font-data);font-size:11px;color:var(--fg-2);min-width:20px;flex-shrink:0}
+.git-file-row span{font-family:var(--font-data);font-size:11.5px;word-break:break-all}
 /* ── Generador de publicaciones ─────────────────────────────────────────── */
 .pub-wrap{padding:16px;max-width:960px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
 .pub-step{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px;display:flex;flex-direction:column;gap:12px}
@@ -1062,6 +1070,7 @@ const SHELL = `
     <button class="btn btn-sm" id="btn-pub" data-act="pub" title="Generador de publicaciones de Facebook">✍️</button>
     <button class="btn btn-sm" id="btn-cupon" data-act="cupon" title="Cupón para tu comunidad (ML)">🏷️</button>
     <button class="btn btn-sm" id="btn-scripts" data-act="scripts" title="Ejecutar scripts del sitio">⚙️</button>
+    <button class="btn btn-sm" id="btn-publish" data-act="publish" title="Publicar cambios (commit/push y precios ML)">🚀</button>
     <button class="btn btn-primary" id="btn-save" data-act="save">Guardar</button>
   </div>
 </header>
@@ -1940,6 +1949,157 @@ async function execScript(scriptKey) {
   }
 }
 
+// ── Publicar: precios ML + commit/push ────────────────────────────────────────
+const WF_CATS = [
+  {v:'all',l:'Todas las categorías'},{v:'laptops',l:'Laptops'},{v:'freidoras',l:'Freidoras'},
+  {v:'bicis',l:'Bicis (eléctricas/ruta/gravel)'},{v:'bicisMontana',l:'Bicis de montaña'},
+  {v:'microondas',l:'Microondas'},{v:'cafeteras',l:'Cafeteras'},
+  {v:'suplementos',l:'Suplementos (todos)'},{v:'proteina',l:'Proteína'},
+  {v:'omega3',l:'Omega 3'},{v:'magnesio',l:'Magnesio'},{v:'creatina',l:'Creatina'},
+  {v:'complejo_b',l:'Complejo B'},{v:'videojuegos_consolas',l:'Consolas'},
+  {v:'videojuegos_controles',l:'Controles'},{v:'videojuegos_juegos',l:'Videojuegos'},
+  {v:'tecnologia_bocinas',l:'Bocinas'},{v:'tecnologia_audifonos',l:'Audífonos'},
+  {v:'celulares_android',l:'Celulares Android'},
+];
+
+function renderPublishPanel() {
+  const catOpts = WF_CATS.map(c => `<option value="${esc(c.v)}">${esc(c.l)}</option>`).join('');
+  showOverlay('publish', `<div class="sheet wide" tabindex="-1" style="gap:16px">
+    <header class="sheet-head">
+      <div><h2>🚀 Publicar</h2><p class="muted">Dispara actualización de precios o sube cambios al repositorio</p></div>
+      <button type="button" class="btn-icon" data-close aria-label="Cerrar">✕</button>
+    </header>
+
+    <div class="pub-section">
+      <p class="pub-h3">Actualizar precios ML — GitHub Actions</p>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <select id="wf-cat" style="height:34px;padding:0 10px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);color:var(--fg);font:inherit;font-size:13px">${catOpts}</select>
+        <button class="btn btn-primary" data-act="wf-run">▶ Disparar workflow</button>
+        <a class="btn" href="https://github.com/alancamachorespaldo-hue/compara.mx/actions/workflows/update-prices.yml" target="_blank" rel="noopener">Ver Actions ↗</a>
+      </div>
+      <div id="wf-out-wrap" hidden><pre class="run-out" id="wf-out"></pre></div>
+    </div>
+
+    <hr style="border:0;border-top:1px solid var(--line);margin:0">
+
+    <div class="pub-section">
+      <p class="pub-h3">Commit y push</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn" data-act="git-pull">↩ Sincronizar remoto (pull --rebase)</button>
+        <button class="btn btn-sm" data-act="refresh-status">↺ Refrescar archivos</button>
+      </div>
+      <div id="pull-out-wrap" hidden><pre class="run-out" id="pull-out"></pre></div>
+      <div id="git-files-wrap"><p class="muted" style="font-size:13px">Cargando estado del repositorio…</p></div>
+      <div class="field">
+        <span>Mensaje de commit</span>
+        <input id="git-msg" type="text" placeholder="chore(admin): actualizar productos" autocomplete="off">
+      </div>
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer">
+        <input type="checkbox" id="git-check" checked> Validar sitio antes de push (check-site)
+      </label>
+      <div>
+        <button class="btn btn-primary" data-act="git-push">↑ Commit y push</button>
+      </div>
+      <div id="push-out-wrap" hidden><pre class="run-out" id="push-out"></pre></div>
+    </div>
+
+    <footer class="sheet-foot"><span class="spacer"></span><button class="btn" data-close>Cerrar</button></footer>
+  </div>`);
+  refreshGitFiles();
+}
+
+async function refreshGitFiles() {
+  const wrap = document.getElementById('git-files-wrap');
+  if (!wrap) return;
+  try {
+    const r = await fetch('/api/git-status');
+    const { files } = await r.json();
+    if (!wrap.isConnected) return;
+    if (!files || !files.length) {
+      wrap.innerHTML = '<p class="muted" style="font-size:13px">Sin cambios pendientes en el repositorio.</p>';
+      return;
+    }
+    wrap.innerHTML = `<p style="font-size:12px;color:var(--fg-2);margin:0 0 4px">Selecciona los archivos a incluir en el commit:</p>
+      <div class="git-file-list">
+        ${files.map(f => `<label class="git-file-row">
+          <input type="checkbox" name="git-file" value="${esc(f.file)}" checked>
+          <code>${esc(f.xy.trim())}</code>
+          <span>${esc(f.file)}</span>
+        </label>`).join('')}
+      </div>`;
+  } catch (e) {
+    if (wrap.isConnected) wrap.innerHTML = `<p style="color:var(--err);font-size:13px">No se pudo obtener git status: ${esc(e.message)}</p>`;
+  }
+}
+
+async function wfRun() {
+  const cat = document.getElementById('wf-cat')?.value || 'all';
+  const outWrap = document.getElementById('wf-out-wrap');
+  const outEl = document.getElementById('wf-out');
+  if (!outEl) return;
+  outWrap.hidden = false;
+  outEl.innerHTML = '<span style="color:var(--fg-3)">Disparando workflow…</span>';
+  try {
+    const r = await fetch('/api/workflow', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ categoria: cat }) });
+    const result = await r.json();
+    outEl.innerHTML = result.ok
+      ? runOutputHtml(result.chunks) + '\n<span class="ro-ok">✓ Workflow disparado — revisa GitHub Actions</span>'
+      : runOutputHtml(result.chunks) + '\n<span class="ro-err">✗ Error (¿gh instalado y autenticado?)</span>';
+    outEl.scrollTop = outEl.scrollHeight;
+    if (result.ok) toast('✓ Workflow disparado · Revisa Actions en GitHub');
+    else toast('No se pudo disparar el workflow — revisa la salida');
+  } catch (e) {
+    outEl.innerHTML = `<span class="ro-err">${esc(e.message)}</span>`;
+  }
+}
+
+async function gitPull() {
+  const outWrap = document.getElementById('pull-out-wrap');
+  const outEl = document.getElementById('pull-out');
+  if (!outEl) return;
+  outWrap.hidden = false;
+  outEl.innerHTML = '<span style="color:var(--fg-3)">Ejecutando git pull --rebase…</span>';
+  try {
+    const r = await fetch('/api/git-pull', { method: 'POST' });
+    const result = await r.json();
+    outEl.innerHTML = result.ok
+      ? runOutputHtml(result.chunks) + '\n<span class="ro-ok">✓ Sincronizado</span>'
+      : runOutputHtml(result.chunks) + '\n<span class="ro-err">✗ Conflicto — resuelve manualmente en la terminal</span>';
+    outEl.scrollTop = outEl.scrollHeight;
+    if (result.ok) { toast('✓ Sincronizado con el remoto'); refreshGitFiles(); }
+    else toast('Conflicto en git pull — revisa la salida');
+  } catch (e) {
+    outEl.innerHTML = `<span class="ro-err">${esc(e.message)}</span>`;
+  }
+}
+
+async function gitPush() {
+  const checked = document.querySelectorAll('input[name="git-file"]:checked');
+  const files = Array.from(checked).map(i => i.value);
+  const msg = (document.getElementById('git-msg')?.value || '').trim();
+  const runCheck = document.getElementById('git-check')?.checked ?? true;
+  if (!files.length) { toast('Selecciona al menos un archivo'); return; }
+  if (!msg) { toast('Escribe un mensaje de commit'); return; }
+
+  const outWrap = document.getElementById('push-out-wrap');
+  const outEl = document.getElementById('push-out');
+  if (!outEl) return;
+  outWrap.hidden = false;
+  outEl.innerHTML = '<span style="color:var(--fg-3)">Publicando…</span>';
+  try {
+    const r = await fetch('/api/push', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ files, message: msg, runCheck }) });
+    const result = await r.json();
+    outEl.innerHTML = result.ok
+      ? runOutputHtml(result.chunks) + '\n<span class="ro-ok">✓ Push completado · GitHub Pages actualiza en 1–2 min</span>'
+      : runOutputHtml(result.chunks) + `\n<span class="ro-err">✗ Error en paso "${result.step}"</span>`;
+    outEl.scrollTop = outEl.scrollHeight;
+    if (result.ok) { toast('✓ Push completado'); refreshGitFiles(); }
+    else toast(`Error en "${result.step}" — revisa la salida`);
+  } catch (e) {
+    outEl.innerHTML = `<span class="ro-err">${esc(e.message)}</span>`;
+  }
+}
+
 // ── Guardar (modo local: POST a /api/save) ───────────────────────────────────
 async function save() {
   if (SAVING || READONLY) return;
@@ -2069,6 +2229,11 @@ function onClick(e) {
   switch (act) {
     case 'scripts': renderScriptsPanel(); break;
     case 'run-script': { const sk = a.dataset.script; if (sk) execScript(sk); break; }
+    case 'publish': renderPublishPanel(); break;
+    case 'wf-run': wfRun(); break;
+    case 'git-pull': gitPull(); break;
+    case 'refresh-status': refreshGitFiles(); break;
+    case 'git-push': gitPush(); break;
     case 'cupon': renderCuponPanel(); break;
     case 'cupon-toggle':
       CUPON.activo = !CUPON.activo; cuponDirty = true; renderStatus(); closeOverlay(); renderCuponPanel(); break;
