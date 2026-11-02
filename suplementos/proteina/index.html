@@ -1495,7 +1495,7 @@ const productos = [
     ],
     "precio": 1582.09,
     "precioAmz": 1582.09,
-    "precioML": 1630,
+    "precioML": 1683,
     "contenidoGramos": 1361,
     "porciones": null,
     "gramosPorPorcion": 32,
@@ -4677,11 +4677,11 @@ const productos = [
     ],
     "precio": 591,
     "precioAmz": null,
-    "precioML": 591,
+    "precioML": 623,
     "contenidoGramos": 3200,
     "porciones": 75,
     "gramosPorPorcion": 33,
-    "costoPorPorcion": 7.88,
+    "costoPorPorcion": 8.31,
     "proteinaPorPorcion": 28,
     "concentracionProteina": 84.85,
     "costoPor25gProteina": 7.04,
@@ -4939,7 +4939,7 @@ const productos = [
     ],
     "precio": 426,
     "precioAmz": null,
-    "precioML": 424,
+    "precioML": 426,
     "contenidoGramos": 2000,
     "porciones": null,
     "gramosPorPorcion": 37,
@@ -5147,6 +5147,7 @@ const productos = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 
 

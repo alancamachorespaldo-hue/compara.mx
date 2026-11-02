@@ -2190,7 +2190,7 @@ const productos = [
     marca: "HP",
     color: "Plateado",
     precio: 7394,
-    precioML: 7394,
+    precioML: 7338,
     precioAmz: null,
     procesador: "Intel Celeron N200",
     marcaProcesador: "Intel",
@@ -2227,7 +2227,7 @@ const productos = [
     marca: "Lenovo",
     color: "Azul Cósmico",
     precio: 25830,
-    precioML: 25783,
+    precioML: 23499,
     precioAmz: null,
     procesador: "Intel Core i5-13420H",
     marcaProcesador: "Intel",
@@ -2265,7 +2265,7 @@ const productos = [
     marca: "HP",
     color: "Azul",
     precio: 7134,
-    precioML: 7167,
+    precioML: 6939,
     precioAmz: null,
     procesador: "Intel Celeron N200",
     marcaProcesador: "Intel",
@@ -2811,7 +2811,7 @@ const productos = [
     marca: "HP",
     color: "Gris",
     precio: 4679,
-    precioML: 4679,
+    precioML: 4529,
     precioAmz: null,
     procesador: "Intel Processor-N150",
     marcaProcesador: "Intel",
@@ -2855,7 +2855,7 @@ const productos = [
     marca: "Asus",
     color: "Azul",
     precio: 15174.24,
-    precioML: 17121,
+    precioML: 16362,
     precioAmz: null,
     procesador: "Intel Core i7-1355U",
     marcaProcesador: "Intel",
@@ -3425,7 +3425,7 @@ const productos = [
     marca: "Asus",
     color: "Negro",
     precio: 19699,
-    precioML: 22867,
+    precioML: 21993,
     precioAmz: null,
     procesador: "AMD Ryzen 7-170",
     marcaProcesador: "AMD",
@@ -3642,7 +3642,7 @@ const productos = [
     marca: "QaelixNote",
     color: "Plateado",
     precio: 5345.54,
-    precioML: 5564,
+    precioML: 4651,
     precioAmz: null,
     procesador: "Intel Pentium Gold-6500Y",
     marcaProcesador: "Intel",
@@ -3991,7 +3991,7 @@ const productos = [
     marca: "Asus",
     color: null,
     precio: 19999,
-    precioML: 19999,
+    precioML: 19499,
     precioAmz: null,
     procesador: "AMD Ryzen 9-270",
     marcaProcesador: "AMD",
@@ -4123,7 +4123,7 @@ const productos = [
     marca: "Dell",
     color: null,
     precio: 22502.57,
-    precioML: 23800,
+    precioML: 23086,
     precioAmz: null,
     procesador: "Intel Core i5-Core 5 320",
     marcaProcesador: "Intel",
@@ -4558,6 +4558,7 @@ const productos = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 
 
