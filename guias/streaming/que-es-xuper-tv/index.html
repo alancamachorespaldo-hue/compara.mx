@@ -169,31 +169,80 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 /* SIDEBAR IZQUIERDO */
 .sidebar{position:fixed;left:0;top:50%;transform:translateY(-50%);z-index:160;display:flex;align-items:center;opacity:0;pointer-events:none;transition:opacity .35s}
 .sidebar.visible{opacity:1;pointer-events:auto}
-.sidebar-panel{background:var(--bg);border:1.5px solid var(--bd2);border-left:none;border-radius:0 14px 14px 0;width:232px;overflow-y:auto;box-shadow:6px 0 28px rgba(0,0,0,.1);transform:translateX(-100%);transition:transform .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
-@media(min-width:1041px){.sidebar.visible .sidebar-panel{transform:translateX(0)}.sidebar-toggle{display:none!important}}
+.sidebar-panel{background:var(--bg);border:1.5px solid var(--bd2);border-left:none;border-radius:0 14px 14px 0;width:252px;max-height:76vh;overflow-y:auto;box-shadow:6px 0 28px rgba(0,0,0,.1);transform:translateX(-100%);transition:transform .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
+.sidebar.open .sidebar-panel{transform:translateX(0)}
+@media(min-width:1041px){.sidebar.visible .sidebar-panel{transform:translateX(0)}.sidebar-toggle{display:none}}
 .sidebar-header{padding:12px 14px 10px;border-bottom:1px solid var(--bd);flex-shrink:0}
-.sidebar-htitle{font-family:'Satoshi',system-ui,-apple-system,sans-serif;font-size:14px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--tx);display:block}
+.sidebar-htitle{font-family:'Satoshi',system-ui,-apple-system,sans-serif;font-size:15px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--tx);display:block}
 .sidebar-hsub{font-size:11px;color:var(--tx3);display:block;margin-top:2px}
-.sidebar-banners{flex:1}
+.sidebar-phones{display:flex;flex-direction:column;flex:1}
+.sidebar-phone{padding:8px 12px 8px 10px;cursor:pointer;transition:background .12s;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:8px;position:relative}
+.sidebar-phone:last-child{border-bottom:none}
+.sidebar-phone:hover,.sidebar-phone:focus{background:var(--acd);outline:none}
+.sidebar-phone-img{width:38px;height:44px;object-fit:contain;border-radius:6px;background:var(--s1);padding:2px;flex-shrink:0;display:block}
+.sidebar-phone-info{flex:1;min-width:0}
+.sidebar-phone-price{font-family:'Satoshi',system-ui,-apple-system,sans-serif;font-size:13px;font-weight:800;color:var(--ac);letter-spacing:.01em;line-height:1}
+.sidebar-phone-name{font-size:11.5px;font-weight:600;color:var(--tx);line-height:1.3;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sidebar-phone-tag{font-size:9.5px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-top:1px}
+.sidebar-phone-ml{display:inline-flex;align-items:center;gap:3px;margin-top:4px;font-size:9.5px;font-weight:700;background:var(--ml);color:#171717;border-radius:5px;padding:2px 6px;text-decoration:none;line-height:1.4;pointer-events:auto}
+.sidebar-phone-ml:hover{filter:brightness(.92);text-decoration:none}
+.sidebar-phone-ml img{height:10px;display:block}
+.sidebar-banners{flex-shrink:0;border-top:1px solid var(--bd)}
 .sidebar-banner{display:flex;align-items:center;gap:10px;padding:11px 14px;text-decoration:none;transition:background .12s;border-bottom:1px solid var(--bd)}
 .sidebar-banner:last-child{border-bottom:none}
-.sidebar-banner:hover{background:var(--acd)}
+.sidebar-banner:hover{background:var(--s2)}
 .sidebar-banner-ico{font-size:20px;flex-shrink:0;line-height:1}
-.sidebar-banner-ttl{font-family:'Satoshi',system-ui,-apple-system,sans-serif;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--tx);display:block}
+.sidebar-banner-ttl{font-family:'Satoshi',system-ui,-apple-system,sans-serif;font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--tx);display:block}
 .sidebar-banner-sub{font-size:10px;color:var(--tx2);margin-top:1px;display:block}
-.sidebar-toggle{background:var(--ac);color:#fff;border:none;cursor:pointer;border-radius:0 10px 10px 0;padding:14px 8px 14px 9px;display:flex;flex-direction:column;align-items:center;gap:8px;font-family:'Satoshi',system-ui,-apple-system,sans-serif;transition:background .15s;flex-shrink:0;box-shadow:3px 0 14px rgba(0,104,71,.3);min-height:80px;font-weight:800}
+.sidebar-toggle{background:var(--ac);color:#fff;border:none;cursor:pointer;border-radius:0 10px 10px 0;padding:16px 8px 16px 9px;display:flex;flex-direction:column;align-items:center;gap:10px;font-family:'Satoshi',system-ui,-apple-system,sans-serif;transition:background .15s;flex-shrink:0;box-shadow:3px 0 14px rgba(0,104,71,.3);min-height:100px;font-weight:800}
 .sidebar-toggle:hover{background:#00573b}
-.sidebar-toggle-ico{font-size:16px;line-height:1}
-.sidebar-toggle-lbl{writing-mode:vertical-rl;text-orientation:mixed;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;opacity:.9;line-height:1;font-weight:800}
+.sidebar-toggle-ico{font-size:17px;line-height:1}
+.sidebar-toggle-lbl{writing-mode:vertical-rl;text-orientation:mixed;font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-family:'Satoshi',system-ui,-apple-system,sans-serif;opacity:.9;line-height:1;font-weight:800}
+.sidebar-badge{display:none;width:17px;height:17px;border-radius:50%;background:#fff;color:var(--ac);font-size:9px;font-weight:800;align-items:center;justify-content:center;flex-shrink:0}
+.sidebar-badge.show{display:flex}
 @media(max-width:1040px){.sidebar{display:none!important}}
 
-/* BOTÓN FLOTANTE DERECHO */
-.float-right{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:160;opacity:0;pointer-events:none;transition:opacity .35s}
-.float-right.visible{opacity:1;pointer-events:auto}
-.float-right-btn{display:flex;align-items:center;gap:6px;writing-mode:vertical-rl;text-orientation:mixed;background:var(--ac);color:#fff;text-decoration:none;font-family:'Satoshi',system-ui,-apple-system,sans-serif;font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;padding:14px 9px;border-radius:10px 0 0 10px;box-shadow:-3px 0 14px rgba(0,104,71,.25);transition:background .15s;line-height:1}
-.float-right-btn:hover{background:#00573b;text-decoration:none;color:#fff}
-.float-right-btn-ico{font-size:15px;writing-mode:horizontal-tb;line-height:1}
-@media(max-width:1040px){.float-right{display:none!important}}
+/* PAGE WRAP 2 COLUMNAS */
+.page-wrap{display:grid;grid-template-columns:minmax(0,1fr) 232px;gap:24px;max-width:1220px;margin:0 auto;padding:0 2rem;align-items:start}
+.page-wrap>.content{max-width:none;margin:0;padding:0}
+.aside-right-panel{position:sticky;top:80px}
+@media(max-width:1120px){.page-wrap{display:block;max-width:860px}.aside-right-panel{display:none}}
+@media(min-width:1041px){.page-wrap{padding-left:268px}}
+
+/* OFERTA DESTACADA ASIDE */
+.oferta-aside-box{background:var(--s1);border:1.5px solid var(--bd2);border-radius:14px;overflow:hidden;margin-bottom:16px}
+.oferta-aside-hdr{background:var(--ac);color:#fff;padding:10px 14px}
+.oferta-aside-hdr-ttl{font-family:'Satoshi',system-ui,-apple-system,sans-serif;font-size:12.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;display:block;line-height:1.3}
+.oferta-aside-hdr-sub{font-size:9.5px;opacity:.8;display:block;margin-top:2px}
+.oferta-card-aside{display:flex;gap:9px;padding:9px 12px;border-bottom:1px solid var(--bd);text-decoration:none;transition:background .12s}
+.oferta-card-aside:last-child{border-bottom:none}
+.oferta-card-aside:hover{background:var(--acd)}
+.oferta-card-aside-img{width:48px;height:56px;object-fit:contain;flex-shrink:0;border-radius:6px;background:var(--bg);padding:2px}
+.oferta-card-aside-body{flex:1;min-width:0}
+.oferta-card-aside-name{font-size:11px;font-weight:700;color:var(--tx);line-height:1.3;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.oferta-badge{display:inline-flex;align-items:center;background:#dc2626;color:#fff;font-size:9px;font-weight:800;border-radius:4px;padding:1px 5px;margin:2px 0;letter-spacing:.03em}
+.oferta-card-aside-price{display:flex;align-items:baseline;gap:5px;flex-wrap:wrap;margin-top:1px}
+.oferta-nuevo{font-size:.95rem;font-weight:800;color:var(--ac);font-family:'Satoshi',system-ui,-apple-system,sans-serif;line-height:1}
+.oferta-antes{font-size:10px;color:var(--tx3);text-decoration:line-through}
+.oferta-aside-more{display:block;padding:8px 12px;font-size:11px;color:var(--ac);font-weight:600;text-decoration:none;text-align:center;border-top:1px solid var(--bd)}
+.oferta-aside-more:hover{background:var(--acd)}
+
+/* ASIDE HUB CARDS */
+.aside-hub-card{position:relative;display:flex;align-items:center;gap:10px;border-radius:12px;overflow:hidden;padding:12px 14px;text-decoration:none;margin-top:8px}
+.aside-hub-content{position:relative;z-index:2;flex:1;min-width:0}
+.aside-hub-eyebrow{font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.65);font-weight:700;display:block;margin-bottom:2px}
+.aside-hub-ttl{font-family:'Satoshi',system-ui,-apple-system,sans-serif;font-size:1.2rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#fff;line-height:1;display:block}
+.aside-hub-btn{position:relative;z-index:2;display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.45);color:#fff;border-radius:50%;font-size:14px;font-weight:900;flex-shrink:0;text-decoration:none}
+.aside-hub-card:hover .aside-hub-btn{background:rgba(255,255,255,.35)}
+
+/* BUY BLOCK INLINE */
+.buy-block{background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:.875rem 1rem;margin:.6rem 0 1.25rem;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.buy-block-info{display:flex;flex-direction:column;gap:2px}
+.buy-block-name{font-weight:700;font-size:.9rem;color:var(--tx)}
+.buy-block-note{font-size:11px;color:var(--tx3)}
+.btn-cta-ml{display:inline-flex;align-items:center;gap:5px;background:var(--ml);color:#5a4200;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:none;transition:opacity .15s;white-space:nowrap}
+.btn-cta-ml:hover{opacity:.9}
+@media(max-width:480px){.buy-block{flex-direction:column;align-items:stretch}}
 </style>
 <link rel="stylesheet" href="/assets/css/cmx-site.css">
 </head>
@@ -235,6 +284,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
   </div>
 </div>
 
+<div class="page-wrap">
 <div class="content">
 
   <div class="ed-section">
@@ -348,12 +398,40 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 
     <h3>Xuper TV en Google TV y onn.</h3>
     <p>Google TV ofrece acceso a Google Play y, dependiendo del dispositivo y sus restricciones, permite instalar aplicaciones Android compatibles desde otras fuentes. Los dispositivos onn. que incorporan Google TV pueden ofrecer esa flexibilidad, aunque no garantiza la compatibilidad con todas las versiones de Xuper TV.</p>
+    <div class="buy-block">
+      <div class="buy-block-info">
+        <span class="buy-block-name">onn. TV Stick 4K Google TV 2026</span>
+        <span class="buy-block-note">Google TV · Android apps · Gemini IA</span>
+      </div>
+      <a class="btn-cta-ml" href="https://meli.la/2FB34ax" target="_blank" rel="nofollow noopener sponsored">Ver en Mercado Libre</a>
+    </div>
+    <div class="buy-block">
+      <div class="buy-block-info">
+        <span class="buy-block-name">Google TV Streamer 4K</span>
+        <span class="buy-block-note">Google TV · Matter · 4K HDR</span>
+      </div>
+      <a class="btn-cta-ml" href="https://meli.la/19sVgda" target="_blank" rel="nofollow noopener sponsored">Ver en Mercado Libre</a>
+    </div>
 
     <h3>Xuper TV en Xiaomi TV Box</h3>
     <p>Las generaciones recientes de Xiaomi TV Box S utilizan Google TV y permiten instalar aplicaciones compatibles con Android. Antes de comprar, revisa la generación exacta y sus especificaciones.</p>
+    <div class="buy-block">
+      <div class="buy-block-info">
+        <span class="buy-block-name">Xiaomi TV Box S 4K 3rd Gen</span>
+        <span class="buy-block-note">Google TV · 2 GB RAM · 32 GB</span>
+      </div>
+      <a class="btn-cta-ml" href="https://meli.la/1QaRWds" target="_blank" rel="nofollow noopener sponsored">Ver en Mercado Libre</a>
+    </div>
 
     <h3>Xuper TV en Fire TV Stick</h3>
     <p>Fire TV utiliza Fire OS, un sistema de Amazon con su propia tienda de aplicaciones. Algunos modelos permiten instalar aplicaciones externas, pero existen restricciones que dependen del dispositivo y de la versión del sistema.</p>
+    <div class="buy-block">
+      <div class="buy-block-info">
+        <span class="buy-block-name">Amazon Fire TV Stick 4K 8GB</span>
+        <span class="buy-block-note">Fire OS · Alexa · 4K Ultra HD</span>
+      </div>
+      <a class="btn-cta-ml" href="https://meli.la/2vagDrh" target="_blank" rel="nofollow noopener sponsored">Ver en Mercado Libre</a>
+    </div>
 
     <h3>¿Funciona en Roku, Samsung o LG?</h3>
     <p>Roku utiliza Roku OS, mientras que Samsung y LG tienen sus propios sistemas operativos: Tizen y webOS. Estos sistemas no permiten instalar directamente archivos APK de Android, por lo que una aplicación diseñada para Google TV o Android TV no estará disponible en estos dispositivos.</p>
@@ -467,43 +545,56 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 
   <p class="disclosure">Esta guía es de carácter informativo. comparalo.mx no avala ni recomienda aplicaciones distribuidas fuera de tiendas oficiales. Revisa siempre la procedencia de cualquier APK antes de instalarla en tu dispositivo.</p>
 
-</div>
+</div><!-- /content -->
 
-<!-- SIDEBAR IZQUIERDO -->
-<aside class="sidebar" id="sidebar" aria-label="Navegación de streaming">
+<aside class="aside-right-panel" aria-label="Ofertas y comparativas de streaming">
+  <div class="oferta-aside-box" id="oferta-aside-box" style="display:none">
+    <div class="oferta-aside-hdr">
+      <span class="oferta-aside-hdr-ttl">Oferta detectada</span>
+      <span class="oferta-aside-hdr-sub">Bajó de precio ahora mismo</span>
+    </div>
+    <div id="ofertas-aside-list"></div>
+    <a class="oferta-aside-more" href="/entretenimiento/streaming/">Ver más dispositivos →</a>
+  </div>
+  <a class="aside-hub-card" style="background:#006847" href="/entretenimiento/streaming/">
+    <div class="aside-hub-content">
+      <span class="aside-hub-eyebrow">Comparar</span>
+      <span class="aside-hub-ttl">Streaming</span>
+    </div>
+    <span class="aside-hub-btn">→</span>
+  </a>
+  <a class="aside-hub-card" style="background:#1d4ed8" href="/entretenimiento/">
+    <div class="aside-hub-content">
+      <span class="aside-hub-eyebrow">Ver también</span>
+      <span class="aside-hub-ttl">Entrete.</span>
+    </div>
+    <span class="aside-hub-btn">→</span>
+  </a>
+</aside>
+
+</div><!-- /page-wrap -->
+
+<!-- SIDEBAR IZQUIERDO (productos) -->
+<aside class="sidebar" id="sidebar" aria-label="Dispositivos de streaming">
   <div class="sidebar-panel">
     <div class="sidebar-header">
-      <span class="sidebar-htitle">📺 Streaming</span>
-      <span class="sidebar-hsub">Guías y comparativas</span>
+      <span class="sidebar-htitle">📺 Dispositivos</span>
+      <span class="sidebar-hsub">Compara precios en ML</span>
     </div>
+    <div class="sidebar-phones" id="sidebar-phones"></div>
     <div class="sidebar-banners">
-      <a class="sidebar-banner" href="/entretenimiento/streaming/" onclick="gtag('event','cta_click',{cta:'sidebar_streaming',location:'sidebar'})">
+      <a class="sidebar-banner" href="/entretenimiento/streaming/">
         <span class="sidebar-banner-ico">🔍</span>
-        <div><span class="sidebar-banner-ttl">Comparar dispositivos</span><span class="sidebar-banner-sub">Roku, Fire TV, Google TV →</span></div>
-      </a>
-      <a class="sidebar-banner" href="/entretenimiento/" onclick="gtag('event','cta_click',{cta:'sidebar_entretenimiento',location:'sidebar'})">
-        <span class="sidebar-banner-ico">🎬</span>
-        <div><span class="sidebar-banner-ttl">Entretenimiento</span><span class="sidebar-banner-sub">Smart TV y streaming →</span></div>
-      </a>
-      <a class="sidebar-banner" href="/guias/" onclick="gtag('event','cta_click',{cta:'sidebar_guias',location:'sidebar'})">
-        <span class="sidebar-banner-ico">📖</span>
-        <div><span class="sidebar-banner-ttl">Todas las guías</span><span class="sidebar-banner-sub">Artículos y comparativas →</span></div>
+        <div><span class="sidebar-banner-ttl">Ver comparativa</span><span class="sidebar-banner-sub">Todos los dispositivos →</span></div>
       </a>
     </div>
   </div>
-  <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Abrir menú de streaming" aria-expanded="false">
+  <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Ver dispositivos de streaming" aria-expanded="false">
     <span class="sidebar-toggle-ico">📺</span>
-    <span class="sidebar-toggle-lbl">MENÚ</span>
+    <span class="sidebar-toggle-lbl">DISPOSITIVOS</span>
+    <span class="sidebar-badge" id="sidebar-badge"></span>
   </button>
 </aside>
-
-<!-- BOTÓN FLOTANTE DERECHO -->
-<div class="float-right" id="float-right">
-  <a class="float-right-btn" href="/entretenimiento/streaming/" onclick="gtag('event','cta_click',{cta:'float_right_streaming',location:'float_right'})">
-    <span class="float-right-btn-ico">🔍</span>
-    VER DISPOSITIVOS
-  </a>
-</div>
 
 <!-- cmx-footer:start -->
 <div class="cmx-ft" role="contentinfo" id="cmx-ft"><div class="cmx-ft-in">
@@ -524,22 +615,76 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 <script src="/js/site-nav.js" defer></script>
 <script>
 (function(){
-  var sidebar = document.getElementById('sidebar');
-  var toggle  = document.getElementById('sidebar-toggle');
-  var fr      = document.getElementById('float-right');
-  var shown   = false;
-  function show(){
-    if(shown) return; shown = true;
-    if(sidebar) sidebar.classList.add('visible');
-    if(fr) fr.classList.add('visible');
-  }
-  window.addEventListener('scroll', function(){ if(window.scrollY > 200) show(); }, {passive:true});
-  if(toggle && sidebar){
-    toggle.addEventListener('click', function(){
-      var open = sidebar.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', String(open));
+  var productos = [
+    {nombre:'Google TV Streamer 4K',badge:'GOOGLE TV',img:'https://http2.mlstatic.com/D_NQ_NP_786617-MLA99852176643_112025-F.jpg',link:'https://meli.la/19sVgda'},
+    {nombre:'onn. TV Stick 4K 2026',badge:'GOOGLE TV',img:'https://http2.mlstatic.com/D_NQ_NP_833800-MLA114053583805_072026-F.jpg',link:'https://meli.la/2FB34ax'},
+    {nombre:'Xiaomi TV Box S 4K',badge:'GOOGLE TV',img:'https://http2.mlstatic.com/D_NQ_NP_687160-MLA92591585137_092025-F.jpg',link:'https://meli.la/1QaRWds'},
+    {nombre:'Fire TV Stick 4K 8GB',badge:'FIRE OS',img:'https://http2.mlstatic.com/D_NQ_NP_728967-MLA99505092686_112025-F.jpg',link:'https://meli.la/2vagDrh'},
+    {nombre:'Roku Streaming Stick 4K',badge:'ROKU OS',img:'https://http2.mlstatic.com/D_NQ_NP_769506-MLA116783865293_082026-F.jpg',link:'https://meli.la/1X2maGj'},
+    {nombre:'Apple TV 4K 3ra Gen',badge:'tvOS',img:'https://http2.mlstatic.com/D_NQ_NP_847544-MLA99406430728_112025-F.jpg',link:'https://meli.la/2rDK15c'}
+  ];
+
+  var phonesEl = document.getElementById('sidebar-phones');
+  if(phonesEl){
+    productos.forEach(function(p){
+      phonesEl.insertAdjacentHTML('beforeend',
+        '<div class="sidebar-phone" tabindex="0" role="link" onclick="window.open(\''+p.link+'\',\'_blank\')" aria-label="Ver '+p.nombre+' en Mercado Libre">'+
+          '<img class="sidebar-phone-img" src="'+p.img+'" alt="'+p.nombre+'" loading="lazy">'+
+          '<div class="sidebar-phone-info">'+
+            '<div class="sidebar-phone-price">Ver precio en ML</div>'+
+            '<div class="sidebar-phone-name">'+p.nombre+'</div>'+
+            '<div class="sidebar-phone-tag">'+p.badge+'</div>'+
+            '<a class="sidebar-phone-ml" href="'+p.link+'" target="_blank" rel="nofollow noopener sponsored" onclick="event.stopPropagation()">'+
+              'Clic para ir</a>'+
+          '</div>'+
+        '</div>'
+      );
     });
   }
+
+  var sidebar = document.getElementById('sidebar');
+  var toggle  = document.getElementById('sidebar-toggle');
+  var shown   = false;
+  function show(){if(shown)return;shown=true;if(sidebar)sidebar.classList.add('visible');}
+  window.addEventListener('scroll',function(){if(window.scrollY>200)show();},{passive:true});
+  if(toggle&&sidebar){
+    toggle.addEventListener('click',function(){
+      var open=sidebar.classList.toggle('open');
+      toggle.setAttribute('aria-expanded',String(open));
+    });
+  }
+
+  (async function(){
+    try{
+      var r=await fetch('/assets/data/bajadas.json');
+      var data=await r.json();
+      var cat=data.categorias&&data.categorias.streaming;
+      if(!cat||!cat.length)return;
+      var box=document.getElementById('oferta-aside-box');
+      var list=document.getElementById('ofertas-aside-list');
+      if(!box||!list)return;
+      var n=0;
+      cat.forEach(function(p){
+        if(n>=3||!p.link||!p.precioAntes)return;
+        var pct=Math.round((1-p.precio/p.precioAntes)*100);
+        list.insertAdjacentHTML('beforeend',
+          '<a class="oferta-card-aside" href="'+p.link+'" target="_blank" rel="nofollow noopener sponsored">'+
+            (p.imagen?'<img class="oferta-card-aside-img" src="'+p.imagen+'" alt="'+p.nombre+'" loading="lazy">':'')+
+            '<div class="oferta-card-aside-body">'+
+              '<span class="oferta-card-aside-name">'+p.nombre+'</span>'+
+              '<span class="oferta-badge">↓ '+pct+'%</span>'+
+              '<div class="oferta-card-aside-price">'+
+                '<span class="oferta-nuevo">$'+p.precio.toLocaleString('es-MX')+'</span>'+
+                '<span class="oferta-antes">$'+p.precioAntes.toLocaleString('es-MX')+'</span>'+
+              '</div>'+
+            '</div>'+
+          '</a>'
+        );
+        n++;
+      });
+      if(n>0)box.style.display='';
+    }catch(e){}
+  })();
 })();
 </script>
 </body>
