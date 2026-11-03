@@ -165,6 +165,35 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .btn-final-pri:hover{opacity:.9}
 .btn-final-sec{display:inline-flex;align-items:center;padding:11px 20px;background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.4);border-radius:var(--r);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;transition:background .15s}
 .btn-final-sec:hover{background:rgba(255,255,255,.25)}
+
+/* SIDEBAR IZQUIERDO */
+.sidebar{position:fixed;left:0;top:50%;transform:translateY(-50%);z-index:160;display:flex;align-items:center;opacity:0;pointer-events:none;transition:opacity .35s}
+.sidebar.visible{opacity:1;pointer-events:auto}
+.sidebar-panel{background:var(--bg);border:1.5px solid var(--bd2);border-left:none;border-radius:0 14px 14px 0;width:232px;overflow-y:auto;box-shadow:6px 0 28px rgba(0,0,0,.1);transform:translateX(-100%);transition:transform .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
+@media(min-width:1041px){.sidebar.visible .sidebar-panel{transform:translateX(0)}.sidebar-toggle{display:none!important}}
+.sidebar-header{padding:12px 14px 10px;border-bottom:1px solid var(--bd);flex-shrink:0}
+.sidebar-htitle{font-family:'Satoshi',system-ui,-apple-system,sans-serif;font-size:14px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--tx);display:block}
+.sidebar-hsub{font-size:11px;color:var(--tx3);display:block;margin-top:2px}
+.sidebar-banners{flex:1}
+.sidebar-banner{display:flex;align-items:center;gap:10px;padding:11px 14px;text-decoration:none;transition:background .12s;border-bottom:1px solid var(--bd)}
+.sidebar-banner:last-child{border-bottom:none}
+.sidebar-banner:hover{background:var(--acd)}
+.sidebar-banner-ico{font-size:20px;flex-shrink:0;line-height:1}
+.sidebar-banner-ttl{font-family:'Satoshi',system-ui,-apple-system,sans-serif;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--tx);display:block}
+.sidebar-banner-sub{font-size:10px;color:var(--tx2);margin-top:1px;display:block}
+.sidebar-toggle{background:var(--ac);color:#fff;border:none;cursor:pointer;border-radius:0 10px 10px 0;padding:14px 8px 14px 9px;display:flex;flex-direction:column;align-items:center;gap:8px;font-family:'Satoshi',system-ui,-apple-system,sans-serif;transition:background .15s;flex-shrink:0;box-shadow:3px 0 14px rgba(0,104,71,.3);min-height:80px;font-weight:800}
+.sidebar-toggle:hover{background:#00573b}
+.sidebar-toggle-ico{font-size:16px;line-height:1}
+.sidebar-toggle-lbl{writing-mode:vertical-rl;text-orientation:mixed;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;opacity:.9;line-height:1;font-weight:800}
+@media(max-width:1040px){.sidebar{display:none!important}}
+
+/* BOTÓN FLOTANTE DERECHO */
+.float-right{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:160;opacity:0;pointer-events:none;transition:opacity .35s}
+.float-right.visible{opacity:1;pointer-events:auto}
+.float-right-btn{display:flex;align-items:center;gap:6px;writing-mode:vertical-rl;text-orientation:mixed;background:var(--ac);color:#fff;text-decoration:none;font-family:'Satoshi',system-ui,-apple-system,sans-serif;font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;padding:14px 9px;border-radius:10px 0 0 10px;box-shadow:-3px 0 14px rgba(0,104,71,.25);transition:background .15s;line-height:1}
+.float-right-btn:hover{background:#00573b;text-decoration:none;color:#fff}
+.float-right-btn-ico{font-size:15px;writing-mode:horizontal-tb;line-height:1}
+@media(max-width:1040px){.float-right{display:none!important}}
 </style>
 <link rel="stylesheet" href="/assets/css/cmx-site.css">
 </head>
@@ -440,6 +469,42 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 
 </div>
 
+<!-- SIDEBAR IZQUIERDO -->
+<aside class="sidebar" id="sidebar" aria-label="Navegación de streaming">
+  <div class="sidebar-panel">
+    <div class="sidebar-header">
+      <span class="sidebar-htitle">📺 Streaming</span>
+      <span class="sidebar-hsub">Guías y comparativas</span>
+    </div>
+    <div class="sidebar-banners">
+      <a class="sidebar-banner" href="/entretenimiento/streaming/" onclick="gtag('event','cta_click',{cta:'sidebar_streaming',location:'sidebar'})">
+        <span class="sidebar-banner-ico">🔍</span>
+        <div><span class="sidebar-banner-ttl">Comparar dispositivos</span><span class="sidebar-banner-sub">Roku, Fire TV, Google TV →</span></div>
+      </a>
+      <a class="sidebar-banner" href="/entretenimiento/" onclick="gtag('event','cta_click',{cta:'sidebar_entretenimiento',location:'sidebar'})">
+        <span class="sidebar-banner-ico">🎬</span>
+        <div><span class="sidebar-banner-ttl">Entretenimiento</span><span class="sidebar-banner-sub">Smart TV y streaming →</span></div>
+      </a>
+      <a class="sidebar-banner" href="/guias/" onclick="gtag('event','cta_click',{cta:'sidebar_guias',location:'sidebar'})">
+        <span class="sidebar-banner-ico">📖</span>
+        <div><span class="sidebar-banner-ttl">Todas las guías</span><span class="sidebar-banner-sub">Artículos y comparativas →</span></div>
+      </a>
+    </div>
+  </div>
+  <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Abrir menú de streaming" aria-expanded="false">
+    <span class="sidebar-toggle-ico">📺</span>
+    <span class="sidebar-toggle-lbl">MENÚ</span>
+  </button>
+</aside>
+
+<!-- BOTÓN FLOTANTE DERECHO -->
+<div class="float-right" id="float-right">
+  <a class="float-right-btn" href="/entretenimiento/streaming/" onclick="gtag('event','cta_click',{cta:'float_right_streaming',location:'float_right'})">
+    <span class="float-right-btn-ico">🔍</span>
+    VER DISPOSITIVOS
+  </a>
+</div>
+
 <!-- cmx-footer:start -->
 <div class="cmx-ft" role="contentinfo" id="cmx-ft"><div class="cmx-ft-in">
 <div class="cmx-ft-disc"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6EE7B7" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><div><h2>Aviso de afiliados</h2><p>comparalo.mx participa en los programas de afiliados de Amazon México y Mercado Libre. Si compras a través de nuestros enlaces recibimos una comisión, sin costo adicional para ti. Esa comisión no influye en el orden ni en las recomendaciones. <a href="/aviso-afiliados/">Más información</a></p></div></div>
@@ -457,5 +522,25 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 <script src="/assets/js/share.js" defer></script>
 <script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
+<script>
+(function(){
+  var sidebar = document.getElementById('sidebar');
+  var toggle  = document.getElementById('sidebar-toggle');
+  var fr      = document.getElementById('float-right');
+  var shown   = false;
+  function show(){
+    if(shown) return; shown = true;
+    if(sidebar) sidebar.classList.add('visible');
+    if(fr) fr.classList.add('visible');
+  }
+  window.addEventListener('scroll', function(){ if(window.scrollY > 200) show(); }, {passive:true});
+  if(toggle && sidebar){
+    toggle.addEventListener('click', function(){
+      var open = sidebar.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+  }
+})();
+</script>
 </body>
 </html>
