@@ -114,6 +114,24 @@
           ['lactosa', 'Sin lactosa', function (p) { return p.sinLactosa === 'Sí'; }]])
       ];
     },
+    '/electrodomesticos/lavadoras/': function () {
+      return [
+        platform([
+          { v: 'todos', label: 'Ambas', all: true, test: function () { return true; } },
+          { v: 'ml', label: 'Mercado Libre', test: function (p) { return !!p.linkML; } },
+          { v: 'amz', label: 'Amazon', test: function (p) { return !!p.linkAmz; } }]),
+        byValue('tipo', 'Tipo', function (p) { return p.tipo; },
+          { automatica: 'Automática', frontal: 'Carga frontal', superior: 'Carga superior', semiautomatica: 'Semiautomática', compacta: 'Compacta' }),
+        { id: 'capacidad', title: 'Capacidad (kg)', mode: 'or', opts: [
+          { v: 'c1', label: 'Hasta 7 kg', test: function (p) { return typeof p.capacidadKg === 'number' && p.capacidadKg <= 7; } },
+          { v: 'c2', label: '8–10 kg', test: function (p) { return typeof p.capacidadKg === 'number' && p.capacidadKg > 7 && p.capacidadKg <= 10; } },
+          { v: 'c3', label: 'Más de 10 kg', test: function (p) { return typeof p.capacidadKg === 'number' && p.capacidadKg > 10; } }] },
+        brand(),
+        flags('carac', 'Características', [
+          ['inverter', 'Motor inverter', function (p) { return p.inverter === true; }],
+          ['vapor', 'Función vapor', function (p) { return p.vapor === true; }]])
+      ];
+    },
     '/electrodomesticos/refrigeradores/': function () {
       return [
         platform([
