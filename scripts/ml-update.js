@@ -51,6 +51,7 @@ const CATALOG = {
   tecnologia_audifonos:  { file: 'tecnologia/audifonos/index.html',  varName: 'productos' },
   cafeteras:             { file: 'electrodomesticos/cafeteras/index.html', varName: 'productos' },
   refrigeradores:        { file: 'electrodomesticos/refrigeradores/index.html', varName: 'productos' },
+  lavadoras:             { file: 'electrodomesticos/lavadoras/index.html',     varName: 'productos' },
   bicisMontana:          { file: 'bicis/index.html',                      varName: 'MONTANA'   },
   bicisMontanaDed:       { file: 'bicicletas/bici-montana/index.html',    varName: 'MONTANA',  dataKey: 'bicisMontana' },
   streaming:             { file: 'entretenimiento/streaming/index.html',  varName: 'productos' },
