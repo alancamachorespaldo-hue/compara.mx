@@ -2021,7 +2021,7 @@ const familias = [
     img: 'https://http2.mlstatic.com/D_NQ_NP_2X_870493-MLA109812392870_042026-F.webp',
     variantes: [
       { storage: 256, ram: 12, precio: 15890, linkML: 'https://meli.la/1TgKbkx', estrellas: 4.9, resenas: 1290 },
-      { storage: 512, ram: 12, precio: 17399, linkML: 'https://meli.la/1TgKbkx', estrellas: 4.9, resenas: 1290, salto: { texto: 'Duplicas el almacenamiento', diff: 2117 } },
+      { storage: 512, ram: 12, precio: 15890, linkML: 'https://meli.la/1TgKbkx', estrellas: 4.9, resenas: 1290, salto: { texto: 'Duplicas el almacenamiento', diff: 2117 } },
     ]
   },
   {
@@ -2756,6 +2756,7 @@ const familias = [
     ]
   },
 ];
+window.productos = familias.flatMap(function(f) { return f.variantes.map(function(v) { return { id: 'android-' + f.modeloBase + '-' + v.storage + 'gb-' + v.ram + 'gb', nombre: f.nombre, precioML: v.precio }; }); });
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _fi=familias.length-1;_fi>=0;_fi--){var _f=familias[_fi];for(var _vi=(_f.variantes||[]).length-1;_vi>=0;_vi--){var _v=_f.variantes[_vi];var _id='android-'+_f.modeloBase+'-'+_v.storage+'gb-'+_v.ram+'gb';var _z=_PZ[_id];if(!_z)continue;if(_z.ml){_f.variantes[_vi].linkML=null;_f.variantes[_vi].precio=null;_f.variantes[_vi].pausaML=true;}}if(!_f.variantes.some(function(vv){return vv.linkML||vv.linkAmz;}))familias.splice(_fi,1);}}catch(e){}
 
 
@@ -3141,6 +3142,8 @@ function platsHTML(f, v) {
 function cardHTML(f) {
   const idx  = storageState[f.modeloBase];
   const v    = f.variantes[idx];
+  f.id = 'android-' + f.modeloBase + '-' + v.storage + 'gb-' + v.ram + 'gb';
+  f.precioML = v.precio;
   const isSel = selected.includes(f.modeloBase);
   const esc = s => String(s==null?'':s).replace(/"/g,'&quot;');
   const stars = v.estrellas
@@ -3659,6 +3662,6 @@ document.getElementById('howModalOv').addEventListener('click',function(e){if(e.
 <script src="/assets/js/price-drops.js" defer></script>
 <script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
-<script src="/assets/js/share.js" defer></script>
+<script src="/assets/js/share.js" defer></script>
 </body>
 </html>
