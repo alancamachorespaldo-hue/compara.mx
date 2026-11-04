@@ -45,7 +45,7 @@ function generar(categoria, outRel) {
       const b = mejorBajada(p);
       if (!b) return null;
       return {
-        id: String(p.id), nombre: p.nombre, imagen: p.imagen,
+        id: String(p.id), nombre: p.nombre, imagen: p.imagen || p.img || null,
         precioML: p.precioML || null, precioAmz: p.precioAmz || null,
         ...camposOferta(b),
         linkML: p.linkML || null, linkAmz: p.linkAmz || null,
@@ -64,7 +64,7 @@ function generar(categoria, outRel) {
     .map(p => {
       const esAmz = !p.precioML && p.precioAmz;
       return {
-        id: String(p.id), nombre: p.nombre, imagen: p.imagen,
+        id: String(p.id), nombre: p.nombre, imagen: p.imagen || p.img || null,
         precioML: p.precioML || null, precioAmz: p.precioAmz || null,
         plataforma: esAmz ? 'amazon' : 'ml',
         precioOferta: esAmz ? p.precioAmz : p.precioML,
