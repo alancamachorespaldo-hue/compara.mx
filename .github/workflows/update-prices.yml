@@ -76,6 +76,7 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase
           git add laptops/index.html bicis/index.html bicicletas/bici-montana/index.html entretenimiento/streaming/index.html \
             electrodomesticos/freidoras/index.html electrodomesticos/microondas/index.html \
             electrodomesticos/cafeteras/index.html \
@@ -100,6 +101,5 @@ jobs:
             echo "Sin cambios de precios."
           else
             git commit -m "chore(precios): actualizar precios ML $(date +'%Y-%m-%d')"
-            git pull --rebase
             git push
           fi
