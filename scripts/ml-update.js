@@ -54,6 +54,7 @@ const CATALOG = {
   lavadoras:             { file: 'electrodomesticos/lavadoras/index.html',     varName: 'productos' },
   bicisMontana:          { file: 'bicis/index.html',                      varName: 'MONTANA'   },
   bicisMontanaDed:       { file: 'bicicletas/bici-montana/index.html',    varName: 'MONTANA',  dataKey: 'bicisMontana' },
+  bicisRuta:             { file: 'bicis/index.html',                      varName: 'RUTA'      },
   streaming:             { file: 'entretenimiento/streaming/index.html',  varName: 'productos' },
   // tecnologia_smartwatches: sin productos aún; agregar cuando se pueble:
   // tecnologia_smartwatches: { file: 'tecnologia/smartwatches/index.html', varName: 'productos' },
