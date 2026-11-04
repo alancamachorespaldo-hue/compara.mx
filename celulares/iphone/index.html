@@ -663,6 +663,11 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
           <button class="filter filter-logo" data-group="plat" onclick="toggleFilter('plat','ml',this)"><img src="/logomercado.png" alt="Mercado Libre" style="height:16px;width:auto;object-fit:contain" onerror="this.outerHTML='ML'"></button>
         </div>
       </div>
+
+      <div class="iph-section" id="iph-section-bajada" style="display:none">
+        <span class="iph-section-title">Ofertas</span>
+        <button class="filter" id="btn-bajada" type="button" onclick="toggleSoloBajada()" style="width:100%;justify-content:center">↓ Solo con bajada de precio</button>
+      </div>
     </div>
 
     <div class="iph-filters-foot">
@@ -2171,7 +2176,7 @@ function btnsHTML(variante, nombre) {
 // ─────────────────────────────────────────────────────────────────────────────
 // RENDER GRID
 // ─────────────────────────────────────────────────────────────────────────────
-const filterState = { series: new Set(), condicion: 'todos', color: 'todos', plat: 'todos', soloFavs: false };
+const filterState = { series: new Set(), condicion: 'todos', color: 'todos', plat: 'todos', soloFavs: false, soloBajada: false };
 
 /* ─── FAVORITOS (guardar / dar seguimiento) ──────────────────
    Se guardan en el navegador del usuario (localStorage), no salen
@@ -2227,6 +2232,7 @@ function updateFiltrarBadge() {
   if (filterState.color !== 'todos') n++;
   if (filterState.plat !== 'todos') n++;
   if (filterState.soloFavs) n++;
+  if (filterState.soloBajada) n++;
   if (document.getElementById('precio-min')?.value) n++;
   if (document.getElementById('precio-max')?.value) n++;
   badge.textContent = n;
@@ -2246,6 +2252,10 @@ function closeFiltersDrawer() {
   document.body.style.overflow = '';
 }
 document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeFiltersDrawer(); });
+document.addEventListener('cmx:drops', function() {
+  const sec = document.getElementById('iph-section-bajada');
+  if (sec && familias.some(f => f.variantes.some(v => window.cmxGetDrop && window.cmxGetDrop({id: v.id, nombre: f.nombre, precioML: v.precioML})))) sec.style.display = '';
+});
 
 const COLOR_SWATCHES = {
   'Negro':    '#1c1c1e',
@@ -2306,12 +2316,23 @@ function toggleFilter(key, val, btn) {
   render();
 }
 
+function toggleSoloBajada() {
+  filterState.soloBajada = !filterState.soloBajada;
+  const btn = document.getElementById('btn-bajada');
+  if (btn) btn.classList.toggle('on', filterState.soloBajada);
+  if (filterState.soloBajada && typeof gtag === 'function') gtag('event', 'filtro_bajada_precio', { page_path: location.pathname });
+  updateFiltrarBadge();
+  render();
+}
+
 function clearFilters() {
   filterState.series.clear();
   filterState.condicion = 'todos';
   filterState.color = 'todos';
   filterState.plat = 'todos';
   filterState.soloFavs = false;
+  filterState.soloBajada = false;
+  document.getElementById('btn-bajada')?.classList.remove('on');
   const _pmin=document.getElementById('precio-min');if(_pmin)_pmin.value='';
   const _pm=document.getElementById('precio-max');if(_pm)_pm.value='';
   document.getElementById('search').value = '';
@@ -2342,6 +2363,7 @@ function render() {
     const _minP=parseFloat(document.getElementById('precio-min')?.value)||0;if(_minP>0){const _maxV=Math.max(...f.variantes.map(v=>v.precio||0));if(_maxV<_minP)return false;}
     if (filterState.plat === 'amz' && !f.variantes.some(v=>v.linkAmz)) return false;
     if (filterState.plat === 'ml' && !f.variantes.some(v=>v.linkML)) return false;
+    if (filterState.soloBajada && !f.variantes.some(v => window.cmxGetDrop && window.cmxGetDrop({id: v.id, nombre: f.nombre, precioML: v.precioML}))) return false;
     return true;
   });
 

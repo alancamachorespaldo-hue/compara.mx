@@ -709,6 +709,11 @@ details.and-section summary:focus-visible{outline:2px solid var(--ac);outline-of
           <button class="filter" onclick="toggleFilter('pantalla','l',this)">Más de 6.8"</button>
         </div>
       </details>
+
+      <div class="and-section" id="and-section-bajada" style="display:none">
+        <span class="and-section-title">Ofertas</span>
+        <button class="filter" id="btn-bajada" type="button" onclick="toggleSoloBajada()" style="width:100%;justify-content:center">↓ Solo con bajada de precio</button>
+      </div>
     </div>
 
     <div class="and-filters-foot">
@@ -2787,7 +2792,7 @@ const storageState = {};
 familias.forEach(f => { storageState[f.modeloBase] = 0; });
 
 const CATALOG_UPDATED = '20 de septiembre de 2026';
-const filterState = { marca: 'todos', ram: 'todos', almacenamiento: 'todos', plat: 'todos', procesador: 'todos', camara: 'todos', pantalla: 'todos', soloFavs: false };
+const filterState = { marca: 'todos', ram: 'todos', almacenamiento: 'todos', plat: 'todos', procesador: 'todos', camara: 'todos', pantalla: 'todos', soloFavs: false, soloBajada: false };
 const FILTER_LABELS = {
   marca: { samsung:'Samsung', xiaomi:'Xiaomi', google:'Google Pixel', motorola:'Motorola', oppo:'OPPO', honor:'Honor', huawei:'Huawei' },
   ram: { '4':'4 GB', '6':'6 GB', '8':'8 GB', '12':'12 GB', '16':'16 GB+' },
@@ -2900,9 +2905,19 @@ function onPrecioMinInput() {
 }
 
 /* ─── FILTROS ────────────────────────────────────────────── */
+function toggleSoloBajada() {
+  filterState.soloBajada = !filterState.soloBajada;
+  const btn = document.getElementById('btn-bajada');
+  if (btn) btn.classList.toggle('on', filterState.soloBajada);
+  if (filterState.soloBajada && typeof gtag === 'function') gtag('event', 'filtro_bajada_precio', { page_path: location.pathname });
+  render();
+}
+
 function clearFilters() {
   filterState.marca = 'todos'; filterState.ram = 'todos'; filterState.almacenamiento = 'todos'; filterState.plat = 'todos';
   filterState.procesador = 'todos'; filterState.camara = 'todos'; filterState.pantalla = 'todos'; filterState.soloFavs = false;
+  filterState.soloBajada = false;
+  document.getElementById('btn-bajada')?.classList.remove('on');
   const _pm=document.getElementById('precio-max');if(_pm)_pm.value='';
   const _pmin=document.getElementById('precio-min');if(_pmin)_pmin.value='';
   document.getElementById('search').value = '';
@@ -2976,6 +2991,7 @@ function updateFiltrarBadge() {
   if (document.getElementById('precio-min')?.value) n++;
   if (document.getElementById('precio-max')?.value) n++;
   if (filterState.soloFavs) n++;
+  if (filterState.soloBajada) n++;
   badge.textContent = n;
   badge.style.display = n > 0 ? '' : 'none';
 }
@@ -2994,6 +3010,10 @@ function closeFiltersDrawer() {
   document.body.style.overflow = '';
 }
 document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeFiltersDrawer(); });
+document.addEventListener('cmx:drops', function() {
+  const sec = document.getElementById('and-section-bajada');
+  if (sec && familias.some(f => f.variantes.some(v => window.cmxGetDrop && window.cmxGetDrop({id: v.id, nombre: f.nombre, precioML: v.precioML})))) sec.style.display = '';
+});
 
 /* ─── BUSCADOR DE MARCA ──────────────────────────────────── */
 function filterMarcaList(q) {
@@ -3052,6 +3072,7 @@ function render() {
     if (filterState.procesador !== 'todos' && chipFamily(f.chip) !== filterState.procesador) return false;
     if (filterState.camara !== 'todos' && f.camPrincipal !== Number(filterState.camara)) return false;
     if (filterState.pantalla !== 'todos' && pantallaBucket(f.pantalla) !== filterState.pantalla) return false;
+    if (filterState.soloBajada && !f.variantes.some(v => window.cmxGetDrop && window.cmxGetDrop({id: v.id, nombre: f.nombre, precioML: v.precioML}))) return false;
     return true;
   });
 
