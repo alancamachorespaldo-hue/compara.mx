@@ -62,6 +62,7 @@ const CATALOG = {
 // ID por variante: "{prefix}-{familia.modeloBase}-{storage}gb-{ram}gb"
 const CATALOG_CEL = {
   celulares_android: { file: 'celulares/android/index.html', varName: 'familias', prefix: 'android' },
+  celulares_iphone:  { file: 'celulares/iphone/index.html',  varName: 'familias', useVariantId: true },
 };
 const SUPLEMENTOS = ['proteina', 'omega3', 'magnesio', 'creatina', 'complejo_b', 'vitamina_d'];
 const ENTRIES =
@@ -69,7 +70,7 @@ const ENTRIES =
   CAT_ARG === 'suplementos' ? SUPLEMENTOS.map(k => [k, CATALOG[k]]) :
   Object.entries(CATALOG).filter(([k]) => k === CAT_ARG);
 const CEL_ENTRIES =
-  CAT_ARG === 'all' || CAT_ARG === 'celulares_android'
+  CAT_ARG === 'all' || CAT_ARG === 'celulares_android' || CAT_ARG === 'celulares_iphone'
     ? Object.entries(CATALOG_CEL).filter(([k]) => CAT_ARG === 'all' || k === CAT_ARG)
     : [];
 
@@ -425,10 +426,12 @@ async function updateCelulares(key, config, admin, REPORT) {
   let sinId = 0;
   for (const f of familias) {
     for (const v of (f.variantes || [])) {
-      const id = `${config.prefix}-${f.modeloBase}-${v.storage}gb-${v.ram}gb`;
+      const id = config.useVariantId
+        ? v.id
+        : `${config.prefix}-${f.modeloBase}-${v.storage}gb-${v.ram}gb`;
       const admin = adminMap.get(id);
       if (!admin) { sinId++; continue; }
-      targets.push({ id, mlId: admin.mlId, linkML: v.linkML, precioBefore: v.precio, nombre: f.nombre, storage: v.storage, ram: v.ram });
+      targets.push({ id, mlId: admin.mlId, linkML: v.linkML, precioBefore: v.precio ?? v.precioML, nombre: f.nombre, storage: v.almacenamientoGB ?? v.storage, ram: v.ram });
     }
   }
 
@@ -487,9 +490,10 @@ async function updateCelulares(key, config, admin, REPORT) {
     if (idx === -1) continue;
     const blockStart = text.lastIndexOf('{', idx);
     const blockEnd = text.indexOf('}', idx) + 1;
-    const block = text.slice(blockStart, blockEnd);
-    const newBlock = block.replace(/(precio:\s*)[\d.]+/, `$1${nuevo}`);
-    text = text.slice(0, blockStart) + newBlock + text.slice(blockEnd);
+    let block = text.slice(blockStart, blockEnd);
+    block = block.replace(/(precioML:\s*)[\d.]+/, `$1${nuevo}`);
+    block = block.replace(/((?<!precioM)precio:\s*)[\d.]+/, `$1${nuevo}`);
+    text = text.slice(0, blockStart) + block + text.slice(blockEnd);
   }
 
   html = html.slice(0, loc.start) + text + html.slice(loc.end);
