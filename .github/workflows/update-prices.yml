@@ -10,7 +10,7 @@ on:
         description: 'Categoría a actualizar'
         type: choice
         default: all
-        options: [all, laptops, freidoras, bicis, bicisMontana, bicisMontanaDed, microondas, cafeteras, suplementos, proteina, omega3, magnesio, creatina, complejo_b, videojuegos_consolas, videojuegos_controles, videojuegos_juegos, tecnologia_bocinas, tecnologia_audifonos, celulares_android, streaming]
+        options: [all, laptops, freidoras, bicis, bicisMontana, bicisMontanaDed, microondas, cafeteras, suplementos, proteina, omega3, magnesio, creatina, complejo_b, videojuegos_consolas, videojuegos_controles, videojuegos_juegos, tecnologia_bocinas, tecnologia_audifonos, celulares_android, streaming, refrigeradores, lavadoras]
 
 jobs:
   update-prices:
@@ -93,6 +93,8 @@ jobs:
             suplementos/vitamina-d/descuentos.json \
             videojuegos/consolas/descuentos.json videojuegos/controles/descuentos.json videojuegos/juegos/descuentos.json \
             tecnologia/bocinas/descuentos.json tecnologia/audifonos/descuentos.json \
+            entretenimiento/streaming/descuentos.json \
+            electrodomesticos/refrigeradores/descuentos.json electrodomesticos/lavadoras/descuentos.json \
             assets/data/bajadas.json \
             guias/celulares/mejores-celulares-menos-5000/index.html \
             scripts/guias-precios-report.json \

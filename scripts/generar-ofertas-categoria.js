@@ -30,11 +30,14 @@ const CATEGORIAS = {
   videojuegos_juegos:     'videojuegos/juegos/descuentos.json',
   tecnologia_bocinas:     'tecnologia/bocinas/descuentos.json',
   tecnologia_audifonos:   'tecnologia/audifonos/descuentos.json',
+  streaming:              'entretenimiento/streaming/descuentos.json',
+  refrigeradores:         'electrodomesticos/refrigeradores/descuentos.json',
+  lavadoras:              'electrodomesticos/lavadoras/descuentos.json',
 };
 
 function generar(categoria, outRel) {
   const productos = (merged[categoria] || []).filter(p =>
-    p.activo !== false && p.imagen && publicado(p) && ((p.precioML && p.linkML) || (p.precioAmz && p.linkAmz))
+    p.activo !== false && publicado(p) && ((p.precioML && p.linkML) || (p.precioAmz && p.linkAmz))
   );
 
   const bajadas = productos

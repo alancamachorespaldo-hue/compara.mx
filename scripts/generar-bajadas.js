@@ -43,6 +43,9 @@ const DESCUENTOS = {
   'tecnologia/audifonos/descuentos.json': ['tecnologia_audifonos'], 'tecnologia/bocinas/descuentos.json': ['tecnologia_bocinas'],
   'videojuegos/consolas/descuentos.json': ['videojuegos_consolas'], 'videojuegos/controles/descuentos.json': ['videojuegos_controles'],
   'videojuegos/juegos/descuentos.json': ['videojuegos_juegos'],
+  'entretenimiento/streaming/descuentos.json': ['streaming'],
+  'electrodomesticos/refrigeradores/descuentos.json': ['refrigeradores'],
+  'electrodomesticos/lavadoras/descuentos.json': ['lavadoras'],
 };
 for (const [file, cats] of Object.entries(DESCUENTOS)) {
   let data;
