@@ -239,6 +239,7 @@
       var s = sel[f.id], i = s.indexOf(o.v);
       if (input.checked && i < 0) s.push(o.v);
       if (!input.checked && i > -1) s.splice(i, 1);
+      if (f.id === 'bajada' && o.v === 'drop' && input.checked && typeof gtag === 'function') gtag('event', 'filtro_bajada_precio', { page_path: location.pathname });
       rerender();
     });
     var lbl = el('span', 'cmx-fp-lbl', o.label);

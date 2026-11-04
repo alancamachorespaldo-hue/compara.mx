@@ -832,7 +832,7 @@ const hasTag = u => new RegExp('[?&]tag=' + AMZ_TAG + '(?:[&#]|$)').test(u || ''
 const PUBLICABLE = new Set(['bicis', 'laptops', 'videojuegos_consolas', 'videojuegos_controles', 'videojuegos_juegos']);
 const esCatalogoML = u => /mercadolibre\.com\.mx\/(?:[^?#]*\/)?p\/MLM\d+/i.test(u || '');
 const linkAfiliadoOk = n => !!((n.linkAmz && hasTag(n.linkAmz)) || (n.linkML && !esCatalogoML(n.linkML)));
-const DIAS_OFERTA_AMZ = 7;
+const DIAS_OFERTA_AMZ = 30;
 const amzVigente = p => { const t = Date.parse(p._precioAmzFecha); return p._precioAmzAntes > 0 && isFinite(t) && Date.now() - t <= DIAS_OFERTA_AMZ * 864e5; };
 const amzDropPct = p => amzVigente(p) && p.precioAmz != null && p.precioAmz < p._precioAmzAntes ? Math.round((p._precioAmzAntes - p.precioAmz) / p._precioAmzAntes * 100) : 0;
 const QUEUES = [

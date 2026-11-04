@@ -957,7 +957,7 @@ function toggleTipo(value, checked) { toggleSetValue(filters.tipos, value, check
 function togglePres(value, checked) { toggleSetValue(filters.presentaciones, value, checked); afterFilterChange(); }
 function toggleMarca(value, checked) { toggleSetValue(filters.marcas, value, checked); afterFilterChange(); }
 function toggleCaract(value, checked) { toggleSetValue(filters.caract, value, checked); afterFilterChange(); }
-function setSoloBajada(checked) { filters.soloBajada = checked; afterFilterChange(); }
+function setSoloBajada(checked) { filters.soloBajada = checked; if (checked && typeof gtag === 'function') gtag('event', 'filtro_bajada_precio', { page_path: location.pathname }); afterFilterChange(); }
 
 function setPlataforma(val, btn) {
   filters.plataforma = val;
@@ -1339,6 +1339,6 @@ document.getElementById('howModalOv').addEventListener('click',function(e){if(e.
 <script src="/assets/js/price-drops.js" defer></script>
 <script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
-<script src="/assets/js/share.js" defer></script>
+<script src="/assets/js/share.js" defer></script>
 </body>
 </html>

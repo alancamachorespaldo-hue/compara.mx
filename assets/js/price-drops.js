@@ -31,8 +31,9 @@
   function norm(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, ' ').trim(); }
   function money(n) { return '$' + Math.round(n).toLocaleString('es-MX'); }
 
-  /* Devuelve la bajada vigente del producto o null. Exige el mismo id y nombre, y que el precio actual de la
-     tienda coincida con el de la bajada, para no mostrar un dato viejo si el precio volvió a cambiar. */
+  var DIAS_BAJADA = 30;
+  /* Devuelve la bajada vigente del producto o null. Exige el mismo id y nombre, precio actual coincidente,
+     y que la bajada tenga menos de 30 días. */
   window.cmxGetDrop = function (p) {
     var d = drops[String(p.id)];
     if (!d) return null;
@@ -40,6 +41,7 @@
     if (a && b && a.slice(0, 14) !== b.slice(0, 14)) return null;
     var cur = d.plataforma === 'amazon' ? p.precioAmz : p.precioML;
     if (typeof cur === 'number' && Math.abs(cur - d.ahora) > 1) return null;
+    if (d.fecha) { var t = Date.parse(d.fecha); if (isFinite(t) && Date.now() - t > DIAS_BAJADA * 864e5) return null; }
     return d;
   };
   window.cmxDropBadge = function (d) {
@@ -85,6 +87,7 @@
       dropOnly = !dropOnly;
       chip.classList.toggle('on', dropOnly);
       chip.setAttribute('aria-pressed', String(dropOnly));
+      if (dropOnly && typeof gtag === 'function') gtag('event', 'filtro_bajada_precio', { page_path: location.pathname });
       rerender();
     });
     var anchor = g.closest('.grid-wrap') || g;

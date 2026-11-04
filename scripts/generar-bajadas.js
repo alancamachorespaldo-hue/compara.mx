@@ -26,6 +26,7 @@ for (const [cat, lista] of Object.entries(merged)) {
     .filter((x) => x.b)
     .map(({ p, b }) => ({
       id: String(p.id), nombre: p.nombre, plataforma: b.plataforma, antes: b.antes, ahora: b.precio, ahorro: b.ahorro, pct: b.pct,
+      fecha: b.plataforma === 'ml' ? (p._precioMLFecha || null) : (p._precioAmzFecha || null),
     }))
     .sort((a, b) => b.pct - a.pct);
   if (bajadas.length) { categorias[cat] = bajadas; total += bajadas.length; }

@@ -45,8 +45,11 @@ if (report) {
     if (gen && p._updatedAt && p._updatedAt > gen) { keptManual++; continue; }
     if (row.estado === 'precio_sospechoso') p._precioMLSospechoso = row.precioML;
     else { delete p._precioMLSospechoso; if (row.precioML != null) p.precioML = row.precioML; }
-    if (row.estado === 'actualizado' && row.precioAntes != null) p._precioMLAntes = row.precioAntes;
-    else delete p._precioMLAntes;
+    if (row.estado === 'actualizado' && row.precioAntes != null) {
+      const mismaRacha = p._precioMLAntes === row.precioAntes;
+      p._precioMLAntes = row.precioAntes;
+      if (!mismaRacha || !p._precioMLFecha) p._precioMLFecha = new Date().toISOString().slice(0, 10);
+    } else { delete p._precioMLAntes; delete p._precioMLFecha; }
     // Pausa automática: 404/inactivo en ML → pausaML:true; si el catálogo vuelve → se limpia
     if (row.estado === 'no_encontrado') {
       p.pausaML = true;
