@@ -2099,6 +2099,8 @@ const familias = [
 
 ];
 
+window.productos = familias.flatMap(function(f) { return f.variantes.map(function(v) { return { id: v.id, nombre: f.nombre, precioML: v.precioML }; }); });
+
 // ─────────────────────────────────────────────────────────────────────────────
 // ESTADO
 // ─────────────────────────────────────────────────────────────────────────────
@@ -2385,6 +2387,8 @@ function cardHTML(familia) {
   const isSelected = selected.includes(familia.modeloBase);
   const idx = storageState[familia.modeloBase] || 0;
   const variante = familia.variantes[idx];
+  familia.id = variante.id;
+  familia.precioML = variante.precioML;
   const mb = familia.modeloBase;
 
   // Storage buttons
