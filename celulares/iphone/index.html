@@ -2376,7 +2376,7 @@ function render() {
   const emptyEl = document.getElementById('empty');
   if (emptyEl) emptyEl.style.display = 'none';
   info.textContent = lista.length + ' modelo' + (lista.length !== 1 ? 's' : '');
-  grid.innerHTML = lista.map(f => cardHTML(f)).join('');
+  grid.innerHTML = lista.map(f => (window.cardHTML || cardHTML)(f)).join('');
   updateFavCount();
 }
 

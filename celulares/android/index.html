@@ -2756,7 +2756,8 @@ const familias = [
     ]
   },
 ];
-window.productos = familias.flatMap(function(f) { return f.variantes.map(function(v) { return { id: 'android-' + f.modeloBase + '-' + v.storage + 'gb-' + v.ram + 'gb', nombre: f.nombre, precioML: v.precio }; }); });
+familias.forEach(function(f) { f.variantes.forEach(function(v) { v.id = 'android-' + f.modeloBase + '-' + v.storage + 'gb-' + v.ram + 'gb'; v.precioML = v.precio; }); });
+window.productos = familias.flatMap(function(f) { return f.variantes.map(function(v) { return { id: v.id, nombre: f.nombre, precioML: v.precioML }; }); });
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _fi=familias.length-1;_fi>=0;_fi--){var _f=familias[_fi];for(var _vi=(_f.variantes||[]).length-1;_vi>=0;_vi--){var _v=_f.variantes[_vi];var _id='android-'+_f.modeloBase+'-'+_v.storage+'gb-'+_v.ram+'gb';var _z=_PZ[_id];if(!_z)continue;if(_z.ml){_f.variantes[_vi].linkML=null;_f.variantes[_vi].precio=null;_f.variantes[_vi].pausaML=true;}}if(!_f.variantes.some(function(vv){return vv.linkML||vv.linkAmz;}))familias.splice(_fi,1);}}catch(e){}
 
 
@@ -3085,7 +3086,7 @@ function render() {
   const emptyEl = document.getElementById('empty');
   if (emptyEl) emptyEl.style.display = 'none';
   info.textContent = lista.length + ' celular' + (lista.length !== 1 ? 'es' : '');
-  grid.innerHTML = cmxPaginate(grid, lista).map(f => cardHTML(f)).join('');
+  grid.innerHTML = cmxPaginate(grid, lista).map(f => (window.cardHTML || cardHTML)(f)).join('');
   updateFavCount();
 }
 

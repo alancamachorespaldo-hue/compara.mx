@@ -38,7 +38,8 @@
     var d = drops[String(p.id)];
     if (!d) return null;
     var a = norm(d.nombre), b = norm(p.nombre);
-    if (a && b && a.slice(0, 14) !== b.slice(0, 14)) return null;
+    var len = a && b ? Math.min(a.length, b.length) : 0;
+    if (len && a.slice(0, len) !== b.slice(0, len)) return null;
     var cur = d.plataforma === 'amazon' ? p.precioAmz : p.precioML;
     if (typeof cur === 'number' && Math.abs(cur - d.ahora) > 1) return null;
     if (d.fecha) { var t = Date.parse(d.fecha); if (isFinite(t) && Date.now() - t > DIAS_BAJADA * 864e5) return null; }
@@ -59,6 +60,13 @@
       var w = function (p) {
         var h = orig.apply(this, arguments);
         var d = p && window.cmxGetDrop(p);
+        // Si la variante activa no tiene bajada, buscar en todas las variantes (iPhone, Android)
+        if (!d && p && Array.isArray(p.variantes)) {
+          p.variantes.some(function (v) {
+            var vd = window.cmxGetDrop({ id: v.id, nombre: p.nombre, precioML: v.precioML !== undefined ? v.precioML : v.precio });
+            if (vd) { d = vd; return true; }
+          });
+        }
         if (!d || typeof h !== 'string') return h;
         // Etiqueta de apertura de la tarjeta, respetando comillas (un onclick puede traer ">")
         var badge = window.cmxDropBadge(d);
