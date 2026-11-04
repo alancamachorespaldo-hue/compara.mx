@@ -1,66 +1,335 @@
 ---
 name: mejorar-seo
-description: Audita y mejora el SEO de una página de comparalo.mx (categorías, guías o el inicio) sin tocar precios ni datos de productos. Revisa y corrige title, meta description, canonical, Open Graph/Twitter, H1 y jerarquía de encabezados, el bloque editorial, el JSON-LD (datos estructurados), los enlaces internos, el alt de las imágenes y el sitemap. Úsala cuando quieras posicionar mejor una página o antes de publicar un apartado nuevo.
+description: Audita y mejora el SEO de una página de comparalo.mx (categorías, guías o el inicio) leyendo el contenido real de la página —productos, precios, descuentos activos, filtros y estructura— para generar texto editorial específico, metadatos únicos y datos estructurados precisos. Úsala cuando quieras posicionar mejor una página, antes de publicar un apartado nuevo, o para atacar búsquedas de Google y ChatGPT/AI Overviews.
 ---
 
 # Mejorar el SEO de una página de comparalo.mx
 
-Objetivo: subir el SEO de una página **sin cambiar precios, specs, links ni imágenes de productos** (eso lo prohíbe el `CLAUDE.md`). Trabajas sobre el HTML y los datos estructurados, no sobre el catálogo. Lee también el `CLAUDE.md`: sus reglas son obligatorias.
+## Objetivo
 
-## Regla de oro: audita la página VIVA y compárala con una bien posicionada
+Subir el posicionamiento real —Google y motores de IA como ChatGPT, Gemini y Perplexity— **sin cambiar precios, specs, links ni imágenes de productos** (lo prohíbe el `CLAUDE.md`). Se trabaja sobre metadatos, estructura y contenido editorial. Lee el `CLAUDE.md` antes de empezar: sus reglas son obligatorias.
 
-No trabajes de memoria. Antes de cambiar nada:
-1. Lee la página que te pidieron mejorar.
-2. Lee una página de **referencia del mismo tipo** para copiar el patrón que ya funciona:
-   - Categoría → `suplementos/magnesio/index.html`.
-   - Guía/artículo → `guias/celulares/mejores-celulares-menos-5000/index.html`.
-3. Si no te dicen qué página, pregunta cuál (o si es "todo el sitio", ve una por una y empieza por las de más tráfico).
+---
 
-Para una **auditoría completa con puntuación** (0–100, crawl, rendimiento), existe la skill `anthropic-skills:auditoría-seo`; úsala como diagnóstico y luego aplica los arreglos con esta. Esta skill es la **editora específica de la casa**.
+## PASO 1 — Lee la página completa antes de escribir una sola línea
 
-## Principios (lo que recomienda Google y los mejores SEOs)
+**Nunca trabajes de memoria ni con texto genérico.** La mejora SEO de esta skill se basa en lo que realmente hay en la página.
 
-Guíate por esto en cada decisión, no por trucos viejos:
+Lee el HTML de la página que te pidieron y extrae:
 
-- **Contenido para personas, no para el buscador** (Google "Helpful Content"). El texto debe ayudar de verdad a decidir una compra; si solo repite la keyword, está mal.
-- **E-E-A-T** (experiencia, pericia, autoridad, confianza): el ángulo propio de comparalo.mx es comparar el **mismo producto en Mercado Libre vs. Amazon** y mostrar el precio real. Ese es el valor que nadie más da; hazlo explícito en el texto.
-- **Intención de búsqueda primero.** Antes de escribir, piensa qué busca realmente quien llega: ¿comparar?, ¿el más barato?, ¿cuál conviene para X? El contenido debe responder esa intención, no describir sin más.
-- **Profundidad y entidades del tema.** Cubre los subtemas y términos que un comprador de ESA categoría busca (ver punto 6). Google premia cubrir bien el tema, no la densidad de keyword.
-- **Nada de keyword stuffing.** Keyword principal en title, H1, primer párrafo y donde caiga natural; el resto, lenguaje humano.
-- **Titles y descriptions únicos y descriptivos**, que digan qué hay en la página y den ganas de hacer clic (CTR). Sin clickbait.
-- **Frescura**: año visible y precios que se actualizan solos ya juegan a favor; no prometas datos que no tengas.
-- **Legible**: frases cortas, subtítulos claros, listas cuando ayuden. Original siempre (copyright).
+### 1a. Productos del catálogo
+- Nombre completo de cada producto.
+- Precios actuales (ML y Amazon si los hay).
+- Si tiene badge de bajada de precio (`_precioMLAntes`, `_precioAmzAntes`, `cmxDropBadge`).
+- Rating y número de reseñas visibles.
+- Marcas presentes en el catálogo.
+- Rango de precios: el más barato y el más caro de la página.
 
-## Qué revisar y corregir (checklist)
+### 1b. Descuentos y bajadas de precio activos
+- Mira si la página consume `descuentos.json` o `bajadas.json`.
+- Extrae qué productos están en oferta, de qué plataforma (ML / Amazon) y el porcentaje de descuento.
+- Si no hay descuentos, anótalo — no los menciones en el texto editorial.
 
-1. **`<title>`** — único en todo el sitio, ~50–60 caracteres, con la keyword principal al inicio + "México" + el año. Sigue el formato de la casa: `Mejor <Categoría> México 2026: Compara Precios` (categoría) o un titular claro con keyword (guía). Nunca dos páginas con el mismo title.
-2. **`<meta name="description">`** — 150–160 caracteres, con la keyword natural y la propuesta de valor real (comparar el mismo producto en Mercado Libre y Amazon). Sin relleno ni promesas falsas. Única por página.
-3. **`<link rel="canonical">`** — apunta a la **URL limpia con slash final** de esa misma página (self-referencing). Nunca a `.html` ni a otra página.
-4. **Open Graph y Twitter completos** — `og:title`, `og:description`, `og:image`, `og:url`, `og:type`, `og:locale`; y Twitter `summary_large_image` con `twitter:title`, `twitter:description`, `twitter:image`. Varias páginas solo traen `twitter:image`: complétalas. `og:url` = la URL canónica.
-5. **Un solo `<h1>`**, con la keyword principal, y jerarquía correcta de `h2`/`h3` (sin saltos, sin usar encabezados por estilo). Los subtítulos deben describir subtemas reales.
-6. **Bloque editorial, ADAPTADO a cada categoría** — es lo que más posiciona, y es el foco cuando te pidan "mejorar el SEO del texto". No uses un molde fijo: **piensa qué busca y qué duda tiene quien compra ESA categoría** y escribe para eso. El patrón estructural (un `<h2>` gancho + varios `<h3>`) sale del de magnesio, pero los **subtemas y las palabras son propios de la categoría**. Ejemplos de en qué se fija cada comprador:
-   - Lavadoras → capacidad en kg, carga frontal vs. superior, consumo de agua/luz, nivel de ruido, ciclos.
-   - Televisiones → pulgadas y a qué distancia, panel (OLED/QLED/LED), resolución y HDR, smart TV y apps, HDMI.
-   - Streaming → catálogo y estrenos, precio mensual vs. anual, pantallas simultáneas, 4K, con/sin anuncios, dispositivos.
-   Cubre siempre, en el lenguaje de la categoría: **qué es / para qué sirve y cómo elegir**, los **tipos o variantes y cuál conviene según el objetivo**, **cómo comparar el precio real** (no solo el número), y **Mercado Libre vs. Amazon** para ese producto. Si el bloque falta, agrégalo; si existe pero es genérico o pobre, reescríbelo con la profundidad y las entidades reales del tema. Prosa **original** (respeta copyright: nunca copies de otro sitio) y sin inventar datos de productos ni cifras. Si no conoces bien la categoría, investígala antes de escribir (y no te inventes especificaciones).
-7. **Datos estructurados (JSON-LD)** apropiados al tipo de página, y que **parseen** (`check-site.js` lo valida):
-   - Categoría: `WebPage` + `BreadcrumbList` + `ItemList` (con los productos de la página) + `Organization`.
-   - Guía/artículo: `Article` + `BreadcrumbList` + `FAQPage` (si la página responde preguntas, con `Question`/`Answer` reales del contenido).
-   - El `BreadcrumbList` debe coincidir con el breadcrumb visible. No metas datos que no estén en la página visible (Google penaliza el marcado que no corresponde al contenido).
-8. **Enlaces internos** — breadcrumb correcto y la sección "Sigue explorando" (`cmx-related`) apuntando a guías y categorías relevantes. Enlaza categoría ↔ sus guías en ambos sentidos. Texto de enlace descriptivo, no "clic aquí".
-9. **Imágenes** — `alt` descriptivo (nombre real del producto/tema, no vacío ni "imagen"), `loading="lazy"` y `width`/`height` para no mover el layout. No cambies las imágenes de producto, solo su `alt` si hace falta.
-10. **`sitemap.xml`** — la URL indexable debe estar listada (con slash final). Si la página es `noindex` a propósito, no va.
+### 1c. Filtros y organización de la página
+- Qué filtros tiene (marca, precio, característica técnica, bajada de precio, etc.).
+- Cómo están agrupados los productos (tabs, secciones, tipos).
+- Qué hace el comparador (círculo de comparar, favoritos, sticky CTA).
+
+### 1d. Contenido editorial existente
+- Lee el `<h1>`, los `<h2>`, `<h3>` actuales.
+- Lee el bloque editorial (párrafos introductorios, guía de compra).
+- Lee el `<title>`, `<meta description>`, canonical y JSON-LD.
+- Detecta qué falta, qué es genérico y qué ya está bien.
+
+### 1e. Página de referencia del mismo tipo
+Lee también una página bien posicionada del mismo tipo para copiar el patrón:
+- Categoría → `electrodomesticos/freidoras/index.html` o `suplementos/magnesio/index.html`.
+- Guía → `guias/celulares/mejores-celulares-menos-5000/index.html`.
+
+---
+
+## PASO 2 — Diagnóstico: qué está fallando
+
+Con los datos del Paso 1, responde antes de editar:
+
+| Elemento | ¿Está? | ¿Es correcto? | Acción |
+|---|---|---|---|
+| `<title>` único, 50-60 chars, keyword al inicio | | | |
+| `<meta description>` 150-160 chars, propuesta de valor | | | |
+| `<link rel="canonical">` → URL limpia con slash | | | |
+| OG completo (title, description, image, url, type, locale) | | | |
+| Twitter completo (card, title, description, image) | | | |
+| Un solo `<h1>` con keyword principal | | | |
+| Jerarquía h2/h3 sin saltos, subtemas reales | | | |
+| Bloque editorial específico (no genérico) | | | |
+| JSON-LD correcto y parseable | | | |
+| `alt` descriptivos en imágenes de producto | | | |
+| URL en `sitemap.xml` con slash final | | | |
+
+---
+
+## PASO 3 — Escribe contenido editorial específico a esta página
+
+Este es el factor que más posiciona. **Usa los datos reales que extrajiste en el Paso 1.**
+
+### Principios que guían cada palabra
+
+- **Contenido para personas, no para el buscador.** El texto ayuda a decidir una compra; si solo repite la keyword, está mal.
+- **Intención de búsqueda primero.** ¿Qué busca quien llega a esta página: comparar precios, encontrar el más barato, elegir el mejor para un uso específico? Escríbele a esa persona.
+- **E-E-A-T de comparalo.mx**: el ángulo único es comparar el **mismo producto en Mercado Libre vs. Amazon** con precio real. Eso es lo que nadie más da; hazlo explícito.
+- **Frescura**: menciona el año, y si hay descuentos activos o bajadas de precio, refléjalos (sin inventar nada que no hayas leído en el Paso 1).
+- **Legible**: frases cortas, subtítulos claros, listas donde ayuden. Original siempre, sin copiar de otro sitio.
+- **SEO para IA (ChatGPT, Gemini, Perplexity)**: responde preguntas directas de forma concisa en el editorial. Los AI overviews premian párrafos que respondan "¿cuánto cuesta X?", "¿cuál conviene para Y?" con datos específicos.
+
+### Estructura del bloque editorial
+
+Sigue este patrón, pero los subtemas son **propios de esta categoría** (no uses el texto de otra):
+
+```
+<h2>[Keyword + ángulo con gancho: "Las mejores X para Y en México 2026"]</h2>
+<p>Párrafo de entrada: qué hay en la página, rango de precios real (el más barato y el más caro que leíste), marcas presentes, y si hay descuentos activos menciónalos.</p>
+
+<h3>¿Qué [categoría] conviene según tu uso?</h3>
+<p>Tipos o variantes y cuál conviene para qué perfil. Usa los productos reales del catálogo como ejemplos.</p>
+
+<h3>¿Cómo comparar el precio real de [categoría] en México?</h3>
+<p>Explica la diferencia entre ML y Amazon para esta categoría, con datos concretos del catálogo.</p>
+
+<h3>¿Qué [característica clave de la categoría] importa más?</h3>
+<p>El criterio técnico principal que un comprador real de esta categoría busca.</p>
+
+<h3>Mercado Libre vs. Amazon: ¿dónde conviene más comprar [categoría]?</h3>
+<p>El ángulo único de comparalo.mx, aplicado a esta categoría con datos reales.</p>
+```
+
+### Entidades y subtemas por categoría (ejemplos de qué cubrir)
+
+No uses texto genérico. Estos son ejemplos de qué le importa a cada comprador:
+
+- **Lavadoras** → kg de capacidad, carga frontal vs. superior, consumo de agua y luz, nivel de ruido (dB), ciclos especiales, marcas y precio por capacidad.
+- **Televisiones** → pulgadas y distancia recomendada, panel (OLED/QLED/LED), resolución y HDR, smart TV y apps disponibles, puertos HDMI, precio por pulgada.
+- **Refrigeradores** → litros de capacidad, No-Frost, eficiencia energética, distribución de cajones, side by side vs. top mount vs. bottom freezer, ruido.
+- **Freidoras** → litros de capacidad, potencia en watts, digital vs. manual, doble canasta, marcas líderes, ruido y espacio de contador.
+- **Microondas** → watts de potencia, litros de capacidad, con/sin grill, digital vs. analógico, funciones de descongelado.
+- **Laptops** → procesador y generación, RAM y si es expandible, tipo de almacenamiento (SSD vs. HDD), pantalla (resolución, brillo, Hz), batería en horas, peso, uso (escuela/trabajo/gaming).
+- **Celulares** → procesador, RAM, cámara (MP y aperturas reales), batería y carga rápida, 5G, pantalla AMOLED vs. LCD, precio desbloqueado.
+- **Suplementos (proteína)** → gramos de proteína por servicio, tipo (whey/caseína/vegana), sabores, tamaño del bote, precio por servicio, sellos de calidad.
+- **Creatina** → monohidratada vs. otras formas, gramos por servicio, micronizada, sin sabor vs. con sabor, precio por gramo.
+- **Streaming** → catálogo y estrenos, precio mensual vs. anual, pantallas simultáneas, 4K y HDR, con/sin anuncios, descargas offline, dispositivos compatibles.
+- **Bicis** → tipo (urbana/MTB/ruta/gravel/eléctrica), talla de cuadro, grupo de cambios, frenos (disco vs. V-brake), material (acero/aluminio/carbono), peso, precio por componente.
+
+Si la categoría no está en esta lista, investígala antes de escribir.
+
+---
+
+## PASO 4 — Metadatos
+
+### `<title>` — 50-60 caracteres
+
+Formato recomendado para categorías:
+```
+Mejor [Categoría] en México 2026: Compara Precios ML y Amazon
+```
+Para guías:
+```
+[Pregunta o ángulo específico] – comparalo.mx 2026
+```
+
+Reglas:
+- Keyword principal al inicio.
+- Menciona "México" y el año.
+- Único en todo el sitio.
+- Refleja lo que realmente hay en la página (marcas, tipos, rango si cabe).
+
+### `<meta name="description">` — 150-160 caracteres
+
+Incluye:
+- Keyword natural en la primera frase.
+- Propuesta de valor de comparalo.mx (mismo producto, dos tiendas, precio real).
+- Si hay descuentos activos, mencionarlos sube el CTR.
+- Llama a la acción: "Compara ahora", "Encuentra el mejor precio".
+
+Ejemplo para freidoras:
+```
+Compara las mejores freidoras de aire en Mercado Libre y Amazon México 2026. Precios actualizados, reseñas reales y hasta 30% de descuento. ¡Encuentra la tuya!
+```
+
+### Open Graph (obligatorio y completo)
+
+```html
+<meta property="og:title" content="[mismo que title o ligeramente diferente]">
+<meta property="og:description" content="[mismo que meta description]">
+<meta property="og:image" content="https://comparalo.mx/fotos/og/[imagen-og.jpg]">
+<meta property="og:url" content="https://comparalo.mx/[ruta-con-slash/]">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_MX">
+```
+
+### Twitter / X
+
+```html
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="[title]">
+<meta name="twitter:description" content="[description]">
+<meta name="twitter:image" content="https://comparalo.mx/fotos/og/[imagen-og.jpg]">
+```
+
+---
+
+## PASO 5 — Datos estructurados (JSON-LD)
+
+### Categoría de productos
+
+```json
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://comparalo.mx/[ruta/]",
+      "name": "[título de la página]",
+      "description": "[meta description]",
+      "url": "https://comparalo.mx/[ruta/]",
+      "inLanguage": "es-MX",
+      "dateModified": "[YYYY-MM-DD de hoy]"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://comparalo.mx/"},
+        {"@type": "ListItem", "position": 2, "name": "[Categoría padre si aplica]", "item": "https://comparalo.mx/[cat-padre/]"},
+        {"@type": "ListItem", "position": 3, "name": "[Esta categoría]"}
+      ]
+    },
+    {
+      "@type": "ItemList",
+      "name": "[Título de la lista de productos]",
+      "numberOfItems": [N],
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "Product",
+            "name": "[nombre real del producto]",
+            "offers": {
+              "@type": "AggregateOffer",
+              "lowPrice": "[precio más bajo entre ML y Amazon]",
+              "highPrice": "[precio más alto entre ML y Amazon]",
+              "priceCurrency": "MXN",
+              "offerCount": 2
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Organization",
+      "name": "comparalo.mx",
+      "url": "https://comparalo.mx/"
+    }
+  ]
+}
+```
+
+**Reglas para ItemList:**
+- Incluye TODOS los productos activos de la página (los que leíste en el Paso 1).
+- Los precios deben coincidir con los que se muestran en la página — no inventes ni pongas precios de la BD sin verificar que están en el HTML.
+- Si hay descuentos activos, usa `lowPrice` con el precio de oferta.
+
+### Guía / artículo
+
+```json
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "[h1 de la guía]",
+      "description": "[meta description]",
+      "datePublished": "[YYYY-MM-DD]",
+      "dateModified": "[YYYY-MM-DD de hoy]",
+      "author": {"@type": "Organization", "name": "comparalo.mx"},
+      "publisher": {"@type": "Organization", "name": "comparalo.mx", "url": "https://comparalo.mx/"}
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [ /* ... */ ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "[Pregunta real que responde la guía]",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "[Respuesta concisa y directa, extraída del contenido real de la guía]"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Regla**: Las `Question`/`Answer` del FAQPage deben corresponder a preguntas que realmente se responden en el texto visible. No agregues FAQs que no estén en el contenido.
+
+---
+
+## PASO 6 — Imágenes, enlaces internos y sitemap
+
+### Imágenes
+- `alt` descriptivo: nombre real del producto, marca y característica clave. No "imagen" ni vacío.
+- Formato: `alt="[Marca] [Modelo] – comparalo.mx"` para productos, `alt="[tema descriptivo]"` para editoriales.
+- No cambies `src`, `width`, `height` ni el archivo.
+
+### Enlaces internos
+- El breadcrumb debe coincidir con el JSON-LD y la estructura real del sitio.
+- La sección `cmx-related` ("Sigue explorando") debe apuntar a guías y categorías relevantes para **esta** categoría. Enlaza en ambos sentidos (categoría ↔ guías propias).
+- Texto de enlace descriptivo (nunca "clic aquí" o "ver más").
+- No edites los bloques `<!-- cmx-header -->`, `<!-- cmx-footer -->`, `<!-- cmx-related -->` directamente: se regeneran con `sync-site.js`.
+
+### Sitemap
+- Verifica que `https://comparalo.mx/[ruta/]` esté en `sitemap.xml`.
+- Si no está, agrégala con `<lastmod>` actualizado y `<priority>` apropiada (0.8 para categorías, 0.7 para guías).
+- Nunca pongas en el sitemap páginas que tengan `noindex`.
+
+---
+
+## PASO 7 — SEO para motores de IA (ChatGPT, Gemini, Perplexity)
+
+Los AI overviews y el modo IA de los buscadores extraen respuestas de páginas que:
+
+1. **Responden preguntas directamente** con datos específicos, en los primeros párrafos.
+2. **Usan estructuras claras**: listas, tablas comparativas, encabezados descriptivos.
+3. **Dan datos concretos**: precios reales, rangos, porcentajes de descuento, nombres de marca.
+4. **Cubren el tema con profundidad**: no hay que saltar a otra página para saber más.
+
+Aplica esto en el editorial:
+- El primer párrafo de cada `<h2>` responde directamente la pregunta implícita del encabezado.
+- Si hay una comparativa ML vs. Amazon, ponla en tabla (`<table>`) cuando haya 3+ productos.
+- Usa `<ul>` o `<ol>` para criterios de compra, no párrafos largos de criterios seguidos.
+- Menciona cifras: "desde $X hasta $Y", "con hasta N% de descuento", "las marcas más vendidas son A, B y C".
+
+---
 
 ## No negociables (del CLAUDE.md)
 
-- **No cambies precios, specs, ratings, número de reseñas, imágenes, links ni IDs de productos.** El SEO se mejora en title/meta/estructura/contenido editorial, no tocando el catálogo.
-- **GA4 `G-9TKZ4ER13X`** debe seguir en todas las páginas; no lo quites ni lo reimplementes. No toques `/assets/js/analytics.js`.
-- URLs limpias con slash final; no enlaces a `.html` de categorías. Tag de afiliado `comparalo20-20` intacto en los links de Amazon.
-- Sin frameworks ni build step. Contenido original (copyright). No inventes datos ni cifras.
-- Git: agrega archivos **por nombre** (nunca `git add -A`/`.`), revisa `git status` y `git diff --stat`, no uses `git stash`, un commit = un tema, no commitees si no te lo piden. Respeta el **CRLF** de los HTML (ediciones byte-exactas).
+- **No cambies precios, specs, ratings, reseñas, imágenes, links ni IDs de productos.** El catálogo solo se lee, nunca se edita aquí.
+- **GA4 `G-9TKZ4ER13X`** debe permanecer. No toques `/assets/js/analytics.js`.
+- URLs limpias con slash final. Tag de afiliado `comparalo20-20` intacto.
+- Sin frameworks ni build step. Contenido 100% original. Sin inventar datos ni cifras.
+- Git: agrega por nombre (nunca `git add -A`/`.`), un commit = un tema, revisa `git status` y `git diff --stat` antes de cualquier commit, no commitees sin que te lo pidan.
 
-## Cierre: valida y resume
+---
 
-- Corre `node scripts/check-site.js` — tiene que pasar en verde (valida JSON-LD, sitemap, GA4, tag, etc.). Si falla, no termines.
-- Si el cambio es visible, pruébalo en el navegador (`.claude/launch.json`).
-- Dile a Alan en pocas líneas: qué página tocaste, qué mejoraste (title/description/OG/JSON-LD/contenido/enlaces) y qué queda pendiente de criterio suyo (p. ej. elegir keyword o texto editorial).
+## PASO 8 — Validar y cerrar
+
+1. `node scripts/check-site.js` → debe pasar en verde. Si falla, no termines.
+2. Si el cambio es visible, pruébalo en el navegador (`.claude/launch.json`, puerto 8765).
+3. Reporta a Alan en pocas líneas:
+   - Página tocada.
+   - Qué se mejoró: title / description / OG / JSON-LD / editorial / imágenes / sitemap.
+   - **Qué productos detectaste** con bajada de precio o descuento activo (para que lo sepa).
+   - Qué queda pendiente de su criterio (keywords alternativas, fotos OG, decisiones de texto).
