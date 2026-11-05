@@ -34,7 +34,14 @@ Ojo: la "plantilla de referencia: freidoras" del CLAUDE.md es solo para **colore
    ```
 
    El panel mostrará automáticamente **Mín. — Máx.** (dos inputs) cuando el `id="precio-max"` exista.
-4. El CTA de pasos `how-strip` arriba (3–4 pasos: elige, compara, ve el precio). Es pegajoso en móvil por CSS de la capa compartida.
+4. El CTA de pasos `how-strip` arriba (3–4 pasos: elige, compara, ve el precio). **Debe ser sticky**: se queda visible mientras el usuario hace scroll para que siempre sepa cómo usar el comparador. El CSS obligatorio es:
+
+   ```css
+   .how-strip{...(resto de propiedades)...;position:sticky;top:64px;z-index:90}
+   @media(max-width:760px){.how-strip{display:none}}
+   ```
+
+   `top:64px` corresponde a la altura del header `.cmx-hd`. **No dependas de `cmx-site.css`** para esto: esa regla solo aplica cuando how-strip está dentro de `.cmx-fp-main`, pero normalmente va fuera del layout (entre el breadcrumb y la hero section), así que el sticky debe estar en el `<style>` inline de la página.
 5. Un array JS de productos (como `const productos = [...]` en el molde) y una función que pinte cada tarjeta con: imagen (fondo blanco), nombre, specs en filas con icono, las dos cajas `.pplat` (Mercado Libre y Amazon) con botón **"Ir a"** + logo, y el corazón de favoritos. El círculo de comparar y el ocultar la vieja línea "Seleccionar para comparar" ya los pone `cards.css` solo (`.card::before`); no los dupliques.
 
    ### Especificaciones con icono (patrón obligatorio)
