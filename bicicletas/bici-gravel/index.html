@@ -185,7 +185,9 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .cmp-table{width:100%;border-collapse:collapse;font-size:13px;min-width:480px}
 .cmp-table th{padding:12px 14px;text-align:center;color:var(--tx3);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--s1);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:10;vertical-align:top}
 .cmp-table td{padding:11px 14px;border-bottom:1px solid var(--bd);color:var(--tx);vertical-align:middle;text-align:center}
-.cmp-table td:first-child{color:var(--tx2);font-size:12px;font-weight:600;background:var(--s1);text-transform:uppercase;letter-spacing:.04em;text-align:left;position:sticky;left:0;z-index:5}
+.cmp-table td:first-child{color:var(--tx2);font-size:12px;font-weight:600;background:var(--s1);text-transform:uppercase;letter-spacing:.04em;text-align:left;position:sticky;left:0;z-index:5;min-width:130px}
+.cmp-row-lbl{display:flex!important;align-items:center;gap:7px;white-space:nowrap}
+.cmp-row-ic{color:var(--ac);opacity:.8;flex-shrink:0;display:flex}
 .cmp-table tr:last-child td{border-bottom:none}
 .cmp-winner{background:#d4f0e3;color:#004d34;font-weight:800}
 /* Encabezado de producto enriquecido */
@@ -705,53 +707,84 @@ function showCmp() {
   const escH = s => String(s==null?'':s).replace(/"/g,'&quot;').replace(/'/g,'&#39;');
   const fmtP = v => '$' + v.toLocaleString('es-MX');
 
-  // Encabezado de cada producto: foto + marca + nombre + rating + botón "Ir a"
+  // Iconos por fila
+  const SVG = {
+    precio:      `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>`,
+    estrellas:   `<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
+    marca:       `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>`,
+    rueda:       `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="3" x2="12" y2="8"/><line x1="12" y1="16" x2="12" y2="21"/><line x1="3" y1="12" x2="8" y2="12"/><line x1="16" y1="12" x2="21" y2="12"/></svg>`,
+    peso:        `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>`,
+    velocidades: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14M15.54 8.46a5 5 0 010 7.07M8.46 8.46a5 5 0 000 7.07"/></svg>`,
+  };
+
+  function rowLbl(key, text) {
+    return `<td><div class="cmp-row-lbl"><span class="cmp-row-ic">${SVG[key]||''}</span>${text}</div></td>`;
+  }
+
+  // Encabezado de cada producto: foto + marca + nombre + rating + botón
   const headers = prods.map(p => {
-    const rating = p.estrellas
-      ? `<div class="cmp-prod-rating">★ ${p.estrellas.toFixed(1)} <span>(${(p.resenas||0).toLocaleString('es-MX')})</span></div>` : '';
+    const stars = p.estrellas
+      ? `<div class="cmp-prod-rating">★ ${p.estrellas.toFixed(1)} <span>(${(p.resenas||0).toLocaleString('es-MX')} reseñas)</span></div>`
+      : (p.resenas > 0 ? `<div class="cmp-prod-rating" style="color:var(--tx3)">Sin calificación · ${p.resenas} reseñas</div>` : '');
     const btn = p.linkML
       ? `<div class="cmp-prod-btns"><a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:6px 10px;border-radius:8px;font-size:11px;font-weight:700;text-decoration:none;">Ir a <img style="height:14px" src="/logomercado.png" onerror="this.style.display='none'"></a></div>` : '';
     return `<th>
       <img class="cmp-prod-img" src="${p.img||imgFallback}" alt="${escH(p.nombre)}" onerror="this.src='${imgFallback}'" loading="lazy">
       <div class="cmp-prod-brand">${escH(p.marca)}</div>
       <div class="cmp-prod-name">${escH(p.nombre)}</div>
-      ${rating}${btn}
+      ${stars}${btn}
     </th>`;
   }).join('');
 
-  // Fila de precio con caja ML + botón comprar
+  // Fila de precio con caja ML + botón
   function filaPrecio() {
     const precios = prods.map(p => p.precio);
     const minP = Math.min(...precios.filter(v => v > 0));
     const cells = prods.map(p => {
       const isBest = p.precio === minP && precios.filter(v => v === minP).length < prods.length;
       const badge = isBest ? '<span class="cmp-badge-top">Mejor precio</span>' : '';
-      const box = `<div class="cmp-plat${isBest?' best':''}">${badge}<div class="cmp-plat-name">Mercado Libre</div><div class="cmp-plat-price">${fmtP(p.precio)}</div><a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:5px 8px;border-radius:7px;font-size:11px;font-weight:700;text-decoration:none;margin-top:4px">Ir a <img style="height:13px" src="/logomercado.png" onerror="this.style.display='none'"></a></div>`;
-      return `<td>${box}</td>`;
+      return `<td><div class="cmp-plat${isBest?' best':''}">${badge}<div class="cmp-plat-name">Mercado Libre</div><div class="cmp-plat-price">${fmtP(p.precio)}</div><a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:5px 8px;border-radius:7px;font-size:11px;font-weight:700;text-decoration:none;margin-top:4px;width:100%;box-sizing:border-box">Ir a <img style="height:13px" src="/logomercado.png" onerror="this.style.display='none'"></a></div></td>`;
     }).join('');
-    return `<tr><td style="font-size:12px;font-weight:600;color:var(--tx2);text-transform:uppercase;letter-spacing:.04em">Precio</td>${cells}</tr>`;
+    return `<tr>${rowLbl('precio','Precio')}${cells}</tr>`;
+  }
+
+  // Fila de calificación (estrellas + resenas)
+  function filaRating() {
+    const cells = prods.map(p => {
+      if (p.estrellas) return `<td style="font-weight:700;color:#e6900a">★ ${p.estrellas.toFixed(1)}<div style="font-size:11px;font-weight:400;color:var(--tx3);margin-top:2px">${(p.resenas||0).toLocaleString('es-MX')} reseñas</div></td>`;
+      return `<td style="color:var(--tx3)">—<div style="font-size:11px;margin-top:2px">${p.resenas > 0 ? p.resenas+' reseñas' : 'Sin datos'}</div></td>`;
+    }).join('');
+    return `<tr>${rowLbl('estrellas','Calificación')}${cells}</tr>`;
   }
 
   // Fila genérica con detección de ganador
-  function fila(label, vals, fmt, best) {
+  function fila(icoKey, label, vals, fmt, best) {
     const nums = vals.map(v => (v !== null && v !== undefined && typeof v === 'number' && !isNaN(v)) ? v : null);
     let winner = null;
     if (best === 'max') { const v = nums.filter(n => n !== null); if (v.length > 1) winner = Math.max(...v); }
     if (best === 'min') { const v = nums.filter(n => n !== null && n > 0); if (v.length > 1) winner = Math.min(...v); }
+    const hasAny = vals.some(v => v != null);
+    if (!hasAny) return '';
     const cells = vals.map((v, i) => {
       const isWin = winner !== null && nums[i] === winner;
       const pill = isWin ? `<div><span class="cmp-win-pill">${best==='min'?'Menor':'Mejor'}</span></div>` : '';
       return `<td class="${isWin?'cmp-winner':''}">${v != null ? fmt(v) + pill : '—'}</td>`;
     }).join('');
-    return `<tr><td style="font-size:12px;font-weight:600;color:var(--tx2);text-transform:uppercase;letter-spacing:.04em">${label}</td>${cells}</tr>`;
+    return `<tr>${rowLbl(icoKey, label)}${cells}</tr>`;
   }
 
-  const thead = `<thead><tr><th style="min-width:110px"></th>${headers}</tr></thead>`;
+  // Extrae velocidades del nombre ("12v", "21v", etc.)
+  const getVels = p => { const m = p.nombre.match(/(\d+)\s*[vV]\b/); return m ? m[1] + ' vel.' : null; };
+  const velVals = prods.map(getVels);
+
+  const thead = `<thead><tr><th style="min-width:130px"></th>${headers}</tr></thead>`;
   const tbody = `<tbody>
     ${filaPrecio()}
-    ${fila('Calificación', prods.map(p => p.estrellas), v => '★ ' + v.toFixed(1) + (prods.find(x=>x.estrellas===v)?.resenas?' ('+prods.find(x=>x.estrellas===v).resenas+')':''), 'max')}
-    ${fila('Rueda', prods.map(p => p.rueda ? p.rueda : null), v => v, 'none')}
-    ${fila('Peso', prods.map(p => p.peso || null), v => v + ' kg', 'min')}
+    ${filaRating()}
+    ${fila('marca',       'Marca',       prods.map(p => p.marca||null),  v => v,          'none')}
+    ${fila('velocidades', 'Velocidades', velVals,                         v => v,          'none')}
+    ${fila('rueda',       'Rueda',       prods.map(p => p.rueda||null),  v => v,          'none')}
+    ${fila('peso',        'Peso',        prods.map(p => p.peso||null),   v => v + ' kg',  'min')}
   </tbody>`;
 
   document.getElementById('cmp-table').innerHTML = thead + tbody;
