@@ -779,12 +779,12 @@ function showCmp() {
 
   const thead = `<thead><tr><th style="min-width:130px"></th>${headers}</tr></thead>`;
   const tbody = `<tbody>
-    ${filaPrecio()}
     ${filaRating()}
     ${fila('marca',       'Marca',       prods.map(p => p.marca||null),  v => v,          'none')}
     ${fila('velocidades', 'Velocidades', velVals,                         v => v,          'none')}
     ${fila('rueda',       'Rueda',       prods.map(p => p.rueda||null),  v => v,          'none')}
     ${fila('peso',        'Peso',        prods.map(p => p.peso||null),   v => v + ' kg',  'min')}
+    ${filaPrecio()}
   </tbody>`;
 
   document.getElementById('cmp-table').innerHTML = thead + tbody;
