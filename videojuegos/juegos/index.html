@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es-MX">
+<html lang="es-MX" data-cmx-layout="v2" data-cmx-filters="panel">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -336,6 +336,13 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   .seo-genres{padding:0 1rem}
   .seo-cat-grid{grid-template-columns:1fr;gap:14px}
 }
+/* ── Specs con icono ── */
+.pcard-metrics{display:flex;flex-direction:column;gap:0;margin-bottom:.4rem}
+.pmetric-row{display:flex;align-items:center;gap:7px;padding:5px 1px;border-bottom:1px dashed var(--bd)}
+.pmetric-row:last-child{border-bottom:none}
+.pmetric-ic{color:var(--ac);flex-shrink:0;display:flex;opacity:.85}
+.pmetric-lbl2{font-size:11.5px;color:var(--tx2);flex:1;min-width:0}
+.pmetric-val2{font-size:12.5px;font-weight:700;color:var(--tx);text-align:right;white-space:nowrap;margin-left:6px}
 </style>
 <link rel="stylesheet" href="/assets/css/cmx-site.css">
 <script src="/assets/js/paginate.js"></script>
@@ -377,18 +384,20 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   </div>
 </div>
 
+<div class="cmx-fp-layout"><aside class="cmx-fp" id="cmx-fp" aria-label="Filtros"></aside><div class="cmx-fp-main">
 <div class="search-bar">
   <input id="search" type="text" placeholder="🔍 Buscar por título, plataforma o género…" oninput="render()">
 </div>
 
-<button class="filters-toggle" id="filters-toggle" aria-expanded="false" onclick="toggleFiltersPanel()">
+<button class="filters-toggle" id="filters-toggle" aria-expanded="false" onclick="toggleFiltersPanel()" style="display:none">
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
   Filtros y orden
   <span class="ft-arrow">▼</span>
 </button>
-<div class="filters">
+<div class="filters" style="display:none">
   <div class="filters-inner open" id="filters-inner">
-  <div class="filters-row">
+  <div class="filters-row" id="toolbar">
+  <input type="number" id="precio-max" style="display:none" min="0" step="100" oninput="render()">
     <div class="filter-group">
       <span class="filter-label">Plataforma</span>
       <div class="filter-pills" id="f-plat"></div>
@@ -519,6 +528,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
     <a href="/videojuegos/consolas/" style="color:var(--ac);font-weight:700;text-decoration:underline;text-underline-offset:2px">Ver consolas disponibles →</a>
   </div>
 </div>
+</div></div>
 
 <section class="seo-genres">
   <div class="seo-genres-intro">
@@ -871,13 +881,31 @@ function initFilters(){
   if(!fmts.length)  document.getElementById('f-fmt').closest('.filter-group').style.display='none';
 }
 
+const ico = {
+  genero:       `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>`,
+  plataforma:   `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`,
+  desarrollador:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>`,
+  anio:         `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`,
+  formato:      `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>`,
+  extras:       `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`,
+};
+
 function cardHtml(p, isMejor){
   const hasML = !!p.linkML, hasAmz = !!p.linkAmz;
   const platform = hasML && hasAmz ? 'both' : hasML ? 'ml' : hasAmz ? 'amz' : 'none';
   const specs = p.especs || {};
-  const specsHtml = SPEC_KEYS.filter(([k])=>specs[k]).map(([k,label])=>
-    `<div class="spec"><div class="spec-label">${label}</div><div class="spec-val">${specs[k]}</div></div>`
-  ).join('');
+  const metrics = [
+    ['genero',       'Género',        specs.genero       ?? null],
+    ['plataforma',   'Plataforma',    specs.plataforma   ?? null],
+    ['desarrollador','Desarrollador', specs.desarrollador ?? null],
+    ['anio',         'Año',           specs.anio         ?? null],
+    ['formato',      'Formato',       specs.formato      ?? null],
+  ].filter(m => m[2] != null);
+  const specsHtml = metrics.length
+    ? `<div class="pcard-metrics">${metrics.map(m =>
+        `<div class="pmetric-row"><span class="pmetric-ic" aria-hidden="true">${ico[m[0]] || ico.extras}</span><span class="pmetric-lbl2">${m[1]}</span><span class="pmetric-val2">${m[2]}</span></div>`
+      ).join('')}</div>`
+    : '';
   const platRaw = specs.plataforma || '';
   const platBadge = platRaw ? `<span class="plat-badge ${platClass(platRaw)}">${platRaw}</span>` : '';
   const mejorBadge = isMejor ? '<span class="mejor-precio-badge">Mejor precio</span>' : '';
@@ -904,7 +932,7 @@ function cardHtml(p, isMejor){
       ${platBadge}
       <div class="card-name">${p.nombreCorto || p.nombre}</div>
       <div class="card-brand">${p.marca||''}</div>
-      ${specsHtml?`<div class="card-specs">${specsHtml}</div>`:''}
+      ${specsHtml}
       <div class="card-btns">${btns}</div>
     </div>
   </div>`;
@@ -1130,10 +1158,12 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeHowModa
 document.getElementById('howModalOv').addEventListener('click',function(e){if(e.target===this)closeHowModal()});
 </script>
 <script>try{sessionStorage.setItem('cmx_onboarding_v1','1');}catch(e){}</script>
+<script src="/assets/js/favorites.js" defer></script>
+<script src="/assets/js/filters-panel.js" defer></script>
 <script src="/assets/js/cards-enhance.js" defer></script>
 <script src="/assets/js/price-drops.js" defer></script>
 <script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
-<script src="/assets/js/share.js" defer></script>
+<script src="/assets/js/share.js" defer></script>
 </body>
 </html>

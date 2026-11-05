@@ -132,6 +132,17 @@
           ['vapor', 'Función vapor', function (p) { return p.vapor === true; }]])
       ];
     },
+    '/videojuegos/juegos/': function () {
+      return [
+        platform([
+          { v: 'todos', label: 'Ambas', all: true, test: function () { return true; } },
+          { v: 'ml', label: 'Mercado Libre', test: function (p) { return !!p.linkML; } },
+          { v: 'amz', label: 'Amazon', test: function (p) { return !!p.linkAmz; } }]),
+        byValue('genero', 'Género', function (p) { return p.especs && p.especs.genero || null; }),
+        byValue('plataforma', 'Plataforma', function (p) { return p.especs && p.especs.plataforma || null; }),
+        byValue('formato', 'Formato', function (p) { return p.especs && p.especs.formato || null; })
+      ];
+    },
     '/videojuegos/consolas/': function () {
       return [
         platform([
