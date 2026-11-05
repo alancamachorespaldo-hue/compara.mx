@@ -205,6 +205,22 @@
           ['freezer', 'Con freezer', function (p) { return p.conFreezer === true; }],
           ['hielo', 'Dispensador de hielo', function (p) { return p.dispensadorHielo === true; }]])
       ];
+    },
+    '/tecnologia/smartwatches/': function () {
+      return [
+        { id: 'plataforma', title: 'Tienda', mode: 'or', pills: true, opts: [
+          { v: 'todos', label: 'Ambas', all: true, test: function () { return true; } },
+          { v: 'amz', label: '<img src="/logoamazon.png" alt="Amazon" style="height:16px;vertical-align:middle">', test: function (p) { return !!p.linkAmz; } },
+          { v: 'ml',  label: '<img src="/logomercado.png" alt="Mercado Libre" style="height:18px;vertical-align:middle">', test: function (p) { return !!p.linkML; } }
+        ]},
+        byValue('marca', 'Marca', function (p) { return p.marca || null; }),
+        byValue('compatibilidad', 'Compatibilidad', function (p) { return p.especs && p.especs.compatibilidad || null; }),
+        flags('carac', 'Características', [
+          ['gps', 'GPS integrado', function (p) { return p.especs && p.especs.gps === 'Sí'; }],
+          ['nfc', 'Con NFC', function (p) { return p.especs && p.especs.nfc === 'Sí'; }],
+          ['ia', 'IA / ChatGPT', function (p) { return !!(p.especs && p.especs.tieneIA); }]
+        ])
+      ];
     }
   };
 
