@@ -168,14 +168,24 @@ Una vez confirmadas las características, el modal debe seguir el patrón de `su
 - Rating estrellas + número de reseñas (`<div class="cmp-prod-rating">`)
 - **Botón "Ir a"** con logo de la tienda (ML / Amazon según disponibilidad)
 
+### Orden de filas en `<tbody>` (obligatorio)
+
+La fila de precio va **al final**, no al principio. El orden correcto:
+1. Calificación (estrellas + reseñas)
+2. Specs confirmadas por Alan (marca, velocidades, rueda, peso, etc.)
+3. **Precio** — siempre la última fila
+
 ### Fila de precio (`filaPrecio`)
 - Una caja `.cmp-plat` por tienda disponible (ML, Amazon, o ambas)
 - Cada caja tiene: badge "Mejor precio" si es la más barata, nombre de tienda, precio en grande, y botón con logo
 - La caja ganadora lleva clase `.best` (borde verde + fondo tenue)
+- **Va al final del `<tbody>`**
 
-### Filas de specs (`fila(label, vals, fmt, best)`)
+### Filas de specs (`fila(icoKey, label, vals, fmt, best)`)
 - Para cada característica confirmada por Alan
 - Celda ganadora (min o max según contexto) lleva `cmp-win-pill` con "Menor" o "Mejor"
+- Cada fila lleva un **icono SVG** a la izquierda del label — usar `.cmp-row-lbl` + `.cmp-row-ic` (ver CSS abajo)
+- Si ningún producto tiene valor para esa característica, omitir la fila completamente
 
 ### CSS necesario en la `<style>` de la página
 ```css
@@ -191,9 +201,12 @@ Una vez confirmadas las características, el modal debe seguir el patrón de `su
 .cmp-badge-top{display:block;font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:2px 6px;color:#fff;background:var(--ac);border-radius:6px;margin-bottom:4px;width:fit-content}
 .cmp-win-pill{display:inline-block;font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:1px 5px;color:#fff;background:var(--ac);border-radius:10px;margin-top:3px}
 .cmp-table th{position:sticky;top:0;z-index:10;vertical-align:top;background:var(--bg);padding:12px 8px;text-align:center;min-width:140px}
-.cmp-table td:first-child{position:sticky;left:0;background:var(--bg);font-size:12px;font-weight:600;color:var(--tx2);text-transform:uppercase;letter-spacing:.04em;padding:8px 10px;white-space:nowrap}
+.cmp-table td:first-child{position:sticky;left:0;background:var(--bg);font-size:12px;font-weight:600;color:var(--tx2);text-transform:uppercase;letter-spacing:.04em;padding:8px 10px;white-space:nowrap;min-width:130px}
 .cmp-table td{padding:8px;vertical-align:top;border-top:1px solid var(--bd);text-align:center;font-size:13px}
 .cmp-table td.cmp-winner{background:color-mix(in srgb,var(--ac) 6%,transparent)}
+/* Iconos en etiquetas de fila */
+.cmp-row-lbl{display:flex!important;align-items:center;gap:7px;white-space:nowrap}
+.cmp-row-ic{color:var(--ac);opacity:.8;flex-shrink:0;display:flex}
 ```
 
 El `<table>` del modal lleva `id="cmp-table"` (no `id="cmp-table-modal"`) y la función `showCmp()` escribe su `innerHTML` completo (`<thead>` + `<tbody>`) en cada llamada. Lee `suplementos/proteina/index.html` y `bicicletas/bici-gravel/index.html` como referencias de implementación.
