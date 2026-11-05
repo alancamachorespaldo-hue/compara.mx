@@ -355,14 +355,14 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   <input id="search" type="text" placeholder="🔍 Buscar por marca o modelo…" oninput="render()">
 </div>
 
-<button class="filters-toggle" id="filters-toggle" aria-expanded="false" onclick="toggleFiltersPanel()">
+<button class="filters-toggle" id="filters-toggle" aria-expanded="false" onclick="toggleFiltersPanel()" style="display:none">
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
   Filtros y orden
   <span class="ft-arrow">▼</span>
 </button>
-<div class="filters">
+<div class="filters" style="display:none">
   <div class="filters-inner open" id="filters-inner">
-  <div class="filters-row">
+  <div class="filters-row" id="toolbar">
     <div class="filter-group">
       <span class="filter-label">Precio máximo</span>
       <div class="price-range-row">
@@ -382,6 +382,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
       <span class="filter-label">Estado</span>
       <div class="filter-pills" id="f-cond"></div>
     </div>
+    <input type="number" id="precio-max" style="display:none" min="0" step="500" oninput="render()">
     <div class="filter-group">
       <span class="filter-label">Ordenar</span>
       <select class="sort-sel" id="f-sort" onchange="render()">
