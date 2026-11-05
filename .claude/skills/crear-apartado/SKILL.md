@@ -189,7 +189,7 @@ La fila de precio va **al final**, no al principio. El orden correcto:
 
 ### CSS necesario en la `<style>` de la página
 ```css
-.cmp-prod-img{width:90px;height:90px;object-fit:contain;border-radius:8px;background:var(--s1);margin:0 auto 8px;display:block}
+.cmp-prod-img{width:140px;height:140px;object-fit:contain;border-radius:10px;background:#fff;border:1px solid var(--bd);margin:0 auto 10px;display:block}
 .cmp-prod-name{font-size:.8rem;font-weight:700;line-height:1.3;margin-bottom:4px}
 .cmp-prod-brand{font-size:.72rem;color:var(--tx3);margin-bottom:6px}
 .cmp-prod-rating{font-size:12px;color:#e6900a;font-weight:700;margin:2px 0 5px}
@@ -200,8 +200,8 @@ La fila de precio va **al final**, no al principio. El orden correcto:
 .cmp-plat-price{font-size:15px;font-weight:800;color:var(--tx);margin:1px 0 5px;letter-spacing:-.02em}
 .cmp-badge-top{display:block;font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:2px 6px;color:#fff;background:var(--ac);border-radius:6px;margin-bottom:4px;width:fit-content}
 .cmp-win-pill{display:inline-block;font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:1px 5px;color:#fff;background:var(--ac);border-radius:10px;margin-top:3px}
-.cmp-table th{position:sticky;top:0;z-index:10;vertical-align:top;background:var(--bg);padding:12px 8px;text-align:center;min-width:140px}
-.cmp-table td:first-child{position:sticky;left:0;background:var(--bg);font-size:12px;font-weight:600;color:var(--tx2);text-transform:uppercase;letter-spacing:.04em;padding:8px 10px;white-space:nowrap;min-width:130px}
+.cmp-table th{position:sticky;top:0;z-index:10;vertical-align:top;background:#fff;padding:12px 8px;text-align:center;min-width:140px}
+.cmp-table td:first-child{position:sticky;left:0;background:#fff;font-size:12px;font-weight:600;color:var(--tx2);text-transform:uppercase;letter-spacing:.04em;padding:8px 10px;white-space:nowrap;min-width:130px}
 .cmp-table td{padding:8px;vertical-align:top;border-top:1px solid var(--bd);text-align:center;font-size:13px}
 .cmp-table td.cmp-winner{background:color-mix(in srgb,var(--ac) 6%,transparent)}
 /* Iconos en etiquetas de fila */
