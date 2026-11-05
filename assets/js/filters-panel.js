@@ -159,6 +159,20 @@
         byValue('cond', 'Estado', function (p) { return p.especs && p.especs.condicion || null; })
       ];
     },
+    '/bicicletas/bici-gravel/': function () {
+      return [
+        { id: 'plataforma', title: 'Tienda', mode: 'or', pills: true, opts: [
+          { v: 'todos', label: 'Ambas', all: true, test: function () { return true; } },
+          { v: 'ml',  label: '<img src="/logomercado.png" alt="Mercado Libre" style="height:18px;vertical-align:middle">', test: function (p) { return !!p.linkML; } }
+        ]},
+        byValue('marca', 'Marca', function (p) { return p.marca; }),
+        { id: 'precio', title: 'Precio', mode: 'or', opts: [
+          { v: 'p1', label: 'Hasta $10,000', test: function (p) { return p.precio <= 10000; } },
+          { v: 'p2', label: '$10,000 – $25,000', test: function (p) { return p.precio > 10000 && p.precio <= 25000; } },
+          { v: 'p3', label: 'Más de $25,000', test: function (p) { return p.precio > 25000; } }] },
+        byValue('rueda', 'Rueda', function (p) { return p.rueda || null; })
+      ];
+    },
     '/electrodomesticos/refrigeradores/': function () {
       return [
         platform([
