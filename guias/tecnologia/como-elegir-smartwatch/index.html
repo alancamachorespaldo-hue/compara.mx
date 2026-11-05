@@ -165,11 +165,11 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .pcard:hover{box-shadow:0 4px 18px rgba(0,0,0,.08);transform:translateY(-2px)}
 .pcard.selected{border-color:var(--ac);border-width:2px;box-shadow:0 0 0 4px var(--acd2)}
 .sel-check{position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:var(--ac);display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;font-weight:700;box-shadow:0 2px 8px rgba(0,104,71,.4)}
-.pcard-img-wrap{background:var(--s1);display:flex;align-items:center;justify-content:center;padding:20px 16px;min-height:160px}
-.pcard-img{width:auto;max-width:100%;max-height:130px;object-fit:contain;display:block}
+.pcard-img-wrap{background:var(--s1);display:flex;align-items:center;justify-content:center;padding:14px 16px;min-height:120px}
+.pcard-img{width:auto;max-width:90px;max-height:90px;object-fit:contain;display:block}
 @media(max-width:640px){
-  .pcard-img-wrap{padding:12px 10px;min-height:120px}
-  .pcard-img{max-height:100px}
+  .pcard-img-wrap{padding:10px 10px;min-height:100px}
+  .pcard-img{max-height:80px;max-width:80px}
   .pcard-body{padding:.65rem}
   .pcard-name{font-size:14px;margin-bottom:5px}
   .pcard-specs{gap:4px;margin-bottom:5px}
@@ -249,7 +249,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .sidebar-phone:last-child{border-bottom:none}
 .sidebar-phone:hover,.sidebar-phone:focus{background:var(--acd);outline:none}
 .sidebar-phone.sp-sel{background:var(--acd2)}
-.sidebar-phone-img{width:38px;height:44px;object-fit:contain;border-radius:6px;background:var(--s1);padding:2px;flex-shrink:0;display:block}
+.sidebar-phone-img{width:38px;height:38px;object-fit:contain;border-radius:6px;background:var(--s1);padding:2px;flex-shrink:0;display:block}
 .sidebar-phone-info{flex:1;min-width:0}
 .sidebar-phone-price{font-family:'Satoshi',system-ui,-apple-system,sans-serif;font-size:16px;font-weight:800;color:var(--ac);letter-spacing:.01em;line-height:1}
 .sidebar-phone-name{font-size:11.5px;font-weight:600;color:var(--tx);line-height:1.3;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -315,8 +315,8 @@ body.bar-active{padding-bottom:64px}
 .section-text{min-width:0}
 .section-sticky{position:sticky;top:76px}
 .prd-card{border:1.5px solid var(--bd);border-radius:16px;overflow:hidden;background:var(--bg);box-shadow:0 2px 12px rgba(0,0,0,.06)}
-.prd-card-img{background:var(--s1);display:flex;align-items:center;justify-content:center;padding:20px;border-bottom:1.5px solid var(--bd);min-height:180px}
-.prd-card-img img{max-width:100%;max-height:180px;object-fit:contain;display:block}
+.prd-card-img{background:var(--s1);display:flex;align-items:center;justify-content:center;padding:16px;border-bottom:1.5px solid var(--bd);min-height:140px}
+.prd-card-img img{max-width:120px;max-height:120px;object-fit:contain;display:block}
 .prd-card-body{padding:16px}
 .prd-kicker{color:var(--ac);text-transform:uppercase;letter-spacing:.08em;font-weight:700;font-size:.72rem;margin-bottom:5px}
 .prd-name{font-family:'Satoshi',system-ui,-apple-system,sans-serif;font-size:1.05rem;font-weight:800;text-transform:uppercase;letter-spacing:.02em;margin:0 0 8px;line-height:1.2;color:var(--tx)}
