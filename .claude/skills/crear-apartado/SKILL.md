@@ -129,6 +129,7 @@ a. **Entrada en `assets/js/filters-panel.js`:** el panel izquierdo solo funciona
 b. **`sitemap.xml`:** agrega la URL nueva (limpia, con slash final). `check-site.js` falla si la página existe y no está en el sitemap.
 c. **Corre `node scripts/sync-site.js`:** escribe encabezado, breadcrumb, "Sigue explorando" y pie. Una página nueva DEBE correrlo.
 d. **Corre `node scripts/check-site.js`:** tiene que pasar en verde antes de dar por terminado. Valida GA4, onboarding, tag de afiliado, que no haya links a `.html` de categorías ni URLs sin barra, y que el JS inline y el JSON-LD no tengan errores.
+e. **Siempre haz commit y push al terminar.** Agrega los archivos por nombre (`git add <archivo1> <archivo2>…`), revisa `git diff --stat --cached`, haz commit con mensaje descriptivo y luego `git push`. No dejes cambios sin publicar.
 
 ## Contenido SEO (obligatorio)
 
