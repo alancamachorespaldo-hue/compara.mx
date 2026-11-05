@@ -150,6 +150,54 @@ No lo omitas ni lo dejes como relleno: una página sin este bloque no sirve para
 - Git: agrega archivos **por nombre** (nunca `git add -A`/`.`, están bloqueados), revisa `git status` y `git diff --stat` antes de commitear, y **no uses `git stash`**. Un commit = un tema. No commitees si no te lo piden.
 - Los archivos HTML del repo suelen estar en **CRLF**; respétalo (editá con coincidencias byte-exactas) para no inflar el diff.
 
+## Modal de comparativa (obligatorio, no simplificar)
+
+Después de obtener los datos de la API de ML (IDs de catálogo, características disponibles), **antes de escribir el código del modal**, pregúntale a Alan:
+
+1. ¿Cuáles características quiere mostrar en el modal de comparativa?
+2. ¿Cuáles quiere usar como facetas en el panel de filtros?
+
+No asumas — las categorías varían mucho (bicis, suplementos, electro) y lo que tiene sentido en una no tiene en otra.
+
+Una vez confirmadas las características, el modal debe seguir el patrón de `suplementos/proteina/index.html`. Requisitos no negociables:
+
+### Encabezado de cada columna (`<th>`)
+- **Foto del producto** (`<img class="cmp-prod-img">`, 90×90, `object-fit:contain`)
+- Marca (`<div class="cmp-prod-brand">`)
+- Nombre (`<div class="cmp-prod-name">`)
+- Rating estrellas + número de reseñas (`<div class="cmp-prod-rating">`)
+- **Botón "Ir a"** con logo de la tienda (ML / Amazon según disponibilidad)
+
+### Fila de precio (`filaPrecio`)
+- Una caja `.cmp-plat` por tienda disponible (ML, Amazon, o ambas)
+- Cada caja tiene: badge "Mejor precio" si es la más barata, nombre de tienda, precio en grande, y botón con logo
+- La caja ganadora lleva clase `.best` (borde verde + fondo tenue)
+
+### Filas de specs (`fila(label, vals, fmt, best)`)
+- Para cada característica confirmada por Alan
+- Celda ganadora (min o max según contexto) lleva `cmp-win-pill` con "Menor" o "Mejor"
+
+### CSS necesario en la `<style>` de la página
+```css
+.cmp-prod-img{width:90px;height:90px;object-fit:contain;border-radius:8px;background:var(--s1);margin:0 auto 8px;display:block}
+.cmp-prod-name{font-size:.8rem;font-weight:700;line-height:1.3;margin-bottom:4px}
+.cmp-prod-brand{font-size:.72rem;color:var(--tx3);margin-bottom:6px}
+.cmp-prod-rating{font-size:12px;color:#e6900a;font-weight:700;margin:2px 0 5px}
+.cmp-prod-btns{display:grid;gap:4px;margin-top:6px}
+.cmp-plat{border:1px solid var(--bd);border-radius:9px;padding:7px 6px;margin-bottom:6px}
+.cmp-plat.best{border-color:var(--ac);background:color-mix(in srgb,var(--ac) 8%,transparent)}
+.cmp-plat-name{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.04em;font-weight:700}
+.cmp-plat-price{font-size:15px;font-weight:800;color:var(--tx);margin:1px 0 5px;letter-spacing:-.02em}
+.cmp-badge-top{display:block;font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:2px 6px;color:#fff;background:var(--ac);border-radius:6px;margin-bottom:4px;width:fit-content}
+.cmp-win-pill{display:inline-block;font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:1px 5px;color:#fff;background:var(--ac);border-radius:10px;margin-top:3px}
+.cmp-table th{position:sticky;top:0;z-index:10;vertical-align:top;background:var(--bg);padding:12px 8px;text-align:center;min-width:140px}
+.cmp-table td:first-child{position:sticky;left:0;background:var(--bg);font-size:12px;font-weight:600;color:var(--tx2);text-transform:uppercase;letter-spacing:.04em;padding:8px 10px;white-space:nowrap}
+.cmp-table td{padding:8px;vertical-align:top;border-top:1px solid var(--bd);text-align:center;font-size:13px}
+.cmp-table td.cmp-winner{background:color-mix(in srgb,var(--ac) 6%,transparent)}
+```
+
+El `<table>` del modal lleva `id="cmp-table"` (no `id="cmp-table-modal"`) y la función `showCmp()` escribe su `innerHTML` completo (`<thead>` + `<tbody>`) en cada llamada. Lee `suplementos/proteina/index.html` y `bicicletas/bici-gravel/index.html` como referencias de implementación.
+
 ## Alcance (lo que entregas)
 
 Arma la **estructura completa** con **2–3 productos de EJEMPLO** bien cableados: nombre, imagen, specs, las dos cajas de tienda con links de ejemplo que lleven el tag, favoritos y comparar funcionando. Déjalos marcados de forma obvia (p. ej. nombre "Producto de ejemplo 1") para que Alan los reemplace fácil. **No intentes llenar el catálogo real** — los precios y links verdaderos entran por el flujo de datos normal de Alan (el admin / `merged-admin.json`).
