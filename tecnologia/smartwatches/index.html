@@ -121,6 +121,8 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .btn-ml:hover,.btn-amz:hover{opacity:.88}
 .btn-logo-img{height:16px;width:auto;object-fit:contain;flex-shrink:0}
 .btn-ira-txt{font-size:10px}
+/* Logo ML negro sobre fondo amarillo para contraste correcto */
+.btn-ml .btn-logo-img{filter:brightness(0)}
 
 /* ── Favoritos ── */
 .fav-btn{position:absolute;top:10px;right:10px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.92);border:1.5px solid var(--bd);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;transition:all .18s;padding:0}
@@ -260,6 +262,23 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
   .cmp-table td:first-child{min-width:80px!important;font-size:10px!important;padding:6px 5px!important}
   .cmp-prod-img{width:60px!important;height:60px!important}
   .cmp-prod-name{font-size:.65rem!important}
+  /* Botón de filtros sticky en móvil */
+  .cmx-fp-open{
+    position:sticky;
+    top:64px;
+    z-index:95;
+    margin:-8px -12px 10px;
+    width:calc(100% + 24px);
+    border-radius:0;
+    border-left:none;
+    border-right:none;
+    border-top:none;
+    border-bottom:1px solid var(--bd);
+    padding:10px 16px;
+    background:#fff;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);
+    justify-content:flex-start;
+  }
 }
 </style>
 <link rel="stylesheet" href="/assets/css/cmx-site.css">

@@ -48,6 +48,27 @@ Ojo: la "plantilla de referencia: freidoras" del CLAUDE.md es solo para **colore
 
    Las specs **NO** van en mini-cajas de grid (`.spec`). Usan filas con icono izquierda / label centro / valor derecha — copia el patrón de `suplementos/proteina/index.html`. CSS mínimo que siempre va en la `<style>` de la página nueva:
 
+   **Logo de ML en botón amarillo:** el PNG de ML (`/logomercado.png`) es a color y queda ilegible sobre el fondo amarillo del `.btn-ml`. Añade esta regla al `<style>` de la página para volverlo negro:
+
+   ```css
+   .btn-ml .btn-logo-img{filter:brightness(0)}
+   ```
+
+   **Botón de filtros sticky en móvil:** `filters-panel.js` inserta `.cmx-fp-open` como primer hijo de `.cmx-fp-main`, que tiene `padding:8px 12px 16px` en móvil. Para que el botón quede pegado al tope y abarque el ancho completo mientras el usuario hace scroll, cancela ese padding con márgenes negativos:
+
+   ```css
+   @media(max-width:768px){
+     .cmx-fp-open{
+       position:sticky;top:64px;z-index:95;
+       margin:-8px -12px 10px;width:calc(100% + 24px);
+       border-radius:0;border-left:none;border-right:none;border-top:none;
+       border-bottom:1px solid var(--bd);padding:10px 16px;
+       background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.06);
+       justify-content:flex-start;
+     }
+   }
+   ```
+
    ```css
    .pcard-metrics{display:flex;flex-direction:column;gap:0;margin-bottom:.4rem}
    .pmetric-row{display:flex;align-items:center;gap:7px;padding:5px 1px;border-bottom:1px dashed var(--bd)}
