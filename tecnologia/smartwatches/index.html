@@ -121,8 +121,6 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .btn-ml:hover,.btn-amz:hover{opacity:.88}
 .btn-logo-img{height:16px;width:auto;object-fit:contain;flex-shrink:0}
 .btn-ira-txt{font-size:10px}
-/* Logo ML negro sobre fondo amarillo para contraste correcto */
-.btn-ml .btn-logo-img{filter:brightness(0)}
 
 /* ── Favoritos ── */
 .fav-btn{position:absolute;top:10px;right:10px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.92);border:1.5px solid var(--bd);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;transition:all .18s;padding:0}
@@ -696,8 +694,8 @@ function cardHtml(p) {
     ['bateria',        'Batería',        e.bateria ?? null],
     ['gps',            'GPS integrado',  e.gps ?? null],
     ['nfc',            'NFC',            e.nfc ?? null],
-    ['ia',             'IA / ChatGPT',   e.tieneIA ? 'Sí' : null],
-  ].filter(m => m[2] != null);
+    ['ia',             'IA / ChatGPT',   e.tieneIA ? 'Sí' : (e.tieneIA === false ? 'No' : null)],
+  ].map(m => m[2] == null ? [m[0], m[1], '—'] : m);
 
   const metricsHTML = metrics.length
     ? `<div class="pcard-metrics">${metrics.map(m =>
