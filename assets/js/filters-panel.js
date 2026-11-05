@@ -134,10 +134,11 @@
     },
     '/videojuegos/juegos/': function () {
       return [
-        platform([
+        { id: 'plataforma', title: 'Tienda', mode: 'or', pills: true, opts: [
           { v: 'todos', label: 'Ambas', all: true, test: function () { return true; } },
-          { v: 'ml', label: 'Mercado Libre', test: function (p) { return !!p.linkML; } },
-          { v: 'amz', label: 'Amazon', test: function (p) { return !!p.linkAmz; } }]),
+          { v: 'amz', label: '<img src="/logoamazon.png" alt="Amazon" style="height:16px;vertical-align:middle">', test: function (p) { return !!p.linkAmz; } },
+          { v: 'ml',  label: '<img src="/logomercado.png" alt="Mercado Libre" style="height:18px;vertical-align:middle">', test: function (p) { return !!p.linkML; } }
+        ]},
         byValue('genero', 'Género', function (p) { return p.especs && p.especs.genero || null; }),
         byValue('plataforma', 'Plataforma', function (p) { return p.especs && p.especs.plataforma || null; }),
         byValue('formato', 'Formato', function (p) { return p.especs && p.especs.formato || null; })

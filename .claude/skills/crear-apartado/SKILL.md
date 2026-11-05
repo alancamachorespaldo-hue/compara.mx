@@ -21,6 +21,19 @@ Ojo: la "plantilla de referencia: freidoras" del CLAUDE.md es solo para **colore
 1. `<html lang="es-MX" data-cmx-layout="v2" data-cmx-filters="panel">` — los dos flags. `v2` da tarjetas blancas; `panel` activa el panel de filtros genérico.
 2. GA4 `G-9TKZ4ER13X`, `<link rel="stylesheet" href="/assets/css/cmx-site.css">`, `cards.css`, y antes de `</body>`: `onboarding.js`. Nunca quites ni reimplementes GA4; no toques `/assets/js/analytics.js`.
 3. Layout `cmx-fp-layout` con `<aside id="cmx-fp">` (lo llena `filters-panel.js`) y el catálogo con `#toolbar` + `#grid`.
+
+   El input `precio-max` que activa el filtro de precio en el panel va **dentro de `#toolbar`** (que está en el `.filters` que ya se oculta con `display:none`), así que **NO le pongas `style="display:none"`**: `filters-panel.js` lo saca del DOM y lo inserta en el aside como el campo "Máx.", y si tiene el estilo inline sigue invisible en el panel. Patrón correcto:
+
+   ```html
+   <div class="filters" style="display:none">
+     <div class="filters-row" id="toolbar">
+       <input type="number" id="precio-max" min="0" step="100" oninput="render()">
+       <select id="f-sort" onchange="render()">…</select>
+     </div>
+   </div>
+   ```
+
+   El panel mostrará automáticamente **Mín. — Máx.** (dos inputs) cuando el `id="precio-max"` exista.
 4. El CTA de pasos `how-strip` arriba (3–4 pasos: elige, compara, ve el precio). Es pegajoso en móvil por CSS de la capa compartida.
 5. Un array JS de productos (como `const productos = [...]` en el molde) y una función que pinte cada tarjeta con: imagen (fondo blanco), nombre, specs en filas con icono, las dos cajas `.pplat` (Mercado Libre y Amazon) con botón **"Ir a"** + logo, y el corazón de favoritos. El círculo de comparar y el ocultar la vieja línea "Seleccionar para comparar" ya los pone `cards.css` solo (`.card::before`); no los dupliques.
 
@@ -100,7 +113,19 @@ Ojo: la "plantilla de referencia: freidoras" del CLAUDE.md es solo para **colore
 
 ## Pasos de cableado propios de una categoría nueva (los que se olvidan)
 
-a. **Entrada en `assets/js/filters-panel.js`:** el panel izquierdo solo funciona si el `CONFIG` tiene una entrada con el pathname nuevo (p. ej. `'/electrodomesticos/lavadoras/'`). Agrega una factory que devuelva las facetas de esa categoría: `platform([...])` (pills Ambas/ML/Amazon), las `byValue(...)` que tengan sentido (marca, tipo, capacidad…), y `flags(...)` para características booleanas. Mira cómo lo hacen magnesio/omega3/complejo-b. Si no tienes claro qué filtros pediría el usuario para esa categoría, **propón 3–4 y pregúntale a Alan** antes de inventarlos.
+a. **Entrada en `assets/js/filters-panel.js`:** el panel izquierdo solo funciona si el `CONFIG` tiene una entrada con el pathname nuevo (p. ej. `'/electrodomesticos/lavadoras/'`). Agrega una factory que devuelva las facetas de esa categoría.
+
+   **Filtro de tienda (obligatorio, siempre primero):** usa el objeto literal — NO el helper `platform()` — para poder poner el título "Tienda" y los logotipos de cada plataforma en el label (el constructor renderiza el label como innerHTML):
+
+   ```js
+   { id: 'plataforma', title: 'Tienda', mode: 'or', pills: true, opts: [
+     { v: 'todos', label: 'Ambas', all: true, test: function () { return true; } },
+     { v: 'amz', label: '<img src="/logoamazon.png" alt="Amazon" style="height:16px;vertical-align:middle">', test: function (p) { return !!p.linkAmz; } },
+     { v: 'ml',  label: '<img src="/logomercado.png" alt="Mercado Libre" style="height:18px;vertical-align:middle">', test: function (p) { return !!p.linkML; } }
+   ]},
+   ```
+
+   Después agrega las facetas propias: `byValue(...)` (marca, tipo, capacidad…) y `flags(...)` para booleanos. Mira cómo lo hacen magnesio/omega3/complejo-b. Si no tienes claro qué filtros pediría el usuario para esa categoría, **propón 3–4 y pregúntale a Alan** antes de inventarlos.
 b. **`sitemap.xml`:** agrega la URL nueva (limpia, con slash final). `check-site.js` falla si la página existe y no está en el sitemap.
 c. **Corre `node scripts/sync-site.js`:** escribe encabezado, breadcrumb, "Sigue explorando" y pie. Una página nueva DEBE correrlo.
 d. **Corre `node scripts/check-site.js`:** tiene que pasar en verde antes de dar por terminado. Valida GA4, onboarding, tag de afiliado, que no haya links a `.html` de categorías ni URLs sin barra, y que el JS inline y el JSON-LD no tengan errores.
