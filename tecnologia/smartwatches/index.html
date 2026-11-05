@@ -261,6 +261,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
   .cmp-prod-img{width:60px!important;height:60px!important}
   .cmp-prod-name{font-size:.65rem!important}
   /* Botón de filtros sticky en móvil */
+  .cmx-fp-main{overflow-x:clip}
   .cmx-fp-open{
     position:sticky;
     top:64px;
@@ -678,6 +679,12 @@ const ico = {
   extras:         `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`,
 };
 
+/* ── Completitud de specs (para sort por defecto) ── */
+function specCount(p) {
+  const e = p.especs || {};
+  return (e.compatibilidad?1:0)+(e.pantalla?1:0)+(e.bateria?1:0)+(e.gps?1:0)+(e.nfc?1:0)+(e.tieneIA?1:0);
+}
+
 /* ── Render de tarjetas ── */
 function cardHtml(p) {
   const showML  = !!p.linkML;
@@ -746,6 +753,7 @@ function render() {
     return true;
   });
   const sort = document.getElementById('f-sort')?.value||'default';
+  if (sort==='default')     lista.sort((a,b)=>specCount(b)-specCount(a));
   if (sort==='precio-asc')  lista.sort((a,b)=>(precioVigente(a)||Infinity)-(precioVigente(b)||Infinity));
   if (sort==='precio-desc') lista.sort((a,b)=>(precioVigente(b)||0)-(precioVigente(a)||0));
   empty.style.display = lista.length?'none':'block';

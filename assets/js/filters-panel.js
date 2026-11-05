@@ -219,7 +219,32 @@
           ['gps', 'GPS integrado', function (p) { return p.especs && p.especs.gps === 'Sí'; }],
           ['nfc', 'Con NFC', function (p) { return p.especs && p.especs.nfc === 'Sí'; }],
           ['ia', 'IA / ChatGPT', function (p) { return !!(p.especs && p.especs.tieneIA); }]
-        ])
+        ]),
+        { id: 'bateria', title: 'Duración de batería', mode: 'or', pills: false, opts: [
+          { v: 'horas', label: 'Menos de 1 día', test: function (p) {
+            var v = p.especs && p.especs.bateria; if (!v || v === '—') return false;
+            var n = parseFloat(v); if (isNaN(n)) return false;
+            return v.indexOf(' h') > -1 && n < 24;
+          }},
+          { v: '1a7d', label: '1 a 7 días', test: function (p) {
+            var v = p.especs && p.especs.bateria; if (!v || v === '—') return false;
+            var n = parseFloat(v); if (isNaN(n)) return false;
+            var d = v.indexOf('día') > -1 ? n : v.indexOf('semana') > -1 ? n * 7 : v.indexOf(' h') > -1 ? n / 24 : -1;
+            return d >= 1 && d <= 7;
+          }},
+          { v: '1a2sem', label: '1 a 2 semanas', test: function (p) {
+            var v = p.especs && p.especs.bateria; if (!v || v === '—') return false;
+            var n = parseFloat(v); if (isNaN(n)) return false;
+            var d = v.indexOf('día') > -1 ? n : v.indexOf('semana') > -1 ? n * 7 : v.indexOf(' h') > -1 ? n / 24 : -1;
+            return d > 7 && d <= 14;
+          }},
+          { v: 'mas2sem', label: 'Más de 2 semanas', test: function (p) {
+            var v = p.especs && p.especs.bateria; if (!v || v === '—') return false;
+            var n = parseFloat(v); if (isNaN(n)) return false;
+            var d = v.indexOf('día') > -1 ? n : v.indexOf('semana') > -1 ? n * 7 : v.indexOf(' h') > -1 ? n / 24 : v.indexOf('mes') > -1 ? n * 30 : -1;
+            return d > 14;
+          }}
+        ]}
       ];
     }
   };
