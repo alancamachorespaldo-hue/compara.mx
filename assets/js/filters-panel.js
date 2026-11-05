@@ -132,6 +132,21 @@
           ['vapor', 'Función vapor', function (p) { return p.vapor === true; }]])
       ];
     },
+    '/videojuegos/consolas/': function () {
+      return [
+        platform([
+          { v: 'todos', label: 'Ambas', all: true, test: function () { return true; } },
+          { v: 'ml', label: 'Mercado Libre', test: function (p) { return !!p.linkML; } },
+          { v: 'amz', label: 'Amazon', test: function (p) { return !!p.linkAmz; } }]),
+        byValue('tipo', 'Tipo', function (p) {
+          if (!p.especs || !p.especs.tipoConsola) return null;
+          var t = p.especs.tipoConsola.normalize('NFD').replace(/[̀-ͯ]/g, '');
+          return t.charAt(0).toUpperCase() + t.slice(1);
+        }, { 'Hibrida': 'Híbrida', 'Portatil': 'Portátil', 'Sobremesa': 'Sobremesa', 'Realidad virtual': 'Realidad virtual', 'Realidad mixta': 'Realidad mixta' }),
+        brand(),
+        byValue('cond', 'Estado', function (p) { return p.especs && p.especs.condicion || null; })
+      ];
+    },
     '/electrodomesticos/refrigeradores/': function () {
       return [
         platform([

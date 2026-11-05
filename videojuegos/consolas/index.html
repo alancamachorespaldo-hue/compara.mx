@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es-MX">
+<html lang="es-MX" data-cmx-layout="v2" data-cmx-filters="panel">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -350,6 +350,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   </div>
 </div>
 
+<div class="cmx-fp-layout"><aside class="cmx-fp" id="cmx-fp" aria-label="Filtros"></aside><div class="cmx-fp-main">
 <div class="search-bar">
   <input id="search" type="text" placeholder="🔍 Buscar por marca o modelo…" oninput="render()">
 </div>
@@ -490,6 +491,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
     Estamos agregando productos — vuelve pronto o explora las demás categorías de videojuegos.
   </div>
 </div>
+</div></div>
 
 <section style="max-width:760px;margin:0 auto 2.5rem;padding:0 2rem;color:var(--tx2);font-size:.9rem;line-height:1.8">
   <h2 style="font-size:1.15rem;font-weight:800;color:var(--tx);margin-bottom:.75rem;letter-spacing:-.02em">Consolas en México 2026: PlayStation, Xbox y Nintendo Switch en un solo lugar</h2>
@@ -994,6 +996,8 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeHowModa
 document.getElementById('howModalOv').addEventListener('click',function(e){if(e.target===this)closeHowModal()});
 </script>
 <script>try{sessionStorage.setItem('cmx_onboarding_v1','1');}catch(e){}</script>
+<script src="/assets/js/favorites.js" defer></script>
+<script src="/assets/js/filters-panel.js" defer></script>
 <script src="/assets/js/cards-enhance.js" defer></script>
 <script src="/assets/js/price-drops.js" defer></script>
 <script src="/js/onboarding.js" defer></script>
