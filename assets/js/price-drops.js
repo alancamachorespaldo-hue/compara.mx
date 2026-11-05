@@ -8,7 +8,7 @@
     '/suplementos/proteina/': 'proteina', '/suplementos/creatina/': 'creatina', '/suplementos/magnesio/': 'magnesio',
     '/suplementos/omega3/': 'omega3', '/suplementos/complejo-b/': 'complejo_b', '/suplementos/vitamina-d/': 'vitamina_d',
     '/laptops/': 'laptops', '/bicis/': 'bicis', '/electrodomesticos/freidoras/': 'freidoras', '/electrodomesticos/microondas/': 'microondas',
-    '/electrodomesticos/lavadoras/': 'lavadoras', '/electrodomesticos/refrigeradores/': 'refrigeradores', '/electrodomesticos/cafeteras/': 'cafeteras', '/tecnologia/audifonos/': 'tecnologia_audifonos', '/tecnologia/bocinas/': 'tecnologia_bocinas',
+    '/electrodomesticos/lavadoras/': 'lavadoras', '/electrodomesticos/refrigeradores/': 'refrigeradores', '/electrodomesticos/cafeteras/': 'cafeteras', '/tecnologia/audifonos/': 'tecnologia_audifonos', '/tecnologia/bocinas/': 'tecnologia_bocinas', '/tecnologia/smartwatches/': 'tecnologia_smartwatches',
     '/videojuegos/consolas/': 'videojuegos_consolas', '/videojuegos/controles/': 'videojuegos_controles', '/videojuegos/juegos/': 'videojuegos_juegos',
     '/celulares/android/': 'celulares_android', '/celulares/iphone/': 'celulares_iphone',
     '/entretenimiento/streaming/': 'streaming'

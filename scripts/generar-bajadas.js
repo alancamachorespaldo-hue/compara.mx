@@ -42,6 +42,7 @@ const DESCUENTOS = {
   'suplementos/magnesio/descuentos.json': ['magnesio'], 'suplementos/omega3/descuentos.json': ['omega3'],
   'suplementos/proteina/descuentos.json': ['proteina'], 'suplementos/vitamina-d/descuentos.json': ['vitamina_d'],
   'tecnologia/audifonos/descuentos.json': ['tecnologia_audifonos'], 'tecnologia/bocinas/descuentos.json': ['tecnologia_bocinas'],
+  'tecnologia/smartwatches/descuentos.json': ['tecnologia_smartwatches'],
   'videojuegos/consolas/descuentos.json': ['videojuegos_consolas'], 'videojuegos/controles/descuentos.json': ['videojuegos_controles'],
   'videojuegos/juegos/descuentos.json': ['videojuegos_juegos'],
   'entretenimiento/streaming/descuentos.json': ['streaming'],
