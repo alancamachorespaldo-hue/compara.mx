@@ -722,7 +722,7 @@ const productos = [
     "marca": "Amazon",
     "linkML": "https://meli.la/2MLsfz4",
     "linkAmz": "https://www.amazon.com.mx/Amazon-modelo-inteligente-sonido-vibrante/dp/B0BFCBKXWL?dib=eyJ2IjoiMSJ9.RUt7ZsCCaHYWAvgGhtzjDJ0ioOwSreocsCczLih_SEKuXmJb3ECvNb1Iy3ZN7-unaCE28KI1wcIExdyidbIND7fOJELdk-QqgkLProZ6YpN4WpnsTXQWkZnLvqdtA65fEuwfC6D2lJt1iuiCg7IxT6JHn3ZC7Z44_fDdvxD96yd1RIfZYRZSHncKguqr_QgIpSYdKDstnPYbfhSvHSs5FlQYn1kK1l5UnPeEp1LTu5zFib60ZLz8T1yuXKXGqTEofm0fbyQlPzk1yw5zrWEHvHHgU52jg4kD3t0lbhhD96o.HPSMvCeJHwbN505y9mskKQCZWSeUs8LFWRhzxTaCqJg&dib_tag=se&keywords=Amazon%2BAmazon%2BEcho%2BSpot%2BBocina%2BInteligente%2BPantalla%2BCon%2BReloj%2BWhite%2BBlanco&qid=1791859230&sr=8-1&ufe=app_do%3Aamzn1.fos.106a5c47-3834-496c-bc96-2470107b82ca&th=1&linkCode=ll2&tag=comparalo20-20&linkId=ca3a1c646227b4d565e5832154fc87aa&ref_=as_li_ss_tl",
-    "precioML": 1269,
+    "precioML": 1259,
     "precioAmz": 2299,
     "imagen": "https://http2.mlstatic.com/D_NQ_NP_990526-MLA110180734556_052026-F.jpg",
     "especs": {
@@ -1155,6 +1155,7 @@ const productos = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 
 
