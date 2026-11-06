@@ -312,6 +312,193 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   .how-modal-ov{padding:0;align-items:flex-end}
   .how-modal{border-radius:20px 20px 0 0;max-height:85dvh}
 }
+
+/* ── Hero móvil lavadoras ───────────────────────────────────── */
+@media (max-width: 767px) {
+  .cmx-hero-m + section { display: none }
+
+  .cmx-hero-m {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 12px 12px 0;
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .cmx-hero-m__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(.42);
+  }
+  .cmx-hero-m__content {
+    position: relative;
+    padding: 14px 14px 8px;
+    color: #fff;
+  }
+  .cmx-hero-m__title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin: 0 0 4px;
+    line-height: 1.2;
+  }
+  .cmx-hero-m__sub {
+    font-size: .82rem;
+    margin: 0 0 6px;
+    opacity: .88;
+    line-height: 1.35;
+  }
+  .cmx-hero-m__count {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: .78rem;
+    background: rgba(255,255,255,.18);
+    border-radius: 20px;
+    padding: 3px 10px;
+  }
+  .cmx-types {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 10px 14px 2px;
+    scrollbar-width: none;
+    position: relative;
+  }
+  .cmx-types::-webkit-scrollbar { display: none }
+  .cmx-type-chip {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px;
+    background: rgba(255,255,255,.18);
+    border: 1px solid rgba(255,255,255,.25);
+    border-radius: 12px;
+    color: #fff;
+    font-size: .72rem;
+    cursor: pointer;
+    transition: background .15s;
+    white-space: nowrap;
+  }
+  .cmx-type-chip.active,
+  .cmx-type-chip:active {
+    background: rgba(255,255,255,.38);
+    border-color: rgba(255,255,255,.6);
+  }
+  .cmx-type-chip__icon svg { width: 20px; height: 20px; stroke: currentColor }
+  .cmx-hero-m__scroll {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    padding: 10px;
+    background: rgba(255,255,255,.12);
+    border: none;
+    color: #fff;
+    font-size: .78rem;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    border-top: 1px solid rgba(255,255,255,.15);
+  }
+  /* ── Barra sticky ─────────────────────────────────────────── */
+  .cmx-sbar {
+    display: flex;
+    position: sticky;
+    top: 56px;
+    z-index: 200;
+    background: #fff;
+    border-bottom: 1px solid #e8e8e8;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  }
+  .cmx-sbar__btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 13px 8px;
+    font-size: .88rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    background: #fff;
+    color: #111;
+    transition: background .12s;
+  }
+  .cmx-sbar__btn:active { background: #f4f4f4 }
+  .cmx-sbar__filtrar {
+    border-left: 1px solid #e8e8e8;
+    color: var(--ac, #006847);
+    background: #f0faf5;
+  }
+  .cmx-sbar__filtrar.has-filters { background: var(--ac, #006847); color: #fff }
+  .cmx-sbar__badge {
+    background: #e53935;
+    color: #fff;
+    font-size: .68rem;
+    font-weight: 700;
+    border-radius: 10px;
+    padding: 1px 6px;
+    min-width: 18px;
+    text-align: center;
+  }
+  /* ── Panel Cómo elegir ────────────────────────────────────── */
+  .cmx-panel-elegir {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .3s ease;
+    background: #f8fdf9;
+    border-bottom: 1px solid #d4ead9;
+  }
+  .cmx-panel-elegir.open { max-height: 400px }
+  .cmx-panel-elegir__inner { padding: 14px 16px 16px }
+  .cmx-panel-elegir__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: .95rem;
+  }
+  .cmx-panel-elegir__header button {
+    background: none; border: none; cursor: pointer; padding: 2px; color: #555;
+  }
+  .cmx-step {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+    align-items: flex-start;
+  }
+  .cmx-step__num {
+    flex: 0 0 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--ac, #006847);
+    color: #fff;
+    font-size: .78rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+  .cmx-step strong { font-size: .88rem; display: block; margin-bottom: 2px }
+  .cmx-step p { font-size: .8rem; color: #555; margin: 0; line-height: 1.4 }
+  /* Ocultar how-strip original en móvil */
+  .cmx-sbar ~ .how-strip { display: none }
+  #howCard { display: none }
+}
+@media (min-width: 768px) {
+  .cmx-sbar { display: none }
+  .cmx-hero-m { display: none }
+  .cmx-panel-elegir { display: none }
+}
 </style>
 <link rel="stylesheet" href="/assets/css/cmx-site.css">
 </head>
@@ -345,6 +532,77 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 <div class="cmx-bc"><ol aria-label="Ruta de navegación"><li><a href="/">Inicio</a></li><li><a href="/electrodomesticos/">Electrodomésticos</a></li><li aria-current="page">Lavadoras</li></ol></div>
 <!-- cmx-bc:end -->
 
+<!-- Hero móvil -->
+<div class="cmx-hero-m">
+  <div class="cmx-hero-m__bg" style="background-image:url('/fotoslavadora.webp')"></div>
+  <div class="cmx-hero-m__content">
+    <h2 class="cmx-hero-m__title">Comparador de Lavadoras</h2>
+    <p class="cmx-hero-m__sub">Carga superior, frontal y semiautomáticas · Mercado Libre</p>
+    <span class="cmx-hero-m__count"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> 70 modelos para comparar</span>
+    <div class="cmx-types">
+      <button class="cmx-type-chip" data-filter="tipo" data-value="superior" onclick="cmxTypeFilter(this)">
+        <span class="cmx-type-chip__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 11 12 6 7 11"/><line x1="12" y1="18" x2="12" y2="6"/></svg></span>
+        <span>Carga superior</span>
+      </button>
+      <button class="cmx-type-chip" data-filter="tipo" data-value="frontal" onclick="cmxTypeFilter(this)">
+        <span class="cmx-type-chip__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="18" rx="2"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="8" x2="12" y2="8.01"/></svg></span>
+        <span>Carga frontal</span>
+      </button>
+      <button class="cmx-type-chip" data-filter="tipo" data-value="semiautomatica" onclick="cmxTypeFilter(this)">
+        <span class="cmx-type-chip__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></span>
+        <span>Semiautomática</span>
+      </button>
+    </div>
+  </div>
+  <button class="cmx-hero-m__scroll" onclick="document.getElementById('grid').scrollIntoView({behavior:'smooth'})">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    <span>Desplázate para ver modelos</span>
+  </button>
+</div>
+<!-- Barra sticky -->
+<div class="cmx-sbar" id="cmxSbar">
+  <button class="cmx-sbar__btn cmx-sbar__elegir" id="cmxBtnElegir" onclick="cmxToggleElegir()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+    Cómo elegir
+  </button>
+  <button class="cmx-sbar__btn cmx-sbar__filtrar" id="cmxBtnFiltrar" onclick="cmxOpenFilters()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+    Filtrar
+    <span class="cmx-sbar__badge" id="cmxBadge" style="display:none">0</span>
+  </button>
+</div>
+<!-- Panel Cómo elegir -->
+<div class="cmx-panel-elegir" id="cmxPanelElegir" aria-hidden="true">
+  <div class="cmx-panel-elegir__inner">
+    <div class="cmx-panel-elegir__header">
+      <strong>Cómo elegir tu lavadora</strong>
+      <button onclick="cmxToggleElegir()" aria-label="Cerrar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="cmx-step">
+      <span class="cmx-step__num">1</span>
+      <div>
+        <strong>Elige el tipo de carga</strong>
+        <p>Carga superior para espacios estrechos; carga frontal si buscas mayor eficiencia y menor consumo de agua.</p>
+      </div>
+    </div>
+    <div class="cmx-step">
+      <span class="cmx-step__num">2</span>
+      <div>
+        <strong>Define la capacidad en kg</strong>
+        <p>Una persona: 7-11 kg. Familia de 4: 16-20 kg. Familia grande: 22 kg o más.</p>
+      </div>
+    </div>
+    <div class="cmx-step">
+      <span class="cmx-step__num">3</span>
+      <div>
+        <strong>Compara marca y precio</strong>
+        <p>Revisa capacidad, RPM y precio en Mercado Libre para encontrar la mejor relación calidad-precio.</p>
+      </div>
+    </div>
+  </div>
+</div>
 <section style="background:#EAF2EE;padding:40px 2rem 36px;">
   <div style="max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;">
     <div>
@@ -648,6 +906,49 @@ const productos = [
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
 
+// ── Funciones móvil ───────────────────────────────────────────
+function cmxTypeFilter(chipBtn) {
+  const attr = chipBtn.dataset.filter;
+  const val  = chipBtn.dataset.value;
+  const wasActive = chipBtn.classList.contains('active');
+  document.querySelectorAll(`.cmx-type-chip[data-filter="${attr}"]`).forEach(c => c.classList.remove('active'));
+  const targetVal = wasActive ? 'todos' : val;
+  if (!wasActive) chipBtn.classList.add('active');
+  const realBtn = Array.from(document.querySelectorAll('.filter')).find(b => {
+    const oc = b.getAttribute('onclick') || '';
+    return oc.includes(`'${attr}'`) && oc.includes(`'${targetVal}'`);
+  });
+  if (realBtn) realBtn.click();
+}
+function cmxToggleElegir() {
+  const panel = document.getElementById('cmxPanelElegir');
+  if (!panel) return;
+  panel.classList.toggle('open');
+  panel.setAttribute('aria-hidden', panel.classList.contains('open') ? 'false' : 'true');
+}
+function cmxOpenFilters() {
+  if (typeof toggleFiltersPanel === 'function') { toggleFiltersPanel(); return; }
+  const aside = document.getElementById('cmx-fp');
+  if (aside) aside.classList.toggle('cmx-drawer-open');
+}
+function cmxUpdateBadge() {
+  const badge = document.getElementById('cmxBadge');
+  const btn   = document.getElementById('cmxBtnFiltrar');
+  if (!badge || !btn) return;
+  let count = 0;
+  if (filters.tipo !== 'todos') count++;
+  if (filters.plataforma !== 'todos') count++;
+  const pm = document.getElementById('precio-max');
+  if (pm && pm.value) count++;
+  const sq = (document.getElementById('search')?.value || '').trim();
+  if (sq) count++;
+  if (count > 0) {
+    badge.textContent = count; badge.style.display = ''; btn.classList.add('has-filters');
+  } else {
+    badge.style.display = 'none'; btn.classList.remove('has-filters');
+  }
+}
+
 // ── Estado de filtros ─────────────────────────────────────────
 const filters = { tipo: 'todos', plataforma: 'todos' };
 
@@ -714,6 +1015,7 @@ function render() {
   empty.style.display = 'none';
   info.textContent = `Mostrando ${lista.length} de ${productos.length} productos`;
   grid.innerHTML = lista.map(p => cardHTML(p)).join('');
+  cmxUpdateBadge();
 }
 
 const tipoLabel = {
@@ -756,20 +1058,20 @@ function cardHTML(p) {
       <div class="card-btn-col">
         <div class="card-btn-col-plat">Mercado Libre</div>
         ${pML ? `<div class="card-btn-col-price">${fmtPrecio(pML)}</div>` : ''}
-        <a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'platform':'mercado_libre','product_name':this.dataset.gaLabel||'','price':parseFloat(this.dataset.gaVal)||0,'page_section':'electrodomesticos_lavadoras','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1,'category':'lavadoras'})}">Ir a <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>
+        <a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'platform':'mercado_libre','product_name':this.dataset.gaLabel||'','price':parseFloat(this.dataset.gaVal)||0,'page_section':'electrodomesticos_lavadoras','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1,'category':'lavadoras'})}">Ir a Mercado Libre</a>
       </div>
       ${p.linkAmz ? `<div class="card-btn-col">
         <div class="card-btn-col-plat">Amazon</div>
         ${pAmz ? `<div class="card-btn-col-price">${fmtPrecio(pAmz)}</div>` : ''}
-        <a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_amazon',{'platform':'amazon','product_name':this.dataset.gaLabel||'','price':parseFloat(this.dataset.gaVal)||0,'page_section':'electrodomesticos_lavadoras','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1,'category':'lavadoras'})}">Ir a <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>
+        <a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_amazon',{'platform':'amazon','product_name':this.dataset.gaLabel||'','price':parseFloat(this.dataset.gaVal)||0,'page_section':'electrodomesticos_lavadoras','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1,'category':'lavadoras'})}">Ir a Amazon</a>
       </div>` : ''}
     </div>`;
   } else {
     precioBlock = p.precio
       ? `<div class="card-price">${fmtPrecio(p.precio)}</div>`
       : `<div class="price-nd">Consulta el precio en ML</div>`;
-    const btnML  = p.linkML  ? `<a class="btn-ml"  href="${p.linkML}"  target="_blank" rel="sponsored nofollow noopener" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'platform':'mercado_libre','product_name':this.dataset.gaLabel||'','price':parseFloat(this.dataset.gaVal)||0,'page_section':'electrodomesticos_lavadoras','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1,'category':'lavadoras'})}">Ir a <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>` : '';
-    const btnAmz = p.linkAmz ? `<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_amazon',{'platform':'amazon','product_name':this.dataset.gaLabel||'','price':parseFloat(this.dataset.gaVal)||0,'page_section':'electrodomesticos_lavadoras','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1,'category':'lavadoras'})}">Ir a <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>` : '';
+    const btnML  = p.linkML  ? `<a class="btn-ml"  href="${p.linkML}"  target="_blank" rel="sponsored nofollow noopener" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'platform':'mercado_libre','product_name':this.dataset.gaLabel||'','price':parseFloat(this.dataset.gaVal)||0,'page_section':'electrodomesticos_lavadoras','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1,'category':'lavadoras'})}">Ir a Mercado Libre</a>` : '';
+    const btnAmz = p.linkAmz ? `<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_amazon',{'platform':'amazon','product_name':this.dataset.gaLabel||'','price':parseFloat(this.dataset.gaVal)||0,'page_section':'electrodomesticos_lavadoras','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1,'category':'lavadoras'})}">Ir a Amazon</a>` : '';
     btnsBlock = `<div class="card-btns">${btnML}${btnAmz}</div>`;
   }
 
