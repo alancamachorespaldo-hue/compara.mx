@@ -328,6 +328,177 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   .how-modal-ov{padding:0;align-items:flex-end}
   .how-modal{border-radius:20px 20px 0 0;max-height:85dvh}
 }
+
+/* ── Hero móvil ───────────────────────────────────── */
+@media (max-width: 767px) {
+  .hero { display: none }
+  #howCard { display: none }
+
+  .cmx-hero-m {
+    background: linear-gradient(135deg, #006847 0%, #004d34 100%);
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 12px 12px 0;
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .cmx-hero-m__content {
+    padding: 14px 14px 8px;
+    color: #fff;
+  }
+  .cmx-hero-m__title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin: 0 0 4px;
+    line-height: 1.2;
+  }
+  .cmx-hero-m__sub {
+    font-size: .82rem;
+    margin: 0 0 6px;
+    opacity: .88;
+    line-height: 1.35;
+  }
+  .cmx-hero-m__count {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: .78rem;
+    background: rgba(255,255,255,.18);
+    border-radius: 20px;
+    padding: 3px 10px;
+  }
+  .cmx-hero-m__scroll {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    padding: 10px;
+    background: rgba(255,255,255,.12);
+    border: none;
+    color: #fff;
+    font-size: .78rem;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    border-top: 1px solid rgba(255,255,255,.15);
+  }
+  .cmx-types {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 10px 0 2px;
+    scrollbar-width: none;
+  }
+  .cmx-types::-webkit-scrollbar { display: none }
+  .cmx-type-chip {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px;
+    background: rgba(255,255,255,.18);
+    border: 1px solid rgba(255,255,255,.25);
+    border-radius: 12px;
+    color: #fff;
+    font-size: .72rem;
+    cursor: pointer;
+    transition: background .15s;
+    white-space: nowrap;
+    font-family: 'Satoshi', sans-serif;
+  }
+  .cmx-type-chip.active { background: rgba(255,255,255,.38); border-color: rgba(255,255,255,.6) }
+  .cmx-type-chip:active { background: rgba(255,255,255,.38) }
+  .cmx-sbar {
+    display: flex;
+    position: sticky;
+    top: 56px;
+    z-index: 200;
+    background: #fff;
+    border-bottom: 1px solid #e8e8e8;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  }
+  .cmx-sbar__btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 13px 8px;
+    font-size: .88rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    background: #fff;
+    color: #111;
+    font-family: 'Satoshi', sans-serif;
+    transition: background .12s;
+  }
+  .cmx-sbar__btn:active { background: #f4f4f4 }
+  .cmx-sbar__filtrar {
+    border-left: 1px solid #e8e8e8;
+    color: var(--ac, #006847);
+    background: #f0faf5;
+  }
+  .cmx-sbar__filtrar.has-filters { background: var(--ac, #006847); color: #fff }
+  .cmx-sbar__badge {
+    background: #e53935;
+    color: #fff;
+    font-size: .68rem;
+    font-weight: 700;
+    border-radius: 10px;
+    padding: 1px 6px;
+    min-width: 18px;
+    text-align: center;
+  }
+  .cmx-panel-elegir {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .3s ease;
+    background: #f8fdf9;
+    border-bottom: 1px solid #d4ead9;
+  }
+  .cmx-panel-elegir.open { max-height: 420px }
+  .cmx-panel-elegir__inner { padding: 14px 16px 16px }
+  .cmx-panel-elegir__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: .95rem;
+  }
+  .cmx-panel-elegir__header button {
+    background: none; border: none; cursor: pointer; padding: 2px; color: #555;
+  }
+  .cmx-step {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+    align-items: flex-start;
+  }
+  .cmx-step__num {
+    flex: 0 0 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--ac, #006847);
+    color: #fff;
+    font-size: .78rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+  .cmx-step strong { font-size: .88rem; display: block; margin-bottom: 2px }
+  .cmx-step p { font-size: .8rem; color: #555; margin: 0; line-height: 1.4 }
+}
+@media (min-width: 768px) {
+  .cmx-hero-m { display: none }
+  .cmx-sbar { display: none }
+  .cmx-panel-elegir { display: none }
+}
 </style>
 <link rel="stylesheet" href="/assets/css/cmx-site.css">
 </head>
@@ -360,6 +531,84 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 <!-- cmx-bc:start -->
 <div class="cmx-bc"><ol aria-label="Ruta de navegación"><li><a href="/">Inicio</a></li><li><a href="/videojuegos/">Videojuegos</a></li><li aria-current="page">Consolas</li></ol></div>
 <!-- cmx-bc:end -->
+
+<!-- Hero móvil -->
+<div class="cmx-hero-m">
+  <div class="cmx-hero-m__content">
+    <h2 class="cmx-hero-m__title">Consolas de Videojuegos</h2>
+    <p class="cmx-hero-m__sub">Sobremesa y portátiles · Amazon MX y Mercado Libre</p>
+    <span class="cmx-hero-m__count">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M12 12h.01"/><path d="M7 12h.01"/><path d="M17 12h.01"/></svg>
+      30 modelos para comparar
+    </span>
+    <div class="cmx-types">
+      <button class="cmx-type-chip" data-filter="marca" data-value="Nintendo" onclick="cmxTypeFilter(this)">
+        <span class="cmx-type-chip__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="6" y="11" width="4" height="4" rx="1"/><path d="M14 13h4"/><path d="M16 11v4"/><rect x="2" y="6" width="20" height="12" rx="2"/></svg></span>
+        <span>Nintendo</span>
+      </button>
+      <button class="cmx-type-chip" data-filter="marca" data-value="Sony" onclick="cmxTypeFilter(this)">
+        <span class="cmx-type-chip__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg></span>
+        <span>PlayStation</span>
+      </button>
+      <button class="cmx-type-chip" data-filter="marca" data-value="Microsoft" onclick="cmxTypeFilter(this)">
+        <span class="cmx-type-chip__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="3" width="8" height="8"/><rect x="13" y="3" width="8" height="8"/><rect x="3" y="13" width="8" height="8"/><rect x="13" y="13" width="8" height="8"/></svg></span>
+        <span>Xbox</span>
+      </button>
+      <button class="cmx-type-chip" data-filter="tipo" data-value="Portatil" onclick="cmxTypeFilter(this)">
+        <span class="cmx-type-chip__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></span>
+        <span>Portátil</span>
+      </button>
+    </div>
+  </div>
+  <button class="cmx-hero-m__scroll" onclick="document.getElementById('grid').scrollIntoView({behavior:'smooth'})">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    <span>Desplázate para ver modelos</span>
+  </button>
+</div>
+<!-- Barra sticky -->
+<div class="cmx-sbar" id="cmxSbar">
+  <button class="cmx-sbar__btn cmx-sbar__elegir" id="cmxBtnElegir" onclick="cmxToggleElegir()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+    Cómo elegir
+  </button>
+  <button class="cmx-sbar__btn cmx-sbar__filtrar" id="cmxBtnFiltrar" onclick="cmxOpenFilters()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+    Filtrar
+    <span class="cmx-sbar__badge" id="cmxBadge" style="display:none">0</span>
+  </button>
+</div>
+<!-- Panel Cómo elegir -->
+<div class="cmx-panel-elegir" id="cmxPanelElegir" aria-hidden="true">
+  <div class="cmx-panel-elegir__inner">
+    <div class="cmx-panel-elegir__header">
+      <strong>Cómo elegir tu consola</strong>
+      <button onclick="cmxToggleElegir()" aria-label="Cerrar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="cmx-step">
+      <span class="cmx-step__num">1</span>
+      <div>
+        <strong>Elige tu plataforma</strong>
+        <p>Nintendo para juego familiar, PlayStation para exclusivos de Sony, Xbox para Game Pass.</p>
+      </div>
+    </div>
+    <div class="cmx-step">
+      <span class="cmx-step__num">2</span>
+      <div>
+        <strong>Define tu presupuesto</strong>
+        <p>Desde $3,649 (Switch Lite) hasta $26,999 (Xbox Series X Galaxy Black). Filtra por precio máximo.</p>
+      </div>
+    </div>
+    <div class="cmx-step">
+      <span class="cmx-step__num">3</span>
+      <div>
+        <strong>Compara y decide</strong>
+        <p>Revisa almacenamiento, generación y si incluye lector de discos antes de ir a la tienda.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="hero">
   <div>
@@ -756,7 +1005,7 @@ function cardHtml(p) {
     </div>`;
   } else if (hasML) {
     const priceHtml = p.precioML != null ? `<div class="card-price">$${Math.round(p.precioML).toLocaleString('es-MX')}</div>` : '';
-    btns = `${priceHtml}<a class="btn-ml" href="${p.linkML}" target="_blank" rel="nofollow sponsored noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'platform':'mercado_libre','product_name':this.dataset.gaLabel||'','price':parseFloat(this.dataset.gaVal)||0,'page_section':'videojuegos_consolas','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1,'category':'videojuegos_consolas'})}" data-ga-label="${p.nombre||''}" data-ga-val="${p.precioML||0}">Ir a <img style="height:16px;vertical-align:middle" src="/logomercado.png" alt="" onerror="this.style.display='none'"></a>`;
+    btns = `${priceHtml}<a class="btn-ml" href="${p.linkML}" target="_blank" rel="nofollow sponsored noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'platform':'mercado_libre','product_name':this.dataset.gaLabel||'','price':parseFloat(this.dataset.gaVal)||0,'page_section':'videojuegos_consolas','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1,'category':'videojuegos_consolas'})}" data-ga-label="${p.nombre||''}" data-ga-val="${p.precioML||0}">Ir a Mercado Libre</a>`;
   } else if (hasAmz) {
     const priceHtml = p.precioAmz != null ? `<div class="card-price">$${Math.round(p.precioAmz).toLocaleString('es-MX')}</div>` : '';
     btns = `${priceHtml}<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow sponsored noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_amazon',{'platform':'amazon','product_name':this.dataset.gaLabel||'','price':parseFloat(this.dataset.gaVal)||0,'page_section':'videojuegos_consolas','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1,'category':'videojuegos_consolas'})}" data-ga-label="${p.nombre||''}" data-ga-val="${p.precioAmz||0}">Ir a Amazon</a>`;
@@ -801,6 +1050,7 @@ function render() {
 
   const btn = document.getElementById('btn-reset');
   btn.classList.toggle('show', isActive());
+  cmxUpdateBadge();
 }
 
 /* ── COMPARADOR ─────────────────────────────────── */
@@ -955,6 +1205,56 @@ function closeModal() {
   document.getElementById('cmp-overlay').classList.remove('open');
 }
 /* ── /COMPARADOR ─────────────────────────────────── */
+
+// ── Móvil UX ──────────────────────────────────────
+function cmxTypeFilter(btn) {
+  const attr = btn.dataset.filter;
+  const val = btn.dataset.value;
+  const active = btn.classList.toggle('active');
+  const pills = document.querySelectorAll(`#f-${attr} .pill-btn`);
+  pills.forEach(pill => {
+    if (pill.dataset.val === val) {
+      const isOn = pill.classList.contains('on');
+      if (active && !isOn) pill.click();
+      else if (!active && isOn) pill.click();
+    }
+  });
+}
+
+function cmxToggleElegir() {
+  const panel = document.getElementById('cmxPanelElegir');
+  if (!panel) return;
+  panel.classList.toggle('open');
+  panel.setAttribute('aria-hidden', panel.classList.contains('open') ? 'false' : 'true');
+}
+
+function cmxOpenFilters() {
+  if (typeof toggleFiltersPanel === 'function') { toggleFiltersPanel(); return; }
+  const aside = document.getElementById('cmx-fp');
+  if (aside) aside.classList.toggle('cmx-drawer-open');
+}
+
+function cmxUpdateBadge() {
+  const badge = document.getElementById('cmxBadge');
+  const btn = document.getElementById('cmxBtnFiltrar');
+  if (!badge || !btn) return;
+  let count = 0;
+  if (fPrecio < PRECIO_MAX) count++;
+  count += selTipos.size + selMarcas.size;
+  if (selCond) count++;
+  const sortEl = document.getElementById('f-sort');
+  if (sortEl && sortEl.value) count++;
+  const q = (document.getElementById('search').value || '').trim();
+  if (q) count++;
+  if (count > 0) {
+    badge.textContent = count;
+    badge.style.display = '';
+    btn.classList.add('has-filters');
+  } else {
+    badge.style.display = 'none';
+    btn.classList.remove('has-filters');
+  }
+}
 
 initFilters();
 // en móvil colapsar filtros por defecto
