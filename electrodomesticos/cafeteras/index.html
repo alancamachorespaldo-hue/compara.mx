@@ -463,10 +463,6 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   <div class="cmx-hero-m__content">
     <h2 class="cmx-hero-m__title">Cafeteras</h2>
     <p class="cmx-hero-m__sub">Compara características, funciones y precios en México</p>
-    <span class="cmx-hero-m__count">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M17 8h2a2 2 0 0 1 0 4h-2"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/></svg>
-      34 modelos para comparar
-    </span>
     <!-- Chips de tipo -->
     <div class="cmx-types">
       <button class="cmx-type-chip" data-value="Espresso" onclick="cmxTypeFilter(this)">
@@ -3802,10 +3798,23 @@ function cmxTypeFilter(btn){
 function cmxToggleElegir(){
   const panel = document.getElementById('cmxPanelElegir');
   if(!panel) return;
+  const isOpening = !panel.classList.contains('open');
   panel.classList.toggle('open');
-  panel.setAttribute('aria-hidden', panel.classList.contains('open')?'false':'true');
+  panel.setAttribute('aria-hidden', isOpening?'false':'true');
   const btn = document.getElementById('cmxBtnElegir');
-  if(btn) btn.style.background = panel.classList.contains('open') ? '#f0faf5' : '';
+  if(btn) btn.style.background = isOpening ? '#f0faf5' : '';
+  if(isOpening){
+    // Si el panel está fuera de la vista (el usuario scrolleó hacia abajo),
+    // scroll para que quede visible justo debajo de la barra sticky
+    setTimeout(()=>{
+      const sbar = document.getElementById('cmxSbar');
+      const rect = panel.getBoundingClientRect();
+      if(rect.top < 0 || rect.top > window.innerHeight * 0.6){
+        const targetY = panel.offsetTop - (sbar ? sbar.offsetHeight : 44) - 63;
+        window.scrollTo({top: Math.max(0, targetY), behavior:'smooth'});
+      }
+    }, 30);
+  }
 }
 
 function cmxOpenFilters(){
