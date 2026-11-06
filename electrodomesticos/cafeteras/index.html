@@ -3670,7 +3670,7 @@ function platsHTML(p){
     <span class="pplat-price${priceStr?'':' nd'}">${priceStr||'Ver precio'}</span>
     <a class="btn-ml" href="${p.linkML}" target="_blank" rel="noopener sponsored"
        onclick="if(typeof trackAffiliate==='function')trackAffiliate('ml','${p.id}')">
-      Clic para ir <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"> →
+      Ir a Mercado Libre
     </a>
   </div></div></div>`;
 }
@@ -3737,7 +3737,7 @@ function openCmp(){
     return `<th><img class="cmp-prod-img" src="${img}" alt="${p.nombre}" onerror="this.src='${IMG_PLACEHOLDER}'">
       <div class="cmp-prod-name">${p.nombre}</div>
       <div class="cmp-prod-btns">
-        ${p.linkML?`<a class="btn-ml" href="${p.linkML}" target="_blank" rel="noopener sponsored">Clic para ir <img src="/logomercado.png" alt="Mercado Libre" style="height:15px;vertical-align:middle;margin:0 3px" onerror="this.style.display='none'"> →</a>`:''}
+        ${p.linkML?`<a class="btn-ml" href="${p.linkML}" target="_blank" rel="noopener sponsored">Ir a Mercado Libre</a>`:''}
       </div></th>`;
   }).join('')+'</tr></thead><tbody>';
   // Precio
@@ -3762,7 +3762,7 @@ function openCmp(){
   // Botón ver en tienda
   html += '<tr><td>Ver en tienda</td>'+prods.map(p=>{
     if(!p.linkML) return '<td>—</td>';
-    return `<td><a class="btn-ml" href="${p.linkML}" target="_blank" rel="noopener sponsored" style="display:inline-flex;align-items:center;gap:4px;padding:8px 14px;width:auto;border-radius:8px;white-space:nowrap">Clic para ir <img src="/logomercado.png" alt="ML" style="height:15px;vertical-align:middle" onerror="this.style.display='none'"> →</a></td>`;
+    return `<td><a class="btn-ml" href="${p.linkML}" target="_blank" rel="noopener sponsored" style="display:inline-flex;align-items:center;gap:4px;padding:8px 14px;width:auto;border-radius:8px;white-space:nowrap">Ir a Mercado Libre</a></td>`;
   }).join('')+'</tr>';
   html += '</tbody>';
   t.innerHTML = html;

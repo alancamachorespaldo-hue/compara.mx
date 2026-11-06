@@ -204,7 +204,7 @@ function cmxTypeFilter(btn) {
 | Freidoras | 2 L, 4 L, 6 L+, Doble cesta | `f-cap` / `f-tipo` |
 | Microondas | 20-23 L, 25-28 L, 30+ L, Grill, Convección | `f-cap` / `f-tipo` |
 | Laptops | Gaming, Ultrabook, 2-en-1, Workstation | `f-uso` |
-| Smartwatches | Android, iOS, Universal | `f-os` |
+| Smartwatches | Apple/iOS, Android, Con GPS, Con NFC | `window._cmxChipFilter` (ver smartwatches como referencia) |
 | Bicis | Eléctrica, Montaña, Ruta, Gravel | `f-tipo` |
 | Suplementos | Según sub-categoría | varía |
 
@@ -461,32 +461,21 @@ function cmxOpenFilters() {
 
 ## Paso 6 — Tarjetas: botones Amazon / Mercado Libre con CTA claro
 
-Los botones actuales (íconos solos o con texto corto) se mejoran **sin cambiar la lógica de links ni el tag de afiliado**.
+Los botones deben tener **texto completo** directamente en el HTML del `cardHtml`: `Ir a Mercado Libre` y `Ir a Amazon`. Sin logos ni íconos dentro del botón — el nombre de la tienda es suficiente para que el usuario sepa a dónde lo lleva.
 
-Añadir al CSS de la página:
+**En el `cardHtml` de la página**, localiza donde se genera el `<a class="btn-ml">` y el `<a class="btn-amz">` y asegúrate de que el contenido sea solo texto:
 
-```css
-@media (max-width: 767px) {
-  /* Botones de tienda más descriptivos */
-  .pplat a, .pcard-plats a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    font-size: .72rem;
-    font-weight: 600;
-    padding: 7px 6px;
-    border-radius: 8px;
-    text-decoration: none;
-    white-space: nowrap;
-  }
-  /* El texto "Ir a" se añade via CSS ::before para no tocar el HTML */
-  .pplat--amz a::before { content: 'Ver en ' }
-  .pplat--ml a::before  { content: 'Ver en ' }
-}
+```js
+// ML
+`<a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" ...>Ir a Mercado Libre</a>`
+
+// Amazon
+`<a class="btn-amz" href="${amzUrl(p)}" target="_blank" rel="sponsored nofollow noopener" ...>Ir a Amazon</a>`
 ```
 
-Si la estructura de tarjetas no tiene las clases `.pplat--amz` / `.pplat--ml`, revisar cuáles usa la página real y adaptar los selectores sin modificar la lógica.
+**No uses** `::before` CSS ni `<span class="btn-ira-txt">` — el texto va directo en el `<a>`. Esto funciona igual en escritorio y móvil sin CSS adicional.
+
+Si la página oculta `.btn-ira-txt` en móvil con `display:none`, ese CSS queda obsoleto (no hace daño dejarlo, pero tampoco aplica si no hay ese span).
 
 ---
 
