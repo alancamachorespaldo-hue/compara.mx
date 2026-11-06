@@ -300,6 +300,130 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   .caf-filters-head{flex-shrink:0}
   .caf-section{flex-shrink:0}
 }
+
+/* ══ MEJORA MÓVIL ══════════════════════════════════════ */
+@media(max-width:767px){
+
+  /* Ocultar hero original y filtrar-btn original en móvil */
+  .hero{display:none}
+  .caf-filtrar-btn{display:none!important}
+
+  /* ── Hero móvil ── */
+  .cmx-hero-m{
+    position:relative;border-radius:16px;overflow:hidden;
+    margin:10px 10px 0;min-height:170px;
+    display:flex;flex-direction:column;justify-content:flex-end;
+    background:linear-gradient(135deg,#006847 0%,#004d34 100%);
+  }
+  .cmx-hero-m__bg{
+    position:absolute;inset:0;
+    background-size:cover;background-position:center;
+    filter:brightness(.38);
+  }
+  .cmx-hero-m__content{
+    position:relative;padding:14px 14px 6px;color:#fff;
+  }
+  .cmx-hero-m__title{
+    font-size:1.4rem;font-weight:800;margin:0 0 3px;
+    line-height:1.15;letter-spacing:-.03em;
+  }
+  .cmx-hero-m__sub{
+    font-size:.82rem;margin:0 0 7px;opacity:.87;line-height:1.35;
+  }
+  .cmx-hero-m__count{
+    display:inline-flex;align-items:center;gap:5px;
+    font-size:.76rem;background:rgba(255,255,255,.18);
+    border-radius:20px;padding:3px 10px;
+  }
+
+  /* Chips de tipo */
+  .cmx-types{
+    display:flex;gap:7px;overflow-x:auto;
+    padding:10px 14px 4px;scrollbar-width:none;position:relative;
+  }
+  .cmx-types::-webkit-scrollbar{display:none}
+  .cmx-type-chip{
+    flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:4px;
+    padding:7px 12px;background:rgba(255,255,255,.18);
+    border:1px solid rgba(255,255,255,.25);border-radius:12px;
+    color:#fff;font-size:.71rem;cursor:pointer;
+    transition:background .15s;white-space:nowrap;
+    font-family:'Satoshi',sans-serif;font-weight:600;
+  }
+  .cmx-type-chip.active,.cmx-type-chip:active{
+    background:rgba(255,255,255,.38);border-color:rgba(255,255,255,.65);
+  }
+
+  /* Scroll CTA */
+  .cmx-hero-m__scroll{
+    position:relative;display:flex;align-items:center;
+    justify-content:center;gap:6px;width:100%;padding:10px;
+    background:rgba(255,255,255,.1);border:none;color:#fff;
+    font-size:.77rem;cursor:pointer;
+    border-top:1px solid rgba(255,255,255,.12);
+    font-family:'Satoshi',sans-serif;font-weight:500;
+    backdrop-filter:blur(4px);
+  }
+
+  /* ── Barra sticky ── */
+  .cmx-sbar{
+    display:flex;position:sticky;top:63px;z-index:150;
+    background:#fff;border-bottom:1px solid #e8e8e8;
+    box-shadow:0 2px 8px rgba(0,0,0,.07);
+  }
+  .cmx-sbar__btn{
+    flex:1;display:flex;align-items:center;justify-content:center;
+    gap:7px;padding:13px 8px;font-size:.88rem;font-weight:700;
+    border:none;cursor:pointer;background:#fff;color:#111;
+    transition:background .12s;font-family:'Satoshi',sans-serif;
+  }
+  .cmx-sbar__btn:active{background:#f4f4f4}
+  .cmx-sbar__filtrar{
+    border-left:1px solid #e8e8e8;
+    color:var(--ac);background:#f0faf5;
+  }
+  .cmx-sbar__filtrar.has-filters{background:var(--ac);color:#fff}
+  .cmx-sbar__badge{
+    background:#e53935;color:#fff;font-size:.67rem;font-weight:800;
+    border-radius:10px;padding:1px 6px;min-width:18px;text-align:center;
+  }
+
+  /* ── Panel Cómo elegir ── */
+  .cmx-panel-elegir{
+    max-height:0;overflow:hidden;
+    transition:max-height .3s ease;
+    background:#f8fdf9;border-bottom:1px solid #d4ead9;
+  }
+  .cmx-panel-elegir.open{max-height:420px}
+  .cmx-panel-elegir__inner{padding:14px 16px 16px}
+  .cmx-panel-elegir__header{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-bottom:12px;font-size:.95rem;font-weight:700;
+  }
+  .cmx-panel-elegir__header button{
+    background:none;border:none;cursor:pointer;padding:4px;
+    color:#555;line-height:1;
+  }
+  .cmx-step{
+    display:flex;gap:12px;margin-bottom:12px;align-items:flex-start;
+  }
+  .cmx-step__num{
+    flex:0 0 24px;height:24px;border-radius:50%;
+    background:var(--ac);color:#fff;font-size:.78rem;font-weight:800;
+    display:flex;align-items:center;justify-content:center;margin-top:1px;
+  }
+  .cmx-step strong{font-size:.88rem;display:block;margin-bottom:2px}
+  .cmx-step p{font-size:.8rem;color:#555;margin:0;line-height:1.4}
+
+  /* Tarjetas: compactar specs en 2 columnas */
+  .pmetric-lbl2{font-size:.72rem}
+  .pmetric-val2{font-size:.78rem}
+  .pmetric-row{padding:4px 1px}
+}
+
+@media(min-width:768px){
+  .cmx-hero-m,.cmx-sbar,.cmx-panel-elegir{display:none}
+}
 </style>
 <link rel="stylesheet" href="/assets/css/cmx-site.css">
 </head>
@@ -332,6 +456,88 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 <!-- cmx-bc:start -->
 <div class="cmx-bc"><ol aria-label="Ruta de navegación"><li><a href="/">Inicio</a></li><li><a href="/electrodomesticos/">Electrodomésticos</a></li><li aria-current="page">Cafeteras</li></ol></div>
 <!-- cmx-bc:end -->
+
+<!-- ── Hero móvil ─────────────────────────────────────── -->
+<div class="cmx-hero-m">
+  <div class="cmx-hero-m__bg" style="background-image:url('https://http2.mlstatic.com/D_NQ_NP_822030-MLA99908871201_112025-O.jpg')"></div>
+  <div class="cmx-hero-m__content">
+    <h2 class="cmx-hero-m__title">Cafeteras</h2>
+    <p class="cmx-hero-m__sub">Compara características, funciones y precios en México</p>
+    <span class="cmx-hero-m__count">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M17 8h2a2 2 0 0 1 0 4h-2"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/></svg>
+      34 modelos para comparar
+    </span>
+    <!-- Chips de tipo -->
+    <div class="cmx-types">
+      <button class="cmx-type-chip" data-value="Espresso" onclick="cmxTypeFilter(this)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M17 8h2a2 2 0 0 1 0 4h-2"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>
+        <span>Espresso</span>
+      </button>
+      <button class="cmx-type-chip" data-value="Goteo" onclick="cmxTypeFilter(this)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+        <span>Goteo</span>
+      </button>
+      <button class="cmx-type-chip" data-value="Cápsulas" onclick="cmxTypeFilter(this)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M3 9h18"/></svg>
+        <span>Cápsulas</span>
+      </button>
+      <button class="cmx-type-chip" data-value="Percolador" onclick="cmxTypeFilter(this)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M6 2v2"/><path d="M4 4h16"/><path d="M18 4v9a6 6 0 0 1-12 0V4"/><path d="M9 20h6"/><path d="M12 16v4"/></svg>
+        <span>Percolador</span>
+      </button>
+    </div>
+  </div>
+  <button class="cmx-hero-m__scroll" onclick="document.getElementById('grid').scrollIntoView({behavior:'smooth'})">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    <span>Desplázate para ver modelos</span>
+  </button>
+</div>
+
+<!-- ── Barra sticky ─────────────────────────────────── -->
+<div class="cmx-sbar" id="cmxSbar">
+  <button class="cmx-sbar__btn cmx-sbar__elegir" id="cmxBtnElegir" onclick="cmxToggleElegir()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+    Cómo elegir
+  </button>
+  <button class="cmx-sbar__btn cmx-sbar__filtrar" id="cmxBtnFiltrar" onclick="cmxOpenFilters()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+    Filtrar
+    <span class="cmx-sbar__badge" id="cmxBadge" style="display:none">0</span>
+  </button>
+</div>
+
+<!-- ── Panel Cómo elegir ──────────────────────────── -->
+<div class="cmx-panel-elegir" id="cmxPanelElegir" aria-hidden="true">
+  <div class="cmx-panel-elegir__inner">
+    <div class="cmx-panel-elegir__header">
+      <span>Cómo elegir tu cafetera</span>
+      <button onclick="cmxToggleElegir()" aria-label="Cerrar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="cmx-step">
+      <span class="cmx-step__num">1</span>
+      <div>
+        <strong>Elige el tipo</strong>
+        <p>Espresso para café intenso, goteo para hacer jarras, cápsulas para comodidad, percoladora para eventos.</p>
+      </div>
+    </div>
+    <div class="cmx-step">
+      <span class="cmx-step__num">2</span>
+      <div>
+        <strong>Revisa las características</strong>
+        <p>Presión (15–20 bar), vaporizador si quieres cappuccinos, molinillo si prefieres café en grano.</p>
+      </div>
+    </div>
+    <div class="cmx-step">
+      <span class="cmx-step__num">3</span>
+      <div>
+        <strong>Compara y decide</strong>
+        <p>Toca una tarjeta para seleccionarla, selecciona 2–3 y pulsa "Comparar" para ver diferencias lado a lado.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="hero">
   <div>
@@ -3430,6 +3636,7 @@ function updateFilterCount(){
   if(maxEl?.value) count++;
   badge.textContent=count;
   badge.style.display=count>0?'inline-block':'none';
+  cmxUpdateBadge();
 }
 
 function getFiltered(){
@@ -3574,6 +3781,53 @@ function closeCmp(){
 function closeCmpIfOut(e){if(e.target===e.currentTarget)closeCmp();}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCmp();});
 
+/* ── Funciones mejora móvil ── */
+function cmxTypeFilter(btn){
+  const val = btn.dataset.value;
+  const isActive = btn.classList.contains('active');
+  // Deselect all chips first
+  document.querySelectorAll('.cmx-type-chip').forEach(b=>b.classList.remove('active'));
+  // Find the target pill in the sidebar panel and click it
+  const target = isActive ? 'todos' : val;
+  const pills = document.querySelectorAll('#caf-pills-tipo .filter');
+  for(const p of pills){
+    const oc = p.getAttribute('onclick')||'';
+    const matchTodos = target==='todos' && p.id==='f-todos-tipo';
+    const matchVal = oc.includes("'"+target+"'");
+    if(matchTodos||matchVal){ p.click(); break; }
+  }
+  if(!isActive) btn.classList.add('active');
+}
+
+function cmxToggleElegir(){
+  const panel = document.getElementById('cmxPanelElegir');
+  if(!panel) return;
+  panel.classList.toggle('open');
+  panel.setAttribute('aria-hidden', panel.classList.contains('open')?'false':'true');
+  const btn = document.getElementById('cmxBtnElegir');
+  if(btn) btn.style.background = panel.classList.contains('open') ? '#f0faf5' : '';
+}
+
+function cmxOpenFilters(){
+  openFiltersDrawer();
+}
+
+function cmxUpdateBadge(){
+  const badge = document.getElementById('cmxBadge');
+  const btn = document.getElementById('cmxBtnFiltrar');
+  if(!badge||!btn) return;
+  const srcBadge = document.getElementById('caf-filtrar-count');
+  const count = srcBadge ? parseInt(srcBadge.textContent||'0') : 0;
+  if(count>0){
+    badge.textContent = count;
+    badge.style.display = '';
+    btn.classList.add('has-filters');
+  } else {
+    badge.style.display = 'none';
+    btn.classList.remove('has-filters');
+  }
+}
+
 renderAll();
 // Pre-selección desde la guía de cafeteras
 try{
@@ -3598,7 +3852,7 @@ function seoFilter(group,val){
 
 <script src="/assets/js/share.js" defer></script>
 <script src="/assets/js/price-drops.js" defer></script>
-<script src="/js/onboarding.js" defer></script>
+<script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
 </body>
 </html>
