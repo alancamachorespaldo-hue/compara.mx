@@ -233,6 +233,26 @@
           ['hielo', 'Dispensador de hielo', function (p) { return p.dispensadorHielo === true; }]])
       ];
     },
+    '/electrodomesticos/ollas/': function () {
+      return [
+        { id: 'plataforma', title: 'Tienda', mode: 'or', pills: true, opts: [
+          { v: 'todos', label: 'Ambas', all: true, test: function () { return true; } },
+          { v: 'amz', label: '<img src="/logoamazon.png" alt="Amazon" style="height:16px;vertical-align:middle">', test: function (p) { return !!p.linkAmz; } },
+          { v: 'ml',  label: '<img src="/logomercado.png" alt="Mercado Libre" style="height:18px;vertical-align:middle">', test: function (p) { return !!p.linkML; } }
+        ]},
+        { id: 'capacidad', title: 'Capacidad', mode: 'or', opts: [
+          { v: 'c1', label: 'Hasta 3 L', test: function (p) { return typeof p.capacidadL === 'number' && p.capacidadL <= 3; } },
+          { v: 'c2', label: '3 a 5 L', test: function (p) { return typeof p.capacidadL === 'number' && p.capacidadL > 3 && p.capacidadL <= 5; } },
+          { v: 'c3', label: 'Más de 5 L', test: function (p) { return typeof p.capacidadL === 'number' && p.capacidadL > 5; } }
+        ]},
+        byValue('material', 'Material', function (p) { return p.material || null; }),
+        flags('carac', 'Características', [
+          ['programable', 'Programable', function (p) { return p.programable === true; }]
+        ]),
+        brand(),
+        dropFacet()
+      ];
+    },
     '/tecnologia/smartwatches/': function () {
       return [
         { id: 'plataforma', title: 'Tienda', mode: 'or', pills: true, opts: [

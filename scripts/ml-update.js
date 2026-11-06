@@ -56,9 +56,9 @@ const CATALOG = {
   bicisMontanaDed:       { file: 'bicicletas/bici-montana/index.html',    varName: 'MONTANA',  dataKey: 'bicisMontana' },
   bicisRuta:             { file: 'bicis/index.html',                      varName: 'RUTA'      },
   bicisGravel:           { file: 'bicis/index.html',                      varName: 'GRAVEL'    },
+  ollas:                 { file: 'electrodomesticos/ollas/index.html',      varName: 'productos' },
   streaming:             { file: 'entretenimiento/streaming/index.html',  varName: 'productos' },
-  // tecnologia_smartwatches: sin productos aún; agregar cuando se pueble:
-  // tecnologia_smartwatches: { file: 'tecnologia/smartwatches/index.html', varName: 'productos' },
+  tecnologia_smartwatches: { file: 'tecnologia/smartwatches/index.html', varName: 'productos' },
 };
 // Celulares: estructura "familias + variantes" — manejado por updateCelulares().
 // ID por variante: "{prefix}-{familia.modeloBase}-{storage}gb-{ram}gb"
