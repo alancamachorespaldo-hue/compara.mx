@@ -10,7 +10,7 @@ on:
         description: 'Categoría a actualizar'
         type: choice
         default: all
-        options: [all, laptops, freidoras, bicis, bicisMontana, bicisMontanaDed, microondas, cafeteras, suplementos, proteina, omega3, magnesio, creatina, complejo_b, videojuegos_consolas, videojuegos_controles, videojuegos_juegos, tecnologia_bocinas, tecnologia_audifonos, celulares_android, streaming, refrigeradores, lavadoras]
+        options: [all, laptops, freidoras, bicis, bicisMontana, bicisMontanaDed, microondas, cafeteras, suplementos, proteina, omega3, magnesio, creatina, complejo_b, videojuegos_consolas, videojuegos_controles, videojuegos_juegos, tecnologia_bocinas, tecnologia_audifonos, tecnologia_smartwatches, celulares_android, celulares_iphone, streaming, refrigeradores, lavadoras, ollas]
 
 jobs:
   update-prices:
@@ -80,11 +80,12 @@ jobs:
           git add laptops/index.html bicis/index.html bicicletas/bici-montana/index.html entretenimiento/streaming/index.html \
             electrodomesticos/freidoras/index.html electrodomesticos/microondas/index.html \
             electrodomesticos/cafeteras/index.html \
+            electrodomesticos/refrigeradores/index.html electrodomesticos/lavadoras/index.html electrodomesticos/ollas/index.html \
             suplementos/proteina/index.html suplementos/omega3/index.html suplementos/magnesio/index.html \
             suplementos/creatina/index.html suplementos/complejo-b/index.html \
             videojuegos/consolas/index.html videojuegos/controles/index.html videojuegos/juegos/index.html \
-            tecnologia/bocinas/index.html tecnologia/audifonos/index.html \
-            celulares/android/index.html suplementos/vitamina-d/index.html \
+            tecnologia/bocinas/index.html tecnologia/audifonos/index.html tecnologia/smartwatches/index.html \
+            celulares/android/index.html celulares/iphone/index.html suplementos/vitamina-d/index.html \
             celulares/catalog-mini.json celulares/descuentos.json \
             suplementos/proteina/descuentos.json laptops/descuentos.json suplementos/creatina/descuentos.json \
             electrodomesticos/cafeteras/descuentos.json \
@@ -92,7 +93,7 @@ jobs:
             suplementos/omega3/descuentos.json suplementos/magnesio/descuentos.json suplementos/complejo-b/descuentos.json \
             suplementos/vitamina-d/descuentos.json \
             videojuegos/consolas/descuentos.json videojuegos/controles/descuentos.json videojuegos/juegos/descuentos.json \
-            tecnologia/bocinas/descuentos.json tecnologia/audifonos/descuentos.json \
+            tecnologia/bocinas/descuentos.json tecnologia/audifonos/descuentos.json tecnologia/smartwatches/descuentos.json \
             entretenimiento/streaming/descuentos.json \
             electrodomesticos/refrigeradores/descuentos.json electrodomesticos/lavadoras/descuentos.json \
             assets/data/bajadas.json \
