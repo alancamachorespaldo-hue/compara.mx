@@ -496,6 +496,42 @@ details.prt-section summary:focus-visible{outline:2px solid var(--ac);outline-of
 /* ── Alerta de bajada de precio (Mercado Libre) ──────────────────── */
 .prt-bajada{display:block;font-size:10.5px;font-weight:700;color:#dc2626;margin-top:2px}
 .prt-bajada s{color:var(--tx3);font-weight:500;margin-right:4px}
+/* ══ MEJORA MÓVIL ══════════════════════════════════════════════════ */
+@media(max-width:767px){
+  .hero{display:none}
+  .how-card{display:none!important}
+  .how-strip{display:none!important}
+  .cmx-hero-m{position:relative;border-radius:16px;overflow:hidden;margin:12px 12px 0;min-height:168px;display:flex;flex-direction:column;justify-content:flex-end}
+  .cmx-hero-m__bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.42)}
+  .cmx-hero-m__content{position:relative;padding:14px 14px 2px;color:#fff}
+  .cmx-hero-m__title{font-size:1.35rem;font-weight:700;margin:0 0 4px;line-height:1.2}
+  .cmx-hero-m__sub{font-size:.8rem;margin:0 0 10px;opacity:.88;line-height:1.35}
+  .cmx-hero-m__scroll{position:relative;display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:10px;background:rgba(255,255,255,.12);border:none;color:#fff;font-size:.78rem;cursor:pointer;backdrop-filter:blur(4px);border-top:1px solid rgba(255,255,255,.15)}
+  .cmx-types{display:flex;gap:8px;overflow-x:auto;padding:0 0 10px;scrollbar-width:none}
+  .cmx-types::-webkit-scrollbar{display:none}
+  .cmx-type-chip{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 12px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);border-radius:12px;color:#fff;font-size:.72rem;cursor:pointer;transition:background .15s;white-space:nowrap}
+  .cmx-type-chip.active{background:rgba(255,255,255,.38);border-color:rgba(255,255,255,.6)}
+  .cmx-type-chip__icon svg{width:20px;height:20px;stroke:currentColor}
+  .cmx-sbar{display:flex;position:sticky;top:63px;z-index:150;background:#fff;border-bottom:1px solid #e8e8e8;box-shadow:0 2px 8px rgba(0,0,0,.08);gap:0}
+  .cmx-sbar__btn{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:13px 8px;font-size:.88rem;font-weight:600;border:none;cursor:pointer;background:#fff;color:#111;transition:background .12s;font-family:'Satoshi',sans-serif}
+  .cmx-sbar__btn:active{background:#f4f4f4}
+  .cmx-sbar__filtrar{border-left:1px solid #e8e8e8;color:var(--ac);background:#f0faf5}
+  .cmx-sbar__filtrar.has-filters{background:var(--ac);color:#fff}
+  .cmx-sbar__badge{background:#e53935;color:#fff;font-size:.68rem;font-weight:700;border-radius:10px;padding:1px 6px;min-width:18px;text-align:center}
+  .cmx-panel-elegir{max-height:0;overflow:hidden;transition:max-height .3s ease;background:#f8fdf9;border-bottom:1px solid #d4ead9}
+  .cmx-panel-elegir.open{max-height:420px}
+  .cmx-panel-elegir__inner{padding:14px 16px 16px}
+  .cmx-panel-elegir__header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:.95rem}
+  .cmx-panel-elegir__header button{background:none;border:none;cursor:pointer;padding:2px;color:#555}
+  .cmx-step{display:flex;gap:12px;margin-bottom:12px;align-items:flex-start}
+  .cmx-step__num{flex:0 0 24px;height:24px;border-radius:50%;background:var(--ac);color:#fff;font-size:.78rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:2px}
+  .cmx-step strong{font-size:.88rem;display:block;margin-bottom:2px}
+  .cmx-step p{font-size:.8rem;color:#555;margin:0;line-height:1.4}
+  /* Ocultar botón filtrar propio y FAB comparador */
+  .prt-filtrar-btn{display:none!important}
+  .cmp-fab{display:none!important}
+}
+@media(min-width:768px){.cmx-hero-m,.cmx-sbar,.cmx-panel-elegir{display:none}}
 </style>
 <link rel="stylesheet" href="/assets/css/cmx-site.css">
 <script src="/assets/js/paginate.js"></script>
@@ -529,6 +565,79 @@ details.prt-section summary:focus-visible{outline:2px solid var(--ac);outline-of
 <!-- cmx-bc:start -->
 <div class="cmx-bc"><ol aria-label="Ruta de navegación"><li><a href="/">Inicio</a></li><li><a href="/suplementos/">Suplementos</a></li><li aria-current="page">Proteína</li></ol></div>
 <!-- cmx-bc:end -->
+
+<!-- ══ HERO MÓVIL ═══════════════════════════════════════════════════ -->
+<div class="cmx-hero-m">
+  <div class="cmx-hero-m__bg" style="background-image:url('/fotos/og/proteina-og.webp')"></div>
+  <div class="cmx-hero-m__content">
+    <h2 class="cmx-hero-m__title">Proteína en México</h2>
+    <p class="cmx-hero-m__sub">Compara Whey, Isolate, Vegana y más en Amazon MX y ML</p>
+    <div class="cmx-types">
+      <button class="cmx-type-chip" data-cmx-tipo="whey" onclick="cmxTipoFilter(this)">
+        <span class="cmx-type-chip__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>
+        <span>Whey</span>
+      </button>
+      <button class="cmx-type-chip" data-cmx-tipo="isolate" onclick="cmxTipoFilter(this)">
+        <span class="cmx-type-chip__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
+        <span>Isolate</span>
+      </button>
+      <button class="cmx-type-chip" data-cmx-tipo="vegetal" onclick="cmxTipoFilter(this)">
+        <span class="cmx-type-chip__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22c1.25-.987 2.27-1.975 3.9-2.2a5.56 5.56 0 0 1 3.8 1.5 4 4 0 0 0 6.187-2.353 3.5 3.5 0 0 0 3.69-5.116A3.5 3.5 0 0 0 20.95 8 3.5 3.5 0 1 0 16 3.306a3.5 3.5 0 0 0-5.831 1.803 3.5 3.5 0 0 0-3.447 4.616A3.5 3.5 0 0 0 5 16a4 4 0 0 0-3 6z"/></svg></span>
+        <span>Vegetal</span>
+      </button>
+      <button class="cmx-type-chip" data-cmx-tipo="bone-broth" onclick="cmxTipoFilter(this)">
+        <span class="cmx-type-chip__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8C8 10 5.9 16.17 3.82 19.19c-.1.15-.29.17-.38.03-.27-.38-.89-1.38-.82-2.72C2.72 13.81 5 10 8 8c2-1.33 4-2 6-2 2.73 0 5.26 1.67 7 4"/><path d="M12 2c-1.5 0-2.72.3-3.82.82"/><path d="M17 8c1.33 2 2 4 2 6 0 3-2.67 5.33-4 6"/></svg></span>
+        <span>Bone Broth</span>
+      </button>
+    </div>
+  </div>
+  <button class="cmx-hero-m__scroll" onclick="document.getElementById('grid').scrollIntoView({behavior:'smooth'})">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    <span>Desplázate para ver productos</span>
+  </button>
+</div>
+<div class="cmx-sbar" id="cmxSbar">
+  <button class="cmx-sbar__btn cmx-sbar__elegir" id="cmxBtnElegir" onclick="cmxToggleElegir()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+    Cómo elegir
+  </button>
+  <button class="cmx-sbar__btn cmx-sbar__filtrar" id="cmxBtnFiltrar" onclick="cmxOpenFilters()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+    Filtrar
+    <span class="cmx-sbar__badge" id="cmxBadge" style="display:none">0</span>
+  </button>
+</div>
+<div class="cmx-panel-elegir" id="cmxPanelElegir" aria-hidden="true">
+  <div class="cmx-panel-elegir__inner">
+    <div class="cmx-panel-elegir__header">
+      <strong>Cómo elegir tu proteína</strong>
+      <button onclick="cmxToggleElegir()" aria-label="Cerrar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="cmx-step">
+      <span class="cmx-step__num">1</span>
+      <div>
+        <strong>Elige el tipo según tu objetivo</strong>
+        <p>Whey para ganancia muscular rápida; Isolate si evitas lactosa; Vegana/Vegetal para dietas plant-based; Caseína para recuperación nocturna.</p>
+      </div>
+    </div>
+    <div class="cmx-step">
+      <span class="cmx-step__num">2</span>
+      <div>
+        <strong>Revisa el costo por porción</strong>
+        <p>Compara proteína por gramo, no por precio del bote. Busca al menos 20 g de proteína por porción.</p>
+      </div>
+    </div>
+    <div class="cmx-step">
+      <span class="cmx-step__num">3</span>
+      <div>
+        <strong>Consulta el precio en la tienda</strong>
+        <p>Pulsa "Ir a Amazon" o "Ir a Mercado Libre" para ver el precio final antes de comprar.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="hero">
   <div>
@@ -5397,6 +5506,67 @@ function clearFilters() {
   afterFilterChange();
 }
 
+/* ─── MEJORA MÓVIL ─────────────────────────────────────── */
+function cmxTipoFilter(btn) {
+  var val = btn.dataset.cmxTipo;
+  var isActive = btn.classList.contains('active');
+  document.querySelectorAll('.cmx-type-chip[data-cmx-tipo]').forEach(function(b){ b.classList.remove('active'); });
+  if (isActive) {
+    filters.tipos.clear();
+  } else {
+    filters.tipos.clear();
+    filters.tipos.add(val);
+    btn.classList.add('active');
+  }
+  afterFilterChange();
+}
+function cmxToggleElegir() {
+  var panel = document.getElementById('cmxPanelElegir');
+  if (!panel) return;
+  var isOpening = !panel.classList.contains('open');
+  panel.classList.toggle('open');
+  panel.setAttribute('aria-hidden', isOpening ? 'false' : 'true');
+  var btn = document.getElementById('cmxBtnElegir');
+  if (btn) btn.style.background = isOpening ? '#f0faf5' : '';
+  if (isOpening) {
+    setTimeout(function() {
+      var sbar = document.getElementById('cmxSbar');
+      var rect = panel.getBoundingClientRect();
+      if (rect.top < 0 || rect.top > window.innerHeight * 0.6) {
+        var targetY = panel.offsetTop - (sbar ? sbar.offsetHeight : 46) - 63;
+        window.scrollTo({ top: Math.max(0, targetY), behavior: 'smooth' });
+      }
+    }, 30);
+  }
+}
+function cmxOpenFilters() {
+  if (typeof openFiltersDrawer === 'function') openFiltersDrawer();
+}
+function cmxUpdateBadge() {
+  requestAnimationFrame(function() {
+    var active = 0;
+    var fs = window.filters || filters;
+    if (fs.tipos) active += fs.tipos.size;
+    if (fs.marcas) active += fs.marcas.size;
+    if (fs.sabores) active += fs.sabores.size;
+    if (fs.caract) active += fs.caract.size;
+    if (fs.plataforma && fs.plataforma !== 'todos') active++;
+    if (fs.soloFavs) active++;
+    if (fs.soloBajada) active++;
+    var badge = document.getElementById('cmxBadge');
+    var btnF = document.getElementById('cmxBtnFiltrar');
+    if (!badge || !btnF) return;
+    if (active > 0) {
+      badge.textContent = active;
+      badge.style.display = '';
+      btnF.classList.add('has-filters');
+    } else {
+      badge.style.display = 'none';
+      btnF.classList.remove('has-filters');
+    }
+  });
+}
+
 function render() {
   const q = (document.getElementById('search').value || '').toLowerCase();
   const sortVal = document.getElementById('sort-sel').value;
@@ -5446,6 +5616,7 @@ function render() {
   info.textContent = `Mostrando ${lista.length} de ${productos.length} productos`;
   grid.innerHTML = cmxPaginate(grid, lista).map(p => cardHTML(p)).join('');
   updateFavCount();
+  cmxUpdateBadge();
 }
 
 // Amazon: si no hay link de afiliado directo, el botón lleva a una búsqueda del producto en
