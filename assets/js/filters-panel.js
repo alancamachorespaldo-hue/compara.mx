@@ -187,6 +187,33 @@
         byValue('rueda', 'Rueda', function (p) { return p.rueda || null; })
       ];
     },
+    '/electrodomesticos/microondas/': function () {
+      return [
+        { id: 'plataforma', title: 'Tienda', mode: 'or', pills: true, opts: [
+          { v: 'todos', label: 'Ambas', all: true, test: function () { return true; } },
+          { v: 'amz', label: '<img src="/logoamazon.png" alt="Amazon" style="height:16px;vertical-align:middle">', test: function (p) { return !!p.linkAmz; } },
+          { v: 'ml',  label: '<img src="/logomercado.png" alt="Mercado Libre" style="height:18px;vertical-align:middle">', test: function (p) { return !!p.linkML; } }
+        ]},
+        { id: 'color', title: 'Color', mode: 'or', opts: [
+          { v: 'plateado', label: 'Plateado / Silver', test: function (p) { return ['plateado','plata','silver'].includes((p.color||'').toLowerCase()); } },
+          { v: 'negro', label: 'Negro', test: function (p) { return (p.color||'').toLowerCase() === 'negro'; } },
+          { v: 'blanco', label: 'Blanco', test: function (p) { return (p.color||'').toLowerCase() === 'blanco'; } },
+          { v: 'gris', label: 'Gris', test: function (p) { return (p.color||'').toLowerCase() === 'gris'; } }
+        ]},
+        { id: 'capacidad', title: 'Capacidad', mode: 'or', opts: [
+          { v: 'c1', label: 'Hasta 20 L', test: function (p) { return typeof p.capacidad === 'number' && p.capacidad <= 20; } },
+          { v: 'c2', label: '21–30 L', test: function (p) { return typeof p.capacidad === 'number' && p.capacidad > 20 && p.capacidad <= 30; } },
+          { v: 'c3', label: 'Más de 30 L', test: function (p) { return typeof p.capacidad === 'number' && p.capacidad > 30; } }
+        ]},
+        flags('func', 'Funciones', [
+          ['desc-auto', 'Desc. automático', function (p) { return p.funciones && p.funciones.includes('descongelar-peso'); }],
+          ['silencio', 'Silencio', function (p) { return p.funciones && p.funciones.includes('silencio'); }],
+          ['caliente', 'Mantener caliente', function (p) { return p.funciones && p.funciones.includes('mantener-caliente'); }],
+          ['ninos', 'Seg. niños', function (p) { return p.funciones && p.funciones.includes('seguridad-ninos'); }]
+        ]),
+        brand()
+      ];
+    },
     '/electrodomesticos/refrigeradores/': function () {
       return [
         platform([
