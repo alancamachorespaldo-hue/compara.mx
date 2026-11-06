@@ -368,6 +368,46 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   .how-modal-ov{padding:0;align-items:flex-end}
   .how-modal{border-radius:20px 20px 0 0;max-height:85dvh}
 }
+/* ── Hero móvil creatina ───────────────────────────────────── */
+@media(max-width:767px){
+  .hero{display:none}
+  .cmx-hero-m{position:relative;border-radius:16px;overflow:hidden;margin:12px 12px 0;min-height:160px;display:flex;flex-direction:column;justify-content:flex-end}
+  .cmx-hero-m__bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.42)}
+  .cmx-hero-m__content{position:relative;padding:14px 14px 8px;color:#fff}
+  .cmx-hero-m__title{font-size:1.35rem;font-weight:700;margin:0 0 4px;line-height:1.2}
+  .cmx-hero-m__sub{font-size:.82rem;margin:0 0 6px;opacity:.88;line-height:1.35}
+  .cmx-hero-m__count{display:inline-flex;align-items:center;gap:5px;font-size:.78rem;background:rgba(255,255,255,.18);border-radius:20px;padding:3px 10px}
+  .cmx-types{display:flex;gap:8px;overflow-x:auto;padding:10px 14px 2px;scrollbar-width:none;position:relative}
+  .cmx-types::-webkit-scrollbar{display:none}
+  .cmx-type-chip{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 12px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);border-radius:12px;color:#fff;font-size:.72rem;cursor:pointer;transition:background .15s;white-space:nowrap}
+  .cmx-type-chip.active,.cmx-type-chip:active{background:rgba(255,255,255,.38);border-color:rgba(255,255,255,.6)}
+  .cmx-type-chip__icon svg{width:20px;height:20px;stroke:currentColor}
+  .cmx-hero-m__scroll{position:relative;display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:10px;background:rgba(255,255,255,.12);border:none;color:#fff;font-size:.78rem;cursor:pointer;backdrop-filter:blur(4px);border-top:1px solid rgba(255,255,255,.15)}
+  /* Sbar */
+  .cmx-sbar{display:flex;position:sticky;top:63px;z-index:200;background:#fff;border-bottom:1px solid #e8e8e8;box-shadow:0 2px 8px rgba(0,0,0,.08);gap:0}
+  .cmx-sbar__btn{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:13px 8px;font-size:.88rem;font-weight:600;border:none;cursor:pointer;background:#fff;color:#111;transition:background .12s}
+  .cmx-sbar__btn:active{background:#f4f4f4}
+  .cmx-sbar__filtrar{border-left:1px solid #e8e8e8;color:var(--ac);background:#f0faf5}
+  .cmx-sbar__filtrar.has-filters{background:var(--ac);color:#fff}
+  .cmx-sbar__badge{background:#e53935;color:#fff;font-size:.68rem;font-weight:700;border-radius:10px;padding:1px 6px;min-width:18px;text-align:center}
+  /* Panel elegir */
+  .cmx-panel-elegir{max-height:0;overflow:hidden;transition:max-height .3s ease;background:#f8fdf9;border-bottom:1px solid #d4ead9}
+  .cmx-panel-elegir.open{max-height:400px}
+  .cmx-panel-elegir__inner{padding:14px 16px 16px}
+  .cmx-panel-elegir__header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:.95rem}
+  .cmx-panel-elegir__header button{background:none;border:none;cursor:pointer;padding:2px;color:#555}
+  .cmx-step{display:flex;gap:12px;margin-bottom:12px;align-items:flex-start}
+  .cmx-step__num{flex:0 0 24px;height:24px;border-radius:50%;background:var(--ac);color:#fff;font-size:.78rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:2px}
+  .cmx-step strong{font-size:.88rem;display:block;margin-bottom:2px}
+  .cmx-step p{font-size:.8rem;color:#555;margin:0;line-height:1.4}
+  /* Ocultar elementos que interfieren */
+  .crt-filtrar-btn{display:none!important}
+  .cmp-fab{display:none!important}
+  .how-card{display:none!important}
+}
+@media(min-width:768px){
+  .cmx-hero-m,.cmx-sbar,.cmx-panel-elegir{display:none}
+}
 
 /* ── crt-*: layout de dos columnas (filtros + catálogo) ──────────── */
 .crt-layout{max-width:1800px;margin:0 auto;padding:1rem 2rem 0;display:grid;grid-template-columns:280px 1fr;gap:20px;align-items:start}
@@ -494,6 +534,69 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 <div class="cmx-bc"><ol aria-label="Ruta de navegación"><li><a href="/">Inicio</a></li><li><a href="/suplementos/">Suplementos</a></li><li aria-current="page">Creatina</li></ol></div>
 <!-- cmx-bc:end -->
 
+<div class="cmx-hero-m">
+  <div class="cmx-hero-m__bg" style="background-image:url('/fotos/og/creatina-og.webp')"></div>
+  <div class="cmx-hero-m__content">
+    <h2 class="cmx-hero-m__title">Creatina en México 2026</h2>
+    <p class="cmx-hero-m__sub">Monohidrato, Creapure®, HCl y más · Amazon MX y Mercado Libre</p>
+    <span class="cmx-hero-m__count"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 52 creatinas para comparar</span>
+    <div class="cmx-types">
+      <button class="cmx-type-chip" data-cmx-tipo="monohidrato" onclick="cmxTipoFilter(this)">
+        <span class="cmx-type-chip__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/><path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/><path d="M9.5 14c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5S8 21.33 8 20.5v-5c0-.83.67-1.5 1.5-1.5z"/><path d="M3.5 14H5v1.5c0 .83-.67 1.5-1.5 1.5S2 16.33 2 15.5 2.67 14 3.5 14z"/><path d="M14 14.5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5z"/><path d="M15.5 9H17v1.5c0 .83-.67 1.5-1.5 1.5S14 11.33 14 10.5 14.67 9 15.5 9z"/><path d="M10 9.5C10 8.67 9.33 8 8.5 8h-5C2.67 8 2 8.67 2 9.5S2.67 11 3.5 11h5c.83 0 1.5-.67 1.5-1.5z"/><path d="M8.5 15H7v-1.5c0-.83.67-1.5 1.5-1.5S10 12.67 10 13.5 9.33 15 8.5 15z"/></svg></span>
+        <span>Monohidrato</span>
+      </button>
+      <button class="cmx-type-chip" data-cmx-tipo="micronizada" onclick="cmxTipoFilter(this)">
+        <span class="cmx-type-chip__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></span>
+        <span>Micronizada</span>
+      </button>
+      <button class="cmx-type-chip" data-cmx-tipo="saborizada" onclick="cmxTipoFilter(this)">
+        <span class="cmx-type-chip__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span>
+        <span>Saborizada</span>
+      </button>
+      <button class="cmx-type-chip" data-cmx-tipo="blend" onclick="cmxTipoFilter(this)">
+        <span class="cmx-type-chip__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8.56 2.9A7 7 0 0 1 19 9v4"/><path d="M4.11 10.21A7 7 0 0 0 10 21h2"/><path d="M2 2l20 20"/></svg></span>
+        <span>Blend</span>
+      </button>
+    </div>
+  </div>
+  <button class="cmx-hero-m__scroll" onclick="document.getElementById('crt-content-grid')?.scrollIntoView({behavior:'smooth'})||document.querySelector('.crt-content').scrollIntoView({behavior:'smooth'})">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    <span>Desplázate para ver creatinas</span>
+  </button>
+</div>
+<div class="cmx-sbar" id="cmxSbar">
+  <button class="cmx-sbar__btn cmx-sbar__elegir" id="cmxBtnElegir" onclick="cmxToggleElegir()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+    Cómo elegir
+  </button>
+  <button class="cmx-sbar__btn cmx-sbar__filtrar" id="cmxBtnFiltrar" onclick="cmxOpenFilters()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+    Filtrar
+    <span class="cmx-sbar__badge" id="cmxBadge" style="display:none">0</span>
+  </button>
+</div>
+<div class="cmx-panel-elegir" id="cmxPanelElegir" aria-hidden="true">
+  <div class="cmx-panel-elegir__inner">
+    <div class="cmx-panel-elegir__header">
+      <strong>Cómo elegir</strong>
+      <button onclick="cmxToggleElegir()" aria-label="Cerrar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="cmx-step">
+      <span class="cmx-step__num">1</span>
+      <div><strong>Elige el tipo según tu objetivo</strong><p>Monohidrato para ganar fuerza a bajo costo, Creapure® si buscas la máxima pureza, HCl si tienes problemas digestivos.</p></div>
+    </div>
+    <div class="cmx-step">
+      <span class="cmx-step__num">2</span>
+      <div><strong>Compara el costo por porción</strong><p>Ordena por "Menor costo/porción" para ver cuál te da más por tu dinero. Las mejores opciones rondan $2–4 MXN por dosis.</p></div>
+    </div>
+    <div class="cmx-step">
+      <span class="cmx-step__num">3</span>
+      <div><strong>Consulta el precio en la tienda</strong><p>Haz clic en "Ir a Mercado Libre" o "Ir a Amazon" para ver el precio actual y comprar.</p></div>
+    </div>
+  </div>
+</div>
 <div class="hero">
   <div>
     <h1>Creatina en México 2026</h1>
@@ -1048,6 +1151,41 @@ function clearFilters() {
   afterFilterChange();
 }
 
+function cmxTipoFilter(btn) {
+  var val = btn.dataset.cmxTipo;
+  var isActive = btn.classList.contains('active');
+  document.querySelectorAll('.cmx-type-chip[data-cmx-tipo]').forEach(function(b){ b.classList.remove('active'); });
+  if (isActive) {
+    filters.tipos.clear();
+  } else {
+    filters.tipos.clear();
+    filters.tipos.add(val);
+    btn.classList.add('active');
+  }
+  afterFilterChange();
+}
+function cmxToggleElegir() {
+  var panel = document.getElementById('cmxPanelElegir');
+  if (!panel) return;
+  panel.classList.toggle('open');
+  panel.setAttribute('aria-hidden', panel.classList.contains('open') ? 'false' : 'true');
+}
+function cmxOpenFilters() {
+  openFiltersDrawer();
+}
+function cmxUpdateBadge() {
+  var n = filters.tipos.size + filters.presentaciones.size + filters.marcas.size + filters.caract.size;
+  if (filters.plataforma !== 'todos') n++;
+  if (filters.soloBajada) n++;
+  if (document.getElementById('precio-min')?.value) n++;
+  if (document.getElementById('precio-max')?.value) n++;
+  var badge = document.getElementById('cmxBadge');
+  var btn = document.getElementById('cmxBtnFiltrar');
+  if (!badge || !btn) return;
+  if (n > 0) { badge.textContent = n; badge.style.display = ''; btn.classList.add('has-filters'); }
+  else { badge.style.display = 'none'; btn.classList.remove('has-filters'); }
+}
+
 function render() {
   const q = (document.getElementById('search').value || '').toLowerCase();
   const sortVal = document.getElementById('sort-sel').value;
@@ -1089,6 +1227,7 @@ function render() {
   empty.style.display = 'none';
   info.textContent = `Mostrando ${lista.length} de ${productos.length} productos`;
   grid.innerHTML = lista.map(p => cardHTML(p)).join('');
+  cmxUpdateBadge();
 }
 
 function cardHTML(p) {
