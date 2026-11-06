@@ -244,8 +244,7 @@
         byValue('compatibilidad', 'Compatibilidad', function (p) { return p.especs && p.especs.compatibilidad || null; }),
         flags('carac', 'Características', [
           ['gps', 'GPS integrado', function (p) { return p.especs && p.especs.gps === 'Sí'; }],
-          ['nfc', 'Con NFC', function (p) { return p.especs && p.especs.nfc === 'Sí'; }],
-          ['ia', 'IA / ChatGPT', function (p) { return !!(p.especs && p.especs.tieneIA); }]
+          ['nfc', 'Con NFC', function (p) { return p.especs && p.especs.nfc === 'Sí'; }]
         ]),
         { id: 'bateria', title: 'Duración de batería', mode: 'or', pills: false, opts: [
           { v: 'horas', label: 'Menos de 1 día', test: function (p) {
