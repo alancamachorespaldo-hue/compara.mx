@@ -3688,11 +3688,11 @@ const productos = [
     ],
     "precio": 1019,
     "precioAmz": 1019,
-    "precioML": 987,
+    "precioML": 1019,
     "contenidoGramos": 2268,
     "porciones": 74,
     "gramosPorPorcion": 30.5,
-    "costoPorPorcion": 13.34,
+    "costoPorPorcion": 13.77,
     "proteinaPorPorcion": 25,
     "concentracionProteina": 81.97,
     "costoPor25gProteina": 13.77,
@@ -5256,6 +5256,7 @@ const productos = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 
 
