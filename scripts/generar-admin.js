@@ -34,7 +34,7 @@ for (const list of Object.values(admin)) {
 
 // 2. Reporte de precios
 const report = readJson(REPORT_PATH);
-let synced = 0, keptManual = 0;
+let synced = 0, keptManual = 0, pausados = 0, desactivados = 0;
 if (report) {
   const gen = report.generado || '';
   for (const row of report.productos || []) {
@@ -50,11 +50,26 @@ if (report) {
       p._precioMLAntes = row.precioAntes;
       if (!mismaRacha || !p._precioMLFecha) p._precioMLFecha = new Date().toISOString().slice(0, 10);
     } else { delete p._precioMLAntes; delete p._precioMLFecha; }
-    // Pausa automática: 404/inactivo en ML → pausaML:true; si el catálogo vuelve → se limpia
+    // Pausa automática: 404/inactivo en ML → pausaML:true + rastrea días sin precio.
+    // Día 1: pausaML:true. Día 3+: activo:false (desaparece de la web y del catálogo).
+    // Si el catálogo vuelve → se limpia todo y se reactiva.
     if (row.estado === 'no_encontrado') {
       p.pausaML = true;
-    } else if ((row.estado === 'actualizado' || row.estado === 'sin_cambio') && p.estadoML === 'no_encontrado') {
-      delete p.pausaML; // catálogo restaurado → quitar pausa automática
+      if (!p._mlSinPrecioDesde) p._mlSinPrecioDesde = new Date().toISOString().slice(0, 10);
+      const diasSin = Math.floor((Date.now() - new Date(p._mlSinPrecioDesde).getTime()) / 86400000);
+      if (diasSin >= 3 && p.activo !== false) {
+        p.activo = false;
+        p._desactivadoPorML = true;
+        desactivados++;
+        console.log(`  🗑 Desactivado (${diasSin} días sin precio): ${p.nombre} (id:${p.id}, cat:${row.categoria})`);
+      } else if (p.activo !== false) {
+        pausados++;
+      }
+    } else if ((row.estado === 'actualizado' || row.estado === 'sin_cambio') && p._mlSinPrecioDesde) {
+      // Volvió a tener precio → limpiar pausa automática
+      delete p._mlSinPrecioDesde;
+      delete p.pausaML;
+      if (p._desactivadoPorML) { p.activo = true; delete p._desactivadoPorML; }
     }
     if (p.estadoML !== 'nuevo') p.estadoML = row.estado;
     if (gen) { p._mlCheckedAt = gen; delete p._activadoPendiente; }
@@ -76,7 +91,8 @@ for (const [cat, list] of Object.entries(admin)) {
 }
 
 writeFileSync(ADMIN_PATH, JSON.stringify(admin, null, 2), 'utf8');
-console.log(`✓ merged-admin.json: ${fromLinks} IDs desde links · ${synced} precios del reporte (${keptManual} con edición manual más reciente) · ${withSug} con candidatos`);
+const extraLog = pausados || desactivados ? ` · ${pausados} pausados ML · ${desactivados} desactivados (3d sin precio)` : '';
+console.log(`✓ merged-admin.json: ${fromLinks} IDs desde links · ${synced} precios del reporte (${keptManual} con edición manual más reciente)${extraLog} · ${withSug} con candidatos`);
 
 // 4. Página
 const safe = v => JSON.stringify(v).replace(/</g, '\\u003c');
