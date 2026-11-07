@@ -66,6 +66,9 @@ jobs:
       - name: Aplicar pausas a páginas HTML
         run: node scripts/sync-pausas.js
 
+      - name: Aplicar precios de Amazon y pausas/eliminados a subpáginas de suplementos
+        run: node scripts/sync-suplementos-precios.js --aplicar
+
       - name: Actualizar los precios escritos en las guías
         run: node scripts/sync-guias-precios.js --aplicar
 

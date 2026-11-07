@@ -13,6 +13,8 @@ const SCRIPTS = {
   'generar-bajadas':    { args: [],            label: 'Generar bajadas de precio' },
   'sync-guias-precios': { args: [],            label: 'Sync guías precios (dry-run)' },
   'sync-guias-aplicar': { args: ['--aplicar'], label: 'Sync guías precios (aplicar)', script: 'sync-guias-precios' },
+  'sync-suplementos':   { args: [],            label: 'Sync Amazon suplementos (dry-run)', script: 'sync-suplementos-precios' },
+  'sync-suplementos-aplicar': { args: ['--aplicar'], label: 'Sync Amazon suplementos (aplicar)', script: 'sync-suplementos-precios' },
   'sync-html':          { args: [],            label: 'Sync HTML desde merged-admin' },
   'check-site':         { args: [],            label: 'Validar sitio (check-site)' },
 };
