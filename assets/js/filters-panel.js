@@ -246,8 +246,11 @@
           { v: 'c3', label: 'Más de 5 L', test: function (p) { return typeof p.capacidadL === 'number' && p.capacidadL > 5; } }
         ]},
         byValue('material', 'Material', function (p) { return p.material || null; }),
+        byValue('tapaMaterial', 'Material tapa', function (p) { return p.tapaMaterial || null; }),
         flags('carac', 'Características', [
-          ['programable', 'Programable', function (p) { return p.programable === true; }]
+          ['mantenerCaliente', 'Mantener caliente', function (p) { return p.mantenerCaliente === true; }],
+          ['displayDigital',   'Display digital',   function (p) { return p.displayDigital === true; }],
+          ['programable',      'Programable',       function (p) { return p.programable === true; }]
         ]),
         brand(),
         dropFacet()
