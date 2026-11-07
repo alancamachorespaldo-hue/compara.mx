@@ -48,6 +48,7 @@ const DESCUENTOS = {
   'entretenimiento/streaming/descuentos.json': ['streaming'],
   'electrodomesticos/refrigeradores/descuentos.json': ['refrigeradores'],
   'electrodomesticos/lavadoras/descuentos.json': ['lavadoras'],
+  'electrodomesticos/ollas/descuentos.json': ['ollas'],
 };
 for (const [file, cats] of Object.entries(DESCUENTOS)) {
   let data;
