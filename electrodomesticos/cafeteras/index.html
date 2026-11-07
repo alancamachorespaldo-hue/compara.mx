@@ -3646,6 +3646,7 @@ function getFiltered(){
   const maxStr=document.getElementById('precioMax')?.value;
   if(minStr){const min=parseInt(minStr);list=list.filter(p=>!p.precioML||p.precioML>=min);}
   if(maxStr){const max=parseInt(maxStr);list=list.filter(p=>!p.precioML||p.precioML<=max);}
+  if(typeof window.cmxPass==='function') list=list.filter(p=>window.cmxPass(p));
   const sort=document.getElementById('sortSel').value;
   const specScore=p=>SPEC_LABELS.filter(([k])=>p.especs[k]).length;
   if(sort==='precio_asc') list.sort((a,b)=>(a.precioML||999999)-(b.precioML||999999));
@@ -3709,6 +3710,7 @@ function renderAll(){
   renderChips();
   updateFilterCount();
 }
+window.render=renderAll;
 
 function toggleSel(id){
   if(selected.includes(id)){selected=selected.filter(x=>x!==id);}
