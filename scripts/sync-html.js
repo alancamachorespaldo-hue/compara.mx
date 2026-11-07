@@ -53,6 +53,12 @@ for (const [cat, { file, varName }] of Object.entries(CATALOG)) {
   const configById = {};
   for (const p of catConfig) configById[String(p.id)] = p;
 
+  // merged-admin.json es la autoridad de "qué existe": un producto marcado activo:false
+  // ahí (pausado a mano o eliminado desde el admin con _eliminado) se quita del HTML,
+  // esté o no en productos.json. Así pausar/eliminar siempre desaparece de la página.
+  const mergedById = {};
+  for (const a of (mergedAdmin[cat] || [])) mergedById[String(a.id)] = a;
+
   const filePath = resolve(ROOT, file);
   let html = readFileSync(filePath, 'utf8');
 
@@ -80,10 +86,18 @@ for (const [cat, { file, varName }] of Object.entries(CATALOG)) {
   const nuevosProds = [];
 
   for (const p of prods) {
+    // Pausado o eliminado en el admin (merged-admin) → se quita del HTML aunque
+    // no esté en productos.json.
+    const adm = mergedById[String(p.id)];
+    if (adm && adm.activo === false) {
+      pausados++;
+      continue;
+    }
+
     const cfg = configById[String(p.id)];
     if (!cfg) { nuevosProds.push(p); continue; } // no está en config → conservar
 
-    // Verificar si está pausado
+    // Verificar si está pausado (vía productos.json/config)
     if (cfg.activo === false) {
       pausados++;
       continue; // omitir del array → desaparece del HTML

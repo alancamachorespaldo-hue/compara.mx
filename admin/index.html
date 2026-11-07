@@ -867,7 +867,8 @@ const QUEUES = [
   {k:'bajo_amz', l:'Bajaron en Amazon', tone:'ok', f:p => amzDropPct(p) > 0},
   {k:'nuevos', l:'Nuevos por revisar', tone:'info', f:p => p.estadoML === 'nuevo'},
   {k:'pausado_ml', l:'Pausado/Eliminado ML', tone:'err', f:p => p.estadoML === 'no_encontrado' || !!p.pausaML},
-  {k:'pausados', l:'Pausados web', f:p => p.activo === false && p.estadoML !== 'nuevo'},
+  {k:'pausados', l:'Pausados web', f:p => p.activo === false && !p._eliminado && p.estadoML !== 'nuevo'},
+  {k:'eliminados', l:'Eliminados', tone:'err', f:p => !!p._eliminado, optional:true},
   {k:'listos_activar', l:'Listos para activar', tone:'info', f:p => p.activo === false && !!p.linkAmz && hasTag(p.linkAmz) && p.precioAmz != null},
   {k:'activados_pend', l:'Activados, falta precio ML', tone:'warn', f:p => !!p._activadoPendiente},
   {k:'amz_tag', l:'Amazon sin tag', tone:'err', f:p => !!p.linkAmz && !hasTag(p.linkAmz), optional:true},
@@ -1308,6 +1309,8 @@ function visible() {
   for (const r of ROWS) {
     if (S.cat !== 'todas' && r.cat !== S.cat) continue;
     const p = r.p;
+    // Los eliminados (borrado suave) se ocultan salvo que se pida el filtro "Eliminados".
+    if (p._eliminado && S.queue !== 'eliminados') continue;
     if (!qf(p)) continue;
     if (S.plat === 'ml' && !p.linkML) continue;
     if (S.plat === 'amz' && !p.linkAmz) continue;
@@ -1598,7 +1601,7 @@ function openEdit(key) {
     ${specs.length ? `<fieldset class="group"><legend>Especificaciones</legend>${specs.map(([sk, l], i) => COSTO_KEYS[sk]
       ? `<div class="field"><span>${esc(l)} <span class="muted" style="font-weight:400;text-transform:none">· por plataforma</span></span><div class="field-msg" data-costo="${esc(sk)}" style="min-height:36px;display:flex;flex-direction:column;justify-content:center;gap:2px;color:var(--fg);font-variant-numeric:tabular-nums"></div></div>`
       : `<label class="field"><span>${esc(l)}</span><input id="e-sk-${i}" data-sk="${esc(sk)}"></label>`).join('')}</fieldset>` : ''}
-    <div class="confirm" id="e-confirm" hidden>¿Eliminar este producto del registro? <button type="button" class="btn btn-danger btn-sm" data-act="del-yes">Sí, eliminar</button><button type="button" class="btn btn-sm" data-act="del-no">Cancelar</button></div>
+    <div class="confirm" id="e-confirm" hidden>¿Eliminar este producto? Desaparece de la página al sincronizar; podrás restaurarlo desde el filtro "Eliminados". <button type="button" class="btn btn-danger btn-sm" data-act="del-yes">Sí, eliminar</button><button type="button" class="btn btn-sm" data-act="del-no">Cancelar</button></div>
     ${p.estadoML === 'nuevo' && PUBLICABLE.has(cat) ? `<div class="publish-box"><p>${cat === 'bicis' ? 'Bici nueva' : 'Producto nuevo'} por revisar. Pega tu link de afiliado (meli.la/… o Amazon con tag) y publícalo con este botón; el interruptor «En la web» por sí solo no lo publica. Aparecerá en el sitio en la próxima sincronización.</p><button type="button" class="btn btn-primary" data-act="publish">Publicar en la web</button></div>` : ''}
     <footer class="sheet-foot"><button type="button" class="btn btn-ghost-danger" data-act="del">Eliminar</button><span class="spacer"></span><button type="button" class="btn" data-close>Cancelar</button><button type="submit" class="btn btn-primary">Aplicar cambios</button></footer>
   </form>`);
@@ -1666,6 +1669,8 @@ function submitEdit(form, publish) {
     fields[k] = v;
   }
   if ('mlId' in fields) fields.mlIdFuente = fields.mlId ? 'manual' : null;
+  // Reactivar un producto eliminado lo restaura (deja de ser tombstone).
+  if (fields.activo === true && p._eliminado) fields._eliminado = false;
   if ('linkML' in fields) Object.assign(fields, {_linkError:null, _linkRevisar:null, _linkSinProducto:null});
   const specInputs = o.querySelectorAll('[data-sk]');
   if (specInputs.length) {
@@ -1706,14 +1711,25 @@ function submitEdit(form, publish) {
 }
 
 function deleteProduct(key) {
-  const [cat, id] = splitKey(key);
-  DB[cat] = (DB[cat] || []).filter(p => String(p.id) !== id);
-  if (PENDING.added[key]) delete PENDING.added[key]; else if (!PENDING.deleted.includes(key)) PENDING.deleted.push(key);
-  delete PENDING.ops[key];
+  const r = BYKEY.get(key);
+  // Producto recién agregado (aún no guardado): se descarta por completo.
+  if (PENDING.added[key]) {
+    const [cat, id] = splitKey(key);
+    DB[cat] = (DB[cat] || []).filter(p => String(p.id) !== id);
+    delete PENDING.added[key]; delete PENDING.ops[key]; S.sel.delete(key);
+    reindex(); persist(); closeOverlay();
+    renderCats(); renderQueues(); renderTable();
+    toast('Producto descartado');
+    return;
+  }
+  // Borrado suave: se marca activo:false + _eliminado. sync-html.js lo quita de la
+  // página (igual que pausar) y queda como tombstone para poder restaurarlo.
+  if (!r) return;
+  update(key, {activo:false, _eliminado:true});
   S.sel.delete(key);
-  reindex(); persist(); closeOverlay();
+  closeOverlay();
   renderCats(); renderQueues(); renderTable();
-  toast('Producto eliminado del registro');
+  toast('Eliminado. Desaparece de la página al sincronizar (restaurable en el filtro "Eliminados").');
 }
 
 function newId(cat, nombre) {
@@ -2265,7 +2281,7 @@ function onClick(e) {
     case 'copy-sel': copyText(exportRows([...S.sel].map(k => BYKEY.get(k)).filter(Boolean)), 'JSON de ' + plural(S.sel.size, 'producto', 'productos') + ' copiado'); break;
     case 'bulk-delete': S.delPending = true; renderSelbar(); break;
     case 'bulk-delete-cancel': S.delPending = false; renderSelbar(); break;
-    case 'bulk-delete-confirm': { const keys = [...S.sel]; const n = keys.length; S.delPending = false; keys.forEach(k => { const [cat,id] = splitKey(k); if(DB[cat]) DB[cat] = DB[cat].filter(p => String(p.id) !== id); if(PENDING.added[k]) delete PENDING.added[k]; else if(!PENDING.deleted.includes(k)) PENDING.deleted.push(k); delete PENDING.ops[k]; S.sel.delete(k); }); reindex(); persist(); renderCats(); renderQueues(); renderTable(); toast(plural(n,'producto eliminado','productos eliminados')); break; }
+    case 'bulk-delete-confirm': { const keys = [...S.sel]; const n = keys.length; S.delPending = false; keys.forEach(k => { if(PENDING.added[k]){ const [cat,id] = splitKey(k); if(DB[cat]) DB[cat] = DB[cat].filter(p => String(p.id) !== id); delete PENDING.added[k]; delete PENDING.ops[k]; } else { update(k, {activo:false, _eliminado:true}); } S.sel.delete(k); }); reindex(); persist(); renderCats(); renderQueues(); renderTable(); toast(plural(n,'producto eliminado','productos eliminados') + ' — desaparecen de la página al sincronizar'); break; }
     case 'del': $('#e-confirm').hidden = false; break;
     case 'del-no': $('#e-confirm').hidden = true; break;
     case 'del-yes': deleteProduct($('#f-edit').dataset.key); break;
