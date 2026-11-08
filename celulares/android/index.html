@@ -2890,6 +2890,7 @@ const familias = [
 
 
 
+
 familias.forEach(function(f) { f.variantes.forEach(function(v) { v.id = 'android-' + f.modeloBase + '-' + v.storage + 'gb-' + v.ram + 'gb'; v.precioML = v.precio; }); });
 window.productos = familias.flatMap(function(f) { return f.variantes.map(function(v) { return { id: v.id, nombre: f.nombre, precioML: v.precioML }; }); });
 
