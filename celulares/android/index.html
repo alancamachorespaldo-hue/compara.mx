@@ -1821,7 +1821,7 @@ const familias = [
     colores: ['Gris'],
     img: 'https://http2.mlstatic.com/D_NQ_NP_606900-MLA111905100945_052026-F.jpg',
     variantes: [
-      { storage: 256, ram: 8, precio: 8199, linkML: 'https://meli.la/2awa3qT', estrellas: null, resenas: null },
+      { storage: 256, ram: 8, precio: 7694, linkML: 'https://meli.la/2awa3qT', estrellas: null, resenas: null },
     ]
   },
   {
@@ -2335,7 +2335,7 @@ const familias = [
     colores: ['Violeta', 'Morado'],
     img: 'https://http2.mlstatic.com/D_NQ_NP_2X_906290-MLA115521742011_082026-F.webp',
     variantes: [
-      { storage: 128, ram: 8, precio: 8917, linkML: 'https://meli.la/132XgXh', estrellas: 5, resenas: 5 },
+      { storage: 128, ram: 8, precio: 8999, linkML: 'https://meli.la/132XgXh', estrellas: 5, resenas: 5 },
     ]
   },
   {
@@ -2886,6 +2886,7 @@ const familias = [
   },
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _fi=familias.length-1;_fi>=0;_fi--){var _f=familias[_fi];for(var _vi=(_f.variantes||[]).length-1;_vi>=0;_vi--){var _v=_f.variantes[_vi];var _id='android-'+_f.modeloBase+'-'+_v.storage+'gb-'+_v.ram+'gb';var _z=_PZ[_id];if(!_z)continue;if(_z.ml){_f.variantes[_vi].linkML=null;_f.variantes[_vi].precio=null;_f.variantes[_vi].pausaML=true;}}if(!_f.variantes.some(function(vv){return vv.linkML||vv.linkAmz;}))familias.splice(_fi,1);}}catch(e){}
+
 
 
 

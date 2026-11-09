@@ -1311,7 +1311,7 @@ const productos = [
     marca: "Apple",
     color: "Azul Cielo",
     precio: 25748,
-    precioML: 25516,
+    precioML: 24979,
     precioAmz: 29999,
     procesador: "Apple M5 (CPU 10 núcleos)",
     marcaProcesador: "Apple",
@@ -1611,7 +1611,7 @@ const productos = [
     marca: "Apple",
     color: "Azul Cielo",
     precio: 25748,
-    precioML: 25516,
+    precioML: 24979,
     precioAmz: 34999,
     procesador: "Apple M5 (CPU 10 núcleos)",
     marcaProcesador: "Apple",
@@ -4319,7 +4319,7 @@ const productos = [
     marca: "Acer",
     color: "Plateado",
     precio: 12512.03,
-    precioML: 18499,
+    precioML: 10999,
     precioAmz: null,
     procesador: "AMD Ryzen 5-40",
     marcaProcesador: "AMD",
@@ -4407,7 +4407,7 @@ const productos = [
     marca: "Acer",
     color: null,
     precio: 14769,
-    precioML: 13699,
+    precioML: 13562,
     precioAmz: null,
     procesador: "Intel Core Ultra 5-226V",
     marcaProcesador: "Intel",
@@ -4666,6 +4666,7 @@ const productos = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 
 
