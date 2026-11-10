@@ -117,6 +117,26 @@ p{margin:0 0 15px}
 .filter{border:1px solid var(--bd2);background:#fff;color:var(--tx2);padding:7px 13px;border-radius:30px;font:600 12px Satoshi,Arial;cursor:pointer;transition:.15s}
 .filter.active,.filter:hover{background:var(--ac);border-color:var(--ac);color:#fff}
 .config-result{margin-top:12px;font-size:13px;font-weight:700;color:var(--ac)}
+.config-summary{display:none}
+.amz-mini{display:inline-flex;align-items:center;gap:6px;background:var(--amz);color:#111;border-radius:8px;padding:8px 11px;text-decoration:none;font-weight:800;font-size:11.5px;min-height:36px;line-height:1}
+.amz-mini:hover{filter:brightness(.96)}
+.amz-mini img{height:12px;width:auto;object-fit:contain}
+.cmp-tbl tr.cmp-cta td{background:#fff;padding:12px 10px;text-align:center}
+.cmp-tbl tr.cmp-cta td:first-child{background:var(--s1)}
+@media(min-width:1041px){
+  details.config-collapse>summary{display:none!important}
+  details.config-collapse>*:not(summary){display:revert}
+}
+@media(max-width:1040px){
+  details.config-collapse{padding:0}
+  details.config-collapse>summary{display:flex;justify-content:space-between;align-items:center;gap:10px;cursor:pointer;list-style:none;padding:14px 16px;font-size:13px;font-weight:800;color:var(--ac)}
+  details.config-collapse>summary::-webkit-details-marker{display:none}
+  details.config-collapse>summary::after{content:'▾';transition:transform .2s}
+  details.config-collapse[open]>summary::after{transform:rotate(180deg)}
+  details.config-collapse>summary+*{margin-top:4px}
+  details.config-collapse>.config-row,details.config-collapse>.config-result{padding-left:16px;padding-right:16px}
+  details.config-collapse>.config-result{padding-bottom:14px}
+}
 
 /* Comparador (selección) */
 .compare-controls{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;background:#fff;border:1px solid var(--bd);padding:16px 18px;border-radius:12px;margin:14px 0 20px}
@@ -246,13 +266,20 @@ p{margin:0 0 15px}
 <tr><td>Batería anunciada</td><td>Hasta 16 h video</td><td>Hasta 16 h video</td><td>Hasta 18 h video</td><td>Hasta 18 h video</td></tr>
 <tr><td>Puertos USB-C</td><td>2 (USB 3 + USB 2)</td><td>2 (USB 3 + USB 2)</td><td>2 Thunderbolt 4</td><td>2 Thunderbolt 4</td></tr>
 <tr><td>Condición capturada</td><td>Nuevo</td><td>Nuevo</td><td>Nuevo</td><td>Nuevo</td></tr>
+<tr class="cmp-cta"><td>Ver en Amazon</td>
+<td><a class="amz-mini" href="https://www.amazon.com.mx/s?k=Apple+MacBook+Neo+A18+Pro+8GB+256GB&tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="MacBook Neo 8/256" data-loc="tabla">Clic para ir <img src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a></td>
+<td><a class="amz-mini" href="https://www.amazon.com.mx/s?k=Apple+MacBook+Neo+A18+Pro+8GB+512GB&tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="MacBook Neo 8/512" data-loc="tabla">Clic para ir <img src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a></td>
+<td><a class="amz-mini" href="https://www.amazon.com.mx/s?k=Apple+MacBook+Air+M5+13+16GB+512GB&tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="MacBook Air 13 M5 16/512" data-loc="tabla">Clic para ir <img src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a></td>
+<td><a class="amz-mini" href="https://www.amazon.com.mx/s?k=Apple+MacBook+Air+M5+15+16GB+512GB&tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="MacBook Air 15 M5 16/512" data-loc="tabla">Clic para ir <img src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a></td>
+</tr>
 </tbody></table></div>
 <p class="small">La autonomía es una cifra máxima declarada por Apple bajo condiciones de prueba; no equivale necesariamente a la duración que obtendrás en tu jornada. Las variantes de GPU corresponden a las configuraciones capturadas y deben coincidir con la ficha de compra.</p>
 
 <h2 id="modelos">Elige tu configuración</h2>
 <p>En lugar de contar cada color o publicación como un producto distinto, agrupamos las ofertas que representan la misma configuración. Filtra por modelo, memoria y almacenamiento para ver solo las que te interesan; los botones llevan a la ficha o búsqueda correspondiente en Amazon México con el identificador de afiliado de esta sección.</p>
 
-<div class="config" id="config">
+<details class="config config-collapse" id="config">
+  <summary class="config-summary">Filtrar: condición, modelo, memoria y almacenamiento</summary>
   <div class="config-row"><span class="config-label">Condición</span><div class="config-chips" data-facet="condition">
     <button class="filter active" data-val="all">Todas</button><button class="filter" data-val="new">Nuevas</button><button class="filter" data-val="renewed">Reacondicionadas</button>
   </div></div>
@@ -266,7 +293,7 @@ p{margin:0 0 15px}
     <button class="filter active" data-val="all">Cualquiera</button><button class="filter" data-val="256">256 GB</button><button class="filter" data-val="512">512 GB</button>
   </div></div>
   <div class="config-result" id="configResult">Mostrando 7 de 7 configuraciones</div>
-</div>
+</details>
 
 <div class="compare-controls"><div class="compare-copy"><strong>Arma tu propia comparativa</strong><p>Marca de 2 a 3 modelos con la casilla de cada tarjeta. Después genera una tabla lado a lado con las diferencias que realmente importan.</p></div><div class="compare-actions"><button class="compare-btn" id="compareBtn" disabled>Comparar modelos</button><button class="clear-btn" id="clearBtn">Limpiar</button><span class="selected-count" id="selectedCount">0 de 3 seleccionados</span></div></div>
 
@@ -530,6 +557,15 @@ document.getElementById('clearBtn').addEventListener('click',()=>{selected.clear
 updateSelection();
 </script>
 
+<script>
+// Clic de afiliado por delegación (enlaces con data-amz: tabla y menciones)
+document.addEventListener('click',function(e){
+ var a=e.target.closest('a[data-amz]');
+ if(a&&typeof gtag==='function')gtag('event','affiliate_click_amazon',{event_category:'afiliado',event_label:a.dataset.amz,location:a.dataset.loc||'guia'});
+});
+// Profundidad de scroll
+(function(){var m={25:false,50:false,75:false,100:false};function c(){var h=document.documentElement,mx=h.scrollHeight-h.clientHeight;if(mx<=0)return;var p=(h.scrollTop||document.body.scrollTop)/mx*100;[25,50,75,100].forEach(function(x){if(!m[x]&&p>=x){m[x]=true;if(typeof gtag==='function')gtag('event','scroll_profundidad',{event_category:'guia_macbook',porcentaje:x,pagina:'mejores-macbook-calidad-precio'})}})}window.addEventListener('scroll',c,{passive:true});c();})();
+</script>
 <script src="/assets/js/share.js" defer></script>
 <script src="/js/onboarding.js" defer></script>
 <!-- cmx-footer:start -->
