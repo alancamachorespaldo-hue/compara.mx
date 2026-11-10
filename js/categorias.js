@@ -16,7 +16,7 @@ window.CMX_CATS = [
   { name: 'Smartwatches',         sub: 'Compatibles con iOS y Android',                     icon: '⌚', url: '/tecnologia/smartwatches/',      tags: ['smartwatch','reloj inteligente','apple watch','galaxy watch','garmin','fitbit','wearable'] },
   { name: 'Entretenimiento',      sub: 'Streaming y Smart TV',                              icon: '📺', url: '/entretenimiento/',              tags: ['streaming','chromecast','roku','fire tv','apple tv','google tv','smart tv','television'] },
   { name: 'Dispositivos Streaming', sub: 'Roku, Fire TV, Chromecast, Google TV, Xiaomi',   icon: '📺', url: '/entretenimiento/streaming/',    tags: ['streaming','chromecast','roku','fire tv','amazon fire','xiaomi stick','onn','google tv','apple tv'] },
-  { name: 'Guías Amazon',          sub: 'Guías de compra en Amazon México',               icon: '📦', url: '/guias-amazon/',                 tags: ['amazon','guia','guias','comprar','prime','ofertas','recomendaciones'] }
+  { name: 'Guías de compra',        sub: 'Guías de compra en Amazon México',               icon: '📦', url: '/guias-compra/',                 tags: ['guia','guias','comprar','compra','ofertas','recomendaciones','amazon'] }
 ];
 
 /* Destinos directos que solo aparecen al escribir. */
