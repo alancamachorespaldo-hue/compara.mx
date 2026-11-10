@@ -3387,6 +3387,8 @@ function cardHTML(f) {
   </div>`;
 }
 
+window.cardHTML = cardHTML;
+
 /* ─── SELECT STORAGE ─────────────────────────────────────── */
 function selectStorageBySize(modeloBase, storageGb) {
   const f = familias.find(x => x.modeloBase === modeloBase);
