@@ -15,7 +15,8 @@ window.CMX_CATS = [
   { name: 'Audífonos',            sub: 'In-ear, over-ear, true wireless',                   icon: '🎧', url: '/tecnologia/audifonos/',         tags: ['audifono','auricular','headphone','earphone','true wireless','airpods','inalambrico'] },
   { name: 'Smartwatches',         sub: 'Compatibles con iOS y Android',                     icon: '⌚', url: '/tecnologia/smartwatches/',      tags: ['smartwatch','reloj inteligente','apple watch','galaxy watch','garmin','fitbit','wearable'] },
   { name: 'Entretenimiento',      sub: 'Streaming y Smart TV',                              icon: '📺', url: '/entretenimiento/',              tags: ['streaming','chromecast','roku','fire tv','apple tv','google tv','smart tv','television'] },
-  { name: 'Dispositivos Streaming', sub: 'Roku, Fire TV, Chromecast, Google TV, Xiaomi',   icon: '📺', url: '/entretenimiento/streaming/',    tags: ['streaming','chromecast','roku','fire tv','amazon fire','xiaomi stick','onn','google tv','apple tv'] }
+  { name: 'Dispositivos Streaming', sub: 'Roku, Fire TV, Chromecast, Google TV, Xiaomi',   icon: '📺', url: '/entretenimiento/streaming/',    tags: ['streaming','chromecast','roku','fire tv','amazon fire','xiaomi stick','onn','google tv','apple tv'] },
+  { name: 'Guías Amazon',          sub: 'Guías de compra en Amazon México',               icon: '📦', url: '/guias-amazon/',                 tags: ['amazon','guia','guias','comprar','prime','ofertas','recomendaciones'] }
 ];
 
 /* Destinos directos que solo aparecen al escribir. */
