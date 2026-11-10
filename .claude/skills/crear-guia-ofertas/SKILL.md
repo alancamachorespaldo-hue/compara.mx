@@ -136,6 +136,52 @@ Por cada producto, un botón **sin precio**. Formato exacto:
 
 ---
 
+## 3b. BOTÓN DE AFILIADO EN CADA MENCIÓN
+
+Pon un botón/enlace de afiliado **cada vez que se menciona o recomienda un producto**, no solo en su
+tarjeta: en el veredicto ("Elige X si…"), en la **tabla comparativa** (en la cabecera de cada modelo y/o
+una fila CTA al final), en las secciones de recomendación ("¿Cuál elegir?"), y en cualquier "quick pick".
+Si el inicio de la guía tiene una tabla de comparativa rápida, esa tabla **debe** llevar su clic de
+afiliado. Reutiliza el mismo enlace del producto (mismo ASIN/búsqueda + `tag=guiasdecomp01-20`). Usa
+`.amz` (botón completo) o `.amz-mini` (compacto, para tabla y menciones inline).
+
+## 3c. EVENTOS DE GOOGLE ANALYTICS (GA4)
+
+Instrumenta la guía para poder medir qué funciona. Usa **delegación** para el clic de afiliado (un solo
+listener; cada enlace lleva `data-amz="<producto>"` y `data-loc="<tabla|veredicto|tarjeta|recomendacion|…>"`):
+
+```html
+<script>
+document.addEventListener('click',function(e){
+  var a=e.target.closest('a[data-amz]');
+  if(a&&typeof gtag==='function')gtag('event','affiliate_click_amazon',{event_category:'afiliado',event_label:a.dataset.amz,location:a.dataset.loc||'guia'});
+});
+</script>
+```
+
+Eventos que debe emitir cada guía (todos con guardia `typeof gtag==='function'`):
+- `affiliate_click_amazon` — en **todos** los enlaces a Amazon (por delegación, ver arriba).
+- `scroll_profundidad` — al cruzar 25/50/75/100 % de la página (`{porcentaje, pagina:'<slug>'}`).
+- `guia_filtro` / `guia_configurador` — al tocar un chip de filtro (`{facet, valor}`).
+- `guia_comparar` — al generar la tabla comparativa (`{modelos}`).
+- `guia_seleccion` — al marcar/desmarcar un modelo (opcional, `{modelo, estado}`).
+
+No midas precios de Amazon ni nada que implique seguimiento de precio (regla 0.4).
+
+## 3d. MÓVIL PRIMERO
+
+- El panel de **filtros/configurador va plegable en móvil**: envuélvelo en `<details class="config-collapse">`
+  con un `<summary>` tipo "Filtrar modelos ▾" (colapsado por defecto en móvil para no empujar el contenido),
+  y en escritorio fuérzalo abierto por CSS:
+  ```css
+  @media(min-width:721px){
+    details.config-collapse>summary{display:none}
+    details.config-collapse>*:not(summary){display:revert}
+  }
+  ```
+- Tarjetas a 1 columna, tabla comparativa como bloques apilados, botones de afiliado a lo ancho y
+  "tap-targets" de al menos 44 px. Probar siempre a 375 px antes de publicar.
+
 ## 4. PUBLICAR EN EL APARTADO (que "aparezca arriba")
 
 1. **Tarjeta en el sub-hub.** Abre `/guias-compra/<cat>/index.html` e inserta la tarjeta como
