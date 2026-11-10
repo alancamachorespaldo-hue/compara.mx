@@ -91,7 +91,10 @@ ul,ol{margin:0 0 13px}
 .lead{color:var(--tx2);max-width:850px;margin-bottom:22px}
 
 .quickgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:22px 0}
-.quick{border:1px solid var(--bd);border-radius:13px;padding:19px;background:#fff}
+.quick{border:1px solid var(--bd);border-radius:13px;overflow:hidden;background:#fff}
+.quick-img{height:160px;overflow:hidden;background:var(--s1)}
+.quick-img img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.quick-body{padding:16px 19px 19px}
 .quick .tag{font-size:10px;text-transform:uppercase;letter-spacing:.1em;font-weight:800;color:var(--ac)}
 .quick h3{font-size:17px;margin:7px 0}
 .quick p{font-size:13px;color:var(--tx2);margin:0}
@@ -131,7 +134,10 @@ ul,ol{margin:0 0 13px}
 .family-body li{margin:5px 0}
 
 .product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin:22px 0}
-.product{border:1px solid var(--bd);border-radius:14px;padding:18px;display:flex;flex-direction:column;min-height:270px}
+.product{border:1px solid var(--bd);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;min-height:270px}
+.product-img{height:180px;overflow:hidden;background:var(--s1)}
+.product-img img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.product-body{padding:18px;display:flex;flex-direction:column;flex:1}
 .product .model{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ac);font-weight:900}
 .product h3{font-size:17px;margin:8px 0}
 .product p{font-size:13px;color:var(--tx2)}
@@ -273,22 +279,31 @@ details.config-collapse>div{padding:16px}
   <p class="lead">No hay un ganador universal. Estas son las decisiones más razonables según el tipo de uso, con la información técnica contrastada hasta la fecha de revisión.</p>
   <div class="quickgrid">
     <article class="quick">
-      <div class="tag">Productividad y pantalla</div>
-      <h3>Galaxy Z Fold8 Ultra</h3>
-      <p>La opción más completa si aprovecharás la pantalla interior de 8 pulgadas, el sistema de cámaras más ambicioso y la batería de mayor capacidad de esta selección.</p>
-      <p style="margin-top:10px"><a class="amz-mini" href="https://www.amazon.com.mx/s?k=Samsung+Galaxy+Z+Fold8+Ultra+512GB&tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Galaxy Z Fold8 Ultra" data-loc="quickpick"><img src="/logoamazon.png" alt="Amazon">Ver en Amazon</a></p>
+      <div class="quick-img"><img src="/fotos/celulares/samsung-plegables/fold8-ultra.jpg" alt="Samsung Galaxy Z Fold8 Ultra" loading="lazy"></div>
+      <div class="quick-body">
+        <div class="tag">Productividad y pantalla</div>
+        <h3>Galaxy Z Fold8 Ultra</h3>
+        <p>La opción más completa si aprovecharás la pantalla interior de 8 pulgadas, el sistema de cámaras más ambicioso y la batería de mayor capacidad de esta selección.</p>
+        <p style="margin-top:10px"><a class="amz-mini" href="https://www.amazon.com.mx/s?k=Samsung+Galaxy+Z+Fold8+Ultra+512GB&tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Galaxy Z Fold8 Ultra" data-loc="quickpick"><img src="/logoamazon.png" alt="Amazon">Ver en Amazon</a></p>
+      </div>
     </article>
     <article class="quick">
-      <div class="tag">Fold más ligero</div>
-      <h3>Galaxy Z Fold8</h3>
-      <p>Interesa si quieres la experiencia de pantalla grande en un equipo de 201 g y no necesitas la cámara principal de 200 MP ni la pantalla interior de 8 pulgadas del Ultra.</p>
-      <p style="margin-top:10px"><a class="amz-mini" href="https://www.amazon.com.mx/s?k=Samsung+Galaxy+Z+Fold8+512GB&tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Galaxy Z Fold8" data-loc="quickpick"><img src="/logoamazon.png" alt="Amazon">Ver en Amazon</a></p>
+      <div class="quick-img"><img src="/fotos/celulares/samsung-plegables/fold8.jpg" alt="Samsung Galaxy Z Fold8" loading="lazy"></div>
+      <div class="quick-body">
+        <div class="tag">Fold más ligero</div>
+        <h3>Galaxy Z Fold8</h3>
+        <p>Interesa si quieres la experiencia de pantalla grande en un equipo de 201 g y no necesitas la cámara principal de 200 MP ni la pantalla interior de 8 pulgadas del Ultra.</p>
+        <p style="margin-top:10px"><a class="amz-mini" href="https://www.amazon.com.mx/s?k=Samsung+Galaxy+Z+Fold8+512GB&tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Galaxy Z Fold8" data-loc="quickpick"><img src="/logoamazon.png" alt="Amazon">Ver en Amazon</a></p>
+      </div>
     </article>
     <article class="quick">
-      <div class="tag">Portabilidad</div>
-      <h3>Galaxy Z Flip8</h3>
-      <p>La alternativa para quien quiere un teléfono de 180 g que se pliega a un formato compacto. No ofrece la pantalla de trabajo de un Fold.</p>
-      <p style="margin-top:10px"><a class="amz-mini" href="https://www.amazon.com.mx/s?k=Samsung+Galaxy+Z+Flip8+512GB&tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Galaxy Z Flip8" data-loc="quickpick"><img src="/logoamazon.png" alt="Amazon">Ver en Amazon</a></p>
+      <div class="quick-img"><img src="/fotos/celulares/samsung-plegables/flip8.jpg" alt="Samsung Galaxy Z Flip8" loading="lazy"></div>
+      <div class="quick-body">
+        <div class="tag">Portabilidad</div>
+        <h3>Galaxy Z Flip8</h3>
+        <p>La alternativa para quien quiere un teléfono de 180 g que se pliega a un formato compacto. No ofrece la pantalla de trabajo de un Fold.</p>
+        <p style="margin-top:10px"><a class="amz-mini" href="https://www.amazon.com.mx/s?k=Samsung+Galaxy+Z+Flip8+512GB&tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Galaxy Z Flip8" data-loc="quickpick"><img src="/logoamazon.png" alt="Amazon">Ver en Amazon</a></p>
+      </div>
     </article>
   </div>
   <div class="callout"><strong>Mi criterio:</strong> si no tienes una necesidad clara de multitarea en pantalla grande, no pagues el sobreprecio de un Fold solo por ser el modelo superior. Si tu prioridad es la portabilidad, el Flip tiene más sentido. Para generaciones anteriores, el precio y la garantía pueden cambiar por completo la recomendación.</div>
@@ -417,25 +432,34 @@ details.config-collapse>div{padding:16px}
       </div>
       <div class="product-grid" id="selectProducts">
         <label class="product">
-          <span class="model">Fold · 2026</span>
-          <h3>Galaxy Z Fold8 Ultra</h3>
-          <p>Para productividad, pantalla interior amplia y cámara avanzada.</p>
-          <div class="specs">8.0″ · 215 g · 200 MP · 5,000 mAh</div>
-          <span class="pick"><input type="checkbox" value="fold8u"> Seleccionar para comparar</span>
+          <div class="product-img"><img src="/fotos/celulares/samsung-plegables/fold8-ultra.jpg" alt="Samsung Galaxy Z Fold8 Ultra" loading="lazy"></div>
+          <div class="product-body">
+            <span class="model">Fold · 2026</span>
+            <h3>Galaxy Z Fold8 Ultra</h3>
+            <p>Para productividad, pantalla interior amplia y cámara avanzada.</p>
+            <div class="specs">8.0″ · 215 g · 200 MP · 5,000 mAh</div>
+            <span class="pick"><input type="checkbox" value="fold8u"> Seleccionar para comparar</span>
+          </div>
         </label>
         <label class="product">
-          <span class="model">Fold · 2026</span>
-          <h3>Galaxy Z Fold8</h3>
-          <p>Para quien quiere pantalla tipo tablet con menos peso.</p>
-          <div class="specs">7.6″ · 201 g · 50 MP · 4,800 mAh</div>
-          <span class="pick"><input type="checkbox" value="fold8"> Seleccionar para comparar</span>
+          <div class="product-img"><img src="/fotos/celulares/samsung-plegables/fold8.jpg" alt="Samsung Galaxy Z Fold8" loading="lazy"></div>
+          <div class="product-body">
+            <span class="model">Fold · 2026</span>
+            <h3>Galaxy Z Fold8</h3>
+            <p>Para quien quiere pantalla tipo tablet con menos peso.</p>
+            <div class="specs">7.6″ · 201 g · 50 MP · 4,800 mAh</div>
+            <span class="pick"><input type="checkbox" value="fold8"> Seleccionar para comparar</span>
+          </div>
         </label>
         <label class="product">
-          <span class="model">Flip · 2026</span>
-          <h3>Galaxy Z Flip8</h3>
-          <p>Para priorizar un equipo compacto al guardarlo.</p>
-          <div class="specs">6.9″ · 180 g · 50 MP · 4,300 mAh</div>
-          <span class="pick"><input type="checkbox" value="flip8"> Seleccionar para comparar</span>
+          <div class="product-img"><img src="/fotos/celulares/samsung-plegables/flip8.jpg" alt="Samsung Galaxy Z Flip8" loading="lazy"></div>
+          <div class="product-body">
+            <span class="model">Flip · 2026</span>
+            <h3>Galaxy Z Flip8</h3>
+            <p>Para priorizar un equipo compacto al guardarlo.</p>
+            <div class="specs">6.9″ · 180 g · 50 MP · 4,300 mAh</div>
+            <span class="pick"><input type="checkbox" value="flip8"> Seleccionar para comparar</span>
+          </div>
         </label>
       </div>
       <div class="result" id="compareResult" aria-live="polite"></div>
@@ -495,31 +519,37 @@ details.config-collapse>div{padding:16px}
   <p class="lead">Los reacondicionados se analizan por separado porque la condición, el desgaste y la garantía cambian la decisión. El precio bajo no compensa una pantalla interior dañada o una bisagra defectuosa.</p>
   <div class="product-grid">
     <article class="product renewed">
-      <span class="flag">Reacondicionado · 2024</span>
-      <span class="model">Galaxy Z Flip6</span>
-      <h3>Flip6 256 GB</h3>
-      <p>Puede ser una alternativa de entrada al formato Flip si el estado físico es bueno y la garantía y devolución son claras.</p>
-      <div class="specs">
-        <strong>Registro recibido:</strong> 256 GB · 12 GB RAM declarados · pantalla 6.7″ declarada.<br>
-        <strong>Garantía de publicación:</strong> limitada a 90 días, pendiente de reconfirmar.<br>
-        <strong>Datos por verificar:</strong> batería reportada con dos valores; procesador exacto; clasificación IP.
-      </div>
-      <div class="cta">
-        <a class="amazon-btn" href="https://www.amazon.com.mx/s?k=Samsung+Galaxy+Z+Flip6+256GB+reacondicionado&tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Galaxy Z Flip6 Reacondicionado" data-loc="tarjeta"><img src="/logoamazon.png" alt="Amazon">Ver precio en Amazon</a>
+      <div class="product-img"><img src="/fotos/celulares/samsung-plegables/flip6.jpg" alt="Samsung Galaxy Z Flip6" loading="lazy"></div>
+      <div class="product-body">
+        <span class="flag">Reacondicionado · 2024</span>
+        <span class="model">Galaxy Z Flip6</span>
+        <h3>Flip6 256 GB</h3>
+        <p>Puede ser una alternativa de entrada al formato Flip si el estado físico es bueno y la garantía y devolución son claras.</p>
+        <div class="specs">
+          <strong>Registro recibido:</strong> 256 GB · 12 GB RAM declarados · pantalla 6.7″ declarada.<br>
+          <strong>Garantía de publicación:</strong> limitada a 90 días, pendiente de reconfirmar.<br>
+          <strong>Datos por verificar:</strong> batería reportada con dos valores; procesador exacto; clasificación IP.
+        </div>
+        <div class="cta">
+          <a class="amazon-btn" href="https://www.amazon.com.mx/s?k=Samsung+Galaxy+Z+Flip6+256GB+reacondicionado&tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Galaxy Z Flip6 Reacondicionado" data-loc="tarjeta"><img src="/logoamazon.png" alt="Amazon">Ver precio en Amazon</a>
+        </div>
       </div>
     </article>
     <article class="product renewed">
-      <span class="flag">Reacondicionado · 2023</span>
-      <span class="model">Galaxy Z Flip5</span>
-      <h3>Flip5 256 GB</h3>
-      <p>Es una generación más antigua. Solo tendría sentido con un descuento sustancial, buen estado de pantalla y una política de devolución que permita probarlo.</p>
-      <div class="specs">
-        <strong>Registro recibido:</strong> 256 GB · 8 GB RAM declarados · batería publicada de 3,700 mAh.<br>
-        <strong>Garantía de publicación:</strong> limitada a 90 días, pendiente de reconfirmar.<br>
-        <strong>Datos por verificar:</strong> procesador de la publicación es erróneo; cámara y resistencia IP no confirmadas.
-      </div>
-      <div class="cta">
-        <a class="amazon-btn" href="https://www.amazon.com.mx/s?k=Samsung+Galaxy+Z+Flip5+256GB+reacondicionado&tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Galaxy Z Flip5 Reacondicionado" data-loc="tarjeta"><img src="/logoamazon.png" alt="Amazon">Ver precio en Amazon</a>
+      <div class="product-img"><img src="/fotos/celulares/samsung-plegables/flip5.jpg" alt="Samsung Galaxy Z Flip5" loading="lazy"></div>
+      <div class="product-body">
+        <span class="flag">Reacondicionado · 2023</span>
+        <span class="model">Galaxy Z Flip5</span>
+        <h3>Flip5 256 GB</h3>
+        <p>Es una generación más antigua. Solo tendría sentido con un descuento sustancial, buen estado de pantalla y una política de devolución que permita probarlo.</p>
+        <div class="specs">
+          <strong>Registro recibido:</strong> 256 GB · 8 GB RAM declarados · batería publicada de 3,700 mAh.<br>
+          <strong>Garantía de publicación:</strong> limitada a 90 días, pendiente de reconfirmar.<br>
+          <strong>Datos por verificar:</strong> procesador de la publicación es erróneo; cámara y resistencia IP no confirmadas.
+        </div>
+        <div class="cta">
+          <a class="amazon-btn" href="https://www.amazon.com.mx/s?k=Samsung+Galaxy+Z+Flip5+256GB+reacondicionado&tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Galaxy Z Flip5 Reacondicionado" data-loc="tarjeta"><img src="/logoamazon.png" alt="Amazon">Ver precio en Amazon</a>
+        </div>
       </div>
     </article>
   </div>

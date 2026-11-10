@@ -63,10 +63,18 @@ una guía que las incumpla pone en riesgo la cuenta (ya fue dada de baja dos vec
    digas "el más barato", "precio garantizado" ni "oferta por tiempo limitado" salvo que sea verdad
    y verificable; si mencionas una promo temporal, hay que quitarla cuando termine.
 
-7. **Imágenes.** Las imágenes de productos de Amazon son Contenido del Programa y requieren PA-API;
-   **no se scrapean** de las fichas de Amazon. Usa imágenes propias de `/fotos/`, imágenes que ya
-   estén en `merged-admin.json`/el sitio, o las de Mercado Libre. Si la guía de ChatGPT trae URLs
-   `m.media-amazon.com` / `images-na.ssl-images-amazon.com`, **reemplázalas o quítalas**.
+7. **Imágenes — OBLIGATORIAS en todas las tarjetas de producto.** Las imágenes de Amazon son
+   Contenido del Programa y requieren PA-API; **nunca se scrapean** de las fichas de Amazon
+   (`m.media-amazon.com` / `images-na.ssl-images-amazon.com` → reemplaza o elimina).
+   **Cada tarjeta de producto (quick-pick, comparador, reacondicionados, sub-hub) debe tener
+   una imagen.** Fuentes permitidas, en orden de preferencia:
+   a) `/fotos/celulares/<slug>/` o `/fotos/<categoria>/<slug>/` — descarga del CDN oficial del
+      fabricante (p.ej. `images.samsung.com`, `motorola.com`, imágenes de prensa).
+   b) Imágenes que ya estén en el sitio (`/fotos/`, `/assets/`).
+   c) Imágenes de Mercado Libre (URL pública de ML, no Amazon).
+   Si no encuentras imagen para un modelo, deja el contenedor con fondo de color (`background:var(--s1)`)
+   y el nombre del producto como `alt=""` — pero documéntalo para que Alan lo complete.
+   **Nunca publiques una tarjeta sin imagen sin que Alan lo sepa y lo autorice.**
 
 8. **Contenido original obligatorio** (Requisitos 1). El texto debe ser análisis/opinión propia, no
    copiar descripciones de la ficha de Amazon. Lo que trae Alan de ChatGPT suele cumplir; aun así
@@ -185,10 +193,12 @@ No midas precios de Amazon ni nada que implique seguimiento de precio (regla 0.4
 ## 4. PUBLICAR EN EL APARTADO (que "aparezca arriba")
 
 1. **Tarjeta en el sub-hub.** Abre `/guias-compra/<cat>/index.html` e inserta la tarjeta como
-   **primer hijo** de `<div class="ga-grid" id="ga-grid">` (arriba = primera posición):
+   **primer hijo** de `<div class="ga-grid" id="ga-grid">` (arriba = primera posición).
+   La tarjeta **siempre lleva imagen** — usa la imagen principal del producto/guía ya descargada
+   en `/fotos/<cat>/<slug>/`:
    ```html
    <a class="ga-card" href="/guias/<cat>/<slug>/">
-     <div class="ga-card-img"><img src="<imagen propia o ML>" alt="<título>" loading="lazy"></div>
+     <div class="ga-card-img"><img src="/fotos/<cat>/<slug>/<imagen-principal>.jpg" alt="<título>" loading="lazy"></div>
      <div class="ga-card-body">
        <span class="ga-card-tag"><ETIQUETA, p.ej. GAMA MEDIA></span>
        <span class="ga-card-title"><Título de la guía></span>
@@ -197,6 +207,8 @@ No midas precios de Amazon ni nada que implique seguimiento de precio (regla 0.4
      </div>
    </a>
    ```
+   - **Nunca uses un emoji ni gradiente CSS en lugar de imagen** (eso solo es aceptable como
+     placeholder temporal mientras buscas la imagen; documéntalo si no la tienes).
    - Si el sub-hub aún muestra el bloque vacío `<div class="ga-empty" id="ga-empty">…</div>`,
      **bórralo** (ya hay al menos una guía).
 2. **Sitemap.** Agrega `https://comparalo.mx/guias/<cat>/<slug>/` a `sitemap.xml` con
