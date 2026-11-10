@@ -253,6 +253,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 .card-btns-dual{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:6px}
 .card-btn-col{display:flex;flex-direction:column;gap:3px}
 .card-btn-col-price{font-size:12px;font-weight:700;color:var(--tx);text-align:center}
+.card-amz-consulta{font-size:11px;font-weight:600;color:var(--tx2);text-align:center}
 .btn-amz{display:flex;align-items:center;justify-content:center;gap:5px;width:100%;text-align:center;background:var(--amz);color:#000;border:none;border-radius:8px;padding:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Satoshi',sans-serif;text-decoration:none;transition:opacity .15s;white-space:nowrap}
 .btn-amz:hover{opacity:.9}
 .btn-ml{display:flex;align-items:center;justify-content:center;gap:5px;width:100%;text-align:center;background:var(--ml);color:#3a2e00;border:none;border-radius:8px;padding:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Satoshi',sans-serif;text-decoration:none;transition:opacity .15s;white-space:nowrap}
@@ -4134,6 +4135,8 @@ const HOME_CATS = [
   {sec:'gravel',  tabName:'gravel',     label:'Gravel',            data:()=>GRAVEL},
 ];
 
+// Precio público: solo Mercado Libre. Amazon no aporta precio visible ni a cálculos/orden.
+function precioPub(x){ if(!x) return null; if(x.precioML!=null) return x.precioML; return (x.linkML&&x.precio!=null)?x.precio:null; }
 function renderHome(){
   const container = document.getElementById('home-content');
   container.innerHTML = HOME_CATS.map(cat => {
@@ -4397,11 +4400,14 @@ function renderGrid(sec){
             </div>
           </div>`;
 
+      const _pubB = precioPub(b);
       const precioBlock = dual
         ? ''
-        : (b.precio || b.precioML || b.precioAmz
-            ? `<div class="card-price">$${(b.precio || b.precioML || b.precioAmz).toLocaleString('es-MX')} <span class="card-price-sub">MXN</span></div>`
-            : `<div class="card-price"><span style="font-size:.85rem;color:var(--tx2)">Ver precio en plataforma</span></div>`);
+        : ((b.linkAmz && !b.linkML)
+            ? `<div class="card-price"><span style="font-size:.85rem;color:var(--tx2)">Consultar precio</span></div>`
+            : (_pubB != null
+                ? `<div class="card-price">$${_pubB.toLocaleString('es-MX')} <span class="card-price-sub">MXN</span></div>`
+                : `<div class="card-price"><span style="font-size:.85rem;color:var(--tx2)">Ver precio en plataforma</span></div>`));
 
       const fmtP = v => '$' + v.toLocaleString('es-MX', {minimumFractionDigits:0, maximumFractionDigits:2});
 
@@ -4412,7 +4418,7 @@ function renderGrid(sec){
               <a class="btn-ml" href="${b.linkML}" rel="sponsored nofollow noopener" target="_blank" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'platform':'mercado_libre','product_name':this.dataset.gaLabel||'','price':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\\//g,'').replace(/\\/(?:index\\.html)?$/g,'').replace(/\\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1,'category':'bicis_${sec}'})}" data-ga-label="${b.nombre||''}" data-ga-val="${b.precio||0}">Ir a <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>
             </div>
             <div class="card-btn-col">
-              <div class="card-btn-col-price">${fmtP(b.precioAmz||b.precio)}</div>
+              <div class="card-btn-col-price card-amz-consulta">Consultar precio</div>
               <a class="btn-amz" href="${b.linkAmz}" rel="sponsored nofollow noopener" target="_blank" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_amazon',{'platform':'amazon','product_name':this.dataset.gaLabel||'','price':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\\//g,'').replace(/\\/(?:index\\.html)?$/g,'').replace(/\\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1,'category':'bicis_${sec}'})}" data-ga-label="${b.nombre||''}" data-ga-val="${b.precio||0}">Ir a <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>
             </div>
           </div>`
@@ -4525,7 +4531,7 @@ function showCmp(){
     </div></td>`).join('')+'</tr>';
 
   const METRICS_ELEC=[
-    {key:'precio',dir:'lower',label:'Precio',icon:'💰',get:b=>b.precio||null,fmt:x=>'$'+x.toLocaleString('es-MX')},
+    {key:'precio',dir:'lower',label:'Precio',icon:'💰',get:b=>precioPub(b),fmt:x=>'$'+x.toLocaleString('es-MX')},
     {key:'autonomia',dir:'higher',label:'Autonomía',icon:'🔋',get:b=>typeof b.autonomia==='number'?b.autonomia:null,fmt:x=>x+' km'},
     {key:'velocidad',dir:'higher',label:'Velocidad máx.',icon:'⚡',get:b=>typeof b.velocidad==='number'?b.velocidad:null,fmt:x=>x+' km/h'},
     {key:'peso',dir:'lower',label:'Peso',icon:'⚖️',get:b=>typeof b.peso==='number'?b.peso:null,fmt:x=>x+' kg'},
@@ -4533,7 +4539,7 @@ function showCmp(){
     {key:'estrellas',dir:'higher',label:'Calificación',icon:'⭐',get:b=>typeof b.estrellas==='number'?b.estrellas:null,fmt:x=>x.toFixed(1)},
   ];
   const METRICS_CONV=[
-    {key:'precio',dir:'lower',label:'Precio',icon:'💰',get:b=>b.precio||null,fmt:x=>'$'+x.toLocaleString('es-MX')},
+    {key:'precio',dir:'lower',label:'Precio',icon:'💰',get:b=>precioPub(b),fmt:x=>'$'+x.toLocaleString('es-MX')},
     {key:'peso',dir:'lower',label:'Peso',icon:'⚖️',get:b=>typeof b.peso==='number'?b.peso:null,fmt:x=>x+' kg'},
     {key:'velocidades',dir:'higher',label:'Velocidades',icon:'⚙️',get:b=>{const v=parseInt(b.velocidades);return isNaN(v)?null:v;},fmt:x=>x+' vel'},
     {key:'estrellas',dir:'higher',label:'Calificación',icon:'⭐',get:b=>typeof b.estrellas==='number'?b.estrellas:null,fmt:x=>x.toFixed(1)},

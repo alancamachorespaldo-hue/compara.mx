@@ -28,6 +28,10 @@ export function bajadaML(p, ahora = Date.now()) {
 }
 
 export function bajadaAmz(p, ahora = Date.now()) {
+  // POLÍTICA: no se publican precios ni ofertas de Amazon en el sitio. Amazon nunca
+  // genera una bajada/oferta pública. Se conserva la lógica abajo (inalcanzable) por si
+  // se revierte la política; _precioAmzAntes/_precioAmzFecha siguen guardándose en los datos.
+  return null;
   if (!p.precioAmz || !p.linkAmz || !tagOk(p.linkAmz) || p.pausaAmz) return null;
   if (!amzVigente(p, ahora) || !(p._precioAmzAntes > p.precioAmz)) return null;
   const b = conPct({ plataforma: 'amazon', precio: p.precioAmz, antes: p._precioAmzAntes, link: p.linkAmz });

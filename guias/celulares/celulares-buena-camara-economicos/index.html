@@ -948,7 +948,7 @@
         linkAmz: existente.linkAmz || base.linkAmz,
         precioML: existente.precioML ?? base.precioML,
         precioAmz: existente.precioAmz ?? base.precioAmz,
-        precioEditorial: base.precioEditorial ?? existente.precioML ?? existente.precioAmz ?? null,
+        precioEditorial: base.precioEditorial ?? existente.precioML ?? null,
         estadoCatalogo: "catalogado"
       };
     });
@@ -1120,6 +1120,7 @@
       var sec=document.getElementById('desc-guia-section');
       if(!grid||!sec)return;
       data.descuentos.forEach(function(d){
+        if(d.plataforma==='amazon')return; // política: no se publican precios ni ofertas de Amazon
         var esAmz=d.plataforma==='amazon',precio=d.precioOferta||d.precioML;
         var card=document.createElement('article');
         card.className='model-card';
@@ -1224,7 +1225,7 @@
 })();
 </script>
   <script src="/assets/js/share.js" defer></script>
-<script src="/js/onboarding.js" defer></script>
+<script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
 </body>
 </html>

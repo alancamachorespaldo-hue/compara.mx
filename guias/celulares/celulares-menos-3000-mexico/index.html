@@ -1078,7 +1078,7 @@
         ...base,
         linkML: existente.linkML || existente.urlML || base.linkML,
         linkAmz: existente.linkAmz || existente.urlAmz || base.linkAmz,
-        precioReferencia: existente.precioML ?? existente.precioAmz ?? existente.precio ?? base.precioReferencia,
+        precioReferencia: existente.precioML ?? existente.precio ?? base.precioReferencia,
         pendiente: !(existente.linkML || existente.urlML || existente.linkAmz || existente.urlAmz)
       };
     });
@@ -1411,6 +1411,7 @@
       var sec=document.getElementById('desc-guia-section');
       if(!grid||!sec)return;
       data.descuentos.forEach(function(d){
+        if(d.plataforma==='amazon')return; // política: no se publican precios ni ofertas de Amazon
         var esAmz=d.plataforma==='amazon',precio=d.precioOferta||d.precioML;
         var card=document.createElement('article');
         card.className='model-card';
@@ -1492,7 +1493,7 @@
 })();
 </script>
   <script src="/assets/js/share.js" defer></script>
-<script src="/js/onboarding.js" defer></script>
+<script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
 </body>
 </html>

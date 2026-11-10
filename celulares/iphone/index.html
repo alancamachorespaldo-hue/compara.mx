@@ -2192,13 +2192,12 @@ function starsHTML(variante) {
 
 function btnsHTML(variante, nombre) {
   const pML  = variante.linkML  ? (variante.precioML  || variante.precio) : null;
-  const pAmz = variante.linkAmz ? (variante.precioAmz || variante.precio) : null;
-  let bestML = false, bestAmz = false;
-  if (pML != null && pAmz != null) { if (pML < pAmz) bestML = true; else if (pAmz < pML) bestAmz = true; }
+  // Sin precio público de Amazon no se compara "mejor precio" entre tiendas.
+  const bestML = false, bestAmz = false;
   const gaML  = `onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'platform':'mercado_libre','product_name':this.dataset.gaLabel||'','price':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\\//g,'').replace(/\\/(?:index\\.html)?$/g,'').replace(/\\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1,'category':'iphone'})}" data-ga-label="${nombre||''}" data-ga-val="${variante.precio||0}"`;
   const gaAmz = `onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_amazon',{'platform':'amazon','product_name':this.dataset.gaLabel||'','price':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\\//g,'').replace(/\\/(?:index\\.html)?$/g,'').replace(/\\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1,'category':'iphone'})}" data-ga-label="${nombre||''}" data-ga-val="${variante.precio||0}"`;
   const mlBox  = variante.linkML  ? `<div class="pplat${bestML?' best':''}">${bestML?'<span class="pplat-tag">Mejor precio</span>':''}<span class="pplat-name">Mercado Libre</span><span class="pplat-price">${fmt(pML)}</span><a class="btn-ml" href="${variante.linkML}" target="_blank" rel="sponsored nofollow noopener" aria-label="Ver ${nombre||''} en Mercado Libre" ${gaML}>Ir a <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a></div>` : '';
-  const amzBox = variante.linkAmz ? `<div class="pplat${bestAmz?' best':''}">${bestAmz?'<span class="pplat-tag">Mejor precio</span>':''}<span class="pplat-name">Amazon</span><span class="pplat-price">${fmt(pAmz)}</span><a class="btn-amz" href="${variante.linkAmz}" target="_blank" rel="sponsored nofollow noopener" aria-label="Ver ${nombre||''} en Amazon" ${gaAmz}>Ir a <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a></div>` : '';
+  const amzBox = variante.linkAmz ? `<div class="pplat${bestAmz?' best':''}">${bestAmz?'<span class="pplat-tag">Mejor precio</span>':''}<span class="pplat-name">Amazon</span><span class="pplat-price nd">Consultar precio</span><a class="btn-amz" href="${variante.linkAmz}" target="_blank" rel="sponsored nofollow noopener" aria-label="Ver ${nombre||''} en Amazon" ${gaAmz}>Ir a <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a></div>` : '';
   if (!mlBox && !amzBox) return `<div class="pcard-plats one"><div class="pplat"><span class="pplat-name">Próximamente</span></div></div>`;
   const n = (variante.linkML ? 1 : 0) + (variante.linkAmz ? 1 : 0);
   return `<div class="pcard-plats${n < 2 ? ' one' : ''}">${mlBox}${amzBox}</div>`;

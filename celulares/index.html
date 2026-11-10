@@ -367,6 +367,7 @@ footer a{color:var(--ac);text-decoration:none}
     const sec=document.getElementById('desc-section');
     if(!grid||!sec)return;
     data.descuentos.forEach(function(d){
+      if(d.plataforma==='amazon')return; // política: no se publican precios ni ofertas de Amazon
       const esAmz=d.plataforma==='amazon',precio=d.precioOferta||d.precioML;
       const specsHtml=d.especs?[
         d.especs.pantalla?'<li><span class="spec-key">Pantalla</span><span class="spec-val">'+d.especs.pantalla+'</span></li>':'',

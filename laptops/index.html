@@ -329,6 +329,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 .pplat-tag{font-size:8px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;background:var(--ac);color:#fff;border-radius:20px;padding:2px 7px;position:absolute;top:-9px;left:50%;transform:translateX(-50%);white-space:nowrap}
 .pplat-name{font-size:9px;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;margin-top:5px}
 .pplat-price{font-size:14px;font-weight:800;color:var(--tx);letter-spacing:-.03em}
+.pplat-consulta{font-size:12px;font-weight:600;color:var(--tx2);letter-spacing:0}
 .pplat .btn-ml,.pplat .btn-amz{width:100%;font-size:11px;padding:6px 4px}
 
 /* ── How-to guide ─────────────────────────────────────────────── */
@@ -4852,13 +4853,13 @@ function render() {
       const hay = (p.nombre + ' ' + p.marca + ' ' + (p.modelo||'')).toLowerCase();
       if (!hay.includes(q)) return false;
     }
-    const _maxP=parseFloat(document.getElementById('precio-max')?.value)||Infinity;if(_maxP<Infinity&&(p.precio||0)>_maxP)return false;
+    const _maxP=parseFloat(document.getElementById('precio-max')?.value)||Infinity;if(_maxP<Infinity){const _vp=precioPub(p);if(_vp!=null&&_vp>_maxP)return false;}
     return true;
   });
 
   lista.sort((a, b) => {
-    if (sortVal === 'precio-asc') return (a.precio||99999) - (b.precio||99999);
-    if (sortVal === 'precio-desc') return (b.precio||0) - (a.precio||0);
+    if (sortVal === 'precio-asc') return (precioPub(a)??99999) - (precioPub(b)??99999);
+    if (sortVal === 'precio-desc') return (precioPub(b)??0) - (precioPub(a)??0);
     if (sortVal === 'estrellas') return (b.estrellas||0) - (a.estrellas||0);
     if (sortVal === 'ram') return b.ram - a.ram;
     if (sortVal === 'almacenamiento') return b.almacenamiento - a.almacenamiento;
@@ -4881,6 +4882,8 @@ function render() {
   cmxUpdateBadge();
 }
 
+// Precio público: solo Mercado Libre. Amazon no aporta precio visible ni a cálculos/orden.
+function precioPub(p){ if(!p) return null; if(p.precioML!=null) return p.precioML; return (p.linkML&&p.precio!=null)?p.precio:null; }
 function cardHTML(p) {
   const isSelected = selected.includes(String(p.id));
   const fmt = v => '$' + v.toLocaleString('es-MX', {minimumFractionDigits:0, maximumFractionDigits:2});
@@ -4920,13 +4923,12 @@ function cardHTML(p) {
   const specs = `<div class="card-specs-grid">${_rows.map(r=>`<div class="spec-cell"><div class="spec-cell-head"><span class="spec-cell-ico" aria-hidden="true">${ICO[r[0]]}</span><span class="spec-cell-lbl">${r[1]}</span></div><div class="spec-cell-val">${r[2]}</div></div>`).join('')}</div>`;
 
   // Price boxes (pcard-plats)
-  const pML  = p.linkML  ? (p.precioML  || p.precio) : null;
-  const pAmz = p.linkAmz ? (p.precioAmz || p.precio) : null;
-  let bestML = false, bestAmz = false;
-  if (pML != null && pAmz != null) { if (pML < pAmz) bestML = true; else if (pAmz < pML) bestAmz = true; }
+  const pML  = precioPub(p);
+  // Sin precio público de Amazon no se compara "mejor precio" entre tiendas.
+  const bestML = false, bestAmz = false;
   const _GA = (ev, plat) => `onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','${ev}',{'platform':'${plat}','product_name':this.dataset.gaLabel||'','price':parseFloat(this.dataset.gaVal)||0,'page_section':'laptops','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1,'category':'laptops'})}" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}"`;
   const mlBox  = p.linkML  ? `<div class="pplat pplat-ml${bestML?' best':''}">${bestML?'<span class="pplat-tag">Mejor precio</span>':''}<span class="pplat-name">Mercado Libre</span>${pML?`<span class="pplat-price">${fmt(pML)}</span>`:''}<a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" ${_GA('affiliate_click_ml','mercado_libre')}>Ir a Mercado Libre</a></div>` : '';
-  const amzBox = p.linkAmz ? `<div class="pplat pplat-amz${bestAmz?' best':''}">${bestAmz?'<span class="pplat-tag">Mejor precio</span>':''}<span class="pplat-name">Amazon</span>${pAmz?`<span class="pplat-price">${fmt(pAmz)}</span>`:''}<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" ${_GA('affiliate_click_amazon','amazon')}>Ir a Amazon</a></div>` : '';
+  const amzBox = p.linkAmz ? `<div class="pplat pplat-amz${bestAmz?' best':''}">${bestAmz?'<span class="pplat-tag">Mejor precio</span>':''}<span class="pplat-name">Amazon</span><span class="pplat-price pplat-consulta">Consultar precio</span><a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" ${_GA('affiliate_click_amazon','amazon')}>Ir a Amazon</a></div>` : '';
   const _n = (p.linkML?1:0) + (p.linkAmz?1:0);
   const btnsBlock = (mlBox || amzBox)
     ? `<div class="pcard-plats${_n<2?' one':''}">${mlBox}${amzBox}</div>`
@@ -5029,18 +5031,22 @@ function openModal() {
   }
 
   function filaPrecio(prods) {
-    const all = prods.map(p => p.precioAmz || p.precioML || p.precio || null);
-    const minP = Math.min(...all.filter(Boolean));
+    const all = prods.map(p => precioPub(p));
+    const minP = Math.min(...all.filter(v => v != null));
     const cells = prods.map(p => {
-      if (p.precioML && p.precioAmz) {
+      const pML = precioPub(p);
+      if (p.linkML && p.linkAmz) {
+        const isWin = pML != null && pML === minP;
         return `<td><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:12px">
-          <div><div style="font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px">Mercado Libre</div><div style="font-weight:700">${'$'+p.precioML.toLocaleString('es-MX')}</div></div>
-          <div><div style="font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px">Amazon</div><div style="font-weight:700">${'$'+p.precioAmz.toLocaleString('es-MX')}</div></div>
+          <div><div style="font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px">Mercado Libre</div><div style="font-weight:700" class="${isWin?'cmp-winner':''}">${pML != null ? '$'+pML.toLocaleString('es-MX') : '—'}</div></div>
+          <div><div style="font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px">Amazon</div><div style="font-weight:600;color:var(--tx2)">Consultar precio</div></div>
         </div></td>`;
       }
-      const v = p.precio;
-      const isWin = v && v === minP;
-      return `<td class="${isWin?'cmp-winner':''}">${v ? '$'+v.toLocaleString('es-MX') : '—'}</td>`;
+      if (p.linkAmz && !p.linkML) {
+        return `<td style="color:var(--tx2);font-weight:600">Consultar precio</td>`;
+      }
+      const isWin = pML != null && pML === minP;
+      return `<td class="${isWin?'cmp-winner':''}">${pML != null ? '$'+pML.toLocaleString('es-MX') : '—'}</td>`;
     }).join('');
     return `<tr><td>Precio</td>${cells}</tr>`;
   }
@@ -5081,7 +5087,7 @@ function openModal() {
      <tbody>${rows}<tr><td>Comprar</td>${btnRows}</tr></tbody>`;
 
   const METRICS_LAP=[
-    {key:'precio',dir:'lower',label:'Precio',icon:'💰',get:p=>p.precio||null,fmt:x=>'$'+x.toLocaleString('es-MX')},
+    {key:'precio',dir:'lower',label:'Precio',icon:'💰',get:p=>precioPub(p),fmt:x=>'$'+x.toLocaleString('es-MX')},
     {key:'ram',dir:'higher',label:'RAM',icon:'🧠',get:p=>typeof p.ram==='number'?p.ram:null,fmt:x=>x+' GB'},
     {key:'almacenamiento',dir:'higher',label:'Almacenamiento',icon:'💾',get:p=>typeof p.almacenamiento==='number'?p.almacenamiento:null,fmt:x=>x>=1000?(x/1024).toFixed(1)+' TB':x+' GB'},
     {key:'pantalla',dir:'neutral',label:'Pantalla',icon:'🖥️',get:p=>typeof p.pantalla==='number'?p.pantalla:null,fmt:x=>x+'"'},

@@ -3343,13 +3343,12 @@ function metricsHTML(f, v) {
 function platsHTML(f, v) {
   const fmtP = x => fmt(x);
   const mlPrice = v.linkML ? v.precio : null;
-  const amzPrice = v.linkAmz ? (v.precioAmz ?? v.precio) : null;
-  let bestML=false, bestAmz=false;
-  if (mlPrice!=null && amzPrice!=null) { if (mlPrice<amzPrice) bestML=true; else if (amzPrice<mlPrice) bestAmz=true; }
+  // Sin precio público de Amazon no se compara "mejor precio" entre tiendas.
+  const bestML=false, bestAmz=false;
   const gaML = `onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\\//g,'').replace(/\\/(?:index\\.html)?$/g,'').replace(/\\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1});}" data-ga-label="${f.nombre||''}" data-ga-val="${v.precio||0}"`;
   const gaAmz = `onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_amazon',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\\//g,'').replace(/\\/(?:index\\.html)?$/g,'').replace(/\\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1});}" data-ga-label="${f.nombre||''}" data-ga-val="${v.precioAmz||v.precio||0}"`;
   const mlBox = v.linkML ? `<div class="pplat${bestML?' best':''}" id="box-ml-${f.modeloBase}">${bestML?'<span class="pplat-tag">Mejor precio</span>':''}<span class="pplat-name">Mercado Libre</span><span class="pplat-price" id="precio-${f.modeloBase}">${fmtP(mlPrice)}</span><a class="btn-ml" href="${v.linkML}" id="lnk-ml-${f.modeloBase}" target="_blank" rel="sponsored nofollow noopener" aria-label="Ver ${f.nombre||''} en Mercado Libre" ${gaML}>Ir a <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a></div>` : '';
-  const amzBox = v.linkAmz ? `<div class="pplat${bestAmz?' best':''}" id="box-amz-${f.modeloBase}">${bestAmz?'<span class="pplat-tag">Mejor precio</span>':''}<span class="pplat-name">Amazon</span><span class="pplat-price" id="precio-amz-${f.modeloBase}">${fmtP(amzPrice)}</span><a class="btn-amz" href="${v.linkAmz}" id="lnk-amz-${f.modeloBase}" target="_blank" rel="sponsored nofollow noopener" aria-label="Ver ${f.nombre||''} en Amazon" ${gaAmz}>Ir a <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a></div>` : '';
+  const amzBox = v.linkAmz ? `<div class="pplat${bestAmz?' best':''}" id="box-amz-${f.modeloBase}">${bestAmz?'<span class="pplat-tag">Mejor precio</span>':''}<span class="pplat-name">Amazon</span><span class="pplat-price nd" id="precio-amz-${f.modeloBase}">Consultar precio</span><a class="btn-amz" href="${v.linkAmz}" id="lnk-amz-${f.modeloBase}" target="_blank" rel="sponsored nofollow noopener" aria-label="Ver ${f.nombre||''} en Amazon" ${gaAmz}>Ir a <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a></div>` : '';
   const n = (v.linkML?1:0)+(v.linkAmz?1:0);
   return `<div class="pcard-plats${n<2?' one':''}" id="plats-${f.modeloBase}">${mlBox}${amzBox}</div>`;
 }
@@ -3847,6 +3846,7 @@ document.getElementById('howModalOv').addEventListener('click',function(e){if(e.
     var sec=document.getElementById('desc-android-section');
     if(!grid||!sec)return;
     data.descuentos.forEach(function(d){
+      if(d.plataforma==='amazon')return; // política: no se publican precios ni ofertas de Amazon
       var esAmz=d.plataforma==='amazon',precio=d.precioOferta||d.precioML;
       var specsLi='';
       if(d.especs){

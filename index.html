@@ -825,6 +825,7 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
   var selections={};/* {label: {id: true}} */
 
   function makeCard(d,s){
+    if(d&&d.plataforma==='amazon')return ''; // política: no se publican precios ni ofertas de Amazon
     var nm=(d.nombre||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
     var lbl=(d.nombre||'').replace(/'/g,"\\'").replace(/"/g,'&quot;');
     var imgH=d.imagen?'<img src="'+d.imagen+'" alt="'+nm+'" loading="lazy" referrerpolicy="no-referrer">':'';

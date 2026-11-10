@@ -37,6 +37,7 @@
   window.cmxGetDrop = function (p) {
     var d = drops[String(p.id)];
     if (!d) return null;
+    if (d.plataforma === 'amazon') return null; // política: no se publican precios ni ofertas de Amazon
     var a = norm(d.nombre), b = norm(p.nombre);
     var len = a && b ? Math.min(a.length, b.length) : 0;
     if (len && a.slice(0, len) !== b.slice(0, len)) return null;
