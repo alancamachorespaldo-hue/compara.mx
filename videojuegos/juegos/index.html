@@ -897,7 +897,7 @@ const productos = [
     marca: "PlayStation",
     img: "https://http2.mlstatic.com/D_NQ_NP_837355-MLA99504843670_112025-F.jpg",
     linkML: "https://meli.la/1fYnL3n",
-    precioML: 449,
+    precioML: 550,
     especs: {
       "plataforma": "PS4",
       "formato": "Físico",
@@ -1942,6 +1942,7 @@ const productos = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 
 
