@@ -42,8 +42,11 @@ for (const abs of walk(ROOT)) {
   if (!html.includes('G-9TKZ4ER13X')) err(file, 'falta GA4 G-9TKZ4ER13X');
   if (!isRedirect && file !== '404.html' && !html.includes('/js/onboarding.js')) err(file, 'falta /js/onboarding.js');
 
+  // Tags de afiliado Amazon permitidos: el legado (cuenta vieja) y el nuevo de
+  // la cuenta nov-2026 que usan las guías de /guias-compra/ (StoreID guiasdecomp01-20).
+  const TAGS_OK = ['comparalo20-20', 'guiasdecomp01-20'];
   for (const m of html.matchAll(/[?&](?:amp;)?tag=([\w-]+)/g))
-    if (m[1] !== 'comparalo20-20') err(file, `tag de afiliado incorrecto: tag=${m[1]}`);
+    if (!TAGS_OK.includes(m[1])) err(file, `tag de afiliado incorrecto: tag=${m[1]}`);
 
   for (const m of html.matchAll(/href="([^"#?]+\.html)(?:[#?][^"]*)?"/g)) {
     const h = m[1];

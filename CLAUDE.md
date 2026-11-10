@@ -6,7 +6,10 @@ HTML/CSS/JS puro publicado con **GitHub Pages** desde `alancamachorespaldo-hue/c
 
 ## Reglas que nunca se rompen
 
-- **Tag de afiliado Amazon: `tag=comparalo20-20`.** No cambiarlo ni volver a `comparabici-20`.
+- **Tag de afiliado Amazon.** Páginas y guías existentes usan `tag=comparalo20-20` (cuenta vieja);
+  no volver a `comparabici-20`. **Las guías nuevas de `/guias-compra/` usan `tag=guiasdecomp01-20`**
+  (StoreID de la cuenta vigente nov-2026, la del acuerdo que aceptó Alan; ver skill `crear-guia-ofertas`).
+  `check-site.js` acepta ambos tags; no "corregir" `guiasdecomp01-20` de vuelta a `comparalo20-20`.
 - **GA4 `G-9TKZ4ER13X`** debe estar en todas las páginas HTML. No quitarlo, reemplazarlo ni reimplementarlo.
 - No modificar `/assets/js/analytics.js`.
 - No cambiar precios, especificaciones, ratings, número de reseñas, imágenes, links ni IDs de productos
