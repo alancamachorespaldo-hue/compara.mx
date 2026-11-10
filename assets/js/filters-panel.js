@@ -51,7 +51,13 @@
     return { id: 'bajada', title: 'Ofertas', mode: 'or', hidden: true, opts: [
       { v: 'drop', label: '↓ Solo con bajada de precio', test: function (p) { return !!(window.cmxGetDrop && window.cmxGetDrop(p)); } }] };
   }
-  function platform(opts) { return { id: 'plataforma', title: 'Disponibilidad', mode: 'or', pills: true, opts: opts }; }
+  function platform(opts) {
+    // Amazon desactivado: quitar opciones amz y "Ambas" (solo queda ML)
+    var clean = (opts || []).filter(function (o) { return o.v !== 'amz'; });
+    // Si solo queda "todos" + "ml" (o menos), ocultar el grupo
+    if (clean.length <= 2) return { id: 'plataforma', title: 'Disponibilidad', mode: 'or', pills: true, hidden: true, opts: [{ v: 'todos', label: 'Todos', all: true, test: function () { return true; } }] };
+    return { id: 'plataforma', title: 'Disponibilidad', mode: 'or', pills: true, opts: clean };
+  }
   function brand() { return byValue('marca', 'Marca', function (p) { return p.marca; }); }
   function cost(edges) { return buckets('costo', 'Costo por porción', function (p) { return p.costoPorPorcion; }, edges); }
 
@@ -451,9 +457,20 @@
     main = aside.parentNode.querySelector('.cmx-fp-main');
     L = products();
     facets = factory().concat([dropFacet()]);
+    // Amazon desactivado: quitar opciones amz de filtros de plataforma/tienda
+    facets.forEach(function (f) {
+      if (f.id === 'plataforma') {
+        f.opts = f.opts.filter(function (o) { return o.v !== 'amz'; });
+        if (f.opts.length <= 2) f._remove = true;
+      }
+    });
+    facets = facets.filter(function (f) { return !f._remove; });
     // "Ofertas" va justo después de Disponibilidad, antes de las facetas propias de la categoría
-    var plat = facets.shift();
-    facets = [plat, facets.pop()].concat(facets);
+    var platIdx = -1;
+    facets.forEach(function (f, i) { if (f.id === 'plataforma') platIdx = i; });
+    var plat = platIdx >= 0 ? facets.splice(platIdx, 1)[0] : null;
+    var drop = facets.pop();
+    facets = (plat ? [plat] : []).concat([drop]).concat(facets);
     facets.forEach(function (f) {
       var allOpt = f.opts.filter(function (o) { return o.all; })[0];
       sel[f.id] = allOpt ? [allOpt.v] : [];

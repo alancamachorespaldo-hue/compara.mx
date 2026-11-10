@@ -379,7 +379,6 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
   <span class="filter-label">Plataforma</span>
   <button class="filter on" onclick="toggleFilter('plataforma','todos',this)">Todas</button>
   <button class="filter" onclick="toggleFilter('plataforma','ml',this)">Mercado Libre</button>
-  <button class="filter" onclick="toggleFilter('plataforma','amz',this)">Amazon</button>
   <div class="filter-sep"></div>
     <span class="filter-label">Precio máx.</span>
     <input type="number" id="precio-max" placeholder="ej. 500" class="precio-max-input" oninput="render()" min="0" step="50">
@@ -581,7 +580,9 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 
 <script type="application/json" id="pausas">{}</script>
 <script>
-const PRODUCTOS = [];
+const PRODUCTOS = [
+
+];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=PRODUCTOS.length-1;_i>=0;_i--){var _z=_PZ[PRODUCTOS[_i].id];if(!_z)continue;if(_z.ml){PRODUCTOS[_i].linkML=null;PRODUCTOS[_i].precioML=null;PRODUCTOS[_i].pausaML=true;}if(_z.amz){PRODUCTOS[_i].linkAmz='';PRODUCTOS[_i].precioAmz=null;PRODUCTOS[_i].pausaAmz=true;}if(_z.ml&&_z.amz)PRODUCTOS.splice(_i,1);}}catch(e){}
 
 
@@ -643,7 +644,6 @@ function filtrar() {
     if (filters.conK2 === 'si' && p.conK2 !== 'Sí') return false;
     if (filters.conK2 === 'no' && p.conK2 === 'Sí') return false;
     if (filters.plataforma === 'ml' && !p.linkML) return false;
-    if (filters.plataforma === 'amz' && !p.linkAmz) return false;
     const _maxP=parseFloat(document.getElementById('precio-max')?.value)||Infinity;if(_maxP<Infinity&&(precioVigente(p)||0)>_maxP)return false;
     return true;
   });

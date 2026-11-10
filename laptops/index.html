@@ -657,7 +657,6 @@ body .card-body{padding:1rem !important;min-width:0 !important}
     <div class="sidebar-sec-title">Tienda</div>
     <div class="sidebar-filters">
       <button class="filter on filter-logo" data-group="plat" onclick="toggleFilter('plat','todos',this)">Ambas</button>
-      <button class="filter filter-logo" data-group="plat" onclick="toggleFilter('plat','amz',this)"><img src="/logoamazon.png" alt="Amazon" style="height:14px;width:auto;object-fit:contain;vertical-align:middle" onerror="this.outerHTML='Amazon'"></button>
       <button class="filter filter-logo" data-group="plat" onclick="toggleFilter('plat','ml',this)"><img src="/logomercado.png" alt="Mercado Libre" style="height:14px;width:auto;object-fit:contain;vertical-align:middle" onerror="this.outerHTML='ML'"></button>
     </div>
   </div>
@@ -965,355 +964,13 @@ body .card-body{padding:1rem !important;min-width:0 !important}
 <script>
 const productos = [
   {
-    id: 2,
-    nombre: "ASUS Vivobook Go 14 Ryzen 3 8GB 512GB",
-    marca: "ASUS",
-    color: "Negro",
-    precio: 8521,
-    precioML: null,
-    precioAmz: 8521,
-    procesador: "AMD Ryzen 3-7320U",
-    marcaProcesador: "AMD",
-    ram: 8,
-    almacenamiento: 512,
-    ssd: true,
-    pantalla: 14,
-    resolucion: "FHD 1920×1080",
-    touch: false,
-    gpu: "AMD Radeon Graphics",
-    gpuDedicada: false,
-    vram: null,
-    duracionBateria: null,
-    peso: 1.38,
-    os: "Windows 11 Home",
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
-    estrellas: 4.6,
-    resenas: 302,
-    estrellasML: null,
-    resenasML: null,
-    estrellasAmz: 4.6,
-    resenasAmz: 302,
-    badges: [
-      {
-        t: "AMZ",
-        c: "b-amz"
-      }
-    ],
-    linkML: null,
-    linkAmz: "https://www.amazon.com.mx/dp/B0CWH4YRY3?tag=comparalo20-20",
-    img: "https://m.media-amazon.com/images/I/71ffz3rS1UL._AC_SX679_.jpg"
-  },
-  {
-    id: 3,
-    nombre: "HP Laptop 15 Intel Core 3 8GB 512GB",
-    marca: "HP",
-    color: "Plateado",
-    precio: 8662.58,
-    precioML: null,
-    precioAmz: 8662.58,
-    procesador: "Intel Core 3-100U",
-    marcaProcesador: "Intel",
-    ram: 8,
-    almacenamiento: 512,
-    ssd: true,
-    pantalla: 15.6,
-    resolucion: "FHD 1920×1080",
-    touch: false,
-    gpu: "Intel Graphics",
-    gpuDedicada: false,
-    vram: null,
-    duracionBateria: null,
-    peso: 1.65,
-    os: "Windows 11 Home",
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
-    estrellas: 5,
-    resenas: 2,
-    estrellasML: null,
-    resenasML: null,
-    estrellasAmz: 5,
-    resenasAmz: 2,
-    badges: [
-      {
-        t: "AMZ",
-        c: "b-amz"
-      }
-    ],
-    linkML: null,
-    linkAmz: "https://www.amazon.com.mx/dp/B0GR2PK79C?tag=comparalo20-20",
-    img: "https://m.media-amazon.com/images/I/61-0IWsZq6L._AC_SX679_.jpg"
-  },
-  {
-    id: 7,
-    nombre: "Lenovo IdeaPad 5i 2en1 Core Ultra 5 8GB 512GB Touch",
-    marca: "Lenovo",
-    color: "Luna Gris",
-    precio: 11399,
-    precioML: null,
-    precioAmz: 11399,
-    procesador: "Intel Core Ultra 5-225U",
-    marcaProcesador: "Intel",
-    ram: 8,
-    almacenamiento: 512,
-    ssd: true,
-    pantalla: 14,
-    resolucion: "WUXGA 1920×1200",
-    touch: true,
-    gpu: "Intel Graphics",
-    gpuDedicada: false,
-    vram: null,
-    duracionBateria: null,
-    peso: 1.38,
-    os: "Windows 11 Home",
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
-    estrellas: 3.9,
-    resenas: 12,
-    estrellasML: null,
-    resenasML: null,
-    estrellasAmz: 3.9,
-    resenasAmz: 12,
-    badges: [
-      {
-        t: "AMZ",
-        c: "b-amz"
-      }
-    ],
-    linkML: null,
-    linkAmz: "https://www.amazon.com.mx/dp/B0FWZS9JMZ?tag=comparalo20-20",
-    img: "https://m.media-amazon.com/images/I/711BP15OQiL._AC_SX679_.jpg"
-  },
-  {
-    id: 8,
-    nombre: "ASUS Chromebook CM14 MediaTek Kompanio 540 8GB 128GB",
-    marca: "ASUS",
-    color: "Pure Grey",
-    precio: 6499,
-    precioML: null,
-    precioAmz: 6499,
-    procesador: "MediaTek Kompanio 540",
-    marcaProcesador: "MediaTek",
-    ram: 8,
-    almacenamiento: 128,
-    ssd: true,
-    pantalla: 14,
-    resolucion: "FHD 1920×1080",
-    touch: false,
-    gpu: "MediaTek Graphics",
-    gpuDedicada: false,
-    vram: null,
-    duracionBateria: 6,
-    peso: 1.37,
-    os: "Chrome OS",
-    uso: [
-      "estudio"
-    ],
-    estrellas: 5,
-    resenas: 3,
-    estrellasML: null,
-    resenasML: null,
-    estrellasAmz: 5,
-    resenasAmz: 3,
-    badges: [
-      {
-        t: "AMZ",
-        c: "b-amz"
-      }
-    ],
-    linkML: null,
-    linkAmz: "https://www.amazon.com.mx/dp/B0GRJTGBZW?tag=comparalo20-20",
-    img: "https://m.media-amazon.com/images/I/51aCKsFdyzL._AC_SX679_.jpg"
-  },
-  {
-    id: 9,
-    nombre: "Acer Aspire 3 Ryzen 5 8GB 512GB Touch",
-    marca: "Acer",
-    color: "Azul",
-    precio: 14663,
-    precioML: null,
-    precioAmz: 14663,
-    procesador: "AMD Ryzen 5-7520U",
-    marcaProcesador: "AMD",
-    ram: 8,
-    almacenamiento: 512,
-    ssd: true,
-    pantalla: 15.6,
-    resolucion: "FHD 1920×1080",
-    touch: true,
-    gpu: "AMD Radeon Graphics",
-    gpuDedicada: false,
-    vram: null,
-    duracionBateria: null,
-    peso: null,
-    os: "Windows 11 Home",
-    uso: [
-      "estudio",
-      "trabajo",
-      "profesional"
-    ],
-    estrellas: 4.3,
-    resenas: 11,
-    estrellasML: null,
-    resenasML: null,
-    estrellasAmz: 4.3,
-    resenasAmz: 11,
-    badges: [
-      {
-        t: "AMZ",
-        c: "b-amz"
-      }
-    ],
-    linkML: null,
-    linkAmz: "https://www.amazon.com.mx/dp/B0DCWQ93YV?tag=comparalo20-20",
-    img: "https://m.media-amazon.com/images/I/71ObL-L2v7L._AC_SX679_.jpg"
-  },
-  {
-    id: 10,
-    nombre: "Acer Aspire Lite 15 Core i7-13620H 16GB 512GB",
-    marca: "Acer",
-    color: "Plateado",
-    precio: 12349,
-    precioML: null,
-    precioAmz: 12349,
-    procesador: "Intel Core i7-13620H",
-    marcaProcesador: "Intel",
-    ram: 16,
-    almacenamiento: 512,
-    ssd: true,
-    pantalla: 15.6,
-    resolucion: "FHD 1920×1080",
-    touch: false,
-    gpu: "Intel Graphics",
-    gpuDedicada: false,
-    vram: null,
-    duracionBateria: null,
-    peso: null,
-    os: "Windows 11 Home",
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
-    estrellas: 4,
-    resenas: 47,
-    estrellasML: null,
-    resenasML: null,
-    estrellasAmz: 4,
-    resenasAmz: 47,
-    badges: [
-      {
-        t: "AMZ",
-        c: "b-amz"
-      }
-    ],
-    linkML: null,
-    linkAmz: "https://www.amazon.com.mx/dp/B0FDLW5T5H?tag=comparalo20-20",
-    img: "https://m.media-amazon.com/images/I/612NWuAFKyL._AC_SX679_.jpg"
-  },
-  {
-    id: 12,
-    nombre: "HP Laptop 15 Ryzen 5-7520U 8GB 512GB",
-    marca: "HP",
-    color: "Plateado",
-    precio: 10140,
-    precioML: null,
-    precioAmz: 10140,
-    procesador: "AMD Ryzen 5-7520U",
-    marcaProcesador: "AMD",
-    ram: 8,
-    almacenamiento: 512,
-    ssd: true,
-    pantalla: 15.6,
-    resolucion: "FHD 1920×1080",
-    touch: false,
-    gpu: "AMD Radeon Graphics",
-    gpuDedicada: false,
-    vram: null,
-    duracionBateria: 11,
-    peso: 1.59,
-    os: "Windows 11 Home",
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
-    estrellas: 4,
-    resenas: 6,
-    estrellasML: null,
-    resenasML: null,
-    estrellasAmz: 4,
-    resenasAmz: 6,
-    badges: [
-      {
-        t: "AMZ",
-        c: "b-amz"
-      }
-    ],
-    linkML: null,
-    linkAmz: "https://www.amazon.com.mx/dp/B0GH9PDZGN?tag=comparalo20-20",
-    img: "https://m.media-amazon.com/images/I/71y-4+vZYgL._AC_SX679_.jpg"
-  },
-  {
-    id: 13,
-    nombre: "HP Laptop 15 Ryzen 7-7730U 16GB 512GB",
-    marca: "HP",
-    color: "Plateado",
-    precio: 16716,
-    precioML: null,
-    precioAmz: 16716,
-    procesador: "AMD Ryzen 7-7730U",
-    marcaProcesador: "AMD",
-    ram: 16,
-    almacenamiento: 512,
-    ssd: true,
-    pantalla: 15.6,
-    resolucion: "FHD 1920×1080",
-    touch: false,
-    gpu: "AMD Radeon Graphics",
-    gpuDedicada: false,
-    vram: null,
-    duracionBateria: 11,
-    peso: 1.59,
-    os: "Windows 11 Home",
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
-    estrellas: 4.7,
-    resenas: 4,
-    estrellasML: null,
-    resenasML: null,
-    estrellasAmz: 4.7,
-    resenasAmz: 4,
-    badges: [
-      {
-        t: "AMZ",
-        c: "b-amz"
-      }
-    ],
-    linkML: null,
-    linkAmz: "https://www.amazon.com.mx/dp/B0GR26DSNZ?tag=comparalo20-20",
-    img: "https://m.media-amazon.com/images/I/61ZQE7aF64L._AC_SX679_.jpg"
-  },
-  {
     id: 14,
     nombre: "Apple MacBook Air 13 M5 16GB 512GB Azul Cielo",
     marca: "Apple",
     color: "Azul Cielo",
-    precio: 25748,
+    precio: 24979,
     precioML: 24979,
-    precioAmz: 29999,
+    precioAmz: null,
     procesador: "Apple M5 (CPU 10 núcleos)",
     marcaProcesador: "Apple",
     ram: 16,
@@ -1328,239 +985,17 @@ const productos = [
     duracionBateria: 18,
     peso: null,
     os: "macOS",
-    uso: [
-      "trabajo",
-      "estudio",
-      "diseño",
-      "entretenimiento"
-    ],
+    uso: ["trabajo", "estudio", "diseño", "entretenimiento"],
     estrellas: 4.9,
     resenas: 30,
     estrellasML: null,
     resenasML: null,
-    estrellasAmz: 4.9,
-    resenasAmz: 30,
-    badges: [
-      {
-        t: "AMZ",
-        c: "b-amz"
-      }
-    ],
-    linkML: "https://meli.la/2VN1CU4",
-    linkAmz: "https://www.amazon.com.mx/dp/B0GR1BGHNS?tag=comparalo20-20",
-    img: "https://m.media-amazon.com/images/I/51vdhMt8KcL._AC_SX522_.jpg"
-  },
-  {
-    id: 15,
-    nombre: "Apple MacBook Pro 16 M5 Pro 24GB 1TB Negro Espacial",
-    marca: "Apple",
-    color: "Negro Espacial",
-    precio: 66536,
-    precioML: null,
-    precioAmz: 66536,
-    procesador: "Apple M5 Pro (CPU 18 núcleos)",
-    marcaProcesador: "Apple",
-    ram: 24,
-    almacenamiento: 1024,
-    ssd: true,
-    pantalla: 16.2,
-    resolucion: "Liquid Retina XDR 3456×2234",
-    touch: false,
-    gpu: "Apple M5 Pro GPU (20 núcleos)",
-    gpuDedicada: false,
-    vram: null,
-    duracionBateria: null,
-    peso: null,
-    os: "macOS",
-    uso: [
-      "trabajo",
-      "diseño",
-      "profesional"
-    ],
-    estrellas: 5,
-    resenas: 2,
-    estrellasML: null,
-    resenasML: null,
-    estrellasAmz: 5,
-    resenasAmz: 2,
-    badges: [
-      {
-        t: "AMZ",
-        c: "b-amz"
-      }
-    ],
-    linkML: null,
-    linkAmz: "https://www.amazon.com.mx/dp/B0GR1KTPH9?tag=comparalo20-20",
-    img: "https://m.media-amazon.com/images/I/41PLFUsQZEL._AC_SX522_.jpg"
-  },
-  {
-    id: 16,
-    nombre: "Apple MacBook Pro 16 M5 Max 48GB 2TB Negro Espacial",
-    marca: "Apple",
-    color: "Negro Espacial",
-    precio: 114999,
-    precioML: null,
-    precioAmz: 114999,
-    procesador: "Apple M5 Max (CPU 18 núcleos)",
-    marcaProcesador: "Apple",
-    ram: 48,
-    almacenamiento: 2048,
-    ssd: true,
-    pantalla: 16.2,
-    resolucion: "Liquid Retina XDR 3456×2234",
-    touch: false,
-    gpu: "Apple M5 Max GPU (40 núcleos)",
-    gpuDedicada: false,
-    vram: null,
-    duracionBateria: null,
-    peso: null,
-    os: "macOS",
-    uso: [
-      "trabajo",
-      "diseño",
-      "profesional"
-    ],
-    estrellas: null,
-    resenas: null,
-    estrellasML: null,
-    resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "AMZ",
-        c: "b-amz"
-      }
-    ],
-    linkML: null,
-    linkAmz: "https://www.amazon.com.mx/dp/B0GR1L19B9?&linkCode=ll2&tag=comparalo20-20&linkId=9066432075d2f64b2d3dcffbe132e53a&ref_=as_li_ss_tl",
-    img: "https://m.media-amazon.com/images/I/41PLFUsQZEL._AC_SX522_.jpg"
-  },
-  {
-    id: 17,
-    nombre: "Apple MacBook Pro 14 M5 Pro 24GB 1TB Negro Espacial",
-    marca: "Apple",
-    color: "Negro Espacial",
-    precio: 54999,
-    precioML: null,
-    precioAmz: 54999,
-    procesador: "Apple M5 Pro (CPU 15 núcleos)",
-    marcaProcesador: "Apple",
-    ram: 24,
-    almacenamiento: 1024,
-    ssd: true,
-    pantalla: 14.2,
-    resolucion: "Liquid Retina XDR 3024×1964",
-    touch: false,
-    gpu: "Apple M5 Pro GPU (16 núcleos)",
-    gpuDedicada: false,
-    vram: null,
-    duracionBateria: null,
-    peso: null,
-    os: "macOS",
-    uso: [
-      "trabajo",
-      "diseño",
-      "profesional"
-    ],
-    estrellas: 4.6,
-    resenas: 3,
-    estrellasML: null,
-    resenasML: null,
-    estrellasAmz: 4.6,
-    resenasAmz: 3,
-    badges: [
-      {
-        t: "AMZ",
-        c: "b-amz"
-      }
-    ],
-    linkML: null,
-    linkAmz: "https://www.amazon.com.mx/dp/B0GR11Q4JW?&linkCode=ll2&tag=comparalo20-20&linkId=febf989cf7b45eb2608ac7cebf5f8352&ref_=as_li_ss_tl",
-    img: "https://m.media-amazon.com/images/I/41czMfwsJnL._AC_SX522_.jpg"
-  },
-  {
-    id: 19,
-    nombre: "ASUS Vivobook 14 Core i3-1315U 8GB 128GB",
-    marca: "ASUS",
-    color: "Azul",
-    precio: 5999,
-    precioML: null,
-    precioAmz: 5999,
-    procesador: "Intel Core i3-1315U",
-    marcaProcesador: "Intel",
-    ram: 8,
-    almacenamiento: 128,
-    ssd: true,
-    pantalla: 14,
-    resolucion: "FHD 1920×1080",
-    touch: false,
-    gpu: "Intel UHD Graphics",
-    gpuDedicada: false,
-    vram: null,
-    duracionBateria: 6,
-    peso: 1.36,
-    os: "Windows 11 Home",
-    uso: [
-      "trabajo",
-      "estudio"
-    ],
-    estrellas: 4,
-    resenas: 82,
-    estrellasML: null,
-    resenasML: null,
-    estrellasAmz: 4,
-    resenasAmz: 82,
-    badges: [
-      {
-        t: "AMZ",
-        c: "b-amz"
-      }
-    ],
-    linkML: null,
-    linkAmz: "https://www.amazon.com.mx/dp/B0FF4LGG9D?tag=comparalo20-20",
-    img: "https://m.media-amazon.com/images/I/51W04meGgAL._AC_SX679_.jpg"
-  },
-  {
-    id: 21,
-    nombre: "Dell Inspiron 15 Core i5-1355U 8GB 512GB",
-    marca: "Dell",
-    color: "Plateado",
-    precio: 9999,
-    precioML: null,
-    precioAmz: 9999,
-    procesador: "Intel Core i5-1355U",
-    marcaProcesador: "Intel",
-    ram: 8,
-    almacenamiento: 512,
-    ssd: true,
-    pantalla: 15.6,
-    resolucion: "FHD 1920×1080",
-    touch: false,
-    gpu: "Intel UHD Graphics",
-    gpuDedicada: false,
-    vram: null,
-    duracionBateria: 3,
-    peso: 1.62,
-    os: "Windows 11 Home",
-    uso: [
-      "estudio"
-    ],
-    estrellas: 4.4,
-    resenas: 31,
-    estrellasML: null,
-    resenasML: null,
-    estrellasAmz: 4.4,
-    resenasAmz: 31,
-    badges: [
-      {
-        t: "AMZ",
-        c: "b-amz"
-      }
-    ],
-    linkML: null,
-    linkAmz: "https://www.amazon.com.mx/dp/B097B3YRXL?&linkCode=ll2&tag=comparalo20-20&linkId=fce0117714c5e851a6c6a7162f79ab28&ref_=as_li_ss_tl",
-    img: "https://m.media-amazon.com/images/I/71xMbFgkELL._AC_SX679_.jpg"
+    badges: [{ t: "ML", c: "b-ml" }],
+    linkML: "https://meli.la/2VN1CU4",
+    linkAmz: null,
+    img: "https://m.media-amazon.com/images/I/51vdhMt8KcL._AC_SX522_.jpg",
   },
   {
     id: 22,
@@ -1569,7 +1004,7 @@ const productos = [
     color: "Blanco Estelar",
     precio: 37499,
     precioML: 37499,
-    precioAmz: 28593,
+    precioAmz: null,
     procesador: "Apple M5 (CPU 10 núcleos)",
     marcaProcesador: "Apple",
     ram: 16,
@@ -1584,36 +1019,26 @@ const productos = [
     duracionBateria: 18,
     peso: null,
     os: "macOS",
-    uso: [
-      "trabajo",
-      "estudio",
-      "diseño",
-      "entretenimiento"
-    ],
+    uso: ["trabajo", "estudio", "diseño", "entretenimiento"],
     estrellas: 4.9,
     resenas: 30,
     estrellasML: null,
     resenasML: null,
-    estrellasAmz: 4.9,
-    resenasAmz: 30,
-    badges: [
-      {
-        t: "AMZ",
-        c: "b-amz"
-      }
-    ],
+    estrellasAmz: null,
+    resenasAmz: null,
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/2DdqJR6",
-    linkAmz: "https://www.amazon.com.mx/dp/B0GR1FYN65?&linkCode=ll2&tag=comparalo20-20&linkId=1bc2da97cf34731c2f33272ba6290756&ref_=as_li_ss_tl",
-    img: "https://m.media-amazon.com/images/I/51vAapTiqcL._AC_SX342_SY445_QL70_ML2_.jpg"
+    linkAmz: null,
+    img: "https://m.media-amazon.com/images/I/51vAapTiqcL._AC_SX342_SY445_QL70_ML2_.jpg",
   },
   {
     id: 23,
     nombre: "Apple MacBook Air 15 M5 16GB 512GB Azul Cielo",
     marca: "Apple",
     color: "Azul Cielo",
-    precio: 25748,
+    precio: 24979,
     precioML: 24979,
-    precioAmz: 34999,
+    precioAmz: null,
     procesador: "Apple M5 (CPU 10 núcleos)",
     marcaProcesador: "Apple",
     ram: 16,
@@ -1628,196 +1053,17 @@ const productos = [
     duracionBateria: 18,
     peso: null,
     os: "macOS",
-    uso: [
-      "trabajo",
-      "estudio",
-      "diseño",
-      "entretenimiento"
-    ],
+    uso: ["trabajo", "estudio", "diseño", "entretenimiento"],
     estrellas: 5,
     resenas: 5,
     estrellasML: null,
     resenasML: null,
-    estrellasAmz: 5,
-    resenasAmz: 5,
-    badges: [
-      {
-        t: "AMZ",
-        c: "b-amz"
-      }
-    ],
+    estrellasAmz: null,
+    resenasAmz: null,
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/2VN1CU4",
-    linkAmz: "https://www.amazon.com.mx/dp/B0GR12XN4K?tag=comparalo20-20",
-    img: "https://m.media-amazon.com/images/I/51MzVN3NL2L._AC_SX522_.jpg"
-  },
-  {
-    id: 25,
-    nombre: "Lenovo IdeaPad Slim 3 Chrome i3 8GB 128GB Touch",
-    marca: "Lenovo",
-    color: "Gris",
-    precio: 14106,
-    precioML: null,
-    precioAmz: 14106,
-    procesador: "Intel Core i3-N305",
-    marcaProcesador: "Intel",
-    ram: 8,
-    almacenamiento: 128,
-    ssd: false,
-    pantalla: 14,
-    resolucion: "FHD 1920×1080",
-    touch: true,
-    gpu: "Intel UHD Graphics",
-    gpuDedicada: false,
-    vram: null,
-    duracionBateria: null,
-    peso: null,
-    os: "Chrome OS",
-    uso: [
-      "estudio",
-      "entretenimiento"
-    ],
-    estrellas: 4.5,
-    resenas: 50,
-    estrellasML: null,
-    resenasML: null,
-    estrellasAmz: 4.5,
-    resenasAmz: 50,
-    badges: [
-      {
-        t: "AMZ",
-        c: "b-amz"
-      }
-    ],
-    linkML: null,
-    linkAmz: "https://www.amazon.com.mx/dp/B0DPBLGGJG?tag=comparalo20-20",
-    img: "https://m.media-amazon.com/images/I/71UfAY67lhL._AC_SX679_.jpg"
-  },
-  {
-    id: 27,
-    nombre: "Lenovo IdeaPad Slim 3 Snapdragon X 24GB 512GB",
-    marca: "Lenovo",
-    color: "Gris Luna",
-    precio: 19999,
-    precioML: null,
-    precioAmz: 19999,
-    procesador: "Snapdragon X X1-26-100",
-    marcaProcesador: "Qualcomm",
-    ram: 24,
-    almacenamiento: 512,
-    ssd: true,
-    pantalla: 15.3,
-    resolucion: "WUXGA 1920×1200",
-    touch: false,
-    gpu: "Qualcomm Adreno",
-    gpuDedicada: false,
-    vram: null,
-    duracionBateria: null,
-    peso: null,
-    os: "Windows 11 Home",
-    uso: [
-      "estudio",
-      "trabajo"
-    ],
-    estrellas: 4.5,
-    resenas: 32,
-    estrellasML: null,
-    resenasML: null,
-    estrellasAmz: 4.5,
-    resenasAmz: 32,
-    badges: [
-      {
-        t: "AMZ",
-        c: "b-amz"
-      }
-    ],
-    linkML: null,
-    linkAmz: "https://www.amazon.com.mx/dp/B0FD1B5DTX?tag=comparalo20-20",
-    img: "https://m.media-amazon.com/images/I/71oI8dk8w3L._AC_SX679_.jpg"
-  },
-  {
-    id: 28,
-    nombre: "Dell Inspiron 15 Core i5-1334U 8GB 512GB Touch",
-    marca: "Dell",
-    color: "Negro Carbón",
-    precio: 10282,
-    precioML: null,
-    precioAmz: 10282,
-    procesador: "Intel Core i5-1334U",
-    marcaProcesador: "Intel",
-    ram: 8,
-    almacenamiento: 512,
-    ssd: true,
-    pantalla: 15.6,
-    resolucion: "FHD 1920×1080",
-    touch: true,
-    gpu: "Intel Iris Xe Graphics",
-    gpuDedicada: false,
-    vram: null,
-    duracionBateria: 6,
-    peso: null,
-    os: "Windows 11 Home",
-    uso: [
-      "estudio",
-      "trabajo"
-    ],
-    estrellas: 3.6,
-    resenas: 20,
-    estrellasML: null,
-    resenasML: null,
-    estrellasAmz: 3.6,
-    resenasAmz: 20,
-    badges: [
-      {
-        t: "AMZ",
-        c: "b-amz"
-      }
-    ],
-    linkML: null,
-    linkAmz: "https://www.amazon.com.mx/dp/B0G3986L48?tag=comparalo20-20",
-    img: "https://m.media-amazon.com/images/I/61VmqDhBzbL._AC_SX679_.jpg"
-  },
-  {
-    id: 29,
-    nombre: "ASUS Zenbook S16 OLED 3K Ryzen AI 7 350 24GB 1TB",
-    marca: "ASUS",
-    color: "Blanco Escandinavo",
-    precio: 31986,
-    precioML: null,
-    precioAmz: 31986,
-    procesador: "AMD Ryzen AI 7 350",
-    marcaProcesador: "AMD",
-    ram: 24,
-    almacenamiento: 1024,
-    ssd: true,
-    pantalla: 16,
-    resolucion: "3K OLED 2880×1800",
-    touch: true,
-    gpu: "AMD Radeon Graphics",
-    gpuDedicada: false,
-    vram: null,
-    duracionBateria: 20,
-    peso: 1.2,
-    os: "Windows 11 Home",
-    uso: [
-      "trabajo",
-      "estudio",
-      "entretenimiento"
-    ],
-    estrellas: 3.7,
-    resenas: 26,
-    estrellasML: null,
-    resenasML: null,
-    estrellasAmz: 3.7,
-    resenasAmz: 26,
-    badges: [
-      {
-        t: "AMZ",
-        c: "b-amz"
-      }
-    ],
-    linkML: null,
-    linkAmz: "https://www.amazon.com.mx/dp/B0F41C72RP?tag=comparalo20-20",
-    img: "https://m.media-amazon.com/images/I/71s+saDHylL._AC_SX522_.jpg"
+    linkAmz: null,
+    img: "https://m.media-amazon.com/images/I/51MzVN3NL2L._AC_SX522_.jpg",
   },
   {
     id: 30,
@@ -1826,7 +1072,7 @@ const productos = [
     color: "Negro",
     precio: 44999,
     precioML: 44999,
-    precioAmz: 29999,
+    precioAmz: null,
     procesador: "AMD Ryzen 7 260",
     marcaProcesador: "AMD",
     ram: 32,
@@ -1841,67 +1087,17 @@ const productos = [
     duracionBateria: null,
     peso: 2.1,
     os: "Windows 11 Home",
-    uso: [
-      "gaming",
-      "estudio"
-    ],
+    uso: ["gaming", "estudio"],
     estrellas: 4.4,
     resenas: 318,
     estrellasML: null,
     resenasML: null,
-    estrellasAmz: 4.4,
-    resenasAmz: 318,
-    badges: [
-      {
-        t: "AMZ",
-        c: "b-amz"
-      }
-    ],
+    estrellasAmz: null,
+    resenasAmz: null,
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/1V2tW1r",
-    linkAmz: "https://www.amazon.com.mx/dp/B0F195W823?tag=comparalo20-20",
-    img: "https://m.media-amazon.com/images/I/71HHF2jUnpL._AC_SX679_.jpg"
-  },
-  {
-    id: 32,
-    nombre: "HP 14 Celeron N 4GB 128GB Rosa Pastel",
-    marca: "HP",
-    color: "Rosa Pastel",
-    precio: 6975,
-    precioML: null,
-    precioAmz: 6975,
-    procesador: "Intel Celeron N (Serie N)",
-    marcaProcesador: "Intel",
-    ram: 4,
-    almacenamiento: 128,
-    ssd: true,
-    pantalla: 14,
-    resolucion: "HD 1366×768",
-    touch: false,
-    gpu: "Intel UHD Graphics",
-    gpuDedicada: false,
-    vram: null,
-    duracionBateria: null,
-    peso: 1.81,
-    os: "Windows 11 Home",
-    uso: [
-      "estudio",
-      "entretenimiento"
-    ],
-    estrellas: 5,
-    resenas: 6,
-    estrellasML: null,
-    resenasML: null,
-    estrellasAmz: 5,
-    resenasAmz: 6,
-    badges: [
-      {
-        t: "AMZ",
-        c: "b-amz"
-      }
-    ],
-    linkML: null,
-    linkAmz: "https://www.amazon.com.mx/dp/B0FZM93VX2?tag=comparalo20-20",
-    img: "https://m.media-amazon.com/images/I/61QKXRC2QhL._AC_SX679_.jpg"
+    linkAmz: null,
+    img: "https://m.media-amazon.com/images/I/71HHF2jUnpL._AC_SX679_.jpg",
   },
   {
     id: 33,
@@ -1910,7 +1106,7 @@ const productos = [
     color: "Jaeger Gray",
     precio: 30029,
     precioML: 30029,
-    precioAmz: 26999,
+    precioAmz: null,
     procesador: "Intel Core i5-14450HX",
     marcaProcesador: "Intel",
     ram: 16,
@@ -1925,150 +1121,17 @@ const productos = [
     duracionBateria: 6,
     peso: 2.2,
     os: "Windows 11 Home",
-    uso: [
-      "gaming",
-      "estudio"
-    ],
+    uso: ["gaming", "estudio"],
     estrellas: 4.8,
     resenas: 8,
     estrellasML: null,
     resenasML: null,
-    estrellasAmz: 4.8,
-    resenasAmz: 8,
-    badges: [
-      {
-        t: "AMZ",
-        c: "b-amz"
-      }
-    ],
-    linkML: "https://meli.la/2krjsP9",
-    linkAmz: "https://www.amazon.com.mx/dp/B0GTMTTS6G?tag=comparalo20-20",
-    img: "https://m.media-amazon.com/images/I/51Si87eVqML._AC_SX522_.jpg"
-  },
-  {
-    id: 41,
-    nombre: "MSI Cyborg 15 Core 7-240H 16GB 512GB RTX 5060 Gaming",
-    marca: "MSI",
-    color: "Negro",
-    precio: 29999,
-    precioML: 11061,
-    precioAmz: 29999,
-    procesador: "Intel Core 7-240H",
-    marcaProcesador: "Intel",
-    ram: 16,
-    almacenamiento: 512,
-    ssd: true,
-    pantalla: 15.6,
-    resolucion: "FHD 1920×1080",
-    touch: false,
-    gpu: "NVIDIA GeForce RTX 5060",
-    gpuDedicada: true,
-    vram: 8,
-    duracionBateria: null,
-    peso: 3.65,
-    os: "Windows 11 Home",
-    uso: [
-      "gaming"
-    ],
-    estrellas: 4.4,
-    resenas: 7,
-    estrellasML: null,
-    resenasML: null,
-    estrellasAmz: 4.4,
-    resenasAmz: 7,
-    badges: [
-      {
-        t: "AMZ",
-        c: "b-amz"
-      }
-    ],
-    linkML: null,
-    linkAmz: "https://www.amazon.com.mx/dp/B0G3XXP67F?tag=comparalo20-20",
-    img: "https://m.media-amazon.com/images/I/51PGf3rSI9L._AC_SX522_.jpg"
-  },
-  {
-    id: 48,
-    nombre: "Dell Inspiron 15 Core i7-1355U 16GB 512GB Touch",
-    marca: "Dell",
-    color: "Negro",
-    precio: 15599,
-    precioML: null,
-    precioAmz: 15599,
-    procesador: "Intel Core i7-1355U",
-    marcaProcesador: "Intel",
-    ram: 16,
-    almacenamiento: 512,
-    ssd: true,
-    pantalla: 15.6,
-    resolucion: "FHD 1920×1080",
-    touch: true,
-    gpu: "Intel UHD Graphics",
-    gpuDedicada: false,
-    vram: null,
-    duracionBateria: null,
-    peso: 1.9,
-    os: "Windows 11 Home",
-    uso: [
-      "estudio",
-      "trabajo"
-    ],
-    estrellas: null,
-    resenas: null,
-    estrellasML: null,
-    resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "AMZ",
-        c: "b-amz"
-      }
-    ],
-    linkML: null,
-    linkAmz: "https://www.amazon.com.mx/dp/B0CF2FNGB4?tag=comparalo20-20",
-    img: "https://m.media-amazon.com/images/I/71rbQSZVWnL._AC_SX679_.jpg"
-  },
-  {
-    id: 49,
-    nombre: "HP X360 11.6 Convertible Intel Pentium 8GB 128GB Touch",
-    marca: "HP",
-    color: "Negro Pastel",
-    precio: 6408,
-    precioML: null,
-    precioAmz: 6408,
-    procesador: "Intel Pentium (4 núcleos, hasta 3.29 GHz)",
-    marcaProcesador: "Intel",
-    ram: 8,
-    almacenamiento: 128,
-    ssd: true,
-    pantalla: 11.6,
-    resolucion: "HD 1366×768",
-    touch: true,
-    gpu: "Intel UHD Graphics",
-    gpuDedicada: false,
-    vram: null,
-    duracionBateria: null,
-    peso: null,
-    os: "Windows 11 Home",
-    uso: [
-      "estudio",
-      "entretenimiento"
-    ],
-    estrellas: 3.5,
-    resenas: 37,
-    estrellasML: null,
-    resenasML: null,
-    estrellasAmz: 3.5,
-    resenasAmz: 37,
-    badges: [
-      {
-        t: "AMZ",
-        c: "b-amz"
-      }
-    ],
-    linkML: null,
-    linkAmz: "https://www.amazon.com.mx/dp/B0GGWSL6B1?tag=comparalo20-20",
-    img: "https://m.media-amazon.com/images/I/61zqoz1PCvL._AC_SX679_.jpg"
+    badges: [{ t: "ML", c: "b-ml" }],
+    linkML: "https://meli.la/2krjsP9",
+    linkAmz: null,
+    img: "https://m.media-amazon.com/images/I/51Si87eVqML._AC_SX522_.jpg",
   },
   {
     id: 52,
@@ -2092,11 +1155,7 @@ const productos = [
     duracionBateria: 6,
     peso: 2,
     os: "Windows 11 Home",
-    uso: [
-      "trabajo",
-      "estudio",
-      "entretenimiento"
-    ],
+    uso: ["trabajo", "estudio", "entretenimiento"],
     estrellas: 4.7,
     resenas: 169,
     estrellasML: 4.7,
@@ -2106,7 +1165,7 @@ const productos = [
     badges: [],
     linkAmz: null,
     linkML: "https://meli.la/2mmpiV9",
-    img: "https://http2.mlstatic.com/D_NQ_NP_2X_885168-MLA111998145251_052026-F.webp"
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_885168-MLA111998145251_052026-F.webp",
   },
   {
     id: 53,
@@ -2130,11 +1189,7 @@ const productos = [
     duracionBateria: 6,
     peso: 2,
     os: "Windows 11 Home",
-    uso: [
-      "trabajo",
-      "estudio",
-      "entretenimiento"
-    ],
+    uso: ["trabajo", "estudio", "entretenimiento"],
     estrellas: 4.8,
     resenas: 12,
     estrellasML: 4.8,
@@ -2144,7 +1199,7 @@ const productos = [
     badges: [],
     linkAmz: null,
     linkML: "https://meli.la/12p22fu",
-    img: "https://http2.mlstatic.com/D_NQ_NP_2X_724100-MLA114604624319_072026-F.webp"
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_724100-MLA114604624319_072026-F.webp",
   },
   {
     id: 54,
@@ -2168,9 +1223,7 @@ const productos = [
     duracionBateria: null,
     peso: 2.56,
     os: "Windows 11 Home",
-    uso: [
-      "gaming"
-    ],
+    uso: ["gaming"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
@@ -2180,7 +1233,7 @@ const productos = [
     badges: [],
     linkAmz: null,
     linkML: "https://meli.la/1SmoCak",
-    img: "https://http2.mlstatic.com/D_NQ_NP_2X_966869-MLA110282262041_042026-F.webp"
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_966869-MLA110282262041_042026-F.webp",
   },
   {
     id: 55,
@@ -2204,10 +1257,7 @@ const productos = [
     duracionBateria: null,
     peso: null,
     os: "Windows 11 Home",
-    uso: [
-      "trabajo",
-      "estudio"
-    ],
+    uso: ["trabajo", "estudio"],
     estrellas: 4.8,
     resenas: 57,
     estrellasML: 4.8,
@@ -2217,7 +1267,7 @@ const productos = [
     badges: [],
     linkAmz: null,
     linkML: "https://meli.la/1Y64wrR",
-    img: "https://http2.mlstatic.com/D_NQ_NP_2X_969071-MLA109466157813_032026-F.webp"
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_969071-MLA109466157813_032026-F.webp",
   },
   {
     id: 56,
@@ -2241,10 +1291,7 @@ const productos = [
     duracionBateria: 12,
     peso: 1.62,
     os: "Windows 11 Home",
-    uso: [
-      "trabajo",
-      "estudio"
-    ],
+    uso: ["trabajo", "estudio"],
     estrellas: 4.8,
     resenas: 125,
     estrellasML: 4.8,
@@ -2254,7 +1301,7 @@ const productos = [
     badges: [],
     linkAmz: null,
     linkML: "https://meli.la/1kUiW8r",
-    img: "https://http2.mlstatic.com/D_NQ_NP_2X_675037-MLA109856325600_042026-F.webp"
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_675037-MLA109856325600_042026-F.webp",
   },
   {
     id: 58,
@@ -2278,10 +1325,7 @@ const productos = [
     duracionBateria: null,
     peso: 2,
     os: "Windows 11 Home",
-    uso: [
-      "trabajo",
-      "estudio"
-    ],
+    uso: ["trabajo", "estudio"],
     estrellas: 4.9,
     resenas: 423,
     estrellasML: 4.9,
@@ -2291,7 +1335,7 @@ const productos = [
     badges: [],
     linkAmz: null,
     linkML: "https://meli.la/1bs9iBr",
-    img: "https://http2.mlstatic.com/D_NQ_NP_2X_982361-MLA105898975225_012026-F.webp"
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_982361-MLA105898975225_012026-F.webp",
   },
   {
     id: 59,
@@ -2315,10 +1359,7 @@ const productos = [
     duracionBateria: 6,
     peso: 1.5,
     os: "Windows 11 Home",
-    uso: [
-      "estudio",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "entretenimiento"],
     estrellas: 4.7,
     resenas: 60,
     estrellasML: 4.7,
@@ -2328,7 +1369,7 @@ const productos = [
     badges: [],
     linkAmz: null,
     linkML: "https://meli.la/1S87S9y",
-    img: "https://http2.mlstatic.com/D_NQ_NP_2X_666979-MLA114109189093_072026-F.webp"
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_666979-MLA114109189093_072026-F.webp",
   },
   {
     id: 60,
@@ -2352,11 +1393,7 @@ const productos = [
     duracionBateria: 14,
     peso: 1.59,
     os: "Windows 11 Home",
-    uso: [
-      "trabajo",
-      "estudio",
-      "entretenimiento"
-    ],
+    uso: ["trabajo", "estudio", "entretenimiento"],
     estrellas: 4.9,
     resenas: 1674,
     estrellasML: 4.9,
@@ -2366,7 +1403,7 @@ const productos = [
     badges: [],
     linkAmz: null,
     linkML: "https://meli.la/2Pc3unK",
-    img: "https://http2.mlstatic.com/D_NQ_NP_2X_624784-MLA99939865977_112025-F.webp"
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_624784-MLA99939865977_112025-F.webp",
   },
   {
     id: 63,
@@ -2390,10 +1427,7 @@ const productos = [
     duracionBateria: 6,
     peso: 1.5,
     os: "Windows 11 Home",
-    uso: [
-      "estudio",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "entretenimiento"],
     estrellas: 4.8,
     resenas: 39,
     estrellasML: 4.8,
@@ -2403,7 +1437,7 @@ const productos = [
     badges: [],
     linkAmz: null,
     linkML: "https://meli.la/2aB3HZV",
-    img: "https://http2.mlstatic.com/D_NQ_NP_2X_774358-MLA112816769052_072026-F.webp"
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_774358-MLA112816769052_072026-F.webp",
   },
   {
     id: 66,
@@ -2427,10 +1461,7 @@ const productos = [
     duracionBateria: null,
     peso: 1.7,
     os: "Windows 11 Home",
-    uso: [
-      "trabajo",
-      "estudio"
-    ],
+    uso: ["trabajo", "estudio"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
@@ -2440,7 +1471,7 @@ const productos = [
     badges: [],
     linkAmz: null,
     linkML: "https://meli.la/1cqGKaf",
-    img: "https://http2.mlstatic.com/D_NQ_NP_2X_676675-MLM110941128956_052026-F.webp"
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_676675-MLM110941128956_052026-F.webp",
   },
   {
     id: 71,
@@ -2464,10 +1495,7 @@ const productos = [
     duracionBateria: null,
     peso: null,
     os: "Windows 11 Home",
-    uso: [
-      "estudio",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "entretenimiento"],
     estrellas: 4.8,
     resenas: 869,
     estrellasML: 4.8,
@@ -2477,7 +1505,7 @@ const productos = [
     badges: [],
     linkAmz: null,
     linkML: "https://meli.la/1R5Y8v1",
-    img: "https://http2.mlstatic.com/D_NQ_NP_2X_921649-MLA94981379757_102025-F.webp"
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_921649-MLA94981379757_102025-F.webp",
   },
   {
     id: 73,
@@ -2501,10 +1529,7 @@ const productos = [
     duracionBateria: null,
     peso: 1.55,
     os: "macOS",
-    uso: [
-      "trabajo",
-      "creatividad"
-    ],
+    uso: ["trabajo", "creatividad"],
     estrellas: 4.5,
     resenas: 63,
     estrellasML: 4.5,
@@ -2514,7 +1539,7 @@ const productos = [
     badges: [],
     linkAmz: null,
     linkML: "https://meli.la/2aciZvf",
-    img: "https://http2.mlstatic.com/D_NQ_NP_2X_722750-MLA95496918693_102025-F.webp"
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_722750-MLA95496918693_102025-F.webp",
   },
   {
     id: 74,
@@ -2538,11 +1563,7 @@ const productos = [
     duracionBateria: 16,
     peso: 1.23,
     os: "macOS",
-    uso: [
-      "trabajo",
-      "estudio",
-      "creatividad"
-    ],
+    uso: ["trabajo", "estudio", "creatividad"],
     estrellas: 4.9,
     resenas: 778,
     estrellasML: 4.9,
@@ -2552,7 +1573,7 @@ const productos = [
     badges: [],
     linkAmz: null,
     linkML: "https://meli.la/1xig3X2",
-    img: "https://http2.mlstatic.com/D_NQ_NP_2X_778359-MLA108114356305_032026-F.webp"
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_778359-MLA108114356305_032026-F.webp",
   },
   {
     id: 75,
@@ -2576,10 +1597,7 @@ const productos = [
     duracionBateria: 18,
     peso: null,
     os: "macOS",
-    uso: [
-      "trabajo",
-      "creatividad"
-    ],
+    uso: ["trabajo", "creatividad"],
     estrellas: 4.8,
     resenas: 68,
     estrellasML: 4.8,
@@ -2589,7 +1607,7 @@ const productos = [
     badges: [],
     linkAmz: null,
     linkML: "https://meli.la/2CXkjZk",
-    img: "https://http2.mlstatic.com/D_NQ_NP_2X_966662-MLA108047405525_032026-F.webp"
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_966662-MLA108047405525_032026-F.webp",
   },
   {
     id: 77,
@@ -2613,11 +1631,7 @@ const productos = [
     duracionBateria: 16,
     peso: 1.23,
     os: "macOS",
-    uso: [
-      "trabajo",
-      "estudio",
-      "creatividad"
-    ],
+    uso: ["trabajo", "estudio", "creatividad"],
     estrellas: 4.9,
     resenas: 1627,
     estrellasML: 4.9,
@@ -2627,7 +1641,7 @@ const productos = [
     badges: [],
     linkAmz: null,
     linkML: "https://meli.la/19K2wRV",
-    img: "https://http2.mlstatic.com/D_NQ_NP_2X_634656-MLA107398730850_032026-F.webp"
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_634656-MLA107398730850_032026-F.webp",
   },
   {
     id: 80,
@@ -2651,10 +1665,7 @@ const productos = [
     duracionBateria: null,
     peso: 2,
     os: "macOS",
-    uso: [
-      "trabajo",
-      "creatividad"
-    ],
+    uso: ["trabajo", "creatividad"],
     estrellas: 4,
     resenas: 1,
     estrellasML: 4,
@@ -2664,7 +1675,7 @@ const productos = [
     badges: [],
     linkAmz: null,
     linkML: "https://meli.la/2owuPRU",
-    img: "https://http2.mlstatic.com/D_NQ_NP_2X_815361-MLM113584304304_072026-F.webp"
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_815361-MLM113584304304_072026-F.webp",
   },
   {
     id: "exp_MLM65737068",
@@ -2696,15 +1707,10 @@ const productos = [
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/1z85Dy6",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_690379-MLA106723115012_022026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_690379-MLA106723115012_022026-F.jpg",
   },
   {
     id: "exp_MLM69624388",
@@ -2736,15 +1742,10 @@ const productos = [
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/31wGPJo",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_893074-MLA111643349737_052026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_893074-MLA111643349737_052026-F.jpg",
   },
   {
     id: "exp_MLM27793007",
@@ -2776,15 +1777,10 @@ const productos = [
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/2Xh2Geu",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_674646-MLU72255819950_102023-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_674646-MLU72255819950_102023-F.jpg",
   },
   {
     id: "exp_MLM20619290",
@@ -2816,15 +1812,10 @@ const productos = [
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/33B2CHt",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_823124-MLA99450773696_112025-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_823124-MLA99450773696_112025-F.jpg",
   },
   {
     id: "ml_MLM72665234",
@@ -2849,25 +1840,17 @@ const productos = [
     duracionBateria: 8,
     peso: 2.4,
     os: "Windows 11 Home",
-    uso: [
-      "gaming",
-      "entretenimiento"
-    ],
+    uso: ["gaming", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/1nQLTVR",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_957076-MLA112808780173_062026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_957076-MLA112808780173_062026-F.jpg",
   },
   {
     id: "ml_MLM53516976",
@@ -2892,26 +1875,17 @@ const productos = [
     duracionBateria: 15,
     peso: 1.55,
     os: "Windows 11 Home",
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "trabajo", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/1Gfzxrt",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_775863-MLA95703654872_102025-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_775863-MLA95703654872_102025-F.jpg",
   },
   {
     id: "ml_MLM51480509",
@@ -2936,26 +1910,17 @@ const productos = [
     duracionBateria: 11,
     peso: 1.47,
     os: "Windows 11 Home",
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "trabajo", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/1D7ZT3t",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_743559-MLA99955407713_112025-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_743559-MLA99955407713_112025-F.jpg",
   },
   {
     id: "ml_MLM77331152",
@@ -2980,26 +1945,17 @@ const productos = [
     duracionBateria: 6,
     peso: 1.5,
     os: "Windows 11 Home",
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "trabajo", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/31QjnRL",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_860241-MLA114820122228_082026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_860241-MLA114820122228_082026-F.jpg",
   },
   {
     id: "ml_MLM1066172675",
@@ -3024,26 +1980,17 @@ const productos = [
     duracionBateria: 16,
     peso: 1.23,
     os: "macOS",
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "trabajo", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/25sbh9e",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_670654-MLA107397642550_032026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_670654-MLA107397642550_032026-F.jpg",
   },
   {
     id: "ml_MLM2112784721",
@@ -3068,25 +2015,17 @@ const productos = [
     duracionBateria: null,
     peso: null,
     os: null,
-    uso: [
-      "gaming",
-      "entretenimiento"
-    ],
+    uso: ["gaming", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/1yofAMx",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_829193-CBT118860349515_102026-F.jpg"
+    img: "https://http2.mlstatic.com/D_829193-CBT118860349515_102026-F.jpg",
   },
   {
     id: "ml_MLM1066172676",
@@ -3111,26 +2050,17 @@ const productos = [
     duracionBateria: 16,
     peso: 1.23,
     os: "macOS",
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "trabajo", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/32ZM4zV",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_664721-MLA107398790832_032026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_664721-MLA107398790832_032026-F.jpg",
   },
   {
     id: "ml_MLM1066172746",
@@ -3155,26 +2085,17 @@ const productos = [
     duracionBateria: 16,
     peso: 1.23,
     os: "macOS",
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "trabajo", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/2eQzNBc",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_946983-MLA107398704544_032026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_946983-MLA107398704544_032026-F.jpg",
   },
   {
     id: "ml_MLM76403131",
@@ -3199,26 +2120,17 @@ const productos = [
     duracionBateria: null,
     peso: 1.3,
     os: "Android 16",
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "trabajo", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/2acyJQe",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_740835-MLA118549812098_102026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_740835-MLA118549812098_102026-F.jpg",
   },
   {
     id: "ml_MLM75474152",
@@ -3243,26 +2155,17 @@ const productos = [
     duracionBateria: 6,
     peso: 1.5,
     os: "Windows 11 Home",
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "trabajo", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/1cnfi6t",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_912666-MLA113294586920_072026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_912666-MLA113294586920_072026-F.jpg",
   },
   {
     id: "ml_MLM80268535",
@@ -3287,26 +2190,17 @@ const productos = [
     duracionBateria: 6,
     peso: null,
     os: "Windows 11 Home",
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "trabajo", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/1ad8xzZ",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_796485-MLA118844373145_102026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_796485-MLA118844373145_102026-F.jpg",
   },
   {
     id: "ml_MLM54098986",
@@ -3331,26 +2225,17 @@ const productos = [
     duracionBateria: 6,
     peso: 1.5,
     os: "Windows 11 Home",
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "trabajo", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/1KP89ca",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_715786-MLA111397753822_052026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_715786-MLA111397753822_052026-F.jpg",
   },
   {
     id: "ml_MLM80023002",
@@ -3375,26 +2260,17 @@ const productos = [
     duracionBateria: 6,
     peso: null,
     os: "Windows 11 Home",
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "trabajo", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/1bSy7Zf",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_636534-MLA116843003158_092026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_636534-MLA116843003158_092026-F.jpg",
   },
   {
     id: "ml_MLM1066172677",
@@ -3419,26 +2295,17 @@ const productos = [
     duracionBateria: 16,
     peso: 1.23,
     os: "macOS",
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "trabajo", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/1hHts8y",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_808580-MLA108113054365_032026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_808580-MLA108113054365_032026-F.jpg",
   },
   {
     id: "ml_MLM65605808",
@@ -3463,26 +2330,17 @@ const productos = [
     duracionBateria: 8,
     peso: 1.5,
     os: "Windows",
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "trabajo", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/23XbhvE",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_945109-MLA106594022326_022026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_945109-MLA106594022326_022026-F.jpg",
   },
   {
     id: "ml_MLM50283172",
@@ -3507,25 +2365,17 @@ const productos = [
     duracionBateria: 4,
     peso: 2.3,
     os: "Windows 11 Home",
-    uso: [
-      "gaming",
-      "entretenimiento"
-    ],
+    uso: ["gaming", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/1b6CVbf",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_885315-MLA100054769915_122025-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_885315-MLA100054769915_122025-F.jpg",
   },
   {
     id: "ml_MLM75109711",
@@ -3550,25 +2400,17 @@ const productos = [
     duracionBateria: null,
     peso: null,
     os: "Windows 11 Home",
-    uso: [
-      "gaming",
-      "entretenimiento"
-    ],
+    uso: ["gaming", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/2nqm7W7",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_790143-MLA114259384581_072026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_790143-MLA114259384581_072026-F.jpg",
   },
   {
     id: "ml_MLM69533291",
@@ -3593,25 +2435,17 @@ const productos = [
     duracionBateria: 15,
     peso: 1.28,
     os: "Windows 11 Home",
-    uso: [
-      "gaming",
-      "entretenimiento"
-    ],
+    uso: ["gaming", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/1xDkAfb",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_690486-MLA111552262631_052026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_690486-MLA111552262631_052026-F.jpg",
   },
   {
     id: "ml_MLM69612379",
@@ -3636,26 +2470,17 @@ const productos = [
     duracionBateria: 6,
     peso: 1.5,
     os: "Windows 11 Home",
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "trabajo", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/1kBZqkh",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_696103-MLA113523472265_062026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_696103-MLA113523472265_062026-F.jpg",
   },
   {
     id: "ml_MLM77673866",
@@ -3680,26 +2505,17 @@ const productos = [
     duracionBateria: null,
     peso: 1.65,
     os: null,
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "trabajo", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/2n6Ncvn",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_869682-MLA115728000238_092026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_869682-MLA115728000238_092026-F.jpg",
   },
   {
     id: "ml_MLM73943613",
@@ -3724,25 +2540,17 @@ const productos = [
     duracionBateria: 6,
     peso: 1.5,
     os: "Windows 11 Home",
-    uso: [
-      "gaming",
-      "entretenimiento"
-    ],
+    uso: ["gaming", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/2eribd8",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_819381-MLA113403074274_072026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_819381-MLA113403074274_072026-F.jpg",
   },
   {
     id: "ml_MLM64287866",
@@ -3767,26 +2575,17 @@ const productos = [
     duracionBateria: 5,
     peso: 1.7,
     os: "Windows 11 Pro",
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "trabajo", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/2siXS6t",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_755760-MLA104252765910_012026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_755760-MLA104252765910_012026-F.jpg",
   },
   {
     id: "ml_MLM77592683",
@@ -3811,26 +2610,17 @@ const productos = [
     duracionBateria: 6,
     peso: 1.5,
     os: "Windows 11 Home",
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "trabajo", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/2soer5P",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_910275-MLA114991330088_082026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_910275-MLA114991330088_082026-F.jpg",
   },
   {
     id: "ml_MLM78878556",
@@ -3855,25 +2645,17 @@ const productos = [
     duracionBateria: null,
     peso: 1.22,
     os: "Windows 11 Home",
-    uso: [
-      "gaming",
-      "entretenimiento"
-    ],
+    uso: ["gaming", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/2nBYZkc",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_722135-MLA115689865668_092026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_722135-MLA115689865668_092026-F.jpg",
   },
   {
     id: "ml_MLM78888519",
@@ -3898,26 +2680,17 @@ const productos = [
     duracionBateria: null,
     peso: 1.88,
     os: "Windows 11 Home",
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "trabajo", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/2DwokqE",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_703344-MLA117204663185_092026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_703344-MLA117204663185_092026-F.jpg",
   },
   {
     id: "ml_MLM67134843",
@@ -3942,26 +2715,17 @@ const productos = [
     duracionBateria: null,
     peso: 1.7,
     os: "Windows 11 Home",
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "trabajo", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/1Zm7s6e",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_938880-MLA109452985537_032026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_938880-MLA109452985537_032026-F.jpg",
   },
   {
     id: "ml_MLM80256211",
@@ -3986,26 +2750,17 @@ const productos = [
     duracionBateria: null,
     peso: 2,
     os: "Windows 11 Home",
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "trabajo", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/17zJ2L2",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_716313-MLA117209809340_102026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_716313-MLA117209809340_102026-F.jpg",
   },
   {
     id: "ml_MLM54489352",
@@ -4030,25 +2785,17 @@ const productos = [
     duracionBateria: null,
     peso: 1.8,
     os: "Windows 11 Home",
-    uso: [
-      "gaming",
-      "entretenimiento"
-    ],
+    uso: ["gaming", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/1JDpVJY",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_785386-MLA91136934434_092025-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_785386-MLA91136934434_092025-F.jpg",
   },
   {
     id: "ml_MLM76475634",
@@ -4073,25 +2820,17 @@ const productos = [
     duracionBateria: null,
     peso: 2.2,
     os: "Windows 11 Home",
-    uso: [
-      "gaming",
-      "entretenimiento"
-    ],
+    uso: ["gaming", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/1izxuC5",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_986163-MLA115723476587_082026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_986163-MLA115723476587_082026-F.jpg",
   },
   {
     id: "ml_MLM79094708",
@@ -4116,26 +2855,17 @@ const productos = [
     duracionBateria: null,
     peso: 1.7,
     os: "Windows 11 Home",
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "trabajo", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/1PyziS3",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_803022-MLA117382374823_092026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_803022-MLA117382374823_092026-F.jpg",
   },
   {
     id: "ml_MLM53983379",
@@ -4160,26 +2890,17 @@ const productos = [
     duracionBateria: 5,
     peso: 2,
     os: "Windows 11 Home",
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "trabajo", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/1DT8YsR",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_871777-MLA95652240299_102025-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_871777-MLA95652240299_102025-F.jpg",
   },
   {
     id: "ml_MLM57328307",
@@ -4204,26 +2925,17 @@ const productos = [
     duracionBateria: 15,
     peso: 1.32,
     os: "Windows 11 Home",
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "trabajo", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/1QvuEnn",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_963059-MLA93031297447_092025-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_963059-MLA93031297447_092025-F.jpg",
   },
   {
     id: "ml_MLM2123889188",
@@ -4248,26 +2960,17 @@ const productos = [
     duracionBateria: null,
     peso: null,
     os: null,
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "trabajo", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/1Xfz1zS",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_665378-CBT119528571291_102026-F.jpg"
+    img: "https://http2.mlstatic.com/D_665378-CBT119528571291_102026-F.jpg",
   },
   {
     id: "ml_MLM69968498",
@@ -4292,26 +2995,17 @@ const productos = [
     duracionBateria: 6,
     peso: 2,
     os: "Windows 11 Home",
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "trabajo", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/2vJq33r",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_912763-MLA111859235869_052026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_912763-MLA111859235869_052026-F.jpg",
   },
   {
     id: "ml_MLM78875805",
@@ -4336,26 +3030,17 @@ const productos = [
     duracionBateria: 3,
     peso: 1.45,
     os: "Windows 11 Home",
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "trabajo", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/2RN6Vtx",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_699928-MLA117134874027_092026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_699928-MLA117134874027_092026-F.jpg",
   },
   {
     id: "ml_MLM79381183",
@@ -4380,26 +3065,17 @@ const productos = [
     duracionBateria: null,
     peso: 1.7,
     os: "Windows 11 Home",
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "trabajo", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/1Kra4jp",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_892285-MLA116230463000_092026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_892285-MLA116230463000_092026-F.jpg",
   },
   {
     id: "ml_MLM67638582",
@@ -4424,26 +3100,17 @@ const productos = [
     duracionBateria: null,
     peso: 1,
     os: "Windows 11 Home",
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "trabajo", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/1cuLSsG",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_742112-MLA110083346695_042026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_742112-MLA110083346695_042026-F.jpg",
   },
   {
     id: "ml_MLM77179074",
@@ -4468,26 +3135,17 @@ const productos = [
     duracionBateria: 10,
     peso: 1.6,
     os: "Windows Windows 11 Home",
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "trabajo", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/1icmaR6",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_885634-MLA114694424826_082026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_885634-MLA114694424826_082026-F.jpg",
   },
   {
     id: "ml_MLM80198233",
@@ -4512,26 +3170,17 @@ const productos = [
     duracionBateria: 10,
     peso: 900,
     os: null,
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "trabajo", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/2eyV753",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_617743-MLA117091858016_102026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_617743-MLA117091858016_102026-F.jpg",
   },
   {
     id: "ml_MLM80541323",
@@ -4556,26 +3205,17 @@ const productos = [
     duracionBateria: null,
     peso: null,
     os: "Android 16",
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "trabajo", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/17rFX98",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_620979-MLA119325971761_102026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_620979-MLA119325971761_102026-F.jpg",
   },
   {
     id: "ml_MLM80264590",
@@ -4600,26 +3240,17 @@ const productos = [
     duracionBateria: 6,
     peso: 700,
     os: null,
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "trabajo", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/1Wn4kKo",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_872014-MLA118834062995_102026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_872014-MLA118834062995_102026-F.jpg",
   },
   {
     id: "ml_MLM80236761",
@@ -4644,26 +3275,17 @@ const productos = [
     duracionBateria: 6,
     peso: 700,
     os: null,
-    uso: [
-      "estudio",
-      "trabajo",
-      "entretenimiento"
-    ],
+    uso: ["estudio", "trabajo", "entretenimiento"],
     estrellas: null,
     resenas: null,
     estrellasML: null,
     resenasML: null,
     estrellasAmz: null,
     resenasAmz: null,
-    badges: [
-      {
-        t: "ML",
-        c: "b-ml"
-      }
-    ],
+    badges: [{ t: "ML", c: "b-ml" }],
     linkML: "https://meli.la/29RNcss",
     linkAmz: null,
-    img: "https://http2.mlstatic.com/D_NQ_NP_852998-MLA118763119277_102026-F.jpg"
+    img: "https://http2.mlstatic.com/D_NQ_NP_852998-MLA118763119277_102026-F.jpg",
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
