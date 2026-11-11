@@ -798,7 +798,7 @@ const productos = [
     marca: "Capcom",
     img: "https://http2.mlstatic.com/D_NQ_NP_801534-MLA99909375889_112025-F.jpg",
     linkML: "https://meli.la/2D38Ytm",
-    precioML: 373,
+    precioML: 362,
     especs: {
       "plataforma": "PS4",
       "formato": "Físico",
@@ -818,7 +818,7 @@ const productos = [
     marca: "",
     img: "https://http2.mlstatic.com/D_NQ_NP_955995-MLC49911330607_052022-F.jpg",
     linkML: "https://meli.la/1vknbuE",
-    precioML: 380,
+    precioML: 427,
     especs: {
       "plataforma": "PS4",
       "formato": "Físico",
@@ -996,7 +996,7 @@ const productos = [
     marca: "Nintendo Switch",
     img: "https://http2.mlstatic.com/D_NQ_NP_971711-MLA107885853736_032026-F.jpg",
     linkML: "https://meli.la/322gtpn",
-    precioML: 969,
+    precioML: 959,
     especs: {
       "plataforma": "Nintendo Switch",
       "formato": "Físico",
@@ -1193,7 +1193,7 @@ const productos = [
     marca: "Microsoft",
     img: "https://http2.mlstatic.com/D_NQ_NP_627618-MLA99857163495_112025-F.jpg",
     linkML: "https://meli.la/1aAyeec",
-    precioML: 463,
+    precioML: 457,
     especs: {
       "plataforma": "Xbox Series X|S",
       "formato": "Físico",
@@ -1585,7 +1585,7 @@ const productos = [
     marca: "Bandai Namco",
     img: "https://http2.mlstatic.com/D_NQ_NP_959824-MLA99898138247_112025-F.jpg",
     linkML: "https://meli.la/1McXTtd",
-    precioML: 260,
+    precioML: 274,
     especs: {
       "plataforma": "Xbox One",
       "formato": "Físico",
@@ -1942,6 +1942,7 @@ const productos = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 
 

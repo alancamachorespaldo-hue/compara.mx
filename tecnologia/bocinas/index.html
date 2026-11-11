@@ -622,7 +622,7 @@ const productos = [
     marca: "Amazon",
     linkML: "https://meli.la/1sdiFGr",
     linkAmz: null,
-    precioML: 938,
+    precioML: 899,
     precioAmz: null,
     imagen: "https://http2.mlstatic.com/D_NQ_NP_970763-MLA117210488950_102026-F.jpg",
     especs: {
@@ -706,7 +706,7 @@ const productos = [
     marca: "Amazon",
     linkML: "https://meli.la/2m9Vun3",
     linkAmz: null,
-    precioML: 929,
+    precioML: 836,
     precioAmz: null,
     imagen: "https://http2.mlstatic.com/D_NQ_NP_750867-MLA117207871074_102026-F.jpg",
     especs: {
@@ -766,7 +766,7 @@ const productos = [
     marca: "Alexa",
     linkML: "https://meli.la/1rbPXo3",
     linkAmz: null,
-    precioML: 1299,
+    precioML: 1285,
     precioAmz: null,
     imagen: "https://http2.mlstatic.com/D_NQ_NP_815765-MLA99450392860_112025-F.jpg",
     especs: {
@@ -1172,6 +1172,7 @@ const productos = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 
 
