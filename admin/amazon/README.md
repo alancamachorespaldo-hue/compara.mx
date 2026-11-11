@@ -3,47 +3,31 @@
 Módulo privado e independiente del catálogo público y del administrador actual.
 
 ## Arquitectura
+- Interfaz HTML, CSS y JavaScript modular, sin framework.
+- Persistencia Supabase PostgreSQL; autenticación Supabase Auth; autorización mediante RLS y `private.allowed_admins`.
+- No modifica `scripts/merged-admin.json`, `productos.json` ni los procesos actuales.
 
-- Interfaz: HTML, CSS y JavaScript modular.
-- Persistencia: Supabase PostgreSQL.
-- Autenticación: Supabase Auth, un único usuario administrador.
-- Autorización: tabla privada `private.allowed_admins` y políticas RLS.
-- Exportación: JSON local para paquetes de investigación y guías.
-- No modifica `scripts/merged-admin.json`, `productos.json` ni los procesos actuales de sincronización.
+## Configuración
+1. Ejecutar `supabase/migrations/001_centro_productos_amazon.sql` en SQL Editor.
+2. Crear usuario en Authentication > Users y autorizar su UUID en `private.allowed_admins`.
+3. Habilitar Data API y obtener Project URL y Publishable key.
+4. Copiar `config.example.js` como `config.js` en esta carpeta; completar URL y Publishable key.
+5. `config.js` está excluido de Git. Nunca colocar Secret key/service_role en frontend o repositorio.
+6. Servir el repositorio por HTTP local (por ejemplo `python -m http.server 8000`) y abrir `http://localhost:8000/admin/amazon/`.
 
-## Estado
+La Publishable key está diseñada para clientes públicos. La protección de datos depende de RLS. No uses la Secret key en el navegador.
 
-Esta primera entrega prepara la arquitectura y el esquema de datos. La interfaz conectada se implementará después de configurar Supabase y registrar el usuario administrador.
+## Funcionalidad inicial
+- Login/logout con Supabase Auth.
+- Comprobación de acceso mediante consulta protegida por RLS.
+- Conteos de productos, categorías y paquetes; tabla de los diez productos recientes.
+- Captura, edición, parser y paquetes se implementarán en siguientes fases.
 
-## Configuración de Supabase
+## Modelo
+Tablas: `amazon_categories`, `amazon_products`, `amazon_product_observations`, `amazon_guide_packages`, `amazon_guide_package_items`, `amazon_import_batches`, `amazon_audit_logs`. Los atributos variables se guardan en JSONB.
 
-1. Crear un proyecto Supabase.
-2. Ejecutar `supabase/migrations/001_centro_productos_amazon.sql` en SQL Editor.
-3. En Authentication > Users, crear un usuario con correo y contraseña.
-4. Copiar el UUID de ese usuario.
-5. Ejecutar en SQL Editor:
-
-```sql
-insert into private.allowed_admins (user_id)
-values ('UUID-DEL-UNICO-ADMIN');
-```
-
-6. Obtener Project URL y Publishable key desde Project Settings > API.
-7. Configurar esos valores en el módulo cuando se implemente el cliente. Nunca guardar service_role key en el navegador ni en Git.
-
-## Modelo de datos
-
-- `amazon_categories`: categorías y subcategorías.
-- `amazon_products`: ficha general y atributos específicos en JSONB.
-- `amazon_product_observations`: precios/observaciones con fecha y origen.
-- `amazon_guide_packages`: paquetes editoriales.
-- `amazon_guide_package_items`: productos asociados a cada paquete.
-- `amazon_import_batches`: capturas pegadas pendientes de revisión.
-- `amazon_audit_logs`: historial de acciones.
-
-## Reglas de datos
-
-- Un precio capturado manualmente es una observación histórica interna, no un precio vigente publicable.
-- El texto pegado conserva su procedencia y requiere revisión.
-- No publicar imágenes, contenido, reseñas o calificaciones de Amazon sin los permisos aplicables.
-- Los campos no identificados deben quedar vacíos; nunca inventar valores.
+## Reglas
+- Precios observados son históricos internos, no precios vigentes publicables.
+- Texto pegado requiere revisión; no asumir que es verificado.
+- No publicar imágenes, contenido, reseñas o calificaciones de Amazon sin permisos aplicables.
+- Nunca inventar campos no identificados.
