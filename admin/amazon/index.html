@@ -7,27 +7,54 @@
   <meta name="theme-color" content="#101714">
   <title>Centro de Productos Amazon | Compáralo.mx</title>
   <link rel="stylesheet" href="./assets/amazon.css">
+  <script src="./config.js"></script>
+  <script type="module" src="./assets/amazon.js"></script>
 </head>
 <body>
   <main class="shell">
     <header class="topbar">
       <a class="brand" href="../index.html" aria-label="Volver al administrador">COMPÁRALO<span>.MX</span></a>
-      <span class="private-label">ÁREA PRIVADA</span>
+      <div class="top-actions"><span class="private-label">ÁREA PRIVADA</span><button id="logout-button" class="button secondary" hidden>Cerrar sesión</button></div>
     </header>
     <section class="intro">
       <p class="eyebrow">INVESTIGACIÓN Y CONTENIDO</p>
       <h1>Centro de Productos Amazon</h1>
       <p class="muted">Inventario editorial independiente del catálogo público de Compáralo.mx.</p>
     </section>
-    <section class="notice" aria-live="polite">
-      <strong>Configuración pendiente</strong>
-      <p>La estructura inicial está preparada. El siguiente paso es conectar el proyecto Supabase y habilitar tu único usuario administrador.</p>
+    <p id="app-status" class="notice" role="status" aria-live="polite">Comprobando configuración…</p>
+    <section id="auth-view" class="auth-panel">
+      <h2>Acceso de administrador</h2>
+      <p class="muted">Inicia sesión con el usuario que autorizaste en Supabase.</p>
+      <form id="login-form">
+        <label for="email">Correo electrónico</label>
+        <input id="email" name="email" type="email" autocomplete="username" required>
+        <label for="password">Contraseña</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required>
+        <button class="button" type="submit">Iniciar sesión</button>
+      </form>
     </section>
-    <section class="stats" aria-label="Módulos">
-      <article><span>01</span><h2>Captura manual</h2><p>Registrar productos y sus datos generales.</p></article>
-      <article><span>02</span><h2>Captura por texto</h2><p>Pegar una publicación, revisar campos y confirmar.</p></article>
-      <article><span>03</span><h2>Inventario</h2><p>Buscar, filtrar, editar y organizar productos.</p></article>
-      <article><span>04</span><h2>Paquetes para guías</h2><p>Seleccionar productos y exportar investigación en JSON.</p></article>
+    <section id="dashboard" hidden>
+      <div class="stats">
+        <article><span>01</span><h2 id="count-products">0</h2><p>Productos capturados</p></article>
+        <article><span>02</span><h2 id="count-categories">0</h2><p>Categorías disponibles</p></article>
+        <article><span>03</span><h2 id="count-packages">0</h2><p>Paquetes para guías</p></article>
+      </div>
+      <section class="list-panel">
+        <h2>Productos recientes</h2>
+        <p id="empty-products" class="muted">Todavía no hay productos capturados.</p>
+        <div class="table-wrap"><table id="products-table" hidden>
+          <thead><tr><th>Producto</th><th>Marca</th><th>ASIN</th><th>Estado</th></tr></thead>
+          <tbody></tbody>
+        </table></div>
+      </section>
+      <section class="next-modules">
+        <h2>Próximos módulos</h2>
+        <div class="module-grid">
+          <article><span>01</span><h3>Captura manual</h3><p>Registrar fichas y atributos por categoría.</p></article>
+          <article><span>02</span><h3>Importar texto</h3><p>Pegar una publicación, revisar y confirmar campos.</p></article>
+          <article><span>03</span><h3>Paquetes de guías</h3><p>Organizar productos y exportar investigación.</p></article>
+        </div>
+      </section>
     </section>
     <footer>Compáralo.mx · Herramienta interna · No indexable</footer>
   </main>
