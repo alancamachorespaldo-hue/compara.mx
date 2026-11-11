@@ -1,33 +1,22 @@
 # Centro de Productos Amazon
 
-Módulo privado e independiente del catálogo público y del administrador actual.
+Aplicación privada HTML/CSS/JS conectada a Supabase. No modifica el catálogo público, `scripts/merged-admin.json`, `productos.json` ni sus sincronizaciones.
 
-## Arquitectura
-- Interfaz HTML, CSS y JavaScript modular, sin framework.
-- Persistencia Supabase PostgreSQL; autenticación Supabase Auth; autorización mediante RLS y `private.allowed_admins`.
-- No modifica `scripts/merged-admin.json`, `productos.json` ni los procesos actuales.
+## Configuración local
+1. Copia `config.example.js` como `config.js` y completa Project URL y Publishable key.
+2. `config.js` está excluido de Git. Nunca uses Secret/service_role key en el navegador.
+3. Desde la raíz del repositorio ejecuta `py -m http.server 8000`.
+4. Abre `http://localhost:8000/admin/amazon/`.
 
-## Configuración
-1. Ejecutar `supabase/migrations/001_centro_productos_amazon.sql` en SQL Editor.
-2. Crear usuario en Authentication > Users y autorizar su UUID en `private.allowed_admins`.
-3. Habilitar Data API y obtener Project URL y Publishable key.
-4. Copiar `config.example.js` como `config.js` en esta carpeta; completar URL y Publishable key.
-5. `config.js` está excluido de Git. Nunca colocar Secret key/service_role en frontend o repositorio.
-6. Servir el repositorio por HTTP local (por ejemplo `python -m http.server 8000`) y abrir `http://localhost:8000/admin/amazon/`.
+## Módulos implementados
+- Inventario: búsqueda, filtro por categoría/estado, alta, edición y eliminación.
+- Captura manual: ficha general, categoría, estado, URLs, atributos JSON, notas y observación de precio interno.
+- Importar texto: extracción preliminar de título, marca/modelo etiquetados, ASIN, URL y precio; revisión manual obligatoria antes de guardar. El parser es heurístico y no garantiza identificar todos los campos.
+- Paquetes: creación, asociación de productos, eliminación y exportación JSON con observaciones disponibles.
 
-La Publishable key está diseñada para clientes públicos. La protección de datos depende de RLS. No uses la Secret key en el navegador.
-
-## Funcionalidad inicial
-- Login/logout con Supabase Auth.
-- Comprobación de acceso mediante consulta protegida por RLS.
-- Conteos de productos, categorías y paquetes; tabla de los diez productos recientes.
-- Captura, edición, parser y paquetes se implementarán en siguientes fases.
-
-## Modelo
-Tablas: `amazon_categories`, `amazon_products`, `amazon_product_observations`, `amazon_guide_packages`, `amazon_guide_package_items`, `amazon_import_batches`, `amazon_audit_logs`. Los atributos variables se guardan en JSONB.
-
-## Reglas
-- Precios observados son históricos internos, no precios vigentes publicables.
-- Texto pegado requiere revisión; no asumir que es verificado.
-- No publicar imágenes, contenido, reseñas o calificaciones de Amazon sin permisos aplicables.
-- Nunca inventar campos no identificados.
+## Criterios de datos
+- Los precios capturados son observaciones internas con fecha; no son precios vigentes publicables.
+- Los atributos específicos se guardan como JSONB y deben verificarse.
+- No publicar imágenes, contenido, reseñas ni calificaciones de Amazon sin permisos aplicables.
+- El parser no verifica datos: la persona administradora debe revisarlos.
+- Los productos se guardan en tablas independientes del catálogo comparativo público.
