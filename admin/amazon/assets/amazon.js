@@ -46,7 +46,7 @@ function extractText(text){
  const productType=find("Tipo de bicicleta","Tipo de producto","Tipo");
  const asin=(text.match(/\b(B0[A-Z0-9]{8})\b/i)||text.match(/\/dp\/([A-Z0-9]{10})/i)||[])[1]||"";
  const linkMatches=[...text.matchAll(/(?:\[[^\]]*\]\()?(https?:\/\/(?:www\.)?amazon\.com\.mx\/[^\s)]+)/gi)];
- let productUrl=linkMatches.map(m=>m[1].replace(/[\\]),.;]+$/g,"")).find(u=>/\/(?:dp|gp\/product)\//i.test(u))||"";
+  let productUrl=linkMatches.map(m=>m[1].replace(/[),.;]+$/g,"")).find(u=>/\/(?:dp|gp\/product)\//i.test(u))||"";
  if(!productUrl&&asin)productUrl="https://www.amazon.com.mx/dp/"+asin;
  const priceLine=lines.find(l=>/precio(?: actual| observado)?/i.test(l));
  const priceMatch=(priceLine||"").match(/\$\s*([\d,]+(?:\.\d{1,2})?)/)||text.match(/(?:MXN\s*)\$\s*([\d,]+(?:\.\d{1,2})?)/i);
