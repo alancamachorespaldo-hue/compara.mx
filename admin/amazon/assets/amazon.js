@@ -89,6 +89,80 @@ function extractText(text){
  const name=find("Nombre del producto","Nombre","Título","Titulo")||titleLine||[brand,model,productType].filter(Boolean).join(" ").trim();
  return{name,brand,model,asin,category,product_url:productUrl,image_url:imageUrl,observed_price:priceMatch?priceMatch[1].replace(/,/g,""):"",attributes,detected_fields:Object.keys(attributes).length};
 }
+
+let jsonImportPayload=null,jsonImportRows=[];
+function jsonProductName(p){return p?.listing?.title||p?.model_name||p?.name||p?.id||"Producto sin nombre"}
+function jsonProductAsin(p){return String(p?.listing?.asin||p?.asin||"").trim().toUpperCase()}
+function jsonProductPrice(p){const n=Number(p?.listing?.price_mxn??p?.price_mxn);return Number.isFinite(n)&&n>=0?n:null}
+function jsonProductUrl(p){const u=p?.listing?.product_url||p?.listing?.url||p?.product_url||"";return /^https?:\/\/(?:www\.)?amazon\.com\.mx\//i.test(u)?u:""}
+function jsonProductIssues(p,duplicate){
+ const issues=[];
+ if(!jsonProductAsin(p))issues.push("ASIN pendiente");
+ if(duplicate)issues.push("ASIN repetido o ya registrado");
+ if(p?.capture_status)issues.push("Estado: "+p.capture_status);
+ if(Array.isArray(p?.discrepancies))issues.push(...p.discrepancies.map(x=>typeof x==="string"?x:JSON.stringify(x)));
+ const short=p?.listing?.amazon_short_url||p?.listing?.affiliate_url||p?.amazon_short_url;
+ if(short)issues.push("Enlace corto por verificar");
+ return issues;
+}
+function renderJsonPreview(){
+ const body=$("#json-preview-body");body.replaceChildren();
+ const existing=new Set(products.map(p=>(p.asin||"").toUpperCase()).filter(Boolean));
+ const seen=new Set();
+ jsonImportRows=jsonImportPayload.products.map((p,index)=>{
+  const asin=jsonProductAsin(p),duplicate=!!asin&&(existing.has(asin)||seen.has(asin));
+  if(asin)seen.add(asin);
+  const issues=jsonProductIssues(p,duplicate);
+  const tr=document.createElement("tr");
+  const price=jsonProductPrice(p);
+  const short=p?.listing?.amazon_short_url||p?.listing?.affiliate_url||p?.amazon_short_url||"—";
+  tr.innerHTML='<td><input type="checkbox" class="json-import-check" data-index="'+index+'" '+(duplicate?'disabled':'checked')+'></td><td><strong>'+esc(jsonProductName(p))+'</strong><small>'+esc([p.brand,p.family,p.model_name,p.condition].filter(Boolean).join(" · "))+'</small></td><td>'+esc(asin||"Pendiente")+'</td><td>'+(price===null?"—":new Intl.NumberFormat("es-MX",{style:"currency",currency:"MXN"}).format(price))+'</td><td><small>'+esc(short)+'</small></td><td><small>'+esc(issues.join(" | ")||"Sin incidencia detectada")+'</small></td>';
+  body.append(tr);
+  return {product:p,duplicate,issues,index};
+ });
+ const duplicates=jsonImportRows.filter(x=>x.duplicate).length;
+ $("#json-preview-title").textContent=(jsonImportPayload.collection||"Colección JSON")+" · "+jsonImportRows.length+" productos";
+ $("#json-preview-summary").textContent=jsonImportRows.length+" registros detectados. "+duplicates+" bloqueados por ASIN duplicado. Los demás quedan seleccionados para importación, pero todos entrarán como Pendientes.";
+ $("#json-preview").hidden=false;
+}
+function jsonCategoryId(p){
+ const raw=String(p.category||jsonImportPayload.collection||"").toLowerCase();
+ const match=categories.find(c=>raw.includes(c.slug)||raw.includes(c.name.toLowerCase()));
+ return match?.id||null;
+}
+async function importSelectedJson(){
+ const selected=[...document.querySelectorAll(".json-import-check:checked")].map(x=>Number(x.dataset.index));
+ if(!selected.length)throw new Error("Selecciona al menos un producto para importar.");
+ const batchResult=await supabase.from("amazon_import_batches").insert({capture_method:"json_import",source_text:null,parsed_data:jsonImportPayload,status:"review_pending"}).select().single();
+ if(batchResult.error)throw batchResult.error;
+ const batchId=batchResult.data.id,created=[];
+ try{
+  for(const index of selected){
+   const p=jsonImportRows[index].product,listing=p.listing||{},config=p.configuration||{};
+   const asin=jsonProductAsin(p)||null;
+   const name=jsonProductName(p);
+   const short=listing.amazon_short_url||listing.affiliate_url||p.amazon_short_url||"";
+   const discrepancies=[...(Array.isArray(p.discrepancies)?p.discrepancies.map(x=>typeof x==="string"?x:JSON.stringify(x)):[]),...(Array.isArray(p.research_notes)?p.research_notes.map(x=>typeof x==="string"?x:JSON.stringify(x)):[])];
+   if(short)discrepancies.push("Enlace corto conservado en el registro original; verificar destino, ASIN y variante antes de utilizarlo.");
+   const notes=["Importado desde JSON histórico. Requiere revisión manual.",p.capture_status?"Estado de captura original: "+p.capture_status:"",...discrepancies].filter(Boolean).join("\n");
+   const record={name,brand:p.brand||null,model:p.model_name||p.model||null,asin,category_id:jsonCategoryId(p),product_url:jsonProductUrl(p)||null,affiliate_url:null,image_url:listing.image_url||null,attributes:{...config,family:p.family??null,condition:p.condition??null,model_year:p.model_year??null,ranking_group:p.ranking_group??null,seller:listing.seller??null,warranty:listing.warranty??null},source_text:null,capture_method:"json_import",review_status:"pending",internal_notes:notes,source_record:p};
+   const saved=await supabase.from("amazon_products").insert(record).select().single();
+   if(saved.error)throw new Error(name+": "+saved.error.message);
+   created.push(saved.data.id);
+   const price=jsonProductPrice(p);
+   if(price!==null){const obs=await supabase.from("amazon_product_observations").insert({product_id:saved.data.id,observation_type:"price",amount:price,currency:"MXN",source:"historical_json_import",notes:"Precio histórico importado del JSON original; no representa precio vigente."});if(obs.error)throw obs.error}
+  }
+  const upd=await supabase.from("amazon_import_batches").update({status:"confirmed"}).eq("id",batchId);
+  if(upd.error)throw upd.error;
+  await refreshData();
+  status("Importación terminada: "+created.length+" productos guardados como Pendientes. Se conservó el JSON original.", "success");
+  $("#json-preview").hidden=true;$("#json-file").value="";$("#json-file-feedback").textContent="";
+ }catch(error){
+  status("La importación se detuvo después de guardar "+created.length+" productos. El lote original quedó conservado para revisión. Detalle: "+error.message,"error");
+  await refreshData();
+ }
+}
+
 function renderPackageProducts(){const box=$("#package-products");if(!products.length){box.innerHTML='<p class="empty">Primero captura productos en el inventario.</p>';return}box.innerHTML=products.map(p=>`<label class="product-option"><input type="checkbox" name="package_product" value="${p.id}"><span><strong>${esc(p.name)}</strong><small>${esc(p.brand)} · ${esc(categoryName(p.category_id))} · ${esc(p.asin||"Sin ASIN")}</small></span></label>`).join("")}
 async function renderPackages(){const box=$("#packages-list");if(!packages.length){box.innerHTML='<p class="empty">Aún no hay paquetes.</p>';return}box.replaceChildren();for(const p of packages){const {count}=await supabase.from("amazon_guide_package_items").select("*",{count:"exact",head:true}).eq("package_id",p.id);const div=document.createElement("div");div.className="package-item";div.innerHTML=`<div><strong>${esc(p.title)}</strong><small>${esc(categoryName(p.category_id))} · ${count||0} productos · ${esc(p.status)}</small></div><div class="action-group"><button class="action" data-export="${p.id}">Exportar JSON</button><button class="action danger" data-delete-package="${p.id}">Eliminar</button></div>`;box.append(div)}}
 async function exportPackage(id){const pkg=packages.find(x=>x.id===id);const {data:links,error}=await supabase.from("amazon_guide_package_items").select("product_id,sort_order,editorial_note").eq("package_id",id).order("sort_order");if(error)throw error;const ids=(links||[]).map(x=>x.product_id);const {data:items,error:e}=await supabase.from("amazon_products").select("*").in("id",ids.length?ids:["00000000-0000-0000-0000-000000000000"]);if(e)throw e;const {data:obs,error:oe}=await supabase.from("amazon_product_observations").select("*").in("product_id",ids.length?ids:["00000000-0000-0000-0000-000000000000"]).order("observed_at",{ascending:false});if(oe)throw oe;const payload={exported_at:new Date().toISOString(),project:"Compáralo.mx",package:pkg,products:(items||[]).map(p=>({...p,category_name:categoryName(p.category_id),observations:(obs||[]).filter(o=>o.product_id===p.id)})),editorial_notes:links||[],notice:"Datos internos de investigación. Verificar especificaciones y disponibilidad en fuentes vigentes antes de publicar."};const blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=(pkg.title||"paquete").toLowerCase().replace(/[^a-z0-9]+/g,"-")+".json";a.click();URL.revokeObjectURL(url)}
@@ -101,6 +175,22 @@ $("#inventory-body").addEventListener("click",async e=>{const edit=e.target.clos
 $("#parse-text").addEventListener("click",()=>{const text=$("#source-text").value.trim();if(!text){status("Pega primero el texto de una publicación.","error");return}const d=extractText(text),f=$("#import-form");for(const [k,v] of Object.entries(d))if(f.elements[k]&&typeof v==="string")f.elements[k].value=v;if(f.elements.attributes)f.elements.attributes.value=JSON.stringify(d.attributes||{},null,2);if(d.category){const match=categories.find(c=>keyCategory(c.slug)===d.category||keyCategory(c.name)===d.category);if(match)f.elements.category_id.value=match.id}f.elements.source_text.value=text;$("#import-review").hidden=false;status("Se detectaron "+d.detected_fields+" características. Revisa los campos y las especificaciones antes de guardar.","success")});
 $("#clear-import").addEventListener("click",()=>{$("#source-text").value="";$("#import-review").hidden=true;$("#import-form").reset()});
 $("#import-form").addEventListener("submit",async e=>{e.preventDefault();try{const v=formObject(e.currentTarget);const saved=await saveProduct(e.currentTarget,"pasted_text",v.source_text);const batch=await supabase.from("amazon_import_batches").insert({capture_method:"pasted_text",source_text:v.source_text,parsed_data:{name:v.name,brand:v.brand,model:v.model,asin:v.asin,product_url:v.product_url,observed_price:v.observed_price},status:"confirmed"});if(batch.error)throw batch.error;status("Producto importado y guardado para revisión editorial.","success");$("#source-text").value="";$("#import-review").hidden=true;switchTab("inventory")}catch(err){status("No se pudo importar: "+err.message,"error")}});
+
+$("#json-file").addEventListener("change",async e=>{
+ const file=e.target.files?.[0];$("#json-preview").hidden=true;jsonImportPayload=null;
+ if(!file)return;
+ try{
+  const parsed=JSON.parse(await file.text());
+  if(!parsed||typeof parsed!=="object"||!Array.isArray(parsed.products)||!parsed.products.length)throw new Error("El archivo debe contener un arreglo products con al menos un registro.");
+  if(parsed.products.some(p=>!p||typeof p!=="object"||Array.isArray(p)))throw new Error("Todos los elementos de products deben ser objetos JSON.");
+  jsonImportPayload=parsed;renderJsonPreview();
+  $("#json-file-feedback").textContent="Archivo válido: "+file.name+" · "+parsed.products.length+" productos.";
+  $("#json-file-feedback").dataset.type="success";
+ }catch(err){$("#json-file-feedback").textContent="No se pudo leer el JSON: "+err.message;$("#json-file-feedback").dataset.type="error"}
+});
+$("#confirm-json-import").addEventListener("click",async e=>{e.currentTarget.disabled=true;try{await importSelectedJson()}catch(err){status("No se pudo iniciar la importación: "+err.message,"error")}finally{e.currentTarget.disabled=false}});
+$("#cancel-json-import").addEventListener("click",()=>{$("#json-file").value="";$("#json-preview").hidden=true;$("#json-file-feedback").textContent="";jsonImportPayload=null;jsonImportRows=[]});
+
 $("#package-form").addEventListener("submit",async e=>{e.preventDefault();try{const v=formObject(e.currentTarget),selected=[...document.querySelectorAll('input[name="package_product"]:checked')].map(x=>x.value);const {data,error}=await supabase.from("amazon_guide_packages").insert({title:v.title,category_id:v.category_id||null,topic:v.topic||null,editorial_instructions:v.editorial_instructions||null,status:v.status}).select().single();if(error)throw error;if(selected.length){const {error:linkError}=await supabase.from("amazon_guide_package_items").insert(selected.map((product_id,i)=>({package_id:data.id,product_id,sort_order:i})));if(linkError)throw linkError}e.currentTarget.reset();await refreshData();status("Paquete guardado correctamente.","success")}catch(err){status("No se pudo guardar el paquete: "+err.message,"error")}});
 $("#packages-list").addEventListener("click",async e=>{const ex=e.target.closest("[data-export]"),del=e.target.closest("[data-delete-package]");try{if(ex)await exportPackage(ex.dataset.export);if(del&&confirm("¿Eliminar este paquete? Los productos del inventario se conservarán.")){const {error}=await supabase.from("amazon_guide_packages").delete().eq("id",del.dataset.deletePackage);if(error)throw error;await refreshData();status("Paquete eliminado.","success")}}catch(err){status("Operación no completada: "+err.message,"error")}});
 
