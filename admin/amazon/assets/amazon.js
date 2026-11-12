@@ -51,9 +51,9 @@ function mapMobileConfiguration(p){
  const pick=(...values)=>values.find(v=>v!==undefined&&v!==null&&v!=="");
  const aliases={
  family:pick(p.family,c.family,c.product_family),model_year:pick(p.model_year,c.model_year),condition:pick(p.condition,c.condition),variant:pick(p.variant,c.color,c.colour,c.variant),
- processor:pick(c.processor,c.chipset,c.cpu,c.processor_model),cpu_cores:pick(c.cpu_cores,c.processor_cores),
+ processor:pick(c.processor,c.chipset,c.cpu,c.processor_model_clean),cpu_cores:pick(c.cpu_cores,c.processor_cores),
  display_technology:pick(c.display_main_type,c.display_technology,c.screen_technology),display_size:pick(c.display_main_inches,c.display_size_inches,c.screen_size_inches,c.display_size),
- resolution:pick(c.display_main_resolution,c.resolution,c.display_resolution),refresh_rate:pick(c.refresh_rate_hz,c.refresh_rate),
+ resolution:pick(c.display_main_resolution_listing,c.display_main_resolution,c.resolution,c.display_resolution),refresh_rate:pick(c.refresh_rate_hz,c.refresh_rate),
  ram_gb:pick(c.ram_gb,c.ram_gb_capacity,c.ram),storage_gb:pick(c.storage_gb,c.storage_capacity_gb,c.storage),
  main_camera_mp:pick(c.rear_camera_main_mp,c.main_camera_mp,c.rear_camera_mp),front_camera_mp:pick(c.front_camera_mp,c.selfie_camera_mp),
  battery_mah:pick(c.battery_capacity_mah_listing,c.battery_capacity_mah_typical_official,c.battery_mah,c.battery_capacity_mah),
