@@ -22,3 +22,5 @@ input,select,textarea{width:100%;min-width:0;border:1px solid #ded4c2;border-rad
 footer{border-top:1px solid var(--line);margin-top:35px;padding-top:17px;font-size:12px}
 @media(max-width:760px){.shell{padding:20px 15px 40px}.topbar{padding:0 15px}.intro{align-items:start;flex-direction:column}.stats{gap:9px}.stats article{padding:14px}.toolbar{grid-template-columns:1fr}.form-grid.two,.selection-list{grid-template-columns:1fr}.panel{padding:17px}.panel-heading{flex-direction:column}.private-label{font-size:9px}.action-group{flex-wrap:wrap}}
 @media(max-width:420px){.stats{grid-template-columns:1fr}.topbar{height:auto;min-height:64px}.brand{font-size:13px}.private-label{display:none}}
+
+.text-button{border:0;background:transparent;color:var(--gold-dark);font:inherit;font-size:13px;font-weight:700;text-align:left;padding:3px 0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}.text-button:hover{color:var(--text)}
