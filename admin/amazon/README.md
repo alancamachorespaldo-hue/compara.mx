@@ -1,22 +1,44 @@
 # Centro de Productos Amazon
 
-Aplicación privada HTML/CSS/JS conectada a Supabase. No modifica el catálogo público, `scripts/merged-admin.json`, `productos.json` ni sus sincronizaciones.
+Módulo interno independiente del catálogo público de Compáralo.mx.
 
-## Configuración local
-1. Copia `config.example.js` como `config.js` y completa Project URL y Publishable key.
-2. `config.js` está excluido de Git. Nunca uses Secret/service_role key en el navegador.
-3. Desde la raíz del repositorio ejecuta `py -m http.server 8000`.
-4. Abre `http://localhost:8000/admin/amazon/`.
+## Desarrollo local sin pantalla de inicio de sesión
 
-## Módulos implementados
-- Inventario: búsqueda, filtro por categoría/estado, alta, edición y eliminación.
-- Captura manual: ficha general, categoría, estado, URLs, atributos JSON, notas y observación de precio interno.
-- Importar texto: extracción preliminar de título, marca/modelo etiquetados, ASIN, URL y precio; revisión manual obligatoria antes de guardar. El parser es heurístico y no garantiza identificar todos los campos.
-- Paquetes: creación, asociación de productos, eliminación y exportación JSON con observaciones disponibles.
+El modo local usa un pequeño servidor Node que escucha exclusivamente en `127.0.0.1`. El navegador nunca recibe la clave privilegiada de Supabase.
 
-## Criterios de datos
-- Los precios capturados son observaciones internas con fecha; no son precios vigentes publicables.
-- Los atributos específicos se guardan como JSONB y deben verificarse.
-- No publicar imágenes, contenido, reseñas ni calificaciones de Amazon sin permisos aplicables.
-- El parser no verifica datos: la persona administradora debe revisarlos.
-- Los productos se guardan en tablas independientes del catálogo comparativo público.
+1. Instala Node.js 18 o posterior.
+2. En la raíz del repositorio crea un archivo llamado `.env.local`.
+3. Copia estas variables y completa los valores desde Supabase:
+
+```env
+SUPABASE_URL=https://TU-PROYECTO.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=TU_SECRET_KEY_O_SERVICE_ROLE_KEY
+```
+
+La clave puede aparecer en Supabase como una clave `service_role` (legacy) o una secret key `sb_secret_...`. No uses la publishable/anon key en esta variable. Nunca compartas esta clave ni la pegues en el navegador. El archivo `.env.local` está excluido de Git.
+
+4. Desde la raíz del repositorio ejecuta:
+
+```powershell
+node .\admin\amazon\local-server.mjs
+```
+
+5. Abre `http://localhost:8000/admin/amazon/`.
+
+Para detener el servidor usa `Ctrl + C`. No abras este modo en una dirección pública ni configures el servidor para escuchar en `0.0.0.0`.
+
+## Seguridad y publicación
+
+- El puente local valida el nombre del host y escucha únicamente en loopback.
+- La clave privilegiada solo se lee en el servidor local y no se entrega al navegador.
+- El puente permite únicamente las tablas del Centro Amazon.
+- Este modo es solo para desarrollo local. No debe desplegarse.
+- La versión publicada debe volver a usar Supabase Auth, usuario administrador autorizado y políticas RLS. No se debe reutilizar la clave privilegiada en frontend ni en hosting estático.
+
+## Datos y catálogo
+
+El inventario editorial se almacena en Supabase y permanece separado de `scripts/merged-admin.json` y `productos.json`. Los datos capturados no se publican automáticamente. Los precios observados son históricos/internos; verifica especificaciones y disponibilidad antes de publicar.
+
+## Captura
+
+El módulo admite captura manual y pegado de texto de publicaciones. El parser es una ayuda: revisa y corrige los campos detectados antes de guardar. No inventes datos que no aparezcan en la fuente.
