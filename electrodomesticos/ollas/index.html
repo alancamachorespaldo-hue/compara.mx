@@ -1689,8 +1689,8 @@ function renderCard(p) {
   ).join('')}</div>` : '';
 
   // platform boxes
-  var platsMl  = hasMl  ? `<div class="pplat"><div class="pplat-name">Mercado Libre</div><div class="pplat-price">${fmt(p.precioML)}</div><a class="btn-ml" href="${p.linkML}" target="_blank" rel="noopener sponsored">Ir a <img class="btn-logo-img" src="/logomercado.png" alt="ML" loading="lazy"></a></div>` : '';
-  var platsAmz = hasAmz ? `<div class="pplat"><div class="pplat-name">Amazon MX</div><div class="pplat-price">${fmt(p.precioAmz)}</div><a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="noopener sponsored">Ir a <img class="btn-logo-img" src="/logoamazon.png" alt="Amz" loading="lazy"></a></div>` : '';
+  var platsMl  = hasMl  ? `<div class="pplat"><div class="pplat-name">Mercado Libre</div><div class="pplat-price">${fmt(p.precioML)}</div><a class="btn-ml" href="${p.linkML}" target="_blank" rel="noopener sponsored" data-ga-label="${(p.nombre||'').replace(/"/g,'')}" onclick="if(typeof gtag==='function')gtag('event','affiliate_click_ml',{platform:'mercado_libre',product_name:this.dataset.gaLabel||'',price:${p.precioML||0},category:'ollas'})">Ir a <img class="btn-logo-img" src="/logomercado.png" alt="ML" loading="lazy"></a></div>` : '';
+  var platsAmz = hasAmz ? `<div class="pplat"><div class="pplat-name">Amazon MX</div><div class="pplat-price">${fmt(p.precioAmz)}</div><a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="noopener sponsored" data-ga-label="${(p.nombre||'').replace(/"/g,'')}" onclick="if(typeof gtag==='function')gtag('event','affiliate_click_amazon',{platform:'amazon',product_name:this.dataset.gaLabel||'',price:${p.precioAmz||0},category:'ollas'})">Ir a <img class="btn-logo-img" src="/logoamazon.png" alt="Amz" loading="lazy"></a></div>` : '';
   var singleOnly = (hasMl && !hasAmz) || (!hasMl && hasAmz);
   var platsHtml = `<div class="pcard-plats${singleOnly?' single':''}">${platsMl}${platsAmz}</div>`;
 

@@ -706,7 +706,7 @@ html{scroll-behavior:smooth;scroll-padding-top:84px}body{background:var(--bg);co
 var ML_LOGO='<img src="/logomercado.png" alt="Mercado Libre" style="height:13px;vertical-align:middle;margin:0 2px" onerror="this.style.display=\'none\'">';
 function mkCard(c,parent){
 var wrap=document.createElement('div');wrap.className='aside-prod-card';wrap.style.cursor='pointer';wrap.setAttribute('data-cid',c.id);
-var gaEvt=c.ga?'if(window.gtag)gtag(\'event\',\'click_ml\',{event_category:\'aside_card\',event_label:\''+c.ga+'\'});':'';
+var gaEvt=c.ga?'if(window.gtag)gtag(\'event\',\'affiliate_click_ml\',{platform:\'mercado_libre\',event_label:\''+c.ga+'\',category:\'bicis_electricas\'});':'';
 wrap.innerHTML='<div style="position:relative;flex-shrink:0"><img class="aside-prod-img" src="'+c.img+'" alt="'+c.n+'" loading="lazy"></div>'
 +'<div class="aside-prod-body" style="flex:1;min-width:0"><span class="aside-prod-name">'+c.n+'</span>'
 +'<span class="aside-prod-price">$'+Number(c.p).toLocaleString('es-MX')+'</span>'
@@ -769,6 +769,6 @@ window.openMobSheet=function(){buildCards();overlay.classList.add('open');sheet.
 window.closeMobSheet=function(){overlay.classList.remove('open');sheet.classList.remove('open');document.body.style.overflow='';};
 window.mobCompare=function(){closeMobSheet();if(sel.length>=2){try{sessionStorage.setItem('bici_preselect',JSON.stringify(sel));}catch(e){}if(window.gtag)gtag('event','click_comparar_bicis',{event_category:'mob_fab',event_label:sel.join(',')});}window.location.href='/bicis/';};
 })();
-</script>
+</script>
 </body>
 </html>

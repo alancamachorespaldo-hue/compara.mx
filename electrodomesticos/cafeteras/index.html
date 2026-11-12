@@ -3670,8 +3670,7 @@ function platsHTML(p){
     <span class="pplat-tag">Mejor precio</span>
     <span class="pplat-name">Mercado Libre</span>
     <span class="pplat-price${priceStr?'':' nd'}">${priceStr||'Ver precio'}</span>
-    <a class="btn-ml" href="${p.linkML}" target="_blank" rel="noopener sponsored"
-       onclick="if(typeof trackAffiliate==='function')trackAffiliate('ml','${p.id}')">
+    <a class="btn-ml" href="${p.linkML}" target="_blank" rel="noopener sponsored" data-ga-label="${(p.nombre||'').replace(/"/g,'')}" onclick="if(typeof gtag==='function')gtag('event','affiliate_click_ml',{platform:'mercado_libre',product_name:this.dataset.gaLabel||'',price:${p.precioML||0},category:'cafeteras'})">
       Ir a Mercado Libre
     </a>
   </div></div></div>`;
@@ -3740,7 +3739,7 @@ function openCmp(){
     return `<th><img class="cmp-prod-img" src="${img}" alt="${p.nombre}" onerror="this.src='${IMG_PLACEHOLDER}'">
       <div class="cmp-prod-name">${p.nombre}</div>
       <div class="cmp-prod-btns">
-        ${p.linkML?`<a class="btn-ml" href="${p.linkML}" target="_blank" rel="noopener sponsored">Ir a Mercado Libre</a>`:''}
+        ${p.linkML?`<a class="btn-ml" href="${p.linkML}" target="_blank" rel="noopener sponsored" data-ga-label="${(p.nombre||'').replace(/"/g,'')}" onclick="if(typeof gtag==='function')gtag('event','affiliate_click_ml',{platform:'mercado_libre',product_name:this.dataset.gaLabel||'',price:${p.precioML||0},category:'cafeteras'})">Ir a Mercado Libre</a>`:''}
       </div></th>`;
   }).join('')+'</tr></thead><tbody>';
   // Precio
@@ -3765,7 +3764,7 @@ function openCmp(){
   // Botón ver en tienda
   html += '<tr><td>Ver en tienda</td>'+prods.map(p=>{
     if(!p.linkML) return '<td>—</td>';
-    return `<td><a class="btn-ml" href="${p.linkML}" target="_blank" rel="noopener sponsored" style="display:inline-flex;align-items:center;gap:4px;padding:8px 14px;width:auto;border-radius:8px;white-space:nowrap">Ir a Mercado Libre</a></td>`;
+    return `<td><a class="btn-ml" href="${p.linkML}" target="_blank" rel="noopener sponsored" style="display:inline-flex;align-items:center;gap:4px;padding:8px 14px;width:auto;border-radius:8px;white-space:nowrap" data-ga-label="${(p.nombre||'').replace(/"/g,'')}" onclick="if(typeof gtag==='function')gtag('event','affiliate_click_ml',{platform:'mercado_libre',product_name:this.dataset.gaLabel||'',price:${p.precioML||0},category:'cafeteras'})">Ir a Mercado Libre</a></td>`;
   }).join('')+'</tr>';
   html += '</tbody>';
   t.innerHTML = html;
