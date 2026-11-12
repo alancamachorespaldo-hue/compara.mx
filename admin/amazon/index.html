@@ -38,6 +38,26 @@
 <label>Calificación<input name="mobile_rating" type="number" min="0" max="5" step="0.1"></label><label>Número de reseñas<input name="mobile_review_count" type="number" min="0"></label>
 <label>Vendedor<input name="mobile_seller" placeholder="Vendedor de la publicación"></label><label>Garantía<input name="mobile_warranty" placeholder="Información de garantía"></label>
 </div></section>
+<section id="laptop-specs" class="category-specs" hidden><h3>Ficha técnica · Laptops</h3><p class="muted">Especificaciones estructuradas para comparar equipos. Los datos no documentados o contradictorios deben permanecer vacíos y anotarse en incidencias.</p><div class="form-grid two">
+<label>Familia / serie<input name="laptop_family"></label><label>Año del modelo<input name="laptop_model_year" type="number" min="2000" max="2100"></label>
+<label>Condición<select name="laptop_condition"><option value="">Sin especificar</option><option value="new">Nuevo</option><option value="renewed">Reacondicionado</option><option value="used">Usado</option></select></label><label>Número de modelo / SKU<input name="laptop_model_number"></label>
+<label>Procesador<input name="laptop_processor" placeholder="Ej. Intel Core i7-13620H"></label><label>Núcleos CPU<input name="laptop_cpu_cores" type="number" min="0"></label>
+<label>Hilos CPU<input name="laptop_cpu_threads" type="number" min="0"></label><label>Frecuencia máxima CPU (GHz)<input name="laptop_cpu_max_ghz" type="number" min="0" step="0.1"></label>
+<label>GPU / gráficos<input name="laptop_gpu"></label><label>VRAM (GB)<input name="laptop_gpu_vram_gb" type="number" min="0"></label>
+<label>Potencia GPU TGP (W)<input name="laptop_gpu_tgp_w" type="number" min="0"></label><label>RAM instalada (GB)<input name="laptop_ram_gb" type="number" min="0"></label>
+<label>Tipo de RAM<input name="laptop_ram_type" placeholder="DDR4, DDR5, LPDDR5X…"></label><label>Velocidad RAM (MHz)<input name="laptop_ram_speed_mhz" type="number" min="0"></label>
+<label>RAM máxima / ampliable (GB)<input name="laptop_max_ram_gb" type="number" min="0"></label><label>Almacenamiento (GB)<input name="laptop_storage_gb" type="number" min="0"></label>
+<label>Tipo de almacenamiento<input name="laptop_storage_type" placeholder="SSD NVMe PCIe 4.0…"></label><label>Pantalla / panel<input name="laptop_display_type" placeholder="IPS, OLED, Mini LED…"></label>
+<label>Tamaño pantalla (pulgadas)<input name="laptop_display_inches" type="number" min="0" step="0.1"></label><label>Resolución<input name="laptop_resolution" placeholder="1920 × 1080"></label>
+<label>Frecuencia pantalla (Hz)<input name="laptop_refresh_rate_hz" type="number" min="0"></label><label>Brillo (nits)<input name="laptop_brightness_nits" type="number" min="0"></label>
+<label>Gama de color<input name="laptop_color_gamut"></label><label>Batería (Wh)<input name="laptop_battery_wh" type="number" min="0" step="0.1"></label>
+<label>Autonomía anunciada (horas)<input name="laptop_battery_life_hours" type="number" min="0" step="0.1"></label><label>Peso (kg)<input name="laptop_weight_kg" type="number" min="0" step="0.01"></label>
+<label>Sistema operativo<input name="laptop_operating_system"></label><label>Conectividad inalámbrica<input name="laptop_wireless" placeholder="Wi-Fi 6, Bluetooth 5.2…"></label>
+<label>Puertos<input name="laptop_ports" placeholder="USB-A, USB-C, HDMI…"></label><label>Teclado / distribución<input name="laptop_keyboard" placeholder="Español, inglés, retroiluminado…"></label>
+<label>Cámara web<input name="laptop_webcam"></label><label>Color<input name="laptop_color"></label>
+<label>Calificación de la publicación<input name="laptop_rating" type="number" min="0" max="5" step="0.1"></label><label>Número de reseñas<input name="laptop_review_count" type="number" min="0"></label>
+<label>Vendedor / tienda<input name="laptop_seller"></label><label>Garantía<input name="laptop_warranty"></label>
+</div></section>
 <label>Atributos y especificaciones (JSON)<textarea name="attributes" rows="5" placeholder='{"capacidad_litros": 6, "potencia_w": 1700}'></textarea><small>Usa JSON válido. Los atributos varían según la categoría.</small></label>
 <label>Notas internas<textarea name="internal_notes" rows="3" placeholder="Observaciones para la investigación editorial"></textarea></label>
 <div class="form-actions"><button class="button" type="submit">Guardar producto</button><button class="button button-outline" type="button" id="reset-product">Limpiar formulario</button></div>
