@@ -1084,11 +1084,11 @@ const productos = [
     saboresDisponibles: ["Limonada Fresa"],
     precio: 347,
     precioAmz: null,
-    precioML: 374,
+    precioML: 264,
     contenidoGramos: 490,
     porciones: 90,
     creatinaGramosPorPorcion: 5,
-    costoPorPorcion: 4.16,
+    costoPorPorcion: 2.93,
     costoPor5gCreatina: 3.86,
     tipoCreatina: "Creatina monohidratada",
     presentacion: "polvo",
@@ -1108,11 +1108,11 @@ const productos = [
     saboresDisponibles: ["Pink Lemonade"],
     precio: 528,
     precioAmz: null,
-    precioML: 479,
+    precioML: 419,
     contenidoGramos: 348,
     porciones: 40,
     creatinaGramosPorPorcion: 5,
-    costoPorPorcion: 11.97,
+    costoPorPorcion: 10.47,
     costoPor5gCreatina: 13.2,
     tipoCreatina: "Creatina blend",
     presentacion: "polvo",
@@ -1896,6 +1896,7 @@ const productos = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 
 

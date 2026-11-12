@@ -592,7 +592,7 @@ const productos = [
     marca: "GameSir",
     linkML: "https://meli.la/1ksTD7c",
     linkAmz: null,
-    precioML: 1808,
+    precioML: 1812,
     precioAmz: null,
     imagen: "https://http2.mlstatic.com/D_NQ_NP_850876-MLA94815255235_102025-F.jpg",
     especs: {
@@ -733,7 +733,7 @@ const productos = [
     marca: "8BitDo",
     linkML: "https://meli.la/2AzzJ9R",
     linkAmz: null,
-    precioML: 805,
+    precioML: 755,
     precioAmz: null,
     imagen: "https://http2.mlstatic.com/D_766657-CBT108125152134_032026-F.jpg",
     especs: {
@@ -783,6 +783,7 @@ const productos = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 
 
