@@ -30,7 +30,7 @@ function status(message,type="info"){statusEl.textContent=message;statusEl.datas
 function showDashboard(){dashboard.hidden=false}
 function esc(value){return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 function categoryName(id){return categories.find(c=>c.id===id)?.name||"Sin categoría"}
-function keyCategory(value){return String(value||"").normalize("NFD").replace(/[\\u0300-\\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"_").replace(/^_|_$/g,"")}
+function keyCategory(value){return String(value||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"_").replace(/^_|_$/g,"")}
 function fillCategories(){for(const id of ["product-category","import-category","package-category","filter-category"]){const el=$("#"+id);const keep=el.value;el.querySelectorAll("option:not(:first-child)").forEach(o=>o.remove());categories.forEach(c=>{const o=document.createElement("option");o.value=c.id;o.textContent=c.name;el.append(o)});if(keep)el.value=keep}}
 function switchTab(name){document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===name));document.querySelectorAll(".tab-panel").forEach(p=>p.hidden=p.id!=="panel-"+name);if(name==="inventory")renderInventory();if(name==="packages")renderPackageProducts()}
 function resetProduct(){const f=$("#product-form");f.reset();f.elements.id.value="";f.elements.review_status.value="pending";$("#product-form-title").textContent="Capturar producto"}
@@ -38,47 +38,39 @@ function formObject(form){return Object.fromEntries(new FormData(form).entries()
 function parseAttributes(value){if(!value.trim())return {};const obj=JSON.parse(value);if(!obj||Array.isArray(obj)||typeof obj!=="object")throw new Error("Los atributos deben ser un objeto JSON.");return obj}
 async function refreshData(){const [c,p,g]=await Promise.all([supabase.from("amazon_categories").select("*").eq("is_active",true).order("sort_order"),supabase.from("amazon_products").select("*").order("created_at",{ascending:false}),supabase.from("amazon_guide_packages").select("*").order("created_at",{ascending:false})]);const err=c.error||p.error||g.error;if(err)throw err;categories=c.data||[];products=p.data||[];packages=g.data||[];$("#count-products").textContent=products.length;$("#count-categories").textContent=categories.length;$("#count-packages").textContent=packages.length;fillCategories();renderInventory();renderPackageProducts();renderPackages()}
 function renderInventory(){const term=$("#product-search").value.trim().toLowerCase(),cat=$("#filter-category").value,st=$("#filter-status").value;const rows=products.filter(p=>(!cat||p.category_id===cat)&&(!st||p.review_status===st)&&[p.name,p.brand,p.model,p.asin].some(v=>(v||"").toLowerCase().includes(term)));const body=$("#inventory-body");body.replaceChildren();rows.forEach(p=>{const tr=document.createElement("tr");tr.innerHTML=`<td><strong>${esc(p.name)}</strong><small>${esc(p.product_url||"")}</small></td><td>${esc(p.brand)}<small>${esc(p.model)}</small></td><td>${esc(p.asin)}</td><td>${esc(categoryName(p.category_id))}</td><td><span class="tag">${esc(p.review_status)}</span></td><td><div class="action-group"><button class="action" data-edit="${p.id}">Editar</button><button class="action danger" data-delete="${p.id}">Eliminar</button></div></td>`;body.append(tr)});$("#inventory-empty").hidden=rows.length>0}
-async function saveProduct(form,method,sourceText=""){const v=formObject(form);if(!v.name.trim())throw new Error("El nombre del producto es obligatorio.");const attrs=method==="manual"?parseAttributes(v.attributes||""):{};const record={name:v.name.trim(),brand:v.brand||null,model:v.model||null,asin:v.asin.trim()||null,category_id:v.category_id||null,product_url:v.product_url||null,affiliate_url:v.affiliate_url||null,image_url:v.image_url||null,attributes:attrs,source_text:sourceText||null,capture_method:method,review_status:v.review_status||"pending",internal_notes:v.internal_notes||null};let result;if(v.id){result=await supabase.from("amazon_products").update(record).eq("id",v.id).select().single()}else{result=await supabase.from("amazon_products").insert(record).select().single()}if(result.error)throw result.error;const price=Number(v.observed_price);if(v.observed_price&&Number.isFinite(price)&&price>=0){const obs=await supabase.from("amazon_product_observations").insert({product_id:result.data.id,observation_type:"price",amount:price,currency:"MXN",source:"manual_observation",notes:"Precio observado durante la captura; dato interno, no publicar como precio vigente."});if(obs.error)throw obs.error}await refreshData();return result.data}
+async function saveProduct(form,method,sourceText=""){const v=formObject(form);if(!v.name.trim())throw new Error("El nombre del producto es obligatorio.");const attrs=parseAttributes(v.attributes||"");const record={name:v.name.trim(),brand:v.brand||null,model:v.model||null,asin:v.asin.trim()||null,category_id:v.category_id||null,product_url:v.product_url||null,affiliate_url:v.affiliate_url||null,image_url:v.image_url||null,attributes:attrs,source_text:sourceText||null,capture_method:method,review_status:v.review_status||"pending",internal_notes:v.internal_notes||null};let result;if(v.id){result=await supabase.from("amazon_products").update(record).eq("id",v.id).select().single()}else{result=await supabase.from("amazon_products").insert(record).select().single()}if(result.error)throw result.error;const price=Number(v.observed_price);if(v.observed_price&&Number.isFinite(price)&&price>=0){const obs=await supabase.from("amazon_product_observations").insert({product_id:result.data.id,observation_type:"price",amount:price,currency:"MXN",source:"manual_observation",notes:"Precio observado durante la captura; dato interno, no publicar como precio vigente."});if(obs.error)throw obs.error}await refreshData();return result.data}
 function editProduct(id){const p=products.find(x=>x.id===id);if(!p)return;switchTab("manual");const f=$("#product-form");for(const [k,v] of Object.entries({id:p.id,name:p.name,brand:p.brand,model:p.model,asin:p.asin,category_id:p.category_id,product_url:p.product_url,affiliate_url:p.affiliate_url,image_url:p.image_url,attributes:JSON.stringify(p.attributes||{},null,2),review_status:p.review_status,internal_notes:p.internal_notes}))if(f.elements[k])f.elements[k].value=v??"";$("#product-form-title").textContent="Editar producto"}
 function extractText(text){
- const clean=s=>String(s??"").replace(/<[^>]*>/g,"").replace(/&nbsp;/gi," ").replace(/&#x20;/gi," ").replace(/\\\\/g,"").replace(/\\s+/g," ").trim();
- const key=s=>clean(s).replace(/^\\*+|\\*+$/g,"").normalize("NFD").replace(/[\\u0300-\\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"_").replace(/^_|_$/g,"");
+ const clean=s=>String(s??"").replace(/<[^>]*>/g,"").replace(/&nbsp;/gi," ").replace(/&#x20;/gi," ").replace(/\\+/g,"").trim();
+ const key=s=>clean(s).replace(/\*\*/g,"").replace(/\*/g,"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"_").replace(/^_|_$/g,"");
  const pairs={};
- const lines=text.split(/\\r?\\n/).map(x=>x.trim()).filter(Boolean);
+ const lines=text.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
+ const ignored=new Set(["caracteristicas_y_especificaciones","estilo","materiales_y_cuidado","detalles_del_producto","medidas","guia_de_usuario","informacion_del_producto"]);
  for(const raw of lines){
-  const line=raw.replace(/^\\|/,"").replace(/\\|$/,"").trim();
-  if(/^:?-{2,}/.test(line))continue;
+  const line=raw.trim();
+  if(/^\|?\s*:?-{2,}/.test(line))continue;
   let parts=null;
   if(line.includes("|")){
-   const cells=line.split("|").map(x=>x.trim().replace(/^\\*+|\\*+$/g,""));
-   if(cells.length>=2)parts=[cells[0],cells[1]];
+   const cells=line.replace(/^\|/,"").replace(/\|$/,"").split("|").map(x=>x.trim().replace(/^\*\*|\*\*$/g,"").replace(/^\*|\*$/g,""));
+   if(cells.length>=2)parts=[cells[0],cells.slice(1).join(" ").trim()];
   }
-  if(!parts&&/\\t/.test(line)){const cells=line.split(/\\t+/).map(x=>x.trim());if(cells.length>=2)parts=[cells[0],cells.slice(1).join(" ")];}
-  if(!parts){
-   const m=line.match(/^\\*{0,2}(.{2,70}?)\\*{0,2}\\s{2,}(.+)$/);
-   if(m)parts=[m[1],m[2]];
-  }
-  if(!parts){
-   const m=line.match(/^\\*{0,2}([^:：]{2,70}?)\\*{0,2}\\s*[:：]\\s*(.+)$/);
-   if(m)parts=[m[1],m[2]];
-  }
-  if(parts){
-   const k=key(parts[0]),v=clean(parts[1]).replace(/^\\*+|\\*+$/g,"");
-   if(k&&v&&!/^:?-+$/.test(v)&&!["caracteristicas_y_especificaciones","estilo","materiales_y_cuidado","detalles_del_producto","medidas","guia_de_usuario","informacion_del_producto"].includes(k))pairs[k]=v;
-  }
+  if(!parts&&/\t/.test(line)){const cells=line.split(/\t+/).map(x=>x.trim());if(cells.length>=2)parts=[cells[0],cells.slice(1).join(" ")]}
+  if(!parts){const m=line.match(/^\*\*(.{2,70}?)\*\*\s+(.+)$/);if(m)parts=[m[1],m[2]]}
+  if(!parts){const m=line.match(/^([^:：]{2,70}?)\s*[:：]\s*(.+)$/);if(m)parts=[m[1],m[2]]}
+  if(parts){const k=key(parts[0]),v=clean(parts[1]).replace(/^\*\*|\*\*$/g,"");if(k&&v&&!ignored.has(k)&&!/^:?-+$/.test(v))pairs[k]=v}
  }
  const find=(...names)=>{for(const n of names){const v=pairs[key(n)];if(v)return v}return ""};
  const brand=find("Marca","Fabricante");
  const model=find("Número Modelo","Modelo","Número de modelo");
  const productType=find("Tipo de bicicleta","Tipo de producto","Tipo");
- const asin=(text.match(/\\b(B0[A-Z0-9]{8})\\b/i)||text.match(/\\/dp\\/([A-Z0-9]{10})/i)||[])[1]||"";
- const linkMatches=[...text.matchAll(/(?:\\[[^\\]]*\\]\\()?(https?:\\/\\/(?:www\\.)?amazon\\.com\\.mx\\/[^\\s)]+)/gi)];
- const productUrl=linkMatches.map(m=>m[1].replace(/[),.;]+$/g,"")).find(u=>/\\/(?:dp|gp\\/product)\\//i.test(u))||(asin?"https://www.amazon.com.mx/dp/"+asin:"");
+ const asin=(text.match(/\b(B0[A-Z0-9]{8})\b/i)||text.match(/\/dp\/([A-Z0-9]{10})/i)||[])[1]||"";
+ const linkMatches=[...text.matchAll(/https?:\/\/(?:www\.)?amazon\.com\.mx\/[^\s)]+/gi)];
+ const productUrl=linkMatches.map(m=>m[0].replace(/[),.;]+$/g,"")).find(u=>/\/(?:dp|gp\/product)\//i.test(u))||(asin?"https://www.amazon.com.mx/dp/"+asin:"");
  const priceLine=lines.find(l=>/precio(?: actual| observado)?/i.test(l));
- const priceMatch=(priceLine||"").match(/\\$\\s*([\\d,]+(?:\\.\\d{1,2})?)/)||text.match(/(?:MXN\\s*)\\$\\s*([\\d,]+(?:\\.\\d{1,2})?)/i);
+ const priceMatch=(priceLine||"").match(/\$\s*([\d,]+(?:\.\d{1,2})?)/)||text.match(/(?:MXN\s*)\$\s*([\d,]+(?:\.\d{1,2})?)/i);
  const categoryText=(productType+" "+text.slice(0,1800)).toLowerCase();
  let category="";
- if(/biciclet|\\bbike\\b/.test(categoryText))category="bicicletas";
+ if(/biciclet|\bbike\b/.test(categoryText))category="bicicletas";
  else if(/freidora/.test(categoryText))category="freidoras";
  else if(/microondas/.test(categoryText))category="microondas";
  else if(/horno/.test(categoryText))category="hornos";
@@ -86,10 +78,9 @@ function extractText(text){
  else if(/omega.?3|creatina|proteina|suplemento|magnesio/.test(categoryText))category="suplementos";
  else if(/electronica|audifonos|celular|telefono/.test(categoryText))category="electronica";
  const excluded=new Set(["marca","fabricante","modelo","numero_modelo","asin","opinion_media_de_los_clientes","clasificacion_en_los_mas_vendidos_de_amazon"]);
- const attributes={};
- for(const [k,v] of Object.entries(pairs)){if(!excluded.has(k))attributes[k]=v}
- const name=[brand,model,productType].filter(Boolean).join(" ").trim()||find("Nombre del producto","Nombre","Título","Titulo");
- return{name,brand,model,asin,category,product_url:productUrl,observed_price:priceMatch?priceMatch[1].replace(/,/g,""):"",attributes,detected_fields:Object.keys(pairs).length};
+ const attributes={};for(const [k,v] of Object.entries(pairs)){if(!excluded.has(k))attributes[k]=v}
+ const name=find("Nombre del producto","Nombre","Título","Titulo")||[brand,model,productType].filter(Boolean).join(" ").trim();
+ return{name,brand,model,asin,category,product_url:productUrl,observed_price:priceMatch?priceMatch[1].replace(/,/g,""):"",attributes,detected_fields:Object.keys(attributes).length};
 }
 function renderPackageProducts(){const box=$("#package-products");if(!products.length){box.innerHTML='<p class="empty">Primero captura productos en el inventario.</p>';return}box.innerHTML=products.map(p=>`<label class="product-option"><input type="checkbox" name="package_product" value="${p.id}"><span><strong>${esc(p.name)}</strong><small>${esc(p.brand)} · ${esc(categoryName(p.category_id))} · ${esc(p.asin||"Sin ASIN")}</small></span></label>`).join("")}
 async function renderPackages(){const box=$("#packages-list");if(!packages.length){box.innerHTML='<p class="empty">Aún no hay paquetes.</p>';return}box.replaceChildren();for(const p of packages){const {count}=await supabase.from("amazon_guide_package_items").select("*",{count:"exact",head:true}).eq("package_id",p.id);const div=document.createElement("div");div.className="package-item";div.innerHTML=`<div><strong>${esc(p.title)}</strong><small>${esc(categoryName(p.category_id))} · ${count||0} productos · ${esc(p.status)}</small></div><div class="action-group"><button class="action" data-export="${p.id}">Exportar JSON</button><button class="action danger" data-delete-package="${p.id}">Eliminar</button></div>`;box.append(div)}}
