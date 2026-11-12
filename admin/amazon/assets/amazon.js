@@ -48,16 +48,18 @@ function fillMobileForm(form,attrs){
 }
 function mapMobileConfiguration(p){
  const c=p.configuration||{},l=p.listing||{},out={};
+ const pick=(...values)=>values.find(v=>v!==undefined&&v!==null&&v!=="");
  const aliases={
- family:p.family,model_year:p.model_year,condition:p.condition,variant:p.variant||c.color||c.colour,
- processor:c.processor||c.chipset||c.cpu,cpu_cores:c.cpu_cores||c.processor_cores,
- display_technology:c.display_main_type||c.display_technology||c.screen_technology,display_size:c.display_main_inches||c.display_size_inches||c.screen_size_inches||c.display_size,
- resolution:c.display_main_resolution||c.resolution||c.display_resolution,refresh_rate:c.refresh_rate_hz||c.refresh_rate,
- ram_gb:c.ram_gb||c.ram_gb_capacity,storage_gb:c.storage_gb||c.storage_capacity_gb,
- main_camera_mp:c.rear_camera_main_mp||c.main_camera_mp||c.rear_camera_mp,front_camera_mp:c.front_camera_mp,
- battery_mah:c.battery_capacity_mah_listing||c.battery_capacity_mah_typical_official||c.battery_mah||c.battery_capacity_mah,charging_w:c.charging_w||c.charging_power_w,
- connectivity:[c.mobile_network,c.connectivity].filter(Boolean).join(" · "),memory_expansion:c.storage_expandable===false?"No":c.memory_expansion,rating:l.rating,review_count:l.review_count,
- seller:l.seller,warranty:l.warranty
+ family:pick(p.family,c.family,c.product_family),model_year:pick(p.model_year,c.model_year),condition:pick(p.condition,c.condition),variant:pick(p.variant,c.color,c.colour,c.variant),
+ processor:pick(c.processor,c.chipset,c.cpu,c.processor_model),cpu_cores:pick(c.cpu_cores,c.processor_cores),
+ display_technology:pick(c.display_main_type,c.display_technology,c.screen_technology),display_size:pick(c.display_main_inches,c.display_size_inches,c.screen_size_inches,c.display_size),
+ resolution:pick(c.display_main_resolution,c.resolution,c.display_resolution),refresh_rate:pick(c.refresh_rate_hz,c.refresh_rate),
+ ram_gb:pick(c.ram_gb,c.ram_gb_capacity,c.ram),storage_gb:pick(c.storage_gb,c.storage_capacity_gb,c.storage),
+ main_camera_mp:pick(c.rear_camera_main_mp,c.main_camera_mp,c.rear_camera_mp),front_camera_mp:pick(c.front_camera_mp,c.selfie_camera_mp),
+ battery_mah:pick(c.battery_capacity_mah_listing,c.battery_capacity_mah_typical_official,c.battery_mah,c.battery_capacity_mah),
+ charging_w:pick(c.charging_w,c.charging_power_w),connectivity:[c.mobile_network,c.connectivity].filter(Boolean).join(" · "),
+ memory_expansion:c.storage_expandable===false?"No":pick(c.memory_expansion),rating:pick(l.rating),review_count:pick(l.review_count),
+ seller:pick(l.seller),warranty:pick(l.warranty)
  };
  for(const [k,v] of Object.entries(aliases))if(v!==undefined&&v!==null&&v!=="")out[k]=v;
  return out;
@@ -69,7 +71,16 @@ function parseAttributes(value){if(!value.trim())return {};const obj=JSON.parse(
 async function refreshData(){const [c,p,g]=await Promise.all([supabase.from("amazon_categories").select("*").eq("is_active",true).order("sort_order"),supabase.from("amazon_products").select("*").order("created_at",{ascending:false}),supabase.from("amazon_guide_packages").select("*").order("created_at",{ascending:false})]);const err=c.error||p.error||g.error;if(err)throw err;categories=c.data||[];products=p.data||[];packages=g.data||[];$("#count-products").textContent=products.length;$("#count-categories").textContent=categories.length;$("#count-packages").textContent=packages.length;fillCategories();renderInventory();renderPackageProducts();renderPackages()}
 function renderInventory(){const term=$("#product-search").value.trim().toLowerCase(),cat=$("#filter-category").value,st=$("#filter-status").value;const rows=products.filter(p=>(!cat||p.category_id===cat)&&(!st||p.review_status===st)&&[p.name,p.brand,p.model,p.asin].some(v=>(v||"").toLowerCase().includes(term)));const body=$("#inventory-body");body.replaceChildren();rows.forEach(p=>{const tr=document.createElement("tr");const imageCell=p.image_url?'<a class="inventory-image-link" href="'+esc(p.image_url)+'" target="_blank" rel="noopener noreferrer" aria-label="Ver imagen de '+esc(p.name)+'"><img class="inventory-image" src="'+esc(p.image_url)+'" alt="'+esc(p.name)+'" loading="lazy" referrerpolicy="no-referrer"></a>':'<span class="inventory-image-empty">Sin imagen</span>';const hist=p.source_record?.listing?.price_mxn;const price=hist==null?"—":new Intl.NumberFormat("es-MX",{style:"currency",currency:"MXN"}).format(Number(hist));const link=p.affiliate_url||p.product_url;const linkCell=link?'<a href="'+esc(link)+'" target="_blank" rel="noopener noreferrer">Consultar en Amazon</a>':'<small>Sin enlace</small>';tr.innerHTML='<td>'+imageCell+'</td><td><strong>'+esc(p.name)+'</strong><small>'+linkCell+'</small></td><td>'+esc(p.brand)+'<small>'+esc(p.model)+'</small></td><td>'+esc(p.asin)+'</td><td>'+esc(price)+'</td><td>'+esc(categoryName(p.category_id))+'</td><td><span class="tag">'+esc(p.review_status)+'</span></td><td><div class="action-group"><button class="action" data-edit="'+p.id+'">Editar</button><button class="action danger" data-delete="'+p.id+'">Eliminar</button></div></td>';body.append(tr)});$("#inventory-empty").hidden=rows.length>0}
 async function saveProduct(form,method,sourceText=""){const v=formObject(form);if(!v.name.trim())throw new Error("El nombre del producto es obligatorio.");const attrs=parseAttributes(v.attributes||"");const mobile=mobileAttributesFromForm(form);if(Object.keys(mobile).length)attrs.mobile=mobile;else delete attrs.mobile;const record={name:v.name.trim(),brand:v.brand||null,model:v.model||null,asin:v.asin.trim()||null,category_id:v.category_id||null,product_url:v.product_url||null,affiliate_url:v.affiliate_url||null,image_url:v.image_url||null,attributes:attrs,source_text:sourceText||null,capture_method:method,review_status:v.review_status||"pending",internal_notes:v.internal_notes||null};let result;if(v.id){result=await supabase.from("amazon_products").update(record).eq("id",v.id).select().single()}else{result=await supabase.from("amazon_products").insert(record).select().single()}if(result.error)throw result.error;const price=Number(v.observed_price);if(v.observed_price&&Number.isFinite(price)&&price>=0){const obs=await supabase.from("amazon_product_observations").insert({product_id:result.data.id,observation_type:"price",amount:price,currency:"MXN",source:"manual_observation",notes:"Precio observado durante la captura; dato interno, no publicar como precio vigente."});if(obs.error)throw obs.error}await refreshData();return result.data}
-async function editProduct(id){const p=products.find(x=>x.id===id);if(!p)return;switchTab("manual");const f=$("#product-form");const historical=p.source_record?.listing?.price_mxn??"";for(const [k,v] of Object.entries({id:p.id,name:p.name,brand:p.brand,model:p.model,asin:p.asin,category_id:p.category_id,product_url:p.product_url,affiliate_url:p.affiliate_url,image_url:p.image_url,observed_price:historical,attributes:JSON.stringify(p.attributes||{},null,2),review_status:p.review_status,internal_notes:p.internal_notes}))if(f.elements[k])f.elements[k].value=v??"";fillMobileForm(f,{mobile:p.attributes?.mobile||mapMobileConfiguration({configuration:p.attributes||{},listing:p.source_record?.listing||{},family:p.attributes?.family,model_year:p.attributes?.model_year,condition:p.attributes?.condition})});$("#product-form-title").textContent="Editar producto"}
+async function editProduct(id){
+ const p=products.find(x=>x.id===id);if(!p)return;
+ switchTab("manual");const f=$("#product-form");
+ const obs=await supabase.from("amazon_product_observations").select("*").eq("product_id",p.id).eq("observation_type","price").order("observed_at",{ascending:false}).limit(1);
+ const historical=p.source_record?.listing?.price_mxn??obs.data?.[0]?.amount??"";
+ for(const [k,v] of Object.entries({id:p.id,name:p.name,brand:p.brand,model:p.model,asin:p.asin,category_id:p.category_id,product_url:p.product_url,affiliate_url:p.affiliate_url,image_url:p.image_url,observed_price:historical,attributes:JSON.stringify(p.attributes||{},null,2),review_status:p.review_status,internal_notes:p.internal_notes}))if(f.elements[k])f.elements[k].value=v??"";
+ const mapped=mapMobileConfiguration({configuration:p.attributes||{},listing:p.source_record?.listing||{},family:p.attributes?.family,model_year:p.attributes?.model_year,condition:p.attributes?.condition});
+ fillMobileForm(f,{mobile:p.attributes?.mobile||mapped});
+ $("#product-form-title").textContent="Editar producto";
+}
 function extractText(text){
  const clean=s=>String(s??"").replace(/<[^>]*>/g,"").replace(/&nbsp;/gi," ").replace(/&#x20;/gi," ").replace(/\\/g,"").trim();
  const key=s=>clean(s).replace(/\*\*/g,"").replace(/\*/g,"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"_").replace(/^_|_$/g,"");
@@ -176,7 +187,8 @@ async function importSelectedJson(){
    const discrepancies=[...(Array.isArray(p.discrepancies)?p.discrepancies.map(x=>typeof x==="string"?x:JSON.stringify(x)):[]),...(Array.isArray(p.research_notes)?p.research_notes.map(x=>typeof x==="string"?x:JSON.stringify(x)):[])];
    if(short)discrepancies.push("Enlace corto conservado en el registro original; verificar destino, ASIN y variante antes de utilizarlo.");
    const notes=["Importado desde JSON histórico. Requiere revisión manual.",p.capture_status?"Estado de captura original: "+p.capture_status:"",...discrepancies].filter(Boolean).join("\n");
-   const originalAffiliate=listing.amazon_short_url||listing.affiliate_url||p.amazon_short_url||p.affiliate_url||"";\n   const record={name,brand:p.brand||null,model:p.model_name||p.model||null,asin,category_id:jsonCategoryId(p),product_url:jsonProductUrl(p)||originalAffiliate||null,affiliate_url:originalAffiliate||null,image_url:listing.image_url||listing.image_url_temporary_reference||p.image_url||null,attributes:{...config,mobile:mapMobileConfiguration(p),family:p.family??null,condition:p.condition??null,model_year:p.model_year??null,ranking_group:p.ranking_group??null,seller:listing.seller??null,warranty:listing.warranty??null},source_text:null,capture_method:"json_import",review_status:"pending",internal_notes:notes,source_record:p};
+   const originalAffiliate=listing.amazon_short_url||listing.affiliate_url||p.amazon_short_url||p.affiliate_url||"";
+   const record={name,brand:p.brand||null,model:p.model_name||p.model||null,asin,category_id:jsonCategoryId(p),product_url:jsonProductUrl(p)||originalAffiliate||null,affiliate_url:originalAffiliate||null,image_url:listing.image_url||listing.image_url_temporary_reference||p.image_url||null,attributes:{...config,mobile:mapMobileConfiguration(p),family:p.family??null,condition:p.condition??null,model_year:p.model_year??null,ranking_group:p.ranking_group??null,seller:listing.seller??null,warranty:listing.warranty??null},source_text:null,capture_method:"json_import",review_status:"pending",internal_notes:notes,source_record:p};
    const saved=await supabase.from("amazon_products").insert(record).select().single();
    if(saved.error)throw new Error(name+": "+saved.error.message);
    created.push(saved.data.id);
