@@ -25,6 +25,19 @@
 <label>URL de producto Amazon<input name="product_url" type="url" placeholder="https://www.amazon.com.mx/dp/…"></label><label>Enlace de afiliado<input name="affiliate_url" type="url" placeholder="Enlace con tu tracking ID"></label>
 <label>URL de imagen (referencia interna)<input name="image_url" type="url" placeholder="URL, si corresponde"></label><label>Precio observado (MXN)<input name="observed_price" type="number" min="0" step="0.01" placeholder="Opcional"></label>
 </div>
+<section id="mobile-specs" class="category-specs" hidden><h3>Ficha técnica · Celulares</h3><p class="muted">Campos estructurados para comparar teléfonos. Si un dato no está documentado, déjalo vacío.</p><div class="form-grid two">
+<label>Familia / serie<input name="mobile_family" placeholder="Galaxy Z Fold"></label><label>Año del modelo<input name="mobile_model_year" type="number" min="2000" max="2100"></label>
+<label>Condición<select name="mobile_condition"><option value="">Sin especificar</option><option value="new">Nuevo</option><option value="renewed">Reacondicionado</option></select></label><label>Variante / color<input name="mobile_variant" placeholder="Grafito 512 GB"></label>
+<label>Procesador<input name="mobile_processor" placeholder="Modelo de procesador"></label><label>Núcleos<input name="mobile_cpu_cores" placeholder="Ej. 8"></label>
+<label>Tecnología de pantalla<input name="mobile_display_technology" placeholder="AMOLED, OLED, LCD…"></label><label>Tamaño de pantalla (pulgadas)<input name="mobile_display_size" type="number" min="0" step="0.1"></label>
+<label>Resolución<input name="mobile_resolution" placeholder="Ej. 2160 × 1856"></label><label>Frecuencia (Hz)<input name="mobile_refresh_rate" type="number" min="0"></label>
+<label>RAM (GB)<input name="mobile_ram_gb" type="number" min="0"></label><label>Almacenamiento (GB)<input name="mobile_storage_gb" type="number" min="0"></label>
+<label>Cámara principal (MP)<input name="mobile_main_camera_mp" type="number" min="0" step="0.1"></label><label>Cámara frontal (MP)<input name="mobile_front_camera_mp" type="number" min="0" step="0.1"></label>
+<label>Batería (mAh)<input name="mobile_battery_mah" type="number" min="0"></label><label>Carga (W)<input name="mobile_charging_w" type="number" min="0"></label>
+<label>Conectividad<input name="mobile_connectivity" placeholder="5G, Wi-Fi, Bluetooth, NFC…"></label><label>Expansión de memoria<input name="mobile_memory_expansion" placeholder="No / microSD"></label>
+<label>Calificación<input name="mobile_rating" type="number" min="0" max="5" step="0.1"></label><label>Número de reseñas<input name="mobile_review_count" type="number" min="0"></label>
+<label>Vendedor<input name="mobile_seller" placeholder="Vendedor de la publicación"></label><label>Garantía<input name="mobile_warranty" placeholder="Información de garantía"></label>
+</div></section>
 <label>Atributos y especificaciones (JSON)<textarea name="attributes" rows="5" placeholder='{"capacidad_litros": 6, "potencia_w": 1700}'></textarea><small>Usa JSON válido. Los atributos varían según la categoría.</small></label>
 <label>Notas internas<textarea name="internal_notes" rows="3" placeholder="Observaciones para la investigación editorial"></textarea></label>
 <div class="form-actions"><button class="button" type="submit">Guardar producto</button><button class="button button-outline" type="button" id="reset-product">Limpiar formulario</button></div>
