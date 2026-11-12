@@ -193,7 +193,7 @@ function renderJsonPreview(){
  $("#json-preview").hidden=false;
 }
 function jsonCategoryId(p){
- const raw=String(p.category||jsonImportPayload.collection||"").toLowerCase();
+ const raw=(String(p.category||"")+" "+String(jsonImportPayload.collection||"")).toLowerCase();
  const mobile=/smartphone|celular|samsung|iphone|telefon/.test(raw)||/galaxy|iphone/i.test(jsonProductName(p));
  const laptop=/laptop|macbook|computadora|notebook/.test(raw)||/macbook/i.test(jsonProductName(p));
  const match=mobile?categories.find(c=>c.slug==="celulares"):laptop?categories.find(c=>c.slug==="laptops"):categories.find(c=>raw.includes(c.slug)||raw.includes(c.name.toLowerCase()));
