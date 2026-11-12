@@ -5,3 +5,6 @@ scripts/merged-admin.backup.*.json
 
 # Local Supabase credentials for Amazon center
 admin/amazon/config.js
+
+# Local secrets for Amazon center
+.env.local
