@@ -31,3 +31,25 @@ footer{border-top:1px solid var(--line);margin-top:35px;padding-top:17px;font-si
 .inventory-image-link{display:inline-flex;width:64px;height:64px;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:8px;background:#fff;padding:3px}.inventory-image{display:block;max-width:100%;max-height:100%;width:100%;height:100%;object-fit:contain}.inventory-image-empty{display:inline-flex;width:64px;height:64px;align-items:center;justify-content:center;border:1px dashed var(--line);border-radius:8px;color:var(--muted);font-size:10px;text-align:center;padding:4px}
 
 .category-specs{margin:20px 0;padding:18px;background:#fffaf0;border:1px solid var(--line);border-radius:12px}.category-specs h3{margin:0 0 5px}.category-specs .muted{margin:0 0 16px}.category-specs .form-grid{margin-top:12px}
+
+/* Workspace de comparación de laptops */
+body:has(#panel-laptops:not([hidden])) .shell{max-width:none;width:100%;padding-left:22px;padding-right:22px}
+body:has(#panel-laptops:not([hidden])) .topbar{padding-left:22px;padding-right:22px}
+.laptop-workspace{padding:22px;overflow:hidden}
+.laptop-toolbar{display:grid;grid-template-columns:minmax(190px,1.5fr) repeat(4,minmax(135px,1fr));gap:12px;align-items:end;margin:18px 0}
+.laptop-toolbar label{margin:0}
+.laptop-selection-bar{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin:10px 0 14px;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.laptop-selection-bar .form-actions{margin:0}
+.laptop-table-wrap{width:100%;overflow:auto;max-height:calc(100vh - 330px);border:1px solid var(--line);border-radius:9px}
+.laptop-table{width:max-content;min-width:100%;font-size:12px;white-space:nowrap}
+.laptop-table th{position:sticky;top:0;z-index:2;background:#fff8e9}
+.laptop-table td,.laptop-table th{padding:9px 10px}
+.laptop-table td{max-width:260px;overflow:hidden;text-overflow:ellipsis}
+.laptop-table td:nth-child(5),.laptop-table td:nth-child(10),.laptop-table td:nth-child(11){white-space:normal;min-width:155px}
+.laptop-table .numeric{font-variant-numeric:tabular-nums;font-weight:700}
+.laptop-table input[type=checkbox],.laptop-selection-bar input[type=checkbox]{width:17px;height:17px;padding:0;accent-color:var(--gold);cursor:pointer}
+.laptop-thumb{width:48px;height:48px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:6px}
+.laptop-thumb-empty{display:inline-flex;width:48px;height:48px;align-items:center;justify-content:center;border:1px dashed var(--line);border-radius:6px;color:var(--muted)}
+.table-note{margin:10px 0 0;color:var(--muted);font-size:12px}
+@media(max-width:900px){.laptop-toolbar{grid-template-columns:repeat(2,minmax(0,1fr))}.laptop-workspace{padding:14px}body:has(#panel-laptops:not([hidden])) .shell{padding-left:10px;padding-right:10px}}
+@media(max-width:520px){.laptop-toolbar{grid-template-columns:1fr}.laptop-selection-bar{align-items:flex-start;flex-direction:column}}
