@@ -42,35 +42,40 @@ async function saveProduct(form,method,sourceText=""){const v=formObject(form);i
 function editProduct(id){const p=products.find(x=>x.id===id);if(!p)return;switchTab("manual");const f=$("#product-form");for(const [k,v] of Object.entries({id:p.id,name:p.name,brand:p.brand,model:p.model,asin:p.asin,category_id:p.category_id,product_url:p.product_url,affiliate_url:p.affiliate_url,image_url:p.image_url,attributes:JSON.stringify(p.attributes||{},null,2),review_status:p.review_status,internal_notes:p.internal_notes}))if(f.elements[k])f.elements[k].value=v??"";$("#product-form-title").textContent="Editar producto"}
 function extractText(text){
  const clean=s=>String(s??"").replace(/<[^>]*>/g,"").replace(/&nbsp;/gi," ").replace(/&#x20;/gi," ").replace(/\\+/g,"").trim();
- const key=s=>clean(s).replace(/\*\*/g,"").replace(/\*/g,"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"_").replace(/^_|_$/g,"");
+ const key=s=>clean(s).replace(/\\*\\*/g,"").replace(/\\*/g,"").normalize("NFD").replace(/[\\u0300-\\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"_").replace(/^_|_$/g,"");
+ const lines=text.split(/\\r?\\n/).map(x=>x.trim()).filter(Boolean);
  const pairs={};
- const lines=text.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
  const ignored=new Set(["caracteristicas_y_especificaciones","estilo","materiales_y_cuidado","detalles_del_producto","medidas","guia_de_usuario","informacion_del_producto"]);
  for(const raw of lines){
   const line=raw.trim();
-  if(/^\|?\s*:?-{2,}/.test(line))continue;
+  if(/^\\|?\\s*:?-{2,}/.test(line))continue;
   let parts=null;
   if(line.includes("|")){
-   const cells=line.replace(/^\|/,"").replace(/\|$/,"").split("|").map(x=>x.trim().replace(/^\*\*|\*\*$/g,"").replace(/^\*|\*$/g,""));
+   const cells=line.replace(/^\\|/,"").replace(/\\|$/,"").split("|").map(x=>x.trim().replace(/^\\*\\*|\\*\\*$/g,"").replace(/^\\*|\\*$/g,""));
    if(cells.length>=2)parts=[cells[0],cells.slice(1).join(" ").trim()];
   }
-  if(!parts&&/\t/.test(line)){const cells=line.split(/\t+/).map(x=>x.trim());if(cells.length>=2)parts=[cells[0],cells.slice(1).join(" ")]}
-  if(!parts){const m=line.match(/^\*\*(.{2,70}?)\*\*\s+(.+)$/);if(m)parts=[m[1],m[2]]}
-  if(!parts){const m=line.match(/^([^:：]{2,70}?)\s*[:：]\s*(.+)$/);if(m)parts=[m[1],m[2]]}
-  if(parts){const k=key(parts[0]),v=clean(parts[1]).replace(/^\*\*|\*\*$/g,"");if(k&&v&&!ignored.has(k)&&!/^:?-+$/.test(v))pairs[k]=v}
+  if(!parts&&/\\t/.test(line)){const cells=line.split(/\\t+/).map(x=>x.trim());if(cells.length>=2)parts=[cells[0],cells.slice(1).join(" ")]}
+  if(!parts){const m=line.match(/^\\*\\*(.{2,70}?)\\*\\*\\s+(.+)$/);if(m)parts=[m[1],m[2]]}
+  if(!parts){const m=line.match(/^([^:：]{2,70}?)\\s*[:：]\\s*(.+)$/);if(m)parts=[m[1],m[2]]}
+  if(parts){const k=key(parts[0]),v=clean(parts[1]).replace(/^\\*\\*|\\*\\*$/g,"");if(k&&v&&!ignored.has(k)&&!/^:?-+$/.test(v))pairs[k]=v}
  }
  const find=(...names)=>{for(const n of names){const v=pairs[key(n)];if(v)return v}return ""};
  const brand=find("Marca","Fabricante");
  const model=find("Número Modelo","Modelo","Número de modelo");
  const productType=find("Tipo de bicicleta","Tipo de producto","Tipo");
- const asin=(text.match(/\b(B0[A-Z0-9]{8})\b/i)||text.match(/\/dp\/([A-Z0-9]{10})/i)||[])[1]||"";
- const linkMatches=[...text.matchAll(/https?:\/\/(?:www\.)?amazon\.com\.mx\/[^\s)]+/gi)];
- const productUrl=linkMatches.map(m=>m[0].replace(/[),.;]+$/g,"")).find(u=>/\/(?:dp|gp\/product)\//i.test(u))||(asin?"https://www.amazon.com.mx/dp/"+asin:"");
- const priceLine=lines.find(l=>/precio(?: actual| observado)?/i.test(l));
- const priceMatch=(priceLine||"").match(/\$\s*([\d,]+(?:\.\d{1,2})?)/)||text.match(/(?:MXN\s*)\$\s*([\d,]+(?:\.\d{1,2})?)/i);
+ const asin=(text.match(/\\b(B0[A-Z0-9]{8})\\b/i)||text.match(/\\/dp\\/([A-Z0-9]{10})/i)||[])[1]||"";
+ const productLinks=[...text.matchAll(/https?:\\/\\/(?:www\\.)?amazon\\.com\\.mx\\/[^\\s)]+/gi)];
+ const productUrl=productLinks.map(m=>m[0].replace(/[),.;]+$/g,"")).find(u=>/\\/(?:dp|gp\\/product)\\//i.test(u))||(asin?"https://www.amazon.com.mx/dp/"+asin:"");
+ const imageUrl=(text.match(/https?:\\/\\/(?:m\\.)?media-amazon\\.com\\/[^\\s)]+/i)||text.match(/https?:\\/\\/[^\\s)]+\\.(?:jpg|jpeg|png|webp)(?:\\?[^\\s)]*)?/i)||[])[0]?.replace(/[),.;]+$/g,"")||"";
+ const titleLine=lines.find(l=>/\\b(?:HONEYWHALE|Apple|Samsung|Xiaomi|Sony|LG|Philips|Ninja|Oster|Tefal|Huawei|Lenovo|HP|Dell|Acer|ASUS)\\b/i.test(l)&&l.length>12&&!/^https?:/i.test(l))||"";
+ const ratingMatch=text.match(/(\\d(?:\\.\\d)?)\\s*(?:de\\s*)?5\\s*estrellas?/i)||text.match(/(\\d(?:\\.\\d)?)\\s*\\([^)]*\\d[\\d,.]*\\s*(?:reseñas|opiniones)/i);
+ const reviewMatch=text.match(/\\(([\\d,\.]+)\\)\\s*(?:\\||$)/)||text.match(/([\\d,]+)\\s*(?:calificaciones|reseñas|opiniones)/i);
+ const rating=ratingMatch?ratingMatch[1]:"";
+ const reviews=reviewMatch?reviewMatch[1].replace(/[,.]/g,""):"";
+ const priceMatch=text.match(/\\$\\s*([\\d,]+(?:\\.\\d{1,2})?)/);
  const categoryText=(productType+" "+text.slice(0,1800)).toLowerCase();
  let category="";
- if(/biciclet|\bbike\b/.test(categoryText))category="bicicletas";
+ if(/biciclet|\\bbike\\b/.test(categoryText))category="bicicletas";
  else if(/freidora/.test(categoryText))category="freidoras";
  else if(/microondas/.test(categoryText))category="microondas";
  else if(/horno/.test(categoryText))category="hornos";
@@ -79,8 +84,10 @@ function extractText(text){
  else if(/electronica|audifonos|celular|telefono/.test(categoryText))category="electronica";
  const excluded=new Set(["marca","fabricante","modelo","numero_modelo","asin","opinion_media_de_los_clientes","clasificacion_en_los_mas_vendidos_de_amazon"]);
  const attributes={};for(const [k,v] of Object.entries(pairs)){if(!excluded.has(k))attributes[k]=v}
- const name=find("Nombre del producto","Nombre","Título","Titulo")||[brand,model,productType].filter(Boolean).join(" ").trim();
- return{name,brand,model,asin,category,product_url:productUrl,observed_price:priceMatch?priceMatch[1].replace(/,/g,""):"",attributes,detected_fields:Object.keys(attributes).length};
+ if(rating)attributes.calificacion_estrellas=rating;
+ if(reviews)attributes.numero_resenas=reviews;
+ const name=find("Nombre del producto","Nombre","Título","Titulo")||titleLine||[brand,model,productType].filter(Boolean).join(" ").trim();
+ return{name,brand,model,asin,category,product_url:productUrl,image_url:imageUrl,observed_price:priceMatch?priceMatch[1].replace(/,/g,""):"",attributes,detected_fields:Object.keys(attributes).length};
 }
 function renderPackageProducts(){const box=$("#package-products");if(!products.length){box.innerHTML='<p class="empty">Primero captura productos en el inventario.</p>';return}box.innerHTML=products.map(p=>`<label class="product-option"><input type="checkbox" name="package_product" value="${p.id}"><span><strong>${esc(p.name)}</strong><small>${esc(p.brand)} · ${esc(categoryName(p.category_id))} · ${esc(p.asin||"Sin ASIN")}</small></span></label>`).join("")}
 async function renderPackages(){const box=$("#packages-list");if(!packages.length){box.innerHTML='<p class="empty">Aún no hay paquetes.</p>';return}box.replaceChildren();for(const p of packages){const {count}=await supabase.from("amazon_guide_package_items").select("*",{count:"exact",head:true}).eq("package_id",p.id);const div=document.createElement("div");div.className="package-item";div.innerHTML=`<div><strong>${esc(p.title)}</strong><small>${esc(categoryName(p.category_id))} · ${count||0} productos · ${esc(p.status)}</small></div><div class="action-group"><button class="action" data-export="${p.id}">Exportar JSON</button><button class="action danger" data-delete-package="${p.id}">Eliminar</button></div>`;box.append(div)}}
