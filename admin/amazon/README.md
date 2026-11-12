@@ -37,8 +37,8 @@ Para detener el servidor usa `Ctrl + C`. No abras este modo en una dirección p�
 
 ## Datos y catálogo
 
-El inventario editorial se almacena en Supabase y permanece separado de `scripts/merged-admin.json` y `productos.json`. Los datos capturados no se publican automáticamente. Los precios observados son históricos/internos; verifica especificaciones y disponibilidad antes de publicar.
+El inventario editorial se almacena en Supabase y permanece separado de `scripts/merged-admin.json` y `productos.json`. Los datos capturados no se publican automáticamente. Los precios observados son históricos/internos; verifica especificaciones y disponibilidad antes de publicar.\n\nAntes de usar la importación JSON, ejecuta también `supabase/migrations/002_amazon_json_import.sql` en el SQL Editor de Supabase, después de la migración 001. Esta migración agrega el campo `source_record` para conservar cada objeto original y habilita el método `json_import`.
 
 ## Captura
 
-El módulo admite captura manual y pegado de texto de publicaciones. El parser es una ayuda: revisa y corrige los campos detectados antes de guardar. No inventes datos que no aparezcan en la fuente.
+El módulo admite captura manual, pegado de texto e importación de colecciones JSON con un arreglo `products`. En JSON, cada producto se presenta para revisión; se detectan ASIN duplicados, se conserva el objeto original completo en `source_record` y el archivo completo en el lote de importación. Los precios se guardan como observaciones históricas. Los enlaces cortos no se convierten en enlaces afiliados verificados. Todos los registros importados quedan en estado `pending`.
