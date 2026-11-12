@@ -37,8 +37,13 @@ Para detener el servidor usa `Ctrl + C`. No abras este modo en una dirección p�
 
 ## Datos y catálogo
 
-El inventario editorial se almacena en Supabase y permanece separado de `scripts/merged-admin.json` y `productos.json`. Los datos capturados no se publican automáticamente. Los precios observados son históricos/internos; verifica especificaciones y disponibilidad antes de publicar.\n\nAntes de usar la importación JSON, ejecuta también `supabase/migrations/002_amazon_json_import.sql` en el SQL Editor de Supabase, después de la migración 001. Esta migración agrega el campo `source_record` para conservar cada objeto original y habilita el método `json_import`.
+El inventario editorial se almacena en Supabase y permanece separado de `scripts/merged-admin.json` y `productos.json`. Los datos capturados no se publican automáticamente. Los precios observados son históricos/internos; verifica especificaciones y disponibilidad antes de publicar.\n\nAntes de usar la importación JSON, ejecuta `supabase/migrations/002_amazon_json_import.sql` en el SQL Editor de Supabase, después de la migración 001. Para habilitar la categoría Celulares y clasificar productos Samsung importados previamente, ejecuta también `supabase/migrations/003_amazon_mobile_category.sql`. Esta migración agrega el campo `source_record` para conservar cada objeto original y habilita el método `json_import`.
 
 ## Captura
 
 El módulo admite captura manual, pegado de texto e importación de colecciones JSON con un arreglo `products`. En JSON, cada producto se presenta para revisión; se detectan ASIN duplicados, se conserva el objeto original completo en `source_record` y el archivo completo en el lote de importación. Los precios se guardan como observaciones históricas. Los enlaces cortos no se convierten en enlaces afiliados verificados. Todos los registros importados quedan en estado `pending`.
+
+
+### Ficha de celulares
+
+La categoría `celulares` dispone de campos estructurados en la ficha de captura: familia, año, condición, variante, procesador, pantalla, memoria, cámaras, batería, conectividad, calificación, reseñas, vendedor y garantía. Estos datos se guardan dentro de `attributes.mobile`; el objeto original importado permanece en `source_record`. Los campos no presentes en la fuente quedan vacíos y no se completan por inferencia.
