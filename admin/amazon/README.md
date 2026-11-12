@@ -52,3 +52,8 @@ La categoría `celulares` dispone de campos estructurados en la ficha de captura
 ### Ficha de laptops
 
 La categoría `laptops` utiliza campos estructurados independientes de celulares: familia, año, condición, SKU/modelo, procesador, núcleos/hilos, GPU/VRAM/TGP, RAM y ampliación, almacenamiento, pantalla, batería, peso, sistema operativo, conectividad, puertos, teclado, webcam, calificación, reseñas, vendedor y garantía. Se guardan en `attributes.laptop`; el JSON de origen completo permanece en `source_record`. Las ofertas y variantes se conservan como registros separados; no se fusionan por familia o modelo sin revisión.
+
+
+### Comparador de laptops y exportación editorial
+
+La pestaña `Tabla de laptops` ofrece una vista de ancho completo con filtros por marca, RAM, almacenamiento, condición y estado; búsqueda por texto; columnas de especificaciones y precio histórico; selección múltiple y descarga JSON de los productos elegidos. El JSON exportado incluye los registros completos, `source_record`, atributos estructurados y observaciones de precio. La selección puede conservarse al cambiar filtros para formar un conjunto editorial deliberado.
