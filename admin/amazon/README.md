@@ -47,3 +47,8 @@ El módulo admite captura manual, pegado de texto e importación de colecciones 
 ### Ficha de celulares
 
 La categoría `celulares` dispone de campos estructurados en la ficha de captura: familia, año, condición, variante, procesador, pantalla, memoria, cámaras, batería, conectividad, calificación, reseñas, vendedor y garantía. Estos datos se guardan dentro de `attributes.mobile`; el objeto original importado permanece en `source_record`. Los campos no presentes en la fuente quedan vacíos y no se completan por inferencia.
+
+
+### Ficha de laptops
+
+La categoría `laptops` utiliza campos estructurados independientes de celulares: familia, año, condición, SKU/modelo, procesador, núcleos/hilos, GPU/VRAM/TGP, RAM y ampliación, almacenamiento, pantalla, batería, peso, sistema operativo, conectividad, puertos, teclado, webcam, calificación, reseñas, vendedor y garantía. Se guardan en `attributes.laptop`; el JSON de origen completo permanece en `source_record`. Las ofertas y variantes se conservan como registros separados; no se fusionan por familia o modelo sin revisión.
