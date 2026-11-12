@@ -265,6 +265,17 @@ async function exportSelectedLaptops(){
 async function initializeLocal(){try{const check=await fetch("/__local/status");const cfg=await check.json();if(!cfg.configured)throw new Error("Configura .env.local con SUPABASE_URL y SUPABASE_SERVICE_ROLE_KEY. Consulta admin/amazon/README.md.");showDashboard();status("Modo local activo. Conexión segura con Supabase verificada.","success");await refreshData()}catch(error){showDashboard();status("No se pudo conectar: "+error.message,"error");console.error(error)}}
 document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>switchTab(b.dataset.tab)));document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>switchTab(b.dataset.go)));
 $("#product-category").addEventListener("change",()=>toggleCategorySpecs($("#product-form")));$("#product-search").addEventListener("input",renderInventory);$("#filter-category").addEventListener("change",renderInventory);$("#filter-status").addEventListener("change",renderInventory);
+$("#laptop-search").addEventListener("input",renderLaptopTable);
+$("#laptop-brand").addEventListener("change",renderLaptopTable);
+$("#laptop-ram").addEventListener("change",renderLaptopTable);
+$("#laptop-condition").addEventListener("change",renderLaptopTable);
+$("#laptop-status").addEventListener("change",renderLaptopTable);
+$("#laptop-select-visible").addEventListener("click",()=>{document.querySelectorAll("#laptop-table-body [data-laptop-select]").forEach(x=>selectedLaptopIds.add(x.dataset.laptopSelect));renderLaptopTable()});
+$("#laptop-clear-selection").addEventListener("click",()=>{selectedLaptopIds.clear();renderLaptopTable()});
+$("#laptop-select-all").addEventListener("change",e=>{document.querySelectorAll("#laptop-table-body [data-laptop-select]").forEach(x=>e.target.checked?selectedLaptopIds.add(x.dataset.laptopSelect):selectedLaptopIds.delete(x.dataset.laptopSelect));renderLaptopTable()});
+$("#laptop-table-body").addEventListener("change",e=>{const cb=e.target.closest("[data-laptop-select]");if(!cb)return;cb.checked?selectedLaptopIds.add(cb.dataset.laptopSelect):selectedLaptopIds.delete(cb.dataset.laptopSelect);renderLaptopTable()});
+$("#laptop-table-body").addEventListener("click",e=>{const b=e.target.closest("[data-laptop-edit]");if(b)editProduct(b.dataset.laptopEdit)});
+$("#laptop-export-selected").addEventListener("click",async()=>{try{await exportSelectedLaptops();status("JSON de laptops descargado correctamente.","success")}catch(err){status("No se pudo exportar: "+err.message,"error")}});
 $("#product-form").addEventListener("submit",async e=>{e.preventDefault();try{await saveProduct(e.currentTarget,"manual");status("Producto guardado correctamente.","success");resetProduct();switchTab("inventory")}catch(err){status("No se pudo guardar: "+err.message,"error")}});
 $("#reset-product").addEventListener("click",()=>{resetProduct();toggleCategorySpecs($("#product-form"))});
 $("#inventory-body").addEventListener("click",async e=>{const edit=e.target.closest("[data-edit]"),del=e.target.closest("[data-delete]");if(edit)editProduct(edit.dataset.edit);if(del&&confirm("¿Eliminar este producto y sus observaciones?")){const {error}=await supabase.from("amazon_products").delete().eq("id",del.dataset.delete);if(error)status("No se pudo eliminar: "+error.message,"error");else{await refreshData();status("Producto eliminado.","success")}}});
