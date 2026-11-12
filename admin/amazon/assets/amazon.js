@@ -104,7 +104,7 @@ async function editProduct(id){
  const historical=p.source_record?.listing?.price_mxn??obs.data?.[0]?.amount??"";
  for(const [k,v] of Object.entries({id:p.id,name:p.name,brand:p.brand,model:p.model,asin:p.asin,category_id:p.category_id,product_url:p.product_url,affiliate_url:p.affiliate_url,image_url:p.image_url,observed_price:historical,attributes:JSON.stringify(p.attributes||{},null,2),review_status:p.review_status,internal_notes:p.internal_notes}))if(f.elements[k])f.elements[k].value=v??"";
  const mapped=mapMobileConfiguration({configuration:p.attributes||{},listing:p.source_record?.listing||{},family:p.attributes?.family,model_year:p.attributes?.model_year,condition:p.attributes?.condition});
- fillMobileForm(f,{mobile:p.attributes?.mobile||mapped});
+ fillMobileForm(f,{mobile:p.attributes?.mobile||mapped});fillLaptopForm(f,{laptop:p.attributes?.laptop||mapLaptopConfiguration({configuration:p.attributes||{},listing:p.source_record?.listing||{},family:p.attributes?.family,model_year:p.attributes?.model_year,condition:p.attributes?.condition})});
  $("#product-form-title").textContent="Editar producto";
 }
 function extractText(text){
@@ -195,7 +195,8 @@ function renderJsonPreview(){
 function jsonCategoryId(p){
  const raw=String(p.category||jsonImportPayload.collection||"").toLowerCase();
  const mobile=/smartphone|celular|samsung|iphone|telefon/.test(raw)||/galaxy|iphone/i.test(jsonProductName(p));
- const match=mobile?categories.find(c=>c.slug==="celulares"):categories.find(c=>raw.includes(c.slug)||raw.includes(c.name.toLowerCase()));
+ const laptop=/laptop|macbook|computadora|notebook/.test(raw)||/macbook/i.test(jsonProductName(p));
+ const match=mobile?categories.find(c=>c.slug==="celulares"):laptop?categories.find(c=>c.slug==="laptops"):categories.find(c=>raw.includes(c.slug)||raw.includes(c.name.toLowerCase()));
  return match?.id||null;
 }
 async function importSelectedJson(){
@@ -214,7 +215,7 @@ async function importSelectedJson(){
    if(short)discrepancies.push("Enlace corto conservado en el registro original; verificar destino, ASIN y variante antes de utilizarlo.");
    const notes=["Importado desde JSON histórico. Requiere revisión manual.",p.capture_status?"Estado de captura original: "+p.capture_status:"",...discrepancies].filter(Boolean).join("\n");
    const originalAffiliate=listing.amazon_short_url||listing.affiliate_url||p.amazon_short_url||p.affiliate_url||"";
-   const record={name,brand:p.brand||null,model:p.model_name||p.model||null,asin,category_id:jsonCategoryId(p),product_url:jsonProductUrl(p)||originalAffiliate||null,affiliate_url:originalAffiliate||null,image_url:listing.image_url||listing.image_url_temporary_reference||p.image_url||null,attributes:{...config,mobile:mapMobileConfiguration(p),family:p.family??null,condition:p.condition??null,model_year:p.model_year??null,ranking_group:p.ranking_group??null,seller:listing.seller??null,warranty:listing.warranty??null},source_text:null,capture_method:"json_import",review_status:"pending",internal_notes:notes,source_record:p};
+   const record={name,brand:p.brand||null,model:p.model_name||p.model||null,asin,category_id:jsonCategoryId(p),product_url:jsonProductUrl(p)||originalAffiliate||null,affiliate_url:originalAffiliate||null,image_url:listing.image_url||listing.image_url_temporary_reference||p.image_url||null,attributes:{...config,mobile:mapMobileConfiguration(p),laptop:mapLaptopConfiguration(p),family:p.family??null,condition:p.condition??null,model_year:p.model_year??null,ranking_group:p.ranking_group??null,seller:listing.seller??null,warranty:listing.warranty??null},source_text:null,capture_method:"json_import",review_status:"pending",internal_notes:notes,source_record:p};
    const saved=await supabase.from("amazon_products").insert(record).select().single();
    if(saved.error)throw new Error(name+": "+saved.error.message);
    created.push(saved.data.id);
