@@ -24,3 +24,5 @@ footer{border-top:1px solid var(--line);margin-top:35px;padding-top:17px;font-si
 @media(max-width:420px){.stats{grid-template-columns:1fr}.topbar{height:auto;min-height:64px}.brand{font-size:13px}.private-label{display:none}}
 
 .text-button{border:0;background:transparent;color:var(--gold-dark);font:inherit;font-size:13px;font-weight:700;text-align:left;padding:3px 0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}.text-button:hover{color:var(--text)}
+
+.field-feedback{min-height:0;margin:8px 0 0;font-size:13px;line-height:1.5;overflow-wrap:anywhere}.field-feedback:empty{display:none}.field-feedback[data-type="success"]{color:#237447}.field-feedback[data-type="error"]{color:#b42318}
