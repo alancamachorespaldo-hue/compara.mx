@@ -3734,11 +3734,11 @@ const productos = [
     saboresDisponibles: ["Vainilla + Sin sabor"],
     precio: 1191.99,
     precioAmz: null,
-    precioML: 1091,
+    precioML: 1060,
     contenidoGramos: 2270,
     porciones: 60,
     gramosPorPorcion: 37.8,
-    costoPorPorcion: 18.18,
+    costoPorPorcion: 17.67,
     proteinaPorPorcion: null,
     concentracionProteina: null,
     costoPor25gProteina: null,
@@ -4038,11 +4038,11 @@ const productos = [
     saboresDisponibles: ["CHOCOLATE - MORAS"],
     precio: 591,
     precioAmz: null,
-    precioML: 623,
+    precioML: 626,
     contenidoGramos: 3200,
     porciones: 75,
     gramosPorPorcion: 33,
-    costoPorPorcion: 8.31,
+    costoPorPorcion: 8.35,
     proteinaPorPorcion: 28,
     concentracionProteina: 84.85,
     costoPor25gProteina: 7.04,
@@ -4114,11 +4114,11 @@ const productos = [
     saboresDisponibles: ["COOKIES AN CREAM/ SIN SABOR"],
     precio: 1191.99,
     precioAmz: null,
-    precioML: 1091,
+    precioML: 1060,
     contenidoGramos: 2270,
     porciones: 60,
     gramosPorPorcion: 37.8,
-    costoPorPorcion: 18.18,
+    costoPorPorcion: 17.67,
     proteinaPorPorcion: null,
     concentracionProteina: null,
     costoPor25gProteina: null,
@@ -4450,6 +4450,7 @@ const productos = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 
 

@@ -844,13 +844,13 @@ const productos = [
     id: 16,
     nombre: "UPMER Omega 3 Premium 5 en 1 Krill + Pescado – 90 Cápsulas",
     marca: "UPMER",
-    precio: 200,
+    precio: 192,
     porciones: 45,
     porPorcion: "2 softgels",
     epa: 315,
     dha: 125,
     omegaPorPorcion: 440,
-    costoPorPorcion: 4.44,
+    costoPorPorcion: 4.27,
     fuenteOmega: "krill",
     libreMetalesPesados: false,
     certificadoIFOS: false,
@@ -905,6 +905,7 @@ const productos = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 
 
