@@ -62,3 +62,8 @@ body:has(#panel-laptops:not([hidden])) .topbar{padding-left:22px;padding-right:2
 .field-feedback{overflow-wrap:anywhere}
 @media(max-width:900px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.affiliate-overview{align-items:flex-start;flex-direction:column}}
 @media(max-width:420px){.stats{grid-template-columns:1fr}}
+
+.category-table-toolbar{grid-template-columns:minmax(180px,1.1fr) minmax(220px,1.5fr) repeat(3,minmax(130px,1fr))}
+.category-table-toolbar [hidden]{display:none!important}
+@media(max-width:900px){.category-table-toolbar{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.category-table-toolbar{grid-template-columns:1fr}}
