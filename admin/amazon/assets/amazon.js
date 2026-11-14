@@ -312,20 +312,66 @@ const selectedLaptopIds=new Set();
 function laptopCategoryProducts(){return products.filter(p=>{const c=categories.find(x=>x.id===p.category_id);return c?.slug==="laptops"||/laptop|computadora|notebook/i.test(c?.name||"")})}
 function laptopData(p){const a=p.attributes?.laptop||mapLaptopConfiguration({configuration:p.attributes||{},listing:p.source_record?.listing||{},family:p.attributes?.family,model_year:p.attributes?.model_year,condition:p.attributes?.condition});return a}
 function laptopPrice(p){const n=p.source_record?.listing?.price_mxn;return n==null?"—":new Intl.NumberFormat("es-MX",{style:"currency",currency:"MXN"}).format(Number(n))}
+const categoryTableFields={
+ laptops:[["processor","Procesador"],["ram_gb","RAM (GB)"],["storage_gb","Almacenamiento (GB)"],["display_inches","Pantalla (pulg.)"],["resolution","Resolución"],["gpu","GPU"],["operating_system","Sistema"],["refresh_rate_hz","Frecuencia (Hz)"],["battery_wh","Batería (Wh)"],["weight_kg","Peso (kg)"]],
+ celulares:[["processor","Procesador"],["ram_gb","RAM (GB)"],["storage_gb","Almacenamiento (GB)"],["display_size","Pantalla (pulg.)"],["display_technology","Tecnología pantalla"],["resolution","Resolución"],["refresh_rate","Frecuencia (Hz)"],["main_camera_mp","Cámara principal (MP)"],["battery_mah","Batería (mAh)"],["connectivity","Conectividad"]],
+ smartwatches:[["display_size","Pantalla (pulg.)"],["display_technology","Tipo de pantalla"],["battery_life_days","Batería (días)"],["battery_life_hours","Batería (h)"],["gps","GPS"],["heart_rate","Frecuencia cardiaca"],["blood_oxygen","Oxígeno en sangre"],["water_resistance","Resistencia al agua"],["connectivity","Conectividad"],["compatibility","Compatibilidad"]],
+ freidoras:[["capacity_l","Capacidad (L)"],["power_w","Potencia (W)"],["temperature_range","Temperatura"],["programs","Programas"],["functions","Funciones"],["dimensions","Dimensiones"],["accessories","Accesorios"],["warranty","Garantía"]],
+ hornos:[["capacity_l","Capacidad (L)"],["power_w","Potencia (W)"],["type","Tipo"],["temperature_range","Temperatura"],["functions","Funciones"],["dimensions","Dimensiones"],["convection","Convección"],["warranty","Garantía"]],
+ microondas:[["capacity_l","Capacidad (L)"],["power_w","Potencia (W)"],["type","Tipo"],["programs","Programas"],["levels","Niveles de potencia"],["dimensions","Dimensiones"],["turntable","Plato giratorio"],["warranty","Garantía"]],
+ suplementos:[["presentation","Presentación"],["servings","Porciones"],["serving_size","Porción"],["active_ingredient","Ingrediente activo"],["epa_mg","EPA (mg)"],["dha_mg","DHA (mg)"],["concentration","Concentración"],["cost_per_serving","Costo por porción"]],
+ bicicletas:[["type","Tipo"],["frame_material","Cuadro"],["wheel_size","Rodada"],["gears","Velocidades"],["brakes","Frenos"],["suspension","Suspensión"],["weight_kg","Peso (kg)"],["motor_power_w","Motor (W)"],["battery_wh","Batería (Wh)"]],
+ electronica:[["type","Tipo"],["connectivity","Conectividad"],["compatibility","Compatibilidad"],["battery_life","Batería"],["display_size","Pantalla"],["resolution","Resolución"],["weight_kg","Peso (kg)"]],
+ otros:[["type","Tipo"],["model","Modelo"],["key_features","Características"],["dimensions","Dimensiones"],["weight_kg","Peso (kg)"]]
+};
+function categoryTableData(p,slug){
+ const nested=p.attributes?.[slug]||p.attributes?.smartwatch||p.attributes?.configuration||{};
+ const source=p.source_record?.configuration||{};
+ const flat=p.attributes||{};
+ return {...source,...flat,...nested};
+}
+function categoryTableValue(p,d,key){
+ const aliases={
+ processor:["processor","cpu","chipset"],ram_gb:["ram_gb","ram","memory_gb"],storage_gb:["storage_gb","storage","storage_capacity_gb"],
+ display_size:["display_size","display_inches","screen_size_inches"],display_inches:["display_inches","display_size","screen_size_inches"],
+ display_technology:["display_technology","display_type","screen_technology"],refresh_rate:["refresh_rate","refresh_rate_hz"],
+ capacity_l:["capacity_l","capacity","capacity_liters"],power_w:["power_w","wattage","potencia_w"],
+ battery_life_days:["battery_life_days","battery_days"],battery_life_hours:["battery_life_hours","battery_hours"],
+ heart_rate:["heart_rate","heart_rate_monitor","sensor_heart_rate"],blood_oxygen:["blood_oxygen","spo2","blood_oxygen_monitor"],
+ gps:["gps","built_in_gps"],water_resistance:["water_resistance","waterproof_rating","water_resistant"],
+ compatibility:["compatibility","compatible_devices"],epa_mg:["epa_mg","epa"],dha_mg:["dha_mg","dha"],
+ type:["type","product_type","bike_type"],wheel_size:["wheel_size","wheel_diameter"],frame_material:["frame_material","frame"],
+ motor_power_w:["motor_power_w","motor_power"],battery_wh:["battery_wh","battery_capacity_wh"]
+ };
+ for(const k of aliases[key]||[key]){const v=d[k]??p.attributes?.[k];if(v!==undefined&&v!==null&&v!=="")return typeof v==="object"?JSON.stringify(v):String(v)}
+ return "—";
+}
 function renderLaptopTable(){
- const all=laptopCategoryProducts(),term=$("#laptop-search").value.trim().toLowerCase(),brand=$("#laptop-brand").value,ram=$("#laptop-ram").value,storageFilter=$("#laptop-storage").value,condition=$("#laptop-condition").value,state=$("#laptop-status").value;
+ const categoryEl=$("#table-category"),keepCategory=categoryEl.value;
+ categoryEl.querySelectorAll("option:not(:first-child)").forEach(o=>o.remove());
+ categories.forEach(c=>{const o=document.createElement("option");o.value=c.slug;o.textContent=c.name;categoryEl.append(o)});
+ if(keepCategory&&categories.some(c=>c.slug===keepCategory))categoryEl.value=keepCategory;
+ const slug=categoryEl.value;
+ const category=categories.find(c=>c.slug===slug);
+ const all=slug?products.filter(p=>p.category_id===category?.id):[];
+ const term=$("#laptop-search").value.trim().toLowerCase(),brand=$("#laptop-brand").value,condition=$("#laptop-condition").value,state=$("#laptop-status").value;
  const brands=[...new Set(all.map(p=>p.brand).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"es"));
- const brandEl=$("#laptop-brand"),keepBrand=brandEl.value;brandEl.querySelectorAll("option:not(:first-child)").forEach(o=>o.remove());brands.forEach(b=>{const o=document.createElement("option");o.value=b;o.textContent=b;brandEl.append(o)});if(brands.includes(keepBrand))brandEl.value=keepBrand;
- const ramValues=[...new Set(all.map(p=>laptopData(p).ram_gb).filter(v=>v!==undefined&&v!==null&&v!=="").map(String))].sort((a,b)=>Number(a)-Number(b));
- const ramEl=$("#laptop-ram"),keepRam=ramEl.value;ramEl.querySelectorAll("option:not(:first-child)").forEach(o=>o.remove());ramValues.forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v+" GB";ramEl.append(o)});if(ramValues.includes(keepRam))ramEl.value=keepRam;
- const storageValues=[...new Set(all.map(p=>laptopData(p).storage_gb).filter(v=>v!==undefined&&v!==null&&v!=="").map(String))].sort((a,b)=>Number(a)-Number(b));const storageEl=$("#laptop-storage"),keepStorage=storageEl.value;storageEl.querySelectorAll("option:not(:first-child)").forEach(o=>o.remove());storageValues.forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v+" GB";storageEl.append(o)});if(storageValues.includes(keepStorage))storageEl.value=keepStorage;
- const rows=all.filter(p=>{const d=laptopData(p),hay=[p.name,p.brand,p.model,p.asin,d.processor,d.gpu,d.model_number].join(" ").toLowerCase();return(!term||hay.includes(term))&&(!brand||p.brand===brand)&&(!ram||String(d.ram_gb)===ram)&&(!storageFilter||String(d.storage_gb)===storageFilter)&&(!condition||d.condition===condition)&&(!state||p.review_status===state)});
- const body=$("#laptop-table-body");body.replaceChildren();
- rows.forEach(p=>{const d=laptopData(p),tr=document.createElement("tr"),img=p.image_url?'<img class="laptop-thumb" src="'+esc(p.image_url)+'" alt="" loading="lazy">':'<span class="laptop-thumb-empty">—</span>',ramText=d.ram_gb?(d.ram_gb+" GB"+(d.ram_type?" · "+d.ram_type:"")):"—",storage=d.storage_gb?(d.storage_gb+" GB"+(d.storage_type?" · "+d.storage_type:"")):"—",screen=d.display_inches?(d.display_inches+'"'+(d.display_type?" · "+d.display_type:"")):(d.display_type||"—");
- tr.innerHTML='<td><input type="checkbox" class="laptop-row-select" data-laptop-select="'+p.id+'" '+(selectedLaptopIds.has(p.id)?"checked":"")+' aria-label="Seleccionar '+esc(p.name)+'"></td><td>'+img+'</td><td>'+esc(p.brand||"—")+'</td><td><strong>'+esc(d.model_number||p.model||p.name)+'</strong><small>'+esc(d.family||"")+'</small></td><td>'+esc(d.processor||"—")+'</td><td>'+esc(ramText)+'</td><td>'+esc(storage)+'</td><td>'+esc(screen)+'</td><td>'+esc(d.resolution||"—")+'</td><td>'+esc(d.gpu||"—")+'</td><td>'+esc(d.operating_system||"—")+'</td><td class="numeric">'+esc(laptopPrice(p))+'</td><td>'+esc(d.condition||"—")+'</td><td>'+esc(d.refresh_rate_hz?d.refresh_rate_hz+" Hz":"—")+'</td><td>'+esc(d.battery_wh?d.battery_wh+" Wh":"—")+'</td><td>'+esc(d.weight_kg?d.weight_kg+" kg":"—")+'</td><td>'+esc(p.asin||"—")+'</td><td><span class="tag">'+esc(p.review_status)+'</span></td><td><button class="action" data-laptop-edit="'+p.id+'">Editar</button></td>';
- body.append(tr)});
- $("#laptop-result-count").textContent=rows.length+" laptops";$("#laptop-selected-count").textContent=" · "+selectedLaptopIds.size+" seleccionadas";$("#laptop-export-selected").disabled=selectedLaptopIds.size===0;$("#laptop-export-selected").textContent="Descargar JSON ("+selectedLaptopIds.size+")";$("#laptop-empty").hidden=rows.length>0;
+ const brandEl=$("#laptop-brand"),keepBrand=brandEl.value;brandEl.querySelectorAll("option:not(:first-child)").forEach(o=>o.remove());brands.forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;brandEl.append(o)});if(brands.includes(keepBrand))brandEl.value=keepBrand;else brandEl.value="";
+ const fields=categoryTableFields[slug]||[];
+ const rows=all.filter(p=>{const d=categoryTableData(p,slug),hay=[p.name,p.brand,p.model,p.asin,...fields.map(([k])=>categoryTableValue(p,d,k))].join(" ").toLowerCase();return(!term||hay.includes(term))&&(!brand||p.brand===brand)&&(!condition||((d.condition||p.attributes?.condition)===condition))&&(!state||p.review_status===state)});
+ const table=$(".laptop-table"),thead=table.querySelector("thead"),body=$("#laptop-table-body");body.replaceChildren();
+ const headers=["","Imagen","Marca","Producto / Modelo",...fields.map(x=>x[1]),"Precio histórico","ASIN","Estado","Acción"];
+ thead.innerHTML="<tr>"+headers.map(h=>"<th>"+esc(h)+"</th>").join("")+"</tr>";
+ rows.forEach(p=>{
+  const d=categoryTableData(p,slug),tr=document.createElement("tr");
+  const img=p.image_url?'<img class="laptop-thumb" src="'+esc(p.image_url)+'" alt="" loading="lazy">':'<span class="laptop-thumb-empty">—</span>';
+  const cells=['<td><input type="checkbox" class="laptop-row-select" data-laptop-select="'+p.id+'" '+(selectedLaptopIds.has(p.id)?"checked":"")+' aria-label="Seleccionar '+esc(p.name)+'"></td>','<td>'+img+'</td>','<td>'+esc(p.brand||"—")+'</td>','<td><strong>'+esc(p.name||"—")+'</strong><small>'+esc(p.model||"")+'</small></td>',...fields.map(([key])=>'<td>'+esc(categoryTableValue(p,d,key))+'</td>'),'<td class="numeric">'+esc(laptopPrice(p))+'</td>','<td>'+esc(p.asin||"—")+'</td>','<td><span class="tag">'+esc(p.review_status)+'</span></td>','<td><button class="action" data-laptop-edit="'+p.id+'">Editar</button></td>'];
+  tr.innerHTML=cells.join("");body.append(tr);
+ });
+ $("#laptop-result-count").textContent=rows.length+" productos";$("#laptop-selected-count").textContent=" · "+selectedLaptopIds.size+" seleccionados";$("#laptop-export-selected").disabled=selectedLaptopIds.size===0;$("#laptop-export-selected").textContent="Descargar JSON ("+selectedLaptopIds.size+")";$("#laptop-empty").hidden=rows.length>0;
+ if(!slug){$("#laptop-empty").hidden=false;$("#laptop-empty").textContent="Selecciona una categoría para consultar sus productos."}
  $("#laptop-select-all").checked=rows.length>0&&rows.every(p=>selectedLaptopIds.has(p.id));
+ $("#laptop-ram")?.closest("label")?.setAttribute("hidden","");$("#laptop-storage")?.closest("label")?.setAttribute("hidden","");
 }
 async function exportSelectedLaptops(){
  const chosen=products.filter(p=>selectedLaptopIds.has(p.id));if(!chosen.length)return;
@@ -337,6 +383,7 @@ async function exportSelectedLaptops(){
 async function initializeLocal(){try{const check=await fetch("/__local/status");const cfg=await check.json();if(!cfg.configured)throw new Error("Configura .env.local con SUPABASE_URL y SUPABASE_SERVICE_ROLE_KEY. Consulta admin/amazon/README.md.");showDashboard();status("Modo local activo. Conexión segura con Supabase verificada.","success");await refreshData()}catch(error){showDashboard();status("No se pudo conectar: "+error.message,"error");console.error(error)}}
 document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>switchTab(b.dataset.tab)));document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>switchTab(b.dataset.go)));
 $("#product-category").addEventListener("change",()=>toggleCategorySpecs($("#product-form")));$("#product-search").addEventListener("input",renderInventory);$("#filter-category").addEventListener("change",renderInventory);$("#filter-status").addEventListener("change",renderInventory);$("#filter-affiliate").addEventListener("change",renderInventory);$("#show-missing-affiliate").addEventListener("click",()=>{switchTab("inventory");$("#filter-affiliate").value="missing";renderInventory()});$("#affiliate-overview").addEventListener("click",e=>{if(e.target.closest("#overview-review-affiliate"))$("#show-missing-affiliate").click()});
+$("#table-category").addEventListener("change",()=>{selectedLaptopIds.clear();renderLaptopTable()});
 $("#laptop-search").addEventListener("input",renderLaptopTable);
 $("#laptop-brand").addEventListener("change",renderLaptopTable);
 $("#laptop-ram").addEventListener("change",renderLaptopTable);
