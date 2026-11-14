@@ -158,7 +158,39 @@ GUIDES.sort((a, b) => a.path.localeCompare(b.path));
 /* ── Generadores ───────────────────────────────────────── */
 const SHARE_BTN = '<button class="btn-share" onclick="shareCurrentPage()" title="Compartir esta p&#225;gina" aria-label="Compartir"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg><span class="share-txt">Compartir</span></button>';
 
+/* Encabezado del rediseño (Categorías ▾ · Comparativas · Guías de compra · Ofertas · buscar · menú).
+   Solo lo llevan las páginas listadas aquí; conforme se apruebe cada página se agrega su ruta.
+   Sus estilos viven en /assets/css/cmx-home.css mientras solo lo use el inicio. */
+const HEADER_V2 = new Set(['/']);
+function headerV2Html(extra) {
+  const cats = NAV_LINKS.filter(([n]) => n !== 'Guías').map(([n, u]) => `<a href="${u}">${n}</a>`).join('\n          ');
+  return `<!-- cmx-header:start -->
+<div class="cmx-hd cmx-hd2" id="cmx-hd">
+  <div class="cmx-hd-in">
+    <a class="cmx-hd-logo" href="/" aria-label="comparalo.mx, inicio"><img src="/logopng.png" alt="" width="44" height="44"><span>comparalo<i>.mx</i></span></a>
+    <nav class="cmx-hd2-nav" aria-label="Navegación principal">
+      <div class="cmx-hd2-dd">
+        <button type="button" class="cmx-hd2-ddbtn" aria-haspopup="true">Categorías <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="cmx-hd2-menu">
+          ${cats}
+        </div>
+      </div>
+      <a href="/#categorias">Comparativas</a>
+      <a href="/guias/">Guías de compra</a>
+      <a class="cmx-hd2-ofertas" href="/#ofertas"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z"/><circle cx="7" cy="7" r="1.2" fill="currentColor"/></svg> Ofertas</a>
+    </nav>
+    <div class="cmx-hd-act">
+      <!-- cmx-hd-extra:start -->${extra || ''}<!-- cmx-hd-extra:end -->
+      <button class="cmx-hd-searchbtn" id="cmx-hd-searchbtn" type="button" aria-label="Buscar categoría"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7.5"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg></button>
+      <button class="cmx-hd2-burger" type="button" aria-label="Abrir menú de categorías" onclick="document.getElementById('cmx-hd-searchbtn').click()"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    </div>
+  </div>
+</div>
+<!-- cmx-header:end -->`;
+}
+
 function headerHtml(p, extra) {
+  if (HEADER_V2.has(p)) return headerV2Html(extra);
   const [act, kind] = activeSection(p);
   const links = NAV_LINKS.map(([n, u]) => `<a href="${u}"${u === act ? ` aria-current="${kind}"` : ''}>${n}</a>`).join('\n      ');
   return `<!-- cmx-header:start -->

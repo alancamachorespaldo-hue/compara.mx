@@ -374,89 +374,56 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
 @media(max-width:540px){.deal-card{flex:0 0 158px}.deal-card-img{height:100px}}
 </style>
 <link rel="stylesheet" href="/assets/css/cmx-site.css">
+<link rel="stylesheet" href="/assets/css/cmx-home.css">
 </head>
 <body>
 <a class="skip" href="#main">Saltar al contenido</a>
 
 <header class="nav">
   <!-- cmx-header:start -->
-<div class="cmx-hd" id="cmx-hd">
+<div class="cmx-hd cmx-hd2" id="cmx-hd">
   <div class="cmx-hd-in">
-    <a class="cmx-hd-logo" href="/" aria-label="comparalo.mx, inicio"><img src="/logopng.png" alt="" width="28" height="28"><span>comparalo<i>.mx</i></span></a>
-    <div class="cmx-hd-search" id="cmx-hd-search"></div>
-    <div class="cmx-hd-links" role="navigation" aria-label="Navegación principal">
-      <a href="/celulares/">Celulares</a>
-      <a href="/laptops/">Laptops</a>
-      <a href="/electrodomesticos/">Electrodomésticos</a>
-      <a href="/suplementos/">Suplementos</a>
-      <a href="/bicis/">Bicicletas</a>
-      <a href="/videojuegos/">Videojuegos</a>
-      <a href="/tecnologia/">Tecnología</a>
-      <a href="/guias/">Guías</a>
-    </div>
+    <a class="cmx-hd-logo" href="/" aria-label="comparalo.mx, inicio"><img src="/logopng.png" alt="" width="44" height="44"><span>comparalo<i>.mx</i></span></a>
+    <nav class="cmx-hd2-nav" aria-label="Navegación principal">
+      <div class="cmx-hd2-dd">
+        <button type="button" class="cmx-hd2-ddbtn" aria-haspopup="true">Categorías <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="cmx-hd2-menu">
+          <a href="/celulares/">Celulares</a>
+          <a href="/laptops/">Laptops</a>
+          <a href="/electrodomesticos/">Electrodomésticos</a>
+          <a href="/suplementos/">Suplementos</a>
+          <a href="/bicis/">Bicicletas</a>
+          <a href="/videojuegos/">Videojuegos</a>
+          <a href="/tecnologia/">Tecnología</a>
+        </div>
+      </div>
+      <a href="/#categorias">Comparativas</a>
+      <a href="/guias/">Guías de compra</a>
+      <a class="cmx-hd2-ofertas" href="/#ofertas"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z"/><circle cx="7" cy="7" r="1.2" fill="currentColor"/></svg> Ofertas</a>
+    </nav>
     <div class="cmx-hd-act">
-      <button class="cmx-hd-searchbtn" id="cmx-hd-searchbtn" type="button" aria-label="Buscar categoría"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
-      <a class="cmx-hd-guias" href="/guias/">Guías</a>
       <!-- cmx-hd-extra:start --><!-- cmx-hd-extra:end -->
-      <button class="btn-share" onclick="shareCurrentPage()" title="Compartir esta p&#225;gina" aria-label="Compartir"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg><span class="share-txt">Compartir</span></button>
+      <button class="cmx-hd-searchbtn" id="cmx-hd-searchbtn" type="button" aria-label="Buscar categoría"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7.5"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg></button>
+      <button class="cmx-hd2-burger" type="button" aria-label="Abrir menú de categorías" onclick="document.getElementById('cmx-hd-searchbtn').click()"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
     </div>
   </div>
 </div>
 <!-- cmx-header:end -->
-  <div class="nav-panel" id="nav-panel" data-open="0">
-    <form action="/suplementos/" method="get" role="search">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-      <label class="skip" for="q-panel">Buscar producto</label>
-      <input id="q-panel" name="q" type="search" placeholder="¿Qué quieres comparar?" autocomplete="off" oninput="filterPanelNav(this.value)">
-    </form>
-    <ul id="panel-nav-list">
-      <li data-search="celulares smartphones"><a href="/celulares/">Celulares</a></li>
-      <li data-search="celulares android smartphones samsung pixel motorola"><a href="/celulares/android/">Android</a></li>
-      <li data-search="iphone apple ios"><a href="/celulares/iphone/">iPhone</a></li>
-      <li data-search="suplementos proteína creatina magnesio complejo b omega"><a href="/suplementos/">Suplementos</a></li>
-      <li data-search="bicicletas bici ciclismo"><a href="/bicis/">Bicicletas</a></li>
-      <li data-search="electrodomesticos microondas freidoras aire"><a href="/electrodomesticos/">Electrodomésticos</a></li>
-      <li data-search="laptops computadoras notebooks universidad gamer"><a href="/laptops/">Laptops</a></li>
-      <li data-search="videojuegos consolas nintendo playstation xbox switch"><a href="/videojuegos/">Videojuegos</a></li>
-      <li data-search="consolas videojuegos nintendo playstation xbox switch"><a href="/videojuegos/consolas/">Consolas</a></li>
-      <li data-search="tecnologia alexa bocinas inteligentes audifonos smartwatches"><a href="/tecnologia/">Tecnología</a></li>
-      <li data-search="alexa echo bocinas inteligentes google nest"><a href="/tecnologia/bocinas/">Bocinas inteligentes</a></li>
-      <li data-search="audifonos auriculares in-ear over-ear true wireless"><a href="/tecnologia/audifonos/">Audífonos</a></li>
-      <li data-search="smartwatches relojes inteligentes"><a href="/tecnologia/smartwatches/">Smartwatches</a></li>
-      <li data-search="como usar paso a paso"><a href="#como-usar">Cómo comparamos</a></li>
-    </ul>
-  </div>
-  <div class="chips" id="m-chips">
-    <a href="/celulares/">Celulares</a>
-    <a href="/suplementos/">Suplementos</a>
-    <a href="/bicis/">Bicicletas</a>
-    <a href="/electrodomesticos/">Electrodomésticos</a>
-    <a href="/laptops/">Laptops</a>
-    <a href="/videojuegos/">🎮 Videojuegos</a>
-    <a href="/tecnologia/">🎧 Tecnología</a>
-  </div>
 </header>
 
 <main id="main">
 
-<section class="hero-combined" id="como-usar" aria-labelledby="how-h">
-  <div class="hero-combined-inner">
-
-    <!-- IZQUIERDA 35%: propuesta de valor -->
-    <div class="hero-left">
-      <div class="stores">
-        <span>Comparamos en</span>
-        <img src="/logoamazon.png" alt="Amazon México" width="120" height="36" loading="eager">
-        <div class="div"></div>
-        <img src="/logomercado.png" alt="Mercado Libre México" width="120" height="36" loading="eager">
-      </div>
-      <h1>Antes de comprar en México, <em>compara</em></h1>
-      <p class="lead">Buscamos el mismo producto en Amazon MX y Mercado Libre y te mostramos precio, calidad y características para que decidas con lo que a ti te importa.</p>
-      <div class="searchbox-wrap" id="searchWrap">
-        <form class="searchbox" action="/suplementos/" method="get" role="search">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+<section class="hm-hero" aria-labelledby="hm-h1">
+  <div class="hm-hero-in">
+    <div class="hm-hero-tx">
+      <h1 id="hm-h1">Compara productos,<br> precios y <br class="hm-br-m"><em>características</em></h1>
+      <p class="hm-hero-lead">Análisis, comparativas, guías y recomendaciones para tomar la mejor decisión de compra en México.</p>
+      <div class="searchbox-wrap hm-search-wrap" id="searchWrap">
+        <form class="hm-search" action="/" method="get" role="search" onsubmit="return hmSearchGo()">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7.5"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg>
           <label class="skip" for="q-hero">¿Qué quieres comparar?</label>
           <input id="q-hero" name="q" type="search" placeholder="¿Qué quieres comparar?" autocomplete="off" onfocus="openSearchDrop()" oninput="filterSearchDrop(this.value)">
+          <button type="submit" aria-label="Comparar"><span>Comparar</span> <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></button>
         </form>
         <div class="search-dropdown" id="searchDrop">
           <div class="search-dropdown-label">Nuestras comparativas</div>
@@ -477,6 +444,14 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
         </div>
       </div>
       <script>
+      function hmSearchGo(){
+        var d=document.getElementById('searchDrop'),first=null;
+        d.querySelectorAll('a').forEach(function(a){if(!first&&a.style.display!=='none')first=a;});
+        var q=document.getElementById('q-hero').value.trim();
+        if(q&&first){if(typeof gtag==='function')gtag('event','search',{search_term:q,page_section:'home_hero'});location.href=first.getAttribute('href');}
+        else{d.classList.add('open');document.getElementById('q-hero').focus();}
+        return false;
+      }
       function openSearchDrop(){document.getElementById('searchDrop').classList.add('open')}
       function filterSearchDrop(q){
         var d=document.getElementById('searchDrop'),links=d.querySelectorAll('a'),v=q.trim().toLowerCase();
@@ -500,13 +475,95 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
         if(nw&&nd&&!nw.contains(e.target))nd.classList.remove('open');
       });
       </script>
-      <div class="hero-cta">
-        <a class="btn" href="/suplementos/">Ver comparativas</a>
-        <a class="btn2" href="#como-usar">Cómo comparamos</a>
-      </div>
     </div>
+    <div class="hm-art">
+      <img class="a1" src="https://http2.mlstatic.com/D_NQ_NP_2X_705276-MLA99484793716_112025-F.webp" alt="Freidora de aire" width="200" height="200" referrerpolicy="no-referrer" loading="eager" decoding="async" fetchpriority="high">
+      <img class="a2" src="https://http2.mlstatic.com/D_NQ_NP_2X_982361-MLA105898975225_012026-F.webp" alt="Laptop" width="200" height="200" referrerpolicy="no-referrer" loading="eager" decoding="async">
+      <img class="a3" src="https://http2.mlstatic.com/D_NQ_NP_963414-MLA99445666920_112025-F.jpg" alt="Audífonos inalámbricos" width="200" height="200" referrerpolicy="no-referrer" loading="eager" decoding="async">
+      <img class="a4" src="https://http2.mlstatic.com/D_NQ_NP_724003-MLA99989849311_112025-F.jpg" alt="Celular" width="200" height="200" referrerpolicy="no-referrer" loading="eager" decoding="async">
+    </div>
+    <p class="hm-bubble"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="7.5 12.5 10.5 15.5 16.5 9"/></svg><span>Guías y comparativas con lo que realmente importa</span></p>
+    <svg class="hm-spark" width="46" height="46" viewBox="0 0 46 46" fill="none" stroke="#F6D94A" stroke-width="5" stroke-linecap="round" aria-hidden="true"><line x1="8" y1="6" x2="14" y2="20"/><line x1="24" y1="16" x2="38" y2="6"/><line x1="26" y1="30" x2="42" y2="28"/></svg>
+  </div>
+</section>
 
-    <!-- DERECHA 65%: cómo usar (onboarding interactivo) -->
+<div class="hm-ben">
+  <div><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 12 12 17 22 12"/><polyline points="2 17 12 22 22 17"/></svg><span>Análisis<br>completos</span></div>
+  <div><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18"/><path d="M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0L5 7z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0l-3-7z"/><path d="M8 21h8"/></svg><span>Comparativas<br>confiables</span></div>
+  <div><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.1 8.3 22 9.3 17 14.1 18.2 21 12 17.8 5.8 21 7 14.1 2 9.3 8.9 8.3 12 2"/></svg><span>Guías de compra<br>por categoría</span></div>
+  <div><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="8.5 12 11 14.5 15.5 9.5"/></svg><span>Opiniones<br>reales</span></div>
+  <div><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><span>Ahorra tiempo<br>en tu investigación</span></div>
+  <div><svg width="38" height="26" viewBox="0 0 38 26" aria-hidden="true"><rect width="38" height="26" rx="3" fill="#fff"/><rect width="12.7" height="26" rx="0" fill="#006847"/><rect x="25.3" width="12.7" height="26" fill="#CE1126"/><circle cx="19" cy="13" r="2.6" fill="#8D6E3F"/><rect width="38" height="26" rx="3" fill="none" stroke="#E5E7EB"/></svg><span>Enfocado en<br>México</span></div>
+</div>
+<div class="hm-ben-m" aria-hidden="true">
+  <div><i><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 12 12 17 22 12"/><polyline points="2 17 12 22 22 17"/></svg></i>Análisis</div>
+  <div><i><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18"/><path d="M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0L5 7z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0l-3-7z"/><path d="M8 21h8"/></svg></i>Comparativas</div>
+  <div><i><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H2z"/><path d="M22 4h-7a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h8z"/></svg></i>Guías</div>
+  <div><i><svg width="26" height="26" viewBox="0 0 24 24" fill="#F6C400" stroke="#F6C400" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.1 8.3 22 9.3 17 14.1 18.2 21 12 17.8 5.8 21 7 14.1 2 9.3 8.9 8.3 12 2"/></svg></i>Opiniones</div>
+  <div><i><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="8.5 12 11 14.5 15.5 9.5"/></svg></i>Confianza</div>
+</div>
+
+<section class="hm-sec" id="categorias" aria-labelledby="cats-h">
+  <div class="hm-head">
+    <h2 class="bar" id="cats-h">Explora por categoría</h2>
+    <button type="button" class="hm-more" onclick="document.getElementById('cmx-hd-searchbtn').click()">Ver todas<span class="lg"> las categorías</span> →</button>
+  </div>
+  <div class="hm-cats-wrap">
+    <div class="hm-cats" id="hm-cats">
+      <a class="hm-cat" href="/electrodomesticos/" style="--c:#E4F5E9"><img src="https://http2.mlstatic.com/D_NQ_NP_2X_705276-MLA99484793716_112025-F.webp" alt="Freidora de aire" width="200" height="200" referrerpolicy="no-referrer" loading="lazy" decoding="async"><span>Electro-<br>domésticos</span></a>
+      <a class="hm-cat" href="/celulares/" style="--c:#E3EEFB"><img src="https://http2.mlstatic.com/D_NQ_NP_724003-MLA99989849311_112025-F.jpg" alt="Celular" width="200" height="200" referrerpolicy="no-referrer" loading="lazy" decoding="async"><span>Celulares</span></a>
+      <a class="hm-cat" href="/tecnologia/smartwatches/" style="--c:#FBEADF"><img src="https://http2.mlstatic.com/D_NQ_NP_623224-MLA99565300348_122025-F.jpg" alt="Smartwatch" width="200" height="200" referrerpolicy="no-referrer" loading="lazy" decoding="async"><span>Smartwatch</span></a>
+      <a class="hm-cat" href="/suplementos/" style="--c:#FBF1DC"><img src="https://http2.mlstatic.com/D_NQ_NP_2X_677400-MLA100083704797_122025-F.webp" alt="Proteína en polvo" width="200" height="200" referrerpolicy="no-referrer" loading="lazy" decoding="async"><span>Suplementos</span></a>
+      <a class="hm-cat" href="/bicis/" style="--c:#E4F5E9"><img src="https://http2.mlstatic.com/D_NQ_NP_2X_763620-MLA89353119440_082025-F.webp" alt="Bicicleta" width="200" height="200" referrerpolicy="no-referrer" loading="lazy" decoding="async"><span>Bicis</span></a>
+      <a class="hm-cat" href="/laptops/" style="--c:#E6E8FA"><img src="https://http2.mlstatic.com/D_NQ_NP_2X_982361-MLA105898975225_012026-F.webp" alt="Laptop" width="200" height="200" referrerpolicy="no-referrer" loading="lazy" decoding="async"><span>Laptops</span></a>
+      <a class="hm-cat" href="/tecnologia/" style="--c:#E7EDF3"><img src="https://http2.mlstatic.com/D_NQ_NP_963414-MLA99445666920_112025-F.jpg" alt="Audífonos" width="200" height="200" referrerpolicy="no-referrer" loading="lazy" decoding="async"><span>Tecnología</span></a>
+      <a class="hm-cat" href="/videojuegos/" style="--c:#FBE3EA"><img src="https://http2.mlstatic.com/D_NQ_NP_825411-MLA99993031597_112025-F.jpg" alt="Consola de videojuegos" width="200" height="200" referrerpolicy="no-referrer" loading="lazy" decoding="async"><span>Videojuegos</span></a>
+      <a class="hm-cat" href="/entretenimiento/" style="--c:#E1F0FA"><img src="https://http2.mlstatic.com/D_NQ_NP_695154-MLA115547305880_082026-F.jpg" alt="Dispositivo de streaming" width="200" height="200" referrerpolicy="no-referrer" loading="lazy" decoding="async"><span>TV y<br>Entretenimiento</span></a>
+      <a class="hm-cat" href="/electrodomesticos/cafeteras/" style="--c:#FAF0E0"><img src="https://http2.mlstatic.com/D_NQ_NP_707981-MLA110282100221_042026-O.jpg" alt="Cafetera" width="200" height="200" referrerpolicy="no-referrer" loading="lazy" decoding="async"><span>Cafeteras</span></a>
+      <a class="hm-cat" href="/electrodomesticos/microondas/" style="--c:#E4F5E9"><img src="https://http2.mlstatic.com/D_NQ_NP_2X_871102-MLA99987104845_112025-F.webp" alt="Microondas" width="200" height="200" referrerpolicy="no-referrer" loading="lazy" decoding="async"><span>Microondas</span></a>
+      <button type="button" class="hm-cat" style="--c:#E4F5E9" onclick="document.getElementById('cmx-hd-searchbtn').click()"><span class="hm-cat-dots" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 34 34" fill="#00843D"><circle cx="9" cy="9" r="6.5"/><circle cx="25" cy="9" r="6.5"/><circle cx="9" cy="25" r="6.5"/><circle cx="25" cy="25" r="6.5"/></svg></span><span>Más<br>categorías</span></button>
+    </div>
+    <button type="button" class="hm-cats-next" aria-label="Ver más categorías" onclick="document.getElementById('hm-cats').scrollBy({left:220,behavior:'smooth'})"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg></button>
+  </div>
+</section>
+<hr class="hm-rule">
+
+<section class="hm-sec" id="guias-compra" aria-labelledby="guides-h">
+  <div class="hm-head">
+    <h2 id="guides-h"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#00843D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H2z"/><path d="M22 4h-7a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h8z"/></svg>Guías de compra</h2>
+    <p>Consejos, características clave y recomendaciones para elegir mejor.</p>
+    <a class="hm-more" href="/guias/">Ver todas<span class="lg"> las guías</span> →</a>
+  </div>
+  <div class="hm-guides">
+      <a class="hm-guide" href="/guias/celulares/mejores-celulares-calidad-precio/" style="--g:linear-gradient(120deg,#DCE9FB,#ECE6FB)"><img src="https://http2.mlstatic.com/D_NQ_NP_724003-MLA99989849311_112025-F.jpg" alt="Celular" width="200" height="200" referrerpolicy="no-referrer" loading="lazy" decoding="async"><div><small>Guía de compra:</small><b>Celulares</b><em><span>en México</span></em></div><i aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></i></a>
+      <a class="hm-guide" href="/guias/tecnologia/como-elegir-smartwatch/" style="--g:linear-gradient(120deg,#F2E4F7,#E9E6FA)"><img src="https://http2.mlstatic.com/D_NQ_NP_623224-MLA99565300348_122025-F.jpg" alt="Smartwatch" width="200" height="200" referrerpolicy="no-referrer" loading="lazy" decoding="async"><div><small>Guía de compra:</small><b>Smartwatch</b></div><i aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></i></a>
+      <a class="hm-guide" href="/suplementos/suplementos-mas-comprados/" style="--g:linear-gradient(120deg,#FCEBDD,#FBF3E4)"><img src="https://http2.mlstatic.com/D_NQ_NP_2X_677400-MLA100083704797_122025-F.webp" alt="Proteína en polvo" width="200" height="200" referrerpolicy="no-referrer" loading="lazy" decoding="async"><div><small>Guía de compra:</small><b>Suplementos</b><em><span>(proteína, creatina, etc.)</span></em></div><i aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></i></a>
+      <a class="hm-guide" href="/bicis/como-elegir-bicicleta-electrica/" style="--g:linear-gradient(120deg,#E3F5E8,#EEF8E6)"><img src="https://http2.mlstatic.com/D_NQ_NP_2X_763620-MLA89353119440_082025-F.webp" alt="Bicicleta eléctrica" width="200" height="200" referrerpolicy="no-referrer" loading="lazy" decoding="async"><div><small>Guía de compra:</small><b>Bicicletas</b><em><span>(eléctricas, urbanas)</span></em></div><i aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></i></a>
+  </div>
+</section>
+
+
+<section class="deals-sec hm-deals-sec" id="deals-sec" hidden aria-labelledby="deals-h">
+  <div class="hm-sec" id="ofertas">
+    <div class="hm-head">
+      <h2 id="deals-h"><svg width="34" height="34" viewBox="0 0 24 24" fill="#EF1B24" aria-hidden="true"><path d="M21.4 12.6 12.6 21.4a2 2 0 0 1-2.8 0L2 13.6V4a2 2 0 0 1 2-2h9.6l7.8 7.8a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.8" fill="#fff"/></svg>Ofertas y bajadas de precio</h2>
+      <p>Productos que recientemente bajaron de precio en Mercado Libre.</p>
+      <button type="button" class="hm-more" id="hm-deals-all" aria-expanded="false" aria-controls="deals-all" onclick="hmToggleDeals(this)">Ver todas<span class="lg"> las ofertas</span> →</button>
+    </div>
+    <div id="hm-deals"></div>
+  </div>
+  <div id="deals-all" hidden>
+    <div id="deals-container"></div>
+  </div>
+  <div>
+    <p class="hm-deals-note">
+      <strong style="color:var(--tx2)">¿Cómo detectamos estas bajadas de precio?</strong>
+      Cada mañana consultamos directamente la ficha de catálogo de cada producto en Mercado Libre México y comparamos el precio actual contra el último precio registrado. Cuando el precio nuevo es menor, lo marcamos como oferta del día y calculamos el porcentaje de descuento real — no promociones inventadas ni precios "de referencia" artificialmente inflados. Lo mismo hacemos de forma manual con los precios de Amazon México que capturamos. Así evitamos mostrarte descuentos falsos y solo ves bajadas de precio verificadas, con la fecha de la última revisión.
+    </p>
+  </div>
+</section>
+
+<section class="hm-how" id="como-usar" aria-labelledby="how-h">
     <div class="hero-right">
       <div class="how-head">
         <p class="kicker">Paso a paso</p>
@@ -524,11 +581,11 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
         </div>
         <div>
           <div class="how-stage">
-            <figure class="on" id="how-p1" role="tabpanel" aria-labelledby="how-t1"><img src="fotos/pasos/onboarding-01.jpg" alt="Paso 1: Botones Ver en Amazon y Ver en Mercado Libre en comparalo.mx" width="800" height="500" loading="eager" decoding="async" fetchpriority="high"></figure>
-            <figure class="" id="how-p2" role="tabpanel" aria-labelledby="how-t2"><img src="fotos/pasos/onboarding-02.jpg" alt="Paso 2: Filtra por tipo, precio y características en comparalo.mx" width="800" height="500" loading="lazy" decoding="async"></figure>
-            <figure class="" id="how-p3" role="tabpanel" aria-labelledby="how-t3"><img src="fotos/pasos/onboarding-03.jpg" alt="Paso 3: Selecciona productos y compáralos en comparalo.mx" width="800" height="500" loading="lazy" decoding="async"></figure>
-            <figure class="" id="how-p4" role="tabpanel" aria-labelledby="how-t4"><img src="fotos/pasos/onboarding-04.jpg" alt="Paso 4: Tabla comparativa lado a lado en comparalo.mx" width="800" height="500" loading="lazy" decoding="async"></figure>
-            <figure class="" id="how-p5" role="tabpanel" aria-labelledby="how-t5"><img src="fotos/pasos/paso-5.jpg" alt="Paso 5: Producto abierto en Mercado Libre desde comparalo.mx" width="800" height="500" loading="lazy" decoding="async"></figure>
+            <figure class="on" id="how-p1" role="tabpanel" aria-labelledby="how-t1"><img src="/fotos/pasos/onboarding-01.jpg" alt="Paso 1: Botones Ver en Amazon y Ver en Mercado Libre en comparalo.mx" width="800" height="500" loading="lazy" decoding="async"></figure>
+            <figure class="" id="how-p2" role="tabpanel" aria-labelledby="how-t2"><img src="/fotos/pasos/onboarding-02.jpg" alt="Paso 2: Filtra por tipo, precio y características en comparalo.mx" width="800" height="500" loading="lazy" decoding="async"></figure>
+            <figure class="" id="how-p3" role="tabpanel" aria-labelledby="how-t3"><img src="/fotos/pasos/onboarding-03.jpg" alt="Paso 3: Selecciona productos y compáralos en comparalo.mx" width="800" height="500" loading="lazy" decoding="async"></figure>
+            <figure class="" id="how-p4" role="tabpanel" aria-labelledby="how-t4"><img src="/fotos/pasos/onboarding-04.jpg" alt="Paso 4: Tabla comparativa lado a lado en comparalo.mx" width="800" height="500" loading="lazy" decoding="async"></figure>
+            <figure class="" id="how-p5" role="tabpanel" aria-labelledby="how-t5"><img src="/fotos/pasos/paso-5.jpg" alt="Paso 5: Producto abierto en Mercado Libre desde comparalo.mx" width="800" height="500" loading="lazy" decoding="async"></figure>
           </div>
           <div class="how-nav">
             <span class="how-count" id="how-count">Paso 1 de 5</span>
@@ -540,91 +597,6 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
         </div>
       </div>
     </div>
-
-  </div>
-</section>
-
-<section class="cats" aria-labelledby="cats-h">
-  <div class="wrap">
-    <div class="cats-head">
-      <div>
-        <p class="kicker">Qué comparamos</p>
-        <h2 id="cats-h">Categorías disponibles</h2>
-      </div>
-      <p>Suplementos, bicicletas, laptops, electrodomésticos y videojuegos</p>
-    </div>
-    <div class="cats-grid">
-      <a class="cat cat-big" href="/suplementos/" title="Comparar precios de suplementos en Amazon MX y Mercado Libre">
-        <div class="photo" data-ph=""><img src="/fotos/imgsuplementos.webp" alt="Suplementos deportivos comparados en Amazon México y Mercado Libre" width="900" height="600" loading="eager" fetchpriority="high" style="object-position:center 30%"></div>
-        <div class="scrim"></div>
-        <div class="body">
-          <h3>Suplementos</h3>
-          <p>La categoría con más comparativas. Proteína, creatina, magnesio y más, con precio por porción.</p>
-          <div class="subs"><span>Proteína</span><span>Creatina</span><span>Magnesio</span><span>Omega 3</span><span>Complejo B</span></div>
-          <div class="go">Ver suplementos →</div>
-        </div>
-      </a>
-      <div class="cat-col">
-        <a class="cat cat-sm cat-bici" href="/bicis/" title="Comparar precios de bicicletas en Amazon MX y Mercado Libre">
-          <div class="body">
-            <div><h3>Bicicletas</h3><div class="subs"><span>Eléctricas</span><span>MTB</span><span>Ruta</span></div></div>
-            <div class="go">Ver bicicletas →</div>
-          </div>
-          <div class="thumb"><img src="/fotos/imgbicicletas.webp" alt="Bicicletas comparadas en Amazon México y Mercado Libre" width="1448" height="1086" loading="lazy" decoding="async" style="object-position:center 40%"></div>
-        </a>
-        <a class="cat cat-sm cat-lap" href="/laptops/" title="Comparar precios de laptops en Amazon MX y Mercado Libre">
-          <div class="body">
-            <div><h3>Laptops</h3><div class="subs"><span>HP</span><span>Dell</span><span>Lenovo</span><span>Asus</span></div></div>
-            <div class="go">Ver laptops →</div>
-          </div>
-          <div class="thumb"><img src="/fotos/imglaptops.webp" alt="Laptops comparadas en Amazon México y Mercado Libre" width="1448" height="1086" loading="lazy" decoding="async" style="object-position:center 60%"></div>
-        </a>
-      </div>
-    </div>
-    <div class="cats-row2">
-      <a class="cat cat-sm cat-cel" href="/celulares/" title="Comparar precios de celulares en Amazon MX y Mercado Libre">
-        <div class="body">
-          <div><h3>Celulares</h3><div class="subs"><span>Android</span><span>iPhone</span></div></div>
-          <div class="go">Ver celulares →</div>
-        </div>
-        <div class="thumb"><img src="/fotos/imgcelulares.webp" alt="Celulares comparados en Amazon México y Mercado Libre" width="1448" height="1086" loading="lazy" decoding="async" style="object-position:center center"></div>
-      </a>
-      <a class="cat cat-sm cat-elec" href="/electrodomesticos/" title="Comparar precios de electrodomésticos en Amazon MX y Mercado Libre">
-        <div class="body">
-          <div><h3>Electrodomésticos</h3><div class="subs"><span>Freidoras de aire</span><span>Microondas</span><span>Lavadoras</span></div></div>
-          <div class="go">Ver electrodomésticos →</div>
-        </div>
-        <div class="thumb"><img src="/fotos/imgelectrodomesticos.webp" alt="Electrodomésticos comparados en Amazon México y Mercado Libre" width="1448" height="1086" loading="lazy" decoding="async" style="object-position:center 40%"></div>
-      </a>
-      <a class="cat cat-sm cat-game" href="/videojuegos/" title="Comparar precios de consolas y videojuegos en Amazon MX y Mercado Libre">
-        <div class="body">
-          <div><h3>Videojuegos</h3><div class="subs"><span>Consolas</span><span>Nintendo</span><span>PlayStation</span><span>Xbox</span></div></div>
-          <div class="go">Ver videojuegos →</div>
-        </div>
-        <div class="thumb"><img src="https://http2.mlstatic.com/D_NQ_NP_611101-MLA84512956497_052025-F.jpg" alt="Consolas de videojuegos Nintendo Switch 2, PS5 y Xbox comparados en México" width="400" height="400" loading="lazy" decoding="async" style="object-fit:contain;background:#12034a"></div>
-      </a>
-    </div>
-  </div>
-</section>
-
-<section class="deals-sec" id="deals-sec" hidden aria-labelledby="deals-h">
-  <div class="wrap">
-    <div class="deals-head">
-      <div>
-        <p class="kicker">Mercado Libre · Precios verificados</p>
-        <h2 id="deals-h">Ofertas del día en México: bajadas de precio reales detectadas en Mercado Libre</h2>
-        <p style="font-size:13px;color:var(--tx3);margin:6px 0 0;max-width:620px">Celulares, laptops, bicicletas, freidoras, microondas, suplementos, videojuegos y tecnología con bajada de precio real. Selecciona hasta 3 productos para compararlos.</p>
-      </div>
-      <p class="deals-sub">Actualizado cada mañana · solo precios verificados</p>
-    </div>
-  </div>
-  <div id="deals-container"></div>
-  <div class="wrap">
-    <p style="font-size:12.5px;color:var(--tx3);max-width:760px;margin:18px auto 0;line-height:1.6">
-      <strong style="color:var(--tx2)">¿Cómo detectamos estas bajadas de precio?</strong>
-      Cada mañana consultamos directamente la ficha de catálogo de cada producto en Mercado Libre México y comparamos el precio actual contra el último precio registrado. Cuando el precio nuevo es menor, lo marcamos como oferta del día y calculamos el porcentaje de descuento real — no promociones inventadas ni precios "de referencia" artificialmente inflados. Lo mismo hacemos de forma manual con los precios de Amazon México que capturamos. Así evitamos mostrarte descuentos falsos y solo ves bajadas de precio verificadas, con la fecha de la última revisión.
-    </p>
-  </div>
 </section>
 
 <section class="metodo-sec" aria-label="Nuestro método">
@@ -910,6 +882,44 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
     requestAnimationFrame(updateArrows);
   }
 
+  /* Carrusel del inicio: las mayores bajadas de todas las categorías (máx. 2 por categoría) */
+  function hmTopDeals(results){
+    var box=document.getElementById('hm-deals');if(!box)return;
+    var all=[];
+    results.forEach(function(r){
+      if(r.status!=='fulfilled')return;
+      var n=0;
+      r.value.items.slice().sort(function(a,b){return(b.pct||0)-(a.pct||0);}).forEach(function(d){
+        if(n>=2||!d||d.plataforma==='amazon'||!d.linkML||!d.imagen||!d.pct||!d.precioAntes)return;
+        n++;all.push(d);
+      });
+    });
+    all.sort(function(a,b){return(b.pct||0)-(a.pct||0);});
+    all=all.slice(0,12);
+    if(!all.length)return;
+    box.innerHTML='<div class="hm-deals-outer"><div class="hm-deals-track" role="list">'+all.map(function(d){
+      var nm=(d.nombre||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+      var lbl=(d.nombre||'').replace(/'/g,"\\'").replace(/"/g,'&quot;');
+      var precio=d.precioOferta||d.precioML,baja=d.ahorro||(d.precioAntes-precio);
+      return '<a class="hm-deal" role="listitem" href="'+d.linkML+'" target="_blank" rel="sponsored nofollow noopener"'
+        +' onclick="typeof gtag===\'function\'&&gtag(\'event\',\'affiliate_click_ml\',{event_category:\'afiliado\',event_label:\''+lbl+'\',value:'+precio+',page_section:\'home_descuentos\'})">'
+        +'<span class="hm-deal-img"><img src="'+d.imagen+'" alt="'+nm+'" loading="lazy" referrerpolicy="no-referrer"></span>'
+        +'<span class="hm-deal-bad"><span class="hm-pct">&#8722;'+d.pct+'%</span><span class="hm-drop">&#8595; Bajó '+fmt(baja)+'</span></span>'
+        +'<span class="hm-deal-name">'+nm+'</span>'
+        +'<span class="hm-deal-price"><b>'+fmt(precio)+' MXN</b><s>'+fmt(d.precioAntes)+' MXN</s></span>'
+        +'<span class="hm-deal-btn"><img class="hm-ml-ic" src="/logomercado.png" alt=""> Ver en Mercado Libre <span aria-hidden="true">&#8599;</span></span></a>';
+    }).join('')+'</div></div>';
+    initArrows(box.querySelector('.hm-deals-track'),box.querySelector('.hm-deals-outer'));
+  }
+  window.hmToggleDeals=function(btn){
+    var all=document.getElementById('deals-all');if(!all)return;
+    var open=all.hidden;all.hidden=!open;
+    btn.setAttribute('aria-expanded',String(open));
+    btn.firstChild.nodeValue=open?'Ocultar':'Ver todas';
+    if(open)all.scrollIntoView({behavior:'smooth',block:'start'});
+    if(open&&typeof gtag==='function')gtag('event','home_ver_todas_ofertas',{page_section:'home_descuentos'});
+  };
+
   Promise.allSettled(SOURCES.map(function(s){
     return fetch(s.url).then(function(r){return r.ok?r.json():null;}).then(function(d){
       return{cat:s,items:d&&Array.isArray(d.descuentos)?d.descuentos:[]};
@@ -943,6 +953,7 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
       if(outer&&track)initArrows(track,outer);
       rendered++;
     });
+    hmTopDeals(results);
     if(rendered)sec.hidden=false;
   });
 })();
