@@ -161,7 +161,10 @@ const SHARE_BTN = '<button class="btn-share" onclick="shareCurrentPage()" title=
 /* Encabezado del rediseño (Categorías ▾ · Comparativas · Guías de compra · Ofertas · buscar · menú).
    Solo lo llevan las páginas listadas aquí; conforme se apruebe cada página se agrega su ruta.
    Sus estilos viven en /assets/css/cmx-home.css mientras solo lo use el inicio. */
-const HEADER_V2 = new Set(['/']);
+const HUBS_V2 = ['/electrodomesticos/', '/suplementos/', '/tecnologia/', '/entretenimiento/', '/celulares/', '/bicis/', '/videojuegos/'];
+const HEADER_V2 = new Set(['/', ...HUBS_V2]);
+/* Pie del rediseño (azul marino, 4 columnas; en móvil las listas son acordeones). */
+const FOOTER_V2 = new Set(HUBS_V2);
 function headerV2Html(extra) {
   const cats = NAV_LINKS.filter(([n]) => n !== 'Guías').map(([n, u]) => `<a href="${u}">${n}</a>`).join('\n          ');
   return `<!-- cmx-header:start -->
@@ -181,7 +184,7 @@ function headerV2Html(extra) {
     </nav>
     <div class="cmx-hd-act">
       <!-- cmx-hd-extra:start -->${extra || ''}<!-- cmx-hd-extra:end -->
-      <button class="cmx-hd-searchbtn" id="cmx-hd-searchbtn" type="button" aria-label="Buscar categoría"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7.5"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg></button>
+      <button class="cmx-hd-searchbtn" id="cmx-hd-searchbtn" type="button" aria-label="Buscar categoría"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7.5"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg><span class="cmx-hd2-searchtx">¿Qué quieres comparar?</span></button>
       <button class="cmx-hd2-burger" type="button" aria-label="Abrir menú de categorías" onclick="document.getElementById('cmx-hd-searchbtn').click()"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
     </div>
   </div>
@@ -263,7 +266,24 @@ function relatedHtml(p) {
 }
 
 const FOOT_CATS = [['Celulares', '/celulares/'], ['Android', '/celulares/android/'], ['iPhone', '/celulares/iphone/'], ['Laptops', '/laptops/'], ['Electrodomésticos', '/electrodomesticos/'], ['Suplementos', '/suplementos/'], ['Bicicletas', '/bicis/'], ['Videojuegos', '/videojuegos/'], ['Tecnología', '/tecnologia/']];
-function footerHtml() {
+function footerV2Html() {
+  const li = (a) => a.map(([n, u]) => `<li><a href="${u}">${n}</a></li>`).join('');
+  const col = (title, items, cls) => `<div class="cmx-ft2-col${cls || ''}"><h3><button type="button" aria-expanded="false" onclick="var c=this.closest('.cmx-ft2-col');this.setAttribute('aria-expanded',c.classList.toggle('open'))">${title}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button></h3><ul>${li(items)}</ul></div>`;
+  return `<!-- cmx-footer:start -->
+<div class="cmx-ft2" role="contentinfo" id="cmx-ft"><div class="cmx-ft2-in">
+<div class="cmx-ft2-grid">
+<div class="cmx-ft2-brand"><a class="cmx-ft2-logo" href="/" aria-label="comparalo.mx, inicio"><img src="/logopng.png" alt="" width="40" height="40" loading="lazy"><span>comparalo<i>.mx</i></span></a><p>Comparamos precios de Amazon MX y Mercado Libre para que decidas con datos, no a ciegas.</p></div>
+${col('Categorías', [['Celulares', '/celulares/'], ['Laptops', '/laptops/'], ['Electrodomésticos', '/electrodomesticos/'], ['Suplementos', '/suplementos/'], ['Bicicletas', '/bicis/'], ['Videojuegos', '/videojuegos/'], ['Tecnología', '/tecnologia/'], ['Todas las categorías', '/#categorias']], ' cmx-ft2-cats')}
+${col('Recursos', [['Guías y artículos', '/guias/'], ['Cómo comparamos', '/#metodo'], ['Quiénes somos', '/sobre-nosotros/'], ['Contacto', '/contacto/']])}
+${col('Legal', [['Aviso de afiliados', '/aviso-afiliados/'], ['Privacidad', '/privacidad/'], ['Términos', '/terminos/']])}
+</div>
+<p class="cmx-ft2-bottom">comparalo.mx participa en los programas de afiliados de Mercado Libre y Amazon México: si compras desde nuestros enlaces podemos recibir una comisión, sin costo adicional para ti. <a href="/aviso-afiliados/">Más información</a>. Los precios y la disponibilidad pueden cambiar; confirma el precio final en la tienda. © 2026 comparalo.mx</p>
+</div></div>
+<!-- cmx-footer:end -->`;
+}
+
+function footerHtml(p) {
+  if (FOOTER_V2.has(p)) return footerV2Html();
   const li = (a) => a.map(([n, u]) => `<li><a href="${u}">${n}</a></li>`).join('');
   return `<!-- cmx-footer:start -->
 <div class="cmx-ft" role="contentinfo" id="cmx-ft"><div class="cmx-ft-in">
@@ -385,14 +405,14 @@ function processPage(pg) {
   if (ONLY.includes('footer') || ONLY.includes('related')) {
     let fb = block(s, 'cmx-footer');
     if (ONLY.includes('footer')) {
-      if (fb) s = s.slice(0, fb[0]) + put(footerHtml()) + s.slice(fb[1]);
+      if (fb) s = s.slice(0, fb[0]) + put(footerHtml(pg.path)) + s.slice(fb[1]);
       else {
         const loc = locateFooter(s);
-        if (loc) s = s.slice(0, loc[0]) + put(footerHtml()) + s.slice(loc[1]);
+        if (loc) s = s.slice(0, loc[0]) + put(footerHtml(pg.path)) + s.slice(loc[1]);
         else {
           const tag = '<script src="/js/onboarding.js" defer></script>';
-          if (s.includes(tag)) s = s.replace(tag, put(footerHtml() + '\n') + tag);
-          else s = s.replace(/<\/body>/i, put(footerHtml() + '\n</body>'));
+          if (s.includes(tag)) s = s.replace(tag, put(footerHtml(pg.path) + '\n') + tag);
+          else s = s.replace(/<\/body>/i, put(footerHtml(pg.path) + '\n</body>'));
           notes.push('pie agregado (no tenía)');
         }
       }

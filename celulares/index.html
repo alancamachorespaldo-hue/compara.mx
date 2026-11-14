@@ -174,29 +174,35 @@ footer a{color:var(--ac);text-decoration:none}
 }
 </style>
 <link rel="stylesheet" href="/assets/css/cmx-site.css">
+<link rel="stylesheet" href="/assets/css/cmx-hub.css">
 </head>
-<body>
+<body class="hub-page">
 
 <!-- cmx-header:start -->
-<div class="cmx-hd" id="cmx-hd">
+<div class="cmx-hd cmx-hd2" id="cmx-hd">
   <div class="cmx-hd-in">
-    <a class="cmx-hd-logo" href="/" aria-label="comparalo.mx, inicio"><img src="/logopng.png" alt="" width="28" height="28"><span>comparalo<i>.mx</i></span></a>
-    <div class="cmx-hd-search" id="cmx-hd-search"></div>
-    <div class="cmx-hd-links" role="navigation" aria-label="Navegación principal">
-      <a href="/celulares/" aria-current="page">Celulares</a>
-      <a href="/laptops/">Laptops</a>
-      <a href="/electrodomesticos/">Electrodomésticos</a>
-      <a href="/suplementos/">Suplementos</a>
-      <a href="/bicis/">Bicicletas</a>
-      <a href="/videojuegos/">Videojuegos</a>
-      <a href="/tecnologia/">Tecnología</a>
-      <a href="/guias/">Guías</a>
-    </div>
+    <a class="cmx-hd-logo" href="/" aria-label="comparalo.mx, inicio"><img src="/logopng.png" alt="" width="44" height="44"><span>comparalo<i>.mx</i></span></a>
+    <nav class="cmx-hd2-nav" aria-label="Navegación principal">
+      <div class="cmx-hd2-dd">
+        <button type="button" class="cmx-hd2-ddbtn" aria-haspopup="true">Categorías <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="cmx-hd2-menu">
+          <a href="/celulares/">Celulares</a>
+          <a href="/laptops/">Laptops</a>
+          <a href="/electrodomesticos/">Electrodomésticos</a>
+          <a href="/suplementos/">Suplementos</a>
+          <a href="/bicis/">Bicicletas</a>
+          <a href="/videojuegos/">Videojuegos</a>
+          <a href="/tecnologia/">Tecnología</a>
+        </div>
+      </div>
+      <a href="/#categorias">Comparativas</a>
+      <a href="/guias/">Guías de compra</a>
+      <a class="cmx-hd2-ofertas" href="/#ofertas"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z"/><circle cx="7" cy="7" r="1.2" fill="currentColor"/></svg> Ofertas</a>
+    </nav>
     <div class="cmx-hd-act">
-      <button class="cmx-hd-searchbtn" id="cmx-hd-searchbtn" type="button" aria-label="Buscar categoría"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
-      <a class="cmx-hd-guias" href="/guias/">Guías</a>
       <!-- cmx-hd-extra:start --><!-- cmx-hd-extra:end -->
-      <button class="btn-share" onclick="shareCurrentPage()" title="Compartir esta p&#225;gina" aria-label="Compartir"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg><span class="share-txt">Compartir</span></button>
+      <button class="cmx-hd-searchbtn" id="cmx-hd-searchbtn" type="button" aria-label="Buscar categoría"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7.5"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg><span class="cmx-hd2-searchtx">¿Qué quieres comparar?</span></button>
+      <button class="cmx-hd2-burger" type="button" aria-label="Abrir menú de categorías" onclick="document.getElementById('cmx-hd-searchbtn').click()"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
     </div>
   </div>
 </div>
@@ -205,37 +211,86 @@ footer a{color:var(--ac);text-decoration:none}
 <div class="cmx-bc"><ol aria-label="Ruta de navegación"><li><a href="/">Inicio</a></li><li aria-current="page">Celulares</li></ol></div>
 <!-- cmx-bc:end -->
 
-<div class="hero">
-  <div class="hero-eyebrow">México · Amazon MX · Mercado Libre</div>
-  <h1 class="hero-h1">Celulares en México: <em>compara antes de comprar</em></h1>
-  <p class="hero-tagline">Android e iPhone, lado a lado. Precios en Amazon MX y Mercado Libre.</p>
-
-  <div class="cat-grid">
-
-    <a class="cat-card cat-active" href="/celulares/android/">
-      <div class="cat-photo"><img src="/fotosmartphonealtagama.webp" alt="Smartphones Android Samsung, Xiaomi, Pixel y Motorola comparados en Mercado Libre" loading="lazy"></div>
-      <div class="cat-body">
-        <span class="cat-name">Android</span>
-        <span class="cat-sub">Samsung · Xiaomi · Pixel · Motorola</span>
-        <span class="cat-cta">Ver comparativa →</span>
+<main class="hub">
+<section class="hub-hero" aria-labelledby="hub-h1">
+  <div class="hub-hero-in">
+    <div class="hub-hero-tx">
+      <h1 class="hero-h1" id="hub-h1">Celulares<br> al <em>mejor precio</em></h1>
+      <p class="hub-hero-lead">Android e iPhone, lado a lado. Compara antes de comprar en Mercado Libre y consulta nuestras guías de compra en Amazon MX</p>
+      <div class="hub-stores">
+        <a class="hub-store hub-store--ml" href="#tipos" aria-label="Ver comparativas de productos en Mercado Libre"><span>Comparativas en</span><img src="/logomercado.png" alt="Mercado Libre" width="103" height="26"></a>
+        <a class="hub-store hub-store--amz" href="/guias-compra/celulares-android/" aria-label="Ver guías de compra con enlaces a Amazon"><span>Guías de compra en</span><img src="/logoamazon.png" alt="Amazon" width="73" height="22"></a>
       </div>
-    </a>
-    <a class="cat-card cat-active" href="/celulares/iphone/">
-      <div class="cat-photo"><img src="/fotoIphone.webp" alt="iPhone comparado en Amazon México y Mercado Libre" width="1448" height="1086" loading="lazy"></div>
-      <div class="cat-body">
-        <span class="cat-name">iPhone</span>
-        <span class="cat-sub">15 · 16 · 17 Pro · 18 Pro</span>
-        <span class="cat-cta">Ver comparativa →</span>
-      </div>
-    </a>
+    </div>
+    <div class="hub-art">
+      <svg class="hub-spark" width="46" height="46" viewBox="0 0 46 46" fill="none" stroke="#F6D94A" stroke-width="5" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="22" x2="16" y2="30"/><line x1="18" y1="6" x2="24" y2="22"/><line x1="36" y1="6" x2="33" y2="22"/></svg>
+      <img class="a1" src="https://http2.mlstatic.com/D_NQ_NP_634187-MLA104668423005_012026-F.jpg" alt="iPhone" width="240" height="240" referrerpolicy="no-referrer" loading="eager" decoding="async">
+      <img class="a2" src="https://http2.mlstatic.com/D_NQ_NP_724003-MLA99989849311_112025-F.jpg" alt="Celular Android Motorola" width="240" height="240" referrerpolicy="no-referrer" loading="eager" decoding="async">
+      <img class="a3" src="https://http2.mlstatic.com/D_NQ_NP_976206-MLA95381193469_102025-F.jpg" alt="iPhone Pro" width="240" height="240" referrerpolicy="no-referrer" loading="eager" decoding="async" fetchpriority="high">
+      <img class="a4" src="https://http2.mlstatic.com/D_NQ_NP_600563-MLA113892528136_072026-F.jpg" alt="iPhone Air" width="240" height="240" referrerpolicy="no-referrer" loading="eager" decoding="async">
+    </div>
   </div>
+</section>
 
-  <div class="steps">
-    <div class="step"><span class="step-num">PASO 1 — ENCUENTRA</span><span class="step-txt">Encuentra tu categoría</span></div>
-    <div class="step"><span class="step-num">PASO 2 — SELECCIONA</span><span class="step-txt">Elige 2 o 3 productos</span></div>
-    <div class="step"><span class="step-num">PASO 3 — COMPARA</span><span class="step-txt">Compara y decide dónde comprar</span></div>
-  </div>
+<div class="hub-ben">
+  <div><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 12 12 17 22 12"/><polyline points="2 17 12 22 22 17"/></svg><span>Compara<br>características</span></div>
+  <div><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18"/><path d="M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0L5 7z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0l-3-7z"/><path d="M8 21h8"/></svg><span>Analiza<br>pros y contras</span></div>
+  <div><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H2z"/><path d="M22 4h-7a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h8z"/></svg><span>Guías de compra<br>especializadas</span></div>
+  <div><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.1 8.3 22 9.3 17 14.1 18.2 21 12 17.8 5.8 21 7 14.1 2 9.3 8.9 8.3 12 2"/></svg><span>Encuentra<br>la mejor opción</span></div>
 </div>
+
+<section class="hub-sec hub-sec--tipos" id="tipos" aria-labelledby="tipos-h">
+  <div class="hub-head">
+    <h2 class="bar" id="tipos-h">Explora por tipo de celular</h2>
+    <a class="hub-more" href="/#categorias">Ver todas las categorías →</a>
+  </div>
+  <div class="hub-subcats">
+    <a class="hub-subcat" href="/celulares/android/">
+      <span class="hub-subcat-img"><img src="https://http2.mlstatic.com/D_NQ_NP_724003-MLA99989849311_112025-F.jpg" alt="Celular Android" width="240" height="240" referrerpolicy="no-referrer" loading="lazy" decoding="async"></span>
+      <span class="hub-subcat-body">
+        <h3>Android</h3>
+        <span class="hub-chips"><span>Samsung</span><span>Xiaomi</span><span>Motorola</span></span>
+        <span class="hub-count"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v8"/></svg><span><span data-cmx-count="/celulares/android/">90</span> modelos</span></span>
+        <span class="hub-btn">Ver comparativa <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></span>
+      </span>
+    </a>
+    <a class="hub-subcat" href="/celulares/iphone/">
+      <span class="hub-subcat-img"><img src="https://http2.mlstatic.com/D_NQ_NP_634187-MLA104668423005_012026-F.jpg" alt="iPhone" width="240" height="240" referrerpolicy="no-referrer" loading="lazy" decoding="async"></span>
+      <span class="hub-subcat-body">
+        <h3>iPhone</h3>
+        <span class="hub-chips"><span>iPhone 16</span><span>iPhone 17</span><span>Pro y Pro Max</span></span>
+        <span class="hub-count"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v8"/></svg><span><span data-cmx-count="/celulares/iphone/">13</span> modelos</span></span>
+        <span class="hub-btn">Ver comparativa <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></span>
+      </span>
+    </a>
+  </div>
+</section>
+
+<section class="hub-sec" id="ofertas" aria-labelledby="ofertas-h" hidden>
+  <div class="hub-head">
+    <h2 id="ofertas-h"><svg width="34" height="34" viewBox="0 0 24 24" fill="#EF1B24" aria-hidden="true"><path d="M21.4 12.6 12.6 21.4a2 2 0 0 1-2.8 0L2 13.6V4a2 2 0 0 1 2-2h9.6l7.8 7.8a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.8" fill="#fff"/></svg>Ofertas destacadas</h2>
+    <p>Aprovecha los mejores precios en celulares en México.</p>
+    <a class="hub-more" href="/#ofertas">Ver todas<span class="lg"> las ofertas</span> →</a>
+  </div>
+  <div id="hub-deals" data-section="celulares_ofertas" data-sources='["/celulares/descuentos.json"]'></div>
+  <p class="hub-amz-link"><span>¿Prefieres comprar en <img src="/logoamazon.png" alt="Amazon">? Las ofertas de arriba son de Mercado Libre; para Amazon tenemos guías de compra.</span><a href="/guias-compra/celulares-android/">Consulta nuestra guía de compra en Amazon →</a></p>
+</section>
+
+<section class="hub-sec" id="guias" aria-labelledby="guias-h">
+  <div class="hub-head">
+    <h2 id="guias-h"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#00843D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H2z"/><path d="M22 4h-7a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h8z"/></svg>Guías de compra</h2>
+    <p>Consejos, características clave y recomendaciones para elegir el celular ideal.</p>
+    <a class="hub-more" href="/guias/">Ver todas<span class="lg"> las guías</span> →</a>
+  </div>
+  <div class="hub-guides">
+    <a class="hub-guide" href="/guias/celulares/mejores-celulares-calidad-precio/" style="--g:linear-gradient(120deg,#FFF6E6,#FFFDF7)"><img src="https://http2.mlstatic.com/D_NQ_NP_724003-MLA99989849311_112025-F.jpg" alt="Celular" width="240" height="240" referrerpolicy="no-referrer" loading="lazy" decoding="async"><span><small>Guía de compra:</small><b>Calidad-precio</b><em>Los que más ofrecen por lo que cuestan.</em></span><i aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></i></a>
+    <a class="hub-guide" href="/guias/celulares/mejores-celulares-menos-5000/" style="--g:linear-gradient(120deg,#EAF2FB,#F7FAFE)"><img src="https://http2.mlstatic.com/D_NQ_NP_600563-MLA113892528136_072026-F.jpg" alt="Celular" width="240" height="240" referrerpolicy="no-referrer" loading="lazy" decoding="async"><span><small>Guía de compra:</small><b>Menos de $5,000</b><em>Qué esperar y cuáles convienen.</em></span><i aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></i></a>
+    <a class="hub-guide" href="/guias/celulares/celulares-buena-camara-economicos/" style="--g:linear-gradient(120deg,#F3ECFA,#FBF8FE)"><img src="https://http2.mlstatic.com/D_NQ_NP_976206-MLA95381193469_102025-F.jpg" alt="Celular con buena cámara" width="240" height="240" referrerpolicy="no-referrer" loading="lazy" decoding="async"><span><small>Guía de compra:</small><b>Buena cámara</b><em>Opciones económicas para fotos y video.</em></span><i aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></i></a>
+    <a class="hub-guide" href="/guias/celulares/celulares-5000-10000-mexico/" style="--g:linear-gradient(120deg,#E9F7EE,#F8FCF9)"><img src="https://http2.mlstatic.com/D_NQ_NP_634187-MLA104668423005_012026-F.jpg" alt="Celular" width="240" height="240" referrerpolicy="no-referrer" loading="lazy" decoding="async"><span><small>Guía de compra:</small><b>De $5,000 a $10,000</b><em>La gama media que vale la pena.</em></span><i aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></i></a>
+  </div>
+</section>
+
+</main>
 
 <!-- MÁS BUSCADOS -->
 <div class="pop-section">
@@ -347,53 +402,6 @@ footer a{color:var(--ac);text-decoration:none}
     </div>
   </div>
 </div>
-
-<!-- DESCUENTOS DEL DÍA -->
-<div class="desc-section" id="desc-section" hidden>
-  <div class="desc-inner">
-    <p class="section-label">Ofertas detectadas</p>
-    <h2 class="section-title">Bajaron de precio</h2>
-    <div class="pop-grid" id="desc-grid"></div>
-  </div>
-</div>
-<script>
-(async function(){
-  try{
-    const r=await fetch('/celulares/descuentos.json');
-    if(!r.ok)return;
-    const data=await r.json();
-    if(!data.descuentos||!data.descuentos.length)return;
-    const grid=document.getElementById('desc-grid');
-    const sec=document.getElementById('desc-section');
-    if(!grid||!sec)return;
-    data.descuentos.forEach(function(d){
-      if(d.plataforma==='amazon')return; // política: no se publican precios ni ofertas de Amazon
-      const esAmz=d.plataforma==='amazon',precio=d.precioOferta||d.precioML;
-      const specsHtml=d.especs?[
-        d.especs.pantalla?'<li><span class="spec-key">Pantalla</span><span class="spec-val">'+d.especs.pantalla+'</span></li>':'',
-        d.especs.ram?'<li><span class="spec-key">RAM</span><span class="spec-val">'+d.especs.ram+'</span></li>':'',
-        d.especs.almacenamiento?'<li><span class="spec-key">Almacenamiento</span><span class="spec-val">'+d.especs.almacenamiento+'</span></li>':'',
-        d.especs.cam?'<li><span class="spec-key">Cámara</span><span class="spec-val">'+d.especs.cam+'</span></li>':''
-      ].filter(Boolean).join(''):'';
-      const amzBtn=d.linkAmz?'<a class="btn-amz-sm" href="'+d.linkAmz+'" rel="sponsored nofollow noopener" target="_blank" onclick="typeof gtag===\'function\'&&gtag(\'event\',\'affiliate_click_amz\',{event_category:\'afiliado\',event_label:\''+d.nombre.replace(/'/g,'\\\'')+'\'  ,value:'+precio+',location:\'hub_descuentos\'})">Ir a <img src="/logoamazon.png" style="height:15px;vertical-align:middle;margin-left:4px" alt="Amazon" onerror="this.style.display=\'none\'"></a>':'';
-      const card=document.createElement('div');
-      card.className='pop-card';
-      card.innerHTML='<div class="pop-card-img"><img src="'+d.imagen+'" alt="'+d.nombre+'" loading="lazy"></div>'
-        +'<div class="pop-card-body">'
-        +'<div style="display:flex;align-items:flex-start;gap:6px;flex-wrap:wrap"><span class="pop-card-name">'+d.nombre+'</span><span class="desc-badge">-'+d.pct+'%</span></div>'
-        +(specsHtml?'<ul class="pop-card-specs">'+specsHtml+'</ul>':'')
-        +'<div class="pop-card-price-row"><span class="pop-card-price" style="color:var(--ac)">$'+precio.toLocaleString('es-MX')+' <small>MXN</small></span>'
-        +'<span class="desc-price-antes">$'+Math.round(d.precioAntes).toLocaleString('es-MX')+'</span></div>'
-        +'<div class="pop-card-btns">'
-        +(esAmz||!d.linkML?'':'<a class="btn-ml-sm" href="'+d.linkML+'" rel="sponsored nofollow noopener" target="_blank" onclick="typeof gtag===\'function\'&&gtag(\'event\',\'affiliate_click_ml\',{event_category:\'afiliado\',event_label:\''+d.nombre.replace(/'/g,'\\\'')+'\'  ,value:'+precio+',location:\'hub_descuentos\'})">'
-        +'Ir a <img src="/logomercado.png" style="height:15px;vertical-align:middle;margin-left:4px" alt="Mercado Libre" onerror="this.style.display=\'none\'"></a>')
-        +amzBtn+'</div></div>';
-      grid.appendChild(card);
-    });
-    sec.hidden=false;
-  }catch(e){}
-})();
-</script>
 
 <!-- POR PRESUPUESTO -->
 <div class="budget-section">
@@ -536,6 +544,31 @@ footer a{color:var(--ac);text-decoration:none}
   </div>
 </div>
 
+<section class="hub-leads" aria-labelledby="leads-h">
+  <div class="hub-leads-in">
+    <div>
+      <p class="hub-leads-eyebrow">Para ti · Gratis · Sin spam</p>
+      <h2 id="leads-h">¿No encuentras lo que buscas? <span>Te comparamos.</span></h2>
+      <p class="hub-leads-desc">Dinos qué producto quieres comparar y te avisamos cuando tengamos la comparativa lista — gratis, sin registros complicados.</p>
+    </div>
+    <ul class="hub-leads-list">
+      <li><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 12.5 10 17 19 7.5"/></svg>Comparamos precio, specs y reseñas</li>
+      <li><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 12.5 10 17 19 7.5"/></svg>Te avisamos por correo cuando esté lista</li>
+      <li><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 12.5 10 17 19 7.5"/></svg>Sin costo, sin spam, sin compromisos</li>
+      <li><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 12.5 10 17 19 7.5"/></svg>Respondemos en menos de 48 horas</li>
+    </ul>
+    <form class="hub-form" id="hub-form" action="https://docs.google.com/forms/d/e/1FAIpQLScI3hNm1pX6oo2cnxVqHnTBjOkfsEqBGw0bE3lYc3p0huxzOQ/formResponse" method="post" target="hub-form-sink">
+      <h3>¿Qué quieres que comparemos?</h3>
+      <label class="hub-field"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><line x1="7" y1="9" x2="13" y2="9"/><line x1="7" y1="13" x2="11" y2="13"/></svg><span class="hub-sr">Producto que quieres comparar</span><input type="text" name="entry.1897553618" placeholder="iPhone, Samsung, Xiaomi…" required maxlength="200" autocomplete="off"></label>
+      <label class="hub-field"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg><span class="hub-sr">Tu correo electrónico</span><input type="email" name="entry.90518688" placeholder="Tu correo electrónico" required maxlength="200" autocomplete="email"></label>
+      <button type="submit">Solicitar comparativa →</button>
+      <p class="hub-form-msg" id="hub-form-msg" role="status" aria-live="polite"></p>
+      <p class="hub-form-alt">Tu correo solo se usa para avisarte. ¿No se envía? <a href="https://docs.google.com/forms/d/e/1FAIpQLScI3hNm1pX6oo2cnxVqHnTBjOkfsEqBGw0bE3lYc3p0huxzOQ/viewform" target="_blank" rel="noopener">Abre el formulario</a>.</p>
+    </form>
+    <iframe name="hub-form-sink" id="hub-form-sink" title="Envío del formulario" hidden></iframe>
+  </div>
+</section>
+
 <!-- SEO content block -->
 <section style="max-width:860px;margin:2.5rem auto;padding:0 2rem 2.5rem;color:var(--tx2);font-size:.9rem;line-height:1.8;border-top:1px solid var(--bd)">
   <h2 style="font-size:1.15rem;font-weight:800;color:var(--tx);margin-bottom:.75rem;letter-spacing:-.02em">¿Cómo comparar el precio de un celular en México en 2026?</h2>
@@ -560,18 +593,18 @@ footer a{color:var(--ac);text-decoration:none}
 <section class="cmx-rel" aria-labelledby="cmx-rel-h"><div class="cmx-rel-in"><h2 id="cmx-rel-h">Sigue explorando</h2><p class="cmx-rel-lead">Guías de compra y categorías que combinan con esta.</p><h3>Guías relacionadas</h3><div class="cmx-rel-grid"><a class="cmx-rel-card" href="/guias/celulares/celulares-5000-10000-mexico/"><span class="cmx-rel-tx"><span class="cmx-rel-k">Guía</span><span class="cmx-rel-t">Celulares entre $5,000 y $10,000 en México: el punto dulce</span></span></a><a class="cmx-rel-card" href="/guias/celulares/celulares-buen-fin-2026-segun-presupuesto/"><span class="cmx-rel-tx"><span class="cmx-rel-k">Guía</span><span class="cmx-rel-t">Qué celulares comprar en Buen Fin 2026 según tu presupuesto</span></span></a><a class="cmx-rel-card" href="/guias/celulares/celulares-buena-camara-economicos/"><span class="cmx-rel-tx"><span class="cmx-rel-k">Guía</span><span class="cmx-rel-t">Celulares con buena cámara por menos de $7,000 en México</span></span></a><a class="cmx-rel-card" href="/guias/celulares/celulares-menos-3000-mexico/"><span class="cmx-rel-tx"><span class="cmx-rel-k">Guía</span><span class="cmx-rel-t">Mejores celulares por menos de $3,000 pesos en México</span></span></a><a class="cmx-rel-card" href="/guias/"><span class="cmx-rel-tx"><span class="cmx-rel-k">Guías</span><span class="cmx-rel-t">Ver todas las guías de compra</span><span class="cmx-rel-d">Cómo elegir, comparativas y ofertas</span></span></a></div><h3>Sigue con otras categorías</h3><div class="cmx-rel-grid"><a class="cmx-rel-card" href="/celulares/android/"><span class="cmx-rel-ic" aria-hidden="true">🤖</span><span class="cmx-rel-tx"><span class="cmx-rel-k">Categoría</span><span class="cmx-rel-t">Android</span><span class="cmx-rel-d">Samsung, Pixel, Motorola y más</span></span></a><a class="cmx-rel-card" href="/celulares/iphone/"><span class="cmx-rel-ic" aria-hidden="true">🍎</span><span class="cmx-rel-tx"><span class="cmx-rel-k">Categoría</span><span class="cmx-rel-t">iPhone</span><span class="cmx-rel-d">iPhone 17, 18 Pro, 18 Pro Max</span></span></a><a class="cmx-rel-card" href="/laptops/"><span class="cmx-rel-ic" aria-hidden="true">💻</span><span class="cmx-rel-tx"><span class="cmx-rel-k">Categoría</span><span class="cmx-rel-t">Laptops</span><span class="cmx-rel-d">Universidad, gaming, trabajo</span></span></a></div></div></section>
 <!-- cmx-related:end -->
 <!-- cmx-footer:start -->
-<div class="cmx-ft" role="contentinfo" id="cmx-ft"><div class="cmx-ft-in">
-<div class="cmx-ft-disc"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6EE7B7" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><div><h2>Aviso de afiliados</h2><p>comparalo.mx participa en los programas de afiliados de Amazon México y Mercado Libre. Si compras a través de nuestros enlaces recibimos una comisión, sin costo adicional para ti. Esa comisión no influye en el orden ni en las recomendaciones. <a href="/aviso-afiliados/">Más información</a></p></div></div>
-<div class="cmx-ft-grid">
-<div><span class="cmx-ft-brand"><img src="/logopng.png" alt="" width="28" height="28" loading="lazy">comparalo<i>.mx</i></span><p>Comparamos precios de Amazon MX y Mercado Libre para que decidas con datos, no a ciegas.</p></div>
-<div><h3>Categorías</h3><ul><li><a href="/celulares/">Celulares</a></li><li><a href="/celulares/android/">Android</a></li><li><a href="/celulares/iphone/">iPhone</a></li><li><a href="/laptops/">Laptops</a></li><li><a href="/electrodomesticos/">Electrodomésticos</a></li><li><a href="/suplementos/">Suplementos</a></li><li><a href="/bicis/">Bicicletas</a></li><li><a href="/videojuegos/">Videojuegos</a></li><li><a href="/tecnologia/">Tecnología</a></li></ul></div>
-<div><h3>Recursos</h3><ul><li><a href="/guias/">Guías y artículos</a></li><li><a href="/#metodo">Cómo comparamos</a></li><li><a href="/sobre-nosotros/">Quiénes somos</a></li><li><a href="/contacto/">Contacto</a></li><li><a href="/sitemap.xml">Mapa del sitio</a></li></ul></div>
-<div><h3>Legal</h3><ul><li><a href="/aviso-afiliados/">Aviso de afiliados</a></li><li><a href="/privacidad/">Privacidad</a></li><li><a href="/terminos/">Términos</a></li></ul></div>
+<div class="cmx-ft2" role="contentinfo" id="cmx-ft"><div class="cmx-ft2-in">
+<div class="cmx-ft2-grid">
+<div class="cmx-ft2-brand"><a class="cmx-ft2-logo" href="/" aria-label="comparalo.mx, inicio"><img src="/logopng.png" alt="" width="40" height="40" loading="lazy"><span>comparalo<i>.mx</i></span></a><p>Comparamos precios de Amazon MX y Mercado Libre para que decidas con datos, no a ciegas.</p></div>
+<div class="cmx-ft2-col cmx-ft2-cats"><h3><button type="button" aria-expanded="false" onclick="var c=this.closest('.cmx-ft2-col');this.setAttribute('aria-expanded',c.classList.toggle('open'))">Categorías<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button></h3><ul><li><a href="/celulares/">Celulares</a></li><li><a href="/laptops/">Laptops</a></li><li><a href="/electrodomesticos/">Electrodomésticos</a></li><li><a href="/suplementos/">Suplementos</a></li><li><a href="/bicis/">Bicicletas</a></li><li><a href="/videojuegos/">Videojuegos</a></li><li><a href="/tecnologia/">Tecnología</a></li><li><a href="/#categorias">Todas las categorías</a></li></ul></div>
+<div class="cmx-ft2-col"><h3><button type="button" aria-expanded="false" onclick="var c=this.closest('.cmx-ft2-col');this.setAttribute('aria-expanded',c.classList.toggle('open'))">Recursos<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button></h3><ul><li><a href="/guias/">Guías y artículos</a></li><li><a href="/#metodo">Cómo comparamos</a></li><li><a href="/sobre-nosotros/">Quiénes somos</a></li><li><a href="/contacto/">Contacto</a></li></ul></div>
+<div class="cmx-ft2-col"><h3><button type="button" aria-expanded="false" onclick="var c=this.closest('.cmx-ft2-col');this.setAttribute('aria-expanded',c.classList.toggle('open'))">Legal<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button></h3><ul><li><a href="/aviso-afiliados/">Aviso de afiliados</a></li><li><a href="/privacidad/">Privacidad</a></li><li><a href="/terminos/">Términos</a></li></ul></div>
 </div>
-<p class="cmx-ft-bottom">Los precios y la disponibilidad pueden cambiar en cualquier momento. Confirma el precio final en la tienda antes de pagar. © 2026 comparalo.mx</p>
+<p class="cmx-ft2-bottom">comparalo.mx participa en los programas de afiliados de Mercado Libre y Amazon México: si compras desde nuestros enlaces podemos recibir una comisión, sin costo adicional para ti. <a href="/aviso-afiliados/">Más información</a>. Los precios y la disponibilidad pueden cambiar; confirma el precio final en la tienda. © 2026 comparalo.mx</p>
 </div></div>
 <!-- cmx-footer:end -->
 
+<script src="/assets/js/cmx-hub.js" defer></script>
 <script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
 <script src="/assets/js/share.js" defer></script>

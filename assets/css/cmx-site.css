@@ -274,3 +274,80 @@ html[data-cmx-filters="panel"] #toolbar-mobile { display: none !important; }
   color: #9A3412;
   font: 600 11.5px/1.45 'Satoshi', system-ui, sans-serif;
 }
+
+/* ── Encabezado del rediseño (.cmx-hd2) ──
+   Lo llevan solo las páginas listadas en HEADER_V2 de scripts/sync-site.js. */
+.cmx-hd2 { background: #fff; border-bottom: 1px solid #E5E7EB; }
+.cmx-hd2 .cmx-hd-in { max-width: var(--cmx-shell-max, 1240px); height: 78px; gap: 28px; padding: 0 28px; }
+.cmx-hd2 .cmx-hd-logo { gap: 4px; }
+.cmx-hd2 .cmx-hd-logo img { width: 56px; height: 56px; margin: 0 -4px 0 -8px; }
+.cmx-hd2 .cmx-hd-logo span { font-size: 39px; font-weight: 800; letter-spacing: -1.9px; color: #0B3B2A; line-height: 1; }
+.cmx-hd2 .cmx-hd-logo i { color: #EF1B24; font-size: .74em; letter-spacing: -.5px; }
+.cmx-hd2-nav { display: flex; align-items: center; gap: 46px; margin: 0 26px 0 auto; }
+.cmx-hd2-nav > a, .cmx-hd2-ddbtn { font: 700 17px/1 'Satoshi', system-ui, sans-serif; letter-spacing: -.4px; color: #111827; background: none; border: 0; padding: 10px 2px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.cmx-hd2-nav > a:hover, .cmx-hd2-ddbtn:hover { color: #006847; }
+.cmx-hd2-nav > a.cmx-hd2-ofertas { background: #F6D94A; border-radius: 999px; padding: 10px 18px; color: #111827; }
+.cmx-hd2-nav > a.cmx-hd2-ofertas:hover { background: #F0C000; color: #111827; }
+.cmx-hd2-dd { position: relative; }
+.cmx-hd2-menu { display: none; position: absolute; top: 100%; left: -14px; min-width: 220px; background: #fff; border: 1px solid #E5E7EB; border-radius: 14px; box-shadow: 0 14px 34px rgba(15,23,42,.14); padding: 8px; z-index: 120; }
+.cmx-hd2-dd:hover .cmx-hd2-menu, .cmx-hd2-dd:focus-within .cmx-hd2-menu { display: grid; }
+.cmx-hd2-menu a { font: 600 14.5px/1.2 'Satoshi', system-ui, sans-serif; color: #111827; padding: 10px 12px; border-radius: 9px; }
+.cmx-hd2-menu a:hover, .cmx-hd2-menu a:focus-visible { background: #EAF7EF; color: #006847; outline: none; }
+.cmx-hd2 .cmx-hd-act { gap: 6px; margin-left: 8px; }
+.cmx-hd2 .cmx-hd-searchbtn, .cmx-hd2-burger { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; background: none; color: #111827; cursor: pointer; }
+.cmx-hd2 .cmx-hd-searchbtn:hover, .cmx-hd2-burger:hover { background: #F1F5F4; }
+.cmx-hd2-burger { display: none; }
+/* Buscador visible: parece un campo de texto, pero al tocarlo abre el panel de categorías */
+.cmx-hd2-searchtx { display: none; }
+@media (min-width: 1280px) {
+  .cmx-hd2 .cmx-hd-searchbtn { width: auto; min-width: 250px; height: 46px; justify-content: flex-start; gap: 10px; padding: 0 18px 0 14px; border: 1.5px solid #D5DAE0; border-radius: 999px; background: #F6F8F7; color: #475569; font: 500 15.5px/1 'Satoshi', system-ui, sans-serif; letter-spacing: -.2px; }
+  .cmx-hd2 .cmx-hd-searchbtn:hover { background: #fff; border-color: #00843D; }
+  .cmx-hd2 .cmx-hd-searchbtn svg { width: 20px; height: 20px; color: #111827; flex-shrink: 0; }
+  .cmx-hd2-searchtx { display: inline; white-space: nowrap; }
+}
+@media (max-width: 1279px) and (min-width: 901px) { .cmx-hd2-nav { gap: 30px; } }
+.cmx-hd2-ddbtn:focus-visible, .cmx-hd2-nav > a:focus-visible, .cmx-hd2-burger:focus-visible { outline: 2px solid #006847; outline-offset: 3px; border-radius: 8px; }
+@media (max-width: 900px) {
+  .cmx-hd2 .cmx-hd-in { height: 60px; padding: 0 14px; gap: 8px; }
+  .cmx-hd2-nav { display: none; }
+  .cmx-hd2 .cmx-hd-act { margin-left: auto; gap: 0; }
+  .cmx-hd2-burger { display: inline-flex; }
+  .cmx-hd2 .cmx-hd-logo img { width: 42px; height: 42px; margin: 0 -3px 0 -6px; }
+  .cmx-hd2 .cmx-hd-logo span { font-size: 28px; letter-spacing: -1.3px; }
+}
+
+/* ── Pie del rediseño (.cmx-ft2) ──
+   Lo llevan solo las páginas listadas en FOOTER_V2 de scripts/sync-site.js. */
+.cmx-ft2 { background: #10182D; color: rgba(255,255,255,.78); font-family: 'Satoshi', system-ui, -apple-system, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; padding: 40px 28px 26px; font-size: 14.5px; line-height: 1.5; text-align: left; }
+.cmx-ft2, .cmx-ft2 * { box-sizing: border-box; }
+.cmx-ft2-in { max-width: var(--cmx-shell-max, 1240px); margin: 0 auto; }
+.cmx-ft2 a { color: rgba(255,255,255,.82); text-decoration: none; }
+.cmx-ft2 a:hover, .cmx-ft2 a:focus-visible { color: #fff; text-decoration: underline; outline: none; }
+.cmx-ft2-grid { display: grid; grid-template-columns: 1.55fr 1.9fr 1fr .9fr; gap: 40px; }
+.cmx-ft2-logo { display: inline-flex; align-items: center; gap: 2px; }
+.cmx-ft2-logo:hover { text-decoration: none !important; }
+.cmx-ft2-logo img { width: 40px; height: 40px; margin-left: -6px; display: block; }
+.cmx-ft2-logo span { font-size: 27px; font-weight: 800; letter-spacing: -1.2px; color: #fff; line-height: 1; }
+.cmx-ft2-logo i { font-style: normal; color: #EF1B24; font-size: .74em; letter-spacing: -.4px; }
+.cmx-ft2-brand p { margin: 14px 0 0; max-width: 300px; font-size: 14.5px; line-height: 1.55; color: rgba(255,255,255,.85); }
+.cmx-ft2 h3 { margin: 0 0 14px; }
+.cmx-ft2 h3 button { all: unset; display: flex; align-items: center; justify-content: space-between; width: 100%; font: 800 12px/1.2 'Satoshi', system-ui, sans-serif; letter-spacing: .09em; text-transform: uppercase; color: rgba(255,255,255,.7); cursor: default; }
+.cmx-ft2 h3 svg { display: none; }
+.cmx-ft2 ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; }
+.cmx-ft2-cats ul { grid-template-columns: 1fr 1fr; column-gap: 28px; grid-auto-flow: column; grid-template-rows: repeat(4, auto); }
+.cmx-ft2-bottom { margin: 30px 0 0; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.14); font-size: 12.5px; line-height: 1.6; color: rgba(255,255,255,.6); }
+@media (max-width: 860px) {
+  .cmx-ft2 { padding: 28px 18px 24px; }
+  .cmx-ft2-grid { grid-template-columns: 1fr; gap: 0; }
+  .cmx-ft2-brand { padding-bottom: 20px; }
+  .cmx-ft2-col { border-top: 1px solid rgba(255,255,255,.22); }
+  .cmx-ft2 h3 { margin: 0; }
+  .cmx-ft2 h3 button { cursor: pointer; padding: 14px 2px; font-size: 17px; letter-spacing: -.3px; text-transform: none; color: #fff; min-height: 48px; }
+  .cmx-ft2 h3 button:focus-visible { outline: 2px solid #6EE7B7; outline-offset: 2px; }
+  .cmx-ft2 h3 svg { display: block; transition: transform .15s; }
+  .cmx-ft2-col.open h3 svg { transform: rotate(180deg); }
+  .cmx-ft2-col ul { display: none; padding: 2px 2px 16px; }
+  .cmx-ft2-col.open ul { display: grid; }
+  .cmx-ft2-cats ul { grid-auto-flow: row; grid-template-rows: none; }
+  .cmx-ft2 li a { display: block; padding: 4px 0; }
+}

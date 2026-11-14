@@ -11,35 +11,7 @@ body { background: #fff; color: var(--hm-text); }
 
 /* ── Encabezado nuevo ─────────────────────────────────────── */
 .nav { border-bottom: 0 !important; }
-.cmx-hd2 { background: #fff; border-bottom: 1px solid var(--hm-border); }
-.cmx-hd2 .cmx-hd-in { max-width: var(--hm-max); height: 78px; gap: 28px; padding: 0 28px; }
-.cmx-hd2 .cmx-hd-logo { gap: 4px; }
-.cmx-hd2 .cmx-hd-logo img { width: 56px; height: 56px; margin: 0 -4px 0 -8px; }
-.cmx-hd2 .cmx-hd-logo span { font-size: 39px; font-weight: 800; letter-spacing: -1.9px; color: #0B3B2A; line-height: 1; }
-.cmx-hd2 .cmx-hd-logo i { color: var(--hm-red); font-size: .74em; letter-spacing: -.5px; }
-.cmx-hd2-nav { display: flex; align-items: center; gap: 46px; margin: 0 26px 0 auto; }
-.cmx-hd2-nav > a, .cmx-hd2-ddbtn { font: 700 17px/1 'Satoshi', system-ui, sans-serif; letter-spacing: -.4px; color: var(--hm-text); background: none; border: 0; padding: 10px 2px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
-.cmx-hd2-nav > a:hover, .cmx-hd2-ddbtn:hover { color: var(--hm-green); }
-.cmx-hd2-nav > a.cmx-hd2-ofertas { background: #F6D94A; border-radius: 999px; padding: 10px 18px; color: var(--hm-text); }
-.cmx-hd2-nav > a.cmx-hd2-ofertas:hover { background: var(--hm-ml); color: var(--hm-text); }
-.cmx-hd2-dd { position: relative; }
-.cmx-hd2-menu { display: none; position: absolute; top: 100%; left: -14px; min-width: 220px; background: #fff; border: 1px solid var(--hm-border); border-radius: 14px; box-shadow: 0 14px 34px rgba(15,23,42,.14); padding: 8px; z-index: 120; }
-.cmx-hd2-dd:hover .cmx-hd2-menu, .cmx-hd2-dd:focus-within .cmx-hd2-menu { display: grid; }
-.cmx-hd2-menu a { font: 600 14.5px/1.2 'Satoshi', system-ui, sans-serif; color: var(--hm-text); padding: 10px 12px; border-radius: 9px; }
-.cmx-hd2-menu a:hover, .cmx-hd2-menu a:focus-visible { background: var(--hm-green-soft); color: var(--hm-green); outline: none; }
-.cmx-hd2 .cmx-hd-act { gap: 6px; margin-left: 8px; }
-.cmx-hd2 .cmx-hd-searchbtn, .cmx-hd2-burger { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; background: none; color: var(--hm-text); cursor: pointer; }
-.cmx-hd2 .cmx-hd-searchbtn:hover, .cmx-hd2-burger:hover { background: #F1F5F4; }
-.cmx-hd2-burger { display: none; }
-.cmx-hd2-ddbtn:focus-visible, .cmx-hd2-nav > a:focus-visible, .cmx-hd2-burger:focus-visible { outline: 2px solid var(--hm-green); outline-offset: 3px; border-radius: 8px; }
-@media (max-width: 900px) {
-  .cmx-hd2 .cmx-hd-in { height: 60px; padding: 0 14px; gap: 8px; }
-  .cmx-hd2-nav { display: none; }
-  .cmx-hd2 .cmx-hd-act { margin-left: auto; gap: 0; }
-  .cmx-hd2-burger { display: inline-flex; }
-  .cmx-hd2 .cmx-hd-logo img { width: 42px; height: 42px; margin: 0 -3px 0 -6px; }
-  .cmx-hd2 .cmx-hd-logo span { font-size: 28px; letter-spacing: -1.3px; }
-}
+/* Los estilos del encabezado nuevo (.cmx-hd2) viven en cmx-site.css: lo comparten las páginas rediseñadas. */
 
 /* ── Hero ─────────────────────────────────────────────────── */
 .hm-hero { position: relative; background: radial-gradient(120% 90% at 78% 40%, #0A7A4E 0%, var(--hm-green) 34%, var(--hm-green-dark) 68%, var(--hm-green-deep) 100%); color: #fff; overflow: hidden; }

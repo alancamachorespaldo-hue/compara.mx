@@ -414,29 +414,35 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 
 </style>
 <link rel="stylesheet" href="/assets/css/cmx-site.css">
+<link rel="stylesheet" href="/assets/css/cmx-hub.css">
 </head>
-<body data-category="bicis">
+<body class="hub-page" data-category="bicis">
 
 <!-- cmx-header:start -->
-<div class="cmx-hd" id="cmx-hd">
+<div class="cmx-hd cmx-hd2" id="cmx-hd">
   <div class="cmx-hd-in">
-    <a class="cmx-hd-logo" href="/" aria-label="comparalo.mx, inicio"><img src="/logopng.png" alt="" width="28" height="28"><span>comparalo<i>.mx</i></span></a>
-    <div class="cmx-hd-search" id="cmx-hd-search"></div>
-    <div class="cmx-hd-links" role="navigation" aria-label="Navegación principal">
-      <a href="/celulares/">Celulares</a>
-      <a href="/laptops/">Laptops</a>
-      <a href="/electrodomesticos/">Electrodomésticos</a>
-      <a href="/suplementos/">Suplementos</a>
-      <a href="/bicis/" aria-current="page">Bicicletas</a>
-      <a href="/videojuegos/">Videojuegos</a>
-      <a href="/tecnologia/">Tecnología</a>
-      <a href="/guias/">Guías</a>
-    </div>
+    <a class="cmx-hd-logo" href="/" aria-label="comparalo.mx, inicio"><img src="/logopng.png" alt="" width="44" height="44"><span>comparalo<i>.mx</i></span></a>
+    <nav class="cmx-hd2-nav" aria-label="Navegación principal">
+      <div class="cmx-hd2-dd">
+        <button type="button" class="cmx-hd2-ddbtn" aria-haspopup="true">Categorías <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="cmx-hd2-menu">
+          <a href="/celulares/">Celulares</a>
+          <a href="/laptops/">Laptops</a>
+          <a href="/electrodomesticos/">Electrodomésticos</a>
+          <a href="/suplementos/">Suplementos</a>
+          <a href="/bicis/">Bicicletas</a>
+          <a href="/videojuegos/">Videojuegos</a>
+          <a href="/tecnologia/">Tecnología</a>
+        </div>
+      </div>
+      <a href="/#categorias">Comparativas</a>
+      <a href="/guias/">Guías de compra</a>
+      <a class="cmx-hd2-ofertas" href="/#ofertas"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z"/><circle cx="7" cy="7" r="1.2" fill="currentColor"/></svg> Ofertas</a>
+    </nav>
     <div class="cmx-hd-act">
-      <button class="cmx-hd-searchbtn" id="cmx-hd-searchbtn" type="button" aria-label="Buscar categoría"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
-      <a class="cmx-hd-guias" href="/guias/">Guías</a>
       <!-- cmx-hd-extra:start --><!-- cmx-hd-extra:end -->
-      <button class="btn-share" onclick="shareCurrentPage()" title="Compartir esta p&#225;gina" aria-label="Compartir"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg><span class="share-txt">Compartir</span></button>
+      <button class="cmx-hd-searchbtn" id="cmx-hd-searchbtn" type="button" aria-label="Buscar categoría"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7.5"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg><span class="cmx-hd2-searchtx">¿Qué quieres comparar?</span></button>
+      <button class="cmx-hd2-burger" type="button" aria-label="Abrir menú de categorías" onclick="document.getElementById('cmx-hd-searchbtn').click()"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
     </div>
   </div>
 </div>
@@ -445,36 +451,105 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 <div class="cmx-bc"><ol aria-label="Ruta de navegación"><li><a href="/">Inicio</a></li><li aria-current="page"><span id="breadcrumb-cat">Bicicletas</span></li></ol></div>
 <!-- cmx-bc:end -->
 
-<div class="hero">
-  <div>
-    <h1>Bicicletas en México</h1>
-    <p>Compara precios en Amazon MX y Mercado Libre · Eléctricas, Montaña, Ruta y Gravel</p>
-  </div>
-</div>
-
-<!-- Guía de compra rápida -->
-<section style="background:#f7f7f5;border-bottom:1px solid var(--bd);padding:1.25rem 2rem">
-  <div style="max-width:900px;margin:0 auto">
-    <h2 style="font-size:1rem;font-weight:700;letter-spacing:-.02em;margin-bottom:.65rem;color:var(--tx)">¿Qué bicicleta comprar en México 2026? Guía rápida</h2>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem 1.5rem;font-size:.82rem;color:var(--tx);line-height:1.6">
-      <div>
-        <strong style="color:var(--ac)">Bicicleta eléctrica</strong><br>
-        Ideal si recorres más de 5 km al día o vives en ciudad con tráfico. Busca mínimo 350 W de motor y 40 km de autonomía. Las plegables son perfectas para departamento o transporte combinado con metro.
-      </div>
-      <div>
-        <strong style="color:var(--ac)">Bicicleta de montaña (MTB)</strong><br>
-        Para terracería, trails y uso mixto ciudad-campo. Prefiere marco de aluminio, frenos de disco hidráulico y 21+ velocidades. En México las marcas más accesibles con buena relación precio-calidad son Terrafit y Trek.
-      </div>
-      <div>
-        <strong style="color:var(--ac)">Ruta y Gravel</strong><br>
-        Para distancias largas en asfalto o caminos mixtos. Las de ruta priorizan velocidad y ligereza; las gravel combinan robustez con comodidad. Busca al menos 700C de llanta y manubrio curvo.
-      </div>
-      <div>
-        <strong style="color:var(--ac)">¿Amazon MX o Mercado Libre?</strong><br>
-        Ambas plataformas tienen buen stock en México. Amazon suele tener entregas más rápidas; Mercado Libre ofrece más variedad de vendedores locales y opción de pago en efectivo. Compara siempre el precio final con envío incluido.
+<main class="hub">
+<section class="hub-hero" aria-labelledby="hub-h1">
+  <div class="hub-hero-in">
+    <div class="hub-hero-tx">
+      <h1 class="hero-h1" id="hub-h1">Bicicletas<br> al <em>mejor precio</em></h1>
+      <p class="hub-hero-lead">Compara bicicletas eléctricas, de montaña, ruta y gravel en Mercado Libre. Decide con datos.</p>
+      <div class="hub-stores">
+        <a class="hub-store hub-store--ml" href="#tipos" aria-label="Ver comparativas de productos en Mercado Libre"><span>Comparativas en</span><img src="/logomercado.png" alt="Mercado Libre" width="103" height="26"></a>
+        <a class="hub-store hub-store--guides" href="#guias">Guías de compra <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="6 13 12 19 18 13"/></svg></a>
       </div>
     </div>
+    <div class="hub-art">
+      <svg class="hub-spark" width="46" height="46" viewBox="0 0 46 46" fill="none" stroke="#F6D94A" stroke-width="5" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="22" x2="16" y2="30"/><line x1="18" y1="6" x2="24" y2="22"/><line x1="36" y1="6" x2="33" y2="22"/></svg>
+      <img class="a1" src="https://http2.mlstatic.com/D_NQ_NP_2X_763620-MLA89353119440_082025-F.webp" alt="Bicicleta eléctrica plegable" width="240" height="240" referrerpolicy="no-referrer" loading="eager" decoding="async">
+      <img class="a2" src="https://http2.mlstatic.com/D_NQ_NP_602148-MLA95664168836_102025-F.jpg" alt="Bicicleta de ruta" width="240" height="240" referrerpolicy="no-referrer" loading="eager" decoding="async">
+      <img class="a3" src="https://http2.mlstatic.com/D_NQ_NP_2X_821602-MLA110863985818_052026-F.webp" alt="Bicicleta de montaña" width="240" height="240" referrerpolicy="no-referrer" loading="eager" decoding="async" fetchpriority="high">
+      <img class="a4" src="https://http2.mlstatic.com/D_NQ_NP_761495-MLA105587499836_012026-F.jpg" alt="Bicicleta gravel" width="240" height="240" referrerpolicy="no-referrer" loading="eager" decoding="async">
+    </div>
   </div>
+</section>
+
+<div class="hub-ben">
+  <div><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 12 12 17 22 12"/><polyline points="2 17 12 22 22 17"/></svg><span>Compara<br>características</span></div>
+  <div><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18"/><path d="M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0L5 7z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0l-3-7z"/><path d="M8 21h8"/></svg><span>Analiza<br>pros y contras</span></div>
+  <div><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H2z"/><path d="M22 4h-7a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h8z"/></svg><span>Guías de compra<br>especializadas</span></div>
+  <div><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.1 8.3 22 9.3 17 14.1 18.2 21 12 17.8 5.8 21 7 14.1 2 9.3 8.9 8.3 12 2"/></svg><span>Encuentra<br>la mejor opción</span></div>
+</div>
+
+<section class="hub-sec hub-sec--tipos" id="tipos" aria-labelledby="tipos-h">
+  <div class="hub-head">
+    <h2 class="bar" id="tipos-h">Explora por tipo de bicicleta</h2>
+    <a class="hub-more" href="/#categorias">Ver todas las categorías →</a>
+  </div>
+  <div class="hub-subcats">
+    <a class="hub-subcat" href="#comparador" onclick="switchSection('electricas',document.getElementById('tab-electricas'))">
+      <span class="hub-subcat-img"><img src="https://http2.mlstatic.com/D_NQ_NP_2X_763620-MLA89353119440_082025-F.webp" alt="Bicicleta eléctrica" width="240" height="240" referrerpolicy="no-referrer" loading="lazy" decoding="async"></span>
+      <span class="hub-subcat-body">
+        <h3>Eléctricas</h3>
+        <span class="hub-chips"><span>Plegables</span><span>Urbanas</span><span>Autonomía</span></span>
+        <span class="hub-count"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v8"/></svg><span><span data-hub-count="electricas">—</span> productos</span></span>
+        <span class="hub-btn">Ver comparativa <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></span>
+      </span>
+    </a>
+    <a class="hub-subcat" href="#comparador" onclick="switchSection('montana',document.getElementById('tab-montana'))">
+      <span class="hub-subcat-img"><img src="https://http2.mlstatic.com/D_NQ_NP_2X_821602-MLA110863985818_052026-F.webp" alt="Bicicleta de montaña" width="240" height="240" referrerpolicy="no-referrer" loading="lazy" decoding="async"></span>
+      <span class="hub-subcat-body">
+        <h3>Montaña</h3>
+        <span class="hub-chips"><span>R26</span><span>R29</span><span>Suspensión</span></span>
+        <span class="hub-count"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v8"/></svg><span><span data-hub-count="montana">—</span> productos</span></span>
+        <span class="hub-btn">Ver comparativa <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></span>
+      </span>
+    </a>
+    <a class="hub-subcat" href="#comparador" onclick="switchSection('ruta',document.getElementById('tab-ruta'))">
+      <span class="hub-subcat-img"><img src="https://http2.mlstatic.com/D_NQ_NP_602148-MLA95664168836_102025-F.jpg" alt="Bicicleta de ruta" width="240" height="240" referrerpolicy="no-referrer" loading="lazy" decoding="async"></span>
+      <span class="hub-subcat-body">
+        <h3>Ruta</h3>
+        <span class="hub-chips"><span>700C</span><span>Aluminio</span><span>Carbono</span></span>
+        <span class="hub-count"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v8"/></svg><span><span data-hub-count="ruta">—</span> productos</span></span>
+        <span class="hub-btn">Ver comparativa <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></span>
+      </span>
+    </a>
+    <a class="hub-subcat" href="#comparador" onclick="switchSection('gravel',document.getElementById('tab-gravel'))">
+      <span class="hub-subcat-img"><img src="https://http2.mlstatic.com/D_NQ_NP_761495-MLA105587499836_012026-F.jpg" alt="Bicicleta gravel" width="240" height="240" referrerpolicy="no-referrer" loading="lazy" decoding="async"></span>
+      <span class="hub-subcat-body">
+        <h3>Gravel</h3>
+        <span class="hub-chips"><span>Todo terreno</span><span>700C</span><span>Aluminio</span></span>
+        <span class="hub-count"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v8"/></svg><span><span data-hub-count="gravel">—</span> productos</span></span>
+        <span class="hub-btn">Ver comparativa <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></span>
+      </span>
+    </a>
+  </div>
+</section>
+
+<section class="hub-sec" id="ofertas" aria-labelledby="ofertas-h" hidden>
+  <div class="hub-head">
+    <h2 id="ofertas-h"><svg width="34" height="34" viewBox="0 0 24 24" fill="#EF1B24" aria-hidden="true"><path d="M21.4 12.6 12.6 21.4a2 2 0 0 1-2.8 0L2 13.6V4a2 2 0 0 1 2-2h9.6l7.8 7.8a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.8" fill="#fff"/></svg>Ofertas destacadas</h2>
+    <p>Aprovecha los mejores precios en bicicletas en México.</p>
+    <a class="hub-more" href="/#ofertas">Ver todas<span class="lg"> las ofertas</span> →</a>
+  </div>
+  <div id="hub-deals" data-section="bicis_ofertas" data-sources='["/bicis/descuentos.json"]'></div>
+</section>
+
+<section class="hub-sec" id="guias" aria-labelledby="guias-h">
+  <div class="hub-head">
+    <h2 id="guias-h"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#00843D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H2z"/><path d="M22 4h-7a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h8z"/></svg>Guías de compra</h2>
+    <p>Consejos, características clave y recomendaciones para elegir la bicicleta ideal.</p>
+    <a class="hub-more" href="/guias/">Ver todas<span class="lg"> las guías</span> →</a>
+  </div>
+  <div class="hub-guides">
+    <a class="hub-guide" href="/bicis/como-elegir-bicicleta-electrica/" style="--g:linear-gradient(120deg,#FFF6E6,#FFFDF7)"><img src="https://http2.mlstatic.com/D_NQ_NP_2X_763620-MLA89353119440_082025-F.webp" alt="Bicicleta eléctrica" width="240" height="240" referrerpolicy="no-referrer" loading="lazy" decoding="async"><span><small>Guía de compra:</small><b>Bicicletas eléctricas</b><em>Cómo elegir según tu tipo de uso.</em></span><i aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></i></a>
+    <a class="hub-guide" href="/bicis/bicicleta-electrica-vale-la-pena/" style="--g:linear-gradient(120deg,#EAF2FB,#F7FAFE)"><img src="https://http2.mlstatic.com/D_NQ_NP_2X_763620-MLA89353119440_082025-F.webp" alt="Bicicleta eléctrica" width="240" height="240" referrerpolicy="no-referrer" loading="lazy" decoding="async"><span><small>Guía de compra:</small><b>¿Vale la pena una eléctrica?</b><em>Costos reales, ahorro y regulación.</em></span><i aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></i></a>
+    <a class="hub-guide" href="#guia-rapida" style="--g:linear-gradient(120deg,#F3ECFA,#FBF8FE)"><img src="https://http2.mlstatic.com/D_NQ_NP_2X_821602-MLA110863985818_052026-F.webp" alt="Bicicleta de montaña" width="240" height="240" referrerpolicy="no-referrer" loading="lazy" decoding="async"><span><small>Guía de compra:</small><b>Qué bicicleta comprar</b><em>Eléctrica, montaña, ruta o gravel: guía rápida.</em></span><i aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></i></a>
+  </div>
+</section>
+
+</main>
+
+<section class="hub-sec" id="comparador" aria-labelledby="comparador-h">
+  <div class="hub-head"><h2 class="bar" id="comparador-h">Comparador de bicicletas</h2><p>Elige un tipo, filtra y compara precios de Mercado Libre.</p></div>
 </section>
 
 <!-- Buscador global -->
@@ -859,6 +934,31 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   </div>
 </div>
 
+<!-- Guía de compra rápida -->
+<section id="guia-rapida" style="scroll-margin-top:90px;background:#f7f7f5;border-bottom:1px solid var(--bd);padding:1.25rem 2rem">
+  <div style="max-width:900px;margin:0 auto">
+    <h2 style="font-size:1rem;font-weight:700;letter-spacing:-.02em;margin-bottom:.65rem;color:var(--tx)">¿Qué bicicleta comprar en México 2026? Guía rápida</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem 1.5rem;font-size:.82rem;color:var(--tx);line-height:1.6">
+      <div>
+        <strong style="color:var(--ac)">Bicicleta eléctrica</strong><br>
+        Ideal si recorres más de 5 km al día o vives en ciudad con tráfico. Busca mínimo 350 W de motor y 40 km de autonomía. Las plegables son perfectas para departamento o transporte combinado con metro.
+      </div>
+      <div>
+        <strong style="color:var(--ac)">Bicicleta de montaña (MTB)</strong><br>
+        Para terracería, trails y uso mixto ciudad-campo. Prefiere marco de aluminio, frenos de disco hidráulico y 21+ velocidades. En México las marcas más accesibles con buena relación precio-calidad son Terrafit y Trek.
+      </div>
+      <div>
+        <strong style="color:var(--ac)">Ruta y Gravel</strong><br>
+        Para distancias largas en asfalto o caminos mixtos. Las de ruta priorizan velocidad y ligereza; las gravel combinan robustez con comodidad. Busca al menos 700C de llanta y manubrio curvo.
+      </div>
+      <div>
+        <strong style="color:var(--ac)">¿Amazon MX o Mercado Libre?</strong><br>
+        Ambas plataformas tienen buen stock en México. Amazon suele tener entregas más rápidas; Mercado Libre ofrece más variedad de vendedores locales y opción de pago en efectivo. Compara siempre el precio final con envío incluido.
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="art-section">
   <div class="art-section-inner">
     <p class="art-section-label">Guías</p>
@@ -888,58 +988,31 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   Como afiliados de Amazon MX y Mercado Libre, podemos recibir una comisión por compras a través de nuestros enlaces, sin costo adicional para ti. Los precios pueden variar.
 </div>
 
-<section class="leads-section" aria-label="Solicita una comparativa de producto">
-  <div class="leads-inner">
-    <div class="leads-copy">
-      <p class="leads-eyebrow">Para ti · Gratis · Sin spam</p>
-      <h2 class="leads-title">
-        ¿Buscas una<br>bici en especial?<br>
-        <span>Te comparamos.</span>
-      </h2>
-      <p class="leads-desc">
-        Dinos qué producto quieres comparar en Amazon MX
-        y Mercado Libre y te avisamos cuando tengamos la
-        comparativa lista — gratis, sin registros complicados.
-      </p>
-      <div class="leads-benefits">
-        <div class="leads-benefit">
-          <div class="leads-benefit-icon">✓</div>
-          Comparamos precio, specs y reseñas
-        </div>
-        <div class="leads-benefit">
-          <div class="leads-benefit-icon">✓</div>
-          Te avisamos por correo cuando esté lista
-        </div>
-        <div class="leads-benefit">
-          <div class="leads-benefit-icon">✓</div>
-          Sin costo, sin spam, sin compromisos
-        </div>
-        <div class="leads-benefit">
-          <div class="leads-benefit-icon">✓</div>
-          Respondemos en menos de 48 horas
-        </div>
-      </div>
-    </div>
+<section class="hub-leads" aria-labelledby="leads-h">
+  <div class="hub-leads-in">
     <div>
-      <div class="leads-form-wrap">
-        <div class="leads-form-header">
-          <div class="leads-form-header-title">📋 Solicita tu comparativa</div>
-          <div class="leads-form-header-sub">Tarda menos de 30 segundos</div>
-        </div>
-        <div class="leads-form-iframe-wrap">
-          <iframe
-            src="https://docs.google.com/forms/d/e/1FAIpQLScI3hNm1pX6oo2cnxVqHnTBjOkfsEqBGw0bE3lYc3p0huxzOQ/viewform?embedded=true"
-            width="100%" height="480" frameborder="0" marginheight="0" marginwidth="0"
-            title="Solicitar comparativa en comparalo.mx" loading="lazy">
-            Cargando formulario…
-          </iframe>
-        </div>
-      </div>
-      <a class="leads-form-btn" href="https://docs.google.com/forms/d/e/1FAIpQLScI3hNm1pX6oo2cnxVqHnTBjOkfsEqBGw0bE3lYc3p0huxzOQ/viewform" target="_blank" rel="noopener" style="display:none;align-items:center;justify-content:center;gap:8px;background:#f0c000;color:#0F172A;text-decoration:none;padding:16px 24px;border-radius:12px;font-weight:800;font-size:16px;margin:16px 8px 8px;text-align:center">📋 Solicitar comparativa →</a>
-      <div class="leads-privacy">🔒 Tu correo solo se usa para avisarte. Nunca spam.</div>
+      <p class="hub-leads-eyebrow">Para ti · Gratis · Sin spam</p>
+      <h2 id="leads-h">¿No encuentras lo que buscas? <span>Te comparamos.</span></h2>
+      <p class="hub-leads-desc">Dinos qué producto quieres comparar y te avisamos cuando tengamos la comparativa lista — gratis, sin registros complicados.</p>
     </div>
+    <ul class="hub-leads-list">
+      <li><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 12.5 10 17 19 7.5"/></svg>Comparamos precio, specs y reseñas</li>
+      <li><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 12.5 10 17 19 7.5"/></svg>Te avisamos por correo cuando esté lista</li>
+      <li><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 12.5 10 17 19 7.5"/></svg>Sin costo, sin spam, sin compromisos</li>
+      <li><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 12.5 10 17 19 7.5"/></svg>Respondemos en menos de 48 horas</li>
+    </ul>
+    <form class="hub-form" id="hub-form" action="https://docs.google.com/forms/d/e/1FAIpQLScI3hNm1pX6oo2cnxVqHnTBjOkfsEqBGw0bE3lYc3p0huxzOQ/formResponse" method="post" target="hub-form-sink">
+      <h3>¿Qué quieres que comparemos?</h3>
+      <label class="hub-field"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><line x1="7" y1="9" x2="13" y2="9"/><line x1="7" y1="13" x2="11" y2="13"/></svg><span class="hub-sr">Producto que quieres comparar</span><input type="text" name="entry.1897553618" placeholder="Bicicleta eléctrica, de montaña…" required maxlength="200" autocomplete="off"></label>
+      <label class="hub-field"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg><span class="hub-sr">Tu correo electrónico</span><input type="email" name="entry.90518688" placeholder="Tu correo electrónico" required maxlength="200" autocomplete="email"></label>
+      <button type="submit">Solicitar comparativa →</button>
+      <p class="hub-form-msg" id="hub-form-msg" role="status" aria-live="polite"></p>
+      <p class="hub-form-alt">Tu correo solo se usa para avisarte. ¿No se envía? <a href="https://docs.google.com/forms/d/e/1FAIpQLScI3hNm1pX6oo2cnxVqHnTBjOkfsEqBGw0bE3lYc3p0huxzOQ/viewform" target="_blank" rel="noopener">Abre el formulario</a>.</p>
+    </form>
+    <iframe name="hub-form-sink" id="hub-form-sink" title="Envío del formulario" hidden></iframe>
   </div>
 </section>
+
 <script>
 (function(){
   var section=document.querySelector('.leads-section');
@@ -968,15 +1041,14 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 <section class="cmx-rel" aria-labelledby="cmx-rel-h"><div class="cmx-rel-in"><h2 id="cmx-rel-h">Sigue explorando</h2><p class="cmx-rel-lead">Guías de compra y categorías que combinan con esta.</p><h3>Guías relacionadas</h3><div class="cmx-rel-grid"><a class="cmx-rel-card" href="/bicis/bicicleta-electrica-vale-la-pena/"><span class="cmx-rel-tx"><span class="cmx-rel-k">Guía</span><span class="cmx-rel-t">¿Vale la Pena una Bicicleta Eléctrica en México en 2026?</span></span></a><a class="cmx-rel-card" href="/bicis/como-elegir-bicicleta-electrica/"><span class="cmx-rel-tx"><span class="cmx-rel-k">Guía</span><span class="cmx-rel-t">Cómo Elegir una Bicicleta Eléctrica en México 2026: Guía por Tipo de Uso</span></span></a><a class="cmx-rel-card" href="/guias/"><span class="cmx-rel-tx"><span class="cmx-rel-k">Guías</span><span class="cmx-rel-t">Ver todas las guías de compra</span><span class="cmx-rel-d">Cómo elegir, comparativas y ofertas</span></span></a></div><h3>Sigue con otras categorías</h3><div class="cmx-rel-grid"><a class="cmx-rel-card" href="/tecnologia/smartwatches/"><span class="cmx-rel-ic" aria-hidden="true">⌚</span><span class="cmx-rel-tx"><span class="cmx-rel-k">Categoría</span><span class="cmx-rel-t">Smartwatches</span><span class="cmx-rel-d">Compatibles con iOS y Android</span></span></a><a class="cmx-rel-card" href="/tecnologia/audifonos/"><span class="cmx-rel-ic" aria-hidden="true">🎧</span><span class="cmx-rel-tx"><span class="cmx-rel-k">Categoría</span><span class="cmx-rel-t">Audífonos</span><span class="cmx-rel-d">In-ear, over-ear, true wireless</span></span></a><a class="cmx-rel-card" href="/suplementos/"><span class="cmx-rel-ic" aria-hidden="true">💊</span><span class="cmx-rel-tx"><span class="cmx-rel-k">Categoría</span><span class="cmx-rel-t">Suplementos</span><span class="cmx-rel-d">Proteína, Creatina, Magnesio, Complejo B, Omega 3</span></span></a></div></div></section>
 <!-- cmx-related:end -->
 <!-- cmx-footer:start -->
-<div class="cmx-ft" role="contentinfo" id="cmx-ft"><div class="cmx-ft-in">
-<div class="cmx-ft-disc"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6EE7B7" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><div><h2>Aviso de afiliados</h2><p>comparalo.mx participa en los programas de afiliados de Amazon México y Mercado Libre. Si compras a través de nuestros enlaces recibimos una comisión, sin costo adicional para ti. Esa comisión no influye en el orden ni en las recomendaciones. <a href="/aviso-afiliados/">Más información</a></p></div></div>
-<div class="cmx-ft-grid">
-<div><span class="cmx-ft-brand"><img src="/logopng.png" alt="" width="28" height="28" loading="lazy">comparalo<i>.mx</i></span><p>Comparamos precios de Amazon MX y Mercado Libre para que decidas con datos, no a ciegas.</p></div>
-<div><h3>Categorías</h3><ul><li><a href="/celulares/">Celulares</a></li><li><a href="/celulares/android/">Android</a></li><li><a href="/celulares/iphone/">iPhone</a></li><li><a href="/laptops/">Laptops</a></li><li><a href="/electrodomesticos/">Electrodomésticos</a></li><li><a href="/suplementos/">Suplementos</a></li><li><a href="/bicis/">Bicicletas</a></li><li><a href="/videojuegos/">Videojuegos</a></li><li><a href="/tecnologia/">Tecnología</a></li></ul></div>
-<div><h3>Recursos</h3><ul><li><a href="/guias/">Guías y artículos</a></li><li><a href="/#metodo">Cómo comparamos</a></li><li><a href="/sobre-nosotros/">Quiénes somos</a></li><li><a href="/contacto/">Contacto</a></li><li><a href="/sitemap.xml">Mapa del sitio</a></li></ul></div>
-<div><h3>Legal</h3><ul><li><a href="/aviso-afiliados/">Aviso de afiliados</a></li><li><a href="/privacidad/">Privacidad</a></li><li><a href="/terminos/">Términos</a></li></ul></div>
+<div class="cmx-ft2" role="contentinfo" id="cmx-ft"><div class="cmx-ft2-in">
+<div class="cmx-ft2-grid">
+<div class="cmx-ft2-brand"><a class="cmx-ft2-logo" href="/" aria-label="comparalo.mx, inicio"><img src="/logopng.png" alt="" width="40" height="40" loading="lazy"><span>comparalo<i>.mx</i></span></a><p>Comparamos precios de Amazon MX y Mercado Libre para que decidas con datos, no a ciegas.</p></div>
+<div class="cmx-ft2-col cmx-ft2-cats"><h3><button type="button" aria-expanded="false" onclick="var c=this.closest('.cmx-ft2-col');this.setAttribute('aria-expanded',c.classList.toggle('open'))">Categorías<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button></h3><ul><li><a href="/celulares/">Celulares</a></li><li><a href="/laptops/">Laptops</a></li><li><a href="/electrodomesticos/">Electrodomésticos</a></li><li><a href="/suplementos/">Suplementos</a></li><li><a href="/bicis/">Bicicletas</a></li><li><a href="/videojuegos/">Videojuegos</a></li><li><a href="/tecnologia/">Tecnología</a></li><li><a href="/#categorias">Todas las categorías</a></li></ul></div>
+<div class="cmx-ft2-col"><h3><button type="button" aria-expanded="false" onclick="var c=this.closest('.cmx-ft2-col');this.setAttribute('aria-expanded',c.classList.toggle('open'))">Recursos<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button></h3><ul><li><a href="/guias/">Guías y artículos</a></li><li><a href="/#metodo">Cómo comparamos</a></li><li><a href="/sobre-nosotros/">Quiénes somos</a></li><li><a href="/contacto/">Contacto</a></li></ul></div>
+<div class="cmx-ft2-col"><h3><button type="button" aria-expanded="false" onclick="var c=this.closest('.cmx-ft2-col');this.setAttribute('aria-expanded',c.classList.toggle('open'))">Legal<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button></h3><ul><li><a href="/aviso-afiliados/">Aviso de afiliados</a></li><li><a href="/privacidad/">Privacidad</a></li><li><a href="/terminos/">Términos</a></li></ul></div>
 </div>
-<p class="cmx-ft-bottom">Los precios y la disponibilidad pueden cambiar en cualquier momento. Confirma el precio final en la tienda antes de pagar. © 2026 comparalo.mx</p>
+<p class="cmx-ft2-bottom">comparalo.mx participa en los programas de afiliados de Mercado Libre y Amazon México: si compras desde nuestros enlaces podemos recibir una comisión, sin costo adicional para ti. <a href="/aviso-afiliados/">Más información</a>. Los precios y la disponibilidad pueden cambiar; confirma el precio final en la tienda. © 2026 comparalo.mx</p>
 </div></div>
 <!-- cmx-footer:end -->
 
@@ -5441,6 +5513,8 @@ document.getElementById('howModalOv').addEventListener('click',function(e){if(e.
 <script>try{sessionStorage.setItem('cmx_onboarding_v1','1');}catch(e){}</script>
 <script src="/assets/js/cards-enhance.js" defer></script>
 <script src="/assets/js/price-drops.js" defer></script>
+<script>window.addEventListener('load',function(){document.querySelectorAll('[data-hub-count]').forEach(function(el){var t=document.getElementById('count-'+el.getAttribute('data-hub-count'));if(t&&/\d/.test(t.textContent))el.textContent=t.textContent.trim();});});</script>
+<script src="/assets/js/cmx-hub.js" defer></script>
 <script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
 <script src="/assets/js/share.js" defer></script>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-<base href="https://comparalo.mx/">
+<base href="/">
 <title>Comparador de Suplementos México 2026 — comparalo.mx</title>
 <link rel="canonical" href="https://comparalo.mx/suplementos/">
 <meta name="description" content="Compara Omega 3, proteína, creatina y magnesio en Amazon MX y Mercado Libre. Filtra por costo por porción y calificaciones. +40 productos 2026.">
@@ -376,55 +376,178 @@ footer a{color:var(--ac);text-decoration:none}
 @media(max-width:768px){.leads-inner{grid-template-columns:1fr;gap:32px}.leads-title{font-size:26px}.leads-desc{max-width:100%}.leads-form-iframe-wrap{display:none}.leads-form-btn{display:flex!important}}
 </style>
 <link rel="stylesheet" href="/assets/css/cmx-site.css">
+<link rel="stylesheet" href="/assets/css/cmx-hub.css">
 </head>
-<body data-category="suplementos">
+<body class="hub-page" data-category="suplementos">
 
 <!-- cmx-header:start -->
-<div class="cmx-hd" id="cmx-hd">
+<div class="cmx-hd cmx-hd2" id="cmx-hd">
   <div class="cmx-hd-in">
-    <a class="cmx-hd-logo" href="/" aria-label="comparalo.mx, inicio"><img src="/logopng.png" alt="" width="28" height="28"><span>comparalo<i>.mx</i></span></a>
-    <div class="cmx-hd-search" id="cmx-hd-search"></div>
-    <div class="cmx-hd-links" role="navigation" aria-label="Navegación principal">
-      <a href="/celulares/">Celulares</a>
-      <a href="/laptops/">Laptops</a>
-      <a href="/electrodomesticos/">Electrodomésticos</a>
-      <a href="/suplementos/" aria-current="page">Suplementos</a>
-      <a href="/bicis/">Bicicletas</a>
-      <a href="/videojuegos/">Videojuegos</a>
-      <a href="/tecnologia/">Tecnología</a>
-      <a href="/guias/">Guías</a>
-    </div>
+    <a class="cmx-hd-logo" href="/" aria-label="comparalo.mx, inicio"><img src="/logopng.png" alt="" width="44" height="44"><span>comparalo<i>.mx</i></span></a>
+    <nav class="cmx-hd2-nav" aria-label="Navegación principal">
+      <div class="cmx-hd2-dd">
+        <button type="button" class="cmx-hd2-ddbtn" aria-haspopup="true">Categorías <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="cmx-hd2-menu">
+          <a href="/celulares/">Celulares</a>
+          <a href="/laptops/">Laptops</a>
+          <a href="/electrodomesticos/">Electrodomésticos</a>
+          <a href="/suplementos/">Suplementos</a>
+          <a href="/bicis/">Bicicletas</a>
+          <a href="/videojuegos/">Videojuegos</a>
+          <a href="/tecnologia/">Tecnología</a>
+        </div>
+      </div>
+      <a href="/#categorias">Comparativas</a>
+      <a href="/guias/">Guías de compra</a>
+      <a class="cmx-hd2-ofertas" href="/#ofertas"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z"/><circle cx="7" cy="7" r="1.2" fill="currentColor"/></svg> Ofertas</a>
+    </nav>
     <div class="cmx-hd-act">
-      <button class="cmx-hd-searchbtn" id="cmx-hd-searchbtn" type="button" aria-label="Buscar categoría"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
-      <a class="cmx-hd-guias" href="/guias/">Guías</a>
       <!-- cmx-hd-extra:start --><!-- cmx-hd-extra:end -->
-      <button class="btn-share" onclick="shareCurrentPage()" title="Compartir esta p&#225;gina" aria-label="Compartir"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg><span class="share-txt">Compartir</span></button>
+      <button class="cmx-hd-searchbtn" id="cmx-hd-searchbtn" type="button" aria-label="Buscar categoría"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7.5"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg><span class="cmx-hd2-searchtx">¿Qué quieres comparar?</span></button>
+      <button class="cmx-hd2-burger" type="button" aria-label="Abrir menú de categorías" onclick="document.getElementById('cmx-hd-searchbtn').click()"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
     </div>
   </div>
 </div>
 <!-- cmx-header:end -->
+<!-- cmx-bc:start -->
+<div class="cmx-bc"><ol aria-label="Ruta de navegación"><li><a href="/">Inicio</a></li><li aria-current="page">Suplementos</li></ol></div>
+<!-- cmx-bc:end -->
 
 
 
-<section style="background:#EAF2EE;padding:48px 2rem 40px;">
-  <div style="max-width:1600px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;">
-    <div>
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-        <a href="/" style="font-size:12px;color:#64748b;text-decoration:none;">Inicio</a>
-        <span style="font-size:12px;color:#94a3b8;">›</span>
-        <span style="font-size:12px;color:#006847;font-weight:600;">Suplementos</span>
+<main class="hub">
+<section class="hub-hero" aria-labelledby="hub-h1">
+  <div class="hub-hero-in">
+    <div class="hub-hero-tx">
+      <h1 class="hero-h1" id="hub-h1">Suplementos<br> al <em>mejor precio</em></h1>
+      <p class="hub-hero-lead">Comparador de suplementos en México 2026: creatina, proteína, magnesio, omega 3 y complejo B con costo por porción, en Mercado Libre.</p>
+      <div class="hub-stores">
+        <a class="hub-store hub-store--ml" href="#tipos" aria-label="Ver comparativas de productos en Mercado Libre"><span>Comparativas en</span><img src="/logomercado.png" alt="Mercado Libre" width="103" height="26"></a>
+        <a class="hub-store hub-store--guides" href="#guias">Guías de compra <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="6 13 12 19 18 13"/></svg></a>
       </div>
-      <h1 style="font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-1.5px;color:#1E2922;line-height:1.1;margin-bottom:10px;">Comparador de <span style="color:#006847;">Suplementos</span> en México 2026</h1>
-      <p style="font-size:15px;color:rgba(30,41,34,.6);line-height:1.6;max-width:520px;">Compara precios de creatina, proteína whey, magnesio, omega 3 y complejo B entre Amazon México y Mercado Libre. Filtra por costo por porción, marca y calificación para encontrar siempre la mejor oferta. Más de 200 productos actualizados periódicamente.</p>
     </div>
-    <div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;max-width:100%;">
-      <img src="/logoamazon.png" alt="Amazon" style="height:52px;width:auto;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,.15));">
-      <div style="width:1px;height:44px;background:rgba(0,104,71,.2);"></div>
-      <img src="/logomercado.png" alt="Mercado Libre" style="height:52px;width:auto;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,.15));">
+    <div class="hub-art">
+      <svg class="hub-spark" width="46" height="46" viewBox="0 0 46 46" fill="none" stroke="#F6D94A" stroke-width="5" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="22" x2="16" y2="30"/><line x1="18" y1="6" x2="24" y2="22"/><line x1="36" y1="6" x2="33" y2="22"/></svg>
+      <img class="a1" src="https://http2.mlstatic.com/D_NQ_NP_2X_965755-MLA115667183199_082026-F.webp" alt="Creatina monohidratada" width="240" height="240" referrerpolicy="no-referrer" loading="eager" decoding="async">
+      <img class="a2" src="https://http2.mlstatic.com/D_NQ_NP_2X_826215-MLA99616656566_122025-F.webp" alt="Magnesio" width="240" height="240" referrerpolicy="no-referrer" loading="eager" decoding="async">
+      <img class="a3" src="https://http2.mlstatic.com/D_NQ_NP_2X_945473-MLA100108421729_122025-F.webp" alt="Omega 3" width="240" height="240" referrerpolicy="no-referrer" loading="eager" decoding="async" fetchpriority="high">
+      <img class="a4" src="https://http2.mlstatic.com/D_NQ_NP_2X_677400-MLA100083704797_122025-F.webp" alt="Proteína whey" width="240" height="240" referrerpolicy="no-referrer" loading="eager" decoding="async">
     </div>
   </div>
 </section>
 
+<div class="hub-ben">
+  <div><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 12 12 17 22 12"/><polyline points="2 17 12 22 22 17"/></svg><span>Compara<br>características</span></div>
+  <div><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18"/><path d="M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0L5 7z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0l-3-7z"/><path d="M8 21h8"/></svg><span>Analiza<br>pros y contras</span></div>
+  <div><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H2z"/><path d="M22 4h-7a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h8z"/></svg><span>Guías de compra<br>especializadas</span></div>
+  <div><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.1 8.3 22 9.3 17 14.1 18.2 21 12 17.8 5.8 21 7 14.1 2 9.3 8.9 8.3 12 2"/></svg><span>Encuentra<br>la mejor opción</span></div>
+</div>
+
+<section class="hub-sec hub-sec--tipos" id="tipos" aria-labelledby="tipos-h">
+  <div class="hub-head">
+    <h2 class="bar" id="tipos-h">Explora por tipo de suplemento</h2>
+    <a class="hub-more" href="/#categorias">Ver todas las categorías →</a>
+  </div>
+  <div class="hub-subcats">
+    <a class="hub-subcat" href="/suplementos/proteina/">
+      <span class="hub-subcat-img"><img src="https://http2.mlstatic.com/D_NQ_NP_2X_677400-MLA100083704797_122025-F.webp" alt="Proteína whey" width="240" height="240" referrerpolicy="no-referrer" loading="lazy" decoding="async"></span>
+      <span class="hub-subcat-body">
+        <h3>Proteína</h3>
+        <span class="hub-chips"><span>Whey</span><span>Aislada</span><span>Vegana</span></span>
+        <span class="hub-count"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v8"/></svg><span><span data-cmx-count="/suplementos/proteina/">88</span> productos</span></span>
+        <span class="hub-btn">Ver comparativa <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></span>
+      </span>
+    </a>
+    <a class="hub-subcat" href="/suplementos/creatina/">
+      <span class="hub-subcat-img"><img src="https://http2.mlstatic.com/D_NQ_NP_2X_965755-MLA115667183199_082026-F.webp" alt="Creatina monohidratada" width="240" height="240" referrerpolicy="no-referrer" loading="lazy" decoding="async"></span>
+      <span class="hub-subcat-body">
+        <h3>Creatina</h3>
+        <span class="hub-chips"><span>Monohidratada</span><span>Micronizada</span><span>Creapure</span></span>
+        <span class="hub-count"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v8"/></svg><span><span data-cmx-count="/suplementos/creatina/">41</span> productos</span></span>
+        <span class="hub-btn">Ver comparativa <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></span>
+      </span>
+    </a>
+    <a class="hub-subcat" href="/suplementos/magnesio/">
+      <span class="hub-subcat-img"><img src="https://http2.mlstatic.com/D_NQ_NP_2X_826215-MLA99616656566_122025-F.webp" alt="Magnesio" width="240" height="240" referrerpolicy="no-referrer" loading="lazy" decoding="async"></span>
+      <span class="hub-subcat-body">
+        <h3>Magnesio</h3>
+        <span class="hub-chips"><span>Citrato</span><span>Glicinato</span><span>L-treonato</span></span>
+        <span class="hub-count"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v8"/></svg><span><span data-cmx-count="/suplementos/magnesio/">19</span> productos</span></span>
+        <span class="hub-btn">Ver comparativa <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></span>
+      </span>
+    </a>
+    <a class="hub-subcat" href="/suplementos/omega3/">
+      <span class="hub-subcat-img"><img src="https://http2.mlstatic.com/D_NQ_NP_2X_945473-MLA100108421729_122025-F.webp" alt="Omega 3" width="240" height="240" referrerpolicy="no-referrer" loading="lazy" decoding="async"></span>
+      <span class="hub-subcat-body">
+        <h3>Omega 3</h3>
+        <span class="hub-chips"><span>EPA</span><span>DHA</span><span>Aceite de pescado</span></span>
+        <span class="hub-count"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v8"/></svg><span><span data-cmx-count="/suplementos/omega3/">12</span> productos</span></span>
+        <span class="hub-btn">Ver comparativa <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></span>
+      </span>
+    </a>
+    <a class="hub-subcat" href="/suplementos/complejo-b/">
+      <span class="hub-subcat-img"><img src="https://http2.mlstatic.com/D_NQ_NP_2X_826174-MLA100065376329_122025-F.webp" alt="Complejo B" width="240" height="240" referrerpolicy="no-referrer" loading="lazy" decoding="async"></span>
+      <span class="hub-subcat-body">
+        <h3>Complejo B</h3>
+        <span class="hub-chips"><span>B12</span><span>B6</span><span>Ácido fólico</span></span>
+        <span class="hub-count"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v8"/></svg><span><span data-cmx-count="/suplementos/complejo-b/">19</span> productos</span></span>
+        <span class="hub-btn">Ver comparativa <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></span>
+      </span>
+    </a>
+  </div>
+</section>
+
+<section class="hub-sec" id="ofertas" aria-labelledby="ofertas-h" hidden>
+  <div class="hub-head">
+    <h2 id="ofertas-h"><svg width="34" height="34" viewBox="0 0 24 24" fill="#EF1B24" aria-hidden="true"><path d="M21.4 12.6 12.6 21.4a2 2 0 0 1-2.8 0L2 13.6V4a2 2 0 0 1 2-2h9.6l7.8 7.8a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.8" fill="#fff"/></svg>Ofertas destacadas</h2>
+    <p>Aprovecha los mejores precios en suplementos en México.</p>
+    <a class="hub-more" href="/#ofertas">Ver todas<span class="lg"> las ofertas</span> →</a>
+  </div>
+  <div id="hub-deals" data-section="suplementos_ofertas" data-sources='["/suplementos/proteina/descuentos.json","/suplementos/creatina/descuentos.json","/suplementos/magnesio/descuentos.json","/suplementos/omega3/descuentos.json","/suplementos/complejo-b/descuentos.json"]'></div>
+</section>
+
+<section class="hub-sec" id="guias" aria-labelledby="guias-h">
+  <div class="hub-head">
+    <h2 id="guias-h"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#00843D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H2z"/><path d="M22 4h-7a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h8z"/></svg>Guías de compra</h2>
+    <p>Consejos, tipos y recomendaciones para elegir el suplemento ideal.</p>
+    <a class="hub-more" href="/guias/">Ver todas<span class="lg"> las guías</span> →</a>
+  </div>
+  <div class="hub-guides">
+    <a class="hub-guide" href="/suplementos/proteina/proteina-whey-cual-comprar/" style="--g:linear-gradient(120deg,#FFF6E6,#FFFDF7)"><img src="https://http2.mlstatic.com/D_NQ_NP_2X_677400-MLA100083704797_122025-F.webp" alt="Proteína whey" width="240" height="240" referrerpolicy="no-referrer" loading="lazy" decoding="async"><span><small>Guía de compra:</small><b>Proteína whey</b><em>Cuál comprar según tu objetivo.</em></span><i aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></i></a>
+    <a class="hub-guide" href="/suplementos/creatina/creatina-mexico-cual-comprar/" style="--g:linear-gradient(120deg,#EAF2FB,#F7FAFE)"><img src="https://http2.mlstatic.com/D_NQ_NP_2X_965755-MLA115667183199_082026-F.webp" alt="Creatina" width="240" height="240" referrerpolicy="no-referrer" loading="lazy" decoding="async"><span><small>Guía de compra:</small><b>Creatina</b><em>Marcas, precios y cómo elegirla.</em></span><i aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></i></a>
+    <a class="hub-guide" href="/suplementos/magnesio/tipos-de-magnesio-cual-comprar/" style="--g:linear-gradient(120deg,#F3ECFA,#FBF8FE)"><img src="https://http2.mlstatic.com/D_NQ_NP_2X_826215-MLA99616656566_122025-F.webp" alt="Magnesio" width="240" height="240" referrerpolicy="no-referrer" loading="lazy" decoding="async"><span><small>Guía de compra:</small><b>Magnesio</b><em>Tipos y cuál conviene según tu objetivo.</em></span><i aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></i></a>
+    <a class="hub-guide" href="/suplementos/suplementos-por-edad/" style="--g:linear-gradient(120deg,#E9F7EE,#F8FCF9)"><img src="https://http2.mlstatic.com/D_NQ_NP_2X_945473-MLA100108421729_122025-F.webp" alt="Omega 3" width="240" height="240" referrerpolicy="no-referrer" loading="lazy" decoding="async"><span><small>Guía de compra:</small><b>Suplementos por edad</b><em>Qué tomar según tu etapa de vida.</em></span><i aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></i></a>
+  </div>
+</section>
+
+<section class="hub-leads" aria-labelledby="leads-h">
+  <div class="hub-leads-in">
+    <div>
+      <p class="hub-leads-eyebrow">Para ti · Gratis · Sin spam</p>
+      <h2 id="leads-h">¿No encuentras lo que buscas? <span>Te comparamos.</span></h2>
+      <p class="hub-leads-desc">Dinos qué producto quieres comparar y te avisamos cuando tengamos la comparativa lista — gratis, sin registros complicados.</p>
+    </div>
+    <ul class="hub-leads-list">
+      <li><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 12.5 10 17 19 7.5"/></svg>Comparamos precio, specs y reseñas</li>
+      <li><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 12.5 10 17 19 7.5"/></svg>Te avisamos por correo cuando esté lista</li>
+      <li><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 12.5 10 17 19 7.5"/></svg>Sin costo, sin spam, sin compromisos</li>
+      <li><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 12.5 10 17 19 7.5"/></svg>Respondemos en menos de 48 horas</li>
+    </ul>
+    <form class="hub-form" id="hub-form" action="https://docs.google.com/forms/d/e/1FAIpQLScI3hNm1pX6oo2cnxVqHnTBjOkfsEqBGw0bE3lYc3p0huxzOQ/formResponse" method="post" target="hub-form-sink">
+      <h3>¿Qué quieres que comparemos?</h3>
+      <label class="hub-field"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><line x1="7" y1="9" x2="13" y2="9"/><line x1="7" y1="13" x2="11" y2="13"/></svg><span class="hub-sr">Producto que quieres comparar</span><input type="text" name="entry.1897553618" placeholder="Proteína, creatina, colágeno…" required maxlength="200" autocomplete="off"></label>
+      <label class="hub-field"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg><span class="hub-sr">Tu correo electrónico</span><input type="email" name="entry.90518688" placeholder="Tu correo electrónico" required maxlength="200" autocomplete="email"></label>
+      <button type="submit">Solicitar comparativa →</button>
+      <p class="hub-form-msg" id="hub-form-msg" role="status" aria-live="polite"></p>
+      <p class="hub-form-alt">Tu correo solo se usa para avisarte. ¿No se envía? <a href="https://docs.google.com/forms/d/e/1FAIpQLScI3hNm1pX6oo2cnxVqHnTBjOkfsEqBGw0bE3lYc3p0huxzOQ/viewform" target="_blank" rel="noopener">Abre el formulario</a>.</p>
+    </form>
+    <iframe name="hub-form-sink" id="hub-form-sink" title="Envío del formulario" hidden></iframe>
+  </div>
+</section>
+</main>
+
+<!-- Comparador heredado: oculto, su script sigue usando estos elementos -->
+<div hidden>
 <div class="toolbar">
   <div class="search-wrap" style="display:none;">
     <input class="search-input" id="search-input" type="text" placeholder="Buscar producto, marca o característica…" oninput="render()">
@@ -454,56 +577,17 @@ footer a{color:var(--ac);text-decoration:none}
 </div>
 
 <div class="grid" id="grid"></div>
+</div>
 
-<!-- Categorías con descripción — contenido estático para SEO -->
-<section style="background:#fff;border-top:1px solid #e2e2dc;padding:56px 2rem;">
-  <div style="max-width:1600px;margin:0 auto;">
-    <p style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#006847;margin-bottom:8px;">Categorías</p>
-    <h2 style="font-size:22px;font-weight:800;letter-spacing:-.8px;color:#0F172A;margin-bottom:28px;">Suplementos disponibles en comparalo.mx</h2>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;">
-      <a href="/suplementos/creatina/" style="display:flex;flex-direction:column;border:1px solid #e2e2dc;border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;background:#fff;transition:box-shadow .2s,transform .15s;" onmouseenter="this.style.boxShadow='0 4px 20px rgba(0,0,0,.08)';this.style.transform='translateY(-2px)'" onmouseleave="this.style.boxShadow='';this.style.transform=''">
-        <div style="height:110px;overflow:hidden;"><img src="https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=600&q=75" alt="Creatina monohidratada México" loading="lazy" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
-        <div style="padding:14px 16px 18px;">
-          <div style="font-weight:700;font-size:15px;color:#0F172A;margin-bottom:5px;">Creatina</div>
-          <p style="font-size:13px;color:#64748b;line-height:1.55;margin:0;">Compara más de 50 creatinas monohidratadas en México: Birdman, Hero Sport, GAT, Creapure y marcas sin nombre. Filtra por costo por porción y tipo.</p>
-        </div>
-      </a>
-      <a href="/suplementos/proteina/" style="display:flex;flex-direction:column;border:1px solid #e2e2dc;border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;background:#fff;transition:box-shadow .2s,transform .15s;" onmouseenter="this.style.boxShadow='0 4px 20px rgba(0,0,0,.08)';this.style.transform='translateY(-2px)'" onmouseleave="this.style.boxShadow='';this.style.transform=''">
-        <div style="height:110px;overflow:hidden;"><img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600&q=75" alt="Proteína Whey México" loading="lazy" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
-        <div style="padding:14px 16px 18px;">
-          <div style="font-weight:700;font-size:15px;color:#0F172A;margin-bottom:5px;">Proteína Whey</div>
-          <p style="font-size:13px;color:#64748b;line-height:1.55;margin:0;">Proteína concentrada, aislada y vegana. Compara precio por gramo entre Amazon MX y Mercado Libre. Birdman, Optimum Nutrition, Gold Standard y más.</p>
-        </div>
-      </a>
-      <a href="/suplementos/magnesio/" style="display:flex;flex-direction:column;border:1px solid #e2e2dc;border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;background:#fff;transition:box-shadow .2s,transform .15s;" onmouseenter="this.style.boxShadow='0 4px 20px rgba(0,0,0,.08)';this.style.transform='translateY(-2px)'" onmouseleave="this.style.boxShadow='';this.style.transform=''">
-        <div style="height:110px;overflow:hidden;"><img src="https://images.unsplash.com/photo-1520206183501-b80df61043c2?w=600&q=75" alt="Magnesio México" loading="lazy" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
-        <div style="padding:14px 16px 18px;">
-          <div style="font-weight:700;font-size:15px;color:#0F172A;margin-bottom:5px;">Magnesio</div>
-          <p style="font-size:13px;color:#64748b;line-height:1.55;margin:0;">Glicinato, citrato, malato y L-treonato. Compara absorción, miligramos por porción y precio en México para elegir el mejor tipo según tu objetivo.</p>
-        </div>
-      </a>
-      <a href="/suplementos/omega3/" style="display:flex;flex-direction:column;border:1px solid #e2e2dc;border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;background:#fff;transition:box-shadow .2s,transform .15s;" onmouseenter="this.style.boxShadow='0 4px 20px rgba(0,0,0,.08)';this.style.transform='translateY(-2px)'" onmouseleave="this.style.boxShadow='';this.style.transform=''">
-        <div style="height:110px;overflow:hidden;"><img src="https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?w=600&q=75" alt="Omega 3 México" loading="lazy" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
-        <div style="padding:14px 16px 18px;">
-          <div style="font-weight:700;font-size:15px;color:#0F172A;margin-bottom:5px;">Omega 3</div>
-          <p style="font-size:13px;color:#64748b;line-height:1.55;margin:0;">Omega 3 marino con concentración real de EPA y DHA. Compara costo por porción entre Sports Research, Now Foods, Nordic Naturals y marcas mexicanas.</p>
-        </div>
-      </a>
-      <a href="/suplementos/complejo-b/" style="display:flex;flex-direction:column;border:1px solid #e2e2dc;border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;background:#fff;transition:box-shadow .2s,transform .15s;" onmouseenter="this.style.boxShadow='0 4px 20px rgba(0,0,0,.08)';this.style.transform='translateY(-2px)'" onmouseleave="this.style.boxShadow='';this.style.transform=''">
-        <div style="height:110px;overflow:hidden;"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=75" alt="Complejo B vitaminas México" loading="lazy" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
-        <div style="padding:14px 16px 18px;">
-          <div style="font-weight:700;font-size:15px;color:#0F172A;margin-bottom:5px;">Complejo B</div>
-          <p style="font-size:13px;color:#64748b;line-height:1.55;margin:0;">Vitaminas del grupo B (B1, B2, B6, B12, ácido fólico). Compara precio y concentración por tableta entre Amazon MX y Mercado Libre.</p>
-        </div>
-      </a>
-      <a href="/suplementos/vitamina-d/" style="display:flex;flex-direction:column;border:1px solid #e2e2dc;border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;background:#fff;transition:box-shadow .2s,transform .15s;" onmouseenter="this.style.boxShadow='0 4px 20px rgba(0,0,0,.08)';this.style.transform='translateY(-2px)'" onmouseleave="this.style.boxShadow='';this.style.transform=''">
-        <div style="height:110px;overflow:hidden;"><img src="https://images.unsplash.com/photo-1616671276441-2f2c277b8bf6?w=600&q=75" alt="Vitamina D México" loading="lazy" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
-        <div style="padding:14px 16px 18px;">
-          <div style="font-weight:700;font-size:15px;color:#0F172A;margin-bottom:5px;">Vitamina D</div>
-          <p style="font-size:13px;color:#64748b;line-height:1.55;margin:0;">Vitamina D3 en cápsulas y gotas, con y sin K2. Compara UI por porción y costo por 1000 UI entre Amazon MX y Mercado Libre.</p>
-        </div>
-      </a>
-    </div>
+<section style="background:#fff;border-top:1px solid #e2e2dc;padding:40px 2rem;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <h2 style="font-size:22px;font-weight:800;letter-spacing:-.8px;color:#0F172A;margin-bottom:18px;">Suplementos disponibles en comparalo.mx</h2>
+    <p style="font-size:14px;color:#475569;line-height:1.6;margin:0 0 10px;"><a href="/suplementos/creatina/" style="color:#006847;font-weight:700;">Creatina</a>: Compara más de 50 creatinas monohidratadas en México: Birdman, Hero Sport, GAT, Creapure y marcas sin nombre. Filtra por costo por porción y tipo.</p>
+    <p style="font-size:14px;color:#475569;line-height:1.6;margin:0 0 10px;"><a href="/suplementos/proteina/" style="color:#006847;font-weight:700;">Proteína Whey</a>: Proteína concentrada, aislada y vegana. Compara precio por gramo entre Amazon MX y Mercado Libre. Birdman, Optimum Nutrition, Gold Standard y más.</p>
+    <p style="font-size:14px;color:#475569;line-height:1.6;margin:0 0 10px;"><a href="/suplementos/magnesio/" style="color:#006847;font-weight:700;">Magnesio</a>: Glicinato, citrato, malato y L-treonato. Compara absorción, miligramos por porción y precio en México para elegir el mejor tipo según tu objetivo.</p>
+    <p style="font-size:14px;color:#475569;line-height:1.6;margin:0 0 10px;"><a href="/suplementos/omega3/" style="color:#006847;font-weight:700;">Omega 3</a>: Omega 3 marino con concentración real de EPA y DHA. Compara costo por porción entre Sports Research, Now Foods, Nordic Naturals y marcas mexicanas.</p>
+    <p style="font-size:14px;color:#475569;line-height:1.6;margin:0 0 10px;"><a href="/suplementos/complejo-b/" style="color:#006847;font-weight:700;">Complejo B</a>: Vitaminas del grupo B (B1, B2, B6, B12, ácido fólico). Compara precio y concentración por tableta entre Amazon MX y Mercado Libre.</p>
+    <p style="font-size:14px;color:#475569;line-height:1.6;margin:0 0 10px;"><a href="/suplementos/vitamina-d/" style="color:#006847;font-weight:700;">Vitamina D</a>: Vitamina D3 en cápsulas y gotas, con y sin K2. Compara UI por porción y costo por 1000 UI entre Amazon MX y Mercado Libre.</p>
   </div>
 </section>
 
@@ -617,58 +701,7 @@ footer a{color:var(--ac);text-decoration:none}
   </div>
 </section>
 
-<section class="leads-section" aria-label="Solicita una comparativa de producto">
-  <div class="leads-inner">
-    <div class="leads-copy">
-      <p class="leads-eyebrow">Para ti · Gratis · Sin spam</p>
-      <h2 class="leads-title">
-        ¿Buscas un<br>suplemento específico?<br>
-        <span>Te comparamos.</span>
-      </h2>
-      <p class="leads-desc">
-        Dinos qué producto quieres comparar en Amazon MX
-        y Mercado Libre y te avisamos cuando tengamos la
-        comparativa lista — gratis, sin registros complicados.
-      </p>
-      <div class="leads-benefits">
-        <div class="leads-benefit">
-          <div class="leads-benefit-icon">✓</div>
-          Comparamos precio, specs y reseñas
-        </div>
-        <div class="leads-benefit">
-          <div class="leads-benefit-icon">✓</div>
-          Te avisamos por correo cuando esté lista
-        </div>
-        <div class="leads-benefit">
-          <div class="leads-benefit-icon">✓</div>
-          Sin costo, sin spam, sin compromisos
-        </div>
-        <div class="leads-benefit">
-          <div class="leads-benefit-icon">✓</div>
-          Respondemos en menos de 48 horas
-        </div>
-      </div>
-    </div>
-    <div>
-      <div class="leads-form-wrap">
-        <div class="leads-form-header">
-          <div class="leads-form-header-title">📋 Solicita tu comparativa</div>
-          <div class="leads-form-header-sub">Tarda menos de 30 segundos</div>
-        </div>
-        <div class="leads-form-iframe-wrap">
-          <iframe
-            src="https://docs.google.com/forms/d/e/1FAIpQLScI3hNm1pX6oo2cnxVqHnTBjOkfsEqBGw0bE3lYc3p0huxzOQ/viewform?embedded=true"
-            width="100%" height="480" frameborder="0" marginheight="0" marginwidth="0"
-            title="Solicitar comparativa en comparalo.mx" loading="lazy">
-            Cargando formulario…
-          </iframe>
-        </div>
-      </div>
-      <a class="leads-form-btn" href="https://docs.google.com/forms/d/e/1FAIpQLScI3hNm1pX6oo2cnxVqHnTBjOkfsEqBGw0bE3lYc3p0huxzOQ/viewform" target="_blank" rel="noopener" style="display:none;align-items:center;justify-content:center;gap:8px;background:#f0c000;color:#0F172A;text-decoration:none;padding:16px 24px;border-radius:12px;font-weight:800;font-size:16px;margin:16px 8px 8px;text-align:center">📋 Solicitar comparativa →</a>
-      <div class="leads-privacy">🔒 Tu correo solo se usa para avisarte. Nunca spam.</div>
-    </div>
-  </div>
-</section>
+
 <script>
 (function(){
   var section=document.querySelector('.leads-section');
@@ -697,15 +730,14 @@ footer a{color:var(--ac);text-decoration:none}
 <section class="cmx-rel" aria-labelledby="cmx-rel-h"><div class="cmx-rel-in"><h2 id="cmx-rel-h">Sigue explorando</h2><p class="cmx-rel-lead">Guías de compra y categorías que combinan con esta.</p><h3>Guías relacionadas</h3><div class="cmx-rel-grid"><a class="cmx-rel-card" href="/suplementos/amazon-vs-mercado-libre-suplementos-mexico/"><span class="cmx-rel-tx"><span class="cmx-rel-k">Guía</span><span class="cmx-rel-t">¿ Amazon o Mercado Libre para suplementos en México? Comparativa honesta 2026</span></span></a><a class="cmx-rel-card" href="/suplementos/como-comprar-suplementos-originales/"><span class="cmx-rel-tx"><span class="cmx-rel-k">Guía</span><span class="cmx-rel-t">Cómo comprar suplementos originales en Amazon y Mercado Libre México: vendedores verificados y señales de alerta</span></span></a><a class="cmx-rel-card" href="/suplementos/suplementos-mas-comprados/"><span class="cmx-rel-tx"><span class="cmx-rel-k">Guía</span><span class="cmx-rel-t">Suplementos más comprados en México 2026: cuál elegir según tu objetivo y tu edad</span></span></a><a class="cmx-rel-card" href="/suplementos/suplementos-por-edad/"><span class="cmx-rel-tx"><span class="cmx-rel-k">Guía</span><span class="cmx-rel-t">¿Qué suplementos toman los mexicanos según su edad? Guía 2026 para elegir el tuyo</span></span></a><a class="cmx-rel-card" href="/guias/"><span class="cmx-rel-tx"><span class="cmx-rel-k">Guías</span><span class="cmx-rel-t">Ver todas las guías de compra</span><span class="cmx-rel-d">Cómo elegir, comparativas y ofertas</span></span></a></div><h3>Sigue con otras categorías</h3><div class="cmx-rel-grid"><a class="cmx-rel-card" href="/suplementos/proteina/"><span class="cmx-rel-ic" aria-hidden="true">💪</span><span class="cmx-rel-tx"><span class="cmx-rel-k">Categoría</span><span class="cmx-rel-t">Proteína</span><span class="cmx-rel-d">Whey, aislada, vegana</span></span></a><a class="cmx-rel-card" href="/suplementos/creatina/"><span class="cmx-rel-ic" aria-hidden="true">⚡</span><span class="cmx-rel-tx"><span class="cmx-rel-k">Categoría</span><span class="cmx-rel-t">Creatina</span><span class="cmx-rel-d">Monohidratada, micronizada</span></span></a><a class="cmx-rel-card" href="/suplementos/magnesio/"><span class="cmx-rel-ic" aria-hidden="true">🌙</span><span class="cmx-rel-tx"><span class="cmx-rel-k">Categoría</span><span class="cmx-rel-t">Magnesio</span><span class="cmx-rel-d">Citrato, bisglicinato, L-treonato</span></span></a></div></div></section>
 <!-- cmx-related:end -->
 <!-- cmx-footer:start -->
-<div class="cmx-ft" role="contentinfo" id="cmx-ft"><div class="cmx-ft-in">
-<div class="cmx-ft-disc"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6EE7B7" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><div><h2>Aviso de afiliados</h2><p>comparalo.mx participa en los programas de afiliados de Amazon México y Mercado Libre. Si compras a través de nuestros enlaces recibimos una comisión, sin costo adicional para ti. Esa comisión no influye en el orden ni en las recomendaciones. <a href="/aviso-afiliados/">Más información</a></p></div></div>
-<div class="cmx-ft-grid">
-<div><span class="cmx-ft-brand"><img src="/logopng.png" alt="" width="28" height="28" loading="lazy">comparalo<i>.mx</i></span><p>Comparamos precios de Amazon MX y Mercado Libre para que decidas con datos, no a ciegas.</p></div>
-<div><h3>Categorías</h3><ul><li><a href="/celulares/">Celulares</a></li><li><a href="/celulares/android/">Android</a></li><li><a href="/celulares/iphone/">iPhone</a></li><li><a href="/laptops/">Laptops</a></li><li><a href="/electrodomesticos/">Electrodomésticos</a></li><li><a href="/suplementos/">Suplementos</a></li><li><a href="/bicis/">Bicicletas</a></li><li><a href="/videojuegos/">Videojuegos</a></li><li><a href="/tecnologia/">Tecnología</a></li></ul></div>
-<div><h3>Recursos</h3><ul><li><a href="/guias/">Guías y artículos</a></li><li><a href="/#metodo">Cómo comparamos</a></li><li><a href="/sobre-nosotros/">Quiénes somos</a></li><li><a href="/contacto/">Contacto</a></li><li><a href="/sitemap.xml">Mapa del sitio</a></li></ul></div>
-<div><h3>Legal</h3><ul><li><a href="/aviso-afiliados/">Aviso de afiliados</a></li><li><a href="/privacidad/">Privacidad</a></li><li><a href="/terminos/">Términos</a></li></ul></div>
+<div class="cmx-ft2" role="contentinfo" id="cmx-ft"><div class="cmx-ft2-in">
+<div class="cmx-ft2-grid">
+<div class="cmx-ft2-brand"><a class="cmx-ft2-logo" href="/" aria-label="comparalo.mx, inicio"><img src="/logopng.png" alt="" width="40" height="40" loading="lazy"><span>comparalo<i>.mx</i></span></a><p>Comparamos precios de Amazon MX y Mercado Libre para que decidas con datos, no a ciegas.</p></div>
+<div class="cmx-ft2-col cmx-ft2-cats"><h3><button type="button" aria-expanded="false" onclick="var c=this.closest('.cmx-ft2-col');this.setAttribute('aria-expanded',c.classList.toggle('open'))">Categorías<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button></h3><ul><li><a href="/celulares/">Celulares</a></li><li><a href="/laptops/">Laptops</a></li><li><a href="/electrodomesticos/">Electrodomésticos</a></li><li><a href="/suplementos/">Suplementos</a></li><li><a href="/bicis/">Bicicletas</a></li><li><a href="/videojuegos/">Videojuegos</a></li><li><a href="/tecnologia/">Tecnología</a></li><li><a href="/#categorias">Todas las categorías</a></li></ul></div>
+<div class="cmx-ft2-col"><h3><button type="button" aria-expanded="false" onclick="var c=this.closest('.cmx-ft2-col');this.setAttribute('aria-expanded',c.classList.toggle('open'))">Recursos<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button></h3><ul><li><a href="/guias/">Guías y artículos</a></li><li><a href="/#metodo">Cómo comparamos</a></li><li><a href="/sobre-nosotros/">Quiénes somos</a></li><li><a href="/contacto/">Contacto</a></li></ul></div>
+<div class="cmx-ft2-col"><h3><button type="button" aria-expanded="false" onclick="var c=this.closest('.cmx-ft2-col');this.setAttribute('aria-expanded',c.classList.toggle('open'))">Legal<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button></h3><ul><li><a href="/aviso-afiliados/">Aviso de afiliados</a></li><li><a href="/privacidad/">Privacidad</a></li><li><a href="/terminos/">Términos</a></li></ul></div>
 </div>
-<p class="cmx-ft-bottom">Los precios y la disponibilidad pueden cambiar en cualquier momento. Confirma el precio final en la tienda antes de pagar. © 2026 comparalo.mx</p>
+<p class="cmx-ft2-bottom">comparalo.mx participa en los programas de afiliados de Mercado Libre y Amazon México: si compras desde nuestros enlaces podemos recibir una comisión, sin costo adicional para ti. <a href="/aviso-afiliados/">Más información</a>. Los precios y la disponibilidad pueden cambiar; confirma el precio final en la tienda. © 2026 comparalo.mx</p>
 </div></div>
 <!-- cmx-footer:end -->
 
@@ -2757,6 +2789,7 @@ document.addEventListener('click', function(e) {
 });
 </script>
 <script src="/assets/js/share.js" defer></script>
+<script src="/assets/js/cmx-hub.js" defer></script>
 <script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
 </body>
