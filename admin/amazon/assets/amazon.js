@@ -263,10 +263,11 @@ function renderJsonPreview(){
  $("#json-preview").hidden=false;
 }
 function jsonCategoryId(p){
- const raw=(String(p.category||"")+" "+String(jsonImportPayload.collection||"")).toLowerCase();
+ const raw=(String(p.category||"")+" "+String(jsonImportPayload.collection||"")+" "+jsonProductName(p)).toLowerCase();
+ const smartwatch=/smartwatch|smart watch|reloj inteligente|apple watch|galaxy watch|watch se|watch ultra/.test(raw);
  const mobile=/smartphone|celular|samsung|iphone|telefon/.test(raw)||/galaxy|iphone/i.test(jsonProductName(p));
  const laptop=/laptop|macbook|computadora|notebook/.test(raw)||/macbook/i.test(jsonProductName(p));
- const match=mobile?categories.find(c=>c.slug==="celulares"):laptop?categories.find(c=>c.slug==="laptops"):categories.find(c=>raw.includes(c.slug)||raw.includes(c.name.toLowerCase()));
+ const match=smartwatch?categories.find(c=>c.slug==="smartwatches"):mobile?categories.find(c=>c.slug==="celulares"):laptop?categories.find(c=>c.slug==="laptops"):categories.find(c=>raw.includes(c.slug)||raw.includes(c.name.toLowerCase()));
  return match?.id||null;
 }
 async function importSelectedJson(){
