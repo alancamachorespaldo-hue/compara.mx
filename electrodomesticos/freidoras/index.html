@@ -372,6 +372,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 
 </style>
 <link rel="stylesheet" href="/assets/css/cmx-site.css">
+<link rel="stylesheet" href="/assets/css/cmx-redesign.css">
 <script src="/assets/js/paginate.js"></script>
 </head>
 <body data-category="freidoras">
@@ -404,7 +405,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 <div class="cmx-bc"><ol aria-label="Ruta de navegación"><li><a href="/">Inicio</a></li><li><a href="/electrodomesticos/">Electrodomésticos</a></li><li aria-current="page">Freidoras de Aire</li></ol></div>
 <!-- cmx-bc:end -->
 
-<div class="hero">
+<div class="hero cmx-hero">
   <div>
     <h1>Freidoras de Aire en México</h1>
     <p>Compara capacidad, potencia y funciones en Amazon MX y Mercado Libre · Decide con datos</p>
@@ -414,55 +415,59 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 <div class="page-wrap">
 
 <!-- SIDEBAR -->
-<aside class="sidebar" id="sidebar">
+<aside class="sidebar cmx-filters" id="sidebar">
   <div class="sidebar-head">
-    <span class="sidebar-head-title">Filtros</span>
-    <button class="sidebar-close" onclick="closeSidebar()" aria-label="Cerrar filtros">✕</button>
+    <span class="sidebar-head-title">Filtros <span class="cmx-filters-count" id="cmx-filters-count"></span></span>
+    <button class="sidebar-close" onclick="closeSidebar()" aria-label="Cerrar filtros">✕ Cerrar</button>
   </div>
 
-  <div class="sidebar-section">
-    <div class="sidebar-sec-title">Capacidad</div>
+  <details class="sidebar-section" open>
+    <summary class="sidebar-sec-title">Capacidad</summary>
     <div class="sidebar-filters">
       <button class="filter on" onclick="toggleFilter('cap','todos',this)">Todas</button>
       <button class="filter" onclick="toggleFilter('cap','pequena',this)">≤4 L</button>
       <button class="filter" onclick="toggleFilter('cap','mediana',this)">4–6 L</button>
       <button class="filter" onclick="toggleFilter('cap','grande',this)">6 L+</button>
     </div>
-  </div>
+  </details>
 
-  <div class="sidebar-section">
-    <div class="sidebar-sec-title">Panel</div>
+  <details class="sidebar-section" open>
+    <summary class="sidebar-sec-title">Panel</summary>
     <div class="sidebar-filters">
       <button class="filter on" onclick="toggleFilter('panel','todos',this)">Todos</button>
       <button class="filter" onclick="toggleFilter('panel','tactil',this)">Táctil</button>
       <button class="filter" onclick="toggleFilter('panel','mixto',this)">Mixto</button>
       <button class="filter" onclick="toggleFilter('panel','mecanico',this)">Mecánico</button>
     </div>
-  </div>
+  </details>
 
-  <div class="sidebar-section">
-    <div class="sidebar-sec-title">Extra</div>
+  <details class="sidebar-section" open>
+    <summary class="sidebar-sec-title">Extra</summary>
     <div class="sidebar-filters">
       <button class="filter" onclick="toggleFilter('ventana','si',this)">Con ventana</button>
       <button class="filter" onclick="toggleFilter('ventana','no',this)">Sin ventana</button>
       <button class="filter" onclick="toggleFilter('canastos','dual',this)">2+ canastas</button>
     </div>
-  </div>
+  </details>
 
-  <div class="sidebar-section">
-    <div class="sidebar-sec-title">Tienda</div>
+  <details class="sidebar-section" open>
+    <summary class="sidebar-sec-title">Tienda</summary>
     <div class="sidebar-filters">
       <button class="filter on filter-logo" data-group="plat" onclick="toggleFilter('plat','todos',this)">Ambas</button>
       <button class="filter filter-logo" data-group="plat" onclick="toggleFilter('plat','ml',this)"><img src="/logomercado.png" alt="Mercado Libre" style="height:14px;width:auto;object-fit:contain;vertical-align:middle" onerror="this.outerHTML='ML'"></button>
     </div>
-  </div>
+  </details>
 
-  <div class="sidebar-section">
-    <div class="sidebar-sec-title">Precio máx.</div>
+  <details class="sidebar-section" open>
+    <summary class="sidebar-sec-title">Precio máx.</summary>
     <input type="number" id="precio-max" placeholder="ej. 8000" class="sidebar-precio-input" oninput="render()" min="0" step="500">
-  </div>
+  </details>
 
   <button class="sidebar-clear" id="btn-clear-filters" onclick="clearFilters()">✕ Limpiar filtros</button>
+  <div class="cmx-drawer__foot">
+    <button type="button" class="cmx-btn-secondary" onclick="clearFilters()">Limpiar todo</button>
+    <button type="button" class="cmx-btn-primary" onclick="closeSidebar()">Ver <span id="cmx-drawer-count">0</span> freidoras →</button>
+  </div>
 </aside>
 
 <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
@@ -491,29 +496,20 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   </div>
 
 <!-- GUÍA: franja desktop + tarjeta móvil -->
-<div class="how-strip" role="note">
-  <div class="how-strip-lead">
-    <span class="how-strip-icon">🍟</span>
-    <div>
-      <div class="how-strip-title">Encuentra tu freidora ideal</div>
-      <div class="how-strip-sub">en Compáralo.mx</div>
-    </div>
+<div class="cmx-steps cmx-steps--sticky" role="note" aria-label="Cómo usar esta comparativa">
+  <div class="cmx-step">
+    <span class="cmx-step__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="22 3 2 3 10 12.5 10 19 14 21 14 12.5 22 3"/></svg></span>
+    <div><b>1. Filtra</b><span>Elige capacidad, panel y extras</span></div>
   </div>
-  <div class="how-steps">
-    <div class="how-step">
-      <span class="how-step-num">1</span>
-      <div><div class="how-step-title">Filtra</div><div class="how-step-desc">Elige capacidad, panel y extras.</div></div>
-    </div>
-    <span class="how-arrow" aria-hidden="true">›</span>
-    <div class="how-step">
-      <span class="how-step-num">2</span>
-      <div><div class="how-step-title">Compara</div><div class="how-step-desc">Revisa watts, capacidad, funciones y calificaciones.</div></div>
-    </div>
-    <span class="how-arrow" aria-hidden="true">›</span>
-    <div class="how-step">
-      <span class="how-step-num">3</span>
-      <div><div class="how-step-title">Consulta el precio</div><div class="how-step-desc">Haz clic en "Ir a Amazon" o "Ir a ML" en la tarjeta.</div></div>
-    </div>
+  <span class="cmx-steps__sep" aria-hidden="true">›</span>
+  <div class="cmx-step">
+    <span class="cmx-step__ic cmx-step__ic--logo"><img src="/logopng.png" alt="" width="24" height="24"></span>
+    <div><b>2. Compáralo</b><span>Revisa watts, capacidad, funciones y calificaciones</span></div>
+  </div>
+  <span class="cmx-steps__sep" aria-hidden="true">›</span>
+  <div class="cmx-step">
+    <span class="cmx-step__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg></span>
+    <div><b>3. Decide</b><span>Visita la tienda que te convenga</span></div>
   </div>
 </div>
 <button class="how-card" id="howCard" onclick="openHowModal()" aria-expanded="false" aria-haspopup="dialog">
@@ -579,9 +575,14 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 </div>
 
 <!-- GRID -->
+<div class="cmx-active" id="cmx-active" aria-live="polite"></div>
 <div class="grid-wrap" data-ga-section="comparison">
+  <div class="cmx-amazon-notice" role="note">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="11" x2="12" y2="16"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+    <p>Como Afiliado de Amazon, percibo dinero con las compras elegibles. Esta comparativa prioriza la utilidad de la información; la posible comisión no determina qué producto se considera adecuado.</p>
+  </div>
   <div class="grid" id="grid"></div>
-  <div id="empty" class="empty" style="display:none">No hay freidoras con esos filtros.</div>
+  <div id="empty" class="empty cmx-empty" style="display:none"><h2>No encontramos freidoras con esos filtros</h2><p>Prueba quitando o ajustando alguno de los filtros.</p><button type="button" class="cmx-btn-primary" onclick="clearFilters()">Ver todas las freidoras →</button></div>
 </div>
 
 </div><!-- /content-col -->
@@ -709,14 +710,18 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 <!-- cmx-footer:end -->
 
 <!-- COMPARE BAR (desktop) -->
-<div class="cmp-bar" id="cmp-bar">
-  <div>
-    <div class="cmp-bar-txt" id="cmp-bar-txt">Selecciona 2 o 3 freidoras para comparar</div>
-    <div class="cmp-bar-sub">Haz clic en cualquier tarjeta</div>
+<div class="cmp-bar cmx-comparison-dock" id="cmp-bar">
+  <div class="cmx-dock__lead">
+    <img src="/logopng.png" alt="" width="30" height="30">
+    <div>
+      <div class="cmp-bar-txt" id="cmp-bar-txt">Selecciona 2 o 3 freidoras para comparar</div>
+      <div class="cmp-bar-sub">Toca una tarjeta para agregarla o quitarla</div>
+    </div>
   </div>
+  <div class="cmx-dock__items" id="cmx-dock-items"></div>
   <div class="cmp-bar-actions">
-    <button class="btn-clear" onclick="clearSelection()">Limpiar</button>
-    <button class="btn-do-cmp" id="btn-do-cmp" onclick="openModal()" disabled>Comparar</button>
+    <button class="btn-do-cmp" id="btn-do-cmp" onclick="openModal()" disabled>Ver comparativa completa →</button>
+    <button class="btn-clear" onclick="clearSelection()">× Limpiar</button>
   </div>
 </div>
 
@@ -2766,6 +2771,65 @@ const productos = [
 // ── Estado de filtros ─────────────────────────────────────────
 const filters = { cap:'todos', panel:'todos', ventana:'todos', canastos:'todos', plat:'todos' };
 
+const CMX_FILTER_LABELS = {
+  cap: { pequena: '≤4 L', mediana: '4–6 L', grande: '6 L+' },
+  panel: { tactil: 'Panel táctil', mixto: 'Panel mixto', mecanico: 'Panel mecánico' },
+  ventana: { si: 'Con ventana', no: 'Sin ventana' },
+  canastos: { dual: '2+ canastas' },
+  plat: { ml: 'Mercado Libre', amz: 'Amazon MX' }
+};
+
+// Precio con el que se ordena y se filtra: el más bajo de los que la tarjeta muestra
+function cmxPrecio(p) {
+  const v = [p.linkML ? (p.precioML || p.precio) : null, p.linkAmz ? (p.precioAmz || p.precio) : null].filter(Boolean);
+  return v.length ? Math.min(...v) : p.precio;
+}
+
+// Quita un solo filtro (lo usan los chips de "Filtros activos")
+function cmxClearFilter(key) {
+  if (key === 'precio') { const i = document.getElementById('precio-max'); if (i) i.value = ''; }
+  else {
+    filters[key] = 'todos';
+    document.querySelectorAll('#sidebar .filter').forEach(b => {
+      const oc = b.getAttribute('onclick') || '';
+      if (oc.includes("'" + key + "'")) b.classList.toggle('on', oc.includes("'todos'"));
+    });
+  }
+  render();
+}
+
+// Chips de filtros activos, contador del panel y del botón "Ver N freidoras"
+function cmxFiltersUI(n) {
+  const chips = [];
+  Object.keys(filters).forEach(k => { if (filters[k] !== 'todos') chips.push([k, (CMX_FILTER_LABELS[k] || {})[filters[k]] || filters[k]]); });
+  const max = parseFloat(document.getElementById('precio-max')?.value) || 0;
+  if (max > 0) chips.push(['precio', 'Hasta $' + max.toLocaleString('es-MX')]);
+  const box = document.getElementById('cmx-active');
+  if (box) {
+    box.classList.toggle('show', chips.length > 0);
+    box.innerHTML = chips.length
+      ? '<span class="cmx-active__lbl">Filtros activos (' + chips.length + ')</span>'
+        + chips.map(c => `<button type="button" class="cmx-filter-chip" onclick="cmxClearFilter('${c[0]}')" aria-label="Quitar filtro ${c[1]}">${c[1]}</button>`).join('')
+        + '<button type="button" class="cmx-active__clear" onclick="clearFilters()">Limpiar todo</button>'
+      : '';
+  }
+  const cnt = document.getElementById('cmx-filters-count');
+  if (cnt) { cnt.textContent = chips.length + (chips.length === 1 ? ' filtro activo' : ' filtros activos'); cnt.classList.toggle('show', chips.length > 0); }
+  const res = document.getElementById('cmx-drawer-count');
+  if (res) res.textContent = n;
+  const cl = document.getElementById('btn-clear-filters');
+  if (cl) cl.classList.toggle('show', chips.length > 0);
+}
+
+function cmxToast(msg) {
+  let t = document.getElementById('cmx-toast');
+  if (!t) { t = document.createElement('div'); t.id = 'cmx-toast'; t.className = 'cmx-toast'; t.setAttribute('role', 'status'); document.body.appendChild(t); }
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(cmxToast._t);
+  cmxToast._t = setTimeout(() => t.classList.remove('show'), 2600);
+}
+
 function clearFilters() {
   filters.cap = 'todos'; filters.panel = 'todos'; filters.ventana = 'todos'; filters.canastos = 'todos'; filters.plat = 'todos';
   const _pm=document.getElementById('precio-max');if(_pm)_pm.value='';
@@ -2825,7 +2889,7 @@ function render() {
       const hay = (p.nombre + ' ' + p.marca + ' ' + (p.modelo||'')).toLowerCase();
       if (!hay.includes(q)) return false;
     }
-    const _maxP=parseFloat(document.getElementById('precio-max')?.value)||Infinity;if(_maxP<Infinity&&(p.precio||0)>_maxP)return false;
+    const _maxP=parseFloat(document.getElementById('precio-max')?.value)||Infinity;if(_maxP<Infinity&&(cmxPrecio(p)||0)>_maxP)return false;
     if (filters.plat === 'amz' && !p.linkAmz) return false;
     if (filters.plat === 'ml' && !p.linkML) return false;
     return true;
@@ -2833,8 +2897,8 @@ function render() {
 
   // Ordenar
   lista.sort((a, b) => {
-    if (sortVal === 'precio-asc') return (a.precio||99999) - (b.precio||99999);
-    if (sortVal === 'precio-desc') return (b.precio||0) - (a.precio||0);
+    if (sortVal === 'precio-asc') return (cmxPrecio(a)||99999) - (cmxPrecio(b)||99999);
+    if (sortVal === 'precio-desc') return (cmxPrecio(b)||0) - (cmxPrecio(a)||0);
     if (sortVal === 'estrellas') return (b.estrellas||0) - (a.estrellas||0);
     if (sortVal === 'capacidad') return b.capacidad - a.capacidad;
     if (sortVal === 'capacidad-asc') return a.capacidad - b.capacidad;
@@ -2842,6 +2906,7 @@ function render() {
     return 0;
   });
 
+  cmxFiltersUI(lista.length);
   const grid = document.getElementById('grid');
   const empty = document.getElementById('empty');
   const info = document.getElementById('result-info');
@@ -2865,80 +2930,65 @@ function cardHTML(p) {
   const _rML  = p.resenasML   ?? p.resenas;
   const _eAmz = p.estrellasAmz ?? p.estrellas;
   const _rAmz = p.resenasAmz  ?? p.resenas;
-  const stars = dual
-    ? `<div class="card-stars-dual">
-        <div class="stars-col">
-          <div class="stars-plat">Mercado Libre</div>
-          ${_eML ? `<div class="stars-val">★ ${_eML.toFixed(1)} <span class="stars-cnt">(${(_rML||0).toLocaleString('es-MX')})</span></div>` : '<div class="stars-val" style="color:var(--tx3)">Sin datos</div>'}
-        </div>
-        <div class="stars-col">
-          <div class="stars-plat">Amazon</div>
-          ${_eAmz ? `<div class="stars-val">★ ${_eAmz.toFixed(1)} <span class="stars-cnt">(${(_rAmz||0).toLocaleString('es-MX')})</span></div>` : '<div class="stars-val" style="color:var(--tx3)">Sin datos</div>'}
-        </div>
-      </div>`
-    : p.estrellas ? `<div class="card-stars">★ ${p.estrellas.toFixed(1)} <span class="card-stars-count">(${(p.resenas||0).toLocaleString('es-MX')})</span></div>` : '<div class="card-stars-empty"></div>';
-  const tags = [
-    p.ventana ? `<span class="tag tag-ventana">🪟 Ventana</span>` : '',
-    p.antiadherente ? `<span class="tag">Antiadherente</span>` : '',
-    p.canastos > 1 ? `<span class="tag">${p.canastos} cestas</span>` : '',
-    ...p.funciones.slice(0,3).map(f => `<span class="tag">${f}</span>`),
-  ].filter(Boolean).join('');
+  const star = (e, r, lbl) => e ? `<span>${lbl ? `<em>${lbl}</em>` : ''}<span class="cmx-star" aria-hidden="true">★</span> ${e.toFixed(1)} <small>(${(r||0).toLocaleString('es-MX')})</small></span>` : '';
+  const rating = dual ? star(_eML, _rML, 'ML') + star(_eAmz, _rAmz, 'Amazon') : star(p.estrellas, p.resenas, '');
+  const chips = [
+    p.capacidad != null ? p.capacidad + ' L' : '',
+    p.potencia ? p.potencia.toLocaleString('es-MX') + ' W' : '',
+    p.panel ? 'Panel ' + p.panel : '',
+    p.tempMax ? p.tempMax + ' °C' : '',
+    p.canastos ? p.canastos + (p.canastos === 1 ? ' cesta' : ' cestas') : '',
+    p.funciones && p.funciones.length ? p.funciones.length + (p.funciones.length === 1 ? ' función' : ' funciones') : '',
+  ].filter(Boolean).map(c => `<span class="cmx-chip">${c}</span>`).join('');
 
-  let precioBlock, btnsBlock;
-  if (dual) {
-    const pML = p.precioML || p.precio;
-    const pAmz = p.precioAmz || p.precio;
-    precioBlock = '';
-    btnsBlock = `<div class="card-btns-dual">
-      <div class="card-btn-col">
-        ${pML ? `<div class="card-btn-col-price">${fmtPrecio(pML)}</div>` : ''}
-        <a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'platform':'mercado_libre','product_name':this.dataset.gaLabel||'','price':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\\//g,'').replace(/\\/(?:index\\.html)?$/g,'').replace(/\\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1,'category':'freidoras'})}" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}">Ir a <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>
-      </div>
-      ${p.linkAmz ? `<div class="card-btn-col">
-        ${pAmz ? `<div class="card-btn-col-price">${fmtPrecio(pAmz)}</div>` : ''}
-        <a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_amazon',{'platform':'amazon','product_name':this.dataset.gaLabel||'','price':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\\//g,'').replace(/\\/(?:index\\.html)?$/g,'').replace(/\\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1,'category':'freidoras'})}" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}">Ir a <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>
-      </div>` : ''}
-    </div>`;
-  } else {
-    precioBlock = p.precio
-      ? `<div class="card-price">${fmtPrecio(p.precio)}</div>`
-      : `<div class="price-nd">Precio no disponible</div>`;
-    const btnML = p.linkML ? `<a class="btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'platform':'mercado_libre','product_name':this.dataset.gaLabel||'','price':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\\//g,'').replace(/\\/(?:index\\.html)?$/g,'').replace(/\\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1,'category':'freidoras'})}" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}">Ir a <img class="btn-logo-img" src="/logomercado.png" alt="Mercado Libre" onerror="this.style.display='none'"></a>` : '';
-    const btnAmz = p.linkAmz ? `<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_amazon',{'platform':'amazon','product_name':this.dataset.gaLabel||'','price':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\\//g,'').replace(/\\/(?:index\\.html)?$/g,'').replace(/\\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1,'category':'freidoras'})}" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}">Ir a <img class="btn-logo-img" src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>` : '';
-    btnsBlock = `<div class="card-btns">${btnML}${btnAmz}</div>`;
-  }
+  // Precio por tienda. Solo hay ganador con dos precios propios y distintos.
+  const pML  = p.precioML  || p.precio;
+  const pAmz = p.precioAmz || p.precio;
+  const hayDos = dual && p.precioML && p.precioAmz && p.precioML !== p.precioAmz;
+  const gana = hayDos ? (p.precioML < p.precioAmz ? 'ml' : 'amz') : '';
+  const drop = p.linkML && typeof window.cmxGetDrop === 'function' ? window.cmxGetDrop(p) : null;
+  const precio = v => v ? `<strong class="cmx-price">${fmtPrecio(v)} <small>MXN</small></strong>` : '<span class="cmx-price-old" style="text-decoration:none">Consulta el precio</span>';
+  const estado = t => gana ? (gana === t ? ' cmx-price-block--best' : ' cmx-price-block--second') : '';
+  const badge = t => gana === t ? '<span class="cmx-best-badge">Mejor precio ✓</span>' : '';
+  const btnML = p.linkML ? `<a class="btn-ml cmx-btn-ml" href="${p.linkML}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'platform':'mercado_libre','product_name':this.dataset.gaLabel||'','price':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\\//g,'').replace(/\\/(?:index\\.html)?$/g,'').replace(/\\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1,'category':'freidoras'})}" data-ga-label="${p.nombre||''}" data-ga-val="${pML||0}">Ver en <img class="cmx-btn-logo" src="/logomercado.png" alt="Mercado Libre" onerror="this.outerHTML='Mercado Libre'"> <span class="cmx-btn-arrow" aria-hidden="true">↗</span></a>` : '';
+  const btnAmz = p.linkAmz ? `<a class="btn-amz cmx-btn-amz" href="${p.linkAmz}" target="_blank" rel="sponsored nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_amazon',{'platform':'amazon','product_name':this.dataset.gaLabel||'','price':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\\//g,'').replace(/\\/(?:index\\.html)?$/g,'').replace(/\\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1,'category':'freidoras'})}" data-ga-label="${p.nombre||''}" data-ga-val="${pAmz||0}">Ver en <img class="cmx-btn-logo" src="/logoamazon.png" alt="Amazon MX" onerror="this.outerHTML='Amazon MX'"> <span class="cmx-btn-arrow" aria-hidden="true">↗</span></a>` : '';
+  const bloqueML = p.linkML
+    ? `<div class="cmx-price-block cmx-price-block--ml${estado('ml')}">${badge('ml')}
+        <div class="cmx-price-block__row"><span class="cmx-price-block__store">Mercado Libre</span>${precio(pML)}</div>
+        ${drop ? `<div class="cmx-price-block__meta"><span class="cmx-price-old">${fmtPrecio(drop.antes)}</span><span class="cmx-price-drop">↓ Bajó ${fmtPrecio(drop.ahorro)}</span></div>` : ''}
+        ${btnML}
+      </div>`
+    : '<div class="cmx-price-block cmx-price-block--na">No disponible en Mercado Libre</div>';
+  const bloqueAmz = p.linkAmz
+    ? `<div class="cmx-price-block cmx-price-block--amz${estado('amz')}">${badge('amz')}
+        <div class="cmx-price-block__row"><span class="cmx-price-block__store">Amazon MX</span>${precio(pAmz)}</div>
+        ${btnAmz}
+      </div>`
+    : '<div class="cmx-price-block cmx-price-block--na">No disponible en Amazon</div>';
+  const bloques = gana === 'amz' ? bloqueAmz + bloqueML : bloqueML + bloqueAmz;
 
   const _plat = dual ? 'both' : (p.linkML ? 'ml' : 'amz');
+  const mods = (isSelected ? ' selected cmx-card--comparando' : '') + (drop ? ' cmx-card--oferta' : '') + (dual ? '' : (p.linkML ? ' cmx-card--solo-ml' : ' cmx-card--solo-amz'));
   return `
-  <div class="card${isSelected?' selected':''}" data-platform="${_plat}" id="card-${p.id}" onclick="toggleSelect(${p.id})">
-    ${isSelected ? '<div class="sel-check">✓</div>' : ''}
-    <div class="card-img-wrap">
-      <img class="card-img" src="${p.img}" alt="${p.nombre}" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'88\' height=\'88\'><rect fill=\'%23f1f5f9\' width=\'88\' height=\'88\'/></svg>'">
+  <article class="card cmx-card${mods}" data-platform="${_plat}" data-cmx-cheap="1" id="card-${p.id}" onclick="toggleSelect(${p.id})">
+    <span class="cmx-card__cmp" aria-hidden="true"><i>${isSelected ? '✓' : ''}</i>${isSelected ? 'Comparando' : 'Comparar'}</span>
+    <div class="cmx-card__media">
+      <img class="cmx-card__img" src="${p.img}" alt="${p.nombre}" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'88\' height=\'88\'><rect fill=\'%23f1f5f9\' width=\'88\' height=\'88\'/></svg>'">
     </div>
-    <div class="card-body">
-      <div class="card-name">${p.nombreCorto || p.nombre}</div>
-      ${stars}
+    <div class="cmx-card__body">
+      <h3 class="cmx-card__name">${p.nombreCorto || p.nombre}</h3>
+      <div class="cmx-card__rating">${rating}</div>
+      <div class="cmx-chips">${chips}</div>
       ${p.videoResena ? (()=>{
         const u=p.videoResena;
         const isTT=/tiktok/.test(u), isFB=/facebook|fb\.watch/.test(u), isIG=/instagram/.test(u);
         const icon=isTT?'<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="color:#010101"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>':isFB?'<svg width="12" height="12" viewBox="0 0 24 24" fill="#1877f2"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.514c-1.491 0-1.956.93-1.956 1.886v2.268h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>':isIG?'<svg width="12" height="12" viewBox="0 0 24 24" fill="url(#igGrad)"><defs><linearGradient id="igGrad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#f09433"/><stop offset="25%" style="stop-color:#e6683c"/><stop offset="50%" style="stop-color:#dc2743"/><stop offset="75%" style="stop-color:#cc2366"/><stop offset="100%" style="stop-color:#bc1888"/></linearGradient></defs><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>':'<svg width="12" height="12" viewBox="0 0 24 24" fill="#ff0000"><path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>';
         const label=isTT?'Ver reseña en TikTok':isFB?'Ver reseña en Facebook':isIG?'Ver reseña en Instagram':'Ver reseña en YouTube';
-        return `<button class="btn-video" onclick="event.stopPropagation();openVideo('${u}')">${icon} ${label}</button>`;
+        return `<button class="btn-video cmx-card__video" onclick="event.stopPropagation();openVideo('${u}')">${icon} ${label}</button>`;
       })() : ''}
-      <div class="card-specs">
-        <div class="spec"><div class="spec-label">Capacidad</div><div class="spec-val">${p.capacidad != null ? p.capacidad + ' L' : '—'}</div></div>
-        <div class="spec"><div class="spec-label">Potencia</div><div class="spec-val">${p.potencia ? p.potencia + ' W' : '—'}</div></div>
-        <div class="spec"><div class="spec-label">Panel</div><div class="spec-val">${p.panel ? p.panel.charAt(0).toUpperCase()+p.panel.slice(1) : '—'}</div></div>
-        ${p.tempMax ? `<div class="spec"><div class="spec-label">Temp. Máx.</div><div class="spec-val">${p.tempMax}°C</div></div>` : ''}
-        <div class="spec"><div class="spec-label">Cestas</div><div class="spec-val">${p.canastos ?? '—'}</div></div>
-        ${p.funciones && p.funciones.length ? `<div class="spec"><div class="spec-label">Funciones</div><div class="spec-val">${p.funciones.length}</div></div>` : ''}
-      </div>
-      <div class="card-commercial">
-        ${precioBlock}
-        ${btnsBlock}
-      </div>
     </div>
-  </div>`;
+    <div class="cmx-card__prices">${bloques}</div>
+  </article>`;
 }
 
 // ── Selección y comparación ───────────────────────────────────
@@ -2949,7 +2999,7 @@ function toggleSelect(id) {
   if (idx !== -1) {
     selected.splice(idx, 1);
   } else {
-    if (selected.length >= 3) { alert('Máximo 3 freidoras para comparar.'); return; }
+    if (selected.length >= 3) { cmxToast('Máximo 3 productos'); return; }
     selected.push(id);
   }
   updateBar();
@@ -2969,6 +3019,11 @@ function updateBar() {
   const fab = document.getElementById('cmp-fab');
   const fabBtn = document.getElementById('cmp-fab-btn');
   const fabCount = document.getElementById('cmp-fab-count');
+  const dockItems = document.getElementById('cmx-dock-items');
+  if (dockItems) dockItems.innerHTML = selected.map(id => {
+    const p = productos.find(x => x.id === id);
+    return p ? `<div class="cmx-dock__item"><img src="${p.img}" alt=""><span>${p.nombreCorto || p.nombre}</span><button type="button" onclick="toggleSelect(${p.id})" aria-label="Quitar de la comparación">×</button></div>` : '';
+  }).join('');
 
   if (!selected.length) {
     bar.classList.remove('show');
@@ -2976,7 +3031,7 @@ function updateBar() {
     return;
   }
   bar.classList.add('show');
-  txt.textContent = selected.length === 1 ? '1 freidora seleccionada — selecciona otra para comparar' : `${selected.length} freidoras seleccionadas`;
+  txt.textContent = selected.length === 1 ? '1 freidora seleccionada — selecciona otra para comparar' : `Comparando ${selected.length} freidoras`;
   btn.disabled = selected.length < 2;
   if (fab) {
     fab.classList.add('show');

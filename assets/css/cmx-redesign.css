@@ -1,0 +1,363 @@
+/* comparalo.mx — sistema visual del rediseño (nov-2026).
+   Se carga DESPUÉS de cmx-site.css y del CSS en línea de cada página; no reemplaza a ninguno.
+   Todo con prefijo cmx-. Verde = Compáralo, amarillo = Mercado Libre, naranja = Amazon. */
+
+:root {
+  --cmx-green: #006847;
+  --cmx-green-dark: #004D38;
+  --cmx-green-action: #00843D;
+  --cmx-green-soft: #EAF7EF;
+  --cmx-green-success: #16A34A;
+  --cmx-ml: #F0C000;
+  --cmx-ml-soft: #FFF9E6;
+  --cmx-amz: #FF9900;
+  --cmx-amz-soft: #FFF4E8;
+  --cmx-discount: #EF1B24;
+  --cmx-bg: #F8F9FA;
+  --cmx-white: #FFFFFF;
+  --cmx-footer-bg: #10182D;
+  --cmx-text: #111827;
+  --cmx-text-secondary: #64748B;
+  --cmx-border: #E5E7EB;
+  --cmx-radius-card: 16px;
+  --cmx-radius-sm: 12px;
+  --cmx-radius-pill: 999px;
+  --cmx-shadow-card: 0 2px 8px rgba(0,0,0,.08);
+  --cmx-shadow-hover: 0 8px 24px rgba(0,0,0,.14);
+  --cmx-font: 'Satoshi', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+/* ── 2.3 Botones ───────────────────────────────────────────── */
+.cmx-btn-ml, .cmx-btn-amz, .cmx-btn-primary, .cmx-btn-secondary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 12px 20px; min-height: 44px; border: 0; border-radius: var(--cmx-radius-pill);
+  font: 700 14px/1.2 var(--cmx-font); text-decoration: none; cursor: pointer; white-space: nowrap;
+  transition: filter .15s, background .15s, color .15s, box-shadow .15s;
+}
+.cmx-btn-ml { background: var(--cmx-ml); color: var(--cmx-text); }
+.cmx-btn-amz { background: var(--cmx-amz); color: var(--cmx-text); }
+.cmx-btn-ml:hover, .cmx-btn-amz:hover { filter: brightness(.95); opacity: 1; }
+.cmx-btn-primary { background: var(--cmx-green); color: #fff; font-weight: 600; }
+.cmx-btn-primary:hover { background: var(--cmx-green-dark); }
+.cmx-btn-primary:disabled { opacity: .5; cursor: not-allowed; }
+.cmx-btn-secondary { background: #fff; color: var(--cmx-green); border: 2px solid var(--cmx-green); font-weight: 600; }
+.cmx-btn-secondary:hover { background: var(--cmx-green-soft); }
+.cmx-btn-ml:focus-visible, .cmx-btn-amz:focus-visible, .cmx-btn-primary:focus-visible, .cmx-btn-secondary:focus-visible { outline: 2px solid var(--cmx-green); outline-offset: 2px; }
+.cmx-btn-logo { height: 16px; width: auto; max-width: 44px; object-fit: contain; flex-shrink: 0; }
+.cmx-btn-arrow { font-weight: 800; }
+
+/* ── 2.4 Hero ──────────────────────────────────────────────── */
+.cmx-hero {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 24px;
+  background: linear-gradient(135deg, var(--cmx-green) 0%, var(--cmx-green-dark) 100%);
+  color: #fff; padding: 28px 32px; font-family: var(--cmx-font);
+}
+.cmx-hero h1 { font-size: clamp(1.5rem, 3.2vw, 2.4rem); font-weight: 800; letter-spacing: -.03em; line-height: 1.1; margin: 0; color: #fff; }
+.cmx-hero p { font-size: 15px; line-height: 1.5; opacity: .88; margin: 8px 0 0; max-width: 620px; }
+.cmx-hero__art { display: flex; align-items: flex-end; gap: 12px; }
+.cmx-hero__art img { max-height: 150px; width: auto; filter: drop-shadow(0 12px 18px rgba(0,0,0,.35)); }
+.cmx-hero__stores { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+.cmx-hero__store { display: inline-flex; align-items: center; height: 34px; padding: 0 14px; border-radius: var(--cmx-radius-pill); }
+.cmx-hero__store img { height: 18px; width: auto; }
+.cmx-hero__store--ml { background: var(--cmx-ml); }
+.cmx-hero__store--amz { background: var(--cmx-amz); }
+@media (max-width: 760px) {
+  .cmx-hero { grid-template-columns: 1fr; padding: 18px 16px; gap: 12px; }
+  .cmx-hero p { font-size: 13.5px; }
+  .cmx-hero__art img { max-height: 90px; }
+}
+
+/* ── 2.5 Barra de pasos ────────────────────────────────────── */
+.cmx-steps {
+  display: flex; align-items: center; gap: 14px; background: var(--cmx-green-dark); color: #fff;
+  padding: 10px 24px; font-family: var(--cmx-font); border-top: 1px solid rgba(255,255,255,.12);
+}
+.cmx-step { display: flex; align-items: center; gap: 10px; flex: 1 1 0; min-width: 0; }
+.cmx-step__ic { flex-shrink: 0; width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,.12); }
+.cmx-step__ic--logo { background: #fff; }
+.cmx-step__ic img { width: 24px; height: 24px; object-fit: contain; display: block; }
+.cmx-step b { display: block; font-size: 14px; font-weight: 800; line-height: 1.2; }
+.cmx-step div span { display: block; font-size: 12px; opacity: .78; line-height: 1.3; margin-top: 1px; }
+.cmx-steps__sep { flex-shrink: 0; font-size: 20px; opacity: .45; }
+@media (min-width: 901px) { .cmx-steps--sticky { position: sticky; top: 63px; z-index: 90; } }
+@media (max-width: 760px) {
+  .cmx-steps { padding: 8px 12px; gap: 6px; }
+  .cmx-step { gap: 6px; flex: 0 1 auto; }
+  .cmx-step__ic { width: 22px; height: 22px; border-radius: 6px; }
+  .cmx-steps__sep { display: none; }
+  .cmx-step b { white-space: nowrap; }
+  .cmx-step__ic img { width: 16px; height: 16px; }
+  .cmx-step__ic svg { width: 13px; height: 13px; }
+  .cmx-step b { font-size: 12.5px; }
+  .cmx-step div span { display: none; }
+  .cmx-steps { justify-content: space-between; }
+}
+/* Con la barra de pasos fija, la barra de búsqueda y orden deja de serlo para no apilar dos franjas */
+.content-header:has(~ .cmx-steps--sticky) { position: static; }
+.grid-wrap > .cmx-amazon-notice { margin-bottom: 16px; }
+/* La tarjeta móvil "¿Cómo funciona?" sobra cuando la barra de pasos ya se ve en móvil */
+.cmx-steps ~ .how-card { display: none !important; }
+
+/* ── 2.2 Tarjeta de comparativa ────────────────────────────── */
+.card.cmx-card, .card.cmx-card[data-platform] {
+  display: flex !important; flex-direction: column; background: var(--cmx-white);
+  border: 1px solid var(--cmx-border); border-radius: var(--cmx-radius-card);
+  box-shadow: var(--cmx-shadow-card); overflow: hidden; position: relative; cursor: pointer;
+  font-family: var(--cmx-font); color: var(--cmx-text);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.card.cmx-card::before, .card.cmx-card::after { display: none !important; content: none !important; }
+@media (hover: hover) {
+  .card.cmx-card:hover { transform: translateY(-4px); box-shadow: var(--cmx-shadow-hover); }
+  .card.cmx-card:hover .cmx-card__img { transform: scale(1.05); }
+}
+.card.cmx-card:active { border-color: var(--cmx-green); }
+.card.cmx-card.cmx-card--comparando, .card.cmx-card.selected {
+  border: 2px solid var(--cmx-green); box-shadow: 0 0 0 3px rgba(0,104,71,.14), var(--cmx-shadow-card);
+}
+
+/* Casilla "Comparar" (arriba a la derecha; la bajada de precio va a la izquierda) */
+.cmx-card__cmp {
+  position: absolute; top: 10px; right: 10px; z-index: 3; display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 9px 4px 5px; border-radius: var(--cmx-radius-pill); background: rgba(255,255,255,.95);
+  border: 1px solid var(--cmx-border); font-size: 11.5px; font-weight: 600; color: var(--cmx-text-secondary);
+  pointer-events: none;
+}
+.cmx-card__cmp i { width: 16px; height: 16px; border-radius: 5px; border: 1.5px solid #CBD5E1; background: #fff; display: flex; align-items: center; justify-content: center; font-style: normal; font-size: 11px; line-height: 1; color: #fff; }
+.cmx-card--comparando .cmx-card__cmp { background: var(--cmx-green); border-color: var(--cmx-green); color: #fff; }
+.cmx-card--comparando .cmx-card__cmp i { background: #fff; border-color: #fff; color: var(--cmx-green); }
+
+.cmx-card__media { height: 190px; padding: 34px 14px 8px; display: flex; align-items: center; justify-content: center; background: #fff; overflow: hidden; }
+.cmx-card__img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; transition: transform .25s ease; filter: drop-shadow(0 6px 10px rgba(15,23,42,.10)); }
+
+.cmx-card__body { padding: 4px 14px 12px; display: flex; flex-direction: column; gap: 7px; flex: 1; }
+.cmx-card__name { font-size: 14.5px; font-weight: 700; line-height: 1.3; letter-spacing: -.01em; margin: 0; color: var(--cmx-text);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.cmx-card__rating { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 10px; font-size: 13px; font-weight: 700; color: var(--cmx-text); min-height: 18px; }
+.cmx-card__rating .cmx-star { color: #F59E0B; }
+.cmx-card__rating small { font-size: 12px; font-weight: 400; color: var(--cmx-text-secondary); }
+.cmx-card__rating em { font-style: normal; font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--cmx-text-secondary); margin-right: 3px; }
+
+.cmx-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.cmx-chip { display: inline-flex; align-items: center; padding: 3px 9px; border-radius: var(--cmx-radius-pill); background: #F1F5F4; color: #334155; font-size: 11.5px; font-weight: 600; line-height: 1.4; white-space: nowrap; }
+
+.cmx-card__video { align-self: flex-start; }
+
+/* Bloques de precio por tienda */
+.cmx-card__prices { display: flex; flex-direction: column; gap: 8px; padding: 0 12px 12px; margin-top: auto; }
+.cmx-price-block { position: relative; border-radius: var(--cmx-radius-sm); padding: 10px; display: flex; flex-direction: column; gap: 8px; border: 1px solid transparent; }
+.cmx-price-block--ml { background: var(--cmx-ml-soft); border-color: #F6E3A1; }
+.cmx-price-block--amz { background: var(--cmx-amz-soft); border-color: #FFD9A8; }
+.cmx-price-block__row { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-width: 0; }
+.cmx-price-block__store { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 700; color: var(--cmx-text); min-width: 0; }
+.cmx-price-block__store img { height: 16px; width: auto; max-width: 54px; object-fit: contain; }
+.cmx-price { font-size: 19px; font-weight: 800; letter-spacing: -.02em; color: var(--cmx-text); white-space: nowrap; line-height: 1.1; }
+.cmx-price small { font-size: 11px; font-weight: 700; letter-spacing: 0; }
+.cmx-price-block .cmx-btn-ml, .cmx-price-block .cmx-btn-amz { width: 100%; padding: 9px 10px; min-height: 40px; font-size: 13px; }
+.cmx-price-old { font-size: 12px; color: var(--cmx-text-secondary); text-decoration: line-through; font-weight: 500; }
+.cmx-price-drop { font-size: 12px; font-weight: 700; color: var(--cmx-green-success); }
+.cmx-price-block__meta { display: flex; align-items: center; justify-content: flex-end; gap: 8px; margin-top: -4px; }
+
+/* Ganador: solo cuando hay dos precios distintos del mismo producto */
+.cmx-best-badge { position: absolute; top: -9px; left: 50%; transform: translateX(-50%); background: var(--cmx-green); color: #fff; font-size: 9.5px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; padding: 2px 9px; border-radius: var(--cmx-radius-pill); white-space: nowrap; }
+.cmx-price-block--ml.cmx-price-block--best { background: var(--cmx-ml); border-color: var(--cmx-ml); margin-top: 6px; }
+.cmx-price-block--amz.cmx-price-block--best { background: var(--cmx-amz); border-color: var(--cmx-amz); margin-top: 6px; }
+.cmx-price-block--best { padding-top: 14px; }
+.cmx-price-block--best .cmx-price { font-size: 22px; }
+.cmx-price-block--best .cmx-btn-ml, .cmx-price-block--best .cmx-btn-amz { background: #fff; }
+.cmx-price-block--second { background: #fff; border-color: var(--cmx-border); }
+.cmx-price-block--second .cmx-price { font-size: 16px; }
+.cmx-price-block--second .cmx-btn-ml { background: #fff; border: 1.5px solid var(--cmx-ml); padding: 7.5px 10px; }
+.cmx-price-block--second .cmx-btn-amz { background: #fff; border: 1.5px solid var(--cmx-amz); padding: 7.5px 10px; }
+
+/* Tienda sin enlace: se dice, nunca un botón vacío */
+.cmx-price-block--na { background: #F8F9FA; border: 1px dashed var(--cmx-border); padding: 7px 10px; flex-direction: row; align-items: center; gap: 6px; font-size: 11.5px; color: #94A3B8; font-weight: 500; }
+.cmx-price-block--na img { height: 13px; width: auto; filter: grayscale(1); opacity: .55; }
+
+/* Oferta: la etiqueta roja de price-drops.js se reduce al porcentaje; el detalle va en el bloque de precio */
+.cmx-card .cmx-drop { top: 10px; left: 10px; padding: 3px 9px; border-radius: 8px; background: var(--cmx-discount); box-shadow: none; }
+.cmx-card .cmx-drop span, .cmx-card .cmx-drop s { display: none; }
+.cmx-card .cmx-drop b { font-size: 12.5px; }
+
+@media (max-width: 480px) {
+  .card.cmx-card { border-radius: 14px; }
+  .cmx-card__media { height: 128px; padding: 30px 8px 4px; }
+  .cmx-card__body { padding: 2px 8px 8px; gap: 5px; }
+  .cmx-card__name { font-size: 12.5px; }
+  .cmx-card__rating { font-size: 12px; }
+  .cmx-card__rating small { font-size: 11px; }
+  .cmx-chip { font-size: 10.5px; padding: 2px 7px; }
+  .cmx-chips { gap: 4px; }
+  .cmx-card__cmp { top: 7px; right: 7px; font-size: 10.5px; padding: 3px 7px 3px 4px; gap: 4px; }
+  .cmx-card__cmp i { width: 14px; height: 14px; }
+  .cmx-card__prices { padding: 0 6px 6px; gap: 6px; }
+  .cmx-price-block { padding: 7px 6px; gap: 6px; }
+  .cmx-price-block__row { flex-wrap: wrap; gap: 0 6px; }
+  .cmx-price-block__store { font-size: 10px; }
+  .cmx-price { font-size: 16px; }
+  .cmx-price-block--best .cmx-price { font-size: 17px; }
+  .cmx-price-block--second .cmx-price { font-size: 14px; }
+  .cmx-price-block .cmx-btn-ml, .cmx-price-block .cmx-btn-amz { font-size: 11px; padding: 8px 4px; gap: 4px; min-height: 38px; }
+  .cmx-price-block .cmx-btn-logo { height: 13px; }
+  .cmx-price-block--na { font-size: 10px; padding: 6px; }
+  .cmx-card .cmx-drop { top: 7px; left: 7px; }
+  .cmx-price-old, .cmx-price-drop { font-size: 10.5px; }
+}
+
+/* ── 2.6 Filtros laterales ─────────────────────────────────── */
+.cmx-filters { font-family: var(--cmx-font); background: #fff; }
+.cmx-filters .sidebar-head { display: flex; }
+.cmx-filters .sidebar-head-title { font-size: 20px; font-weight: 800; letter-spacing: -.02em; display: flex; align-items: center; gap: 8px; }
+.cmx-filters-count { display: none; font-size: 11.5px; font-weight: 700; background: var(--cmx-green-soft); color: var(--cmx-green); border-radius: var(--cmx-radius-pill); padding: 3px 10px; letter-spacing: 0; }
+.cmx-filters-count.show { display: inline-block; }
+.cmx-filters details.sidebar-section { padding: 0 16px; }
+.cmx-filters details.sidebar-section > summary {
+  list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 0; margin: 0; font-size: 14.5px; font-weight: 800; text-transform: none; letter-spacing: -.01em; color: var(--cmx-text);
+}
+.cmx-filters details.sidebar-section > summary::-webkit-details-marker { display: none; }
+.cmx-filters details.sidebar-section > summary::after { content: ''; width: 8px; height: 8px; border-right: 2px solid var(--cmx-text); border-bottom: 2px solid var(--cmx-text); transform: rotate(45deg); transition: transform .15s; margin-right: 4px; }
+.cmx-filters details[open].sidebar-section > summary::after { transform: rotate(-135deg); margin-top: 4px; }
+.cmx-filters details.sidebar-section > summary:focus-visible { outline: 2px solid var(--cmx-green); outline-offset: 2px; border-radius: 6px; }
+.cmx-filters details.sidebar-section > :not(summary) { margin-bottom: 14px; }
+.cmx-filters .filter { min-height: 32px; padding: 5px 13px; font-size: 12.5px; font-weight: 600; border-radius: var(--cmx-radius-pill); border-color: #CBD5E1; color: #334155; }
+.cmx-filters .filter.on { background: var(--cmx-green); border-color: var(--cmx-green); color: #fff; }
+.cmx-filters .sidebar-precio-input { width: 100%; padding: 9px 12px; border-radius: 10px; font-size: 13px; }
+.cmx-drawer__foot { display: none; }
+@media (min-width: 901px) {
+  .cmx-filters .sidebar-close { display: none; }
+  .cmx-filters .sidebar-head { border-bottom: 0; padding-bottom: 4px; }
+}
+
+/* ── 2.7 Drawer de filtros en móvil ────────────────────────── */
+@media (max-width: 900px) {
+  .sidebar.cmx-filters { width: 85vw; max-width: 380px; left: -86vw; padding-bottom: 0; display: flex; flex-direction: column; }
+  .sidebar.cmx-filters.open { left: 0; }
+  .cmx-filters .sidebar-close { background: none; font-size: 14px; font-weight: 700; color: var(--cmx-text); padding: 8px 4px; min-height: 40px; }
+  .cmx-filters .sidebar-clear { display: none !important; }
+  .cmx-drawer__foot { display: grid; gap: 8px; position: sticky; bottom: 0; margin-top: auto; padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px)); background: #fff; border-top: 1px solid var(--cmx-border); }
+  .cmx-drawer__foot .cmx-btn-primary, .cmx-drawer__foot .cmx-btn-secondary { width: 100%; }
+}
+
+/* Chips de filtros activos, sobre el listado */
+.cmx-active { display: none; flex-wrap: wrap; align-items: center; gap: 8px; padding: 12px 2rem 0; max-width: 1400px; margin: 0 auto; font-family: var(--cmx-font); }
+.cmx-active.show { display: flex; }
+.cmx-active__lbl { font-size: 13px; font-weight: 700; color: var(--cmx-text); }
+.cmx-filter-chip { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 4px 8px 4px 12px; border: 0; border-radius: var(--cmx-radius-pill); background: var(--cmx-green-soft); color: var(--cmx-text); font: 700 12.5px var(--cmx-font); cursor: pointer; }
+.cmx-filter-chip::after { content: '×'; color: var(--cmx-green); font-size: 17px; line-height: 1; font-weight: 700; }
+.cmx-filter-chip:hover { background: #D7F0E0; }
+.cmx-active__clear { background: none; border: 0; color: var(--cmx-green); font: 700 12.5px var(--cmx-font); cursor: pointer; text-decoration: underline; padding: 6px 4px; }
+.cmx-active ~ .cmx-drop-chip { margin: 12px 0 0 2rem; }
+@media (max-width: 480px) { .cmx-active { padding: 10px .75rem 0; } .cmx-active ~ .cmx-drop-chip { margin-left: .75rem; } }
+
+/* Sin resultados */
+.cmx-empty { text-align: center; padding: 48px 16px; font-family: var(--cmx-font); color: var(--cmx-text); }
+.cmx-empty h2 { font-size: clamp(1.2rem, 2.4vw, 1.7rem); font-weight: 800; letter-spacing: -.02em; margin: 0 0 6px; }
+.cmx-empty p { font-size: 14.5px; color: var(--cmx-text-secondary); margin: 0 0 18px; }
+
+/* ── 2.8 Dock de comparación ───────────────────────────────── */
+.cmp-bar.cmx-comparison-dock {
+  background: var(--cmx-green-dark); color: #fff; border-top: 0; box-shadow: 0 -6px 24px rgba(0,0,0,.2);
+  padding: 10px 24px calc(10px + env(safe-area-inset-bottom, 0px)); font-family: var(--cmx-font); gap: 16px; align-items: center; justify-content: flex-start;
+}
+.cmx-comparison-dock .cmp-bar-txt { color: #fff; font-size: 15px; font-weight: 800; line-height: 1.2; }
+.cmx-comparison-dock .cmp-bar-sub { color: rgba(255,255,255,.72); font-size: 12px; }
+.cmx-dock__lead { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.cmx-dock__lead img { width: 30px; height: 30px; padding: 3px; border-radius: 8px; background: #fff; object-fit: contain; }
+.cmx-dock__items { display: flex; gap: 8px; flex: 1; min-width: 0; }
+.cmx-dock__item { display: flex; align-items: center; gap: 8px; background: #fff; color: var(--cmx-text); border-radius: 10px; padding: 5px 6px 5px 5px; min-width: 0; max-width: 240px; }
+.cmx-dock__item img { width: 34px; height: 34px; object-fit: contain; flex-shrink: 0; }
+.cmx-dock__item span { font-size: 12px; font-weight: 700; line-height: 1.25; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.cmx-dock__item button { flex-shrink: 0; width: 28px; height: 28px; border: 0; background: none; border-radius: 50%; font-size: 18px; line-height: 1; color: var(--cmx-text-secondary); cursor: pointer; }
+.cmx-dock__item button:hover { background: #F1F5F4; color: var(--cmx-text); }
+.cmx-comparison-dock .cmp-bar-actions { margin-left: auto; flex-shrink: 0; align-items: center; }
+.cmx-comparison-dock .btn-do-cmp { background: var(--cmx-green-action); color: #fff; border-radius: var(--cmx-radius-pill); padding: 11px 20px; font-size: 14px; font-weight: 700; min-height: 44px; }
+.cmx-comparison-dock .btn-do-cmp:disabled { opacity: .45; cursor: not-allowed; }
+.cmx-comparison-dock .btn-clear { color: #fff; border: 0; background: none; font-weight: 600; min-height: 44px; }
+.cmx-comparison-dock ~ .cmp-fab { display: none !important; }
+@media (max-width: 760px) {
+  .cmp-bar.cmx-comparison-dock, .cmp-bar.cmx-comparison-dock.show { padding: 8px 10px calc(8px + env(safe-area-inset-bottom, 0px)); gap: 8px; flex-wrap: nowrap; }
+  .cmx-dock__lead { display: none; }
+  .cmx-dock__item { padding: 3px; gap: 0; position: relative; }
+  .cmx-dock__item span { display: none; }
+  .cmx-dock__item img { width: 36px; height: 36px; }
+  .cmx-dock__item button { position: absolute; top: -7px; right: -7px; width: 20px; height: 20px; font-size: 13px; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.3); color: var(--cmx-text); }
+  .cmx-comparison-dock .btn-do-cmp { padding: 10px 14px; font-size: 13px; }
+  .cmx-comparison-dock .btn-clear { padding: 8px 4px; font-size: 12px; }
+}
+
+/* Toast */
+.cmx-toast { position: fixed; left: 50%; bottom: 96px; transform: translate(-50%, 12px); z-index: 500; background: var(--cmx-text); color: #fff; font: 600 14px var(--cmx-font); padding: 11px 18px; border-radius: var(--cmx-radius-pill); box-shadow: 0 8px 24px rgba(0,0,0,.25); opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; white-space: nowrap; }
+.cmx-toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* ── 2.9 Pie ───────────────────────────────────────────────── */
+.cmx-footer { background: var(--cmx-footer-bg); color: rgba(255,255,255,.75); font-family: var(--cmx-font); padding: 44px 24px 28px; }
+.cmx-footer a { color: rgba(255,255,255,.8); text-decoration: none; }
+.cmx-footer a:hover { color: #fff; text-decoration: underline; }
+.cmx-footer__grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 32px; max-width: 1100px; margin: 0 auto; }
+.cmx-footer h3 { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.5); margin: 0 0 12px; }
+@media (max-width: 760px) { .cmx-footer__grid { grid-template-columns: 1fr; gap: 0; } .cmx-footer details { border-top: 1px solid rgba(255,255,255,.14); } .cmx-footer summary { padding: 14px 0; font-weight: 700; color: #fff; cursor: pointer; } }
+
+/* ── 2.10 Hub de categoría ─────────────────────────────────── */
+.cmx-hub { font-family: var(--cmx-font); background: var(--cmx-bg); }
+.cmx-benefits { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; background: #fff; border-radius: var(--cmx-radius-card); box-shadow: var(--cmx-shadow-card); max-width: 1100px; margin: -22px auto 0; position: relative; padding: 14px 8px; }
+.cmx-benefit { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 4px 12px; font-size: 13.5px; font-weight: 700; line-height: 1.25; color: var(--cmx-text); border-left: 1px solid var(--cmx-border); }
+.cmx-benefit:first-child { border-left: 0; }
+.cmx-benefit svg { color: var(--cmx-green); flex-shrink: 0; }
+.cmx-hub__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 1100px; margin: 0 auto; padding: 24px 16px; }
+@media (max-width: 760px) {
+  .cmx-benefits { margin: -14px 12px 0; padding: 10px 2px; }
+  .cmx-benefit { flex-direction: column; text-align: center; gap: 4px; font-size: 11px; padding: 2px 4px; }
+  .cmx-hub__grid { grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 16px 12px; }
+}
+
+/* ── 2.11 Tarjeta de subcategoría ──────────────────────────── */
+.cmx-subcat-card { display: flex; flex-direction: column; background: #fff; border: 1px solid var(--cmx-border); border-radius: var(--cmx-radius-card); box-shadow: var(--cmx-shadow-card); overflow: hidden; text-decoration: none; color: var(--cmx-text); font-family: var(--cmx-font); transition: transform .18s, box-shadow .18s; }
+.cmx-subcat-card:hover { transform: translateY(-4px); box-shadow: var(--cmx-shadow-hover); }
+.cmx-subcat-card__media { flex: 0 0 55%; min-height: 130px; display: flex; align-items: center; justify-content: center; padding: 12px; }
+.cmx-subcat-card__media img { max-width: 100%; max-height: 150px; object-fit: contain; }
+.cmx-subcat-card__body { padding: 0 14px 14px; display: flex; flex-direction: column; gap: 8px; }
+.cmx-subcat-card__name { font-size: 17px; font-weight: 800; letter-spacing: -.02em; margin: 0; }
+.cmx-subcat-card__count { font-size: 12.5px; color: var(--cmx-text-secondary); display: flex; align-items: center; gap: 6px; }
+.cmx-subcat-card .cmx-btn-primary { width: 100%; padding: 9px 14px; min-height: 40px; font-size: 13.5px; }
+
+/* ── 2.12 Navegación inferior de guías (solo móvil) ────────── */
+.cmx-guide-nav { display: none; }
+@media (max-width: 760px) {
+  .cmx-guide-nav { display: grid; grid-template-columns: repeat(4, 1fr); position: fixed; left: 0; right: 0; bottom: 0; z-index: 200; background: #fff; border-top: 1px solid var(--cmx-border); padding-bottom: env(safe-area-inset-bottom, 0px); font-family: var(--cmx-font); }
+  .cmx-guide-nav a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; min-height: 62px; font-size: 11.5px; font-weight: 600; color: var(--cmx-text); text-decoration: none; }
+  .cmx-guide-nav a[aria-current] { color: var(--cmx-green); }
+  .cmx-guide-nav img { width: 24px; height: 24px; object-fit: contain; }
+  body:has(.cmx-guide-nav) { padding-bottom: calc(66px + env(safe-area-inset-bottom, 0px)); }
+}
+
+/* ── 2.13 Aviso de afiliado Amazon ─────────────────────────── */
+.cmx-amazon-notice { display: flex; align-items: flex-start; gap: 12px; background: #FFF9E6; border: 1px solid #F0C000; border-radius: 8px; padding: 16px; font: 500 13.5px/1.5 var(--cmx-font); color: var(--cmx-text); }
+.cmx-amazon-notice svg { flex-shrink: 0; color: var(--cmx-amz); margin-top: 1px; }
+.cmx-amazon-notice p { margin: 0; }
+
+/* ── 2.14 Ficha técnica (guías Amazon) ─────────────────────── */
+.cmx-product-ficha { display: grid; grid-template-columns: 40% 1fr; gap: 20px; background: #fff; border: 1px solid var(--cmx-border); border-radius: var(--cmx-radius-card); box-shadow: var(--cmx-shadow-card); padding: 18px; font-family: var(--cmx-font); color: var(--cmx-text); }
+.cmx-product-ficha__media { display: flex; align-items: center; justify-content: center; }
+.cmx-product-ficha__media img { max-width: 100%; max-height: 260px; object-fit: contain; }
+.cmx-product-ficha__tag { display: inline-block; background: var(--cmx-green); color: #fff; font-size: 10.5px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; padding: 3px 10px; border-radius: 6px; }
+.cmx-product-ficha__name { font-size: 20px; font-weight: 800; letter-spacing: -.02em; margin: 8px 0 2px; }
+.cmx-product-ficha__model { font-size: 13px; color: var(--cmx-text-secondary); }
+.cmx-product-ficha__specs { display: grid; grid-template-columns: auto 1fr; gap: 0; font-size: 13px; margin: 12px 0; }
+.cmx-product-ficha__specs dt { font-weight: 700; padding: 5px 12px 5px 8px; background: #F8F9FA; border-bottom: 1px solid #fff; }
+.cmx-product-ficha__specs dd { margin: 0; padding: 5px 8px; border-bottom: 1px solid #F1F5F4; }
+.cmx-alert { display: flex; gap: 10px; align-items: flex-start; background: #FFF9E6; border: 1px solid #F6E3A1; border-radius: 8px; padding: 10px 12px; font-size: 12.5px; line-height: 1.45; margin: 10px 0; }
+@media (max-width: 760px) { .cmx-product-ficha { grid-template-columns: 1fr; padding: 14px; } .cmx-product-ficha__media img { max-height: 180px; } }
+
+/* ── 2.15 Ficha compacta en línea (guías ML) ───────────────── */
+.cmx-inline-product { display: flex; align-items: center; gap: 14px; background: #fff; border: 1.5px solid var(--cmx-green-soft); border-radius: var(--cmx-radius-sm); padding: 12px; margin: 14px 0; font-family: var(--cmx-font); color: var(--cmx-text); }
+.cmx-inline-product img.cmx-inline-product__img { width: 84px; height: 84px; object-fit: contain; flex-shrink: 0; }
+.cmx-inline-product__body { display: flex; flex-direction: column; gap: 6px; min-width: 0; flex: 1; }
+.cmx-inline-product__name { font-size: 15px; font-weight: 800; line-height: 1.25; margin: 0; }
+.cmx-inline-product .cmx-btn-ml { align-self: flex-start; padding: 9px 16px; min-height: 40px; font-size: 13px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .card.cmx-card, .cmx-card__img, .cmx-subcat-card, .cmx-toast { transition: none; }
+  .card.cmx-card:hover, .cmx-subcat-card:hover { transform: none; }
+  .card.cmx-card:hover .cmx-card__img { transform: none; }
+}
