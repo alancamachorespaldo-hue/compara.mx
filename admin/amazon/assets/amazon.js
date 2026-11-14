@@ -30,6 +30,8 @@ function status(message,type="info"){statusEl.textContent=message;statusEl.datas
 function showDashboard(){dashboard.hidden=false}
 function esc(value){return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 function categoryName(id){return categories.find(c=>c.id===id)?.name||"Sin categoría"}
+function normalizeAffiliateUrl(value){const raw=String(value??"").trim().replace(/[\\r\\n\\t]/g,"");if(!raw)return null;const candidate=/^https?:\\/\\//i.test(raw)?raw:"https://"+raw;let parsed;try{parsed=new URL(candidate)}catch{throw new Error("El enlace de afiliado no tiene un formato de URL válido. Pega el enlace completo de Amazon.");}if(!["http:","https:"].includes(parsed.protocol)||!parsed.hostname.includes("."))throw new Error("El enlace debe ser una URL http o https válida.");return candidate}
+function affiliateLinkState(product){const value=String(product?.affiliate_url??"").trim();if(!value)return "missing";try{normalizeAffiliateUrl(value);return "present"}catch{return "invalid"}}
 function keyCategory(value){return String(value||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"_").replace(/^_|_$/g,"")}
 function fillCategories(){for(const id of ["product-category","import-category","package-category","filter-category"]){const el=$("#"+id);const keep=el.value;el.querySelectorAll("option:not(:first-child)").forEach(o=>o.remove());categories.forEach(c=>{const o=document.createElement("option");o.value=c.id;o.textContent=c.name;el.append(o)});if(keep)el.value=keep}}
 function switchTab(name){document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===name));document.querySelectorAll(".tab-panel").forEach(p=>p.hidden=p.id!=="panel-"+name);if(name==="inventory")renderInventory();if(name==="laptops")renderLaptopTable();if(name==="packages")renderPackageProducts()}
@@ -94,9 +96,74 @@ function mapMobileConfiguration(p){
 function resetProduct(){const f=$("#product-form");f.reset();f.elements.id.value="";f.elements.review_status.value="pending";$("#product-form-title").textContent="Capturar producto"}
 function formObject(form){return Object.fromEntries(new FormData(form).entries())}
 function parseAttributes(value){if(!value.trim())return {};const obj=JSON.parse(value);if(!obj||Array.isArray(obj)||typeof obj!=="object")throw new Error("Los atributos deben ser un objeto JSON.");return obj}
-async function refreshData(){const [c,p,g]=await Promise.all([supabase.from("amazon_categories").select("*").eq("is_active",true).order("sort_order"),supabase.from("amazon_products").select("*").order("created_at",{ascending:false}),supabase.from("amazon_guide_packages").select("*").order("created_at",{ascending:false})]);const err=c.error||p.error||g.error;if(err)throw err;categories=c.data||[];products=p.data||[];packages=g.data||[];$("#count-products").textContent=products.length;$("#count-categories").textContent=categories.length;$("#count-packages").textContent=packages.length;fillCategories();toggleCategorySpecs($("#product-form"));renderInventory();renderPackageProducts();renderPackages()}
-function renderInventory(){const term=$("#product-search").value.trim().toLowerCase(),cat=$("#filter-category").value,st=$("#filter-status").value;const rows=products.filter(p=>(!cat||p.category_id===cat)&&(!st||p.review_status===st)&&[p.name,p.brand,p.model,p.asin].some(v=>(v||"").toLowerCase().includes(term)));const body=$("#inventory-body");body.replaceChildren();rows.forEach(p=>{const tr=document.createElement("tr");const imageCell=p.image_url?'<a class="inventory-image-link" href="'+esc(p.image_url)+'" target="_blank" rel="noopener noreferrer" aria-label="Ver imagen de '+esc(p.name)+'"><img class="inventory-image" src="'+esc(p.image_url)+'" alt="'+esc(p.name)+'" loading="lazy" referrerpolicy="no-referrer"></a>':'<span class="inventory-image-empty">Sin imagen</span>';const hist=p.source_record?.listing?.price_mxn;const price=hist==null?"—":new Intl.NumberFormat("es-MX",{style:"currency",currency:"MXN"}).format(Number(hist));const link=p.affiliate_url||p.product_url;const linkCell=link?'<a href="'+esc(link)+'" target="_blank" rel="noopener noreferrer">Consultar en Amazon</a>':'<small>Sin enlace</small>';tr.innerHTML='<td>'+imageCell+'</td><td><strong>'+esc(p.name)+'</strong><small>'+linkCell+'</small></td><td>'+esc(p.brand)+'<small>'+esc(p.model)+'</small></td><td>'+esc(p.asin)+'</td><td>'+esc(price)+'</td><td>'+esc(categoryName(p.category_id))+'</td><td><span class="tag">'+esc(p.review_status)+'</span></td><td><div class="action-group"><button class="action" data-edit="'+p.id+'">Editar</button><button class="action danger" data-delete="'+p.id+'">Eliminar</button></div></td>';body.append(tr)});$("#inventory-empty").hidden=rows.length>0}
-async function saveProduct(form,method,sourceText=""){const v=formObject(form);if(!v.name.trim())throw new Error("El nombre del producto es obligatorio.");const attrs=parseAttributes(v.attributes||"");const mobile=mobileAttributesFromForm(form);if(Object.keys(mobile).length)attrs.mobile=mobile;else delete attrs.mobile;const laptop=laptopAttributesFromForm(form);if(Object.keys(laptop).length)attrs.laptop=laptop;else delete attrs.laptop;const record={name:v.name.trim(),brand:v.brand||null,model:v.model||null,asin:v.asin.trim()||null,category_id:v.category_id||null,product_url:v.product_url||null,affiliate_url:v.affiliate_url||null,image_url:v.image_url||null,attributes:attrs,source_text:sourceText||null,capture_method:method,review_status:v.review_status||"pending",internal_notes:v.internal_notes||null};let result;if(v.id){result=await supabase.from("amazon_products").update(record).eq("id",v.id).select().single()}else{result=await supabase.from("amazon_products").insert(record).select().single()}if(result.error)throw result.error;const price=Number(v.observed_price);if(v.observed_price&&Number.isFinite(price)&&price>=0){const obs=await supabase.from("amazon_product_observations").insert({product_id:result.data.id,observation_type:"price",amount:price,currency:"MXN",source:"manual_observation",notes:"Precio observado durante la captura; dato interno, no publicar como precio vigente."});if(obs.error)throw obs.error}await refreshData();return result.data}
+async function refreshData(){
+ const [c,p,g]=await Promise.all([
+  supabase.from("amazon_categories").select("*").eq("is_active",true).order("sort_order"),
+  supabase.from("amazon_products").select("*").order("created_at",{ascending:false}),
+  supabase.from("amazon_guide_packages").select("*").order("created_at",{ascending:false})
+ ]);
+ const err=c.error||p.error||g.error;if(err)throw err;
+ categories=c.data||[];products=p.data||[];packages=g.data||[];
+ $("#count-products").textContent=products.length;
+ $("#count-categories").textContent=categories.length;
+ $("#count-packages").textContent=packages.length;
+ const missing=products.filter(p=>affiliateLinkState(p)==="missing");
+ const invalid=products.filter(p=>affiliateLinkState(p)==="invalid");
+ $("#count-missing-affiliate").textContent=missing.length+invalid.length;
+ const overview=$("#affiliate-overview");
+ if(missing.length||invalid.length){
+  overview.hidden=false;
+  overview.innerHTML='<div><strong>Revisión de enlaces pendiente</strong><p>'+missing.length+' producto(s) sin enlace afiliado y '+invalid.length+' con formato no válido.</p></div><button id="overview-review-affiliate" class="button button-outline" type="button">Revisar enlaces</button>';
+ }else{overview.hidden=true;overview.replaceChildren()}
+ fillCategories();toggleCategorySpecs($("#product-form"));renderInventory();renderPackageProducts();renderPackages();
+}
+function renderInventory(){
+ const term=$("#product-search").value.trim().toLowerCase(),cat=$("#filter-category").value,st=$("#filter-status").value,affiliate=$("#filter-affiliate").value;
+ const rows=products.filter(p=>{
+  const linkState=affiliateLinkState(p);
+  return (!cat||p.category_id===cat)&&(!st||p.review_status===st)&&(!affiliate||affiliate===linkState)&&[p.name,p.brand,p.model,p.asin].some(v=>(v||"").toLowerCase().includes(term));
+ });
+ const body=$("#inventory-body");body.replaceChildren();
+ rows.forEach(p=>{
+  const tr=document.createElement("tr");
+  const imageCell=p.image_url?'<a class="inventory-image-link" href="'+esc(p.image_url)+'" target="_blank" rel="noopener noreferrer" aria-label="Ver imagen de '+esc(p.name)+'"><img class="inventory-image" src="'+esc(p.image_url)+'" alt="'+esc(p.name)+'" loading="lazy" referrerpolicy="no-referrer"></a>':'<span class="inventory-image-empty">Sin imagen</span>';
+  const hist=p.source_record?.listing?.price_mxn;
+  const price=hist==null?"—":new Intl.NumberFormat("es-MX",{style:"currency",currency:"MXN"}).format(Number(hist));
+  const linkState=affiliateLinkState(p);
+  const linkCell=linkState==="present"?'<a href="'+esc(p.affiliate_url)+'" target="_blank" rel="noopener noreferrer">Abrir enlace afiliado</a>':linkState==="invalid"?'<span class="affiliate-missing">Formato no válido</span>':'<span class="affiliate-missing">Falta enlace afiliado</span>';
+  tr.innerHTML='<td>'+imageCell+'</td><td><strong>'+esc(p.name)+'</strong></td><td>'+esc(p.brand||"—")+'<small>'+esc(p.model||"")+'</small></td><td>'+esc(p.asin||"—")+'</td><td>'+esc(price)+'</td><td>'+esc(categoryName(p.category_id))+'</td><td><span class="tag">'+esc(p.review_status)+'</span></td><td>'+linkCell+'</td><td><div class="action-group"><button class="action" data-edit="'+p.id+'">Editar</button><button class="action danger" data-delete="'+p.id+'">Eliminar</button></div></td>';
+  body.append(tr);
+ });
+ $("#inventory-empty").hidden=rows.length>0;
+}
+async function saveProduct(form,method,sourceText=""){
+ const v=formObject(form);
+ if(!String(v.name||"").trim())throw new Error("El nombre del producto es obligatorio.");
+ const affiliateUrl=normalizeAffiliateUrl(v.affiliate_url);
+ const attrs=parseAttributes(v.attributes||"");
+ const mobile=mobileAttributesFromForm(form);if(Object.keys(mobile).length)attrs.mobile=mobile;else delete attrs.mobile;
+ const laptop=laptopAttributesFromForm(form);if(Object.keys(laptop).length)attrs.laptop=laptop;else delete attrs.laptop;
+ const record={
+  name:v.name.trim(),brand:v.brand?.trim()||null,model:v.model?.trim()||null,asin:v.asin?.trim()||null,
+  category_id:v.category_id||null,product_url:v.product_url?.trim()||null,affiliate_url:affiliateUrl,
+  image_url:v.image_url?.trim()||null,attributes:attrs,source_text:sourceText||null,
+  capture_method:method,review_status:v.review_status||"pending",internal_notes:v.internal_notes||null
+ };
+ let result;
+ if(v.id)result=await supabase.from("amazon_products").update(record).eq("id",v.id).select().single();
+ else result=await supabase.from("amazon_products").insert(record).select().single();
+ if(result.error)throw result.error;
+ if((result.data?.affiliate_url||null)!==affiliateUrl)throw new Error("Supabase no confirmó el guardado del enlace de afiliado. Vuelve a editar el producto y revisa el valor.");
+ const price=Number(v.observed_price);
+ if(v.observed_price&&Number.isFinite(price)&&price>=0){
+  const obs=await supabase.from("amazon_product_observations").insert({product_id:result.data.id,observation_type:"price",amount:price,currency:"MXN",source:"manual_observation",notes:"Precio observado durante la captura; dato interno, no publicar como precio vigente."});
+  if(obs.error)throw obs.error;
+ }
+ await refreshData();
+ const persisted=products.find(p=>p.id===result.data.id);
+ if((persisted?.affiliate_url||null)!==affiliateUrl)throw new Error("El producto se guardó, pero al volver a leerlo no aparece el mismo enlace de afiliado.");
+ return result.data;
+}
 async function editProduct(id){
  const p=products.find(x=>x.id===id);if(!p)return;
  switchTab("manual");const f=$("#product-form");
@@ -265,7 +332,7 @@ async function exportSelectedLaptops(){
 
 async function initializeLocal(){try{const check=await fetch("/__local/status");const cfg=await check.json();if(!cfg.configured)throw new Error("Configura .env.local con SUPABASE_URL y SUPABASE_SERVICE_ROLE_KEY. Consulta admin/amazon/README.md.");showDashboard();status("Modo local activo. Conexión segura con Supabase verificada.","success");await refreshData()}catch(error){showDashboard();status("No se pudo conectar: "+error.message,"error");console.error(error)}}
 document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>switchTab(b.dataset.tab)));document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>switchTab(b.dataset.go)));
-$("#product-category").addEventListener("change",()=>toggleCategorySpecs($("#product-form")));$("#product-search").addEventListener("input",renderInventory);$("#filter-category").addEventListener("change",renderInventory);$("#filter-status").addEventListener("change",renderInventory);
+$("#product-category").addEventListener("change",()=>toggleCategorySpecs($("#product-form")));$("#product-search").addEventListener("input",renderInventory);$("#filter-category").addEventListener("change",renderInventory);$("#filter-status").addEventListener("change",renderInventory);$("#filter-affiliate").addEventListener("change",renderInventory);$("#show-missing-affiliate").addEventListener("click",()=>{switchTab("inventory");$("#filter-affiliate").value="missing";renderInventory()});$("#affiliate-overview").addEventListener("click",e=>{if(e.target.closest("#overview-review-affiliate"))$("#show-missing-affiliate").click()});
 $("#laptop-search").addEventListener("input",renderLaptopTable);
 $("#laptop-brand").addEventListener("change",renderLaptopTable);
 $("#laptop-ram").addEventListener("change",renderLaptopTable);
@@ -278,7 +345,7 @@ $("#laptop-select-all").addEventListener("change",e=>{document.querySelectorAll(
 $("#laptop-table-body").addEventListener("change",e=>{const cb=e.target.closest("[data-laptop-select]");if(!cb)return;cb.checked?selectedLaptopIds.add(cb.dataset.laptopSelect):selectedLaptopIds.delete(cb.dataset.laptopSelect);renderLaptopTable()});
 $("#laptop-table-body").addEventListener("click",e=>{const b=e.target.closest("[data-laptop-edit]");if(b)editProduct(b.dataset.laptopEdit)});
 $("#laptop-export-selected").addEventListener("click",async()=>{try{await exportSelectedLaptops();status("JSON de laptops descargado correctamente.","success")}catch(err){status("No se pudo exportar: "+err.message,"error")}});
-$("#product-form").addEventListener("submit",async e=>{e.preventDefault();try{await saveProduct(e.currentTarget,"manual");status("Producto guardado correctamente.","success");resetProduct();switchTab("inventory")}catch(err){status("No se pudo guardar: "+err.message,"error")}});
+$("#product-form").addEventListener("submit",async e=>{e.preventDefault();const feedback=$("#affiliate-url-feedback");if(feedback){feedback.textContent="";feedback.dataset.type=""}try{const saved=await saveProduct(e.currentTarget,"manual");status("Producto guardado correctamente. "+(saved.affiliate_url?"Enlace de afiliado guardado y comprobado en Supabase.":"Este producto quedó sin enlace de afiliado."),"success");resetProduct();switchTab("inventory")}catch(err){if(feedback&&e.currentTarget.elements.affiliate_url.value.trim()){feedback.textContent=err.message;feedback.dataset.type="error"}status("No se pudo guardar: "+err.message,"error")}});
 $("#reset-product").addEventListener("click",()=>{resetProduct();toggleCategorySpecs($("#product-form"))});
 $("#inventory-body").addEventListener("click",async e=>{const edit=e.target.closest("[data-edit]"),del=e.target.closest("[data-delete]");if(edit)editProduct(edit.dataset.edit);if(del&&confirm("¿Eliminar este producto y sus observaciones?")){const {error}=await supabase.from("amazon_products").delete().eq("id",del.dataset.delete);if(error)status("No se pudo eliminar: "+error.message,"error");else{await refreshData();status("Producto eliminado.","success")}}});
 $("#parse-text").addEventListener("click",()=>{const text=$("#source-text").value.trim();if(!text){status("Pega primero el texto de una publicación.","error");return}const d=extractText(text),f=$("#import-form");for(const [k,v] of Object.entries(d))if(f.elements[k]&&typeof v==="string")f.elements[k].value=v;if(f.elements.attributes)f.elements.attributes.value=JSON.stringify(d.attributes||{},null,2);if(d.category){const match=categories.find(c=>keyCategory(c.slug)===d.category||keyCategory(c.name)===d.category);if(match)f.elements.category_id.value=match.id}f.elements.source_text.value=text;$("#import-review").hidden=false;status("Se detectaron "+d.detected_fields+" características. Revisa los campos y las especificaciones antes de guardar.","success")});
