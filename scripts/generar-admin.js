@@ -10,6 +10,7 @@
 import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { actualizarRachaML } from './_ofertas.js';
 
 const ROOT          = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const ADMIN_PATH    = resolve(ROOT, 'scripts/merged-admin.json');
@@ -45,11 +46,7 @@ if (report) {
     if (gen && p._updatedAt && p._updatedAt > gen) { keptManual++; continue; }
     if (row.estado === 'precio_sospechoso') p._precioMLSospechoso = row.precioML;
     else { delete p._precioMLSospechoso; if (row.precioML != null) p.precioML = row.precioML; }
-    if (row.estado === 'actualizado' && row.precioAntes != null) {
-      const mismaRacha = p._precioMLAntes === row.precioAntes;
-      p._precioMLAntes = row.precioAntes;
-      if (!mismaRacha || !p._precioMLFecha) p._precioMLFecha = new Date().toISOString().slice(0, 10);
-    } else { delete p._precioMLAntes; delete p._precioMLFecha; }
+    actualizarRachaML(p, row);
     // Pausa automática: 404/inactivo en ML → pausaML:true + rastrea días sin precio.
     // Día 1: pausaML:true. Día 3+: activo:false (desaparece de la web y del catálogo).
     // Si el catálogo vuelve → se limpia todo y se reactiva.

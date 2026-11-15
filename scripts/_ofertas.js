@@ -21,6 +21,24 @@ export function mlVigente(p, ahora = Date.now()) {
   return isFinite(t) && ahora - t <= DIAS_OFERTA_ML * 864e5;
 }
 
+// Racha de bajada de ML (_precioMLAntes / _precioMLFecha) tras aplicar una fila de ml-report.json.
+// La bajada dura DIAS_OFERTA_ML días aunque en las corridas siguientes el precio ya no cambie:
+// antes se borraba en la primera corrida "sin_cambio" y la bajada desaparecía de la web al día siguiente.
+//  - bajó hoy: ancla = precio anterior (o el más alto de la racha si ya venía bajando) y la fecha se renueva;
+//  - sin cambio / subió sin llegar al ancla / dato dudoso: se conserva mientras siga por debajo del ancla;
+//  - volvió al ancla o más, o sin precio: se borra.
+export function actualizarRachaML(p, row, hoy = new Date().toISOString().slice(0, 10), ahora = Date.now()) {
+  const antes = p._precioMLAntes, fecha = p._precioMLFecha;
+  const racha = antes > 0 && (!fecha || (isFinite(Date.parse(fecha)) && ahora - Date.parse(fecha) <= DIAS_OFERTA_ML * 864e5));
+  const bajo = row.estado === 'actualizado' && row.precioAntes != null && typeof p.precioML === 'number' && p.precioML < row.precioAntes;
+  if (bajo) {
+    p._precioMLAntes = racha && antes > row.precioAntes ? antes : row.precioAntes;
+    if (antes !== row.precioAntes || !fecha) p._precioMLFecha = hoy;
+  } else if (!(racha && typeof p.precioML === 'number' && p.precioML < antes)) {
+    delete p._precioMLAntes; delete p._precioMLFecha;
+  }
+}
+
 export function bajadaML(p, ahora = Date.now()) {
   if (!p.precioML || !p.linkML || !(p._precioMLAntes > p.precioML)) return null;
   if (!mlVigente(p, ahora)) return null;

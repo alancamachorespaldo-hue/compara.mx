@@ -104,7 +104,7 @@
   }
 
   function load() {
-    fetch('/assets/data/bajadas.json').then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
+    fetch('/assets/data/bajadas.json', { cache: 'no-cache' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
       var arr = (j && j.categorias && j.categorias[key]) || [];
       arr.forEach(function (d) { drops[String(d.id)] = d; });
       var any = list().some(function (p) { return window.cmxGetDrop(p); });
