@@ -1027,11 +1027,11 @@ const PRODUCTOS = [
     id: 120,
     nombre: "Spring Valley Vitamina B12 1000mcg – 60 Tabletas",
     marca: "Spring Valley",
-    precio: 294,
+    precio: 200,
     porciones: 60,
     capsulasPorDia: 1,
     porPorcion: "1 tableta",
-    costoPorPorcion: 4.9,
+    costoPorPorcion: 3.33,
     b1: null,
     b2: null,
     b3: null,
@@ -1050,6 +1050,7 @@ const PRODUCTOS = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=PRODUCTOS.length-1;_i>=0;_i--){var _z=_PZ[PRODUCTOS[_i].id];if(!_z)continue;if(_z.ml){PRODUCTOS[_i].linkML=null;PRODUCTOS[_i].precioML=null;PRODUCTOS[_i].pausaML=true;}if(_z.amz){PRODUCTOS[_i].linkAmz='';PRODUCTOS[_i].precioAmz=null;PRODUCTOS[_i].pausaAmz=true;}if(_z.ml&&_z.amz)PRODUCTOS.splice(_i,1);}}catch(e){}
+
 
 
 

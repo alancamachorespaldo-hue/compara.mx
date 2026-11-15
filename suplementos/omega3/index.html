@@ -415,13 +415,13 @@ const productos = [
     id: 7,
     nombre: "Omega 3 Aceite de Salmón + Vitamina E 365 Cápsulas",
     marca: "LIFE360+",
-    precio: 345,
+    precio: 373,
     porciones: 365,
     porPorcion: "1 cápsula",
     epa: 28,
     dha: 24,
     omegaPorPorcion: 52,
-    costoPorPorcion: 0.95,
+    costoPorPorcion: 1.02,
     fuenteOmega: "salmon",
     libreMetalesPesados: false,
     certificadoIFOS: false,
@@ -560,6 +560,7 @@ const productos = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 /* ── Configuración del listado (plantilla cmx-list) ──
    Solo Mercado Libre. Lo derivado (costo por porción, costo por 1 g de EPA+DHA) se calcula aquí con el
