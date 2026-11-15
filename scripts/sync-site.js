@@ -162,9 +162,11 @@ const SHARE_BTN = '<button class="btn-share" onclick="shareCurrentPage()" title=
    Solo lo llevan las páginas listadas aquí; conforme se apruebe cada página se agrega su ruta.
    Sus estilos viven en /assets/css/cmx-home.css mientras solo lo use el inicio. */
 const HUBS_V2 = ['/electrodomesticos/', '/suplementos/', '/tecnologia/', '/entretenimiento/', '/celulares/', '/bicis/', '/videojuegos/'];
-const HEADER_V2 = new Set(['/', ...HUBS_V2]);
+/* Listados que ya usan la plantilla cmx-list */
+const LISTS_V2 = ['/tecnologia/smartwatches/'];
+const HEADER_V2 = new Set(['/', ...HUBS_V2, ...LISTS_V2]);
 /* Pie del rediseño (azul marino, 4 columnas; en móvil las listas son acordeones). */
-const FOOTER_V2 = new Set(HUBS_V2);
+const FOOTER_V2 = new Set([...HUBS_V2, ...LISTS_V2]);
 function headerV2Html(extra) {
   const cats = NAV_LINKS.filter(([n]) => n !== 'Guías').map(([n, u]) => `<a href="${u}">${n}</a>`).join('\n          ');
   return `<!-- cmx-header:start -->
