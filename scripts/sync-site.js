@@ -163,7 +163,7 @@ const SHARE_BTN = '<button class="btn-share" onclick="shareCurrentPage()" title=
    Sus estilos viven en /assets/css/cmx-home.css mientras solo lo use el inicio. */
 const HUBS_V2 = ['/electrodomesticos/', '/suplementos/', '/tecnologia/', '/entretenimiento/', '/celulares/', '/bicis/', '/videojuegos/'];
 /* Listados que ya usan la plantilla cmx-list */
-const LISTS_V2 = ['/tecnologia/smartwatches/', '/celulares/android/', '/celulares/iphone/'];
+const LISTS_V2 = ['/tecnologia/smartwatches/', '/celulares/android/', '/celulares/iphone/', '/suplementos/proteina/'];
 const HEADER_V2 = new Set(['/', ...HUBS_V2, ...LISTS_V2]);
 /* Pie del rediseño (azul marino, 4 columnas; en móvil las listas son acordeones). */
 const FOOTER_V2 = new Set([...HUBS_V2, ...LISTS_V2]);
@@ -268,24 +268,25 @@ function relatedHtml(p) {
 }
 
 const FOOT_CATS = [['Celulares', '/celulares/'], ['Android', '/celulares/android/'], ['iPhone', '/celulares/iphone/'], ['Laptops', '/laptops/'], ['Electrodomésticos', '/electrodomesticos/'], ['Suplementos', '/suplementos/'], ['Bicicletas', '/bicis/'], ['Videojuegos', '/videojuegos/'], ['Tecnología', '/tecnologia/']];
-function footerV2Html() {
+function footerV2Html(mlOnly) {
+  const amz2 = mlOnly ? '' : 'Amazon MX y ';
   const li = (a) => a.map(([n, u]) => `<li><a href="${u}">${n}</a></li>`).join('');
   const col = (title, items, cls) => `<div class="cmx-ft2-col${cls || ''}"><h3><button type="button" aria-expanded="false" onclick="var c=this.closest('.cmx-ft2-col');this.setAttribute('aria-expanded',c.classList.toggle('open'))">${title}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button></h3><ul>${li(items)}</ul></div>`;
   return `<!-- cmx-footer:start -->
 <div class="cmx-ft2" role="contentinfo" id="cmx-ft"><div class="cmx-ft2-in">
 <div class="cmx-ft2-grid">
-<div class="cmx-ft2-brand"><a class="cmx-ft2-logo" href="/" aria-label="comparalo.mx, inicio"><img src="/logopng.png" alt="" width="40" height="40" loading="lazy"><span>comparalo<i>.mx</i></span></a><p>Comparamos precios de Amazon MX y Mercado Libre para que decidas con datos, no a ciegas.</p></div>
+<div class="cmx-ft2-brand"><a class="cmx-ft2-logo" href="/" aria-label="comparalo.mx, inicio"><img src="/logopng.png" alt="" width="40" height="40" loading="lazy"><span>comparalo<i>.mx</i></span></a><p>Comparamos precios de ${amz2}Mercado Libre para que decidas con datos, no a ciegas.</p></div>
 ${col('Categorías', [['Celulares', '/celulares/'], ['Laptops', '/laptops/'], ['Electrodomésticos', '/electrodomesticos/'], ['Suplementos', '/suplementos/'], ['Bicicletas', '/bicis/'], ['Videojuegos', '/videojuegos/'], ['Tecnología', '/tecnologia/'], ['Todas las categorías', '/#categorias']], ' cmx-ft2-cats')}
 ${col('Recursos', [['Guías y artículos', '/guias/'], ['Cómo comparamos', '/#metodo'], ['Quiénes somos', '/sobre-nosotros/'], ['Contacto', '/contacto/']])}
 ${col('Legal', [['Aviso de afiliados', '/aviso-afiliados/'], ['Privacidad', '/privacidad/'], ['Términos', '/terminos/']])}
 </div>
-<p class="cmx-ft2-bottom">comparalo.mx participa en los programas de afiliados de Mercado Libre y Amazon México: si compras desde nuestros enlaces podemos recibir una comisión, sin costo adicional para ti. <a href="/aviso-afiliados/">Más información</a>. Los precios y la disponibilidad pueden cambiar; confirma el precio final en la tienda. © 2026 comparalo.mx</p>
+<p class="cmx-ft2-bottom">comparalo.mx participa en ${mlOnly ? 'el programa de afiliados de Mercado Libre' : 'los programas de afiliados de Mercado Libre y Amazon México'}: si compras desde nuestros enlaces podemos recibir una comisión, sin costo adicional para ti. <a href="/aviso-afiliados/">Más información</a>. Los precios y la disponibilidad pueden cambiar; confirma el precio final en la tienda. © 2026 comparalo.mx</p>
 </div></div>
 <!-- cmx-footer:end -->`;
 }
 
 function footerHtml(p) {
-  if (FOOTER_V2.has(p)) return footerV2Html();
+  if (FOOTER_V2.has(p)) return footerV2Html(LISTS_V2.includes(p));
   const li = (a) => a.map(([n, u]) => `<li><a href="${u}">${n}</a></li>`).join('');
   return `<!-- cmx-footer:start -->
 <div class="cmx-ft" role="contentinfo" id="cmx-ft"><div class="cmx-ft-in">
