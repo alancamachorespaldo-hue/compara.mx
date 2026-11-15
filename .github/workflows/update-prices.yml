@@ -39,6 +39,12 @@ jobs:
       - name: Sincronizar merged-admin.json y regenerar artifact
         run: node scripts/generar-admin.js
 
+      - name: Registrar el precio de hoy en el histórico
+        run: node scripts/historico-precios.js
+
+      - name: Publicar el histórico de 30 días por categoría
+        run: node scripts/generar-historico.js
+
       - name: Generar catálogo mini de celulares
         run: node scripts/generar-catalog-mini.js
 
@@ -103,7 +109,7 @@ jobs:
             tecnologia/bocinas/descuentos.json tecnologia/audifonos/descuentos.json tecnologia/smartwatches/descuentos.json \
             entretenimiento/streaming/descuentos.json \
             electrodomesticos/refrigeradores/descuentos.json electrodomesticos/lavadoras/descuentos.json \
-            assets/data/bajadas.json \
+            assets/data/bajadas.json assets/data/historico scripts/historico-precios.json \
             guias/celulares/mejores-celulares-menos-5000/index.html \
             scripts/guias-precios-report.json \
             scripts/ml-report.json scripts/merged-admin.json scripts/admin-artifact.html

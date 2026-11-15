@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Validaciones del sitio. Uso: node scripts/check-site.js   (exit 1 si hay errores)
-import { readFileSync, readdirSync, statSync } from 'fs';
+import { readFileSync, readdirSync, statSync, existsSync } from 'fs';
 import { join, relative, resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import vm from 'vm';
@@ -85,6 +85,37 @@ for (const abs of walk(ROOT)) {
 
   for (const needle of MUST_CONTAIN[file] || [])
     if (!html.includes(needle)) err(file, `falta contenido esperado: ${needle}`);
+}
+
+// Histórico de precios (assets/data/historico/*.json, lo escribe scripts/generar-historico.js).
+// Protege la regla de transparencia: nada de fechas futuras, variaciones con pocos datos,
+// estados que no corresponden al número de registros ni gráficas con menos de 7 puntos.
+const HIST_DIR = join(ROOT, 'assets/data/historico');
+if (existsSync(HIST_DIR)) {
+  const HOY = new Date().toISOString().slice(0, 10);
+  for (const name of readdirSync(HIST_DIR).filter((n) => n.endsWith('.json'))) {
+    const file = 'assets/data/historico/' + name;
+    let j;
+    try { j = JSON.parse(readFileSync(join(HIST_DIR, name), 'utf8')); }
+    catch (e) { err(file, `JSON inválido: ${e.message.slice(0, 60)}`); continue; }
+    const f = j.fechas;
+    if (!Array.isArray(f) || !f.length) { err(file, 'sin arreglo de fechas'); continue; }
+    if (f.some((d, i) => i && d <= f[i - 1])) err(file, 'las fechas no van en orden ascendente');
+    if (f[f.length - 1] > HOY) err(file, `fecha futura: ${f[f.length - 1]}`);
+    if (j.ventana !== f.length) err(file, 'ventana no coincide con el número de fechas');
+    for (const [id, p] of Object.entries(j.productos || {})) {
+      const ref = `producto ${id}`;
+      if (!(p.n > 0)) { err(file, `${ref}: sin registros`); continue; }
+      if (p.n > f.length) err(file, `${ref}: más registros (${p.n}) que días de la ventana`);
+      if (p.desde < f[0] || p.desde > HOY) err(file, `${ref}: "desde" fuera de la ventana (${p.desde})`);
+      const esperado = p.n >= 28 ? 'completo' : p.n >= 7 ? 'parcial' : (p.estado === 'nuevo' ? 'nuevo' : 'insuficiente');
+      if (p.estado !== esperado) err(file, `${ref}: estado "${p.estado}" con ${p.n} registros`);
+      if (p.var !== undefined && p.n < 14) err(file, `${ref}: variación con solo ${p.n} registros`);
+      if (p.n >= 7 && !(p.p || []).length) err(file, `${ref}: sin puntos para la gráfica`);
+      if ((p.p || []).some(([i]) => i < 0 || i >= f.length)) err(file, `${ref}: punto fuera de la ventana`);
+      if (p.min > p.actual || p.max < p.actual) err(file, `${ref}: precio actual fuera del rango min/max`);
+    }
+  }
 }
 
 if (errors.length) {
