@@ -40,6 +40,10 @@ Antes de decidir filtros o características, mide el catálogo con Node (evalúa
 Con eso propón a Alan, en una tabla corta, y espera su visto bueno si hay duda:
 - **Características de la tarjeta** (máx. 5–6, las que más productos tienen y más ayudan a decidir). **Confianza del comprador (obligatorio cuando exista el dato):** `Calificación` como estrellas con las opiniones entre paréntesis (p. ej. `4.9 (3,914)`, el valor que traiga la ficha/API, nunca redondeado ni inventado) y `Vendidos` (cantidad de unidades vendidas, p. ej. `1,200 vendidos`). Ir en la tarjeta (filas arriba, con iconos `star` y `cart`) y en la comparativa. Si el producto no trae el dato, la fila no se muestra (tarjeta) o dice "Sin dato" (comparativa). Alan: saber cuánta gente ya compró y cómo lo calificó es de lo que más pesa en la decisión. En la comparativa `Calificación` solo puntúa con ≥ 30 opiniones y `Vendidos` puntúa por cantidad.
   Antes de proponer, mide cuántos productos tienen estrellas, opiniones y vendidos y dilo en la tabla. Si la categoría no los tiene (la API de ML con nuestras credenciales da 403 en `/reviews` y en `/items/{id}`, o sea no entrega ni calificaciones ni `sold_quantity`), dilo en el reporte: no se llenan a mano ni se inventan.
+- **Histórico de precio**: mide cuántos productos de la categoría tienen datos en
+  `assets/data/historico/<categoria>.json` y en qué estado (`completo` / `parcial` / `nuevo` /
+  `insuficiente`). Dilo en la tabla. Si el archivo no existe o casi ningún producto llega a 7
+  registros, la categoría va **sin** histórico y se reporta; no se activa "para que se vea".
 - **Filtros** (Marca casi siempre; el resto según los datos). Un campo con menos de ~40 % de cobertura no sirve de filtro.
 - **Criterios de comparación** y cuáles pueden puntuarse ("más es mejor", "menos es mejor", sí/no). Si no se puede decir objetivamente cuál es mejor, la fila va sin `score`.
 
@@ -60,7 +64,9 @@ Trabaja con un script Node de reemplazos con ancla verificada (si un ancla no ap
 4. `<main class="cl">` con: hero (`cl-hero`, h1 único, buscador, 3 fotos `data-cmx-img`), centinela + barra fija (`cl-sentinel`, `cl-sticky` con pasos y `cl-bar`: Filtros, chips, Ordenar, Guardados), `cl-layout` (aside `cl-filters` vacío + `cl-main` con contador, grid, vacío, mostrar más) y `cl-below` (guías, cómo elegir, FAQ, editorial). **`cl-below` va DENTRO de `cl-layout`** (como último hijo, después de `cl-main`), no como hermano: así el panel de filtros sigue fijo hasta el final del contenido de la página y no desaparece al bajar al texto editorial (CSS: `.cl-layout > .cl-below`). Smartwatches aún tiene `cl-below` como hermano; pendiente de moverlo con el OK de Alan.
    **Formulario "¿No encuentras lo que buscas? Te comparamos."**: justo después de `</main>`, el bloque `<section class="hub-leads">…</section>` copiado tal cual de `/celulares/index.html` (mismo Google Form), envuelto en `<div class="hub-page" style="margin:0;background:transparent">`, y cargar `/assets/css/cmx-hub.css` (después de `cmx-list.css`) y `/assets/js/cmx-hub.js` (defer, al pie). Va en todas las categorías convertidas.
 5. Dock, backdrop, toast y vista de comparativa (`cl-dock`, `cl-backdrop`, `cl-toast`, `cl-cmp-view`) antes del script.
-6. `<script src="/assets/js/cmx-list.js"></script>` y luego el script de la página: **el arreglo de productos intacto** + el bloque de pausas si existe + `CmxList.init({...})`. Se elimina la lógica vieja (cardHtml, render, toggleSelect, modal…).
+6. `<script src="/assets/js/cmx-historico.js"></script>` (solo si la categoría lleva histórico;
+   **sin `defer` y antes** de `cmx-list.js`, que lo busca en `window.cmxHist` al iniciar),
+   `<script src="/assets/js/cmx-list.js"></script>` y luego el script de la página: **el arreglo de productos intacto** + el bloque de pausas si existe + `CmxList.init({...})`. Se elimina la lógica vieja (cardHtml, render, toggleSelect, modal…).
 7. Scripts del pie: quita `favorites.js`, `filters-panel.js`, `cards-enhance.js`, `filters-scroll.js`. Conserva `price-drops.js`, `onboarding.js`, `site-nav.js`, `share.js`.
 8. Registra la ruta en `LISTS_V2` de `scripts/sync-site.js` y corre `node scripts/sync-site.js` (encabezado y pie nuevos). No edites esos bloques a mano.
 
@@ -83,7 +89,10 @@ CmxList.init({
   compare: { rows: [{ label, icon, get, score?, why?, pick? }] },
   // Opcional, solo categorías con variantes (celulares). Sin esto la plantilla funciona igual que siempre:
   variants: { list: (p) => p.variantes, usable: (v) => !!v.linkML, chip: (v) => '256 GB' },
-  drop: (p, v) => window.cmxGetDrop({ id: v.id, nombre: p.nombre, precioML: v.precio })   // bajada de ESA variante
+  drop: (p, v) => window.cmxGetDrop({ id: v.id, nombre: p.nombre, precioML: v.precio }),  // bajada de ESA variante
+  // Opcional — histórico de precio (ver abajo). Sin esto la tarjeta sale exactamente como antes:
+  historico: 'tecnologia_smartwatches',                 // archivo de assets/data/historico/
+  histId: (p, v) => (v || cheapest(p) || {}).id         // solo con variantes; por defecto usa p.id
 });
 ```
 
@@ -95,6 +104,60 @@ Con `variants`, `price`, `link` y los `get`/`score` de `specs` y `compare.rows` 
 - Normaliza para mostrar (p. ej. "1 semanas" → "1 semana") en `get`, nunca en el arreglo.
 - **Datos poco creíbles no se muestran** (batería "5 mAh", RAM de 128 GB, pantalla de 5″ en un Pixel 9a…): mide rangos plausibles en el Paso 1 y filtra en `get` (queda "Sin dato"), sin tocar el arreglo, y repórtalo. Es mejor no decir nada que decir algo incorrecto (Alan, nov-2026).
 - La comparativa ya avisa en cada celda "Sin dato" ("Verifícalo en la publicación de Mercado Libre") y en el pie explica dónde buscarlo; no hace falta configurarlo.
+### Histórico de precio (30 días)
+
+La plantilla puede mostrar cómo se movió el precio de cada producto en los últimos 30 días.
+**Nunca es obligatorio**: sin `historico` en la configuración, la tarjeta sale igual que siempre.
+
+**De dónde salen los datos.** La API de Mercado Libre **no** entrega histórico de publicaciones
+ajenas (nov-2026: `/items/{id}` y `/items/{id}/prices` dan 403 con nuestras credenciales, y
+`/marketplace/items/{id}/prices/history` exige ser el vendedor dueño). El histórico es nuestro:
+`scripts/historico-precios.js` guarda cada día el `precioML` de `merged-admin.json` y
+`scripts/generar-historico.js` publica `assets/data/historico/<categoria>.json`. Los dos corren en
+`update-prices.yml`. No hay registros anteriores al 30-sep-2026 y **no se inventan**.
+
+**Cómo se ve.** Una sola línea al pie de la tarjeta: «Histórico de precio · 30 días». **No expande
+la tarjeta**: abre una ventana superpuesta (`.cl-hm`, la arma `assets/js/cmx-historico.js`) con la
+gráfica grande, el eje de precios, las fechas, el mínimo marcado, el precio actual, el mínimo, el
+máximo, la variación y el registro de cambios. En móvil el panel sube desde abajo y el registro va
+plegado en un acordeón. Cierra con la ✕, con Escape o tocando fuera.
+
+En la **comparativa** se agrega sola, bajo la tabla: una gráfica por producto, **con la misma escala
+y el mismo periodo**, más una observación de cuál bajó más y cuál se mantuvo más estable. Esa
+observación **no cambia el veredicto**: el histórico no puntúa y una bajada reciente no vuelve a un
+producto mejor compra.
+
+**Qué hay que hacer en la página**
+1. `<script src="/assets/js/cmx-historico.js"></script>` sin `defer`, antes de `cmx-list.js`.
+2. `historico: '<categoria>'` en `CmxList.init` — el nombre del archivo de
+   `assets/data/historico/`, que es la clave de la categoría en `merged-admin.json`
+   (`tecnologia_smartwatches`, `celulares_android`, `laptops`…). También acepta un arreglo de
+   varias categorías, que se juntan (lo usan las guías que mezclan Android e iPhone).
+3. Con variantes, `histId: (p, v) => …` devolviendo el id de la variante elegida — **el mismo id
+   que usa `drop`**, porque el histórico se guarda por variante. Sin variantes no hace falta: usa `p.id`.
+4. Nada más. El botón, la ventana y la sección de la comparativa salen de la plantilla.
+
+**Reglas de transparencia (no se negocian)**
+- Menos de 7 registros → **no hay gráfica**. El panel dice desde cuándo registramos ese producto
+  (`insuficiente`) o que es un producto recién incorporado (`nuevo`).
+- Entre 7 y 27 registros → gráfica con la leyenda **«Histórico en construcción: llevamos N de 30 días»**.
+- La variación del periodo solo se publica con **14 registros o más**; si no, dice «Sin dato».
+- Los días sin registro se dibujan **punteados** y se cuentan en una nota. **Jamás se interpolan.**
+- Siempre visible de dónde viene: «Datos de comparalo.mx desde el <fecha> · N registros» y que es
+  **el precio de catálogo de Mercado Libre (la oferta más barata con envío FULL), no el de un
+  vendedor en particular**.
+- Si el precio de la ficha no coincide con el último registrado, el panel lo dice con las dos
+  cifras. No se corrige ninguna de las dos ni se agrega un punto al histórico para cuadrarlo.
+- Un cambio de `mlId` abre una serie nueva: dos publicaciones distintas nunca se empalman.
+- Un salto de 60 % o más entre dos días se marca como atípico y el panel avisa que seguramente
+  cambió la oferta de referencia del catálogo. Si aparecen muchos en una categoría, repórtalo:
+  suele ser un `mlId` mal asignado en la base.
+
+**Eventos GA4** (los dispara la plantilla, no hay que escribirlos): `historico_abrir`,
+`historico_cerrar`, `historico_sin_datos` y `historico_comparativa_view`. Todos llevan
+`page_section` y `origen` (`tarjeta` | `comparativa` | `guia`). No sustituyen ni duplican ninguno
+de los que ya existen.
+
 ### Contenido que se conserva
 
 - **Texto editorial / SEO:** se traslada palabra por palabra a `cl-editorial` y a las preguntas frecuentes. No redactes contenido nuevo ni borres el existente; si sobra texto, va completo en `cl-editorial`.
@@ -119,6 +182,15 @@ Con `variants`, `price`, `link` y los `get`/`score` de `specs` y `compare.rows` 
 - [ ] Panel de filtros fijo: baja con la página hasta el final del contenido (también junto al texto editorial) y se desplaza por dentro. Al filtrar, ordenar, quitar chips, limpiar, usar Guardados o aplicar en el drawer móvil estando abajo, la página vuelve sola al inicio de los resultados.
 - [ ] Logo de ML nítido en tarjetas y comparativa (usa `/logomercado-ic.png`, 96×66, recorte del óvalo; nunca escales `logomercado.png` de 2000 px a 30 px ni lo recortes con `object-fit: cover`).
 - [ ] Comparativa con un "Sin dato": la celda muestra la nota de verificar en la publicación.
+- [ ] Histórico (si la categoría lo lleva): el botón **no expande la tarjeta**; abre la ventana;
+      la gráfica trae eje de precios y fechas; cierra con ✕, Escape y tocando fuera; el scroll de
+      la página se bloquea al abrir y se libera al cerrar.
+- [ ] Histórico: **no se baja ningún JSON hasta abrir el primero** (revisa la pestaña Red).
+- [ ] Histórico: un producto sin datos abre la ventana con el aviso, no con una gráfica vacía.
+- [ ] Histórico con variantes: al cambiar el chip, el `data-hist` del botón cambia de variante.
+- [ ] Histórico en la comparativa: una gráfica por producto, **misma escala en todas**, y el
+      veredicto sigue igual que sin histórico.
+- [ ] Histórico en móvil 375 px: el panel sube desde abajo, sin pestañas, con el registro plegado.
 - [ ] Formulario "Te comparamos" visible al final, con su envío funcionando igual que en los hubs.- [ ] Cero enlaces a Amazon en la página.
 - [ ] Eventos GA4 (carga con `?bot=claude` y envuelve `window.gtag` para capturarlos): `affiliate_click_ml`, `click_seleccionar_comparar`, `click_comparar_categoria`, `filtro_bajada_precio`, `favorito_guardar/quitar`, `filtro_guardados`, `filtro_aplicar`, `filtros_limpiar`, `ordenar_listado`, `buscar_listado`.
 - [ ] `node scripts/check-site.js`, `node scripts/sync-site.js --check` y `node scripts/sync-hero-imgs.js --check` sin cambios pendientes ni errores.
@@ -141,3 +213,10 @@ Entrega, en este orden: qué cambió; tabla de características/filtros/criterio
 - Medir el dock justo después de mostrarlo: tiene transición; espera ~1 s.
 - Heredocs de bash con comillas y plantillas JS: escribe el script en un archivo y ejecútalo.
 - Páginas con `<base href="https://comparalo.mx/">`: en local cargan estilos del sitio en vivo.
+- Histórico: cargar `cmx-historico.js` con `defer` o después de `cmx-list.js`. `CmxList.init` lee
+  `window.cmxHist` al arrancar; si no está, no dibuja el botón y no avisa.
+- Histórico: desplegar la gráfica **dentro** de la tarjeta. Se probó (nov-2026) y Alan lo rechazó:
+  alarga la tarjeta y a ese tamaño no se leen ni las fechas ni los precios. Va en ventana superpuesta.
+- Histórico: dibujar con menos de 7 registros, rellenar los huecos o publicar la variación con
+  pocos datos. Es mejor no decir nada que decir algo falso.
+- Histórico: meter una librería de gráficas. El SVG lo genera `cmx-historico.js`; sin frameworks.

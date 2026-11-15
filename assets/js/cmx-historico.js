@@ -47,18 +47,42 @@
   var IC_INFO = '<circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="16"/><line x1="12" y1="7.6" x2="12.01" y2="7.6"/>';
   var IC_CHEV = '<polyline points="6 9 12 15 18 9"/>';
 
-  var CAT = null, datos = null, pendiente = null;
+  var CATS = [], datos = null, pendiente = null;
 
-  function init(categoria) { CAT = categoria; }
+  /**
+   * Declara de qué categoría (o categorías) es esta página. No baja nada todavía.
+   * Una guía puede mezclar productos de varias: init(['celulares_android', 'celulares_iphone']).
+   */
+  function init(categorias) {
+    CATS = [].concat(categorias || []).filter(Boolean);
+  }
 
   function cargar() {
     if (datos) return Promise.resolve(datos);
     if (pendiente) return pendiente;
-    if (!CAT) return Promise.resolve(null);
-    pendiente = fetch('/assets/data/historico/' + CAT + '.json', { cache: 'no-cache' })
-      .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (j) { datos = j; return j; })
-      .catch(function () { return null; });
+    if (!CATS.length) return Promise.resolve(null);
+    pendiente = Promise.all(CATS.map(function (c) {
+      return fetch('/assets/data/historico/' + c + '.json', { cache: 'no-cache' })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .catch(function () { return null; });
+    })).then(function (lista) {
+      var ok = lista.filter(Boolean);
+      if (!ok.length) return null;
+      if (ok.length === 1) { datos = ok[0]; return datos; }
+      // Todos los archivos se generan en la misma corrida y comparten la ventana de 30 días.
+      // Si alguno trae otra ventana no se mezcla: dos periodos distintos no van en una gráfica.
+      var base = ok.slice().sort(function (a, b) { return (b.fechas || []).length - (a.fechas || []).length; })[0];
+      var clave = (base.fechas || []).join();
+      var productos = {};
+      ok.forEach(function (j) {
+        if ((j.fechas || []).join() !== clave) return;
+        Object.keys(j.productos || {}).forEach(function (id) {
+          if (!(id in productos)) productos[id] = j.productos[id];
+        });
+      });
+      datos = { generado: base.generado, ventana: base.ventana, desde: base.desde, hasta: base.hasta, fechas: base.fechas, productos: productos };
+      return datos;
+    });
     return pendiente;
   }
 

@@ -43,9 +43,10 @@ En estas guías **no hay botones de compra de Amazon**. Si la guía vieja trae a
 
 ## Reglas que nunca se rompen
 
-1. **No inventar**: enlaces, precios, precios "antes", descuentos, calificaciones ni reseñas. Si el
-   dato no está en `scripts/merged-admin.json`, `descuentos.json` o `assets/data/bajadas.json`, no
-   se muestra. Las cifras de los mockups (★ 4.6, 4,892 reseñas, −14 %) son relleno de diseño.
+1. **No inventar**: enlaces, precios, precios "antes", descuentos, calificaciones, reseñas ni
+   histórico de precio. Si el dato no está en `scripts/merged-admin.json`, `descuentos.json`,
+   `assets/data/bajadas.json` o `assets/data/historico/`, no se muestra. El histórico nunca se
+   interpola ni se completa a mano (ver su sección más abajo). Las cifras de los mockups (★ 4.6, 4,892 reseñas, −14 %) son relleno de diseño.
 2. **No reemplazar el artículo por texto genérico** ni recortar contenido para compactar.
 3. **No sustituir ni retirar un producto sin aprobación de Alan** (ver `disponibilidad-ml.md`).
 4. **No cambiar nombres ni parámetros de eventos GA4 existentes sin autorización**; no tocar
@@ -93,7 +94,8 @@ no se copian** a cada guía.
 ### 4. Productos y enlaces
 Datos desde `merged-admin.json`; cada familia declara `dbId` y cada precio lleva
 `data-cmx-precio="<modeloBase>"` para que `sync-guias-precios.js` y `guias-precios.js` lo
-mantengan. Botón amarillo con logotipo y texto **«Ver en Mercado Libre ↗»**,
+mantengan. Si el producto tiene histórico, la ficha lleva además
+`data-cmx-hist="<id del listado>"` (ver «Histórico de precio»). Botón amarillo con logotipo y texto **«Ver en Mercado Libre ↗»**,
 `target="_blank" rel="sponsored nofollow noopener"`.
 
 ### 5. GA4
@@ -147,8 +149,72 @@ que Alan lo pida.
   categoría, filtradas al rango de precio de la guía. Si no hay, la caja pasa a «Precios de hoy».
 - Categorías sin `catalog-mini.json` o con otro comparador: revisar su contrato y, si hace falta,
   ampliar `cmx-guia.js` (no bifurcarlo por guía).
+- `assets/js/cmx-historico.js` (compartido) — histórico de precio de 30 días: la ventana
+  superpuesta de las tarjetas y la sección de la comparativa. Se enlaza, no se copia. Ver la
+  sección «Histórico de precio» de esta skill.
 - `guias-precios.js` (compartido) escribe «Ver en Amazon» cuando un producto pierde su precio vivo;
   `cmx-guia.js` lo corrige a «Consulta el precio en Mercado Libre» en estas guías.
+
+## Histórico de precio (30 días) en las guías
+
+Una guía puede mostrar cómo se movió el precio de cada producto en los últimos 30 días. **Nunca es
+obligatorio**: si no hay datos suficientes, no se muestra y no pasa nada.
+
+**De dónde salen los datos.** La API de Mercado Libre **no** entrega histórico de publicaciones
+ajenas (nov-2026: `/items/{id}` y `/items/{id}/prices` dan 403 con nuestras credenciales, y
+`/marketplace/items/{id}/prices/history` exige ser el vendedor dueño). El histórico es nuestro:
+`scripts/historico-precios.js` guarda cada día el `precioML` de `merged-admin.json` y
+`scripts/generar-historico.js` publica `assets/data/historico/<categoria>.json`, los dos dentro de
+`update-prices.yml`. No hay registros anteriores al 30-sep-2026 y **no se inventan**.
+
+**Capa compartida.** `assets/js/cmx-historico.js` es la misma que usan los listados: **se enlaza, no
+se copia**. Va sin `defer` y antes de `cmx-guia.js`. Expone:
+
+```js
+window.cmxHist.init(['celulares_android', 'celulares_iphone']);  // una o varias categorías
+window.cmxHist.cargar();                                          // baja el JSON (una sola vez)
+window.cmxHist.de(id);                                            // datos de un producto
+window.cmxHist.graficable(d);                                     // ¿hay 7 registros o más?
+window.cmxHist.abrir(id, { nombre, img, chip, precio, section, origen: 'guia' });
+```
+
+Una guía que mezcla familias de varias categorías les pasa **todas** a `init`: se juntan en un solo
+conjunto, siempre que compartan la misma ventana de 30 días (la comparten: se generan en la misma
+corrida). El JSON se baja **solo cuando alguien abre el primer histórico**.
+
+**Dónde va en la guía**
+- **Tarjetas**: las guías usan la `cl-card` del listado, pintada por `cmx-guia.js`. El botón es el
+  mismo `.cl-hist-b` de `cmx-list.css` al pie de la tarjeta, y abre la ventana superpuesta. **No
+  se despliega dentro de la tarjeta**: se probó en nov-2026 y Alan lo rechazó (alarga la tarjeta y
+  no se leen ni fechas ni precios).
+- **Fichas del artículo**: junto al `data-cmx-precio="<modeloBase>"` que ya llevan, se anota
+  `data-cmx-hist="<id del listado>"` — el id con el que ese producto existe en
+  `assets/data/historico/`, que es el mismo que usa la comparativa. Si el producto no tiene datos,
+  el botón no se pinta.
+- **Comparativa**: no hay nada que hacer. La guía abre la comparativa del listado
+  (`/<categoria>/#comparar=id1,id2…`) y esa ya trae su sección de histórico con la escala
+  compartida entre los productos.
+
+**Reglas de transparencia (no se negocian)**
+- Menos de 7 registros → **no hay gráfica**, solo el aviso de desde cuándo registramos.
+- Entre 7 y 27 → gráfica con «Histórico en construcción: llevamos N de 30 días».
+- La variación del periodo solo con **14 registros o más**.
+- Los días sin registro van **punteados** y se cuentan en una nota. **Jamás se interpolan.**
+- Siempre visible: «Datos de comparalo.mx desde el <fecha> · N registros», y que es el **precio de
+  catálogo de Mercado Libre (la oferta más barata con envío FULL), no el de un vendedor**.
+- Si el precio escrito en la guía no coincide con el último registrado, el panel lo dice con las
+  dos cifras; no se toca ninguna de las dos para cuadrarlas.
+- Un cambio de `mlId` abre serie nueva: dos publicaciones distintas nunca se empalman.
+- Las cifras de los mockups (−14 %, «ejemplo ilustrativo») son relleno de diseño: **no se copian**.
+
+**Eventos GA4**: `historico_abrir`, `historico_cerrar`, `historico_sin_datos` (y
+`historico_comparativa_view`, que dispara la comparativa del listado). Todos con `page_section` y
+`origen: 'guia'`. No sustituyen ni duplican los de `ga4.md`.
+
+**Estado (15-nov-2026)**: la capa compartida y los listados ya funcionan (`/celulares/android/` fue
+el piloto). **Falta que `cmx-guia.js` pinte el botón en sus tarjetas y lea `data-cmx-hist` en las
+fichas**: hasta que eso se haga, una guía no muestra histórico aunque los datos existan. Es el
+siguiente paso y necesita el visto bueno de Alan, porque toca el JS común de todas las guías.
 
 ## Reglas de coherencia con la categoría (pedidas por Alan, 15-nov-2026)
 
