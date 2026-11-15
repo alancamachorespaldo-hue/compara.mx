@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es-MX" data-cmx-layout="v2" data-cmx-filters="panel">
+<html lang="es-MX">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -89,294 +89,37 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9TKZ4ER13X"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-9TKZ4ER13X');</script>
 <script src="/assets/js/analytics.js" defer></script>
-<link rel="preload" as="style" href="/assets/css/cards.css">
-<link rel="stylesheet" href="/assets/css/cards.css" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="/assets/css/cards.css"></noscript>
-
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#ffffff;--s1:#f7f7f5;--s2:#f0f0ec;--s3:#e8e8e2;
-  --bd:#e2e2dc;--bd2:#d0d0c8;
-  --tx:#0F172A;--tx2:#64748b;--tx3:#64748b;
-  --ac:#006847;--acd:rgba(0,104,71,.08);--acd2:rgba(0,104,71,.22);
-  --red:#CE1126;
-  --amz:#f90;--amzd:rgba(255,153,0,.1);--amzd2:rgba(255,153,0,.25);
-  --ml:#f0c000;--mld:rgba(240,192,0,.12);--mld2:rgba(240,192,0,.3);
-  --r:10px;
-}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-size:15px;line-height:1.6}
-
-.nav{gap:1rem;position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--bd);padding:0 2rem;display:flex;align-items:center;height:64px}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.nav-links{display:flex;gap:1.75rem;align-items:center}
-.nav-breadcrumb{font-size:14px;color:var(--tx3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;display:flex;align-items:center;gap:4px}
-.nav-breadcrumb a{color:var(--ac);text-decoration:none}
-.nav-breadcrumb a:hover{text-decoration:underline}
-.nav-link{font-size:13px;color:var(--tx2);text-decoration:none;font-weight:500;transition:color .15s}
-.nav-link:hover{color:var(--ac)}
-.nav-link.active{color:var(--ac);font-weight:700}
-.nav-menu-btn{display:none;background:none;border:1.5px solid var(--bd2);border-radius:8px;width:36px;height:36px;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
-.mobile-menu{display:none;position:fixed;inset:0;top:58px;background:rgba(255,255,255,.98);z-index:99;flex-direction:column;padding:1.5rem 1.5rem;gap:4px}
-.mobile-menu.open{display:flex}
-.mobile-menu a{font-size:1.1rem;font-weight:600;color:var(--tx);padding:12px 0;border-bottom:1px solid var(--bd);text-decoration:none}
-.mobile-menu a:last-child{border-bottom:none}
-
-
-.hero{background:linear-gradient(135deg,#005a8e 0%,#003d6b 100%);color:#fff;padding:28px 24px 24px;display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap}
-.hero-icon{font-size:2.5rem;line-height:1;flex-shrink:0}
-.hero h1{font-size:1.25rem;font-weight:800;letter-spacing:-.02em;margin-bottom:4px}
-.hero p{opacity:.8;font-size:.82rem;line-height:1.5}
-.hero-stats{display:flex;gap:16px;margin-top:12px;flex-wrap:wrap}
-.hero-stat{background:rgba(255,255,255,.15);border-radius:8px;padding:6px 12px;font-size:.75rem;font-weight:600}
-
-.toolbar{background:var(--bg);border-bottom:1px solid var(--bd);padding:.65rem 2rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap;position:sticky;top:64px;z-index:90}
-.filter-label{font-size:11px;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;margin-right:2px;font-weight:600}
-.filter{font-size:12px;padding:4px 13px;border-radius:20px;border:1px solid var(--bd2);background:var(--bg);color:var(--tx2);cursor:pointer;transition:all .15s;font-family:'Satoshi',sans-serif;font-weight:500}
-.filter:hover{border-color:var(--ac);color:var(--ac)}
-.filter.on{background:var(--ac);color:#fff;border-color:var(--ac)}
-.filter-sep{width:1px;height:20px;background:var(--bd2);margin:0 4px}
-.sort-wrap{margin-left:auto;display:flex;align-items:center;gap:8px;max-width:100%;min-width:0}
-.sort-label{font-size:12px;color:var(--tx3)}
-.sort-sel{max-width:100%;min-width:0;font-size:12px;background:var(--bg);border:1px solid var(--bd2);border-radius:8px;color:var(--tx2);padding:4px 8px;font-family:'Satoshi',sans-serif;cursor:pointer}
-
-.search-bar{background:#fff;border-bottom:1px solid var(--bd);padding:10px 2rem}
-.search-bar input{width:100%;max-width:520px;padding:9px 14px;border:1.5px solid var(--bd2);border-radius:10px;font-size:.84rem;font-family:'Satoshi',sans-serif;color:var(--tx);outline:none;transition:border-color .15s}
-.search-bar input:focus{border-color:var(--ac)}
-
-.result-info{padding:.5rem 2rem;font-size:12px;color:var(--tx3)}
-
-.grid-wrap{max-width:1400px;margin:0 auto;padding:1.2rem 2rem}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-@media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}}
-
-.card{background:var(--bg);border:1px solid var(--bd);border-radius:14px;overflow:hidden;transition:box-shadow .2s,transform .15s;cursor:pointer;position:relative}
-.card:hover{box-shadow:0 4px 20px rgba(0,0,0,.07);transform:translateY(-2px)}
-.card.selected{border:2px solid var(--ac);box-shadow:0 0 0 4px var(--acd2)}
-.card-img-wrap{background:var(--s1);height:200px;display:flex;align-items:center;justify-content:center;overflow:hidden;border-bottom:1px solid var(--bd)}
-.card-img{width:100%;height:100%;object-fit:contain;display:block;padding:.3rem}
-.card-body{padding:1rem}
-.card-badges{display:flex;gap:5px;margin-bottom:.45rem;flex-wrap:wrap}
-.badge{font-size:10px;font-weight:600;padding:2px 7px;border-radius:20px}
-.b-amz{background:var(--amzd);color:#c47000;border:1px solid var(--amzd2)}
-.b-ml{background:var(--mld);color:#8a6f00;border:1px solid var(--mld2)}
-.b-ifos{background:#e0f2fe;color:#0369a1;border:1px solid #bae6fd}
-.b-best{background:var(--acd);color:var(--ac);border:1px solid var(--acd2)}
-.card-name{font-size:13px;font-weight:700;color:var(--tx);margin-bottom:1px;line-height:1.3;letter-spacing:-.02em;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.card-brand{font-size:11px;color:var(--tx3);margin-bottom:.45rem;font-weight:500;text-transform:uppercase;letter-spacing:.05em}
-.card-stars{font-size:15px;color:#e6900a;margin-bottom:.65rem;display:flex;align-items:center;gap:5px;font-weight:700}
-.card-stars-count{color:var(--tx3);font-size:13px;font-weight:400}
-.card-stars-empty{height:20px;margin-bottom:.65rem}
-.card-specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(76px,1fr));gap:5px;margin-bottom:.65rem}
-.spec{background:var(--s1);border-radius:7px;padding:5px 8px}
-.spec-label{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
-.spec-val{font-size:12px;font-weight:600;color:var(--tx);margin-top:1px}
-.card-price{font-size:1.3rem;font-weight:700;color:var(--tx);margin-bottom:.65rem;letter-spacing:-.03em}
-.price-nd{font-size:13px;color:var(--tx3);font-weight:400;margin-bottom:.65rem}
-.card-btns{display:flex;flex-direction:column;gap:6px}
-.card-btns-dual{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:6px}
-.card-btn-col{display:flex;flex-direction:column;gap:3px}
-.card-btn-col-price{font-size:12px;font-weight:700;color:var(--tx);text-align:center}
-.btn-amz{display:flex;align-items:center;justify-content:center;gap:5px;width:100%;text-align:center;background:var(--amz);color:#000;border:none;border-radius:8px;padding:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Satoshi',sans-serif;text-decoration:none;transition:opacity .15s;white-space:nowrap}
-.btn-amz:hover{opacity:.9}
-.btn-ml{display:flex;align-items:center;justify-content:center;gap:5px;width:100%;text-align:center;background:var(--ml);color:#3a2e00;border:none;border-radius:8px;padding:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Satoshi',sans-serif;text-decoration:none;transition:opacity .15s;white-space:nowrap}
-.btn-ml:hover{opacity:.9}
-.btn-logo-img{height:18px;width:auto;object-fit:contain;flex-shrink:0}
-.sel-check{position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:var(--ac);display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;font-weight:700;box-shadow:0 2px 8px rgba(0,104,71,.4)}
-
-/* COMPARE BAR */
-.cmp-bar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:2px solid var(--ac);padding:.875rem 2rem;display:none;align-items:center;justify-content:space-between;z-index:200;gap:12px;box-shadow:0 -4px 20px rgba(0,0,0,.08)}
-.cmp-bar.show{display:flex}
-.cmp-bar-txt{font-size:14px;color:var(--tx);font-weight:600}
-.cmp-bar-sub{font-size:11px;color:var(--tx2)}
-.cmp-bar-actions{display:flex;gap:8px}
-.btn-do-cmp{background:var(--ac);color:#fff;border:none;border-radius:var(--r);padding:9px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Satoshi',sans-serif}
-.btn-clear{background:transparent;color:var(--tx2);border:1px solid var(--bd2);border-radius:var(--r);padding:9px 14px;font-size:13px;cursor:pointer;font-family:'Satoshi',sans-serif}
-
-/* COMPARE MODAL */
-.cmp-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;display:none;align-items:center;justify-content:center;padding:20px}
-.cmp-overlay.open{display:flex}
-.cmp-modal{background:#fff;border-radius:16px;width:100%;max-width:960px;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.18)}
-.cmp-modal-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--bd);flex-shrink:0}
-.cmp-modal-header h2{font-size:1rem;font-weight:700;letter-spacing:-.02em}
-.cmp-modal-close{background:none;border:none;font-size:1.2rem;cursor:pointer;color:var(--tx2);padding:4px 8px;border-radius:6px;line-height:1}
-.cmp-modal-close:hover{background:var(--s1)}
-.cmp-table-wrap{overflow:auto;flex:1}
-.cmp-table{width:100%;border-collapse:collapse;font-size:13px;min-width:520px}
-.cmp-table th{padding:12px 14px;text-align:center;color:var(--tx3);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--s1);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:10}
-.cmp-table td{padding:11px 14px;border-bottom:1px solid var(--bd);color:var(--tx);vertical-align:middle;text-align:center}
-.cmp-table td:first-child{color:var(--tx2);font-size:12px;font-weight:600;background:var(--s1);text-transform:uppercase;letter-spacing:.04em;text-align:left;position:sticky;left:0;z-index:5}
-.cmp-table tr:last-child td{border-bottom:none}
-.cmp-winner{background:#d4f0e3;color:#004d34;font-weight:800}
-.cmp-prod-img{width:80px;height:80px;object-fit:contain;border-radius:8px;background:var(--s1);margin:0 auto 6px;display:block}
-.cmp-prod-name{font-size:.75rem;font-weight:700;line-height:1.3;margin-bottom:4px}
-.cmp-prod-brand{font-size:.68rem;color:var(--tx3);margin-bottom:8px}
-.cmp-prod-btns{display:grid;gap:4px;margin-top:6px}
-.cmp-prod-btns.dual{grid-template-columns:1fr 1fr}
-.cmp-row-lbl{display:flex;align-items:flex-start;gap:6px}
-.cmp-row-lbl svg{flex-shrink:0;color:var(--ac);opacity:.85;margin-top:1px}
-.cmp-row-lbl-sub{font-size:9px;color:var(--tx3);text-transform:none;font-weight:400;letter-spacing:0;margin-top:1px;display:block}
-.cmp-plat-wrap{display:grid;grid-template-columns:1fr 1fr;gap:5px}
-.cmp-badge-top{display:block;font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:#fff;background:var(--ac);border-radius:6px;padding:2px 6px;margin-bottom:4px;text-align:center}
-.cmp-win-pill{display:inline-block;font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;color:#fff;background:var(--ac);border-radius:10px;padding:1px 6px;margin-top:2px;line-height:1.4}
-.cmp-plat{border:1px solid var(--bd);border-radius:9px;padding:7px 6px;margin-bottom:6px}
-.cmp-plat:last-child{margin-bottom:0}
-.cmp-plat.best{border-color:var(--ac);background:var(--acd)}
-.cmp-plat-name{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.04em;font-weight:700}
-.cmp-plat-price{font-size:15px;font-weight:800;color:var(--tx);margin:1px 0 5px;letter-spacing:-.02em}
-
-.empty{text-align:center;padding:3rem;color:var(--tx3);font-size:14px}
-.disclaimer{max-width:1100px;margin:0 auto;padding:1.25rem 2rem;font-size:12px;color:var(--tx3);border-top:1px solid var(--bd)}
-
-/* FAQ */
-.faq-section{background:var(--s1);border-top:1px solid var(--bd);padding:40px 2rem}
-.faq-inner{max-width:720px;margin:0 auto}
-.faq-title{font-size:1.1rem;font-weight:800;letter-spacing:-.03em;margin-bottom:20px}
-.faq-section details{border-bottom:1px solid var(--bd);padding:16px 0}
-.faq-section details:last-child{border-bottom:none}
-.faq-section summary{font-size:14px;font-weight:700;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
-.faq-section summary .ico{color:var(--ac);font-size:18px;flex-shrink:0}
-.faq-section p{font-size:13px;color:var(--tx2);line-height:1.7;margin-top:10px}
-
-footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;text-align:center}
-.footer-wordmark{font-size:1rem;font-weight:700;color:var(--ac)}
-.footer-wordmark .logo-mx{color:var(--red)}
-.footer-info{font-size:12px;color:var(--tx3);margin-top:.25rem}
-.footer-info a{color:var(--ac);text-decoration:none}
-
-/* FAB móvil */
-@media(max-width:600px){
-  .nav-links{display:none}
-  .nav-menu-btn{display:flex !important}
-  .toolbar{top:58px;overflow-x:auto;flex-wrap:wrap;padding:.5rem 1rem;-webkit-overflow-scrolling:touch}
-  .toolbar::-webkit-scrollbar{display:none}
-  .cmp-fab{display:none;position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));right:14px;z-index:300;flex-direction:column;align-items:flex-end;gap:6px}
-  .cmp-fab.show{display:flex}
-  .cmp-fab-btn{background:var(--ac);color:#fff;border:none;border-radius:50px;padding:12px 18px;font-size:.88rem;font-weight:800;cursor:pointer;font-family:'Satoshi',sans-serif;box-shadow:0 4px 20px rgba(0,104,71,.5);display:flex;align-items:center;gap:8px}
-  .cmp-fab-count{background:#fff;color:var(--ac);border-radius:50%;width:22px;height:22px;font-size:.78rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-  body{padding-bottom:80px}
-  .nav{gap:1rem;height:58px;padding:0 1rem}
-  .hero{padding:16px 1rem 14px}
-  .hero h1{font-size:1rem}
-  .hero-stats{gap:8px}
-  .hero-stat{font-size:.7rem;padding:4px 8px}
-  
-  .grid-wrap{padding:1rem .75rem}
-  .grid{grid-template-columns:repeat(2,1fr)}
-  .card-img-wrap{height:150px}
-  .card-body{padding:.75rem}
-  .card-name{font-size:.75rem}
-  .card-specs{grid-template-columns:1fr 1fr}
-  .card-specs .spec:last-child{display:none}
-  .search-bar{padding:8px 1rem}
-  .result-info{padding:.4rem 1rem}
-  .faq-section{padding:28px 1rem}
-}
-@media(max-width:480px){
-  .btn-amz,.btn-ml{font-size:.62rem;padding:7px 4px}
-}
-/* â”€â”€ Mobile improvements â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-@media(max-width:768px){
-  .toolbar{flex-wrap:wrap!important;overflow-x:visible!important}
-  .card-img-wrap{height:100px!important}
-  .card-body{padding:.5rem!important}
-  .card-name{font-size:12px!important;-webkit-line-clamp:2!important;display:-webkit-box!important;-webkit-box-orient:vertical!important;overflow:hidden!important;line-clamp:2!important}
-  .card-price,.dual-price{font-size:14px!important}
-  .btn-buy,.btn-ml,.btn-amz{font-size:11px!important;padding:5px 4px!important}
-  .card::after{content:'+ Comparar';display:block;border:1px solid #16a34a;color:#16a34a;font-size:11px;padding:3px 8px;border-radius:20px;text-align:center;margin:6px 8px 8px;font-family:inherit;font-weight:500;cursor:pointer}
-  .card.selected::after{background:#16a34a;color:#fff;content:'Seleccionado \2713'}
-}/* â”€â”€ Precio-max input â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-.precio-max-input{font-size:12px;padding:4px 8px;border-radius:20px;border:1px solid var(--bd2);background:var(--bg);color:var(--tx);font-family:inherit;font-weight:500;width:88px;outline:none;-moz-appearance:textfield}
-.precio-max-input::-webkit-outer-spin-button,.precio-max-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
-.precio-max-input:focus{border-color:var(--ac)}
-/* â”€â”€ Table compact on mobile â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-@media(max-width:768px){
-  .cmp-table th{min-width:90px!important;padding:8px 6px!important}
-  .cmp-table th:first-child{min-width:80px!important}
-  .cmp-table td{padding:6px 5px!important;font-size:11px!important}
-  .cmp-table td:first-child{min-width:80px!important;max-width:80px!important;font-size:10px!important;padding:6px 5px!important}
-  .cmp-prod-img{width:44px!important;height:44px!important;max-height:50px!important}
-  .cmp-prod-name{font-size:.65rem!important;-webkit-line-clamp:2!important;display:-webkit-box!important;-webkit-box-orient:vertical!important;overflow:hidden!important}
-}/* -- Barra comparar movil -- */
-@media(max-width:600px){
-  .cmp-bar,.compare-bar{padding:.5rem 1rem;flex-wrap:wrap;gap:6px}
-  .cmp-bar.show,.compare-bar.show{display:flex!important;padding:.5rem 1rem;flex-wrap:wrap;gap:6px}
-  .cmp-bar-txt{font-size:12px!important}
-  .cmp-bar-sub{font-size:10px!important}
-  .cmp-bar-actions{gap:5px!important}
-}
-/* ── How-to guide ─────────────────────────────────────────────── */
-.how-strip{display:flex;align-items:center;gap:20px;background:#006847;color:#fff;padding:11px 2rem;flex-wrap:wrap}
-.how-strip-lead{display:flex;align-items:center;gap:10px;flex-shrink:0;margin-right:4px;padding-right:20px;border-right:1px solid rgba(255,255,255,.2)}
-.how-strip-icon{font-size:1.5rem;line-height:1}
-.how-strip-title{font-size:13px;font-weight:800;letter-spacing:-.01em;line-height:1.2}
-.how-strip-sub{font-size:11px;opacity:.65;margin-top:1px}
-.how-steps{display:flex;align-items:center;gap:10px;flex:1;flex-wrap:wrap}
-.how-step{display:flex;align-items:flex-start;gap:8px;flex:1;min-width:130px}
-.how-step-num{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;margin-top:1px}
-.how-step-title{font-size:12.5px;font-weight:700;line-height:1.2}
-.how-step-desc{font-size:11px;opacity:.72;line-height:1.35;margin-top:2px}
-.how-arrow{font-size:1.3rem;opacity:.35;flex-shrink:0}
-.how-card{display:none}
-@media(max-width:760px){
-  .how-strip{display:none}
-  .how-card{display:flex;align-items:center;gap:12px;background:#fff;border:1.5px solid var(--bd);border-left:4px solid var(--ac);border-radius:12px;padding:12px 14px;margin:10px 12px;cursor:pointer;text-align:left;font-family:inherit;width:calc(100% - 24px);color:var(--tx)}
-  .how-card-icon{font-size:1.5rem;flex-shrink:0}
-  .how-card-title{font-size:14px;font-weight:700;color:var(--tx)}
-  .how-card-sub{font-size:12px;color:var(--tx2);margin-top:2px}
-  .how-card-arrow{color:var(--ac);font-size:1.3rem;margin-left:auto;flex-shrink:0;font-weight:300}
-}
-/* modal guía */
-.how-modal-ov{position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:400;display:none;align-items:center;justify-content:center;padding:20px}
-.how-modal-ov.open{display:flex}
-.how-modal{background:#fff;width:100%;max-width:420px;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.22);overflow:hidden;display:flex;flex-direction:column;max-height:88dvh}
-.how-modal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:22px 20px 18px;border-bottom:1px solid var(--bd)}
-.how-modal-head h2{font-size:1.15rem;font-weight:800;color:var(--tx);letter-spacing:-.025em;line-height:1.25;margin:0}
-.how-modal-close{all:unset;cursor:pointer;color:var(--tx3);padding:4px;border-radius:8px;line-height:0;display:flex;flex-shrink:0;margin-top:1px}
-.how-modal-close:hover{background:var(--s2);color:var(--tx)}
-.how-modal-steps{display:flex;flex-direction:column;padding:4px 20px;overflow-y:auto}
-.how-modal-step{display:flex;align-items:flex-start;gap:14px;padding:16px 0;border-bottom:1px solid var(--bd)}
-.how-modal-step:last-child{border-bottom:none}
-.how-modal-step-lead{display:flex;flex-direction:column;align-items:center;gap:6px;flex-shrink:0}
-.how-modal-num{width:22px;height:22px;border-radius:50%;background:var(--ac);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
-.how-modal-ico{width:38px;height:38px;border-radius:10px;background:var(--acd);color:var(--ac);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.how-modal-step-body{flex:1;min-width:0;padding-top:1px}
-.how-modal-step-title{font-size:14.5px;font-weight:700;color:var(--tx);margin-bottom:4px;letter-spacing:-.015em}
-.how-modal-step p{font-size:12.5px;color:var(--tx2);line-height:1.55;margin:0}
-.how-modal-foot{padding:16px 20px 20px;flex-shrink:0}
-.how-modal-ok{width:100%;background:var(--ac);color:#fff;border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Satoshi',sans-serif;transition:opacity .15s}
-.how-modal-ok:hover{opacity:.9}
-@media(max-width:500px){
-  .how-modal-ov{padding:0;align-items:flex-end}
-  .how-modal{border-radius:20px 20px 0 0;max-height:85dvh}
-}
-</style>
 <link rel="stylesheet" href="/assets/css/cmx-site.css">
+<link rel="stylesheet" href="/assets/css/cmx-list.css">
+<link rel="stylesheet" href="/assets/css/cmx-hub.css">
 </head>
-<body data-category="suplementos_omega3">
+<body class="list-page" data-category="suplementos_omega3">
 
 <!-- cmx-header:start -->
-<div class="cmx-hd" id="cmx-hd">
+<div class="cmx-hd cmx-hd2" id="cmx-hd">
   <div class="cmx-hd-in">
-    <a class="cmx-hd-logo" href="/" aria-label="comparalo.mx, inicio"><img src="/logopng.png" alt="" width="28" height="28"><span>comparalo<i>.mx</i></span></a>
-    <div class="cmx-hd-search" id="cmx-hd-search"></div>
-    <div class="cmx-hd-links" role="navigation" aria-label="Navegación principal">
-      <a href="/celulares/">Celulares</a>
-      <a href="/laptops/">Laptops</a>
-      <a href="/electrodomesticos/">Electrodomésticos</a>
-      <a href="/suplementos/" aria-current="true">Suplementos</a>
-      <a href="/bicis/">Bicicletas</a>
-      <a href="/videojuegos/">Videojuegos</a>
-      <a href="/tecnologia/">Tecnología</a>
-      <a href="/guias/">Guías</a>
-    </div>
+    <a class="cmx-hd-logo" href="/" aria-label="comparalo.mx, inicio"><img src="/logopng.png" alt="" width="44" height="44"><span>comparalo<i>.mx</i></span></a>
+    <nav class="cmx-hd2-nav" aria-label="Navegación principal">
+      <div class="cmx-hd2-dd">
+        <button type="button" class="cmx-hd2-ddbtn" aria-haspopup="true">Categorías <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="cmx-hd2-menu">
+          <a href="/celulares/">Celulares</a>
+          <a href="/laptops/">Laptops</a>
+          <a href="/electrodomesticos/">Electrodomésticos</a>
+          <a href="/suplementos/">Suplementos</a>
+          <a href="/bicis/">Bicicletas</a>
+          <a href="/videojuegos/">Videojuegos</a>
+          <a href="/tecnologia/">Tecnología</a>
+        </div>
+      </div>
+      <a href="/#categorias">Comparativas</a>
+      <a href="/guias/">Guías de compra</a>
+      <a class="cmx-hd2-ofertas" href="/#ofertas"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z"/><circle cx="7" cy="7" r="1.2" fill="currentColor"/></svg> Ofertas</a>
+    </nav>
     <div class="cmx-hd-act">
-      <button class="cmx-hd-searchbtn" id="cmx-hd-searchbtn" type="button" aria-label="Buscar categoría"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
-      <a class="cmx-hd-guias" href="/guias/">Guías</a>
       <!-- cmx-hd-extra:start --><!-- cmx-hd-extra:end -->
-      <button class="btn-share" onclick="shareCurrentPage()" title="Compartir esta p&#225;gina" aria-label="Compartir"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg><span class="share-txt">Compartir</span></button>
+      <button class="cmx-hd-searchbtn" id="cmx-hd-searchbtn" type="button" aria-label="Buscar categoría"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7.5"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg><span class="cmx-hd2-searchtx">¿Qué quieres comparar?</span></button>
+      <button class="cmx-hd2-burger" type="button" aria-label="Abrir menú de categorías" onclick="document.getElementById('cmx-hd-searchbtn').click()"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
     </div>
   </div>
 </div>
@@ -384,270 +127,182 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 <!-- cmx-bc:start -->
 <div class="cmx-bc"><ol aria-label="Ruta de navegación"><li><a href="/">Inicio</a></li><li><a href="/suplementos/">Suplementos</a></li><li aria-current="page">Omega 3</li></ol></div>
 <!-- cmx-bc:end -->
-<div class="mobile-menu" id="mobile-menu">
-  <a href="/index.html">🏠 Inicio</a>
-  <a href="/suplementos/">💊 Suplementos</a>
-  <a href="/suplementos/omega3/">🐟 Omega 3</a>
-  <a href="/suplementos/magnesio/">🧲 Magnesio</a>
-  <a href="/bicis/">🚲 Bicicletas</a>
-  <a href="/electrodomesticos/">🏠 Electrodomésticos</a>
-  <a href="/laptops/">💻 Laptops</a>
+
+<main class="cl">
+<section class="cl-hero" aria-labelledby="cl-h1">
+  <div class="cl-hero-in">
+    <div class="cl-hero-tx">
+      <h1 id="cl-h1">Omega 3 <em>en México 2026</em></h1>
+      <p class="cl-hero-lead">Aceite de salmón, anchoa, krill y más. Compara EPA, DHA y costo por porción en Mercado Libre.</p>
+      <form class="cl-search" id="cl-search-form" role="search">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7.5"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+        <label class="cl-sr" for="cl-search-in">Buscar omega 3</label>
+        <input id="cl-search-in" type="search" placeholder="Buscar omega 3 (marca, fuente, cápsulas…)" autocomplete="off">
+        <button type="submit" aria-label="Buscar"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7.5"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg></button>
+      </form>
+    </div>
+    <div class="cl-art">
+      <svg class="cl-spark" width="46" height="46" viewBox="0 0 46 46" fill="none" stroke="#F6D94A" stroke-width="5" stroke-linecap="round" aria-hidden="true"><line x1="8" y1="6" x2="14" y2="20"/><line x1="24" y1="16" x2="38" y2="6"/><line x1="26" y1="30" x2="42" y2="28"/></svg>
+      <img class="a1" data-cmx-img src="https://http2.mlstatic.com/D_NQ_NP_2X_853534-MLA96079139207_102025-F.webp" alt="Omega 3 de salmón" width="240" height="240" referrerpolicy="no-referrer" loading="eager" decoding="async">
+      <img class="a2" data-cmx-img src="https://http2.mlstatic.com/D_NQ_NP_2X_999696-MLA115094763921_072026-F.webp" alt="Omega 3 Platinum" width="240" height="240" referrerpolicy="no-referrer" loading="eager" decoding="async" fetchpriority="high">
+      <img class="a3" data-cmx-img src="https://http2.mlstatic.com/D_NQ_NP_2X_953377-MLA99489778884_112025-F.webp" alt="Omega 3 Now Foods" width="240" height="240" referrerpolicy="no-referrer" loading="eager" decoding="async">
+    </div>
+  </div>
+</section>
+
+<div id="cl-sentinel" aria-hidden="true"></div>
+<div class="cl-sticky" id="cl-sticky">
+<div class="cl-steps-wrap">
+  <div class="cl-steps" role="note" aria-label="Cómo usar esta comparativa">
+    <div class="cl-step"><span class="cl-step-ic"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="22 3 2 3 10 12.5 10 19 14 21 14 12.5 22 3"/></svg></span><div><b><u>1. </u>Filtra</b><span>Elige fuente, marca y presupuesto</span></div></div>
+    <i aria-hidden="true"></i>
+    <div class="cl-step"><span class="cl-step-ic"><img src="/logopng.png" alt="" width="40" height="40"></span><div><b><u>2. </u>Compáralo</b><span>Selecciona de 2 a 3 productos</span></div><em class="cl-step-n" id="cl-step-n" aria-label="Productos seleccionados para comparar">0/3</em></div>
+    <i aria-hidden="true"></i>
+    <div class="cl-step"><span class="cl-step-ic"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg></span><div><b><u>3. </u>Decide</b><span>Revisa el análisis y elige el mejor</span></div></div>
+  </div>
+</div>
+<div class="cl-bar-wrap">
+  <div class="cl-bar">
+    <button type="button" class="cl-open" id="cl-open" aria-expanded="true" aria-controls="cl-filters">Filtros <em id="cl-open-n">0</em> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+    <div class="cl-chips" id="cl-chips" aria-live="polite"></div>
+    <label class="cl-sort">Ordenar<span class="cl-sr"> resultados</span>:
+        <select id="cl-sort">
+          <option value="default">Recomendados</option>
+          <option value="precio-asc">Precio más bajo</option>
+          <option value="precio-desc">Precio más alto</option>
+          <option value="costog">Menor costo por 1 g de EPA+DHA</option>
+          <option value="costoporcion">Menor costo por porción</option>
+          <option value="epadha">Más EPA+DHA por porción</option>
+        </select>
+      </label>
+    <button type="button" class="cl-saved" id="cl-saved" aria-pressed="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg> Guardados (<span id="cl-saved-n">0</span>)</button>
+  </div>
+</div>
 </div>
 
-<div class="hero">
-  <div class="hero-icon">🐟</div>
-  <div>
-    <h1>Omega 3 en México — Compara Precios 2026</h1>
-    <p>Aceite de salmón, anchoa, krill y más. Compara EPA, DHA y costo por porción en Amazon MX y Mercado Libre.</p>
-    <div class="hero-stats">
-      <span class="hero-stat">27 productos</span>
-      <span class="hero-stat">EPA y DHA por porción</span>
-      <span class="hero-stat">Amazon MX · Mercado Libre</span>
+<div class="cl-layout" id="cl-layout">
+  <aside class="cl-filters" id="cl-filters" aria-label="Filtros"></aside>
+  <div class="cl-main">
+    <p class="cl-count" id="cl-count" aria-live="polite"></p>
+    <div class="cl-grid" id="cl-grid" data-ga-section="comparison"></div>
+    <div class="cl-empty" id="cl-empty" hidden></div>
+    <div class="cl-more" id="cl-more" hidden><button type="button" id="cl-more-btn">Mostrar más</button></div>
+  </div>
+
+  <div class="cl-below">
+    <div class="cl-below-main">
+      <section class="cl-box" aria-labelledby="cl-guias-h">
+        <div class="cl-box-head">
+          <h2 id="cl-guias-h"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00843D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H2z"/><path d="M22 4h-7a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h8z"/></svg>Artículos sobre Omega 3</h2>
+          <a href="/guias/">Ver todas las guías →</a>
+        </div>
+        <div class="cl-guides">
+          <a class="cl-guide" href="/suplementos/omega3/omega3-cual-comprar/"><img data-cmx-img src="https://http2.mlstatic.com/D_NQ_NP_2X_853534-MLA96079139207_102025-F.webp" alt="Omega 3" width="240" height="240" referrerpolicy="no-referrer" loading="lazy" decoding="async"><span><b>¿Cuál omega 3 comprar en México?</b></span><i aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></i></a>
+          <a class="cl-guide" href="/suplementos/"><img data-cmx-img src="https://http2.mlstatic.com/D_NQ_NP_2X_999696-MLA115094763921_072026-F.webp" alt="Suplementos" width="240" height="240" referrerpolicy="no-referrer" loading="lazy" decoding="async"><span><b>Más suplementos</b></span><i aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></i></a>
+          <a class="cl-guide" href="/guias/"><img data-cmx-img src="https://http2.mlstatic.com/D_NQ_NP_2X_953377-MLA99489778884_112025-F.webp" alt="Guías de compra" width="240" height="240" referrerpolicy="no-referrer" loading="lazy" decoding="async"><span><b>Guías de compra</b></span><i aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></i></a>
+        </div>
+      </section>
+
+      <div class="cl-two">
+        <a class="cl-how" href="/suplementos/omega3/omega3-cual-comprar/">
+          <svg class="w" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          <span><b>Cómo elegir tu omega 3</b><span>Busca el desglose de EPA y DHA en miligramos por porción, no solo el “Omega 3 total”. Compara el costo por porción considerando cuántas cápsulas necesitas tomar al día para alcanzar la dosis de la etiqueta.</span></span>
+          <i aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></i>
+        </a>
+        <section class="cl-box cl-faq" aria-labelledby="cl-faq-h">
+          <div class="cl-box-head"><h2 id="cl-faq-h"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00843D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.2 9a3 3 0 0 1 5.8 1c0 2-3 2.6-3 4.5"/><line x1="12" y1="17.5" x2="12.01" y2="17.5"/></svg>Preguntas frecuentes</h2></div>
+          <details><summary>¿Cuál es el mejor Omega 3 en México 2026?</summary><p>Los mejores Omega 3 en México según concentración real de EPA+DHA y precio son <strong>Sports Research Wild Alaska Pollock</strong>, <strong>Now Foods Omega-3</strong> y <strong>B Life Omega 3</strong>. Busca siempre la cantidad real de EPA y DHA, no solo el total de aceite.</p></details>
+          <details><summary>¿Cuánto Omega 3 debo tomar al día?</summary><p>La dosis general recomendada es <strong>1,000–2,000 mg de EPA+DHA combinados al día</strong>. Para efectos cardiovasculares o antiinflamatorios pueden requerirse hasta 3,000–4,000 mg bajo supervisión médica. Lo importante es la cantidad real de EPA y DHA, no el total de aceite de la cápsula.</p></details>
+          <details><summary>¿Qué es la certificación IFOS en Omega 3?</summary><p>IFOS (International Fish Oil Standards) es el estándar más estricto para aceite de pescado. Certifica pureza, concentración real de EPA/DHA y ausencia de metales pesados y contaminantes. Los productos marcados IFOS ✓ en la tabla tienen esta certificación.</p></details>
+          <details><summary>¿Es mejor comprar en Amazon o Mercado Libre?</summary><p>Depende del producto y la fecha. comparalo.mx compara los precios actualizados en ambas plataformas para que encuentres siempre la mejor oferta sin revisar dos tiendas.</p></details>
+        </section>
+      </div>
+
+      <section class="cl-box cl-editorial" aria-labelledby="cl-ed-h">
+        <h2 id="cl-ed-h"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00843D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="14" y2="17"/></svg>Guía rápida: ¿cuál Omega 3 comprar en México?</h2>
+        <p>Lo que realmente importa en un Omega 3 no es el total de aceite de pescado por cápsula, sino cuánto EPA y DHA combinados aporta cada porción. Dos productos con "1000 mg de Omega 3" en el empaque pueden tener cantidades muy distintas de EPA+DHA real — esa es la cifra que debes comparar.</p>
+        
+          <h3>EPA, DHA y de dónde viene el aceite</h3>
+          <ul>
+            <li><strong>EPA (ácido eicosapentaenoico):</strong> uno de los dos ácidos grasos omega 3 principales del aceite de pescado.</li>
+            <li><strong>DHA (ácido docosahexaenoico):</strong> el otro ácido graso principal, presente en mayor proporción en algunas fuentes como el salmón.</li>
+            <li><strong>Fuente del aceite:</strong> en esta página comparamos anchoa, salmón, krill, pollock, multi-pez y linaza. La fuente influye en la concentración típica de EPA/DHA y en el precio — el aceite de krill, por ejemplo, suele costar más que el de anchoa o pollock.</li>
+          </ul>
+        
+          <h3>Cómo leer la etiqueta correctamente</h3>
+          <p>Busca el desglose de EPA y DHA en miligramos por porción, no solo el "Omega 3 total". Un producto puede anunciar 1000 mg de aceite de pescado pero contener solo 300 mg de EPA+DHA real — el resto es otro tipo de grasa sin el mismo efecto. La certificación <strong>IFOS</strong> (International Fish Oil Standards), cuando el fabricante la reporta, es un indicador de pureza y ausencia de metales pesados.</p>
+        
+          <h3>Cómo comparar por precio real</h3>
+          <p>Compara el <strong>costo por porción</strong>, considerando cuántas cápsulas necesitas tomar al día para alcanzar la dosis indicada en la etiqueta. Un producto más barato por cápsula puede salir más caro si requieres 2 o 3 cápsulas diarias en vez de 1. Usa el ordenador de costo por porción de esta página para comparar justo esto.</p>
+        
+          <h3>¿Mercado Libre o Amazon para comprar Omega 3 en México?</h3>
+          <p>Las marcas mexicanas (OBY, Beyond Vitamins) suelen tener mejor precio en <strong>Mercado Libre</strong>. Las marcas internacionales con certificación IFOS (Sports Research, Now Foods, Nordic Naturals) aparecen en ambas plataformas.</p>
+        
+          <p class="fine">Datos según etiqueta del fabricante. Los precios pueden variar. comparalo.mx puede recibir comisión por compras realizadas a través de los enlaces de afiliado.</p>
+      </section>
     </div>
   </div>
 </div>
+</main>
 
-<!-- TOOLBAR -->
-<div class="cmx-fp-layout"><aside class="cmx-fp" id="cmx-fp" aria-label="Filtros"></aside><div class="cmx-fp-main">
-<div class="toolbar" id="toolbar">
-  <span class="filter-label">Fuente</span>
-  <button class="filter on" onclick="toggleFilter('fuente','todos',this)">Todos</button>
-  <button class="filter" onclick="toggleFilter('fuente','salmon',this)">Salmón</button>
-  <button class="filter" onclick="toggleFilter('fuente','anchoa',this)">Anchoa</button>
-  <button class="filter" onclick="toggleFilter('fuente','krill',this)">Krill</button>
-  <button class="filter" onclick="toggleFilter('fuente','linaza',this)">Linaza</button>
-
-  <div class="filter-sep"></div>
-  <span class="filter-label">Plataforma</span>
-  <button class="filter on" onclick="toggleFilter('plataforma','todos',this)">Todas</button>
-  <button class="filter" onclick="toggleFilter('plataforma','ml',this)">Solo ML</button>
-  <div class="sort-wrap">
-    <div class="filter-sep"></div>
-    <span class="filter-label">Precio máx.</span>
-    <input type="number" id="precio-max" placeholder="ej. 8000" class="precio-max-input" oninput="render()" min="0" step="500">
-    <button class="filter" id="btn-clear-filters" onclick="clearFilters()" style="display:none">✕ Limpiar</button>
-    <span class="sort-label">Ordenar:</span>
-    <select class="sort-sel" id="sort-sel" onchange="render()">
-      <option value="precio-asc">Precio ↑</option>
-      <option value="precio-desc">Precio ↓</option>
-      <option value="epa-desc">EPA ↓</option>
-      <option value="dha-desc">DHA ↓</option>
-      <option value="costo-asc">Costo/porción ↑</option>
-      <option value="estrellas-desc">Mejor calificados</option>
-    </select>
-  </div>
-</div>
-
-<!-- SEARCH -->
-<div class="search-bar">
-  <input id="search" type="text" placeholder="🔍 Buscar por marca, nombre o fuente…" oninput="render()">
-</div>
-
-<div class="result-info" id="result-info"></div>
-
-<!-- GUÍA: franja desktop + tarjeta móvil -->
-<div class="how-strip" role="note">
-  <div class="how-strip-lead">
-    <span class="how-strip-icon">🐟</span>
+<!-- Solicitud de comparativas (mismo bloque y envío que los hubs) -->
+<div class="hub-page" style="margin:0;background:transparent">
+<section class="hub-leads" aria-labelledby="leads-h">
+  <div class="hub-leads-in">
     <div>
-      <div class="how-strip-title">Encuentra tu omega 3 ideal</div>
-      <div class="how-strip-sub">en Compáralo.mx</div>
+      <p class="hub-leads-eyebrow">Para ti · Gratis · Sin spam</p>
+      <h2 id="leads-h">¿No encuentras lo que buscas? <span>Te comparamos.</span></h2>
+      <p class="hub-leads-desc">Dinos qué producto quieres comparar y te avisamos cuando tengamos la comparativa lista — gratis, sin registros complicados.</p>
     </div>
-  </div>
-  <div class="how-steps">
-    <div class="how-step">
-      <span class="how-step-num">1</span>
-      <div><div class="how-step-title">Filtra</div><div class="how-step-desc">Elige fuente, plataforma y presupuesto.</div></div>
-    </div>
-    <span class="how-arrow" aria-hidden="true">›</span>
-    <div class="how-step">
-      <span class="how-step-num">2</span>
-      <div><div class="how-step-title">Compara</div><div class="how-step-desc">Revisa EPA, DHA y costo por porción.</div></div>
-    </div>
-    <span class="how-arrow" aria-hidden="true">›</span>
-    <div class="how-step">
-      <span class="how-step-num">3</span>
-      <div><div class="how-step-title">Consulta el precio</div><div class="how-step-desc">Haz clic en "Ir a Amazon" o "Ir a ML" en la tarjeta.</div></div>
-    </div>
-  </div>
-</div>
-<button class="how-card" id="howCard" onclick="openHowModal()" aria-expanded="false" aria-haspopup="dialog">
-  <span class="how-card-icon">🐟</span>
-  <span>
-    <span class="how-card-title">¿Cómo funciona?</span>
-    <span class="how-card-sub">Encuentra tu omega 3 ideal en 3 pasos</span>
-  </span>
-  <span class="how-card-arrow" aria-hidden="true">›</span>
-</button>
-
-<!-- Modal guía -->
-<div class="how-modal-ov" id="howModalOv" role="dialog" aria-modal="true" aria-labelledby="howModalTitle">
-  <div class="how-modal">
-    <div class="how-modal-head">
-      <h2 id="howModalTitle">Cómo encontrar tu omega 3 ideal</h2>
-      <button class="how-modal-close" onclick="closeHowModal()" aria-label="Cerrar">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-    </div>
-    <div class="how-modal-steps">
-      <div class="how-modal-step">
-        <div class="how-modal-step-lead">
-          <span class="how-modal-num" aria-hidden="true">1</span>
-          <span class="how-modal-ico" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="10" y1="18" x2="14" y2="18"/></svg>
-          </span>
-        </div>
-        <div class="how-modal-step-body">
-          <div class="how-modal-step-title">Filtra</div>
-          <p>Elige la fuente (salmón, anchoa, krill o linaza), la plataforma y tu presupuesto máximo.</p>
-        </div>
-      </div>
-      <div class="how-modal-step">
-        <div class="how-modal-step-lead">
-          <span class="how-modal-num" aria-hidden="true">2</span>
-          <span class="how-modal-ico" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L4 9v6l8 6 8-6V9z"/><line x1="12" y1="3" x2="12" y2="21"/><path d="M4 9l8 6 8-6"/></svg>
-          </span>
-        </div>
-        <div class="how-modal-step-body">
-          <div class="how-modal-step-title">Compara</div>
-          <p>Revisa EPA, DHA, costo por porción y calificaciones para identificar cuál te conviene más.</p>
-        </div>
-      </div>
-      <div class="how-modal-step">
-        <div class="how-modal-step-lead">
-          <span class="how-modal-num" aria-hidden="true">3</span>
-          <span class="how-modal-ico" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-          </span>
-        </div>
-        <div class="how-modal-step-body">
-          <div class="how-modal-step-title">Consulta el precio</div>
-          <p>Cuando elijas un omega 3, pulsa "Ir a Amazon" o "Ir a Mercado Libre" en su tarjeta para consultar el precio en la tienda.</p>
-        </div>
-      </div>
-    </div>
-    <div class="how-modal-foot">
-      <button class="how-modal-ok" onclick="closeHowModal()">Entendido</button>
-    </div>
-  </div>
-</div>
-
-<!-- GRID -->
-<div class="grid-wrap" data-ga-section="comparison">
-  <div class="grid" id="grid"></div>
-  <div id="empty" class="empty" style="display:none">No hay productos con esos filtros.</div>
-</div>
-</div></div>
-
-<!-- SEO content block -->
-<section style="max-width:860px;margin:2.5rem auto;padding:0 2rem;color:#64748b;font-size:.9rem;line-height:1.8">
-  <h2 style="font-size:1.15rem;font-weight:800;color:#0F172A;margin-bottom:.75rem;letter-spacing:-.02em">Guía rápida: ¿cuál Omega 3 comprar en México?</h2>
-  <p>Lo que realmente importa en un Omega 3 no es el total de aceite de pescado por cápsula, sino cuánto EPA y DHA combinados aporta cada porción. Dos productos con "1000 mg de Omega 3" en el empaque pueden tener cantidades muy distintas de EPA+DHA real — esa es la cifra que debes comparar.</p>
-
-  <h3 style="font-size:1rem;font-weight:700;color:#0F172A;margin:1.25rem 0 .5rem">EPA, DHA y de dónde viene el aceite</h3>
-  <ul style="padding-left:1.2rem;display:flex;flex-direction:column;gap:.4rem">
-    <li><strong>EPA (ácido eicosapentaenoico):</strong> uno de los dos ácidos grasos omega 3 principales del aceite de pescado.</li>
-    <li><strong>DHA (ácido docosahexaenoico):</strong> el otro ácido graso principal, presente en mayor proporción en algunas fuentes como el salmón.</li>
-    <li><strong>Fuente del aceite:</strong> en esta página comparamos anchoa, salmón, krill, pollock, multi-pez y linaza. La fuente influye en la concentración típica de EPA/DHA y en el precio — el aceite de krill, por ejemplo, suele costar más que el de anchoa o pollock.</li>
-  </ul>
-
-  <h3 style="font-size:1rem;font-weight:700;color:#0F172A;margin:1.25rem 0 .5rem">Cómo leer la etiqueta correctamente</h3>
-  <p>Busca el desglose de EPA y DHA en miligramos por porción, no solo el "Omega 3 total". Un producto puede anunciar 1000 mg de aceite de pescado pero contener solo 300 mg de EPA+DHA real — el resto es otro tipo de grasa sin el mismo efecto. La certificación <strong>IFOS</strong> (International Fish Oil Standards), cuando el fabricante la reporta, es un indicador de pureza y ausencia de metales pesados.</p>
-
-  <h3 style="font-size:1rem;font-weight:700;color:#0F172A;margin:1.25rem 0 .5rem">Cómo comparar por precio real</h3>
-  <p>Compara el <strong>costo por porción</strong>, considerando cuántas cápsulas necesitas tomar al día para alcanzar la dosis indicada en la etiqueta. Un producto más barato por cápsula puede salir más caro si requieres 2 o 3 cápsulas diarias en vez de 1. Usa el ordenador de costo por porción de esta página para comparar justo esto.</p>
-
-  <h3 style="font-size:1rem;font-weight:700;color:#0F172A;margin:1.25rem 0 .5rem">¿Mercado Libre o Amazon para comprar Omega 3 en México?</h3>
-  <p>Las marcas mexicanas (OBY, Beyond Vitamins) suelen tener mejor precio en <strong>Mercado Libre</strong>. Las marcas internacionales con certificación IFOS (Sports Research, Now Foods, Nordic Naturals) aparecen en ambas plataformas. Filtra por plataforma en esta página para comparar solo las opciones que te interesan.</p>
-
-  <p style="margin-top:1.5rem;font-size:.8rem;color:#94a3b8">Datos según etiqueta del fabricante. Los precios pueden variar. comparalo.mx puede recibir comisión por compras realizadas a través de los enlaces de afiliado.</p>
-</section>
-
-<!-- FAQ -->
-<section class="faq-section" aria-label="Preguntas frecuentes sobre Omega 3">
-  <div class="faq-inner">
-    <h2 class="faq-title">Preguntas frecuentes sobre Omega 3</h2>
-    <details open>
-      <summary>¿Cuál es el mejor Omega 3 en México 2026? <span class="ico">+</span></summary>
-      <p>Los mejores Omega 3 en México según concentración real de EPA+DHA y precio son <strong>Sports Research Wild Alaska Pollock</strong>, <strong>Now Foods Omega-3</strong> y <strong>B Life Omega 3</strong>. Busca siempre la cantidad real de EPA y DHA, no solo el total de aceite.</p>
-    </details>
-    <details>
-      <summary>¿Cuánto Omega 3 debo tomar al día? <span class="ico">+</span></summary>
-      <p>La dosis general recomendada es <strong>1,000–2,000 mg de EPA+DHA combinados al día</strong>. Para efectos cardiovasculares o antiinflamatorios pueden requerirse hasta 3,000–4,000 mg bajo supervisión médica. Lo importante es la cantidad real de EPA y DHA, no el total de aceite de la cápsula.</p>
-    </details>
-    <details>
-      <summary>¿Qué es la certificación IFOS en Omega 3? <span class="ico">+</span></summary>
-      <p>IFOS (International Fish Oil Standards) es el estándar más estricto para aceite de pescado. Certifica pureza, concentración real de EPA/DHA y ausencia de metales pesados y contaminantes. Los productos marcados IFOS ✓ en la tabla tienen esta certificación.</p>
-    </details>
-    <details>
-      <summary>¿Es mejor comprar en Amazon o Mercado Libre? <span class="ico">+</span></summary>
-      <p>Depende del producto y la fecha. comparalo.mx compara los precios actualizados en ambas plataformas para que encuentres siempre la mejor oferta sin revisar dos tiendas.</p>
-    </details>
+    <ul class="hub-leads-list">
+      <li><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 12.5 10 17 19 7.5"/></svg>Comparamos precio, specs y reseñas</li>
+      <li><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 12.5 10 17 19 7.5"/></svg>Te avisamos por correo cuando esté lista</li>
+      <li><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 12.5 10 17 19 7.5"/></svg>Sin costo, sin spam, sin compromisos</li>
+      <li><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 12.5 10 17 19 7.5"/></svg>Respondemos en menos de 48 horas</li>
+    </ul>
+    <form class="hub-form" id="hub-form" action="https://docs.google.com/forms/d/e/1FAIpQLScI3hNm1pX6oo2cnxVqHnTBjOkfsEqBGw0bE3lYc3p0huxzOQ/formResponse" method="post" target="hub-form-sink">
+      <h3>¿Qué quieres que comparemos?</h3>
+      <label class="hub-field"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><line x1="7" y1="9" x2="13" y2="9"/><line x1="7" y1="13" x2="11" y2="13"/></svg><span class="hub-sr">Producto que quieres comparar</span><input type="text" name="entry.1897553618" placeholder="iPhone, Samsung, Xiaomi…" required maxlength="200" autocomplete="off"></label>
+      <label class="hub-field"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg><span class="hub-sr">Tu correo electrónico</span><input type="email" name="entry.90518688" placeholder="Tu correo electrónico" required maxlength="200" autocomplete="email"></label>
+      <button type="submit">Solicitar comparativa →</button>
+      <p class="hub-form-msg" id="hub-form-msg" role="status" aria-live="polite"></p>
+      <p class="hub-form-alt">Tu correo solo se usa para avisarte. ¿No se envía? <a href="https://docs.google.com/forms/d/e/1FAIpQLScI3hNm1pX6oo2cnxVqHnTBjOkfsEqBGw0bE3lYc3p0huxzOQ/viewform" target="_blank" rel="noopener">Abre el formulario</a>.</p>
+    </form>
+    <iframe name="hub-form-sink" id="hub-form-sink" title="Envío del formulario" hidden></iframe>
   </div>
 </section>
-
-<div class="disclaimer">
-  * Precios y disponibilidad sujetos a cambio. Los enlaces son de afiliado — comparalo.mx puede recibir comisión sin costo adicional para ti. Consulta siempre a un profesional de salud antes de iniciar cualquier suplemento.
 </div>
 
-<section style="background:#f7f7f5;border-top:1px solid #e2e2dc;padding:28px 2rem;">
-  <div style="max-width:960px;margin:0 auto;">
-    <p style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#94a3b8;margin-bottom:14px;">Artículos sobre Omega 3</p>
-    <div style="display:flex;flex-wrap:wrap;gap:10px;">
-      <a href="/suplementos/omega3/omega3-cual-comprar/" style="font-size:13px;color:#006847;text-decoration:none;background:#e8f5f0;border-radius:20px;padding:6px 14px;font-weight:600;">¿Cuál omega 3 comprar en México? →</a>
-    </div>
-  </div>
-</section>
 <!-- cmx-related:start -->
 <section class="cmx-rel" aria-labelledby="cmx-rel-h"><div class="cmx-rel-in"><h2 id="cmx-rel-h">Sigue explorando</h2><p class="cmx-rel-lead">Guías de compra y categorías que combinan con esta.</p><h3>Guías relacionadas</h3><div class="cmx-rel-grid"><a class="cmx-rel-card" href="/suplementos/omega3/omega3-cual-comprar/"><span class="cmx-rel-tx"><span class="cmx-rel-k">Guía</span><span class="cmx-rel-t">Omega 3 en México 2026: cuál comprar y dónde conseguirlo más barato</span></span></a><a class="cmx-rel-card" href="/guias/"><span class="cmx-rel-tx"><span class="cmx-rel-k">Guías</span><span class="cmx-rel-t">Ver todas las guías de compra</span><span class="cmx-rel-d">Cómo elegir, comparativas y ofertas</span></span></a></div><h3>Sigue con otras categorías</h3><div class="cmx-rel-grid"><a class="cmx-rel-card" href="/suplementos/magnesio/"><span class="cmx-rel-ic" aria-hidden="true">🌙</span><span class="cmx-rel-tx"><span class="cmx-rel-k">Categoría</span><span class="cmx-rel-t">Magnesio</span><span class="cmx-rel-d">Citrato, bisglicinato, L-treonato</span></span></a><a class="cmx-rel-card" href="/suplementos/complejo-b/"><span class="cmx-rel-ic" aria-hidden="true">🧬</span><span class="cmx-rel-tx"><span class="cmx-rel-k">Categoría</span><span class="cmx-rel-t">Complejo B</span><span class="cmx-rel-d">B12, B6, ácido fólico</span></span></a><a class="cmx-rel-card" href="/suplementos/creatina/"><span class="cmx-rel-ic" aria-hidden="true">⚡</span><span class="cmx-rel-tx"><span class="cmx-rel-k">Categoría</span><span class="cmx-rel-t">Creatina</span><span class="cmx-rel-d">Monohidratada, micronizada</span></span></a></div></div></section>
 <!-- cmx-related:end -->
 <!-- cmx-footer:start -->
-<div class="cmx-ft" role="contentinfo" id="cmx-ft"><div class="cmx-ft-in">
-<div class="cmx-ft-disc"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6EE7B7" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><div><h2>Aviso de afiliados</h2><p>comparalo.mx participa en los programas de afiliados de Amazon México y Mercado Libre. Si compras a través de nuestros enlaces recibimos una comisión, sin costo adicional para ti. Esa comisión no influye en el orden ni en las recomendaciones. <a href="/aviso-afiliados/">Más información</a></p></div></div>
-<div class="cmx-ft-grid">
-<div><span class="cmx-ft-brand"><img src="/logopng.png" alt="" width="28" height="28" loading="lazy">comparalo<i>.mx</i></span><p>Comparamos precios de Amazon MX y Mercado Libre para que decidas con datos, no a ciegas.</p></div>
-<div><h3>Categorías</h3><ul><li><a href="/celulares/">Celulares</a></li><li><a href="/celulares/android/">Android</a></li><li><a href="/celulares/iphone/">iPhone</a></li><li><a href="/laptops/">Laptops</a></li><li><a href="/electrodomesticos/">Electrodomésticos</a></li><li><a href="/suplementos/">Suplementos</a></li><li><a href="/bicis/">Bicicletas</a></li><li><a href="/videojuegos/">Videojuegos</a></li><li><a href="/tecnologia/">Tecnología</a></li></ul></div>
-<div><h3>Recursos</h3><ul><li><a href="/guias/">Guías y artículos</a></li><li><a href="/#metodo">Cómo comparamos</a></li><li><a href="/sobre-nosotros/">Quiénes somos</a></li><li><a href="/contacto/">Contacto</a></li><li><a href="/sitemap.xml">Mapa del sitio</a></li></ul></div>
-<div><h3>Legal</h3><ul><li><a href="/aviso-afiliados/">Aviso de afiliados</a></li><li><a href="/privacidad/">Privacidad</a></li><li><a href="/terminos/">Términos</a></li></ul></div>
+<div class="cmx-ft2" role="contentinfo" id="cmx-ft"><div class="cmx-ft2-in">
+<div class="cmx-ft2-grid">
+<div class="cmx-ft2-brand"><a class="cmx-ft2-logo" href="/" aria-label="comparalo.mx, inicio"><img src="/logopng.png" alt="" width="40" height="40" loading="lazy"><span>comparalo<i>.mx</i></span></a><p>Comparamos precios de Mercado Libre para que decidas con datos, no a ciegas.</p></div>
+<div class="cmx-ft2-col cmx-ft2-cats"><h3><button type="button" aria-expanded="false" onclick="var c=this.closest('.cmx-ft2-col');this.setAttribute('aria-expanded',c.classList.toggle('open'))">Categorías<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button></h3><ul><li><a href="/celulares/">Celulares</a></li><li><a href="/laptops/">Laptops</a></li><li><a href="/electrodomesticos/">Electrodomésticos</a></li><li><a href="/suplementos/">Suplementos</a></li><li><a href="/bicis/">Bicicletas</a></li><li><a href="/videojuegos/">Videojuegos</a></li><li><a href="/tecnologia/">Tecnología</a></li><li><a href="/#categorias">Todas las categorías</a></li></ul></div>
+<div class="cmx-ft2-col"><h3><button type="button" aria-expanded="false" onclick="var c=this.closest('.cmx-ft2-col');this.setAttribute('aria-expanded',c.classList.toggle('open'))">Recursos<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button></h3><ul><li><a href="/guias/">Guías y artículos</a></li><li><a href="/#metodo">Cómo comparamos</a></li><li><a href="/sobre-nosotros/">Quiénes somos</a></li><li><a href="/contacto/">Contacto</a></li></ul></div>
+<div class="cmx-ft2-col"><h3><button type="button" aria-expanded="false" onclick="var c=this.closest('.cmx-ft2-col');this.setAttribute('aria-expanded',c.classList.toggle('open'))">Legal<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button></h3><ul><li><a href="/aviso-afiliados/">Aviso de afiliados</a></li><li><a href="/privacidad/">Privacidad</a></li><li><a href="/terminos/">Términos</a></li></ul></div>
 </div>
-<p class="cmx-ft-bottom">Los precios y la disponibilidad pueden cambiar en cualquier momento. Confirma el precio final en la tienda antes de pagar. © 2026 comparalo.mx</p>
+<p class="cmx-ft2-bottom">comparalo.mx participa en el programa de afiliados de Mercado Libre: si compras desde nuestros enlaces podemos recibir una comisión, sin costo adicional para ti. <a href="/aviso-afiliados/">Más información</a>. Los precios y la disponibilidad pueden cambiar; confirma el precio final en la tienda. © 2026 comparalo.mx</p>
 </div></div>
 <!-- cmx-footer:end -->
 
-<!-- COMPARE BAR (desktop) -->
-<div class="cmp-bar" id="cmp-bar">
-  <div>
-    <div class="cmp-bar-txt" id="cmp-bar-txt">Selecciona 2 o 3 productos para comparar</div>
-    <div class="cmp-bar-sub">Haz clic en cualquier tarjeta</div>
-  </div>
-  <div class="cmp-bar-actions">
-    <button class="btn-clear" onclick="clearSelection()">Limpiar</button>
-    <button class="btn-do-cmp" id="btn-do-cmp" onclick="openModal()" disabled>Comparar</button>
-  </div>
-</div>
-
-<!-- FAB móvil -->
-<div class="cmp-fab" id="cmp-fab">
-  <button class="cmp-fab-btn" id="cmp-fab-btn" onclick="openModal()" disabled>
-    <span class="cmp-fab-count" id="cmp-fab-count">0</span>
-    Comparar
-  </button>
-</div>
-
-<!-- COMPARE MODAL -->
-<div class="cmp-overlay" id="cmp-overlay" onclick="if(event.target===this)closeModal()">
-  <div class="cmp-modal">
-    <div class="cmp-modal-header">
-      <h2>Comparativa de Omega 3</h2>
-      <button class="cmp-modal-close" onclick="closeModal()">✕</button>
-    </div>
-    <div class="cmp-table-wrap">
-      <table class="cmp-table" id="cmp-table"></table>
-    </div>
+<!-- Dock de comparación, aviso y comparativa completa (los llena /assets/js/cmx-list.js) -->
+<div class="cl cl-dock" id="cl-dock" role="region" aria-label="Productos seleccionados para comparar">
+  <div class="cl-dock-in">
+    <div class="cl-dock-lead"><img src="/logopng.png" alt="" width="42" height="42"><div><b></b><span></span></div></div>
+    <div class="cl-dock-items"></div>
+    <button type="button" class="cl-dock-go" id="cl-dock-go" disabled>Ver comparativa<span class="lg"> completa</span> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></button>
+    <button type="button" class="cl-dock-clear" id="cl-dock-clear"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg> Limpiar</button>
+    <button type="button" class="cl-dock-toggle" id="cl-dock-toggle" aria-label="Mostrar u ocultar los productos elegidos"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 15 12 9 18 15"/></svg></button>
   </div>
 </div>
+<div class="cl-backdrop" id="cl-backdrop"></div>
+<div class="cl-toast" id="cl-toast" role="status" aria-live="polite"></div>
+<div class="cl cl-cmp-view" id="cl-cmp-view" role="dialog" aria-modal="true" aria-label="Comparativa completa"></div>
 
+<script src="/assets/js/cmx-list.js"></script>
 <script type="application/json" id="pausas">{}</script>
 <script>
 const productos = [
@@ -906,281 +561,95 @@ const productos = [
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
 
+/* ── Configuración del listado (plantilla cmx-list) ──
+   Solo Mercado Libre. Lo derivado (costo por porción, costo por 1 g de EPA+DHA) se calcula aquí con el
+   precio vigente de la página; el arreglo de productos no se toca. Los datos poco creíbles se ocultan en `get`. */
+(function () {
+  /* Favoritos previos: la plantilla los guarda como texto; la página vieja los guardaba como número */
+  try { var fk = 'comparalo:fav:suplementos_omega3', fa = JSON.parse(localStorage.getItem(fk) || '[]'); if (fa.some(function (x) { return typeof x !== 'string'; })) localStorage.setItem(fk, JSON.stringify(fa.map(String))); } catch (e) {}
 
+  var items = productos.filter(function (p) { return !!p.linkML; }); // sin enlace de Mercado Libre no hay qué mostrar
+  var num = function (v) { return typeof v === 'number' && isFinite(v) ? v : null; };
+  var peso = function (n) { return '$' + n.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); };
+  var mg = function (n) { return n.toLocaleString('es-MX') + ' mg'; };
+  /* La página guarda el precio de Mercado Libre en `precio` (ml-update.js lo actualiza ahí) */
+  var precio = function (p) { if (!p.linkML) return null; var v = num(p.precioML); return v != null ? v : num(p.precio); };
+  var porc = function (p) { var n = num(p.porciones); return n && n > 0 ? Math.round(n) : null; };
+  /* EPA+DHA por porción: suma de EPA y DHA. La linaza trae 0/0 (su omega 3 es ALA): se oculta, no se pone "0 mg" */
+  var epa = function (p) { var v = num(p.epa); return v && v > 0 ? v : null; };
+  var dha = function (p) { var v = num(p.dha); return v && v > 0 ? v : null; };
+  var omega = function (p) { var t = (epa(p) || 0) + (dha(p) || 0); return t > 0 ? t : null; };
+  var costo = function (p) { var pr = precio(p), n = porc(p); return pr && n ? pr / n : null; };
+  var costoG = function (p) { var c = costo(p), o = omega(p); return c != null && o ? c / o * 1000 : null; };
+  var FUENTES = { salmon: 'Salmón', anchoa: 'Anchoa', krill: 'Krill', linaza: 'Linaza' };
+  var fuente = function (p) { return FUENTES[p.fuenteOmega] || null; };
+  var calif = function (p) { var s = num(p.estrellas), r = num(p.resenas); return s && r ? s.toFixed(1) + ' (' + r.toLocaleString('es-MX') + ')' : null; };
+  var porPorcion = function (p) { return p.porPorcion ? String(p.porPorcion) : null; };
 
+  /* "Recomendados": datos más completos primero. Las otras opciones del selector se resuelven aquí mismo
+     (la plantilla manda lo que no conoce a rank), sin tocar cmx-list.js. */
+  var rank = function (p) {
+    var s = document.getElementById('cl-sort'), m = s ? s.value : 'default', NO = -1e9, v;
+    if (m === 'costog') { v = costoG(p); return v == null ? NO : -v; }
+    if (m === 'costoporcion') { v = costo(p); return v == null ? NO : -v; }
+    if (m === 'epadha') { v = omega(p); return v == null ? NO : v; }
+    return (omega(p) != null ? 1 : 0) + (porc(p) ? 1 : 0) + (fuente(p) ? 1 : 0) + (calif(p) ? 1 : 0) + (precio(p) != null ? 1 : 0);
+  };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ── Filtros ──
-const filtros = { fuente: 'todos', plataforma: 'todos' };
-
-function toggleFilter(dim, val, btn) {
-  filtros[dim] = val;
-  document.querySelectorAll(`[onclick*="toggleFilter('${dim}'"]`).forEach(b => b.classList.remove('on'));
-  btn.classList.add('on');
-  const anyActive = Object.values(filtros).some(v => v !== 'todos');
-  document.getElementById('btn-clear-filters').style.display = anyActive ? '' : 'none';
-  render();
-}
-
-function clearFilters() {
-  const _pm=document.getElementById('precio-max');if(_pm)_pm.value='';
-  filtros.fuente = 'todos';
-  filtros.plataforma = 'todos';
-  document.querySelectorAll('.filter.on').forEach(b => b.classList.remove('on'));
-  document.querySelectorAll('.toolbar .filter, #cmx-fp .filter').forEach(b => { if(b.textContent.trim()==='Todos'||b.textContent.trim()==='Todas') b.classList.add('on'); });
-  document.getElementById('btn-clear-filters').style.display = 'none';
-  render();
-}
-
-function fmtPrecio(p) { return p ? '$' + p.toLocaleString('es-MX',{minimumFractionDigits:2,maximumFractionDigits:2}) : '—'; }
-
-let seleccionados = [];
-
-function toggleSelect(id) {
-  const idx = seleccionados.indexOf(id);
-  if (idx === -1) {
-    if (seleccionados.length >= 3) return;
-    seleccionados.push(id);
-  } else {
-    seleccionados.splice(idx, 1);
-  }
-  actualizarBarraCmp();
-  render();
-}
-
-function actualizarBarraCmp() {
-  const n = seleccionados.length;
-  const bar = document.getElementById('cmp-bar');
-  const fab = document.getElementById('cmp-fab');
-  const btn = document.getElementById('btn-do-cmp');
-  const fabBtn = document.getElementById('cmp-fab-btn');
-  const txt = document.getElementById('cmp-bar-txt');
-  const cnt = document.getElementById('cmp-fab-count');
-  if (n === 0) { bar.classList.remove('show'); fab.classList.remove('show'); return; }
-  bar.classList.add('show'); fab.classList.add('show');
-  btn.disabled = n < 2; fabBtn.disabled = n < 2;
-  cnt.textContent = n;
-  txt.textContent = n === 1 ? 'Selecciona 1 más para comparar' : n === 2 ? 'Listo para comparar (o agrega 1 más)' : 'Comparando 3 productos';
-}
-
-function clearSelection() { seleccionados = []; actualizarBarraCmp(); render(); }
-
-const ico = {
-  precio:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>`,
-  costo:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>`,
-  porciones:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>`,
-  epa:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.31l-3.72 6.53A1 1 0 007.15 17h9.7a1 1 0 00.87-1.16L14 9.31V2"/><line x1="8.5" y1="2" x2="15.5" y2="2"/></svg>`,
-  omega:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.31l-3.72 6.53A1 1 0 007.15 17h9.7a1 1 0 00.87-1.16L14 9.31V2"/><line x1="8.5" y1="2" x2="15.5" y2="2"/></svg>`,
-  fuente:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></svg>`,
-  ifos:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`,
-  magnesio:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="16" r="3"/><line x1="20" y1="4" x2="4" y2="20"/></svg>`,
-  absorcion:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
-  vitamina:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`,
-  k2:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`,
-  tipo:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="6" rx="3"/><line x1="12" y1="9" x2="12" y2="15"/></svg>`,
-  estrella:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
-  extras:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
-  peso:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>`,
-  formato:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>`,
-  vitamina_b:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.31l-3.72 6.53A1 1 0 007.15 17h9.7a1 1 0 00.87-1.16L14 9.31V2"/><line x1="8.5" y1="2" x2="15.5" y2="2"/></svg>`,
-};
-
-function openModal() {
-  if (seleccionados.length < 2) return;
-  const prods = seleccionados.map(id => productos.find(p => p.id === id));
-  const cols = prods.map(p => {
-    const btns = [];
-    if (p.linkML)  btns.push(`<a class="btn-ml"  href="${p.linkML}"  target="_blank" rel="nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\\//g,'').replace(/\\/(?:index\\.html)?$/g,'').replace(/\\//g,'_')||'home','item_position':${prods.indexOf(p)+1},'comparison':true});}" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}">ML <img class="btn-logo-img" src="/logomercado.png" alt="ML"></a>`);
-    if (p.linkAmz) btns.push(`<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_amazon',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\\//g,'').replace(/\\/(?:index\\.html)?$/g,'').replace(/\\//g,'_')||'home','item_position':${prods.indexOf(p)+1},'comparison':true});}" data-ga-label="${p.nombre||''}" data-ga-val="${p.precio||0}">AMZ <img class="btn-logo-img" src="/logoamazon.png" alt="AMZ"></a>`);
-    return `<th><img class="cmp-prod-img" src="${p.img}" alt="${p.nombre}"><div class="cmp-prod-name">${p.nombre}</div><div class="cmp-prod-brand">${p.marca}</div><div class="cmp-prod-btns${btns.length>1?' dual':''}">${btns.join('')}</div></th>`;
-  }).join('');
-  const rows = [
-    ['Precio', prods.map(p => fmtPrecio(p.precio)), true, ico.precio],
-    ['EPA por porción', prods.map(p => p.epa ? p.epa+'mg' : '—'), true, ico.epa],
-    ['DHA por porción', prods.map(p => p.dha ? p.dha+'mg' : '—'), true, ico.epa],
-    ['EPA+DHA total', prods.map(p => p.omegaPorPorcion ? p.omegaPorPorcion+'mg' : '—'), true, ico.omega],
-    ['Costo/porción', prods.map(p => fmtPrecio(p.costoPorPorcion)), false, ico.costo],
-    ['Fuente', prods.map(p => p.fuenteOmega||'—'), false, ico.fuente],
-    ['Porciones', prods.map(p => p.porciones||'—'), false, ico.porciones],
-    ['Sin metales pesados', prods.map(p => p.libreMetalesPesados ? '✓' : '—'), false, ico.ifos],
-    ['Cert. IFOS', prods.map(p => p.certificadoIFOS ? '✓ IFOS' : '—'), false, ico.ifos],
-    ['Calificación', prods.map(p => p.estrellas ? '★ '+p.estrellas+' ('+p.resenas.toLocaleString()+')' : 'Sin reseñas'), false, ico.estrella],
-  ].map(([label, vals, doWin, icon]) => {
-    let winIdx = -1;
-    if (doWin) {
-      const nums = vals.map(v => parseFloat(v.replace(/[^0-9.]/g,'')));
-      const mx = Math.max(...nums.filter(n=>!isNaN(n)));
-      winIdx = nums.indexOf(mx);
-    }
-    const tds = vals.map((v,i) => {
-      const isWin = doWin && i === winIdx;
-      const pill = isWin ? `<div><span class="cmp-win-pill">Mejor</span></div>` : '';
-      return `<td class="${isWin?'cmp-winner':''}">${v}${pill}</td>`;
-    }).join('');
-    const lbl = icon ? `<div class="cmp-row-lbl">${icon}<span>${label}</span></div>` : label;
-    return `<tr><td>${lbl}</td>${tds}</tr>`;
-  }).join('');
-  document.getElementById('cmp-table').innerHTML = `<thead><tr><th></th>${cols}</tr></thead><tbody>${rows}</tbody>`;
-  document.getElementById('cmp-overlay').classList.add('open');
-}
-function closeModal() { document.getElementById('cmp-overlay').classList.remove('open'); }
-
-function render() {
-  const q = (document.getElementById('search').value||'').toLowerCase().trim();
-  const sortVal = document.getElementById('sort-sel').value;
-  let lista = [...productos];
-  if (window.cmxPass) lista = lista.filter(p => cmxPass(p));
-
-  if (filtros.fuente !== 'todos') {
-    lista = lista.filter(p => (p.fuenteOmega||'').toLowerCase().includes(filtros.fuente));
-  }
-  if (filtros.plataforma !== 'todos') {
-    if (filtros.plataforma === 'ml')    lista = lista.filter(p => p.linkML && !p.linkAmz);
-        if (filtros.plataforma === 'ambas') lista = lista.filter(p => p.linkML && p.linkAmz);
-  }
-  if (q) lista = lista.filter(p => p.nombre.toLowerCase().includes(q) || p.marca.toLowerCase().includes(q) || (p.fuenteOmega||'').toLowerCase().includes(q));
-  const _maxP=parseFloat(document.getElementById('precio-max')?.value)||Infinity;
-  if(_maxP<Infinity) lista=lista.filter(p=>p.precio<=_maxP);
-
-  lista.sort((a,b) => {
-    if (sortVal === 'precio-asc')     return a.precio - b.precio;
-    if (sortVal === 'precio-desc')    return b.precio - a.precio;
-    if (sortVal === 'epa-desc')       return b.epa - a.epa;
-    if (sortVal === 'dha-desc')       return b.dha - a.dha;
-    if (sortVal === 'costo-asc')      return a.costoPorPorcion - b.costoPorPorcion;
-    if (sortVal === 'estrellas-desc') return b.estrellas - a.estrellas;
-    return 0;
+  CmxList.init({
+    items: items,
+    section: 'suplementos_omega3',
+    favKey: 'suplementos_omega3',
+    title: 'Omega 3',
+    noun: { one: 'omega 3', many: 'omega 3', all: 'Ver todos los omega 3' },
+    name: function (p) { return p.nombre; },
+    img: function (p) { return p.img || ''; },
+    link: function (p) { return p.linkML; },
+    price: function (p) { return precio(p); },
+    text: function (p) { return p.nombre + ' ' + (p.marca || '') + ' ' + (fuente(p) || '') + ' ' + (p.porPorcion || ''); },
+    rank: rank,
+    specs: [
+      { label: 'Calificación', icon: 'star', get: calif },
+      { label: 'Fuente', icon: 'tag', get: fuente },
+      { label: 'EPA + DHA por porción', icon: 'spark', get: function (p) { var v = omega(p); return v != null ? mg(v) : null; } },
+      { label: 'Porciones', icon: 'cart', get: function (p) { return porc(p); } },
+      { label: 'Costo por porción', icon: 'tag', get: function (p) { var c = costo(p); return c != null ? peso(c) : null; } },
+      { label: 'Costo por 1 g de EPA+DHA', icon: 'tag', get: function (p) { var c = costoG(p); return c != null ? peso(c) : null; } }
+    ],
+    facets: [
+      { id: 'marca', title: 'Marca', limit: 6, get: function (p) { return p.marca || null; } },
+      { id: 'fuente', title: 'Fuente del aceite', get: fuente },
+      { id: 'epadha', title: 'EPA + DHA por porción', options: [
+        ['b', 'Menos de 500 mg', function (p) { var v = omega(p); return v != null && v < 500; }],
+        ['m', 'De 500 a 999 mg', function (p) { var v = omega(p); return v != null && v >= 500 && v < 1000; }],
+        ['a', '1,000 mg o más', function (p) { var v = omega(p); return v != null && v >= 1000; }]] },
+      { id: 'cert', title: 'Pureza', mode: 'and', options: [
+        ['ifos', 'Certificado IFOS', function (p) { return p.certificadoIFOS === true; }],
+        ['metales', 'Libre de metales pesados', function (p) { return p.libreMetalesPesados === true; }]] }
+    ],
+    compare: { rows: [
+      { label: 'Calificación en Mercado Libre', icon: 'star', get: calif, score: function (p) { var r = num(p.resenas); return r != null && r >= 30 ? num(p.estrellas) : null; }, why: 'mejor calificación de los compradores', pick: 'Priorizas la mejor calificación de los compradores' },
+      { label: 'Fuente del aceite', icon: 'tag', get: fuente },
+      { label: 'EPA por porción', icon: 'spark', get: function (p) { var v = epa(p); return v != null ? mg(v) : null; }, score: epa, why: 'más EPA por porción', pick: 'Buscas más EPA en cada toma' },
+      { label: 'DHA por porción', icon: 'spark', get: function (p) { var v = dha(p); return v != null ? mg(v) : null; }, score: dha, why: 'más DHA por porción', pick: 'Buscas más DHA en cada toma' },
+      { label: 'EPA + DHA por porción', icon: 'spark', get: function (p) { var v = omega(p); return v != null ? mg(v) : null; }, score: omega, why: 'más EPA+DHA por porción', pick: 'Quieres la dosis más alta de EPA+DHA por toma' },
+      { label: 'Cápsulas por porción', icon: 'cart', get: porPorcion },
+      { label: 'Porciones', icon: 'cart', get: function (p) { return porc(p); } },
+      { label: 'Costo por porción', icon: 'tag', get: function (p) { var c = costo(p); return c != null ? peso(c) : null; }, score: function (p) { var c = costo(p); return c != null ? -c : null; }, why: 'menor costo por porción', pick: 'Quieres gastar menos en cada toma' },
+      { label: 'Costo por 1 g de EPA+DHA', icon: 'tag', get: function (p) { var c = costoG(p); return c != null ? peso(c) : null; }, score: function (p) { var c = costoG(p); return c != null ? -c : null; }, why: 'menor costo por cada gramo de EPA+DHA', pick: 'Quieres el EPA+DHA más barato por gramo' },
+      { label: 'Certificado IFOS', icon: 'spark', get: function (p) { return p.certificadoIFOS === true ? 'Sí' : null; }, score: function (p) { return p.certificadoIFOS === true ? 1 : null; }, why: 'certificación IFOS', pick: 'Priorizas un aceite con certificación IFOS' },
+      { label: 'Libre de metales pesados', icon: 'spark', get: function (p) { return p.libreMetalesPesados === true ? 'Sí' : null; }, score: function (p) { return p.libreMetalesPesados === true ? 1 : null; }, why: 'estar libre de metales pesados', pick: 'Priorizas un producto libre de metales pesados' }
+    ] }
   });
+})();
 
-  document.getElementById('result-info').textContent = `Mostrando ${lista.length} de ${productos.length} productos`;
-
-  if (!lista.length) {
-    document.getElementById('grid').innerHTML = '';
-    document.getElementById('empty').style.display = '';
-    return;
-  }
-  document.getElementById('empty').style.display = 'none';
-
-  document.getElementById('grid').innerHTML = lista.map(p => {
-    const isSelected = seleccionados.includes(p.id);
-    const bdgs = (p.badges||[]).map(b => `<span class="badge ${b.c}">${b.t}</span>`).join('');
-    const extras = [];
-    if (p.certificadoIFOS)     extras.push(`<span class="badge b-ifos">IFOS ✓</span>`);
-    if (p.libreMetalesPesados) extras.push(`<span class="badge b-best">Sin metales</span>`);
-    const allBadges = bdgs + extras.join('');
-
-    const stars = p.estrellas
-      ? `<div class="card-stars">★ ${p.estrellas} <span class="card-stars-count">(${p.resenas.toLocaleString()})</span></div>`
-      : `<div class="card-stars-empty"></div>`;
-
-    const specs = `<div class="card-specs">
-      <div class="spec"><div class="spec-label">EPA</div><div class="spec-val">${p.epa?p.epa+' mg':'—'}</div></div>
-      <div class="spec"><div class="spec-label">DHA</div><div class="spec-val">${p.dha?p.dha+' mg':'—'}</div></div>
-      <div class="spec"><div class="spec-label">EPA+DHA</div><div class="spec-val">${p.omegaPorPorcion?p.omegaPorPorcion+' mg':'—'}</div></div>
-      <div class="spec"><div class="spec-label">Porciones</div><div class="spec-val">${p.porciones??'—'}</div></div>
-      <div class="spec"><div class="spec-label">$/porción</div><div class="spec-val">${fmtPrecio(p.costoPorPorcion)}</div></div>
-      <div class="spec"><div class="spec-label">Fuente</div><div class="spec-val">${p.fuenteOmega||'—'}</div></div>
-    </div>`;
-
-    let btnsBlock;
-    if (p.linkML && p.linkAmz) {
-      const pML = p.precioML || p.precio, pAmz = p.precioAmz || p.precio;
-      btnsBlock = `<div class="card-btns-dual">
-        <div class="card-btn-col"><div class="card-btn-col-plat">Mercado Libre</div><div class="card-btn-col-price">${fmtPrecio(pML)}</div>
-          <a class="btn-ml" href="${p.linkML}" target="_blank" rel="nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\\//g,'').replace(/\\/(?:index\\.html)?$/g,'').replace(/\\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1});}"><img class="btn-logo-img" src="/logomercado.png" alt="ML"></a>
-        </div>
-        <div class="card-btn-col"><div class="card-btn-col-plat">Amazon</div><div class="card-btn-col-price">${fmtPrecio(pAmz)}</div>
-          <a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_amazon',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\\//g,'').replace(/\\/(?:index\\.html)?$/g,'').replace(/\\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1});}"><img class="btn-logo-img" src="/logoamazon.png" alt="AMZ"></a>
-        </div>
-      </div>`;
-    } else {
-      const btnML  = p.linkML  ? `<a class="btn-ml"  href="${p.linkML}"  target="_blank" rel="nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_ml',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\\//g,'').replace(/\\/(?:index\\.html)?$/g,'').replace(/\\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1});}">Ir a <img class="btn-logo-img" src="/logomercado.png" alt="ML" onerror="this.style.display='none'"></a>` : '';
-      const btnAmz = p.linkAmz ? `<a class="btn-amz" href="${p.linkAmz}" target="_blank" rel="nofollow noopener" onclick="event.stopPropagation();if(typeof gtag==='function'){gtag('event','affiliate_click_amazon',{'event_category':'afiliado','event_label':this.dataset.gaLabel||'','value':parseFloat(this.dataset.gaVal)||0,'page_section':location.pathname.replace(/^\\//g,'').replace(/\\/(?:index\\.html)?$/g,'').replace(/\\//g,'_')||'home','item_position':Array.from(document.querySelectorAll('.card')).indexOf(this.closest('.card'))+1});}">Ir a <img class="btn-logo-img" src="/logoamazon.png" alt="AMZ" onerror="this.style.display='none'"></a>` : '';
-      btnsBlock = `<div class="card-btns">${btnML}${btnAmz}</div>`;
-    }
-
-    const _plat = (p.linkML && p.linkAmz) ? 'both' : (p.linkML ? 'ml' : 'amz');
-    return `<div class="card${isSelected?' selected':''}" data-platform="${_plat}" id="card-${p.id}" onclick="toggleSelect(${p.id})">
-      ${isSelected ? '<div class="sel-check">✓</div>' : ''}
-      <div class="card-img-wrap">
-        <img class="card-img" src="${p.img}" alt="${p.nombre}" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\'><rect fill=\'%23f1f5f9\' width=\'80\' height=\'80\'/></svg>'">
-      </div>
-      <div class="card-body">
-        <div class="card-badges">${allBadges}</div>
-        <div class="card-name">${p.nombre}</div>
-        <div class="card-brand">${p.marca}</div>
-        ${stars}
-        ${specs}
-        <div class="card-commercial">
-          ${(p.linkML && p.linkAmz) ? '' : `<div class="card-price">${fmtPrecio(p.precio)}</div>`}
-          ${btnsBlock}
-        </div>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-render();
 </script>
-<script>
-function openHowModal(){
-  document.getElementById('howModalOv').classList.add('open');
-  document.getElementById('howCard').setAttribute('aria-expanded','true');
-  document.body.style.overflow='hidden';
-  if(typeof gtag==='function')gtag('event','guide_open',{event_category:'engagement',page_section:'suplementos_omega3',guide_type:'how_to'});
-}
-function closeHowModal(){
-  document.getElementById('howModalOv').classList.remove('open');
-  document.getElementById('howCard').setAttribute('aria-expanded','false');
-  document.body.style.overflow='';
-}
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeHowModal()});
-document.getElementById('howModalOv').addEventListener('click',function(e){if(e.target===this)closeHowModal()});
-</script>
-<script src="/assets/js/cards-enhance.js" defer></script>
-<script src="/assets/js/favorites.js" defer></script>
-<script src="/assets/js/filters-panel.js" defer></script>
-<script src="/assets/js/filters-scroll.js" defer></script>
+
 <script src="/assets/js/price-drops.js" defer></script>
+<script src="/assets/js/favorites.js" defer></script>
 <script src="/js/onboarding.js" defer></script>
+<script src="/assets/js/share.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
-<script src="/assets/js/share.js" defer></script>
+<script src="/assets/js/cmx-hub.js" defer></script>
 </body>
 </html>
