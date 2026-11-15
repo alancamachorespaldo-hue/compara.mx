@@ -924,12 +924,12 @@ const PRODUCTOS = [
     nombre: "Restart B-Complex Completo Premium GMP – 60 Cápsulas",
     marca: "Restart",
     precio: 139,
-    precioML: 139,
+    precioML: 138,
     precioAmz: null,
     porciones: 60,
     capsulasPorDia: 1,
     porPorcion: "1 cápsula (470mg)",
-    costoPorPorcion: 2.32,
+    costoPorPorcion: 2.3,
     b1: "15 mg",
     b2: "18 mg",
     b3: "25 mg",
@@ -1050,6 +1050,7 @@ const PRODUCTOS = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=PRODUCTOS.length-1;_i>=0;_i--){var _z=_PZ[PRODUCTOS[_i].id];if(!_z)continue;if(_z.ml){PRODUCTOS[_i].linkML=null;PRODUCTOS[_i].precioML=null;PRODUCTOS[_i].pausaML=true;}if(_z.amz){PRODUCTOS[_i].linkAmz='';PRODUCTOS[_i].precioAmz=null;PRODUCTOS[_i].pausaAmz=true;}if(_z.ml&&_z.amz)PRODUCTOS.splice(_i,1);}}catch(e){}
+
 
 
 
