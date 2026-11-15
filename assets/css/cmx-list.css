@@ -439,3 +439,7 @@
   .is-stuck .cl-steps-wrap { padding: 0; }
   .is-stuck .cl-steps { border-radius: 0; padding: 6px 12px; box-shadow: 0 1px 0 var(--cl-border); }
 }
+
+/* Logo de Mercado Libre dentro del botón de compra */
+.cl-btn-ml .cl-ml-ic { width: 28px; height: 20px; }
+@media (max-width: 900px) { .cl-btn-ml .cl-ml-ic { width: 22px; height: 16px; } .cl-btn-ml { gap: 5px; } }

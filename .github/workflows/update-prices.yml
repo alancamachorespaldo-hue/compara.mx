@@ -72,6 +72,10 @@ jobs:
       - name: Actualizar los precios escritos en las guías
         run: node scripts/sync-guias-precios.js --aplicar
 
+      - name: Sustituir fotos de portada que ya no existen (listados)
+        continue-on-error: true
+        run: node scripts/sync-hero-imgs.js
+
       - name: Revisar el sitio
         run: node scripts/check-site.js
 

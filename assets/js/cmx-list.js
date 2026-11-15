@@ -166,7 +166,7 @@
         + buy(p, v) + '</div></article>';
     }
     function buy(p, v) {
-      return '<a class="cl-btn-ml" href="' + esc(cfg.link(p)) + '" target="_blank" rel="sponsored nofollow noopener" data-n="' + esc(cfg.name(p)) + '" data-v="' + (v || 0) + '"><span class="lg">Ver en Mercado Libre</span><span class="sm">Ver en ML</span> <span aria-hidden="true">&#8599;</span></a>';
+      return '<a class="cl-btn-ml" href="' + esc(cfg.link(p)) + '" target="_blank" rel="sponsored nofollow noopener" data-n="' + esc(cfg.name(p)) + '" data-v="' + (v || 0) + '">' + ML_IC + '<span class="lg">Ver en Mercado Libre</span><span class="sm">Ver en ML</span> <span aria-hidden="true">&#8599;</span></a>';
     }
 
     /* ── Listado ── */
@@ -350,6 +350,23 @@
     window.addEventListener('popstate', function () { if (location.hash !== '#comparativa') closeCompare(true); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { closeCompare(); drawer(false); } });
     document.addEventListener('cmx:drops', render);
+
+    /* Fotos del hero y de las guías (img[data-cmx-img]): si una ya no existe, se cambia en el momento por la
+       de otro producto de esta categoría. scripts/sync-hero-imgs.js hace lo mismo en el HTML con cada actualización de precios. */
+    (function () {
+      var imgs = [].slice.call(document.querySelectorAll('img[data-cmx-img]')), used = {}, i = 0;
+      var pool = items.slice().sort(function (a, b) { return cfg.rank ? cfg.rank(b) - cfg.rank(a) : 0; }).map(cfg.img).filter(Boolean);
+      imgs.forEach(function (im) { used[im.getAttribute('src')] = 1; });
+      imgs.forEach(function (im) {
+        var swap = function () {
+          while (i < pool.length && used[pool[i]]) i++;
+          if (i >= pool.length) { im.style.visibility = 'hidden'; return; }
+          used[pool[i]] = 1; im.src = pool[i++];
+        };
+        im.addEventListener('error', swap);
+        if (im.complete && !im.naturalWidth) swap();
+      });
+    })();
 
     buildFilters(); render(); dock();
   }
