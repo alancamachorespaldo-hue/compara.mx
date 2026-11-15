@@ -1,6 +1,6 @@
 {
   "fecha": "2026-11-15",
-  "generado": "2026-11-15T14:48:42.633Z",
+  "generado": "2026-11-15T15:07:17.134Z",
   "categorias": [
     "laptops",
     "freidoras",
@@ -29,8 +29,8 @@
     "tecnologia_smartwatches"
   ],
   "totales": {
-    "actualizados": 5,
-    "sin_cambio": 1006,
+    "actualizados": 8,
+    "sin_cambio": 1003,
     "sin_precio": 103,
     "no_encontrado": 2,
     "precio_sospechoso": 0,
@@ -223,8 +223,9 @@
       "marca": "HP",
       "mlId": "MLM58343227",
       "precioAntes": 4739,
-      "estado": "sin_cambio",
-      "precioML": 4739
+      "estado": "actualizado",
+      "precioNuevo": 4879,
+      "precioML": 4879
     },
     {
       "categoria": "laptops",
@@ -3676,8 +3677,9 @@
       "marca": "Nintendo",
       "mlId": "MLM54452896",
       "precioAntes": 1319,
-      "estado": "sin_cambio",
-      "precioML": 1319
+      "estado": "actualizado",
+      "precioNuevo": 1355,
+      "precioML": 1355
     },
     {
       "categoria": "videojuegos_juegos",
@@ -4555,9 +4557,8 @@
       "nombre": "Audífonos Inalambricos Xiaomi Redmi Buds 6 Play White Color Blanco",
       "marca": "Xiaomi",
       "mlId": "MLM41149389",
-      "precioAntes": 239,
-      "estado": "actualizado",
-      "precioNuevo": 234,
+      "precioAntes": 234,
+      "estado": "sin_cambio",
       "precioML": 234
     },
     {
@@ -4677,8 +4678,9 @@
       "marca": "Skullcandy",
       "mlId": "MLM32109460",
       "precioAntes": 294,
-      "estado": "sin_cambio",
-      "precioML": 294
+      "estado": "actualizado",
+      "precioNuevo": 290,
+      "precioML": 290
     },
     {
       "categoria": "tecnologia_audifonos",
@@ -9065,9 +9067,8 @@
       "nombre": "Reloj inteligente Redmi Watch 5 Active Hyperos Bateria 18 Días",
       "marca": "Xiaomi",
       "mlId": "MLM43319779",
-      "precioAntes": 648,
-      "estado": "actualizado",
-      "precioNuevo": 665,
+      "precioAntes": 665,
+      "estado": "sin_cambio",
       "precioML": 665
     },
     {
@@ -10959,10 +10960,10 @@
       "id": "android-xiaomi-poco-c85-256gb-8gb",
       "nombre": "Xiaomi Poco C85",
       "mlId": "MLM54068750",
-      "precioAntes": 3499,
+      "precioAntes": 3410,
       "estado": "actualizado",
-      "precioNuevo": 3410,
-      "precioML": 3410
+      "precioNuevo": 3499,
+      "precioML": 3499
     },
     {
       "categoria": "celulares_android",
@@ -11015,8 +11016,9 @@
       "nombre": "Motorola Moto G17",
       "mlId": "MLM65041644",
       "precioAntes": 3114,
-      "estado": "sin_cambio",
-      "precioML": 3114
+      "estado": "actualizado",
+      "precioNuevo": 3072,
+      "precioML": 3072
     },
     {
       "categoria": "celulares_android",
@@ -11240,8 +11242,9 @@
       "nombre": "iPhone 17 Pro Max",
       "mlId": "MLM54106937",
       "precioAntes": 27599,
-      "estado": "sin_cambio",
-      "precioML": 27599
+      "estado": "actualizado",
+      "precioNuevo": 27499,
+      "precioML": 27499
     },
     {
       "categoria": "celulares_iphone",
