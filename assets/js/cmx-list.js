@@ -89,6 +89,7 @@
       syncFilters(); render();
     }
     function clearAll(all) {
+      ga('filtros_limpiar', { page_section: cfg.section });
       facets.forEach(function (f) { st.sel[f.id].clear(); });
       st.max = null; st.drop = false; st.q = ''; if (all) st.favOnly = false;
       var i = $('cl-search-in'); if (i) i.value = '';
@@ -117,9 +118,10 @@
         + '<div class="cl-f-foot"><button type="button" class="cl-btn-out" data-clear>Limpiar todo</button><button type="button" class="cl-btn-green" data-close id="cl-f-apply"></button></div>';
       el.addEventListener('change', function (e) {
         var t = e.target;
-        if (t.dataset.f) { var s = st.sel[t.dataset.f]; if (t.checked) s.add(t.dataset.v); else s.delete(t.dataset.v); }
+        if (t.dataset.f) { var s = st.sel[t.dataset.f]; if (t.checked) { s.add(t.dataset.v); ga('filtro_aplicar', { filtro: t.dataset.f, valor: t.dataset.v, page_section: cfg.section }); } else s.delete(t.dataset.v); }
         else if (t.id === 'cl-drop') { st.drop = t.checked; if (st.drop) ga('filtro_bajada_precio', { page_path: location.pathname }); }
-        else if (t.id === 'cl-fav-only') st.favOnly = t.checked;
+        else if (t.id === 'cl-fav-only') { st.favOnly = t.checked; if (st.favOnly) ga('filtro_guardados', { origen: 'panel', value: favs.size, page_section: cfg.section }); }
+        else if (t.id === 'cl-range') { if (st.max != null) ga('filtro_aplicar', { filtro: 'precio_max', valor: String(st.max), page_section: cfg.section }); return; }
         render();
       });
       el.addEventListener('input', function (e) {
@@ -321,21 +323,23 @@
         var id = String(el.closest('.cl-card').getAttribute('data-id'));
         if (favs.has(id)) favs.delete(id); else favs.add(id);
         try { localStorage.setItem(favKey, JSON.stringify(Array.from(favs))); } catch (err) {}
+        ga(favs.has(id) ? 'favorito_guardar' : 'favorito_quitar', { product_name: byId[id] ? cfg.name(byId[id]) : '', value: favs.size, page_section: cfg.section });
         render();
         return;
       }
       if ((el = t.closest('.cl-card')) && !t.closest('a')) pick(el.getAttribute('data-id'));
     });
     var on = function (id, ev, fn) { var el = $(id); if (el) el.addEventListener(ev, fn); };
-    on('cl-sort', 'change', function (e) { st.sort = e.target.value; st.shown = PAGE; render(); });
+    on('cl-sort', 'change', function (e) { st.sort = e.target.value; ga('ordenar_listado', { criterio: st.sort, page_section: cfg.section }); st.shown = PAGE; render(); });
     on('cl-search-form', 'submit', function (e) { e.preventDefault(); var g = $('cl-layout'); if (g) g.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
     on('cl-search-in', 'input', function (e) { st.q = e.target.value.trim().toLowerCase(); st.shown = PAGE; render(); });
+    on('cl-search-in', 'change', function (e) { var q = e.target.value.trim(); if (q) ga('buscar_listado', { search_term: q, page_section: cfg.section }); });
     on('cl-open', 'click', function () {
       if (window.matchMedia('(max-width: 900px)').matches) { drawer(true); return; }
       var off = document.body.classList.toggle('cl-nofilters');
       $('cl-open').setAttribute('aria-expanded', String(!off)); stick();
     });
-    on('cl-saved', 'click', function () { st.favOnly = !st.favOnly; st.shown = PAGE; syncFilters(); render(); });
+    on('cl-saved', 'click', function () { st.favOnly = !st.favOnly; if (st.favOnly) ga('filtro_guardados', { origen: 'boton', value: favs.size, page_section: cfg.section }); st.shown = PAGE; syncFilters(); render(); });
     window.addEventListener('scroll', stick, { passive: true });
     window.addEventListener('resize', stick);
     on('cl-backdrop', 'click', function () { drawer(false); });
