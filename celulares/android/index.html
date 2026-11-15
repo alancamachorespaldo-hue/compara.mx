@@ -473,7 +473,7 @@ const familias = [
     colores: ["Gris"],
     img: "https://http2.mlstatic.com/D_NQ_NP_873869-MLA92299394919_092025-F.jpg",
     variantes: [
-      { storage: 128, ram: 4, precio: 3679, linkML: "https://meli.la/1ydGzeS", estrellas: null, resenas: null },
+      { storage: 128, ram: 4, precio: 3199, linkML: "https://meli.la/1ydGzeS", estrellas: null, resenas: null },
     ],
   },
   {
@@ -1016,7 +1016,7 @@ const familias = [
     colores: ["Azul"],
     img: "https://http2.mlstatic.com/D_NQ_NP_953330-MLA117121001943_092026-F.jpg",
     variantes: [
-      { storage: 64, ram: 16, precio: 1850, linkML: "https://meli.la/16J5qik", estrellas: null, resenas: null },
+      { storage: 64, ram: 16, precio: 7000, linkML: "https://meli.la/16J5qik", estrellas: null, resenas: null },
     ],
   },
   {
@@ -1034,7 +1034,7 @@ const familias = [
     colores: ["Blanco"],
     img: "https://http2.mlstatic.com/D_NQ_NP_740567-MLA116212863666_092026-F.jpg",
     variantes: [
-      { storage: 256, ram: 12, precio: 6912, linkML: "https://meli.la/2RSank9", estrellas: null, resenas: null },
+      { storage: 256, ram: 12, precio: 6842, linkML: "https://meli.la/2RSank9", estrellas: null, resenas: null },
     ],
   },
   {
@@ -1160,7 +1160,7 @@ const familias = [
     colores: ["Negro"],
     img: "https://http2.mlstatic.com/D_NQ_NP_846097-MLA115134843426_082026-F.jpg",
     variantes: [
-      { storage: 32, ram: 12, precio: 1406, linkML: "https://meli.la/1osfiFb", estrellas: null, resenas: null },
+      { storage: 32, ram: 12, precio: 1465, linkML: "https://meli.la/1osfiFb", estrellas: null, resenas: null },
     ],
   },
   {
@@ -1262,8 +1262,8 @@ const familias = [
     zoom: 3,
     img: "https://http2.mlstatic.com/D_NQ_NP_2X_683869-MLA110519587223_042026-F.webp",
     variantes: [
-      { storage: 256, ram: 12, precio: 17739, linkML: "https://meli.la/11NMevA", estrellas: 4.9, resenas: 429 },
-      { storage: 512, ram: 12, precio: 18499, linkML: "https://meli.la/1pWzuZZ", estrellas: 4.9, resenas: 430, salto: { "texto": "Duplicas el almacenamiento", "diff": 2300 } },
+      { storage: 256, ram: 12, precio: 23999, linkML: "https://meli.la/11NMevA", estrellas: 4.9, resenas: 429 },
+      { storage: 512, ram: 12, precio: 26543, linkML: "https://meli.la/1pWzuZZ", estrellas: 4.9, resenas: 430, salto: { "texto": "Duplicas el almacenamiento", "diff": 2300 } },
     ],
   },
   {
@@ -1431,7 +1431,7 @@ const familias = [
     colores: ["Azul oscuro", "Azul", "Blanco"],
     img: "https://http2.mlstatic.com/D_NQ_NP_2X_736353-MLA110976439622_052026-F.webp",
     variantes: [
-      { storage: 512, ram: 12, precio: 11059, linkML: "https://meli.la/1QmTtpV", estrellas: 4.9, resenas: 287 },
+      { storage: 512, ram: 12, precio: 11399, linkML: "https://meli.la/1QmTtpV", estrellas: 4.9, resenas: 287 },
     ],
   },
   {
@@ -1447,8 +1447,8 @@ const familias = [
     zoom: null,
     img: "https://http2.mlstatic.com/D_NQ_NP_2X_886914-MLA109852966344_042026-F.webp",
     variantes: [
-      { storage: 256, ram: 8, precio: 6887, linkML: "https://meli.la/1AQ7DNb", estrellas: 4.8, resenas: 431 },
-      { storage: 256, ram: 8, precio: 6887, linkML: "https://meli.la/2SNgNH2", estrellas: 4.8, resenas: 267, label: "Ed. FIFA" },
+      { storage: 256, ram: 8, precio: 6999, linkML: "https://meli.la/1AQ7DNb", estrellas: 4.8, resenas: 431 },
+      { storage: 256, ram: 8, precio: 6999, linkML: "https://meli.la/2SNgNH2", estrellas: 4.8, resenas: 267, label: "Ed. FIFA" },
     ],
   },
   {
@@ -1785,7 +1785,7 @@ const familias = [
     colores: ["Negro"],
     img: "https://http2.mlstatic.com/D_NQ_NP_906499-MLA94540055710_102025-F.jpg",
     variantes: [
-      { storage: 256, ram: 8, precio: 4182, linkML: "https://meli.la/2ztHSqe", estrellas: null, resenas: null },
+      { storage: 256, ram: 8, precio: 3869, linkML: "https://meli.la/2ztHSqe", estrellas: null, resenas: null },
     ],
   },
   {
@@ -1970,6 +1970,7 @@ const familias = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _fi=familias.length-1;_fi>=0;_fi--){var _f=familias[_fi];for(var _vi=(_f.variantes||[]).length-1;_vi>=0;_vi--){var _v=_f.variantes[_vi];var _id='android-'+_f.modeloBase+'-'+_v.storage+'gb-'+_v.ram+'gb';var _z=_PZ[_id];if(!_z)continue;if(_z.ml){_f.variantes[_vi].linkML=null;_f.variantes[_vi].precio=null;_f.variantes[_vi].pausaML=true;}}if(!_f.variantes.some(function(vv){return vv.linkML||vv.linkAmz;}))familias.splice(_fi,1);}}catch(e){}
+
 
 
 
