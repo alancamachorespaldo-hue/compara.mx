@@ -367,6 +367,7 @@
         if (favs.has(id)) favs.delete(id); else favs.add(id);
         try { localStorage.setItem(favKey, JSON.stringify(Array.from(favs))); } catch (err) {}
         ga(favs.has(id) ? 'favorito_guardar' : 'favorito_quitar', { product_name: byId[id] ? cfg.name(byId[id]) : '', value: favs.size, page_section: cfg.section });
+        syncMeta();
         render();
         return;
       }
@@ -416,7 +417,42 @@
       });
     })();
 
+    /* ── Guardados globales (panel del encabezado: /assets/js/cmx-saved.js) ──
+       Cada categoría deja en 'comparalo:favmeta' lo mínimo para mostrar sus guardados desde cualquier página
+       (nombre, foto, precio visto y enlace). Se vuelve a escribir al entrar y al guardar/quitar, así el precio
+       se mantiene al día con la última visita a la categoría. */
+    function syncMeta() {
+      try {
+        var all = JSON.parse(localStorage.getItem('comparalo:favmeta') || '{}') || {}, cat = { t: cfg.title, u: location.pathname, s: cfg.section, items: {} };
+        items.forEach(function (p) {
+          if (!favs.has(String(p.id))) return;
+          var pr = price(p);
+          cat.items[String(p.id)] = { n: cfg.name(p), i: cfg.img(p), p: typeof pr === 'number' ? pr : null, l: cfg.link(p) || '' };
+        });
+        var mk = cfg.favKey || cfg.section; if (Object.keys(cat.items).length) all[mk] = cat; else delete all[mk];
+        localStorage.setItem('comparalo:favmeta', JSON.stringify(all));
+      } catch (e) {}
+      window.dispatchEvent(new CustomEvent('cmx:favs', { detail: { src: 'list' } }));
+    }
+    /* Quitar un guardado desde el panel global: se relee y se repinta */
+    window.addEventListener('cmx:favs', function (e) {
+      if (!e.detail || e.detail.src !== 'panel') return;
+      try { favs = new Set(JSON.parse(localStorage.getItem(favKey) || '[]')); } catch (err) {}
+      render();
+    });
+    /* Comparar desde el panel: abre la comparativa con los ids elegidos (misma categoría, de 2 a 3) */
+    function openIds(raw) {
+      var ids = String(raw).split(',').map(function (s) { return decodeURIComponent(s); }).filter(function (id) { return byId[id]; }).slice(0, 3);
+      if (ids.length < 2) return;
+      st.picked = ids; dock(); render(); compare();
+    }
+    window.addEventListener('cmx:compare', function (e) { if (e.detail && e.detail.section === cfg.section) openIds((e.detail.ids || []).join(',')); });
+
     buildFilters(); render(); dock();
+    syncMeta();
+    var hm = /^#comparar=(.+)$/.exec(location.hash);
+    if (hm) { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {} openIds(hm[1]); }
+    if (!window.__cmxSavedLoaded) { window.__cmxSavedLoaded = 1; var sv = document.createElement('script'); sv.src = '/assets/js/cmx-saved.js'; sv.defer = true; document.head.appendChild(sv); }
   }
 
   window.CmxList = { init: init };

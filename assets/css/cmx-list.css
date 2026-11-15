@@ -458,3 +458,58 @@
 /* Logo de Mercado Libre dentro del botón de compra */
 .cl-btn-ml .cl-ml-ic { width: 28px; height: 20px; }
 @media (max-width: 900px) { .cl-btn-ml .cl-ml-ic { width: 22px; height: 16px; } .cl-btn-ml { gap: 5px; } }
+
+/* ── Guardados globales: botón del encabezado + panel (cmx-saved.js) ───────────── */
+.cmx-sv-btn { display: inline-flex; align-items: center; gap: 7px; height: 40px; padding: 0 12px 0 14px; border: 1.5px solid #E5E7EB; border-radius: 999px; background: #fff; color: #111827; font: 800 14px/1 'Satoshi', system-ui, sans-serif; cursor: pointer; white-space: nowrap; }
+.cmx-sv-btn svg { color: #EF1B24; fill: none; }
+.cmx-sv-btn.has-favs svg { fill: #EF1B24; }
+.cmx-sv-btn:hover { background: #F8F9FA; border-color: #D1D5DB; }
+.cmx-sv-btn em { font-style: normal; min-width: 22px; height: 22px; padding: 0 6px; display: inline-grid; place-items: center; border-radius: 999px; background: #EAF7EF; color: #006847; font-size: 13px; font-weight: 800; }
+.cmx-sv-bd { display: none; position: fixed; inset: 0; z-index: 699; background: rgba(15,23,42,.5); }
+.cmx-sv-bd.is-on { display: block; }
+.cmx-sv { position: fixed; top: 0; right: 0; bottom: 0; z-index: 700; width: min(560px, 100vw); display: flex; flex-direction: column; background: #F8F9FA; color: #111827; font-family: 'Satoshi', system-ui, sans-serif; box-shadow: -10px 0 40px rgba(0,0,0,.22); transform: translateX(104%); transition: transform .24s ease; visibility: hidden; }
+.cmx-sv.is-on { transform: none; visibility: visible; }
+.cmx-sv * { box-sizing: border-box; }
+.cmx-sv-head { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px 6px; }
+.cmx-sv-head h2 { margin: 0; font-size: 24px; font-weight: 800; letter-spacing: -.6px; }
+.cmx-sv-close { width: 40px; height: 40px; border: 0; border-radius: 50%; background: #fff; font-size: 26px; line-height: 1; cursor: pointer; color: #111827; }
+.cmx-sv-sub { margin: 0; padding: 0 20px 12px; font-size: 13.5px; line-height: 1.4; color: #64748B; }
+.cmx-sv-body { flex: 1; overflow-y: auto; padding: 0 20px 24px; }
+.cmx-sv-cat { background: #fff; border: 1px solid #E5E7EB; border-radius: 16px; padding: 14px 14px 12px; margin-bottom: 14px; }
+.cmx-sv-cathd { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+.cmx-sv-cathd h3 { margin: 0; font-size: 18px; font-weight: 800; }
+.cmx-sv-cathd h3 em { font-style: normal; color: #64748B; font-weight: 700; font-size: 15px; }
+.cmx-sv-cathd a { font-size: 13.5px; font-weight: 800; color: #006847; text-decoration: none; white-space: nowrap; }
+.cmx-sv-row { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 8px; scroll-snap-type: x proximity; }
+.cmx-sv-item { position: relative; flex: 0 0 168px; scroll-snap-align: start; display: flex; flex-direction: column; gap: 6px; padding: 10px; border: 1.5px solid #E5E7EB; border-radius: 12px; background: #fff; }
+.cmx-sv-item.is-on { border-color: #00843D; background: #F3FBF6; }
+.cmx-sv-item img { width: 100%; height: 110px; object-fit: contain; background: #fff; border-radius: 8px; }
+.cmx-sv-item b { font-size: 14px; line-height: 1.25; font-weight: 800; min-height: 35px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.cmx-sv-pr { font-size: 13.5px; font-weight: 800; color: #006847; }
+.cmx-sv-x { position: absolute; top: 6px; right: 6px; width: 28px; height: 28px; border: 0; border-radius: 50%; background: rgba(255,255,255,.92); box-shadow: 0 1px 4px rgba(0,0,0,.2); font-size: 20px; line-height: 1; cursor: pointer; color: #111827; z-index: 1; }
+.cmx-sv-pick { display: flex; align-items: center; gap: 7px; font-size: 13.5px; font-weight: 800; cursor: pointer; }
+.cmx-sv-pick input { width: 18px; height: 18px; accent-color: #00843D; }
+.cmx-sv-ml { display: block; text-align: center; padding: 8px 6px; border-radius: 9px; background: #F0C000; color: #111827; font-size: 12.5px; font-weight: 800; text-decoration: none; }
+.cmx-sv-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 4px; }
+.cmx-sv-bar span { font-size: 13px; color: #64748B; line-height: 1.3; }
+.cmx-sv-go { flex-shrink: 0; height: 40px; padding: 0 18px; border: 0; border-radius: 999px; background: #00843D; color: #fff; font: 800 14.5px 'Satoshi', system-ui, sans-serif; cursor: pointer; }
+.cmx-sv-go:disabled { background: #E5E7EB; color: #94A3B8; cursor: not-allowed; }
+.cmx-sv-empty { text-align: center; padding: 48px 20px; color: #64748B; }
+.cmx-sv-empty svg { width: 44px; height: 44px; color: #EF1B24; opacity: .85; }
+.cmx-sv-empty h3 { margin: 12px 0 6px; color: #111827; font-size: 19px; }
+.cmx-sv-empty p { margin: 0; font-size: 14.5px; line-height: 1.45; }
+@media (max-width: 640px) {
+  .cmx-sv-btn { padding: 0 10px; gap: 5px; }
+  .cmx-sv-tx { display: none; }
+  .cmx-sv-item { flex-basis: 150px; }
+  .cmx-sv-bar { flex-direction: column; align-items: stretch; text-align: center; }
+}
+@media (max-width: 1399px) {
+  .cmx-sv-tx { display: none; }
+  .cmx-sv-btn { padding: 0 10px; gap: 5px; }
+}
+@media (min-width: 901px) and (max-width: 1100px) {
+  .cmx-sv-btn { position: relative; width: 40px; padding: 0; justify-content: center; }
+  .cmx-sv-btn em { position: absolute; top: -5px; right: -6px; min-width: 20px; height: 20px; font-size: 12px; box-shadow: 0 0 0 2px #fff; }
+  .list-page .cmx-hd2-nav { gap: 20px; margin-right: 14px; }
+}
