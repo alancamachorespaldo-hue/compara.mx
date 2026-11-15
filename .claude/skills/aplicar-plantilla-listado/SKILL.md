@@ -25,7 +25,7 @@ Modelo recomendado: Sonnet 5.5 a esfuerzo medio/alto para categorías de lista s
 - Confirma que la página NO usa ya la plantilla (`grep -c "CmxList.init" <pagina>`).
 - Identifica el tipo de datos:
   - **Lista simple** (`const productos = [ {id, nombre, marca, linkML, precioML, imagen|img, especs|campos…} ]`): caso directo.
-  - **Familias con variantes** (`const familias`, celulares): requiere selector de variante que la plantilla aún no tiene → detente y plantea el cambio a la plantilla antes de seguir.
+  - **Familias con variantes** (`const familias`, celulares): la plantilla ya soporta variantes (`variants` en `CmxList.init`, ver abajo; primer uso: `/celulares/android/`). Una tarjeta por familia, chips de capacidad, filtros y orden con la variante más barata con enlace.
   - **Página con base remota** (`<base href="https://comparalo.mx/">`): cámbiala a `<base href="/">` o no se verá en localhost.
 
 ## Paso 1 — Perfilar los datos reales
@@ -38,7 +38,8 @@ Antes de decidir filtros o características, mide el catálogo con Node (evalúa
 - rango de precios; si hay bajadas en `assets/data/bajadas.json` para esa categoría.
 
 Con eso propón a Alan, en una tabla corta, y espera su visto bueno si hay duda:
-- **Características de la tarjeta** (máx. 5–6, las que más productos tienen y más ayudan a decidir).
+- **Características de la tarjeta** (máx. 5–6, las que más productos tienen y más ayudan a decidir). **Confianza del comprador (obligatorio cuando exista el dato):** `Calificación` como estrellas con las opiniones entre paréntesis (p. ej. `4.9 (3,914)`, el valor que traiga la ficha/API, nunca redondeado ni inventado) y `Vendidos` (cantidad de unidades vendidas, p. ej. `1,200 vendidos`). Ir en la tarjeta (filas arriba, con iconos `star` y `cart`) y en la comparativa. Si el producto no trae el dato, la fila no se muestra (tarjeta) o dice "Sin dato" (comparativa). Alan: saber cuánta gente ya compró y cómo lo calificó es de lo que más pesa en la decisión. En la comparativa `Calificación` solo puntúa con ≥ 30 opiniones y `Vendidos` puntúa por cantidad.
+  Antes de proponer, mide cuántos productos tienen estrellas, opiniones y vendidos y dilo en la tabla. Si la categoría no los tiene (la API de ML con nuestras credenciales da 403 en `/reviews` y en `/items/{id}`, o sea no entrega ni calificaciones ni `sold_quantity`), dilo en el reporte: no se llenan a mano ni se inventan.
 - **Filtros** (Marca casi siempre; el resto según los datos). Un campo con menos de ~40 % de cobertura no sirve de filtro.
 - **Criterios de comparación** y cuáles pueden puntuarse ("más es mejor", "menos es mejor", sí/no). Si no se puede decir objetivamente cuál es mejor, la fila va sin `score`.
 
@@ -56,7 +57,8 @@ Trabaja con un script Node de reemplazos con ancla verificada (si un ancla no ap
 1. `<html lang="es-MX">` sin `data-cmx-layout`/`data-cmx-filters`.
 2. En `<head>`: quita `cards.css` y el `<style>` en línea del listado viejo; deja `cmx-site.css` y agrega `cmx-list.css` después. Conserva title, description, canonical, JSON-LD, GA4 y `analytics.js`.
 3. `<body class="list-page" data-category="…">` (conserva `data-category`).
-4. `<main class="cl">` con: hero (`cl-hero`, h1 único, buscador, 3 fotos `data-cmx-img`), centinela + barra fija (`cl-sentinel`, `cl-sticky` con pasos y `cl-bar`: Filtros, chips, Ordenar, Guardados), `cl-layout` (aside `cl-filters` vacío + `cl-main` con contador, grid, vacío, mostrar más) y `cl-below` (guías, cómo elegir, FAQ, editorial).
+4. `<main class="cl">` con: hero (`cl-hero`, h1 único, buscador, 3 fotos `data-cmx-img`), centinela + barra fija (`cl-sentinel`, `cl-sticky` con pasos y `cl-bar`: Filtros, chips, Ordenar, Guardados), `cl-layout` (aside `cl-filters` vacío + `cl-main` con contador, grid, vacío, mostrar más) y `cl-below` (guías, cómo elegir, FAQ, editorial). **`cl-below` va DENTRO de `cl-layout`** (como último hijo, después de `cl-main`), no como hermano: así el panel de filtros sigue fijo hasta el final del contenido de la página y no desaparece al bajar al texto editorial (CSS: `.cl-layout > .cl-below`). Smartwatches aún tiene `cl-below` como hermano; pendiente de moverlo con el OK de Alan.
+   **Formulario "¿No encuentras lo que buscas? Te comparamos."**: justo después de `</main>`, el bloque `<section class="hub-leads">…</section>` copiado tal cual de `/celulares/index.html` (mismo Google Form), envuelto en `<div class="hub-page" style="margin:0;background:transparent">`, y cargar `/assets/css/cmx-hub.css` (después de `cmx-list.css`) y `/assets/js/cmx-hub.js` (defer, al pie). Va en todas las categorías convertidas.
 5. Dock, backdrop, toast y vista de comparativa (`cl-dock`, `cl-backdrop`, `cl-toast`, `cl-cmp-view`) antes del script.
 6. `<script src="/assets/js/cmx-list.js"></script>` y luego el script de la página: **el arreglo de productos intacto** + el bloque de pausas si existe + `CmxList.init({...})`. Se elimina la lógica vieja (cardHtml, render, toggleSelect, modal…).
 7. Scripts del pie: quita `favorites.js`, `filters-panel.js`, `cards-enhance.js`, `filters-scroll.js`. Conserva `price-drops.js`, `onboarding.js`, `site-nav.js`, `share.js`.
@@ -78,15 +80,21 @@ CmxList.init({
   specs:  [{ label, icon, get }],         // renglones de la tarjeta
   facets: [{ id, title, get }             // opciones y contadores salen de los datos
            | { id, title, options: [[valor, etiqueta, test]], mode: 'and'|'or' }],
-  compare: { rows: [{ label, icon, get, score?, why?, pick? }] }
+  compare: { rows: [{ label, icon, get, score?, why?, pick? }] },
+  // Opcional, solo categorías con variantes (celulares). Sin esto la plantilla funciona igual que siempre:
+  variants: { list: (p) => p.variantes, usable: (v) => !!v.linkML, chip: (v) => '256 GB' },
+  drop: (p, v) => window.cmxGetDrop({ id: v.id, nombre: p.nombre, precioML: v.precio })   // bajada de ESA variante
 });
 ```
 
+Con `variants`, `price`, `link` y los `get`/`score` de `specs` y `compare.rows` reciben `(p, v)` con la variante elegida; sin variante (filtros, orden, slider) `v` llega `undefined` y la función debe devolver lo de la variante más barata con enlace. Los chips repetidos (mismo texto) se colapsan en el primero; `chip` que devuelve `''` oculta ese dato. Los favoritos se guardan por producto, no por variante.
+
 - `score(p)` devuelve un número (mayor = mejor) o `null` si no hay dato. Sin `score` la fila no participa en el veredicto.
 - `why` completa "destaca por …"; `pick` completa "Elige X si: …". Escríbelos con base en el dato, sin exagerar.
-- Iconos disponibles: `screen, battery, gps, nfc, phone, spark, tag`. Si hace falta otro, es un cambio a la plantilla (regla 6).
+- Iconos disponibles: `screen, battery, gps, nfc, phone, spark, tag, star, cart`. Si hace falta otro, es un cambio a la plantilla (regla 6).
 - Normaliza para mostrar (p. ej. "1 semanas" → "1 semana") en `get`, nunca en el arreglo.
-
+- **Datos poco creíbles no se muestran** (batería "5 mAh", RAM de 128 GB, pantalla de 5″ en un Pixel 9a…): mide rangos plausibles en el Paso 1 y filtra en `get` (queda "Sin dato"), sin tocar el arreglo, y repórtalo. Es mejor no decir nada que decir algo incorrecto (Alan, nov-2026).
+- La comparativa ya avisa en cada celda "Sin dato" ("Verifícalo en la publicación de Mercado Libre") y en el pie explica dónde buscarlo; no hace falta configurarlo.
 ### Contenido que se conserva
 
 - **Texto editorial / SEO:** se traslada palabra por palabra a `cl-editorial` y a las preguntas frecuentes. No redactes contenido nuevo ni borres el existente; si sobra texto, va completo en `cl-editorial`.
@@ -106,7 +114,12 @@ CmxList.init({
 - [ ] Comparativa: abre, tabla con valores reales, resaltados correctos, veredicto coherente con los datos, botones a Mercado Libre, cierra y conserva la selección.
 - [ ] Barra fija: se pega bajo el encabezado, no tapa el panel de filtros ni el contenido; en móvil el drawer abre, aplica, limpia y cierra.
 - [ ] Botones "Ver en Mercado Libre": `href` igual al `linkML` del producto, `rel="sponsored nofollow noopener"`.
-- [ ] Cero enlaces a Amazon en la página.
+- [ ] Precio máximo: el slider arranca a la derecha ("Sin límite"), al moverlo cambia el contador y las tarjetas, y vuelve a 90/N al soltarlo al máximo.
+- [ ] Carga automática: al bajar por el listado aparecen más productos hasta el total (el botón "Mostrar más" queda de respaldo).
+- [ ] Panel de filtros fijo: baja con la página hasta el final del contenido (también junto al texto editorial) y se desplaza por dentro. Al filtrar, ordenar, quitar chips, limpiar, usar Guardados o aplicar en el drawer móvil estando abajo, la página vuelve sola al inicio de los resultados.
+- [ ] Logo de ML nítido en tarjetas y comparativa (usa `/logomercado-ic.png`, 96×66, recorte del óvalo; nunca escales `logomercado.png` de 2000 px a 30 px ni lo recortes con `object-fit: cover`).
+- [ ] Comparativa con un "Sin dato": la celda muestra la nota de verificar en la publicación.
+- [ ] Formulario "Te comparamos" visible al final, con su envío funcionando igual que en los hubs.- [ ] Cero enlaces a Amazon en la página.
 - [ ] Eventos GA4 (carga con `?bot=claude` y envuelve `window.gtag` para capturarlos): `affiliate_click_ml`, `click_seleccionar_comparar`, `click_comparar_categoria`, `filtro_bajada_precio`, `favorito_guardar/quitar`, `filtro_guardados`, `filtro_aplicar`, `filtros_limpiar`, `ordenar_listado`, `buscar_listado`.
 - [ ] `node scripts/check-site.js`, `node scripts/sync-site.js --check` y `node scripts/sync-hero-imgs.js --check` sin cambios pendientes ni errores.
 - [ ] `git status`: solo la página, `scripts/sync-site.js` y nada más.
@@ -119,6 +132,9 @@ Entrega, en este orden: qué cambió; tabla de características/filtros/criterio
 
 ## Errores ya cometidos (no repetir)
 
+- `items.map(price)`: `map` pasa el índice como 2.º argumento y con variantes lo tomaba por la variante elegida, dejando el slider de precio roto (min = max). Pasa siempre `function (p) { return price(p); }`. Con `variants`, toda función de la config que acepte `(p, v)` debe tolerar `v === undefined`.
+- Probar solo la primera pantalla: el slider, la carga automática y el panel fijo solo se notan a 1400 px bajando por todo el listado y hasta el pie.
+- Dar por buena la comparativa sin probar un par con "Sin dato".
 - Restilizar la página vieja en vez de reconstruirla sobre la plantilla (freidoras, nov-2026: se rechazó).
 - Reemplazos en cadena donde el segundo ancla ya no existe porque el primero la movió: ordena los reemplazos y verifica el resultado con `grep`.
 - Probar selección con nodos viejos: tras cada clic la lista se vuelve a pintar; vuelve a consultar las tarjetas.

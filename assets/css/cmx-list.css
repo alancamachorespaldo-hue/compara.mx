@@ -127,9 +127,14 @@
 .cl-specs svg { flex-shrink: 0; margin-top: 1px; color: var(--cl-text); }
 .cl-specs b { font-weight: 800; }
 .cl-specs .is-none { color: var(--cl-text2); }
+/* Variantes (capacidad opcional): chips bajo el nombre */
+.cl-vars { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 9px; }
+.cl-var { height: 28px; padding: 0 11px; border: 1.5px solid #D5DBE3; border-radius: 999px; background: #fff; color: var(--cl-text); font: inherit; font-size: 12.5px; font-weight: 800; cursor: pointer; }
+.cl-var:hover { border-color: var(--cl-green-action); }
+.cl-var.is-on { background: var(--cl-green-soft); border-color: var(--cl-green-action); color: var(--cl-green); }
 .cl-price { margin-top: auto; background: var(--cl-ml-soft); border: 1px solid #F6E3A1; border-radius: 12px; padding: 8px 10px 10px; display: grid; gap: 6px; }
 .cl-price-store { display: flex; align-items: center; gap: 7px; font-size: 11.5px; font-weight: 800; line-height: 1.05; }
-.cl-ml-ic { width: 30px; height: 21px; object-fit: cover; object-position: left center; flex-shrink: 0; }
+.cl-ml-ic { width: 30px; height: 21px; object-fit: contain; flex-shrink: 0; }
 .cl-price-row { display: flex; align-items: baseline; flex-wrap: wrap; gap: 2px 10px; }
 .cl-price-row strong { font-size: 19px; font-weight: 800; letter-spacing: -.5px; white-space: nowrap; }
 .cl-price-row s { font-size: 13px; color: var(--cl-text2); white-space: nowrap; }
@@ -222,11 +227,16 @@
 .cl-best { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: #DDF6E4; border-radius: 8px; padding: 5px 10px; font-weight: 800; }
 .cl-best::after { content: ''; width: 18px; height: 18px; border-radius: 50%; background: var(--cl-green-action) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='5 12.5 10 17 19 7.5'/%3E%3C/svg%3E") center/12px no-repeat; flex-shrink: 0; }
 .cl-nd { color: var(--cl-text2); }
+.cl-nd small { display: block; margin-top: 2px; font-size: 11.5px; line-height: 1.25; }
 .cl-cmp-foot { font-size: 12.5px; color: var(--cl-text2); margin: 10px 2px 0; line-height: 1.5; }
 
 /* ── Guías, cómo elegir, FAQ y editorial ──────────────────── */
 .cl-below { max-width: var(--cl-max); margin: 0 auto; padding: 14px 28px 30px; display: grid; grid-template-columns: 268px minmax(0, 1fr); gap: 20px; }
 .cl-below-main { grid-column: 2; min-width: 0; display: grid; gap: 14px; }
+/* Variante: el bloque inferior dentro de .cl-layout, para que el panel de filtros siga fijo hasta el final de la página */
+.cl-layout > .cl-filters { grid-column: 1; grid-row: 1 / span 2; }
+.cl-layout > .cl-below { grid-column: 2; grid-row: 2; display: block; max-width: none; margin: 0; padding: 14px 0 30px; }
+.cl-layout > .cl-below .cl-below-main { grid-column: auto; }
 .cl-box { background: #fff; border-radius: 16px; box-shadow: 0 2px 10px rgba(15,23,42,.08); padding: 14px 16px 16px; }
 .cl-box-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
 .cl-box-head h2 { display: flex; align-items: center; gap: 10px; font-size: 21px; font-weight: 800; letter-spacing: -.7px; margin: 0; }
@@ -256,6 +266,8 @@
 .cl-editorial h2 { display: flex; align-items: center; gap: 10px; font-size: 21px; font-weight: 800; letter-spacing: -.7px; margin: 0 0 8px; }
 .cl-editorial p { font-size: 14.5px; line-height: 1.65; color: #334155; margin: 0 0 10px; }
 .cl-editorial p.fine { font-size: 12.5px; color: var(--cl-text2); margin: 0; }
+.cl-editorial h3 { font-size: 16.5px; font-weight: 800; letter-spacing: -.4px; margin: 16px 0 6px; }
+.cl-editorial ul { margin: 0 0 10px; padding-left: 20px; display: grid; gap: 5px; font-size: 14.5px; line-height: 1.6; color: #334155; }
 .list-page .cmx-ft2 { margin-top: 8px; }
 
 /* ── Móvil ────────────────────────────────────────────────── */
@@ -322,6 +334,7 @@
   .cl-card-name { font-size: 14px; }
   .cl-specs { font-size: 12px; gap: 2px; margin-bottom: 8px; }
   .cl-specs svg { width: 13px; height: 13px; }
+  .cl-var { height: 26px; padding: 0 9px; font-size: 12px; }
   .cl-price { padding: 6px 7px 8px; gap: 5px; }
   .cl-price-store { font-size: 10.5px; gap: 5px; }
   .cl-ml-ic { width: 24px; height: 17px; }
@@ -370,6 +383,7 @@
 
   .cl-below { grid-template-columns: minmax(0, 1fr); padding: 12px 12px 24px; }
   .cl-below-main { grid-column: 1; }
+  .cl-layout > .cl-below { grid-column: 1; grid-row: auto; padding: 12px 0 24px; }
   .cl-box { padding: 12px; }
   .cl-box-head h2, .cl-editorial h2 { font-size: 19px; }
   .cl-guides { grid-template-columns: minmax(0, 1fr); gap: 10px; }
@@ -421,6 +435,7 @@
   .cl-nofilters .cl-layout, .cl-nofilters .cl-below { grid-template-columns: minmax(0, 1fr); }
   .cl-nofilters .cl-filters { display: none; }
   .cl-nofilters .cl-below-main { grid-column: 1; }
+  .cl-nofilters .cl-layout > .cl-below { grid-column: 1; }
 }
 @media (max-width: 900px) {
   .cl-sticky { margin-top: -30px; }

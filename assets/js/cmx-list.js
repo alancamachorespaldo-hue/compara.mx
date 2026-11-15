@@ -19,6 +19,8 @@
     phone: '<rect x="6" y="2" width="12" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/>',
     spark: '<path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4z"/>',
     tag: '<path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z"/><circle cx="7" cy="7" r="1.2" fill="currentColor"/>',
+    star: '<polygon points="12 2 15.1 8.6 22 9.3 16.8 14 18.2 21 12 17.5 5.8 21 7.2 14 2 9.3 8.9 8.6 12 2"/>',
+    cart: '<circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/>',
     heart: '<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/>',
     arrow: '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/>',
     trash: '<polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/>',
@@ -27,21 +29,52 @@
     filter: '<polygon points="22 3 2 3 10 12.5 10 19 14 21 14 12.5 22 3"/>',
     x: '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>'
   };
-  var ML_IC = '<img class="cl-ml-ic" src="/logomercado.png" alt="">';
+  var ML_IC = '<img class="cl-ml-ic" src="/logomercado-ic.png" alt="">';
   var EMPTY_ART = '<svg width="180" height="120" viewBox="0 0 180 120" fill="none" aria-hidden="true"><ellipse cx="86" cy="62" rx="74" ry="46" fill="#EAF7EF"/><rect x="58" y="6" width="40" height="18" rx="5" fill="#00843D"/><rect x="58" y="94" width="40" height="20" rx="5" fill="#00843D"/><rect x="48" y="20" width="60" height="78" rx="14" fill="#fff" stroke="#111827" stroke-width="5"/><polyline points="68 60 76 68 90 52" stroke="#00843D" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="122" cy="80" r="19" fill="#fff" stroke="#111827" stroke-width="6"/><line x1="136" y1="94" x2="152" y2="110" stroke="#111827" stroke-width="8" stroke-linecap="round"/><line x1="128" y1="14" x2="134" y2="26" stroke="#F6D94A" stroke-width="5" stroke-linecap="round"/><line x1="146" y1="18" x2="140" y2="30" stroke="#F6D94A" stroke-width="5" stroke-linecap="round"/></svg>';
 
   function init(cfg) {
     var items = cfg.items || [];
     var PAGE = 24;
-    var st = { sel: {}, max: null, drop: false, favOnly: false, q: '', sort: 'default', shown: PAGE, picked: [] };
+    var st = { sel: {}, max: null, drop: false, favOnly: false, q: '', sort: 'default', shown: PAGE, picked: [], vsel: {} };
     var favKey = 'comparalo:fav:' + (cfg.favKey || cfg.section);
     var favs = (function () { try { return new Set(JSON.parse(localStorage.getItem(favKey) || '[]')); } catch (e) { return new Set(); } })();
     var price = cfg.price, byId = {};
     items.forEach(function (p) { byId[String(p.id)] = p; });
-    var prices = items.map(price).filter(function (v) { return typeof v === 'number'; });
+    var prices = items.map(function (p) { return price(p); }).filter(function (v) { return typeof v === 'number'; });
     var PMIN = prices.length ? Math.floor(Math.min.apply(null, prices) / 100) * 100 : 0;
     var PMAX = prices.length ? Math.ceil(Math.max.apply(null, prices) / 100) * 100 : 0;
     var getDrop = function (p) { return window.cmxGetDrop ? window.cmxGetDrop(p) : null; };
+
+    /* ── Variantes (capacidad opcional): cfg.variants = { list(p), chip(v), usable?(v) }.
+       Sin cfg.variants nada de esto aplica y el producto es una sola cosa (Smartwatches, etc.).
+       Con variantes: una tarjeta por producto; los chips cambian precio, enlace, características y bajada;
+       filtros y orden usan la variante más barata (price(p) sin variante); la comparativa entra con la elegida. ── */
+    var vmap = cfg.variants || null;
+    var vopts = function (p) {
+      if (!vmap) return [];
+      var seen = {}, out = [];
+      vmap.list(p).forEach(function (v) {
+        if (vmap.usable && !vmap.usable(v)) return;
+        var l = vmap.chip(v); if (seen[l]) return; seen[l] = 1; out.push({ v: v, label: l });
+      });
+      return out;
+    };
+    var dropOf = function (p, v) { return v !== undefined && cfg.drop ? cfg.drop(p, v) : getDrop(p); };
+    var anyDrop = function (p) {
+      if (!vmap) return getDrop(p);
+      var o = vopts(p).filter(function (x) { return dropOf(p, x.v); })[0];
+      return o ? dropOf(p, o.v) : null;
+    };
+    var V = function (p) {
+      if (!vmap) return undefined;
+      var o = vopts(p); if (!o.length) return undefined;
+      var k = st.vsel[String(p.id)], hit = k && o.filter(function (x) { return x.label === k; })[0];
+      if (hit) return hit.v;
+      if (st.drop) { var dd = o.filter(function (x) { return dropOf(p, x.v); })[0]; if (dd) return dd.v; }
+      var pr = function (x) { var n = price(p, x.v); return typeof n === 'number' ? n : Infinity; };
+      return o.slice().sort(function (a, b) { return pr(a) - pr(b); })[0].v;
+    };
+    var full = function (p) { var v = V(p), c = v !== undefined ? vmap.chip(v) : ''; return cfg.name(p) + (c ? ' ' + c : ''); };
     var noun = function (n) { return n === 1 ? cfg.noun.one : cfg.noun.many; };
 
     /* ── Facetas: opciones y contadores salen de los datos ── */
@@ -70,7 +103,7 @@
         if (!ok) return false;
       }
       if (st.max != null) { var v = price(p); if (typeof v !== 'number' || v > st.max) return false; }
-      if (st.drop && !getDrop(p)) return false;
+      if (st.drop && !anyDrop(p)) return false;
       if (st.favOnly && !favs.has(String(p.id))) return false;
       if (st.q) { if ((cfg.text(p) || '').toLowerCase().indexOf(st.q) < 0) return false; }
       return true;
@@ -86,14 +119,21 @@
     function removeChip(k) {
       if (k === 'max') st.max = null; else if (k === 'drop') st.drop = false; else if (k === 'fav') st.favOnly = false; else if (k === 'q') { st.q = ''; var i = $('cl-search-in'); if (i) i.value = ''; }
       else { var parts = k.split(':'); st.sel[parts[1]].delete(parts.slice(2).join(':')); }
-      syncFilters(); render();
+      syncFilters(); render(); toResults();
+    }
+    /* Tras filtrar u ordenar, vuelve al inicio de los resultados si el usuario estaba más abajo */
+    function toResults() {
+      var l = $('cl-layout'); if (!l) return;
+      var hd = $('cmx-hd') ? $('cmx-hd').offsetHeight : 0, sk = $('cl-sticky') ? $('cl-sticky').offsetHeight : 0;
+      var d = l.getBoundingClientRect().top - hd - sk - 8;
+      if (d < 0) window.scrollBy({ top: d, behavior: 'smooth' });
     }
     function clearAll(all) {
       ga('filtros_limpiar', { page_section: cfg.section });
       facets.forEach(function (f) { st.sel[f.id].clear(); });
       st.max = null; st.drop = false; st.q = ''; if (all) st.favOnly = false;
       var i = $('cl-search-in'); if (i) i.value = '';
-      syncFilters(); render();
+      syncFilters(); render(); toResults();
     }
 
     /* ── Panel de filtros ── */
@@ -121,8 +161,8 @@
         if (t.dataset.f) { var s = st.sel[t.dataset.f]; if (t.checked) { s.add(t.dataset.v); ga('filtro_aplicar', { filtro: t.dataset.f, valor: t.dataset.v, page_section: cfg.section }); } else s.delete(t.dataset.v); }
         else if (t.id === 'cl-drop') { st.drop = t.checked; if (st.drop) ga('filtro_bajada_precio', { page_path: location.pathname }); }
         else if (t.id === 'cl-fav-only') { st.favOnly = t.checked; if (st.favOnly) ga('filtro_guardados', { origen: 'panel', value: favs.size, page_section: cfg.section }); }
-        else if (t.id === 'cl-range') { if (st.max != null) ga('filtro_aplicar', { filtro: 'precio_max', valor: String(st.max), page_section: cfg.section }); return; }
-        render();
+        else if (t.id === 'cl-range') { if (st.max != null) ga('filtro_aplicar', { filtro: 'precio_max', valor: String(st.max), page_section: cfg.section }); toResults(); return; }
+        render(); toResults();
       });
       el.addEventListener('input', function (e) {
         if (e.target.id !== 'cl-range') return;
@@ -131,7 +171,7 @@
       el.addEventListener('click', function (e) {
         var t = e.target.closest('[data-clear],[data-close],[data-more]'); if (!t) return;
         if (t.hasAttribute('data-clear')) clearAll();
-        else if (t.hasAttribute('data-close')) drawer(false);
+        else if (t.hasAttribute('data-close')) { drawer(false); setTimeout(toResults, 60); }
         else { t.closest('.cl-f-group').classList.add('is-all'); t.remove(); }
       });
     }
@@ -150,23 +190,25 @@
 
     /* ── Tarjeta ── */
     function card(p) {
-      var on = st.picked.indexOf(String(p.id)) >= 0, fav = favs.has(String(p.id)), d = getDrop(p), v = price(p);
-      var specs = cfg.specs.map(function (s) { var val = s.get(p); return val == null || val === '' ? '' : '<li>' + svg(IC[s.icon] || IC.tag, 15) + '<span><b>' + esc(s.label) + ':</b> ' + esc(val) + '</span></li>'; }).join('');
+      var on = st.picked.indexOf(String(p.id)) >= 0, fav = favs.has(String(p.id)), vv = V(p), d = vv !== undefined ? dropOf(p, vv) : getDrop(p), v = price(p, vv);
+      var specs = cfg.specs.map(function (s) { var val = s.get(p, vv); return val == null || val === '' ? '' : '<li>' + svg(IC[s.icon] || IC.tag, 15) + '<span><b>' + esc(s.label) + ':</b> ' + esc(val) + '</span></li>'; }).join('');
       if (!specs) specs = '<li class="is-none">Especificaciones no disponibles</li>';
       var name = esc(cfg.name(p));
+      var vopt = vmap ? vopts(p) : [];
+      var chips = vopt.length > 1 ? '<div class="cl-vars" role="group" aria-label="Elige la capacidad">' + vopt.map(function (o) { var act = vmap.chip(vv) === o.label; return '<button type="button" class="cl-var' + (act ? ' is-on' : '') + '" data-var="' + esc(o.label) + '" aria-pressed="' + act + '">' + esc(o.label) + '</button>'; }).join('') + '</div>' : '';
       return '<article class="cl-card' + (on ? ' is-sel' : '') + '" data-id="' + esc(p.id) + '">'
         + '<div class="cl-card-top"><button type="button" class="cl-cmp" data-pick aria-pressed="' + on + '" aria-label="' + (on ? 'Quitar de la comparación: ' : 'Comparar: ') + name + '"><i></i>' + (on ? 'Comparando' : 'Comparar') + '</button>'
         + '<button type="button" class="cl-fav" data-fav aria-pressed="' + fav + '" aria-label="' + (fav ? 'Quitar de favoritos' : 'Guardar en favoritos') + '">' + svg(IC.heart, 22, 2.2) + '</button></div>'
         + (d ? '<span class="cl-drop">&#8722;' + d.pct + '% · Bajó ' + money(d.ahorro).replace(' MXN', '') + '</span>' : '')
         + '<div class="cl-card-img"><img src="' + esc(cfg.img(p)) + '" alt="' + name + '" loading="lazy" referrerpolicy="no-referrer"></div>'
-        + '<h3 class="cl-card-name">' + name + '</h3>'
+        + '<h3 class="cl-card-name">' + name + '</h3>' + chips
         + '<ul class="cl-specs">' + specs + '</ul>'
         + '<div class="cl-price"><div class="cl-price-store">' + ML_IC + '<span>Mercado<br>Libre</span></div>'
         + '<div class="cl-price-row">' + (typeof v === 'number' ? '<strong>' + money(v) + '</strong>' : '<strong>Consulta el precio</strong>') + (d ? '<s>' + money(d.antes) + '</s>' : '') + '</div>'
-        + buy(p, v) + '</div></article>';
+        + buy(p, v, vv) + '</div></article>';
     }
-    function buy(p, v) {
-      return '<a class="cl-btn-ml" href="' + esc(cfg.link(p)) + '" target="_blank" rel="sponsored nofollow noopener" data-n="' + esc(cfg.name(p)) + '" data-v="' + (v || 0) + '">' + ML_IC + '<span class="lg">Ver en Mercado Libre</span><span class="sm">Ver en ML</span> <span aria-hidden="true">&#8599;</span></a>';
+    function buy(p, v, vv) {
+      return '<a class="cl-btn-ml" href="' + esc(cfg.link(p, vv)) + '" target="_blank" rel="sponsored nofollow noopener" data-n="' + esc(full(p)) + '" data-v="' + (v || 0) + '">' + ML_IC + '<span class="lg">Ver en Mercado Libre</span><span class="sm">Ver en ML</span> <span aria-hidden="true">&#8599;</span></a>';
     }
 
     /* ── Listado ── */
@@ -232,7 +274,7 @@
       el.querySelector('.cl-dock-go').disabled = n < 2;
     }
     function short(p) {
-      var s = cfg.name(p); if (s.length <= 40) return s;
+      var s = full(p); if (s.length <= 40) return s;
       s = s.slice(0, 40); var i = s.lastIndexOf(' '); return (i > 18 ? s.slice(0, i) : s) + '…';
     }
 
@@ -240,22 +282,22 @@
     function compare() {
       var ps = st.picked.map(function (id) { return byId[id]; }).filter(Boolean);
       if (ps.length < 2) return;
-      var rows = [{ id: 'precio', label: 'Precio en Mercado Libre', icon: 'tag', get: function (p) { var v = price(p); return typeof v === 'number' ? money(v) : null; }, score: function (p) { var v = price(p); return typeof v === 'number' ? -v : null; }, why: 'menor precio', pick: 'Buscas el precio más bajo' }].concat(cfg.compare.rows);
+      var rows = [{ id: 'precio', label: 'Precio en Mercado Libre', icon: 'tag', get: function (p) { var v = price(p, V(p)); return typeof v === 'number' ? money(v) : null; }, score: function (p) { var v = price(p, V(p)); return typeof v === 'number' ? -v : null; }, why: 'menor precio', pick: 'Buscas el precio más bajo' }].concat(cfg.compare.rows);
       var wins = ps.map(function () { return []; });
       var body = rows.map(function (r) {
-        var vals = ps.map(r.get), sc = r.score ? ps.map(r.score) : ps.map(function () { return null; });
+        var vals = ps.map(function (p) { return r.get(p, V(p)); }), sc = r.score ? ps.map(function (p) { return r.score(p, V(p)); }) : ps.map(function () { return null; });
         if (vals.every(function (v) { return v == null || v === ''; })) return '';
         var known = sc.filter(function (x) { return x != null; }), best = null;
         if (known.length >= 2 && Math.max.apply(null, known) > Math.min.apply(null, known)) best = Math.max.apply(null, known);
         var cells = vals.map(function (v, i) {
-          if (v == null || v === '') return '<td class="cl-nd">Sin dato</td>';
+          if (v == null || v === '') return '<td class="cl-nd">Sin dato<small>Verifícalo en la publicación de Mercado Libre</small></td>';
           var win = best != null && sc[i] === best;
           if (win) wins[i].push(r);
           return '<td>' + (win ? '<span class="cl-best">' + esc(v) + '</span>' : esc(v)) + '</td>';
         }).join('');
         return '<tr><td><span class="cl-row-lbl">' + svg(IC[r.icon] || IC.tag, 18) + esc(r.label) + '</span></td>' + cells + '</tr>';
       }).join('');
-      var head = ps.map(function (p) { return '<th><div class="cl-th"><img src="' + esc(cfg.img(p)) + '" alt="' + esc(cfg.name(p)) + '" referrerpolicy="no-referrer"><b>' + esc(cfg.name(p)) + '</b>' + buy(p, price(p)) + '</div></th>'; }).join('');
+      var head = ps.map(function (p) { return '<th><div class="cl-th"><img src="' + esc(cfg.img(p)) + '" alt="' + esc(cfg.name(p)) + '" referrerpolicy="no-referrer"><b>' + esc(full(p)) + '</b>' + buy(p, price(p, V(p)), V(p)) + '</div></th>'; }).join('');
 
       // Veredicto: solo hay ganador si un producto gana en más criterios que los demás (y al menos en 2)
       var counts = wins.map(function (w) { return w.length; }), top = Math.max.apply(null, counts);
@@ -287,7 +329,7 @@
         + '<div class="cl-panel"><h3>Resumen de la comparación</h3><div class="cl-note"><h4>' + logo + '¿Cuál conviene más?</h4>' + resumen + '</div>'
         + ticks(['Comparamos ' + nRows + ' características', 'Precios de Mercado Libre México', 'Datos tomados de la ficha de cada producto', 'Conclusión basada solo en los datos disponibles']) + '</div>'
         + '<div class="cl-cmp-mid"><div class="cl-table-wrap"><table class="cl-table"><thead><tr><th>Característica</th>' + head + '</tr></thead><tbody>' + body + '</tbody></table></div>'
-        + '<p class="cl-cmp-foot">Los precios pueden cambiar; confirma el precio final y la disponibilidad en Mercado Libre. Si compras desde estos enlaces podemos recibir una comisión, sin costo adicional para ti. La comisión no influye en el veredicto.</p></div>'
+        + '<p class="cl-cmp-foot">Los precios pueden cambiar; confirma el precio final y la disponibilidad en Mercado Libre. Donde dice «Sin dato», abre la publicación (botón «Ver en Mercado Libre») y revisa la ficha técnica y las preguntas de los compradores: ahí suele aparecer. Si compras desde estos enlaces podemos recibir una comisión, sin costo adicional para ti. La comisión no influye en el veredicto.</p></div>'
         + '<div class="cl-panel cl-verdict"><h3>' + logo + 'Veredicto de Compáralo</h3>' + veredicto + '</div>'
         + '</div>';
       $('cl-cmp-view').classList.add('is-on');
@@ -314,6 +356,7 @@
     document.addEventListener('click', function (e) {
       var t = e.target, el;
       if ((el = t.closest('.cl-btn-ml[data-n]'))) { ga('affiliate_click_ml', { platform: 'mercado_libre', product_name: el.getAttribute('data-n'), price: parseFloat(el.getAttribute('data-v')) || 0, page_section: cfg.section }); return; }
+      if ((el = t.closest('[data-var]'))) { st.vsel[String(el.closest('.cl-card').getAttribute('data-id'))] = el.getAttribute('data-var'); render(); return; }
       if ((el = t.closest('[data-chip]'))) { removeChip(el.getAttribute('data-chip')); return; }
       if ((el = t.closest('[data-unpick]'))) { pick(el.getAttribute('data-unpick')); return; }
       if (t.closest('[data-cmp-close]')) { closeCompare(); return; }
@@ -330,7 +373,7 @@
       if ((el = t.closest('.cl-card')) && !t.closest('a')) pick(el.getAttribute('data-id'));
     });
     var on = function (id, ev, fn) { var el = $(id); if (el) el.addEventListener(ev, fn); };
-    on('cl-sort', 'change', function (e) { st.sort = e.target.value; ga('ordenar_listado', { criterio: st.sort, page_section: cfg.section }); st.shown = PAGE; render(); });
+    on('cl-sort', 'change', function (e) { st.sort = e.target.value; ga('ordenar_listado', { criterio: st.sort, page_section: cfg.section }); st.shown = PAGE; render(); toResults(); });
     on('cl-search-form', 'submit', function (e) { e.preventDefault(); var g = $('cl-layout'); if (g) g.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
     on('cl-search-in', 'input', function (e) { st.q = e.target.value.trim().toLowerCase(); st.shown = PAGE; render(); });
     on('cl-search-in', 'change', function (e) { var q = e.target.value.trim(); if (q) ga('buscar_listado', { search_term: q, page_section: cfg.section }); });
@@ -339,8 +382,13 @@
       var off = document.body.classList.toggle('cl-nofilters');
       $('cl-open').setAttribute('aria-expanded', String(!off)); stick();
     });
-    on('cl-saved', 'click', function () { st.favOnly = !st.favOnly; if (st.favOnly) ga('filtro_guardados', { origen: 'boton', value: favs.size, page_section: cfg.section }); st.shown = PAGE; syncFilters(); render(); });
-    window.addEventListener('scroll', stick, { passive: true });
+    on('cl-saved', 'click', function () { st.favOnly = !st.favOnly; if (st.favOnly) ga('filtro_guardados', { origen: 'boton', value: favs.size, page_section: cfg.section }); st.shown = PAGE; syncFilters(); render(); toResults(); });
+    /* Carga automática: al acercarse al final del listado se muestran más productos (el botón queda de respaldo) */
+    var autoMore = function () {
+      var m = $('cl-more'); if (!m || m.hidden) return;
+      if (m.getBoundingClientRect().top < window.innerHeight + 700) { st.shown += PAGE; render(); }
+    };
+    window.addEventListener('scroll', function () { stick(); autoMore(); }, { passive: true });
     window.addEventListener('resize', stick);
     on('cl-backdrop', 'click', function () { drawer(false); });
     on('cl-more-btn', 'click', function () { st.shown += PAGE; render(); });
