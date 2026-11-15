@@ -964,11 +964,11 @@ const productos = [
     saboresDisponibles: ["Sin sabor"],
     precio: 239,
     precioAmz: null,
-    precioML: 195,
+    precioML: 194,
     contenidoGramos: 300,
     porciones: 60,
     creatinaGramosPorPorcion: 5,
-    costoPorPorcion: 3.25,
+    costoPorPorcion: 3.23,
     costoPor5gCreatina: 3.98,
     tipoCreatina: "Creatina monohidratada micronizada",
     presentacion: "polvo",
@@ -988,11 +988,11 @@ const productos = [
     saboresDisponibles: ["Sin sabor"],
     precio: 497.17,
     precioAmz: null,
-    precioML: 369,
+    precioML: 365,
     contenidoGramos: 300,
     porciones: 60,
     creatinaGramosPorPorcion: 5,
-    costoPorPorcion: 6.15,
+    costoPorPorcion: 6.08,
     costoPor5gCreatina: 8.29,
     tipoCreatina: "Creatina monohidratada micronizada",
     presentacion: "polvo",
@@ -1283,11 +1283,11 @@ const productos = [
     saboresDisponibles: ["Sin sabor"],
     precio: 338,
     precioAmz: null,
-    precioML: 319,
+    precioML: 369,
     contenidoGramos: 300,
     porciones: 60,
     creatinaGramosPorPorcion: 5,
-    costoPorPorcion: 5.32,
+    costoPorPorcion: 6.15,
     costoPor5gCreatina: 5.63,
     tipoCreatina: "Creatina monohidratada micronizada",
     presentacion: "polvo",
@@ -1896,6 +1896,7 @@ const productos = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 
 
