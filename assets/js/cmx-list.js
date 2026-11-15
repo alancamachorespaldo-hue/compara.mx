@@ -259,7 +259,7 @@
     }
     function dock() {
       var el = $('cl-dock'), n = st.picked.length; if (!el) return;
-      var sn = $('cl-step-n'); if (sn) { sn.textContent = n + '/3'; sn.classList.toggle('is-on', n > 0); }
+      var sn = $('cl-step-n'); if (sn) { sn.textContent = n + '/' + Math.max(3, n); sn.classList.toggle('is-on', n > 0); }
       el.classList.toggle('is-on', n > 0);
       document.body.classList.toggle('has-dock', n > 0);
       if (!n) { el.classList.remove('is-open'); return; }
@@ -270,7 +270,7 @@
       if (n < 2) slots += '<div class="cl-dock-empty">Elige otro producto para comparar</div>';
       el.querySelector('.cl-dock-items').innerHTML = slots;
       el.querySelector('.cl-dock-lead b').textContent = n === 1 ? '1 producto elegido' : 'Comparando ' + n + ' productos';
-      el.querySelector('.cl-dock-lead span').textContent = n === 1 ? 'Elige al menos otro' : n === 3 ? 'Máximo alcanzado' : 'Puedes agregar uno más';
+      el.querySelector('.cl-dock-lead span').textContent = n === 1 ? 'Elige al menos otro' : n >= 3 ? 'Máximo alcanzado' : 'Puedes agregar uno más';
       el.querySelector('.cl-dock-go').disabled = n < 2;
     }
     function short(p) {
@@ -322,7 +322,13 @@
       if (W >= 0) veredicto += '<div class="cl-note"><h4>Elige el ' + esc(short(ps[W])) + ' si:</h4>' + ticks(wins[W].map(function (r) { return r.pick + '.'; })) + '</div>';
 
       var logo = '<img src="/logopng.png" alt="">';
-      $('cl-cmp-view').innerHTML = '<div class="cl-cmp-back"><button type="button" data-cmp-close>' + svg(IC.back, 20, 2.6) + ' Volver al listado</button><span></span>' + logo + '<b>comparalo<i>.mx</i></b></div>'
+      /* Si la comparativa se abrió desde una guía (cmx-guia.js deja 'cmx:volver'), se puede volver a ella o quedarse en la categoría */
+      var from = null; try { from = JSON.parse(sessionStorage.getItem('cmx:volver') || 'null'); } catch (e) {}
+      if (from && !/^\/[a-z0-9\/-]*$/.test(from.u || '')) from = null;
+      var backBar = from
+        ? '<div class="cl-cmp-back cl-cmp-back--2"><a href="' + esc(from.u) + '" data-cmp-guia>' + svg(IC.back, 20, 2.6) + ' Volver a la guía</a><button type="button" class="cl-cmp-cat" data-cmp-close>Ver ' + esc(cfg.title) + '</button><span></span>'
+        : '<div class="cl-cmp-back"><button type="button" data-cmp-close>' + svg(IC.back, 20, 2.6) + ' Volver al listado</button><span></span>';
+      $('cl-cmp-view').innerHTML = backBar + logo + '<b>comparalo<i>.mx</i></b></div>'
         + '<div class="cl-cmp-hero"><div class="cl-cmp-hero-in"><div><p class="cl-cmp-crumb">Inicio › ' + esc(cfg.title) + ' › Comparativa</p><h2>Comparativa de ' + esc(cfg.title) + '</h2><p class="vs">' + ps.map(function (p) { return esc(short(p)); }).join(' <b>vs</b> ') + '</p></div>'
         + '<div class="cl-cmp-art">' + ps.map(function (p) { return '<img src="' + esc(cfg.img(p)) + '" alt="" referrerpolicy="no-referrer">'; }).join('<em>VS</em>') + '</div></div></div>'
         + '<div class="cl-cmp-body">'
@@ -341,6 +347,7 @@
     function closeCompare(fromPop) {
       var v = $('cl-cmp-view'); if (!v || !v.classList.contains('is-on')) return;
       v.classList.remove('is-on'); document.body.style.overflow = '';
+      try { sessionStorage.removeItem('cmx:volver'); } catch (e) {}
       if (!fromPop && location.hash === '#comparativa') { try { history.back(); } catch (e) {} }
     }
 
@@ -355,6 +362,7 @@
     /* ── Eventos ── */
     document.addEventListener('click', function (e) {
       var t = e.target, el;
+      if (t.closest('[data-cmp-guia]')) { ga('comparativa_volver_guia', { page_section: cfg.section }); return; }
       if ((el = t.closest('.cl-btn-ml[data-n]'))) { ga('affiliate_click_ml', { platform: 'mercado_libre', product_name: el.getAttribute('data-n'), price: parseFloat(el.getAttribute('data-v')) || 0, page_section: cfg.section }); return; }
       if ((el = t.closest('[data-var]'))) { st.vsel[String(el.closest('.cl-card').getAttribute('data-id'))] = el.getAttribute('data-var'); render(); return; }
       if ((el = t.closest('[data-chip]'))) { removeChip(el.getAttribute('data-chip')); return; }
@@ -440,9 +448,10 @@
       try { favs = new Set(JSON.parse(localStorage.getItem(favKey) || '[]')); } catch (err) {}
       render();
     });
-    /* Comparar desde el panel: abre la comparativa con los ids elegidos (misma categoría, de 2 a 3) */
+    /* Comparar desde el panel o desde una guía (#comparar=id1,id2…): abre la comparativa con los ids elegidos.
+       En el listado se eligen de 2 a 3; una guía puede mandar hasta 5 (la tabla se desplaza a lo ancho). */
     function openIds(raw) {
-      var ids = String(raw).split(',').map(function (s) { return decodeURIComponent(s); }).filter(function (id) { return byId[id]; }).slice(0, 3);
+      var ids = String(raw).split(',').map(function (s) { return decodeURIComponent(s); }).filter(function (id, i, a) { return byId[id] && a.indexOf(id) === i; }).slice(0, 5);
       if (ids.length < 2) return;
       st.picked = ids; dock(); render(); compare();
     }

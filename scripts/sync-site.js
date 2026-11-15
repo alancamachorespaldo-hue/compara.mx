@@ -164,7 +164,9 @@ const SHARE_BTN = '<button class="btn-share" onclick="shareCurrentPage()" title=
 const HUBS_V2 = ['/electrodomesticos/', '/suplementos/', '/tecnologia/', '/entretenimiento/', '/celulares/', '/bicis/', '/videojuegos/'];
 /* Listados que ya usan la plantilla cmx-list */
 const LISTS_V2 = ['/tecnologia/smartwatches/', '/celulares/android/', '/celulares/iphone/', '/suplementos/proteina/', '/laptops/', '/electrodomesticos/cafeteras/', '/suplementos/omega3/', '/suplementos/creatina/'];
-const HEADER_V2 = new Set(['/', ...HUBS_V2, ...LISTS_V2]);
+/* Guías con el sistema nuevo (skill guia-ml-noviembre-2026): mismo encabezado que los listados */
+const GUIAS_V2 = ['/guias/celulares/mejores-celulares-menos-5000/'];
+const HEADER_V2 = new Set(['/', ...HUBS_V2, ...LISTS_V2, ...GUIAS_V2]);
 /* Pie del rediseño (azul marino, 4 columnas; en móvil las listas son acordeones). */
 const FOOTER_V2 = new Set([...HUBS_V2, ...LISTS_V2]);
 function headerV2Html(extra) {
