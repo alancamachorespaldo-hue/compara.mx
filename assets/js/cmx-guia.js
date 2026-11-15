@@ -167,7 +167,7 @@
       + '<div class="cl-card-top">' + cmpBtn(it, 'ofertas', on) + favBtn(it, 'ofertas') + '</div>'
       + '<div class="cg-of-b"><img src="' + esc(it.img) + '" alt="" loading="lazy" referrerpolicy="no-referrer">'
       + '<div><div class="cg-of-n">' + esc(it.nombre) + '</div>' + (it.variante ? '<div class="cg-of-v">' + esc(it.variante) + '</div>' : '')
-      + '<div class="cg-of-p">' + (it.pct ? '<s>' + money(it.antes) + '</s>' : '') + '<b>' + money(pr) + '</b>' + (it.pct ? '<span class="cg-of-pct">−' + it.pct + '%</span>' : '') + '</div></div></div>'
+      + '<div class="cg-of-p">' + (it.pct ? '<s>' + money(it.antes) + '</s>' : '') + '<b>' + money(pr) + '</b>' + (it.pct ? '<span class="cg-of-pct">−' + it.pct + '% · Bajó ' + money(it.antes - pr) + '</span>' : '') + '</div></div></div>'
       + mlBtn(it, 'ofertas') + '</div>';
   }
   function miniCard(it) {

@@ -187,7 +187,7 @@ body.cg{margin:0;font-family:'Satoshi',system-ui,-apple-system,'Segoe UI',sans-s
 .cg-of-p{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:2px 0 5px}
 .cg-of-p b{font-size:18px;font-weight:800}
 .cg-of-p s{font-size:12px;color:var(--tx3)}
-.cg-of-pct{background:var(--ml);color:#14181f;font-weight:800;font-size:11.5px;border-radius:999px;padding:2px 8px}
+.cg-of-pct{background:var(--cl-red,#d62828);color:#fff;font-weight:800;font-size:11.5px;border-radius:7px;padding:2px 8px;line-height:1.35;white-space:nowrap}
 .cg-of .cg-btn{grid-column:1/-1;font-size:13px;padding:8px 8px}
 .cg-of-foot{padding:0 10px 10px;font-size:11.5px;color:var(--tx3)}
 .cg-box-h a{color:#fff;font-size:12.5px;font-weight:600}
