@@ -163,7 +163,7 @@ const SHARE_BTN = '<button class="btn-share" onclick="shareCurrentPage()" title=
    Sus estilos viven en /assets/css/cmx-home.css mientras solo lo use el inicio. */
 const HUBS_V2 = ['/electrodomesticos/', '/suplementos/', '/tecnologia/', '/entretenimiento/', '/celulares/', '/bicis/', '/videojuegos/'];
 /* Listados que ya usan la plantilla cmx-list */
-const LISTS_V2 = ['/tecnologia/smartwatches/', '/celulares/android/'];
+const LISTS_V2 = ['/tecnologia/smartwatches/', '/celulares/android/', '/celulares/iphone/'];
 const HEADER_V2 = new Set(['/', ...HUBS_V2, ...LISTS_V2]);
 /* Pie del rediseño (azul marino, 4 columnas; en móvil las listas son acordeones). */
 const FOOTER_V2 = new Set([...HUBS_V2, ...LISTS_V2]);
