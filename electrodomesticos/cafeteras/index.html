@@ -91,365 +91,37 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9TKZ4ER13X"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-9TKZ4ER13X');</script>
 <script src="/assets/js/analytics.js" defer></script>
-<link rel="preload" as="style" href="/assets/css/cards.css">
-<link rel="stylesheet" href="/assets/css/cards.css" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="/assets/css/cards.css"></noscript>
-
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#ffffff;--s1:#f7f7f5;--s2:#f0f0ec;
-  --bd:#e2e2dc;--bd2:#d0d0c8;
-  --tx:#0F172A;--tx2:#64748b;--tx3:#64748b;
-  --ac:#006847;--acd:rgba(0,104,71,.08);--acd2:rgba(0,104,71,.22);
-  --red:#CE1126;
-  --amz:#f90;--amzd:rgba(255,153,0,.1);--amzd2:rgba(255,153,0,.25);
-  --ml:#f0c000;--mld:rgba(240,192,0,.12);--mld2:rgba(240,192,0,.3);
-  --r:10px;
-}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-size:15px;line-height:1.6}
-
-.nav{gap:1rem;position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--bd);padding:0 2rem;display:flex;align-items:center;height:64px}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.nav-links{display:flex;gap:1.75rem;align-items:center}
-.nav-breadcrumb{font-size:14px;color:var(--tx3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;display:flex;align-items:center;gap:4px}
-.nav-breadcrumb a{color:var(--ac);text-decoration:none}
-.nav-breadcrumb a:hover{text-decoration:underline}
-.nav-link{font-size:13px;color:var(--tx2);text-decoration:none;font-weight:500;transition:color .15s}
-.nav-link:hover{color:var(--ac)}
-.nav-link.active{color:var(--ac);font-weight:700}
-
-.hero{background:linear-gradient(135deg,#006847 0%,#004d34 100%);color:#fff;padding:14px 20px 12px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.hero h1{font-size:1.05rem;font-weight:800;letter-spacing:-.02em}
-.hero p{opacity:.8;font-size:.78rem}
-
-.toolbar{background:var(--bg);border-bottom:1px solid var(--bd);padding:.65rem 2rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap;position:sticky;top:64px;z-index:90}
-.filter-label{font-size:11px;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;margin-right:2px;font-weight:600}
-.filter{font-size:12px;padding:4px 13px;border-radius:20px;border:1px solid var(--bd2);background:var(--bg);color:var(--tx2);cursor:pointer;transition:all .15s;font-family:'Satoshi',sans-serif;font-weight:500}
-.filter:hover{border-color:var(--ac);color:var(--ac)}
-.filter.on{background:var(--ac);color:#fff;border-color:var(--ac)}
-.filter-sep{width:1px;height:20px;background:var(--bd2);margin:0 4px}
-.sort-wrap{margin-left:auto;display:flex;align-items:center;gap:8px}
-.sort-label{font-size:12px;color:var(--tx3)}
-.sort-sel{font-size:12px;background:var(--bg);border:1px solid var(--bd2);border-radius:8px;color:var(--tx2);padding:4px 8px;font-family:'Satoshi',sans-serif;cursor:pointer}
-.precio-max-input{font-size:12px;padding:4px 8px;border-radius:20px;border:1px solid var(--bd2);background:var(--bg);color:var(--tx);font-family:inherit;font-weight:500;width:88px;outline:none;-moz-appearance:textfield}
-.precio-max-input::-webkit-outer-spin-button,.precio-max-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
-.precio-max-input:focus{border-color:var(--ac)}
-.caf-guia-block{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;margin-bottom:14px;background:var(--acd);border:1px solid var(--acd2);border-radius:12px}
-.caf-guia-icon{flex-shrink:0;width:38px;height:38px;border-radius:9px;background:var(--ac);display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px}
-.caf-guia-body{min-width:0;flex:1}
-.caf-guia-body strong{display:block;font-size:13.5px;font-weight:700;color:var(--tx);line-height:1.3;margin-bottom:3px}
-.caf-guia-body p{font-size:12px;color:var(--tx2);margin:0 0 7px;line-height:1.5}
-.caf-guia-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:var(--ac);text-decoration:none}
-.caf-guia-link:hover{text-decoration:underline}
-
-.result-info{padding:.5rem 2rem;font-size:12px;color:var(--tx3)}
-
-.main-wrap{max-width:1200px;margin:0 auto;padding:1.2rem 2rem 0}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-@media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:480px){.grid{grid-template-columns:repeat(2,1fr)}}
-
-.card{background:var(--bg);border:1px solid var(--bd);border-radius:14px;overflow:hidden;transition:box-shadow .2s,transform .15s;cursor:pointer;position:relative;display:flex;flex-direction:column}
-.card:hover{box-shadow:0 4px 20px rgba(0,0,0,.07);transform:translateY(-2px)}
-.card.selected{border:2px solid var(--ac);box-shadow:0 0 0 4px var(--acd2)}
-.card-img-wrap{background:#fff;height:200px;display:flex;align-items:center;justify-content:center;overflow:hidden;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);padding:10px;margin:4px -1rem 8px;width:calc(100% + 2rem)}
-.card-img{object-fit:contain;max-width:100%;max-height:100%;width:auto;height:auto;display:block}
-.card-body{padding:1rem;display:flex;flex-direction:column;flex:1;gap:7px}
-.card-brand{font-size:10.5px;color:var(--tx3);font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:-3px;line-height:1.3}
-.card-name{font-size:16px;font-weight:700;color:var(--tx);margin-bottom:0;line-height:1.3;letter-spacing:-.02em;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;min-height:62.4px}
-.card-stars{font-size:14px;color:#e6900a;display:flex;align-items:center;gap:5px;font-weight:700}
-.card-stars-count{color:var(--tx3);font-size:12px;font-weight:400}
-/* Características: lista vertical icono + etiqueta + valor */
-.pcard-metrics{display:flex;flex-direction:column;gap:0}
-.pmetric-row{display:flex;align-items:flex-start;gap:7px;padding:5px 1px;border-bottom:1px dashed var(--bd)}
-.pmetric-row:last-child{border-bottom:none}
-.pmetric-ic{color:var(--ac);flex-shrink:0;display:flex;opacity:.85;margin-top:2px}
-.pmetric-lbl2{font-size:13px;color:var(--tx2);flex:1 1 42%;min-width:0;padding-top:1px;overflow-wrap:anywhere;word-break:break-word}
-.pmetric-val2{font-size:14px;font-weight:700;color:var(--tx);text-align:right;white-space:normal;overflow-wrap:anywhere;margin-left:6px;max-width:54%;flex-shrink:0}
-/* Ofertas por plataforma */
-.card-commercial{display:flex;flex-direction:column;gap:7px;margin-top:auto;padding-top:4px}
-.pcard-plats{display:grid;grid-template-columns:1fr;gap:8px}
-.pplat{border:1px solid var(--bd);border-radius:11px;padding:8px 8px 9px;display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;min-width:0}
-.pplat.best{border-color:var(--ac);box-shadow:inset 0 0 0 1px var(--ac)}
-.pplat-tag{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:#fff;background:var(--ac);border-radius:20px;padding:1px 8px;position:absolute;top:-8px;left:50%;transform:translateX(-50%);white-space:nowrap}
-.pplat-name{font-size:10.5px;color:var(--tx3);text-transform:uppercase;letter-spacing:.05em;font-weight:700}
-.pplat-price{font-size:1.1rem;font-weight:800;color:var(--tx);letter-spacing:-.02em;line-height:1}
-.pplat-price.nd{font-size:11px;font-weight:500;color:var(--tx3)}
-.btn-ml{display:flex;align-items:center;justify-content:center;gap:5px;width:100%;text-align:center;background:var(--ml);color:#3a2e00;border:none;border-radius:8px;padding:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Satoshi',sans-serif;text-decoration:none;transition:opacity .15s;white-space:nowrap}
-.btn-ml:hover{opacity:.9}
-.btn-logo-img{height:18px;width:auto;object-fit:contain;flex-shrink:0}
-.pplat:has(.btn-ml){background:var(--mld);border-color:var(--mld2)}
-.sel-check{position:absolute;top:10px;left:10px;width:22px;height:22px;border-radius:50%;background:var(--ac);display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;font-weight:700;box-shadow:0 2px 8px rgba(0,104,71,.4);z-index:4}
-.card-sel-row{font-size:11px;font-weight:600;color:var(--ac);text-align:center;padding:6px 4px 2px;opacity:.65;letter-spacing:.01em}
-.card.selected .card-sel-row{opacity:1;font-weight:700}
-/* Sobreescribe el layout horizontal de cards.css (140px 1fr) — aquí queremos columna vertical */
-.card{display:flex!important;flex-direction:column!important;grid-template-columns:none!important}
-@media(max-width:768px){
-  .card-img-wrap{height:150px!important;padding:10px!important;margin:4px -0.5rem 8px!important;width:calc(100% + 1rem)!important}
-  .card-body{padding:.5rem!important}
-  .card-name{font-size:12px!important}
-}
-
-/* Barra comparar */
-.cmp-bar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:2px solid var(--ac);padding:.875rem 2rem;display:none;align-items:center;justify-content:space-between;z-index:200;gap:12px;box-shadow:0 -4px 20px rgba(0,0,0,.08)}
-.cmp-bar.show{display:flex}
-.cmp-bar-txt{font-size:14px;color:var(--tx);font-weight:600}
-.cmp-bar-sub{font-size:11px;color:var(--tx2)}
-.cmp-bar-actions{display:flex;gap:8px}
-.btn-do-cmp{background:var(--ac);color:#fff;border:none;border-radius:var(--r);padding:9px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Satoshi',sans-serif}
-.btn-clear{background:transparent;color:var(--tx2);border:1px solid var(--bd2);border-radius:var(--r);padding:9px 14px;font-size:13px;cursor:pointer;font-family:'Satoshi',sans-serif}
-
-/* Modal comparar */
-.cmp-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;display:none;align-items:center;justify-content:center;padding:20px}
-.cmp-overlay.open{display:flex}
-.cmp-modal{background:#fff;border-radius:16px;width:100%;max-width:900px;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.18)}
-.cmp-modal-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--bd);flex-shrink:0}
-.cmp-modal-header h2{font-size:1rem;font-weight:700;letter-spacing:-.02em}
-.cmp-modal-close{background:none;border:none;font-size:1.2rem;cursor:pointer;color:var(--tx2);padding:4px 8px;border-radius:6px;line-height:1}
-.cmp-modal-close:hover{background:var(--s1)}
-.cmp-modal-body{flex:1;overflow-y:auto;background:var(--bg)}
-.cmp-table-wrap{overflow:auto;background:var(--bg)}
-.cmp-table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:400px}
-.cmp-table th{padding:14px 12px 12px;text-align:center;background:var(--bg);border-bottom:2px solid var(--bd);position:sticky;top:0;z-index:10;vertical-align:top;min-width:160px}
-.cmp-table th:first-child{background:var(--s1);border-right:1px solid var(--bd);min-width:100px}
-.cmp-table tbody tr:nth-child(even) td{background:var(--s1)}
-.cmp-table tbody tr:nth-child(even) td:first-child{background:var(--s2)}
-.cmp-table td{padding:9px 12px;border-bottom:1px solid var(--bd);color:var(--tx);vertical-align:middle;text-align:center;font-size:12.5px;line-height:1.35}
-.cmp-table tbody tr:hover td{background:rgba(0,104,71,.04)}
-.cmp-table td:first-child{color:var(--tx2);font-size:10.5px;font-weight:700;background:var(--s1);text-transform:uppercase;letter-spacing:.06em;text-align:left;position:sticky;left:0;z-index:10;min-width:100px;max-width:100px;border-right:1px solid var(--bd);padding:9px 10px;white-space:nowrap}
-.cmp-table tr:last-child td{border-bottom:none}
-.cmp-winner{background:linear-gradient(135deg,#d4f0e3,#c0ebd5)!important;color:#004d34;font-weight:800}
-.cmp-prod-img{width:120px;height:120px;object-fit:contain;border-radius:12px;background:#fff;margin:0 auto 10px;display:block;padding:8px;border:1px solid var(--bd)}
-.cmp-prod-name{font-size:1rem;font-weight:700;line-height:1.3;margin-bottom:4px;color:var(--tx);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;min-height:3.9rem}
-.cmp-prod-btns{display:grid;gap:4px;margin-top:4px}
-@media(max-width:540px){
-  .cmp-overlay{padding:0!important;align-items:flex-end!important}
-  .cmp-modal{border-radius:14px 14px 0 0!important;max-height:95dvh!important;max-width:100%!important}
-  .cmp-table{font-size:11px!important}
-  .cmp-table th{min-width:90px!important;padding:8px 6px!important}
-  .cmp-table th:first-child{min-width:75px!important}
-  .cmp-table td{padding:6px 4px!important;font-size:11px!important}
-  .cmp-table td:first-child{min-width:75px!important;max-width:75px!important;font-size:9.5px!important}
-  .cmp-prod-img{width:44px!important;height:44px!important}
-  .cmp-prod-name{font-size:.7rem!important}
-}
-
-/* How-strip */
-.how-strip{display:flex;align-items:center;gap:20px;background:#006847;color:#fff;padding:11px 2rem;flex-wrap:wrap}
-.how-strip-lead{display:flex;align-items:center;gap:10px;flex-shrink:0;margin-right:4px;padding-right:20px;border-right:1px solid rgba(255,255,255,.2)}
-.how-strip-icon{font-size:1.5rem;line-height:1}
-.how-strip-title{font-size:13px;font-weight:800;letter-spacing:-.01em;line-height:1.2}
-.how-strip-sub{font-size:11px;opacity:.65;margin-top:1px}
-.how-steps{display:flex;align-items:center;gap:10px;flex:1;flex-wrap:wrap}
-.how-step{display:flex;align-items:flex-start;gap:8px;flex:1;min-width:130px}
-.how-step-num{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;margin-top:1px}
-.how-step-title{font-size:12.5px;font-weight:700;line-height:1.2}
-.how-step-desc{font-size:11px;opacity:.72;line-height:1.35;margin-top:2px}
-.how-arrow{font-size:1.3rem;opacity:.35;flex-shrink:0}
-@media(max-width:760px){.how-strip{display:none}}
-
-.empty{text-align:center;padding:3rem;color:var(--tx3);font-size:14px}
-.disclaimer{max-width:1200px;margin:0 auto;padding:1.25rem 2rem;font-size:12px;color:var(--tx3);border-top:1px solid var(--bd)}
-footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;text-align:center}
-.footer-wordmark{font-size:1rem;font-weight:700;color:var(--ac)}
-.footer-wordmark .logo-mx{color:var(--red)}
-.footer-info{font-size:12px;color:var(--tx3);margin-top:.25rem}
-.footer-info a{color:var(--ac);text-decoration:none}
-
-@media(max-width:600px){
-  .nav-links{display:none}
-  .toolbar{top:64px;overflow-x:auto;flex-wrap:nowrap;padding:.5rem 1rem}
-  .main-wrap{padding:1rem 1rem 0}
-}
-
-/* ── Sidebar filtros ── */
-.caf-layout{max-width:1400px;margin:0 auto;padding:1rem 2rem 0;display:grid;grid-template-columns:260px 1fr;gap:20px;align-items:start}
-.caf-content{min-width:0}
-.caf-filters{background:var(--bg);border:1px solid var(--bd);border-radius:14px;padding:16px;position:sticky;top:76px;max-height:calc(100vh - 92px);overflow-y:auto}
-.caf-section{padding:10px 0;border-bottom:1px solid var(--bd)}
-.caf-section:last-child{border-bottom:none}
-.caf-section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--tx2);margin-bottom:9px;display:block}
-.caf-pills{display:flex;flex-wrap:wrap;gap:6px}
-.caf-filters-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--bd)}
-.caf-filters-title{font-size:14px;font-weight:700;color:var(--tx)}
-.caf-clear-all{font-size:11px;color:var(--ac);background:none;border:none;cursor:pointer;padding:0;font-family:inherit;text-decoration:underline}
-.caf-sort-sel{font-size:12px;background:var(--bg);border:1px solid var(--bd2);border-radius:8px;color:var(--tx2);padding:6px 8px;font-family:'Satoshi',sans-serif;cursor:pointer;width:100%}
-.caf-price-row{display:flex;align-items:center;gap:6px}
-.caf-price-sep{font-size:12px;color:var(--tx3)}
-.caf-filtrar-btn{display:none;align-items:center;gap:7px;background:var(--bg);border:1px solid var(--bd2);border-radius:8px;padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer;color:var(--tx);font-family:inherit;margin:10px 1rem 0}
-.caf-filtrar-count{background:var(--ac);color:#fff;border-radius:20px;font-size:10px;font-weight:700;padding:1px 7px;min-width:20px;text-align:center}
-.caf-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200}
-.caf-backdrop.open{display:block}
-.caf-filters-close{display:none;background:none;border:none;cursor:pointer;color:var(--tx2);padding:4px;border-radius:6px;line-height:1}
-.caf-filters-foot{display:none;padding:12px 0 0;border-top:1px solid var(--bd);margin-top:8px;gap:8px}
-.caf-limpiar-btn{flex:1;background:transparent;color:var(--tx2);border:1px solid var(--bd2);border-radius:8px;padding:9px;font-size:13px;cursor:pointer;font-family:inherit}
-.caf-apply-btn{flex:2;background:var(--ac);color:#fff;border:none;border-radius:8px;padding:9px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
-.caf-chips-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
-.caf-chip{display:flex;align-items:center;gap:5px;background:var(--acd);border:1px solid var(--acd2);color:var(--ac);border-radius:20px;padding:3px 10px;font-size:12px;font-weight:600;cursor:pointer}
-.caf-chip:hover{background:var(--acd2)}
-.caf-chip-x{font-size:14px;line-height:1;opacity:.7}
-@media(max-width:860px){
-  .caf-layout{display:block;padding:.75rem 1rem 0}
-  .caf-filtrar-btn{display:flex}
-  .caf-filters{position:fixed;top:0;left:0;bottom:0;width:min(85vw,320px);transform:translateX(-105%);transition:transform .28s;border-radius:0;border-right:1px solid var(--bd);z-index:300;overflow-y:auto;max-height:none;display:flex;flex-direction:column}
-  .caf-filters.open{transform:translateX(0)}
-  .caf-filters-close{display:flex}
-  .caf-filters-foot{display:flex}
-  .caf-filters-head{flex-shrink:0}
-  .caf-section{flex-shrink:0}
-}
-
-/* ══ MEJORA MÓVIL ══════════════════════════════════════ */
-@media(max-width:767px){
-
-  /* Ocultar hero original y filtrar-btn original en móvil */
-  .hero{display:none}
-  .caf-filtrar-btn{display:none!important}
-
-  /* ── Hero móvil ── */
-  .cmx-hero-m{
-    position:relative;border-radius:16px;overflow:hidden;
-    margin:10px 10px 0;min-height:170px;
-    display:flex;flex-direction:column;justify-content:flex-end;
-    background:linear-gradient(135deg,#006847 0%,#004d34 100%);
-  }
-  .cmx-hero-m__bg{
-    position:absolute;inset:0;
-    background-size:cover;background-position:center;
-    filter:brightness(.38);
-  }
-  .cmx-hero-m__content{
-    position:relative;padding:14px 14px 6px;color:#fff;
-  }
-  .cmx-hero-m__title{
-    font-size:1.4rem;font-weight:800;margin:0 0 3px;
-    line-height:1.15;letter-spacing:-.03em;
-  }
-  .cmx-hero-m__sub{
-    font-size:.82rem;margin:0 0 7px;opacity:.87;line-height:1.35;
-  }
-  .cmx-hero-m__count{
-    display:inline-flex;align-items:center;gap:5px;
-    font-size:.76rem;background:rgba(255,255,255,.18);
-    border-radius:20px;padding:3px 10px;
-  }
-
-  /* Chips de tipo */
-  .cmx-types{
-    display:flex;gap:7px;overflow-x:auto;
-    padding:10px 14px 4px;scrollbar-width:none;position:relative;
-  }
-  .cmx-types::-webkit-scrollbar{display:none}
-  .cmx-type-chip{
-    flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:4px;
-    padding:7px 12px;background:rgba(255,255,255,.18);
-    border:1px solid rgba(255,255,255,.25);border-radius:12px;
-    color:#fff;font-size:.71rem;cursor:pointer;
-    transition:background .15s;white-space:nowrap;
-    font-family:'Satoshi',sans-serif;font-weight:600;
-  }
-  .cmx-type-chip.active,.cmx-type-chip:active{
-    background:rgba(255,255,255,.38);border-color:rgba(255,255,255,.65);
-  }
-
-  /* Scroll CTA */
-  .cmx-hero-m__scroll{
-    position:relative;display:flex;align-items:center;
-    justify-content:center;gap:6px;width:100%;padding:10px;
-    background:rgba(255,255,255,.1);border:none;color:#fff;
-    font-size:.77rem;cursor:pointer;
-    border-top:1px solid rgba(255,255,255,.12);
-    font-family:'Satoshi',sans-serif;font-weight:500;
-    backdrop-filter:blur(4px);
-  }
-
-  /* ── Barra sticky ── */
-  .cmx-sbar{
-    display:flex;position:sticky;top:63px;z-index:150;
-    background:#fff;border-bottom:1px solid #e8e8e8;
-    box-shadow:0 2px 8px rgba(0,0,0,.07);
-  }
-  .cmx-sbar__btn{
-    flex:1;display:flex;align-items:center;justify-content:center;
-    gap:7px;padding:13px 8px;font-size:.88rem;font-weight:700;
-    border:none;cursor:pointer;background:#fff;color:#111;
-    transition:background .12s;font-family:'Satoshi',sans-serif;
-  }
-  .cmx-sbar__btn:active{background:#f4f4f4}
-  .cmx-sbar__filtrar{
-    border-left:1px solid #e8e8e8;
-    color:var(--ac);background:#f0faf5;
-  }
-  .cmx-sbar__filtrar.has-filters{background:var(--ac);color:#fff}
-  .cmx-sbar__badge{
-    background:#e53935;color:#fff;font-size:.67rem;font-weight:800;
-    border-radius:10px;padding:1px 6px;min-width:18px;text-align:center;
-  }
-
-  /* ── Panel Cómo elegir ── */
-  .cmx-panel-elegir{
-    max-height:0;overflow:hidden;
-    transition:max-height .3s ease;
-    background:#f8fdf9;border-bottom:1px solid #d4ead9;
-  }
-  .cmx-panel-elegir.open{max-height:420px}
-  .cmx-panel-elegir__inner{padding:14px 16px 16px}
-  .cmx-panel-elegir__header{
-    display:flex;justify-content:space-between;align-items:center;
-    margin-bottom:12px;font-size:.95rem;font-weight:700;
-  }
-  .cmx-panel-elegir__header button{
-    background:none;border:none;cursor:pointer;padding:4px;
-    color:#555;line-height:1;
-  }
-  .cmx-step{
-    display:flex;gap:12px;margin-bottom:12px;align-items:flex-start;
-  }
-  .cmx-step__num{
-    flex:0 0 24px;height:24px;border-radius:50%;
-    background:var(--ac);color:#fff;font-size:.78rem;font-weight:800;
-    display:flex;align-items:center;justify-content:center;margin-top:1px;
-  }
-  .cmx-step strong{font-size:.88rem;display:block;margin-bottom:2px}
-  .cmx-step p{font-size:.8rem;color:#555;margin:0;line-height:1.4}
-
-  /* Tarjetas: compactar specs en 2 columnas */
-  .pmetric-lbl2{font-size:.72rem}
-  .pmetric-val2{font-size:.78rem}
-  .pmetric-row{padding:4px 1px}
-}
-
-@media(min-width:768px){
-  .cmx-hero-m,.cmx-sbar,.cmx-panel-elegir{display:none}
-}
-@media(max-width:767px){.cmp-fab{display:none!important}}
-</style>
 <link rel="stylesheet" href="/assets/css/cmx-site.css">
+<link rel="stylesheet" href="/assets/css/cmx-list.css">
+<link rel="stylesheet" href="/assets/css/cmx-hub.css">
 </head>
-<body data-category="cafeteras">
+<body class="list-page" data-category="cafeteras">
 
 <!-- cmx-header:start -->
-<div class="cmx-hd" id="cmx-hd">
+<div class="cmx-hd cmx-hd2" id="cmx-hd">
   <div class="cmx-hd-in">
-    <a class="cmx-hd-logo" href="/" aria-label="comparalo.mx, inicio"><img src="/logopng.png" alt="" width="28" height="28"><span>comparalo<i>.mx</i></span></a>
-    <div class="cmx-hd-search" id="cmx-hd-search"></div>
-    <div class="cmx-hd-links" role="navigation" aria-label="Navegación principal">
-      <a href="/celulares/">Celulares</a>
-      <a href="/laptops/">Laptops</a>
-      <a href="/electrodomesticos/" aria-current="true">Electrodomésticos</a>
-      <a href="/suplementos/">Suplementos</a>
-      <a href="/bicis/">Bicicletas</a>
-      <a href="/videojuegos/">Videojuegos</a>
-      <a href="/tecnologia/">Tecnología</a>
-      <a href="/guias/">Guías</a>
-    </div>
+    <a class="cmx-hd-logo" href="/" aria-label="comparalo.mx, inicio"><img src="/logopng.png" alt="" width="44" height="44"><span>comparalo<i>.mx</i></span></a>
+    <nav class="cmx-hd2-nav" aria-label="Navegación principal">
+      <div class="cmx-hd2-dd">
+        <button type="button" class="cmx-hd2-ddbtn" aria-haspopup="true">Categorías <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="cmx-hd2-menu">
+          <a href="/celulares/">Celulares</a>
+          <a href="/laptops/">Laptops</a>
+          <a href="/electrodomesticos/">Electrodomésticos</a>
+          <a href="/suplementos/">Suplementos</a>
+          <a href="/bicis/">Bicicletas</a>
+          <a href="/videojuegos/">Videojuegos</a>
+          <a href="/tecnologia/">Tecnología</a>
+        </div>
+      </div>
+      <a href="/#categorias">Comparativas</a>
+      <a href="/guias/">Guías de compra</a>
+      <a class="cmx-hd2-ofertas" href="/#ofertas"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z"/><circle cx="7" cy="7" r="1.2" fill="currentColor"/></svg> Ofertas</a>
+    </nav>
     <div class="cmx-hd-act">
-      <button class="cmx-hd-searchbtn" id="cmx-hd-searchbtn" type="button" aria-label="Buscar categoría"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
-      <a class="cmx-hd-guias" href="/guias/">Guías</a>
       <!-- cmx-hd-extra:start --><!-- cmx-hd-extra:end -->
-      <button class="btn-share" onclick="shareCurrentPage()" title="Compartir esta p&#225;gina" aria-label="Compartir"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg><span class="share-txt">Compartir</span></button>
+      <button class="cmx-hd-searchbtn" id="cmx-hd-searchbtn" type="button" aria-label="Buscar categoría"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7.5"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg><span class="cmx-hd2-searchtx">¿Qué quieres comparar?</span></button>
+      <button class="cmx-hd2-burger" type="button" aria-label="Abrir menú de categorías" onclick="document.getElementById('cmx-hd-searchbtn').click()"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
     </div>
   </div>
 </div>
@@ -458,410 +130,187 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 <div class="cmx-bc"><ol aria-label="Ruta de navegación"><li><a href="/">Inicio</a></li><li><a href="/electrodomesticos/">Electrodomésticos</a></li><li aria-current="page">Cafeteras</li></ol></div>
 <!-- cmx-bc:end -->
 
-<!-- ── Hero móvil ─────────────────────────────────────── -->
-<div class="cmx-hero-m">
-  <div class="cmx-hero-m__bg" style="background-image:url('https://http2.mlstatic.com/D_NQ_NP_822030-MLA99908871201_112025-O.jpg')"></div>
-  <div class="cmx-hero-m__content">
-    <h2 class="cmx-hero-m__title">Cafeteras</h2>
-    <p class="cmx-hero-m__sub">Compara características, funciones y precios en México</p>
-    <!-- Chips de tipo -->
-    <div class="cmx-types">
-      <button class="cmx-type-chip" data-value="Espresso" onclick="cmxTypeFilter(this)">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M17 8h2a2 2 0 0 1 0 4h-2"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>
-        <span>Espresso</span>
-      </button>
-      <button class="cmx-type-chip" data-value="Goteo" onclick="cmxTypeFilter(this)">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
-        <span>Goteo</span>
-      </button>
-      <button class="cmx-type-chip" data-value="Cápsulas" onclick="cmxTypeFilter(this)">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M3 9h18"/></svg>
-        <span>Cápsulas</span>
-      </button>
-      <button class="cmx-type-chip" data-value="Percolador" onclick="cmxTypeFilter(this)">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M6 2v2"/><path d="M4 4h16"/><path d="M18 4v9a6 6 0 0 1-12 0V4"/><path d="M9 20h6"/><path d="M12 16v4"/></svg>
-        <span>Percolador</span>
-      </button>
+<main class="cl">
+<section class="cl-hero" aria-labelledby="cl-h1">
+  <div class="cl-hero-in">
+    <div class="cl-hero-tx">
+      <h1 id="cl-h1">Cafeteras <em>en México 2026</em></h1>
+      <p class="cl-hero-lead">Espresso, goteo, cápsulas y más · Precios actualizados de Mercado Libre · Filtra por tipo, capacidad y presupuesto</p>
+      <form class="cl-search" id="cl-search-form" role="search">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7.5"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+        <label class="cl-sr" for="cl-search-in">Buscar cafeteras</label>
+        <input id="cl-search-in" type="search" placeholder="Buscar cafeteras (marca, tipo, modelo…)" autocomplete="off">
+        <button type="submit" aria-label="Buscar"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7.5"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg></button>
+      </form>
+    </div>
+    <div class="cl-art">
+      <svg class="cl-spark" width="46" height="46" viewBox="0 0 46 46" fill="none" stroke="#F6D94A" stroke-width="5" stroke-linecap="round" aria-hidden="true"><line x1="8" y1="6" x2="14" y2="20"/><line x1="24" y1="16" x2="38" y2="6"/><line x1="26" y1="30" x2="42" y2="28"/></svg>
+      <img class="a1" data-cmx-img src="https://http2.mlstatic.com/D_NQ_NP_910114-MLA100001203513_112025-O.jpg" alt="Nespresso Vertuo Pop" width="240" height="240" referrerpolicy="no-referrer" loading="eager" decoding="async">
+      <img class="a2" data-cmx-img src="https://http2.mlstatic.com/D_NQ_NP_867147-MLA108909690556_032026-O.jpg" alt="De'Longhi La Specialista Arte Evo" width="240" height="240" referrerpolicy="no-referrer" loading="eager" decoding="async" fetchpriority="high">
+      <img class="a3" data-cmx-img src="https://http2.mlstatic.com/D_NQ_NP_971681-MLA116372354729_082026-O.jpg" alt="Ninja Espresso y Café 2 en 1" width="240" height="240" referrerpolicy="no-referrer" loading="eager" decoding="async">
     </div>
   </div>
-  <button class="cmx-hero-m__scroll" onclick="document.getElementById('grid').scrollIntoView({behavior:'smooth'})">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-    <span>Desplázate para ver modelos</span>
-  </button>
+</section>
+
+<div id="cl-sentinel" aria-hidden="true"></div>
+<div class="cl-sticky" id="cl-sticky">
+<div class="cl-steps-wrap">
+  <div class="cl-steps" role="note" aria-label="Cómo usar esta comparativa">
+    <div class="cl-step"><span class="cl-step-ic"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="22 3 2 3 10 12.5 10 19 14 21 14 12.5 22 3"/></svg></span><div><b><u>1. </u>Filtra</b><span>Elige tipo, capacidad y presupuesto</span></div></div>
+    <i aria-hidden="true"></i>
+    <div class="cl-step"><span class="cl-step-ic"><img src="/logopng.png" alt="" width="40" height="40"></span><div><b><u>2. </u>Compáralo</b><span>Selecciona de 2 a 3 productos</span></div><em class="cl-step-n" id="cl-step-n" aria-label="Productos seleccionados para comparar">0/3</em></div>
+    <i aria-hidden="true"></i>
+    <div class="cl-step"><span class="cl-step-ic"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg></span><div><b><u>3. </u>Decide</b><span>Revisa el análisis y elige el mejor</span></div></div>
+  </div>
+</div>
+<div class="cl-bar-wrap">
+  <div class="cl-bar">
+    <button type="button" class="cl-open" id="cl-open" aria-expanded="true" aria-controls="cl-filters">Filtros <em id="cl-open-n">0</em> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+    <div class="cl-chips" id="cl-chips" aria-live="polite"></div>
+    <label class="cl-sort">Ordenar<span class="cl-sr"> resultados</span>:
+        <select id="cl-sort">
+          <option value="default">Recomendados</option>
+          <option value="precio-asc">Precio más bajo</option>
+          <option value="precio-desc">Precio más alto</option>
+          <option value="capacidad">Mayor capacidad</option>
+          <option value="potencia">Mayor potencia</option>
+        </select>
+      </label>
+    <button type="button" class="cl-saved" id="cl-saved" aria-pressed="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg> Guardados (<span id="cl-saved-n">0</span>)</button>
+  </div>
+</div>
 </div>
 
-<!-- ── Barra sticky ─────────────────────────────────── -->
-<div class="cmx-sbar" id="cmxSbar">
-  <button class="cmx-sbar__btn cmx-sbar__elegir" id="cmxBtnElegir" onclick="cmxToggleElegir()">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-    Cómo elegir
-  </button>
-  <button class="cmx-sbar__btn cmx-sbar__filtrar" id="cmxBtnFiltrar" onclick="cmxOpenFilters()">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
-    Filtrar
-    <span class="cmx-sbar__badge" id="cmxBadge" style="display:none">0</span>
-  </button>
-</div>
+<div class="cl-layout" id="cl-layout">
+  <aside class="cl-filters" id="cl-filters" aria-label="Filtros"></aside>
+  <div class="cl-main">
+    <p class="cl-count" id="cl-count" aria-live="polite"></p>
+    <div class="cl-grid" id="cl-grid" data-ga-section="comparison"></div>
+    <div class="cl-empty" id="cl-empty" hidden></div>
+    <div class="cl-more" id="cl-more" hidden><button type="button" id="cl-more-btn">Mostrar más</button></div>
+  </div>
 
-<!-- ── Panel Cómo elegir ──────────────────────────── -->
-<div class="cmx-panel-elegir" id="cmxPanelElegir" aria-hidden="true">
-  <div class="cmx-panel-elegir__inner">
-    <div class="cmx-panel-elegir__header">
-      <span>Cómo elegir tu cafetera</span>
-      <button onclick="cmxToggleElegir()" aria-label="Cerrar">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
-      </button>
-    </div>
-    <div class="cmx-step">
-      <span class="cmx-step__num">1</span>
-      <div>
-        <strong>Elige el tipo</strong>
-        <p>Espresso para café intenso, goteo para hacer jarras, cápsulas para comodidad, percoladora para eventos.</p>
+  <div class="cl-layout" id="cl-layout">
+  <aside class="cl-filters" id="cl-filters" aria-label="Filtros"></aside>
+  <div class="cl-main">
+    <p class="cl-count" id="cl-count" aria-live="polite"></p>
+    <div class="cl-grid" id="cl-grid" data-ga-section="comparison"></div>
+    <div class="cl-empty" id="cl-empty" hidden></div>
+    <div class="cl-more" id="cl-more" hidden><button type="button" id="cl-more-btn">Mostrar más</button></div>
+  </div>
+
+  <div class="cl-below">
+    <div class="cl-below-main">
+      <section class="cl-box" aria-labelledby="cl-guias-h">
+        <div class="cl-box-head">
+          <h2 id="cl-guias-h"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00843D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H2z"/><path d="M22 4h-7a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h8z"/></svg>Guías de cafeteras</h2>
+          <a href="/guias/">Ver todas las guías →</a>
+        </div>
+        <div class="cl-guides">
+          <a class="cl-guide" href="/guias/cafeteras/espresso-menos-2000/"><img data-cmx-img src="https://http2.mlstatic.com/D_NQ_NP_698043-MLA99585612600_122025-O.jpg" alt="Cafetera espresso Oster Perfect Brew" width="240" height="240" referrerpolicy="no-referrer" loading="lazy" decoding="async"><span><b>Cafeteras espresso por menos de $2,000</b></span><i aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></i></a>
+          <a class="cl-guide" href="/guias/cafeteras/nespresso-vs-dolce-gusto/"><img data-cmx-img src="https://http2.mlstatic.com/D_NQ_NP_884112-MLA84321276542_052025-F.jpg" alt="Cafetera Nespresso Vertuo Pop+" width="240" height="240" referrerpolicy="no-referrer" loading="lazy" decoding="async"><span><b>Nespresso vs. Dolce Gusto vs. multicápsulas</b></span><i aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></i></a>
+          <a class="cl-guide" href="/guias/cafeteras/superautomatica-vs-semiautomatica/"><img data-cmx-img src="https://http2.mlstatic.com/D_NQ_NP_924213-MLA106082012139_012026-O.jpg" alt="Cafetera superautomática Philips 5500" width="240" height="240" referrerpolicy="no-referrer" loading="lazy" decoding="async"><span><b>Superautomática vs. semiautomática</b></span><i aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></i></a>
+          <a class="cl-guide" href="/guias/electrodomesticos/cafeteras-mexico-2026/"><img data-cmx-img src="https://http2.mlstatic.com/D_NQ_NP_978180-MLA99986132803_112025-O.jpg" alt="Cafetera de goteo Hamilton Beach 49630" width="240" height="240" referrerpolicy="no-referrer" loading="lazy" decoding="async"><span><b>Guía completa de cafeteras México 2026</b></span><i aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></i></a>
+        </div>
+      </section>
+
+      <div class="cl-two">
+        <a class="cl-how" href="/guias/electrodomesticos/cafeteras-mexico-2026/">
+          <svg class="w" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          <span><b>Cómo elegir tu cafetera</b><span>Filtra por tipo: espresso para café concentrado y espuma de leche, goteo para jarras de 6–12 tazas, cápsulas para la mayor comodidad y percoladora para eventos. Para 1–2 personas basta una capacidad de 1–1.5 L; familias y oficinas necesitan 1.8 L o más. Pulsa "Ver en Mercado Libre" para consultar el precio final antes de comprar.</span></span>
+          <i aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></i>
+        </a>
       </div>
-    </div>
-    <div class="cmx-step">
-      <span class="cmx-step__num">2</span>
-      <div>
-        <strong>Revisa las características</strong>
-        <p>Presión (15–20 bar), vaporizador si quieres cappuccinos, molinillo si prefieres café en grano.</p>
-      </div>
-    </div>
-    <div class="cmx-step">
-      <span class="cmx-step__num">3</span>
-      <div>
-        <strong>Compara y decide</strong>
-        <p>Toca una tarjeta para seleccionarla, selecciona 2–3 y pulsa "Comparar" para ver diferencias lado a lado.</p>
-      </div>
+
+      <section class="cl-box cl-editorial" aria-labelledby="cl-ed-h">
+        <h2 id="cl-ed-h"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00843D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="14" y2="17"/></svg>Todo sobre cafeteras: tipos y características</h2>
+        <p>¿No sabes cuál cafetera elegir? Usa nuestros filtros para comparar precios en Mercado Libre, o sigue leyendo para entender qué tipo y características se adaptan a tu rutina.</p>
+
+        <h3>Tipos de cafeteras</h3>
+        <ul>
+        <li><strong>Cafetera Espresso:</strong> Usa presión de 15–20 bar para extraer café concentrado con crema en segundos. Es la base de cappuccinos y lattes. Las <strong>semiautomáticas</strong> requieren moler y tampar el café; las <strong>superautomáticas</strong> lo hacen solas con un botón. Ideal para quienes valoran sabor intenso y controlan la molienda. <a href="/guias/cafeteras/espresso-menos-2000/">Ve a la guía: Espresso por menos de $2,000 →</a></li>
+        <li><strong>Cafetera de Goteo:</strong> El agua caliente fluye por gravedad a través del café molido en un filtro. Hace jarras de 6–12 tazas de café suave y limpio, perfecta para familia u oficina. Los modelos <strong>programables</strong> permiten tenerla lista a la hora que necesites. Económica, fácil de limpiar y de bajo mantenimiento. <a href="/guias/electrodomesticos/cafeteras-mexico-2026/">Ve a la guía completa de cafeteras México 2026 →</a></li>
+        <li><strong>Cafetera de Cápsulas:</strong> Usa cápsulas precargadas (Nespresso, Dolce Gusto u otras) para garantizar consistencia en cada taza sin medir ni limpiar el portafiltro. Es la opción más cómoda: solo insertar, pulsar y disfrutar. El costo por taza es mayor que el café molido, pero la velocidad y limpieza son insuperables. <a href="/guias/cafeteras/nespresso-vs-dolce-gusto/">Ve a la guía: Nespresso vs. Dolce Gusto →</a></li>
+        <li><strong>Percoladora Eléctrica:</strong> Hace grandes cantidades (20–50 tazas) en poco tiempo. Es la favorita para reuniones, eventos y oficinas con mucho personal. Su sabor es clásico y robusto. Los modelos de acero inoxidable mantienen el café caliente durante horas sin quemarlo gracias a la placa calefactora regulada. <a href="/guias/electrodomesticos/cafeteras-mexico-2026/">Ve a la guía completa de cafeteras México 2026 →</a></li>
+        </ul>
+
+        <h3>¿Qué significan las características?</h3>
+        <ul>
+        <li><strong>Vaporizador (espumador):</strong> Tubo o boquilla de vapor que emulsiona la leche para hacer espuma de cappuccino y latte. Indispensable si te gustan las bebidas con leche texturizada. Exclusivo de cafeteras espresso; en las de goteo y cápsulas no existe esta función.</li>
+        <li><strong>Molinillo integrado:</strong> Muele el grano justo antes de preparar el café, lo que garantiza máxima frescura y sabor. Elimina la necesidad de comprar café ya molido o un molinillo aparte. Los modelos con <strong>muelas cónicas</strong> producen menos calor y una molienda más uniforme.</li>
+        <li><strong>Presión en bares:</strong> Mide la fuerza con que el agua atraviesa el café. <strong>15–20 bar</strong> es el rango ideal para espresso con crema. Más bares no siempre significa mejor calidad: lo importante es la consistencia de presión durante toda la extracción, no el número máximo.</li>
+        <li><strong>Capacidad del depósito:</strong> Indica cuánta agua cabe sin rellenar. Para 1–2 personas, 1–1.5 L es suficiente. Familias y oficinas necesitan 1.8 L o más. Las percoladoras de evento tienen depósitos de 4–6 L para atender a mucha gente de una sola vez.</li>
+        <li><strong>Compatibilidad Nespresso:</strong> Nespresso Original tiene la mayor variedad de cápsulas (incluyendo marcas genéricas más económicas). Nespresso Vertuo usa centrifugación para distintos volúmenes, pero solo acepta cápsulas propias. Dolce Gusto ofrece lattes y capuchinos listos en una sola cápsula.</li>
+        <li><strong>Super vs. semiautomática:</strong> La <strong>superautomática</strong> muele, tampa y extrae con un solo botón: máxima comodidad. La <strong>semiautomática</strong> te deja controlar la molienda y el tampado para personalizar cada taza. Si valoras la rapidez, superautomática; si valoras el ritual y la precisión, semiautomática. <a href="/guias/cafeteras/superautomatica-vs-semiautomatica/">Ve a la guía comparativa →</a></li>
+        </ul>
+
+        <p>¿Listo para encontrar tu cafetera? Usa nuestros filtros y compara precios en Mercado Libre.</p>
+      </section>
     </div>
   </div>
 </div>
+</main>
 
-<div class="hero">
-  <div>
-    <h1>☕ Cafeteras — Compara precios en México</h1>
-    <p>Espresso, multi-bebidas y más · Precios actualizados de Mercado Libre</p>
-  </div>
-  <a href="#guias-cafeteras" onclick="event.preventDefault();document.getElementById('guias-cafeteras').scrollIntoView({behavior:'smooth',block:'start'})" style="display:inline-flex;align-items:center;gap:.4rem;background:var(--s1);border:1.5px solid var(--bd);border-radius:9px;padding:.48rem .9rem;font-size:.82rem;font-weight:700;color:var(--tx);text-decoration:none;white-space:nowrap">☕ Ir a guías de cafeteras</a>
-</div>
-
-<div class="how-strip">
-  <div class="how-strip-lead">
-    <span class="how-strip-icon">☕</span>
+<!-- Solicitud de comparativas (mismo bloque y envío que los hubs) -->
+<div class="hub-page" style="margin:0;background:transparent">
+<section class="hub-leads" aria-labelledby="leads-h">
+  <div class="hub-leads-in">
     <div>
-      <div class="how-strip-title">Cómo usar esta comparativa</div>
-      <div class="how-strip-sub">3 pasos para elegir tu cafetera ideal</div>
+      <p class="hub-leads-eyebrow">Para ti · Gratis · Sin spam</p>
+      <h2 id="leads-h">¿No encuentras lo que buscas? <span>Te comparamos.</span></h2>
+      <p class="hub-leads-desc">Dinos qué producto quieres comparar y te avisamos cuando tengamos la comparativa lista — gratis, sin registros complicados.</p>
     </div>
-  </div>
-  <div class="how-steps">
-    <div class="how-step">
-      <div class="how-step-num">1</div>
-      <div>
-        <div class="how-step-title">Filtra por tipo</div>
-        <div class="how-step-desc">Espresso, multi-bebidas o cualquier presupuesto</div>
-      </div>
-    </div>
-    <span class="how-arrow">›</span>
-    <div class="how-step">
-      <div class="how-step-num">2</div>
-      <div>
-        <div class="how-step-title">Compara características</div>
-        <div class="how-step-desc">Presión, capacidad, vaporizador y más</div>
-      </div>
-    </div>
-    <span class="how-arrow">›</span>
-    <div class="how-step">
-      <div class="how-step-num">3</div>
-      <div>
-        <div class="how-step-title">Ve a Mercado Libre</div>
-        <div class="how-step-desc">Compra con precio actualizado y envío gratis</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Botón filtrar (móvil) -->
-<button class="caf-filtrar-btn" id="caf-filtrar-btn" onclick="openFiltersDrawer()" aria-haspopup="dialog" aria-expanded="false">
-  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
-  Filtrar
-  <span class="caf-filtrar-count" id="caf-filtrar-count" style="display:none">0</span>
-</button>
-<div class="caf-backdrop" id="caf-backdrop" onclick="closeFiltersDrawer()"></div>
-
-<div class="caf-layout">
-  <!-- FILTROS -->
-  <aside class="caf-filters" id="caf-filters" role="region" aria-label="Filtros">
-    <div class="caf-filters-head">
-      <span class="caf-filters-title">Filtros</span>
-      <div style="display:flex;align-items:center;gap:10px">
-        <button class="caf-clear-all" onclick="clearFilters()">Limpiar</button>
-        <button class="caf-filters-close" onclick="closeFiltersDrawer()" aria-label="Cerrar filtros">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      </div>
-    </div>
-
-    <div class="caf-section">
-      <span class="caf-section-title">Tipo</span>
-      <div class="caf-pills" id="caf-pills-tipo">
-        <button class="filter on" id="f-todos-tipo" onclick="toggleCafFilter('tipo','todos',this)">Todos</button>
-        <button class="filter" onclick="toggleCafFilter('tipo','Espresso',this)">Espresso</button>
-        <button class="filter" onclick="toggleCafFilter('tipo','Goteo',this)">Goteo</button>
-        <button class="filter" onclick="toggleCafFilter('tipo','Cápsulas',this)">Cápsulas</button>
-        <button class="filter" onclick="toggleCafFilter('tipo','Percolador',this)">Percolador</button>
-      </div>
-    </div>
-
-    <div class="caf-section">
-      <span class="caf-section-title">Vaporizador</span>
-      <div class="caf-pills" id="caf-pills-vaporizador">
-        <button class="filter on" id="f-todos-vaporizador" onclick="toggleCafFilter('vaporizador','todos',this)">Todos</button>
-        <button class="filter" onclick="toggleCafFilter('vaporizador','Sí',this)">Sí</button>
-        <button class="filter" onclick="toggleCafFilter('vaporizador','No',this)">No</button>
-      </div>
-    </div>
-
-    <div class="caf-section">
-      <span class="caf-section-title">Molinillo</span>
-      <div class="caf-pills" id="caf-pills-molinillo">
-        <button class="filter on" id="f-todos-molinillo" onclick="toggleCafFilter('molinillo','todos',this)">Todos</button>
-        <button class="filter" onclick="toggleCafFilter('molinillo','Sí',this)">Con molinillo</button>
-        <button class="filter" onclick="toggleCafFilter('molinillo','No',this)">Sin molinillo</button>
-      </div>
-    </div>
-
-    <div class="caf-section">
-      <span class="caf-section-title">Compatible con</span>
-      <div class="caf-pills" id="caf-pills-compatible">
-        <button class="filter on" id="f-todos-compatible" onclick="toggleCafFilter('compatible','todos',this)">Todos</button>
-        <button class="filter" onclick="toggleCafFilter('compatible','Nespresso',this)">Nespresso</button>
-        <button class="filter" onclick="toggleCafFilter('compatible','Dolce Gusto',this)">Dolce Gusto</button>
-      </div>
-    </div>
-
-    <div class="caf-section">
-      <span class="caf-section-title">Precio (MXN)</span>
-      <div class="caf-price-row">
-        <input type="number" id="precioMin" placeholder="Mín." class="precio-max-input" oninput="renderAll()" min="0" step="500" aria-label="Precio mínimo" style="width:76px">
-        <span class="caf-price-sep">–</span>
-        <input type="number" id="precioMax" placeholder="Máx." class="precio-max-input" oninput="renderAll()" min="0" step="500" aria-label="Precio máximo" style="width:76px">
-      </div>
-    </div>
-
-    <div class="caf-section">
-      <span class="caf-section-title">Ordenar por</span>
-      <select class="caf-sort-sel" id="sortSel" onchange="renderAll()">
-        <option value="default">Relevancia</option>
-        <option value="precio_asc">Precio: menor a mayor</option>
-        <option value="precio_desc">Precio: mayor a menor</option>
-        <option value="estrellas">Mejor valorados</option>
-      </select>
-    </div>
-
-    <div class="caf-filters-foot">
-      <button class="caf-limpiar-btn" onclick="clearFilters()">Limpiar</button>
-      <button class="caf-apply-btn" onclick="closeFiltersDrawer()">Ver resultados</button>
-    </div>
-  </aside>
-
-  <!-- CATÁLOGO -->
-  <div class="caf-content">
-    <div class="caf-guia-block">
-      <div class="caf-guia-icon">☕</div>
-      <div class="caf-guia-body">
-        <strong>Guía para elegir la mejor cafetera</strong>
-        <p>Descubre las diferencias entre cafeteras espresso, de cápsulas, de goteo y otros métodos. Aprende a elegir la molienda, el tostado y el tipo de preparación según tus gustos y tu rutina.</p>
-        <a class="caf-guia-link" href="/guias/electrodomesticos/cafeteras-mexico-2026/" onclick="gtag&&gtag('event','click_guia_cafeteras',{event_category:'editorial',event_label:'bloque_categoria'})">Leer la guía completa de cafeteras →</a>
-      </div>
-    </div>
-    <div class="result-info" id="resultInfo"></div>
-    <div class="caf-chips-row" id="cafChipsRow"></div>
-    <div class="grid" id="grid"></div>
-    <div class="empty" id="emptyMsg" style="display:none">No se encontraron cafeteras con esos filtros.</div>
-  </div>
-</div>
-
-<div class="disclaimer">
-  <strong>Aviso de afiliados:</strong> Los precios pueden variar. Ganamos una pequeña comisión sin costo adicional para ti. <a href="/aviso-afiliados.html">Más información</a>.
-</div>
-
-<section id="guias-cafeteras" style="max-width:860px;margin:1.5rem auto 0;padding:0 24px">
-  <h2 style="font-size:1.1rem;font-weight:800;letter-spacing:-.02em;margin-bottom:.7rem;color:var(--tx)">Guías de cafeteras</h2>
-  <div style="display:flex;flex-direction:column;gap:.75rem;margin-bottom:1rem">
-    <a href="/guias/cafeteras/espresso-menos-2000/" style="display:block;border-radius:12px;overflow:hidden;border:1.5px solid var(--bd);text-decoration:none">
-      <img src="/guias/img/espresso-menos-2000.png" alt="Cafeteras espresso por menos de $2,000 en México" style="width:100%;height:auto;display:block">
-    </a>
-    <a href="/guias/cafeteras/nespresso-vs-dolce-gusto/" style="display:block;border-radius:12px;overflow:hidden;border:1.5px solid var(--bd);text-decoration:none">
-      <img src="/guias/img/nespresso-vs-dolce-gusto.png" alt="Nespresso vs Dolce Gusto vs cafeteras multicápsulas" style="width:100%;height:auto;display:block">
-    </a>
-    <a href="/guias/cafeteras/superautomatica-vs-semiautomatica/" style="display:block;border-radius:12px;overflow:hidden;border:1.5px solid var(--bd);text-decoration:none">
-      <img src="/guias/img/superautomatica-vs-semiautomatica.png" alt="Superautomática vs semiautomática en México" style="width:100%;height:auto;display:block">
-    </a>
-  </div>
-  <div style="display:flex;flex-wrap:wrap;gap:.6rem">
-    <a href="/guias/electrodomesticos/cafeteras-mexico-2026/" style="display:inline-flex;align-items:center;gap:.4rem;background:var(--s1);border:1.5px solid var(--bd);border-radius:9px;padding:.55rem .85rem;font-size:.83rem;font-weight:700;color:var(--tx);text-decoration:none">☕ Guía completa de cafeteras México 2026</a>
-    <a href="/guias/cafeteras/espresso-menos-2000/" style="display:inline-flex;align-items:center;gap:.4rem;background:var(--s1);border:1.5px solid var(--bd);border-radius:9px;padding:.55rem .85rem;font-size:.83rem;font-weight:700;color:var(--tx);text-decoration:none">☕ Espresso por menos de $2,000</a>
-    <a href="/guias/cafeteras/nespresso-vs-dolce-gusto/" style="display:inline-flex;align-items:center;gap:.4rem;background:var(--s1);border:1.5px solid var(--bd);border-radius:9px;padding:.55rem .85rem;font-size:.83rem;font-weight:700;color:var(--tx);text-decoration:none">☕ Nespresso vs. Dolce Gusto vs. multicápsulas</a>
-    <a href="/guias/cafeteras/superautomatica-vs-semiautomatica/" style="display:inline-flex;align-items:center;gap:.4rem;background:var(--s1);border:1.5px solid var(--bd);border-radius:9px;padding:.55rem .85rem;font-size:.83rem;font-weight:700;color:var(--tx);text-decoration:none">☕ Superautomática vs. semiautomática</a>
+    <ul class="hub-leads-list">
+      <li><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 12.5 10 17 19 7.5"/></svg>Comparamos precio, specs y reseñas</li>
+      <li><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 12.5 10 17 19 7.5"/></svg>Te avisamos por correo cuando esté lista</li>
+      <li><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 12.5 10 17 19 7.5"/></svg>Sin costo, sin spam, sin compromisos</li>
+      <li><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 12.5 10 17 19 7.5"/></svg>Respondemos en menos de 48 horas</li>
+    </ul>
+    <form class="hub-form" id="hub-form" action="https://docs.google.com/forms/d/e/1FAIpQLScI3hNm1pX6oo2cnxVqHnTBjOkfsEqBGw0bE3lYc3p0huxzOQ/formResponse" method="post" target="hub-form-sink">
+      <h3>¿Qué quieres que comparemos?</h3>
+      <label class="hub-field"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><line x1="7" y1="9" x2="13" y2="9"/><line x1="7" y1="13" x2="11" y2="13"/></svg><span class="hub-sr">Producto que quieres comparar</span><input type="text" name="entry.1897553618" placeholder="iPhone, Samsung, Xiaomi…" required maxlength="200" autocomplete="off"></label>
+      <label class="hub-field"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg><span class="hub-sr">Tu correo electrónico</span><input type="email" name="entry.90518688" placeholder="Tu correo electrónico" required maxlength="200" autocomplete="email"></label>
+      <button type="submit">Solicitar comparativa →</button>
+      <p class="hub-form-msg" id="hub-form-msg" role="status" aria-live="polite"></p>
+      <p class="hub-form-alt">Tu correo solo se usa para avisarte. ¿No se envía? <a href="https://docs.google.com/forms/d/e/1FAIpQLScI3hNm1pX6oo2cnxVqHnTBjOkfsEqBGw0bE3lYc3p0huxzOQ/viewform" target="_blank" rel="noopener">Abre el formulario</a>.</p>
+    </form>
+    <iframe name="hub-form-sink" id="hub-form-sink" title="Envío del formulario" hidden></iframe>
   </div>
 </section>
-
-<section id="seo-cafeteras" style="max-width:860px;margin:2.5rem auto 0;padding:0 24px 2.5rem">
-  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.8rem;margin-bottom:1.2rem">
-    <h2 style="font-size:1.2rem;font-weight:800;letter-spacing:-.03em;color:var(--tx);margin:0">Todo sobre cafeteras: tipos y características</h2>
-    <button onclick="document.getElementById('caf-filters').scrollIntoView({behavior:'smooth',block:'start'})" style="display:inline-flex;align-items:center;gap:.4rem;background:var(--ac);color:#fff;border:none;border-radius:9px;padding:.5rem 1rem;font-size:.82rem;font-weight:700;cursor:pointer">↑ Ir al comparador</button>
-  </div>
-  <p style="font-size:.92rem;color:var(--tx-2,#666);line-height:1.6;margin:0 0 1.5rem">¿No sabes cuál cafetera elegir? Usa nuestros filtros para comparar precios en Amazon MX y Mercado Libre, o sigue leyendo para entender qué tipo y características se adaptan a tu rutina.</p>
-
-  <h3 style="font-size:.98rem;font-weight:800;letter-spacing:-.02em;color:var(--tx);margin:0 0 .9rem">Tipos de cafeteras</h3>
-  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:.9rem;margin-bottom:2rem">
-
-    <div style="background:var(--s1);border:1.5px solid var(--bd);border-radius:12px;padding:1.1rem 1.2rem">
-      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem;flex-wrap:wrap">
-        <h4 style="font-size:.93rem;font-weight:800;color:var(--tx);margin:0">Cafetera Espresso</h4>
-        <button onclick="seoFilter('tipo','Espresso')" style="font-size:.7rem;font-weight:700;color:var(--ac);background:none;border:1px solid var(--ac);border-radius:6px;padding:.13rem .48rem;cursor:pointer">Ver catálogo ↑</button>
-      </div>
-      <p style="font-size:.83rem;color:var(--tx-2,#666);line-height:1.55;margin:0 0 .8rem">Usa presión de 15–20 bar para extraer café concentrado con crema en segundos. Es la base de cappuccinos y lattes. Las <strong>semiautomáticas</strong> requieren moler y tampar el café; las <strong>superautomáticas</strong> lo hacen solas con un botón. Ideal para quienes valoran sabor intenso y controlan la molienda.</p>
-      <a href="/guias/cafeteras/espresso-menos-2000/" style="display:inline-flex;align-items:center;gap:.3rem;font-size:.79rem;font-weight:700;color:var(--ac);text-decoration:none">☕ Ve a la guía: Espresso por menos de $2,000 →</a>
-    </div>
-
-    <div style="background:var(--s1);border:1.5px solid var(--bd);border-radius:12px;padding:1.1rem 1.2rem">
-      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem;flex-wrap:wrap">
-        <h4 style="font-size:.93rem;font-weight:800;color:var(--tx);margin:0">Cafetera de Goteo</h4>
-        <button onclick="seoFilter('tipo','Goteo')" style="font-size:.7rem;font-weight:700;color:var(--ac);background:none;border:1px solid var(--ac);border-radius:6px;padding:.13rem .48rem;cursor:pointer">Ver catálogo ↑</button>
-      </div>
-      <p style="font-size:.83rem;color:var(--tx-2,#666);line-height:1.55;margin:0 0 .8rem">El agua caliente fluye por gravedad a través del café molido en un filtro. Hace jarras de 6–12 tazas de café suave y limpio, perfecta para familia u oficina. Los modelos <strong>programables</strong> permiten tenerla lista a la hora que necesites. Económica, fácil de limpiar y de bajo mantenimiento.</p>
-      <a href="/guias/electrodomesticos/cafeteras-mexico-2026/" style="display:inline-flex;align-items:center;gap:.3rem;font-size:.79rem;font-weight:700;color:var(--ac);text-decoration:none">☕ Ve a la guía completa de cafeteras México 2026 →</a>
-    </div>
-
-    <div style="background:var(--s1);border:1.5px solid var(--bd);border-radius:12px;padding:1.1rem 1.2rem">
-      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem;flex-wrap:wrap">
-        <h4 style="font-size:.93rem;font-weight:800;color:var(--tx);margin:0">Cafetera de Cápsulas</h4>
-        <button onclick="seoFilter('tipo','Cápsulas')" style="font-size:.7rem;font-weight:700;color:var(--ac);background:none;border:1px solid var(--ac);border-radius:6px;padding:.13rem .48rem;cursor:pointer">Ver catálogo ↑</button>
-      </div>
-      <p style="font-size:.83rem;color:var(--tx-2,#666);line-height:1.55;margin:0 0 .8rem">Usa cápsulas precargadas (Nespresso, Dolce Gusto u otras) para garantizar consistencia en cada taza sin medir ni limpiar el portafiltro. Es la opción más cómoda: solo insertar, pulsar y disfrutar. El costo por taza es mayor que el café molido, pero la velocidad y limpieza son insuperables.</p>
-      <a href="/guias/cafeteras/nespresso-vs-dolce-gusto/" style="display:inline-flex;align-items:center;gap:.3rem;font-size:.79rem;font-weight:700;color:var(--ac);text-decoration:none">☕ Ve a la guía: Nespresso vs. Dolce Gusto →</a>
-    </div>
-
-    <div style="background:var(--s1);border:1.5px solid var(--bd);border-radius:12px;padding:1.1rem 1.2rem">
-      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem;flex-wrap:wrap">
-        <h4 style="font-size:.93rem;font-weight:800;color:var(--tx);margin:0">Percoladora Eléctrica</h4>
-        <button onclick="seoFilter('tipo','Percolador')" style="font-size:.7rem;font-weight:700;color:var(--ac);background:none;border:1px solid var(--ac);border-radius:6px;padding:.13rem .48rem;cursor:pointer">Ver catálogo ↑</button>
-      </div>
-      <p style="font-size:.83rem;color:var(--tx-2,#666);line-height:1.55;margin:0 0 .8rem">Hace grandes cantidades (20–50 tazas) en poco tiempo. Es la favorita para reuniones, eventos y oficinas con mucho personal. Su sabor es clásico y robusto. Los modelos de acero inoxidable mantienen el café caliente durante horas sin quemarlo gracias a la placa calefactora regulada.</p>
-      <a href="/guias/electrodomesticos/cafeteras-mexico-2026/" style="display:inline-flex;align-items:center;gap:.3rem;font-size:.79rem;font-weight:700;color:var(--ac);text-decoration:none">☕ Ve a la guía completa de cafeteras México 2026 →</a>
-    </div>
-
-  </div>
-
-  <h3 style="font-size:.98rem;font-weight:800;letter-spacing:-.02em;color:var(--tx);margin:0 0 .9rem">¿Qué significan las características?</h3>
-  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:.9rem;margin-bottom:2rem">
-
-    <div style="background:var(--s1);border:1.5px solid var(--bd);border-radius:12px;padding:1rem 1.2rem">
-      <div style="display:flex;align-items:center;gap:.45rem;margin-bottom:.4rem">
-        <span style="font-size:1.05rem">🌿</span>
-        <h4 style="font-size:.88rem;font-weight:800;color:var(--tx);margin:0;flex:1">Vaporizador (espumador)</h4>
-        <button onclick="seoFilter('vaporizador','Sí')" style="font-size:.68rem;font-weight:700;color:var(--ac);background:none;border:1px solid var(--ac);border-radius:5px;padding:.1rem .4rem;cursor:pointer">Filtrar ↑</button>
-      </div>
-      <p style="font-size:.82rem;color:var(--tx-2,#666);line-height:1.55;margin:0">Tubo o boquilla de vapor que emulsiona la leche para hacer espuma de cappuccino y latte. Indispensable si te gustan las bebidas con leche texturizada. Exclusivo de cafeteras espresso; en las de goteo y cápsulas no existe esta función.</p>
-    </div>
-
-    <div style="background:var(--s1);border:1.5px solid var(--bd);border-radius:12px;padding:1rem 1.2rem">
-      <div style="display:flex;align-items:center;gap:.45rem;margin-bottom:.4rem">
-        <span style="font-size:1.05rem">⚙️</span>
-        <h4 style="font-size:.88rem;font-weight:800;color:var(--tx);margin:0;flex:1">Molinillo integrado</h4>
-        <button onclick="seoFilter('molinillo','Sí')" style="font-size:.68rem;font-weight:700;color:var(--ac);background:none;border:1px solid var(--ac);border-radius:5px;padding:.1rem .4rem;cursor:pointer">Filtrar ↑</button>
-      </div>
-      <p style="font-size:.82rem;color:var(--tx-2,#666);line-height:1.55;margin:0">Muele el grano justo antes de preparar el café, lo que garantiza máxima frescura y sabor. Elimina la necesidad de comprar café ya molido o un molinillo aparte. Los modelos con <strong>muelas cónicas</strong> producen menos calor y una molienda más uniforme.</p>
-    </div>
-
-    <div style="background:var(--s1);border:1.5px solid var(--bd);border-radius:12px;padding:1rem 1.2rem">
-      <div style="display:flex;align-items:center;gap:.45rem;margin-bottom:.4rem">
-        <span style="font-size:1.05rem">💧</span>
-        <h4 style="font-size:.88rem;font-weight:800;color:var(--tx);margin:0">Presión en bares</h4>
-      </div>
-      <p style="font-size:.82rem;color:var(--tx-2,#666);line-height:1.55;margin:0">Mide la fuerza con que el agua atraviesa el café. <strong>15–20 bar</strong> es el rango ideal para espresso con crema. Más bares no siempre significa mejor calidad: lo importante es la consistencia de presión durante toda la extracción, no el número máximo.</p>
-    </div>
-
-    <div style="background:var(--s1);border:1.5px solid var(--bd);border-radius:12px;padding:1rem 1.2rem">
-      <div style="display:flex;align-items:center;gap:.45rem;margin-bottom:.4rem">
-        <span style="font-size:1.05rem">🫙</span>
-        <h4 style="font-size:.88rem;font-weight:800;color:var(--tx);margin:0">Capacidad del depósito</h4>
-      </div>
-      <p style="font-size:.82rem;color:var(--tx-2,#666);line-height:1.55;margin:0">Indica cuánta agua cabe sin rellenar. Para 1–2 personas, 1–1.5 L es suficiente. Familias y oficinas necesitan 1.8 L o más. Las percoladoras de evento tienen depósitos de 4–6 L para atender a mucha gente de una sola vez.</p>
-    </div>
-
-    <div style="background:var(--s1);border:1.5px solid var(--bd);border-radius:12px;padding:1rem 1.2rem">
-      <div style="display:flex;align-items:center;gap:.45rem;margin-bottom:.4rem">
-        <span style="font-size:1.05rem">📦</span>
-        <h4 style="font-size:.88rem;font-weight:800;color:var(--tx);margin:0;flex:1">Compatibilidad Nespresso</h4>
-        <button onclick="seoFilter('compatible','Nespresso')" style="font-size:.68rem;font-weight:700;color:var(--ac);background:none;border:1px solid var(--ac);border-radius:5px;padding:.1rem .4rem;cursor:pointer">Filtrar ↑</button>
-      </div>
-      <p style="font-size:.82rem;color:var(--tx-2,#666);line-height:1.55;margin:0">Nespresso Original tiene la mayor variedad de cápsulas (incluyendo marcas genéricas más económicas). Nespresso Vertuo usa centrifugación para distintos volúmenes, pero solo acepta cápsulas propias. Dolce Gusto ofrece lattes y capuchinos listos en una sola cápsula.</p>
-    </div>
-
-    <div style="background:var(--s1);border:1.5px solid var(--bd);border-radius:12px;padding:1rem 1.2rem">
-      <div style="display:flex;align-items:center;gap:.45rem;margin-bottom:.4rem">
-        <span style="font-size:1.05rem">🤖</span>
-        <h4 style="font-size:.88rem;font-weight:800;color:var(--tx);margin:0">Super vs. semiautomática</h4>
-      </div>
-      <p style="font-size:.82rem;color:var(--tx-2,#666);line-height:1.55;margin:0 0 .5rem">La <strong>superautomática</strong> muele, tampa y extrae con un solo botón: máxima comodidad. La <strong>semiautomática</strong> te deja controlar la molienda y el tampado para personalizar cada taza. Si valoras la rapidez, superautomática; si valoras el ritual y la precisión, semiautomática.</p>
-      <a href="/guias/cafeteras/superautomatica-vs-semiautomatica/" style="display:inline-flex;align-items:center;gap:.3rem;font-size:.78rem;font-weight:700;color:var(--ac);text-decoration:none">☕ Ve a la guía comparativa →</a>
-    </div>
-
-  </div>
-
-  <div style="background:var(--s1);border:1.5px solid var(--bd);border-radius:12px;padding:1.1rem 1.4rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.8rem">
-    <p style="font-size:.87rem;color:var(--tx-2,#666);margin:0">¿Listo para encontrar tu cafetera? Usa nuestros filtros y compara precios en Amazon MX y Mercado Libre.</p>
-    <button onclick="document.getElementById('caf-filters').scrollIntoView({behavior:'smooth',block:'start'})" style="display:inline-flex;align-items:center;gap:.4rem;background:var(--ac);color:#fff;border:none;border-radius:9px;padding:.55rem 1.1rem;font-size:.84rem;font-weight:700;cursor:pointer">↑ Ir al comparador</button>
-  </div>
-</section>
+</div>
 
 <!-- cmx-related:start -->
 <section class="cmx-rel" aria-labelledby="cmx-rel-h"><div class="cmx-rel-in"><h2 id="cmx-rel-h">Sigue explorando</h2><p class="cmx-rel-lead">Guías de compra y categorías que combinan con esta.</p><h3>Guías relacionadas</h3><div class="cmx-rel-grid"><a class="cmx-rel-card" href="/guias/cafeteras/espresso-menos-2000/"><span class="cmx-rel-tx"><span class="cmx-rel-k">Guía</span><span class="cmx-rel-t">Cafeteras espresso por menos de $2,000 en México: opciones y cómo elegir</span></span></a><a class="cmx-rel-card" href="/guias/cafeteras/nespresso-vs-dolce-gusto/"><span class="cmx-rel-tx"><span class="cmx-rel-k">Guía</span><span class="cmx-rel-t">Nespresso vs. Dolce Gusto vs. multicápsulas: qué cafetera conviene</span></span></a><a class="cmx-rel-card" href="/guias/cafeteras/superautomatica-vs-semiautomatica/"><span class="cmx-rel-tx"><span class="cmx-rel-k">Guía</span><span class="cmx-rel-t">Superautomática vs. semiautomática: qué cafetera de grano conviene</span></span></a><a class="cmx-rel-card" href="/guias/electrodomesticos/cafeteras-mexico-2026/"><span class="cmx-rel-tx"><span class="cmx-rel-k">Guía</span><span class="cmx-rel-t">Cómo elegir una cafetera: tipos, tostados, molienda y modelos para cada rutina</span></span></a><a class="cmx-rel-card" href="/guias/"><span class="cmx-rel-tx"><span class="cmx-rel-k">Guías</span><span class="cmx-rel-t">Ver todas las guías de compra</span><span class="cmx-rel-d">Cómo elegir, comparativas y ofertas</span></span></a></div><h3>Sigue con otras categorías</h3><div class="cmx-rel-grid"><a class="cmx-rel-card" href="/electrodomesticos/freidoras/"><span class="cmx-rel-ic" aria-hidden="true">🍟</span><span class="cmx-rel-tx"><span class="cmx-rel-k">Categoría</span><span class="cmx-rel-t">Freidoras de Aire</span><span class="cmx-rel-d">Sin aceite, digital, compactas</span></span></a><a class="cmx-rel-card" href="/electrodomesticos/microondas/"><span class="cmx-rel-ic" aria-hidden="true">📡</span><span class="cmx-rel-tx"><span class="cmx-rel-k">Categoría</span><span class="cmx-rel-t">Microondas</span><span class="cmx-rel-d">Básico, grill, convección</span></span></a><a class="cmx-rel-card" href="/electrodomesticos/refrigeradores/"><span class="cmx-rel-ic" aria-hidden="true">🧊</span><span class="cmx-rel-tx"><span class="cmx-rel-k">Categoría</span><span class="cmx-rel-t">Refrigeradores</span><span class="cmx-rel-d">French door, side by side, top mount</span></span></a></div></div></section>
 <!-- cmx-related:end -->
 <!-- cmx-footer:start -->
-<div class="cmx-ft" role="contentinfo" id="cmx-ft"><div class="cmx-ft-in">
-<div class="cmx-ft-disc"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6EE7B7" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><div><h2>Aviso de afiliados</h2><p>comparalo.mx participa en los programas de afiliados de Amazon México y Mercado Libre. Si compras a través de nuestros enlaces recibimos una comisión, sin costo adicional para ti. Esa comisión no influye en el orden ni en las recomendaciones. <a href="/aviso-afiliados/">Más información</a></p></div></div>
-<div class="cmx-ft-grid">
-<div><span class="cmx-ft-brand"><img src="/logopng.png" alt="" width="28" height="28" loading="lazy">comparalo<i>.mx</i></span><p>Comparamos precios de Amazon MX y Mercado Libre para que decidas con datos, no a ciegas.</p></div>
-<div><h3>Categorías</h3><ul><li><a href="/celulares/">Celulares</a></li><li><a href="/celulares/android/">Android</a></li><li><a href="/celulares/iphone/">iPhone</a></li><li><a href="/laptops/">Laptops</a></li><li><a href="/electrodomesticos/">Electrodomésticos</a></li><li><a href="/suplementos/">Suplementos</a></li><li><a href="/bicis/">Bicicletas</a></li><li><a href="/videojuegos/">Videojuegos</a></li><li><a href="/tecnologia/">Tecnología</a></li></ul></div>
-<div><h3>Recursos</h3><ul><li><a href="/guias/">Guías y artículos</a></li><li><a href="/#metodo">Cómo comparamos</a></li><li><a href="/sobre-nosotros/">Quiénes somos</a></li><li><a href="/contacto/">Contacto</a></li><li><a href="/sitemap.xml">Mapa del sitio</a></li></ul></div>
-<div><h3>Legal</h3><ul><li><a href="/aviso-afiliados/">Aviso de afiliados</a></li><li><a href="/privacidad/">Privacidad</a></li><li><a href="/terminos/">Términos</a></li></ul></div>
+<div class="cmx-ft2" role="contentinfo" id="cmx-ft"><div class="cmx-ft2-in">
+<div class="cmx-ft2-grid">
+<div class="cmx-ft2-brand"><a class="cmx-ft2-logo" href="/" aria-label="comparalo.mx, inicio"><img src="/logopng.png" alt="" width="40" height="40" loading="lazy"><span>comparalo<i>.mx</i></span></a><p>Comparamos precios de Mercado Libre para que decidas con datos, no a ciegas.</p></div>
+<div class="cmx-ft2-col cmx-ft2-cats"><h3><button type="button" aria-expanded="false" onclick="var c=this.closest('.cmx-ft2-col');this.setAttribute('aria-expanded',c.classList.toggle('open'))">Categorías<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button></h3><ul><li><a href="/celulares/">Celulares</a></li><li><a href="/laptops/">Laptops</a></li><li><a href="/electrodomesticos/">Electrodomésticos</a></li><li><a href="/suplementos/">Suplementos</a></li><li><a href="/bicis/">Bicicletas</a></li><li><a href="/videojuegos/">Videojuegos</a></li><li><a href="/tecnologia/">Tecnología</a></li><li><a href="/#categorias">Todas las categorías</a></li></ul></div>
+<div class="cmx-ft2-col"><h3><button type="button" aria-expanded="false" onclick="var c=this.closest('.cmx-ft2-col');this.setAttribute('aria-expanded',c.classList.toggle('open'))">Recursos<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button></h3><ul><li><a href="/guias/">Guías y artículos</a></li><li><a href="/#metodo">Cómo comparamos</a></li><li><a href="/sobre-nosotros/">Quiénes somos</a></li><li><a href="/contacto/">Contacto</a></li></ul></div>
+<div class="cmx-ft2-col"><h3><button type="button" aria-expanded="false" onclick="var c=this.closest('.cmx-ft2-col');this.setAttribute('aria-expanded',c.classList.toggle('open'))">Legal<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button></h3><ul><li><a href="/aviso-afiliados/">Aviso de afiliados</a></li><li><a href="/privacidad/">Privacidad</a></li><li><a href="/terminos/">Términos</a></li></ul></div>
 </div>
-<p class="cmx-ft-bottom">Los precios y la disponibilidad pueden cambiar en cualquier momento. Confirma el precio final en la tienda antes de pagar. © 2026 comparalo.mx</p>
+<p class="cmx-ft2-bottom">comparalo.mx participa en el programa de afiliados de Mercado Libre: si compras desde nuestros enlaces podemos recibir una comisión, sin costo adicional para ti. <a href="/aviso-afiliados/">Más información</a>. Los precios y la disponibilidad pueden cambiar; confirma el precio final en la tienda. © 2026 comparalo.mx</p>
 </div></div>
 <!-- cmx-footer:end -->
 
-<!-- Barra de comparar -->
-<div class="cmp-bar" id="cmpBar">
-  <div>
-    <div class="cmp-bar-txt" id="cmpBarTxt">0 seleccionadas</div>
-    <div class="cmp-bar-sub">Selecciona hasta 3 cafeteras para comparar</div>
-  </div>
-  <div class="cmp-bar-actions">
-    <button class="btn-clear" onclick="clearSel()">Limpiar</button>
-    <button class="btn-do-cmp" onclick="openCmp()">Comparar</button>
+
+<!-- Dock de comparación, aviso y comparativa completa (los llena /assets/js/cmx-list.js) -->
+<div class="cl cl-dock" id="cl-dock" role="region" aria-label="Productos seleccionados para comparar">
+  <div class="cl-dock-in">
+    <div class="cl-dock-lead"><img src="/logopng.png" alt="" width="42" height="42"><div><b></b><span></span></div></div>
+    <div class="cl-dock-items"></div>
+    <button type="button" class="cl-dock-go" id="cl-dock-go" disabled>Ver comparativa<span class="lg"> completa</span> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></button>
+    <button type="button" class="cl-dock-clear" id="cl-dock-clear"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg> Limpiar</button>
+    <button type="button" class="cl-dock-toggle" id="cl-dock-toggle" aria-label="Mostrar u ocultar los productos elegidos"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 15 12 9 18 15"/></svg></button>
   </div>
 </div>
+<div class="cl-backdrop" id="cl-backdrop"></div>
+<div class="cl-toast" id="cl-toast" role="status" aria-live="polite"></div>
+<div class="cl cl-cmp-view" id="cl-cmp-view" role="dialog" aria-modal="true" aria-label="Comparativa completa"></div>
 
-<!-- Modal comparar -->
-<div class="cmp-overlay" id="cmpOverlay" onclick="closeCmpIfOut(event)">
-  <div class="cmp-modal">
-    <div class="cmp-modal-header">
-      <h2>Comparar cafeteras</h2>
-      <button class="cmp-modal-close" onclick="closeCmp()">✕</button>
-    </div>
-    <div class="cmp-modal-body">
-      <div class="cmp-table-wrap">
-        <table class="cmp-table" id="cmpTable"></table>
-      </div>
-    </div>
-  </div>
-</div>
-
+<script src="/assets/js/cmx-list.js"></script>
 <script>
-const IMG_PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' fill='%23f0f0ec'/%3E%3Ctext x='60' y='72' font-size='52' text-anchor='middle' font-family='system-ui'%3E%E2%98%95%3C/text%3E%3C/svg%3E";
-
 const productos = [
   {
     id: "cafetera-mlm41991775-1",
@@ -3519,351 +2968,106 @@ const productos = [
   }
 ];
 
-const SPEC_LABELS = [
-  ["tipo",       "Tipo",        svgIco("cup")],
-  ["presion",    "Presión",     svgIco("gauge")],
-  ["capacidad",  "Capacidad",   svgIco("drop")],
-  ["vaporizador","Vaporizador", svgIco("steam")],
-  ["compatible", "Compatible",  svgIco("bean")],
-  ["molinillo",  "Molinillo",   svgIco("grain")]
-];
-
-function svgIco(t){
-  const svgs = {
-    cup:   '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8h2a2 2 0 0 1 0 4h-2"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>',
-    gauge: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10"/><path d="m12 12 4-4"/><path d="M22 2 12 12"/></svg>',
-    drop:  '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>',
-    steam: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20 Q6 14 9 20 Q12 14 15 20 Q18 14 21 20"/><path d="M3 12 Q6 6 9 12 Q12 6 15 12 Q18 6 21 12"/></svg>',
-    bean:  '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="12" rx="7" ry="10" transform="rotate(-30 12 12)"/><path d="M12 2c0 6-4 10-4 10s4 4 4 10"/></svg>',
-    grain: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22C6.5 22 2 17.5 2 12S6.5 2 12 2s10 4.5 10 10-4.5 10-10 10z"/><path d="M12 6v6l4 2"/></svg>'
-  };
-  return svgs[t] || '';
-}
-
-function fmt(n){return n?new Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN',maximumFractionDigits:0}).format(n):null}
-function stars(n){return '★'.repeat(Math.round(n))+'☆'.repeat(5-Math.round(n))}
-
-function normTipo(t){
-  if(!t) return null;
-  const l = t.toLowerCase();
-  if(l.includes('espresso')||l.includes('expreso')||l.includes('máquina')) return 'Espresso';
-  if(l.includes('goteo')||l.includes('programable')||l==='molinillo') return 'Goteo';
-  if(l.includes('cápsula')||l.includes('capsul')) return 'Cápsulas';
-  if(l.includes('percolador')) return 'Percolador';
-  return t;
-}
-
-const filters = {tipo:'todos',vaporizador:'todos',molinillo:'todos',compatible:'todos'};
-let selected = [];
-
-function toggleCafFilter(group, val, btn){
-  filters[group] = val;
-  document.querySelectorAll('#caf-pills-'+group+' .filter').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  renderAll();
-}
-
-function clearFilters(){
-  ['tipo','vaporizador','molinillo','compatible'].forEach(g=>{
-    filters[g]='todos';
-    document.querySelectorAll('#caf-pills-'+g+' .filter').forEach(b=>b.classList.remove('on'));
-    const t=document.getElementById('f-todos-'+g);
-    if(t) t.classList.add('on');
-  });
-  const minEl=document.getElementById('precioMin');
-  const maxEl=document.getElementById('precioMax');
-  if(minEl) minEl.value='';
-  if(maxEl) maxEl.value='';
-  renderAll();
-}
-
-function openFiltersDrawer(){
-  document.getElementById('caf-filters').classList.add('open');
-  document.getElementById('caf-backdrop').classList.add('open');
-  document.getElementById('caf-filtrar-btn').setAttribute('aria-expanded','true');
-  document.body.style.overflow='hidden';
-}
-
-function closeFiltersDrawer(){
-  document.getElementById('caf-filters').classList.remove('open');
-  document.getElementById('caf-backdrop').classList.remove('open');
-  document.getElementById('caf-filtrar-btn').setAttribute('aria-expanded','false');
-  document.body.style.overflow='';
-}
-
-function renderChips(){
-  const row=document.getElementById('cafChipsRow');
-  if(!row) return;
-  const LABELS={tipo:'Tipo',vaporizador:'Vaporizador',molinillo:'Molinillo',compatible:'Compatible'};
-  const DISPLAY={molinillo:{Sí:'Con molinillo',No:'Sin molinillo'}};
-  const chips=[];
-  ['tipo','vaporizador','molinillo','compatible'].forEach(g=>{
-    if(filters[g]!=='todos'){
-      const disp=(DISPLAY[g]&&DISPLAY[g][filters[g]])||filters[g];
-      chips.push(`<button class="caf-chip" onclick="removeChip('${g}')">${LABELS[g]}: ${disp} <span class="caf-chip-x">×</span></button>`);
+/* ── Configuración del listado (plantilla cmx-list) ──
+   Solo Mercado Libre. El arreglo de productos no se toca: lo poco creíble (potencia de 110 W, 350 tazas…)
+   se oculta en los `get` y queda como "Sin dato". La BD no trae calificación ni vendidos de estas cafeteras. */
+(function () {
+  /* Preselección desde las guías (caf_preselect): se vuelve #comparar=ids, que la plantilla abre sola */
+  try {
+    var raw = sessionStorage.getItem('caf_preselect');
+    if (raw) {
+      sessionStorage.removeItem('caf_preselect');
+      var ids = JSON.parse(raw).map(String).filter(function (id) { return productos.some(function (p) { return String(p.id) === id && p.linkML; }); }).slice(0, 3);
+      if (ids.length >= 2) history.replaceState(null, '', location.pathname + location.search + '#comparar=' + ids.map(encodeURIComponent).join(','));
     }
+  } catch (e) {}
+
+  var items = productos.filter(function (p) { return !!p.linkML; }); // sin enlace de Mercado Libre no hay qué mostrar
+  var num = function (v) { return typeof v === 'number' && isFinite(v) ? v : null; };
+  var E = function (p) { return p.especs || {}; };
+  var precio = function (p) { return p.linkML ? num(p.precioML) : null; };
+  var MARCAS = { 'delonghi de mexico': "De'Longhi", 'cozéchic': 'Cozechic' };
+  var marca = function (p) { var m = (p.marca || '').trim(); return MARCAS[m.toLowerCase()] || m || null; };
+  var TIPOS = { 'Espresso': 'Espresso', 'Goteo': 'Goteo', 'Cápsulas': 'Cápsulas', 'Percoladora': 'Percoladora', 'Molinillo': 'Molinillo (accesorio)' };
+  var tipo = function (p) { return TIPOS[E(p).tipo] || null; };
+
+  /* Capacidad del depósito en litros (acepta "1.5 L" y "650 mL"; solo 0.3 a 12 L) */
+  var capL = function (p) {
+    var m = String(E(p).capacidad || '').match(/^([\d.]+)\s*(m?L)$/i); if (!m) return null;
+    var v = parseFloat(m[1]) * (/^mL$/.test(m[2]) ? 0.001 : 1);
+    return v >= 0.3 && v <= 12 ? v : null;
+  };
+  var capTxt = function (p) { var v = capL(p); if (v == null) return null; return v < 1 ? Math.round(v * 1000) + ' mL' : (Math.round(v * 100) / 100) + ' L'; };
+  var watts = function (p) { var m = String(E(p).potencia || '').match(/^(\d+)\s*W$/i); var v = m ? +m[1] : null; return v != null && v >= 300 && v <= 3000 ? v : null; };
+  var bar = function (p) { var m = String(E(p).presion || '').match(/^(\d+)\s*bar$/i); var v = m ? +m[1] : null; return v != null && v >= 9 && v <= 30 ? v : null; };
+  var tazas = function (p) { var v = parseInt(E(p).tazas, 10), t = E(p).tipo; if (!(v >= 1 && v <= 60)) return null; return (t === 'Espresso' || t === 'Cápsulas') && v > 12 ? null : v; }; // 60 tazas en una espresso doméstica no es creíble
+  var yn = function (k) { return function (p) { var v = E(p)[k]; return v === 'Sí' || v === 'No' ? v : null; }; };
+  var si = function (k) { return function (p) { return E(p)[k] === 'Sí'; }; };
+  var nesp = function (p) { return /Nespresso/i.test(E(p).compatible || ''); };
+
+  var rank = function (p) {
+    var s = document.getElementById('cl-sort'), m = s ? s.value : 'default', NO = -1e9, v;
+    if (m === 'capacidad') { v = capL(p); return v == null ? NO : v; }
+    if (m === 'potencia') { v = watts(p); return v == null ? NO : v; }
+    return (tipo(p) ? 1 : 0) + (capL(p) ? 1 : 0) + (watts(p) ? 1 : 0) + (bar(p) ? 1 : 0) + (yn('vaporizador')(p) ? 1 : 0) + (yn('molinillo')(p) ? 1 : 0) + (tazas(p) ? 1 : 0);
+  };
+  var short = function (t) { t = String(t || '').trim(); if (t.length <= 80) return t; var c = t.slice(0, 80), i = c.lastIndexOf(' '); return (i > 40 ? c.slice(0, i) : c).replace(/[,\s.-]+$/, '') + '…'; };
+
+  CmxList.init({
+    items: items,
+    section: 'cafeteras',
+    favKey: 'cafeteras',
+    title: 'Cafeteras',
+    noun: { one: 'cafetera', many: 'cafeteras', all: 'Ver todas las cafeteras' },
+    name: function (p) { return short(p.nombre); },
+    img: function (p) { return p.imagen || ''; },
+    link: function (p) { return p.linkML; },
+    price: function (p) { return precio(p); },
+    text: function (p) { return p.nombre + ' ' + (marca(p) || '') + ' ' + (E(p).tipo || ''); },
+    rank: rank,
+    specs: [
+      { label: 'Tipo', icon: 'tag', get: tipo },
+      { label: 'Capacidad', icon: 'cart', get: capTxt },
+      { label: 'Presión', icon: 'spark', get: function (p) { var v = bar(p); return v != null ? v + ' bar' : null; } },
+      { label: 'Potencia', icon: 'battery', get: function (p) { var v = watts(p); return v != null ? v + ' W' : null; } },
+      { label: 'Vaporizador', icon: 'spark', get: yn('vaporizador') },
+      { label: 'Molinillo', icon: 'spark', get: yn('molinillo') }
+    ],
+    facets: [
+      { id: 'marca', title: 'Marca', limit: 8, get: marca },
+      { id: 'tipo', title: 'Tipo de cafetera', get: tipo },
+      { id: 'cap', title: 'Capacidad del depósito', options: [
+        ['s', '1 L o menos', function (p) { var v = capL(p); return v != null && v <= 1; }],
+        ['m', 'De 1.1 a 1.8 L', function (p) { var v = capL(p); return v != null && v > 1 && v <= 1.8; }],
+        ['l', 'Más de 1.8 L', function (p) { var v = capL(p); return v != null && v > 1.8; }]] },
+      { id: 'ext', title: 'Características', mode: 'and', options: [
+        ['vap', 'Con vaporizador', si('vaporizador')],
+        ['mol', 'Molinillo integrado', si('molinillo')],
+        ['prog', 'Programable', si('programable')],
+        ['nesp', 'Compatible con Nespresso', nesp]] }
+    ],
+    compare: { rows: [
+      { label: 'Tipo', icon: 'tag', get: tipo },
+      { label: 'Capacidad del depósito', icon: 'cart', get: capTxt },
+      { label: 'Tazas', icon: 'cart', get: function (p) { var v = tazas(p); return v != null ? v + (v === 1 ? ' taza' : ' tazas') : null; } },
+      { label: 'Presión', icon: 'spark', get: function (p) { var v = bar(p); return v != null ? v + ' bar' : null; } },
+      { label: 'Potencia', icon: 'battery', get: function (p) { var v = watts(p); return v != null ? v + ' W' : null; } },
+      { label: 'Vaporizador', icon: 'spark', get: yn('vaporizador'), score: function (p) { var v = yn('vaporizador')(p); return v == null ? null : v === 'Sí' ? 1 : 0; }, why: 'incluye vaporizador para espumar leche', pick: 'Quieres espuma para cappuccino y latte' },
+      { label: 'Molinillo integrado', icon: 'spark', get: yn('molinillo'), score: function (p) { var v = yn('molinillo')(p); return v == null ? null : v === 'Sí' ? 1 : 0; }, why: 'muele el grano al momento', pick: 'Prefieres café recién molido sin comprar molinillo aparte' },
+      { label: 'Programable', icon: 'screen', get: function (p) { var v = E(p).programable; return v === 'Sí' ? 'Sí' : null; } },
+      { label: 'Compatible con cápsulas', icon: 'phone', get: function (p) { return E(p).compatible ? E(p).compatible : null; } },
+      { label: 'Filtro', icon: 'tag', get: function (p) { return E(p).filtro || null; } }
+    ] }
   });
-  const minEl=document.getElementById('precioMin');
-  const maxEl=document.getElementById('precioMax');
-  if(minEl?.value) chips.push(`<button class="caf-chip" onclick="removeChip('precioMin')">Desde $${parseInt(minEl.value).toLocaleString('es-MX')} <span class="caf-chip-x">×</span></button>`);
-  if(maxEl?.value) chips.push(`<button class="caf-chip" onclick="removeChip('precioMax')">Hasta $${parseInt(maxEl.value).toLocaleString('es-MX')} <span class="caf-chip-x">×</span></button>`);
-  row.innerHTML=chips.join('');
-}
+})();
 
-function removeChip(group){
-  if(group==='precioMin'||group==='precioMax'){
-    const el=document.getElementById(group);
-    if(el) el.value='';
-  } else {
-    filters[group]='todos';
-    document.querySelectorAll('#caf-pills-'+group+' .filter').forEach(b=>b.classList.remove('on'));
-    const t=document.getElementById('f-todos-'+group);
-    if(t) t.classList.add('on');
-  }
-  renderAll();
-}
-
-function updateFilterCount(){
-  const badge=document.getElementById('caf-filtrar-count');
-  if(!badge) return;
-  let count=['tipo','vaporizador','molinillo','compatible'].filter(g=>filters[g]!=='todos').length;
-  const minEl=document.getElementById('precioMin');
-  const maxEl=document.getElementById('precioMax');
-  if(minEl?.value) count++;
-  if(maxEl?.value) count++;
-  badge.textContent=count;
-  badge.style.display=count>0?'inline-block':'none';
-  cmxUpdateBadge();
-}
-
-function getFiltered(){
-  let list=[...productos];
-  if(filters.tipo!=='todos') list=list.filter(p=>normTipo(p.especs.tipo)===filters.tipo);
-  if(filters.vaporizador!=='todos') list=list.filter(p=>p.especs.vaporizador===filters.vaporizador);
-  if(filters.molinillo!=='todos') list=list.filter(p=>p.especs.molinillo===filters.molinillo);
-  if(filters.compatible!=='todos') list=list.filter(p=>p.especs.compatible&&p.especs.compatible.includes(filters.compatible));
-  const minStr=document.getElementById('precioMin')?.value;
-  const maxStr=document.getElementById('precioMax')?.value;
-  if(minStr){const min=parseInt(minStr);list=list.filter(p=>!p.precioML||p.precioML>=min);}
-  if(maxStr){const max=parseInt(maxStr);list=list.filter(p=>!p.precioML||p.precioML<=max);}
-  if(typeof window.cmxPass==='function') list=list.filter(p=>window.cmxPass(p));
-  const sort=document.getElementById('sortSel').value;
-  const specScore=p=>SPEC_LABELS.filter(([k])=>p.especs[k]).length;
-  if(sort==='precio_asc') list.sort((a,b)=>(a.precioML||999999)-(b.precioML||999999));
-  else if(sort==='precio_desc') list.sort((a,b)=>(b.precioML||0)-(a.precioML||0));
-  else if(sort==='estrellas') list.sort((a,b)=>(b.estrellas||0)-(a.estrellas||0));
-  else list.sort((a,b)=>specScore(b)-specScore(a));
-  return list;
-}
-
-function metricsHTML(p){
-  return '<div class="pcard-metrics">'+SPEC_LABELS.map(([k,lbl,ico])=>{
-    const v = p.especs[k]||'—';
-    return `<div class="pmetric-row"><span class="pmetric-ic">${ico}</span><span class="pmetric-lbl2">${lbl}</span><span class="pmetric-val2">${v}</span></div>`;
-  }).join('')+'</div>';
-}
-
-function platsHTML(p){
-  if(!p.linkML && !p.precioML) return '';
-  const priceStr = p.precioML ? fmt(p.precioML) : null;
-  return `<div class="card-commercial"><div class="pcard-plats one"><div class="pplat best">
-    <span class="pplat-tag">Mejor precio</span>
-    <span class="pplat-name">Mercado Libre</span>
-    <span class="pplat-price${priceStr?'':' nd'}">${priceStr||'Ver precio'}</span>
-    <a class="btn-ml" href="${p.linkML}" target="_blank" rel="noopener sponsored" data-ga-label="${(p.nombre||'').replace(/"/g,'')}" onclick="if(typeof gtag==='function')gtag('event','affiliate_click_ml',{platform:'mercado_libre',product_name:this.dataset.gaLabel||'',price:${p.precioML||0},category:'cafeteras'})">
-      Ir a Mercado Libre
-    </a>
-  </div></div></div>`;
-}
-
-function cardHTML(p){
-  const isSel = selected.includes(p.id);
-  const selNum = selected.indexOf(p.id)+1;
-  const img = p.imagen || IMG_PLACEHOLDER;
-  return `<div class="card${isSel?' selected':''}" id="card-${p.id}" onclick="toggleSel('${p.id}')">
-    ${isSel?`<div class="sel-check">${selNum}</div>`:''}
-    <div class="card-body">
-      ${p.marca?`<div class="card-brand">${p.marca}</div>`:''}
-      <div class="card-name">${p.nombre}</div>
-      ${p.estrellas?`<div class="card-stars"><span>${stars(p.estrellas)}</span><span>${p.estrellas}</span><span class="card-stars-count">(${p.resenas?p.resenas.toLocaleString('es-MX'):''})</span></div>`:''}
-      <div class="card-img-wrap">
-        <img class="card-img" src="${img}" alt="${p.nombre}" width="200" height="200" loading="lazy"
-             onerror="this.src='${IMG_PLACEHOLDER}'">
-      </div>
-      ${metricsHTML(p)}
-      ${platsHTML(p)}
-    </div>
-    <div class="card-sel-row">${isSel?'✓ Seleccionada':'+ Comparar'}</div>
-  </div>`;
-}
-
-function renderAll(){
-  const list = getFiltered();
-  const grid = document.getElementById('grid');
-  const empty = document.getElementById('emptyMsg');
-  const info = document.getElementById('resultInfo');
-  if(!list.length){grid.innerHTML='';empty.style.display='block';}
-  else{empty.style.display='none';grid.innerHTML=list.map(cardHTML).join('');}
-  info.textContent = list.length === productos.length ? `${list.length} cafeteras` : `${list.length} de ${productos.length} cafeteras`;
-  updateBar();
-  renderChips();
-  updateFilterCount();
-}
-window.render=renderAll;
-
-function toggleSel(id){
-  if(selected.includes(id)){selected=selected.filter(x=>x!==id);}
-  else if(selected.length<3){selected.push(id);}
-  renderAll();
-}
-function clearSel(){selected=[];renderAll();}
-
-function updateBar(){
-  const bar=document.getElementById('cmpBar');
-  const txt=document.getElementById('cmpBarTxt');
-  if(selected.length>0){bar.classList.add('show');txt.textContent=selected.length+' seleccionada'+(selected.length>1?'s':'');}
-  else{bar.classList.remove('show');}
-}
-
-function openCmp(){
-  if(selected.length<2)return;
-  const prods = selected.map(id=>productos.find(p=>p.id===id)).filter(Boolean);
-  const t = document.getElementById('cmpTable');
-  const n = prods.length;
-  // Determinar ganadores por precio
-  const precios = prods.map(p=>p.precioML||Infinity);
-  const minPrecio = Math.min(...precios);
-  // Header
-  let html = '<thead><tr><th></th>'+prods.map(p=>{
-    const img = p.imagen || IMG_PLACEHOLDER;
-    return `<th><img class="cmp-prod-img" src="${img}" alt="${p.nombre}" onerror="this.src='${IMG_PLACEHOLDER}'">
-      <div class="cmp-prod-name">${p.nombre}</div>
-      <div class="cmp-prod-btns">
-        ${p.linkML?`<a class="btn-ml" href="${p.linkML}" target="_blank" rel="noopener sponsored" data-ga-label="${(p.nombre||'').replace(/"/g,'')}" onclick="if(typeof gtag==='function')gtag('event','affiliate_click_ml',{platform:'mercado_libre',product_name:this.dataset.gaLabel||'',price:${p.precioML||0},category:'cafeteras'})">Ir a Mercado Libre</a>`:''}
-      </div></th>`;
-  }).join('')+'</tr></thead><tbody>';
-  // Precio
-  html += '<tr><td>Precio ML</td>'+prods.map(p=>{
-    const w = p.precioML && p.precioML===minPrecio;
-    return `<td class="${w?'cmp-winner':''}">${p.precioML?fmt(p.precioML):'N/D'}</td>`;
-  }).join('')+'</tr>';
-  // Specs
-  SPEC_LABELS.forEach(([k,lbl])=>{
-    const vals = prods.map(p=>p.especs[k]||'—');
-    // Ganador: para presión y molinillo preferir más/sí
-    html += `<tr><td>${lbl}</td>`+prods.map((p,i)=>{
-      return `<td>${vals[i]}</td>`;
-    }).join('')+'</tr>';
-  });
-  // Valoración
-  html += '<tr><td>Valoración</td>'+prods.map(p=>{
-    if(!p.estrellas) return '<td>—</td>';
-    const r = p.resenas ? ' ('+p.resenas.toLocaleString('es-MX')+' reseñas)' : '';
-    return `<td>${p.estrellas} ★${r}</td>`;
-  }).join('')+'</tr>';
-  // Botón ver en tienda
-  html += '<tr><td>Ver en tienda</td>'+prods.map(p=>{
-    if(!p.linkML) return '<td>—</td>';
-    return `<td><a class="btn-ml" href="${p.linkML}" target="_blank" rel="noopener sponsored" style="display:inline-flex;align-items:center;gap:4px;padding:8px 14px;width:auto;border-radius:8px;white-space:nowrap" data-ga-label="${(p.nombre||'').replace(/"/g,'')}" onclick="if(typeof gtag==='function')gtag('event','affiliate_click_ml',{platform:'mercado_libre',product_name:this.dataset.gaLabel||'',price:${p.precioML||0},category:'cafeteras'})">Ir a Mercado Libre</a></td>`;
-  }).join('')+'</tr>';
-  html += '</tbody>';
-  t.innerHTML = html;
-  document.getElementById('cmpOverlay').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-
-function closeCmp(){
-  document.getElementById('cmpOverlay').classList.remove('open');
-  document.body.style.overflow='';
-}
-function closeCmpIfOut(e){if(e.target===e.currentTarget)closeCmp();}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCmp();});
-
-/* ── Funciones mejora móvil ── */
-function cmxTypeFilter(btn){
-  const val = btn.dataset.value;
-  const isActive = btn.classList.contains('active');
-  // Deselect all chips first
-  document.querySelectorAll('.cmx-type-chip').forEach(b=>b.classList.remove('active'));
-  // Find the target pill in the sidebar panel and click it
-  const target = isActive ? 'todos' : val;
-  const pills = document.querySelectorAll('#caf-pills-tipo .filter');
-  for(const p of pills){
-    const oc = p.getAttribute('onclick')||'';
-    const matchTodos = target==='todos' && p.id==='f-todos-tipo';
-    const matchVal = oc.includes("'"+target+"'");
-    if(matchTodos||matchVal){ p.click(); break; }
-  }
-  if(!isActive) btn.classList.add('active');
-}
-
-function cmxToggleElegir(){
-  const panel = document.getElementById('cmxPanelElegir');
-  if(!panel) return;
-  const isOpening = !panel.classList.contains('open');
-  panel.classList.toggle('open');
-  panel.setAttribute('aria-hidden', isOpening?'false':'true');
-  const btn = document.getElementById('cmxBtnElegir');
-  if(btn) btn.style.background = isOpening ? '#f0faf5' : '';
-  if(isOpening){
-    // Si el panel está fuera de la vista (el usuario scrolleó hacia abajo),
-    // scroll para que quede visible justo debajo de la barra sticky
-    setTimeout(()=>{
-      const sbar = document.getElementById('cmxSbar');
-      const rect = panel.getBoundingClientRect();
-      if(rect.top < 0 || rect.top > window.innerHeight * 0.6){
-        const targetY = panel.offsetTop - (sbar ? sbar.offsetHeight : 44) - 63;
-        window.scrollTo({top: Math.max(0, targetY), behavior:'smooth'});
-      }
-    }, 30);
-  }
-}
-
-function cmxOpenFilters(){
-  openFiltersDrawer();
-}
-
-function cmxUpdateBadge(){
-  const badge = document.getElementById('cmxBadge');
-  const btn = document.getElementById('cmxBtnFiltrar');
-  if(!badge||!btn) return;
-  const srcBadge = document.getElementById('caf-filtrar-count');
-  const count = srcBadge ? parseInt(srcBadge.textContent||'0') : 0;
-  if(count>0){
-    badge.textContent = count;
-    badge.style.display = '';
-    btn.classList.add('has-filters');
-  } else {
-    badge.style.display = 'none';
-    btn.classList.remove('has-filters');
-  }
-}
-
-renderAll();
-// Pre-selección desde la guía de cafeteras
-try{
-  var _pre=sessionStorage.getItem('caf_preselect');
-  if(_pre){
-    var _ids=JSON.parse(_pre);
-    sessionStorage.removeItem('caf_preselect');
-    _ids.forEach(function(id){if(selected.length<3)toggleSel(id);});
-    if(selected.length>=2)setTimeout(openCmp,120);
-  }
-}catch(e){}
-
-function seoFilter(group,val){
-  var pills=document.querySelectorAll('#caf-pills-'+group+' .filter');
-  for(var i=0;i<pills.length;i++){
-    var oc=pills[i].getAttribute('onclick')||'';
-    if(oc.indexOf("'"+val+"'")!==-1){pills[i].click();break;}
-  }
-  document.getElementById('caf-filters').scrollIntoView({behavior:'smooth',block:'start'});
-}
 </script>
 
-<script src="/assets/js/share.js" defer></script>
+<script>try{sessionStorage.setItem('cmx_onboarding_v1','1');}catch(e){}</script>
 <script src="/assets/js/price-drops.js" defer></script>
 <script src="/js/onboarding.js" defer></script>
+<script src="/assets/js/share.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
+<script src="/assets/js/cmx-hub.js" defer></script>
 </body>
 </html>
