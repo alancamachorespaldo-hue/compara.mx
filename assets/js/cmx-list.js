@@ -27,7 +27,9 @@
     up: '<polyline points="6 15 12 9 18 15"/>',
     back: '<line x1="19" y1="12" x2="5" y2="12"/><polyline points="11 6 5 12 11 18"/>',
     filter: '<polygon points="22 3 2 3 10 12.5 10 19 14 21 14 12.5 22 3"/>',
-    x: '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>'
+    x: '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>',
+    chart: '<line x1="3" y1="21" x2="21" y2="21"/><rect x="5" y="12" width="3.5" height="7"/><rect x="10.2" y="7" width="3.5" height="12"/><rect x="15.4" y="14" width="3.5" height="5"/>',
+    chev: '<polyline points="6 9 12 15 18 9"/>'
   };
   var ML_IC = '<img class="cl-ml-ic" src="/logomercado-ic.png" alt="">';
   var EMPTY_ART = '<svg width="180" height="120" viewBox="0 0 180 120" fill="none" aria-hidden="true"><ellipse cx="86" cy="62" rx="74" ry="46" fill="#EAF7EF"/><rect x="58" y="6" width="40" height="18" rx="5" fill="#00843D"/><rect x="58" y="94" width="40" height="20" rx="5" fill="#00843D"/><rect x="48" y="20" width="60" height="78" rx="14" fill="#fff" stroke="#111827" stroke-width="5"/><polyline points="68 60 76 68 90 52" stroke="#00843D" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="122" cy="80" r="19" fill="#fff" stroke="#111827" stroke-width="6"/><line x1="136" y1="94" x2="152" y2="110" stroke="#111827" stroke-width="8" stroke-linecap="round"/><line x1="128" y1="14" x2="134" y2="26" stroke="#F6D94A" stroke-width="5" stroke-linecap="round"/><line x1="146" y1="18" x2="140" y2="30" stroke="#F6D94A" stroke-width="5" stroke-linecap="round"/></svg>';
@@ -39,6 +41,7 @@
     var favKey = 'comparalo:fav:' + (cfg.favKey || cfg.section);
     var favs = (function () { try { return new Set(JSON.parse(localStorage.getItem(favKey) || '[]')); } catch (e) { return new Set(); } })();
     var price = cfg.price, byId = {};
+    if (cfg.historico && window.cmxHist) window.cmxHist.init(cfg.historico);
     items.forEach(function (p) { byId[String(p.id)] = p; });
     var prices = items.map(function (p) { return price(p); }).filter(function (v) { return typeof v === 'number'; });
     var PMIN = prices.length ? Math.floor(Math.min.apply(null, prices) / 100) * 100 : 0;
@@ -205,7 +208,26 @@
         + '<ul class="cl-specs">' + specs + '</ul>'
         + '<div class="cl-price"><div class="cl-price-store">' + ML_IC + '<span>Mercado<br>Libre</span></div>'
         + '<div class="cl-price-row">' + (typeof v === 'number' ? '<strong>' + money(v) + '</strong>' : '<strong>Consulta el precio</strong>') + (d ? '<s>' + money(d.antes) + '</s>' : '') + '</div>'
-        + buy(p, v, vv) + '</div></article>';
+        + buy(p, v, vv) + '</div>' + histBtn(p, vv) + '</article>';
+    }
+    /* Histórico de precio: una sola línea al pie de la tarjeta. NO expande la tarjeta: abre una
+       ventana superpuesta (cmx-historico.js), donde sí caben las fechas, los precios y el registro. */
+    function histBtn(p, vv) {
+      if (!cfg.historico || !window.cmxHist) return '';
+      var hid = cfg.histId ? cfg.histId(p, vv) : p.id;
+      if (hid == null || hid === '') return '';
+      return '<button type="button" class="cl-hist-b" data-hist="' + esc(hid) + '">'
+        + svg(IC.chart, 16, 1.8) + '<span class="lg">Histórico de precio · 30 días</span><span class="sm">Histórico · 30 días</span>'
+        + svg(IC.arrow, 15, 2.4) + '</button>';
+    }
+    function abrirHist(btn) {
+      var art = btn.closest('.cl-card'), pid = String(art.getAttribute('data-id'));
+      var p = byId[pid], vv = p ? V(p) : undefined;
+      window.cmxHist.abrir(btn.getAttribute('data-hist'), {
+        nombre: p ? cfg.name(p) : '', img: p ? cfg.img(p) : '',
+        chip: vmap && vv !== undefined ? vmap.chip(vv) : '',
+        precio: p ? price(p, vv) : null, section: cfg.section, origen: 'tarjeta',
+      });
     }
     function buy(p, v, vv) {
       return '<a class="cl-btn-ml" href="' + esc(cfg.link(p, vv)) + '" target="_blank" rel="sponsored nofollow noopener" data-n="' + esc(full(p)) + '" data-v="' + (v || 0) + '">' + ML_IC + '<span class="lg">Ver en Mercado Libre</span><span class="sm">Ver en ML</span> <span aria-hidden="true">&#8599;</span></a>';
@@ -335,6 +357,7 @@
         + '<div class="cl-panel"><h3>Resumen de la comparación</h3><div class="cl-note"><h4>' + logo + '¿Cuál conviene más?</h4>' + resumen + '</div>'
         + ticks(['Comparamos ' + nRows + ' características', 'Precios de Mercado Libre México', 'Datos tomados de la ficha de cada producto', 'Conclusión basada solo en los datos disponibles']) + '</div>'
         + '<div class="cl-cmp-mid"><div class="cl-table-wrap"><table class="cl-table"><thead><tr><th>Característica</th>' + head + '</tr></thead><tbody>' + body + '</tbody></table></div>'
+        + '<div id="cl-cmp-hist"></div>'
         + '<p class="cl-cmp-foot">Los precios pueden cambiar; confirma el precio final y la disponibilidad en Mercado Libre. Donde dice «Sin dato», abre la publicación (botón «Ver en Mercado Libre») y revisa la ficha técnica y las preguntas de los compradores: ahí suele aparecer. Si compras desde estos enlaces podemos recibir una comisión, sin costo adicional para ti. La comisión no influye en el veredicto.</p></div>'
         + '<div class="cl-panel cl-verdict"><h3>' + logo + 'Veredicto de Compáralo</h3>' + veredicto + '</div>'
         + '</div>';
@@ -343,6 +366,25 @@
       document.body.style.overflow = 'hidden';
       if (location.hash !== '#comparativa') { try { history.pushState({ clCmp: 1 }, '', '#comparativa'); } catch (e) {} }
       ga('click_comparar_categoria', { page_section: cfg.section, value: ps.length });
+      // Histórico bajo la tabla: una gráfica por producto, misma escala y mismo periodo.
+      if (cfg.historico && window.cmxHist) {
+        var cont = $('cl-cmp-hist');
+        var lista = ps.map(function (p) {
+          var vv = V(p);
+          return { id: cfg.histId ? cfg.histId(p, vv) : p.id, nombre: short(p) };
+        });
+        window.cmxHist.cargar().then(function () {
+          if (!cont || !cont.parentNode) return;
+          cont.innerHTML = window.cmxHist.comparativa(lista);
+          if (!cont.firstChild) return;
+          ga('historico_comparativa_view', {
+            comparison_id: typeof window.buildComparisonId === 'function'
+              ? window.buildComparisonId(lista.map(function (x) { return String(x.id); }))
+              : lista.map(function (x) { return String(x.id); }).sort().join('__'),
+            productos: lista.length, page_section: cfg.section, origen: 'comparativa',
+          });
+        });
+      }
     }
     function closeCompare(fromPop) {
       var v = $('cl-cmp-view'); if (!v || !v.classList.contains('is-on')) return;
@@ -364,6 +406,7 @@
       var t = e.target, el;
       if (t.closest('[data-cmp-guia]')) { ga('comparativa_volver_guia', { page_section: cfg.section }); return; }
       if ((el = t.closest('.cl-btn-ml[data-n]'))) { ga('affiliate_click_ml', { platform: 'mercado_libre', product_name: el.getAttribute('data-n'), price: parseFloat(el.getAttribute('data-v')) || 0, page_section: cfg.section }); return; }
+      if ((el = t.closest('[data-hist]'))) { abrirHist(el); return; }
       if ((el = t.closest('[data-var]'))) { st.vsel[String(el.closest('.cl-card').getAttribute('data-id'))] = el.getAttribute('data-var'); render(); return; }
       if ((el = t.closest('[data-chip]'))) { removeChip(el.getAttribute('data-chip')); return; }
       if ((el = t.closest('[data-unpick]'))) { pick(el.getAttribute('data-unpick')); return; }
