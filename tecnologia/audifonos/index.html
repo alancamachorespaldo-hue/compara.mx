@@ -728,7 +728,7 @@ const productos = [
     nombre: "Auriculares Bluetooth Inalámbricos TWS 5.3 Mini Color Negro",
     marca: "Skululu",
     linkML: "https://meli.la/1mUrSMo",
-    precioML: 74,
+    precioML: 145,
     imagen: "https://http2.mlstatic.com/D_NQ_NP_784208-MLA82151109387_012025-F.jpg",
     especs: { "formato": "In-ear", "inalambrico": "Sí", "microfono": "Sí", "bateria": "6 h" },
     mlId: "MLM45741743",
@@ -875,7 +875,7 @@ const productos = [
     nombre: "Audífonos Inalámbricos Xiaomi Redmi Buds 8 Lite Batería Hasta 36Hrs Black",
     marca: "Xiaomi",
     linkML: "https://meli.la/1gTtd2D",
-    precioML: 439,
+    precioML: 431,
     imagen: "https://http2.mlstatic.com/D_NQ_NP_797390-MLA104126988228_012026-F.jpg",
     especs: {
       "formato": "In-ear",
@@ -1491,6 +1491,7 @@ const productos = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 
 

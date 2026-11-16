@@ -1,6 +1,6 @@
 {
   "fecha": "2026-11-16",
-  "generado": "2026-11-16T21:44:14.857Z",
+  "generado": "2026-11-16T22:55:35.159Z",
   "categorias": [
     "laptops",
     "freidoras",
@@ -30,11 +30,11 @@
     "tecnologia_smartwatches"
   ],
   "totales": {
-    "actualizados": 118,
-    "sin_cambio": 998,
-    "sin_precio": 81,
+    "actualizados": 25,
+    "sin_cambio": 1097,
+    "sin_precio": 72,
     "no_encontrado": 0,
-    "precio_sospechoso": 0,
+    "precio_sospechoso": 1,
     "sin_id": 1
   },
   "productos": [
@@ -90,16 +90,6 @@
     },
     {
       "categoria": "laptops",
-      "id": 23,
-      "nombre": "Apple MacBook Air 15 M5 16GB 512GB Azul Cielo",
-      "marca": "Apple",
-      "mlId": "MLM73080506",
-      "precioAntes": 24899,
-      "estado": "sin_cambio",
-      "precioML": 24899
-    },
-    {
-      "categoria": "laptops",
       "id": 30,
       "nombre": "Acer Nitro V 16S Ryzen 7 260 32GB 1TB RTX 5060 Gaming",
       "marca": "Acer",
@@ -114,9 +104,8 @@
       "nombre": "HP OmniBook 17 Core Ultra 7-258V 32GB 1TB Touch FHD",
       "marca": "HP",
       "mlId": "MLM69741169",
-      "precioAntes": 23428,
-      "estado": "actualizado",
-      "precioNuevo": 19352,
+      "precioAntes": 19352,
+      "estado": "sin_cambio",
       "precioML": 19352
     },
     {
@@ -145,9 +134,8 @@
       "nombre": "HP Pavilion 15 Intel N200 4GB 128GB",
       "marca": "HP",
       "mlId": "MLM63240659",
-      "precioAntes": 4851,
-      "estado": "actualizado",
-      "precioNuevo": 5082,
+      "precioAntes": 5082,
+      "estado": "sin_cambio",
       "precioML": 5082
     },
     {
@@ -176,9 +164,8 @@
       "nombre": "HP 14 Celeron N150 4GB 128GB Rosa Dorado 14-dq6015dx",
       "marca": "HP",
       "mlId": "MLM58343227",
-      "precioAntes": 4699,
-      "estado": "actualizado",
-      "precioNuevo": 4839,
+      "precioAntes": 4839,
+      "estado": "sin_cambio",
       "precioML": 4839
     },
     {
@@ -187,9 +174,8 @@
       "nombre": "Apple MacBook Pro 14\" M5 10CPU 10GPU 16GB 1TB Negro Espacial (2025)",
       "marca": "Apple",
       "mlId": "MLM1054139854",
-      "precioAntes": 43368,
-      "estado": "actualizado",
-      "precioNuevo": 43326,
+      "precioAntes": 43326,
+      "estado": "sin_cambio",
       "precioML": 43326
     },
     {
@@ -249,8 +235,9 @@
       "marca": "Asus",
       "mlId": "MLM77331152",
       "precioAntes": 15455,
-      "estado": "sin_cambio",
-      "precioML": 15455
+      "estado": "actualizado",
+      "precioNuevo": 15862,
+      "precioML": 15862
     },
     {
       "categoria": "laptops",
@@ -288,10 +275,10 @@
       "nombre": "HP Intel N250 4GB DDR5 128GB UFS Screen 15.6 HD Windows 11 Intel Graphics Laptop 15-FD0092 With Gift",
       "marca": "HP",
       "mlId": "MLM75474152",
-      "precioAntes": 4954,
+      "precioAntes": 5183,
       "estado": "actualizado",
-      "precioNuevo": 5183,
-      "precioML": 5183
+      "precioNuevo": 5345,
+      "precioML": 5345
     },
     {
       "categoria": "laptops",
@@ -299,9 +286,8 @@
       "nombre": "Hp Pavilion Core I5 1334u 512gb Ssd 8gb Ram Pantalla Fhd 1920 Px X 1080 Px Intel Iris Xe Graphics Incluye Windows Instalado Laptop 15-fd0152 Con Regalo",
       "marca": "HP",
       "mlId": "MLM54098986",
-      "precioAntes": 12217,
-      "estado": "actualizado",
-      "precioNuevo": 9673,
+      "precioAntes": 9673,
+      "estado": "sin_cambio",
       "precioML": 9673
     },
     {
@@ -310,9 +296,8 @@
       "nombre": "Notebook Gamer HP OmniBook de 16\" WUXGA con Intel Core Ultra 7 355 24 GB RAM y 1 TB SSD Intel Graphics",
       "marca": "HP",
       "mlId": "MLM80023002",
-      "precioAntes": 19365,
-      "estado": "actualizado",
-      "precioNuevo": 21579,
+      "precioAntes": 21579,
+      "estado": "sin_cambio",
       "precioML": 21579
     },
     {
@@ -331,9 +316,8 @@
       "nombre": "Laptop Gamer HP Victus NVIDIA GeForce RTX 3050 Intel Core i5 8GB RAM 512GB SSD Windows 11 Home",
       "marca": "HP",
       "mlId": "MLM50283172",
-      "precioAntes": 15096,
-      "estado": "actualizado",
-      "precioNuevo": 14644,
+      "precioAntes": 14644,
+      "estado": "sin_cambio",
       "precioML": 14644
     },
     {
@@ -352,9 +336,8 @@
       "nombre": "Laptop Asus Zenbook 14 Ultra5225H 16gb 512gb + Sleeve",
       "marca": "Asus",
       "mlId": "MLM69533291",
-      "precioAntes": 17899,
-      "estado": "actualizado",
-      "precioNuevo": 17849,
+      "precioAntes": 17849,
+      "estado": "sin_cambio",
       "precioML": 17849
     },
     {
@@ -363,10 +346,10 @@
       "nombre": "HP Ryzen 5 7520U 8GB RAM 1TB SSD Pantalla 15,6 FHD 1920 x 1080 AMD Radeon Graphics Windows 11 Instalado Laptop 15-FC0025 Con Regalo",
       "marca": "HP",
       "mlId": "MLM69612379",
-      "precioAntes": 12440,
+      "precioAntes": 12103,
       "estado": "actualizado",
-      "precioNuevo": 12103,
-      "precioML": 12103
+      "precioNuevo": 12441,
+      "precioML": 12441
     },
     {
       "categoria": "laptops",
@@ -384,9 +367,8 @@
       "nombre": "Asus 2 en 1 Core I5 8gb Ram 512gb Ssd Pantalla Táctil 16 Wuxga 1920 Px X 1200 Px Incluye Windows Instalado Intel Iris Xe Graphics Laptop Gamer Tp3604va Con Regalo",
       "marca": "Asus",
       "mlId": "MLM73943613",
-      "precioAntes": 12064,
-      "estado": "actualizado",
-      "precioNuevo": 11162,
+      "precioAntes": 11162,
+      "estado": "sin_cambio",
       "precioML": 11162
     },
     {
@@ -405,9 +387,8 @@
       "nombre": "Laptop Asus Vivobook 15 Ci5 120 16GB 512GB SSD+ Mochila y Mouse",
       "marca": "Asus",
       "mlId": "MLM67134843",
-      "precioAntes": 13899,
-      "estado": "actualizado",
-      "precioNuevo": 13699,
+      "precioAntes": 13699,
+      "estado": "sin_cambio",
       "precioML": 13699
     },
     {
@@ -447,8 +428,9 @@
       "marca": "Dell",
       "mlId": "MLM69968498",
       "precioAntes": 20530,
-      "estado": "sin_cambio",
-      "precioML": 20530
+      "estado": "actualizado",
+      "precioNuevo": 21164,
+      "precioML": 21164
     },
     {
       "categoria": "laptops",
@@ -499,6 +481,26 @@
       "precioAntes": 3104,
       "estado": "sin_cambio",
       "precioML": 3104
+    },
+    {
+      "categoria": "laptops",
+      "id": "52",
+      "nombre": "HP Pavilion 17 Core 5-120U 16GB 1TB Touch HD+",
+      "marca": "HP",
+      "mlId": "MLM56952040",
+      "precioAntes": 14196,
+      "estado": "sin_precio",
+      "precioML": null
+    },
+    {
+      "categoria": "laptops",
+      "id": "75",
+      "nombre": "Apple MacBook Air 13\" M5 10CPU 10GPU 24GB 1TB Plateado (2026)",
+      "marca": "Apple",
+      "mlId": "MLM1066159885",
+      "precioAntes": 42499,
+      "estado": "sin_cambio",
+      "precioML": 42499
     },
     {
       "categoria": "freidoras",
@@ -566,9 +568,8 @@
       "nombre": "Oster CKSTAF75WDSSDF Freidora de Aire 7.5L DiamondForce",
       "marca": "Oster",
       "mlId": "MLM45024769",
-      "precioAntes": 1690,
-      "estado": "actualizado",
-      "precioNuevo": 1593,
+      "precioAntes": 1593,
+      "estado": "sin_cambio",
       "precioML": 1593
     },
     {
@@ -637,9 +638,8 @@
       "nombre": "MasterChef Hukën MK-AFO-12DT Horno Freidora de Aire 12L Táctil",
       "marca": "MasterChef",
       "mlId": "MLM21855677",
-      "precioAntes": 1689,
-      "estado": "actualizado",
-      "precioNuevo": 1579,
+      "precioAntes": 1579,
+      "estado": "sin_cambio",
       "precioML": 1579
     },
     {
@@ -658,9 +658,8 @@
       "nombre": "MasterChef MK-AFO-12SS Horno Freidora Aire Multifuncional 12L Inox 10-en-1",
       "marca": "MasterChef",
       "mlId": "MLM19631775",
-      "precioAntes": 1649,
-      "estado": "actualizado",
-      "precioNuevo": 1599,
+      "precioAntes": 1599,
+      "estado": "sin_cambio",
       "precioML": 1599
     },
     {
@@ -699,9 +698,8 @@
       "nombre": "RCA RC-110 Freidora de Aire Digital 5L con Ventana",
       "marca": "RCA",
       "mlId": "MLM44230015",
-      "precioAntes": 1120,
-      "estado": "actualizado",
-      "precioNuevo": 1109,
+      "precioAntes": 1109,
+      "estado": "sin_cambio",
       "precioML": 1109
     },
     {
@@ -710,9 +708,8 @@
       "nombre": "Ninja DoubleStack SL401LAA Freidora de Aire Doble XL 9.5L",
       "marca": "Ninja",
       "mlId": "MLM56570065",
-      "precioAntes": 3639,
-      "estado": "actualizado",
-      "precioNuevo": 3529,
+      "precioAntes": 3529,
+      "estado": "sin_cambio",
       "precioML": 3529
     },
     {
@@ -741,9 +738,8 @@
       "nombre": "Patbrela AF305 Freidora de Aire 12L Digital con Ventana 11 Funciones",
       "marca": "PATBRELA",
       "mlId": "MLM63441514",
-      "precioAntes": 982,
-      "estado": "actualizado",
-      "precioNuevo": 1076,
+      "precioAntes": 1076,
+      "estado": "sin_cambio",
       "precioML": 1076
     },
     {
@@ -782,10 +778,10 @@
       "nombre": "Ninja Freidora de Aire Pro 4 en 1 Air Fry, Rostizar, Recalentar y Deshidratar 75% Menos Grasa Canasta de 5 Qt Antiadherente para Alitas y Papas Crujientes Sin Aceite AF141LAA",
       "marca": "Ninja",
       "mlId": "MLM63227959",
-      "precioAntes": 1839,
+      "precioAntes": 2200,
       "estado": "actualizado",
-      "precioNuevo": 2200,
-      "precioML": 2200
+      "precioNuevo": 1839,
+      "precioML": 1839
     },
     {
       "categoria": "freidoras",
@@ -873,9 +869,8 @@
       "nombre": "Cecotec Freidora De Aire Cecofry&grill Duoheat 10000 Negro",
       "marca": "Cecotec",
       "mlId": "MLM69243415",
-      "precioAntes": 4261,
-      "estado": "actualizado",
-      "precioNuevo": 4133,
+      "precioAntes": 4133,
+      "estado": "sin_cambio",
       "precioML": 4133
     },
     {
@@ -1295,8 +1290,8 @@
       "marca": "Moboss",
       "mlId": "MLM63072424",
       "precioAntes": 22999,
-      "estado": "sin_cambio",
-      "precioML": 22999
+      "estado": "sin_precio",
+      "precioML": null
     },
     {
       "categoria": "bicis",
@@ -1384,9 +1379,8 @@
       "nombre": "Horno De Microondas 7 Pies 20 Lts Acero Inox Espejo 120v",
       "marca": "SHTARK",
       "mlId": "MLM44355459",
-      "precioAntes": 1599,
-      "estado": "actualizado",
-      "precioNuevo": 1999,
+      "precioAntes": 1999,
+      "estado": "sin_cambio",
       "precioML": 1999
     },
     {
@@ -1395,9 +1389,8 @@
       "nombre": "Koblenz MWKM07IRA-PLA 20L Espejo",
       "marca": "Koblenz",
       "mlId": "MLM44794962",
-      "precioAntes": 1868,
-      "estado": "actualizado",
-      "precioNuevo": 1599,
+      "precioAntes": 1599,
+      "estado": "sin_cambio",
       "precioML": 1599
     },
     {
@@ -1436,9 +1429,8 @@
       "nombre": "White-Westinghouse WWCMV0720WES 20L Silver",
       "marca": "White-Westinghouse",
       "mlId": "MLM43424701",
-      "precioAntes": 1458,
-      "estado": "actualizado",
-      "precioNuevo": 1503,
+      "precioAntes": 1503,
+      "estado": "sin_cambio",
       "precioML": 1503
     },
     {
@@ -1487,9 +1479,8 @@
       "nombre": "Acros AM1807W 20L Blanco",
       "marca": "Acros",
       "mlId": "MLM18568392",
-      "precioAntes": 1988,
-      "estado": "actualizado",
-      "precioNuevo": 1690,
+      "precioAntes": 1690,
+      "estado": "sin_cambio",
       "precioML": 1690
     },
     {
@@ -1518,9 +1509,8 @@
       "nombre": "Mabe HMM07BBW 19.8L Negro",
       "marca": "Mabe",
       "mlId": "MLM65357421",
-      "precioAntes": 1759,
-      "estado": "actualizado",
-      "precioNuevo": 1706,
+      "precioAntes": 1706,
+      "estado": "sin_cambio",
       "precioML": 1706
     },
     {
@@ -1539,9 +1529,8 @@
       "nombre": "Midea MMDF07S2BW Practia 20L Blanco",
       "marca": "Midea",
       "mlId": "MLM18711597",
-      "precioAntes": 1399,
-      "estado": "actualizado",
-      "precioNuevo": 1293,
+      "precioAntes": 1293,
+      "estado": "sin_cambio",
       "precioML": 1293
     },
     {
@@ -1640,9 +1629,8 @@
       "nombre": "Health Hack Bone Broth - Caldo de Huesos",
       "marca": "Health Hack",
       "mlId": "MLM46839603",
-      "precioAntes": 498,
-      "estado": "actualizado",
-      "precioNuevo": 472,
+      "precioAntes": 472,
+      "estado": "sin_cambio",
       "precioML": 472
     },
     {
@@ -1811,9 +1799,8 @@
       "nombre": "Birdman Falcon Performance Proteína Vegana Choco Bronze 1.9 kg",
       "marca": "Birdman",
       "mlId": "MLM18486369",
-      "precioAntes": 1088,
-      "estado": "actualizado",
-      "precioNuevo": 1099,
+      "precioAntes": 1099,
+      "estado": "sin_cambio",
       "precioML": 1099
     },
     {
@@ -1822,9 +1809,8 @@
       "nombre": "Birdman Falcon Protein Proteína Vegetal Chocolate 1.8 kg",
       "marca": "Birdman",
       "mlId": "MLM18726606",
-      "precioAntes": 1070,
-      "estado": "actualizado",
-      "precioNuevo": 1099,
+      "precioAntes": 1099,
+      "estado": "sin_cambio",
       "precioML": 1099
     },
     {
@@ -1903,9 +1889,8 @@
       "nombre": "MuscleMeds Carnivor Mass Chocolate 5.9 lb",
       "marca": "MuscleMeds",
       "mlId": "MLM24569635",
-      "precioAntes": 951,
-      "estado": "actualizado",
-      "precioNuevo": 928,
+      "precioAntes": 928,
+      "estado": "sin_cambio",
       "precioML": 928
     },
     {
@@ -2104,9 +2089,8 @@
       "nombre": "Forzagen Proteína Forzagen Lean Gainer en polvo sabor Chocolate x 5.44kg",
       "marca": "Forzagen",
       "mlId": "MLM19874439",
-      "precioAntes": 1349,
-      "estado": "actualizado",
-      "precioNuevo": 1305,
+      "precioAntes": 1305,
+      "estado": "sin_cambio",
       "precioML": 1305
     },
     {
@@ -2115,9 +2099,8 @@
       "nombre": "Naíma Proteina de Soya. Naíma en polvo Sin sabor x 1kg",
       "marca": "Naíma",
       "mlId": "MLM74816773",
-      "precioAntes": 332,
-      "estado": "actualizado",
-      "precioNuevo": 298,
+      "precioAntes": 298,
+      "estado": "sin_cambio",
       "precioML": 298
     },
     {
@@ -2176,9 +2159,8 @@
       "nombre": "Hero sport Proteína de suero aislada Hero sport Proteínas Pure and Natural en polvo Sin sabor x 1.025kg",
       "marca": "Hero sport",
       "mlId": "MLM25747887",
-      "precioAntes": 1149,
-      "estado": "actualizado",
-      "precioNuevo": 1034,
+      "precioAntes": 1034,
+      "estado": "sin_cambio",
       "precioML": 1034
     },
     {
@@ -2726,9 +2708,8 @@
       "nombre": "Birdman Creatine For Women Pink Lemonade 40 Porciones",
       "marca": "Birdman",
       "mlId": "MLM67681202",
-      "precioAntes": 419,
-      "estado": "actualizado",
-      "precioNuevo": 479,
+      "precioAntes": 479,
+      "estado": "sin_cambio",
       "precioML": 479
     },
     {
@@ -2797,9 +2778,8 @@
       "nombre": "Evogen Creatina Monohidratada Micronizada 300 g 60 Servicios",
       "marca": "Evogen",
       "mlId": "MLM29559971",
-      "precioAntes": 369,
-      "estado": "actualizado",
-      "precioNuevo": 366,
+      "precioAntes": 366,
+      "estado": "sin_cambio",
       "precioML": 366
     },
     {
@@ -3034,16 +3014,6 @@
     },
     {
       "categoria": "complejo_b",
-      "id": 119,
-      "nombre": "B Life Complejo B y Levadura de Cerveza 180 Días – 180 Cápsulas",
-      "marca": "B Life Company",
-      "mlId": "MLM53298156",
-      "precioAntes": 226,
-      "estado": "sin_cambio",
-      "precioML": 226
-    },
-    {
-      "categoria": "complejo_b",
       "id": 120,
       "nombre": "Spring Valley Vitamina B12 1000mcg – 60 Tabletas",
       "marca": "Spring Valley",
@@ -3059,8 +3029,9 @@
       "marca": "Nintendo",
       "mlId": "MLM49200061",
       "precioAntes": 10125,
-      "estado": "sin_cambio",
-      "precioML": 10125
+      "estado": "actualizado",
+      "precioNuevo": 10106,
+      "precioML": 10106
     },
     {
       "categoria": "videojuegos_consolas",
@@ -3084,6 +3055,16 @@
     },
     {
       "categoria": "videojuegos_consolas",
+      "id": "CON-PS5D-001",
+      "nombre": "Consola PlayStation 5 Digital Edition",
+      "marca": "Sony",
+      "mlId": "MLM16253015",
+      "precioAntes": 15386,
+      "estado": "sin_cambio",
+      "precioML": 15386
+    },
+    {
+      "categoria": "videojuegos_consolas",
       "id": "CON-PS4S-001",
       "nombre": "Consola PlayStation 4 Slim 1TB",
       "marca": "Sony",
@@ -3098,9 +3079,8 @@
       "nombre": "Consola Xbox Series X Digital Robot White 1TB",
       "marca": "Microsoft",
       "mlId": "MLM40162063",
-      "precioAntes": 16500,
-      "estado": "actualizado",
-      "precioNuevo": 16527,
+      "precioAntes": 16527,
+      "estado": "sin_cambio",
       "precioML": 16527
     },
     {
@@ -3259,10 +3239,152 @@
       "nombre": "Consola Lenovo Legion Go S 16GB 512GB Blanco",
       "marca": "Lenovo",
       "mlId": "MLM45819259",
-      "precioAntes": 29999,
-      "estado": "actualizado",
-      "precioNuevo": 15999,
+      "precioAntes": 15999,
+      "estado": "sin_cambio",
       "precioML": 15999
+    },
+    {
+      "categoria": "videojuegos_consolas",
+      "id": "CON-XBSS1TD-001",
+      "nombre": "Consola Xbox Series S Digital 1TB Blanca",
+      "marca": "Microsoft",
+      "mlId": "MLM44230040",
+      "precioAntes": 12168,
+      "estado": "sin_cambio",
+      "precioML": 12168
+    },
+    {
+      "categoria": "videojuegos_consolas",
+      "id": "CON-XBSS1TB-001",
+      "nombre": "Consola Xbox Series S 1TB Blanca",
+      "marca": "Microsoft",
+      "mlId": "MLM48715864",
+      "precioAntes": 11961,
+      "estado": "sin_cambio",
+      "precioML": 11961
+    },
+    {
+      "categoria": "videojuegos_consolas",
+      "id": "CON-XBSS1TC-001",
+      "nombre": "Consola Xbox Series S 1TB Blanca con cable HDMI",
+      "marca": "Microsoft",
+      "mlId": "MLM59412325",
+      "precioAntes": 13429,
+      "estado": "sin_cambio",
+      "precioML": 13429
+    },
+    {
+      "categoria": "videojuegos_consolas",
+      "id": "CON-XBSS512B-001",
+      "nombre": "Consola Xbox Series S 512GB Blanca",
+      "marca": "Microsoft",
+      "mlId": "MLM23297961",
+      "precioAntes": 9997,
+      "estado": "actualizado",
+      "precioNuevo": 6000,
+      "precioML": 6000
+    },
+    {
+      "categoria": "videojuegos_consolas",
+      "id": "CON-XBSXX25-001",
+      "nombre": "Consola Xbox Series X 1TB Edición Especial Limitada X25 Verde",
+      "marca": "Microsoft",
+      "mlId": "MLM80744323",
+      "precioAntes": 48999,
+      "estado": "actualizado",
+      "precioNuevo": 44174,
+      "precioML": 44174
+    },
+    {
+      "categoria": "videojuegos_consolas",
+      "id": "CON-PS5DB1-001",
+      "nombre": "Consola PlayStation 5 Digital 1TB + Astro Bot y Gran Turismo 7",
+      "marca": "Sony",
+      "mlId": "MLM51616218",
+      "precioAntes": 14999,
+      "estado": "actualizado",
+      "precioNuevo": 12999,
+      "precioML": 12999
+    },
+    {
+      "categoria": "videojuegos_consolas",
+      "id": "CON-PS5SB1-001",
+      "nombre": "Consola PlayStation 5 Slim 1TB + Astro Bot y Gran Turismo 7",
+      "marca": "Sony",
+      "mlId": "MLM2051798907",
+      "precioAntes": 15999,
+      "estado": "sin_cambio",
+      "precioML": 15999
+    },
+    {
+      "categoria": "videojuegos_consolas",
+      "id": "CON-PS5DNBA-001",
+      "nombre": "Consola PlayStation 5 Slim Digital 1TB + NBA 2K25",
+      "marca": "Sony",
+      "mlId": "MLM45498072",
+      "precioAntes": 13933,
+      "estado": "sin_cambio",
+      "precioML": 13933
+    },
+    {
+      "categoria": "videojuegos_consolas",
+      "id": "CON-PS5D825-001",
+      "nombre": "Consola PlayStation 5 Slim Digital 825GB",
+      "marca": "Sony",
+      "mlId": "MLM61403702",
+      "precioAntes": 11619,
+      "estado": "sin_cambio",
+      "precioML": 11619
+    },
+    {
+      "categoria": "videojuegos_consolas",
+      "id": "CON-PS5GY-001",
+      "nombre": "Consola PlayStation 5 Slim 1TB Edición Ghost of Yotei Dorado",
+      "marca": "Sony",
+      "mlId": "MLM69639262",
+      "precioAntes": 26000,
+      "estado": "sin_cambio",
+      "precioML": 26000
+    },
+    {
+      "categoria": "videojuegos_consolas",
+      "id": "CON-PS5DRC-001",
+      "nombre": "Consola PlayStation 5 Slim Digital 1TB + Ratchet & Clank: Rift Apart y Returnal",
+      "marca": "Sony",
+      "mlId": "MLM37300294",
+      "precioAntes": 23890,
+      "estado": "sin_cambio",
+      "precioML": 23890
+    },
+    {
+      "categoria": "videojuegos_consolas",
+      "id": "CON-PS5DAB-001",
+      "nombre": "Consola PlayStation 5 Slim Digital 1TB + Astro Bot",
+      "marca": "Sony",
+      "mlId": "MLM47847065",
+      "precioAntes": 13933,
+      "estado": "sin_cambio",
+      "precioML": 13933
+    },
+    {
+      "categoria": "videojuegos_consolas",
+      "id": "CON-PS5DFN-001",
+      "nombre": "Consola PlayStation 5 Slim Digital 825GB + Bundle Fortnite",
+      "marca": "Sony",
+      "mlId": "MLM64995044",
+      "precioAntes": 13414,
+      "estado": "sin_cambio",
+      "precioML": 13414
+    },
+    {
+      "categoria": "videojuegos_consolas",
+      "id": "CON-PS530A-001",
+      "nombre": "Consola PlayStation 5 Digital 1TB Edición 30º Aniversario Gris",
+      "marca": "Sony",
+      "mlId": "MLM42024580",
+      "precioAntes": 22999,
+      "estado": "sin_cambio",
+      "precioML": 22999
     },
     {
       "categoria": "videojuegos_controles",
@@ -3290,9 +3412,8 @@
       "nombre": "Sony Interactive Entertainment - DualSense Wireless Controller for PS5, PC, Mac & Mobile - Remix Green",
       "marca": "Sony Interactive Entertainment",
       "mlId": "MLM64368352",
-      "precioAntes": 1318,
-      "estado": "actualizado",
-      "precioNuevo": 1239,
+      "precioAntes": 1239,
+      "estado": "sin_cambio",
       "precioML": 1239
     },
     {
@@ -3342,8 +3463,9 @@
       "marca": "GameSir",
       "mlId": "MLM53225642",
       "precioAntes": 1454,
-      "estado": "sin_cambio",
-      "precioML": 1454
+      "estado": "actualizado",
+      "precioNuevo": 1449,
+      "precioML": 1449
     },
     {
       "categoria": "videojuegos_controles",
@@ -3401,9 +3523,8 @@
       "nombre": "Gamesir X5s Controlador Con Bluetooth Para Switch 2/switch Diseño ligero Vibración HD Con Diseño ergonómico Negro",
       "marca": "GameSir",
       "mlId": "MLM54226965",
-      "precioAntes": 831,
-      "estado": "actualizado",
-      "precioNuevo": 876,
+      "precioAntes": 876,
+      "estado": "sin_cambio",
       "precioML": 876
     },
     {
@@ -3532,9 +3653,8 @@
       "nombre": "Super Mario Party Jamboree Nsw 2 Edition + Jamboree Tv",
       "marca": "Nintendo",
       "mlId": "MLM54452896",
-      "precioAntes": 1319,
-      "estado": "actualizado",
-      "precioNuevo": 1499,
+      "precioAntes": 1499,
+      "estado": "sin_cambio",
       "precioML": 1499
     },
     {
@@ -3613,9 +3733,8 @@
       "nombre": "Video Juego HMC-P-BPDPA Super Mario Galaxy + Super Mario Galaxy 2 Nintendo Switch",
       "marca": "Nintendo Switch",
       "mlId": "MLM66533157",
-      "precioAntes": 929,
-      "estado": "actualizado",
-      "precioNuevo": 899,
+      "precioAntes": 899,
+      "estado": "sin_cambio",
       "precioML": 899
     },
     {
@@ -3644,10 +3763,10 @@
       "nombre": "Rockstar Games Video Juego Red Dead Redemption 2 PlayStation 4 Físico +18",
       "marca": "Rockstar Games",
       "mlId": "MLM14807280",
-      "precioAntes": 399,
+      "precioAntes": 397,
       "estado": "actualizado",
-      "precioNuevo": 397,
-      "precioML": 397
+      "precioNuevo": 394,
+      "precioML": 394
     },
     {
       "categoria": "videojuegos_juegos",
@@ -3745,9 +3864,8 @@
       "nombre": "Videojuego Marvel's Wolverine Ps5 Físico Playstation 5",
       "marca": "PlayStation",
       "mlId": "MLM66764100",
-      "precioAntes": 822,
-      "estado": "actualizado",
-      "precioNuevo": 824,
+      "precioAntes": 824,
+      "estado": "sin_cambio",
       "precioML": 824
     },
     {
@@ -4156,9 +4274,8 @@
       "nombre": "Bocina Amazon Echo Show 5 3ra Generación 5.5 Pulgadas Negra Color Negro",
       "marca": "Alexa",
       "mlId": "MLM25436011",
-      "precioAntes": 1468,
-      "estado": "actualizado",
-      "precioNuevo": 1319,
+      "precioAntes": 1319,
+      "estado": "sin_cambio",
       "precioML": 1319
     },
     {
@@ -4178,8 +4295,9 @@
       "marca": "Alexa",
       "mlId": "MLM38462705",
       "precioAntes": 1149,
-      "estado": "sin_cambio",
-      "precioML": 1149
+      "estado": "actualizado",
+      "precioNuevo": 1136,
+      "precioML": 1136
     },
     {
       "categoria": "tecnologia_bocinas",
@@ -4347,9 +4465,8 @@
       "nombre": "Auriculares On-ear Inalámbricos Bluetooth Aiwa Awk17 Negro",
       "marca": "Aiwa",
       "mlId": "MLM29045971",
-      "precioAntes": 292,
-      "estado": "actualizado",
-      "precioNuevo": 291,
+      "precioAntes": 291,
+      "estado": "sin_cambio",
       "precioML": 291
     },
     {
@@ -4369,8 +4486,9 @@
       "marca": "Skululu",
       "mlId": "MLM45741743",
       "precioAntes": 74,
-      "estado": "sin_precio",
-      "precioML": null
+      "estado": "actualizado",
+      "precioNuevo": 145,
+      "precioML": 145
     },
     {
       "categoria": "tecnologia_audifonos",
@@ -4388,9 +4506,8 @@
       "nombre": "Audífonos Inalambricos XIAOMI Redmi Buds 6 Play Bluetooth 10M Rosa M2420E1",
       "marca": "Xiaomi",
       "mlId": "MLM47259580",
-      "precioAntes": 187,
-      "estado": "actualizado",
-      "precioNuevo": 231,
+      "precioAntes": 231,
+      "estado": "sin_cambio",
       "precioML": 231
     },
     {
@@ -4399,9 +4516,8 @@
       "nombre": "Audífonos Inalámbricos 1HORA AUT205 In-Ear Bluetooth 6.0 con Micrófono, Auricula",
       "marca": "1Hora",
       "mlId": "MLM20922199",
-      "precioAntes": 159,
-      "estado": "actualizado",
-      "precioNuevo": 164,
+      "precioAntes": 164,
+      "estado": "sin_cambio",
       "precioML": 164
     },
     {
@@ -4461,8 +4577,9 @@
       "marca": "Xiaomi",
       "mlId": "MLM62995693",
       "precioAntes": 439,
-      "estado": "sin_cambio",
-      "precioML": 439
+      "estado": "actualizado",
+      "precioNuevo": 431,
+      "precioML": 431
     },
     {
       "categoria": "tecnologia_audifonos",
@@ -4570,9 +4687,8 @@
       "nombre": "Kit de 2 Pares Audífonos Bluetooth Para Smartphones, Tablets y Laptops, Conexión",
       "marca": "MVPSMART",
       "mlId": "MLM77855017",
-      "precioAntes": 232,
-      "estado": "actualizado",
-      "precioNuevo": 227,
+      "precioAntes": 227,
+      "estado": "sin_cambio",
       "precioML": 227
     },
     {
@@ -4661,9 +4777,8 @@
       "nombre": "Audífonos 1HORA Inalámbricos Bluetooth 6.0, In-ear con Pantalla LED, Micrófono y",
       "marca": "1Hora",
       "mlId": "MLM18627231",
-      "precioAntes": 152,
-      "estado": "actualizado",
-      "precioNuevo": 127,
+      "precioAntes": 127,
+      "estado": "sin_cambio",
       "precioML": 127
     },
     {
@@ -4702,9 +4817,8 @@
       "nombre": "Auriculares Inalámbricos Cowin E7C Rojo ANC Bluetooth 5.0 30h Micrófono Integrad",
       "marca": "Cowin",
       "mlId": "MLM29378214",
-      "precioAntes": 388,
-      "estado": "actualizado",
-      "precioNuevo": 382,
+      "precioAntes": 382,
+      "estado": "sin_cambio",
       "precioML": 382
     },
     {
@@ -4753,9 +4867,8 @@
       "nombre": "Audífonos Moto Buds Bass Con Cancelación De Ruido, Azul Azul",
       "marca": "Motorola",
       "mlId": "MLM62969387",
-      "precioAntes": 571,
-      "estado": "actualizado",
-      "precioNuevo": 574,
+      "precioAntes": 574,
+      "estado": "sin_cambio",
       "precioML": 574
     },
     {
@@ -4784,9 +4897,8 @@
       "nombre": "Audífonos in-ear KZ EDX Pro Gamer Con Micrófono color negro con luz cristal",
       "marca": "KZ",
       "mlId": "MLM19837562",
-      "precioAntes": 182,
-      "estado": "actualizado",
-      "precioNuevo": 184,
+      "precioAntes": 184,
+      "estado": "sin_cambio",
       "precioML": 184
     },
     {
@@ -4805,9 +4917,8 @@
       "nombre": "Audífonos Inalámbricos HUAWEI FreeBuds SE 3 Negro",
       "marca": "Huawei",
       "mlId": "MLM44417681",
-      "precioAntes": 586,
-      "estado": "actualizado",
-      "precioNuevo": 575,
+      "precioAntes": 575,
+      "estado": "sin_cambio",
       "precioML": 575
     },
     {
@@ -4816,9 +4927,8 @@
       "nombre": "Audifonos HUAWEI Freebuds 7i Negro",
       "marca": "Huawei",
       "mlId": "MLM56651728",
-      "precioAntes": 2309,
-      "estado": "actualizado",
-      "precioNuevo": 3469,
+      "precioAntes": 3469,
+      "estado": "sin_cambio",
       "precioML": 3469
     },
     {
@@ -4867,9 +4977,8 @@
       "nombre": "Oster Cafetera Bvstdco5 Goteo De 5 Tazas Con Filtro Permanente Color Negro",
       "marca": "Oster",
       "mlId": "MLM24158064",
-      "precioAntes": 245,
-      "estado": "actualizado",
-      "precioNuevo": 259,
+      "precioAntes": 259,
+      "estado": "sin_cambio",
       "precioML": 259
     },
     {
@@ -4929,8 +5038,9 @@
       "marca": "Oster",
       "mlId": "MLM34285747",
       "precioAntes": 799,
-      "estado": "sin_cambio",
-      "precioML": 799
+      "estado": "actualizado",
+      "precioNuevo": 745,
+      "precioML": 745
     },
     {
       "categoria": "cafeteras",
@@ -4948,9 +5058,8 @@
       "nombre": "Cafetera Espresso Automática Maquina de Expresso Individual Capuchino Fika Rito 1.5 Litros 20 Bares",
       "marca": "Fika",
       "mlId": "MLM63547237",
-      "precioAntes": 1085,
-      "estado": "actualizado",
-      "precioNuevo": 1049,
+      "precioAntes": 1049,
+      "estado": "sin_cambio",
       "precioML": 1049
     },
     {
@@ -4969,9 +5078,8 @@
       "nombre": "Cafetera Expreso DEAR DAY Semi Automática con Molino, para Cápsulas Nespresso y Leche Espumada",
       "marca": "DEAR DAY",
       "mlId": "MLM51350786",
-      "precioAntes": 2242,
-      "estado": "actualizado",
-      "precioNuevo": 2284,
+      "precioAntes": 2284,
+      "estado": "sin_cambio",
       "precioML": 2284
     },
     {
@@ -5070,9 +5178,8 @@
       "nombre": "Cafetera Timco 750 Ml Filtro Permanente Placa Calefactora Rosa",
       "marca": "Timco",
       "mlId": "MLM65065757",
-      "precioAntes": 224,
-      "estado": "actualizado",
-      "precioNuevo": 212,
+      "precioAntes": 212,
+      "estado": "sin_cambio",
       "precioML": 212
     },
     {
@@ -5161,9 +5268,8 @@
       "nombre": "Máquina De Café Con Filtro Permanente Reutilizable Goteo Fika 1.7L Panel Touch Color Negro",
       "marca": "Fika",
       "mlId": "MLM80135052",
-      "precioAntes": 559,
-      "estado": "actualizado",
-      "precioNuevo": 569,
+      "precioAntes": 569,
+      "estado": "sin_cambio",
       "precioML": 569
     },
     {
@@ -5172,9 +5278,8 @@
       "nombre": "Cafetera Semiautomatica De Goteo 650ml Filtro Permanente Negro",
       "marca": "SILVER MASTER",
       "mlId": "MLM50884583",
-      "precioAntes": 241,
-      "estado": "actualizado",
-      "precioNuevo": 205,
+      "precioAntes": 205,
+      "estado": "sin_cambio",
       "precioML": 205
     },
     {
@@ -5313,9 +5418,8 @@
       "nombre": "Cecotec Cafeteras de Goteo Coffee 66 Grind & Drop. 1000W, Molinillo de Cuchillas, Hasta 12 Tazas, Tecnología Extremearoma, Cafetera de Goteo Digital, En Acero Inoxidable, Apagado Automático",
       "marca": "Cecotec",
       "mlId": "MLM64639256",
-      "precioAntes": 1499,
-      "estado": "actualizado",
-      "precioNuevo": 1350,
+      "precioAntes": 1350,
+      "estado": "sin_cambio",
       "precioML": 1350
     },
     {
@@ -5394,9 +5498,8 @@
       "nombre": "Ninja CE251 Negro / Acero Inoxidable",
       "marca": "Ninja",
       "mlId": "MLM20789463",
-      "precioAntes": 2576,
-      "estado": "actualizado",
-      "precioNuevo": 2850,
+      "precioAntes": 2850,
+      "estado": "sin_cambio",
       "precioML": 2850
     },
     {
@@ -5405,9 +5508,8 @@
       "nombre": "Chefman Crema Deluxe Máquina De Café Espresso Doble Caldera Negro",
       "marca": "Chefman",
       "mlId": "MLM70369653",
-      "precioAntes": 10230,
-      "estado": "actualizado",
-      "precioNuevo": 6401,
+      "precioAntes": 6401,
+      "estado": "sin_cambio",
       "precioML": 6401
     },
     {
@@ -5446,9 +5548,8 @@
       "nombre": "Cafetera De Filtro Permanente Km761dmx Aroma Partner Krups",
       "marca": "Krups",
       "mlId": "MLM34508264",
-      "precioAntes": 2978,
-      "estado": "actualizado",
-      "precioNuevo": 4499,
+      "precioAntes": 4499,
+      "estado": "sin_cambio",
       "precioML": 4499
     },
     {
@@ -5507,9 +5608,8 @@
       "nombre": "Cafetera con molinillo integrado Dear Day, mango para cápsulas, prensa de café, jarra de espuma, tapete para prensado, cuchara dosificadora y cepillo de limpieza",
       "marca": "DEAR DAY",
       "mlId": "MLM73914997",
-      "precioAntes": 3792,
-      "estado": "actualizado",
-      "precioNuevo": 3907,
+      "precioAntes": 3907,
+      "estado": "sin_cambio",
       "precioML": 3907
     },
     {
@@ -5678,9 +5778,8 @@
       "nombre": "Cafetera 1722 de goteo digital color negro Cecotec",
       "marca": "Cecotec",
       "mlId": "MLM61988930",
-      "precioAntes": 644,
-      "estado": "actualizado",
-      "precioNuevo": 625,
+      "precioAntes": 625,
+      "estado": "sin_cambio",
       "precioML": 625
     },
     {
@@ -5760,8 +5859,8 @@
       "marca": "Midea",
       "mlId": "MLM46010363",
       "precioAntes": 12987,
-      "estado": "sin_cambio",
-      "precioML": 12987
+      "estado": "sin_precio",
+      "precioML": null
     },
     {
       "categoria": "refrigeradores",
@@ -5789,9 +5888,8 @@
       "nombre": "Refrigerador con freezer frigobar Con llave SHTARK SHTFB01 color negro con capacidad de 46L",
       "marca": "SHTARK",
       "mlId": "MLM45676354",
-      "precioAntes": 2044,
-      "estado": "actualizado",
-      "precioNuevo": 2299,
+      "precioAntes": 2299,
+      "estado": "sin_cambio",
       "precioML": 2299
     },
     {
@@ -5890,9 +5988,8 @@
       "nombre": "Refrigerador Mabe Rma250fymrq0 Dark Silver 250l",
       "marca": "Mabe",
       "mlId": "MLM25294088",
-      "precioAntes": 8569,
-      "estado": "actualizado",
-      "precioNuevo": 9000,
+      "precioAntes": 9000,
+      "estado": "sin_cambio",
       "precioML": 9000
     },
     {
@@ -6291,9 +6388,8 @@
       "nombre": "Refrigerador Hamilton Beach Hbr80ts1e Top Mount 8 Pies Plata",
       "marca": "Hamilton Beach",
       "mlId": "MLM45507127",
-      "precioAntes": 7769,
-      "estado": "actualizado",
-      "precioNuevo": 8999,
+      "precioAntes": 8999,
+      "estado": "sin_cambio",
       "precioML": 8999
     },
     {
@@ -6313,8 +6409,8 @@
       "marca": "Whirlpool",
       "mlId": "MLM74621255",
       "precioAntes": 9400,
-      "estado": "sin_cambio",
-      "precioML": 9400
+      "estado": "sin_precio",
+      "precioML": null
     },
     {
       "categoria": "refrigeradores",
@@ -6492,9 +6588,8 @@
       "nombre": "Lavadora Midea Auto Carga Superior 16kg Wave Impeller Blanca Color Blanco",
       "marca": "Midea",
       "mlId": "MLM42806036",
-      "precioAntes": 6499,
-      "estado": "actualizado",
-      "precioNuevo": 6236,
+      "precioAntes": 6236,
+      "estado": "sin_cambio",
       "precioML": 6236
     },
     {
@@ -6583,9 +6678,8 @@
       "nombre": "Lavadora Midea Carga Superior 22kg Vortex Agitador Blanco",
       "marca": "Midea",
       "mlId": "MLM49822692",
-      "precioAntes": 7590,
-      "estado": "actualizado",
-      "precioNuevo": 7750,
+      "precioAntes": 7750,
+      "estado": "sin_cambio",
       "precioML": 7750
     },
     {
@@ -6644,9 +6738,8 @@
       "nombre": "Hisense Lavadora doble tina WSA1102PCN1,Semiautomática, 11 Kg, Blanco/Gris",
       "marca": "Hisense",
       "mlId": "MLM51447322",
-      "precioAntes": 3880,
-      "estado": "actualizado",
-      "precioNuevo": 3579,
+      "precioAntes": 3579,
+      "estado": "sin_cambio",
       "precioML": 3579
     },
     {
@@ -6675,9 +6768,8 @@
       "nombre": "Lavadora Koblenz Lrk-161 De 16 Kilos De Rodillo Color Blanco Con Negro",
       "marca": "Koblenz",
       "mlId": "MLM35343827",
-      "precioAntes": 3897,
-      "estado": "actualizado",
-      "precioNuevo": 4300,
+      "precioAntes": 4300,
+      "estado": "sin_cambio",
       "precioML": 4300
     },
     {
@@ -6686,9 +6778,8 @@
       "nombre": "Lavadora WSA1803P semiautomática 18 Kilogramos Color Blanco Hisense",
       "marca": "Hisense",
       "mlId": "MLM17958046",
-      "precioAntes": 5999,
-      "estado": "actualizado",
-      "precioNuevo": 5599,
+      "precioAntes": 5599,
+      "estado": "sin_cambio",
       "precioML": 5599
     },
     {
@@ -6797,9 +6888,8 @@
       "nombre": "Lavadora Midea 18 Kg Automática Con Agitador Blanca Blanco",
       "marca": "Midea",
       "mlId": "MLM79301519",
-      "precioAntes": 7873,
-      "estado": "actualizado",
-      "precioNuevo": 7930,
+      "precioAntes": 7930,
+      "estado": "sin_cambio",
       "precioML": 7930
     },
     {
@@ -6948,9 +7038,8 @@
       "nombre": "Lavadora Whirlpool Carga Superior 19 Kg Blanca 7mwtw1904lm Color Blanco",
       "marca": "Whirlpool",
       "mlId": "MLM22853758",
-      "precioAntes": 9602,
-      "estado": "actualizado",
-      "precioNuevo": 9999,
+      "precioAntes": 9999,
+      "estado": "sin_cambio",
       "precioML": 9999
     },
     {
@@ -7049,9 +7138,8 @@
       "nombre": "Lavadora Samsung 25Kg Carga Superior Activewave Smartthings Negra",
       "marca": "Samsung",
       "mlId": "MLM48294143",
-      "precioAntes": 14280,
-      "estado": "actualizado",
-      "precioNuevo": 15099,
+      "precioAntes": 15099,
+      "estado": "sin_cambio",
       "precioML": 15099
     },
     {
@@ -8141,8 +8229,8 @@
       "marca": "Moboss",
       "mlId": "MLM63072424",
       "precioAntes": 22999,
-      "estado": "sin_cambio",
-      "precioML": 22999
+      "estado": "sin_precio",
+      "precioML": null
     },
     {
       "categoria": "bicisElectricasDed",
@@ -8920,9 +9008,8 @@
       "nombre": "Olla Eléctrica Record Nsc-800 De 8 L Color Gris",
       "marca": "Record",
       "mlId": "MLM17415901",
-      "precioAntes": 1471,
-      "estado": "actualizado",
-      "precioNuevo": 1456,
+      "precioAntes": 1456,
+      "estado": "sin_cambio",
       "precioML": 1456
     },
     {
@@ -9111,9 +9198,8 @@
       "nombre": "Laura Ashley China Rose Large Slow Cookers 6.8 Quarts - China Rose 6.8 Quart Slow Cooker",
       "marca": "Laura Ashley",
       "mlId": "MLM2117012285",
-      "precioAntes": 2855,
-      "estado": "actualizado",
-      "precioNuevo": 2761,
+      "precioAntes": 2761,
+      "estado": "sin_cambio",
       "precioML": 2761
     },
     {
@@ -9152,9 +9238,8 @@
       "nombre": "Crock Pot Olla De Cocción Lenta De 7 Qts. 6.6 Litros Color Azul Verde Frecuencia 50",
       "marca": "Crock-Pot",
       "mlId": "MLM57698366",
-      "precioAntes": 1307,
-      "estado": "actualizado",
-      "precioNuevo": 1550,
+      "precioAntes": 1550,
+      "estado": "sin_cambio",
       "precioML": 1550
     },
     {
@@ -9434,8 +9519,9 @@
       "marca": "Roku",
       "mlId": "MLM54014512",
       "precioAntes": 897,
-      "estado": "sin_cambio",
-      "precioML": 897
+      "estado": "actualizado",
+      "precioNuevo": 799,
+      "precioML": 799
     },
     {
       "categoria": "streaming",
@@ -9633,9 +9719,8 @@
       "nombre": "Onn 4k Plus Google Tv Box 2+16 Wifi6 Voice Remote",
       "marca": "Generic",
       "mlId": "MLM2099185941",
-      "precioAntes": 596,
-      "estado": "actualizado",
-      "precioNuevo": 615,
+      "precioAntes": 615,
+      "estado": "sin_cambio",
       "precioML": 615
     },
     {
@@ -9645,8 +9730,9 @@
       "marca": "ONN",
       "mlId": "MLM2097744257",
       "precioAntes": 3379,
-      "estado": "sin_cambio",
-      "precioML": 3379
+      "estado": "actualizado",
+      "precioNuevo": 3029,
+      "precioML": 3029
     },
     {
       "categoria": "streaming",
@@ -9705,8 +9791,8 @@
       "marca": "Onn.",
       "mlId": "MLM2026483463",
       "precioAntes": 705,
-      "estado": "sin_cambio",
-      "precioML": 705
+      "estado": "precio_sospechoso",
+      "precioML": 87
     },
     {
       "categoria": "streaming",
@@ -9724,9 +9810,8 @@
       "nombre": "Amazon Fire TV Stick 3.ª Control de voz Alexa Full HD",
       "marca": "Amazon",
       "mlId": "MLM18593745",
-      "precioAntes": 859,
-      "estado": "actualizado",
-      "precioNuevo": 780,
+      "precioAntes": 780,
+      "estado": "sin_cambio",
       "precioML": 780
     },
     {
@@ -9735,9 +9820,8 @@
       "nombre": "Smartwatch Aolon Prime 3 con Pantalla AMOLED de 1.43\" y Llamadas Bluetooth",
       "marca": "Aolon Tech",
       "mlId": "MLM64997033",
-      "precioAntes": 792,
-      "estado": "actualizado",
-      "precioNuevo": 754,
+      "precioAntes": 754,
+      "estado": "sin_cambio",
       "precioML": 754
     },
     {
@@ -9757,8 +9841,9 @@
       "marca": "Xiaomi",
       "mlId": "MLM43319779",
       "precioAntes": 665,
-      "estado": "sin_cambio",
-      "precioML": 665
+      "estado": "actualizado",
+      "precioNuevo": 635,
+      "precioML": 635
     },
     {
       "categoria": "tecnologia_smartwatches",
@@ -9956,9 +10041,8 @@
       "nombre": "Galaxy Watch Ultra2 47mm (LTE) Plata",
       "marca": "Samsung",
       "mlId": "MLM74500412",
-      "precioAntes": 7691,
-      "estado": "actualizado",
-      "precioNuevo": 7964,
+      "precioAntes": 7964,
+      "estado": "sin_cambio",
       "precioML": 7964
     },
     {
@@ -9967,9 +10051,8 @@
       "nombre": "Smartwatch Hombre con GPS Integrado Reloj Inteligente Deportivo Llamadas Bluetooth Resistente al Agua IP68 Linterna LED Pantalla HD 1.83\" Reloj Fitness para Entrenamiento Correr y Uso Diario",
       "marca": "FUTUREM",
       "mlId": "MLM66419562",
-      "precioAntes": 595,
-      "estado": "actualizado",
-      "precioNuevo": 598,
+      "precioAntes": 598,
+      "estado": "sin_cambio",
       "precioML": 598
     },
     {
@@ -9998,9 +10081,8 @@
       "nombre": "Smartwatch Blackview W80 Pro Táctico con Pantalla de 2.1\" y Bluetooth",
       "marca": "Blackview",
       "mlId": "MLM54553058",
-      "precioAntes": 989,
-      "estado": "actualizado",
-      "precioNuevo": 999,
+      "precioAntes": 999,
+      "estado": "sin_cambio",
       "precioML": 999
     },
     {
@@ -10189,9 +10271,8 @@
       "nombre": "Cubot Beatbox Smartwatch Reloj Inteligente Bluetooth 5.4 Con Música Offline Pantalla 1.65'' Impermeable 10 M Deportivo Para Hombre Negro",
       "marca": "Cubot",
       "mlId": "MLM66730377",
-      "precioAntes": 694,
-      "estado": "actualizado",
-      "precioNuevo": 595,
+      "precioAntes": 595,
+      "estado": "sin_cambio",
       "precioML": 595
     },
     {
@@ -10210,9 +10291,8 @@
       "nombre": "Smartwatch Mujer AITAFY-S17 Reloj inteligente Alexa Bluetooth Llamada Notificación mensajes Monitoreo salud Deportivo IP68 Dorado 3 Correas",
       "marca": "Aitafy",
       "mlId": "MLM61571469",
-      "precioAntes": 672,
-      "estado": "actualizado",
-      "precioNuevo": 584,
+      "precioAntes": 584,
+      "estado": "sin_cambio",
       "precioML": 584
     },
     {
@@ -10221,9 +10301,8 @@
       "nombre": "Smartwatch Aitafy AITAF-Y25 de 45 mm con Alexa y Llamadas Bluetooth",
       "marca": "Aitafy",
       "mlId": "MLM48895424",
-      "precioAntes": 457,
-      "estado": "actualizado",
-      "precioNuevo": 483,
+      "precioAntes": 483,
+      "estado": "sin_cambio",
       "precioML": 483
     },
     {
@@ -10252,9 +10331,8 @@
       "nombre": "Reloj Inteligente Hombre Deportivo Smartwatch GPS Gpt Blackview W10Pro 600mAh 30 Días Batería 1.83\" Bluetooth Llamada Luz Led Asistente Voz De Deportivo 5ATM Impermeable Modos Deporte Monitor Negro",
       "marca": "Blackview",
       "mlId": "MLM79500531",
-      "precioAntes": 775,
-      "estado": "actualizado",
-      "precioNuevo": 752,
+      "precioAntes": 752,
+      "estado": "sin_cambio",
       "precioML": 752
     },
     {
@@ -10383,9 +10461,8 @@
       "nombre": "Smartwatch FeipuQu W10 Pro Negro con GPS y Resistencia al Agua IP68",
       "marca": "FeipuQu",
       "mlId": "MLM35331262",
-      "precioAntes": 748,
-      "estado": "actualizado",
-      "precioNuevo": 718,
+      "precioAntes": 718,
+      "estado": "sin_cambio",
       "precioML": 718
     },
     {
@@ -10504,9 +10581,8 @@
       "nombre": "Reloj Smartwatch Xiaomi Redmi Watch 5 Lite 1,96 Amoled Bt Gps - Black",
       "marca": "Xiaomi",
       "mlId": "MLM42520227",
-      "precioAntes": 1079,
-      "estado": "actualizado",
-      "precioNuevo": 899,
+      "precioAntes": 899,
+      "estado": "sin_cambio",
       "precioML": 899
     },
     {
@@ -10515,9 +10591,8 @@
       "nombre": "Reloj Xiaomi Redmi Watch 6 Negro Negro",
       "marca": "Xiaomi",
       "mlId": "MLM68267062",
-      "precioAntes": 1769,
-      "estado": "actualizado",
-      "precioNuevo": 1759,
+      "precioAntes": 1759,
+      "estado": "sin_cambio",
       "precioML": 1759
     },
     {
@@ -10696,9 +10771,8 @@
       "nombre": "Smartwatch Mujer AITAFY-S12 Reloj inteligente Alexa Bluetooth Llamada Notificación mensajes Monitoreo salud 3 Correas Oro Rosa",
       "marca": "Aitafy",
       "mlId": "MLM51139730",
-      "precioAntes": 672,
-      "estado": "actualizado",
-      "precioNuevo": 584,
+      "precioAntes": 584,
+      "estado": "sin_cambio",
       "precioML": 584
     },
     {
@@ -10767,9 +10841,8 @@
       "nombre": "Smartwatch Huawei Watch GT 7 de 46 mm Negro con Correa EasyCross",
       "marca": "Huawei",
       "mlId": "MLM77843336",
-      "precioAntes": 3810,
-      "estado": "actualizado",
-      "precioNuevo": 4219,
+      "precioAntes": 4219,
+      "estado": "sin_cambio",
       "precioML": 4219
     },
     {
@@ -10858,9 +10931,8 @@
       "nombre": "Smartwatch Aitafy Aitafy-S17 para Mujer, con Alexa, Bluetooth y Llamadas",
       "marca": "Aitafy",
       "mlId": "MLM65394820",
-      "precioAntes": 584,
-      "estado": "actualizado",
-      "precioNuevo": 672,
+      "precioAntes": 672,
+      "estado": "sin_cambio",
       "precioML": 672
     },
     {
@@ -10949,9 +11021,8 @@
       "nombre": "Reloj Inteligente Honor Choice Infowear Watch 2 Pro 1.97 Batería Hasta 14 Días Negro",
       "marca": "Honor",
       "mlId": "MLM63225687",
-      "precioAntes": 896,
-      "estado": "actualizado",
-      "precioNuevo": 854,
+      "precioAntes": 854,
+      "estado": "sin_cambio",
       "precioML": 854
     },
     {
@@ -10977,9 +11048,8 @@
       "id": "android-samsung-a16-128gb-4gb",
       "nombre": "Samsung A16",
       "mlId": "MLM45806032",
-      "precioAntes": 2670,
-      "estado": "actualizado",
-      "precioNuevo": 2699,
+      "precioAntes": 2699,
+      "estado": "sin_cambio",
       "precioML": 2699
     },
     {
@@ -11005,9 +11075,8 @@
       "id": "android-samsung-a17-samsung-exynos-1330-128gb-4gb",
       "nombre": "Samsung A17 (Samsung Exynos 1330)",
       "mlId": "MLM55521828",
-      "precioAntes": 3074,
-      "estado": "actualizado",
-      "precioNuevo": 3028,
+      "precioAntes": 3028,
+      "estado": "sin_cambio",
       "precioML": 3028
     },
     {
@@ -11015,9 +11084,8 @@
       "id": "android-samsung-a17-mediatek-helio-g99-128gb-4gb",
       "nombre": "Samsung A17 (MediaTek Helio G99)",
       "mlId": "MLM56601052",
-      "precioAntes": 2999,
-      "estado": "actualizado",
-      "precioNuevo": 3099,
+      "precioAntes": 3099,
+      "estado": "sin_cambio",
       "precioML": 3099
     },
     {
@@ -11037,24 +11105,6 @@
       "precioAntes": 5799,
       "estado": "sin_cambio",
       "precioML": 5799
-    },
-    {
-      "categoria": "celulares_android",
-      "id": "android-oppo-reno14-f-5g-256gb-12gb",
-      "nombre": "Oppo Reno14 F 5g",
-      "mlId": "MLM61815901",
-      "precioAntes": 8000,
-      "estado": "sin_precio",
-      "precioML": null
-    },
-    {
-      "categoria": "celulares_android",
-      "id": "android-oppo-cph2743gbb3-512gb-12gb",
-      "nombre": "Oppo CPH2743GBB3",
-      "mlId": "MLM61815932",
-      "precioAntes": 9767,
-      "estado": "sin_precio",
-      "precioML": null
     },
     {
       "categoria": "celulares_android",
@@ -11094,21 +11144,11 @@
     },
     {
       "categoria": "celulares_android",
-      "id": "android-philips-philips-s8310-128gb-12gb",
-      "nombre": "Philips PHILIPS S8310",
-      "mlId": "MLM65461314",
-      "precioAntes": 3159,
-      "estado": "sin_precio",
-      "precioML": null
-    },
-    {
-      "categoria": "celulares_android",
       "id": "android-honor-magic-8-lite-256gb-8gb",
       "nombre": "Honor Magic 8 lite",
       "mlId": "MLM65759875",
-      "precioAntes": 6991,
-      "estado": "actualizado",
-      "precioNuevo": 7299,
+      "precioAntes": 7299,
+      "estado": "sin_cambio",
       "precioML": 7299
     },
     {
@@ -11128,15 +11168,6 @@
       "precioAntes": 10999,
       "estado": "sin_cambio",
       "precioML": 10999
-    },
-    {
-      "categoria": "celulares_android",
-      "id": "android-oscal-marine-2-64gb-4gb",
-      "nombre": "Oscal Marine 2",
-      "mlId": "MLM76488016",
-      "precioAntes": 2911,
-      "estado": "sin_precio",
-      "precioML": null
     },
     {
       "categoria": "celulares_android",
@@ -11170,9 +11201,8 @@
       "id": "android-infinix-gt-50-pro-dual-sim-256gb-12gb",
       "nombre": "Infinix Gt 50 Pro Dual SIM",
       "mlId": "MLM68453464",
-      "precioAntes": 9310,
-      "estado": "actualizado",
-      "precioNuevo": 9311,
+      "precioAntes": 9311,
+      "estado": "sin_cambio",
       "precioML": 9311
     },
     {
@@ -11189,9 +11219,8 @@
       "id": "android-doogee-b10-pro-256gb-64gb",
       "nombre": "Doogee B10 Pro",
       "mlId": "MLM68721471",
-      "precioAntes": 4483,
-      "estado": "actualizado",
-      "precioNuevo": 4279,
+      "precioAntes": 4279,
+      "estado": "sin_cambio",
       "precioML": 4279
     },
     {
@@ -11259,15 +11288,6 @@
     },
     {
       "categoria": "celulares_android",
-      "id": "android-oukitel-g7-256gb-24gb",
-      "nombre": "Oukitel G7",
-      "mlId": "MLM75620530",
-      "precioAntes": 4587,
-      "estado": "sin_precio",
-      "precioML": null
-    },
-    {
-      "categoria": "celulares_android",
       "id": "android-oukitel-c62pro-256gb-8gb",
       "nombre": "Oukitel C62pro",
       "mlId": "MLM77922980",
@@ -11283,15 +11303,6 @@
       "precioAntes": 5099,
       "estado": "sin_cambio",
       "precioML": 5099
-    },
-    {
-      "categoria": "celulares_android",
-      "id": "android-honor-x5c-plus-128gb-4gb",
-      "nombre": "Honor X5C Plus",
-      "mlId": "MLM78602793",
-      "precioAntes": 3200,
-      "estado": "sin_precio",
-      "precioML": null
     },
     {
       "categoria": "celulares_android",
@@ -11358,15 +11369,6 @@
     },
     {
       "categoria": "celulares_android",
-      "id": "android-doogee-note-57-lite-40gb-14gb",
-      "nombre": "Doogee NOTE 57 LITE",
-      "mlId": "MLM78565663",
-      "precioAntes": 2101,
-      "estado": "sin_precio",
-      "precioML": null
-    },
-    {
-      "categoria": "celulares_android",
       "id": "android-nubia-z70-ultra-256gb-12gb",
       "nombre": "Nubia Z70 Ultra",
       "mlId": "MLM51987324",
@@ -11403,46 +11405,20 @@
     },
     {
       "categoria": "celulares_android",
-      "id": "android-generica-i14-pro-max-16gb-2gb",
-      "nombre": "Genérica i14 Pro Max",
-      "mlId": "MLM22968710",
-      "precioAntes": 998.99,
-      "estado": "sin_precio",
-      "precioML": null
-    },
-    {
-      "categoria": "celulares_android",
-      "id": "android-samsung-galaxy-s26-ultra-512gb-12gb",
+      "id": "android-samsung-galaxy-s26-ultra-256gb-12gb",
       "nombre": "Samsung Galaxy S26 Ultra",
-      "mlId": "MLM66154055",
-      "precioAntes": 26999,
-      "estado": "sin_precio",
-      "precioML": null
-    },
-    {
-      "categoria": "celulares_android",
-      "id": "android-samsung-galaxy-s26-ultra-1024gb-16gb",
-      "nombre": "Samsung Galaxy S26 Ultra",
-      "mlId": "MLM66154055",
-      "precioAntes": 26480.03,
-      "estado": "sin_precio",
-      "precioML": null
+      "mlId": "MLM65503993",
+      "precioAntes": 18799,
+      "estado": "actualizado",
+      "precioNuevo": 20499,
+      "precioML": 20499
     },
     {
       "categoria": "celulares_android",
       "id": "android-samsung-galaxy-s26-256gb-12gb",
       "nombre": "Samsung Galaxy S26",
       "mlId": "MLM65560108",
-      "precioAntes": 16364,
-      "estado": "sin_cambio",
-      "precioML": 16364
-    },
-    {
-      "categoria": "celulares_android",
-      "id": "android-samsung-galaxy-s26-512gb-12gb",
-      "nombre": "Samsung Galaxy S26",
-      "mlId": "MLM65560108",
-      "precioAntes": 15890,
+      "precioAntes": 16363,
       "estado": "actualizado",
       "precioNuevo": 16364,
       "precioML": 16364
@@ -11461,9 +11437,8 @@
       "id": "android-samsung-galaxy-s26-plus-512gb-12gb",
       "nombre": "Samsung Galaxy S26+",
       "mlId": "MLM65559881",
-      "precioAntes": 26543,
-      "estado": "actualizado",
-      "precioNuevo": 26513,
+      "precioAntes": 26513,
+      "estado": "sin_cambio",
       "precioML": 26513
     },
     {
@@ -11471,55 +11446,20 @@
       "id": "android-motorola-signature-1024gb-16gb",
       "nombre": "Motorola Edge 60 Signature",
       "mlId": "MLM66374646",
-      "precioAntes": 15599,
+      "precioAntes": 18951,
       "estado": "actualizado",
-      "precioNuevo": 18951,
-      "precioML": 18951
+      "precioNuevo": 15129,
+      "precioML": 15129
     },
     {
       "categoria": "celulares_android",
-      "id": "android-google-pixel-10-pro-128gb-16gb",
+      "id": "android-google-pixel-10-pro-128gb-16gb-obsidiana",
       "nombre": "Google Pixel 10 Pro",
-      "mlId": "MLM70047189",
-      "precioAntes": 16899,
-      "estado": "sin_cambio",
-      "precioML": 16899
-    },
-    {
-      "categoria": "celulares_android",
-      "id": "android-google-pixel-10-pro-128gb-16gb",
-      "nombre": "Google Pixel 10 Pro",
-      "mlId": "MLM70047189",
-      "precioAntes": 16899,
-      "estado": "sin_cambio",
-      "precioML": 16899
-    },
-    {
-      "categoria": "celulares_android",
-      "id": "android-google-pixel-10-pro-128gb-16gb",
-      "nombre": "Google Pixel 10 Pro",
-      "mlId": "MLM70047189",
-      "precioAntes": 16899,
-      "estado": "sin_cambio",
-      "precioML": 16899
-    },
-    {
-      "categoria": "celulares_android",
-      "id": "android-google-pixel-10-pro-128gb-16gb",
-      "nombre": "Google Pixel 10 Pro",
-      "mlId": "MLM70047189",
-      "precioAntes": 16899,
-      "estado": "sin_cambio",
-      "precioML": 16899
-    },
-    {
-      "categoria": "celulares_android",
-      "id": "android-google-pixel-10-pro-128gb-16gb",
-      "nombre": "Google Pixel 10 Pro",
-      "mlId": "MLM70047189",
-      "precioAntes": 16899,
-      "estado": "sin_cambio",
-      "precioML": 16899
+      "mlId": "MLM70047190",
+      "precioAntes": 16699,
+      "estado": "actualizado",
+      "precioNuevo": 16793,
+      "precioML": 16793
     },
     {
       "categoria": "celulares_android",
@@ -11535,9 +11475,8 @@
       "id": "android-xiaomi-17t-pro-256gb-12gb",
       "nombre": "Xiaomi 17T Pro",
       "mlId": "MLM74546623",
-      "precioAntes": 18846,
-      "estado": "actualizado",
-      "precioNuevo": 18680,
+      "precioAntes": 18680,
+      "estado": "sin_cambio",
       "precioML": 18680
     },
     {
@@ -11545,29 +11484,8 @@
       "id": "android-xiaomi-17t-pro-512gb-12gb",
       "nombre": "Xiaomi 17T Pro",
       "mlId": "MLM74456020",
-      "precioAntes": 17449,
-      "estado": "actualizado",
-      "precioNuevo": 17279,
-      "precioML": 17279
-    },
-    {
-      "categoria": "celulares_android",
-      "id": "android-xiaomi-17t-pro-512gb-12gb",
-      "nombre": "Xiaomi 17T Pro",
-      "mlId": "MLM74456020",
-      "precioAntes": 17449,
-      "estado": "actualizado",
-      "precioNuevo": 17279,
-      "precioML": 17279
-    },
-    {
-      "categoria": "celulares_android",
-      "id": "android-xiaomi-17t-pro-512gb-12gb",
-      "nombre": "Xiaomi 17T Pro",
-      "mlId": "MLM74456020",
-      "precioAntes": 17449,
-      "estado": "actualizado",
-      "precioNuevo": 17279,
+      "precioAntes": 17279,
+      "estado": "sin_cambio",
       "precioML": 17279
     },
     {
@@ -11575,9 +11493,8 @@
       "id": "android-xiaomi-17t-512gb-12gb",
       "nombre": "Xiaomi 17T",
       "mlId": "MLM73989703",
-      "precioAntes": 12370,
-      "estado": "actualizado",
-      "precioNuevo": 12743,
+      "precioAntes": 12743,
+      "estado": "sin_cambio",
       "precioML": 12743
     },
     {
@@ -11602,30 +11519,20 @@
       "categoria": "celulares_android",
       "id": "android-motorola-edge-70-fusion-256gb-8gb",
       "nombre": "Motorola Edge 70 Fusion",
-      "mlId": "MLM68411874",
-      "precioAntes": 6887,
+      "mlId": "MLM67687736",
+      "precioAntes": 6998,
       "estado": "actualizado",
-      "precioNuevo": 6998,
-      "precioML": 6998
+      "precioNuevo": 6789,
+      "precioML": 6789
     },
     {
       "categoria": "celulares_android",
-      "id": "android-motorola-edge-70-fusion-256gb-8gb",
+      "id": "android-motorola-edge-70-fusion-256gb-8gb-ed-fifa",
       "nombre": "Motorola Edge 70 Fusion",
-      "mlId": "MLM68411874",
-      "precioAntes": 6887,
-      "estado": "actualizado",
-      "precioNuevo": 6998,
-      "precioML": 6998
-    },
-    {
-      "categoria": "celulares_android",
-      "id": "android-oppo-reno16f-5g-128gb-8gb",
-      "nombre": "OPPO Reno16F 5G",
-      "mlId": "MLM75629828",
-      "precioAntes": 8511,
-      "estado": "sin_precio",
-      "precioML": null
+      "mlId": "MLM67687736",
+      "precioAntes": 6789,
+      "estado": "sin_cambio",
+      "precioML": 6789
     },
     {
       "categoria": "celulares_android",
@@ -11635,15 +11542,6 @@
       "precioAntes": 11669,
       "estado": "sin_cambio",
       "precioML": 11669
-    },
-    {
-      "categoria": "celulares_android",
-      "id": "android-honor-600-5g-512gb-8gb",
-      "nombre": "HONOR 600 5G",
-      "mlId": "MLM76292185",
-      "precioAntes": 12017,
-      "estado": "sin_precio",
-      "precioML": null
     },
     {
       "categoria": "celulares_android",
@@ -11659,10 +11557,10 @@
       "id": "android-xiaomi-poco-c85-256gb-8gb",
       "nombre": "Xiaomi Poco C85",
       "mlId": "MLM54068750",
-      "precioAntes": 3176,
+      "precioAntes": 3332,
       "estado": "actualizado",
-      "precioNuevo": 3332,
-      "precioML": 3332
+      "precioNuevo": 3331,
+      "precioML": 3331
     },
     {
       "categoria": "celulares_android",
@@ -11672,15 +11570,6 @@
       "precioAntes": 7973,
       "estado": "sin_cambio",
       "precioML": 7973
-    },
-    {
-      "categoria": "celulares_android",
-      "id": "android-lagenio-eagle-pro-256gb-16gb",
-      "nombre": "Lagenio Eagle Pro",
-      "mlId": "MLM72980921",
-      "precioAntes": 7273,
-      "estado": "sin_precio",
-      "precioML": null
     },
     {
       "categoria": "celulares_android",
@@ -11735,15 +11624,6 @@
       "precioAntes": 4988,
       "estado": "sin_cambio",
       "precioML": 4988
-    },
-    {
-      "categoria": "celulares_android",
-      "id": "android-vivo-y28-256gb-8gb",
-      "nombre": "Vivo Y28",
-      "mlId": "MLM60948980",
-      "precioAntes": 4999,
-      "estado": "sin_cambio",
-      "precioML": 4999
     },
     {
       "categoria": "celulares_android",
@@ -11804,10 +11684,10 @@
       "id": "android-motorola-moto-g06-256gb-4gb",
       "nombre": "Motorola Moto G06",
       "mlId": "MLM63043377",
-      "precioAntes": 2701,
+      "precioAntes": 2623,
       "estado": "actualizado",
-      "precioNuevo": 2623,
-      "precioML": 2623
+      "precioNuevo": 2701,
+      "precioML": 2701
     },
     {
       "categoria": "celulares_android",
@@ -11868,9 +11748,8 @@
       "id": "android-xiaomi-redmi-note-14-pro-plus-5g-256gb-8gb",
       "nombre": "Xiaomi Redmi Note 14 Pro Plus 5G",
       "mlId": "MLM45744358",
-      "precioAntes": 5917,
-      "estado": "actualizado",
-      "precioNuevo": 6250,
+      "precioAntes": 6250,
+      "estado": "sin_cambio",
       "precioML": 6250
     },
     {
@@ -11896,10 +11775,18 @@
       "id": "apple-iphone-17e-256gb-esim-ml-1",
       "nombre": "iPhone 17e",
       "mlId": "MLM1066131407",
-      "precioAntes": 16999,
-      "estado": "actualizado",
-      "precioNuevo": 16399,
+      "precioAntes": 16399,
+      "estado": "sin_cambio",
       "precioML": 16399
+    },
+    {
+      "categoria": "celulares_iphone",
+      "id": "apple-iphone-17e-512gb-esim-ml-1",
+      "nombre": "iPhone 17e",
+      "mlId": "MLM1066131405",
+      "precioAntes": 19299,
+      "estado": "sin_cambio",
+      "precioML": 19299
     },
     {
       "categoria": "celulares_iphone",
@@ -11909,6 +11796,15 @@
       "precioAntes": 18999,
       "estado": "sin_cambio",
       "precioML": 18999
+    },
+    {
+      "categoria": "celulares_iphone",
+      "id": "apple-iphone-17-512gb",
+      "nombre": "iPhone 17",
+      "mlId": "MLM1054107045",
+      "precioAntes": 24299,
+      "estado": "sin_cambio",
+      "precioML": 24299
     },
     {
       "categoria": "celulares_iphone",
@@ -11951,9 +11847,8 @@
       "id": "apple-iphone-17-pro-max-512gb-esim-ml-2",
       "nombre": "iPhone 17 Pro Max",
       "mlId": "MLM1055308649",
-      "precioAntes": 35999,
-      "estado": "actualizado",
-      "precioNuevo": 34559,
+      "precioAntes": 34559,
+      "estado": "sin_cambio",
       "precioML": 34559
     },
     {
@@ -11964,6 +11859,15 @@
       "precioAntes": 29999,
       "estado": "sin_cambio",
       "precioML": 29999
+    },
+    {
+      "categoria": "celulares_iphone",
+      "id": "apple-iphone-18-pro-512gb",
+      "nombre": "iPhone 18 Pro",
+      "mlId": "MLM1077712590",
+      "precioAntes": 34999,
+      "estado": "sin_cambio",
+      "precioML": 34999
     },
     {
       "categoria": "celulares_iphone",

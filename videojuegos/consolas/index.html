@@ -370,7 +370,7 @@ const productos = [
     marca: "Nintendo",
     img: "https://http2.mlstatic.com/D_NQ_NP_611101-MLA84512956497_052025-F.jpg",
     linkML: "https://meli.la/1rogaFi",
-    precioML: 10125,
+    precioML: 10106,
     especs: {
       generacion: "2da generación",
       tipoConsola: "Híbrida",
@@ -818,7 +818,7 @@ const productos = [
     marca: "Microsoft",
     img: "https://http2.mlstatic.com/D_NQ_NP_974412-MLA99995898271_112025-F.jpg",
     linkML: "https://meli.la/2cPgHfj",
-    precioML: 9997,
+    precioML: 6000,
     especs: {
       generacion: "9na generación",
       tipoConsola: "Sobremesa",
@@ -837,7 +837,7 @@ const productos = [
     marca: "Microsoft",
     img: "https://http2.mlstatic.com/D_NQ_NP_801664-MLA119893450963_102026-F.jpg",
     linkML: "https://meli.la/2tbgHT7",
-    precioML: 48999,
+    precioML: 44174,
     especs: {
       generacion: "9na generación",
       tipoConsola: "Sobremesa",
@@ -856,7 +856,7 @@ const productos = [
     marca: "Sony",
     img: "https://http2.mlstatic.com/D_NQ_NP_690761-MLA99491923282_112025-F.jpg",
     linkML: "https://meli.la/26Z1dh5",
-    precioML: 14999,
+    precioML: 12999,
     especs: {
       generacion: "9na generación",
       tipoConsola: "Sobremesa",
@@ -1023,6 +1023,7 @@ const productos = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 
 

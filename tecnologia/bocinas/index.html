@@ -829,7 +829,7 @@ const productos = [
     marca: "Alexa",
     linkML: "https://meli.la/2etnNyA",
     linkAmz: null,
-    precioML: 1149,
+    precioML: 1136,
     precioAmz: null,
     imagen: "https://http2.mlstatic.com/D_NQ_NP_985755-MLA99495351458_112025-F.jpg",
     especs: {
@@ -1172,6 +1172,7 @@ const productos = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 
 
