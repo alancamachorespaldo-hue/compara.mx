@@ -697,7 +697,7 @@ const productos = [
     marca: "HP",
     color: "Plateado",
     precio: 5109,
-    precioML: 5109,
+    precioML: 4851,
     precioAmz: null,
     procesador: "Intel Celeron N200",
     marcaProcesador: "Intel",
@@ -846,7 +846,7 @@ const productos = [
     marca: "HP",
     color: "Rosa Dorado",
     precio: 4569,
-    precioML: 4569,
+    precioML: 4699,
     precioAmz: null,
     procesador: "Intel Celeron N150",
     marcaProcesador: "Intel",
@@ -1625,7 +1625,7 @@ const productos = [
     marca: "HP",
     color: "Azul",
     precio: 6403.98,
-    precioML: 5345,
+    precioML: 4954,
     precioAmz: null,
     procesador: "Intel Celeron-N250",
     marcaProcesador: "Intel",
@@ -1757,7 +1757,7 @@ const productos = [
     marca: "HP",
     color: "Gris",
     precio: 26096.5,
-    precioML: 21579,
+    precioML: 19365,
     precioAmz: null,
     procesador: "Intel Core Ultra 7-355",
     marcaProcesador: "Intel",
@@ -1975,7 +1975,7 @@ const productos = [
     marca: "Asus",
     color: "Plateado",
     precio: 17899,
-    precioML: 17849,
+    precioML: 17899,
     precioAmz: null,
     procesador: "Intel Core Ultra 5-225H",
     marcaProcesador: "Intel",
@@ -2062,7 +2062,7 @@ const productos = [
     marca: "ACEMAGICIAN",
     color: "Gris",
     precio: 10141.2,
-    precioML: 9826,
+    precioML: 10292,
     precioAmz: null,
     procesador: "AMD Ryzen-AMD Ryzen™ 5 7430U Processor",
     marcaProcesador: "AMD",
@@ -2106,7 +2106,7 @@ const productos = [
     marca: "Asus",
     color: "Plateado",
     precio: 14174.39,
-    precioML: 12222,
+    precioML: 12064,
     precioAmz: null,
     procesador: "Intel Core i5-13420H",
     marcaProcesador: "Intel",
@@ -2324,7 +2324,7 @@ const productos = [
     marca: "Asus",
     color: "Plateado",
     precio: 14199,
-    precioML: 13879,
+    precioML: 13899,
     precioAmz: null,
     procesador: "Intel Core 5-120U",
     marcaProcesador: "Intel",
@@ -3065,6 +3065,7 @@ const productos = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 
 

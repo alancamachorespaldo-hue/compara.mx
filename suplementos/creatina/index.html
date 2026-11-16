@@ -363,11 +363,11 @@ const productos = [
     saboresDisponibles: ["Sin sabor"],
     precio: 499,
     precioAmz: null,
-    precioML: 279,
+    precioML: 278,
     contenidoGramos: 450,
     porciones: 90,
     creatinaGramosPorPorcion: 5,
-    costoPorPorcion: 3.1,
+    costoPorPorcion: 3.09,
     costoPor5gCreatina: 5.54,
     tipoCreatina: "Creatina monohidratada micronizada",
     presentacion: "polvo",
@@ -411,11 +411,11 @@ const productos = [
     saboresDisponibles: ["Sin sabor"],
     precio: 239,
     precioAmz: null,
-    precioML: 194,
+    precioML: 195,
     contenidoGramos: 300,
     porciones: 60,
     creatinaGramosPorPorcion: 5,
-    costoPorPorcion: 3.23,
+    costoPorPorcion: 3.25,
     costoPor5gCreatina: 3.98,
     tipoCreatina: "Creatina monohidratada micronizada",
     presentacion: "polvo",
@@ -1343,6 +1343,7 @@ const productos = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 
 
