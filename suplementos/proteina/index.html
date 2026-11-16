@@ -520,7 +520,7 @@ const productos = [
     saboresDisponibles: ["Cacao", "Matcha vainilla", "Vainilla"],
     precio: 557,
     precioAmz: null,
-    precioML: 557,
+    precioML: 539,
     estrellasAmz: null,
     resenasAmz: null,
     estrellasML: 4.9,
@@ -528,7 +528,7 @@ const productos = [
     contenidoGramos: 488,
     porciones: 16,
     gramosPorPorcion: null,
-    costoPorPorcion: 34.81,
+    costoPorPorcion: 33.69,
     proteinaPorPorcion: 21.5,
     concentracionProteina: null,
     costoPor25gProteina: null,
@@ -3117,7 +3117,7 @@ const productos = [
     saboresDisponibles: ["Sin sabor"],
     precio: 1959,
     precioAmz: null,
-    precioML: 1567,
+    precioML: 1458,
     contenidoGramos: 12.9,
     porciones: null,
     gramosPorPorcion: 10,
@@ -3795,6 +3795,7 @@ const productos = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 
 

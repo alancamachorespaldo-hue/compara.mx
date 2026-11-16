@@ -697,7 +697,7 @@ const productos = [
     marca: "HP",
     color: "Plateado",
     precio: 4851,
-    precioML: 4851,
+    precioML: 5109,
     precioAmz: null,
     procesador: "Intel Celeron N200",
     marcaProcesador: "Intel",
@@ -734,7 +734,7 @@ const productos = [
     marca: "Lenovo",
     color: "Azul Cósmico",
     precio: 14199,
-    precioML: 14199,
+    precioML: 25000,
     precioAmz: null,
     procesador: "Intel Core i5-13420H",
     marcaProcesador: "Intel",
@@ -846,7 +846,7 @@ const productos = [
     marca: "HP",
     color: "Rosa Dorado",
     precio: 4373,
-    precioML: 4373,
+    precioML: 4569,
     precioAmz: null,
     procesador: "Intel Celeron N150",
     marcaProcesador: "Intel",
@@ -1625,7 +1625,7 @@ const productos = [
     marca: "HP",
     color: "Azul",
     precio: 6403.98,
-    precioML: 5183,
+    precioML: 5345,
     precioAmz: null,
     procesador: "Intel Celeron-N250",
     marcaProcesador: "Intel",
@@ -1889,7 +1889,7 @@ const productos = [
     marca: "HP",
     color: "Negro",
     precio: 14529.52,
-    precioML: 14882,
+    precioML: 15096,
     precioAmz: null,
     procesador: "Intel Core i5-13420H",
     marcaProcesador: "Intel",
@@ -2542,7 +2542,7 @@ const productos = [
     marca: "Dell",
     color: "Ice blue",
     precio: 20300,
-    precioML: 25999,
+    precioML: 26999,
     precioAmz: null,
     procesador: "Intel Core Ultra 7-256V",
     marcaProcesador: "Intel",
@@ -2982,7 +2982,7 @@ const productos = [
     marca: "BIDIAN",
     color: "Negro",
     precio: 3400,
-    precioML: 3500,
+    precioML: 3400,
     precioAmz: null,
     procesador: "Intel Celeron-8250U",
     marcaProcesador: "Intel",
@@ -3065,6 +3065,7 @@ const productos = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+
 
 
 
