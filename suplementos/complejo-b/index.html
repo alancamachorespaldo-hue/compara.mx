@@ -972,33 +972,6 @@ const PRODUCTOS = [
     img: "https://http2.mlstatic.com/D_NQ_NP_2X_790385-MLA99938847707_112025-F.webp",
   },
   {
-    id: 119,
-    nombre: "B Life Complejo B y Levadura de Cerveza 180 Días – 180 Cápsulas",
-    marca: "B Life Company",
-    precio: 245,
-    precioML: 226,
-    precioAmz: null,
-    porciones: 180,
-    capsulasPorDia: 1,
-    porPorcion: "1 cápsula (0.5g)",
-    costoPorPorcion: 1.26,
-    b1: "15 mg",
-    b2: "18 mg",
-    b3: "25 mg",
-    b5: "20 mg",
-    b6: "10 mg",
-    b7: null,
-    b9: null,
-    b12: "12 µg",
-    formaB12: "cianocobalamina",
-    estrellas: 4.7,
-    resenas: 1709,
-    badges: [{ t: "ML", c: "b-ml" }],
-    linkAmz: null,
-    linkML: "https://meli.la/1PKGHuo",
-    img: "https://m.media-amazon.com/images/I/61m652iRrzL._AC_SL1400_.jpg",
-  },
-  {
     id: 120,
     nombre: "Spring Valley Vitamina B12 1000mcg – 60 Tabletas",
     marca: "Spring Valley",
@@ -1022,7 +995,7 @@ const PRODUCTOS = [
     linkAmz: "",
     linkML: "https://meli.la/2KeNhsP",
     img: "https://http2.mlstatic.com/D_NQ_NP_2X_762843-MLA99938423115_112025-F.webp",
-  }
+  },
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=PRODUCTOS.length-1;_i>=0;_i--){var _z=_PZ[PRODUCTOS[_i].id];if(!_z)continue;if(_z.ml){PRODUCTOS[_i].linkML=null;PRODUCTOS[_i].precioML=null;PRODUCTOS[_i].pausaML=true;}if(_z.amz){PRODUCTOS[_i].linkAmz='';PRODUCTOS[_i].precioAmz=null;PRODUCTOS[_i].pausaAmz=true;}if(_z.ml&&_z.amz)PRODUCTOS.splice(_i,1);}}catch(e){}
 

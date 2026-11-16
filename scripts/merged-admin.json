@@ -554,7 +554,7 @@
       "estrellas": 4.9,
       "resenas": 30,
       "precio": 26111,
-      "_updatedAt": "2026-10-27T03:36:19.899Z",
+      "_updatedAt": "2026-11-16T22:41:08.219Z",
       "_mlCheckedAt": "2026-11-16T21:44:14.857Z",
       "_linkError": null,
       "_linkRevisar": null,
@@ -834,7 +834,7 @@
       "mlId": "MLM73080506",
       "precioML": 24899,
       "precioAmz": 34999,
-      "activo": true,
+      "activo": false,
       "estadoML": "sin_cambio",
       "especs": {
         "procesador": "Apple M5 (CPU 10 núcleos)",
@@ -853,12 +853,13 @@
       "estrellas": 5,
       "resenas": 5,
       "precio": 26111,
-      "_updatedAt": "2026-10-27T03:42:47.364Z",
+      "_updatedAt": "2026-11-16T22:41:08.219Z",
       "_mlCheckedAt": "2026-11-16T21:44:14.857Z",
       "_linkError": null,
       "_linkRevisar": null,
       "_linkSinProducto": null,
-      "_enWeb": true
+      "_enWeb": false,
+      "_eliminado": true
     },
     {
       "id": 24,
@@ -9970,8 +9971,8 @@
       "precioML": 749,
       "precioAmz": null,
       "estadoML": "sin_cambio",
-      "activo": true,
-      "_updatedAt": "2026-10-06T13:15:21.576Z",
+      "activo": false,
+      "_updatedAt": "2026-11-16T22:41:08.219Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_836674-MLA99154587156_112025-F.webp",
       "estrellas": 4.8,
       "resenas": 3111,
@@ -9998,7 +9999,8 @@
       },
       "precio": 395.9,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
-      "_enWeb": true
+      "_enWeb": false,
+      "_eliminado": true
     },
     {
       "id": 135,
@@ -10883,7 +10885,7 @@
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_836674-MLA99154587156_112025-F.jpg",
       "activo": true,
       "estadoML": "nuevo",
-      "_updatedAt": "2026-10-28T15:59:21.751Z",
+      "_updatedAt": "2026-11-16T22:41:08.219Z",
       "especs": {
         "gramosPorPorcion": "35 g",
         "proteinaPorPorcion": null,
@@ -15058,7 +15060,7 @@
       "precioAmz": null,
       "estadoML": "sin_cambio",
       "activo": true,
-      "_updatedAt": "2026-10-06T12:22:04.743Z",
+      "_updatedAt": "2026-11-16T22:41:08.219Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_802953-MLA100075965319_122025-F.webp",
       "estrellas": 4.8,
       "resenas": 19,
@@ -15478,8 +15480,8 @@
       "precioML": 226,
       "precioAmz": 399,
       "estadoML": "sin_cambio",
-      "activo": true,
-      "_updatedAt": "2026-10-06T12:24:44.840Z",
+      "activo": false,
+      "_updatedAt": "2026-11-16T22:41:08.219Z",
       "imagen": "https://m.media-amazon.com/images/I/61m652iRrzL._AC_SL1400_.jpg",
       "estrellas": 4.7,
       "resenas": 1709,
@@ -15501,7 +15503,8 @@
       "_linkError": "Complejo B Raíces Zen 640mg 120 Cápsulas Sin Sabor Suplemento Energético",
       "mlId": "MLM53298156",
       "mlIdFuente": "manual",
-      "_enWeb": true
+      "_enWeb": false,
+      "_eliminado": true
     },
     {
       "id": 120,
@@ -25763,7 +25766,7 @@
       "linkML": "https://meli.la/1TgKbkx",
       "linkAmz": null,
       "mlId": "MLM65560108",
-      "precioML": 16364,
+      "precioML": 16363,
       "precioAmz": null,
       "activo": true,
       "estadoML": "sin_cambio",
@@ -25780,7 +25783,7 @@
         "ram": "12 GB",
         "cam": "50 MP"
       },
-      "_updatedAt": "2026-10-20T03:14:48.339Z",
+      "_updatedAt": "2026-11-16T22:39:59.916Z",
       "mlIdFuente": "manual",
       "_mlCheckedAt": "2026-11-16T21:44:14.857Z",
       "_precioMLAntes": 16399,
@@ -25796,7 +25799,7 @@
       "mlId": "MLM65560108",
       "precioML": 16364,
       "precioAmz": null,
-      "activo": true,
+      "activo": false,
       "estadoML": "actualizado",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_870493-MLA109812392870_042026-F.webp",
       "estrellas": 4.9,
@@ -25811,10 +25814,11 @@
         "ram": "12 GB",
         "cam": "50 MP"
       },
-      "_updatedAt": "2026-10-20T03:14:52.714Z",
+      "_updatedAt": "2026-11-16T22:39:59.916Z",
       "mlIdFuente": "manual",
       "_mlCheckedAt": "2026-11-16T21:44:14.857Z",
-      "_enWeb": true
+      "_enWeb": false,
+      "_eliminado": true
     },
     {
       "id": "android-samsung-galaxy-s26-plus-256gb-12gb",
