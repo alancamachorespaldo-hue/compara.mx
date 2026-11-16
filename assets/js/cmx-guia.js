@@ -52,7 +52,10 @@
     gauge: '<path d="M4 18a8 8 0 1 1 16 0"/><line x1="12" y1="18" x2="16" y2="11"/><circle cx="12" cy="18" r="1.3" fill="currentColor" stroke="none"/>',
     bolt: '<path d="M13.5 2 5 13h5l-1.5 9L17 11h-5z"/>',
     steam: '<path d="M8 4c0 1.5 1.5 2 1.5 3.5S8 9.5 8 11"/><path d="M12 3c0 1.6 1.6 2.1 1.6 3.7S12 8.9 12 10.5"/><path d="M16 4c0 1.5 1.5 2 1.5 3.5S16 9.5 16 11"/><path d="M5 14h14v2a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4z"/>',
-    mill: '<circle cx="12" cy="12" r="7.5"/><circle cx="12" cy="12" r="2.4"/><line x1="12" y1="4.5" x2="12" y2="9.6"/><line x1="12" y1="14.4" x2="12" y2="19.5"/><line x1="4.5" y1="12" x2="9.6" y2="12"/><line x1="14.4" y1="12" x2="19.5" y2="12"/>'
+    mill: '<circle cx="12" cy="12" r="7.5"/><circle cx="12" cy="12" r="2.4"/><line x1="12" y1="4.5" x2="12" y2="9.6"/><line x1="12" y1="14.4" x2="12" y2="19.5"/><line x1="4.5" y1="12" x2="9.6" y2="12"/><line x1="14.4" y1="12" x2="19.5" y2="12"/>',
+    /* suplementos */
+    shield: '<path d="M12 21.5s7.5-3.6 7.5-9.4V5.2L12 2.5 4.5 5.2v6.9c0 5.8 7.5 9.4 7.5 9.4z"/><polyline points="8.6 11.8 11.2 14.4 15.6 10"/>',
+    cup2: '<path d="M5.5 4h13l-1.2 14.2a2.4 2.4 0 0 1-2.4 2.2H9.1a2.4 2.4 0 0 1-2.4-2.2z"/><line x1="7" y1="9.5" x2="17" y2="9.5"/>'
   };
   var ML_IC = '<img class="cl-ml-ic" src="/logomercado-ic.png" alt="">';
   var gb = function (n) { return n >= 1000 ? (n / 1024) + ' TB' : n + ' GB'; };
@@ -374,6 +377,12 @@
     var map = {};
     Object.keys(cat).forEach(function (k) { if (cat[k].linkML) map[cat[k].linkML] = cat[k].precioML; });
     F.forEach(function (f) {
+      /* Un producto puede tener precio en la base pero ningún enlace guardado ahí (las
+         subpáginas de suplementos conservan sus enlaces solo en el HTML, ver CLAUDE.md).
+         En ese caso el enlace de la página es el bueno: se le asigna el precio de su dbId
+         para que la ficha no se quede sin precio vivo teniéndolo registrado. */
+      var cd = f.dbId ? cat[f.dbId] : null;
+      if (cd && !cd.linkML && cd.precioML != null) (f.variantes || []).forEach(function (v) { if (v.linkML && map[v.linkML] == null) map[v.linkML] = cd.precioML; });
       (f.variantes || []).forEach(function (v) { if (v.linkML && map[v.linkML] != null) v.precio = map[v.linkML]; });
       if (f.dbId && cat[f.dbId]) REG[f.modeloBase].especs = cat[f.dbId].especs;
     });

@@ -30,17 +30,26 @@ const GUIAS = [
   'guias/celulares/celulares-menos-3000-mexico/index.html',
   'guias/celulares/mejores-celulares-calidad-precio/index.html',
   'guias/cafeteras/espresso-menos-2000/index.html',
+  'suplementos/creatina/creatina-mexico-cual-comprar/index.html',
 ];
 
 const APLICAR = process.argv.includes('--aplicar');
 
+/* Los ids numéricos se repiten entre categorías (el 1 de laptops y el 1 de creatina), así que
+   la búsqueda es por categoría: cada guía declara  category: '<clave de merged-admin.json>'  en
+   su CMX_GUIA. Solo si esa clave no existe en la base se cae al mapa global, que es como se
+   comportaba antes (las guías de celulares declaran 'celulares' y la base tiene
+   'celulares_android', pero sus dbId son cadenas únicas y no colisionan). */
 function cargarBase() {
   const db = JSON.parse(readFileSync(join(AQUI, 'merged-admin.json'), 'utf8'));
-  const porId = new Map();
+  const porCat = new Map();
+  const global = new Map();
   for (const cat of Object.keys(db)) {
-    for (const p of db[cat] || []) if (p.id) porId.set(p.id, p);
+    const m = new Map();
+    for (const p of db[cat] || []) if (p.id) { m.set(String(p.id), p); global.set(String(p.id), p); }
+    porCat.set(cat, m);
   }
-  return porId;
+  return { porCat, global };
 }
 
 const fmt = (n) => '$' + Number(n).toLocaleString('es-MX');
@@ -61,9 +70,13 @@ function procesar(rel, base, reporte) {
     return 0;
   }
 
+  const cat = (s.match(/category: *'([^']+)'/) || [])[1] || null;
+  const mapaCat = (cat && base.porCat.get(cat)) || null;
+  if (cat && !mapaCat) console.log('  · ' + cat + ' no es una categoría de merged-admin.json: se busca por id global');
+
   let cambios = 0;
   for (const [mb, info] of familias) {
-    const p = base.get(info.dbId);
+    const p = (mapaCat && mapaCat.get(String(info.dbId))) || base.global.get(String(info.dbId));
     if (!p) { reporte.push({ guia: rel, modeloBase: mb, motivo: 'dbId no existe en la base', dbId: info.dbId }); continue; }
     const nuevo = p.precioML;
     if (!nuevo || nuevo <= 0) { reporte.push({ guia: rel, modeloBase: mb, motivo: 'la base no tiene precioML' }); continue; }

@@ -15,6 +15,8 @@ const CATALOGOS = [
     especs: ["pantalla", "ram", "almacenamiento", "cam"] },
   { categoria: "cafeteras", salida: ["electrodomesticos", "cafeteras", "catalog-mini.json"],
     especs: ["tipo", "capacidad", "presion", "vaporizador", "potencia", "molinillo"] },
+  { categoria: "creatina", salida: ["suplementos", "creatina", "catalog-mini.json"],
+    especs: ["tipoCreatina", "presentacion", "contenidoGramos", "grPorPorcion", "porciones", "costoPor5g", "pura"] },
 ];
 
 const admin = JSON.parse(readFileSync(join(__dirname, "merged-admin.json"), "utf8"));
