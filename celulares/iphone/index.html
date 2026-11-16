@@ -299,6 +299,7 @@
 <div class="cl-toast" id="cl-toast" role="status" aria-live="polite"></div>
 <div class="cl cl-cmp-view" id="cl-cmp-view" role="dialog" aria-modal="true" aria-label="Comparativa completa"></div>
 
+<script src="/assets/js/cmx-historico.js"></script>
 <script src="/assets/js/cmx-list.js"></script>
 <script>
 /* ─── DATOS ────────────────────────────────────────────────── */
@@ -611,6 +612,9 @@ window.productos = familias.flatMap(function(f) { return f.variantes.map(functio
   CmxList.init({
     items: familias,
     section: 'celulares_iphone',
+    /* histórico de precio de 30 días */
+    historico: 'celulares_iphone',
+    histId: function (p, v) { var x = pick(p, v); return x && x.id; },
     favKey: 'celulares-iphone',
     title: 'iPhone',
     noun: { one: 'iPhone', many: 'iPhone', all: 'Ver todos los iPhone' },

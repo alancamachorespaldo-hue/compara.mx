@@ -247,6 +247,7 @@
 <div class="cl-toast" id="cl-toast" role="status" aria-live="polite"></div>
 <div class="cl cl-cmp-view" id="cl-cmp-view" role="dialog" aria-modal="true" aria-label="Comparativa completa"></div>
 
+<script src="/assets/js/cmx-historico.js"></script>
 <script src="/assets/js/cmx-list.js"></script>
 <script type="application/json" id="pausas">{"70":{"ml":1}}</script>
 <script>
@@ -3132,6 +3133,8 @@ const productos = [
   CmxList.init({
     items: items,
     section: 'laptops',
+    /* histórico de precio de 30 días */
+    historico: 'laptops',
     favKey: 'laptops',
     title: 'Laptops',
     noun: { one: 'laptop', many: 'laptops', all: 'Ver todas las laptops' },

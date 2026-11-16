@@ -348,6 +348,7 @@
 <div class="cl-toast" id="cl-toast" role="status" aria-live="polite"></div>
 <div class="cl cl-cmp-view" id="cl-cmp-view" role="dialog" aria-modal="true" aria-label="Comparativa completa"></div>
 
+<script src="/assets/js/cmx-historico.js"></script>
 <script src="/assets/js/cmx-list.js"></script>
 <script type="application/json" id="pausas">{"6":{"amz":1},"7":{"ml":1},"8":{"ml":1},"10":{"ml":1},"14":{"ml":1},"15":{"amz":1},"104":{"amz":1},"107":{"amz":1},"117":{"amz":1},"118":{"amz":1},"119":{"amz":1},"129":{"amz":1},"137":{"amz":1},"141":{"ml":1},"144":{"amz":1}}</script>
 <script>
@@ -3876,6 +3877,8 @@ const productos = [
   CmxList.init({
     items: items,
     section: 'suplementos_proteina',
+    /* histórico de precio de 30 días */
+    historico: 'proteina',
     favKey: 'proteina',
     title: 'Proteína en polvo',
     noun: { one: 'proteína', many: 'proteínas', all: 'Ver todas las proteínas' },
