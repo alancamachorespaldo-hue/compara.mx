@@ -573,6 +573,8 @@ window.CMX_GUIA = {
   catalogUrl: '/celulares/catalog-mini.json',
   bajadasUrl: '/assets/data/bajadas.json',
   bajadasKey: 'celulares_android',
+  /* histórico de precio de 30 días (assets/data/historico/celulares_android.json) */
+  historico: 'celulares_android',
   max: 5,
   /* id del listado de Android (ahí f.id = modeloBase) a partir del id de la base */
   idDe: function (dbId) { return String(dbId).replace(/^android-/, '').replace(/-\d+gb-\d+gb$/, ''); },
@@ -582,6 +584,7 @@ window.CMX_GUIA = {
   fav: { key: 'celulares-android', title: 'Celulares Android', url: '/celulares/android/', section: 'celulares_android' }
 };
 </script>
+<script src="/assets/js/cmx-historico.js"></script>
 <script src="/assets/js/cmx-guia.js"></script>
 <script src="/assets/js/cmx-saved.js" defer></script>
 <script src="/js/onboarding.js" defer></script>

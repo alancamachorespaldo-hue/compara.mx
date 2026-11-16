@@ -45,6 +45,32 @@
   var ML_IC = '<img class="cl-ml-ic" src="/logomercado-ic.png" alt="">';
   var gb = function (n) { return n >= 1000 ? (n / 1024) + ' TB' : n + ' GB'; };
 
+  /* ── Histórico de precio (assets/js/cmx-historico.js) ──
+     La guía declara  historico: 'celulares_android'  o un arreglo si mezcla categorías.
+     La clave de cada producto es su dbId (el id de merged-admin.json), que es con el que
+     se publica assets/data/historico/<categoria>.json. El JSON se baja solo al abrir el
+     primer histórico: una guía que nadie despliega no pesa nada de más. */
+  var HIST = !!(C.historico && window.cmxHist);
+  if (HIST) window.cmxHist.init(C.historico);
+  var IC_CHART = '<line x1="3" y1="21" x2="21" y2="21"/><rect x="5" y="12" width="3.5" height="7"/><rect x="10.2" y="7" width="3.5" height="12"/><rect x="15.4" y="14" width="3.5" height="5"/>';
+  var IC_ARROW = '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/>';
+  function histBtn(it, section) {
+    if (!HIST || !it || !it.dbId) return '';
+    return '<button type="button" class="cl-hist-b" data-cg-hist="' + esc(it.dbId) + '" data-cg-histfor="' + esc(it.id)
+      + '" data-ga-section="' + esc(section || 'articulo') + '">'
+      + svg(IC_CHART, 16, 1.8) + '<span class="lg">Histórico de precio · 30 días</span><span class="sm">Histórico · 30 días</span>'
+      + svg(IC_ARROW, 15, 2.4) + '</button>';
+  }
+  function abrirHist(el) {
+    var it = REG[el.getAttribute('data-cg-histfor')] || {};
+    var v = it.fam ? v0(it.fam) : null;
+    window.cmxHist.abrir(el.getAttribute('data-cg-hist'), {
+      nombre: it.nombre || '', img: it.img || '',
+      chip: v && v.storage ? gb(v.storage) : (it.variante || ''),
+      precio: price(it), section: (C.fav && C.fav.section) || C.category || '', origen: 'guia',
+    });
+  }
+
   /* ── Registro de productos: los de la guía y, después, las ofertas ── */
   F.forEach(function (f, i) {
     var v = v0(f);
@@ -159,7 +185,7 @@
       + '<div class="cl-price"><div class="cl-price-store">' + ML_IC + '<span>Mercado<br>Libre</span></div>'
       + '<div class="cl-price-row">' + (typeof pr === 'number' ? '<strong>' + money(pr) + ' MXN</strong>' : '<strong>Consulta el precio</strong>') + (it.pct ? '<s>' + money(it.antes) + ' MXN</s>' : '') + '</div>'
       + (fuera ? '<span class="cmx-rango">' + fuera + '</span>' : '')
-      + mlBtn(it, section) + '</div></article>';
+      + mlBtn(it, section) + '</div>' + histBtn(it, section) + '</article>';
   }
   function offerRow(it) {
     var on = sel.indexOf(it.id) !== -1, pr = price(it);
@@ -187,6 +213,13 @@
     var list = OFFERS.length ? OFFERS : own.filter(function (it) { return link(it) && price(it); });
     $$('[data-cg-offers]').forEach(function (b) { b.innerHTML = list.map(offerRow).join(''); });
     $$('[data-cg-offers-title]').forEach(function (t) { t.textContent = VERIFIED ? 'Ofertas del día' : 'Precios de hoy'; });
+    /* Fichas del artículo: <div data-cmx-hist="<dbId>"></div> junto al data-cmx-precio */
+    if (HIST) $$('[data-cmx-hist]').forEach(function (b) {
+      var dbId = b.getAttribute('data-cmx-hist');
+      var it = null;
+      for (var k in REG) if (REG[k].dbId === dbId) { it = REG[k]; break; }
+      b.innerHTML = histBtn(it || { id: '', dbId: dbId }, 'ficha_articulo');
+    });
     $$('[data-cg-offers-foot]').forEach(function (t) {
       t.textContent = VERIFIED ? 'Bajadas de precio detectadas en Mercado Libre. El precio puede cambiar; confírmalo en la tienda.'
         : 'Hoy no detectamos bajadas en este rango. Estos son los precios actuales de los modelos de la guía.';
@@ -333,6 +366,7 @@
   /* ── Clics (delegado) ── */
   document.addEventListener('click', function (e) {
     var t = e.target, el;
+    if ((el = t.closest('[data-cg-hist]'))) { abrirHist(el); return; }
     if ((el = t.closest('[data-cg-fav]'))) { toggleFav(el.getAttribute('data-cg-fav'), el.getAttribute('data-ga-section') || 'articulo'); return; }
     if ((el = t.closest('[data-cg-sel]'))) { toggle(el.getAttribute('data-cg-sel'), el.getAttribute('data-ga-section') || 'articulo'); return; }
     if ((el = t.closest('a[data-cg-ml]'))) {

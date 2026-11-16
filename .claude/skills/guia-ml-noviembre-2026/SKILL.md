@@ -187,10 +187,11 @@ corrida). El JSON se baja **solo cuando alguien abre el primer histórico**.
   mismo `.cl-hist-b` de `cmx-list.css` al pie de la tarjeta, y abre la ventana superpuesta. **No
   se despliega dentro de la tarjeta**: se probó en nov-2026 y Alan lo rechazó (alarga la tarjeta y
   no se leen ni fechas ni precios).
-- **Fichas del artículo**: junto al `data-cmx-precio="<modeloBase>"` que ya llevan, se anota
-  `data-cmx-hist="<id del listado>"` — el id con el que ese producto existe en
-  `assets/data/historico/`, que es el mismo que usa la comparativa. Si el producto no tiene datos,
-  el botón no se pinta.
+- **Fichas del artículo**: un contenedor vacío `<div data-cmx-hist="<dbId>"></div>` junto al
+  `data-cmx-precio="<modeloBase>"` que ya llevan. `cmx-guia.js` le mete el botón al pintar. El
+  `dbId` es el id de `merged-admin.json`, que es con el que se publica el histórico.
+  El botón se pinta siempre (el JSON aún no se bajó); si ese producto no tiene datos, lo dice la
+  ventana al abrirla, nunca una gráfica vacía.
 - **Comparativa**: no hay nada que hacer. La guía abre la comparativa del listado
   (`/<categoria>/#comparar=id1,id2…`) y esa ya trae su sección de histórico con la escala
   compartida entre los productos.
@@ -211,10 +212,11 @@ corrida). El JSON se baja **solo cuando alguien abre el primer histórico**.
 `historico_comparativa_view`, que dispara la comparativa del listado). Todos con `page_section` y
 `origen: 'guia'`. No sustituyen ni duplican los de `ga4.md`.
 
-**Estado (15-nov-2026)**: la capa compartida y los listados ya funcionan (`/celulares/android/` fue
-el piloto). **Falta que `cmx-guia.js` pinte el botón en sus tarjetas y lea `data-cmx-hist` en las
-fichas**: hasta que eso se haga, una guía no muestra histórico aunque los datos existan. Es el
-siguiente paso y necesita el visto bueno de Alan, porque toca el JS común de todas las guías.
+**Estado (15-nov-2026)**: funcionando. `cmx-guia.js` pinta el botón en las tarjetas (`[data-cg-hist]`)
+y rellena los contenedores `[data-cmx-hist]` de las fichas; las tres guías de celulares ya declaran
+`historico: 'celulares_android'`. Lo que **no** lleva botón, a propósito, son las filas de «Ofertas
+del día» y el carrusel compacto: son listas densas y el botón las satura. Si Alan lo quiere ahí,
+es un cambio de `offerRow` / `miniCard`.
 
 ## Reglas de coherencia con la categoría (pedidas por Alan, 15-nov-2026)
 
