@@ -972,31 +972,6 @@ const PRODUCTOS = [
     img: "https://http2.mlstatic.com/D_NQ_NP_2X_790385-MLA99938847707_112025-F.webp",
   },
   {
-    id: 118,
-    nombre: "Healthaddiction Bplus B Complex 2 Pack – 120 Porciones",
-    marca: "Healthaddiction",
-    precio: 419.3,
-    porciones: 120,
-    capsulasPorDia: 2,
-    porPorcion: "2 tabletas (1.4g)",
-    costoPorPorcion: 3.49,
-    b1: "15 mg",
-    b2: "17 mg",
-    b3: "24 mg",
-    b5: "20 mg",
-    b6: "9 mg",
-    b7: "300 µg",
-    b9: "300 µg",
-    b12: "12 µg",
-    formaB12: "cianocobalamina",
-    estrellas: 5,
-    resenas: 6,
-    badges: [{ t: "ML", c: "b-ml" }],
-    linkAmz: "",
-    linkML: "https://meli.la/2FwUbti",
-    img: "https://http2.mlstatic.com/D_NQ_NP_2X_671860-MLM106463065926_022026-F.webp",
-  },
-  {
     id: 119,
     nombre: "B Life Complejo B y Levadura de Cerveza 180 Días – 180 Cápsulas",
     marca: "B Life Company",
@@ -1050,6 +1025,7 @@ const PRODUCTOS = [
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=PRODUCTOS.length-1;_i>=0;_i--){var _z=_PZ[PRODUCTOS[_i].id];if(!_z)continue;if(_z.ml){PRODUCTOS[_i].linkML=null;PRODUCTOS[_i].precioML=null;PRODUCTOS[_i].pausaML=true;}if(_z.amz){PRODUCTOS[_i].linkAmz='';PRODUCTOS[_i].precioAmz=null;PRODUCTOS[_i].pausaAmz=true;}if(_z.ml&&_z.amz)PRODUCTOS.splice(_i,1);}}catch(e){}
+
 
 
 
