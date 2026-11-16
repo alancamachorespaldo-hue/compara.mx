@@ -16246,14 +16246,14 @@
       "linkML": "https://meli.la/1rogaFi",
       "mlId": "MLM49200061",
       "mlIdFuente": "link",
-      "precioML": 9397.62,
+      "precioML": 10125,
       "linkAmz": null,
       "precioAmz": null,
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_611101-MLA84512956497_052025-F.jpg",
       "estrellas": null,
       "resenas": null,
       "activo": true,
-      "estadoML": "sin_precio",
+      "estadoML": "actualizado",
       "especs": {
         "generacion": "2da generación",
         "tipoConsola": "Híbrida",
@@ -16267,7 +16267,8 @@
       "_linkError": null,
       "_linkRevisar": null,
       "_linkSinProducto": null,
-      "_publicar": true
+      "_publicar": true,
+      "_mlCheckedAt": "2026-11-16T15:27:10.934Z"
     },
     {
       "id": "CON-SWODL-001",
@@ -16276,14 +16277,14 @@
       "linkML": "https://meli.la/2FoJrdJ",
       "mlId": "MLM25558363",
       "mlIdFuente": "busqueda",
-      "precioML": 5999,
+      "precioML": 5899,
       "linkAmz": null,
       "precioAmz": null,
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_616199-MLA96869126109_102025-F.jpg",
       "estrellas": null,
       "resenas": null,
       "activo": true,
-      "estadoML": "sin_precio",
+      "estadoML": "actualizado",
       "especs": {
         "generacion": "8va generación",
         "tipoConsola": "Híbrida",
@@ -16297,7 +16298,10 @@
       "_publicar": true,
       "_linkError": null,
       "_linkRevisar": null,
-      "_linkSinProducto": null
+      "_linkSinProducto": null,
+      "_precioMLAntes": 5999,
+      "_precioMLFecha": "2026-11-16",
+      "_mlCheckedAt": "2026-11-16T15:27:10.934Z"
     },
     {
       "id": "CON-SWODLB-001",
@@ -16435,14 +16439,15 @@
         "accesorios": "Controles integrados",
         "condicion": "Nuevo"
       },
-      "_updatedAt": "2026-10-09T07:00:00.000Z",
-      "_publicar": false
+      "_updatedAt": "2026-11-16T15:08:53.550Z",
+      "_publicar": false,
+      "_eliminado": true
     },
     {
       "id": "CON-PS5S-001",
       "nombre": "Consola PlayStation 5 Slim 1TB",
       "marca": "Sony",
-      "linkML": "https://www.mercadolibre.com.mx/p/MLM28726294",
+      "linkML": "https://meli.la/2vrENez",
       "mlId": "MLM28726294",
       "mlIdFuente": "busqueda",
       "precioML": 14999,
@@ -16452,7 +16457,7 @@
       "estrellas": null,
       "resenas": null,
       "activo": true,
-      "estadoML": "sin_precio",
+      "estadoML": "sin_cambio",
       "especs": {
         "generacion": "9na generación",
         "tipoConsola": "Sobremesa",
@@ -16462,17 +16467,21 @@
         "accesorios": "Control DualSense + Cable HDMI",
         "condicion": "Nuevo"
       },
-      "_updatedAt": "2026-10-09T07:00:00.000Z",
-      "_publicar": true
+      "_updatedAt": "2026-11-16T15:09:15.952Z",
+      "_publicar": true,
+      "_linkError": null,
+      "_linkRevisar": null,
+      "_linkSinProducto": null,
+      "_mlCheckedAt": "2026-11-16T15:27:10.934Z"
     },
     {
       "id": "CON-PS5D-001",
       "nombre": "Consola PlayStation 5 Digital Edition",
       "marca": "Sony",
-      "linkML": "https://www.mercadolibre.com.mx/p/MLM28101173",
+      "linkML": "https://meli.la/1piP3qM",
       "mlId": "MLM28101173",
       "mlIdFuente": "busqueda",
-      "precioML": 10000,
+      "precioML": null,
       "linkAmz": null,
       "precioAmz": null,
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_799189-MLA99983458683_112025-F.jpg",
@@ -16489,8 +16498,12 @@
         "accesorios": "Control DualSense + Cable HDMI",
         "condicion": "Nuevo"
       },
-      "_updatedAt": "2026-10-09T07:00:00.000Z",
-      "_publicar": false
+      "_updatedAt": "2026-11-16T15:10:30.943Z",
+      "_publicar": false,
+      "_linkError": null,
+      "_linkRevisar": null,
+      "_linkSinProducto": null,
+      "_eliminado": true
     },
     {
       "id": "CON-PS5SD-001",
@@ -16516,8 +16529,9 @@
         "accesorios": "Control DualSense + Cable HDMI",
         "condicion": "Nuevo"
       },
-      "_updatedAt": "2026-10-09T07:00:00.000Z",
-      "_publicar": false
+      "_updatedAt": "2026-11-16T15:10:42.566Z",
+      "_publicar": false,
+      "_eliminado": true
     },
     {
       "id": "CON-PS5P-001",
@@ -16543,8 +16557,9 @@
         "accesorios": "Control DualSense + Cable HDMI",
         "condicion": "Nuevo"
       },
-      "_updatedAt": "2026-10-09T07:00:00.000Z",
-      "_publicar": false
+      "_updatedAt": "2026-11-16T15:10:53.088Z",
+      "_publicar": false,
+      "_eliminado": true
     },
     {
       "id": "CON-PS4S-001",
@@ -16560,7 +16575,7 @@
       "estrellas": null,
       "resenas": null,
       "activo": true,
-      "estadoML": "sin_precio",
+      "estadoML": "sin_cambio",
       "especs": {
         "generacion": "8va generación",
         "tipoConsola": "Sobremesa",
@@ -16571,7 +16586,8 @@
         "condicion": "Nuevo"
       },
       "_updatedAt": "2026-10-09T07:00:00.000Z",
-      "_publicar": true
+      "_publicar": true,
+      "_mlCheckedAt": "2026-11-16T15:27:10.934Z"
     },
     {
       "id": "CON-PS4P-001",
@@ -16597,8 +16613,9 @@
         "accesorios": "Control DualShock 4 + Cable HDMI",
         "condicion": "Nuevo"
       },
-      "_updatedAt": "2026-10-09T07:00:00.000Z",
-      "_publicar": false
+      "_updatedAt": "2026-11-16T15:11:18.289Z",
+      "_publicar": false,
+      "_eliminado": true
     },
     {
       "id": "CON-PSVR2-001",
@@ -16613,7 +16630,7 @@
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_729286-MLA95205995254_102025-F.jpg",
       "estrellas": null,
       "resenas": null,
-      "activo": true,
+      "activo": false,
       "estadoML": "sin_precio",
       "especs": {
         "generacion": "9na generación (VR)",
@@ -16624,8 +16641,9 @@
         "accesorios": "2 controles Sense + audífonos + cable USB-C",
         "condicion": "Nuevo"
       },
-      "_updatedAt": "2026-10-09T07:00:00.000Z",
-      "_publicar": true
+      "_updatedAt": "2026-11-16T15:11:32.334Z",
+      "_publicar": true,
+      "_eliminado": true
     },
     {
       "id": "CON-XBSX-001",
@@ -16651,24 +16669,25 @@
         "accesorios": "Control inalámbrico + Cable HDMI",
         "condicion": "Nuevo"
       },
-      "_updatedAt": "2026-10-09T07:00:00.000Z",
-      "_publicar": false
+      "_updatedAt": "2026-11-16T15:11:46.410Z",
+      "_publicar": false,
+      "_eliminado": true
     },
     {
       "id": "CON-XBSXD-001",
       "nombre": "Consola Xbox Series X Digital Robot White 1TB",
       "marca": "Microsoft",
-      "linkML": "https://www.mercadolibre.com.mx/p/MLM40162063",
+      "linkML": "https://meli.la/2pwhADD",
       "mlId": "MLM40162063",
       "mlIdFuente": "busqueda",
-      "precioML": 16635.42,
+      "precioML": 16500,
       "linkAmz": null,
       "precioAmz": null,
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_607427-MLA100016259575_122025-F.jpg",
       "estrellas": null,
       "resenas": null,
       "activo": true,
-      "estadoML": "sin_precio",
+      "estadoML": "actualizado",
       "especs": {
         "generacion": "9na generación",
         "tipoConsola": "Sobremesa",
@@ -16678,8 +16697,14 @@
         "accesorios": "Control inalámbrico + Cable HDMI",
         "condicion": "Nuevo"
       },
-      "_updatedAt": "2026-10-09T07:00:00.000Z",
-      "_publicar": true
+      "_updatedAt": "2026-11-16T15:12:20.514Z",
+      "_publicar": true,
+      "_linkError": null,
+      "_linkRevisar": null,
+      "_linkSinProducto": null,
+      "_precioMLAntes": 16635.42,
+      "_precioMLFecha": "2026-11-16",
+      "_mlCheckedAt": "2026-11-16T15:27:10.934Z"
     },
     {
       "id": "CON-XBSS-001",
@@ -16688,14 +16713,14 @@
       "linkML": "https://www.mercadolibre.com.mx/p/MLM37734459",
       "mlId": "MLM37734459",
       "mlIdFuente": "busqueda",
-      "precioML": 6800,
+      "precioML": 7800,
       "linkAmz": null,
       "precioAmz": null,
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_960382-MLA99968158153_112025-F.jpg",
       "estrellas": null,
       "resenas": null,
-      "activo": false,
-      "estadoML": "sin_precio",
+      "activo": true,
+      "estadoML": "actualizado",
       "especs": {
         "generacion": "9na generación",
         "tipoConsola": "Sobremesa",
@@ -16705,8 +16730,9 @@
         "accesorios": "Control inalámbrico + Cable HDMI",
         "condicion": "Nuevo"
       },
-      "_updatedAt": "2026-10-09T07:00:00.000Z",
-      "_publicar": false
+      "_updatedAt": "2026-11-16T15:13:13.698Z",
+      "_publicar": false,
+      "_mlCheckedAt": "2026-11-16T15:27:10.934Z"
     },
     {
       "id": "CON-XBSS1T-001",
@@ -16732,8 +16758,9 @@
         "accesorios": "Control inalámbrico + Cable HDMI",
         "condicion": "Nuevo"
       },
-      "_updatedAt": "2026-10-09T07:00:00.000Z",
-      "_publicar": false
+      "_updatedAt": "2026-11-16T15:13:23.347Z",
+      "_publicar": false,
+      "_eliminado": true
     },
     {
       "id": "CON-XBOS-001",
@@ -16759,8 +16786,9 @@
         "accesorios": "Control inalámbrico + Cable HDMI",
         "condicion": "Nuevo"
       },
-      "_updatedAt": "2026-10-09T07:00:00.000Z",
-      "_publicar": false
+      "_updatedAt": "2026-11-16T15:13:32.796Z",
+      "_publicar": false,
+      "_eliminado": true
     },
     {
       "id": "CON-STDK-001",
@@ -16786,8 +16814,9 @@
         "accesorios": "Estuche + cargador USB-C",
         "condicion": "Nuevo"
       },
-      "_updatedAt": "2026-10-09T07:00:00.000Z",
-      "_publicar": false
+      "_updatedAt": "2026-11-16T15:14:03.648Z",
+      "_publicar": false,
+      "_eliminado": true
     },
     {
       "id": "CON-MQ3-001",
@@ -16802,7 +16831,7 @@
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_807398-MLA95657342704_102025-F.jpg",
       "estrellas": null,
       "resenas": null,
-      "activo": true,
+      "activo": false,
       "estadoML": "sin_precio",
       "especs": {
         "generacion": "Realidad mixta",
@@ -16813,8 +16842,9 @@
         "accesorios": "2 controles Touch Plus + cable USB-C",
         "condicion": "Nuevo"
       },
-      "_updatedAt": "2026-10-09T07:00:00.000Z",
-      "_publicar": true
+      "_updatedAt": "2026-11-16T15:14:12.354Z",
+      "_publicar": true,
+      "_eliminado": true
     },
     {
       "id": "CON-MQ3S-001",
@@ -16823,14 +16853,14 @@
       "linkML": "https://meli.la/2oQEPXi",
       "mlId": "MLM53173058",
       "mlIdFuente": "busqueda",
-      "precioML": 10575.04,
+      "precioML": 9999,
       "linkAmz": null,
       "precioAmz": null,
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_878098-MLA99902360295_112025-F.jpg",
       "estrellas": null,
       "resenas": null,
       "activo": true,
-      "estadoML": "sin_precio",
+      "estadoML": "actualizado",
       "especs": {
         "generacion": "Realidad mixta",
         "tipoConsola": "Realidad mixta",
@@ -16841,7 +16871,10 @@
         "condicion": "Nuevo"
       },
       "_updatedAt": "2026-10-09T07:00:00.000Z",
-      "_publicar": true
+      "_publicar": true,
+      "_precioMLAntes": 10575.04,
+      "_precioMLFecha": "2026-11-16",
+      "_mlCheckedAt": "2026-11-16T15:27:10.934Z"
     },
     {
       "id": "CON-SNES-001",
@@ -16867,8 +16900,9 @@
         "accesorios": "2 controles SNES + cable HDMI",
         "condicion": "Nuevo"
       },
-      "_updatedAt": "2026-10-09T07:00:00.000Z",
-      "_publicar": false
+      "_updatedAt": "2026-11-16T15:15:10.928Z",
+      "_publicar": false,
+      "_eliminado": true
     },
     {
       "id": "CON-NS2B-001",
@@ -16878,7 +16912,7 @@
       "linkAmz": null,
       "mlId": "MLM48921521",
       "mlIdFuente": "manual",
-      "precioML": 10164.32,
+      "precioML": 10324,
       "precioAmz": null,
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_771279-MLA99538697354_122025-F.jpg",
       "especs": {
@@ -16891,14 +16925,15 @@
       },
       "activo": true,
       "_publicar": true,
-      "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "estadoML": "actualizado",
+      "_updatedAt": "2026-10-09T13:24:27.359Z",
+      "_mlCheckedAt": "2026-11-16T15:27:10.934Z"
     },
     {
       "id": "CON-NS2C-001",
       "nombre": "Consola Nintendo Switch 2 (edicion nacional)",
       "marca": "Nintendo",
-      "linkML": "https://meli.la/2diSQ7R",
+      "linkML": "https://meli.la/1rogaFi",
       "linkAmz": null,
       "mlId": "MLM49200061",
       "mlIdFuente": "manual",
@@ -16913,20 +16948,24 @@
         "tipoConsola": "Hibrida",
         "condicion": "Nuevo"
       },
-      "activo": true,
+      "activo": false,
       "_publicar": true,
       "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "_updatedAt": "2026-11-16T15:16:17.041Z",
+      "_linkError": null,
+      "_linkRevisar": null,
+      "_linkSinProducto": null,
+      "_eliminado": true
     },
     {
       "id": "CON-SWB1-001",
       "nombre": "Consola Nintendo Switch + Super Mario Bros. Wonder + 3m NSO",
       "marca": "Nintendo",
-      "linkML": "https://meli.la/247i6Pa",
+      "linkML": "https://meli.la/1fPVizp",
       "linkAmz": null,
-      "mlId": "MLM61641525",
+      "mlId": "MLM62829408",
       "mlIdFuente": "manual",
-      "precioML": 5398,
+      "precioML": 5099,
       "precioAmz": null,
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_770700-MLA96642312988_112025-F.jpg",
       "especs": {
@@ -16940,18 +16979,24 @@
       },
       "activo": true,
       "_publicar": true,
-      "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "estadoML": "actualizado",
+      "_updatedAt": "2026-11-16T15:17:19.805Z",
+      "_linkError": null,
+      "_linkRevisar": null,
+      "_linkSinProducto": null,
+      "_precioMLAntes": 5398,
+      "_precioMLFecha": "2026-11-16",
+      "_mlCheckedAt": "2026-11-16T15:27:10.934Z"
     },
     {
       "id": "CON-SWODLSM-001",
       "nombre": "Consola Nintendo Switch OLED + Super Mario Bros. Wonder + 3m NSO",
       "marca": "Nintendo",
-      "linkML": null,
+      "linkML": "https://meli.la/1XcwKwY",
       "linkAmz": null,
       "mlId": "MLM54621976",
       "mlIdFuente": "manual",
-      "precioML": 6949.84,
+      "precioML": 5999,
       "precioAmz": null,
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_708545-MLA91725553793_092025-F.jpg",
       "especs": {
@@ -16963,10 +17008,16 @@
         "accesorios": "Super Mario Bros. Wonder, 3 meses NSO",
         "condicion": "Nuevo"
       },
-      "activo": false,
-      "_publicar": false,
-      "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "activo": true,
+      "_publicar": true,
+      "estadoML": "actualizado",
+      "_updatedAt": "2026-11-16T15:17:41.526Z",
+      "_linkError": null,
+      "_linkRevisar": null,
+      "_linkSinProducto": null,
+      "_precioMLAntes": 6949.84,
+      "_precioMLFecha": "2026-11-16",
+      "_mlCheckedAt": "2026-11-16T15:27:10.934Z"
     },
     {
       "id": "CON-SWLTG-001",
@@ -16976,7 +17027,7 @@
       "linkAmz": null,
       "mlId": "MLM15191030",
       "mlIdFuente": "manual",
-      "precioML": 3649,
+      "precioML": 4352,
       "precioAmz": null,
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_630793-MLA99498289634_112025-F.jpg",
       "especs": {
@@ -16989,8 +17040,9 @@
       },
       "activo": true,
       "_publicar": true,
-      "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "estadoML": "actualizado",
+      "_updatedAt": "2026-10-09T13:24:27.359Z",
+      "_mlCheckedAt": "2026-11-16T15:27:10.934Z"
     },
     {
       "id": "CON-SWODLWH-001",
@@ -17000,7 +17052,7 @@
       "linkAmz": null,
       "mlId": "MLM31000132",
       "mlIdFuente": "manual",
-      "precioML": 5699,
+      "precioML": 5899,
       "precioAmz": null,
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_724037-MLA95668636754_102025-F.jpg",
       "especs": {
@@ -17013,8 +17065,9 @@
       },
       "activo": true,
       "_publicar": true,
-      "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "estadoML": "actualizado",
+      "_updatedAt": "2026-10-09T13:24:27.359Z",
+      "_mlCheckedAt": "2026-11-16T15:27:10.934Z"
     },
     {
       "id": "CON-SWLTAZ-001",
@@ -17024,7 +17077,7 @@
       "linkAmz": null,
       "mlId": "MLM17974763",
       "mlIdFuente": "manual",
-      "precioML": 4448.67,
+      "precioML": 5199,
       "precioAmz": null,
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_918366-MLA99963509485_112025-F.jpg",
       "especs": {
@@ -17037,8 +17090,9 @@
       },
       "activo": true,
       "_publicar": true,
-      "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "estadoML": "actualizado",
+      "_updatedAt": "2026-10-09T13:24:27.359Z",
+      "_mlCheckedAt": "2026-11-16T15:27:10.934Z"
     },
     {
       "id": "CON-SWODLZ-001",
@@ -17060,10 +17114,11 @@
         "accesorios": "Zelda: Tears of the Kingdom",
         "condicion": "Nuevo"
       },
-      "activo": true,
+      "activo": false,
       "_publicar": true,
       "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "_updatedAt": "2026-11-16T15:19:22.766Z",
+      "_eliminado": true
     },
     {
       "id": "CON-SWB2-001",
@@ -17085,10 +17140,11 @@
         "accesorios": "Super Mario Bros. Wonder, Suscripcion NSO",
         "condicion": "Nuevo"
       },
-      "activo": true,
+      "activo": false,
       "_publicar": true,
       "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "_updatedAt": "2026-11-16T15:19:35.040Z",
+      "_eliminado": true
     },
     {
       "id": "CON-PS5B1-001",
@@ -17098,7 +17154,7 @@
       "linkAmz": null,
       "mlId": "MLM59802463",
       "mlIdFuente": "manual",
-      "precioML": 9999,
+      "precioML": 14698,
       "precioAmz": null,
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_688800-MLA94378047872_102025-F.jpg",
       "especs": {
@@ -17112,8 +17168,9 @@
       },
       "activo": true,
       "_publicar": true,
-      "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "estadoML": "actualizado",
+      "_updatedAt": "2026-10-09T13:24:27.359Z",
+      "_mlCheckedAt": "2026-11-16T15:27:10.934Z"
     },
     {
       "id": "CON-PS5SD2-001",
@@ -17123,7 +17180,7 @@
       "linkAmz": null,
       "mlId": "MLM29001054",
       "mlIdFuente": "manual",
-      "precioML": 13999,
+      "precioML": 11362,
       "precioAmz": null,
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_808261-MLA99501199456_112025-F.jpg",
       "especs": {
@@ -17136,8 +17193,11 @@
       },
       "activo": true,
       "_publicar": true,
-      "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "estadoML": "actualizado",
+      "_updatedAt": "2026-10-09T13:24:27.359Z",
+      "_precioMLAntes": 13999,
+      "_precioMLFecha": "2026-11-16",
+      "_mlCheckedAt": "2026-11-16T15:27:10.934Z"
     },
     {
       "id": "CON-PS5PR-001",
@@ -17158,10 +17218,11 @@
         "tipoConsola": "Sobremesa",
         "condicion": "Nuevo"
       },
-      "activo": true,
+      "activo": false,
       "_publicar": true,
       "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "_updatedAt": "2026-11-16T15:20:28.326Z",
+      "_eliminado": true
     },
     {
       "id": "CON-PS5SDR-001",
@@ -17182,10 +17243,11 @@
         "tipoConsola": "Sobremesa",
         "condicion": "Reacondicionado"
       },
-      "activo": true,
+      "activo": false,
       "_publicar": true,
       "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "_updatedAt": "2026-11-16T15:20:36.684Z",
+      "_eliminado": true
     },
     {
       "id": "CON-PS4SA-001",
@@ -17209,7 +17271,8 @@
       "activo": false,
       "_publicar": false,
       "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "_updatedAt": "2026-11-16T15:20:46.004Z",
+      "_eliminado": true
     },
     {
       "id": "CON-PS4SB-001",
@@ -17233,7 +17296,8 @@
       "activo": false,
       "_publicar": false,
       "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "_updatedAt": "2026-11-16T15:20:53.722Z",
+      "_eliminado": true
     },
     {
       "id": "CON-PS4SC-001",
@@ -17257,7 +17321,8 @@
       "activo": false,
       "_publicar": false,
       "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "_updatedAt": "2026-11-16T15:21:00.942Z",
+      "_eliminado": true
     },
     {
       "id": "CON-PS4A-001",
@@ -17281,7 +17346,8 @@
       "activo": false,
       "_publicar": false,
       "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "_updatedAt": "2026-11-16T15:21:10.329Z",
+      "_eliminado": true
     },
     {
       "id": "CON-PS4B1-001",
@@ -17303,10 +17369,11 @@
         "accesorios": "Call of Duty: Modern Warfare II",
         "condicion": "Nuevo"
       },
-      "activo": true,
+      "activo": false,
       "_publicar": true,
       "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "_updatedAt": "2026-11-16T15:21:17.348Z",
+      "_eliminado": true
     },
     {
       "id": "CON-PS4SD-001",
@@ -17331,7 +17398,8 @@
       "activo": false,
       "_publicar": false,
       "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "_updatedAt": "2026-11-16T15:21:24.750Z",
+      "_eliminado": true
     },
     {
       "id": "CON-XBSXR2-001",
@@ -17341,7 +17409,7 @@
       "linkAmz": null,
       "mlId": "MLM78843078",
       "mlIdFuente": "manual",
-      "precioML": 19799,
+      "precioML": 19299,
       "precioAmz": null,
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_979619-MLA115641400694_092026-F.jpg",
       "especs": {
@@ -17354,8 +17422,11 @@
       },
       "activo": true,
       "_publicar": true,
-      "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "estadoML": "actualizado",
+      "_updatedAt": "2026-10-09T13:24:27.359Z",
+      "_precioMLAntes": 19799,
+      "_precioMLFecha": "2026-11-16",
+      "_mlCheckedAt": "2026-11-16T15:27:10.934Z"
     },
     {
       "id": "CON-XBSX2T-001",
@@ -17378,8 +17449,9 @@
       },
       "activo": true,
       "_publicar": true,
-      "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "estadoML": "sin_cambio",
+      "_updatedAt": "2026-10-09T13:24:27.359Z",
+      "_mlCheckedAt": "2026-11-16T15:27:10.934Z"
     },
     {
       "id": "CON-XBSXDWR-001",
@@ -17403,7 +17475,8 @@
       "activo": false,
       "_publicar": false,
       "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "_updatedAt": "2026-11-16T15:22:08.786Z",
+      "_eliminado": true
     },
     {
       "id": "CON-XBSXI-001",
@@ -17424,10 +17497,11 @@
         "tipoConsola": "Sobremesa",
         "condicion": "Nuevo"
       },
-      "activo": true,
+      "activo": false,
       "_publicar": true,
       "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "_updatedAt": "2026-11-16T15:22:19.924Z",
+      "_eliminado": true
     },
     {
       "id": "CON-XBSXR3-001",
@@ -17451,7 +17525,8 @@
       "activo": false,
       "_publicar": false,
       "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "_updatedAt": "2026-11-16T15:22:26.768Z",
+      "_eliminado": true
     },
     {
       "id": "CON-XBSXDW2-001",
@@ -17472,10 +17547,11 @@
         "tipoConsola": "Sobremesa",
         "condicion": "Nuevo"
       },
-      "activo": true,
+      "activo": false,
       "_publicar": true,
       "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "_updatedAt": "2026-11-16T15:22:34.408Z",
+      "_eliminado": true
     },
     {
       "id": "CON-XBSXDW3-001",
@@ -17499,7 +17575,8 @@
       "activo": false,
       "_publicar": false,
       "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "_updatedAt": "2026-11-16T15:22:41.377Z",
+      "_eliminado": true
     },
     {
       "id": "CON-XBSXDB-001",
@@ -17524,7 +17601,8 @@
       "activo": false,
       "_publicar": false,
       "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "_updatedAt": "2026-11-16T15:22:49.483Z",
+      "_eliminado": true
     },
     {
       "id": "CON-XBSXD2-001",
@@ -17545,10 +17623,11 @@
         "tipoConsola": "Sobremesa",
         "condicion": "Nuevo"
       },
-      "activo": true,
+      "activo": false,
       "_publicar": true,
       "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "_updatedAt": "2026-11-16T15:23:11.249Z",
+      "_eliminado": true
     },
     {
       "id": "CON-XBSSW-001",
@@ -17558,7 +17637,7 @@
       "linkAmz": null,
       "mlId": "MLM16650345",
       "mlIdFuente": "manual",
-      "precioML": 9000,
+      "precioML": 9599,
       "precioAmz": null,
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_787083-MLA95380144807_102025-F.jpg",
       "especs": {
@@ -17571,8 +17650,9 @@
       },
       "activo": true,
       "_publicar": true,
-      "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "estadoML": "actualizado",
+      "_updatedAt": "2026-10-09T13:24:27.359Z",
+      "_mlCheckedAt": "2026-11-16T15:27:10.934Z"
     },
     {
       "id": "CON-XBSSR-001",
@@ -17596,7 +17676,8 @@
       "activo": false,
       "_publicar": false,
       "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "_updatedAt": "2026-11-16T15:23:35.314Z",
+      "_eliminado": true
     },
     {
       "id": "CON-XBOSW-001",
@@ -17606,7 +17687,7 @@
       "linkAmz": null,
       "mlId": "MLM14114827",
       "mlIdFuente": "manual",
-      "precioML": 14990,
+      "precioML": 5700,
       "precioAmz": null,
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_691666-MLA96638932988_112025-F.jpg",
       "especs": {
@@ -17619,8 +17700,11 @@
       },
       "activo": true,
       "_publicar": true,
-      "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "estadoML": "actualizado",
+      "_updatedAt": "2026-10-09T13:24:27.359Z",
+      "_precioMLAntes": 14990,
+      "_precioMLFecha": "2026-11-16",
+      "_mlCheckedAt": "2026-11-16T15:27:10.934Z"
     },
     {
       "id": "CON-X360S-001",
@@ -17644,7 +17728,8 @@
       "activo": false,
       "_publicar": false,
       "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "_updatedAt": "2026-11-16T15:24:42.237Z",
+      "_eliminado": true
     },
     {
       "id": "CON-XO1COD-001",
@@ -17669,7 +17754,8 @@
       "activo": false,
       "_publicar": false,
       "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "_updatedAt": "2026-11-16T15:24:42.237Z",
+      "_eliminado": true
     },
     {
       "id": "CON-XBOXG5-001",
@@ -17694,7 +17780,8 @@
       "activo": false,
       "_publicar": false,
       "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "_updatedAt": "2026-11-16T15:24:42.237Z",
+      "_eliminado": true
     },
     {
       "id": "CON-ROGAL-001",
@@ -17704,7 +17791,7 @@
       "linkAmz": null,
       "mlId": "MLM54543868",
       "mlIdFuente": "manual",
-      "precioML": 12799,
+      "precioML": 11499,
       "precioAmz": null,
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_865800-MLA99701453536_122025-F.jpg",
       "especs": {
@@ -17717,8 +17804,11 @@
       },
       "activo": true,
       "_publicar": true,
-      "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "estadoML": "actualizado",
+      "_updatedAt": "2026-10-09T13:24:27.359Z",
+      "_precioMLAntes": 12799,
+      "_precioMLFecha": "2026-11-16",
+      "_mlCheckedAt": "2026-11-16T15:27:10.934Z"
     },
     {
       "id": "CON-LLGOS-001",
@@ -17728,7 +17818,7 @@
       "linkAmz": null,
       "mlId": "MLM45819259",
       "mlIdFuente": "manual",
-      "precioML": 13999,
+      "precioML": 29999,
       "precioAmz": null,
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_712725-MLA99524045220_122025-F.jpg",
       "especs": {
@@ -17741,8 +17831,9 @@
       },
       "activo": true,
       "_publicar": true,
-      "estadoML": "sin_precio",
-      "_updatedAt": "2026-10-09T13:24:27.359Z"
+      "estadoML": "actualizado",
+      "_updatedAt": "2026-10-09T13:24:27.359Z",
+      "_mlCheckedAt": "2026-11-16T15:27:10.934Z"
     }
   ],
   "videojuegos_controles": [
