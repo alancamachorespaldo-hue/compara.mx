@@ -66,6 +66,7 @@ kbd{font-family:var(--font-data);font-size:11px;padding:0 5px;border:1px solid v
 .cats{display:flex;gap:6px;overflow-x:auto;padding:12px 16px 4px;scrollbar-width:thin}
 .chip{flex:none;display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 12px;border-radius:15px;border:1px solid var(--line);background:var(--surface);color:var(--fg-2);font:inherit;font-size:13px;font-weight:600;cursor:pointer}
 .chip .n{font-family:var(--font-data);font-size:11px;color:var(--fg-3)}
+.chip .n-sub{opacity:.65;font-weight:500}
 .chip[aria-pressed="true"]{background:var(--fg);border-color:var(--fg);color:var(--bg)}
 .chip[aria-pressed="true"] .n{color:inherit;opacity:.7}
 .queues{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:8px;padding:8px 16px}
@@ -838,6 +839,11 @@ const amzVigente = p => { const t = Date.parse(p._precioAmzFecha); return p._pre
 const amzDropPct = p => amzVigente(p) && p.precioAmz != null && p.precioAmz < p._precioAmzAntes ? Math.round((p._precioAmzAntes - p.precioAmz) / p._precioAmzAntes * 100) : 0;
 const QUEUES = [
   {k:'todos', l:'Todos', f:() => true},
+  // _enWeb lo escribe scripts/marcar-publicados.js leyendo el array de cada página.
+  // La base trae productos que nunca se publicaron (en laptops, los de la cuenta de
+  // Amazon que se dio de baja), así que "activo" no dice si algo está en el sitio.
+  {k:'en_web', l:'En la web', tone:'ok', f:p => p._enWeb === true, optional:true},
+  {k:'fuera_web', l:'Fuera de la web', f:p => p._enWeb === false, optional:true},
   {k:'falta_id', l:'Falta ID ML', tone:'warn', f:p => !!p.linkML && !p.mlId},
   {k:'sugerencias', l:'Con candidatos', tone:'info', f:p => !!p.linkML && !p.mlId && Array.isArray(p._mlSug) && p._mlSug.length > 0},
   {k:'link_mal', l:'Link ML equivocado', tone:'err', f:p => !!p._linkError, optional:true},
@@ -1212,10 +1218,21 @@ function renderStatus() {
 }
 
 function renderCats() {
-  const counts = {};
-  for (const r of ROWS) counts[r.cat] = (counts[r.cat] || 0) + 1;
+  // La cuenta del chip es lo que está publicado en el sitio, no lo que hay en la base:
+  // laptops tenía 115 filas y la página 48. Entre paréntesis, el total guardado.
+  const counts = {}, web = {};
+  for (const r of ROWS) {
+    counts[r.cat] = (counts[r.cat] || 0) + 1;
+    if (r.p._enWeb === true) web[r.cat] = (web[r.cat] || 0) + 1;
+  }
+  const totalWeb = Object.values(web).reduce((a, b) => a + b, 0);
   const keys = ['todas', ...Object.keys(CATS).filter(k => DB[k]), ...Object.keys(DB).filter(k => !CATS[k])];
-  $('#cats').innerHTML = keys.map(k => `<button class="chip" data-cat="${esc(k)}" aria-pressed="${S.cat === k}">${esc(k === 'todas' ? 'Todas' : (CATS[k] || k))}<span class="n">${k === 'todas' ? ROWS.length : (counts[k] || 0)}</span></button>`).join('');
+  $('#cats').innerHTML = keys.map(k => {
+    const n = k === 'todas' ? totalWeb : (web[k] || 0);
+    const t = k === 'todas' ? ROWS.length : (counts[k] || 0);
+    const etiqueta = n === t ? String(t) : `${n} <span class="n-sub">de ${t}</span>`;
+    return `<button class="chip" data-cat="${esc(k)}" aria-pressed="${S.cat === k}" title="${n} en la web · ${t} en la base">${esc(k === 'todas' ? 'Todas' : (CATS[k] || k))}<span class="n">${etiqueta}</span></button>`;
+  }).join('');
 }
 
 function baseRows() { return S.cat === 'todas' ? ROWS : ROWS.filter(r => r.cat === S.cat); }

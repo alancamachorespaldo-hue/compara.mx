@@ -56,6 +56,9 @@ jobs:
           CATEGORIA:        ${{ inputs.categoria || 'all' }}
         run: node scripts/ml-update.js --categoria="$CATEGORIA"
 
+      - name: Anotar qué productos están publicados en cada página
+        run: node scripts/marcar-publicados.js
+
       - name: Sincronizar merged-admin.json y regenerar artifact
         run: node scripts/generar-admin.js
 
