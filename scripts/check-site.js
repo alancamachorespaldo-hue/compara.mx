@@ -12,7 +12,7 @@ const SECTIONS = 'electrodomesticos|celulares|suplementos|bicicletas|laptops|gui
 
 // Contenido que no debe desaparecer (protege contra regresiones como 40259fe)
 const MUST_CONTAIN = {
-  'index.html': ['id="como-usar"', 'id="metodo"', 'leads-section'],
+  'index.html': ['id="metodo"', 'leads-section'],
   'electrodomesticos/index.html': ['href="/electrodomesticos/microondas/"', 'href="/electrodomesticos/freidoras/"'],
 };
 

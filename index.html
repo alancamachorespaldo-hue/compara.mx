@@ -75,30 +75,6 @@
 .hero-combined-inner{display:grid;grid-template-columns:28fr 72fr;gap:32px;align-items:start;max-width:1100px;margin:0 auto;padding:24px 24px 28px}
 .hero-left{display:flex;flex-direction:column;padding:16px 0}
 .hero-right{background:var(--s2);border-radius:20px;padding:18px 18px 14px;display:flex;flex-direction:column}
-/* ── Cómo usar ── */
-.how-head{margin-bottom:10px}
-.how-head h2{font-size:20px;font-weight:800;letter-spacing:-.6px;color:#1E2922;margin-top:4px}
-.how-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.2fr);gap:14px;align-items:start}
-.how-list{list-style:none;display:flex;flex-direction:column;gap:3px}
-.how-step{display:flex;gap:11px;align-items:center;width:100%;text-align:left;background:transparent;border:1.5px solid transparent;border-radius:11px;padding:10px 11px;cursor:pointer;position:relative;overflow:hidden;color:var(--tx2);font-size:13px;font-weight:600;line-height:1.35;transition:background .2s,border-color .2s,color .2s}
-.how-step:hover{background:rgba(255,255,255,.6)}
-.how-step i{font-style:normal;width:27px;height:27px;flex-shrink:0;border-radius:50%;background:rgba(255,255,255,.7);color:var(--tx2);font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s}
-.how-step[aria-selected="true"]{background:rgba(255,255,255,.88);border-color:rgba(0,104,71,.2);color:var(--tx)}
-.how-step[aria-selected="true"] i{background:var(--ac);color:#fff}
-.how-step .bar{position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--ac)}
-.how-step[aria-selected="true"] .bar{animation:howbar 5s linear forwards}
-.how-paused .how-step .bar{animation-play-state:paused}
-@keyframes howbar{to{width:100%}}
-.how-stage{position:relative;background:#fff;border:1px solid var(--bd);border-radius:14px;aspect-ratio:3/2;overflow:hidden;width:100%}
-.how-stage figure{position:absolute;inset:0;margin:0;padding:6px;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .45s}
-.how-stage figure.on{opacity:1}
-.how-stage img{width:100%;height:100%;object-fit:contain;border-radius:10px;box-shadow:0 4px 16px rgba(15,23,42,.10);background:#fff}
-.how-nav{display:flex;align-items:center;justify-content:space-between;margin-top:9px}
-.how-count{font-size:11.5px;font-weight:600;color:var(--tx2)}
-.how-arrows{display:flex;gap:7px}
-.how-arrows button{width:38px;height:38px;border-radius:50%;border:1.5px solid var(--bd);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.how-arrows button:hover{border-color:var(--ac)}
-@media(prefers-reduced-motion:reduce){.how-step .bar{animation:none!important}.how-stage figure{transition:none}}
 html{-webkit-text-size-adjust:100%}
 body{font-family:'Satoshi',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--tx);text-wrap:pretty;-webkit-font-smoothing:antialiased}
 a{color:var(--ac);text-decoration:none}
@@ -287,8 +263,6 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
   .chips{display:flex}
   .hero-combined-inner{grid-template-columns:1fr;gap:18px;padding:20px 20px 24px}
   .hero-right{border-radius:14px}
-  .how-grid{grid-template-columns:1fr}
-  .how-stage{aspect-ratio:3/2}
   .carousel-wrap{max-height:260px;border-radius:14px}
   .lead,.searchbox{max-width:none}
   .cats-grid{grid-template-columns:1fr}
@@ -561,42 +535,6 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
       Cada mañana consultamos directamente la ficha de catálogo de cada producto en Mercado Libre México y comparamos el precio actual contra el último precio registrado. Cuando el precio nuevo es menor, lo marcamos como oferta del día y calculamos el porcentaje de descuento real — no promociones inventadas ni precios "de referencia" artificialmente inflados. Lo mismo hacemos de forma manual con los precios de Amazon México que capturamos. Así evitamos mostrarte descuentos falsos y solo ves bajadas de precio verificadas, con la fecha de la última revisión.
     </p>
   </div>
-</section>
-
-<section class="hm-how" id="como-usar" aria-labelledby="how-h">
-    <div class="hero-right">
-      <div class="how-head">
-        <p class="kicker">Paso a paso</p>
-        <h2 id="how-h">Cómo usar comparalo.mx</h2>
-      </div>
-      <div class="how-grid">
-        <div>
-          <ol class="how-list" role="tablist" aria-label="Pasos para usar comparalo.mx">
-            <li role="presentation"><button class="how-step" type="button" role="tab" id="how-t1" aria-controls="how-p1" aria-selected="true"><i>1</i><span>Elige una categoría</span><span class="bar"></span></button></li>
-            <li role="presentation"><button class="how-step" type="button" role="tab" id="how-t2" aria-controls="how-p2" aria-selected="false"><i>2</i><span>Filtra por características que te interesan</span><span class="bar"></span></button></li>
-            <li role="presentation"><button class="how-step" type="button" role="tab" id="how-t3" aria-controls="how-p3" aria-selected="false"><i>3</i><span>Compara entre distintas características</span><span class="bar"></span></button></li>
-            <li role="presentation"><button class="how-step" type="button" role="tab" id="how-t4" aria-controls="how-p4" aria-selected="false"><i>4</i><span>Da click en la opción que quieres para ir a la tienda oficial</span><span class="bar"></span></button></li>
-            <li role="presentation"><button class="how-step" type="button" role="tab" id="how-t5" aria-controls="how-p5" aria-selected="false"><i>5</i><span>Ve a la plataforma</span><span class="bar"></span></button></li>
-          </ol>
-        </div>
-        <div>
-          <div class="how-stage">
-            <figure class="on" id="how-p1" role="tabpanel" aria-labelledby="how-t1"><img src="/fotos/pasos/onboarding-01.jpg" alt="Paso 1: Botones Ver en Amazon y Ver en Mercado Libre en comparalo.mx" width="800" height="500" loading="lazy" decoding="async"></figure>
-            <figure class="" id="how-p2" role="tabpanel" aria-labelledby="how-t2"><img src="/fotos/pasos/onboarding-02.jpg" alt="Paso 2: Filtra por tipo, precio y características en comparalo.mx" width="800" height="500" loading="lazy" decoding="async"></figure>
-            <figure class="" id="how-p3" role="tabpanel" aria-labelledby="how-t3"><img src="/fotos/pasos/onboarding-03.jpg" alt="Paso 3: Selecciona productos y compáralos en comparalo.mx" width="800" height="500" loading="lazy" decoding="async"></figure>
-            <figure class="" id="how-p4" role="tabpanel" aria-labelledby="how-t4"><img src="/fotos/pasos/onboarding-04.jpg" alt="Paso 4: Tabla comparativa lado a lado en comparalo.mx" width="800" height="500" loading="lazy" decoding="async"></figure>
-            <figure class="" id="how-p5" role="tabpanel" aria-labelledby="how-t5"><img src="/fotos/pasos/paso-5.jpg" alt="Paso 5: Producto abierto en Mercado Libre desde comparalo.mx" width="800" height="500" loading="lazy" decoding="async"></figure>
-          </div>
-          <div class="how-nav">
-            <span class="how-count" id="how-count">Paso 1 de 5</span>
-            <div class="how-arrows">
-              <button type="button" id="how-prev" aria-label="Paso anterior"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0F172A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
-              <button type="button" id="how-next" aria-label="Paso siguiente"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0F172A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 </section>
 
 <section class="metodo-sec" aria-label="Nuestro método">
@@ -975,28 +913,6 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
 <script>if(location.search.includes('bot=claude'))window['ga-disable-G-9TKZ4ER13X']=true;</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9TKZ4ER13X"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-9TKZ4ER13X');</script>
-<script>
-(function(){
-  var root=document.getElementById('como-usar');if(!root)return;
-  var tabs=root.querySelectorAll('.how-step'),figs=root.querySelectorAll('.how-stage figure'),count=document.getElementById('how-count');
-  var cur=0,timer=null,N=tabs.length;
-  function go(i){
-    cur=(i+N)%N;
-    tabs.forEach(function(t,k){t.setAttribute('aria-selected',k===cur?'true':'false');var b=t.querySelector('.bar');b.style.animation='none';b.offsetWidth;b.style.animation='';});
-    figs.forEach(function(fg,k){fg.classList.toggle('on',k===cur)});
-    count.textContent='Paso '+(cur+1)+' de '+N;
-    restart();
-  }
-  function restart(){clearInterval(timer);if(!root.classList.contains('how-paused'))timer=setInterval(function(){go(cur+1)},5000)}
-  tabs.forEach(function(t,k){t.addEventListener('click',function(){go(k)})});
-  document.getElementById('how-prev').addEventListener('click',function(){go(cur-1)});
-  document.getElementById('how-next').addEventListener('click',function(){go(cur+1)});
-  root.addEventListener('mouseenter',function(){root.classList.add('how-paused');clearInterval(timer)});
-  root.addEventListener('mouseleave',function(){root.classList.remove('how-paused');restart()});
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){root.classList.add('how-paused')}
-  restart();
-})();
-</script>
 <script src="/assets/js/share.js" defer></script>
 <script src="/js/onboarding.js" defer></script>
 <script src="/js/site-nav.js" defer></script>
