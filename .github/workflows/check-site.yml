@@ -17,3 +17,8 @@ jobs:
 
       - name: Validar páginas (GA4, onboarding, tag afiliado, links, sintaxis)
         run: node scripts/check-site.js
+
+      # Cualquier push, venga de donde venga: si un JSON de datos trae marcas de conflicto
+      # o dejó de ser legible, que se vea aquí y no tres días después.
+      - name: Validar los datos (marcas de conflicto, JSON legible)
+        run: node scripts/validar-datos.js

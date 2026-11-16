@@ -5,6 +5,15 @@ on:
     - cron: '0 8 * * *'   # Cada día a las 8:00 AM UTC (2:00 AM CDMX)
   workflow_dispatch:        # También permite correrlo manualmente desde GitHub
 
+
+# Un solo workflow de datos a la vez. Los ocho escriben scripts/merged-admin.json y, cuando dos
+# se traslapan, el segundo se encuentra el commit del primero a medio camino: así nació el
+# incidente del 16-nov-2026 (1,065 bloques de conflicto confirmados en la base). Con
+# cancel-in-progress en false, el que llega después espera su turno en vez de pisar al otro.
+concurrency:
+  group: datos-comparalo
+  cancel-in-progress: false
+
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -13,6 +22,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Historia completa: el paso final hace rebase contra origin/main y con un
+          # clon superficial no habría base común sobre la cual rebasar.
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -34,14 +47,35 @@ jobs:
       - name: Regenerar admin-artifact.html con precios nuevos
         run: node scripts/generar-admin.js
 
+      - name: Revisar que los datos estén sanos
+        run: node scripts/validar-datos.js
+
       - name: Commit si hubo cambios
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A
-          if ! git diff --cached --quiet; then
-            git commit -m "chore(precios): actualización automática ML $(date -u +'%Y-%m-%d')"
-            git push
-          else
-            echo "Sin cambios de precios hoy"
+          # -u en vez de -A: solo archivos ya versionados. Un `git add -A` en el runner
+          # confirmaría cualquier archivo suelto que haya dejado un script a medias.
+          git add -u
+          if git diff --staged --quiet; then
+            echo "Sin cambios."
+            exit 0
           fi
+          git commit -m "chore(precios): actualización automática ML $(date -u +'%Y-%m-%d')"
+          # Se trae lo que haya entrado mientras corría el job. No se usa stash: el árbol ya
+          # está limpio porque todo lo generado quedó en el commit. Si el rebase choca, se
+          # aborta y el workflow falla a la vista, en lugar de confirmar un archivo con
+          # marcas de conflicto como pasó el 16-nov-2026.
+          for intento in 1 2 3; do
+            git fetch origin main
+            if ! git rebase origin/main; then
+              git rebase --abort
+              echo "::error::El rebase chocó con otro commit del remoto. No se publica nada; revísalo a mano."
+              exit 1
+            fi
+            node scripts/validar-datos.js || exit 1
+            if git push origin HEAD:main; then exit 0; fi
+            echo "Push rechazado (intento $intento de 3); vuelvo a traer el remoto."
+          done
+          echo "::error::No se pudo publicar después de 3 intentos."
+          exit 1

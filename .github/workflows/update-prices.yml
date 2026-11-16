@@ -12,6 +12,15 @@ on:
         default: all
         options: [all, laptops, freidoras, bicis, bicisMontana, bicisMontanaDed, microondas, cafeteras, suplementos, proteina, omega3, magnesio, creatina, complejo_b, videojuegos_consolas, videojuegos_controles, videojuegos_juegos, tecnologia_bocinas, tecnologia_audifonos, tecnologia_smartwatches, celulares_android, celulares_iphone, streaming, refrigeradores, lavadoras, ollas]
 
+
+# Un solo workflow de datos a la vez. Los ocho escriben scripts/merged-admin.json y, cuando dos
+# se traslapan, el segundo se encuentra el commit del primero a medio camino: así nació el
+# incidente del 16-nov-2026 (1,065 bloques de conflicto confirmados en la base). Con
+# cancel-in-progress en false, el que llega después espera su turno en vez de pisar al otro.
+concurrency:
+  group: datos-comparalo
+  cancel-in-progress: false
+
 jobs:
   update-prices:
     runs-on: ubuntu-latest
@@ -20,6 +29,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Historia completa: el paso final hace rebase contra origin/main y con un
+          # clon superficial no habría base común sobre la cual rebasar.
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -85,11 +98,13 @@ jobs:
       - name: Revisar el sitio
         run: node scripts/check-site.js
 
+      - name: Revisar que los datos estén sanos
+        run: node scripts/validar-datos.js
+
       - name: Commit y push si hay cambios
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git pull --rebase --autostash
           git add laptops/index.html bicis/index.html bicicletas/bici-montana/index.html entretenimiento/streaming/index.html \
             electrodomesticos/freidoras/index.html electrodomesticos/microondas/index.html \
             electrodomesticos/cafeteras/index.html \
@@ -111,11 +126,29 @@ jobs:
             electrodomesticos/refrigeradores/descuentos.json electrodomesticos/lavadoras/descuentos.json \
             assets/data/bajadas.json assets/data/historico scripts/historico-precios.json \
             guias/cafeteras/espresso-menos-2000/index.html guias/celulares/mejores-celulares-menos-5000/index.html \
+            guias/celulares/celulares-menos-3000-mexico/index.html guias/celulares/mejores-celulares-calidad-precio/index.html \
+            suplementos/creatina/catalog-mini.json suplementos/creatina/creatina-mexico-cual-comprar/index.html \
             scripts/guias-precios-report.json \
             scripts/ml-report.json scripts/merged-admin.json scripts/admin-artifact.html
           if git diff --staged --quiet; then
-            echo "Sin cambios de precios."
-          else
-            git commit -m "chore(precios): actualizar precios ML $(date +'%Y-%m-%d')"
-            git push
+            echo "Sin cambios."
+            exit 0
           fi
+          git commit -m "chore(precios): actualizar precios ML $(date +'%Y-%m-%d')"
+          # Se trae lo que haya entrado mientras corría el job. No se usa stash: el árbol ya
+          # está limpio porque todo lo generado quedó en el commit. Si el rebase choca, se
+          # aborta y el workflow falla a la vista, en lugar de confirmar un archivo con
+          # marcas de conflicto como pasó el 16-nov-2026.
+          for intento in 1 2 3; do
+            git fetch origin main
+            if ! git rebase origin/main; then
+              git rebase --abort
+              echo "::error::El rebase chocó con otro commit del remoto. No se publica nada; revísalo a mano."
+              exit 1
+            fi
+            node scripts/validar-datos.js || exit 1
+            if git push origin HEAD:main; then exit 0; fi
+            echo "Push rechazado (intento $intento de 3); vuelvo a traer el remoto."
+          done
+          echo "::error::No se pudo publicar después de 3 intentos."
+          exit 1
