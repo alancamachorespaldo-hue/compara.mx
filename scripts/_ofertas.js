@@ -5,6 +5,12 @@ export const DIAS_OFERTA_AMZ = 30;
 export const DIAS_OFERTA_ML = 30;
 // Un producto "nuevo" (hallado por la búsqueda de ML) no se muestra hasta que se publica desde el artifact (_publicar).
 export const publicado = p => !(p.estadoML === 'nuevo' && !p._publicar);
+// Un producto que ya no se vende no puede anunciar una oferta. Nov-2026: la AMYET SE1
+// estaba con activo:false y _eliminado:true y aun así el inicio la anunciaba con −72%
+// ($3,999 contra $14,499) cuando su publicación está pausada en $25,000 — el precio venía
+// además del catálogo equivocado. Sin este filtro la oferta sobrevive a la baja del producto.
+export const vendible = p => p.activo !== false && !p._eliminado && !p.pausaML
+  && p.estadoML !== 'no_encontrado' && p.estadoML !== 'pausado';
 const AMZ_TAG = 'comparalo20-20';
 const tagOk = u => new RegExp('[?&]tag=' + AMZ_TAG + '(?:[&#]|$)').test(u || '');
 
@@ -40,12 +46,14 @@ export function actualizarRachaML(p, row, hoy = new Date().toISOString().slice(0
 }
 
 export function bajadaML(p, ahora = Date.now()) {
+  if (!vendible(p)) return null;
   if (!p.precioML || !p.linkML || !(p._precioMLAntes > p.precioML)) return null;
   if (!mlVigente(p, ahora)) return null;
   return conPct({ plataforma: 'ml', precio: p.precioML, antes: p._precioMLAntes, link: p.linkML });
 }
 
 export function bajadaAmz(p, ahora = Date.now()) {
+  if (!vendible(p)) return null;
   // POLÍTICA: no se publican precios ni ofertas de Amazon en el sitio. Amazon nunca
   // genera una bajada/oferta pública. Se conserva la lógica abajo (inalcanzable) por si
   // se revierte la política; _precioAmzAntes/_precioAmzFecha siguen guardándose en los datos.

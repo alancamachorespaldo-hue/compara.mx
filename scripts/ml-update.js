@@ -14,6 +14,7 @@ import 'dotenv/config';
 import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { resolve } from 'path';
 import { pathToFileURL } from 'url';
+import { resolverAfiliado } from './resolver-afiliado.js';
 
 const CLIENT_ID     = process.env.ML_CLIENT_ID;
 const CLIENT_SECRET = process.env.ML_CLIENT_SECRET;
@@ -53,9 +54,13 @@ const CATALOG = {
   refrigeradores:        { file: 'electrodomesticos/refrigeradores/index.html', varName: 'productos' },
   lavadoras:             { file: 'electrodomesticos/lavadoras/index.html',     varName: 'productos' },
   bicisMontana:          { file: 'bicis/index.html',                      varName: 'MONTANA'   },
-  bicisMontanaDed:       { file: 'bicicletas/bici-montana/index.html',    varName: 'MONTANA',  dataKey: 'bicisMontana' },
-  bicisRuta:             { file: 'bicis/index.html',                      varName: 'RUTA'      },
-  bicisGravel:           { file: 'bicis/index.html',                      varName: 'GRAVEL'    },
+  // Las páginas dedicadas muestran la misma lista que el hub, así que comparten su clave de datos.
+  bicisMontanaDed:       { file: 'bicicletas/bici-montana/index.html',    varName: 'MONTANA',    dataKey: 'bicisMontana' },
+  bicisElectricasDed:    { file: 'bicicletas/bici-electricas/index.html', varName: 'ELECTRICAS', dataKey: 'bicis' },
+  bicisGravelDed:        { file: 'bicicletas/bici-gravel/index.html',     varName: 'GRAVEL',     dataKey: 'bicisGravelRuta' },
+  // Gravel y ruta se unificaron en nov-2026: comparten cuadro y rueda, y la mitad de las
+  // "de ruta" eran de montaña mal clasificadas o links repetidos de la otra lista.
+  bicisGravelRuta:       { file: 'bicis/index.html',                      varName: 'GRAVELRUTA' },
   ollas:                 { file: 'electrodomesticos/ollas/index.html',      varName: 'productos' },
   streaming:             { file: 'entretenimiento/streaming/index.html',  varName: 'productos' },
   tecnologia_smartwatches: { file: 'tecnologia/smartwatches/index.html', varName: 'productos' },
@@ -279,6 +284,7 @@ async function updateCategory(key, config, admin, REPORT) {
   }
 
   const patches = [];
+  const porConfirmar = [];
   targets.forEach((t, i) => {
     const raw = prices[i];
     const label = `${t.p.marca} ${t.p.nombre}`.substring(0, 45).padEnd(45);
@@ -302,6 +308,17 @@ async function updateCategory(key, config, admin, REPORT) {
       REPORT.push({ ...row, estado: 'precio_sospechoso', precioML: nuevo });
       return;
     }
+    // Una caída fuerte se confirma contra el link de afiliado antes de publicarla. Nov-2026 la
+    // AMYET SE1 tenía el catálogo de otra bici: su única oferta, $3,999, pasó el filtro de 0.2x
+    // (venía de $14,499) y el inicio anunció un −72% de una bici que cuesta $25,000 y está pausada.
+    if (ratio < 0.5) {
+      if (t.p.linkML) porConfirmar.push({ i, nuevo, row, label, block: t.html?.block ?? null });
+      else {
+        console.log(`  ⚠ ${label} $${actual} → $${nuevo} caída fuerte sin link que confirmar, ignorado`);
+        REPORT.push({ ...row, estado: 'precio_sospechoso', precioML: nuevo });
+      }
+      return;
+    }
     if (actual === nuevo) {
       console.log(`  = ${label} $${nuevo.toLocaleString('es-MX')}`);
       REPORT.push({ ...row, estado: 'sin_cambio', precioML: nuevo });
@@ -311,6 +328,27 @@ async function updateCategory(key, config, admin, REPORT) {
     REPORT.push({ ...row, estado: 'actualizado', precioNuevo: nuevo, precioML: nuevo });
     if (t.html) patches.push({ block: t.html.block, price: nuevo });
   });
+
+  // Caídas fuertes: se publican solo si la ficha que abre el link de afiliado dice lo mismo.
+  if (porConfirmar.length) {
+    console.log(`\n  🔎 confirmando ${porConfirmar.length} caída(s) fuerte(s) contra el link de afiliado…`);
+    await pool(porConfirmar, 2, async c => {
+      const t = targets[c.i];
+      const r = await resolverAfiliado(t.p.linkML).catch(() => null);
+      const coincide = r?.ok && r.precio && Math.abs(r.precio - c.nuevo) / c.nuevo <= 0.1;
+      if (r?.pausada) {
+        console.log(`  ⏸ ${c.label} publicación pausada en ML — no se publica el precio`);
+        REPORT.push({ ...c.row, estado: 'no_encontrado', precioML: null });
+      } else if (coincide) {
+        console.log(`  ✅ ${c.label} → $${c.nuevo.toLocaleString('es-MX')} (confirmado en la ficha)`);
+        REPORT.push({ ...c.row, estado: 'actualizado', precioNuevo: c.nuevo, precioML: c.nuevo });
+        if (c.block) patches.push({ block: c.block, price: c.nuevo });
+      } else {
+        console.log(`  ⚠ ${c.label} → $${c.nuevo} pero la ficha dice $${r?.precio ?? '—'}, ignorado`);
+        REPORT.push({ ...c.row, estado: 'precio_sospechoso', precioML: c.nuevo });
+      }
+    });
+  }
 
   console.log(`  ⏱ ${((Date.now() - t0) / 1000).toFixed(1)} s`);
   if (!patches.length) { console.log('  ✓ Sin cambios en el HTML'); return; }

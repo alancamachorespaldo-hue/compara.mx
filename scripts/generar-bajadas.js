@@ -35,7 +35,8 @@ for (const [cat, lista] of Object.entries(merged)) {
 // Lo que ya se anuncia como oferta en el inicio (descuentos.json de cada categoría) también es bajada,
 // aunque esas listas tienen tope de 5-8 y usan reglas propias por categoría.
 const DESCUENTOS = {
-  'bicis/descuentos.json': ['bicis'], 'celulares/descuentos.json': ['celulares_android', 'celulares_iphone'],
+  'bicis/descuentos.json': ['bicis', 'bicisMontana', 'bicisGravelRuta'],
+  'celulares/descuentos.json': ['celulares_android', 'celulares_iphone'],
   'electrodomesticos/cafeteras/descuentos.json': ['cafeteras'], 'electrodomesticos/freidoras/descuentos.json': ['freidoras'],
   'electrodomesticos/microondas/descuentos.json': ['microondas'], 'laptops/descuentos.json': ['laptops'],
   'suplementos/complejo-b/descuentos.json': ['complejo_b'], 'suplementos/creatina/descuentos.json': ['creatina'],

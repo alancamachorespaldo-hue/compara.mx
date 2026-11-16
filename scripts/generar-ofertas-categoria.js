@@ -17,8 +17,9 @@ const ROOT = join(__dirname, '..');
 const merged = JSON.parse(readFileSync(join(__dirname, 'merged-admin.json'), 'utf8'));
 
 // Categorías sin generador propio: clave en merged-admin.json → ruta de salida.
+// El valor es la ruta de salida; si la portada reúne varias claves de la base, van en `cats`.
 const CATEGORIAS = {
-  bicis:                  'bicis/descuentos.json',
+  bicis:                  { out: 'bicis/descuentos.json', cats: ['bicis', 'bicisMontana', 'bicisGravelRuta'] },
   freidoras:              'electrodomesticos/freidoras/descuentos.json',
   microondas:             'electrodomesticos/microondas/descuentos.json',
   omega3:                 'suplementos/omega3/descuentos.json',
@@ -36,8 +37,10 @@ const CATEGORIAS = {
   lavadoras:              'electrodomesticos/lavadoras/descuentos.json',
 };
 
-function generar(categoria, outRel) {
-  const productos = (merged[categoria] || []).filter(p =>
+function generar(categoria, destino) {
+  const outRel = typeof destino === 'string' ? destino : destino.out;
+  const claves = typeof destino === 'string' ? [categoria] : destino.cats;
+  const productos = claves.flatMap(c => merged[c] || []).filter(p =>
     p.activo !== false && publicado(p) && ((p.precioML && p.linkML) || (p.precioAmz && p.linkAmz))
   );
 
