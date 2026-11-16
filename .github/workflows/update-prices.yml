@@ -45,7 +45,7 @@ jobs:
       - name: Publicar el histórico de 30 días por categoría
         run: node scripts/generar-historico.js
 
-      - name: Generar catálogo mini de celulares
+      - name: Generar los catálogos mini de las guías (celulares y cafeteras)
         run: node scripts/generar-catalog-mini.js
 
       - name: Generar descuentos del día (celulares)
@@ -99,7 +99,7 @@ jobs:
             videojuegos/consolas/index.html videojuegos/controles/index.html videojuegos/juegos/index.html \
             tecnologia/bocinas/index.html tecnologia/audifonos/index.html tecnologia/smartwatches/index.html \
             celulares/android/index.html celulares/iphone/index.html suplementos/vitamina-d/index.html \
-            celulares/catalog-mini.json celulares/descuentos.json \
+            celulares/catalog-mini.json celulares/descuentos.json electrodomesticos/cafeteras/catalog-mini.json \
             suplementos/proteina/descuentos.json laptops/descuentos.json suplementos/creatina/descuentos.json \
             electrodomesticos/cafeteras/descuentos.json \
             bicis/descuentos.json electrodomesticos/freidoras/descuentos.json electrodomesticos/microondas/descuentos.json \
@@ -110,7 +110,7 @@ jobs:
             entretenimiento/streaming/descuentos.json \
             electrodomesticos/refrigeradores/descuentos.json electrodomesticos/lavadoras/descuentos.json \
             assets/data/bajadas.json assets/data/historico scripts/historico-precios.json \
-            guias/celulares/mejores-celulares-menos-5000/index.html \
+            guias/cafeteras/espresso-menos-2000/index.html guias/celulares/mejores-celulares-menos-5000/index.html \
             scripts/guias-precios-report.json \
             scripts/ml-report.json scripts/merged-admin.json scripts/admin-artifact.html
           if git diff --staged --quiet; then

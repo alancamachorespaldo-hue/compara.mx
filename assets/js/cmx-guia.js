@@ -4,8 +4,13 @@
  *   { id, category, legacyPage, familias, rango:{min,max}, max (productos a comparar, 5 por defecto),
  *     catalogUrl, bajadasUrl, bajadasKey, idDe(dbId) -> id del producto en el listado de la categoría,
  *     compare:{ url }   listado de la categoría; se abre su comparativa con  url#comparar=id1,id2…
- *     fav:{ key, title, url, section }   mismos valores que el listado (favKey, title, ruta, section) }
+ *     fav:{ key, title, url, section }   mismos valores que el listado (favKey, title, ruta, section)
+ *     specsDe(fam, especs, variante) -> [[etiqueta, icono, valor], …]   especificaciones de la tarjeta
+ *     ofertaOk(catalogo, bajada) -> bool                             filtra las ofertas del día
+ *     varianteDe(especs, fam) -> texto corto                            línea de la fila de ofertas
+ *       Los dos son opcionales: sin ellos se pintan las especificaciones de celular. }
  * familias: [{ modeloBase, dbId, nombre, corto, img, destaca, chip, pantalla, camPrincipal, bateria, red, nfc,
+ *              especs (opcional, para categorías que no son celulares),
  *              variantes:[{ precio, linkML, ram, storage }] }]
  *   modeloBase debe ser el mismo id que usa el listado de la categoría (ahí f.id = f.modeloBase).
  *
@@ -40,7 +45,14 @@
     phone: '<rect x="6" y="2" width="12" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/>',
     spark: '<path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4z"/>',
     tag: '<path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z"/><circle cx="7" cy="7" r="1.2" fill="currentColor"/>',
-    heart: '<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/>'
+    heart: '<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/>',
+    /* electrodomésticos */
+    cup: '<path d="M4 8h12v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z"/><path d="M16 9h2.5a2.5 2.5 0 0 1 0 5H16"/><line x1="4" y1="21" x2="16" y2="21"/>',
+    drop: '<path d="M12 3s6 6.4 6 10a6 6 0 0 1-12 0c0-3.6 6-10 6-10z"/>',
+    gauge: '<path d="M4 18a8 8 0 1 1 16 0"/><line x1="12" y1="18" x2="16" y2="11"/><circle cx="12" cy="18" r="1.3" fill="currentColor" stroke="none"/>',
+    bolt: '<path d="M13.5 2 5 13h5l-1.5 9L17 11h-5z"/>',
+    steam: '<path d="M8 4c0 1.5 1.5 2 1.5 3.5S8 9.5 8 11"/><path d="M12 3c0 1.6 1.6 2.1 1.6 3.7S12 8.9 12 10.5"/><path d="M16 4c0 1.5 1.5 2 1.5 3.5S16 9.5 16 11"/><path d="M5 14h14v2a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4z"/>',
+    mill: '<circle cx="12" cy="12" r="7.5"/><circle cx="12" cy="12" r="2.4"/><line x1="12" y1="4.5" x2="12" y2="9.6"/><line x1="12" y1="14.4" x2="12" y2="19.5"/><line x1="4.5" y1="12" x2="9.6" y2="12"/><line x1="14.4" y1="12" x2="19.5" y2="12"/>'
   };
   var ML_IC = '<img class="cl-ml-ic" src="/logomercado-ic.png" alt="">';
   var gb = function (n) { return n >= 1000 ? (n / 1024) + ' TB' : n + ' GB'; };
@@ -72,10 +84,16 @@
   }
 
   /* ── Registro de productos: los de la guía y, después, las ofertas ── */
+  /* Las especificaciones de la tarjeta son las de celulares por omisión. Una guía de otra
+     categoría declara  specsDe(fam, especs, variante) -> [[etiqueta, icono, valor], …]
+     y  varianteDe(especs, fam) -> texto corto  (la línea de la fila de ofertas y el chip del
+     histórico). Sin esos dos, el comportamiento es el de las guías de celulares. */
   F.forEach(function (f, i) {
     var v = v0(f);
     REG[f.modeloBase] = { id: f.modeloBase, dbId: f.dbId, nombre: f.nombre, corto: f.corto || f.nombre, img: f.img, own: true, pos: i + 1, fam: f,
-      specs: function () {
+      especs: f.especs || null,
+      variante: C.varianteDe ? (C.varianteDe(f.especs || null, f) || '') : '',
+      specs: C.specsDe ? function () { return C.specsDe(f, this.especs || {}, v) || []; } : function () {
         return [['Pantalla', 'screen', f.pantalla ? f.pantalla + '″' + (f.hz ? ' · ' + f.hz + ' Hz' : '') : (this.especs && this.especs.pantalla) || null],
           ['Procesador', 'spark', f.chip || (this.especs && this.especs.chip) || null], ['RAM', 'tag', v.ram ? v.ram + ' GB' : null], ['Almacenamiento', 'tag', v.storage ? gb(v.storage) : null],
           ['Cámara trasera', 'phone', f.camPrincipal ? f.camPrincipal + ' MP' : null], ['Batería', 'battery', f.bateria || null],
@@ -330,12 +348,16 @@
       var c = cat[b.id];
       if (!(b.plataforma === 'ml' && c && c.linkML && Math.round(c.precioML) === Math.round(b.ahora) && b.antes > b.ahora && b.pct >= 1
         && (!r.max || b.ahora <= r.max) && (!r.min || b.ahora >= r.min))) return;
+      /* ofertaOk: filtro propio de la guía (opcional). Una guía de espresso no debe anunciar
+         cafeteras de goteo solo porque bajaron de precio dentro del mismo rango. */
+      if (C.ofertaOk && !C.ofertaOk(c, b)) return;
       var id = C.idDe ? C.idDe(b.id) : b.id, it = REG[id], e = c.especs || {};
       if (!it) {
-        it = REG[id] = { id: id, dbId: b.id, nombre: c.nombre.replace(/\s+\d+\s?(GB|TB)\/\d+\s?GB RAM$/i, ''), corto: c.nombre.replace(/\s+\d+\s?(GB|TB)\/\d+\s?GB RAM$/i, ''), img: c.imagen, precio: b.ahora, link: c.linkML, own: false,
-          variante: [e.almacenamiento, e.ram ? e.ram + ' RAM' : ''].filter(Boolean).join(' · ') };
+        it = REG[id] = { id: id, dbId: b.id, nombre: c.nombre.replace(/\s+\d+\s?(GB|TB)\/\d+\s?GB RAM$/i, ''), corto: c.nombre.replace(/\s+\d+\s?(GB|TB)\/\d+\s?GB RAM$/i, ''), img: c.imagen, precio: b.ahora, link: c.linkML, own: false, especs: e,
+          variante: C.varianteDe ? (C.varianteDe(e, null) || '') : [e.almacenamiento, e.ram ? e.ram + ' RAM' : ''].filter(Boolean).join(' · ') };
       } else if (it.own) {
-        it.variante = [v0(it.fam).storage ? gb(v0(it.fam).storage) : '', v0(it.fam).ram ? v0(it.fam).ram + ' GB RAM' : ''].filter(Boolean).join(' · ');
+        it.variante = C.varianteDe ? (C.varianteDe(it.especs || e, it.fam) || '')
+          : [v0(it.fam).storage ? gb(v0(it.fam).storage) : '', v0(it.fam).ram ? v0(it.fam).ram + ' GB RAM' : ''].filter(Boolean).join(' · ');
       }
       it.antes = Math.round(b.antes); it.pct = b.pct;
       if (out.indexOf(it) === -1) out.push(it);

@@ -29,6 +29,7 @@ const GUIAS = [
   'guias/celulares/mejores-celulares-menos-5000/index.html',
   'guias/celulares/celulares-menos-3000-mexico/index.html',
   'guias/celulares/mejores-celulares-calidad-precio/index.html',
+  'guias/cafeteras/espresso-menos-2000/index.html',
 ];
 
 const APLICAR = process.argv.includes('--aplicar');
