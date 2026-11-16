@@ -85,7 +85,11 @@ for (const f of filas) if (f.mlIdReal) cuenta[f.mlIdReal] = (cuenta[f.mlIdReal] 
 for (const f of filas) {
   const compartido = f.mlIdReal ? cuenta[f.mlIdReal] : 0;
   f.estado = !f.ok ? 'link_roto'
-    : (f.parecido < 20 && compartido >= 3) ? 'link_caido'
+    // La tarjeta por defecto del perfil no siempre es la misma (se han visto una consola
+    // Switch y un PlayStation 5), así que basta con que dos productos sin relación caigan
+    // en el mismo catálogo y el nombre no se parezca: el iPhone 18 Pro Max de 512 GB y el
+    // de 1 TB abrían los dos el mismo PS5 de $13,932.
+    : (f.parecido < 20 && compartido >= 2) ? 'link_caido'
       : f.pausada ? 'pausada'
         : !f.mlIdReal ? 'sin_catalogo'
           : f.parecido < 20 ? 'revisar'

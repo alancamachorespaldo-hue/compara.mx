@@ -111,7 +111,10 @@ for (const [clave, [rel, nombre]] of Object.entries(FAMILIAS)) {
   }
   let n = 0;
   for (const p of lista) {
-    const enWeb = ids.has(String(p.id)) || Boolean(p.linkML && links.has(p.linkML));
+    // Solo por id: hay variantes distintas que comparten el mismo link de afiliado
+    // (el iPhone 17 de 256 y el de 512 GB, por ejemplo), y compararlas por link las
+    // daba a las dos por publicadas.
+    const enWeb = ids.has(String(p.id));
     if (p._enWeb !== enWeb) { p._enWeb = enWeb; cambios++; }
     if (enWeb) n++;
   }

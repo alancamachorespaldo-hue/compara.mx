@@ -68,7 +68,10 @@ const CATALOG = {
 // Celulares: estructura "familias + variantes" — manejado por updateCelulares().
 // ID por variante: "{prefix}-{familia.modeloBase}-{storage}gb-{ram}gb"
 const CATALOG_CEL = {
-  celulares_android: { file: 'celulares/android/index.html', varName: 'familias', prefix: 'android' },
+  // Cada variante lleva su propio id desde nov-2026: antes se calculaba con
+  // modeloBase+almacenamiento+RAM y los colores de un mismo modelo colisionaban
+  // (el Pixel 10 Pro tiene 5, todos 128/16), así que 8 no cabían en la base.
+  celulares_android: { file: 'celulares/android/index.html', varName: 'familias', prefix: 'android', useVariantId: true },
   celulares_iphone:  { file: 'celulares/iphone/index.html',  varName: 'familias', useVariantId: true },
 };
 const SUPLEMENTOS = ['proteina', 'omega3', 'magnesio', 'creatina', 'complejo_b', 'vitamina_d'];
