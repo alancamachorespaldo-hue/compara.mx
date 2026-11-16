@@ -146,19 +146,34 @@ El artifact se reconstruye a sí mismo al guardar; si se edita `admin-template.h
 
 ## GitHub Actions
 
-- `update-prices.yml` ("Actualizar precios Mercado Libre") — **el que usa el usuario** para actualizar
-  precios: diario 6:00 CDMX y manual con selector de categoría. Corre `ml-update.js` + `generar-admin.js` +
-  `check-site.js` y hace commit. El artifact enlaza a este workflow.
+- `update-prices.yml` ("Actualizar precios Mercado Libre") — **el único workflow de precios
+  programado y el que usa el usuario**: diario 6:00 CDMX y manual con selector de categoría. Corre
+  todo el pipeline (`ml-update.js`, `generar-admin.js`, histórico, `generar-catalog-mini.js`,
+  descuentos, bajadas, pausas, `sync-guias-precios.js`, `check-site.js`) y hace commit. El artifact
+  enlaza a este workflow. Una categoría o una guía nuevas entran solas: basta registrarlas en su
+  script (`CATALOG` de `ml-update.js`, `CATALOGOS` de `generar-catalog-mini.js`, `GUIAS` de
+  `sync-guias-precios.js`); el commit usa `git add -u`, no una lista de rutas.
+  (`ml-update.yml` hacía lo mismo cuatro horas antes; se retiró el 16-nov-2026.)
 - `update-prices-<categoria>.yml` — manual por categoría (mismo pipeline, sin `check-site.js`).
 - `sync-productos.yml` — al cambiar `productos.json` o `merged-admin.json`, corre `sync-html.js`.
-- `check-site.yml` — corre `check-site.js` en cada push y PR.
+- `check-site.yml` — corre `check-site.js` y `validar-datos.js` en cada push y PR.
 - Secrets: `ML_CLIENT_ID`, `ML_CLIENT_SECRET`, `ML_REFRESH_TOKEN`.
+- **Ningún workflow usa `git stash`.** Confirman primero y después hacen `git fetch` + `git rebase`;
+  si el rebase choca, abortan y fallan. Todos comparten `concurrency: datos-comparalo`, porque todos
+  escriben `merged-admin.json`. El 16-nov-2026 un `git pull --rebase --autostash` de dos corridas
+  traslapadas publicó la base con 1,065 bloques de conflicto; no volver a meter stash aquí.
 
 ## Validación
 
 `node scripts/check-site.js` revisa en todas las páginas: GA4 presente, onboarding presente, tag de
 afiliado correcto, sin links a `.html` de categorías, sin URLs sin barra tipo `/celularesalta-gama`,
 y que los scripts inline y el JSON-LD no tengan errores de sintaxis. Si falla, no hacer push.
+
+`node scripts/validar-datos.js` revisa los JSON de datos (la base, los reportes, el histórico,
+`descuentos.json`, `catalog-mini.json`): que no tengan marcas de conflicto de git, que se puedan
+leer y que `merged-admin.json` no se haya quedado vacío. Corre en cada push y antes de cada commit
+de los workflows. Es la red que faltaba el 16-nov-2026, cuando `git add` + `git commit` publicaron
+la base con marcas de conflicto sin que nada fallara.
 
 ## Diseño
 

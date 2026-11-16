@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 
-# Un solo workflow de datos a la vez. Los ocho escriben scripts/merged-admin.json y, cuando dos
+# Un solo workflow de datos a la vez. Los siete escriben scripts/merged-admin.json y, cuando dos
 # se traslapan, el segundo se encuentra el commit del primero a medio camino: así nació el
 # incidente del 16-nov-2026 (1,065 bloques de conflicto confirmados en la base). Con
 # cancel-in-progress en false, el que llega después espera su turno en vez de pisar al otro.

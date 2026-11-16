@@ -1,5 +1,12 @@
 name: Actualizar precios Mercado Libre
 
+# El único workflow de precios programado. Revisa todas las categorías registradas en
+# el CATALOG de scripts/ml-update.js, regenera descuentos, bajadas, histórico y los
+# catálogos mini, y actualiza los precios escritos en las guías. Una categoría o una
+# guía nuevas entran aquí solas: basta registrarlas en su script (CATALOG de
+# ml-update.js, CATALOGOS de generar-catalog-mini.js, GUIAS de sync-guias-precios.js).
+# ml-update.yml hacía lo mismo cuatro horas antes y se retiró el 16-nov-2026.
+
 on:
   schedule:
     # Cada día a las 6:00 AM hora Ciudad de México (12:00 UTC)
@@ -10,10 +17,10 @@ on:
         description: 'Categoría a actualizar'
         type: choice
         default: all
-        options: [all, laptops, freidoras, bicis, bicisMontana, bicisMontanaDed, microondas, cafeteras, suplementos, proteina, omega3, magnesio, creatina, complejo_b, videojuegos_consolas, videojuegos_controles, videojuegos_juegos, tecnologia_bocinas, tecnologia_audifonos, tecnologia_smartwatches, celulares_android, celulares_iphone, streaming, refrigeradores, lavadoras, ollas]
+        options: [all, laptops, freidoras, bicis, bicisMontana, bicisMontanaDed, bicisRuta, bicisGravel, microondas, cafeteras, suplementos, proteina, omega3, magnesio, creatina, complejo_b, vitamina_d, videojuegos_consolas, videojuegos_controles, videojuegos_juegos, tecnologia_bocinas, tecnologia_audifonos, tecnologia_smartwatches, celulares_android, celulares_iphone, streaming, refrigeradores, lavadoras, ollas]
 
 
-# Un solo workflow de datos a la vez. Los ocho escriben scripts/merged-admin.json y, cuando dos
+# Un solo workflow de datos a la vez. Los siete escriben scripts/merged-admin.json y, cuando dos
 # se traslapan, el segundo se encuentra el commit del primero a medio camino: así nació el
 # incidente del 16-nov-2026 (1,065 bloques de conflicto confirmados en la base). Con
 # cancel-in-progress en false, el que llega después espera su turno en vez de pisar al otro.
@@ -105,31 +112,13 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add laptops/index.html bicis/index.html bicicletas/bici-montana/index.html entretenimiento/streaming/index.html \
-            electrodomesticos/freidoras/index.html electrodomesticos/microondas/index.html \
-            electrodomesticos/cafeteras/index.html \
-            electrodomesticos/refrigeradores/index.html electrodomesticos/lavadoras/index.html electrodomesticos/ollas/index.html \
-            suplementos/proteina/index.html suplementos/omega3/index.html suplementos/magnesio/index.html \
-            suplementos/creatina/index.html suplementos/complejo-b/index.html \
-            videojuegos/consolas/index.html videojuegos/controles/index.html videojuegos/juegos/index.html \
-            tecnologia/bocinas/index.html tecnologia/audifonos/index.html tecnologia/smartwatches/index.html \
-            celulares/android/index.html celulares/iphone/index.html suplementos/vitamina-d/index.html \
-            celulares/catalog-mini.json celulares/descuentos.json electrodomesticos/cafeteras/catalog-mini.json \
-            suplementos/proteina/descuentos.json laptops/descuentos.json suplementos/creatina/descuentos.json \
-            electrodomesticos/cafeteras/descuentos.json \
-            bicis/descuentos.json electrodomesticos/freidoras/descuentos.json electrodomesticos/microondas/descuentos.json \
-            suplementos/omega3/descuentos.json suplementos/magnesio/descuentos.json suplementos/complejo-b/descuentos.json \
-            suplementos/vitamina-d/descuentos.json \
-            videojuegos/consolas/descuentos.json videojuegos/controles/descuentos.json videojuegos/juegos/descuentos.json \
-            tecnologia/bocinas/descuentos.json tecnologia/audifonos/descuentos.json tecnologia/smartwatches/descuentos.json \
-            entretenimiento/streaming/descuentos.json \
-            electrodomesticos/refrigeradores/descuentos.json electrodomesticos/lavadoras/descuentos.json \
-            assets/data/bajadas.json assets/data/historico scripts/historico-precios.json \
-            guias/cafeteras/espresso-menos-2000/index.html guias/celulares/mejores-celulares-menos-5000/index.html \
-            guias/celulares/celulares-menos-3000-mexico/index.html guias/celulares/mejores-celulares-calidad-precio/index.html \
-            suplementos/creatina/catalog-mini.json suplementos/creatina/creatina-mexico-cual-comprar/index.html \
-            scripts/guias-precios-report.json \
-            scripts/ml-report.json scripts/merged-admin.json scripts/admin-artifact.html
+          # -u confirma todo lo versionado que hayan tocado los pasos de arriba, sin enumerar
+          # rutas. Antes era una lista escrita a mano de medio centenar de archivos y cada
+          # página o guía nueva tenía que agregarse ahí: si se olvidaba, sus precios nuevos se
+          # descartaban en silencio en cada corrida (pasó con tres guías hasta el 16-nov-2026).
+          # Es -u y no -A a propósito: nunca confirma archivos sueltos sin versionar, y antes
+          # de llegar aquí ya corrieron check-site.js y validar-datos.js.
+          git add -u
           if git diff --staged --quiet; then
             echo "Sin cambios."
             exit 0
