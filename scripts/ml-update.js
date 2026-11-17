@@ -16,6 +16,7 @@ import { resolve } from 'path';
 import { pathToFileURL } from 'url';
 import { resolverAfiliado } from './resolver-afiliado.js';
 import { planas, familias as familiasCats } from './categorias.js';
+import { fichaVigente } from './revisar-disponibilidad.js';
 
 const CLIENT_ID     = process.env.ML_CLIENT_ID;
 const CLIENT_SECRET = process.env.ML_CLIENT_SECRET;
@@ -274,7 +275,13 @@ async function updateCategory(key, config, admin, REPORT) {
       }
       return;
     }
-    const nuevo = Math.round(raw);
+    // El precio de la API es la oferta más barata con envío FULL del catálogo, pero la ficha que
+    // abre el link de afiliado puede enseñar otra más cara. Cuando la revisión semanal
+    // (revisar-disponibilidad.js --links) leyó la ficha y era más cara, ese precio manda mientras
+    // esté vigente: el sitio nunca anuncia menos de lo que el visitante verá al hacer clic. Si la
+    // API sube por encima, gana la API, que es el dato del día.
+    const deLaFicha = fichaVigente(t.p) ? t.p._precioFicha : null;
+    const nuevo = Math.max(Math.round(raw), deLaFicha ?? 0);
     const ratio = actual ? nuevo / actual : 1;
     if (ratio < 0.2 || ratio > 4) {
       console.log(`  ⚠ ${label} $${actual} → $${nuevo} sospechoso (${ratio.toFixed(1)}x), ignorado`);

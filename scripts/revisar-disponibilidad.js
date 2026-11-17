@@ -68,6 +68,17 @@ const UMBRAL = Number(process.argv.find(a => a.startsWith('--umbral='))?.split('
 const CONCURRENCIA = 4;
 // A partir de cuánto más cara que lo publicado consideramos que la ficha desmiente al sitio.
 const UMBRAL_PRECIO = 0.05;
+/**
+ * Cuántos días vale el precio leído de la ficha. La revisión con --links corre cada domingo, así
+ * que 8 días cubren hasta la siguiente. Mientras esté vigente, ml-update.js no publica un precio
+ * MENOR que el de la ficha: el sitio nunca promete menos de lo que el visitante va a ver.
+ * Si la API sube por encima de la ficha, gana la API, que es el dato más fresco.
+ */
+export const DIAS_PRECIO_FICHA = 8;
+export const fichaVigente = (p, ahora = Date.now()) => {
+  const t = Date.parse(p?._precioFichaFecha);
+  return p?._precioFicha > 0 && isFinite(t) && ahora - t <= DIAS_PRECIO_FICHA * 864e5;
+};
 const MLID_RX = /^MLM\d{6,12}$/;
 const HOY = new Date().toISOString().slice(0, 10);
 
@@ -295,7 +306,7 @@ async function main() {
   const productos = [...sinId];
   const desajustes = [];   // precios que la ficha desmiente (no se pausan, se reportan)
   const resumen = {};
-  let pausados = 0, reactivados = 0, enRacha = 0;
+  let pausados = 0, reactivados = 0, enRacha = 0, preciosCorregidos = 0;
 
   tareas.forEach((t, i) => {
     const { cat, p, mlId } = t;
@@ -348,13 +359,22 @@ async function main() {
     }
 
     // El catálogo está bien, pero la ficha que abre el link enseña un precio más alto que el
-    // publicado. No se pausa ni se toca el precio: se reporta para decidirlo a mano.
+    // publicado. Manda la ficha: es lo que el visitante va a ver al hacer clic. El producto no se
+    // pausa; se le corrige el precio y queda anotado de dónde salió.
     if (r.precioFicha) {
+      const antes = p.precioML ?? 0;
       desajustes.push({
         ...fila, estado: 'precio_no_coincide',
-        detalle: `publicamos $${(p.precioML ?? 0).toLocaleString('es-MX')} y la ficha dice $${r.precioFicha.toLocaleString('es-MX')} (+${r.difPrecio}%)`,
-        precioEnML: r.precioFicha, accion: 'revisar el precio',
+        detalle: `publicábamos $${antes.toLocaleString('es-MX')} y la ficha dice $${r.precioFicha.toLocaleString('es-MX')} (+${r.difPrecio}%)`,
+        precioEnML: r.precioFicha,
+        accion: APLICAR ? 'precio corregido al de la ficha' : 'se corregiría al precio de la ficha',
       });
+      if (APLICAR) {
+        p._precioFicha = r.precioFicha;
+        p._precioFichaFecha = HOY;
+        p.precioML = r.precioFicha;
+        preciosCorregidos++;
+      }
     }
 
     // Está OK: anotar la revisión, limpiar la racha y, si la pausa era automática, reactivar.
@@ -476,7 +496,9 @@ async function main() {
 
   if (desajustes.length) {
     console.log(`\n💲 El precio de la ficha no coincide con el publicado — ${desajustes.length}`);
-    console.log('   (la ficha que abre el link es más cara: el visitante llega esperando un precio y ve otro)');
+    console.log(APLICAR
+      ? `   (manda la ficha: ${preciosCorregidos} precio(s) corregidos al que verá quien dé clic)`
+      : '   (la ficha que abre el link es más cara: el visitante llega esperando un precio y ve otro)');
     for (const d of desajustes.slice(0, 8)) console.log(`     · ${tituloDe(d.categoria)}: ${String(d.nombre).slice(0, 38)} — ${d.detalle}`);
     if (desajustes.length > 8) console.log(`     … y ${desajustes.length - 8} más en el reporte`);
   }
