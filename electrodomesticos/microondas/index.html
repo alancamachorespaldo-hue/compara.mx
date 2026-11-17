@@ -1350,7 +1350,7 @@ const micros = [
     linkAmz: null,
     linkML: "https://meli.la/2rAzaPS",
     img: "https://http2.mlstatic.com/D_NQ_NP_2X_772997-MLA112020463874_062026-F.webp",
-    precioML: 1293
+    precioML: 1300
   },
   {
     id: 17,
@@ -1477,7 +1477,7 @@ const micros = [
     linkAmz: null,
     linkML: "https://meli.la/2H1XidR",
     img: "https://http2.mlstatic.com/D_NQ_NP_2X_904774-MLM112760541269_062026-F.webp",
-    precioML: 1442
+    precioML: 1479
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=micros.length-1;_i>=0;_i--){var _p=micros[_i];var _z=_PZ[_p.id];if(!_z)continue;if(_z.ml){_p.linkML=null;_p.precioML=null;_p.pausaML=true;}if(_z.amz){_p.linkAmz='';_p.precioAmz=null;_p.pausaAmz=true;}if(!_p.linkML&&!_p.linkAmz)micros.splice(_i,1);}}catch(e){}
