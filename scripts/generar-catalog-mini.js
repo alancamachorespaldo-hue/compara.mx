@@ -9,19 +9,10 @@ import { readFileSync, writeFileSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
+// Qué categorías publican catalog-mini.json sale del registro único scripts/categorias.js.
+import { conCatalogMini } from "./categorias.js";
 
-const CATALOGOS = [
-  { categoria: "celulares_android", salida: ["celulares", "catalog-mini.json"],
-    especs: ["pantalla", "ram", "almacenamiento", "cam"] },
-  { categoria: "cafeteras", salida: ["electrodomesticos", "cafeteras", "catalog-mini.json"],
-    especs: ["tipo", "capacidad", "presion", "vaporizador", "potencia", "molinillo"] },
-  { categoria: "creatina", salida: ["suplementos", "creatina", "catalog-mini.json"],
-    especs: ["tipoCreatina", "presentacion", "contenidoGramos", "grPorPorcion", "porciones", "costoPor5g", "pura"] },
-  { categoria: "videojuegos_consolas", salida: ["videojuegos", "consolas", "catalog-mini.json"],
-    especs: ["generacion", "tipoConsola", "almacenamiento", "lectorDiscos", "formatoJuegos", "accesorios", "condicion"] },
-  { categoria: "videojuegos_juegos", salida: ["videojuegos", "juegos", "catalog-mini.json"],
-    especs: ["plataforma", "formato", "desarrollador", "anio", "genero", "multijugador"] },
-];
+const CATALOGOS = conCatalogMini().map(c => ({ categoria: c.datos, ...c.catalogMini }));
 
 const admin = JSON.parse(readFileSync(join(__dirname, "merged-admin.json"), "utf8"));
 

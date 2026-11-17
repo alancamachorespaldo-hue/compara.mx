@@ -61,6 +61,35 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
 
 ## Datos y scripts (`scripts/`)
 
+- `categorias.js` — **registro único de categorías**. Una categoría se declara aquí UNA vez (clave de
+  `merged-admin.json`, página, nombre del array JS, y opcionalmente `descuentos` y `catalogMini`) y
+  entra sola en `ml-update.js`, `revisar-disponibilidad.js`, `sync-pausas.js`, `generar-catalog-mini.js`
+  y `generar-bajadas.js`. Antes cada script llevaba su propia lista y se desincronizaban: cafeteras,
+  smartwatches, refrigeradores, streaming, ollas e iPhone recibían precios pero **no** pausas, así que
+  pausar un producto en el gestor no lo quitaba de su página. Al registrar una categoría nueva hay que
+  correr `node scripts/sync-pausas.js` una vez para que su página reciba el bloque de pausas;
+  `check-site.js` falla si una categoría de la base no está registrada o si a su página le falta ese bloque.
+- `revisar-disponibilidad.js [--todas|--categoria=a,b] [--links] [--aplicar] [--umbral=N]` — revisa si
+  cada producto publicado SIGUE existiendo en ML y pausa lo caído. Dos capas: la de catálogo
+  (`/products/{mlId}` + sus ofertas, ~2 min todo el sitio, corre a diario en `update-prices.yml`) y la
+  de links (`--links`: abre cada `meli.la` y comprueba que siga llevando a SU producto; ~20 min, corre
+  los domingos en `revisar-disponibilidad.yml`). La segunda es la que descubre lo peor: nov-2026 dos
+  laptops abrían una barra de sonido Sonos porque el link caído cae en la tarjeta por defecto del perfil
+  de afiliado. Estados: `ok`, `sin_ofertas`, `pausado`, `no_existe`, `link_roto`, `link_otro`, `sin_id`,
+  `error`. **Un `error` de API nunca pausa nada** y un producto se pausa solo si se ve caído en DOS
+  corridas seguidas (`_dispFallos`, `--umbral`), porque pausar de más también quita credibilidad.
+  `--aplicar` escribe `pausaML` + `_pausaAuto` + `_motivoPausa` + `_pausaFecha` sin borrar el producto,
+  el link ni el precio, reactiva solo lo que él mismo pausó y **nunca toca una pausa puesta a mano**.
+  Un producto pausado por `link_roto`/`link_otro` **solo se reactiva en una corrida con `--links`**:
+  para la capa de catálogo ese producto se ve perfectamente disponible (lo que murió es el link de
+  afiliado), así que sin esta regla la corrida diaria lo devolvía al sitio cada mañana con el link roto.
+  También anota en cada producto revisado `_dispEstado` y `_dispFecha` (y `_dispFallos` mientras está
+  en observación): el gestor los muestra en la columna "Revisado en ML" y en las colas "Pausados por
+  la revisión", "En observación" y "Nunca revisados". El reporte **acumula**: revisar una categoría
+  suelta no borra lo que se sabe de las demás.
+  Escribe `disponibilidad-report.json`, que `generar-admin.js` embebe en el gestor (tarjeta
+  "Disponibilidad en Mercado Libre", con botón para pausar). Después de `--aplicar` hay que correr
+  `sync-pausas.js` para que las páginas lo reflejen.
 - `merged-admin.json` — **fuente de verdad** de productos (precios, links, `activo`, specs) por categoría.
 - `productos.json` — base que `sync-html.js` combina con `merged-admin.json`.
 - `sync-html.js` — aplica `activo`, links y `precioML`/`precioAmz` de la BD a los arrays JS de los HTML.
@@ -110,8 +139,15 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
 - `ml-bicis.js especs|nuevas [--aplicar]` — bicis: llena características vacías desde la ficha ML (nunca
   sobrescribe) y agrega bicis más vendidas con stock como `estadoML:"nuevo"`, `activo:false`. En el artifact se
   publican (requiere link de afiliado) y `sync-html.js` agrega las marcadas `_publicar` a `ELECTRICAS`.
-- `sync-pausas.js` — lleva las pausas por plataforma (`pausaML`/`pausaAmz` de `merged-admin.json`) a las
-  páginas de suplementos sin tocar los links: inyecta un `<script id="pausas">` y un bucle que, antes de
+- `sync-pausas.js` — lleva las pausas por plataforma (`pausaML`/`pausaAmz` de `merged-admin.json`) a
+  TODAS las páginas del registro (no solo suplementos) sin tocar los links. **Empareja leyendo el
+  array del HTML**: por id y, si no coincide, por `linkML`/`linkAmz`, porque el id de la página no
+  siempre es el de la base (en streaming la base usa `streaming-2` y la página `2`, así que sus 17
+  pausas no ocultaban nada). Quita el producto de la lista cuando se queda **sin ninguna tienda**
+  —no solo cuando están pausadas las dos—, porque desde la baja de Amazon casi nada tiene `linkAmz`
+  y la tarjeta se quedaba sin precio ni botón. Además reescribe el contador del hero
+  ("N modelos para comparar") con lo que de verdad se ve. Avisa si un producto pausado no aparece
+  en su página en vez de fallar en silencio. Lo que inyecta: inyecta un `<script id="pausas">` y un bucle que, antes de
   render, oculta la plataforma pausada (pone su link y precio en null) y quita el producto si están pausadas
   ambas. El link no se borra, se reactiva poniendo la pausa en "Se muestra" en el artifact.
 - `extraer-artifact.js <archivo.html>` — pasa los datos de un artifact guardado a `merged-admin.json`. Además detecta
@@ -124,7 +160,11 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
   el artifact guarda `_precioAmzAntes` + `_precioAmzFecha` al capturar un `precioAmz` menor (anclado al precio más alto
   de la racha; si sube hasta el precio anterior se quita) y la oferta de Amazon vale 7 días (`DIAS_OFERTA_AMZ`, en
   `_ofertas.js` y en `admin-template.html`; cambiar en ambos). Requiere link con el tag y `pausaAmz` apagado. Gana la
-  tienda con mayor %; cada oferta trae `plataforma` (`ml`|`amazon`), `precioOferta` y `link`. Los consumen la sección
+  tienda con mayor %; cada oferta trae `plataforma` (`ml`|`amazon`), `precioOferta` y `link`.
+  Todos los generadores filtran con `vendible()` de `_ofertas.js` (activo, no eliminado, sin `pausaML`,
+  `estadoML` distinto de `no_encontrado`/`pausado`). Hasta nov-2026 la función existía pero no la
+  llamaba ninguno —filtraban solo por `activo`—, así que un producto pausado en ML podía seguir
+  anunciándose como oferta en el inicio. Al agregar un generador nuevo, usar `vendible(p)`, no `p.activo`. Los consumen la sección
   de ofertas del inicio, `/celulares/`, `/celulares/android/` y las 3 guías de celulares con `descuentos.json`.
 - `generar-bajadas.js` — escribe `assets/data/bajadas.json` con TODOS los productos que bajaron de precio por
   categoría (bajada oficial de `_ofertas.js` + lo que ya anuncia cada `descuentos.json`, que tiene tope de 5–8).
@@ -137,6 +177,9 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
   (`cmx-footer`). **No editar esos bloques a mano**: se cambian en el script o en `assets/css/cmx-site.css`
   y se vuelve a correr. Una página nueva debe correrlo (y estar en `sitemap.xml`) o `check-site.js` falla.
   Las categorías del buscador (escritorio y panel móvil) viven en `js/categorias.js`.
+- `sync-hub-counts.js [--check]` — números de producto en los hubs. Cuenta con el mismo criterio
+  que las páginas (lo que conserva alguna tienda tras las pausas) y, en celulares, cuenta variantes,
+  no familias. Corre después de `sync-pausas.js` en los dos workflows de datos.
 - `check-site.js` — validaciones del sitio (ver abajo).
 
 Admin: Claude Artifact https://claude.ai/artifact/BTt8aRBCUZQNWvGAS81rTt (se publica desde
@@ -154,6 +197,10 @@ El artifact se reconstruye a sí mismo al guardar; si se edita `admin-template.h
   script (`CATALOG` de `ml-update.js`, `CATALOGOS` de `generar-catalog-mini.js`, `GUIAS` de
   `sync-guias-precios.js`); el commit usa `git add -u`, no una lista de rutas.
   (`ml-update.yml` hacía lo mismo cuatro horas antes; se retiró el 16-nov-2026.)
+- `revisar-disponibilidad.yml` ("Revisar disponibilidad en Mercado Libre") — domingos 5:00 CDMX y
+  manual (con opciones de aplicar/links/umbral). Corre la revisión completa **con la capa de links**,
+  pausa lo caído, aplica pausas a las páginas, regenera el gestor y valida. La capa rápida ya corre
+  a diario dentro de `update-prices.yml`.
 - `update-prices-<categoria>.yml` — manual por categoría (mismo pipeline, sin `check-site.js`).
 - `sync-productos.yml` — al cambiar `productos.json` o `merged-admin.json`, corre `sync-html.js`.
 - `check-site.yml` — corre `check-site.js` y `validar-datos.js` en cada push y PR.
@@ -167,7 +214,10 @@ El artifact se reconstruye a sí mismo al guardar; si se edita `admin-template.h
 
 `node scripts/check-site.js` revisa en todas las páginas: GA4 presente, onboarding presente, tag de
 afiliado correcto, sin links a `.html` de categorías, sin URLs sin barra tipo `/celularesalta-gama`,
-y que los scripts inline y el JSON-LD no tengan errores de sintaxis. Si falla, no hacer push.
+y que los scripts inline y el JSON-LD no tengan errores de sintaxis. Además revisa el registro de
+categorías: que toda categoría de `merged-admin.json` esté en `scripts/categorias.js`, que su página
+exista con el array declarado y que tenga el bloque `/*PAUSAS*/` (si no, pausar un producto en el
+gestor no lo quitaría del sitio). Si falla, no hacer push.
 
 `node scripts/validar-datos.js` revisa los JSON de datos (la base, los reportes, el histórico,
 `descuentos.json`, `catalog-mini.json`): que no tengan marcas de conflicto de git, que se puedan

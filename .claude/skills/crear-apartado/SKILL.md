@@ -150,10 +150,37 @@ a. **Entrada en `assets/js/filters-panel.js`:** el panel izquierdo solo funciona
    ```
 
    Después agrega las facetas propias: `byValue(...)` (marca, tipo, capacidad…) y `flags(...)` para booleanos. Mira cómo lo hacen magnesio/omega3/complejo-b. Si no tienes claro qué filtros pediría el usuario para esa categoría, **propón 3–4 y pregúntale a Alan** antes de inventarlos.
-b. **`sitemap.xml`:** agrega la URL nueva (limpia, con slash final). `check-site.js` falla si la página existe y no está en el sitemap.
-c. **Corre `node scripts/sync-site.js`:** escribe encabezado, breadcrumb, "Sigue explorando" y pie. Una página nueva DEBE correrlo.
-d. **Corre `node scripts/check-site.js`:** tiene que pasar en verde antes de dar por terminado. Valida GA4, onboarding, tag de afiliado, que no haya links a `.html` de categorías ni URLs sin barra, y que el JS inline y el JSON-LD no tengan errores.
-e. **Siempre haz commit y push al terminar.** Agrega los archivos por nombre (`git add <archivo1> <archivo2>…`), revisa `git diff --stat --cached`, haz commit con mensaje descriptivo y luego `git push`. No dejes cambios sin publicar.
+b. **Registra la categoría en `scripts/categorias.js` (OBLIGATORIO, es lo que la conecta a todo).**
+   Es el registro único del sitio. Sin esa entrada la categoría no recibe precios de Mercado Libre,
+   ni revisión de disponibilidad, ni pausas: un producto que se cae o se pausa en ML se queda
+   anunciado en la página. `check-site.js` falla si la categoría existe en `merged-admin.json` y no
+   está registrada, así que no se puede olvidar.
+
+   ```js
+   televisiones: {
+     titulo: 'Televisiones', file: 'tecnologia/televisiones/index.html', varName: 'productos',
+     descuentos: 'tecnologia/televisiones/descuentos.json',
+   },
+   ```
+
+   - La clave es **la misma** que usa `merged-admin.json` para esa categoría.
+   - `varName` es el nombre del array JS de productos dentro del HTML (`productos`, `micros`, …).
+   - `descuentos` solo si la categoría va a tener su `descuentos.json`; `catalogMini` solo si una
+     guía va a leer su catálogo.
+
+   Después del registro, corre **una vez** `node scripts/sync-pausas.js`: inserta en la página el
+   bloque que oculta lo pausado. A partir de ahí, pausar un producto en el gestor lo quita del sitio.
+
+   Para que el precio y la revisión funcionen, cada producto necesita su `mlId` (ID de catálogo
+   `MLM…`). Sácalo de los links de afiliado con
+   `node scripts/auditar-links.js --categoria=<clave> --aplicar`, y comprueba la categoría con
+   `node scripts/revisar-disponibilidad.js --categoria=<clave> --links` antes de publicarla:
+   si ya trae links caídos, no la publiques así.
+
+c. **`sitemap.xml`:** agrega la URL nueva (limpia, con slash final). `check-site.js` falla si la página existe y no está en el sitemap.
+d. **Corre `node scripts/sync-site.js`:** escribe encabezado, breadcrumb, "Sigue explorando" y pie. Una página nueva DEBE correrlo.
+e. **Corre `node scripts/check-site.js`:** tiene que pasar en verde antes de dar por terminado. Valida GA4, onboarding, tag de afiliado, que no haya links a `.html` de categorías ni URLs sin barra, y que el JS inline y el JSON-LD no tengan errores.
+f. **Siempre haz commit y push al terminar.** Agrega los archivos por nombre (`git add <archivo1> <archivo2>…`), revisa `git diff --stat --cached`, haz commit con mensaje descriptivo y luego `git push`. No dejes cambios sin publicar.
 
 ## Contenido SEO (obligatorio)
 

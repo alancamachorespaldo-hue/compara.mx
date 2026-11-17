@@ -1,10 +1,11 @@
 name: Actualizar precios Mercado Libre
 
 # El único workflow de precios programado. Revisa todas las categorías registradas en
-# el CATALOG de scripts/ml-update.js, regenera descuentos, bajadas, histórico y los
-# catálogos mini, y actualiza los precios escritos en las guías. Una categoría o una
-# guía nuevas entran aquí solas: basta registrarlas en su script (CATALOG de
-# ml-update.js, CATALOGOS de generar-catalog-mini.js, GUIAS de sync-guias-precios.js).
+# el registro scripts/categorias.js, revisa que sigan existiendo en ML, regenera
+# descuentos, bajadas, histórico y los
+# catálogos mini, y actualiza los precios escritos en las guías. Una categoría nueva entra
+# aquí sola con registrarla en scripts/categorias.js (una guía nueva, en GUIAS de
+# sync-guias-precios.js).
 # ml-update.yml hacía lo mismo cuatro horas antes y se retiró el 16-nov-2026.
 
 on:
@@ -59,6 +60,18 @@ jobs:
       - name: Anotar qué productos están publicados en cada página
         run: node scripts/marcar-publicados.js
 
+      - name: Revisar disponibilidad en ML y pausar lo caído
+        env:
+          ML_CLIENT_ID:     ${{ secrets.ML_CLIENT_ID }}
+          ML_CLIENT_SECRET: ${{ secrets.ML_CLIENT_SECRET }}
+          ML_REFRESH_TOKEN: ${{ secrets.ML_REFRESH_TOKEN }}
+        # Siempre revisa TODO el sitio, aunque la corrida sea de una sola categoría: son ~2 min
+        # y es lo que evita seguir anunciando productos que ya no existen. Capa 1 (catálogo);
+        # la capa de links, más lenta, va en el workflow semanal revisar-disponibilidad.yml.
+        # Un producto se pausa cuando se ve caído en DOS corridas seguidas (umbral por defecto),
+        # y se reactiva solo si vuelve a estar disponible.
+        run: node scripts/revisar-disponibilidad.js --todas --aplicar
+
       - name: Sincronizar merged-admin.json y regenerar artifact
         run: node scripts/generar-admin.js
 
@@ -94,6 +107,9 @@ jobs:
 
       - name: Aplicar pausas a páginas HTML
         run: node scripts/sync-pausas.js
+
+      - name: Cuadrar los contadores de los hubs con lo que se ve
+        run: node scripts/sync-hub-counts.js
 
       - name: Aplicar precios de Amazon y pausas/eliminados a subpáginas de suplementos
         run: node scripts/sync-suplementos-precios.js --aplicar

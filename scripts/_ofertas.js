@@ -9,6 +9,9 @@ export const publicado = p => !(p.estadoML === 'nuevo' && !p._publicar);
 // estaba con activo:false y _eliminado:true y aun así el inicio la anunciaba con −72%
 // ($3,999 contra $14,499) cuando su publicación está pausada en $25,000 — el precio venía
 // además del catálogo equivocado. Sin este filtro la oferta sobrevive a la baja del producto.
+// Lo usan TODOS los generadores de ofertas y bajadas. Hasta nov-2026 estaba escrito pero no se
+// llamaba en ninguno: filtraban solo por `activo !== false`, así que un producto pausado en ML
+// (a mano o por revisar-disponibilidad.js) podía seguir anunciándose como oferta en el inicio.
 export const vendible = p => p.activo !== false && !p._eliminado && !p.pausaML
   && p.estadoML !== 'no_encontrado' && p.estadoML !== 'pausado';
 const AMZ_TAG = 'comparalo20-20';

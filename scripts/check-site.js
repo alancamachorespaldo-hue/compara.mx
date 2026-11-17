@@ -4,6 +4,7 @@ import { readFileSync, readdirSync, statSync, existsSync } from 'fs';
 import { join, relative, resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import vm from 'vm';
+import { entradas, clavesDeDatos } from './categorias.js';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SKIP_DIRS = new Set(['node_modules', '_interno', 'scripts', '.git', '.github', '.claude', 'admin']);
@@ -115,6 +116,37 @@ if (existsSync(HIST_DIR)) {
       if ((p.p || []).some(([i]) => i < 0 || i >= f.length)) err(file, `${ref}: punto fuera de la ventana`);
       if (p.min > p.actual || p.max < p.actual) err(file, `${ref}: precio actual fuera del rango min/max`);
     }
+  }
+}
+
+
+// ── Registro de categorías ───────────────────────────────────────────────────
+// Red para que una categoría nueva no se quede a medias: si está en merged-admin.json
+// pero no en scripts/categorias.js, no recibe revisión de disponibilidad ni pausas, y un
+// producto caído se seguiría anunciando. Y si su página no tiene el bloque de pausas,
+// pausarlo en el gestor no lo quita del sitio.
+{
+  const ADMIN = join(ROOT, 'scripts/merged-admin.json');
+  if (existsSync(ADMIN)) {
+    let db = null;
+    try { db = JSON.parse(readFileSync(ADMIN, 'utf8')); } catch { /* lo valida validar-datos.js */ }
+    if (db) {
+      const registradas = clavesDeDatos();
+      for (const k of Object.keys(db)) {
+        if (!Array.isArray(db[k]) || !db[k].length) continue;
+        if (!registradas.includes(k))
+          err('scripts/categorias.js', `la categoría "${k}" existe en merged-admin.json pero no está registrada: no recibirá precios, revisión de disponibilidad ni pausas`);
+      }
+    }
+  }
+  for (const [clave, c] of entradas()) {
+    const abs = join(ROOT, c.file);
+    if (!existsSync(abs)) { err('scripts/categorias.js', `${clave}: no existe la página ${c.file}`); continue; }
+    const html = readFileSync(abs, 'utf8');
+    if (!new RegExp(String.raw`(?:const|var|let)\s+${c.varName}\s*=\s*\[`).test(html))
+      err(c.file, `${clave}: no se encontró el array ${c.varName} (lo necesitan ml-update.js y sync-pausas.js)`);
+    else if (!html.includes('/*PAUSAS*/'))
+      err(c.file, `${clave}: falta el bloque de pausas — corre "node scripts/sync-pausas.js"`);
   }
 }
 

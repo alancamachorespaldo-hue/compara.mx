@@ -15,6 +15,7 @@ import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { resolve } from 'path';
 import { pathToFileURL } from 'url';
 import { resolverAfiliado } from './resolver-afiliado.js';
+import { planas, familias as familiasCats } from './categorias.js';
 
 const CLIENT_ID     = process.env.ML_CLIENT_ID;
 const CLIENT_SECRET = process.env.ML_CLIENT_SECRET;
@@ -33,47 +34,16 @@ const ADMIN_PATH  = resolve(ROOT, 'scripts/merged-admin.json');
 const REPORT_PATH = resolve(ROOT, 'scripts/ml-report.json');
 const SUG_PATH    = resolve(ROOT, 'scripts/ml-sugerencias.json');
 
-const CATALOG = {
-  laptops:    { file: 'laptops/index.html',                        varName: 'productos'  },
-  freidoras:  { file: 'electrodomesticos/freidoras/index.html',    varName: 'productos'  },
-  bicis:      { file: 'bicis/index.html',                          varName: 'ELECTRICAS' },
-  microondas: { file: 'electrodomesticos/microondas/index.html',   varName: 'micros'     },
-  proteina:   { file: 'suplementos/proteina/index.html',           varName: 'productos'  },
-  omega3:     { file: 'suplementos/omega3/index.html',             varName: 'productos'  },
-  magnesio:   { file: 'suplementos/magnesio/index.html',           varName: 'productos'  },
-  creatina:   { file: 'suplementos/creatina/index.html',           varName: 'productos'  },
-  complejo_b: { file: 'suplementos/complejo-b/index.html',         varName: 'PRODUCTOS'  },
-  vitamina_d: { file: 'suplementos/vitamina-d/index.html',         varName: 'PRODUCTOS'  },
-  videojuegos_consolas:  { file: 'videojuegos/consolas/index.html',  varName: 'productos' },
-  videojuegos_controles: { file: 'videojuegos/controles/index.html', varName: 'productos' },
-  videojuegos_juegos:    { file: 'videojuegos/juegos/index.html',    varName: 'productos' },
-  // Tecnología — agregar aquí cualquier nueva categoría con array "productos" y mlId
-  tecnologia_bocinas:    { file: 'tecnologia/bocinas/index.html',    varName: 'productos' },
-  tecnologia_audifonos:  { file: 'tecnologia/audifonos/index.html',  varName: 'productos' },
-  cafeteras:             { file: 'electrodomesticos/cafeteras/index.html', varName: 'productos' },
-  refrigeradores:        { file: 'electrodomesticos/refrigeradores/index.html', varName: 'productos' },
-  lavadoras:             { file: 'electrodomesticos/lavadoras/index.html',     varName: 'productos' },
-  bicisMontana:          { file: 'bicis/index.html',                      varName: 'MONTANA'   },
-  // Las páginas dedicadas muestran la misma lista que el hub, así que comparten su clave de datos.
-  bicisMontanaDed:       { file: 'bicicletas/bici-montana/index.html',    varName: 'MONTANA',    dataKey: 'bicisMontana' },
-  bicisElectricasDed:    { file: 'bicicletas/bici-electricas/index.html', varName: 'ELECTRICAS', dataKey: 'bicis' },
-  bicisGravelDed:        { file: 'bicicletas/bici-gravel/index.html',     varName: 'GRAVEL',     dataKey: 'bicisGravelRuta' },
-  // Gravel y ruta se unificaron en nov-2026: comparten cuadro y rueda, y la mitad de las
-  // "de ruta" eran de montaña mal clasificadas o links repetidos de la otra lista.
-  bicisGravelRuta:       { file: 'bicis/index.html',                      varName: 'GRAVELRUTA' },
-  ollas:                 { file: 'electrodomesticos/ollas/index.html',      varName: 'productos' },
-  streaming:             { file: 'entretenimiento/streaming/index.html',  varName: 'productos' },
-  tecnologia_smartwatches: { file: 'tecnologia/smartwatches/index.html', varName: 'productos' },
-};
+// Las categorías salen del registro único scripts/categorias.js: registrar una ahí
+// la mete sola en los precios, en la revisión de disponibilidad y en las pausas.
+const CATALOG = Object.fromEntries(planas().map(([k, c]) => [k, {
+  file: c.file, varName: c.varName, ...(c.datos !== k ? { dataKey: c.datos } : {}),
+}]));
 // Celulares: estructura "familias + variantes" — manejado por updateCelulares().
 // ID por variante: "{prefix}-{familia.modeloBase}-{storage}gb-{ram}gb"
-const CATALOG_CEL = {
-  // Cada variante lleva su propio id desde nov-2026: antes se calculaba con
-  // modeloBase+almacenamiento+RAM y los colores de un mismo modelo colisionaban
-  // (el Pixel 10 Pro tiene 5, todos 128/16), así que 8 no cabían en la base.
-  celulares_android: { file: 'celulares/android/index.html', varName: 'familias', prefix: 'android', useVariantId: true },
-  celulares_iphone:  { file: 'celulares/iphone/index.html',  varName: 'familias', useVariantId: true },
-};
+const CATALOG_CEL = Object.fromEntries(familiasCats().map(([k, c]) => [k, {
+  file: c.file, varName: c.varName, prefix: c.prefix, useVariantId: true,
+}]));
 const SUPLEMENTOS = ['proteina', 'omega3', 'magnesio', 'creatina', 'complejo_b', 'vitamina_d'];
 const ENTRIES =
   CAT_ARG === 'all'         ? Object.entries(CATALOG) :

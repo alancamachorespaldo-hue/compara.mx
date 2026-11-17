@@ -194,6 +194,11 @@ de los que ya existen.
 - [ ] Formulario "Te comparamos" visible al final, con su envío funcionando igual que en los hubs.- [ ] Cero enlaces a Amazon en la página.
 - [ ] Eventos GA4 (carga con `?bot=claude` y envuelve `window.gtag` para capturarlos): `affiliate_click_ml`, `click_seleccionar_comparar`, `click_comparar_categoria`, `filtro_bajada_precio`, `favorito_guardar/quitar`, `filtro_guardados`, `filtro_aplicar`, `filtros_limpiar`, `ordenar_listado`, `buscar_listado`.
 - [ ] `node scripts/check-site.js`, `node scripts/sync-site.js --check` y `node scripts/sync-hero-imgs.js --check` sin cambios pendientes ni errores.
+- [ ] La categoría está en `scripts/categorias.js` con su `file` y su `varName` actualizados (si la
+      página cambió de ruta o el array cambió de nombre, hay que corregirlos ahí o el precio, la
+      revisión de disponibilidad y las pausas dejan de encontrarla). Después, `node scripts/sync-pausas.js`.
+- [ ] `node scripts/revisar-disponibilidad.js --categoria=<clave> --links`: ningún producto con
+      link roto ni con link que abra otro producto. Si los hay, pausa esos antes de publicar.
 - [ ] `git status`: solo la página, `scripts/sync-site.js` y nada más.
 
 Si las capturas del navegador salen ilegibles o el panel está oculto, dilo en el reporte: la revisión visual le toca a Alan. No afirmes que "se ve igual" sin haberlo visto.

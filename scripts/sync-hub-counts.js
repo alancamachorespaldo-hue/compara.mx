@@ -3,8 +3,8 @@
 // arreglo real de productos de la página de destino. Uso: node scripts/sync-hub-counts.js [--check]
 //
 // En el hub cada contador es: <span data-cmx-count="/electrodomesticos/freidoras/">61</span>
-// Se cuentan los productos del arreglo (productos | micros | PRODUCTOS) que no estén pausados en
-// ambas tiendas. Si la página de destino no se puede leer, el número NO se toca y se avisa.
+// Se cuentan los productos del arreglo (productos | micros | PRODUCTOS) a los que les queda
+// alguna tienda tras aplicar las pausas. Si la página de destino no se puede leer, el número NO se toca y se avisa.
 import { readFileSync, writeFileSync } from 'fs';
 import { join, resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -28,7 +28,16 @@ function contar(ruta) {
     let pausas = {};
     const pz = html.match(/<script type="application\/json" id="pausas">([\s\S]*?)<\/script>/);
     if (pz) { try { pausas = JSON.parse(pz[1] || '{}'); } catch { /* sin pausas */ } }
-    return arr.filter((p) => !(pausas[p.id] && pausas[p.id].ml && pausas[p.id].amz)).length;
+    // Mismo criterio que el bucle de pausas de la página: se cuenta lo que le queda alguna
+    // tienda a la que mandar al visitante. Antes solo descartaba lo pausado en AMBAS, y desde la
+    // baja de Amazon casi nada tiene linkAmz: el hub anunciaba 48 donde la página pintaba 31.
+    // En celulares el arreglo son familias y el link vive en cada variante: se cuentan las
+    // variantes con tienda, que es lo que la página enseña como modelos.
+    const items = name === 'familias' ? arr.flatMap((f) => f.variantes || []) : arr;
+    return items.filter((p) => {
+      const z = pausas[p.id] || {};
+      return (!z.ml && p.linkML) || (!z.amz && p.linkAmz);
+    }).length;
   }
   throw new Error('no se encontró el arreglo de productos');
 }

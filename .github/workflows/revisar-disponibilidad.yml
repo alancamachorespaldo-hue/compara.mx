@@ -1,0 +1,129 @@
+name: Revisar disponibilidad en Mercado Libre
+
+# Revisión a fondo: además de preguntarle al catálogo de ML si el producto sigue existiendo
+# (eso ya corre a diario dentro de "Actualizar precios Mercado Libre"), abre cada link de
+# afiliado y comprueba que siga llevando a SU producto. Un link caído manda al visitante a la
+# tarjeta por defecto del perfil de afiliado — nov-2026, dos laptops abrían una barra de sonido.
+#
+# Tarda bastante (abre ~1,200 páginas), por eso va aparte: domingos de madrugada y a mano.
+# Lo caído se pausa en merged-admin.json y desaparece del sitio con sync-pausas.js.
+# Nada se borra: reactivar es poner la pausa en "Se muestra" en el gestor.
+
+on:
+  schedule:
+    # Domingos a las 5:00 AM hora Ciudad de México (11:00 UTC), antes del job de precios.
+    - cron: '0 11 * * 0'
+  workflow_dispatch:
+    inputs:
+      aplicar:
+        description: '¿Pausar lo caído? (si no, solo genera el reporte)'
+        type: boolean
+        default: true
+      links:
+        description: '¿Revisar también los links de afiliado? (tarda ~20 min)'
+        type: boolean
+        default: true
+      umbral:
+        description: 'Corridas seguidas en que debe verse caído antes de pausarlo'
+        type: choice
+        default: '2'
+        options: ['1', '2', '3']
+
+# Mismo grupo que los demás workflows de datos: todos escriben merged-admin.json.
+concurrency:
+  group: datos-comparalo
+  cancel-in-progress: false
+
+jobs:
+  revisar:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - run: npm install
+
+      - name: Revisar disponibilidad
+        env:
+          ML_CLIENT_ID:     ${{ secrets.ML_CLIENT_ID }}
+          ML_CLIENT_SECRET: ${{ secrets.ML_CLIENT_SECRET }}
+          ML_REFRESH_TOKEN: ${{ secrets.ML_REFRESH_TOKEN }}
+          APLICAR: ${{ (github.event_name == 'schedule' || inputs.aplicar) && '--aplicar' || '' }}
+          LINKS:   ${{ (github.event_name == 'schedule' || inputs.links)   && '--links'   || '' }}
+          UMBRAL:  ${{ inputs.umbral || '2' }}
+        run: node scripts/revisar-disponibilidad.js --todas --umbral="$UMBRAL" $LINKS $APLICAR
+
+      - name: Aplicar las pausas a las páginas
+        run: node scripts/sync-pausas.js
+
+      - name: Cuadrar los contadores de los hubs con lo que se ve
+        run: node scripts/sync-hub-counts.js
+
+      - name: Regenerar el gestor de productos con el reporte
+        run: node scripts/generar-admin.js
+
+      - name: Regenerar bajadas de precio (sin lo pausado)
+        run: node scripts/generar-bajadas.js
+
+      - name: Revisar el sitio
+        run: node scripts/check-site.js
+
+      - name: Revisar que los datos estén sanos
+        run: node scripts/validar-datos.js
+
+      - name: Resumen en la corrida
+        continue-on-error: true
+        run: |
+          node -e "
+            const r = require('./scripts/disponibilidad-report.json');
+            const t = r.totales;
+            const l = [
+              '## Disponibilidad en Mercado Libre — ' + r.fecha,
+              '',
+              '| | |', '|---|---|',
+              '| Revisados | ' + t.revisados + ' |',
+              '| Disponibles | ' + t.ok + ' |',
+              '| Ya no existen | ' + t.no_existe + ' |',
+              '| Pausados en ML | ' + t.pausado_en_ml + ' |',
+              '| Sin ofertas hoy | ' + t.sin_ofertas + ' |',
+              '| Link roto | ' + t.link_roto + ' |',
+              '| Link a otro producto | ' + t.link_otro + ' |',
+              '| **Pausados en esta corrida** | **' + t.pausados_ahora + '** |',
+              '| Reactivados | ' + t.reactivados_ahora + ' |',
+              '| En observación | ' + t.en_observacion + ' |',
+            ];
+            require('fs').appendFileSync(process.env.GITHUB_STEP_SUMMARY, l.join('\n') + '\n');
+          "
+
+      - name: Commit y push si hay cambios
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -u
+          if git diff --staged --quiet; then
+            echo "Sin cambios."
+            exit 0
+          fi
+          git commit -m "chore(ml): revisión de disponibilidad $(date +'%Y-%m-%d')"
+          for intento in 1 2 3; do
+            git fetch origin main
+            if ! git rebase origin/main; then
+              git rebase --abort
+              echo "::error::El rebase chocó con otro commit del remoto. No se publica nada; revísalo a mano."
+              exit 1
+            fi
+            node scripts/validar-datos.js || exit 1
+            if git push origin HEAD:main; then exit 0; fi
+            echo "Push rechazado (intento $intento de 3); vuelvo a traer el remoto."
+          done
+          echo "::error::No se pudo publicar después de 3 intentos."
+          exit 1

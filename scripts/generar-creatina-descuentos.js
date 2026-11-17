@@ -8,12 +8,12 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { bajadaAmz, camposOferta, publicado } from './_ofertas.js';
+import { bajadaAmz, camposOferta, publicado, vendible } from './_ofertas.js';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const merged = JSON.parse(readFileSync(join(__dirname, 'merged-admin.json'), 'utf8'));
 const productos = (merged.creatina || []).filter(p =>
-  p.activo !== false && p.precioML && p.linkML && p.imagen && publicado(p)
+  vendible(p) && p.precioML && p.linkML && p.imagen && publicado(p)
 );
 
 function costoPorPorcion(especs) {
@@ -30,7 +30,7 @@ function especsOferta(p) {
 
 // Bajadas capturadas a mano en Amazon (_precioAmzAntes vigente): van primero y no se repiten abajo
 const bajadasAmz = (merged.creatina || [])
-  .filter(p => p.activo !== false && p.imagen && publicado(p))
+  .filter(p => vendible(p) && p.imagen && publicado(p))
   .map(p => ({ p, b: bajadaAmz(p) }))
   .filter(x => x.b)
   .map(({ p, b }) => ({

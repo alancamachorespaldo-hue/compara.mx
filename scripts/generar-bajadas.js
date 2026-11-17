@@ -11,7 +11,9 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { mejorBajada, publicado } from './_ofertas.js';
+import { mejorBajada, publicado, vendible } from './_ofertas.js';
+// El mapa de descuentos.json sale del registro único: una categoría nueva entra sola.
+import { mapaDescuentos } from './categorias.js';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const merged = JSON.parse(readFileSync(join(root, 'scripts/merged-admin.json'), 'utf8'));
@@ -21,7 +23,7 @@ let total = 0;
 for (const [cat, lista] of Object.entries(merged)) {
   if (!Array.isArray(lista)) continue;
   const bajadas = lista
-    .filter((p) => p.activo !== false && publicado(p))
+    .filter((p) => vendible(p) && publicado(p))
     .map((p) => ({ p, b: mejorBajada(p) }))
     .filter((x) => x.b)
     .map(({ p, b }) => ({
@@ -34,23 +36,7 @@ for (const [cat, lista] of Object.entries(merged)) {
 
 // Lo que ya se anuncia como oferta en el inicio (descuentos.json de cada categoría) también es bajada,
 // aunque esas listas tienen tope de 5-8 y usan reglas propias por categoría.
-const DESCUENTOS = {
-  'bicis/descuentos.json': ['bicis', 'bicisMontana', 'bicisGravelRuta'],
-  'celulares/descuentos.json': ['celulares_android', 'celulares_iphone'],
-  'electrodomesticos/cafeteras/descuentos.json': ['cafeteras'], 'electrodomesticos/freidoras/descuentos.json': ['freidoras'],
-  'electrodomesticos/microondas/descuentos.json': ['microondas'], 'laptops/descuentos.json': ['laptops'],
-  'suplementos/complejo-b/descuentos.json': ['complejo_b'], 'suplementos/creatina/descuentos.json': ['creatina'],
-  'suplementos/magnesio/descuentos.json': ['magnesio'], 'suplementos/omega3/descuentos.json': ['omega3'],
-  'suplementos/proteina/descuentos.json': ['proteina'], 'suplementos/vitamina-d/descuentos.json': ['vitamina_d'],
-  'tecnologia/audifonos/descuentos.json': ['tecnologia_audifonos'], 'tecnologia/bocinas/descuentos.json': ['tecnologia_bocinas'],
-  'tecnologia/smartwatches/descuentos.json': ['tecnologia_smartwatches'],
-  'videojuegos/consolas/descuentos.json': ['videojuegos_consolas'], 'videojuegos/controles/descuentos.json': ['videojuegos_controles'],
-  'videojuegos/juegos/descuentos.json': ['videojuegos_juegos'],
-  'entretenimiento/streaming/descuentos.json': ['streaming'],
-  'electrodomesticos/refrigeradores/descuentos.json': ['refrigeradores'],
-  'electrodomesticos/lavadoras/descuentos.json': ['lavadoras'],
-  'electrodomesticos/ollas/descuentos.json': ['ollas'],
-};
+const DESCUENTOS = mapaDescuentos();
 for (const [file, cats] of Object.entries(DESCUENTOS)) {
   let data;
   try { data = JSON.parse(readFileSync(join(root, file), 'utf8')); } catch { continue; }

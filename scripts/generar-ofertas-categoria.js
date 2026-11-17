@@ -10,7 +10,7 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { mejorBajada, camposOferta, publicado } from './_ofertas.js';
+import { mejorBajada, camposOferta, publicado, vendible } from './_ofertas.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -41,7 +41,7 @@ function generar(categoria, destino) {
   const outRel = typeof destino === 'string' ? destino : destino.out;
   const claves = typeof destino === 'string' ? [categoria] : destino.cats;
   const productos = claves.flatMap(c => merged[c] || []).filter(p =>
-    p.activo !== false && publicado(p) && ((p.precioML && p.linkML) || (p.precioAmz && p.linkAmz))
+    vendible(p) && publicado(p) && ((p.precioML && p.linkML) || (p.precioAmz && p.linkAmz))
   );
 
   const bajadas = productos

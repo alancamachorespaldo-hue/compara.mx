@@ -8,6 +8,7 @@
  * Uso: node scripts/generar-admin.js
  */
 import { readFileSync, writeFileSync, existsSync } from 'fs';
+import { clavesDeDatos, tituloDe } from './categorias.js';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { actualizarRachaML } from './_ofertas.js';
@@ -15,6 +16,7 @@ import { actualizarRachaML } from './_ofertas.js';
 const ROOT          = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const ADMIN_PATH    = resolve(ROOT, 'scripts/merged-admin.json');
 const REPORT_PATH   = resolve(ROOT, 'scripts/ml-report.json');
+const DISP_PATH     = resolve(ROOT, 'scripts/disponibilidad-report.json');
 const SUG_PATH      = resolve(ROOT, 'scripts/ml-sugerencias.json');
 const TEMPLATE_PATH = resolve(ROOT, 'scripts/admin-template.html');
 const OUT_PATH      = resolve(ROOT, 'scripts/admin-artifact.html');
@@ -76,6 +78,7 @@ if (report) {
 
 // 3. Candidatos de ID (una lista vacía guardada en el producto = ya revisado, no se reemplaza)
 const sug = readJson(SUG_PATH);
+const disp = readJson(DISP_PATH);
 let withSug = 0;
 for (const [cat, list] of Object.entries(admin)) {
   for (const p of list) {
@@ -113,6 +116,23 @@ const meta = {
       })),
   } : null,
   sugerencias: sug ? { generado: sug.generado || null } : null,
+  // Nombres de categoría del registro único: una categoría nueva sale con su nombre en el gestor.
+  cats: Object.fromEntries(clavesDeDatos().map(k => [k, tituloDe(k)])),
+  // Revisión de disponibilidad (scripts/revisar-disponibilidad.js): solo lo que tiene problema,
+  // que es lo que el gestor muestra y deja pausar de un clic.
+  disponibilidad: disp ? {
+    generado: disp.generado || null,
+    aplicado: !!disp.aplicado,
+    umbral: disp.umbral ?? null,
+    totales: disp.totales || null,
+    productos: (disp.productos || [])
+      .filter(p => ['no_existe', 'pausado', 'link_roto', 'link_otro', 'sin_ofertas'].includes(p.estado))
+      .map(p => ({
+        categoria: p.categoria, id: p.id, nombre: p.nombre, estado: p.estado,
+        detalle: p.detalle || null, linkML: p.linkML || null, mlId: p.mlId || null,
+        pausaML: !!p.pausaML, fallos: p.fallos ?? null,
+      })),
+  } : null,
 };
 const data =
   `<script type="application/json" id="meta">${safe(meta)}</script>\n` +

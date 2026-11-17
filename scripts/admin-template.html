@@ -528,12 +528,88 @@ function applyUtmPreset(key) {
   buildUtmUrl();
 }
 
+// ── Disponibilidad en Mercado Libre ─────────────────────────────────────────
+// Lo escribe scripts/revisar-disponibilidad.js y lo embebe generar-admin.js en meta.
+const DISP_MOTIVOS = {
+  no_existe:   ['Ya no existe en ML',          'err'],
+  pausado:     ['Pausado en ML',               'err'],
+  link_roto:   ['El link no abre el producto', 'err'],
+  link_otro:   ['El link abre otro producto',  'warn'],
+  sin_ofertas: ['Hoy nadie lo vende',          'warn'],
+};
+
+function dispCard() {
+  const d = META.disponibilidad;
+  const fmtF = x => x ? new Date(x).toLocaleString('es-MX', {dateStyle:'long', timeStyle:'short'}) : '—';
+  if (!d) return `<div class="upd-card">
+    <div class="upd-card-hd"><h3>Disponibilidad en Mercado Libre</h3></div>
+    <div class="upd-empty">Todavía no hay revisión. Córrela con la acción <b>Revisar disponibilidad</b> de GitHub.</div>
+  </div>`;
+  const t = d.totales || {};
+  const caidos = (d.productos || []).filter(p => DISP_MOTIVOS[p.estado]);
+  const pendientes = caidos.filter(p => !p.pausaML);
+  const row = p => {
+    const [txt, tono] = DISP_MOTIVOS[p.estado];
+    const k = p.categoria + '|' + p.id;
+    return `<tr>
+      <td><span class="upd-cat-badge">${esc(CATS[p.categoria] || p.categoria)}</span></td>
+      <td>${p.linkML ? `<a href="${esc(p.linkML)}" target="_blank" rel="noopener">${esc(p.nombre)}</a>` : esc(p.nombre)}</td>
+      <td><span class="upd-pct ${tono === 'err' ? 'up' : 'dn'}">${esc(txt)}</span></td>
+      <td style="color:var(--fg-3);font-size:11.5px">${esc(p.detalle || '')}</td>
+      <td class="c-num">${p.pausaML
+        ? '<span class="muted" style="font-size:11.5px">Pausado</span>'
+        : `<button class="btn btn-sm" data-act="disp-pausar" data-dkey="${esc(k)}">Pausar</button>`}</td>
+    </tr>`;
+  };
+  return `<div class="upd-card">
+    <div class="upd-card-hd">
+      <h3>Disponibilidad en Mercado Libre</h3>
+      <span class="upd-card-count">${fmtF(d.generado)}${d.aplicado ? ' · pausas aplicadas' : ' · solo reporte'}</span>
+    </div>
+    <div class="upd-tiles" style="padding:12px 14px">
+      <div class="upd-tile t-muted"><div class="upd-tile-val">${t.revisados || 0}</div><div class="upd-tile-lbl">Revisados</div></div>
+      <div class="upd-tile t-ok"><div class="upd-tile-val">${t.ok || 0}</div><div class="upd-tile-lbl">Disponibles</div></div>
+      <div class="upd-tile t-err"><div class="upd-tile-val">${caidos.length}</div><div class="upd-tile-lbl">Con problema</div></div>
+      <div class="upd-tile t-warn"><div class="upd-tile-val">${t.pausados_ahora || 0}</div><div class="upd-tile-lbl">Pausados en la revisión</div></div>
+      <div class="upd-tile t-acc"><div class="upd-tile-val">${t.reactivados_ahora || 0}</div><div class="upd-tile-lbl">Reactivados</div></div>
+      <div class="upd-tile t-muted"><div class="upd-tile-val">${t.sin_id || 0}</div><div class="upd-tile-lbl">Sin ID (no verificables)</div></div>
+    </div>
+    ${caidos.length ? `
+      ${pendientes.length ? `<div style="padding:0 14px 10px"><button class="btn btn-primary btn-sm" data-act="disp-pausar-todos">Pausar los ${pendientes.length} que siguen visibles</button>
+        <span class="muted" style="font-size:11.5px;margin-left:8px">No se borra nada: se reactivan poniéndolos en “Se muestra”.</span></div>` : ''}
+      <div style="overflow:auto"><table class="upd-table">
+        <thead><tr><th>Categoría</th><th>Producto</th><th>Problema</th><th>Detalle</th><th></th></tr></thead>
+        <tbody>${caidos.map(row).join('')}</tbody>
+      </table></div>`
+    : '<div class="upd-empty">Sin problemas de disponibilidad en la última revisión.</div>'}
+  </div>`;
+}
+
+function dispPausar(keys) {
+  const d = META.disponibilidad;
+  if (!d) return;
+  const porKey = new Map((d.productos || []).map(p => [p.categoria + '|' + p.id, p]));
+  const lista = keys || [...porKey.entries()].filter(([, p]) => DISP_MOTIVOS[p.estado] && !p.pausaML).map(([k]) => k);
+  const hoy = new Date().toISOString().slice(0, 10);
+  let n = 0;
+  for (const k of lista) {
+    const r = BYKEY.get(k);
+    if (!r || r.p.pausaML) continue;
+    const info = porKey.get(k);
+    update(k, {pausaML: true, _pausaAuto: true, _motivoPausa: (info && info.estado) || 'revisado', _pausaFecha: hoy});
+    if (info) info.pausaML = true;
+    n++;
+  }
+  renderQueues(); renderTable(); renderUpdate();
+  toast(n ? plural(n, 'producto pausado', 'productos pausados') + ' en Mercado Libre' : 'No había nada pendiente de pausar');
+}
+
 function renderUpdate() {
   const el = $('#update');
   if (el.hidden) return;
   const rep = META.reporte;
   if (!rep) {
-    el.innerHTML = '<div class="upd"><div class="upd-empty">No hay datos de actualización. Ejecuta la acción de GitHub para actualizar precios.</div></div>';
+    el.innerHTML = '<div class="upd">' + dispCard() + '<div class="upd-empty">No hay datos de actualización de precios. Ejecuta la acción de GitHub para actualizarlos.</div></div>';
     return;
   }
   const t = rep.totales || {};
@@ -603,6 +679,8 @@ function renderUpdate() {
       <h2>Última actualización de precios</h2>
       <span class="muted">${fmtFecha(fecha)} · Categorías: ${esc((rep.categorias || []).map(catLabel).join(', '))}</span>
     </div>
+
+    ${dispCard()}
 
     <div class="upd-tiles">
       <div class="upd-tile t-acc"><div class="upd-tile-val">${t.actualizados || 0}</div><div class="upd-tile-lbl">Actualizados</div></div>
@@ -855,6 +933,11 @@ const QUEUES = [
   {k:'bajo_amz', l:'Bajaron en Amazon', tone:'ok', f:p => amzDropPct(p) > 0},
   {k:'nuevos', l:'Nuevos por revisar', tone:'info', f:p => p.estadoML === 'nuevo'},
   {k:'pausado_ml', l:'Pausado/Eliminado ML', tone:'err', f:p => p.estadoML === 'no_encontrado' || !!p.pausaML},
+  // Las escribe scripts/revisar-disponibilidad.js: pausado por la revisión (reversible desde
+  // aquí) y "en observación" (se vio caído una vez, se pausa si se repite).
+  {k:'pausa_auto', l:'Pausados por la revisión', tone:'err', f:p => !!p._pausaAuto},
+  {k:'observacion', l:'En observación', tone:'warn', f:p => !p.pausaML && !!p._dispFallos, optional:true},
+  {k:'sin_revisar_disp', l:'Nunca revisados', f:p => !!p.mlId && !p._dispFecha, optional:true},
   {k:'pausados', l:'Pausados web', f:p => p.activo === false && p.estadoML !== 'nuevo'},
   {k:'listos_activar', l:'Listos para activar', tone:'info', f:p => p.activo === false && !!p.linkAmz && hasTag(p.linkAmz) && p.precioAmz != null},
   {k:'activados_pend', l:'Activados, falta precio ML', tone:'warn', f:p => !!p._activadoPendiente},
@@ -900,6 +983,9 @@ function parseMlId(raw) {
 
 // ── Datos ───────────────────────────────────────────────────────────────────
 const META = readJson('meta') || {};
+// Los nombres de categoría salen del registro scripts/categorias.js (meta.cats): así una
+// categoría nueva aparece con su nombre en el gestor sin tocar esta plantilla.
+Object.assign(CATS, META.cats || {});
 const SAVE_ID = readJson('save') || '';
 let DB = readJson('db') || {};
 let CUPON = readJson('cupon') || { activo: false, codigo: '', descuento: '+10% OFF', condiciones: '', linkProductos: '' };
@@ -1283,7 +1369,7 @@ function columns() {
     cols.push({k:'web', l:'Web', sort:'activo', w:108}, {k:'edit', w:46});
   } else {
     cols.push({k:'mlId', l:'Catálogo ML', sort:'mlId', w:184}, {k:'precioML', l:'Precio ML', sort:'precioML', num:true, w:112}, {k:'precioAmz', l:'Precio AMZ', sort:'precioAmz', num:true, w:112},
-      {k:'estado', l:'Estado ML', sort:'estado', w:122}, {k:'links', l:'Links', w:124}, {k:'upd', l:'Modificado', sort:'_updatedAt', w:100}, {k:'web', l:'Web', sort:'activo', w:108}, {k:'edit', w:46});
+      {k:'estado', l:'Estado ML', sort:'estado', w:122}, {k:'links', l:'Links', w:124}, {k:'upd', l:'Modificado', sort:'_updatedAt', w:100}, {k:'rev', l:'Revisado en ML', sort:'_dispFecha', w:120}, {k:'web', l:'Web', sort:'activo', w:108}, {k:'edit', w:46});
   }
   return cols;
 }
@@ -1291,6 +1377,8 @@ function columns() {
 const SORTERS = {
   nombre:r => norm(r.p.nombre), mlId:r => r.p.mlId || null, precioML:r => r.p.precioML ?? null, precioAmz:r => r.p.precioAmz ?? null,
   estado:r => status(r.p), _updatedAt:r => r.p._updatedAt || null, activo:r => r.p.activo === false ? 1 : 0,
+  // Los nunca revisados van al final al ordenar por fecha de revisión.
+  _dispFecha:r => r.p._dispFecha || null,
 };
 function sortValue(r, key) {
   if (key.startsWith('spec:')) { const t = specText(r.p, key.slice(5)); if (!t) return null; const n = parseFloat(t.replace(',', '.')); return isNaN(n) ? norm(t) : n; }
@@ -1371,6 +1459,26 @@ function stateCell(p) {
     : '';
   return `<span class="badge t-${tone}">${esc(l)}</span>${pausaBadge}${sub ? `<span class="when">${esc(sub)}</span>` : ''}`;
 }
+// Última revisión de disponibilidad en ML (scripts/revisar-disponibilidad.js):
+// cuándo se comprobó este producto y qué se encontró.
+const REV_ESTADO = {
+  ok:          ['Disponible',        'ok'],
+  no_existe:   ['Ya no existe',      'err'],
+  pausado:     ['Pausado en ML',     'err'],
+  link_roto:   ['Link roto',         'err'],
+  link_otro:   ['Link a otro',       'err'],
+  sin_ofertas: ['Sin ofertas',       'warn'],
+};
+function revCell(p) {
+  if (!p._dispFecha) return p.mlId ? '<span class="muted" title="Todavía no se ha revisado">Sin revisar</span>' : '<span class="muted">—</span>';
+  const [txt, tono] = REV_ESTADO[p._dispEstado] || ['Revisado', 'muted'];
+  const dias = Math.round((Date.now() - Date.parse(p._dispFecha)) / 864e5);
+  const cuando = isFinite(dias) ? (dias <= 0 ? 'hoy' : dias === 1 ? 'ayer' : 'hace ' + dias + ' d') : p._dispFecha;
+  const extra = p._pausaAuto ? ' · pausado por la revisión'
+    : (!p.pausaML && p._dispFallos ? ' · en observación (' + p._dispFallos + ')' : '');
+  return `<span class="badge t-${tono}" title="${esc(p._dispFecha + extra)}">${esc(txt)}</span><div class="sub">${esc(cuando)}</div>`;
+}
+
 function rowHtml(r) {
   const p = r.p, on = p.activo !== false, sel = S.sel.has(r.key);
   const cells = COLS.map(c => {
@@ -1382,6 +1490,7 @@ function rowHtml(r) {
       case 'estado': return `<td>${stateCell(p)}</td>`;
       case 'links': return `<td style="white-space:nowrap">${p.linkML ? `<a class="lk ${(p.pausaML || mlRoto(p)) ? 'lk-roto' : 'lk-ml'}" href="${safeUrl(p.linkML)}" target="_blank" rel="noopener" title="${p.pausaML ? 'Pausado en ML (oculto en la web)' : esc(mlRoto(p) || '')}">ML${p.pausaML ? ' ⏸' : mlRoto(p) ? ' ⚠' : ''} ↗</a>` : ''}${p.linkAmz ? `<a class="lk ${p.pausaAmz ? 'lk-roto' : 'lk-amz'}" href="${safeUrl(p.linkAmz)}" target="_blank" rel="noopener" title="${p.pausaAmz ? 'Pausado en Amazon (oculto en la web)' : (hasTag(p.linkAmz) ? '' : 'Falta el tag de afiliado')}">AMZ${p.pausaAmz ? ' ⏸' : hasTag(p.linkAmz) ? '' : ' ⚠'} ↗</a>` : ''}${!p.linkML && !p.linkAmz ? '<span class="muted">—</span>' : ''}</td>`;
       case 'upd': return `<td class="c-date">${p._updatedAt ? esc(fmtShort(p._updatedAt)) : '<span class="muted">—</span>'}</td>`;
+      case 'rev': return `<td class="c-date">${revCell(p)}</td>`;
       case 'web': return p.estadoML === 'nuevo' ? (PUBLICABLE.has(r.cat) ? '<td><button class="badge badge-btn t-info" data-act="edit" title="Abrir para publicarlo en la web">Sin publicar · Publicar</button></td>' : '<td><span class="badge t-info">Sin publicar</span></td>') : `<td><button class="sw${on ? ' on' : ''}" data-act="toggle" aria-pressed="${on}">${on ? 'Activo' : 'Pausado'}</button></td>`;
       case 'edit': return '<td><button class="btn-icon" data-act="edit" aria-label="Editar producto">✎</button></td>';
       case 'spec': {
@@ -2044,6 +2153,8 @@ function onClick(e) {
     case 'rv-skip': RV.i++; renderReview(); break;
     case 'rv-prev': RV.i = Math.max(0, RV.i - 1); while (RV.i > 0 && BYKEY.get(RV.list[RV.i]) && BYKEY.get(RV.list[RV.i]).p.mlId) RV.i--; renderReview(); break;
     case 'rv-none': rvNone(); break;
+    case 'disp-pausar': dispPausar([a.dataset.dkey]); break;
+    case 'disp-pausar-todos': dispPausar(null); break;
     case 'update': { openPanel('#update', renderUpdate); break; }
     case 'dash': { openPanel('#dash', renderDash); break; }
     case 'importar': { openPanel('#importar', initImport); break; }
