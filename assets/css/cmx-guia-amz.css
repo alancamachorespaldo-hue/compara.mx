@@ -1,0 +1,42 @@
+/* comparalo.mx — guías de compra con productos ÚNICAMENTE de Amazon (piloto nov-2026).
+   Se enlaza DESPUÉS de /assets/css/cmx-guia.css: reutiliza su rejilla, índice, hero,
+   respuesta rápida, criterios, tabla, modelo, FAQ, metodología, barra y paneles móviles.
+   Aquí solo lo que cambia porque no hay precio ni oferta de Mercado Libre:
+   - la columna derecha es contenido editorial fijo, no "Ofertas del día";
+   - el botón de producto es amarillo Amazon (--amz), no amarillo ML;
+   - la tarjeta de producto (.cg-card, ya definida en cmx-guia.css pero sin usar ahí
+     porque esa guía pinta cl-card) se usa tal cual, sin precio. */
+:root{--amz:#f90;--amz2:#e68a00}
+
+.cg-btn-amz{background:var(--amz);color:#111!important}
+.cg-btn-amz:hover{background:var(--amz2)}
+/* logoamazon.png trae fondo blanco opaco: sobre el botón naranja se veía como una
+   etiqueta pegada. mix-blend-mode:multiply hace transparente ese blanco y deja
+   solo el wordmark oscuro + la sonrisa naranja sobre el botón. */
+.cg-btn-amz img{height:15px;width:auto;flex:none;mix-blend-mode:multiply}
+.cg-mini-cmp[aria-pressed="true"]{background:var(--ac);color:#fff}
+
+/* Tarjetas más anchas: 2 por fila, no 3 — llevan caución + 2 botones y se veían apretadas */
+.cg-cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+.cg-card-top{grid-template-columns:104px minmax(0,1fr)}
+.cg-card-top img{width:104px;height:128px}
+@media (max-width:1040px){.cg-cards{grid-template-columns:1fr}}
+
+/* Tarjeta de producto sin precio: el pie es solo el botón de Amazon */
+.cg-card .cg-caution{background:#fff9ed;border:1px solid #f5dfb8;border-radius:8px;padding:8px 9px;font-size:11.5px;color:#74521b;line-height:1.5;margin:4px 0}
+.cg-card .cg-btn{margin-top:auto}
+
+/* Columna derecha: aviso + consejos de compra + más guías (reemplaza "Ofertas del día") */
+.cg-editorial .cg-box-b{display:flex;flex-direction:column;gap:10px}
+.cg-editorial ul{margin:0;padding-left:18px;font-size:13px;color:var(--tx2)}
+.cg-editorial li{margin:5px 0}
+.cg-guias-rel{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.cg-guias-rel a{display:block;font-size:13px;font-weight:700;text-decoration:none;color:var(--tx)}
+.cg-guias-rel a:hover{color:var(--ac)}
+
+@media (max-width:1199px){.cg-of-open.cg-btn-amz{display:flex}}
+
+/* Veredicto del comparador: la "resolución" que falta en una tabla de specs sola */
+#cg-compare-verdict{background:var(--acd);border:1px solid var(--acl);border-left:4px solid var(--ac);border-radius:0 10px 10px 0;padding:12px 14px;margin:0 0 14px;font-size:14px;color:var(--tx2)}
+#cg-compare-verdict strong{display:block;color:var(--tx);font-size:15px;margin-bottom:3px}
+#cg-compare-output{scroll-margin-top:92px}

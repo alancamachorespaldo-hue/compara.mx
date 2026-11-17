@@ -165,7 +165,7 @@ const HUBS_V2 = ['/electrodomesticos/', '/suplementos/', '/tecnologia/', '/entre
 /* Listados que ya usan la plantilla cmx-list */
 const LISTS_V2 = ['/tecnologia/smartwatches/', '/tecnologia/bocinas/', '/celulares/android/', '/celulares/iphone/', '/suplementos/proteina/', '/laptops/', '/electrodomesticos/cafeteras/', '/suplementos/omega3/', '/suplementos/creatina/', '/videojuegos/consolas/', '/bicicletas/bici-ruta/', '/electrodomesticos/freidoras/'];
 /* Guías con el sistema nuevo (skill guia-ml-noviembre-2026): mismo encabezado que los listados */
-const GUIAS_V2 = ['/guias/celulares/mejores-celulares-menos-5000/', '/guias/celulares/celulares-menos-3000-mexico/', '/guias/celulares/mejores-celulares-calidad-precio/', '/guias/cafeteras/espresso-menos-2000/', '/suplementos/creatina/creatina-mexico-cual-comprar/', '/guias/videojuegos/que-consola-comprar-gta-6/', '/guias/videojuegos/gta-6-guia-completa/'];
+const GUIAS_V2 = ['/guias/celulares/mejores-celulares-menos-5000/', '/guias/celulares/celulares-menos-3000-mexico/', '/guias/celulares/mejores-celulares-calidad-precio/', '/guias/cafeteras/espresso-menos-2000/', '/suplementos/creatina/creatina-mexico-cual-comprar/', '/guias/videojuegos/que-consola-comprar-gta-6/', '/guias/videojuegos/gta-6-guia-completa/', '/guias/laptops/macbook-reacondicionadas/'];
 const HEADER_V2 = new Set(['/', ...HUBS_V2, ...LISTS_V2, ...GUIAS_V2]);
 /* Pie del rediseño (azul marino, 4 columnas; en móvil las listas son acordeones). */
 const FOOTER_V2 = new Set([...HUBS_V2, ...LISTS_V2]);
