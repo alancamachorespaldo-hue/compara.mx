@@ -692,7 +692,7 @@ const micros = [
     linkAmz: null,
     linkML: "https://meli.la/1TnDsTo",
     img: "https://http2.mlstatic.com/D_NQ_NP_2X_871102-MLA99987104845_112025-F.webp",
-    precioML: 1999
+    precioML: 2099
   },
   {
     id: 2,
@@ -735,7 +735,7 @@ const micros = [
     linkAmz: null,
     linkML: "https://meli.la/2Tc5Ecd",
     img: "https://http2.mlstatic.com/D_NQ_NP_2X_735845-MLA99517966202_112025-F.webp",
-    precioML: 1599
+    precioML: 1706
   },
   {
     id: 3,
@@ -902,7 +902,7 @@ const micros = [
     linkAmz: null,
     linkML: "https://meli.la/27EeP5V",
     img: "https://http2.mlstatic.com/D_NQ_NP_2X_813636-MLA99451891260_112025-F.webp",
-    precioML: 1503
+    precioML: 1999
   },
   {
     id: 7,
@@ -1165,7 +1165,7 @@ const micros = [
     linkAmz: null,
     linkML: "https://meli.la/2FdAvNM",
     img: "https://http2.mlstatic.com/D_NQ_NP_2X_719313-MLM91425336346_092025-F.webp",
-    precioML: 1371
+    precioML: 1620
   },
   {
     id: 13,
@@ -1477,7 +1477,7 @@ const micros = [
     linkAmz: null,
     linkML: "https://meli.la/2H1XidR",
     img: "https://http2.mlstatic.com/D_NQ_NP_2X_904774-MLM112760541269_062026-F.webp",
-    precioML: 1479
+    precioML: 1442
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=micros.length-1;_i>=0;_i--){var _p=micros[_i];var _z=_PZ[_p.id];if(!_z)continue;if(_z.ml){_p.linkML=null;_p.precioML=null;_p.pausaML=true;}if(_z.amz){_p.linkAmz='';_p.precioAmz=null;_p.pausaAmz=true;}if(!_p.linkML&&!_p.linkAmz)micros.splice(_i,1);}}catch(e){}
