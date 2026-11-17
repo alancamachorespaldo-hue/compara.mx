@@ -23,11 +23,12 @@ Lee también el `CLAUDE.md` del repo: sus reglas de git (nada de `git stash`, ar
 Estados: `ok` · `sin_ofertas` · `pausado` · `no_existe` · `link_roto` · `link_otro` · `sin_id` · `error`,
 y con `--links` también `precio_no_coincide`.
 
-**`precio_no_coincide` no se pausa.** El producto existe y se vende; lo que pasa es que la ficha que
-abre el link es más cara que el precio publicado (el nuestro sale de la oferta más barata con envío
-FULL del catálogo y ML puede destacar otra). Quien da clic llega esperando un precio y ve otro, así
-que va en el informe y en el gestor, pero **nunca cambies el precio por tu cuenta**: es decisión de
-Alan, y la regla del CLAUDE.md de no tocar precios sigue vigente.
+**`precio_no_coincide` no se pausa: se corrige el precio.** El producto existe y se vende, pero la
+ficha que abre el link es más cara que lo publicado (nuestro precio sale de la oferta más barata con
+envío FULL del catálogo y ML puede destacar otra). Manda la ficha, que es lo que el visitante ve:
+con `--aplicar` el precio se corrige y queda anotado en `_precioFicha`, y `ml-update.js` no publica
+uno menor durante 8 días. Decidido con Alan en nov-2026 sobre 99 productos (mediana +20%).
+Fuera de este caso sigue en pie la regla del CLAUDE.md: no se tocan precios.
 
 Dos reglas de seguridad que **no se tocan**:
 - `error` (timeout, 429, 5xx) nunca pausa nada: un fallo de la API no es un producto caído.
@@ -64,7 +65,7 @@ Dos reglas de seguridad que **no se tocan**:
    link a otro producto / sin ofertas), con los ejemplos que imprime el script.
 
    **b2) Precios que la ficha desmiente** (solo con `--links`): cuántos y los peores, con la
-   diferencia. No se pausan ni se corrigen solos.
+   diferencia. Con `--aplicar` ya quedan corregidos al precio de la ficha; dilo explícitamente.
 
    **c) Señales de alarma.** Si una categoría tiene **más de la cuarta parte** caída, dilo aparte:
    casi siempre es un problema de datos (`mlId` mal asignados), no 20 productos agotados el mismo
