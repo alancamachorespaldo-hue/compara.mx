@@ -17,6 +17,10 @@ const CATALOGOS = [
     especs: ["tipo", "capacidad", "presion", "vaporizador", "potencia", "molinillo"] },
   { categoria: "creatina", salida: ["suplementos", "creatina", "catalog-mini.json"],
     especs: ["tipoCreatina", "presentacion", "contenidoGramos", "grPorPorcion", "porciones", "costoPor5g", "pura"] },
+  { categoria: "videojuegos_consolas", salida: ["videojuegos", "consolas", "catalog-mini.json"],
+    especs: ["generacion", "tipoConsola", "almacenamiento", "lectorDiscos", "formatoJuegos", "accesorios", "condicion"] },
+  { categoria: "videojuegos_juegos", salida: ["videojuegos", "juegos", "catalog-mini.json"],
+    especs: ["plataforma", "formato", "desarrollador", "anio", "genero", "multijugador"] },
 ];
 
 const admin = JSON.parse(readFileSync(join(__dirname, "merged-admin.json"), "utf8"));

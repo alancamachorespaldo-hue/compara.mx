@@ -31,6 +31,7 @@ const GUIAS = [
   'guias/celulares/mejores-celulares-calidad-precio/index.html',
   'guias/cafeteras/espresso-menos-2000/index.html',
   'suplementos/creatina/creatina-mexico-cual-comprar/index.html',
+  'guias/videojuegos/que-consola-comprar-gta-6/index.html',
 ];
 
 const APLICAR = process.argv.includes('--aplicar');

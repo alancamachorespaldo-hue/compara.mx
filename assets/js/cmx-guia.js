@@ -346,7 +346,11 @@
 
   /* ── Precios vivos + ofertas verificadas ── */
   function buildOffers(cat, baj) {
-    var arr = (baj && baj.categorias && baj.categorias[C.bajadasKey]) || [], r = C.rango || {}, out = [];
+    /* bajadasKey normalmente es una sola categoría; una guía que mezcla categorías
+       (p. ej. consolas + juegos) puede pasar un arreglo y aquí se juntan las bajadas. */
+    var keys = Array.isArray(C.bajadasKey) ? C.bajadasKey : [C.bajadasKey];
+    var arr = [].concat.apply([], keys.map(function (k) { return (baj && baj.categorias && baj.categorias[k]) || []; }));
+    var r = C.rango || {}, out = [];
     arr.forEach(function (b) {
       var c = cat[b.id];
       if (!(b.plataforma === 'ml' && c && c.linkML && Math.round(c.precioML) === Math.round(b.ahora) && b.antes > b.ahora && b.pct >= 1
@@ -371,7 +375,18 @@
     return out;
   }
   function getJson(u) { return u ? fetch(u).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }) : Promise.resolve(null); }
-  Promise.all([getJson(C.catalogUrl), getJson(C.bajadasUrl)]).then(function (res) {
+  /* catalogUrl normalmente es un solo catalog-mini.json; una guía que mezcla categorías
+     (p. ej. consolas + juegos) puede pasar un arreglo y aquí se juntan en un solo mapa. */
+  function getCatalog(u) {
+    var urls = Array.isArray(u) ? u : (u ? [u] : []);
+    if (!urls.length) return Promise.resolve(null);
+    return Promise.all(urls.map(getJson)).then(function (arr) {
+      var out = null;
+      arr.forEach(function (c) { if (c) { out = out || {}; Object.keys(c).forEach(function (k) { out[k] = c[k]; }); } });
+      return out;
+    });
+  }
+  Promise.all([getCatalog(C.catalogUrl), getJson(C.bajadasUrl)]).then(function (res) {
     var cat = res[0], baj = res[1];
     if (!cat) return;
     var map = {};
