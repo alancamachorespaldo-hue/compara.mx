@@ -20,7 +20,14 @@ Lee también el `CLAUDE.md` del repo: sus reglas de git (nada de `git stash`, ar
 | 1. Catálogo | `/products/{mlId}` y sus ofertas: existe, está activo, alguien lo vende | ~2–3 min todo el sitio | diaria, dentro de `update-prices.yml` |
 | 2. Links (`--links`) | abre cada `meli.la` y comprueba que siga llevando a SU producto | ~20 min | semanal (`revisar-disponibilidad.yml`) o a mano |
 
-Estados: `ok` · `sin_ofertas` · `pausado` · `no_existe` · `link_roto` · `link_otro` · `sin_id` · `error`.
+Estados: `ok` · `sin_ofertas` · `pausado` · `no_existe` · `link_roto` · `link_otro` · `sin_id` · `error`,
+y con `--links` también `precio_no_coincide`.
+
+**`precio_no_coincide` no se pausa.** El producto existe y se vende; lo que pasa es que la ficha que
+abre el link es más cara que el precio publicado (el nuestro sale de la oferta más barata con envío
+FULL del catálogo y ML puede destacar otra). Quien da clic llega esperando un precio y ve otro, así
+que va en el informe y en el gestor, pero **nunca cambies el precio por tu cuenta**: es decisión de
+Alan, y la regla del CLAUDE.md de no tocar precios sigue vigente.
 
 Dos reglas de seguridad que **no se tocan**:
 - `error` (timeout, 429, 5xx) nunca pausa nada: un fallo de la API no es un producto caído.
@@ -55,6 +62,9 @@ Dos reglas de seguridad que **no se tocan**:
 
    **b) Qué hay que corregir**, agrupado por motivo (ya no existe / pausado en ML / link roto /
    link a otro producto / sin ofertas), con los ejemplos que imprime el script.
+
+   **b2) Precios que la ficha desmiente** (solo con `--links`): cuántos y los peores, con la
+   diferencia. No se pausan ni se corrigen solos.
 
    **c) Señales de alarma.** Si una categoría tiene **más de la cuarta parte** caída, dilo aparte:
    casi siempre es un problema de datos (`mlId` mal asignados), no 20 productos agotados el mismo

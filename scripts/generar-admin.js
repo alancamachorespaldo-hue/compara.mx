@@ -126,7 +126,7 @@ const meta = {
     umbral: disp.umbral ?? null,
     totales: disp.totales || null,
     productos: (disp.productos || [])
-      .filter(p => ['no_existe', 'pausado', 'link_roto', 'link_otro', 'sin_ofertas'].includes(p.estado))
+      .filter(p => ['no_existe', 'pausado', 'link_roto', 'link_otro', 'sin_ofertas', 'precio_no_coincide'].includes(p.estado))
       .map(p => ({
         categoria: p.categoria, id: p.id, nombre: p.nombre, estado: p.estado,
         detalle: p.detalle || null, linkML: p.linkML || null, mlId: p.mlId || null,

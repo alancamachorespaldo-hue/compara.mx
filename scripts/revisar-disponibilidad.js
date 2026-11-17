@@ -66,6 +66,8 @@ const LINKS = process.argv.includes('--links');
 const CATS_ARG = process.argv.find(a => a.startsWith('--categoria='))?.split('=')[1]?.split(',').filter(Boolean) ?? [];
 const UMBRAL = Number(process.argv.find(a => a.startsWith('--umbral='))?.split('=')[1] ?? 2);
 const CONCURRENCIA = 4;
+// A partir de cuánto más cara que lo publicado consideramos que la ficha desmiente al sitio.
+const UMBRAL_PRECIO = 0.05;
 const MLID_RX = /^MLM\d{6,12}$/;
 const HOY = new Date().toISOString().slice(0, 10);
 
@@ -215,6 +217,20 @@ async function revisarLinks(tareas, resultados) {
 
     const previo = resultados[x.i] ?? { estado: 'ok' };
     previo.link = { titulo: r.titulo ?? null, mlId: r.mlId ?? null, precio: r.precio ?? null, parecido: sim };
+
+    // El precio que publicamos sale de la API (la oferta más barata con envío FULL del catálogo) y
+    // la ficha que abre el link puede enseñar otra oferta. Cuando la ficha es MÁS CARA, el visitante
+    // llega esperando un precio y ve otro: eso quema la misma confianza que un link caído. No se
+    // pausa ni se cambia el precio solo — se reporta para decidirlo (nov-2026: 7 de 28 de la
+    // muestra, de +5% hasta +48%).
+    const base = p.precioML ?? null;
+    if (!estado && r.ok && r.precio > 0 && base > 0) {
+      const dif = (r.precio - base) / base;
+      if (dif >= UMBRAL_PRECIO) {
+        previo.precioFicha = r.precio;
+        previo.difPrecio = Math.round(dif * 100);
+      }
+    }
     if (estado && GRAVEDAD[estado] > (GRAVEDAD[previo.estado] ?? 0)) {
       resultados[x.i] = { ...previo, estado, detalle };
     }
@@ -277,6 +293,7 @@ async function main() {
 
   // 3. Decidir qué hacer con cada uno
   const productos = [...sinId];
+  const desajustes = [];   // precios que la ficha desmiente (no se pausan, se reportan)
   const resumen = {};
   let pausados = 0, reactivados = 0, enRacha = 0;
 
@@ -330,6 +347,16 @@ async function main() {
       return;
     }
 
+    // El catálogo está bien, pero la ficha que abre el link enseña un precio más alto que el
+    // publicado. No se pausa ni se toca el precio: se reporta para decidirlo a mano.
+    if (r.precioFicha) {
+      desajustes.push({
+        ...fila, estado: 'precio_no_coincide',
+        detalle: `publicamos $${(p.precioML ?? 0).toLocaleString('es-MX')} y la ficha dice $${r.precioFicha.toLocaleString('es-MX')} (+${r.difPrecio}%)`,
+        precioEnML: r.precioFicha, accion: 'revisar el precio',
+      });
+    }
+
     // Está OK: anotar la revisión, limpiar la racha y, si la pausa era automática, reactivar.
     //
     // Pero un producto pausado porque su LINK estaba roto no se reactiva en una corrida que no
@@ -381,6 +408,7 @@ async function main() {
     link_otro: Object.values(resumen).reduce((a, r) => a + r.link_otro, 0),
     error: Object.values(resumen).reduce((a, r) => a + r.error, 0),
     pausados_ahora: pausados, reactivados_ahora: reactivados, en_observacion: enRacha,
+    precio_no_coincide: desajustes.length,
   };
 
   const generado = new Date().toISOString();
@@ -402,7 +430,11 @@ async function main() {
     categorias: claves,          // las revisadas en ESTA corrida
     revisadas: fechaPorCat,      // fecha de la última revisión de cada categoría
     totales, resumen: { ...resumenPrevio, ...resumen },
-    productos: [...productos.map(p => ({ ...p, fecha: HOY })), ...deOtras],
+    productos: [
+      ...productos.map(p => ({ ...p, fecha: HOY })),
+      ...desajustes.map(p => ({ ...p, fecha: HOY })),
+      ...deOtras,
+    ],
   }, null, 2), 'utf8');
 
   // 5. Informe en pantalla
@@ -440,6 +472,13 @@ async function main() {
     console.log('\n   ⚠ Categorías con más de la cuarta parte caída (suele ser un problema de datos,');
     console.log('     no 20 productos agotados a la vez — revisa los mlId antes de pausar en masa):');
     for (const [cat, n, t] of conAlerta) console.log(`     · ${tituloDe(cat)}: ${n} de ${t}`);
+  }
+
+  if (desajustes.length) {
+    console.log(`\n💲 El precio de la ficha no coincide con el publicado — ${desajustes.length}`);
+    console.log('   (la ficha que abre el link es más cara: el visitante llega esperando un precio y ve otro)');
+    for (const d of desajustes.slice(0, 8)) console.log(`     · ${tituloDe(d.categoria)}: ${String(d.nombre).slice(0, 38)} — ${d.detalle}`);
+    if (desajustes.length > 8) console.log(`     … y ${desajustes.length - 8} más en el reporte`);
   }
 
   // Lo que hay que corregir, agrupado por motivo.
