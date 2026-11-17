@@ -269,7 +269,7 @@
 
 <script src="/assets/js/cmx-historico.js"></script>
 <script src="/assets/js/cmx-list.js"></script>
-<script type="application/json" id="pausas">{"boc_mlm62334925":{"ml":1},"boc_mlm20659980":{"amz":1},"boc_mlm17385336":{"amz":1},"boc_mlm26047900":{"ml":1},"boc_mlm18439250":{"ml":1}}</script>
+<script type="application/json" id="pausas">{"boc_mlm62334925":{"ml":1},"boc_mlm20659980":{"amz":1},"boc_mlm17385336":{"amz":1},"boc_mlm26047900":{"ml":1},"boc_mlm27951975":{"ml":1},"boc_mlm18439250":{"ml":1},"boc_mlm19043724":{"ml":1}}</script>
 <script>
 /* ── Datos de productos ───────────────────────────────────────────
    Catálogo real de bocinas inteligentes (lo actualizan ml-update.js y los workflows).
@@ -830,7 +830,7 @@ const productos = [
     precio: 4500,
   }
 ];
-/*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+/*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _p=productos[_i];var _z=_PZ[_p.id];if(!_z)continue;if(_z.ml){_p.linkML=null;_p.precioML=null;_p.pausaML=true;}if(_z.amz){_p.linkAmz='';_p.precioAmz=null;_p.pausaAmz=true;}if(!_p.linkML&&!_p.linkAmz)productos.splice(_i,1);}}catch(e){}
 
 /* ── Configuración del listado (plantilla cmx-list) ── */
 (function () {

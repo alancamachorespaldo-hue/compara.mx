@@ -311,6 +311,7 @@
 
 <script src="/assets/js/cmx-historico.js"></script>
 <script src="/assets/js/cmx-list.js"></script>
+<script type="application/json" id="pausas">{"cafetera-mlm15109662-10":{"ml":1},"cafetera-mlm76221126-14":{"ml":1},"cafetera-mlm54381370-24":{"ml":1},"cafetera-mlm64533182-37":{"ml":1},"cafetera-mlm42416247-39":{"ml":1},"cafetera-mlm73678844-53":{"ml":1},"cafetera-mlm77618671-54":{"ml":1},"cafetera-mlm61267315-56":{"ml":1},"cafetera-mlm65599139-59":{"ml":1},"cafetera-mlm69359834-60":{"ml":1},"cafetera-mlm74606752-61":{"ml":1},"cafetera-mlm77506871-93":{"ml":1}}</script>
 <script>
 const productos = [
   {
@@ -2968,6 +2969,7 @@ const productos = [
     _mlCheckedAt: "2026-10-23T06:39:52.770Z",
   }
 ];
+/*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _p=productos[_i];var _z=_PZ[_p.id];if(!_z)continue;if(_z.ml){_p.linkML=null;_p.precioML=null;_p.pausaML=true;}if(_z.amz){_p.linkAmz='';_p.precioAmz=null;_p.pausaAmz=true;}if(!_p.linkML&&!_p.linkAmz)productos.splice(_i,1);}}catch(e){}
 
 /* ── Configuración del listado (plantilla cmx-list) ──
    Solo Mercado Libre. El arreglo de productos no se toca: lo poco creíble (potencia de 110 W, 350 tazas…)

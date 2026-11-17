@@ -538,7 +538,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   <div class="cmx-hero-m__content">
     <h2 class="cmx-hero-m__title">Comparador de Lavadoras</h2>
     <p class="cmx-hero-m__sub">Carga superior, frontal y semiautomáticas · Mercado Libre</p>
-    <span class="cmx-hero-m__count"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> 70 modelos para comparar</span>
+    <span class="cmx-hero-m__count"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> 66 modelos para comparar</span>
     <div class="cmx-types">
       <button class="cmx-type-chip" data-filter="tipo" data-value="superior" onclick="cmxTypeFilter(this)">
         <span class="cmx-type-chip__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 11 12 6 7 11"/><line x1="12" y1="18" x2="12" y2="6"/></svg></span>
@@ -827,7 +827,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   </div>
 </div>
 
-<script type="application/json" id="pausas">{}</script>
+<script type="application/json" id="pausas">{"8":{"ml":1},"23":{"ml":1},"47":{"ml":1},"63":{"ml":1}}</script>
 <script>
 const productos = [
   {
@@ -2511,7 +2511,7 @@ const productos = [
     img: "https://http2.mlstatic.com/D_NQ_NP_616753-MLU77920018640_082024-F.jpg",
   }
 ];
-/*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
+/*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _p=productos[_i];var _z=_PZ[_p.id];if(!_z)continue;if(_z.ml){_p.linkML=null;_p.precioML=null;_p.pausaML=true;}if(_z.amz){_p.linkAmz='';_p.precioAmz=null;_p.pausaAmz=true;}if(!_p.linkML&&!_p.linkAmz)productos.splice(_i,1);}}catch(e){}
 
 // ── Funciones móvil ───────────────────────────────────────────
 function cmxTypeFilter(chipBtn) {

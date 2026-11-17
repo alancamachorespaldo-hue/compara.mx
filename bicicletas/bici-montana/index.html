@@ -450,6 +450,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 </div></div>
 <!-- cmx-footer:end -->
 
+<script type="application/json" id="pausas">{"204":{"ml":1},"205":{"ml":1},"503":{"ml":1},"517":{"ml":1}}</script>
 <script>
 const MONTANA = [
   {
@@ -1193,6 +1194,7 @@ const MONTANA = [
     mlId: "MLM59944544",
   },
 ];
+/*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=MONTANA.length-1;_i>=0;_i--){var _p=MONTANA[_i];var _z=_PZ[_p.id];if(!_z)continue;if(_z.ml){_p.linkML=null;_p.precioML=null;_p.pausaML=true;}if(_z.amz){_p.linkAmz='';_p.precioAmz=null;_p.pausaAmz=true;}if(!_p.linkML&&!_p.linkAmz)MONTANA.splice(_i,1);}}catch(e){}
 
 let state = { sort:'default', sel:[] };
 let searchQuery = '';

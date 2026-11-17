@@ -1045,7 +1045,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   </div>
 </div>
 
-<script type="application/json" id="pausas">{}</script>
+<script type="application/json" id="pausas">{"417":{"ml":1},"423":{"ml":1}}</script>
 <script>
 // ============================================================
 // DATOS — ELÉCTRICAS
@@ -2256,49 +2256,6 @@ const ELECTRICAS = [
     mlId: "MLM80319765"
   }
 ];
-/*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=ELECTRICAS.length-1;_i>=0;_i--){var _z=_PZ[ELECTRICAS[_i].id];if(!_z)continue;if(_z.ml){ELECTRICAS[_i].linkML=null;ELECTRICAS[_i].precioML=null;ELECTRICAS[_i].pausaML=true;}if(_z.amz){ELECTRICAS[_i].linkAmz='';ELECTRICAS[_i].precioAmz=null;ELECTRICAS[_i].pausaAmz=true;}if(_z.ml&&_z.amz)ELECTRICAS.splice(_i,1);}}catch(e){}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // ============================================================
 // DATOS — MONTAÑA (tipo:'mtb')
 // ============================================================
@@ -3044,7 +3001,6 @@ const MONTANA = [
     mlId: "MLM59944544",
   },
 ];
-
 // ============================================================
 // DATOS — GRAVEL Y RUTA (unificadas; tipo:'gravel'|'ruta')
 // ============================================================
@@ -3572,6 +3528,7 @@ const GRAVELRUTA = [
     mlId: "MLM54726579",
   },
 ];
+/*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=GRAVELRUTA.length-1;_i>=0;_i--){var _p=GRAVELRUTA[_i];var _z=_PZ[_p.id];if(!_z)continue;if(_z.ml){_p.linkML=null;_p.precioML=null;_p.pausaML=true;}if(_z.amz){_p.linkAmz='';_p.precioAmz=null;_p.pausaAmz=true;}if(!_p.linkML&&!_p.linkAmz)GRAVELRUTA.splice(_i,1);}}catch(e){}
 
 // ============================================================
 

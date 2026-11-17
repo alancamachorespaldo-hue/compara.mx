@@ -446,6 +446,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Satoshi',sans-serif;font-
 </div></div>
 <!-- cmx-footer:end -->
 
+<script type="application/json" id="pausas">{"417":{"ml":1},"423":{"ml":1}}</script>
 <script>
 const GRAVEL = [
   {
@@ -809,6 +810,7 @@ const GRAVEL = [
     mlId: "MLM54726579",
   },
 ];
+/*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=GRAVEL.length-1;_i>=0;_i--){var _p=GRAVEL[_i];var _z=_PZ[_p.id];if(!_z)continue;if(_z.ml){_p.linkML=null;_p.precioML=null;_p.pausaML=true;}if(_z.amz){_p.linkAmz='';_p.precioAmz=null;_p.pausaAmz=true;}if(!_p.linkML&&!_p.linkAmz)GRAVEL.splice(_i,1);}}catch(e){}
 
 // Alias para filters-panel.js
 window.PRODUCTOS = GRAVEL;

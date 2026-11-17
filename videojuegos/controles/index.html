@@ -433,7 +433,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 </div></div>
 <!-- cmx-footer:end -->
 
-<script type="application/json" id="pausas">{}</script>
+<script type="application/json" id="pausas">{"ctrl_MLM51396508":{"ml":1},"ctrl_MLM59819659":{"ml":1},"ctrl_MLM70107397":{"ml":1},"ctrl_MLM67160446":{"ml":1}}</script>
 <script>
 const productos = [
   {
@@ -782,46 +782,7 @@ const productos = [
     },
   }
 ];
-/*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _p=productos[_i];var _z=_PZ[_p.id];if(!_z)continue;if(_z.ml){_p.linkML=null;_p.precioML=null;_p.pausaML=true;}if(_z.amz){_p.linkAmz='';_p.precioAmz=null;_p.pausaAmz=true;}if(!_p.linkML&&!_p.linkAmz)productos.splice(_i,1);}}catch(e){}
 
 const precioVigente = p => (p.linkML ? p.precioML : p.precioAmz) ?? p.precio ?? null;
 const SPEC_KEYS = [['dispositivosCompatibles','Dispositivos comp.'],['inalambrico','Inalámbrico'],['vibracion','Vibración'],['sensorMovimiento','Sensor movimiento'],['barraLuz','Barra de luz'],['alimentacion','Alimentación']];

@@ -248,6 +248,7 @@
 
 <script src="/assets/js/cmx-historico.js"></script>
 <script src="/assets/js/cmx-list.js"></script>
+<script type="application/json" id="pausas">{"16":{"ml":1},"20":{"ml":1},"34":{"ml":1},"39":{"ml":1},"51":{"ml":1},"62":{"ml":1},"64":{"ml":1},"72":{"ml":1},"101":{"ml":1}}</script>
 <script>
 /* ── Datos de productos ───────────────────────────────────────────
    NOTA: Estos 3 son productos de EJEMPLO con datos reales de ML.
@@ -2290,6 +2291,7 @@ const productos = [
     },
   }
 ];
+/*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _p=productos[_i];var _z=_PZ[_p.id];if(!_z)continue;if(_z.ml){_p.linkML=null;_p.precioML=null;_p.pausaML=true;}if(_z.amz){_p.linkAmz='';_p.precioAmz=null;_p.pausaAmz=true;}if(!_p.linkML&&!_p.linkAmz)productos.splice(_i,1);}}catch(e){}
 
 /* ── Configuración del listado (plantilla cmx-list) ── */
 (function () {

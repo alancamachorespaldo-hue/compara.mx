@@ -549,6 +549,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
 </div></div>
 <!-- cmx-footer:end -->
 
+<script type="application/json" id="pausas">{"407":{"ml":1},"408":{"ml":1}}</script>
 <script>
 // ============================================================
 // DATOS
@@ -1487,6 +1488,7 @@ const ELECTRICAS = [
     mlId: "MLM80319765",
   },
 ];
+/*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=ELECTRICAS.length-1;_i>=0;_i--){var _p=ELECTRICAS[_i];var _z=_PZ[_p.id];if(!_z)continue;if(_z.ml){_p.linkML=null;_p.precioML=null;_p.pausaML=true;}if(_z.amz){_p.linkAmz='';_p.precioAmz=null;_p.pausaAmz=true;}if(!_p.linkML&&!_p.linkAmz)ELECTRICAS.splice(_i,1);}}catch(e){}
 
 // ============================================================
 // ESTADO

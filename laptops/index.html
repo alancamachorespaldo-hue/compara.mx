@@ -249,7 +249,7 @@
 
 <script src="/assets/js/cmx-historico.js"></script>
 <script src="/assets/js/cmx-list.js"></script>
-<script type="application/json" id="pausas">{"70":{"ml":1}}</script>
+<script type="application/json" id="pausas">{"52":{"ml":1},"ml_MLM77673866":{"ml":1}}</script>
 <script>
 const productos = [
   {
@@ -1816,13 +1816,7 @@ const productos = [
     img: "https://http2.mlstatic.com/D_NQ_NP_852998-MLA118763119277_102026-F.jpg",
   },
 ];
-/*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _z=_PZ[productos[_i].id];if(!_z)continue;if(_z.ml){productos[_i].linkML=null;productos[_i].precioML=null;productos[_i].pausaML=true;}if(_z.amz){productos[_i].linkAmz='';productos[_i].precioAmz=null;productos[_i].pausaAmz=true;}if(_z.ml&&_z.amz)productos.splice(_i,1);}}catch(e){}
-
-
-
-
-
-
+/*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _p=productos[_i];var _z=_PZ[_p.id];if(!_z)continue;if(_z.ml){_p.linkML=null;_p.precioML=null;_p.pausaML=true;}if(_z.amz){_p.linkAmz='';_p.precioAmz=null;_p.pausaAmz=true;}if(!_p.linkML&&!_p.linkAmz)productos.splice(_i,1);}}catch(e){}
 
 /* ── Configuración del listado (plantilla cmx-list) ──
    Solo Mercado Libre. El arreglo de productos no se toca: lo que no es creíble (RAM de 22 GB o 1024 GB,
