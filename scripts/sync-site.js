@@ -163,7 +163,7 @@ const SHARE_BTN = '<button class="btn-share" onclick="shareCurrentPage()" title=
    Sus estilos viven en /assets/css/cmx-home.css mientras solo lo use el inicio. */
 const HUBS_V2 = ['/electrodomesticos/', '/suplementos/', '/tecnologia/', '/entretenimiento/', '/celulares/', '/bicis/', '/videojuegos/'];
 /* Listados que ya usan la plantilla cmx-list */
-const LISTS_V2 = ['/tecnologia/smartwatches/', '/tecnologia/bocinas/', '/celulares/android/', '/celulares/iphone/', '/suplementos/proteina/', '/laptops/', '/electrodomesticos/cafeteras/', '/suplementos/omega3/', '/suplementos/creatina/', '/videojuegos/consolas/', '/bicicletas/bici-ruta/', '/bicicletas/bici-electricas/', '/electrodomesticos/freidoras/'];
+const LISTS_V2 = ['/tecnologia/smartwatches/', '/tecnologia/bocinas/', '/celulares/android/', '/celulares/iphone/', '/suplementos/proteina/', '/laptops/', '/electrodomesticos/cafeteras/', '/suplementos/omega3/', '/suplementos/creatina/', '/videojuegos/consolas/', '/bicicletas/bici-ruta/', '/bicicletas/bici-electricas/', '/bicicletas/bici-montana/', '/electrodomesticos/freidoras/'];
 /* Guías con el sistema nuevo (skill guia-ml-noviembre-2026): mismo encabezado que los listados */
 const GUIAS_V2 = ['/guias/celulares/mejores-celulares-menos-5000/', '/guias/celulares/celulares-menos-3000-mexico/', '/guias/celulares/mejores-celulares-calidad-precio/', '/guias/cafeteras/espresso-menos-2000/', '/suplementos/creatina/creatina-mexico-cual-comprar/', '/guias/videojuegos/que-consola-comprar-gta-6/', '/guias/videojuegos/gta-6-guia-completa/', '/guias/laptops/macbook-reacondicionadas/'];
 const HEADER_V2 = new Set(['/', ...HUBS_V2, ...LISTS_V2, ...GUIAS_V2]);

@@ -19,7 +19,7 @@ import vm from 'vm';
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const CHECK = process.argv.includes('--check');
 const SKIP = new Set(['node_modules', '_interno', 'scripts', '.git', '.github', '.claude', 'admin', 'assets', 'js', 'fotos']);
-const ARRAYS = ['productos', 'micros', 'PRODUCTOS', 'familias', 'RUTA', 'ELECTRICAS'];
+const ARRAYS = ['productos', 'micros', 'PRODUCTOS', 'familias', 'RUTA', 'ELECTRICAS', 'MONTANA'];
 
 function walk(dir, out = []) {
   for (const name of readdirSync(dir)) {
