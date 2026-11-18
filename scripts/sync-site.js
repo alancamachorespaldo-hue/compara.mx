@@ -268,7 +268,12 @@ function relatedHtml(p) {
   const guides = GUIDES.filter((g) => g.topic === t && g.path !== p).slice(0, 4);
   out += `<h3>${guides.length ? 'Guías relacionadas' : 'Guías de compra'}</h3><div class="cmx-rel-grid">${guides.map((g) => card(g.path, 'Guía', g.title)).join('')}${card('/guias/', 'Guías', 'Ver todas las guías de compra', 'Cómo elegir, comparativas y ofertas')}</div>`;
   const cats = (RELATED_CATS[t] || []).filter((u) => u !== p).map((u) => BY_URL[u]).filter(Boolean);
-  if (cats.length) out += `<h3>Sigue con otras categorías</h3><div class="cmx-rel-grid">${cats.map((c) => card(c.url, 'Categoría', c.name, c.sub, c.icon)).join('')}</div>`;
+  // /ofertas/ cierra la lista en todas las páginas: es la puerta a lo que bajó de precio en todo el sitio.
+  const ofertas = p === '/ofertas/' ? '' : card('/ofertas/', 'Ofertas', 'Lo que bajó de precio hoy',
+    'Bajadas de 30 días de todas las categorías, con histórico', '🏷️');
+  if (cats.length || ofertas) {
+    out += `<h3>Sigue con otras categorías</h3><div class="cmx-rel-grid">${cats.map((c) => card(c.url, 'Categoría', c.name, c.sub, c.icon)).join('')}${ofertas}</div>`;
+  }
   const lead = guide ? 'Pasa de la guía a la comparativa o sigue con otros temas.' : 'Guías de compra y categorías que combinan con esta.';
   return `<!-- cmx-related:start -->
 <section class="cmx-rel" aria-labelledby="cmx-rel-h"><div class="cmx-rel-in"><h2 id="cmx-rel-h">Sigue explorando</h2><p class="cmx-rel-lead">${lead}</p>${out}</div></section>

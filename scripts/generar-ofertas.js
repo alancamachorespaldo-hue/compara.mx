@@ -28,6 +28,7 @@ import { join, resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { mejorBajada, publicado, vendible, DIAS_OFERTA_ML } from './_ofertas.js';
 import { clavesDeDatos, principalDe, paginasDe, tituloDe } from './categorias.js';
+import { nombresDe } from './_nombres.js';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const DRY = process.argv.includes('--dry-run');
@@ -56,23 +57,6 @@ const URL_FIJA = {
   bicis: '/bicicletas/bici-electricas/',
   bicisMontana: '/bicicletas/bici-montana/',
   bicisGravelRuta: '/bicicletas/bici-gravel/',
-};
-
-/** Singular/plural para los textos de cada fila. */
-const NOMBRES = {
-  laptops: ['laptop', 'laptops'], freidoras: ['freidora de aire', 'freidoras de aire'],
-  microondas: ['microondas', 'microondas'], cafeteras: ['cafetera', 'cafeteras'],
-  refrigeradores: ['refrigerador', 'refrigeradores'], lavadoras: ['lavadora', 'lavadoras'],
-  ollas: ['olla', 'ollas'], proteina: ['proteína', 'proteínas'], creatina: ['creatina', 'creatinas'],
-  omega3: ['omega 3', 'omega 3'], magnesio: ['magnesio', 'magnesios'],
-  complejo_b: ['complejo B', 'complejos B'], vitamina_d: ['vitamina D', 'vitaminas D'],
-  videojuegos_consolas: ['consola', 'consolas'], videojuegos_controles: ['control', 'controles'],
-  videojuegos_juegos: ['videojuego', 'videojuegos'], tecnologia_bocinas: ['bocina', 'bocinas'],
-  tecnologia_audifonos: ['audífono', 'audífonos'], tecnologia_smartwatches: ['smartwatch', 'smartwatches'],
-  streaming: ['dispositivo de streaming', 'dispositivos de streaming'],
-  bicis: ['bici eléctrica', 'bicis eléctricas'], bicisMontana: ['bici de montaña', 'bicis de montaña'],
-  bicisGravelRuta: ['bici de gravel o ruta', 'bicis de gravel y ruta'],
-  celulares_android: ['celular Android', 'celulares Android'], celulares_iphone: ['iPhone', 'iPhone'],
 };
 
 /* ── Características ─────────────────────────────────────────────────────────
@@ -225,7 +209,7 @@ function recolectar() {
     items.sort((a, b) => (a.atipico ? 1 : 0) - (b.atipico ? 1 : 0) || b.pct - a.pct || b.ahorro - a.ahorro);
     const pag = principalDe(cat) || paginasDe(cat)[0];
     const url = URL_FIJA[cat] || '/' + (pag ? pag.file.replace(/index\.html$/, '') : '');
-    const [uno, muchos] = NOMBRES[cat] || [tituloDe(cat).toLowerCase(), tituloDe(cat).toLowerCase()];
+    const [uno, muchos] = nombresDe(cat, tituloDe(cat));
     porCat[cat] = { cat, titulo: tituloDe(cat), url, uno, muchos, items, total: items.length };
   }
 

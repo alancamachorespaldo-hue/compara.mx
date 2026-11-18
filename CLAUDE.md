@@ -187,12 +187,27 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
   catálogo, no una rebaja. Tope de 8 tarjetas por categoría (`TOPE`); el resto se ve en la categoría.
   Corre en `update-prices.yml` y en `revisar-disponibilidad.yml`. Los grupos del índice viven en el
   propio script: una categoría nueva de `categorias.js` entra sola en "Más categorías".
+- `sync-ofertas-cta.js [--check] [--dry-run]` — pone el acceso a `/ofertas/` en las 26 páginas del
+  registro: el chip junto al contador (`cl-oflink`, primera pantalla, solo donde existe
+  `<p class="cl-count" id="cl-count">`) y la banda verde al terminar el listado (`cl-ofcta`, dentro
+  de `cl-below-main`; en las páginas que todavía no usan cmx-list va suelta antes de "Sigue
+  explorando" con la clase `cl-ofcta--solo`). Donde está la plantilla, la banda trae además un botón
+  que enciende el filtro "Bajó de precio" de esa misma página. Los textos salen de
+  `scripts/_nombres.js` (singular/plural de cada categoría, compartido con `generar-ofertas.js`) y
+  los estilos de `assets/css/cmx-site.css`, que cargan todas las páginas. Es idempotente y **no se
+  edita a mano**: para cambiar el texto se cambia el script y se vuelve a correr. Los dos accesos
+  mandan el evento GA4 `click_ofertas_cta` con `page_section` y `origen`
+  (`listado_top` | `listado_banda`). Una categoría nueva entra sola: se registra en `categorias.js`
+  y se corre esto una vez.
 - `sync-site.js [--only=header,footer,related,head] [--check]` — escribe entre marcadores el encabezado
   (`cmx-header`, con el botón de favoritos si la página lo tiene), el breadcrumb (`cmx-bc`, solo en páginas que ya
   lo tenían en el menú; sale del JSON-LD), "Sigue explorando" (`cmx-related`) y el pie con aviso de afiliados
   (`cmx-footer`). **No editar esos bloques a mano**: se cambian en el script o en `assets/css/cmx-site.css`
   y se vuelve a correr. Una página nueva debe correrlo (y estar en `sitemap.xml`) o `check-site.js` falla.
   Las categorías del buscador (escritorio y panel móvil) viven en `js/categorias.js`.
+  "Sigue explorando" cierra siempre con la tarjeta de **Ofertas** (`/ofertas/`), y el botón
+  "Ofertas" del encabezado lleva a esa página (antes abría `/#ofertas`). En el inicio, el botón
+  "Ver todas las ofertas" de la sección de bajadas también enlaza a `/ofertas/`.
 - `sync-hub-counts.js [--check]` — números de producto en los hubs. Cuenta con el mismo criterio
   que las páginas (lo que conserva alguna tienda tras las pausas) y, en celulares, cuenta variantes,
   no familias. Corre después de `sync-pausas.js` en los dos workflows de datos.

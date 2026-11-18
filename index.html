@@ -522,7 +522,7 @@ footer{background:var(--tx);padding:34px 0 24px;color:#fff}
     <div class="hm-head">
       <h2 id="deals-h"><svg width="34" height="34" viewBox="0 0 24 24" fill="#EF1B24" aria-hidden="true"><path d="M21.4 12.6 12.6 21.4a2 2 0 0 1-2.8 0L2 13.6V4a2 2 0 0 1 2-2h9.6l7.8 7.8a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.8" fill="#fff"/></svg>Ofertas y bajadas de precio</h2>
       <p>Productos que recientemente bajaron de precio en Mercado Libre.</p>
-      <button type="button" class="hm-more" id="hm-deals-all" aria-expanded="false" aria-controls="deals-all" onclick="hmToggleDeals(this)">Ver todas<span class="lg"> las ofertas</span> →</button>
+      <a class="hm-more" id="hm-deals-all" href="/ofertas/" onclick="if(typeof gtag==='function')gtag('event','home_ver_todas_ofertas',{page_section:'home_descuentos',destino:'/ofertas/'})">Ver todas<span class="lg"> las ofertas</span> →</a>
     </div>
     <div id="hm-deals"></div>
   </div>

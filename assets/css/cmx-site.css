@@ -356,3 +356,44 @@ html[data-cmx-filters="panel"] #toolbar-mobile { display: none !important; }
   .cmx-ft2-cats ul { grid-auto-flow: row; grid-template-rows: none; }
   .cmx-ft2 li a { display: block; padding: 4px 0; }
 }
+
+/* Encabezado de la columna de resultados: contador + enlace a /ofertas/ (primera pantalla). */
+.cl-mainhd { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.cl-mainhd .cl-count { margin: 0; }
+.cl-oflink { display: inline-flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 800; letter-spacing: -.3px;
+  color: var(--cl-green-action, #00843D); background: var(--cl-green-soft, #EAF7EF); border-radius: 999px; padding: 6px 13px; white-space: nowrap; }
+.cl-oflink:hover { background: #D8F0E2; color: var(--cl-green, #006847); }
+.cl-oflink svg { color: var(--cl-red, #EF1B24); }
+@media (max-width: 760px) { .cl-oflink { font-size: 13px; padding: 5px 11px; } }
+
+/* ── Acceso a /ofertas/ desde el listado ──────────────────────────────────────
+   Banda al final de la lista: quien ya recorrió la categoría encuentra ahí las
+   bajadas de todo el sitio, y de paso el filtro de bajadas de esta misma página. */
+.cl-ofcta { grid-column: 1 / -1; margin: 18px 0 4px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  background: linear-gradient(100deg, var(--cl-green, #006847) 0%, var(--cl-green-dark, #004D38) 68%, var(--cl-green-deep, #013A2B) 100%);
+  color: #fff; border-radius: 16px; padding: 16px 20px; box-shadow: 0 4px 16px rgba(1,58,43,.18); }
+.cl-ofcta-ic { flex: none; width: 54px; height: 54px; display: grid; place-items: center; border-radius: 14px;
+  background: rgba(255,255,255,.14); color: #BFF3CB; }
+.cl-ofcta-tx { flex: 1 1 280px; min-width: 0; }
+.cl-ofcta-tx h2 { margin: 0 0 4px; font-size: 19px; font-weight: 800; letter-spacing: -.5px; color: #fff; }
+.cl-ofcta-tx p { margin: 0; font-size: 14.5px; line-height: 1.45; color: rgba(255,255,255,.92); max-width: 72ch; }
+.cl-ofcta-tx b { color: #BFF3CB; }
+.cl-ofcta-btns { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.cl-ofcta-go { display: inline-flex; align-items: center; gap: 8px; background: var(--cl-ml, #F0C000); color: var(--cl-text, #111827);
+  border-radius: 999px; padding: 11px 18px; font-size: 15px; font-weight: 800; letter-spacing: -.3px; white-space: nowrap; }
+.cl-ofcta-go:hover { filter: brightness(.95); color: var(--cl-text, #111827); }
+.cl-ofcta-alt { border: 1.6px solid rgba(255,255,255,.55); background: none; color: #fff; border-radius: 999px;
+  padding: 10px 16px; font-size: 14.5px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+.cl-ofcta-alt:hover { background: rgba(255,255,255,.14); }
+@media (max-width: 760px) {
+  .cl-ofcta { padding: 14px 15px; gap: 12px; margin-top: 14px; }
+  .cl-ofcta-ic { width: 42px; height: 42px; border-radius: 12px; }
+  .cl-ofcta-ic svg { width: 24px; height: 24px; }
+  .cl-ofcta-tx h2 { font-size: 17px; }
+  .cl-ofcta-tx p { font-size: 13.5px; }
+  .cl-ofcta-btns { width: 100%; }
+  .cl-ofcta-go, .cl-ofcta-alt { flex: 1 1 100%; justify-content: center; text-align: center; }
+}
+
+/* La banda fuera de la plantilla de listado (páginas que aún no usan cmx-list): se centra sola. */
+.cl-ofcta--solo { max-width: 1200px; margin: 26px auto; width: calc(100% - 32px); }
