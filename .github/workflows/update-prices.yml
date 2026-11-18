@@ -117,6 +117,9 @@ jobs:
       - name: Actualizar los precios escritos en las guías
         run: node scripts/sync-guias-precios.js --aplicar
 
+      - name: Armar la página de ofertas (/ofertas/)
+        run: node scripts/generar-ofertas.js
+
       - name: Sustituir fotos de portada que ya no existen (listados)
         continue-on-error: true
         run: node scripts/sync-hero-imgs.js

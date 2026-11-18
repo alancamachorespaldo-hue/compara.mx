@@ -74,6 +74,9 @@ jobs:
       - name: Regenerar bajadas de precio (sin lo pausado)
         run: node scripts/generar-bajadas.js
 
+      - name: Rearmar la página de ofertas (sin lo pausado)
+        run: node scripts/generar-ofertas.js
+
       - name: Revisar el sitio
         run: node scripts/check-site.js
 

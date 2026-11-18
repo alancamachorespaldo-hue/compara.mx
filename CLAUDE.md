@@ -55,6 +55,7 @@ como páginas ni enlazarlos.
 | Complejo B | `/suplementos/complejo-b/` | `PRODUCTOS` |
 | Vitamina D | `/suplementos/vitamina-d/` | `PRODUCTOS` |
 | Celulares | `/celulares/`, `/celulares/iphone/`, `/celulares/android/` | — |
+| Ofertas (todas las categorías) | `/ofertas/` | — (la arma `generar-ofertas.js`) |
 
 `/celulares/alta-gama/` y `/celulares/smartphones/` redirigen a `/celulares/android/` a propósito.
 Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (falta la barra).
@@ -171,6 +172,21 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
   Corre en `update-prices.yml` tras las ofertas. `assets/js/price-drops.js` lo lee: pinta "↓ % · Bajó $ · Antes $"
   en la tarjeta y da el filtro "Bajó de precio" (chip sobre el listado, sección "Ofertas" en el panel, y en
   proteína/creatina su filtro propio). Solo muestra una bajada si id, nombre y precio actual coinciden con la página.
+- `generar-ofertas.js [--dry-run]` — arma **`/ofertas/`**, la página que junta en una fila por
+  categoría todo lo que bajó de precio en los últimos 30 días. Un producto entra si tiene bajada
+  vigente en la base (`mejorBajada`, la misma que ya anuncia su categoría) o si el histórico de 30
+  días lo pone al menos 3 % debajo del máximo del periodo; siempre con `vendible` + `publicado`,
+  link de ML y precio, así que lo pausado o caído no aparece. Escribe el HTML **estático** de las
+  tarjetas entre los marcadores `<!-- ofertas:resumen|indice|secciones|datos -->` (para buscadores)
+  más un `<script type="application/json" id="of-data">` que lee `assets/js/cmx-ofertas.js`
+  (selección de 2 a 3 productos *de la misma categoría*, comparativa, favoritos, índice lateral).
+  También escribe `assets/data/historico/ofertas.json`: el histórico recortado a los productos de
+  la página, con claves `"<categoria>:<id>"` porque los ids se repiten entre categorías; así la
+  página baja un archivo y no los 24. Los productos con salto atípico en la serie se publican pero
+  van al final de su fila: ese salto casi siempre es un cambio de la oferta de referencia del
+  catálogo, no una rebaja. Tope de 8 tarjetas por categoría (`TOPE`); el resto se ve en la categoría.
+  Corre en `update-prices.yml` y en `revisar-disponibilidad.yml`. Los grupos del índice viven en el
+  propio script: una categoría nueva de `categorias.js` entra sola en "Más categorías".
 - `sync-site.js [--only=header,footer,related,head] [--check]` — escribe entre marcadores el encabezado
   (`cmx-header`, con el botón de favoritos si la página lo tiene), el breadcrumb (`cmx-bc`, solo en páginas que ya
   lo tenían en el menú; sale del JSON-LD), "Sigue explorando" (`cmx-related`) y el pie con aviso de afiliados
