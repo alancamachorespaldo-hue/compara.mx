@@ -30,6 +30,7 @@ window.CMX_SUBS = [
   { name: 'Vitamina D',  sub: 'D3, con o sin K2',                 icon: '☀️', url: '/suplementos/vitamina-d/',     tags: ['vitamina d','d3'] },
   { name: 'Cafeteras',   sub: 'Espresso, cápsulas, automáticas',  icon: '☕', url: '/electrodomesticos/cafeteras/', tags: ['cafetera','cafe','nespresso','dolce gusto','espresso'] },
   { name: 'Refrigeradores', sub: 'French door, side by side, top mount', icon: '🧊', url: '/electrodomesticos/refrigeradores/', tags: ['refrigerador','refri','nevera','heladera','frigobar','french door','side by side'] },
+  { name: 'Ollas de Cocción Lenta', sub: 'Programables, con tapa de vidrio', icon: '🍲', url: '/electrodomesticos/ollas/', tags: ['olla','slow cooker','crock pot','crockpot','coccion lenta'] },
   { name: 'Controles',   sub: 'Para consola y PC',                icon: '🎮', url: '/videojuegos/controles/',      tags: ['control','joystick','gamepad'] },
   { name: 'Juegos',      sub: 'Físicos y digitales',              icon: '👾', url: '/videojuegos/juegos/',         tags: ['juego','videojuego'] }
 ];
