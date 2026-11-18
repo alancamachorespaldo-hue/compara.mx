@@ -168,9 +168,13 @@ const HUBS_V2 = ['/electrodomesticos/', '/suplementos/', '/tecnologia/', '/entre
 const LISTS_V2 = ['/tecnologia/smartwatches/', '/tecnologia/bocinas/', '/celulares/android/', '/celulares/iphone/', '/suplementos/proteina/', '/laptops/', '/electrodomesticos/cafeteras/', '/suplementos/omega3/', '/suplementos/creatina/', '/videojuegos/consolas/', '/bicicletas/bici-ruta/', '/bicicletas/bici-electricas/', '/bicicletas/bici-montana/', '/electrodomesticos/freidoras/', '/electrodomesticos/microondas/', '/electrodomesticos/ollas/'];
 /* Guías con el sistema nuevo (skill guia-ml-noviembre-2026): mismo encabezado que los listados */
 const GUIAS_V2 = ['/guias/celulares/mejores-celulares-menos-5000/', '/guias/celulares/celulares-menos-3000-mexico/', '/guias/celulares/mejores-celulares-calidad-precio/', '/guias/cafeteras/espresso-menos-2000/', '/suplementos/creatina/creatina-mexico-cual-comprar/', '/guias/videojuegos/que-consola-comprar-gta-6/', '/guias/videojuegos/gta-6-guia-completa/', '/guias/laptops/macbook-reacondicionadas/', '/guias-compra/freidoras/oster-freidoras-vale-la-pena/'];
-const HEADER_V2 = new Set(['/', ...HUBS_V2, ...LISTS_V2, ...GUIAS_V2]);
+/* Página de ofertas (/ofertas/): encabezado y pie del rediseño, y pie solo-Mercado Libre. */
+const OFERTAS_V2 = ['/ofertas/'];
+const HEADER_V2 = new Set(['/', ...HUBS_V2, ...LISTS_V2, ...GUIAS_V2, ...OFERTAS_V2]);
 /* Pie del rediseño (azul marino, 4 columnas; en móvil las listas son acordeones). */
-const FOOTER_V2 = new Set([...HUBS_V2, ...LISTS_V2]);
+const FOOTER_V2 = new Set([...HUBS_V2, ...LISTS_V2, ...OFERTAS_V2]);
+/* Páginas que solo publican precios de Mercado Libre: su pie no menciona Amazon. */
+const ML_ONLY = new Set([...LISTS_V2, ...OFERTAS_V2]);
 function headerV2Html(extra) {
   const cats = NAV_LINKS.filter(([n]) => n !== 'Guías').map(([n, u]) => `<a href="${u}">${n}</a>`).join('\n          ');
   return `<!-- cmx-header:start -->
@@ -186,7 +190,7 @@ function headerV2Html(extra) {
       </div>
       <a href="/#categorias">Comparativas</a>
       <a href="/guias/">Guías de compra</a>
-      <a class="cmx-hd2-ofertas" href="/#ofertas"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z"/><circle cx="7" cy="7" r="1.2" fill="currentColor"/></svg> Ofertas</a>
+      <a class="cmx-hd2-ofertas" href="/ofertas/"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z"/><circle cx="7" cy="7" r="1.2" fill="currentColor"/></svg> Ofertas</a>
     </nav>
     <div class="cmx-hd-act">
       <!-- cmx-hd-extra:start -->${extra || ''}<!-- cmx-hd-extra:end -->
@@ -290,7 +294,7 @@ ${col('Legal', [['Aviso de afiliados', '/aviso-afiliados/'], ['Privacidad', '/pr
 }
 
 function footerHtml(p) {
-  if (FOOTER_V2.has(p)) return footerV2Html(LISTS_V2.includes(p));
+  if (FOOTER_V2.has(p)) return footerV2Html(ML_ONLY.has(p));
   const li = (a) => a.map(([n, u]) => `<li><a href="${u}">${n}</a></li>`).join('');
   return `<!-- cmx-footer:start -->
 <div class="cmx-ft" role="contentinfo" id="cmx-ft"><div class="cmx-ft-in">
