@@ -83,23 +83,35 @@ for (const { file, datos } of paginas.values()) {
   const seccion = datos[0];
   const [, muchos] = datos.length === 1 ? nombresDe(datos[0], tituloDe(datos[0])) : ['producto', 'productos'];
   const conFiltro = html.includes('/assets/js/cmx-list.js');
+  // Los HTML llegan del repo con CRLF en Windows, y algunos traen finales mezclados: lo que
+  // inserta el script se escribe con el salto de línea del archivo y no se toca nada más.
+  // Sin esto, --check veía todas las páginas desactualizadas en cada corrida.
+  const eol = html.includes('\r\n') ? '\r\n' : '\n';
+  const conEol = (t) => t.replace(/\r?\n/g, eol);
 
   // 1. Chip junto al contador
   if (/<div class="cl-mainhd">[\s\S]*?<\/div>/.test(html)) {
-    html = html.replace(/[ \t]*<div class="cl-mainhd">[\s\S]*?<\/div>/, chipHtml(seccion));
+    html = html.replace(/[ \t]*<div class="cl-mainhd">[\s\S]*?<\/div>/, conEol(chipHtml(seccion)));
   } else if (/<p class="cl-count" id="cl-count"[^>]*><\/p>/.test(html)) {
-    html = html.replace(/[ \t]*<p class="cl-count" id="cl-count"[^>]*><\/p>/, chipHtml(seccion));
+    html = html.replace(/[ \t]*<p class="cl-count" id="cl-count"[^>]*><\/p>/, conEol(chipHtml(seccion)));
   }
 
   // 2. Banda
-  const reBanda = /[ \t]*<!-- cmx-ofcta [^>]*-->\n[ \t]*<aside class="cl-ofcta[\s\S]*?<\/aside>/;
+  // \r?\n en todos los saltos: en Windows los archivos llegan del repo con CRLF y, sin esto, el
+  // script no reconocía la banda que él mismo había escrito y la habría insertado por segunda vez.
+  const reBanda = /[ \t]*<!-- cmx-ofcta [^>]*-->\r?\n[ \t]*<aside class="cl-ofcta[\s\S]*?<\/aside>/;
   if (reBanda.test(html)) {
     const sangria = (reBanda.exec(html)[0].match(/^[ \t]*/) || [''])[0];
-    html = html.replace(reBanda, bandaHtml(seccion, muchos, conFiltro, sangria, !html.includes('cl-below-main')));
-  } else if (html.includes('<aside class="cl-ofcta"')) {
+    html = html.replace(reBanda, conEol(bandaHtml(seccion, muchos, conFiltro, sangria, !html.includes('cl-below-main'))));
+  } else if (/<!-- Acceso a \/ofertas\/[^\n]*\r?\n[ \t]*<aside class="cl-ofcta/.test(html)) {
     // Versión escrita a mano antes de existir este script: se reemplaza entera.
-    html = html.replace(/[ \t]*<!-- Acceso a \/ofertas\/[^\n]*\n[ \t]*<aside class="cl-ofcta[\s\S]*?<\/aside>/,
-      bandaHtml(seccion, muchos, conFiltro, '      ', false));
+    html = html.replace(/[ \t]*<!-- Acceso a \/ofertas\/[^\n]*\r?\n[ \t]*<aside class="cl-ofcta[\s\S]*?<\/aside>/,
+      conEol(bandaHtml(seccion, muchos, conFiltro, '      ', false)));
+  } else if (html.includes('<aside class="cl-ofcta')) {
+    // Ya hay una banda pero no se pudo reconocer: antes de duplicarla, se avisa.
+    console.log(`  · ${file}: tiene una banda que este script no reconoce; revísala a mano`);
+    saltadas++;
+    continue;
   } else if (html.includes('<div class="cl-below-main">')) {
     html = html.replace('<div class="cl-below-main">', '<div class="cl-below-main">\n' + bandaHtml(seccion, muchos, conFiltro, '      ', false));
   } else if (html.includes('<!-- cmx-related:start -->')) {
