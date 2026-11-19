@@ -145,6 +145,10 @@ export const CATEGORIAS = {
     titulo: 'Streaming', file: 'entretenimiento/streaming/index.html', varName: 'productos',
     descuentos: 'entretenimiento/streaming/descuentos.json',
   },
+  televisiones: {
+    titulo: 'Televisiones', file: 'entretenimiento/televisiones/index.html', varName: 'productos',
+    descuentos: 'entretenimiento/televisiones/descuentos.json',
+  },
 
   // ── Bicis ──────────────────────────────────────────────────────────────────
   // El hub /bicis/ y las páginas dedicadas /bicicletas/… muestran las MISMAS listas:

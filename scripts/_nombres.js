@@ -28,6 +28,7 @@ export const NOMBRES = {
   tecnologia_audifonos: ['audífono', 'audífonos'],
   tecnologia_smartwatches: ['smartwatch', 'smartwatches'],
   streaming: ['dispositivo de streaming', 'dispositivos de streaming'],
+  televisiones: ['televisión', 'televisiones'],
   bicis: ['bici eléctrica', 'bicis eléctricas'],
   bicisMontana: ['bici de montaña', 'bicis de montaña'],
   bicisGravelRuta: ['bici de gravel o ruta', 'bicis de gravel y ruta'],

@@ -18,7 +18,7 @@ on:
         description: 'Categoría a actualizar'
         type: choice
         default: all
-        options: [all, laptops, freidoras, bicis, bicisMontana, bicisMontanaDed, bicisRuta, bicisGravel, microondas, cafeteras, suplementos, proteina, omega3, magnesio, creatina, complejo_b, vitamina_d, videojuegos_consolas, videojuegos_controles, videojuegos_juegos, tecnologia_bocinas, tecnologia_audifonos, tecnologia_smartwatches, celulares_android, celulares_iphone, streaming, refrigeradores, lavadoras, ollas]
+        options: [all, laptops, freidoras, bicis, bicisMontana, bicisMontanaDed, bicisRuta, bicisGravel, microondas, cafeteras, suplementos, proteina, omega3, magnesio, creatina, complejo_b, vitamina_d, videojuegos_consolas, videojuegos_controles, videojuegos_juegos, tecnologia_bocinas, tecnologia_audifonos, tecnologia_smartwatches, celulares_android, celulares_iphone, streaming, televisiones, refrigeradores, lavadoras, ollas]
 
 
 # Un solo workflow de datos a la vez. Los siete escriben scripts/merged-admin.json y, cuando dos

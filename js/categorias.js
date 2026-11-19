@@ -32,7 +32,8 @@ window.CMX_SUBS = [
   { name: 'Refrigeradores', sub: 'French door, side by side, top mount', icon: '🧊', url: '/electrodomesticos/refrigeradores/', tags: ['refrigerador','refri','nevera','heladera','frigobar','french door','side by side'] },
   { name: 'Ollas de Cocción Lenta', sub: 'Programables, con tapa de vidrio', icon: '🍲', url: '/electrodomesticos/ollas/', tags: ['olla','slow cooker','crock pot','crockpot','coccion lenta'] },
   { name: 'Controles',   sub: 'Para consola y PC',                icon: '🎮', url: '/videojuegos/controles/',      tags: ['control','joystick','gamepad'] },
-  { name: 'Juegos',      sub: 'Físicos y digitales',              icon: '👾', url: '/videojuegos/juegos/',         tags: ['juego','videojuego'] }
+  { name: 'Juegos',      sub: 'Físicos y digitales',              icon: '👾', url: '/videojuegos/juegos/',         tags: ['juego','videojuego'] },
+  { name: 'Televisiones', sub: '4K, Full HD, QLED y OLED',        icon: '📺', url: '/entretenimiento/televisiones/', tags: ['television','televisor','tv','pantalla','smart tv','4k','qled','oled','hisense','tcl','samsung','lg','roku tv','google tv'] }
 ];
 
 (window.__cmxQ || []).forEach(function (fn) { try { fn(); } catch (e) {} });

@@ -33,6 +33,7 @@ const CATEGORIAS = {
   tecnologia_audifonos:   'tecnologia/audifonos/descuentos.json',
   tecnologia_smartwatches:'tecnologia/smartwatches/descuentos.json',
   streaming:              'entretenimiento/streaming/descuentos.json',
+  televisiones:           'entretenimiento/televisiones/descuentos.json',
   refrigeradores:         'electrodomesticos/refrigeradores/descuentos.json',
   lavadoras:              'electrodomesticos/lavadoras/descuentos.json',
 };

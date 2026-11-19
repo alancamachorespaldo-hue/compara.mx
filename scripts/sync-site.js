@@ -54,6 +54,7 @@ const HUB = {
   bicis: '/bicis/', laptops: '/laptops/', cafeteras: '/electrodomesticos/cafeteras/', freidoras: '/electrodomesticos/freidoras/',
   microondas: '/electrodomesticos/microondas/', refrigeradores: '/electrodomesticos/refrigeradores/', lavadoras: '/electrodomesticos/lavadoras/', electro: '/electrodomesticos/', ollas: '/electrodomesticos/ollas/', audifonos: '/tecnologia/audifonos/',
   bocinas: '/tecnologia/bocinas/', smartwatches: '/tecnologia/smartwatches/', tecnologia: '/tecnologia/', videojuegos: '/videojuegos/',
+  televisiones: '/entretenimiento/televisiones/',
 };
 const RELATED_CATS = {
   celulares: ['/celulares/android/', '/celulares/iphone/', '/laptops/'],
@@ -78,6 +79,7 @@ const RELATED_CATS = {
   smartwatches: ['/tecnologia/audifonos/', '/tecnologia/bocinas/', '/celulares/iphone/'],
   tecnologia: ['/celulares/', '/laptops/', '/videojuegos/'],
   videojuegos: ['/tecnologia/audifonos/', '/laptops/', '/tecnologia/bocinas/'],
+  televisiones: ['/entretenimiento/streaming/', '/tecnologia/bocinas/', '/videojuegos/consolas/'],
 };
 
 function topicOf(p) {
@@ -109,6 +111,7 @@ function topicOf(p) {
   if (p.startsWith('/tecnologia/bocinas/')) return 'bocinas';
   if (p.startsWith('/tecnologia/smartwatches/')) return 'smartwatches';
   if (p.startsWith('/tecnologia/')) return 'tecnologia';
+  if (p.startsWith('/entretenimiento/televisiones/')) return 'televisiones';
   if (p.startsWith('/videojuegos/') || p.startsWith('/guias/videojuegos/')) return 'videojuegos';
   return null;
 }
@@ -122,6 +125,7 @@ function activeSection(p) {
     microondas: '/electrodomesticos/', refrigeradores: '/electrodomesticos/', electro: '/electrodomesticos/', ollas: '/electrodomesticos/', proteina: '/suplementos/', creatina: '/suplementos/',
     magnesio: '/suplementos/', omega3: '/suplementos/', complejob: '/suplementos/', suplementos: '/suplementos/', bicis: '/bicis/',
     audifonos: '/tecnologia/', bocinas: '/tecnologia/', smartwatches: '/tecnologia/', tecnologia: '/tecnologia/', videojuegos: '/videojuegos/',
+    televisiones: '/entretenimiento/',
   };
   const url = map[t];
   if (!url) return [null, null];
@@ -167,7 +171,7 @@ const SHARE_BTN = '<button class="btn-share" onclick="shareCurrentPage()" title=
    Sus estilos viven en /assets/css/cmx-home.css mientras solo lo use el inicio. */
 const HUBS_V2 = ['/electrodomesticos/', '/suplementos/', '/tecnologia/', '/entretenimiento/', '/celulares/', '/bicis/', '/videojuegos/'];
 /* Listados que ya usan la plantilla cmx-list */
-const LISTS_V2 = ['/tecnologia/smartwatches/', '/tecnologia/bocinas/', '/celulares/android/', '/celulares/iphone/', '/suplementos/proteina/', '/laptops/', '/electrodomesticos/cafeteras/', '/suplementos/omega3/', '/suplementos/creatina/', '/videojuegos/consolas/', '/bicicletas/bici-ruta/', '/bicicletas/bici-electricas/', '/bicicletas/bici-montana/', '/electrodomesticos/freidoras/', '/electrodomesticos/microondas/', '/electrodomesticos/ollas/', '/electrodomesticos/refrigeradores/', '/electrodomesticos/lavadoras/'];
+const LISTS_V2 = ['/tecnologia/smartwatches/', '/tecnologia/bocinas/', '/celulares/android/', '/celulares/iphone/', '/suplementos/proteina/', '/laptops/', '/electrodomesticos/cafeteras/', '/suplementos/omega3/', '/suplementos/creatina/', '/videojuegos/consolas/', '/bicicletas/bici-ruta/', '/bicicletas/bici-electricas/', '/bicicletas/bici-montana/', '/electrodomesticos/freidoras/', '/electrodomesticos/microondas/', '/electrodomesticos/ollas/', '/electrodomesticos/refrigeradores/', '/electrodomesticos/lavadoras/', '/entretenimiento/televisiones/'];
 /* Guías con el sistema nuevo (skill guia-ml-noviembre-2026): mismo encabezado que los listados */
 const GUIAS_V2 = ['/guias/celulares/mejores-celulares-menos-5000/', '/guias/celulares/celulares-menos-3000-mexico/', '/guias/celulares/mejores-celulares-calidad-precio/', '/guias/cafeteras/espresso-menos-2000/', '/suplementos/creatina/creatina-mexico-cual-comprar/', '/guias/videojuegos/que-consola-comprar-gta-6/', '/guias/videojuegos/gta-6-guia-completa/', '/guias/laptops/macbook-reacondicionadas/', '/guias-compra/freidoras/oster-freidoras-vale-la-pena/'];
 /* Página de ofertas (/ofertas/): encabezado y pie del rediseño, y pie solo-Mercado Libre. */
