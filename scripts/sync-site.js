@@ -111,7 +111,7 @@ function topicOf(p) {
   if (p.startsWith('/tecnologia/bocinas/')) return 'bocinas';
   if (p.startsWith('/tecnologia/smartwatches/')) return 'smartwatches';
   if (p.startsWith('/tecnologia/')) return 'tecnologia';
-  if (p.startsWith('/entretenimiento/televisiones/')) return 'televisiones';
+  if (p.startsWith('/entretenimiento/televisiones/') || p.startsWith('/guias/televisiones/')) return 'televisiones';
   if (p.startsWith('/videojuegos/') || p.startsWith('/guias/videojuegos/')) return 'videojuegos';
   return null;
 }
@@ -173,7 +173,7 @@ const HUBS_V2 = ['/electrodomesticos/', '/suplementos/', '/tecnologia/', '/entre
 /* Listados que ya usan la plantilla cmx-list */
 const LISTS_V2 = ['/tecnologia/smartwatches/', '/tecnologia/bocinas/', '/celulares/android/', '/celulares/iphone/', '/suplementos/proteina/', '/laptops/', '/electrodomesticos/cafeteras/', '/suplementos/omega3/', '/suplementos/creatina/', '/videojuegos/consolas/', '/bicicletas/bici-ruta/', '/bicicletas/bici-electricas/', '/bicicletas/bici-montana/', '/electrodomesticos/freidoras/', '/electrodomesticos/microondas/', '/electrodomesticos/ollas/', '/electrodomesticos/refrigeradores/', '/electrodomesticos/lavadoras/', '/entretenimiento/televisiones/'];
 /* Guías con el sistema nuevo (skill guia-ml-noviembre-2026): mismo encabezado que los listados */
-const GUIAS_V2 = ['/guias/celulares/mejores-celulares-menos-5000/', '/guias/celulares/celulares-menos-3000-mexico/', '/guias/celulares/mejores-celulares-calidad-precio/', '/guias/cafeteras/espresso-menos-2000/', '/suplementos/creatina/creatina-mexico-cual-comprar/', '/guias/videojuegos/que-consola-comprar-gta-6/', '/guias/videojuegos/gta-6-guia-completa/', '/guias/laptops/macbook-reacondicionadas/', '/guias-compra/freidoras/oster-freidoras-vale-la-pena/'];
+const GUIAS_V2 = ['/guias/celulares/mejores-celulares-menos-5000/', '/guias/celulares/celulares-menos-3000-mexico/', '/guias/celulares/mejores-celulares-calidad-precio/', '/guias/cafeteras/espresso-menos-2000/', '/suplementos/creatina/creatina-mexico-cual-comprar/', '/guias/videojuegos/que-consola-comprar-gta-6/', '/guias/videojuegos/gta-6-guia-completa/', '/guias/laptops/macbook-reacondicionadas/', '/guias-compra/freidoras/oster-freidoras-vale-la-pena/', '/guias/televisiones/smart-tv-menos-5000/'];
 /* Página de ofertas (/ofertas/): encabezado y pie del rediseño, y pie solo-Mercado Libre. */
 const OFERTAS_V2 = ['/ofertas/'];
 const HEADER_V2 = new Set(['/', ...HUBS_V2, ...LISTS_V2, ...GUIAS_V2, ...OFERTAS_V2]);
