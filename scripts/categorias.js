@@ -148,6 +148,12 @@ export const CATEGORIAS = {
   televisiones: {
     titulo: 'Televisiones', file: 'entretenimiento/televisiones/index.html', varName: 'productos',
     descuentos: 'entretenimiento/televisiones/descuentos.json',
+    /* Las especs de televisiones son campos del propio producto, no un objeto `especs`;
+       generar-catalog-mini.js las busca en los dos lugares. */
+    catalogMini: {
+      salida: ['entretenimiento', 'televisiones', 'catalog-mini.json'],
+      especs: ['pulgadas', 'resolucion', 'panel', 'so', 'hdmi', 'hdr', 'bluetooth'],
+    },
   },
 
   // ── Bicis ──────────────────────────────────────────────────────────────────

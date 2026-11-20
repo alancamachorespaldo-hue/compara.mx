@@ -33,6 +33,7 @@ const GUIAS = [
   'suplementos/creatina/creatina-mexico-cual-comprar/index.html',
   'guias/videojuegos/que-consola-comprar-gta-6/index.html',
   'guias/videojuegos/gta-6-guia-completa/index.html',
+  'guias/televisiones/smart-tv-menos-5000/index.html',
 ];
 
 const APLICAR = process.argv.includes('--aplicar');
@@ -54,7 +55,10 @@ function cargarBase() {
   return { porCat, global };
 }
 
-const fmt = (n) => '$' + Number(n).toLocaleString('es-MX');
+/* Redondeado a pesos, igual que money() de cmx-guia.js: la base guarda precios con centavos
+   (televisiones: 4559.24) y una guía que escribiera "$4,559.24" dejaría al siguiente paso un
+   precio imposible de volver a emparejar. */
+const fmt = (n) => '$' + Math.round(Number(n)).toLocaleString('es-MX');
 
 function procesar(rel, base, reporte) {
   const abs = join(RAIZ, rel);
@@ -63,9 +67,12 @@ function procesar(rel, base, reporte) {
 
   // modeloBase → { dbId, precioGuia }
   const familias = new Map();
-  const re = /modeloBase: *'([^']+)',[\s\S]{0,400}?dbId: *'([^']+)',[\s\S]{0,2000}?precio: *(\d+)/g;
+  /* El precio del array puede traer centavos (`precio: 4559.24`): se captura completo y se
+     guarda tal cual, porque la sustitución tiene que coincidir con el texto entero. Si solo
+     se leyera la parte entera, al escribir el nuevo precio quedaría "4559.24.24". */
+  const re = /modeloBase: *'([^']+)',[\s\S]{0,400}?dbId: *'([^']+)',[\s\S]{0,2000}?precio: *([\d.]+)/g;
   let m;
-  while ((m = re.exec(s))) familias.set(m[1], { dbId: m[2], precioGuia: +m[3] });
+  while ((m = re.exec(s))) familias.set(m[1], { dbId: m[2], precioGuia: +m[3], precioRaw: m[3] });
 
   if (!familias.size) {
     reporte.push({ guia: rel, estado: 'sin familias con dbId' });
@@ -95,12 +102,13 @@ function procesar(rel, base, reporte) {
     }
 
     // Precio dentro del array de la guía
-    const reArr = new RegExp("(modeloBase: *'" + mb + "',[\\s\\S]{0,2200}?precio: *)" + info.precioGuia + "\\b");
+    const reArr = new RegExp("(modeloBase: *'" + mb + "',[\\s\\S]{0,2200}?precio: *)"
+      + info.precioRaw.replace(/\./g, '\\.') + "(?![\\d.])");
     if (!reArr.test(s)) { reporte.push({ guia: rel, modeloBase: mb, motivo: 'no se encontró el precio en el array' }); continue; }
     s = s.replace(reArr, (_, pre) => pre + nuevo);
 
     // Precios estáticos marcados con data-cmx-precio
-    const reHtml = new RegExp('(data-cmx-precio="' + mb + '"[^>]*>)\\$[\\d,]+', 'g');
+    const reHtml = new RegExp('(data-cmx-precio="' + mb + '"[^>]*>)\\$[\\d,.]+', 'g');
     const n = (s.match(reHtml) || []).length;
     s = s.replace(reHtml, (_, abre) => abre + fmt(nuevo));
 

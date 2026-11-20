@@ -12,7 +12,10 @@
  * Cada precio del HTML se marca con data-cmx-precio="<modeloBase>".
  */
 (function () {
-  function fmt(n) { return '$' + Number(n).toLocaleString('es-MX'); }
+  /* Redondeado a pesos, igual que money() de cmx-guia.js y que las tarjetas del listado: la
+     base guarda precios con centavos (televisiones: 4559.24) y el texto de la guía enseñaría
+     "$4,559.24" junto a una tarjeta que dice "$4,559". */
+  function fmt(n) { return '$' + Math.round(Number(n)).toLocaleString('es-MX'); }
 
   function primerTexto(el) {
     for (var n = el.firstChild; n; n = n.nextSibling) if (n.nodeType === 3 && /\S/.test(n.nodeValue)) return n;

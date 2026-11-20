@@ -22,10 +22,20 @@ for (const { categoria, salida, especs } of CATALOGOS) {
   for (const p of prods) {
     if (!p.id || !p.activo) continue;
     const e = {};
-    for (const k of especs) e[k] = (p.especs && p.especs[k]) || null;
+    /* Cada categoría guarda sus especificaciones donde le toca: cafeteras y suplementos las
+       llevan en `p.especs`, pero televisiones (y los listados nacidos del Excel) las tienen
+       como campos del propio producto (`pulgadas`, `resolucion`, `panel`…). Se busca primero
+       en `especs` y, si ahí no hay nada, en el producto; así una categoría nueva no necesita
+       duplicar sus datos para publicar catalog-mini.json. Ojo: `false` y `0` son valores
+       válidos (hdr:false), por eso no se usa `||`. */
+    for (const k of especs) {
+      let v = p.especs ? p.especs[k] : undefined;
+      if (v === undefined || v === '') v = p[k];
+      e[k] = v === undefined || v === '' ? null : v;
+    }
     catalog[p.id] = {
       nombre:        p.nombre,
-      imagen:        p.imagen || null,
+      imagen:        p.imagen || p.img || null,   /* televisiones y otros listados guardan la foto en `img` */
       precioML:      p.precioML || null,
       precioAmz:     p.precioAmz || null,
       linkML:        p.linkML || null,
