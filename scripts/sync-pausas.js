@@ -83,35 +83,46 @@ function emparejar(itemsHtml, pausados) {
   return { data, sinEncontrar: pausados.filter(p => !usados.has(p)) };
 }
 
-function escribirEnPagina(file, varName, data, loop, visibles = null) {
+/**
+ * Escribe en una página el tag de datos (uno por página) y un bucle por cada array que tenga.
+ * `specs` es [{ varName, tipo }]: una página puede llevar varios arrays (/bicis/ lleva
+ * ELECTRICAS, MONTANA y GRAVELRUTA) y los tres comparten el mismo tag `#pausas`.
+ */
+function escribirEnPagina(file, specs, data, visibles = null) {
   const abs = resolve(ROOT, file);
   if (!existsSync(abs)) return false;
   let html = readFileSync(abs, 'utf8');
   const tag = `<script type="application/json" id="pausas">${JSON.stringify(data)}</script>`;
 
-  // 1. Tag de datos: reemplazar si existe, si no insertar antes del <script> del array.
+  // 1. Tag de datos: reemplazar si existe, si no insertar antes del <script> del primer array.
   if (/<script type="application\/json" id="pausas">/.test(html)) {
     html = html.replace(/<script type="application\/json" id="pausas">[\s\S]*?<\/script>/, tag);
   } else {
-    const loc = textoArray(html, varName);
-    if (!loc) { console.log(file + ': no se encontró el array ' + varName); return false; }
+    const loc = textoArray(html, specs[0].varName);
+    if (!loc) { console.log(file + ': no se encontró el array ' + specs[0].varName); return false; }
     const scriptStart = html.lastIndexOf('<script', loc.inicio);
     html = html.slice(0, scriptStart) + tag + '\n' + html.slice(scriptStart);
   }
 
-  // 2. Bucle que aplica las pausas. Se reemplaza en cada corrida para quedar al día.
+  // 2. Bucles que aplican las pausas. Se borran TODOS los de la corrida anterior y se escribe uno
+  // por array. Antes se escribía uno solo y, en una página con varios arrays, cada categoría
+  // borraba el bucle y el tag de la anterior: en /bicis/ sobrevivía únicamente el de gravel/ruta,
+  // así que 10 bicis pausadas en el gestor seguían publicándose (nov-2026).
   // `(?:\r?\n)*` y no `\n?`: estas páginas están guardadas con CRLF, así que con `\n?` quedaba un
   // salto suelto en cada corrida y, como el workflow corre a diario, acumulaban una línea en
   // blanco por día (se vio corriendo el script tres veces seguidas: +3, +4, +5 líneas).
-  html = html.replace(/(?:\r?\n)*\/\*PAUSAS\*\/[\s\S]*?catch\(e\)\{\}(?:\r?\n)*/, '\n');
-  const loc = textoArray(html, varName);
-  if (!loc) { console.log(file + ': no se encontró el array ' + varName + ' (2ª pasada)'); return false; }
-  let ins = loc.fin;
-  if (html[ins] === ';') ins++;
-  html = html.slice(0, ins) + loop + html.slice(ins);
+  html = html.replace(/(?:\r?\n)*\/\*PAUSAS\*\/[\s\S]*?catch\(e\)\{\}(?:\r?\n)*/g, '\n');
+  for (const s of specs) {
+    const loop = s.tipo === 'familias' ? loopForCel(s.varName) : loopFor(s.varName);
+    const loc = textoArray(html, s.varName);
+    if (!loc) { console.log(file + ': no se encontró el array ' + s.varName + ' (2ª pasada)'); return false; }
+    let ins = loc.fin;
+    if (html[ins] === ';') ins++;
+    html = html.slice(0, ins) + loop + html.slice(ins);
+  }
   // Siempre exactamente una línea en blanco antes y después del bloque, corra una vez o cien.
-  html = html.replace(/(?:\r?\n){2,}\/\*PAUSAS\*\//, '\n/*PAUSAS*/')
-             .replace(/(\/\*PAUSAS\*\/[^\n]*catch\(e\)\{\})(?:\r?\n){2,}/, '$1\n\n');
+  html = html.replace(/(?:\r?\n){2,}\/\*PAUSAS\*\//g, '\n/*PAUSAS*/')
+             .replace(/(\/\*PAUSAS\*\/[^\n]*catch\(e\)\{\})(?:\r?\n){2,}/g, '$1\n\n');
 
   // El contador del hero ("48 modelos para comparar") está escrito en el HTML. Al pausar
   // productos dejaba de cuadrar con lo que la página muestra (streaming anunciaba 48 y pintaba
@@ -141,29 +152,52 @@ function itemsDePagina(file, varName, tipo) {
 let total = 0;
 const avisos = [];
 
+// Las categorías se agrupan POR ARCHIVO: /bicis/ es la página de tres categorías y su tag
+// `#pausas` tiene que llevar las pausas de las tres juntas, no las de la última que se procese.
+const porArchivo = new Map();
 for (const [clave, c] of [...planas(), ...familiasCats()]) {
-  const pausados = pausadosDe(c.datos);
-  const items = itemsDePagina(c.file, c.varName, c.tipo);
-  if (items === null) { avisos.push(`${clave}: no se pudo leer ${c.file}`); continue; }
+  if (!porArchivo.has(c.file)) porArchivo.set(c.file, []);
+  porArchivo.get(c.file).push([clave, c]);
+}
 
-  const { data, sinEncontrar } = emparejar(items, pausados);
-  // Cuántos quedan a la vista tras aplicar las pausas (para el contador del hero).
-  const visibles = items.filter(it => {
-    if (it == null) return false;
-    const z = data[String(it.id)] || {};
-    return (!z.ml && it.linkML) || (!z.amz && it.linkAmz);
-  }).length;
-  const loop = c.tipo === 'familias' ? loopForCel(c.varName) : loopFor(c.varName);
-  if (!escribirEnPagina(c.file, c.varName, data, loop, c.tipo === 'familias' ? null : visibles)) continue;
+for (const [file, grupo] of porArchivo) {
+  const data = {};          // el tag de la página: las pausas de todas sus categorías
+  const specs = [];         // un bucle por array del archivo
+  const info = [];
+  let visibles = 0, hayPlana = false;
 
-  const n = Object.keys(data).length;
-  total += n;
-  console.log(clave.padEnd(24) + String(n).padStart(3) + ' de ' + String(pausados.length).padStart(3) + ' pausa(s) aplicadas');
-  // Un pausado que no está en la página no es un error: puede que nunca se publicara. Pero si
-  // son muchos, suele significar que los ids de la página y los de la base ya no casan.
-  if (sinEncontrar.length) {
-    avisos.push(`${clave}: ${sinEncontrar.length} producto(s) pausado(s) no están en ${c.file}` +
-      (sinEncontrar.length > 3 ? ' — revisa si los ids de la página y los de la base siguen casando' : ''));
+  for (const [clave, c] of grupo) {
+    const pausados = pausadosDe(c.datos);
+    const items = itemsDePagina(c.file, c.varName, c.tipo);
+    if (items === null) { avisos.push(`${clave}: no se pudo leer ${c.file}`); continue; }
+
+    const { data: datosCat, sinEncontrar } = emparejar(items, pausados);
+    Object.assign(data, datosCat);
+    if (!specs.some(s => s.varName === c.varName)) specs.push({ varName: c.varName, tipo: c.tipo });
+    // Cuántos quedan a la vista tras aplicar las pausas (para el contador del hero).
+    if (c.tipo !== 'familias') {
+      hayPlana = true;
+      visibles += items.filter(it => {
+        if (it == null) return false;
+        const z = datosCat[String(it.id)] || {};
+        return (!z.ml && it.linkML) || (!z.amz && it.linkAmz);
+      }).length;
+    }
+    info.push({ clave, n: Object.keys(datosCat).length, pausados: pausados.length, sinEncontrar });
+  }
+
+  if (!specs.length) continue;
+  if (!escribirEnPagina(file, specs, data, hayPlana ? visibles : null)) continue;
+
+  for (const { clave, n, pausados, sinEncontrar } of info) {
+    total += n;
+    console.log(clave.padEnd(24) + String(n).padStart(3) + ' de ' + String(pausados).padStart(3) + ' pausa(s) aplicadas');
+    // Un pausado que no está en la página no es un error: puede que nunca se publicara. Pero si
+    // son muchos, suele significar que los ids de la página y los de la base ya no casan.
+    if (sinEncontrar.length) {
+      avisos.push(`${clave}: ${sinEncontrar.length} producto(s) pausado(s) no están en ${file}` +
+        (sinEncontrar.length > 3 ? ' — revisa si los ids de la página y los de la base siguen casando' : ''));
+    }
   }
 }
 
