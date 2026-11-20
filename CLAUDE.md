@@ -2,7 +2,8 @@
 
 Sitio estático de afiliados que compara el mismo producto en Amazon MX y Mercado Libre.
 HTML/CSS/JS puro publicado con **GitHub Pages** desde `alancamachorespaldo-hue/compara.mx`, rama `main`
-(el deploy es automático 1-2 min después del push; no se usa Netlify).
+(el deploy es automático 1-2 min después del push; no hay ningún otro servicio de hosting
+conectado al repositorio).
 
 ## Reglas que nunca se rompen
 
