@@ -34,6 +34,7 @@ const GUIAS = [
   'guias/videojuegos/que-consola-comprar-gta-6/index.html',
   'guias/videojuegos/gta-6-guia-completa/index.html',
   'guias/televisiones/smart-tv-menos-5000/index.html',
+  'guias/televisiones/smart-tv-menos-3000/index.html',
 ];
 
 const APLICAR = process.argv.includes('--aplicar');
