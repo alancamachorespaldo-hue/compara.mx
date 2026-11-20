@@ -12,6 +12,7 @@ import { clavesDeDatos, tituloDe } from './categorias.js';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { actualizarRachaML } from './_ofertas.js';
+import { fichaVigente } from './revisar-disponibilidad.js';
 
 const ROOT          = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const ADMIN_PATH    = resolve(ROOT, 'scripts/merged-admin.json');
@@ -47,7 +48,14 @@ if (report) {
     if (!p) continue;
     if (gen && p._updatedAt && p._updatedAt > gen) { keptManual++; continue; }
     if (row.estado === 'precio_sospechoso') p._precioMLSospechoso = row.precioML;
-    else { delete p._precioMLSospechoso; if (row.precioML != null) p.precioML = row.precioML; }
+    else {
+      delete p._precioMLSospechoso;
+      // Mismo tope que ml-update.js: mientras el precio leído de la ficha esté vigente, el reporte
+      // no puede publicar uno MENOR que el que verá quien dé clic. Sin esto, este paso deshacía la
+      // corrección que acababa de escribir `revisar-disponibilidad.js --links --aplicar`: los 55
+      // precios corregidos volvían al de la API en la misma corrida (nov-2026).
+      if (row.precioML != null) p.precioML = Math.max(row.precioML, fichaVigente(p) ? p._precioFicha : 0);
+    }
     actualizarRachaML(p, row);
     // Pausa automática: 404/inactivo en ML → pausaML:true + rastrea días sin precio.
     // Día 1: pausaML:true. Día 3+: activo:false (desaparece de la web y del catálogo).

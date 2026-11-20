@@ -225,9 +225,17 @@ async function updateCategory(key, config, admin, REPORT) {
   const arrayText = html.slice(loc.start, loc.end);
   const htmlProds = new Function(`return ${arrayText}`)();
   const blocks = topBlocks(arrayText);
+  // El id de la página no siempre es el de la base (en streaming la base usa "streaming-2" y la
+  // página 2), así que se indexa también por linkML, igual que sync-pausas.js. Sin esa segunda
+  // llave ninguna de las 47 tarjetas de streaming recibía precio: la base se actualizaba y la
+  // página se quedaba con el valor viejo, y el script decía "sin cambios en el HTML" (nov-2026).
   const htmlById = new Map();
+  const htmlByLink = new Map();
   htmlProds.forEach((p, i) => {
-    if (blocks[i] && blocks[i].id === String(p.id)) htmlById.set(String(p.id), { obj: p, block: blocks[i] });
+    if (!blocks[i] || blocks[i].id !== String(p.id)) return;
+    const entrada = { obj: p, block: blocks[i] };
+    htmlById.set(String(p.id), entrada);
+    if (p.linkML) htmlByLink.set(p.linkML, entrada);
   });
 
   const list = (admin[config.dataKey || key] || []).filter(p => p.activo !== false);
@@ -242,7 +250,7 @@ async function updateCategory(key, config, admin, REPORT) {
       REPORT.push({ categoria: key, id: p.id, nombre: p.nombre, marca: p.marca, estado: 'sin_id', mlId: null, precioML: null });
       continue;
     }
-    targets.push({ p, mlId: id, html: p.linkML ? htmlById.get(String(p.id)) || null : null });
+    targets.push({ p, mlId: id, html: p.linkML ? (htmlById.get(String(p.id)) || htmlByLink.get(p.linkML) || null) : null });
   }
 
   console.log(`\n📄 ${key} — ${targets.length} con ID de catálogo · ${sinId} sin ID · ${soloAmz} solo Amazon`);
