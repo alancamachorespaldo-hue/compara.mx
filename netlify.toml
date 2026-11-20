@@ -1,0 +1,17 @@
+# comparalo.mx se publica con GitHub Pages desde la rama main (ver CLAUDE.md).
+# El dominio NO pasa por Netlify: comparalo.mx y www.comparalo.mx responden
+# "Server: GitHub.com".
+#
+# Netlify, sin embargo, sigue conectado a este repositorio desde antes del cambio
+# y despliega una copia completa del sitio en su propio dominio .netlify.app. Esa
+# copia nadie la mantiene y se va desfasando. Mientras la conexión siga existiendo,
+# esta cabecera impide que los buscadores la indexen; las páginas ya llevan
+# canonical a comparalo.mx, así que esto es el segundo candado, no el primero.
+#
+# El arreglo definitivo es desconectar el repositorio en el panel de Netlify.
+# Si alguna vez se vuelve a publicar el sitio desde Netlify, hay que borrar este
+# archivo primero o el sitio real quedaría fuera de los buscadores.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
