@@ -1056,7 +1056,7 @@ footer{background:var(--s1);border-top:1px solid var(--bd);padding:1.5rem 2rem;t
   </div>
 </div>
 
-<script type="application/json" id="pausas">{"109":{"ml":1},"417":{"ml":1},"423":{"ml":1}}</script>
+<script type="application/json" id="pausas">{"109":{"ml":1},"204":{"ml":1},"205":{"ml":1},"333":{"ml":1},"402":{"ml":1},"407":{"ml":1},"408":{"ml":1},"412":{"ml":1},"417":{"ml":1},"423":{"ml":1},"503":{"ml":1},"508":{"ml":1},"520":{"ml":1},"535":{"ml":1},"amyet-k10":{"ml":1}}</script>
 <script>
 // ============================================================
 // DATOS — ELÉCTRICAS
@@ -2267,6 +2267,8 @@ const ELECTRICAS = [
     mlId: "MLM80319765"
   }
 ];
+/*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=ELECTRICAS.length-1;_i>=0;_i--){var _p=ELECTRICAS[_i];var _z=_PZ[_p.id];if(!_z)continue;if(_z.ml){_p.linkML=null;_p.precioML=null;_p.pausaML=true;}if(_z.amz){_p.linkAmz='';_p.precioAmz=null;_p.pausaAmz=true;}if(!_p.linkML&&!_p.linkAmz)ELECTRICAS.splice(_i,1);}}catch(e){}
+
 // ============================================================
 // DATOS — MONTAÑA (tipo:'mtb')
 // ============================================================
@@ -3012,6 +3014,8 @@ const MONTANA = [
     mlId: "MLM59944544",
   },
 ];
+/*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=MONTANA.length-1;_i>=0;_i--){var _p=MONTANA[_i];var _z=_PZ[_p.id];if(!_z)continue;if(_z.ml){_p.linkML=null;_p.precioML=null;_p.pausaML=true;}if(_z.amz){_p.linkAmz='';_p.precioAmz=null;_p.pausaAmz=true;}if(!_p.linkML&&!_p.linkAmz)MONTANA.splice(_i,1);}}catch(e){}
+
 // ============================================================
 // DATOS — GRAVEL Y RUTA (unificadas; tipo:'gravel'|'ruta')
 // ============================================================
