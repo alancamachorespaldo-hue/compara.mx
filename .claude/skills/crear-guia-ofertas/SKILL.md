@@ -256,8 +256,8 @@ de plantilla) nada más. Agrega los archivos **por nombre**, nunca `git add -A`.
 
 ## NOTA SOBRE EL TAG (importante para otras sesiones)
 
-El `CLAUDE.md` histórico dice "tag de afiliado Amazon: `comparalo20-20`, no cambiarlo". Eso quedó de
-la cuenta anterior. **La cuenta vigente (nov-2026) es `guiasdecomp01-20`** y es la que usan estas
-guías. `check-site.js` ahora acepta **ambos** tags para no romper las páginas viejas que todavía
-tienen `comparalo20-20`. No "corrijas" `guiasdecomp01-20` de vuelta a `comparalo20-20` en las guías
-de `/guias-compra/`.
+**`guiasdecomp01-20` es el único tag de afiliado de Amazon del sitio**, el StoreID de la cuenta
+vigente (nov-2026). Las cuentas anteriores (`comparalo20-20`, `comparabici-20`) ya no existen: un
+enlace con esos tags no paga comisión. El 20-nov-2026 se migraron todas las páginas y
+`check-site.js` ya solo acepta `guiasdecomp01-20`, así que cualquier otro tag falla la validación.
+Si ves `comparalo20-20` en algún archivo, viene de una copia vieja sin confirmar: corrígelo.

@@ -318,7 +318,7 @@ Aplica esto en el editorial:
 
 - **No cambies precios, specs, ratings, reseñas, imágenes, links ni IDs de productos.** El catálogo solo se lee, nunca se edita aquí.
 - **GA4 `G-9TKZ4ER13X`** debe permanecer. No toques `/assets/js/analytics.js`.
-- URLs limpias con slash final. Tag de afiliado `comparalo20-20` intacto.
+- URLs limpias con slash final. Tag de afiliado `guiasdecomp01-20` intacto.
 - Sin frameworks ni build step. Contenido 100% original. Sin inventar datos ni cifras.
 - Git: agrega por nombre (nunca `git add -A`/`.`), un commit = un tema, revisa `git status` y `git diff --stat` antes de cualquier commit, no commitees sin que te lo pidan.
 

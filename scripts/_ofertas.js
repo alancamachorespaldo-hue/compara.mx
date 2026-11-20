@@ -14,7 +14,7 @@ export const publicado = p => !(p.estadoML === 'nuevo' && !p._publicar);
 // (a mano o por revisar-disponibilidad.js) podía seguir anunciándose como oferta en el inicio.
 export const vendible = p => p.activo !== false && !p._eliminado && !p.pausaML
   && p.estadoML !== 'no_encontrado' && p.estadoML !== 'pausado';
-const AMZ_TAG = 'comparalo20-20';
+const AMZ_TAG = 'guiasdecomp01-20';
 const tagOk = u => new RegExp('[?&]tag=' + AMZ_TAG + '(?:[&#]|$)').test(u || '');
 
 export function amzVigente(p, ahora = Date.now()) {

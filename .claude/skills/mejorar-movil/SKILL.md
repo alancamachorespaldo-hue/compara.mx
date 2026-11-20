@@ -522,7 +522,7 @@ Checklist antes de dar por terminado:
 
 - [ ] `node scripts/check-site.js` pasa sin errores
 - [ ] GA4 `G-9TKZ4ER13X` sigue presente
-- [ ] Tag afiliado `comparalo20-20` intacto en todos los links
+- [ ] Tag afiliado `guiasdecomp01-20` intacto en todos los links
 - [ ] En escritorio (≥768 px) no hay cambios visuales indeseados
 - [ ] `.cmx-sbar`, `.cmx-hero-m`, `.cmx-panel-elegir` tienen `display:none` explícito en ≥768 px
 - [ ] `filters-panel.js` sigue funcionando en escritorio

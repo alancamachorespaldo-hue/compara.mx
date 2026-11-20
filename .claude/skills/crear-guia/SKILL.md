@@ -420,7 +420,7 @@ const PRODS = [
     destaca: 'Badge · Categoría',
     img: 'URL_IMAGEN_ML',
     linkML: 'LINK_ML_AFILIADO',
-    linkAmz: 'LINK_AMZ_TAG_comparalo20-20',  // null si no hay
+    linkAmz: 'LINK_AMZ_TAG_guiasdecomp01-20',  // null si no hay
     precio: 0,    // se actualiza desde data-cmx-precio
     specs: { 'Spec 1': 'Valor', 'Spec 2': 'Valor' }
   }
@@ -701,7 +701,7 @@ Estructura más simple: sin sidebar, sin tarjetas de comparación, sin FAB.
 ## REGLAS INVARIABLES
 
 - **GA4 `G-9TKZ4ER13X`** en todas las páginas.
-- **Tag Amazon `tag=comparalo20-20`** en todos los links de Amazon.
+- **Tag Amazon `tag=guiasdecomp01-20`** en todos los links de Amazon (único tag del sitio).
 - **`onboarding.js`** antes de `</body>`.
 - No usar frameworks ni build steps.
 - Links a `.html` prohibidos; usar rutas con slash final.

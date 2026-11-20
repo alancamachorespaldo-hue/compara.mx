@@ -6,10 +6,12 @@ HTML/CSS/JS puro publicado con **GitHub Pages** desde `alancamachorespaldo-hue/c
 
 ## Reglas que nunca se rompen
 
-- **Tag de afiliado Amazon.** Páginas y guías existentes usan `tag=comparalo20-20` (cuenta vieja);
-  no volver a `comparabici-20`. **Las guías nuevas de `/guias-compra/` usan `tag=guiasdecomp01-20`**
-  (StoreID de la cuenta vigente nov-2026, la del acuerdo que aceptó Alan; ver skill `crear-guia-ofertas`).
-  `check-site.js` acepta ambos tags; no "corregir" `guiasdecomp01-20` de vuelta a `comparalo20-20`.
+- **Tag de afiliado Amazon: `tag=guiasdecomp01-20`, en todo el sitio y sin excepciones.**
+  Es el StoreID de la cuenta vigente (nov-2026). Las cuentas viejas `comparalo20-20` y
+  `comparabici-20` ya no existen: un enlace con esos tags no paga comisión, así que
+  `check-site.js` los marca como error. El 20-nov-2026 se migraron de golpe las 1,043
+  apariciones de `comparalo20-20` que quedaban. Si aparece una nueva, viene de una página
+  vieja sin confirmar o de un script que la genera: corrígela, no agregues el tag a la lista.
 - **GA4 `G-9TKZ4ER13X`** debe estar en todas las páginas HTML. No quitarlo, reemplazarlo ni reimplementarlo.
 - No modificar `/assets/js/analytics.js`.
 - No cambiar precios, especificaciones, ratings, número de reseñas, imágenes, links ni IDs de productos

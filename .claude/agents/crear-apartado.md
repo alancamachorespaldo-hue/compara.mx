@@ -43,7 +43,8 @@ No lo omitas ni lo dejes como relleno: una página sin este bloque no sirve para
 
 ## No negociables (del CLAUDE.md)
 
-- **Tag de afiliado Amazon: `tag=comparalo20-20`** en todos los links de Amazon. Nunca otro.
+- **Tag de afiliado Amazon: `tag=guiasdecomp01-20`** en todos los links de Amazon. Nunca otro
+  (`comparalo20-20` y `comparabici-20` son cuentas viejas que ya no existen).
 - URLs limpias con slash final; no enlaces a archivos `.html` de categorías.
 - Sin React/Next/Vue ni build step. HTML/CSS/JS puro.
 - **No cambies precios, specs, links ni imágenes de productos de OTRAS categorías.** Trabaja solo en la página nueva y en los archivos de cableado (filters-panel.js, sitemap.xml).
