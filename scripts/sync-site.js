@@ -299,7 +299,7 @@ ${col('Categorías', [['Celulares', '/celulares/'], ['Laptops', '/laptops/'], ['
 ${col('Recursos', [['Guías y artículos', '/guias/'], ['Cómo comparamos', '/#metodo'], ['Quiénes somos', '/sobre-nosotros/'], ['Contacto', '/contacto/']])}
 ${col('Legal', [['Aviso de afiliados', '/aviso-afiliados/'], ['Privacidad', '/privacidad/'], ['Términos', '/terminos/']])}
 </div>
-<p class="cmx-ft2-bottom">comparalo.mx participa en ${mlOnly ? 'el programa de afiliados de Mercado Libre' : 'los programas de afiliados de Mercado Libre y Amazon México'}: si compras desde nuestros enlaces podemos recibir una comisión, sin costo adicional para ti. <a href="/aviso-afiliados/">Más información</a>. Los precios y la disponibilidad pueden cambiar; confirma el precio final en la tienda. © 2026 comparalo.mx</p>
+<p class="cmx-ft2-bottom">comparalo.mx participa en ${mlOnly ? 'el programa de afiliados de Mercado Libre' : 'los programas de afiliados de Mercado Libre y Amazon México'}: si compras desde nuestros enlaces podemos recibir una comisión, sin costo adicional para ti. <a href="/aviso-afiliados/">Leer el aviso de afiliados completo</a>. Los precios y la disponibilidad pueden cambiar; confirma el precio final en la tienda. © 2026 comparalo.mx</p>
 </div></div>
 <!-- cmx-footer:end -->`;
 }
@@ -309,7 +309,7 @@ function footerHtml(p) {
   const li = (a) => a.map(([n, u]) => `<li><a href="${u}">${n}</a></li>`).join('');
   return `<!-- cmx-footer:start -->
 <div class="cmx-ft" role="contentinfo" id="cmx-ft"><div class="cmx-ft-in">
-<div class="cmx-ft-disc"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6EE7B7" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><div><h2>Aviso de afiliados</h2><p>comparalo.mx participa en los programas de afiliados de Amazon México y Mercado Libre. Si compras a través de nuestros enlaces recibimos una comisión, sin costo adicional para ti. Esa comisión no influye en el orden ni en las recomendaciones. <a href="/aviso-afiliados/">Más información</a></p></div></div>
+<div class="cmx-ft-disc"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6EE7B7" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><div><h2>Aviso de afiliados</h2><p>comparalo.mx participa en los programas de afiliados de Amazon México y Mercado Libre. Si compras a través de nuestros enlaces recibimos una comisión, sin costo adicional para ti. Esa comisión no influye en el orden ni en las recomendaciones. <a href="/aviso-afiliados/">Leer el aviso de afiliados completo</a></p></div></div>
 <div class="cmx-ft-grid">
 <div><span class="cmx-ft-brand"><img src="/logopng.png" alt="" width="28" height="28" loading="lazy">comparalo<i>.mx</i></span><p>Comparamos precios de Amazon MX y Mercado Libre para que decidas con datos, no a ciegas.</p></div>
 <div><h3>Categorías</h3><ul>${li(FOOT_CATS)}</ul></div>
