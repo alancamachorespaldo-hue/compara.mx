@@ -1,0 +1,2501 @@
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Centro de Control Compáralo</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout: barra lateral fija con los módulos + panel de trabajo que ocupa el resto.
+   En celular la barra se vuelve una tira horizontal pegada arriba. */
+:root{
+  --bg:#f4f6f5; --surface:#ffffff; --surface2:#eef2f0; --line:#d9e2de;
+  --fg:#10211b; --muted:#5d7069; --faint:#89998f;
+  --ac:#006847; --ac2:#00835a; --ac-soft:#e2efe9;
+  --ml:#b98b00; --ml-soft:#fdf4d8; --amz:#c06a00; --amz-soft:#fdeedd;
+  --ok:#0f7a4f; --ok-soft:#dcf0e5;
+  --warn:#9a6700; --warn-soft:#fdf2d6;
+  --bad:#b3261e; --bad-soft:#fbe4e2;
+  --shadow:0 1px 2px rgba(16,33,27,.06), 0 8px 24px -18px rgba(16,33,27,.35);
+  --display:'Plus Jakarta Sans',system-ui,sans-serif;
+  --body:'Inter',system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0d1411; --surface:#141d19; --surface2:#1b2621; --line:#263430;
+  --fg:#e8f0eb; --muted:#9bada5; --faint:#76897f;
+  --ac:#3cc78d; --ac2:#56d9a1; --ac-soft:#17322a;
+  --ml:#e8c24a; --ml-soft:#2e2812; --amz:#f3a24e; --amz-soft:#30220f;
+  --ok:#49c98a; --ok-soft:#153025;
+  --warn:#e7b94f; --warn-soft:#2e2611;
+  --bad:#ef8178; --bad-soft:#331c1a;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -20px rgba(0,0,0,.8);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0d1411; --surface:#141d19; --surface2:#1b2621; --line:#263430;
+  --fg:#e8f0eb; --muted:#9bada5; --faint:#76897f;
+  --ac:#3cc78d; --ac2:#56d9a1; --ac-soft:#17322a;
+  --ml:#e8c24a; --ml-soft:#2e2812; --amz:#f3a24e; --amz-soft:#30220f;
+  --ok:#49c98a; --ok-soft:#153025;
+  --warn:#e7b94f; --warn-soft:#2e2611;
+  --bad:#ef8178; --bad-soft:#331c1a;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -20px rgba(0,0,0,.8);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:14px;line-height:1.5;margin:0}
+h1,h2,h3,h4{font-family:var(--display);margin:0;text-wrap:balance;letter-spacing:-.01em}
+a{color:var(--ac);text-decoration:none}
+a:hover{text-decoration:underline}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px;border-radius:6px}
+.tnum{font-variant-numeric:tabular-nums}
+
+/* ───────── armazón ───────── */
+.app{display:grid;grid-template-columns:232px minmax(0,1fr);min-height:100%}
+.side{background:var(--surface);border-right:1px solid var(--line);display:flex;flex-direction:column;gap:14px;
+  position:sticky;top:env(safe-area-inset-top,0px);align-self:start;height:calc(100vh - env(safe-area-inset-top,0px));
+  padding:18px 0 18px;padding-left:max(14px,env(safe-area-inset-left,0px))}
+.brand{display:flex;align-items:center;gap:9px;padding-right:14px}
+.brand .dot{width:26px;height:26px;border-radius:8px;background:var(--ac);display:grid;place-items:center;color:#fff;font-family:var(--display);font-weight:800;font-size:13px;flex:none}
+.brand b{font-family:var(--display);font-size:14px;display:block;line-height:1.15}
+.brand span{color:var(--faint);font-size:11px}
+.navgroup{padding-right:14px;display:flex;flex-direction:column;gap:2px;overflow-y:auto}
+.navlabel{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);font-weight:600;margin:10px 0 4px 8px}
+.navbtn{display:flex;align-items:center;gap:9px;width:100%;text-align:left;background:none;border:0;color:var(--muted);
+  padding:7px 9px;border-radius:9px;font-weight:500;font-size:13.5px}
+.navbtn:hover{background:var(--surface2);color:var(--fg)}
+.navbtn[aria-current="true"]{background:var(--ac-soft);color:var(--ac);font-weight:600}
+.navbtn .ico{width:17px;flex:none;text-align:center;opacity:.9}
+.navbtn .pill{margin-left:auto;font-size:10.5px;font-weight:700;padding:1px 6px;border-radius:999px;background:var(--bad-soft);color:var(--bad)}
+.navbtn .soon{margin-left:auto;font-size:9.5px;color:var(--faint);border:1px solid var(--line);padding:0 5px;border-radius:999px}
+.sidefoot{margin-top:auto;padding-right:14px;font-size:11px;color:var(--faint);display:flex;flex-direction:column;gap:8px}
+
+.main{min-width:0;display:flex;flex-direction:column}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  padding-block:12px;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.top h1{font-size:17px}
+.top .sub{color:var(--muted);font-size:12px}
+.top .right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.wrap{padding-block:20px 56px;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
+.view[hidden]{display:none!important}
+
+/* ───────── piezas ───────── */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
+.card>.hd{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;padding:14px 16px 0}
+.card>.hd h3{font-size:14.5px}
+.card>.hd .note{color:var(--muted);font-size:12px}
+.card>.bd{padding:14px 16px}
+.grid{display:grid;gap:14px}
+.sec{margin-bottom:22px}
+.sech{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 10px}
+.sech h2{font-size:15px}
+.sech .note{color:var(--muted);font-size:12px}
+
+.kpis{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(168px,1fr))}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:13px 14px;display:flex;flex-direction:column;gap:3px;box-shadow:var(--shadow);text-align:left}
+button.kpi:hover{border-color:var(--ac)}
+.kpi .lab{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--faint);font-weight:600}
+.kpi .val{font-family:var(--display);font-weight:800;font-size:26px;line-height:1.05;font-variant-numeric:tabular-nums}
+.kpi .fine{font-size:11.5px;color:var(--muted)}
+.kpi.warn .val{color:var(--warn)} .kpi.bad .val{color:var(--bad)} .kpi.ok .val{color:var(--ok)}
+
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:999px;border:1px solid transparent;white-space:nowrap}
+.chip.ok{background:var(--ok-soft);color:var(--ok)}
+.chip.warn{background:var(--warn-soft);color:var(--warn)}
+.chip.bad{background:var(--bad-soft);color:var(--bad)}
+.chip.ml{background:var(--ml-soft);color:var(--ml)}
+.chip.amz{background:var(--amz-soft);color:var(--amz)}
+.chip.mute{background:var(--surface2);color:var(--muted)}
+.chip.ac{background:var(--ac-soft);color:var(--ac)}
+
+.btn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--surface);color:var(--fg);
+  padding:7px 12px;border-radius:9px;font-weight:600;font-size:13px}
+.btn:hover{border-color:var(--ac);color:var(--ac)}
+.btn.pri{background:var(--ac);border-color:var(--ac);color:#fff}
+.btn.pri:hover{background:var(--ac2);border-color:var(--ac2);color:#fff}
+.btn.sm{padding:4px 9px;font-size:12px;border-radius:8px}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.inp,select,textarea{font:inherit;background:var(--surface);color:var(--fg);border:1px solid var(--line);border-radius:9px;padding:7px 10px;min-width:0;max-width:100%}
+textarea{width:100%;resize:vertical;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;line-height:1.55}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:11.5px;font-weight:600;color:var(--muted)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface);box-shadow:var(--shadow)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th{text-align:left;font-family:var(--display);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--faint);
+  font-weight:700;padding:10px 12px;border-bottom:1px solid var(--line);background:var(--surface2);white-space:nowrap;position:sticky;top:0}
+td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+tbody tr:hover{background:var(--surface2)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.nm{font-weight:600;display:block;max-width:420px}
+.sm{font-size:11.5px;color:var(--muted)}
+.bar{height:5px;border-radius:999px;background:var(--surface2);overflow:hidden;min-width:60px}
+.bar i{display:block;height:100%;background:var(--ac)}
+
+.alerts{display:flex;flex-direction:column;gap:8px}
+.alert{display:flex;gap:11px;align-items:flex-start;border:1px solid var(--line);border-left:3px solid var(--line);
+  background:var(--surface);border-radius:10px;padding:10px 12px;box-shadow:var(--shadow)}
+.alert.bad{border-left-color:var(--bad)} .alert.warn{border-left-color:var(--warn)} .alert.ok{border-left-color:var(--ok)}
+.alert b{font-family:var(--display);font-size:13.5px}
+.alert p{margin:2px 0 0;color:var(--muted);font-size:12.5px}
+.alert .go{margin-left:auto;flex:none}
+
+.pre{background:var(--surface2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;overflow-x:auto;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;margin:0;white-space:pre}
+.steps{counter-reset:s;list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+.steps li{counter-increment:s;display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:start}
+.steps li::before{content:counter(s);width:22px;height:22px;border-radius:7px;background:var(--ac-soft);color:var(--ac);
+  display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:11.5px}
+.empty{color:var(--muted);text-align:center;padding:26px 14px;font-size:13px}
+.split{display:grid;gap:14px;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)}
+.stack{display:flex;flex-direction:column;gap:10px}
+dl.kv{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;margin:0;font-size:12.5px}
+dl.kv dt{color:var(--muted)} dl.kv dd{margin:0;word-break:break-word}
+tbody tr.sel{background:var(--ac-soft)}
+tbody tr.sel:hover{background:var(--ac-soft)}
+tbody tr.sel td:first-child{box-shadow:inset 3px 0 0 var(--ac)}
+.thumb{width:38px;height:38px;flex:none;border-radius:8px;border:1px solid var(--line);object-fit:contain;background:var(--surface2)}
+.thumb.ph{display:grid;place-items:center;color:var(--faint);font-size:16px}
+.cel{display:flex;gap:10px;align-items:center}
+.tbl-wrap.tall{max-height:calc(100vh - 330px);min-height:280px;overflow:auto}
+.tbl-wrap.tall th{z-index:2;box-shadow:0 1px 0 var(--line)}
+.side-card{position:sticky;top:calc(env(safe-area-inset-top,0px) + 86px);align-self:start;max-height:calc(100vh - 120px);overflow:auto}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin:0 0 2px;padding:0 16px}
+.tabs button{white-space:nowrap;background:none;border:0;border-bottom:2px solid transparent;color:var(--muted);font-weight:600;font-size:12.5px;padding:7px 8px}
+.tabs button[aria-selected="true"]{color:var(--ac);border-bottom-color:var(--ac)}
+.why{background:var(--surface2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:12.5px}
+.why b{font-family:var(--display);display:block;margin-bottom:3px}
+@media (max-width:900px){.side-card{position:static;max-height:none}.tbl-wrap.tall{max-height:none}}
+.pl-task{display:flex;gap:10px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;padding:10px 12px;box-shadow:var(--shadow)}
+.pl-task.hecha .pl-tit{text-decoration:line-through;color:var(--muted)}
+.pl-check{width:22px;height:22px;flex:none;border-radius:7px;border:1.5px solid var(--line);background:var(--surface);
+  color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700;margin-top:1px}
+.pl-check:hover{border-color:var(--ac)}
+.pl-check.on{background:var(--ac);border-color:var(--ac)}
+.pl-body{flex:1;min-width:0}
+.pl-tit{font-weight:600;font-size:13.5px}
+.pl-acc{display:flex;gap:6px;flex:none}
+@media (max-width:700px){.pl-acc{flex-direction:column}}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(18px + env(safe-area-inset-bottom,0px));
+  background:var(--fg);color:var(--bg);padding:9px 16px;border-radius:999px;font-weight:600;font-size:13px;z-index:50;box-shadow:var(--shadow)}
+.toast[hidden]{display:none!important}
+@media (prefers-reduced-motion:no-preference){.toast{animation:up .18s ease-out}@keyframes up{from{opacity:0;transform:translate(-50%,8px)}}}
+
+@media (max-width:900px){
+  .split{grid-template-columns:minmax(0,1fr)}
+  .app{grid-template-columns:minmax(0,1fr)}
+  .side{position:sticky;top:env(safe-area-inset-top,0px);height:auto;flex-direction:row;align-items:center;gap:10px;
+    border-right:0;border-bottom:1px solid var(--line);padding:9px 0;overflow:hidden;z-index:11;
+    padding-left:max(14px,env(safe-area-inset-left,0px));padding-right:max(14px,env(safe-area-inset-right,0px))}
+  .brand span{display:none}
+  .navgroup{flex-direction:row;overflow-x:auto;padding:0;gap:6px;flex:1;scrollbar-width:none}
+  .navgroup::-webkit-scrollbar{display:none}
+  .navlabel,.sidefoot{display:none}
+  .navbtn{white-space:nowrap;padding:6px 10px;border:1px solid var(--line)}
+  .navbtn .pill,.navbtn .soon{margin-left:4px}
+  .top{top:calc(env(safe-area-inset-top,0px) + 50px)}
+  .nm{max-width:200px}
+}
+</style>
+
+<div class="app">
+  <aside class="side">
+    <div class="brand">
+      <div class="dot">C</div>
+      <div><b>Centro de Control</b><span>compáralo.mx</span></div>
+    </div>
+    <nav class="navgroup" id="nav" aria-label="Módulos"></nav>
+    <div class="sidefoot">
+      <div id="dataStamp">Cargando datos…</div>
+      <button class="btn sm" id="themeBtn" type="button">Cambiar tema</button>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="top">
+      <div>
+        <h1 id="vTitle">Dashboard</h1>
+        <div class="sub" id="vSub">Estado general del sitio</div>
+      </div>
+      <div class="right">
+        <input class="inp" id="globalSearch" type="search" placeholder="Buscar producto…" style="width:190px">
+      </div>
+    </header>
+
+    <div class="wrap">
+      <!-- DASHBOARD -->
+      <section class="view" id="v-dashboard">
+        <div class="sec"><div class="kpis" id="kpis"></div></div>
+        <div class="sec">
+          <div class="sech"><h2>Requiere atención</h2><span class="note" id="alertNote"></span></div>
+          <div class="alerts" id="alerts"></div>
+        </div>
+        <div class="sec">
+          <div class="sech"><h2>Categorías</h2><span class="note">Lo que se ve en la página contra lo que hay en la base</span></div>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr>
+                <th>Categoría</th><th class="num">En base</th><th class="num">Visibles</th><th class="num">Pausados</th>
+                <th class="num">Sin ID</th><th class="num">Problemas</th><th class="num">Bajadas</th><th>Última revisión</th><th></th>
+              </tr></thead>
+              <tbody id="catRows"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="sec" id="dashAmzSec" hidden>
+          <div class="sech"><h2>Guías de Amazon</h2><span class="note" id="dashAmzNote"></span></div>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Categoría del sitio</th><th class="num">Visibles en el sitio</th><th class="num">Productos Amazon</th><th class="num">Listos para guía</th><th class="num">Por corregir</th></tr></thead>
+              <tbody id="dashAmzRows"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- GESTOR -->
+      <section class="view" id="v-productos" hidden>
+        <div class="sec">
+          <div class="row" style="margin-bottom:12px">
+            <input class="inp" id="pq" type="search" placeholder="Nombre, id, marca o MLM…" style="flex:1;min-width:200px">
+            <select class="inp" id="pcat"></select>
+            <select class="inp" id="pest">
+              <option value="">Todos los estados</option>
+              <option value="visible">Se ve en la web</option>
+              <option value="oculto">No se ve en la web</option>
+              <option value="ok">Sin problema</option>
+              <option value="sin-id">Sin ID de catálogo</option>
+              <option value="pausado-ml">Pausado en ML</option>
+              <option value="pausado">Pausado en ambas</option>
+              <option value="sin-tienda">Sin tienda</option>
+              <option value="inactivo">Inactivo</option>
+            </select>
+            <select class="inp" id="ptienda">
+              <option value="">Cualquier tienda</option>
+              <option value="ml">Con link ML</option>
+              <option value="amz">Con link Amazon</option>
+              <option value="noml">Sin link ML</option>
+            </select>
+            <label class="row" style="gap:5px;font-size:12.5px;color:var(--muted);font-weight:600">
+              <input type="checkbox" id="pbaj"> Solo bajadas
+            </label>
+          </div>
+          <div class="split">
+            <div>
+              <div class="sech"><span class="note" id="pcount"></span>
+                <span class="row" style="margin-left:auto;gap:6px">
+                  <a class="btn sm" id="pRevisar" href="https://github.com/alancamachorespaldo-hue/compara.mx/actions/workflows/revisar-disponibilidad.yml" target="_blank" rel="noopener">Revisar todos los enlaces ↗</a>
+                  <button class="btn sm copy" type="button" data-copy="node scripts/revisar-disponibilidad.js --todas --links --aplicar&#10;node scripts/sync-pausas.js">Copiar comando</button>
+                </span>
+              </div>
+              <div class="tbl-wrap tall">
+                <table>
+                  <thead><tr><th>Producto</th><th>Categoría</th><th class="num">ML</th><th class="num">Amazon</th><th>En la web</th></tr></thead>
+                  <tbody id="pRows"></tbody>
+                </table>
+              </div>
+              <div class="row" style="margin-top:10px"><button class="btn" id="pMore" type="button" hidden>Mostrar más</button></div>
+            </div>
+            <div class="card side-card" id="pDetail"><div class="bd"><div class="empty">Elige un producto de la lista para ver sus IDs, sus características y por qué se ve (o no) en la página.</div></div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- IDS -->
+      <section class="view" id="v-ids" hidden>
+        <div class="sec">
+          <div class="card"><div class="bd">
+            <div class="row" style="justify-content:space-between;align-items:flex-start">
+              <div style="max-width:60ch">
+                <h3 style="font-size:14.5px;margin-bottom:4px">Por qué importa el ID de catálogo</h3>
+                <p class="sm" style="margin:0">Sin el <code>mlId</code> (el <code>MLM…</code> de la ficha <code>/p/MLM…</code>) la API de Mercado Libre no entrega precio: el link <code>meli.la</code> no contiene el producto y la API devuelve 403 para IDs de publicación. Un producto sin ID queda con el precio congelado en el que se escribió a mano.</p>
+              </div>
+              <div class="row">
+                <button class="btn" id="idExport" type="button">Copiar capturados</button>
+              </div>
+            </div>
+          </div></div>
+        </div>
+        <div class="sec"><div class="kpis" id="idKpis"></div></div>
+        <div class="sec">
+          <div class="sech"><h2>Pendientes por categoría</h2><span class="note">Pega el ID y queda guardado en este navegador hasta que lo exportes</span></div>
+          <div class="row" style="margin-bottom:10px">
+            <select class="inp" id="idcat"></select>
+            <select class="inp" id="idtipo">
+              <option value="">Con y sin link de ML</option>
+              <option value="link">Solo los que ya tienen link de ML</option>
+              <option value="nolink">Solo los que no tienen link</option>
+            </select>
+          </div>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Producto</th><th>Categoría</th><th>Link actual</th><th>ID de catálogo</th></tr></thead>
+              <tbody id="idRows"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- VERIFICADOR -->
+      <section class="view" id="v-verificador" hidden>
+        <div class="sec"><div class="kpis" id="verKpis"></div></div>
+        <div class="sec">
+          <div class="split">
+            <div class="stack">
+              <div class="sech"><h2>Colas de revisión</h2><span class="note">Del último reporte de disponibilidad</span></div>
+              <div class="row" id="verTabs"></div>
+              <div class="tbl-wrap">
+                <table>
+                  <thead><tr><th>Producto</th><th>Categoría</th><th>Estado</th><th>Fecha</th></tr></thead>
+                  <tbody id="verRows"></tbody>
+                </table>
+              </div>
+            </div>
+            <div class="card"><div class="hd"><h3>Lanzar una revisión</h3></div><div class="bd stack">
+              <p class="sm" style="margin:0">El artifact no puede correr la revisión: vive en el navegador y no tiene acceso al token de Mercado Libre. Se lanza desde tu máquina o desde GitHub Actions.</p>
+              <div class="stack">
+                <div class="sm" style="font-weight:600;color:var(--fg)">Capa de catálogo (~2 min)</div>
+                <div class="row"><pre class="pre" style="flex:1">node scripts/revisar-disponibilidad.js --todas</pre><button class="btn sm copy" data-copy="node scripts/revisar-disponibilidad.js --todas" type="button">Copiar</button></div>
+                <div class="sm" style="font-weight:600;color:var(--fg)">Capa de links, la que descubre lo peor (~20 min)</div>
+                <div class="row"><pre class="pre" style="flex:1">node scripts/revisar-disponibilidad.js --todas --links --aplicar
+node scripts/sync-pausas.js</pre><button class="btn sm copy" data-copy="node scripts/revisar-disponibilidad.js --todas --links --aplicar
+node scripts/sync-pausas.js" type="button">Copiar</button></div>
+                <div class="sm">También corre sola: la capa de catálogo a diario en <b>update-prices.yml</b> y la de links los domingos en <b>revisar-disponibilidad.yml</b>.</div>
+              </div>
+              <div class="stack" style="border-top:1px solid var(--line);padding-top:10px">
+                <div class="sm" style="font-weight:600;color:var(--fg)">Para refrescar este panel</div>
+                <div class="row"><pre class="pre" style="flex:1">node scripts/generar-centro.js</pre><button class="btn sm copy" data-copy="node scripts/generar-centro.js" type="button">Copiar</button></div>
+              </div>
+            </div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MERCADO LIBRE -->
+      <section class="view" id="v-ml" hidden>
+        <div class="sec"><div class="kpis" id="mlKpis"></div></div>
+        <div class="sec">
+          <div class="split">
+            <div class="stack">
+              <div class="sech"><h2>Categorías con pocos productos</h2><span class="note">Menos de 15 visibles</span></div>
+              <div class="tbl-wrap"><table>
+                <thead><tr><th>Categoría</th><th class="num">Visibles</th><th class="num">En base</th><th class="num">Pausados</th><th></th></tr></thead>
+                <tbody id="mlFlacas"></tbody>
+              </table></div>
+            </div>
+            <div class="stack">
+              <div class="sech"><h2>Links repetidos</h2><span class="note">El mismo link de ML en dos productos</span></div>
+              <div class="tbl-wrap"><table>
+                <thead><tr><th>Link</th><th>Productos</th></tr></thead>
+                <tbody id="mlDup"></tbody>
+              </table></div>
+            </div>
+          </div>
+        </div>
+        <div class="sec">
+          <div class="card"><div class="hd"><h3>Actualizar precios</h3><span class="note">Lo que hoy hace el workflow</span></div><div class="bd stack">
+            <ol class="steps">
+              <li><div><b>Precios de ML</b><div class="sm">Diario 6:00 CDMX en <b>update-prices.yml</b>, o manual con selector de categoría.</div>
+                <div class="row" style="margin-top:6px"><pre class="pre" style="flex:1">node scripts/ml-update.js --categoria=laptops</pre><button class="btn sm copy" data-copy="node scripts/ml-update.js --categoria=laptops" type="button">Copiar</button></div></div></li>
+              <li><div><b>Buscar IDs faltantes</b><div class="sm">Deja candidatos en <code>ml-sugerencias.json</code> para confirmarlos a mano.</div>
+                <div class="row" style="margin-top:6px"><pre class="pre" style="flex:1">node scripts/ml-update.js --sugerir</pre><button class="btn sm copy" data-copy="node scripts/ml-update.js --sugerir" type="button">Copiar</button></div></div></li>
+              <li><div><b>Aplicar a la base y al sitio</b>
+                <div class="row" style="margin-top:6px"><pre class="pre" style="flex:1">node scripts/generar-admin.js
+node scripts/sync-pausas.js
+node scripts/check-site.js</pre><button class="btn sm copy" data-copy="node scripts/generar-admin.js
+node scripts/sync-pausas.js
+node scripts/check-site.js" type="button">Copiar</button></div></div></li>
+            </ol>
+          </div></div>
+        </div>
+      </section>
+
+      <!-- NUEVA CATEGORÍA -->
+      <section class="view" id="v-nueva" hidden>
+        <div class="sec">
+          <div class="card"><div class="bd">
+            <p class="sm" style="margin:0;max-width:75ch">Captura aquí la categoría y sus primeros productos. El botón de abajo arma el <b>paquete de alta</b>: el bloque para <code>scripts/categorias.js</code>, el bloque de productos para <code>merged-admin.json</code> y los comandos en orden. Con ese paquete yo creo la página real con la plantilla de la casa — el artifact no puede escribir en el repo.</p>
+          </div></div>
+        </div>
+        <div class="sec">
+          <div class="split">
+            <div class="card"><div class="hd"><h3>Datos de la categoría</h3></div><div class="bd stack">
+              <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">
+                <label class="f">Nombre visible<input class="inp" id="nc_titulo" placeholder="Aspiradoras robot"></label>
+                <label class="f">Clave en la base<input class="inp" id="nc_clave" placeholder="aspiradoras"></label>
+                <label class="f">Ruta de la página<input class="inp" id="nc_ruta" placeholder="electrodomesticos/aspiradoras/"></label>
+                <label class="f">Array JS del HTML<input class="inp" id="nc_var" value="productos"></label>
+              </div>
+              <label class="f">Sección del sitio
+                <select class="inp" id="nc_seccion">
+                  <option>Electrodomésticos</option><option>Tecnología</option><option>Cómputo</option>
+                  <option>Entretenimiento</option><option>Videojuegos</option><option>Suplementos</option>
+                  <option>Bicis</option><option>Celulares</option><option>Otra</option>
+                </select>
+              </label>
+              <label class="f">Qué compara esta categoría (para el texto de la página)
+                <textarea id="nc_nota" rows="2" placeholder="Succión, autonomía, mapeo y vaciado automático."></textarea>
+              </label>
+            </div></div>
+            <div class="card"><div class="hd"><h3>Qué va a pasar</h3></div><div class="bd">
+              <ol class="steps">
+                <li><div><b>Se registra en <code>categorias.js</code></b><div class="sm">Con eso entra sola en precios, pausas, disponibilidad y bajadas.</div></div></li>
+                <li><div><b>Se crea la página</b><div class="sm">Con la plantilla de listado (cmx-list), filtros, comparativa y favoritos.</div></div></li>
+                <li><div><b>Se corre <code>sync-pausas.js</code></b><div class="sm">Inserta el bloque de pausas; sin él, pausar un producto no lo quita del sitio.</div></div></li>
+                <li><div><b>Primera carga de precios</b><div class="sm">Solo para los productos que traigan ID de catálogo.</div></div></li>
+              </ol>
+            </div></div>
+          </div>
+        </div>
+        <div class="sec">
+          <div class="sech"><h2>Productos iniciales</h2><span class="note" id="nc_count"></span>
+            <button class="btn sm" id="nc_add" type="button" style="margin-left:auto">Agregar producto</button></div>
+          <div class="tbl-wrap"><table>
+            <thead><tr><th>Nombre</th><th>Marca</th><th>ID de catálogo (MLM…)</th><th>Link de afiliado ML</th><th>Precio ML</th><th></th></tr></thead>
+            <tbody id="nc_rows"></tbody>
+          </table></div>
+          <div class="row" style="margin-top:12px">
+            <button class="btn pri" id="nc_build" type="button">Crear paquete de alta</button>
+            <button class="btn" id="nc_clear" type="button">Vaciar borrador</button>
+            <span class="sm" id="nc_saved"></span>
+          </div>
+        </div>
+        <div class="sec" id="nc_out" hidden>
+          <div class="card"><div class="hd"><h3>Paquete de alta</h3><span class="note">Pásame este bloque y creo la categoría</span>
+            <button class="btn sm copy" id="nc_copy" type="button" style="margin-left:auto">Copiar todo</button></div>
+            <div class="bd"><textarea id="nc_text" rows="18" spellcheck="false"></textarea></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- POR CONECTAR -->
+      <section class="view" id="v-captura" hidden></section>
+      <section class="view" id="v-guias" hidden></section>
+      <section class="view" id="v-analitica" hidden></section>
+      <section class="view" id="v-plan" hidden></section>
+      <section class="view" id="v-redes" hidden></section>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+(function(){
+"use strict";
+var D=null, el=function(id){return document.getElementById(id)};
+var fmt=function(n){return typeof n==='number'?n.toLocaleString('es-MX'):'—'};
+var money=function(n){return typeof n==='number'&&n>0?'$'+n.toLocaleString('es-MX'):'—'};
+var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]})};
+var fecha=function(f){return f?String(f).slice(0,10):'—'};
+
+function toast(msg){var t=el('toast');t.textContent=msg;t.hidden=false;clearTimeout(toast._t);toast._t=setTimeout(function(){t.hidden=true},1900)}
+function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem('cmx-centro-'+k)||'null');localStorage.setItem('cmx-centro-'+k,JSON.stringify(v))}catch(e){return null}}
+function copiar(txt){
+  try{
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){toast('Copiado')},function(){toast('No se pudo copiar: selecciona el texto')});
+      return;
+    }
+  }catch(e){}
+  toast('No se pudo copiar: selecciona el texto');
+}
+document.addEventListener('click',function(e){
+  var b=e.target.closest('.copy');if(!b)return;
+  var t=b.getAttribute('data-copy');
+  if(b.id==='nc_copy')t=el('nc_text').value;
+  if(t)copiar(t);
+});
+
+/* ───────── navegación ───────── */
+var MODULOS=[
+  {id:'dashboard',ico:'◧',nombre:'Dashboard',titulo:'Dashboard',sub:'Estado general del sitio',grupo:'Operación'},
+  {id:'productos',ico:'▤',nombre:'Gestor de productos',titulo:'Gestor de productos',sub:'Busca, filtra y revisa cualquier producto de la base',grupo:'Operación'},
+  {id:'ids',ico:'#',nombre:'IDs pendientes',titulo:'IDs de catálogo pendientes',sub:'Productos sin mlId: sin él no hay precio automático',grupo:'Operación'},
+  {id:'verificador',ico:'✓',nombre:'Verificador',titulo:'Verificador de productos',sub:'Qué sigue vivo en Mercado Libre y qué se cayó',grupo:'Operación'},
+  {id:'ml',ico:'◆',nombre:'Mercado Libre',titulo:'Mercado Libre',sub:'Precios, huecos de catálogo y links repetidos',grupo:'Operación'},
+  {id:'nueva',ico:'+',nombre:'Nueva categoría',titulo:'Nueva categoría',sub:'Captura la categoría y sus primeros productos',grupo:'Crecimiento'},
+  {id:'captura',ico:'⤓',nombre:'Captura Amazon',titulo:'Captura Amazon',sub:'Sube el producto, su enlace y sus características: la ficha la arma la categoría',grupo:'Crecimiento'},
+  {id:'guias',ico:'▸',nombre:'Guías Amazon',titulo:'Guías Amazon',sub:'Centro de Productos Amazon: inventario, ASIN, enlaces y paquetes de guía',grupo:'Crecimiento'},
+  {id:'analitica',ico:'∿',nombre:'Analítica',titulo:'Analítica',sub:'GA4 y Search Console',grupo:'Crecimiento',pendiente:true},
+  {id:'plan',ico:'◎',nombre:'Planificador',titulo:'Planificador',sub:'Tareas de la semana, objetivos y avances, guardados en tu cuenta',grupo:'Crecimiento'},
+  {id:'redes',ico:'◉',nombre:'Redes sociales',titulo:'Redes sociales',sub:'Preparar publicaciones con UTM',grupo:'Crecimiento',pendiente:true}
+];
+var PENDIENTES={
+  analitica:{
+    que:'Visitas, usuarios, páginas más vistas, fuentes de tráfico, clics a Amazon y ML, impresiones, CTR y posición, con comparación entre periodos.',
+    hoy:'El sitio ya manda todo a GA4 (<code>G-9TKZ4ER13X</code>), incluidos los eventos de clic a tienda y <code>click_ofertas_cta</code>. Lo que falta es traer esos números hasta acá.',
+    falta:['Un acceso de lectura a la API de GA4 Data y a la de Search Console. Las dos piden credencial de servidor: una página en el navegador no puede guardarlas sin exponerlas.','La vía práctica: un workflow de GitHub Actions que pregunte a las dos APIs una vez al día y escriba un <code>analitica.json</code> en el repo, igual que hoy se escribe el reporte de precios. El artifact solo lee ese archivo.','Decidir qué periodos comparar por defecto (7 contra 7 días, mes contra mes).']
+  },
+  redes:{
+    que:'Elegir productos, traer su información y preparar el texto, el link y los parámetros UTM para Facebook, Instagram, TikTok, Reddit y YouTube Shorts. Sin publicar automáticamente.',
+    hoy:'Los datos que necesita ya están aquí: nombre, precio, imagen y link de afiliado de los 1,524 productos.',
+    falta:['Definir la plantilla de texto por red: qué largo, qué tono, si lleva precio (ojo: el precio cambia y el de Amazon no se puede escribir a mano por política de afiliados).','Definir el esquema de UTM: <code>utm_source</code> por red, <code>utm_medium=social</code>, y qué va en <code>utm_campaign</code>.','Nada más. Es el segundo módulo más barato de construir después del planificador.']
+  }
+};
+
+function pintarNav(){
+  var html='',grupo='';
+  MODULOS.forEach(function(m){
+    if(m.grupo!==grupo){grupo=m.grupo;html+='<div class="navlabel">'+esc(grupo)+'</div>'}
+    html+='<button class="navbtn" type="button" data-view="'+m.id+'"><span class="ico">'+m.ico+'</span>'+esc(m.nombre)+
+      (m.pendiente?'<span class="soon">por conectar</span>':'<span class="pill" data-badge="'+m.id+'" hidden></span>')+'</button>';
+  });
+  el('nav').innerHTML=html;
+  el('nav').addEventListener('click',function(e){var b=e.target.closest('[data-view]');if(b)ir(b.getAttribute('data-view'))});
+}
+var VIEW='dashboard';
+function ir(id){
+  var m=MODULOS.filter(function(x){return x.id===id})[0];if(!m)return;
+  VIEW=id;
+  MODULOS.forEach(function(x){
+    var v=el('v-'+x.id); if(v)v.hidden=(x.id!==id);
+    var b=document.querySelector('.navbtn[data-view="'+x.id+'"]');
+    if(b)b.setAttribute('aria-current',x.id===id?'true':'false');
+  });
+  el('vTitle').textContent=m.titulo; el('vSub').textContent=m.sub;
+  if(location.hash.slice(1)!==id){try{history.replaceState(null,'','#'+id)}catch(e){location.hash=id}}
+  if(id==='dashboard'&&D){pintarDashboard();pintarDashAmazon()}
+  if(id==='productos')pintarProductos();
+  if(id==='ids')pintarIds();
+  if(id==='verificador')pintarVer();
+  if(id==='ml')pintarML();
+  if(id==='nueva')pintarNueva();
+  if(id==='captura')pintarCaptura();
+  if(id==='plan')pintarPlan();
+  if(id==='guias')pintarGuias();
+  if(PENDIENTES[id])pintarPendiente(id);
+  window.scrollTo({top:0,behavior:'auto'});
+}
+window.addEventListener('hashchange',function(){var h=location.hash.slice(1);if(h&&h!==VIEW)ir(h)});
+
+/* ───────── dashboard ───────── */
+function kpi(o){
+  var tag=o.view?'button':'div';
+  return '<'+tag+' class="kpi '+(o.tono||'')+'"'+(o.view?' type="button" data-view="'+o.view+'"':'')+'>'+
+    '<span class="lab">'+esc(o.lab)+'</span><span class="val tnum">'+esc(o.val)+'</span>'+
+    (o.fine?'<span class="fine">'+o.fine+'</span>':'')+'</'+tag+'>';
+}
+function pintarDashboard(){
+  var t=D.totales;
+  el('kpis').innerHTML=[
+    kpi({lab:'Productos en la base',val:fmt(t.productos),fine:fmt(t.activos)+' activos · '+fmt(t.categorias)+' categorías',view:'productos'}),
+    kpi({lab:'Pausados',val:fmt(t.pausados),fine:fmt(t.pausadosAuto)+' por la revisión · '+fmt(t.pausadosManual)+' a mano',tono:'warn',view:'verificador'}),
+    kpi({lab:'Con problema en ML',val:fmt(t.problemas),fine:'link roto, catálogo caído o publicación pausada',tono:'bad',view:'verificador'}),
+    kpi({lab:'Sin ID de catálogo',val:fmt(t.sinMlId),fine:fmt(t.sinMlIdConLink)+' ya tienen link de ML',tono:'warn',view:'ids'}),
+    kpi({lab:'Nunca revisados',val:fmt(t.nuncaRevisado),fine:'no han pasado por la revisión de disponibilidad',view:'verificador'}),
+    kpi({lab:'Con bajada de precio',val:fmt(t.bajadas),fine:'lo que hoy puede salir en /ofertas/',tono:'ok'})
+  ].join('');
+  el('kpis').onclick=function(e){var b=e.target.closest('[data-view]');if(b)ir(b.getAttribute('data-view'))};
+
+  var al=[];
+  if(t.problemas>0)al.push({t:'bad',b:fmt(t.problemas)+' productos con el link o el catálogo caído',p:'Un link roto manda al visitante a la tarjeta por defecto del perfil de afiliado, no al producto. Están pausados si la revisión ya corrió con <code>--aplicar</code>.',v:'verificador'});
+  if(t.sinMlId>0)al.push({t:'warn',b:fmt(t.sinMlId)+' productos sin ID de catálogo',p:'Su precio no se actualiza solo. '+fmt(t.sinMlIdConLink)+' ya tienen link de ML, así que su ID se puede sacar de la ficha.',v:'ids'});
+  if(t.nuncaRevisado>0)al.push({t:'warn',b:fmt(t.nuncaRevisado)+' productos nunca revisados',p:'No sabemos si siguen existiendo. La corrida con <code>--todas</code> los incluye.',v:'verificador'});
+  var flacas=D.categorias.filter(function(c){return c.visibles<15});
+  if(flacas.length)al.push({t:'warn',b:flacas.length+(flacas.length===1?' categoría con menos de 15 productos visibles':' categorías con menos de 15 productos visibles'),p:flacas.slice(0,5).map(function(c){return c.titulo+' ('+c.visibles+')'}).join(' · ')+(flacas.length>5?' …':''),v:'ml'});
+  if(D.duplicados.length)al.push({t:'warn',b:D.duplicados.length+' links de ML repetidos entre productos',p:'Dos productos distintos apuntando al mismo link: uno de los dos está mal.',v:'ml'});
+  var sinT=D.colas.sinTienda.length;
+  if(sinT)al.push({t:'bad',b:sinT+' productos activos sin ninguna tienda',p:'Sin link de ML ni de Amazon la tarjeta queda sin precio ni botón. <code>sync-pausas.js</code> los quita de la página.',v:'productos'});
+  var pr=D.precios||{};
+  if(pr.fecha&&pr.actualizados===0&&(pr.sinPrecio||0)>50){
+    al.unshift({t:'bad',b:'La API de Mercado Libre no está dando precios',
+      p:'La corrida del '+esc(fecha(pr.fecha))+' no actualizó ni un precio: '+fmt(pr.sinPrecio)+' productos se quedaron sin dato. '+
+        'El endpoint de ofertas (<code>/products/{id}/items</code>) responde <b>403 PolicyAgent</b>, así que los precios del sitio son los últimos buenos y no se refrescan. '+
+        'Se arregla en la app de Mercado Libre (permisos del cliente), no en el código.',v:'ml'});
+  }
+  var venc=(typeof pVencidas==='function')?pVencidas().length:0, phoy=(typeof pHoy==='function')?pHoy().length:0;
+  if(venc)al.unshift({t:'bad',b:venc+(venc===1?' tarea vencida':' tareas vencidas'),p:'Ya pasó su fecha en el planificador.',v:'plan'});
+  else if(phoy)al.unshift({t:'warn',b:phoy+(phoy===1?' tarea para hoy':' tareas para hoy'),p:'Lo que te pusiste para hoy en el planificador.',v:'plan'});
+  if(!al.length)al.push({t:'ok',b:'Nada urgente',p:'Ninguna de las alertas que vigilo está activa en este corte de datos.'});
+  el('alerts').innerHTML=al.map(function(a){
+    return '<div class="alert '+a.t+'"><div><b>'+a.b+'</b><p>'+a.p+'</p></div>'+
+      (a.v?'<span class="go"><button class="btn sm" type="button" data-view="'+a.v+'">Ver</button></span>':'')+'</div>';
+  }).join('');
+  el('alerts').onclick=function(e){var b=e.target.closest('[data-view]');if(b)ir(b.getAttribute('data-view'))};
+  el('alertNote').textContent=al.length+(al.length===1?' asunto':' asuntos');
+
+  var badge=function(id,n){var b=document.querySelector('[data-badge="'+id+'"]');if(!b)return;if(n>0){b.textContent=n>999?'999+':n;b.hidden=false}else b.hidden=true};
+  badge('ids',t.sinMlId); badge('verificador',t.problemas);
+
+  pintarDashAmazon();
+  var max=Math.max.apply(null,D.categorias.map(function(c){return c.total}));
+  el('catRows').innerHTML=D.categorias.map(function(c){
+    return '<tr><td><span class="nm">'+esc(c.titulo)+'</span><span class="sm">'+esc(c.clave)+
+      (c.registrada?'':' · <span class="chip bad">sin registrar</span>')+'</span></td>'+
+      '<td class="num"><div class="row" style="justify-content:flex-end;gap:7px"><span>'+fmt(c.total)+'</span>'+
+        '<span class="bar" style="width:52px"><i style="width:'+Math.round(c.total/max*100)+'%"></i></span></div></td>'+
+      '<td class="num">'+fmt(c.visibles)+'</td>'+
+      '<td class="num">'+(c.pausados?'<span class="chip warn">'+c.pausados+'</span>':'—')+'</td>'+
+      '<td class="num">'+(c.sinMlId?'<span class="chip warn">'+c.sinMlId+'</span>':'—')+'</td>'+
+      '<td class="num">'+(c.problemas?'<span class="chip bad">'+c.problemas+'</span>':'—')+'</td>'+
+      '<td class="num">'+(c.bajadas?'<span class="chip ok">'+c.bajadas+'</span>':'—')+'</td>'+
+      '<td class="sm">'+fecha(c.ultimaRevision)+'</td>'+
+      '<td>'+(c.url?'<a href="https://comparalo.mx'+esc(c.url)+'" target="_blank" rel="noopener">Abrir ↗</a>':'')+'</td></tr>';
+  }).join('');
+}
+
+/* Cruce: categorías del sitio contra el inventario de Amazon (importado + capturado) */
+function pintarDashAmazon(){
+  var av=(typeof aCombinado==='function')?aCombinado():null;
+  var sec=el('dashAmzSec');
+  if(!av||!av.productos.length){sec.hidden=true;return}
+  var por={};
+  av.productos.forEach(function(p){
+    var k=p.catSlug||'(sin categoría)';
+    var o=(por[k]=por[k]||{n:0,listos:0,malos:0,nombre:p.categoria||k});
+    o.n++; if(p.estado==='ready')o.listos++;
+    if(!p.asin||p.estadoLink!=='ok')o.malos++;
+  });
+  var filas=Object.keys(por).map(function(k){
+    var sitio=D.categorias.filter(function(c){return c.clave===k})[0];
+    return {clave:k,titulo:(sitio?sitio.titulo:por[k].nombre),vis:sitio?sitio.visibles:null,
+      n:por[k].n,listos:por[k].listos,malos:por[k].malos};
+  }).sort(function(a,b){return b.n-a.n});
+  el('dashAmzNote').textContent=fmt(av.totales.productos)+' productos de Amazon · '+fmt(av.totales.ready)+(av.totales.ready===1?' listo para guía':' listos para guía')+
+    (av.capturados?' · '+fmt(av.capturados)+' capturados aquí':'');
+  el('dashAmzRows').innerHTML=filas.map(function(r){
+    return '<tr><td><span class="nm">'+esc(r.titulo)+'</span><span class="sm">'+esc(r.clave)+'</span></td>'+
+      '<td class="num">'+(r.vis==null?'—':fmt(r.vis))+'</td>'+
+      '<td class="num">'+fmt(r.n)+'</td>'+
+      '<td class="num">'+(r.listos?'<span class="chip ok">'+r.listos+'</span>':'—')+'</td>'+
+      '<td class="num">'+(r.malos?'<span class="chip warn">'+r.malos+'</span>':'—')+'</td></tr>';
+  }).join('');
+  sec.hidden=false;
+}
+
+/* ───────── gestor ───────── */
+var pTope=200, pSel=null;
+function filtrados(){
+  var q=el('pq').value.trim().toLowerCase(), cat=el('pcat').value, est=el('pest').value, ti=el('ptienda').value, baj=el('pbaj').checked;
+  return D.productos.filter(function(p){
+    if(cat&&p.cat!==cat)return false;
+    if(est==='visible'&&!p.visible)return false;
+    else if(est==='oculto'&&p.visible)return false;
+    else if(est&&est!=='visible'&&est!=='oculto'&&p.estado!==est)return false;
+    if(baj&&!p.bajada)return false;
+    if(ti==='ml'&&!p.linkML)return false;
+    if(ti==='amz'&&!p.linkAmz)return false;
+    if(ti==='noml'&&p.linkML)return false;
+    if(q){
+      var h=(p.nombre+' '+p.id+' '+(p.marca||'')+' '+(p.mlId||'')).toLowerCase();
+      if(h.indexOf(q)<0)return false;
+    }
+    return true;
+  });
+}
+/* Cada motivo, explicado como lo vive la página: qué pasa, por qué y qué hacer. */
+var MOTIVOS={
+  ambas:['ok','Se ve en la página','Tiene link activo en Mercado Libre y en Amazon: la tarjeta muestra las dos tiendas.',''],
+  solo_ml:['ok','Se ve en la página','Tiene link activo de Mercado Libre. La caja de Amazon no aparece porque no tiene link de Amazon o está pausada.',''],
+  solo_amazon:['ok','Se ve en la página','Solo con Amazon: la caja de Mercado Libre no aparece.',''],
+  link_roto:['bad','No se ve · link de afiliado roto','El link <code>meli.la</code> ya no abre este producto. Un link caído cae en la tarjeta por defecto de tu perfil de afiliado, así que el visitante aterriza en cualquier otra cosa. Por eso la revisión lo pausó en vez de dejarlo en la página.','Entra a la ficha de catálogo, genera un link de afiliado nuevo y reemplázalo en la base. Un producto pausado por link roto solo se reactiva en una corrida con <code>--links</code>.'],
+  link_caido:['bad','No se ve · link de afiliado roto','El link <code>meli.la</code> ya no abre este producto y cae en la tarjeta por defecto de tu perfil de afiliado.','Genera un link nuevo desde la ficha de catálogo y reemplázalo en la base.'],
+  link_otro:['bad','No se ve · el link abre otro producto','El link responde, pero lleva a un producto distinto del que anuncia la tarjeta. Es lo más grave que encuentra la revisión: el visitante compra otra cosa.','Consigue el link correcto desde la ficha de catálogo y reemplázalo.'],
+  no_existe:['bad','No se ve · la ficha ya no existe','La ficha de catálogo <code>/p/MLM…</code> desapareció de Mercado Libre.','Busca el producto otra vez en ML: si existe con otra ficha, cambia el <code>mlId</code> y el link; si ya no se vende, déjalo pausado.'],
+  pausado:['warn','No se ve · pausado','La pausa está puesta en la base, así que <code>sync-pausas.js</code> lo quitó de la página.','Si fue a mano, quítala en el gestor de precios. Si fue automática, arregla primero lo que la causó.'],
+  sin_ofertas:['warn','No se ve · nadie lo vende ahora','La ficha de catálogo existe, pero no tiene ninguna oferta activa: no hay vendedor ni precio que mostrar.','No hay nada que arreglar. Se reactiva solo cuando vuelva a haber ofertas y corra la revisión.'],
+  sin_id:['warn','No se ve · sin ID de catálogo','Sin <code>mlId</code> la API no entrega precio.','Consíguelo en el módulo IDs pendientes.'],
+  inactivo:['mute','No se ve · inactivo en la base','Tiene <code>activo:false</code>, así que <code>sync-html.js</code> lo borra del HTML de la categoría.','Si debería estar, cámbialo a activo en el gestor de precios.'],
+  eliminado:['mute','No se ve · marcado como eliminado','Está marcado con <code>_eliminado</code>: se conserva en la base como historia, pero no se publica.',''],
+  sin_publicar:['mute','No se ve · sin publicar','Tiene <code>_publicar:false</code>: se capturó pero nunca se mandó a la página.','Márcalo para publicar cuando tenga link de afiliado.'],
+  necesita_link:['warn','No se ve · necesita un link nuevo','Su link de afiliado estaba muerto y se retiró, así que el producto se quedó sin tienda y salió de la página. Todo lo demás —nombre, precio, imagen, características y el ID de catálogo— sigue guardado.','Abre su ficha de catálogo, genera un link de afiliado nuevo y pégalo en la base: con eso vuelve solo a la página.'],
+  sin_tienda:['bad','No se ve · sin ninguna tienda','No tiene link de Mercado Libre ni de Amazon, así que la tarjeta se quedaría sin precio y sin botón. <code>sync-pausas.js</code> la quita.','Consíguele al menos un link de afiliado.']
+};
+function chipWeb(p){
+  var m=MOTIVOS[p.motivo]||[p.visible?'ok':'mute',p.visible?'Se ve en la página':'No se ve',''];
+  var corto=p.visible?'Se ve':(m[1].indexOf('·')>0?m[1].split('·')[1].trim():'No se ve');
+  return '<span class="chip '+m[0]+'">'+(p.visible?'● ':'○ ')+esc(corto)+'</span>';
+}
+var ESTADO={ok:['ok','Sin problema'],'sin-id':['warn','Sin ID'],'pausado-ml':['warn','Pausado en ML'],'pausado-amz':['warn','Pausado en Amazon'],pausado:['bad','Pausado'],'sin-tienda':['bad','Sin tienda'],inactivo:['mute','Inactivo']};
+function pintarProductos(){
+  if(!el('pcat').options.length)llenarSelects();
+  var lista=filtrados();
+  el('pcount').textContent=fmt(lista.length)+' de '+fmt(D.productos.length)+' productos';
+  var vis=lista.slice(0,pTope);
+  el('pRows').innerHTML=vis.length?vis.map(function(p,i){
+    var k=p.cat+'|'+p.id;
+    return '<tr data-k="'+esc(k)+'"'+(pSel&&pSel.cat===p.cat&&pSel.id===p.id?' class="sel"':'')+'><td><div class="cel">'+
+      (p.imagen?'<img class="thumb" src="'+esc(p.imagen)+'" alt="" loading="lazy">':'<span class="thumb ph">▢</span>')+
+      '<span><span class="nm">'+esc(p.nombre)+'</span><span class="sm">'+esc(p.id)+
+      (p.mlId?' · '+esc(p.mlId):' · <b>sin ID</b>')+'</span></span></div></td>'+
+      '<td class="sm">'+esc(p.catTitulo)+'</td>'+
+      '<td class="num">'+money(p.precioML)+'</td><td class="num">'+money(p.precioAmz)+'</td>'+
+      '<td>'+chipWeb(p)+(p.bajada?' <span class="chip ok">↓</span>':'')+'</td></tr>';
+  }).join(''):'<tr><td colspan="5"><div class="empty">Nada coincide con esos filtros.</div></td></tr>';
+  el('pMore').hidden=lista.length<=pTope;
+  el('pMore').textContent='Mostrar más ('+fmt(lista.length-vis.length)+' restantes)';
+}
+function llenarSelects(){
+  var opts='<option value="">Todas las categorías</option>'+D.categorias.map(function(c){
+    return '<option value="'+esc(c.clave)+'">'+esc(c.titulo)+' ('+c.total+')</option>'}).join('');
+  el('pcat').innerHTML=opts;
+  el('idcat').innerHTML='<option value="">Todas las categorías</option>'+D.categorias.filter(function(c){return c.sinMlId>0})
+    .map(function(c){return '<option value="'+esc(c.clave)+'">'+esc(c.titulo)+' ('+c.sinMlId+')</option>'}).join('');
+}
+var pTab='resumen';
+function pMLBusca(p){return 'https://listado.mercadolibre.com.mx/'+encodeURIComponent(p.nombre).replace(/%20/g,'-')}
+function pResumenHTML(p){
+  return (p.imagen?'<img src="'+esc(p.imagen)+'" alt="" style="max-height:120px;align-self:flex-start;border-radius:10px;border:1px solid var(--line)">':'')+
+  '<dl class="kv">'+
+    '<dt>Categoría</dt><dd>'+esc(p.catTitulo)+' <span class="sm">('+esc(p.cat)+')</span></dd>'+
+    '<dt>Marca</dt><dd>'+esc(p.marca||'—')+'</dd>'+
+    '<dt>Precio ML</dt><dd>'+money(p.precioML)+(p.precioMLAntes?' <span class="sm">antes '+money(p.precioMLAntes)+'</span>':'')+'</dd>'+
+    '<dt>Precio Amazon</dt><dd>'+money(p.precioAmz)+(p.precioAmzAntes?' <span class="sm">antes '+money(p.precioAmzAntes)+'</span>':'')+'</dd>'+
+    '<dt>Actualizado</dt><dd>'+fecha(p.actualizado)+'</dd>'+
+  '</dl>'+
+  '<div class="why"><b>Los tres identificadores</b>'+
+    '<dl class="kv" style="margin-top:6px">'+
+      '<dt>id interno</dt><dd><code>'+esc(p.id)+'</code><div class="sm">La clave con la que este producto vive en <code>merged-admin.json</code> y en el array JS de su página. Solo tiene que ser único dentro de su categoría: unos son <code>1</code>, <code>2</code>, <code>3</code> y otros, como éste, traen el prefijo <code>exp_</code> porque se dieron de alta desde una exportación de Mercado Libre. No significa nada para ML.</div></dd>'+
+      '<dt>ID de catálogo</dt><dd>'+(p.mlId?'<code>'+esc(p.mlId)+'</code>':'<span class="chip warn">falta</span>')+
+        '<div class="sm">El <code>MLM…</code> de la ficha <code>/p/MLM…</code>. Es el único que entiende la API: con él se trae el precio todos los días. Aquí se sacó '+esc(p.mlIdFuente==='link'?'del propio link de afiliado':(p.mlIdFuente||'a mano'))+'.</div></dd>'+
+      (p.mlItemId?'<dt>ID de publicación</dt><dd><code>'+esc(p.mlItemId)+'</code><div class="sm">La publicación concreta de un vendedor dentro de esa ficha. La API devuelve 403 para estos IDs, así que no sirve para precios: es solo referencia.</div></dd>':'')+
+    '</dl></div>'+
+  '<div class="row">'+
+    (p.linkML?'<a class="btn sm" href="'+esc(p.linkML)+'" target="_blank" rel="noopener">Abrir link de afiliado ↗</a>':'')+
+    (p.mlId?'<a class="btn sm" href="https://www.mercadolibre.com.mx/p/'+esc(p.mlId)+'" target="_blank" rel="noopener">Ficha de catálogo ↗</a>':
+      '<a class="btn sm" href="'+esc(pMLBusca(p))+'" target="_blank" rel="noopener">Buscar en ML ↗</a>')+
+    (p.linkAmz?'<a class="btn sm" href="'+esc(p.linkAmz)+'" target="_blank" rel="noopener">Abrir en Amazon ↗</a>':'')+
+  '</div>'+
+  (p.linkML?'<div class="row"><pre class="pre" style="flex:1">'+esc(p.linkML)+'</pre><button class="btn sm copy" data-copy="'+esc(p.linkML)+'" type="button">Copiar</button></div>':'')+
+  '<p class="sm" style="margin:0">Para cambiar algo de este producto en la base: pídemelo con su categoría y su id, o edítalo en el gestor de precios. Este panel es de lectura.</p>';
+}
+/* Correcciones de características guardadas en el almacenamiento del artifact (colección
+   `especs`). No tocan el repo: de ahí las saco yo con scripts/aplicar-especs.mjs. */
+var ESP={}, pEditEsp=false;
+function espKey(p){return p.cat+'__'+String(p.id).replace(/[^A-Za-z0-9_\-.~:@+]/g,'-')}
+function espDe(p){var e=ESP[espKey(p)];return e&&e.especs?e.especs:null}
+function espVista(p){
+  var base=Object.assign({},p.especs||{}), cor=espDe(p);
+  if(cor)Object.keys(cor).forEach(function(k){ if(String(cor[k]||'').trim()==='')delete base[k]; else base[k]=cor[k]; });
+  return base;
+}
+function espGuardar(p,obj){
+  if(!PDB){toast('El almacenamiento todavía no responde');return}
+  PDB.collection('especs').doc(espKey(p)).set({
+    cat:p.cat, id:String(p.id), nombre:p.nombre, especs:obj, ts:new Date().toISOString()
+  }).then(function(){toast('Corrección guardada')},function(){toast('No se pudo guardar')});
+}
+function pEspecsEditorHTML(p){
+  var v=espVista(p), ks=Object.keys(v);
+  return '<div class="stack">'+
+    ks.map(function(k){
+      return '<label class="f">'+esc(k.replace(/_/g,' '))+
+        '<input class="inp" data-esp="'+esc(k)+'" value="'+esc(v[k])+'" placeholder="vacío = borrar esta característica"></label>';
+    }).join('')+
+    '<div class="row" style="align-items:flex-end">'+
+      '<label class="f" style="flex:1">Característica nueva<input class="inp" id="esp_k" placeholder="p. ej. bateria"></label>'+
+      '<label class="f" style="flex:1">Valor<input class="inp" id="esp_v" placeholder="56 Wh"></label>'+
+    '</div>'+
+    '<div class="row"><button class="btn pri" id="esp_ok" type="button">Guardar corrección</button>'+
+      '<button class="btn" id="esp_no" type="button">Cancelar</button>'+
+      (espDe(p)?'<button class="btn" id="esp_del" type="button">Descartar la corrección</button>':'')+'</div>'+
+    '<p class="sm" style="margin:0">Se guarda en el almacenamiento de este Centro, no en el repositorio: la página pública no cambia hasta que yo aplique las correcciones con <code>scripts/aplicar-especs.mjs</code>. Deja un campo vacío para borrar esa característica.</p>'+
+  '</div>';
+}
+function pEspecsHTML(p){
+  if(pEditEsp)return pEspecsEditorHTML(p);
+  var e=espVista(p), ks=Object.keys(e).filter(function(k){return e[k]!==null&&e[k]!==''});
+  var cor=espDe(p);
+  return '<div class="row">'+
+      '<button class="btn sm" id="esp_edit" type="button">Editar características</button>'+
+      (cor?'<span class="chip warn">corregido aquí · falta aplicarlo al repo</span>':'')+
+      (Object.keys(ESP).length?'<button class="btn sm" id="esp_copy" type="button" style="margin-left:auto">Copiar correcciones ('+Object.keys(ESP).length+')</button>':'')+
+    '</div>'+
+    (p.imagen?'<img src="'+esc(p.imagen)+'" alt="" style="max-height:130px;align-self:flex-start;border-radius:10px;border:1px solid var(--line)">':'')+
+    (ks.length?'<dl class="kv">'+ks.map(function(k){
+      return '<dt>'+esc(k.replace(/_/g,' '))+'</dt><dd>'+esc(e[k])+'</dd>'}).join('')+'</dl>':
+      '<div class="why"><b>Este producto no tiene características en la base</b>Las que se ven en la página salen de <code>especs</code> en <code>merged-admin.json</code>. Se llenan a mano en el gestor de precios o, en bicis, con <code>ml-bicis.js especs</code>, que las copia de la ficha de ML sin sobrescribir lo que ya esté escrito.</div>')+
+    '<dl class="kv">'+
+      '<dt>Calificación</dt><dd>'+(p.estrellas?esc(p.estrellas)+(p.resenas?' · '+fmt(p.resenas)+' reseñas':''):'—')+'</dd>'+
+      '<dt>Imagen</dt><dd>'+(p.imagen?'<a href="'+esc(p.imagen)+'" target="_blank" rel="noopener">abrir ↗</a>':'—')+'</dd>'+
+    '</dl>'+
+    '<p class="sm" style="margin:0">La API de Mercado Libre no entrega estrellas ni número de reseñas (devuelve 403 en <code>/reviews/item</code>), así que esos dos campos solo existen si se capturaron a mano.</p>';
+}
+function pWebHTML(p){
+  var m=MOTIVOS[p.motivo]||[(p.visible?'ok':'mute'),(p.visible?'Se ve en la página':'No se ve'),'',''];
+  var revisado=p.dispFecha||fecha(p.revisado);
+  var DISP={ok:'el link abrió su producto',link_roto:'el link ya no abre su producto',link_otro:'el link abrió otro producto',
+    no_existe:'la ficha de catálogo no existe',pausado:'la publicación está pausada en ML',sin_ofertas:'la ficha no tiene ofertas',
+    sin_id:'no tiene ID de catálogo',error:'la API falló (un error nunca pausa nada)'};
+  return '<div class="why" style="border-color:var(--'+(m[0]==='ok'?'ok':(m[0]==='bad'?'bad':'line'))+')"><b>'+esc(m[1])+'</b>'+m[2]+'</div>'+
+  (m[3]?'<div class="why"><b>Qué hacer</b>'+m[3]+'</div>':'')+
+  '<dl class="kv">'+
+    '<dt>Mercado Libre</dt><dd>'+(p.linkML?(p.pausaML?'<span class="chip warn">pausado</span> el link sigue guardado':'<span class="chip ok">activo</span>'):'<span class="chip bad">sin link</span>')+'</dd>'+
+    '<dt>Amazon</dt><dd>'+(p.linkAmz?(p.pausaAmz?'<span class="chip warn">pausado</span>':'<span class="chip ok">activo</span>'):'<span class="sm">sin link (la cuenta de afiliados de Amazon se dio de baja en nov-2026)</span>')+'</dd>'+
+    '<dt>En la base</dt><dd>'+(p.activo?'activo':'<b>activo:false</b>')+(p.publicado?'':' · <b>_publicar:false</b>')+(p.eliminado?' · <b>_eliminado</b>':'')+'</dd>'+
+    '<dt>Última revisión</dt><dd>'+(p.dispEstado?esc(revisado)+' · <code>'+esc(p.dispEstado)+'</code> <span class="sm">('+esc(DISP[p.dispEstado]||'')+')</span>':'<span class="chip warn">nunca revisado</span>')+'</dd>'+
+    (p.dispFallos?'<dt>Fallos seguidos</dt><dd>'+p.dispFallos+' <span class="sm">se pausa a las 2 corridas seguidas, para no pausar de más por un error pasajero'+(p.dispDesde?'; en observación desde el '+esc(p.dispDesde):'')+'</span></dd>':'')+
+    (p.motivoPausa?'<dt>Pausa</dt><dd>'+esc(p.motivoPausa)+' el '+fecha(p.pausaFecha)+' · '+(p.pausaAuto?'la puso la revisión':'la pusiste a mano')+'</dd>':'')+
+    (p.estadoML?'<dt>estadoML</dt><dd><code>'+esc(p.estadoML)+'</code></dd>':'')+
+    (p.linkRevisar?'<dt>Marca del revisor</dt><dd><code>'+esc(p.linkRevisar)+'</code></dd>':'')+
+  '</dl>'+
+  '<div class="row">'+
+    (p.mlId?'<a class="btn sm" href="https://www.mercadolibre.com.mx/p/'+esc(p.mlId)+'" target="_blank" rel="noopener">Ver la ficha en ML ↗</a>':'')+
+    (p.linkML?'<a class="btn sm" href="'+esc(p.linkML)+'" target="_blank" rel="noopener">Probar el link ↗</a>':'')+
+    (p.cat&&D.categorias.filter(function(c){return c.clave===p.cat})[0]&&D.categorias.filter(function(c){return c.clave===p.cat})[0].url?
+      '<a class="btn sm" href="https://comparalo.mx'+esc(D.categorias.filter(function(c){return c.clave===p.cat})[0].url)+'" target="_blank" rel="noopener">Ver la página ↗</a>':'')+
+  '</div>'+
+  '<p class="sm" style="margin:0">Este corte es del '+fecha(D.generado)+'. La revisión de enlaces corre sola los domingos y la de catálogo a diario; para lanzarla ahora usa el botón <b>Revisar todos los enlaces</b> de arriba.</p>';
+}
+function detalle(p){
+  pSel=p;
+  var tabs=[['resumen','Resumen'],['especs','Características'],['web','En la web']];
+  var cuerpo=pTab==='especs'?pEspecsHTML(p):(pTab==='web'?pWebHTML(p):pResumenHTML(p));
+  el('pDetail').innerHTML='<div class="hd"><h3>'+esc(p.nombre)+'</h3>'+chipWeb(p)+(p.bajada?' <span class="chip ok">↓ bajada</span>':'')+'</div>'+
+    '<div class="tabs" role="tablist">'+tabs.map(function(t){
+      return '<button type="button" role="tab" data-tab="'+t[0]+'" aria-selected="'+(pTab===t[0]?'true':'false')+'">'+t[1]+'</button>'}).join('')+'</div>'+
+    '<div class="bd stack">'+cuerpo+'</div>';
+}
+el('pDetail').addEventListener('click',function(e){
+  if(!pSel)return;
+  var b=e.target.closest('[data-tab]');
+  if(b){pTab=b.getAttribute('data-tab'); pEditEsp=false; detalle(pSel); return}
+  var id=e.target.id;
+  if(id==='esp_edit'){pEditEsp=true;detalle(pSel);return}
+  if(id==='esp_no'){pEditEsp=false;detalle(pSel);return}
+  if(id==='esp_del'){
+    if(PDB)PDB.collection('especs').doc(espKey(pSel)).delete();
+    delete ESP[espKey(pSel)]; pEditEsp=false; detalle(pSel); toast('Corrección descartada'); return;
+  }
+  if(id==='esp_ok'){
+    var obj={};
+    [].forEach.call(el('pDetail').querySelectorAll('[data-esp]'),function(i){
+      obj[i.getAttribute('data-esp')]=i.value.trim();
+    });
+    var k=el('esp_k').value.trim().toLowerCase().replace(/\s+/g,'_'), v=el('esp_v').value.trim();
+    if(k&&v)obj[k]=v;
+    espGuardar(pSel,obj);
+    pEditEsp=false; detalle(pSel); return;
+  }
+  if(id==='esp_copy'){
+    var lista=Object.keys(ESP).map(function(k){var x=ESP[k];
+      return {cat:x.cat,id:x.id,nombre:x.nombre,especs:x.especs}});
+    copiar('Correcciones de características capturadas en el Centro de Control ('+lista.length+')\n'+
+      'Guárdalas en un archivo y aplícalas con:\n'+
+      '  node scripts/aplicar-especs.mjs correcciones.json --aplicar\n\n'+
+      JSON.stringify(lista,null,2));
+  }
+});
+
+['pq','pcat','pest','ptienda','pbaj'].forEach(function(id){
+  el(id).addEventListener('input',function(){pTope=200;pintarProductos()});
+});
+el('pMore').addEventListener('click',function(){pTope+=300;pintarProductos()});
+el('pRows').addEventListener('click',function(e){
+  var tr=e.target.closest('tr[data-k]');if(!tr)return;
+  var k=tr.getAttribute('data-k').split('|');
+  var p=D.productos.filter(function(x){return x.cat===k[0]&&x.id===k[1]})[0];
+  if(!p)return;
+  [].forEach.call(el('pRows').querySelectorAll('tr.sel'),function(x){x.classList.remove('sel')});
+  tr.classList.add('sel');
+  pSel=p; pEditEsp=false; detalle(p);
+});
+el('globalSearch').addEventListener('input',function(){
+  var v=this.value;
+  if(VIEW!=='productos')ir('productos');
+  el('pq').value=v;pTope=200;pintarProductos();
+});
+
+/* ───────── IDs pendientes ───────── */
+function pintarIds(){
+  if(!el('idcat').options.length)llenarSelects();
+  var cap=store('ids')||{};
+  var t=D.totales;
+  var ncap=Object.keys(cap).length;
+  el('idKpis').innerHTML=[
+    kpi({lab:'Sin ID de catálogo',val:fmt(t.sinMlId),fine:'de '+fmt(t.productos)+' productos',tono:'warn'}),
+    kpi({lab:'Ya tienen link de ML',val:fmt(t.sinMlIdConLink),fine:'su ID se saca de la ficha /p/MLM…'}),
+    kpi({lab:'Sin link de ML',val:fmt(t.sinMlId-t.sinMlIdConLink),fine:'hay que conseguir el producto primero'}),
+    kpi({lab:'Capturados aquí',val:fmt(ncap),fine:ncap?'listos para exportar':'guardados solo en este navegador',tono:ncap?'ok':''})
+  ].join('');
+
+  var cat=el('idcat').value, tipo=el('idtipo').value;
+  var lista=D.colas.sinId.filter(function(p){
+    if(cat&&p.cat!==cat)return false;
+    if(tipo==='link'&&!p.linkML)return false;
+    if(tipo==='nolink'&&p.linkML)return false;
+    return true;
+  });
+  el('idRows').innerHTML=lista.length?lista.map(function(p){
+    var k=p.cat+'|'+p.id;
+    var busca='https://listado.mercadolibre.com.mx/'+encodeURIComponent(p.nombre).replace(/%20/g,'-');
+    return '<tr><td><span class="nm">'+esc(p.nombre)+'</span><span class="sm">'+esc(p.id)+' · '+money(p.precioML)+'</span></td>'+
+      '<td class="sm">'+esc(p.catTitulo)+'</td>'+
+      '<td>'+(p.linkML?'<a href="'+esc(p.linkML)+'" target="_blank" rel="noopener">Abrir link ↗</a>':
+        '<a href="'+esc(busca)+'" target="_blank" rel="noopener">Buscar en ML ↗</a>')+'</td>'+
+      '<td><input class="inp idin" data-k="'+esc(k)+'" placeholder="MLM…" style="width:140px" value="'+esc(cap[k]||'')+'"></td></tr>';
+  }).join(''):'<tr><td colspan="4"><div class="empty">Ninguno pendiente con esos filtros.</div></td></tr>';
+}
+el('idcat').addEventListener('input',pintarIds);
+el('idtipo').addEventListener('input',pintarIds);
+el('idRows').addEventListener('change',function(e){
+  var i=e.target.closest('.idin');if(!i)return;
+  var cap=store('ids')||{}, v=i.value.trim().toUpperCase();
+  if(/^MLM\d+$/.test(v))cap[i.getAttribute('data-k')]=v;
+  else if(!v)delete cap[i.getAttribute('data-k')];
+  else{toast('Un ID de catálogo se ve así: MLM44113911');return}
+  store('ids',cap);pintarIds();
+});
+el('idExport').addEventListener('click',function(){
+  var cap=store('ids')||{}, ks=Object.keys(cap);
+  if(!ks.length){toast('Todavía no has capturado ningún ID');return}
+  var out={};
+  ks.forEach(function(k){var p=k.split('|');(out[p[0]]=out[p[0]]||{})[p[1]]=cap[k]});
+  copiar('IDs de catálogo capturados en el Centro de Control ('+ks.length+')\n'+
+    'Aplícalos a scripts/merged-admin.json como mlId (mlIdFuente: "usuario") y corre ml-update.js de esas categorías.\n\n'+
+    JSON.stringify(out,null,2));
+});
+
+/* ───────── verificador ───────── */
+var VERCOLAS=[['necesitaLink','Necesitan link nuevo','bad'],['linkRoto','Link roto o equivocado','bad'],['noExiste','Caído o pausado en ML','bad'],['pausadoAuto','Pausados por la revisión','warn'],['enObservacion','En observación','warn'],['nuncaRevisado','Nunca revisados','mute'],['sinTienda','Sin ninguna tienda','bad']];
+var verSel='necesitaLink';
+function pintarVer(){
+  var t=D.totales, dt=(D.disponibilidad&&D.disponibilidad.totales)||{};
+  el('verKpis').innerHTML=[
+    kpi({lab:'Última revisión',val:fecha(D.disponibilidad&&D.disponibilidad.fecha),fine:D.fuente.dispConLinks?'incluyó la capa de links':'solo capa de catálogo'}),
+    kpi({lab:'Revisados',val:fmt(dt.revisados),fine:fmt(dt.ok)+' en orden',tono:'ok'}),
+    kpi({lab:'Links rotos',val:fmt(dt.link_roto),fine:'el link ya no lleva a su producto',tono:'bad'}),
+    kpi({lab:'Caídos o pausados en ML',val:fmt((dt.no_existe||0)+(dt.pausado_en_ml||0)),fine:fmt(dt.no_existe)+' no existen · '+fmt(dt.pausado_en_ml)+' pausados',tono:'bad'}),
+    kpi({lab:'Nunca revisados',val:fmt(t.nuncaRevisado),fine:'fuera del último corte'}),
+    kpi({lab:'Errores de API',val:fmt(dt.error),fine:'un error nunca pausa nada',tono:dt.error?'warn':'ok'})
+  ].join('');
+  el('verTabs').innerHTML=VERCOLAS.map(function(c){
+    var n=(D.colas[c[0]]||[]).length;
+    return '<button class="btn sm" type="button" data-cola="'+c[0]+'" '+(verSel===c[0]?'style="border-color:var(--ac);color:var(--ac)"':'')+'>'+
+      esc(c[1])+' <span class="chip '+c[2]+'">'+n+'</span></button>';
+  }).join('');
+  var lista=D.colas[verSel]||[];
+  el('verRows').innerHTML=lista.length?lista.map(function(p){
+    return '<tr><td><span class="nm">'+esc(p.nombre)+'</span><span class="sm">'+esc(p.id)+
+      (p.linkML?' · <a href="'+esc(p.linkML)+'" target="_blank" rel="noopener">link ↗</a>':'')+'</span></td>'+
+      '<td class="sm">'+esc(p.catTitulo)+'</td>'+
+      '<td>'+(p.dispEstado?'<span class="chip bad">'+esc(p.dispEstado)+'</span>':'<span class="chip mute">sin revisar</span>')+
+        (p.pausaML?' <span class="chip warn">pausado</span>':'')+'</td>'+
+      '<td class="sm">'+fecha(p.dispFecha)+'</td></tr>';
+  }).join(''):'<tr><td colspan="4"><div class="empty">Esta cola está vacía.</div></td></tr>';
+}
+el('verTabs').addEventListener('click',function(e){
+  var b=e.target.closest('[data-cola]');if(!b)return;verSel=b.getAttribute('data-cola');pintarVer();
+});
+
+/* ───────── Mercado Libre ───────── */
+function pintarML(){
+  var t=D.totales;
+  var conId=t.productos-t.sinMlId;
+  el('mlKpis').innerHTML=[
+    kpi({lab:'Con ID de catálogo',val:fmt(conId),fine:Math.round(conId/t.productos*100)+'% de la base recibe precio automático',tono:'ok'}),
+    kpi({lab:'Sin ID',val:fmt(t.sinMlId),fine:'precio congelado',tono:'warn',view:'ids'}),
+    kpi({lab:'Sin link de ML',val:fmt(t.sinLinkML),fine:'no se pueden anunciar en ML'}),
+    kpi({lab:'Con link de Amazon',val:fmt(t.conAmz),fine:'de la cuenta vieja; las guías usan guiasdecomp01-20'}),
+    kpi({lab:'Bajadas vigentes',val:fmt(t.bajadas),fine:'alimentan /ofertas/',tono:'ok'})
+  ].join('');
+  el('mlKpis').onclick=function(e){var b=e.target.closest('[data-view]');if(b)ir(b.getAttribute('data-view'))};
+  var flacas=D.categorias.filter(function(c){return c.visibles<15}).sort(function(a,b){return a.visibles-b.visibles});
+  el('mlFlacas').innerHTML=flacas.length?flacas.map(function(c){
+    return '<tr><td>'+esc(c.titulo)+'</td><td class="num"><span class="chip '+(c.visibles<8?'bad':'warn')+'">'+c.visibles+'</span></td>'+
+      '<td class="num">'+c.total+'</td><td class="num">'+c.pausados+'</td>'+
+      '<td>'+(c.url?'<a href="https://comparalo.mx'+esc(c.url)+'" target="_blank" rel="noopener">Abrir ↗</a>':'')+'</td></tr>';
+  }).join(''):'<tr><td colspan="5"><div class="empty">Todas las categorías tienen 15 o más productos visibles.</div></td></tr>';
+  el('mlDup').innerHTML=D.duplicados.length?D.duplicados.map(function(d){
+    return '<tr><td><a href="'+esc(d.link)+'" target="_blank" rel="noopener">'+esc(d.link.replace('https://',''))+' ↗</a></td>'+
+      '<td class="sm">'+esc(d.refs.join(' · '))+'</td></tr>';
+  }).join(''):'<tr><td colspan="2"><div class="empty">Sin links repetidos.</div></td></tr>';
+}
+
+/* ───────── nueva categoría ───────── */
+function ncLeer(){
+  return {
+    titulo:el('nc_titulo').value.trim(), clave:el('nc_clave').value.trim(), ruta:el('nc_ruta').value.trim(),
+    varName:el('nc_var').value.trim()||'productos', seccion:el('nc_seccion').value, nota:el('nc_nota').value.trim(),
+    productos:[].slice.call(document.querySelectorAll('#nc_rows tr')).map(function(tr){
+      var g=function(n){var i=tr.querySelector('[data-f="'+n+'"]');return i?i.value.trim():''};
+      return {nombre:g('nombre'),marca:g('marca'),mlId:g('mlId').toUpperCase(),linkML:g('linkML'),precioML:g('precioML')};
+    }).filter(function(p){return p.nombre||p.mlId||p.linkML})
+  };
+}
+function ncFila(p){
+  p=p||{};
+  var f=function(n,ph,w){return '<input class="inp" data-f="'+n+'" placeholder="'+ph+'" value="'+esc(p[n]||'')+'" style="width:'+w+'">'};
+  return '<tr><td>'+f('nombre','Nombre del producto','200px')+'</td><td>'+f('marca','Marca','110px')+'</td>'+
+    '<td>'+f('mlId','MLM44113911','140px')+'</td><td>'+f('linkML','https://meli.la/…','170px')+'</td>'+
+    '<td>'+f('precioML','5299','90px')+'</td>'+
+    '<td><button class="btn sm" type="button" data-del="1">Quitar</button></td></tr>';
+}
+function ncGuardar(){
+  store('nueva',ncLeer());
+  el('nc_count').textContent=document.querySelectorAll('#nc_rows tr').length+' productos capturados';
+  el('nc_saved').textContent='Borrador guardado en este navegador';
+}
+function pintarNueva(){
+  if(el('nc_rows').dataset.listo)return;
+  el('nc_rows').dataset.listo='1';
+  var g=store('nueva');
+  if(g){
+    el('nc_titulo').value=g.titulo||''; el('nc_clave').value=g.clave||''; el('nc_ruta').value=g.ruta||'';
+    el('nc_var').value=g.varName||'productos'; el('nc_nota').value=g.nota||'';
+    if(g.seccion)el('nc_seccion').value=g.seccion;
+  }
+  var prods=(g&&g.productos&&g.productos.length)?g.productos:[{},{},{}];
+  el('nc_rows').innerHTML=prods.map(ncFila).join('');
+  ncGuardar();
+}
+el('nc_add').addEventListener('click',function(){el('nc_rows').insertAdjacentHTML('beforeend',ncFila());ncGuardar()});
+el('nc_rows').addEventListener('click',function(e){
+  var b=e.target.closest('[data-del]');if(!b)return;b.closest('tr').remove();ncGuardar();
+});
+['nc_titulo','nc_clave','nc_ruta','nc_var','nc_nota','nc_seccion'].forEach(function(id){el(id).addEventListener('input',ncGuardar)});
+el('nc_rows').addEventListener('input',ncGuardar);
+el('nc_clear').addEventListener('click',function(){
+  store('nueva',null);el('nc_rows').dataset.listo='';['nc_titulo','nc_clave','nc_ruta','nc_nota'].forEach(function(id){el(id).value=''});
+  el('nc_rows').innerHTML='';pintarNueva();el('nc_out').hidden=true;toast('Borrador vacío');
+});
+el('nc_build').addEventListener('click',function(){
+  var d=ncLeer();
+  if(!d.titulo||!d.clave||!d.ruta){toast('Faltan el nombre, la clave o la ruta');return}
+  var ruta=d.ruta.replace(/^\/+/,'').replace(/\/*$/,'/');
+  var yaExiste=D.categorias.filter(function(c){return c.clave===d.clave})[0];
+  var prods=d.productos.map(function(p,i){
+    return {id:d.clave+'-'+(i+1),nombre:p.nombre,marca:p.marca||null,linkML:p.linkML||null,linkAmz:null,
+      mlId:/^MLM\d+$/.test(p.mlId)?p.mlId:null,mlIdFuente:/^MLM\d+$/.test(p.mlId)?'usuario':null,
+      precioML:p.precioML?Number(String(p.precioML).replace(/[^\d.]/g,'')):null,precioAmz:null,activo:true,especs:{}};
+  });
+  var conId=prods.filter(function(p){return p.mlId}).length;
+  var txt=
+'PAQUETE DE ALTA — CATEGORÍA NUEVA  (Centro de Control, '+new Date().toLocaleString('es-MX')+')\n'+
+'================================================================\n\n'+
+(yaExiste?'OJO: la clave "'+d.clave+'" YA existe en merged-admin.json ('+yaExiste.total+' productos). Revísala antes de aplicar.\n\n':'')+
+'Categoría: '+d.titulo+'\nSección:   '+d.seccion+'\nClave:     '+d.clave+'\nPágina:    /'+ruta+'\nArray JS:  '+d.varName+'\n'+
+'Productos: '+prods.length+' ('+conId+' con ID de catálogo, '+(prods.length-conId)+' sin ID)\n'+
+(d.nota?'Qué compara: '+d.nota+'\n':'')+
+'\n1) scripts/categorias.js — agregar a CATEGORIAS\n'+
+'----------------------------------------------------------------\n'+
+'  '+d.clave+': {\n'+
+"    titulo: '"+d.titulo.replace(/'/g,"\\'")+"', file: '"+ruta+"index.html', varName: '"+d.varName+"',\n"+
+'  },\n'+
+'\n2) scripts/merged-admin.json — agregar la clave "'+d.clave+'"\n'+
+'----------------------------------------------------------------\n'+
+JSON.stringify(prods,null,2)+'\n'+
+'\n3) Comandos, en este orden\n'+
+'----------------------------------------------------------------\n'+
+'node scripts/sync-pausas.js          # inserta el bloque /*PAUSAS*/ en la página nueva\n'+
+'node scripts/ml-update.js --categoria='+d.clave+'   # primer precio (solo los que traen mlId)\n'+
+'node scripts/generar-admin.js        # aplica el reporte a la base\n'+
+'node scripts/sync-ofertas-cta.js     # chip y banda de /ofertas/ en la página nueva\n'+
+'node scripts/sync-site.js            # encabezado, breadcrumb, "Sigue explorando" y pie\n'+
+'node scripts/sync-hub-counts.js      # número de productos en el hub\n'+
+'node scripts/generar-centro.js       # refresca este Centro de Control\n'+
+'node scripts/check-site.js           # antes de hacer push\n'+
+'\n4) Lo que falta y no puede hacer el artifact\n'+
+'----------------------------------------------------------------\n'+
+'· Crear '+ruta+'index.html con la plantilla de listado (cmx-list): filtros, comparativa,\n'+
+'  favoritos, bajadas de precio y el bloque editorial de SEO.\n'+
+'· Agregar la página a sitemap.xml y la categoría al buscador (js/categorias.js).\n'+
+(prods.length-conId>0?'· Conseguir el ID de catálogo (/p/MLM…) de los '+(prods.length-conId)+' productos que no lo traen.\n':'')+
+'· Revisar que cada link de afiliado abra SU producto antes de publicar.\n';
+  el('nc_text').value=txt;
+  el('nc_out').hidden=false;
+  el('nc_out').scrollIntoView({behavior:'smooth',block:'start'});
+  toast('Paquete listo: cópialo y pásamelo');
+});
+
+/* ───────── Guías Amazon (Centro de Productos Amazon) ───────── */
+var A=null, AV=null, aFiltro={q:'',cat:'',est:'',link:''}, aSel=null, aCola='sinAsin';
+var TAG='guiasdecomp01-20', TAGS_MUERTOS=['comparalo20-20','comparabici-20'];
+var EST_AMZ={pending:['mute','Pendiente'],in_review:['warn','En revisión'],verified:['ac','Verificado'],ready:['ok','Listo para guía'],archived:['mute','Archivado']};
+var EST_LINK={ok:['ok','Enlace con tag'],sin_link:['bad','Sin enlace'],sin_tag:['warn','Sin tag'],corto:['warn','Enlace corto'],tag_viejo:['bad','Tag muerto'],tag_ajeno:['bad','Tag ajeno'],invalido:['bad','Enlace inválido']};
+var EST_GUIA={draft:['mute','Borrador'],researching:['warn','Investigando'],ready_to_write:['ac','Lista para escribir'],published:['ok','Publicada'],archived:['mute','Archivada']};
+
+function estadoLinkAmz(url){
+  var v=String(url||'').trim(); if(!v)return 'sin_link';
+  var u; try{u=new URL(/^https?:\/\//i.test(v)?v:'https://'+v)}catch(e){return 'invalido'}
+  if(!/(amazon\.com\.mx|amzn\.to|link\.amazon\.|amazon\.com)$|^link\.amazon\./i.test(u.hostname))return 'invalido';
+  var tag=u.searchParams.get('tag');
+  if(tag&&TAGS_MUERTOS.indexOf(tag)>=0)return 'tag_viejo';
+  if(tag&&tag!==TAG)return 'tag_ajeno';
+  if(tag===TAG)return 'ok';
+  return /amzn\.to$|^link\.amazon\./i.test(u.hostname)?'corto':'sin_tag';
+}
+function asinDe(p){
+  var a=String(p.asin||'').trim().toUpperCase();
+  if(a)return a;
+  var m=/\/(?:dp|gp\/product|gp\/aw\/d)\/([A-Z0-9]{10})/i.exec(String(p.product_url||'')+' '+String(p.affiliate_url||''));
+  return m?m[1].toUpperCase():null;
+}
+/* Acepta: el archivo de scripts/exportar-amazon.mjs, una exportación de paquete
+   del Centro Amazon ({package, products}) o un arreglo de filas de amazon_products. */
+function normAmazon(raw){
+  if(raw&&raw.totales&&raw.productos)return raw;
+  var filas=Array.isArray(raw)?raw:(raw&&(raw.products||raw.productos))||[];
+  if(!filas.length)throw new Error('No encontré productos en ese JSON');
+  var productos=filas.map(function(p){
+    var a=p.attributes||{};
+    return {id:p.id||p.asin||p.name,nombre:p.name||p.nombre||'(sin nombre)',marca:p.brand||null,modelo:p.model||null,
+      asin:asinDe(p),asinDeclarado:!!String(p.asin||'').trim(),
+      categoria:p.category_name||p.categoria||'Sin categoría',catSlug:p.category_slug||null,
+      estado:p.review_status||'pending',captura:p.capture_method||null,
+      linkProducto:p.product_url||null,linkAfiliado:p.affiliate_url||null,estadoLink:estadoLinkAmz(p.affiliate_url),
+      imagen:p.image_url||null,
+      precio:(p.observations&&p.observations[0]&&Number(p.observations[0].amount))||null,
+      precioFecha:(p.observations&&p.observations[0]&&p.observations[0].observed_at)||null,
+      precioObs:(p.observations||[]).length,notas:p.internal_notes||null,
+      familia:a.family||null,anio:a.model_year||null,condicion:a.condition||null,vendedor:a.seller||null,garantia:a.warranty||null,
+      rating:(a.mobile&&a.mobile.rating)||(a.laptop&&a.laptop.rating)||null,
+      resenas:(a.mobile&&a.mobile.review_count)||(a.laptop&&a.laptop.review_count)||null,
+      mobile:(a.mobile&&Object.keys(a.mobile).length)?a.mobile:null,
+      laptop:(a.laptop&&Object.keys(a.laptop).length)?a.laptop:null,
+      atributos:a,creado:p.created_at||null,actualizado:p.updated_at||null};
+  });
+  var c=function(f){return productos.filter(f).length};
+  var g=raw&&raw.package?[{id:raw.package.id,titulo:raw.package.title,categoria:raw.package.category_name||'—',
+    tema:raw.package.topic||null,estado:raw.package.status||'draft',instrucciones:raw.package.editorial_instructions||null,
+    productos:productos.map(function(p){return {id:p.id,nombre:p.nombre,asin:p.asin,estado:p.estado,estadoLink:p.estadoLink,precio:p.precio,nota:null}}),
+    listos:c(function(p){return p.estado==='ready'&&p.estadoLink==='ok'}),
+    bloqueados:c(function(p){return p.estadoLink!=='ok'||!p.asin})}]:[];
+  return aResumir(productos,g,{generado:(raw&&raw.exported_at)||null,parcial:true});
+}
+/* Cuenta y agrupa un conjunto de productos: lo usa el JSON importado y también
+   la mezcla con lo que se capturó en el módulo Captura Amazon. */
+function aResumir(productos,guias,meta){
+  var vistos={};
+  productos.forEach(function(p){if(p.asin)vistos[p.asin]=(vistos[p.asin]||0)+1});
+  productos.forEach(function(p){p.asinDuplicado=!!(p.asin&&vistos[p.asin]>1)});
+  var c=function(f){return productos.filter(f).length};
+  var cats={};
+  productos.forEach(function(p){(cats[p.categoria]=cats[p.categoria]||[]).push(p)});
+  return {
+    generado:(meta&&meta.generado)||new Date().toISOString(),
+    parcial:!!(meta&&meta.parcial),
+    capturados:c(function(p){return p.capturado}),
+    totales:{productos:productos.length,categorias:Object.keys(cats).length,categoriasTotales:Object.keys(cats).length,
+      pending:c(function(p){return p.estado==='pending'}),in_review:c(function(p){return p.estado==='in_review'}),
+      verified:c(function(p){return p.estado==='verified'}),ready:c(function(p){return p.estado==='ready'}),
+      archived:c(function(p){return p.estado==='archived'}),
+      sinAsin:c(function(p){return !p.asin}),asinDuplicado:c(function(p){return p.asinDuplicado}),
+      sinLink:c(function(p){return p.estadoLink==='sin_link'}),
+      linkSinTag:c(function(p){return p.estadoLink==='sin_tag'||p.estadoLink==='corto'}),
+      linkTagViejo:c(function(p){return p.estadoLink==='tag_viejo'||p.estadoLink==='tag_ajeno'}),
+      linkInvalido:c(function(p){return p.estadoLink==='invalido'}),
+      linkOk:c(function(p){return p.estadoLink==='ok'}),
+      conPrecio:c(function(p){return p.precio!=null}),
+      observaciones:productos.reduce(function(a,p){return a+(p.precioObs||0)},0),
+      guias:guias.length,guiasPublicadas:guias.filter(function(g){return g.estado==='published'}).length},
+    categorias:Object.keys(cats).map(function(k){var l=cats[k];return {slug:k,nombre:k,total:l.length,
+      listos:l.filter(function(p){return p.estado==='ready'}).length,
+      pendientes:l.filter(function(p){return p.estado==='pending'}).length,
+      sinLink:l.filter(function(p){return p.estadoLink==='sin_link'}).length,
+      sinAsin:l.filter(function(p){return !p.asin}).length,
+      conPrecio:l.filter(function(p){return p.precio!=null}).length}}).sort(function(a,b){return b.total-a.total}),
+    guias:guias, productos:productos
+  };
+}
+/* Inventario que ve el módulo Guías: lo importado de Supabase + lo capturado aquí. */
+function aCombinado(){
+  var caps=(typeof capturaNorm==='function')?capturaNorm():[];
+  if(!A&&!caps.length)return null;
+  var base=A?A.productos.slice():[];
+  var ids={}; base.forEach(function(p){ids[String(p.id)]=1});
+  var prods=base.concat(caps.filter(function(p){return !ids[String(p.id)]}));
+  return aResumir(prods,(A&&A.guias)||[],{generado:A&&A.generado,parcial:(A?A.parcial:true)||caps.length>0});
+}
+var A_CMD1='node scripts/exportar-amazon.mjs --env="C:\\Users\\alanc\\OneDrive\\Documentos\\GitHub\\compara.mx\\.env.local"';
+function guiasVacio(err){
+  return '<div class="sec"><div class="split">'+
+  '<div class="card"><div class="hd"><h3>Conectar el Centro de Productos Amazon</h3></div><div class="bd stack">'+
+    '<p style="margin:0">Tu inventario de Amazon vive en Supabase (tablas <code>amazon_products</code>, <code>amazon_categories</code>, <code>amazon_product_observations</code>, <code>amazon_guide_packages</code>), detrás de RLS y de una clave privilegiada que solo existe en tu máquina. Un artifact corre en el navegador y no puede pedirle datos a otro servidor, así que la copia se saca desde tu PC y se publica junto a esta página.</p>'+
+    '<div class="stack"><div class="sm" style="font-weight:600;color:var(--fg)">1. Saca la copia (solo lee, no escribe nada en Supabase)</div>'+
+    '<div class="row"><pre class="pre" style="flex:1">'+esc(A_CMD1)+'</pre><button class="btn sm copy" data-copy="'+esc(A_CMD1)+'" type="button">Copiar</button></div>'+
+    '<div class="sm">Escribe <code>scripts/amazon-datos.json</code>. Si corres el comando desde la copia del repo que ya tiene <code>.env.local</code>, basta <code>node scripts/exportar-amazon.mjs</code>.</div>'+
+    '<div class="sm" style="font-weight:600;color:var(--fg)">2. Avísame y republico el Centro con ese archivo al lado</div>'+
+    '<div class="sm">A partir de ahí este módulo se llena solo cada vez que repitas el paso 1.</div></div>'+
+  '</div></div>'+
+  '<div class="card"><div class="hd"><h3>O carga un JSON ahora</h3></div><div class="bd stack">'+
+    '<p class="sm" style="margin:0">Sirve el archivo del paso 1, la exportación de un paquete del Centro Amazon o cualquier arreglo de productos. Se queda en este navegador, no se sube a ningún lado.</p>'+
+    '<div class="row"><input type="file" id="aFile" accept=".json,application/json" class="inp"></div>'+
+    '<label class="f">o pega el JSON<textarea id="aPaste" rows="5" placeholder=\'{"products":[…]}\'></textarea></label>'+
+    '<div class="row"><button class="btn pri" id="aLoad" type="button">Cargar</button>'+
+      (err?'<span class="chip bad">'+esc(err)+'</span>':'')+'</div>'+
+  '</div></div>'+
+  '</div></div>'+
+  '<div class="sec"><div class="alert warn"><div><b>Qué hará este módulo cuando tenga datos</b>'+
+    '<p>Inventario con filtros por categoría, estado y enlace; ficha completa con los atributos de celulares y laptops; cola de lo que falta (sin ASIN, sin enlace de afiliado, tag equivocado, ASIN repetido); paquetes de guía con sus productos; y un brief copiable para que yo escriba la guía con la skill <code>crear-guia-ofertas</code>.</p></div></div></div>';
+}
+function specTabla(o,titulo){
+  var ks=Object.keys(o||{}).filter(function(k){return o[k]!==null&&o[k]!==''&&o[k]!==undefined});
+  if(!ks.length)return '';
+  return '<div class="stack"><div class="sm" style="font-weight:600;color:var(--fg)">'+esc(titulo)+'</div><dl class="kv">'+
+    ks.map(function(k){return '<dt>'+esc(k.replace(/_/g,' '))+'</dt><dd>'+esc(o[k])+'</dd>'}).join('')+'</dl></div>';
+}
+function aFichaHTML(p){
+  var e=EST_AMZ[p.estado]||['mute',p.estado], l=EST_LINK[p.estadoLink]||['mute',p.estadoLink];
+  return '<div class="hd"><h3>'+esc(p.nombre)+'</h3></div><div class="bd stack">'+
+    '<div class="row"><span class="chip '+e[0]+'">'+esc(e[1])+'</span><span class="chip '+l[0]+'">'+esc(l[1])+'</span>'+
+      (p.asinDuplicado?'<span class="chip bad">ASIN repetido</span>':'')+
+      (!p.asin?'<span class="chip bad">Sin ASIN</span>':'')+'</div>'+
+    '<dl class="kv">'+
+      '<dt>Marca</dt><dd>'+esc(p.marca||'—')+'</dd>'+
+      '<dt>Modelo</dt><dd>'+esc(p.modelo||'—')+'</dd>'+
+      '<dt>ASIN</dt><dd>'+(p.asin?esc(p.asin)+(p.asinDeclarado?'':' <span class="sm">(sacado del enlace)</span>'):'—')+'</dd>'+
+      '<dt>Categoría</dt><dd>'+esc(p.categoria)+'</dd>'+
+      '<dt>Captura</dt><dd>'+esc(p.captura||'—')+'</dd>'+
+      '<dt>Precio observado</dt><dd>'+(p.precio!=null?money(p.precio)+' <span class="sm">el '+fecha(p.precioFecha)+' · dato interno, no se publica</span>':'—')+'</dd>'+
+      (p.rating?'<dt>Calificación</dt><dd>'+esc(p.rating)+(p.resenas?' · '+esc(p.resenas)+' reseñas':'')+'</dd>':'')+
+      (p.vendedor?'<dt>Vendedor</dt><dd>'+esc(p.vendedor)+'</dd>':'')+
+      (p.garantia?'<dt>Garantía</dt><dd>'+esc(p.garantia)+'</dd>':'')+
+      (p.condicion?'<dt>Condición</dt><dd>'+esc(p.condicion)+'</dd>':'')+
+      (p.notas?'<dt>Notas</dt><dd>'+esc(p.notas)+'</dd>':'')+
+    '</dl>'+
+    '<div class="row">'+
+      (p.asin?'<a class="btn sm" href="https://www.amazon.com.mx/dp/'+esc(p.asin)+'?tag='+TAG+'" target="_blank" rel="noopener">Abrir con tu tag ↗</a>':'')+
+      (p.linkAfiliado?'<a class="btn sm" href="'+esc(p.linkAfiliado)+'" target="_blank" rel="noopener">Enlace guardado ↗</a>':'')+
+    '</div>'+
+    (p.asin?'<div class="row"><pre class="pre" style="flex:1">https://www.amazon.com.mx/dp/'+esc(p.asin)+'?tag='+TAG+'</pre>'+
+      '<button class="btn sm copy" data-copy="https://www.amazon.com.mx/dp/'+esc(p.asin)+'?tag='+TAG+'" type="button">Copiar</button></div>':'')+
+    (p.fichas&&p.fichas.length?p.fichas.map(function(f){return specTabla(f[1],f[0])}).join(''):
+      specTabla(p.mobile,'Ficha de celular')+specTabla(p.laptop,'Ficha de laptop'))+
+  '</div>';
+}
+var A_COLAS=[['sinAsin','Sin ASIN','bad',function(p){return !p.asin}],
+  ['sinLink','Sin enlace de afiliado','bad',function(p){return p.estadoLink==='sin_link'}],
+  ['tag','Enlace sin tu tag','warn',function(p){return ['sin_tag','corto','tag_viejo','tag_ajeno','invalido'].indexOf(p.estadoLink)>=0}],
+  ['dup','ASIN repetido','warn',function(p){return p.asinDuplicado}],
+  ['listos','Listos para guía','ok',function(p){return p.estado==='ready'}]];
+function pintarGuias(){
+  var v=el('v-guias');
+  AV=aCombinado();
+  if(!AV){v.innerHTML=guiasVacio(A&&A.error);aEnganches(v);return}
+  var t=AV.totales;
+  v.innerHTML=
+  '<div class="sec"><div class="kpis">'+[
+    kpi({lab:'Productos investigados',val:fmt(t.productos),fine:t.categorias+' categorías · '+fmt(t.observaciones)+' observaciones de precio'}),
+    kpi({lab:'Listos para guía',val:fmt(t.ready),fine:fmt(t.verified)+' verificados · '+fmt(t.in_review)+' en revisión',tono:'ok'}),
+    kpi({lab:'Pendientes',val:fmt(t.pending),fine:'recién capturados, sin revisar',tono:'warn'}),
+    kpi({lab:'Sin ASIN',val:fmt(t.sinAsin),fine:fmt(t.asinDuplicado)+' ASIN repetidos',tono:t.sinAsin?'bad':'ok'}),
+    kpi({lab:'Enlaces con tu tag',val:fmt(t.linkOk),fine:fmt(t.sinLink)+' sin enlace · '+fmt(t.linkSinTag+t.linkTagViejo+t.linkInvalido)+' por corregir',tono:t.linkOk===t.productos?'ok':'warn'}),
+    kpi({lab:'Paquetes de guía',val:fmt(t.guias),fine:fmt(t.guiasPublicadas)+' publicadas'})
+  ].join('')+'</div></div>'+
+  (AV.capturados?'<div class="sec"><div class="alert ok"><div><b>'+fmt(AV.capturados)+' de estos los capturaste en el Centro</b><p>Se guardan en este navegador. Expórtalos desde <b>Captura Amazon</b> para respaldarlos y para cargarlos en Supabase.</p></div></div></div>':'')+
+  (AV.parcial&&!A?'':(A&&A.parcial?'<div class="sec"><div class="alert warn"><div><b>Datos cargados a mano</b><p>El inventario importado viene de un JSON que cargaste en el navegador, no de la copia completa de Supabase. Corre el exportador para ver todo.</p></div></div></div>':''))+
+  '<div class="sec"><div class="sech"><h2>Qué falta para publicar</h2><span class="note">Lo que impide usar un producto en una guía</span></div>'+
+    '<div class="row" id="aColas" style="margin-bottom:10px"></div>'+
+    '<div class="tbl-wrap"><table><thead><tr><th>Producto</th><th>Categoría</th><th>ASIN</th><th>Enlace</th><th>Estado</th></tr></thead><tbody id="aColaRows"></tbody></table></div>'+
+  '</div>'+
+  '<div class="sec"><div class="sech"><h2>Inventario</h2><span class="note" id="aCount"></span></div>'+
+    '<div class="row" style="margin-bottom:10px">'+
+      '<input class="inp" id="aq" type="search" placeholder="Nombre, marca, modelo o ASIN…" style="flex:1;min-width:180px" value="'+esc(aFiltro.q)+'">'+
+      '<select class="inp" id="acat"><option value="">Todas las categorías</option>'+AV.categorias.map(function(c){
+        return '<option value="'+esc(c.nombre)+'"'+(aFiltro.cat===c.nombre?' selected':'')+'>'+esc(c.nombre)+' ('+c.total+')</option>'}).join('')+'</select>'+
+      '<select class="inp" id="aest"><option value="">Todos los estados</option>'+Object.keys(EST_AMZ).map(function(k){
+        return '<option value="'+k+'"'+(aFiltro.est===k?' selected':'')+'>'+esc(EST_AMZ[k][1])+'</option>'}).join('')+'</select>'+
+      '<select class="inp" id="alink"><option value="">Cualquier enlace</option>'+Object.keys(EST_LINK).map(function(k){
+        return '<option value="'+k+'"'+(aFiltro.link===k?' selected':'')+'>'+esc(EST_LINK[k][1])+'</option>'}).join('')+'</select>'+
+    '</div>'+
+    '<div class="split"><div class="tbl-wrap"><table><thead><tr><th>Producto</th><th>Categoría</th><th class="num">Precio obs.</th><th>Estado</th><th>Enlace</th></tr></thead><tbody id="aRows"></tbody></table></div>'+
+      '<div class="card" id="aDetail"><div class="bd"><div class="empty">Elige un producto para ver su ficha completa, sus atributos y su enlace con tu tag.</div></div></div></div>'+
+  '</div>'+
+  '<div class="sec"><div class="sech"><h2>Paquetes de guía</h2><span class="note">De <code>amazon_guide_packages</code></span></div><div class="stack" id="aGuias"></div></div>'+
+  '<div class="sec"><div class="card"><div class="hd"><h3>Reglas que toda guía nueva cumple</h3></div><div class="bd"><ol class="steps">'+
+    '<li><div><b>Tag <code>'+TAG+'</code> en todos los enlaces</b><div class="sm">Es el StoreID vigente. <code>comparalo20-20</code> y <code>comparabici-20</code> ya no pagan comisión y <code>check-site.js</code> los marca como error.</div></div></li>'+
+    '<li><div><b>Sin precios de Amazon escritos a mano</b><div class="sm">Los precios de este módulo son observaciones internas e históricas. En la guía va el precio que muestra Amazon al abrir el enlace, no una cifra fija.</div></div></li>'+
+    '<li><div><b>Divulgación de afiliados visible</b><div class="sm">La skill <code>crear-guia-ofertas</code> la inserta y agrega la tarjeta arriba del sub-hub de <code>/guias-compra/</code>.</div></div></li>'+
+  '</ol></div></div></div>';
+  aEnganches(v); aPintarColas(); aPintarTabla(); aPintarGuias();
+}
+function aEnganches(v){
+  var f=el('aFile'), pz=el('aLoad');
+  if(f)f.addEventListener('change',function(){
+    var file=this.files&&this.files[0]; if(!file)return;
+    var r=new FileReader();
+    r.onload=function(){aCargar(r.result)};
+    r.readAsText(file);
+  });
+  if(pz)pz.addEventListener('click',function(){var t=el('aPaste').value.trim();if(!t){toast('Pega el JSON o elige un archivo');return}aCargar(t)});
+  ['aq','acat','aest','alink'].forEach(function(id){
+    var e=el(id); if(e)e.addEventListener('input',function(){
+      aFiltro={q:el('aq').value,cat:el('acat').value,est:el('aest').value,link:el('alink').value};aPintarTabla();
+    });
+  });
+  var cs=el('aColas'); if(cs)cs.addEventListener('click',function(e){
+    var b=e.target.closest('[data-cola]'); if(!b)return; aCola=b.getAttribute('data-cola'); aPintarColas();
+  });
+  var rows=el('aRows'); if(rows)rows.addEventListener('click',function(e){
+    var tr=e.target.closest('tr[data-id]'); if(!tr)return;
+    var p=(AV?AV.productos:[]).filter(function(x){return String(x.id)===tr.getAttribute('data-id')})[0];
+    if(p){aSel=p;el('aDetail').innerHTML=aFichaHTML(p)}
+  });
+  var g=el('aGuias'); if(g)g.addEventListener('click',function(e){
+    var b=e.target.closest('[data-brief]'); if(!b)return; aBrief(b.getAttribute('data-brief'));
+  });
+}
+function aCargar(txt){
+  try{
+    var j=JSON.parse(txt);
+    A=normAmazon(j);
+    store('amazon',A);
+    toast('Cargados '+A.totales.productos+' productos');
+    pintarGuias();
+  }catch(e){
+    A=null; el('v-guias').innerHTML=guiasVacio(e.message); aEnganches(el('v-guias'));
+  }
+}
+function aFiltrados(){
+  var q=(aFiltro.q||'').trim().toLowerCase();
+  return AV.productos.filter(function(p){
+    if(aFiltro.cat&&p.categoria!==aFiltro.cat)return false;
+    if(aFiltro.est&&p.estado!==aFiltro.est)return false;
+    if(aFiltro.link&&p.estadoLink!==aFiltro.link)return false;
+    if(q&&((p.nombre+' '+(p.marca||'')+' '+(p.modelo||'')+' '+(p.asin||'')).toLowerCase().indexOf(q)<0))return false;
+    return true;
+  });
+}
+function aFilaHTML(p){
+  var e=EST_AMZ[p.estado]||['mute',p.estado], l=EST_LINK[p.estadoLink]||['mute',p.estadoLink];
+  return '<tr data-id="'+esc(p.id)+'"><td><span class="nm">'+esc(p.nombre)+'</span><span class="sm">'+
+    esc(p.marca||'—')+(p.asin?' · '+esc(p.asin):' · <b>sin ASIN</b>')+'</span></td>'+
+    '<td class="sm">'+esc(p.categoria)+'</td>'+
+    '<td class="num">'+(p.precio!=null?money(p.precio):'—')+'</td>'+
+    '<td><span class="chip '+e[0]+'">'+esc(e[1])+'</span>'+(p.capturado?' <span class="chip ac">capturado</span>':'')+'</td>'+
+    '<td><span class="chip '+l[0]+'">'+esc(l[1])+'</span>'+(p.asinDuplicado?' <span class="chip warn">dup</span>':'')+'</td></tr>';
+}
+function aPintarTabla(){
+  var lista=aFiltrados();
+  el('aCount').textContent=fmt(lista.length)+' de '+fmt(AV.productos.length)+' productos';
+  el('aRows').innerHTML=lista.length?lista.slice(0,300).map(aFilaHTML).join(''):
+    '<tr><td colspan="5"><div class="empty">Nada coincide con esos filtros.</div></td></tr>';
+}
+function aPintarColas(){
+  el('aColas').innerHTML=A_COLAS.map(function(c){
+    var n=AV.productos.filter(c[3]).length;
+    return '<button class="btn sm" type="button" data-cola="'+c[0]+'"'+(aCola===c[0]?' style="border-color:var(--ac);color:var(--ac)"':'')+'>'+
+      esc(c[1])+' <span class="chip '+c[2]+'">'+n+'</span></button>';
+  }).join('');
+  var def=A_COLAS.filter(function(c){return c[0]===aCola})[0]||A_COLAS[0];
+  var lista=AV.productos.filter(def[3]).slice(0,200);
+  el('aColaRows').innerHTML=lista.length?lista.map(function(p){
+    var l=EST_LINK[p.estadoLink]||['mute',p.estadoLink], e=EST_AMZ[p.estado]||['mute',p.estado];
+    return '<tr><td><span class="nm">'+esc(p.nombre)+'</span><span class="sm">'+esc(p.marca||'—')+'</span></td>'+
+      '<td class="sm">'+esc(p.categoria)+'</td>'+
+      '<td>'+(p.asin?'<code>'+esc(p.asin)+'</code>'+(p.asinDuplicado?' <span class="chip warn">dup</span>':''):'<span class="chip bad">falta</span>')+'</td>'+
+      '<td><span class="chip '+l[0]+'">'+esc(l[1])+'</span></td>'+
+      '<td><span class="chip '+e[0]+'">'+esc(e[1])+'</span></td></tr>';
+  }).join(''):'<tr><td colspan="5"><div class="empty">Esta cola está vacía.</div></td></tr>';
+}
+function aPintarGuias(){
+  var box=el('aGuias');
+  if(!AV.guias.length){box.innerHTML='<div class="card"><div class="bd"><div class="empty">Todavía no hay paquetes de guía. Se crean en el Centro de Productos Amazon, pestaña Paquetes.</div></div></div>';return}
+  box.innerHTML=AV.guias.map(function(g){
+    var e=EST_GUIA[g.estado]||['mute',g.estado];
+    return '<div class="card"><div class="hd"><h3>'+esc(g.titulo)+'</h3><span class="chip '+e[0]+'">'+esc(e[1])+'</span>'+
+      '<span class="note">'+esc(g.categoria)+' · '+g.productos.length+' productos</span>'+
+      '<button class="btn sm" type="button" data-brief="'+esc(g.id)+'" style="margin-left:auto">Copiar brief</button></div>'+
+      '<div class="bd stack">'+
+      (g.tema?'<p class="sm" style="margin:0"><b>Tema:</b> '+esc(g.tema)+'</p>':'')+
+      '<div class="row"><span class="chip ok">'+g.listos+' listos</span>'+(g.bloqueados?'<span class="chip bad">'+g.bloqueados+' bloqueados</span>':'')+'</div>'+
+      '<div class="tbl-wrap"><table><thead><tr><th>Producto</th><th>ASIN</th><th>Enlace</th><th>Estado</th></tr></thead><tbody>'+
+        g.productos.map(function(p){
+          var l=EST_LINK[p.estadoLink]||['mute',p.estadoLink], s=EST_AMZ[p.estado]||['mute',p.estado];
+          return '<tr><td>'+esc(p.nombre)+'</td><td>'+(p.asin?'<code>'+esc(p.asin)+'</code>':'<span class="chip bad">falta</span>')+'</td>'+
+            '<td><span class="chip '+l[0]+'">'+esc(l[1])+'</span></td><td><span class="chip '+s[0]+'">'+esc(s[1])+'</span></td></tr>';
+        }).join('')+'</tbody></table></div></div></div>';
+  }).join('');
+}
+function aBrief(id){
+  var g=AV.guias.filter(function(x){return String(x.id)===String(id)})[0]; if(!g)return;
+  var full=g.productos.map(function(x){return AV.productos.filter(function(p){return p.id===x.id})[0]||x});
+  var t='BRIEF DE GUÍA AMAZON — '+g.titulo+'\n'+
+  '================================================================\n'+
+  'Categoría: '+g.categoria+'\nEstado: '+g.estado+'\n'+(g.tema?'Tema: '+g.tema+'\n':'')+
+  (g.instrucciones?'Instrucciones editoriales: '+g.instrucciones+'\n':'')+
+  'Productos: '+full.length+' ('+g.listos+' listos, '+g.bloqueados+' bloqueados)\n\n'+
+  full.map(function(p,i){
+    return (i+1)+'. '+p.nombre+'\n'+
+    '   marca: '+(p.marca||'—')+'   modelo: '+(p.modelo||'—')+'\n'+
+    '   ASIN: '+(p.asin||'FALTA')+'\n'+
+    '   enlace: '+(p.asin?'https://www.amazon.com.mx/dp/'+p.asin+'?tag='+TAG:(p.linkAfiliado||'FALTA'))+
+      '   ['+((EST_LINK[p.estadoLink]||[])[1]||p.estadoLink)+']\n'+
+    '   estado: '+((EST_AMZ[p.estado]||[])[1]||p.estado)+
+      (p.precio!=null?'   precio observado: $'+p.precio+' el '+fecha(p.precioFecha)+' (interno, no publicar)':'')+'\n'+
+    (p.mobile?'   celular: '+JSON.stringify(p.mobile)+'\n':'')+
+    (p.laptop?'   laptop: '+JSON.stringify(p.laptop)+'\n':'');
+  }).join('\n')+
+  '\nReglas: tag '+TAG+' en todos los enlaces · sin precios de Amazon escritos a mano\n'+
+  '(los de arriba son observaciones internas) · divulgación de afiliados visible ·\n'+
+  'la guía se arma con la skill crear-guia-ofertas y la tarjeta va arriba del sub-hub de /guias-compra/.\n';
+  copiar(t);
+}
+
+/* ───────── Captura Amazon: perfil de producto por categoría ───────── */
+/* Aquí se captura todo lo que va a una guía: enlace de afiliado, imagen y las
+   características del producto. Cada categoría tiene su propia ficha (una
+   freidora no se describe con los mismos campos que un celular), y el texto
+   que se pega de Amazon se reparte solo en esos campos. Lo capturado vive en
+   este navegador y se exporta como JSON: el artifact no puede escribir en
+   Supabase ni en el repo. */
+
+var CAMPOS_GEN=[
+  {k:'color',lab:'Color',pistas:['color']},
+  {k:'condicion',lab:'Condición',pistas:['condicion','estado del producto'],opc:{'Nuevo':['nuevo'],'Reacondicionado':['reacondicionado','renewed','refurbished']}},
+  {k:'garantia',lab:'Garantía',pistas:['garantia','warranty']},
+  {k:'vendedor',lab:'Vendedor',pistas:['vendido por','vendedor','seller','sold by']},
+  {k:'peso',lab:'Peso',pistas:['peso','peso del producto','item weight'],rx:['(\\d+(?:[.,]\\d+)?)\\s*(kg|kilogramos|kilos|g|gramos|lb|libras)\\b']},
+  {k:'dimensiones',lab:'Dimensiones',pistas:['dimensiones','medidas','dimensions','dimensiones del producto']},
+  {k:'incluye',lab:'Qué incluye',pistas:['incluye','contenido de la caja','en la caja','accesorios incluidos']}
+];
+
+/* marca y modelo viven en el formulario, pero también se detectan del texto */
+var CAMPOS_ID=[
+  {k:'marca',lab:'Marca',pistas:['marca','fabricante','brand']},
+  {k:'modelo',lab:'Modelo',pistas:['modelo','numero de modelo','numero de pieza','model']}
+];
+
+var ESQUEMAS={
+  celular:{titulo:'Ficha de celular',ficha:'mobile',campos:[
+    {k:'pantalla',lab:'Pantalla',u:'"',pistas:['pantalla','tamano de pantalla','tamaño de pantalla','display'],rx:['(\\d{1,2}(?:[.,]\\d)?)\\s*(?:pulgadas|")']},
+    {k:'tipo_pantalla',lab:'Tipo de pantalla',pistas:['tipo de pantalla','tecnologia de pantalla'],opc:{'AMOLED':['amoled','super amoled'],'OLED':['oled'],'IPS LCD':['ips'],'LCD':['lcd']}},
+    {k:'resolucion',lab:'Resolución',pistas:['resolucion','resolucion de pantalla'],rx:['(\\d{3,4}\\s*[x×]\\s*\\d{3,4})']},
+    {k:'tasa_refresco',lab:'Tasa de refresco',u:'Hz',pistas:['tasa de refresco','frecuencia de actualizacion','refresh rate'],rx:['(\\d{2,3})\\s*hz']},
+    {k:'procesador',lab:'Procesador',pistas:['procesador','chipset','cpu','marca del procesador']},
+    {k:'ram',lab:'RAM',u:'GB',pistas:['ram','memoria ram'],rx:['(\\d{1,2})\\s*gb\\s*(?:de\\s*)?ram','ram\\s*(?:de\\s*)?(\\d{1,2})\\s*gb']},
+    {k:'almacenamiento',lab:'Almacenamiento',u:'GB',pistas:['almacenamiento','memoria interna','capacidad de almacenamiento'],rx:['(\\d{2,4})\\s*gb\\s*(?:de\\s*)?(?:almacenamiento|interna|rom)','(\\d)\\s*tb']},
+    {k:'bateria',lab:'Batería',u:'mAh',pistas:['bateria','capacidad de la bateria'],rx:['(\\d{4,5})\\s*mah']},
+    {k:'carga',lab:'Carga rápida',u:'W',pistas:['carga rapida','potencia de carga','cargador'],rx:['(\\d{2,3})\\s*w\\b']},
+    {k:'camara',lab:'Cámara principal',u:'MP',pistas:['camara','camara principal','camara trasera','resolucion de la camara'],rx:['(\\d{2,3})\\s*mp']},
+    {k:'camara_frontal',lab:'Cámara frontal',u:'MP',pistas:['camara frontal','selfie'],rx:['frontal\\D{0,12}(\\d{1,3})\\s*mp']},
+    {k:'red',lab:'Red',pistas:['red','tecnologia celular','conectividad celular'],opc:{'5G':['5g'],'4G LTE':['4g','lte']}},
+    {k:'sistema',lab:'Sistema',pistas:['sistema operativo','so'],opc:{'Android':['android'],'iOS':['ios']}},
+    {k:'resistencia',lab:'Resistencia',pistas:['resistencia al agua','certificacion ip','proteccion'],rx:['(ip\\s?6[78])']},
+    {k:'extras',lab:'Extras',pistas:['caracteristicas especiales','otras caracteristicas','nfc','lector de huellas']}
+  ]},
+  laptop:{titulo:'Ficha de laptop',ficha:'laptop',campos:[
+    {k:'pantalla',lab:'Pantalla',u:'"',pistas:['pantalla','tamano de pantalla','tamaño de pantalla'],rx:['(\\d{2}(?:[.,]\\d)?)\\s*(?:pulgadas|")']},
+    {k:'resolucion',lab:'Resolución',pistas:['resolucion','resolucion de pantalla'],rx:['(\\d{3,4}\\s*[x×]\\s*\\d{3,4})'],opc:{'Full HD':['full hd','fhd','1920 x 1080'],'HD':['hd ready','1366 x 768'],'2K':['2k','qhd'],'4K':['4k','uhd']}},
+    {k:'procesador',lab:'Procesador',pistas:['procesador','cpu','marca del procesador','tipo de procesador']},
+    {k:'ram',lab:'RAM',u:'GB',pistas:['ram','memoria ram','tamano de la memoria ram'],rx:['(\\d{1,2})\\s*gb\\s*(?:de\\s*)?(?:ram|ddr)']},
+    {k:'almacenamiento',lab:'Almacenamiento',pistas:['almacenamiento','disco duro','capacidad del disco','tamano del disco duro'],rx:['(\\d{3,4}\\s*gb|\\d\\s*tb)']},
+    {k:'tipo_almacenamiento',lab:'Tipo de disco',pistas:['tipo de disco duro','tecnologia del disco'],opc:{'SSD':['ssd','estado solido','nvme'],'eMMC':['emmc'],'HDD':['hdd','mecanico']}},
+    {k:'grafica',lab:'Gráficos',pistas:['tarjeta grafica','coprocesador grafico','gpu','graficos']},
+    {k:'sistema',lab:'Sistema',pistas:['sistema operativo'],opc:{'Windows 11':['windows 11','win 11'],'Windows 11 S':['modo s'],'ChromeOS':['chrome os','chromeos'],'macOS':['macos','mac os'],'Sin sistema':['freedos','sin sistema']}},
+    {k:'bateria',lab:'Batería',pistas:['bateria','duracion de la bateria','autonomia'],rx:['(\\d{1,2})\\s*horas','(\\d{2,3})\\s*wh']},
+    {k:'puertos',lab:'Puertos',pistas:['puertos','conectividad','interfaz de hardware','tipo de conector']},
+    {k:'teclado',lab:'Teclado',pistas:['teclado','idioma del teclado','retroiluminado']},
+    {k:'pantalla_tactil',lab:'Pantalla táctil',pistas:['pantalla tactil','touch'],opc:{'Sí':['tactil','touchscreen'],'No':['no tactil']}}
+  ]},
+  freidora:{titulo:'Ficha de freidora de aire',ficha:'freidora',campos:[
+    {k:'litros',lab:'Capacidad',u:'L',pistas:['capacidad','litros','litraje','capacidad del contenedor'],rx:['(\\d{1,2}(?:[.,]\\d)?)\\s*(?:l|lt|lts|litros)\\b','(\\d{1,2}(?:[.,]\\d)?)\\s*cuartos']},
+    {k:'potencia',lab:'Potencia',u:'W',pistas:['potencia','vataje','watts'],rx:['(\\d{3,4})\\s*(?:w|watts|vatios)\\b']},
+    {k:'tipo',lab:'Tipo',pistas:['tipo','estilo','forma'],opc:{'Canasta':['canasta','cesta'],'Canasta doble':['doble canasta','dos canastas','dual'],'Tipo horno':['horno','oven'],'Con ventana':['ventana','visor']}},
+    {k:'programas',lab:'Programas',pistas:['programas','funciones preestablecidas','presets','menus'],rx:['(\\d{1,2})\\s*(?:programas|funciones|presets|menus)']},
+    {k:'temperatura',lab:'Rango de temperatura',pistas:['temperatura','rango de temperatura'],rx:['(\\d{2,3}\\s*(?:a|-|–)\\s*\\d{2,3}\\s*°?\\s*[cf])']},
+    {k:'temporizador',lab:'Temporizador',u:'min',pistas:['temporizador','timer'],rx:['(\\d{1,3})\\s*minutos']},
+    {k:'control',lab:'Control',pistas:['control','panel','pantalla'],opc:{'Digital táctil':['digital','tactil','touch','led'],'Perilla':['perilla','manual','analogico']}},
+    {k:'material_canasta',lab:'Material de la canasta',pistas:['material','material de la canasta','antiadherente'],opc:{'Antiadherente':['antiadherente','teflon'],'Acero inoxidable':['acero inoxidable','inoxidable'],'Cerámica':['ceramica']}},
+    {k:'lavavajillas',lab:'Apta para lavavajillas',pistas:['lavavajillas','lavaplatos','dishwasher'],opc:{'Sí':['apta para lavavajillas','lavavajillas','lavaplatos'],'No':['no apta']}},
+    {k:'raciones',lab:'Para cuántas personas',pistas:['personas','raciones','porciones'],rx:['(\\d{1,2})\\s*(?:personas|porciones)']}
+  ]},
+  microondas:{titulo:'Ficha de microondas',ficha:'microondas',campos:[
+    {k:'litros',lab:'Capacidad',u:'L',pistas:['capacidad','litros','capacidad interior'],rx:['(\\d{1,2}(?:[.,]\\d)?)\\s*(?:l|lt|litros|pies)']},
+    {k:'potencia',lab:'Potencia',u:'W',pistas:['potencia','vataje','watts'],rx:['(\\d{3,4})\\s*(?:w|watts|vatios)\\b']},
+    {k:'niveles',lab:'Niveles de potencia',pistas:['niveles de potencia','niveles'],rx:['(\\d{1,2})\\s*niveles']},
+    {k:'tipo',lab:'Tipo',pistas:['tipo','funciones'],opc:{'Con grill':['grill','parrilla'],'Con convección':['conveccion'],'Convencional':['convencional','basico']}},
+    {k:'programas',lab:'Programas automáticos',pistas:['programas','menus automaticos','funciones preestablecidas'],rx:['(\\d{1,2})\\s*(?:programas|menus)']},
+    {k:'plato',lab:'Plato giratorio',u:'cm',pistas:['plato giratorio','plato','diametro del plato'],rx:['(\\d{2})\\s*cm']},
+    {k:'control',lab:'Control',pistas:['control','panel'],opc:{'Digital':['digital','tactil','electronico'],'Perilla':['perilla','mecanico','manual']}},
+    {k:'descongelado',lab:'Descongelado',pistas:['descongelar','descongelado','defrost'],opc:{'Por peso':['por peso'],'Automático':['automatico'],'Sí':['descongelar','defrost']}},
+    {k:'medidas_exteriores',lab:'Medidas exteriores',pistas:['dimensiones','medidas exteriores','dimensiones del producto']}
+  ]},
+  cafetera:{titulo:'Ficha de cafetera',ficha:'cafetera',campos:[
+    {k:'tipo',lab:'Tipo',pistas:['tipo','tipo de cafetera','metodo'],opc:{'Cápsulas':['capsulas','capsula','pod'],'Espresso':['espresso','expreso'],'Goteo':['goteo','filtro','drip'],'Prensa francesa':['prensa francesa','french press'],'Italiana':['italiana','moka']}},
+    {k:'presion',lab:'Presión',u:'bar',pistas:['presion','bares'],rx:['(\\d{1,2})\\s*bar']},
+    {k:'capacidad',lab:'Capacidad',pistas:['capacidad','tanque','deposito','tazas'],rx:['(\\d{1,2}(?:[.,]\\d)?)\\s*(?:l|litros)','(\\d{1,2})\\s*tazas']},
+    {k:'potencia',lab:'Potencia',u:'W',pistas:['potencia','vataje'],rx:['(\\d{3,4})\\s*(?:w|watts|vatios)\\b']},
+    {k:'vaporizador',lab:'Vaporizador',pistas:['vaporizador','espumador','vapor'],opc:{'Sí':['vaporizador','espumador','vapor de leche'],'No':['sin vaporizador']}},
+    {k:'molino',lab:'Molino integrado',pistas:['molino','molinillo','grinder'],opc:{'Sí':['molino','molinillo'],'No':['sin molino']}},
+    {k:'compatibilidad',lab:'Compatibilidad de cápsulas',pistas:['compatible','compatibilidad','capsulas compatibles']},
+    {k:'programable',lab:'Programable',pistas:['programable','temporizador','timer'],opc:{'Sí':['programable','temporizador'],'No':['no programable']}},
+    {k:'material',lab:'Material',pistas:['material','acabado']}
+  ]},
+  refrigerador:{titulo:'Ficha de refrigerador',ficha:'refrigerador',campos:[
+    {k:'capacidad',lab:'Capacidad',pistas:['capacidad','capacidad total','pies cubicos','litros'],rx:['(\\d{1,2}(?:[.,]\\d)?)\\s*(?:pies|ft|p3)','(\\d{3,4})\\s*(?:l|litros)']},
+    {k:'tipo',lab:'Tipo',pistas:['tipo','estilo','configuracion'],opc:{'French door':['french door'],'Side by side':['side by side','duplex'],'Congelador arriba':['top mount','congelador superior','congelador arriba'],'Congelador abajo':['bottom mount','congelador inferior'],'Una puerta':['una puerta','monopuerta']}},
+    {k:'puertas',lab:'Puertas',pistas:['puertas','numero de puertas'],rx:['(\\d)\\s*puertas']},
+    {k:'tecnologia',lab:'Tecnología',pistas:['tecnologia','compresor','motor'],opc:{'Inverter':['inverter'],'Convencional':['convencional']}},
+    {k:'no_frost',lab:'Sistema de enfriamiento',pistas:['no frost','escarcha','deshielo','enfriamiento'],opc:{'No Frost':['no frost','sin escarcha'],'Deshielo manual':['manual','escarcha']}},
+    {k:'dispensador',lab:'Dispensador',pistas:['dispensador','despachador'],opc:{'Agua y hielo':['agua y hielo','hielo'],'Agua':['agua'],'No':['sin dispensador']}},
+    {k:'eficiencia',lab:'Eficiencia energética',pistas:['eficiencia','consumo','kwh'],rx:['(\\d{3,4})\\s*kwh']},
+    {k:'medidas',lab:'Medidas',pistas:['dimensiones','medidas','alto','ancho']},
+    {k:'extras',lab:'Extras',pistas:['caracteristicas especiales','otras caracteristicas','luz led','cajon']}
+  ]},
+  lavadora:{titulo:'Ficha de lavadora',ficha:'lavadora',campos:[
+    {k:'capacidad',lab:'Capacidad',u:'kg',pistas:['capacidad','capacidad de carga','kilos'],rx:['(\\d{1,2}(?:[.,]\\d)?)\\s*(?:kg|kilos|kilogramos)']},
+    {k:'tipo',lab:'Tipo',pistas:['tipo','carga','estilo'],opc:{'Carga frontal':['carga frontal','frontal'],'Carga superior':['carga superior','superior','top load'],'Semiautomática':['semiautomatica','doble tina'],'Automática':['automatica']}},
+    {k:'ciclos',lab:'Ciclos',pistas:['ciclos','programas','numero de ciclos'],rx:['(\\d{1,2})\\s*(?:ciclos|programas)']},
+    {k:'rpm',lab:'Centrifugado',u:'rpm',pistas:['centrifugado','rpm','velocidad de centrifugado'],rx:['(\\d{3,4})\\s*rpm']},
+    {k:'tecnologia',lab:'Motor',pistas:['motor','tecnologia','compresor'],opc:{'Inverter':['inverter'],'Convencional':['convencional']}},
+    {k:'secado',lab:'Secado',pistas:['secado','secadora'],opc:{'Lava y seca':['lava y seca','secado'],'No':['sin secado']}},
+    {k:'vapor',lab:'Vapor',pistas:['vapor','steam'],opc:{'Sí':['vapor','steam'],'No':['sin vapor']}},
+    {k:'eficiencia',lab:'Consumo',pistas:['consumo','eficiencia','agua','kwh']},
+    {k:'medidas',lab:'Medidas',pistas:['dimensiones','medidas']}
+  ]},
+  olla:{titulo:'Ficha de olla',ficha:'olla',campos:[
+    {k:'tipo',lab:'Tipo',pistas:['tipo','funcion principal'],opc:{'Express / presión':['express','presion','pressure'],'Multifuncional':['multifuncional','multiuso','multi'],'De cocción lenta':['coccion lenta','slow cook'],'Arrocera':['arrocera','arroz']}},
+    {k:'capacidad',lab:'Capacidad',u:'L',pistas:['capacidad','litros','litraje'],rx:['(\\d{1,2}(?:[.,]\\d)?)\\s*(?:l|lt|litros|cuartos)']},
+    {k:'potencia',lab:'Potencia',u:'W',pistas:['potencia','vataje'],rx:['(\\d{3,4})\\s*(?:w|watts|vatios)\\b']},
+    {k:'material',lab:'Material',pistas:['material','material interior','olla interior'],opc:{'Acero inoxidable':['acero inoxidable','inoxidable'],'Antiadherente':['antiadherente','teflon'],'Aluminio':['aluminio'],'Cerámica':['ceramica']}},
+    {k:'programas',lab:'Programas',pistas:['programas','funciones','menus'],rx:['(\\d{1,2})\\s*(?:programas|funciones|menus)']},
+    {k:'presion',lab:'Presión',pistas:['presion','kpa','psi'],rx:['(\\d{2,3})\\s*(?:kpa|psi)']},
+    {k:'seguridad',lab:'Seguridad',pistas:['seguridad','valvula','bloqueo','tapa']},
+    {k:'lavavajillas',lab:'Apta para lavavajillas',pistas:['lavavajillas','lavaplatos'],opc:{'Sí':['lavavajillas','lavaplatos'],'No':['no apta']}}
+  ]},
+  television:{titulo:'Ficha de televisión',ficha:'television',campos:[
+    {k:'pulgadas',lab:'Tamaño',u:'"',pistas:['tamano de pantalla','tamaño de pantalla','pulgadas','tamano'],rx:['(\\d{2,3})\\s*(?:pulgadas|")']},
+    {k:'resolucion',lab:'Resolución',pistas:['resolucion','resolucion de pantalla'],opc:{'8K':['8k'],'4K UHD':['4k','uhd','ultra hd'],'Full HD':['full hd','fhd','1080'],'HD':['hd ready','720']}},
+    {k:'panel',lab:'Panel',pistas:['tipo de pantalla','tecnologia de pantalla','panel'],opc:{'OLED':['oled'],'QLED':['qled'],'Mini LED':['mini led','miniled'],'LED':['led','lcd']}},
+    {k:'tasa',lab:'Tasa de refresco',u:'Hz',pistas:['tasa de refresco','frecuencia de actualizacion'],rx:['(\\d{2,3})\\s*hz']},
+    {k:'sistema',lab:'Sistema',pistas:['sistema operativo','plataforma','smart tv'],opc:{'Google TV':['google tv'],'Android TV':['android tv'],'Roku TV':['roku'],'Fire TV':['fire tv'],'webOS':['webos'],'Tizen':['tizen'],'Vidaa':['vidaa']}},
+    {k:'hdr',lab:'HDR',pistas:['hdr','rango dinamico'],opc:{'Dolby Vision':['dolby vision'],'HDR10+':['hdr10+'],'HDR10':['hdr10','hdr']}},
+    {k:'hdmi',lab:'Puertos HDMI',pistas:['hdmi','puertos hdmi'],rx:['(\\d)\\s*(?:puertos\\s*)?hdmi']},
+    {k:'audio',lab:'Audio',pistas:['audio','bocinas','potencia de salida','sonido'],rx:['(\\d{1,3})\\s*w\\b']},
+    {k:'gaming',lab:'Para juegos',pistas:['vrr','allm','modo juego','game mode']}
+  ]},
+  audifonos:{titulo:'Ficha de audífonos',ficha:'audifonos',campos:[
+    {k:'tipo',lab:'Tipo',pistas:['tipo','estilo','forma de uso'],opc:{'True wireless':['true wireless','tws','in ear inalambricos'],'In-ear':['in ear','intrauditivos','botones'],'On-ear':['on ear','supraaurales'],'Over-ear':['over ear','circumaurales','diadema']}},
+    {k:'cancelacion',lab:'Cancelación de ruido',pistas:['cancelacion de ruido','anc','noise cancelling'],opc:{'Activa (ANC)':['activa','anc','cancelacion de ruido'],'Pasiva':['pasiva'],'No':['sin cancelacion']}},
+    {k:'bateria',lab:'Batería',pistas:['bateria','duracion de la bateria','autonomia'],rx:['(\\d{1,3})\\s*horas']},
+    {k:'estuche',lab:'Con estuche de carga',pistas:['estuche','estuche de carga','case'],opc:{'Sí':['estuche de carga','estuche'],'No':['sin estuche']}},
+    {k:'bluetooth',lab:'Bluetooth',pistas:['bluetooth','version de bluetooth','conectividad'],rx:['bluetooth\\s*(\\d(?:\\.\\d)?)']},
+    {k:'resistencia',lab:'Resistencia',pistas:['resistencia al agua','certificacion','proteccion'],rx:['(ipx?\\s?\\d{1,2})']},
+    {k:'microfono',lab:'Micrófono',pistas:['microfono','llamadas','manos libres'],opc:{'Sí':['microfono','manos libres'],'No':['sin microfono']}},
+    {k:'codecs',lab:'Códecs',pistas:['codec','codecs','ldac','aac','aptx']},
+    {k:'extras',lab:'Extras',pistas:['caracteristicas especiales','otras caracteristicas','multipunto','carga inalambrica']}
+  ]},
+  bocina:{titulo:'Ficha de bocina',ficha:'bocina',campos:[
+    {k:'asistente',lab:'Asistente',pistas:['asistente','asistente de voz','compatible con'],opc:{'Alexa':['alexa'],'Google Assistant':['google assistant','asistente de google'],'Siri':['siri','airplay']}},
+    {k:'potencia',lab:'Potencia',u:'W',pistas:['potencia','vataje','salida de audio'],rx:['(\\d{1,3})\\s*(?:w|watts|vatios)\\b']},
+    {k:'conexion',lab:'Conexión',pistas:['conectividad','conexion','tecnologia inalambrica'],opc:{'Wi-Fi y Bluetooth':['wifi','wi-fi'],'Bluetooth':['bluetooth']}},
+    {k:'pantalla',lab:'Pantalla',pistas:['pantalla','display'],rx:['(\\d{1,2}(?:[.,]\\d)?)\\s*(?:pulgadas|")']},
+    {k:'bateria',lab:'Batería',pistas:['bateria','autonomia','duracion'],rx:['(\\d{1,2})\\s*horas']},
+    {k:'resistencia',lab:'Resistencia',pistas:['resistencia al agua','proteccion'],rx:['(ipx?\\s?\\d{1,2})']},
+    {k:'extras',lab:'Extras',pistas:['caracteristicas especiales','otras caracteristicas','multiroom','camara','hub']}
+  ]},
+  smartwatch:{titulo:'Ficha de smartwatch',ficha:'smartwatch',campos:[
+    {k:'pantalla',lab:'Pantalla',u:'"',pistas:['pantalla','tamano de pantalla','tamaño de pantalla'],rx:['(\\d(?:[.,]\\d{1,2})?)\\s*(?:pulgadas|")']},
+    {k:'tipo_pantalla',lab:'Tipo de pantalla',pistas:['tipo de pantalla','tecnologia de pantalla'],opc:{'AMOLED':['amoled'],'OLED':['oled'],'LCD':['lcd','ips'],'Tinta electrónica':['tinta','e-ink']}},
+    {k:'bateria',lab:'Batería',pistas:['bateria','duracion de la bateria','autonomia'],rx:['(\\d{1,2})\\s*dias','(\\d{1,3})\\s*horas']},
+    {k:'gps',lab:'GPS',pistas:['gps','navegacion'],opc:{'Sí':['gps'],'No':['sin gps']}},
+    {k:'sensores',lab:'Sensores',pistas:['sensores','monitoreo','frecuencia cardiaca','spo2']},
+    {k:'resistencia',lab:'Resistencia',pistas:['resistencia al agua','sumergible','proteccion'],rx:['(\\d{1,2})\\s*atm','(ip\\s?\\d{2})','(\\d{1,3})\\s*m(?:etros)?\\b']},
+    {k:'compatibilidad',lab:'Compatibilidad',pistas:['compatibilidad','compatible con','sistema operativo'],opc:{'Android e iOS':['android e ios','ambos'],'Android':['android'],'iOS':['ios','iphone']}},
+    {k:'llamadas',lab:'Llamadas',pistas:['llamadas','bluetooth calling','microfono'],opc:{'Sí':['llamadas','microfono'],'No':['sin llamadas']}},
+    {k:'correa',lab:'Correa',pistas:['correa','material de la correa','banda']}
+  ]},
+  streaming:{titulo:'Ficha de dispositivo de streaming',ficha:'streaming',campos:[
+    {k:'plataforma',lab:'Plataforma',pistas:['plataforma','sistema operativo','marca'],opc:{'Roku':['roku'],'Fire TV':['fire tv','amazon fire'],'Chromecast / Google TV':['chromecast','google tv'],'Apple TV':['apple tv'],'Android TV':['android tv']}},
+    {k:'resolucion',lab:'Resolución máxima',pistas:['resolucion','resolucion maxima'],opc:{'4K':['4k','uhd'],'Full HD':['full hd','1080']}},
+    {k:'hdr',lab:'HDR',pistas:['hdr','rango dinamico'],opc:{'Dolby Vision':['dolby vision'],'HDR10+':['hdr10+'],'HDR10':['hdr10','hdr']}},
+    {k:'control_voz',lab:'Control por voz',pistas:['control de voz','asistente','voz'],opc:{'Alexa':['alexa'],'Google Assistant':['google assistant'],'Siri':['siri'],'Sí':['por voz']}},
+    {k:'conexion',lab:'Conexión',pistas:['conectividad','wifi','ethernet','puertos']},
+    {k:'almacenamiento',lab:'Almacenamiento',pistas:['almacenamiento','memoria'],rx:['(\\d{1,3})\\s*gb']},
+    {k:'extras',lab:'Extras',pistas:['caracteristicas especiales','otras caracteristicas','control remoto','audio']}
+  ]},
+  consola:{titulo:'Ficha de consola',ficha:'consola',campos:[
+    {k:'almacenamiento',lab:'Almacenamiento',pistas:['almacenamiento','capacidad','memoria'],rx:['(\\d{3,4})\\s*gb','(\\d)\\s*tb']},
+    {k:'tipo',lab:'Tipo',pistas:['tipo','formato'],opc:{'Híbrida':['hibrida','portatil y sobremesa'],'Portátil':['portatil','handheld'],'De sobremesa':['sobremesa','consola de mesa']}},
+    {k:'lector',lab:'Lector de discos',pistas:['lector','unidad de disco','digital'],opc:{'Sí':['lector','unidad de disco','blu-ray'],'No (solo digital)':['digital','sin lector']}},
+    {k:'resolucion',lab:'Resolución',pistas:['resolucion','salida de video'],opc:{'4K':['4k'],'Full HD':['full hd','1080']}},
+    {k:'controles',lab:'Controles incluidos',pistas:['controles','mandos','incluye'],rx:['(\\d)\\s*controles']},
+    {k:'extras',lab:'Extras',pistas:['caracteristicas especiales','otras caracteristicas','juegos incluidos','retrocompatibilidad']}
+  ]},
+  control:{titulo:'Ficha de control',ficha:'control',campos:[
+    {k:'plataforma',lab:'Plataforma',pistas:['plataforma','compatible con','consola'],opc:{'PlayStation':['playstation','ps5','ps4'],'Xbox':['xbox'],'Nintendo':['nintendo','switch'],'PC':['pc','windows']}},
+    {k:'conexion',lab:'Conexión',pistas:['conexion','conectividad','inalambrico'],opc:{'Inalámbrico':['inalambrico','wireless','bluetooth'],'Con cable':['con cable','alambrico','usb']}},
+    {k:'bateria',lab:'Batería',pistas:['bateria','autonomia','pilas'],rx:['(\\d{1,2})\\s*horas','(\\d{3,4})\\s*mah']},
+    {k:'vibracion',lab:'Vibración',pistas:['vibracion','haptico','rumble'],opc:{'Háptica':['haptico','haptica'],'Sí':['vibracion','rumble'],'No':['sin vibracion']}},
+    {k:'extras',lab:'Extras',pistas:['caracteristicas especiales','otras caracteristicas','gatillos','botones programables','giroscopio']}
+  ]},
+  juego:{titulo:'Ficha de videojuego',ficha:'juego',campos:[
+    {k:'plataforma',lab:'Plataforma',pistas:['plataforma','consola','compatible con'],opc:{'PlayStation 5':['ps5','playstation 5'],'PlayStation 4':['ps4','playstation 4'],'Xbox Series X|S':['series x','series s'],'Nintendo Switch':['switch','nintendo'],'PC':['pc','steam']}},
+    {k:'formato',lab:'Formato',pistas:['formato','edicion','medio'],opc:{'Físico':['fisico','disco','cartucho'],'Digital':['digital','codigo de descarga']}},
+    {k:'genero',lab:'Género',pistas:['genero','categoria']},
+    {k:'jugadores',lab:'Jugadores',pistas:['jugadores','multijugador','numero de jugadores'],rx:['(\\d(?:\\s*-\\s*\\d)?)\\s*jugadores']},
+    {k:'clasificacion',lab:'Clasificación',pistas:['clasificacion','esrb','edad recomendada']},
+    {k:'idioma',lab:'Idioma',pistas:['idioma','doblaje','subtitulos']}
+  ]},
+  bici:{titulo:'Ficha de bicicleta',ficha:'bici',campos:[
+    {k:'tipo',lab:'Tipo',pistas:['tipo','estilo','uso'],opc:{'Eléctrica':['electrica','e-bike','ebike'],'Montaña':['montana','mtb'],'Ruta':['ruta','road'],'Gravel':['gravel'],'Urbana':['urbana','ciudad']}},
+    {k:'rodada',lab:'Rodada',pistas:['rodada','tamano de rueda','diametro de rueda'],rx:['(?:rodada|r)\\s*(\\d{2}(?:[.,]\\d)?)','(\\d{2}(?:[.,]\\d)?)\\s*(?:pulgadas|")','(700\\s*c)']},
+    {k:'motor',lab:'Motor',u:'W',pistas:['motor','potencia del motor'],rx:['(\\d{3,4})\\s*(?:w|watts|vatios)\\b']},
+    {k:'bateria',lab:'Batería',pistas:['bateria','capacidad de la bateria'],rx:['(\\d{2,3})\\s*v\\b','(\\d{1,3}(?:[.,]\\d)?)\\s*ah','(\\d{3,4})\\s*wh']},
+    {k:'autonomia',lab:'Autonomía',u:'km',pistas:['autonomia','alcance','rango'],rx:['(\\d{2,3})\\s*km']},
+    {k:'velocidades',lab:'Velocidades',pistas:['velocidades','cambios','numero de velocidades'],rx:['(\\d{1,2})\\s*velocidades']},
+    {k:'frenos',lab:'Frenos',pistas:['frenos','tipo de freno'],opc:{'Disco hidráulico':['hidraulico'],'Disco mecánico':['disco mecanico','disco'],'V-brake':['v-brake','herradura']}},
+    {k:'suspension',lab:'Suspensión',pistas:['suspension','horquilla'],opc:{'Doble':['doble suspension','full suspension'],'Delantera':['delantera','hardtail','horquilla'],'Rígida':['rigida','sin suspension']}},
+    {k:'cuadro',lab:'Cuadro',pistas:['cuadro','material del cuadro','marco'],opc:{'Aluminio':['aluminio'],'Acero':['acero'],'Carbono':['carbono','carbon'],'Fibra de vidrio':['fibra de vidrio']}},
+    {k:'talla',lab:'Talla',pistas:['talla','tamano del cuadro','estatura']},
+    {k:'peso_max',lab:'Peso máximo soportado',pistas:['peso maximo','carga maxima','soporta'],rx:['(\\d{2,3})\\s*(?:kg|kilos)']}
+  ]},
+  suplemento:{titulo:'Ficha de suplemento',ficha:'suplemento',campos:[
+    {k:'presentacion',lab:'Presentación',pistas:['presentacion','forma','formato','tipo de producto'],opc:{'Polvo':['polvo','powder'],'Cápsulas':['capsulas','capsula'],'Tabletas':['tabletas','tableta','comprimidos'],'Softgels':['softgel','capsulas blandas'],'Líquido':['liquido','gotas'],'Gomitas':['gomitas','gummies']}},
+    {k:'contenido',lab:'Contenido del envase',pistas:['contenido','cantidad','peso neto','unidades'],rx:['(\\d{1,4})\\s*(?:capsulas|tabletas|softgels|gomitas|porciones)','(\\d{1,4}(?:[.,]\\d)?)\\s*(?:g|gramos|kg|ml)\\b']},
+    {k:'porciones',lab:'Porciones',pistas:['porciones','servicios','servings','raciones'],rx:['(\\d{1,4})\\s*(?:porciones|servicios|servings)']},
+    {k:'dosis',lab:'Dosis por porción',pistas:['dosis','por porcion','cantidad por porcion','mg por'],rx:['(\\d{1,5})\\s*(?:mg|mcg|ui|iu)\\b','(\\d{1,3}(?:[.,]\\d)?)\\s*g\\s*(?:de\\s*)?(?:proteina|creatina)']},
+    {k:'ingrediente',lab:'Ingrediente principal',pistas:['ingrediente','ingredientes principales','tipo de proteina','forma quimica']},
+    {k:'sabor',lab:'Sabor',pistas:['sabor','sabores']},
+    {k:'sin_azucar',lab:'Azúcar',pistas:['azucar','sin azucar','edulcorante'],opc:{'Sin azúcar':['sin azucar','0 azucar'],'Con azúcar':['con azucar']}},
+    {k:'certificacion',lab:'Certificaciones',pistas:['certificacion','certificado','gmp','informed sport','vegano','sin gluten']},
+    {k:'uso',lab:'Modo de uso',pistas:['modo de uso','uso recomendado','instrucciones','como tomar']}
+  ]},
+  generico:{titulo:'Ficha del producto',ficha:'ficha',campos:[
+    {k:'caracteristica_1',lab:'Característica 1',pistas:['caracteristica principal']},
+    {k:'caracteristica_2',lab:'Característica 2',pistas:[]},
+    {k:'caracteristica_3',lab:'Característica 3',pistas:[]},
+    {k:'material',lab:'Material',pistas:['material']},
+    {k:'potencia',lab:'Potencia',pistas:['potencia','vataje'],rx:['(\\d{2,4})\\s*(?:w|watts|vatios)\\b']},
+    {k:'capacidad',lab:'Capacidad',pistas:['capacidad']},
+    {k:'uso',lab:'Uso recomendado',pistas:['uso','uso recomendado','para que sirve']}
+  ]}
+};
+
+/* qué ficha le toca a cada categoría del sitio */
+var ESQ_POR_CAT={
+  celulares_android:'celular',celulares_iphone:'celular',laptops:'laptop',
+  freidoras:'freidora',microondas:'microondas',cafeteras:'cafetera',
+  refrigeradores:'refrigerador',lavadoras:'lavadora',ollas:'olla',
+  televisiones:'television',tecnologia_audifonos:'audifonos',tecnologia_bocinas:'bocina',
+  tecnologia_smartwatches:'smartwatch',streaming:'streaming',
+  videojuegos_consolas:'consola',videojuegos_controles:'control',videojuegos_juegos:'juego',
+  bicis:'bici',bicisMontana:'bici',bicisGravelRuta:'bici',
+  proteina:'suplemento',creatina:'suplemento',omega3:'suplemento',magnesio:'suplemento',
+  complejo_b:'suplemento',vitamina_d:'suplemento'
+};
+
+/* ── detección de características desde el texto pegado ── */
+var norm=function(s){return String(s==null?'':s).toLowerCase()
+  .replace(/[áàä]/g,'a').replace(/[éèë]/g,'e').replace(/[íìï]/g,'i').replace(/[óòö]/g,'o').replace(/[úùü]/g,'u').replace(/ñ/g,'n')
+  .replace(/\s+/g,' ').trim()};
+
+function pares(txt){
+  var out=[];
+  String(txt||'').split(/[\n\r]+|\s[•·]\s|\|/).forEach(function(linea){
+    var l=linea.replace(/^[\s•·\-–*]+/,'').trim();
+    if(!l)return;
+    var m=/^([^:\t]{2,46})[:\t]\s*(.+)$/.exec(l);
+    if(m&&m[2].trim())out.push({k:norm(m[1]),v:m[2].trim().replace(/\s+/g,' ').slice(0,160),raw:l});
+    else out.push({k:null,v:l.slice(0,200),raw:l});
+  });
+  return out;
+}
+function buscarOpc(opc,texto){
+  var ks=Object.keys(opc);
+  for(var i=0;i<ks.length;i++){
+    var syn=opc[ks[i]];
+    for(var j=0;j<syn.length;j++) if(texto.indexOf(norm(syn[j]))>=0) return ks[i];
+  }
+  return null;
+}
+function detectar(campos,txt){
+  var ps=pares(txt), full=norm(txt), val={}, de={}, usados={};
+  campos.forEach(function(c){
+    var pistas=(c.pistas||[]).map(norm);
+    for(var i=0;i<ps.length;i++){
+      var p=ps[i]; if(!p.k||usados[i])continue;
+      var pega=pistas.some(function(pi){return p.k===pi||p.k.indexOf(pi)>=0||(pi.length>4&&pi.indexOf(p.k)>=0)});
+      if(pega){val[c.k]=p.v;de[c.k]='par';usados[i]=1;return}
+    }
+    if(c.rx)for(var r=0;r<c.rx.length;r++){
+      var m=new RegExp(c.rx[r],'i').exec(full);
+      if(m){var g=null;for(var q=1;q<m.length;q++)if(m[q]){g=m[q];break}
+        if(g){val[c.k]=g.trim()+(c.u?(c.u==='"'?'"':' '+c.u):'');de[c.k]='texto';return}}
+    }
+    if(c.opc){var o=buscarOpc(c.opc,full); if(o){val[c.k]=o;de[c.k]='texto';return}}
+  });
+  var sobra=[];
+  ps.forEach(function(p,i){
+    if(usados[i])return;
+    if(p.k&&p.v)sobra.push(p.k.charAt(0).toUpperCase()+p.k.slice(1)+': '+p.v);
+    else if(p.v.length>18)sobra.push(p.v);
+  });
+  return {val:val,de:de,sobra:sobra.slice(0,30)};
+}
+function asinDeTexto(txt){
+  var t=String(txt||'');
+  var m=/\/(?:dp|gp\/product|gp\/aw\/d)\/([A-Z0-9]{10})/i.exec(t)||/\basin\b\D{0,8}([A-Z0-9]{10})/i.exec(t)||/^\s*([A-Z0-9]{10})\s*$/.exec(t);
+  return m?m[1].toUpperCase():null;
+}
+function linkTag(asin){return 'https://www.amazon.com.mx/dp/'+asin+'?tag='+TAG}
+
+/* ── estado del módulo ── */
+var CAP=[], capEdit=null, capDet=null, capFiltro='';
+function capCargar(){CAP=store('captura')||[]; if(!Array.isArray(CAP))CAP=[]}
+function capGuardarTodo(){store('captura',CAP)}
+function capCats(){
+  var base=(D&&D.categorias?D.categorias:[]).map(function(c){return {clave:c.clave,titulo:c.titulo,esq:ESQ_POR_CAT[c.clave]||'generico'}});
+  var vistas={}; base.forEach(function(c){vistas[c.clave]=1});
+  CAP.forEach(function(p){if(p.cat&&!vistas[p.cat]){vistas[p.cat]=1;base.push({clave:p.cat,titulo:p.catTitulo||p.cat,esq:p.esquema||'generico'})}});
+  return base;
+}
+function capEsq(cat){return ESQUEMAS[ESQ_POR_CAT[cat]||'generico']||ESQUEMAS.generico}
+function capVacio(){return {id:'',cat:'',catTitulo:'',esquema:'',nombre:'',marca:'',modelo:'',asin:'',linkProducto:'',linkAfiliado:'',imagen:'',precio:'',notas:'',estado:'pending',attrs:{},gen:{},sobra:[],crudo:''}}
+function capForm(){ return capEdit||(capEdit=capVacio()) }
+
+function capCampoHTML(c,val,origen,pre){
+  var id='cf_'+pre+'_'+c.k;
+  var marca=origen==='par'?'<span class="chip ok">detectado</span>':(origen==='texto'?'<span class="chip ac">del texto</span>':'');
+  var input;
+  if(c.opc){
+    var ks=Object.keys(c.opc);
+    input='<select class="inp" id="'+id+'" data-campo="'+pre+'|'+c.k+'"><option value="">—</option>'+
+      ks.map(function(k){return '<option value="'+esc(k)+'"'+(val===k?' selected':'')+'>'+esc(k)+'</option>'}).join('')+
+      (val&&ks.indexOf(val)<0?'<option value="'+esc(val)+'" selected>'+esc(val)+'</option>':'')+'</select>';
+  }else{
+    input='<input class="inp" id="'+id+'" data-campo="'+pre+'|'+c.k+'" value="'+esc(val||'')+'" placeholder="'+esc(c.u?('en '+c.u):'—')+'">';
+  }
+  return '<label class="f"><span class="row" style="gap:6px">'+esc(c.lab)+(c.u?' <span class="sm">('+esc(c.u)+')</span>':'')+marca+'</span>'+input+'</label>';
+}
+function capPerfil(f){
+  var esq=capEsq(f.cat);
+  var filas=esq.campos.filter(function(c){return f.attrs[c.k]}).map(function(c){
+    return '<dt>'+esc(c.lab)+'</dt><dd>'+esc(f.attrs[c.k])+'</dd>'});
+  var gen=CAMPOS_GEN.filter(function(c){return f.gen[c.k]}).map(function(c){
+    return '<dt>'+esc(c.lab)+'</dt><dd>'+esc(f.gen[c.k])+'</dd>'});
+  var el1=estadoLinkAmz(f.linkAfiliado||(f.asin?linkTag(f.asin):''));
+  var l=EST_LINK[el1]||['mute',el1];
+  return '<div class="hd"><h3>Perfil del producto</h3><span class="note">Así se va a leer en la guía</span></div><div class="bd stack">'+
+    (f.imagen?'<img src="'+esc(f.imagen)+'" alt="" style="max-height:140px;align-self:flex-start;border-radius:10px;border:1px solid var(--line)">':'')+
+    '<div><b>'+esc(f.nombre||'(sin nombre)')+'</b>'+
+      '<div class="sm">'+esc(f.marca||'—')+(f.modelo?' · '+esc(f.modelo):'')+' · '+esc(f.catTitulo||'sin categoría')+'</div></div>'+
+    '<div class="row"><span class="chip '+l[0]+'">'+esc(l[1])+'</span>'+
+      (f.asin?'<span class="chip ac">ASIN '+esc(f.asin)+'</span>':'<span class="chip bad">Sin ASIN</span>')+
+      '<span class="chip mute">'+esc((EST_AMZ[f.estado]||['','?'])[1])+'</span>'+
+      '<span class="chip '+(filas.length?'ok':'warn')+'">'+filas.length+' de '+esq.campos.length+' campos</span></div>'+
+    (filas.length?'<dl class="kv">'+filas.join('')+'</dl>':'<div class="sm">Pega las características y aparecen aquí.</div>')+
+    (gen.length?'<div class="sm" style="font-weight:600;color:var(--fg)">Datos generales</div><dl class="kv">'+gen.join('')+'</dl>':'')+
+    (f.precio?'<div class="sm">Precio observado: '+money(Number(f.precio))+' — dato interno, no se publica en la guía.</div>':'')+
+    (f.asin?'<div class="row"><pre class="pre" style="flex:1">'+esc(linkTag(f.asin))+'</pre>'+
+      '<button class="btn sm copy" data-copy="'+esc(linkTag(f.asin))+'" type="button">Copiar</button></div>':'')+
+    (f.sobra&&f.sobra.length?'<details><summary class="sm">'+f.sobra.length+' datos del texto que no reconocí</summary>'+
+      '<ul class="sm" style="margin:6px 0 0;padding-left:18px">'+f.sobra.map(function(s){return '<li>'+esc(s)+'</li>'}).join('')+'</ul></details>':'')+
+  '</div>';
+}
+function pintarCaptura(){
+  capCargar();
+  var f=capForm(), esq=capEsq(f.cat), cats=capCats();
+  el('v-captura').innerHTML=
+  '<div class="sec"><div class="split">'+
+    '<div class="card"><div class="hd"><h3>'+(f.id?'Editar producto':'Producto nuevo')+'</h3>'+
+      '<span class="note">La ficha cambia según la categoría</span>'+
+      (f.id?'<button class="btn sm" id="cf_nuevo" type="button" style="margin-left:auto">Capturar otro</button>':'')+'</div>'+
+      '<div class="bd stack">'+
+      '<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">'+
+        '<label class="f">Categoría<select class="inp" id="cf_cat"><option value="">Elige la categoría…</option>'+
+          cats.map(function(c){return '<option value="'+esc(c.clave)+'"'+(f.cat===c.clave?' selected':'')+'>'+esc(c.titulo)+'</option>'}).join('')+
+          '</select></label>'+
+        '<label class="f">Nombre<input class="inp" id="cf_nombre" value="'+esc(f.nombre)+'" placeholder="Como lo anuncia Amazon"></label>'+
+        '<label class="f">Marca<input class="inp" id="cf_marca" value="'+esc(f.marca)+'"></label>'+
+        '<label class="f">Modelo<input class="inp" id="cf_modelo" value="'+esc(f.modelo)+'"></label>'+
+      '</div>'+
+      '<label class="f">Enlace de Amazon o ASIN<input class="inp" id="cf_link" value="'+esc(f.linkProducto||f.asin)+'" placeholder="https://www.amazon.com.mx/dp/B0… o B0XXXXXXXX"></label>'+
+      '<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">'+
+        '<label class="f">Enlace de afiliado<input class="inp" id="cf_afil" value="'+esc(f.linkAfiliado)+'" placeholder="se arma solo con el ASIN"></label>'+
+        '<label class="f">Enlace de la imagen<input class="inp" id="cf_imagen" value="'+esc(f.imagen)+'" placeholder="https://m.media-amazon.com/…"></label>'+
+        '<label class="f">Precio observado (interno)<input class="inp" id="cf_precio" inputmode="decimal" value="'+esc(f.precio)+'" placeholder="2499"></label>'+
+        '<label class="f">Estado<select class="inp" id="cf_estado">'+Object.keys(EST_AMZ).map(function(k){
+          return '<option value="'+k+'"'+(f.estado===k?' selected':'')+'>'+esc(EST_AMZ[k][1])+'</option>'}).join('')+'</select></label>'+
+      '</div>'+
+      '<label class="f">Pega aquí las características de Amazon<textarea id="cf_crudo" rows="7" placeholder="Pega la sección &quot;Detalles del producto&quot;, las viñetas de &quot;Acerca de este artículo&quot; o tu propio texto. Una línea por dato o &quot;Clave: valor&quot;.">'+esc(f.crudo)+'</textarea></label>'+
+      '<div class="row"><button class="btn pri" id="cf_detectar" type="button">Detectar características</button>'+
+        '<button class="btn" id="cf_limpiar" type="button">Limpiar formulario</button>'+
+        '<span class="sm" id="cf_msg"></span></div>'+
+      '<div class="sech" style="margin:4px 0 0"><h2 style="font-size:14px">'+esc(esq.titulo)+'</h2>'+
+        '<span class="note">'+(f.cat?esq.campos.length+' campos de esta categoría':'elige una categoría')+'</span></div>'+
+      '<div class="grid" id="cf_campos" style="grid-template-columns:repeat(auto-fit,minmax(190px,1fr))">'+
+        (f.cat?esq.campos.map(function(c){return capCampoHTML(c,f.attrs[c.k],(capDet&&capDet.de[c.k]),'a')}).join(''):
+          '<div class="sm">Elige la categoría y aparecen los campos que le tocan.</div>')+'</div>'+
+      '<details'+(Object.keys(f.gen).length?' open':'')+'><summary class="sm" style="font-weight:600">Datos generales (opcionales)</summary>'+
+        '<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(190px,1fr));margin-top:8px">'+
+        CAMPOS_GEN.map(function(c){return capCampoHTML(c,f.gen[c.k],(capDet&&capDet.deGen&&capDet.deGen[c.k]),'g')}).join('')+'</div></details>'+
+      '<label class="f">Notas internas<textarea id="cf_notas" rows="2" placeholder="Por qué entra a la guía, con qué compite, qué revisar.">'+esc(f.notas)+'</textarea></label>'+
+      '<div class="row"><button class="btn pri" id="cf_save" type="button">'+(f.id?'Guardar cambios':'Guardar producto')+'</button>'+
+        (f.id?'<button class="btn" id="cf_del" type="button">Eliminar</button>':'')+'</div>'+
+    '</div></div>'+
+    '<div class="card" id="cf_perfil">'+capPerfil(f)+'</div>'+
+  '</div></div>'+
+  '<div class="sec"><div class="sech"><h2>Capturados</h2><span class="note" id="cp_count"></span>'+
+    '<button class="btn sm" id="cp_export" type="button" style="margin-left:auto">Exportar JSON</button>'+
+    '<button class="btn sm" id="cp_brief" type="button">Copiar brief de guía</button></div>'+
+    '<div class="row" style="margin-bottom:10px"><select class="inp" id="cp_cat"><option value="">Todas las categorías</option>'+
+      cats.map(function(c){return '<option value="'+esc(c.clave)+'"'+(capFiltro===c.clave?' selected':'')+'>'+esc(c.titulo)+'</option>'}).join('')+
+      '</select></div>'+
+    '<div class="tbl-wrap"><table><thead><tr><th>Producto</th><th>Categoría</th><th>ASIN</th><th class="num">Ficha</th><th>Enlace</th><th>Estado</th><th></th></tr></thead>'+
+    '<tbody id="cp_rows"></tbody></table></div>'+
+  '</div>'+
+  '<div class="sec" id="cp_out" hidden><div class="card"><div class="hd"><h3>Exportación</h3>'+
+    '<span class="note">Pégame esto o guárdalo como archivo</span>'+
+    '<button class="btn sm copy" id="cp_copy" type="button" style="margin-left:auto">Copiar todo</button></div>'+
+    '<div class="bd"><textarea id="cp_text" rows="14" spellcheck="false"></textarea></div></div></div>'+
+  '<div class="sec"><div class="split">'+
+    '<div class="card"><div class="hd"><h3>Cobertura por categoría</h3><span class="note">Lo capturado contra lo que ya tiene el sitio</span></div>'+
+      '<div class="bd"><div class="tbl-wrap"><table><thead><tr><th>Categoría</th><th class="num">En el sitio</th><th class="num">Amazon</th><th class="num">Listos</th></tr></thead>'+
+      '<tbody id="cp_cob"></tbody></table></div></div></div>'+
+    '<div class="card"><div class="hd"><h3>Qué pasa con lo capturado</h3></div><div class="bd"><ol class="steps">'+
+      '<li><div><b>Se queda en este navegador</b><div class="sm">Un artifact no puede escribir en Supabase ni en el repo: la clave privilegiada no puede vivir en una página. Lo que capturas se guarda en el almacenamiento local de este navegador.</div></div></li>'+
+      '<li><div><b>Exportas el JSON</b><div class="sm">Trae el formato de <code>amazon_products</code> (ASIN, enlaces, <code>attributes</code> por categoría, observación de precio), así que sirve para cargarlo en Supabase y también se puede volver a cargar en el inventario de este Centro.</div></div></li>'+
+      '<li><div><b>El brief va directo a la guía</b><div class="sm">Con la skill <code>crear-guia-ofertas</code>: nombre, ASIN, enlace con el tag <code>'+TAG+'</code> y la ficha completa de cada producto. Los precios van como dato interno, nunca escritos en la guía.</div></div></li>'+
+      '<li><div><b>Respaldo</b><div class="sm">Exporta de vez en cuando: si borras los datos del navegador, lo capturado se va con ellos.</div></div></li>'+
+    '</ol></div></div>'+
+  '</div></div>';
+  capEnganches(); capPintarTabla(); capPintarCobertura();
+}
+function capLeerForm(){
+  var f=capForm();
+  f.cat=el('cf_cat').value;
+  var c=capCats().filter(function(x){return x.clave===f.cat})[0];
+  f.catTitulo=c?c.titulo:''; f.esquema=c?c.esq:'generico';
+  f.nombre=el('cf_nombre').value.trim(); f.marca=el('cf_marca').value.trim(); f.modelo=el('cf_modelo').value.trim();
+  var raw=el('cf_link').value.trim();
+  var asin=asinDeTexto(raw);
+  f.asin=asin||''; f.linkProducto=/^https?:/i.test(raw)?raw:(asin?linkTag(asin):'');
+  var afil=el('cf_afil').value.trim();
+  f.linkAfiliado=afil||(asin?linkTag(asin):'');
+  f.imagen=el('cf_imagen').value.trim(); f.precio=el('cf_precio').value.replace(/[^\d.]/g,'');
+  f.estado=el('cf_estado').value; f.notas=el('cf_notas').value.trim(); f.crudo=el('cf_crudo').value;
+  document.querySelectorAll('[data-campo]').forEach(function(i){
+    var p=i.getAttribute('data-campo').split('|'), v=i.value.trim();
+    var dest=p[0]==='g'?f.gen:f.attrs;
+    if(v)dest[p[1]]=v; else delete dest[p[1]];
+  });
+  return f;
+}
+function capRefrescarPerfil(){ el('cf_perfil').innerHTML=capPerfil(capLeerForm()) }
+function capEnganches(){
+  el('cf_cat').addEventListener('change',function(){capLeerForm();capDet=null;pintarCaptura()});
+  ['cf_nombre','cf_marca','cf_modelo','cf_link','cf_afil','cf_imagen','cf_precio','cf_estado','cf_notas'].forEach(function(id){
+    el(id).addEventListener('input',capRefrescarPerfil);
+  });
+  el('cf_campos').addEventListener('input',capRefrescarPerfil);
+  document.querySelectorAll('[data-campo]').forEach(function(i){i.addEventListener('change',capRefrescarPerfil)});
+  el('cf_detectar').addEventListener('click',function(){
+    var f=capLeerForm();
+    if(!f.cat){toast('Elige primero la categoría');return}
+    var txt=el('cf_crudo').value;
+    if(!txt.trim()){toast('Pega el texto de las características');return}
+    var esq=capEsq(f.cat);
+    /* una sola pasada: primero los campos de la categoría, luego los generales y
+       marca/modelo, para que cada dato del texto se use una sola vez */
+    var r=detectar(esq.campos.concat(CAMPOS_GEN,CAMPOS_ID),txt);
+    esq.campos.forEach(function(c){if(r.val[c.k])f.attrs[c.k]=r.val[c.k]});
+    CAMPOS_GEN.forEach(function(c){if(r.val[c.k])f.gen[c.k]=r.val[c.k]});
+    if(!f.marca&&r.val.marca)f.marca=r.val.marca.slice(0,60);
+    if(!f.modelo&&r.val.modelo)f.modelo=r.val.modelo.slice(0,60);
+    f.sobra=r.sobra;
+    if(!f.asin){var a=asinDeTexto(txt); if(a)f.asin=a}
+    if(!f.nombre){
+      var l1=txt.split(/[\n\r]+/)[0].trim();
+      if(l1&&l1.length>12&&l1.indexOf(':')<0)f.nombre=l1.slice(0,160);
+    }
+    var p=/\$\s?([\d,]{3,9})(?:\.\d{2})?/.exec(txt);
+    if(!f.precio&&p)f.precio=p[1].replace(/,/g,'');
+    capDet={de:r.de,deGen:r.de};
+    capEdit=f; pintarCaptura();
+    var n=esq.campos.filter(function(c){return r.val[c.k]}).length;
+    toast(n+' de '+esq.campos.length+' campos detectados'+(r.sobra.length?' · '+r.sobra.length+' datos sin reconocer':''));
+  });
+  el('cf_limpiar').addEventListener('click',function(){capEdit=capVacio();capDet=null;pintarCaptura()});
+  var nv=el('cf_nuevo'); if(nv)nv.addEventListener('click',function(){capEdit=capVacio();capDet=null;pintarCaptura()});
+  el('cf_save').addEventListener('click',function(){
+    var f=capLeerForm();
+    if(!f.cat){toast('Falta la categoría');return}
+    if(!f.nombre){toast('Falta el nombre del producto');return}
+    if(!f.asin&&!f.linkAfiliado){toast('Falta el enlace de Amazon o el ASIN');return}
+    var est=estadoLinkAmz(f.linkAfiliado);
+    if(est==='tag_viejo'){toast('Ese enlace trae un tag que ya no paga comisión: córrigelo');return}
+    if(est==='tag_ajeno'){toast('Ese enlace trae otro tag de afiliado: córrigelo');return}
+    if(!f.id){f.id='cap-'+Date.now().toString(36); f.ts=new Date().toISOString(); CAP.push(f)}
+    else{f.ts=new Date().toISOString(); CAP=CAP.map(function(x){return x.id===f.id?f:x})}
+    capGuardarTodo();
+    var dup=CAP.filter(function(x){return f.asin&&x.asin===f.asin}).length;
+    capEdit=capVacio(); capDet=null; pintarCaptura();
+    toast('Guardado'+(dup>1?' · ojo: ese ASIN ya estaba capturado':'')+' · '+CAP.length+' en total');
+  });
+  var dl=el('cf_del'); if(dl)dl.addEventListener('click',function(){
+    var f=capForm(); CAP=CAP.filter(function(x){return x.id!==f.id}); capGuardarTodo();
+    capEdit=capVacio(); capDet=null; pintarCaptura(); toast('Eliminado');
+  });
+  el('cp_cat').addEventListener('change',function(){capFiltro=this.value;capPintarTabla()});
+  el('cp_rows').addEventListener('click',function(e){
+    var b=e.target.closest('[data-cap]'); if(!b)return;
+    var p=CAP.filter(function(x){return x.id===b.getAttribute('data-cap')})[0];
+    if(p){capEdit=JSON.parse(JSON.stringify(p));capDet=null;pintarCaptura();window.scrollTo({top:0,behavior:'smooth'})}
+  });
+  el('cp_export').addEventListener('click',function(){
+    if(!CAP.length){toast('Todavía no hay nada capturado');return}
+    el('cp_text').value=JSON.stringify(capExport(),null,2);
+    el('cp_out').hidden=false; el('cp_out').scrollIntoView({behavior:'smooth',block:'start'});
+    toast(CAP.length+' productos exportados');
+  });
+  el('cp_brief').addEventListener('click',function(){
+    if(!CAP.length){toast('Todavía no hay nada capturado');return}
+    copiar(capBrief());
+  });
+}
+function capFila(p){
+  var esq=ESQUEMAS[p.esquema]||capEsq(p.cat);
+  var llenos=esq.campos.filter(function(c){return p.attrs&&p.attrs[c.k]}).length;
+  var e=EST_AMZ[p.estado]||['mute',p.estado], est=estadoLinkAmz(p.linkAfiliado), l=EST_LINK[est]||['mute',est];
+  return '<tr><td><span class="nm">'+esc(p.nombre)+'</span><span class="sm">'+esc(p.marca||'—')+(p.modelo?' · '+esc(p.modelo):'')+'</span></td>'+
+    '<td class="sm">'+esc(p.catTitulo||p.cat)+'</td>'+
+    '<td>'+(p.asin?'<code>'+esc(p.asin)+'</code>':'<span class="chip bad">falta</span>')+'</td>'+
+    '<td class="num"><span class="chip '+(llenos>=Math.ceil(esq.campos.length/2)?'ok':'warn')+'">'+llenos+'/'+esq.campos.length+'</span></td>'+
+    '<td><span class="chip '+l[0]+'">'+esc(l[1])+'</span></td>'+
+    '<td><span class="chip '+e[0]+'">'+esc(e[1])+'</span></td>'+
+    '<td><button class="btn sm" type="button" data-cap="'+esc(p.id)+'">Abrir</button></td></tr>';
+}
+function capPintarTabla(){
+  var lista=CAP.filter(function(p){return !capFiltro||p.cat===capFiltro});
+  el('cp_count').textContent=lista.length===CAP.length?fmt(CAP.length)+(CAP.length===1?' producto':' productos'):
+    fmt(lista.length)+' de '+fmt(CAP.length)+' productos';
+  el('cp_rows').innerHTML=lista.length?lista.slice().reverse().map(capFila).join(''):
+    '<tr><td colspan="7"><div class="empty">Nada capturado todavía. Llena el formulario de arriba y guarda.</div></td></tr>';
+}
+function capPintarCobertura(){
+  var porCat={};
+  CAP.forEach(function(p){var c=(porCat[p.cat]=porCat[p.cat]||{n:0,listos:0});c.n++;if(p.estado==='ready')c.listos++});
+  (A?A.productos:[]).forEach(function(p){
+    var k=p.catSlug||null; if(!k)return;
+    var c=(porCat[k]=porCat[k]||{n:0,listos:0}); c.n++; if(p.estado==='ready')c.listos++;
+  });
+  var filas=capCats().map(function(c){
+    var sitio=(D&&D.categorias||[]).filter(function(x){return x.clave===c.clave})[0];
+    var a=porCat[c.clave]||{n:0,listos:0};
+    return {titulo:c.titulo,sitio:sitio?sitio.visibles:null,n:a.n,listos:a.listos};
+  }).sort(function(a,b){return b.n-a.n||(b.sitio||0)-(a.sitio||0)});
+  el('cp_cob').innerHTML=filas.map(function(r){
+    return '<tr><td><span class="nm">'+esc(r.titulo)+'</span></td>'+
+      '<td class="num">'+(r.sitio==null?'—':fmt(r.sitio))+'</td>'+
+      '<td class="num">'+(r.n?'<span class="chip ac">'+r.n+'</span>':'—')+'</td>'+
+      '<td class="num">'+(r.listos?'<span class="chip ok">'+r.listos+'</span>':'—')+'</td></tr>';
+  }).join('');
+}
+/* formato de amazon_products: sirve para Supabase y para volver a cargarlo acá */
+function capExport(){
+  return {exported_at:new Date().toISOString(),origen:'centro-control/captura',tag:TAG,
+    products:CAP.map(function(p){
+      var esq=ESQUEMAS[p.esquema]||capEsq(p.cat);
+      var attrs={}; Object.keys(p.gen||{}).forEach(function(k){attrs[k]=p.gen[k]});
+      if(Object.keys(p.attrs||{}).length)attrs[esq.ficha]=p.attrs;
+      return {name:p.nombre,brand:p.marca||null,model:p.modelo||null,asin:p.asin||null,
+        category_slug:p.cat,category_name:p.catTitulo,review_status:p.estado,capture_method:'manual',
+        product_url:p.linkProducto||null,affiliate_url:p.linkAfiliado||null,image_url:p.imagen||null,
+        internal_notes:p.notas||null,attributes:attrs,
+        observations:p.precio?[{observation_type:'price',amount:Number(p.precio),currency:'MXN',observed_at:p.ts}]:[],
+        source_record:{capturado_en:'centro-control',ficha:esq.ficha,ts:p.ts}};
+    })};
+}
+function capBrief(){
+  var t='PRODUCTOS CAPTURADOS PARA GUÍA AMAZON\n'+
+  '================================================================\n'+
+  'Capturados en el Centro de Control · '+CAP.length+' productos · tag '+TAG+'\n\n'+
+  CAP.map(function(p,i){
+    var esq=ESQUEMAS[p.esquema]||capEsq(p.cat);
+    return (i+1)+'. '+p.nombre+'\n'+
+    '   categoría: '+(p.catTitulo||p.cat)+'   marca: '+(p.marca||'—')+'   modelo: '+(p.modelo||'—')+'\n'+
+    '   ASIN: '+(p.asin||'FALTA')+'\n'+
+    '   enlace: '+(p.asin?linkTag(p.asin):(p.linkAfiliado||'FALTA'))+'\n'+
+    (p.imagen?'   imagen: '+p.imagen+'\n':'')+
+    (p.precio?'   precio observado: $'+p.precio+' el '+fecha(p.ts)+' (interno, NO publicar)\n':'')+
+    '   '+esq.titulo.toLowerCase()+':\n'+
+    esq.campos.filter(function(c){return p.attrs&&p.attrs[c.k]}).map(function(c){
+      return '     - '+c.lab+': '+p.attrs[c.k]+'\n'}).join('')+
+    CAMPOS_GEN.filter(function(c){return p.gen&&p.gen[c.k]}).map(function(c){
+      return '     - '+c.lab+': '+p.gen[c.k]+'\n'}).join('')+
+    (p.notas?'   nota interna: '+p.notas+'\n':'');
+  }).join('\n')+
+  '\nReglas: tag '+TAG+' en todos los enlaces · nunca escribir el precio de Amazon en la guía\n'+
+  '(los de arriba son observaciones internas) · divulgación de afiliados visible ·\n'+
+  'la guía se arma con la skill crear-guia-ofertas y su tarjeta va arriba del sub-hub de /guias-compra/.\n';
+  return t;
+}
+/* lo capturado, en el mismo formato que el inventario importado */
+function capturaNorm(){
+  capCargar();
+  return CAP.map(function(p){
+    var esq=ESQUEMAS[p.esquema]||capEsq(p.cat);
+    var fichas=Object.keys(p.attrs||{}).length?[[esq.titulo,p.attrs]]:[];
+    return {id:p.id,nombre:p.nombre,marca:p.marca||null,modelo:p.modelo||null,asin:p.asin||null,asinDeclarado:!!p.asin,
+      categoria:p.catTitulo||p.cat,catSlug:p.cat,estado:p.estado,captura:'manual',
+      linkProducto:p.linkProducto||null,linkAfiliado:p.linkAfiliado||null,estadoLink:estadoLinkAmz(p.linkAfiliado),
+      imagen:p.imagen||null,precio:p.precio?Number(p.precio):null,precioFecha:p.ts,precioObs:p.precio?1:0,
+      notas:p.notas||null,familia:null,anio:null,condicion:(p.gen||{}).condicion||null,vendedor:(p.gen||{}).vendedor||null,
+      garantia:(p.gen||{}).garantia||null,rating:null,resenas:null,
+      mobile:esq.ficha==='mobile'?p.attrs:null,laptop:esq.ficha==='laptop'?p.attrs:null,
+      fichas:fichas,atributos:p.gen||{},creado:p.ts,actualizado:p.ts,capturado:true};
+  });
+}
+
+/* ───────── Planificador ─────────
+   Las tareas y los objetivos viven en el almacenamiento del artifact (la
+   capacidad `db`), no en este navegador: se escriben al momento, se ven igual
+   desde la computadora y el celular, sobreviven a cada republicación y yo
+   puedo leerlos para ayudarte con ellos. Si la página se abre fuera de
+   claude.ai (la copia local del repo) usa un respaldo local marcado como tal. */
+
+var PDB=null, PT=[], POBJ=[], pEstado='cargando', pEscribe=true, pFiltro='semana', pCat='', pLocal=false;
+var PRIOS={alta:['bad','Alta'],media:['warn','Media'],baja:['mute','Baja']};
+var PREPITE={'':'No se repite',semanal:'Cada semana',mensual:'Cada mes'};
+
+function hoyISO(d){var x=d||new Date();return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0')}
+function masDias(iso,n){var p=iso.split('-');var d=new Date(Number(p[0]),Number(p[1])-1,Number(p[2]));d.setDate(d.getDate()+n);return hoyISO(d)}
+function masMeses(iso,n){var p=iso.split('-');var d=new Date(Number(p[0]),Number(p[1])-1,Number(p[2]));d.setMonth(d.getMonth()+n);return hoyISO(d)}
+function dias(iso){if(!iso)return null;var p=iso.split('-'),h=new Date(),a=new Date(Number(p[0]),Number(p[1])-1,Number(p[2]));
+  h=new Date(h.getFullYear(),h.getMonth(),h.getDate());return Math.round((a-h)/86400000)}
+function fechaCorta(iso){
+  if(!iso)return 'sin fecha';
+  var d=dias(iso);
+  if(d===0)return 'hoy'; if(d===1)return 'mañana'; if(d===-1)return 'ayer';
+  if(d<0)return 'hace '+(-d)+' días';
+  var p=iso.split('-'), MM=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  return Number(p[2])+' '+MM[Number(p[1])-1]+(d>300?' '+p[0]:'');
+}
+
+/* ── respaldo local: SOLO cuando la página no corre dentro de claude.ai ── */
+function dbLocal(){
+  var K='cmx-centro-plan-local';
+  var leer=function(){try{return JSON.parse(localStorage.getItem(K)||'{}')}catch(e){return {}}};
+  var esc=function(o){try{localStorage.setItem(K,JSON.stringify(o))}catch(e){}};
+  var subs=[];
+  var avisar=function(){var d=leer();subs.forEach(function(s){s.fn({docs:Object.keys(d[s.col]||{}).map(function(id){
+    return {id:id,exists:true,data:function(){return d[s.col][id]}}}),metadata:{fromCache:false}})})};
+  var colRef=function(col){return {
+    onSnapshot:function(fn){subs.push({col:col,fn:fn});setTimeout(avisar,10);return function(){}},
+    doc:function(id){return {
+      set:function(v){var d=leer();(d[col]=d[col]||{})[id]=v;esc(d);avisar();return Promise.resolve()},
+      update:function(v){var d=leer();var o=(d[col]=d[col]||{})[id]||{};Object.keys(v).forEach(function(k){o[k]=v[k]});d[col][id]=o;esc(d);avisar();return Promise.resolve()},
+      delete:function(){var d=leer();if(d[col])delete d[col][id];esc(d);avisar();return Promise.resolve()}
+    }}
+  }};
+  return {collection:colRef};
+}
+
+function iniciarPlan(){
+  var listo=function(db,local){
+    PDB=db; pLocal=!!local;
+    var reloj=setTimeout(function(){if(pEstado==='cargando'){pEstado='lento';pRefrescar()}},10000);
+    var engancha=function(col,set){
+      db.collection(col).onSnapshot(function(s){
+        clearTimeout(reloj); pEstado='ok';
+        set(s.docs.map(function(d){var o=d.data()||{};o.id=d.id;return o}));
+        pRefrescar();
+      },function(e){pEstado='error'; pErr=e.code; pRefrescar()});
+    };
+    engancha('tareas',function(v){PT=v});
+    db.collection('especs').onSnapshot(function(s2){
+      ESP={}; s2.docs.forEach(function(d2){var o=d2.data()||{};ESP[d2.id]=o});
+      if(VIEW==='productos'&&pSel&&!pEditEsp)detalle(pSel);
+    },function(){});
+    engancha('objetivos',function(v){POBJ=v});
+  };
+  if(!(window.claude&&window.claude.use)){ pEstado='ok'; listo(dbLocal(),true); return }
+  window.claude.use('db').then(function(db){
+    if(!db){pEstado='sin-db';pRefrescar();return}
+    listo(db,false);
+  },function(){pEstado='sin-db';pRefrescar()});
+  try{
+    window.claude.use('user').then(function(u){
+      if(!u||!u.can)return;
+      Promise.resolve(u.can('data.write')).then(function(v){if(v===false){pEscribe=false;pRefrescar()}},function(){});
+    },function(){});
+  }catch(e){}
+}
+var pErr='';
+
+/* ── lecturas ── */
+function pPendientes(){return PT.filter(function(t){return t.estado!=='hecha'})}
+function pVencidas(){return pPendientes().filter(function(t){return t.vence&&dias(t.vence)<0})}
+function pHoy(){return pPendientes().filter(function(t){return t.vence&&dias(t.vence)===0})}
+function pSemana(){return pPendientes().filter(function(t){var d=t.vence?dias(t.vence):null;return d!==null&&d>0&&d<=7})}
+function pHechasRecientes(){
+  return PT.filter(function(t){return t.estado==='hecha'&&t.hechaEn&&dias(String(t.hechaEn).slice(0,10))>=-7});
+}
+function pAtencion(){return pVencidas().length+pHoy().length}
+
+/* ── escrituras ── */
+function pNuevoId(){return 't-'+Date.now().toString(36)+'-'+Math.floor(Math.random()*1e4).toString(36)}
+function pGuardar(t){
+  if(!PDB)return Promise.resolve();
+  t.actualizado=new Date().toISOString();
+  var cuerpo={}; Object.keys(t).forEach(function(k){if(k!=='id')cuerpo[k]=t[k]});
+  return PDB.collection('tareas').doc(t.id).set(cuerpo).catch(function(e){
+    toast(e&&e.code==='invalid_argument'?'No tienes permiso de escribir aquí':'No se pudo guardar: '+(e&&e.code||'error'));
+  });
+}
+function pCrear(datos){
+  var t=Object.assign({id:pNuevoId(),titulo:'',detalle:'',estado:'pendiente',prioridad:'media',
+    vence:'',repite:'',cat:'',objetivo:'',creado:new Date().toISOString(),hechaEn:''},datos);
+  return pGuardar(t);
+}
+function pBorrar(id){
+  if(!PDB)return;
+  PDB.collection('tareas').doc(id).delete().then(function(){toast('Tarea eliminada')},function(){toast('No se pudo eliminar')});
+}
+function pMarcar(t){
+  var hecha=t.estado!=='hecha';
+  var copia=JSON.parse(JSON.stringify(t));
+  copia.estado=hecha?'hecha':'pendiente';
+  copia.hechaEn=hecha?new Date().toISOString():'';
+  pGuardar(copia).then(function(){
+    if(hecha&&t.repite&&t.vence){
+      var sig=t.repite==='mensual'?masMeses(t.vence,1):masDias(t.vence,7);
+      /* si la fecha siguiente ya pasó, la empuja hasta el futuro */
+      var guardia=0; while(dias(sig)<0&&guardia++<60)sig=t.repite==='mensual'?masMeses(sig,1):masDias(sig,7);
+      pCrear({titulo:t.titulo,detalle:t.detalle,prioridad:t.prioridad,vence:sig,repite:t.repite,cat:t.cat,objetivo:t.objetivo});
+      toast('Hecha · la siguiente queda para el '+fechaCorta(sig));
+    }
+  });
+}
+function pGuardarObj(o){
+  if(!PDB)return Promise.resolve();
+  var cuerpo={}; Object.keys(o).forEach(function(k){if(k!=='id')cuerpo[k]=o[k]});
+  cuerpo.actualizado=new Date().toISOString();
+  return PDB.collection('objetivos').doc(o.id).set(cuerpo).catch(function(){toast('No se pudo guardar el objetivo')});
+}
+
+/* ── sugerencias sacadas del estado real del sitio ── */
+function pSugerencias(){
+  if(!D)return [];
+  var s=[], t=D.totales;
+  if(t.problemas>0)s.push({titulo:'Revisar los '+t.problemas+' productos con link o catálogo caído',prioridad:'alta',dias:1,
+    por:'Un link roto manda al visitante a la tarjeta por defecto del perfil de afiliado.'});
+  if(t.sinMlIdConLink>0)s.push({titulo:'Asignar ID de catálogo a '+t.sinMlIdConLink+' productos que ya tienen link de ML',prioridad:'alta',dias:3,
+    por:'Sin mlId su precio nunca se actualiza solo.'});
+  var flacas=D.categorias.filter(function(c){return c.visibles<15}).sort(function(a,b){return a.visibles-b.visibles});
+  if(flacas.length)s.push({titulo:'Completar '+flacas[0].titulo+' ('+flacas[0].visibles+' productos visibles)',prioridad:'media',dias:7,cat:flacas[0].clave,
+    por:'Una categoría con menos de 15 productos se ve vacía frente a la competencia.'});
+  if(t.nuncaRevisado>0)s.push({titulo:'Correr la revisión con --todas --links sobre los '+t.nuncaRevisado+' nunca revisados',prioridad:'media',dias:7,
+    por:'No sabemos si siguen existiendo en Mercado Libre.'});
+  if(D.duplicados.length)s.push({titulo:'Arreglar los '+D.duplicados.length+' links de ML repetidos entre productos',prioridad:'media',dias:5,
+    por:'Dos productos apuntando al mismo link: uno de los dos está mal.'});
+  var caps=(typeof capturaNorm==='function')?capturaNorm():[];
+  var sinAsin=caps.filter(function(p){return !p.asin}).length;
+  if(sinAsin)s.push({titulo:'Conseguir el ASIN de '+sinAsin+' productos capturados de Amazon',prioridad:'alta',dias:2,
+    por:'Sin ASIN no se puede armar el enlace de afiliado de la guía.'});
+  var listos=caps.filter(function(p){return p.estado==='ready'}).length;
+  if(listos>=3)s.push({titulo:'Escribir la guía de Amazon con los '+listos+' productos listos',prioridad:'alta',dias:4,
+    por:'Ya tienen ASIN, enlace con tu tag y ficha completa.'});
+  var titulos={}; PT.forEach(function(t2){titulos[t2.titulo]=1});
+  return s.filter(function(x){return !titulos[x.titulo]}).slice(0,5);
+}
+
+/* ── pintado ── */
+function pChipCat(clave){
+  if(!clave)return '';
+  var c=(D&&D.categorias||[]).filter(function(x){return x.clave===clave})[0];
+  return '<span class="chip mute">'+esc(c?c.titulo:clave)+'</span>';
+}
+function pFilaTarea(t){
+  var pr=PRIOS[t.prioridad]||PRIOS.media, d=t.vence?dias(t.vence):null, hecha=t.estado==='hecha';
+  var obj=POBJ.filter(function(o){return o.id===t.objetivo})[0];
+  return '<div class="pl-task'+(hecha?' hecha':'')+'" data-t="'+esc(t.id)+'">'+
+    '<button class="pl-check'+(hecha?' on':'')+'" type="button" data-marcar="'+esc(t.id)+'" aria-label="'+(hecha?'Reabrir':'Marcar como hecha')+'">'+(hecha?'✓':'')+'</button>'+
+    '<div class="pl-body">'+
+      '<div class="pl-tit">'+esc(t.titulo)+'</div>'+
+      (t.detalle?'<div class="sm">'+esc(t.detalle)+'</div>':'')+
+      '<div class="row" style="gap:6px;margin-top:4px">'+
+        '<span class="chip '+pr[0]+'">'+pr[1]+'</span>'+
+        '<span class="chip '+(d!==null&&d<0&&!hecha?'bad':'mute')+'">'+esc(fechaCorta(t.vence))+'</span>'+
+        (t.repite?'<span class="chip ac">'+esc(PREPITE[t.repite])+'</span>':'')+
+        pChipCat(t.cat)+
+        (obj?'<span class="chip ok">'+esc(obj.nombre)+'</span>':'')+
+      '</div>'+
+    '</div>'+
+    '<div class="pl-acc"><button class="btn sm" type="button" data-editar="'+esc(t.id)+'">Editar</button>'+
+      '<button class="btn sm" type="button" data-borrar="'+esc(t.id)+'">Borrar</button></div>'+
+  '</div>';
+}
+function pGrupo(titulo, lista, tono){
+  if(!lista.length)return '';
+  return '<div class="stack" style="gap:6px"><div class="row" style="gap:7px"><b style="font-family:var(--display);font-size:13px">'+esc(titulo)+'</b>'+
+    '<span class="chip '+(tono||'mute')+'">'+lista.length+'</span></div>'+lista.map(pFilaTarea).join('')+'</div>';
+}
+function pListaHTML(){
+  if(pEstado==='cargando')return '<div class="empty">Abriendo tus tareas…</div>';
+  if(pEstado==='sin-db')return '<div class="empty">No pude abrir el almacenamiento de este artifact. Abre la página desde tu cuenta de claude.ai (con sesión iniciada) y vuelve a entrar.</div>';
+  if(pEstado==='error')return '<div class="empty">El almacenamiento respondió con un error ('+esc(pErr)+'). Recarga la página.</div>';
+  var ls=PT.filter(function(t){
+    if(pCat&&t.cat!==pCat)return false;
+    if(pFiltro==='hechas')return t.estado==='hecha';
+    if(t.estado==='hecha')return false;
+    var d=t.vence?dias(t.vence):null;
+    if(pFiltro==='semana')return d===null?false:d<=7;
+    if(pFiltro==='mes')return d===null?false:d<=31;
+    return true;
+  });
+  if(!ls.length)return '<div class="empty">'+(PT.length?'Nada en este corte. Cambia el filtro o agrega una tarea.':'Todavía no hay tareas. Agrega la primera arriba o toma una de las sugerencias.')+'</div>';
+  if(pFiltro==='hechas')return pGrupo('Hechas',ls.sort(function(a,b){return String(b.hechaEn).localeCompare(String(a.hechaEn))}),'ok');
+  var orden=function(a,b){
+    var da=a.vence?dias(a.vence):9999, db2=b.vence?dias(b.vence):9999;
+    if(da!==db2)return da-db2;
+    var P={alta:0,media:1,baja:2};
+    return (P[a.prioridad]||1)-(P[b.prioridad]||1);
+  };
+  ls.sort(orden);
+  var g=function(f){return ls.filter(f)};
+  return pGrupo('Vencidas',g(function(t){return t.vence&&dias(t.vence)<0}),'bad')+
+    pGrupo('Hoy',g(function(t){return t.vence&&dias(t.vence)===0}),'warn')+
+    pGrupo('Próximos 7 días',g(function(t){var d=t.vence?dias(t.vence):null;return d!==null&&d>0&&d<=7}),'ac')+
+    pGrupo('Después',g(function(t){var d=t.vence?dias(t.vence):null;return d!==null&&d>7}),'mute')+
+    pGrupo('Sin fecha',g(function(t){return !t.vence}),'mute');
+}
+function pObjetivosHTML(){
+  if(!POBJ.length)return '<div class="empty">Sin objetivos todavía. Un objetivo es una cifra con fecha: “1 venta en Mercado Libre”, “10 guías publicadas”, “500 visitas en un mes”.</div>';
+  return POBJ.slice().sort(function(a,b){return String(a.vence||'9').localeCompare(String(b.vence||'9'))}).map(function(o){
+    var meta=Number(o.meta)||0, act=Number(o.actual)||0;
+    var pc=meta>0?Math.min(100,Math.round(act/meta*100)):0;
+    var ligadas=PT.filter(function(t){return t.objetivo===o.id});
+    var hechas=ligadas.filter(function(t){return t.estado==='hecha'}).length;
+    return '<div class="card"><div class="bd stack" style="gap:8px">'+
+      '<div class="row"><b style="font-family:var(--display)">'+esc(o.nombre)+'</b>'+
+        '<span class="chip '+(pc>=100?'ok':(o.vence&&dias(o.vence)<0?'bad':'mute'))+'">'+esc(fechaCorta(o.vence))+'</span>'+
+        '<button class="btn sm" type="button" data-objdel="'+esc(o.id)+'" style="margin-left:auto">Borrar</button></div>'+
+      '<div class="row" style="gap:8px"><span class="bar" style="flex:1;height:8px"><i style="width:'+pc+'%"></i></span>'+
+        '<b class="tnum">'+act+'</b><span class="sm">de '+meta+' '+esc(o.unidad||'')+' · '+pc+'%</span></div>'+
+      '<div class="row">'+
+        '<button class="btn sm" type="button" data-objmas="'+esc(o.id)+'">+1</button>'+
+        '<input class="inp" style="width:90px" inputmode="decimal" data-objset="'+esc(o.id)+'" value="'+esc(act)+'" aria-label="Avance">'+
+        (ligadas.length?'<span class="sm">'+hechas+' de '+ligadas.length+' tareas ligadas hechas</span>':'<span class="sm">sin tareas ligadas</span>')+
+      '</div>'+
+      (o.nota?'<div class="sm">'+esc(o.nota)+'</div>':'')+
+    '</div></div>';
+  }).join('');
+}
+function pSugerenciasHTML(){
+  var s=pSugerencias();
+  if(!s.length)return '<div class="empty">Nada que proponer con este corte de datos.</div>';
+  return s.map(function(x,i){
+    var pr=PRIOS[x.prioridad]||PRIOS.media;
+    return '<div class="alert '+(x.prioridad==='alta'?'bad':'warn')+'"><div><b>'+esc(x.titulo)+'</b><p>'+esc(x.por)+'</p></div>'+
+      '<span class="go"><button class="btn sm" type="button" data-sug="'+i+'">Agregar</button></span></div>';
+  }).join('');
+}
+function pRefrescar(){
+  if(VIEW!=='plan'){pBadge(); if(VIEW==='dashboard'&&D)pintarDashboard(); return}
+  var l=el('plLista'); if(!l)return;
+  l.innerHTML=pListaHTML();
+  el('plObj').innerHTML=pObjetivosHTML();
+  el('plSug').innerHTML=pSugerenciasHTML();
+  el('plKpis').innerHTML=[
+    kpi({lab:'Vencidas',val:fmt(pVencidas().length),fine:'ya pasó su fecha',tono:pVencidas().length?'bad':'ok'}),
+    kpi({lab:'Para hoy',val:fmt(pHoy().length),fine:'con fecha de hoy',tono:pHoy().length?'warn':''}),
+    kpi({lab:'Esta semana',val:fmt(pSemana().length),fine:'en los próximos 7 días'}),
+    kpi({lab:'Hechas (7 días)',val:fmt(pHechasRecientes().length),fine:'de '+fmt(PT.filter(function(t){return t.estado==='hecha'}).length)+' en total',tono:'ok'}),
+    kpi({lab:'Objetivos',val:fmt(POBJ.length),fine:(function(n){return n+(n===1?' cumplido':' cumplidos')})(POBJ.filter(function(o){return (Number(o.actual)||0)>=(Number(o.meta)||0)&&Number(o.meta)>0}).length)})
+  ].join('');
+  var av=el('plAviso');
+  av.hidden=!(pLocal||pEstado==='lento'||!pEscribe);
+  av.innerHTML=pLocal?'<div class="alert warn"><div><b>Modo local de prueba</b><p>Esta copia de la página no corre dentro de claude.ai, así que las tareas se guardan solo en este navegador. En el artifact publicado se guardan en tu cuenta.</p></div></div>':
+    (pEstado==='lento'?'<div class="alert warn"><div><b>El almacenamiento tarda en responder</b><p>Lo que ves puede estar desactualizado. No recargues: en cuanto conteste se actualiza solo.</p></div></div>':
+    (!pEscribe?'<div class="alert warn"><div><b>Solo lectura</b><p>Tu nivel de acceso a este artifact no permite escribir datos.</p></div></div>':''));
+  pBadge();
+}
+function pBadge(){
+  var b=document.querySelector('[data-badge="plan"]'); if(!b)return;
+  var n=pAtencion();
+  if(n>0){b.textContent=n>99?'99+':n;b.hidden=false}else b.hidden=true;
+}
+function pLlenarCats(sel){
+  if(!sel||sel.options.length>1)return;
+  sel.innerHTML=sel.getAttribute('data-todas')!==null?'<option value="">Todas las categorías</option>':'<option value="">Sin categoría</option>';
+  (D&&D.categorias||[]).forEach(function(c){
+    var o=document.createElement('option'); o.value=c.clave; o.textContent=c.titulo; sel.appendChild(o);
+  });
+}
+function pintarPlan(){
+  var v=el('v-plan');
+  if(!v.dataset.listo){
+    v.dataset.listo='1';
+    v.innerHTML=
+    '<div class="sec"><div class="kpis" id="plKpis"></div></div>'+
+    '<div class="sec" id="plAviso" hidden></div>'+
+    '<div class="sec"><div class="card"><div class="bd">'+
+      '<div class="row" style="align-items:flex-end">'+
+        '<label class="f" style="flex:2;min-width:220px">Nueva tarea<input class="inp" id="plTit" placeholder="Qué hay que hacer"></label>'+
+        '<label class="f">Para cuándo<input class="inp" id="plFecha" type="date" value="'+hoyISO()+'"></label>'+
+        '<label class="f">Prioridad<select class="inp" id="plPrio"><option value="alta">Alta</option><option value="media" selected>Media</option><option value="baja">Baja</option></select></label>'+
+        '<label class="f">Categoría<select class="inp" id="plCatNueva"></select></label>'+
+        '<label class="f">Se repite<select class="inp" id="plRep"><option value="">No</option><option value="semanal">Cada semana</option><option value="mensual">Cada mes</option></select></label>'+
+        '<label class="f">Objetivo<select class="inp" id="plObjSel"></select></label>'+
+        '<button class="btn pri" id="plAdd" type="button">Agregar</button>'+
+      '</div>'+
+    '</div></div></div>'+
+    '<div class="sec"><div class="sech"><h2>Tareas</h2><span class="note" id="plCount"></span>'+
+      '<div class="row" id="plTabs" style="margin-left:auto">'+
+        ['semana|Esta semana','mes|Este mes','todo|Todas','hechas|Hechas'].map(function(x){var p=x.split('|');
+          return '<button class="btn sm" type="button" data-f="'+p[0]+'">'+p[1]+'</button>'}).join('')+
+        '<select class="inp" id="plCatFil" data-todas></select>'+
+      '</div></div>'+
+      '<div class="stack" id="plLista"></div>'+
+    '</div>'+
+    '<div class="sec"><div class="split">'+
+      '<div class="stack"><div class="sech"><h2>Objetivos</h2><span class="note">Una cifra con fecha</span></div>'+
+        '<div class="stack" id="plObj"></div>'+
+        '<div class="card"><div class="bd"><div class="row" style="align-items:flex-end">'+
+          '<label class="f" style="flex:1;min-width:160px">Objetivo<input class="inp" id="poNom" placeholder="Ventas en Mercado Libre"></label>'+
+          '<label class="f">Meta<input class="inp" id="poMeta" inputmode="numeric" style="width:80px" value="1"></label>'+
+          '<label class="f">Unidad<input class="inp" id="poUni" style="width:110px" placeholder="ventas"></label>'+
+          '<label class="f">Fecha límite<input class="inp" id="poFecha" type="date"></label>'+
+          '<button class="btn" id="poAdd" type="button">Agregar objetivo</button>'+
+        '</div></div></div>'+
+      '</div>'+
+      '<div class="stack"><div class="sech"><h2>Sugerencias</h2><span class="note">De lo que hoy dice la base</span></div>'+
+        '<div class="alerts" id="plSug"></div>'+
+        '<div class="card"><div class="bd"><p class="sm" style="margin:0">Las tareas y los objetivos se guardan en el almacenamiento de este artifact, no en este navegador: los ves igual desde la computadora y el celular, sobreviven a cada republicación y yo puedo leerlos cuando me pidas ayuda con alguno.</p></div></div>'+
+      '</div>'+
+    '</div></div>';
+    pEnganchesPlan();
+  }
+  pLlenarCats(el('plCatNueva')); pLlenarCats(el('plCatFil'));
+  pTabs(); pRefrescarObjSel(); pRefrescar();
+}
+function pTabs(){
+  [].forEach.call(el('plTabs').querySelectorAll('[data-f]'),function(b){
+    b.style.borderColor=b.getAttribute('data-f')===pFiltro?'var(--ac)':'';
+    b.style.color=b.getAttribute('data-f')===pFiltro?'var(--ac)':'';
+  });
+}
+function pRefrescarObjSel(){
+  var s=el('plObjSel'); if(!s)return;
+  var v=s.value;
+  s.innerHTML='<option value="">Sin objetivo</option>'+POBJ.map(function(o){
+    return '<option value="'+esc(o.id)+'">'+esc(o.nombre)+'</option>'}).join('');
+  s.value=v;
+}
+function pEnganchesPlan(){
+  var alta=function(){
+    var tit=el('plTit').value.trim();
+    if(!tit){toast('Escribe qué hay que hacer');return}
+    if(!PDB){toast('El almacenamiento todavía no responde');return}
+    pCrear({titulo:tit,vence:el('plFecha').value||'',prioridad:el('plPrio').value,
+      cat:el('plCatNueva').value,repite:el('plRep').value,objetivo:el('plObjSel').value});
+    el('plTit').value=''; el('plRep').value=''; el('plTit').focus(); toast('Tarea agregada');
+  };
+  el('plAdd').addEventListener('click',alta);
+  el('plTit').addEventListener('keydown',function(e){if(e.key==='Enter')alta()});
+  el('plTabs').addEventListener('click',function(e){
+    var b=e.target.closest('[data-f]'); if(!b)return; pFiltro=b.getAttribute('data-f'); pTabs(); pRefrescar();
+  });
+  el('plCatFil').addEventListener('change',function(){pCat=this.value;pRefrescar()});
+  el('plLista').addEventListener('click',function(e){
+    var m=e.target.closest('[data-marcar]'), b=e.target.closest('[data-borrar]'), ed=e.target.closest('[data-editar]');
+    if(m){var t=PT.filter(function(x){return x.id===m.getAttribute('data-marcar')})[0];if(t)pMarcar(t);return}
+    if(b){pBorrar(b.getAttribute('data-borrar'));return}
+    if(ed){pEditor(ed.getAttribute('data-editar'))}
+  });
+  el('plSug').addEventListener('click',function(e){
+    var b=e.target.closest('[data-sug]'); if(!b)return;
+    var s=pSugerencias()[Number(b.getAttribute('data-sug'))]; if(!s)return;
+    pCrear({titulo:s.titulo,detalle:s.por,prioridad:s.prioridad,vence:masDias(hoyISO(),s.dias||3),cat:s.cat||''});
+    toast('Agregada a tus tareas');
+  });
+  el('poAdd').addEventListener('click',function(){
+    var n=el('poNom').value.trim();
+    if(!n){toast('Ponle nombre al objetivo');return}
+    if(!PDB){toast('El almacenamiento todavía no responde');return}
+    pGuardarObj({id:'o-'+Date.now().toString(36),nombre:n,meta:Number(el('poMeta').value)||1,
+      unidad:el('poUni').value.trim(),vence:el('poFecha').value||'',actual:0,nota:'',creado:new Date().toISOString()});
+    el('poNom').value=''; el('poUni').value=''; toast('Objetivo agregado');
+  });
+  el('plObj').addEventListener('click',function(e){
+    var mas=e.target.closest('[data-objmas]'), del=e.target.closest('[data-objdel]');
+    if(mas){var o=POBJ.filter(function(x){return x.id===mas.getAttribute('data-objmas')})[0];
+      if(o){var c=JSON.parse(JSON.stringify(o));c.actual=(Number(o.actual)||0)+1;pGuardarObj(c)}return}
+    if(del&&PDB)PDB.collection('objetivos').doc(del.getAttribute('data-objdel')).delete();
+  });
+  el('plObj').addEventListener('change',function(e){
+    var i=e.target.closest('[data-objset]'); if(!i)return;
+    var o=POBJ.filter(function(x){return x.id===i.getAttribute('data-objset')})[0]; if(!o)return;
+    var c=JSON.parse(JSON.stringify(o)); c.actual=Number(i.value)||0; pGuardarObj(c);
+  });
+}
+/* editor de una tarea: se abre sobre la fila */
+function pEditor(id){
+  var t=PT.filter(function(x){return x.id===id})[0]; if(!t)return;
+  var fila=el('plLista').querySelector('[data-t="'+id+'"]'); if(!fila)return;
+  var cats='<option value="">Sin categoría</option>'+(D&&D.categorias||[]).map(function(c){
+    return '<option value="'+esc(c.clave)+'"'+(t.cat===c.clave?' selected':'')+'>'+esc(c.titulo)+'</option>'}).join('');
+  var objs='<option value="">Sin objetivo</option>'+POBJ.map(function(o){
+    return '<option value="'+esc(o.id)+'"'+(t.objetivo===o.id?' selected':'')+'>'+esc(o.nombre)+'</option>'}).join('');
+  fila.outerHTML='<div class="card" data-ed="'+esc(id)+'"><div class="bd stack">'+
+    '<label class="f">Tarea<input class="inp" id="ed_tit" value="'+esc(t.titulo)+'"></label>'+
+    '<label class="f">Detalle<input class="inp" id="ed_det" value="'+esc(t.detalle||'')+'"></label>'+
+    '<div class="row">'+
+      '<label class="f">Fecha<input class="inp" id="ed_fec" type="date" value="'+esc(t.vence||'')+'"></label>'+
+      '<label class="f">Prioridad<select class="inp" id="ed_pri">'+['alta','media','baja'].map(function(p){
+        return '<option value="'+p+'"'+(t.prioridad===p?' selected':'')+'>'+PRIOS[p][1]+'</option>'}).join('')+'</select></label>'+
+      '<label class="f">Categoría<select class="inp" id="ed_cat">'+cats+'</select></label>'+
+      '<label class="f">Se repite<select class="inp" id="ed_rep">'+['','semanal','mensual'].map(function(r){
+        return '<option value="'+r+'"'+(t.repite===r?' selected':'')+'>'+PREPITE[r]+'</option>'}).join('')+'</select></label>'+
+      '<label class="f">Objetivo<select class="inp" id="ed_obj">'+objs+'</select></label>'+
+    '</div>'+
+    '<div class="row"><button class="btn pri" id="ed_ok" type="button">Guardar</button>'+
+      '<button class="btn" id="ed_no" type="button">Cancelar</button></div>'+
+  '</div></div>';
+  el('ed_ok').addEventListener('click',function(){
+    var c=JSON.parse(JSON.stringify(t));
+    c.titulo=el('ed_tit').value.trim()||t.titulo; c.detalle=el('ed_det').value.trim();
+    c.vence=el('ed_fec').value||''; c.prioridad=el('ed_pri').value; c.cat=el('ed_cat').value;
+    c.repite=el('ed_rep').value; c.objetivo=el('ed_obj').value;
+    pGuardar(c).then(function(){toast('Guardado')});
+  });
+  el('ed_no').addEventListener('click',pRefrescar);
+}
+
+/* ───────── módulos por conectar ───────── */
+function pintarPendiente(id){
+  var p=PENDIENTES[id], v=el('v-'+id);
+  if(v.dataset.listo)return; v.dataset.listo='1';
+  v.innerHTML='<div class="sec"><div class="split">'+
+    '<div class="card"><div class="hd"><h3>Qué va a hacer</h3><span class="chip mute">por conectar</span></div><div class="bd stack">'+
+      '<p style="margin:0">'+p.que+'</p>'+
+      '<p class="sm" style="margin:0"><b>Hoy:</b> '+p.hoy+'</p></div></div>'+
+    '<div class="card"><div class="hd"><h3>Qué necesitamos decidir</h3></div><div class="bd">'+
+      '<ol class="steps">'+p.falta.map(function(f){return '<li><div>'+f+'</div></li>'}).join('')+'</ol></div></div>'+
+  '</div></div>'+
+  '<div class="sec"><div class="alert warn"><div><b>Está vacío a propósito</b>'+
+    '<p>No lo lleno con números de muestra: un panel que parece conectado y no lo está es peor que uno vacío. Dime cómo quieres que funcione y lo construimos.</p></div></div></div>';
+}
+
+/* ───────── tema ───────── */
+el('themeBtn').addEventListener('click',function(){
+  var r=document.documentElement;
+  var oscuro=r.getAttribute('data-theme')==='dark'||(!r.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme:dark)').matches);
+  r.setAttribute('data-theme',oscuro?'light':'dark');
+  store('tema',oscuro?'light':'dark');
+});
+(function(){var t=store('tema');if(t)document.documentElement.setAttribute('data-theme',t)})();
+
+/* ───────── arranque ───────── */
+fetch('datos.json').then(function(r){
+  if(!r.ok)throw new Error('HTTP '+r.status);
+  return r.json();
+}).then(function(j){
+  D=j;
+  var g=new Date(j.generado);
+  el('dataStamp').innerHTML='Datos del '+g.toLocaleDateString('es-MX',{day:'numeric',month:'short',year:'numeric'})+
+    '<br>'+fmt(j.totales.productos)+' productos · '+j.totales.categorias+' categorías';
+  pintarNav();
+  pintarDashboard();
+  iniciarPlan();
+  var h=location.hash.slice(1);
+  ir(MODULOS.some(function(m){return m.id===h})?h:'dashboard');
+  // Inventario de Amazon: el archivo publicado al lado, o lo último que se cargó a mano.
+  fetch('amazon.json').then(function(r){return r.ok?r.json():null}).catch(function(){return null})
+    .then(function(j){
+      try{ A=j?normAmazon(j):(store('amazon')||null); }catch(e){ A=null; }
+      if(A&&VIEW==='guias')pintarGuias();
+      if(A&&VIEW==='dashboard')pintarDashAmazon();
+    });
+}).catch(function(e){
+  el('dataStamp').textContent='No se pudieron cargar los datos';
+  document.querySelector('.wrap').innerHTML='<div class="card"><div class="bd"><h3>No se pudieron cargar los datos</h3>'+
+    '<p class="sm">El archivo <code>datos.json</code> no respondió ('+esc(e.message)+'). Corre <code>node scripts/generar-centro.js</code> y vuelve a publicar el Centro de Control.</p></div></div>';
+});
+})();
+</script>
