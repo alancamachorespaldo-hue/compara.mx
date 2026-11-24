@@ -84,7 +84,13 @@ const usuario = await token('user');
 console.log(`\nToken de usuario: ${usuario.ok ? 'OK' : 'FALLÓ (' + usuario.status + ' ' + (usuario.msg || '') + ')'}` +
   (usuario.ok ? ` · user_id ${usuario.user}` : ''));
 if (usuario.scope) console.log(`Scopes: ${usuario.scope.split(' ').filter(s => !s.startsWith('urn:')).join(' ')} (+${usuario.scope.split(' ').filter(s => s.startsWith('urn:')).length} urn:…)`);
-if (!usuario.ok) process.exit(1);
+// Que el refresh token esté muerto no impide seguir: el token de aplicación
+// (client_credentials) solo necesita id y secret, y sirve para probar los permisos.
+if (!usuario.ok) {
+  console.log('   El refresh token ya no sirve. Es de un solo uso: cada refresco devuelve uno nuevo');
+  console.log('   y el anterior deja de valer, así que basta con haberlo gastado varias veces.');
+  console.log('   Hay que volver a autorizar la app para generar otro. Sigo con el token de aplicación.');
+}
 
 const app = await token('app');
 console.log(`Token de aplicación: ${app.ok ? 'OK' : 'FALLÓ (' + app.status + ')'}\n`);
@@ -93,10 +99,11 @@ await segundaApp(MLID);
 
 let precios = false;
 for (const [ruta, que] of RUTAS) {
-  const u = await probar(usuario.t, ruta);
+  const u = usuario.ok ? await probar(usuario.t, ruta) : { status: '—', nota: 'sin token de usuario' };
   const a = app.ok ? await probar(app.t, ruta) : { status: '—', nota: '' };
-  if (ruta.includes('/items') && u.status === 200) precios = true;
-  const marca = u.status === 200 ? '✓' : (u.status === 403 ? '⛔' : '·');
+  if (ruta.includes('/items') && (u.status === 200 || a.status === 200)) precios = true;
+  const ref = u.status === '—' ? a.status : u.status;
+  const marca = ref === 200 ? '✓' : (ref === 403 ? '⛔' : '·');
   console.log(`${marca} ${String(u.status).padEnd(4)} (app ${String(a.status).padEnd(4)}) ${ruta}`);
   console.log(`       ${que}${u.nota ? ' → ' + u.nota : ''}`);
 }
