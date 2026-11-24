@@ -48,15 +48,38 @@ function textoArray(html, varName) {
   return null;
 }
 
-/** Los productos pausados de una categoría de la base. */
-function pausadosDe(dato) {
+/**
+ * Lo que NO debe verse en la página de una categoría:
+ *   · lo pausado por plataforma (pausaML / pausaAmz): se oculta solo esa tienda;
+ *   · lo RETIRADO de la base (_eliminado, activo:false o _publicar:false): se oculta entero,
+ *     marcando las dos plataformas, con lo que el bucle lo saca de la lista.
+ * Lo segundo lo hacía sync-html.js, pero solo cubre 5 categorías y además necesita que la
+ * categoría exista en productos.json, así que a Android, iPhone, Consolas y Juegos no los
+ * limpiaba nadie: en nov-2026 las páginas seguían anunciando 12 productos que la base daba por
+ * muertos (un Galaxy S26 a $20,999, una Xbox Series X sin link de compra). Aquí se cubren TODAS
+ * las páginas del registro, con el mismo emparejamiento por id o por link.
+ */
+function ocultosDe(dato) {
   return (db[dato] || [])
-    .filter(p => p.pausaML || p.pausaAmz)
-    .map(p => ({
-      id: String(p.id), linkML: p.linkML || null, linkAmz: p.linkAmz || null,
-      z: Object.assign(p.pausaML ? { ml: 1 } : {}, p.pausaAmz ? { amz: 1 } : {}),
-      nombre: p.nombre,
-    }));
+    .filter(p => p.pausaML || p.pausaAmz || p._eliminado === true || p.activo === false ||
+                 p._publicar === false || (!p.linkML && !p.linkAmz))
+    .map(p => {
+      // Sin ninguna tienda en la base tampoco debe verse: el array del HTML puede seguir
+      // llevando un link viejo (es lo que pasa con un link muerto retirado, que sale de la base
+      // pero sigue escrito en la página).
+      const retirado = p._eliminado === true || p.activo === false || p._publicar === false ||
+                       (!p.linkML && !p.linkAmz);
+      return {
+        id: String(p.id), linkML: p.linkML || null, linkAmz: p.linkAmz || null,
+        // El link retirado sirve para emparejar: en la página sigue escrito, y en categorías como
+        // streaming el id de la base (streaming-2) no es el del HTML (2), así que sin esto el
+        // producto se quedaba a la vista con su link muerto.
+        linkMuerto: p._linkMuerto || null,
+        z: retirado ? { ml: 1, amz: 1 } : Object.assign(p.pausaML ? { ml: 1 } : {}, p.pausaAmz ? { amz: 1 } : {}),
+        retirado,
+        nombre: p.nombre,
+      };
+    });
 }
 
 /**
@@ -70,6 +93,7 @@ function emparejar(itemsHtml, pausados) {
   for (const p of pausados) {
     if (p.linkML) porLink.set(p.linkML, p);
     if (p.linkAmz) porLink.set(p.linkAmz, p);
+    if (p.linkMuerto) porLink.set(p.linkMuerto, p);
   }
   const usados = new Set();
   for (const it of itemsHtml) {
@@ -167,7 +191,7 @@ for (const [file, grupo] of porArchivo) {
   let visibles = 0, hayPlana = false;
 
   for (const [clave, c] of grupo) {
-    const pausados = pausadosDe(c.datos);
+    const pausados = ocultosDe(c.datos);
     const items = itemsDePagina(c.file, c.varName, c.tipo);
     if (items === null) { avisos.push(`${clave}: no se pudo leer ${c.file}`); continue; }
 
@@ -183,15 +207,22 @@ for (const [file, grupo] of porArchivo) {
         return (!z.ml && it.linkML) || (!z.amz && it.linkAmz);
       }).length;
     }
-    info.push({ clave, n: Object.keys(datosCat).length, pausados: pausados.length, sinEncontrar });
+    info.push({
+      clave, n: Object.keys(datosCat).length, pausados: pausados.length,
+      retirados: pausados.filter(p => p.retirado).length,
+      // Un retirado que no está en la página es lo normal (nunca se publicó, o ya se borró del
+      // HTML); solo se avisa de los PAUSADOS que no aparecen, que sí delatan ids descuadrados.
+      sinEncontrar: sinEncontrar.filter(p => !p.retirado),
+    });
   }
 
   if (!specs.length) continue;
   if (!escribirEnPagina(file, specs, data, hayPlana ? visibles : null)) continue;
 
-  for (const { clave, n, pausados, sinEncontrar } of info) {
+  for (const { clave, n, pausados, retirados, sinEncontrar } of info) {
     total += n;
-    console.log(clave.padEnd(24) + String(n).padStart(3) + ' de ' + String(pausados).padStart(3) + ' pausa(s) aplicadas');
+    console.log(clave.padEnd(24) + String(n).padStart(3) + ' de ' + String(pausados).padStart(3) +
+      ' ocultamiento(s)' + (retirados ? ' (' + retirados + ' retirado(s) de la base)' : ''));
     // Un pausado que no está en la página no es un error: puede que nunca se publicara. Pero si
     // son muchos, suele significar que los ids de la página y los de la base ya no casan.
     if (sinEncontrar.length) {
@@ -201,7 +232,7 @@ for (const [file, grupo] of porArchivo) {
   }
 }
 
-console.log('\n✓ sync-pausas: ' + total + ' pausas aplicadas en las páginas');
+console.log('\n✓ sync-pausas: ' + total + ' ocultamientos aplicados en las páginas (pausas + retirados)');
 if (avisos.length) {
   console.log('\nAvisos:');
   for (const a of avisos) console.log('  · ' + a);

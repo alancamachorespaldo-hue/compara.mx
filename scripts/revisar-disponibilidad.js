@@ -36,6 +36,11 @@
  *      (_dispFallos). Se pausa cuando la racha llega al umbral (2 por defecto, o sea dos
  *      días seguidos). Si vuelve a aparecer, la racha se borra sola.
  *
+ * Un link de afiliado CAÍDO no se pausa: se RETIRA (ver scripts/_link-muerto.js). Pasa a
+ * _linkMuerto, el producto se queda sin linkML —y por tanto fuera de la página— y entra en la
+ * cola "necesita link nuevo" conservando su mlId, su precio y sus características. Antes se
+ * pausaba, y entonces había que volver a abrir cada domingo un link que nunca iba a revivir.
+ *
  * Qué escribe en merged-admin.json con --aplicar (todo reversible, nada se borra):
  *   pausaML: true · _pausaAuto: true · _motivoPausa · _pausaFecha
  *   y al reaparecer, si la pausa era automática, la quita sola.
@@ -54,6 +59,7 @@ import { resolve } from 'path';
 import { pathToFileURL } from 'url';
 import { clavesDeDatos, tituloDe } from './categorias.js';
 import { resolverAfiliado } from './resolver-afiliado.js';
+import { LINK_MUERTO, retirarLink } from './_link-muerto.js';
 
 const ROOT = resolve(import.meta.dirname, '..');
 const API = 'https://api.mercadolibre.com';
@@ -306,7 +312,7 @@ async function main() {
   const productos = [...sinId];
   const desajustes = [];   // precios que la ficha desmiente (no se pausan, se reportan)
   const resumen = {};
-  let pausados = 0, reactivados = 0, enRacha = 0, preciosCorregidos = 0;
+  let pausados = 0, reactivados = 0, enRacha = 0, preciosCorregidos = 0, linksRetirados = 0;
 
   tareas.forEach((t, i) => {
     const { cat, p, mlId } = t;
@@ -334,7 +340,19 @@ async function main() {
         p._dispFallos = fallos;
         p._dispFecha = HOY;
         p._dispDesde ??= HOY;
-        if (fallos >= UMBRAL && !p.pausaML) {
+        if (fallos >= UMBRAL && LINK_MUERTO.has(r.estado) && p.linkML) {
+          // Un link de afiliado que ya no abre su producto no resucita: se retira (queda en
+          // _linkMuerto) en vez de dejarlo pausado y volver a abrirlo cada domingo. El producto
+          // se queda sin tienda, así que sync-pausas.js lo saca de la página, y entra en la cola
+          // "necesita link nuevo" con su mlId, que es lo único que hace falta para generar otro.
+          const info = retirarLink(p, r.estado, HOY);
+          linksRetirados++;
+          fila.accion = 'link retirado' + (info.recuperable
+            ? ' · queda su ficha de catálogo para generar uno nuevo'
+            : ' · SIN mlId: hay que buscar el producto otra vez');
+          fila.linkRetirado = info.linkMuerto;
+          fila.pausaML = !!p.pausaML;
+        } else if (fallos >= UMBRAL && !p.pausaML) {
           p.pausaML = true;
           p._pausaAuto = true;
           p._motivoPausa = r.estado;
@@ -351,7 +369,9 @@ async function main() {
           fila.accion = `en observación (${fallos}/${UMBRAL})`;
         }
       } else {
-        fila.accion = fallos >= UMBRAL ? 'se pausaría' : `en observación (${fallos}/${UMBRAL})`;
+        fila.accion = fallos >= UMBRAL
+          ? (LINK_MUERTO.has(r.estado) && p.linkML ? 'se retiraría el link' : 'se pausaría')
+          : `en observación (${fallos}/${UMBRAL})`;
         if (p.pausaML) fila.accion = 'ya estaba pausado';
       }
       productos.push(fila);
@@ -527,7 +547,7 @@ async function main() {
   console.log(`\n   Caídos = ya no existe (${totales.no_existe}) + pausado en ML (${totales.pausado_en_ml}) + sin ofertas (${totales.sin_ofertas})`
     + (LINKS ? ` + link roto (${totales.link_roto}) + link a otro producto (${totales.link_otro})` : ''));
   if (!LINKS) console.log('   (sin --links no se comprobó que cada link de afiliado siga abriendo su producto)');
-  if (APLICAR) console.log(`   ⏸ ${pausados} pausado(s) · ▶ ${reactivados} reactivado(s) · 👀 ${enRacha} en observación`);
+  if (APLICAR) console.log(`   ⏸ ${pausados} pausado(s) · ✂ ${linksRetirados} link(s) retirado(s) · ▶ ${reactivados} reactivado(s) · 👀 ${enRacha} en observación`);
   else console.log(`   (modo reporte: no se cambió nada — agrega --aplicar para pausar)`);
   console.log(`\n   ${LLAMADAS} llamadas a la API · ${((Date.now() - t0) / 1000).toFixed(0)} s`);
   console.log(`   📄 Reporte: scripts/disponibilidad-report.json`);

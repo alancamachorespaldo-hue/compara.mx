@@ -84,9 +84,10 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
   corridas seguidas (`_dispFallos`, `--umbral`), porque pausar de más también quita credibilidad.
   `--aplicar` escribe `pausaML` + `_pausaAuto` + `_motivoPausa` + `_pausaFecha` sin borrar el producto,
   el link ni el precio, reactiva solo lo que él mismo pausó y **nunca toca una pausa puesta a mano**.
-  Un producto pausado por `link_roto`/`link_otro` **solo se reactiva en una corrida con `--links`**:
-  para la capa de catálogo ese producto se ve perfectamente disponible (lo que murió es el link de
-  afiliado), así que sin esta regla la corrida diaria lo devolvía al sitio cada mañana con el link roto.
+  Un link de afiliado caído **no se pausa: se retira** (`_link-muerto.js`), porque no resucita y
+  volver a abrirlo cada domingo era tiempo tirado. Antes se pausaba, y hacía falta la regla "un pausado
+  por link_roto solo se reactiva con `--links`" para que la corrida diaria no lo devolviera al sitio
+  con el link roto; esa excepción ya no existe.
   También anota en cada producto revisado `_dispEstado` y `_dispFecha` (y `_dispFallos` mientras está
   en observación): el gestor los muestra en la columna "Revisado en ML" y en las colas "Pausados por
   la revisión", "En observación" y "Nunca revisados". El reporte **acumula**: revisar una categoría
@@ -94,6 +95,24 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
   Escribe `disponibilidad-report.json`, que `generar-admin.js` embebe en el gestor (tarjeta
   "Disponibilidad en Mercado Libre", con botón para pausar). Después de `--aplicar` hay que correr
   `sync-pausas.js` para que las páginas lo reflejen.
+- `_link-muerto.js` — la regla única para un link de afiliado que ya no abre su producto: sale de
+  `linkML` y queda en `_linkMuerto` + `_linkMuertoFecha` + `_linkMuertoMotivo` + `_necesitaLink`,
+  se levanta la pausa automática que lo ocultaba (una pausa puesta a mano nunca se toca) y
+  `_dispEstado` pasa a `sin_link`. El producto se queda sin tienda, así que `sync-pausas.js` lo saca
+  de la página, y conserva `mlId`, precio, imagen y características: pegar un link nuevo lo devuelve.
+  La usan `revisar-disponibilidad.js` (de aquí en adelante) y `limpiar-links-muertos.mjs` (para lo ya
+  marcado). Solo retira lo **confirmado** por la revisión: la marca suelta `_linkRevisar:'link_caido'`
+  de una auditoría no basta, porque en algún producto la revisión posterior dijo que el link servía.
+- `limpiar-links-muertos.mjs [--categoria=a,b] [--aplicar]` — aplica esa regla a lo que ya está
+  marcado en la base y escribe `links-muertos-report.json` (incluye los que no tienen `mlId`, que son
+  los únicos irrecuperables, y los marcados por la auditoría sin confirmar). Después: `sync-pausas.js`.
+- `aplicar-especs.mjs <archivo.json> [--aplicar]` — mete en `merged-admin.json` las características
+  corregidas a mano en el Centro de Control (solo el campo `especs`; un valor vacío borra la clave).
+  Avisa de las categorías que no pasan por `sync-html.js`, donde hay que editar el array del HTML.
+- `generar-centro.js` — resume la base y los reportes en `centro-datos.json`, que lee el **Centro de
+  Control** (`scripts/centro-control.html`, publicado como artifact con ese JSON al lado). Es de solo
+  lectura: calcula si cada producto **se ve o no en la página** y por qué, con el mismo criterio con
+  el que `sync-pausas.js` escribe el HTML.
 - `merged-admin.json` — **fuente de verdad** de productos (precios, links, `activo`, specs) por categoría.
 - `productos.json` — base que `sync-html.js` combina con `merged-admin.json`.
 - `sync-html.js` — aplica `activo`, links y `precioML`/`precioAmz` de la BD a los arrays JS de los HTML.
@@ -143,8 +162,12 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
 - `ml-bicis.js especs|nuevas [--aplicar]` — bicis: llena características vacías desde la ficha ML (nunca
   sobrescribe) y agrega bicis más vendidas con stock como `estadoML:"nuevo"`, `activo:false`. En el artifact se
   publican (requiere link de afiliado) y `sync-html.js` agrega las marcadas `_publicar` a `ELECTRICAS`.
-- `sync-pausas.js` — lleva las pausas por plataforma (`pausaML`/`pausaAmz` de `merged-admin.json`) a
-  TODAS las páginas del registro (no solo suplementos) sin tocar los links. **Empareja leyendo el
+- `sync-pausas.js` — lleva a TODAS las páginas del registro lo que no debe verse, sin tocar los links:
+  las pausas por plataforma (`pausaML`/`pausaAmz`) y, desde nov-2026, lo **retirado** de la base
+  (`_eliminado`, `activo:false`, `_publicar:false`), que se oculta entero. Lo segundo lo hacía solo
+  `sync-html.js`, que cubre 5 categorías: Android, iPhone, Consolas y Juegos no los limpiaba nadie y
+  las páginas anunciaban 12 productos que la base daba por muertos (un Galaxy S26 a $20,999, una Xbox
+  Series X sin link de compra). **Empareja leyendo el
   array del HTML**: por id y, si no coincide, por `linkML`/`linkAmz`, porque el id de la página no
   siempre es el de la base (en streaming la base usa `streaming-2` y la página `2`, así que sus 17
   pausas no ocultaban nada). Quita el producto de la lista cuando se queda **sin ninguna tienda**
