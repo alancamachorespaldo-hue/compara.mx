@@ -16,7 +16,8 @@
 import 'dotenv/config';
 
 const API = 'https://api.mercadolibre.com';
-const { ML_CLIENT_ID: ID, ML_CLIENT_SECRET: SECRET, ML_REFRESH_TOKEN: REFRESH } = process.env;
+const { ML_CLIENT_ID: ID, ML_CLIENT_SECRET: SECRET, ML_REFRESH_TOKEN: REFRESH,
+        ML2_CLIENT_ID: ID2, ML2_CLIENT_SECRET: SECRET2 } = process.env;
 if (!ID || !SECRET || !REFRESH) {
   console.error('Faltan ML_CLIENT_ID, ML_CLIENT_SECRET o ML_REFRESH_TOKEN en .env');
   process.exit(1);
@@ -55,6 +56,22 @@ async function probar(t, ruta) {
   return { status: r.status, nota };
 }
 
+// Segunda aplicación, opcional: sirve para saber si el bloqueo es de UNA app o de la cuenta
+// entera. Se pone en .env como ML2_CLIENT_ID y ML2_CLIENT_SECRET; su secret nunca se imprime.
+async function segundaApp(mlid) {
+  if (!ID2 || !SECRET2) return;
+  const r = await fetch(API + '/oauth/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded', Accept: 'application/json' },
+    body: new URLSearchParams({ grant_type: 'client_credentials', client_id: ID2, client_secret: SECRET2 }),
+  });
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) { console.log('Segunda app (' + ID2 + '): el token falló (' + r.status + ' ' + (j.message || j.error || '') + ')' + String.fromCharCode(10)); return; }
+  const a = await probar(j.access_token, '/products/' + mlid + '/items?limit=5');
+  console.log('Segunda app (' + ID2 + ') sobre el endpoint de ofertas: ' + a.status + (a.nota ? ' · ' + a.nota : '') +
+    (a.status === 200 ? '  <-- ESTA SÍ PUEDE: cambia las credenciales del pipeline a esta app' : '') + String.fromCharCode(10));
+}
+
 const RUTAS = [
   ['/users/me', 'quién soy (siempre debería funcionar)'],
   [`/products/${MLID}`, 'ficha de catálogo: existe y si está activa'],
@@ -71,6 +88,8 @@ if (!usuario.ok) process.exit(1);
 
 const app = await token('app');
 console.log(`Token de aplicación: ${app.ok ? 'OK' : 'FALLÓ (' + app.status + ')'}\n`);
+
+await segundaApp(MLID);
 
 let precios = false;
 for (const [ruta, que] of RUTAS) {
