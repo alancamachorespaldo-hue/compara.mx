@@ -14,6 +14,7 @@
  *   node scripts/revisar-disponibilidad.js --categoria=laptops,cafeteras [--aplicar]
  *   node scripts/revisar-disponibilidad.js --todas --aplicar --umbral=1   (pausa a la primera)
  *   node scripts/revisar-disponibilidad.js --todas --links [--aplicar]    (+ revisa los links)
+ *   node scripts/revisar-disponibilidad.js --todas --aplicar --forzar     (salta el freno)
  *
  * DOS CAPAS de revisión:
  *
@@ -67,6 +68,8 @@ const ADMIN_PATH = resolve(ROOT, 'scripts/merged-admin.json');
 const REPORT_PATH = resolve(ROOT, 'scripts/disponibilidad-report.json');
 
 const APLICAR = process.argv.includes('--aplicar');
+// Salta el freno de emergencia de abajo. Solo para cuando de verdad se cayó medio catálogo.
+const FORZAR = process.argv.includes('--forzar');
 const TODAS = process.argv.includes('--todas');
 const LINKS = process.argv.includes('--links');
 const CATS_ARG = process.argv.find(a => a.startsWith('--categoria='))?.split('=')[1]?.split(',').filter(Boolean) ?? [];
@@ -165,9 +168,12 @@ async function revisar(mlId) {
 
   const items = await api(`/products/${mlId}/items?limit=20`);
   if (!items.ok) {
-    // El catálogo existe y está activo; que la lista de ofertas falle es un problema de la API.
-    if (items.red || items.status >= 500) return { estado: 'error', detalle: 'items' };
-    return { estado: 'sin_ofertas', detalle: `items http_${items.status}` };
+    // El catálogo existe y está activo: si la lista de ofertas no se puede leer, el problema es
+    // nuestro, no del producto. SOLO un 404 limpio significa "esta ficha no tiene ofertas".
+    // El 24-nov-2026 el token devolvió 403 en todas las llamadas y, como el 403 caía en la rama
+    // de "sin ofertas", la corrida pausó 1,137 productos que estaban perfectamente a la venta.
+    if (items.status === 404) return { estado: 'sin_ofertas', detalle: 'items http_404' };
+    return { estado: 'error', detalle: items.red ? 'items red' : `items http_${items.status}` };
   }
   const ofertas = (items.data?.results ?? []).filter(i => i.price > 0);
   if (!ofertas.length) {
@@ -432,11 +438,7 @@ async function main() {
     }
   });
 
-  // 4. Guardar
-  if (APLICAR) {
-    writeFileSync(ADMIN_PATH, JSON.stringify(db, null, 2), 'utf8');
-    console.log(`\n💾 merged-admin.json actualizado`);
-  }
+  // 4. Guardar — más abajo, en cuanto estén los totales: el freno de emergencia los necesita.
 
   const totales = {
     revisados: tareas.length, sin_id: sinId.length,
@@ -450,6 +452,24 @@ async function main() {
     pausados_ahora: pausados, reactivados_ahora: reactivados, en_observacion: enRacha,
     precio_no_coincide: desajustes.length,
   };
+
+  // FRENO DE EMERGENCIA. Una corrida en la que casi nada sale bien no es el catálogo cayéndose:
+  // es la API o el token. El 24-nov-2026 el token devolvió 403 en todas las llamadas a
+  // /products/{id}/items y la corrida pausó 1,137 productos que estaban a la venta. Antes de
+  // escribir se mira la proporción, y si es absurda no se toca la base (el reporte sí se escribe).
+  const caidosT = totales.sin_ofertas + totales.no_existe + totales.pausado_en_ml + totales.link_roto + totales.link_otro;
+  const sospechoso = totales.revisados >= 20 && (totales.ok === 0 || caidosT / totales.revisados > 0.5);
+  if (APLICAR && sospechoso && !FORZAR) {
+    console.log('\n  ⛔ NO SE ESCRIBIÓ NADA EN LA BASE.');
+    console.log(`     ${caidosT} de ${totales.revisados} productos se vieron caídos y solo ${totales.ok} salieron bien.`);
+    console.log(`     Eso no es el catálogo: es la API o el token. Mira el detalle en el reporte`);
+    console.log(`     (p. ej. "items http_403" = el token no tiene permiso o caducó) y vuelve a correr.`);
+    console.log('     Si de verdad se cayó medio catálogo y quieres aplicarlo, repite con --forzar.');
+    process.exitCode = 1;
+  } else if (APLICAR) {
+    writeFileSync(ADMIN_PATH, JSON.stringify(db, null, 2), 'utf8');
+    console.log('\n💾 merged-admin.json actualizado');
+  }
 
   const generado = new Date().toISOString();
 
