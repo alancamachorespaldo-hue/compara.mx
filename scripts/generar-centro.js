@@ -27,6 +27,7 @@ const base = leer('scripts/merged-admin.json', {});
 const disp = leer('scripts/disponibilidad-report.json', {});
 const mlRep = leer('scripts/ml-report.json', {});
 const sug = leer('scripts/ml-sugerencias.json', {});
+const linkRep = leer('scripts/precios-link-report.json', {});
 
 const DIAS_OFERTA_AMZ = 7;
 const hoy = new Date();
@@ -241,6 +242,53 @@ const salida = {
     sinPrecio: mlRep?.totales?.sin_precio ?? null,
     noEncontrado: mlRep?.totales?.no_encontrado ?? null,
   },
+  // Cómo le fue a la última corrida de PRECIOS POR ENLACE (el plan B mientras la API de ML
+  // esté cerrada). Lo importante aquí no es solo cuántos precios cambiaron, sino si la corrida
+  // se frenó o lleva días sin ejecutarse: si nadie avisa, el sitio enseña precios viejos con
+  // toda naturalidad, que es exactamente lo que pasó entre el 23 y el 24 de noviembre.
+  preciosLink: (() => {
+    const t = linkRep?.totales;
+    if (!t) return null;
+    const diasDesde = dias(linkRep.generado || linkRep.fecha);
+    return {
+      fecha: linkRep.fecha || null,
+      generado: linkRep.generado || null,
+      dias: diasDesde,
+      aplicado: linkRep.aplicado ?? null,
+      escribio: linkRep.escribio ?? null,
+      frenado: linkRep.frenado === true,
+      maxSalto: linkRep.maxSalto ?? null,
+      categorias: linkRep.categorias || [],
+      revisadas: linkRep.revisadas || {},
+      porCategoria: linkRep.porCategoria || {},
+      revisados: t.revisados ?? 0,
+      cambiaron: t.ok ?? 0,
+      bajaron: t.bajaron ?? 0,
+      subieron: t.subieron ?? 0,
+      sinCambio: t.sin_cambio ?? 0,
+      fueraPorSalto: t.salto ?? 0,
+      linksRotos: (t.link_roto ?? 0) + (t.link_otro ?? 0),
+      linksRetirados: t.links_retirados ?? 0,
+      pausados: t.pausados_ahora ?? 0,
+      reactivados: t.reactivados_ahora ?? 0,
+      enObservacion: t.en_observacion ?? 0,
+      errores: t.error ?? 0,
+      apiViva: linkRep.api?.viva === true,
+      apiStatus: linkRep.api?.status ?? null,
+      // Qué tiene que ver Alan en rojo en el dashboard, y por qué.
+      alerta: linkRep.frenado === true
+        ? 'La última corrida se frenó: casi nada se resolvió bien y no se escribió nada en la base.'
+        : (diasDesde != null && diasDesde >= 2
+          ? 'La última revisión de precios es de hace ' + diasDesde + ' días: los precios del sitio se están quedando viejos.'
+          : null),
+      // Los que el tope de salto dejó fuera: hay que mirarlos a mano.
+      revisar: (linkRep.productos || []).filter((p) => p.estado === 'salto').slice(0, 200).map((p) => ({
+        cat: p.categoria, catTitulo: p.titulo, id: p.id, nombre: p.nombre,
+        precioEnSitio: p.precioEnSitio, precioEnLink: p.precioEnLink,
+        variacion: p.variacion, linkML: p.linkML, mlId: p.mlId, fecha: p.fecha,
+      })),
+    };
+  })(),
   categoriasSinRegistrar: sinRegistrar,
   categorias,
   colas,

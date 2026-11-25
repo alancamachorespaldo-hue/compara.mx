@@ -8,10 +8,18 @@ name: Actualizar precios Mercado Libre
 # sync-guias-precios.js).
 # ml-update.yml hacía lo mismo cuatro horas antes y se retiró el 16-nov-2026.
 
+# ⏸ DORMIDO DESDE EL 24-NOV-2026. La API de ML responde 403 (PolicyAgent) en
+# /products/{id}/items, así que ml-update.js no actualiza ni un precio y, peor, el freno de
+# revisar-disponibilidad.js (paso 3) ve que nada sale bien, falla a propósito y la corrida muere
+# ahí: no llegaba a regenerar descuentos, bajadas, ofertas, pausas ni contadores. El relevo
+# diario lo hace precios-por-link.yml, que saca el precio del enlace de afiliado.
+# Se queda a mano (workflow_dispatch) para poder correrlo en cuanto la API vuelva: eso lo avisa
+# el sondeo del final de cada corrida de precios-por-link.yml. Para reactivarlo, descomenta el
+# schedule de abajo y quítale el suyo a precios-por-link.yml.
 on:
-  schedule:
-    # Cada día a las 6:00 AM hora Ciudad de México (12:00 UTC)
-    - cron: '0 12 * * *'
+  # schedule:
+  #   # Cada día a las 6:00 AM hora Ciudad de México (12:00 UTC)
+  #   - cron: '0 12 * * *'
   workflow_dispatch:
     inputs:
       categoria:

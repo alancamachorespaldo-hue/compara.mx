@@ -17,6 +17,7 @@ import { pathToFileURL } from 'url';
 import { resolverAfiliado } from './resolver-afiliado.js';
 import { planas, familias as familiasCats } from './categorias.js';
 import { fichaVigente } from './revisar-disponibilidad.js';
+import { locateArray, topBlocks, patchBlock } from './_html-precios.js';
 
 const CLIENT_ID     = process.env.ML_CLIENT_ID;
 const CLIENT_SECRET = process.env.ML_CLIENT_SECRET;
@@ -159,60 +160,9 @@ function catalogId(p) {
 }
 
 // ── Array de productos dentro del HTML del sitio ─────────────────────────────
-function locateArray(html, varName) {
-  const m = html.match(new RegExp(`(?:const|var|let)\\s+${varName}\\s*=\\s*\\[`, 'm'));
-  if (!m) return null;
-  const start = html.indexOf('[', m.index);
-  let depth = 0;
-  for (let i = start; i < html.length; i++) {
-    if (html[i] === '[') depth++;
-    else if (html[i] === ']' && --depth === 0) return { start, end: i + 1 };
-  }
-  return null;
-}
-
-const BLOCK_ID_RX = /(?:^|[{,\s])["']?id["']?\s*:\s*["'`]?([^,"'`\s}]+)/;
-function topBlocks(text) {
-  const blocks = [];
-  let depth = 0, s = -1;
-  for (let i = 0; i < text.length; i++) {
-    if (text[i] === '{') { if (depth++ === 0) s = i; }
-    else if (text[i] === '}' && --depth === 0) {
-      const body = text.slice(s, i + 1);
-      blocks.push({ s, e: i + 1, id: body.match(BLOCK_ID_RX)?.[1] ?? null });
-    }
-  }
-  return blocks;
-}
-
-// Lee un número de un campo del bloque, venga como 90, "90" o "$2.44".
-const campoNum = (block, campo) => {
-  const m = block.match(new RegExp(`["']?\\b${campo}["']?\\s*:\\s*["']?\\$?([\\d.]+)`));
-  return m ? parseFloat(m[1]) : null;
-};
-// Reescribe un campo derivado conservando su formato (número suelto o cadena con $).
-const setCampo = (block, campo, valor) => block.replace(
-  new RegExp(`(["']?\\b${campo}["']?\\s*:\\s*)(["'])?\\$?[\\d.]+(["'])?`),
-  (_, pre, q1, q2) => pre + (q1 ? `${q1}$${valor.toFixed(2)}${q2 || q1}` : +valor.toFixed(2)),
-);
-
-// Costo por porción (y por 5 g / 1000 UI) = precio ÷ porciones: al cambiar el precio hay que
-// recalcularlos o quedan mintiendo. Usan el precio que muestra la tarjeta (el nuevo precioML).
-function patchBlock(block, price) {
-  let out = /["']?\bprecioML["']?\s*:/.test(block)
-    ? block.replace(/(["']?\bprecioML["']?\s*:\s*)(null|[\d.]+)/, `$1${price}`)
-    : block.replace(/(["']?\bprecio["']?\s*:\s*)[\d.]+/, `$1${price}`);
-  const porciones = campoNum(out, 'porciones');
-  if (porciones > 0) {
-    const porPorcion = price / porciones;
-    if (/["']?\bcostoPorPorcion["']?\s*:/.test(out)) out = setCampo(out, 'costoPorPorcion', porPorcion);
-    const g = campoNum(out, 'contenidoGramos');
-    if (/["']?\bcostoPor5g["']?\s*:/.test(out) && g > 0) out = setCampo(out, 'costoPor5g', price / (g / 5));
-    const ui = campoNum(out, 'ui');
-    if (/["']?\bcostoPor1000ui["']?\s*:/.test(out) && ui > 0) out = setCampo(out, 'costoPor1000ui', porPorcion / (ui / 1000));
-  }
-  return out;
-}
+// locateArray / topBlocks / patchBlock viven en scripts/_html-precios.js: desde nov-2026 los
+// comparte con precios-por-link.mjs, que también tiene que escribir precios en las páginas.
+// Importarlos en vez de copiarlos evita el problema de siempre: dos copias que se desincronizan.
 
 // ── Modo precios ─────────────────────────────────────────────────────────────
 async function updateCategory(key, config, admin, REPORT) {
@@ -423,17 +373,8 @@ async function suggestAll(admin) {
 // ── Celulares (familias + variantes) ─────────────────────────────────────────
 // Cada variante se identifica en merged-admin.json como: {prefix}-{modeloBase}-{storage}gb-{ram}gb
 // El campo linkML de cada variante es único y se usa para localizar el bloque en el texto del HTML.
-function locateFamilias(html, varName) {
-  const m = html.match(new RegExp(`(?:const|var|let)\\s+${varName}\\s*=\\s*\\[`, 'm'));
-  if (!m) return null;
-  const start = html.indexOf('[', m.index);
-  let depth = 0;
-  for (let i = start; i < html.length; i++) {
-    if (html[i] === '[') depth++;
-    else if (html[i] === ']' && --depth === 0) return { start, end: i + 1 };
-  }
-  return null;
-}
+// El array de familias se delimita igual que el de productos planos.
+const locateFamilias = locateArray;
 
 async function updateCelulares(key, config, admin, REPORT) {
   const abs = resolve(ROOT, config.file);

@@ -1,0 +1,197 @@
+name: Precios por enlace de afiliado
+
+# EL WORKFLOW DE PRECIOS mientras la API de Mercado Libre esté cerrada.
+#
+# Desde el 23-nov-2026 GET /products/{id}/items responde 403 (PolicyAgent) y ml-update.js no
+# puede actualizar ni un precio. Peor: el freno de revisar-disponibilidad.js detecta que nada
+# sale bien, falla a propósito, y como ese paso va a la mitad de update-prices.yml, el workflow
+# diario moría ahí y NO llegaba a regenerar descuentos, bajadas, ofertas, pausas ni contadores.
+# O sea que no era solo que los precios no se movieran: no se publicaba nada.
+#
+# Este corre lo mismo que update-prices.yml pero sacando el precio de la página del enlace de
+# afiliado (scripts/precios-por-link.mjs), que sigue respondiendo. De paso comprueba que cada
+# enlace siga llevando a SU producto, así que cubre también la capa de links que hacía
+# revisar-disponibilidad.yml los domingos.
+#
+# Cuando la API vuelva: el último paso de cada corrida la sondea y lo dice en el resumen.
+# Entonces se vuelve a programar update-prices.yml y se quita el schedule de aquí.
+
+on:
+  schedule:
+    # Cada día a las 6:00 AM hora Ciudad de México (12:00 UTC), la hora que tenía el de precios.
+    - cron: '0 12 * * *'
+  workflow_dispatch:
+    inputs:
+      categoria:
+        description: 'Categoría a revisar'
+        type: choice
+        default: all
+        options: [all, laptops, freidoras, microondas, cafeteras, refrigeradores, lavadoras, ollas, proteina, omega3, magnesio, creatina, complejo_b, vitamina_d, videojuegos_consolas, videojuegos_controles, videojuegos_juegos, tecnologia_bocinas, tecnologia_audifonos, tecnologia_smartwatches, streaming, televisiones, bicis, bicisMontana, bicisGravelRuta, celulares_android, celulares_iphone]
+      aplicar:
+        description: '¿Escribir los precios en la base? (si no, solo genera el reporte)'
+        type: boolean
+        default: true
+      max_salto:
+        description: 'Tope de variación permitida, en % (lo que se pase se reporta y no se escribe)'
+        type: choice
+        default: '25'
+        options: ['15', '25', '40', '60']
+
+# Un solo workflow de datos a la vez: todos escriben scripts/merged-admin.json. Sin esto, dos
+# corridas traslapadas publican la base con marcas de conflicto (16-nov-2026). Nada de git stash.
+concurrency:
+  group: datos-comparalo
+  cancel-in-progress: false
+
+jobs:
+  precios:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Historia completa: el paso final hace rebase contra origin/main.
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - run: npm install
+
+      - name: Sacar el precio de cada enlace de afiliado
+        env:
+          # Solo para sondear al final si la API volvió. El precio no los necesita.
+          ML_CLIENT_ID:     ${{ secrets.ML_CLIENT_ID }}
+          ML_CLIENT_SECRET: ${{ secrets.ML_CLIENT_SECRET }}
+          CATEGORIA: ${{ inputs.categoria || 'all' }}
+          APLICAR:   ${{ (github.event_name == 'schedule' || inputs.aplicar) && '--aplicar' || '' }}
+          MAX_SALTO: ${{ inputs.max_salto || '25' }}
+        # El script trae su propio freno: si no sale bien casi ninguno, no escribe nada y falla.
+        # Eso es lo que queremos — antes que publicar 1,200 precios raros, que se caiga la corrida.
+        run: |
+          if [ "$CATEGORIA" = "all" ]; then AMBITO="--todas"; else AMBITO="--categoria=$CATEGORIA"; fi
+          node scripts/precios-por-link.mjs $AMBITO --max-salto="$MAX_SALTO" $APLICAR
+
+      - name: Anotar qué productos están publicados en cada página
+        run: node scripts/marcar-publicados.js
+
+      - name: Sincronizar merged-admin.json y regenerar el gestor
+        run: node scripts/generar-admin.js
+
+      - name: Registrar el precio de hoy en el histórico
+        run: node scripts/historico-precios.js
+
+      - name: Publicar el histórico de 30 días por categoría
+        run: node scripts/generar-historico.js
+
+      - name: Generar los catálogos mini de las guías
+        run: node scripts/generar-catalog-mini.js
+
+      - name: Generar descuentos del día (celulares)
+        run: node scripts/generar-descuentos.js
+
+      - name: Generar descuentos del día (proteínas)
+        run: node scripts/generar-proteina-descuentos.js
+
+      - name: Generar descuentos del día (laptops)
+        run: node scripts/generar-laptops-descuentos.js
+
+      - name: Generar descuentos del día (creatina)
+        run: node scripts/generar-creatina-descuentos.js
+
+      - name: Generar descuentos del día (cafeteras)
+        run: node scripts/generar-cafeteras-descuentos.js
+
+      - name: Generar descuentos del día (resto de categorías)
+        run: node scripts/generar-ofertas-categoria.js --todas
+
+      - name: Generar bajadas de precio por categoría (filtro "Bajó de precio")
+        run: node scripts/generar-bajadas.js
+
+      - name: Aplicar pausas a páginas HTML
+        run: node scripts/sync-pausas.js
+
+      - name: Cuadrar los contadores de los hubs con lo que se ve
+        run: node scripts/sync-hub-counts.js
+
+      - name: Aplicar precios y pausas a subpáginas de suplementos
+        run: node scripts/sync-suplementos-precios.js --aplicar
+
+      - name: Actualizar los precios escritos en las guías
+        run: node scripts/sync-guias-precios.js --aplicar
+
+      - name: Armar la página de ofertas (/ofertas/)
+        run: node scripts/generar-ofertas.js
+
+      - name: Resumir todo para el Centro de Control
+        run: node scripts/generar-centro.js
+
+      - name: Revisar el sitio
+        run: node scripts/check-site.js
+
+      - name: Revisar que los datos estén sanos
+        run: node scripts/validar-datos.js
+
+      - name: Resumen en la corrida
+        if: always()
+        continue-on-error: true
+        run: |
+          node -e "
+            const fs = require('fs');
+            const r = JSON.parse(fs.readFileSync('./scripts/precios-link-report.json', 'utf8'));
+            const t = r.totales;
+            const l = [
+              '## Precios por enlace de afiliado — ' + r.fecha,
+              '',
+              '| | |', '|---|---|',
+              '| Revisados | ' + t.revisados + ' |',
+              '| **Precios actualizados** | **' + t.ok + '** |',
+              '| Bajaron | ' + t.bajaron + ' |',
+              '| Subieron | ' + t.subieron + ' |',
+              '| Sin cambio | ' + t.sin_cambio + ' |',
+              '| Fuera por el tope de salto | ' + t.salto + ' |',
+              '| Enlaces retirados | ' + t.links_retirados + ' |',
+              '| Pausados en esta corrida | ' + t.pausados_ahora + ' |',
+              '| Reactivados | ' + t.reactivados_ahora + ' |',
+              '| En observación | ' + t.en_observacion + ' |',
+              '| Errores de red (no tocaron nada) | ' + t.error + ' |',
+              '',
+            ];
+            if (r.frenado) l.push('> ⛔ **Freno de emergencia: no se escribió nada en la base.** Casi nada se resolvió bien; revisa scripts/precios-link-report.json.', '');
+            if (r.api && r.api.viva) l.push('> ✅ **La API de Mercado Libre volvió a responder 200.** Se puede retomar ml-update.js y volver a programar update-prices.yml.', '');
+            else l.push('> La API de Mercado Libre sigue cerrada (/products/{id}/items → ' + ((r.api && r.api.status) || 'sin respuesta') + ').', '');
+            if (t.salto) l.push('Los ' + t.salto + ' que se pasaron del tope están en el reporte y en el Centro de Control, para revisarlos a mano.');
+            fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, l.join('\n') + '\n');
+          "
+
+      - name: Commit y push si hay cambios
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # -u y no -A: nunca confirma archivos sueltos sin versionar, y antes de llegar aquí ya
+          # corrieron check-site.js y validar-datos.js.
+          git add -u
+          if git diff --staged --quiet; then
+            echo "Sin cambios."
+            exit 0
+          fi
+          git commit -m "chore(precios): precios por enlace de afiliado $(date +'%Y-%m-%d')"
+          # Nada de stash: el árbol ya está limpio porque todo lo generado quedó en el commit.
+          # Si el rebase choca, se aborta y el workflow falla a la vista.
+          for intento in 1 2 3; do
+            git fetch origin main
+            if ! git rebase origin/main; then
+              git rebase --abort
+              echo "::error::El rebase chocó con otro commit del remoto. No se publica nada; revísalo a mano."
+              exit 1
+            fi
+            node scripts/validar-datos.js || exit 1
+            if git push origin HEAD:main; then exit 0; fi
+            echo "Push rechazado (intento $intento de 3); vuelvo a traer el remoto."
+          done
+          echo "::error::No se pudo publicar después de 3 intentos."
+          exit 1

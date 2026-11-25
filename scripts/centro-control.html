@@ -285,6 +285,8 @@ tbody tr.sel td:first-child{box-shadow:inset 3px 0 0 var(--ac)}
             <div>
               <div class="sech"><span class="note" id="pcount"></span>
                 <span class="row" style="margin-left:auto;gap:6px">
+                  <a class="btn sm" id="pPrecios" href="https://github.com/alancamachorespaldo-hue/compara.mx/actions/workflows/precios-por-link.yml" target="_blank" rel="noopener">Revisar precios por link ↗</a>
+                  <button class="btn sm copy" type="button" data-copy="node scripts/precios-por-link.mjs --todas --aplicar&#10;node scripts/sync-pausas.js">Copiar comando</button>
                   <a class="btn sm" id="pRevisar" href="https://github.com/alancamachorespaldo-hue/compara.mx/actions/workflows/revisar-disponibilidad.yml" target="_blank" rel="noopener">Revisar todos los enlaces ↗</a>
                   <button class="btn sm copy" type="button" data-copy="node scripts/revisar-disponibilidad.js --todas --links --aplicar&#10;node scripts/sync-pausas.js">Copiar comando</button>
                 </span>
@@ -355,13 +357,21 @@ tbody tr.sel td:first-child{box-shadow:inset 3px 0 0 var(--ac)}
             <div class="card"><div class="hd"><h3>Lanzar una revisión</h3></div><div class="bd stack">
               <p class="sm" style="margin:0">El artifact no puede correr la revisión: vive en el navegador y no tiene acceso al token de Mercado Libre. Se lanza desde tu máquina o desde GitHub Actions.</p>
               <div class="stack">
-                <div class="sm" style="font-weight:600;color:var(--fg)">Capa de catálogo (~2 min)</div>
+                <div class="sm" style="font-weight:600;color:var(--fg)">Precios por link — la fuente de precios de hoy (~5 min)</div>
+                <div class="row"><pre class="pre" style="flex:1">node scripts/precios-por-link.mjs --todas --aplicar
+node scripts/sync-pausas.js</pre><button class="btn sm copy" data-copy="node scripts/precios-por-link.mjs --todas --aplicar
+node scripts/sync-pausas.js" type="button">Copiar</button></div>
+                <div class="row"><a class="btn sm" href="https://github.com/alancamachorespaldo-hue/compara.mx/actions/workflows/precios-por-link.yml" target="_blank" rel="noopener">Lanzarlo en GitHub (con selector de categoría) ↗</a></div>
+                <div class="sm">Abre cada enlace de afiliado: de paso saca el precio y comprueba que siga llevando a su producto. Corre solo a diario en <b>precios-por-link.yml</b>.</div>
+              </div>
+              <div class="stack" style="border-top:1px solid var(--line);padding-top:10px">
+                <div class="sm" style="font-weight:600;color:var(--fg)">Capa de catálogo (~2 min) — usa la API, hoy cerrada</div>
                 <div class="row"><pre class="pre" style="flex:1">node scripts/revisar-disponibilidad.js --todas</pre><button class="btn sm copy" data-copy="node scripts/revisar-disponibilidad.js --todas" type="button">Copiar</button></div>
                 <div class="sm" style="font-weight:600;color:var(--fg)">Capa de links, la que descubre lo peor (~20 min)</div>
                 <div class="row"><pre class="pre" style="flex:1">node scripts/revisar-disponibilidad.js --todas --links --aplicar
 node scripts/sync-pausas.js</pre><button class="btn sm copy" data-copy="node scripts/revisar-disponibilidad.js --todas --links --aplicar
 node scripts/sync-pausas.js" type="button">Copiar</button></div>
-                <div class="sm">También corre sola: la capa de catálogo a diario en <b>update-prices.yml</b> y la de links los domingos en <b>revisar-disponibilidad.yml</b>.</div>
+                <div class="sm">Las dos están <b>dormidas desde el 24-nov-2026</b>: la API de Mercado Libre responde 403 y una corrida en la que nada sale bien se frena sola. <b>update-prices.yml</b> y <b>revisar-disponibilidad.yml</b> quedaron a mano; el relevo diario es <b>precios-por-link.yml</b>.</div>
               </div>
               <div class="stack" style="border-top:1px solid var(--line);padding-top:10px">
                 <div class="sm" style="font-weight:600;color:var(--fg)">Para refrescar este panel</div>
@@ -395,8 +405,18 @@ node scripts/sync-pausas.js" type="button">Copiar</button></div>
         </div>
         <div class="sec">
           <div class="card"><div class="hd"><h3>Actualizar precios</h3><span class="note">Lo que hoy hace el workflow</span></div><div class="bd stack">
+            <div class="alert bad" id="mlPlanB"><div>
+              <b>La API de Mercado Libre está cerrada desde el 23-nov-2026</b>
+              <p><code>/products/{id}/items</code> responde <b>403 PolicyAgent</b> sin token, con las dos apps y desde cualquier máquina: no es la cuenta ni el código. Mientras dure, <b>el precio sale de la página del enlace de afiliado</b> —que además es el que verá quien dé clic— y <code>ml-update.js</code> se queda dormido. <b>precios-por-link.yml</b> corre a diario y sondea la API al terminar: cuando vuelva a responder 200, lo dirá aquí.</p>
+            </div></div>
             <ol class="steps">
-              <li><div><b>Precios de ML</b><div class="sm">Diario 6:00 CDMX en <b>update-prices.yml</b>, o manual con selector de categoría.</div>
+              <li><div><b>Precios por enlace de afiliado</b> <span class="chip ok">la fuente de hoy</span>
+                <div class="sm">Diario 6:00 CDMX en <b>precios-por-link.yml</b>, o manual con selector de categoría. Abre cada enlace: saca el precio y de paso comprueba que siga llevando a su producto.</div>
+                <div class="row" style="margin-top:6px"><pre class="pre" style="flex:1">node scripts/precios-por-link.mjs --todas --aplicar
+node scripts/sync-pausas.js</pre><button class="btn sm copy" data-copy="node scripts/precios-por-link.mjs --todas --aplicar
+node scripts/sync-pausas.js" type="button">Copiar</button></div>
+                <div class="row" style="margin-top:6px"><a class="btn sm" id="mlPrecios" href="https://github.com/alancamachorespaldo-hue/compara.mx/actions/workflows/precios-por-link.yml" target="_blank" rel="noopener">Revisar precios por link ↗</a></div></div></li>
+              <li><div><b>Precios de ML por la API</b> <span class="chip warn">dormido</span><div class="sm">Era el diario de <b>update-prices.yml</b>; hoy queda a mano, para el día que la API vuelva.</div>
                 <div class="row" style="margin-top:6px"><pre class="pre" style="flex:1">node scripts/ml-update.js --categoria=laptops</pre><button class="btn sm copy" data-copy="node scripts/ml-update.js --categoria=laptops" type="button">Copiar</button></div></div></li>
               <li><div><b>Buscar IDs faltantes</b><div class="sm">Deja candidatos en <code>ml-sugerencias.json</code> para confirmarlos a mano.</div>
                 <div class="row" style="margin-top:6px"><pre class="pre" style="flex:1">node scripts/ml-update.js --sugerir</pre><button class="btn sm copy" data-copy="node scripts/ml-update.js --sugerir" type="button">Copiar</button></div></div></li>
@@ -578,7 +598,11 @@ function kpi(o){
 }
 function pintarDashboard(){
   var t=D.totales;
+  var pl=D.preciosLink||null;
   el('kpis').innerHTML=[
+    (pl?kpi({lab:'Precios por link',val:fmt(pl.cambiaron),
+      fine:(pl.frenado?'⛔ la corrida se frenó':fmt(pl.revisados)+' revisados · '+fmt(pl.bajaron)+' bajaron')+' · '+esc(fecha(pl.fecha)),
+      tono:(pl.frenado||(pl.dias!=null&&pl.dias>=2))?'bad':'ok',view:'ml'}):''),
     kpi({lab:'Productos en la base',val:fmt(t.productos),fine:fmt(t.activos)+' activos · '+fmt(t.categorias)+' categorías',view:'productos'}),
     kpi({lab:'Pausados',val:fmt(t.pausados),fine:fmt(t.pausadosAuto)+' por la revisión · '+fmt(t.pausadosManual)+' a mano',tono:'warn',view:'verificador'}),
     kpi({lab:'Con problema en ML',val:fmt(t.problemas),fine:'link roto, catálogo caído o publicación pausada',tono:'bad',view:'verificador'}),
@@ -598,11 +622,35 @@ function pintarDashboard(){
   var sinT=D.colas.sinTienda.length;
   if(sinT)al.push({t:'bad',b:sinT+' productos activos sin ninguna tienda',p:'Sin link de ML ni de Amazon la tarjeta queda sin precio ni botón. <code>sync-pausas.js</code> los quita de la página.',v:'productos'});
   var pr=D.precios||{};
-  if(pr.fecha&&pr.actualizados===0&&(pr.sinPrecio||0)>50){
+  if(pr.fecha&&pr.actualizados===0&&(pr.sinPrecio||0)>50&&!pl){
     al.unshift({t:'bad',b:'La API de Mercado Libre no está dando precios',
       p:'La corrida del '+esc(fecha(pr.fecha))+' no actualizó ni un precio: '+fmt(pr.sinPrecio)+' productos se quedaron sin dato. '+
         'El endpoint de ofertas (<code>/products/{id}/items</code>) responde <b>403 PolicyAgent</b>, así que los precios del sitio son los últimos buenos y no se refrescan. '+
         'Se arregla en la app de Mercado Libre (permisos del cliente), no en el código.',v:'ml'});
+  }
+  // Precios por link: el plan B mientras la API esté cerrada. Lo que hay que ver aquí es si la
+  // última corrida se frenó o lleva días sin pasar — un sitio con precios de la semana pasada no
+  // se queja solo, y entre el 23 y el 24-nov-2026 nadie se enteró hasta mirar el reporte a mano.
+  if(pl){
+    if(pl.frenado){
+      al.unshift({t:'bad',b:'La última revisión de precios por link se frenó',
+        p:'Casi ningún enlace se resolvió bien, así que el freno impidió escribir nada en la base. Suele significar que Mercado Libre cambió la página del enlace de afiliado. Mira <code>scripts/precios-link-report.json</code> antes de volver a correrla.',v:'ml'});
+    }else if(pl.dias!=null&&pl.dias>=2){
+      al.unshift({t:'bad',b:'Los precios llevan '+pl.dias+' días sin revisarse',
+        p:'La última corrida de <code>precios-por-link.mjs</code> es del '+esc(fecha(pl.fecha))+'. Mientras la API de Mercado Libre esté cerrada, esa corrida es lo único que refresca los precios del sitio.',v:'ml'});
+    }
+    if(pl.fueraPorSalto>0){
+      al.push({t:'warn',b:fmt(pl.fueraPorSalto)+' precios quedaron fuera por el tope de salto',
+        p:'Se alejaban más del '+Math.round((pl.maxSalto||0.25)*100)+'% del precio guardado, así que no se escribieron. Casi siempre es un <code>mlId</code> o un enlace mal asignado: hay que mirarlos a mano.',v:'ml'});
+    }
+    if(pl.linksRetirados>0){
+      al.push({t:'warn',b:fmt(pl.linksRetirados)+' enlaces retirados en la última corrida',
+        p:'Ya no abrían su producto. El producto conserva precio, imagen y <code>mlId</code>: pegarle un enlace nuevo lo devuelve a la página.',v:'verificador'});
+    }
+    if(pl.apiViva){
+      al.unshift({t:'ok',b:'La API de Mercado Libre volvió a responder',
+        p:'<code>/products/{id}/items</code> contestó 200 en el último sondeo. Se puede retomar <code>ml-update.js</code> y volver a programar <b>update-prices.yml</b>.',v:'ml'});
+    }
   }
   var venc=(typeof pVencidas==='function')?pVencidas().length:0, phoy=(typeof pHoy==='function')?pHoy().length:0;
   if(venc)al.unshift({t:'bad',b:venc+(venc===1?' tarea vencida':' tareas vencidas'),p:'Ya pasó su fecha en el planificador.',v:'plan'});
@@ -983,7 +1031,18 @@ el('verTabs').addEventListener('click',function(e){
 function pintarML(){
   var t=D.totales;
   var conId=t.productos-t.sinMlId;
+  var pl=D.preciosLink||null;
+  // El aviso de "la API está cerrada" no se queda escrito a mano: cada corrida de precios por
+  // link la sondea, así que en cuanto conteste 200 este bloque lo dice y deja de dar la lata.
+  var pb=el('mlPlanB');
+  if(pb&&pl&&pl.apiViva){
+    pb.className='alert ok';
+    pb.innerHTML='<div><b>La API de Mercado Libre volvió a responder</b><p>En el sondeo del '+esc(fecha(pl.fecha))+', <code>/products/{id}/items</code> contestó 200. Se puede retomar <code>ml-update.js</code>: descomenta el <code>schedule</code> de <b>update-prices.yml</b> y quítale el suyo a <b>precios-por-link.yml</b>.</p></div>';
+  }
   el('mlKpis').innerHTML=[
+    (pl?kpi({lab:'Precios por link',val:fmt(pl.cambiaron),
+      fine:fmt(pl.revisados)+' revisados · '+fmt(pl.bajaron)+' bajaron · '+fmt(pl.fueraPorSalto)+' fuera por el tope',
+      tono:(pl.frenado||(pl.dias!=null&&pl.dias>=2))?'bad':'ok'}):''),
     kpi({lab:'Con ID de catálogo',val:fmt(conId),fine:Math.round(conId/t.productos*100)+'% de la base recibe precio automático',tono:'ok'}),
     kpi({lab:'Sin ID',val:fmt(t.sinMlId),fine:'precio congelado',tono:'warn',view:'ids'}),
     kpi({lab:'Sin link de ML',val:fmt(t.sinLinkML),fine:'no se pueden anunciar en ML'}),

@@ -9,10 +9,15 @@ name: Revisar disponibilidad en Mercado Libre
 # Lo caído se pausa en merged-admin.json y desaparece del sitio con sync-pausas.js.
 # Nada se borra: reactivar es poner la pausa en "Se muestra" en el gestor.
 
+# ⏸ DORMIDO DESDE EL 24-NOV-2026, por lo mismo que update-prices.yml: su capa 1 es la API de ML,
+# que responde 403, así que el freno impide escribir y la corrida falla entera cada domingo.
+# Mientras tanto la capa de links —la que de verdad descubre los enlaces caídos— la hace a diario
+# precios-por-link.yml, que abre cada enlace para sacarle el precio. Se queda a mano para cuando
+# la API vuelva; entonces se descomenta el schedule.
 on:
-  schedule:
-    # Domingos a las 5:00 AM hora Ciudad de México (11:00 UTC), antes del job de precios.
-    - cron: '0 11 * * 0'
+  # schedule:
+  #   # Domingos a las 5:00 AM hora Ciudad de México (11:00 UTC), antes del job de precios.
+  #   - cron: '0 11 * * 0'
   workflow_dispatch:
     inputs:
       aplicar:
