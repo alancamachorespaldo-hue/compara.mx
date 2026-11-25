@@ -25,9 +25,9 @@ const leer = (p, def = null) => {
 
 const base = leer('scripts/merged-admin.json', {});
 const disp = leer('scripts/disponibilidad-report.json', {});
-const mlRep = leer('scripts/ml-report.json', {});
 const sug = leer('scripts/ml-sugerencias.json', {});
 const linkRep = leer('scripts/precios-link-report.json', {});
+const especsRep = leer('scripts/especs-report.json', {});
 
 const DIAS_OFERTA_AMZ = 7;
 const hoy = new Date();
@@ -128,6 +128,8 @@ for (const [clave, lista] of Object.entries(base)) {
     linkRevisar: p._linkRevisar || null,
     dispDesde: p._dispDesde || null,
     necesitaLink: p._necesitaLink === true,
+    necesitaEspecs: p._necesitaEspecs === true,
+    pausadaDesde: p._pausadaDesde || null,
     linkMuerto: p._linkMuerto || null,
     linkMuertoFecha: p._linkMuertoFecha || null,
     linkMuertoMotivo: p._linkMuertoMotivo || null,
@@ -229,19 +231,11 @@ const salida = {
     disponibilidad: disp?.fecha || null,
     dispConLinks: disp?.conLinks ?? null,
     dispAplicado: disp?.aplicado ?? null,
-    mlReport: mlRep?.fecha || mlRep?.generado || null,
   },
   totales,
   disponibilidad: { fecha: disp?.fecha || null, totales: disp?.totales || null },
-  // Cómo le fue a la última corrida de precios. Si no actualizó ni uno, la API no está
-  // respondiendo y los precios del sitio se están quedando viejos sin que nada avise.
-  precios: {
-    fecha: mlRep?.fecha || null,
-    actualizados: mlRep?.totales?.actualizados ?? null,
-    sinCambio: mlRep?.totales?.sin_cambio ?? null,
-    sinPrecio: mlRep?.totales?.sin_precio ?? null,
-    noEncontrado: mlRep?.totales?.no_encontrado ?? null,
-  },
+  // `precios` era el resumen de ml-report.json, el actualizador por API que se retiró en
+  // nov-2026. Lo que hay ahora es `preciosLink`, abajo.
   // Cómo le fue a la última corrida de PRECIOS POR ENLACE (el plan B mientras la API de ML
   // esté cerrada). Lo importante aquí no es solo cuántos precios cambiaron, sino si la corrida
   // se frenó o lleva días sin ejecutarse: si nadie avisa, el sitio enseña precios viejos con
@@ -281,6 +275,10 @@ const salida = {
         : (diasDesde != null && diasDesde >= 2
           ? 'La última revisión de precios es de hace ' + diasDesde + ' días: los precios del sitio se están quedando viejos.'
           : null),
+      // La cola de gracia: pausadas en ML con los días que les quedan antes de borrarse.
+      diasGracia: linkRep.diasGracia ?? null,
+      enGracia: (linkRep.enGracia || []).slice(0, 300),
+      borrados: (linkRep.borrados || []).slice(0, 300),
       // Los que el tope de salto dejó fuera: hay que mirarlos a mano.
       revisar: (linkRep.productos || []).filter((p) => p.estado === 'salto').slice(0, 200).map((p) => ({
         cat: p.categoria, catTitulo: p.titulo, id: p.id, nombre: p.nombre,
@@ -289,6 +287,13 @@ const salida = {
       })),
     };
   })(),
+  // Características e imagen traídas de la API (lo único que sigue respondiendo).
+  especs: especsRep?.totales ? {
+    fecha: especsRep.fecha || null, aplicado: especsRep.aplicado ?? null,
+    ...especsRep.totales,
+  } : null,
+  // Altas pegadas en el gestor que todavía no han pasado por especs-por-id.mjs.
+  necesitanEspecs: productos.filter((p) => p.necesitaEspecs).length,
   categoriasSinRegistrar: sinRegistrar,
   categorias,
   colas,

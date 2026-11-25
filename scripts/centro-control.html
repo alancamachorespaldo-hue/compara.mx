@@ -619,15 +619,15 @@ function pintarDashboard(){
   var flacas=D.categorias.filter(function(c){return c.visibles<15});
   if(flacas.length)al.push({t:'warn',b:flacas.length+(flacas.length===1?' categoría con menos de 15 productos visibles':' categorías con menos de 15 productos visibles'),p:flacas.slice(0,5).map(function(c){return c.titulo+' ('+c.visibles+')'}).join(' · ')+(flacas.length>5?' …':''),v:'ml'});
   if(D.duplicados.length)al.push({t:'warn',b:D.duplicados.length+' links de ML repetidos entre productos',p:'Dos productos distintos apuntando al mismo link: uno de los dos está mal.',v:'ml'});
+  if(D.necesitanEspecs>0){
+    al.push({t:'warn',b:fmt(D.necesitanEspecs)+' alta(s) esperando sus características',
+      p:'Las pegaste en el gestor con su ID de catálogo y su enlace, pero todavía no han pasado por <code>especs-por-id.mjs</code>, que es quien les pone características e imagen desde la API.',v:'productos'});
+  }
   var sinT=D.colas.sinTienda.length;
   if(sinT)al.push({t:'bad',b:sinT+' productos activos sin ninguna tienda',p:'Sin link de ML ni de Amazon la tarjeta queda sin precio ni botón. <code>sync-pausas.js</code> los quita de la página.',v:'productos'});
-  var pr=D.precios||{};
-  if(pr.fecha&&pr.actualizados===0&&(pr.sinPrecio||0)>50&&!pl){
-    al.unshift({t:'bad',b:'La API de Mercado Libre no está dando precios',
-      p:'La corrida del '+esc(fecha(pr.fecha))+' no actualizó ni un precio: '+fmt(pr.sinPrecio)+' productos se quedaron sin dato. '+
-        'El endpoint de ofertas (<code>/products/{id}/items</code>) responde <b>403 PolicyAgent</b>, así que los precios del sitio son los últimos buenos y no se refrescan. '+
-        'Se arregla en la app de Mercado Libre (permisos del cliente), no en el código.',v:'ml'});
-  }
+  // (Aquí vivía la alerta de "la API no está dando precios", que miraba ml-report.json. Ese
+  // actualizador se retiró en nov-2026: los precios ya no salen de la API, así que la alerta
+  // que importa es la de la corrida por enlace, justo abajo.)
   // Precios por link: el plan B mientras la API esté cerrada. Lo que hay que ver aquí es si la
   // última corrida se frenó o lleva días sin pasar — un sitio con precios de la semana pasada no
   // se queja solo, y entre el 23 y el 24-nov-2026 nadie se enteró hasta mirar el reporte a mano.
@@ -642,6 +642,18 @@ function pintarDashboard(){
     if(pl.fueraPorSalto>0){
       al.push({t:'warn',b:fmt(pl.fueraPorSalto)+' precios quedaron fuera por el tope de salto',
         p:'Se alejaban más del '+Math.round((pl.maxSalto||0.25)*100)+'% del precio guardado, así que no se escribieron. Casi siempre es un <code>mlId</code> o un enlace mal asignado: hay que mirarlos a mano.',v:'ml'});
+    }
+    if((pl.enGracia||[]).length){
+      var urge=pl.enGracia.filter(function(x){return (x.diasRestantes||0)<=1});
+      al.push({t:urge.length?'bad':'warn',
+        b:fmt(pl.enGracia.length)+' publicaciones pausadas en Mercado Libre',
+        p:'Se borran solas al pasar '+(pl.diasGracia||5)+' días pausadas.'+
+          (urge.length?' <b>'+fmt(urge.length)+' se borran en la próxima corrida.</b>':'')+
+          ' Mientras tanto están ocultas del sitio.',v:'verificador'});
+    }
+    if((pl.borrados||[]).length){
+      al.push({t:'warn',b:fmt(pl.borrados.length)+' producto(s) borrados en la última corrida',
+        p:'Ya no existían en Mercado Libre o agotaron sus días de gracia. Queda copia completa en <code>scripts/papelera-productos.json</code>.',v:'ml'});
     }
     if(pl.linksRetirados>0){
       al.push({t:'warn',b:fmt(pl.linksRetirados)+' enlaces retirados en la última corrida',

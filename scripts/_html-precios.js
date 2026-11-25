@@ -154,3 +154,73 @@ export function escribirPrecios(abs, varName, tipo, precios, opts = {}) {
   writeFileSync(abs, html.slice(0, loc.start) + text + html.slice(loc.end), 'utf8');
   return { ok: true, cambios, sinEncontrar, pedidos: precios.length };
 }
+
+/**
+ * Saca productos del array JS de una página, de verdad (no los oculta: los quita).
+ *
+ * POR QUÉ HACE FALTA. Mientras un producto retirado se marcaba en la base (`_eliminado`,
+ * `activo:false`), `sync-pausas.js` lo quitaba de la página leyendo esa marca. Desde nov-2026
+ * un producto que ya no existe en Mercado Libre se BORRA de `merged-admin.json`, así que esa
+ * marca ya no está para que nadie la lea: si la página no se limpia en el mismo momento, la
+ * tarjeta se queda ahí para siempre, sin nada en la base que la delate.
+ *
+ * RED DE SEGURIDAD: el array resultante se parsea antes de escribirlo. Si una coma mal quitada
+ * lo dejara roto, no se escribe nada y se devuelve el motivo — una página con el JS roto no
+ * enseña ningún producto, que es mucho peor que una tarjeta de más.
+ *
+ * No cubre las páginas de familias (celulares): ahí el producto es una variante dentro de una
+ * familia y quitarla a ciegas puede dejar una familia vacía. Esas se reportan para mirarlas.
+ *
+ * @returns {{ok:boolean, motivo?:string, quitados:number, noEstaban:number}}
+ */
+export function quitarProductos(abs, varName, tipo, productos, opts = {}) {
+  const vacio = { quitados: 0, noEstaban: productos.length };
+  if (tipo === 'familias') return { ok: false, motivo: 'página de familias: hay que quitarlo a mano', ...vacio };
+  if (!existsSync(abs)) return { ok: false, motivo: 'no existe el archivo', ...vacio };
+  const html = readFileSync(abs, 'utf8');
+  const loc = locateArray(html, varName);
+  if (!loc) return { ok: false, motivo: `sin array ${varName}`, ...vacio };
+
+  const arrayText = html.slice(loc.start, loc.end);
+  const porId = new Map(), porLink = new Map();
+  for (const p of productos) {
+    porId.set(String(p.id), p);
+    if (p.linkML) porLink.set(p.linkML, p);
+  }
+
+  // De atrás hacia adelante: cada corte mueve los índices de lo que viene después.
+  const blocks = topBlocks(arrayText).sort((a, b) => b.s - a.s);
+  let text = arrayText;
+  const hallados = new Set();
+  for (const b of blocks) {
+    const p = (b.id != null ? porId.get(String(b.id)) : undefined) ?? (b.linkML ? porLink.get(b.linkML) : undefined);
+    if (!p) continue;
+    hallados.add(p);
+    let ini = b.s, fin = b.e;
+    // La coma que lo unía al vecino sobra: se lleva la de después si la hay, si no la de antes.
+    let j = fin;
+    while (j < text.length && /\s/.test(text[j])) j++;
+    if (text[j] === ',') {
+      fin = j + 1;
+    } else {
+      let k = ini - 1;
+      while (k >= 0 && /\s/.test(text[k])) k--;
+      if (text[k] === ',') ini = k;
+    }
+    text = text.slice(0, ini) + text.slice(fin);
+  }
+
+  const quitados = hallados.size;
+  if (!quitados) return { ok: true, quitados: 0, noEstaban: productos.length };
+
+  try {
+    const arr = new Function('return ' + text)();
+    if (!Array.isArray(arr)) throw new Error('el resultado no es un array');
+  } catch (e) {
+    return { ok: false, motivo: `el array quedaría roto (${e.message}): no se tocó la página`, quitados: 0, noEstaban: productos.length };
+  }
+
+  if (opts.dryRun) return { ok: true, quitados, noEstaban: productos.length - quitados };
+  writeFileSync(abs, html.slice(0, loc.start) + text + html.slice(loc.end), 'utf8');
+  return { ok: true, quitados, noEstaban: productos.length - quitados };
+}

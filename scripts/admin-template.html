@@ -1160,6 +1160,7 @@ const SHELL = `
     </div>
     <button class="btn btn-sm" id="btn-importar" data-act="importar" title="Importar producto desde HTML de Amazon">📥</button>
     <button class="btn btn-sm" id="btn-pegar" data-act="pegar" title="Crear producto pegando especificaciones de Amazon">🧾</button>
+    <button class="btn btn-sm" id="btn-altaml" data-act="altaml" title="Alta por ID de catálogo de Mercado Libre + tu enlace de afiliado">🔗</button>
     <button class="btn btn-sm" id="btn-update" data-act="update" title="Resumen de última actualización de precios">📋</button>
     <button class="btn btn-sm" id="btn-dash" data-act="dash" title="Dashboard de analíticas">📊</button>
     <button class="btn btn-sm" id="btn-pub" data-act="pub" title="Generador de publicaciones de Facebook">✍️</button>
@@ -1248,6 +1249,40 @@ const SHELL = `
       <button class="btn btn-primary" data-act="pg-add">+ Agregar producto</button>
       <button class="btn" data-act="pg-reset">Limpiar</button>
     </div>
+  </div>
+</div>
+</section>
+
+<!--
+  ALTA POR ID DE CATÁLOGO. El proceso de nov-2026: tú pones el ID de catálogo y TU enlace de
+  afiliado (lo único que no se puede sacar de ninguna API), y después, fuera del navegador:
+    · especs-por-id.mjs   → características e imagen, desde /products/{id} (sigue dando 200)
+    · precios-por-link.mjs → el precio, abriendo tu enlace
+  El artifact no puede llamar a la API (vive en el navegador y no tiene el token), así que aquí
+  solo se deja el producto anotado y apagado; los dos comandos salen al guardar.
+-->
+<section id="altaml" hidden>
+<div class="imp-wrap">
+  <div class="imp-field-grid">
+    <label class="imp-field"><span>Categoría</span><select id="am-cat"></select></label>
+    <label class="imp-field span2"><span>ID de catálogo o URL de la ficha <span class="muted" style="font-weight:400;text-transform:none">· MLM… o mercadolibre.com.mx/p/MLM…</span></span><input id="am-mlid" autocomplete="off" placeholder="MLM22374539"><small class="field-msg" id="am-mlid-msg"></small></label>
+  </div>
+  <div class="imp-field-grid">
+    <label class="imp-field span2"><span>Tu enlace de afiliado <span class="muted" style="font-weight:400;text-transform:none">· el de meli.la, el que lleva tu comisión</span></span><input id="am-link" type="url" autocomplete="off" placeholder="https://meli.la/…"><small class="field-msg" id="am-link-msg"></small></label>
+    <label class="imp-field"><span>Nombre <span class="muted" style="font-weight:400;text-transform:none">· opcional, lo pone la API</span></span><input id="am-nombre" autocomplete="off" placeholder="(se rellena solo)"></label>
+  </div>
+  <p class="muted" style="font-size:12px;margin:10px 0">Entra <b>apagado</b>: la API le pone características e imagen, el enlace le pone precio, y tú decides cuándo publicarlo. Si pegas varios, uno por línea en formato <code>MLM… enlace</code>, se dan de alta todos.</p>
+  <label class="imp-field span2" style="display:block"><span>O pega varios de golpe (un producto por línea: ID y enlace separados por espacio o tabulador)</span>
+    <textarea id="am-lote" rows="5" style="width:100%;margin-top:4px;font-family:var(--font-data);font-size:12px;padding:8px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--fg);resize:vertical" placeholder="MLM22374539&#9;https://meli.la/12ix9aU&#10;MLM64639256&#9;https://meli.la/1ppD1Bg"></textarea>
+  </label>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+    <button class="btn btn-primary" data-act="am-add">+ Dar de alta</button>
+    <button class="btn" data-act="am-reset">Limpiar</button>
+    <span class="muted" id="am-status" style="font-size:12px;align-self:center"></span>
+  </div>
+  <div id="am-next" style="display:none;margin-top:14px;border-top:1px solid var(--line);padding-top:12px">
+    <p class="muted" style="font-size:12px;margin:0 0 6px">Guarda, y luego corre esto para completarlos:</p>
+    <pre id="am-cmds" style="font-family:var(--font-data);font-size:12px;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:10px;white-space:pre-wrap;margin:0"></pre>
   </div>
 </div>
 </section>
@@ -2071,7 +2106,7 @@ function bulkActivo(on) {
 function saveUI() { lsSet(UKEY, {cat:S.cat, view:S.view}); }
 
 // ── Paneles alternos (update / dash / importar / pegar / pub) ──────────────
-const PANELS = ['#update', '#dash', '#importar', '#pegar', '#pub'];
+const PANELS = ['#update', '#dash', '#importar', '#pegar', '#altaml', '#pub'];
 function openPanel(sel, onShow) {
   const panel = $(sel), btn = $('#btn-' + sel.slice(1));
   const show = panel.hidden;
@@ -2180,6 +2215,7 @@ function onClick(e) {
     case 'dash': { openPanel('#dash', renderDash); break; }
     case 'importar': { openPanel('#importar', initImport); break; }
     case 'pegar': { openPanel('#pegar', initPegar); break; }
+    case 'altaml': { openPanel('#altaml', initAltaMl); break; }
     case 'pub': { openPanel('#pub', initPub); break; }
     case 'pub-gen': {
       const selRows = pubGetSel();
@@ -2283,6 +2319,8 @@ function onClick(e) {
     }
     case 'pg-extraer': pgExtraer(); break;
     case 'pg-add': pgAdd(); break;
+    case 'am-add': amAdd(); break;
+    case 'am-reset': amReset(); break;
     case 'pg-reset': pgReset(); break;
     case 'utm-copy': {
       const out = $('#utm-out');
@@ -2316,6 +2354,7 @@ function onInput(e) {
   else if (t.id === 'e-amz') amzMessage(t, $('#e-amz-msg'));
   else if (t.id === 'a-amz') amzMessage(t, $('#a-amz-msg'));
   else if (t.id === 'pg-amz') amzMessage(t, $('#pg-amz-msg'));
+  else if (t.id === 'am-mlid') mlIdMessage(t, $('#am-mlid-msg'));
   else if (['utm-source','utm-medium','utm-campaign','utm-content','utm-page'].includes(t.id)) buildUtmUrl();
 }
 function onKey(e) {
@@ -2542,6 +2581,87 @@ function pgAdd() {
   renderCats(); renderQueues(); renderControls(); renderTable();
   toast('"' + nombre.slice(0, 40) + '" agregado a ' + (CATS[cat] || cat) + (activo ? ', activo.' : ', pausado. Agrega link y precio de Amazon desde ✎.'));
   pgReset();
+}
+// ── Alta por ID de catálogo de Mercado Libre ──────────────────────────────
+// Lo único que no sale de ninguna API es TU enlace de afiliado, así que es lo único que se
+// escribe a mano. El producto entra apagado y sin precio: las características y la imagen se
+// las pone especs-por-id.mjs desde la API, y el precio precios-por-link.mjs abriendo el enlace.
+let AM_INIT = false;
+function initAltaMl() {
+  const sel = $('#am-cat');
+  if (!sel) return;
+  if (!AM_INIT) {
+    sel.innerHTML = Object.keys(DB).map(c => `<option value="${esc(c)}">${esc(CATS[c] || c)}</option>`).join('');
+    AM_INIT = true;
+  }
+  if (DB[S.cat]) sel.value = S.cat;
+}
+function amReset() {
+  ['#am-mlid', '#am-link', '#am-nombre', '#am-lote'].forEach(id => { const el = $(id); if (el) el.value = ''; });
+  const st = $('#am-status'); if (st) st.textContent = '';
+  const nx = $('#am-next'); if (nx) nx.style.display = 'none';
+}
+// Cada línea del lote: "MLM… <espacio o tab> https://…". Se aceptan también URLs /p/MLM….
+function amFilas() {
+  const lote = ($('#am-lote').value || '').trim();
+  if (lote) {
+    return lote.split(/\r?\n/).map(l => l.trim()).filter(Boolean).map(linea => {
+      const partes = linea.split(/[\s\t]+/).filter(Boolean);
+      const link = partes.find(x => /^https?:\/\//.test(x)) || '';
+      const idTxt = partes.find(x => x !== link) || '';
+      return { mlId: parseMlId(idTxt).id, link, linea };
+    });
+  }
+  return [{ mlId: parseMlId($('#am-mlid').value).id, link: ($('#am-link').value || '').trim(), linea: '' }];
+}
+function amAdd() {
+  const cat = $('#am-cat').value;
+  const nombreManual = ($('#am-nombre').value || '').trim();
+  const filas = amFilas();
+  const buenas = [], malas = [];
+  for (const f of filas) {
+    if (!f.mlId) { malas.push((f.linea || 'la línea') + ': falta el ID de catálogo (MLM…)'); continue; }
+    if (!/^https?:\/\//.test(f.link)) { malas.push(f.mlId + ': falta tu enlace de afiliado'); continue; }
+    const ya = (DB[cat] || []).find(p => p.mlId === f.mlId || p.linkML === f.link);
+    if (ya) { malas.push(f.mlId + ': ya está en esta categoría (id ' + ya.id + ')'); continue; }
+    buenas.push(f);
+  }
+  if (!buenas.length) { toast(malas[0] || 'Nada que dar de alta'); return; }
+
+  if (!DB[cat]) DB[cat] = [];
+  for (const f of buenas) {
+    // El nombre de verdad lo pone la API; mientras tanto, uno provisional que se vea en la tabla.
+    const nombre = (filas.length === 1 && nombreManual) || ('Pendiente ' + f.mlId);
+    const id = newId(cat, nombre);
+    const p = {
+      id, nombre, nombreCorto: null, marca: null, activo: false, _publicar: false,
+      linkML: f.link, linkAmz: null, precioML: null, precioAmz: null,
+      mlId: f.mlId, mlIdFuente: 'manual', imagen: null, especs: {}, estadoML: null,
+      _necesitaEspecs: true, _altaFecha: new Date().toISOString().slice(0, 10),
+      _updatedAt: new Date().toISOString(),
+    };
+    DB[cat].push(p);
+    PENDING.added[cat + '|' + id] = p;
+  }
+  reindex(); persist();
+  S.cat = cat; S.queue = 'todos'; S.plat = ''; S.q = '';
+  const qEl = $('#q'); if (qEl) qEl.value = ''; saveUI();
+  renderCats(); renderQueues(); renderControls(); renderTable();
+
+  const st = $('#am-status');
+  if (st) st.textContent = buenas.length + ' dado(s) de alta' + (malas.length ? ' · ' + malas.length + ' con problema' : '');
+  const nx = $('#am-next'), cmds = $('#am-cmds');
+  if (nx && cmds) {
+    cmds.textContent =
+      'node scripts/especs-por-id.mjs --categoria=' + cat + ' --aplicar\n' +
+      'node scripts/precios-por-link.mjs --categoria=' + cat + ' --aplicar\n' +
+      'node scripts/sync-pausas.js';
+    nx.style.display = 'block';
+  }
+  if (malas.length) toast(malas.slice(0, 2).join(' · '));
+  else toast(buenas.length + ' producto(s) dados de alta en ' + (CATS[cat] || cat) + ', apagados hasta que los publiques.');
+  const lote = $('#am-lote'); if (lote) lote.value = '';
+  ['#am-mlid', '#am-link', '#am-nombre'].forEach(id => { const el = $(id); if (el) el.value = ''; });
 }
 function pgReset() {
   const texto = $('#pg-texto'), res = $('#pg-result');

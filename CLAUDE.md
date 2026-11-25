@@ -65,58 +65,85 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
 
 ## Datos y scripts (`scripts/`)
 
-- **La fuente de precios, hoy: el enlace de afiliado.** Desde el 23-nov-2026 la API de ML
-  responde `403 PA_UNAUTHORIZED_RESULT_FROM_POLICIES` (`blocked_by: PolicyAgent`) en
-  `/products/{id}/items`, que es de donde `ml-update.js` saca TODOS los precios. Falla sin token,
-  con las dos apps (21884755034108 y 6900783320059393), con token de usuario y de aplicación,
-  desde la máquina local y desde Actions, y también con productos de otros países: no es la
-  cuenta, ni la app, ni el token, ni el código. No hubo aviso en el changelog; hay un caso de
-  soporte abierto (497988778). El `ml-report.json` del 23-nov: 0 actualizados, 1,314 sin precio.
-  Mientras dure, **el precio sale de `precios-por-link.mjs`** y `ml-update.js` queda dormido;
-  `update-prices.yml` y `revisar-disponibilidad.yml` quedaron sin `schedule` (solo a mano),
-  porque el freno de `revisar-disponibilidad.js` veía que nada salía bien, fallaba a propósito y
-  tumbaba la corrida diaria entera a mitad del pipeline: no era solo que los precios no se
-  movieran, es que no se regeneraban descuentos, bajadas, ofertas, pausas ni contadores.
-  Cada corrida de `precios-por-link.mjs` sondea la API al terminar: cuando vuelva a responder 200
-  lo dice en la salida, en el reporte y en el Centro de Control, y entonces se descomentan los
-  `schedule` de esos dos workflows y se le quita el suyo a `precios-por-link.yml`.
+- **EL PROCESO DE DATOS (nov-2026). Los precios ya no salen de la API.** El 23-nov-2026
+  Mercado Libre cerró `/products/{id}/items` con `403 PA_UNAUTHORIZED_RESULT_FROM_POLICIES`
+  (`blocked_by: PolicyAgent`): sin token, con las dos apps, con token de usuario y de
+  aplicación, desde la máquina local y desde Actions, y también con productos de otros países.
+  No es la cuenta, ni la app, ni el token, ni el código; no hubo aviso en el changelog y hay un
+  caso de soporte abierto (497988778). **Lo único cerrado son los precios**: `/products/{id}`
+  sigue dando 200 con nombre, atributos, imágenes y `status`. De ahí el reparto de hoy:
+
+  | Dato | De dónde sale |
+  |---|---|
+  | Características, imagen, nombre, ¿sigue existiendo? | API, `/products/{id}` → `especs-por-id.mjs` |
+  | Enlace de afiliado | **a mano**, pegado en el gestor (no hay API que lo dé) |
+  | Precio | la página del enlace de afiliado → `precios-por-link.mjs` |
+
+  **Alta de un producto:** pegas categoría + ID de catálogo + tu enlace en el gestor (botón 🔗),
+  guardas, y corres `especs-por-id.mjs` y `precios-por-link.mjs` de esa categoría. Entra apagado;
+  publicarlo es decisión tuya. También se puede de una: `especs-por-id.mjs --nuevo=cat:MLM…:enlace --aplicar`.
+  **Mantenimiento:** `precios-por-link.mjs` por categoría o `--todas`, a diario en `precios-por-link.yml`.
+
+  **Qué pasa con lo caído** (lo decide `precios-por-link.mjs`, no hay que acordarse de nada):
+  · **Pausada en ML** → se pausa y empiezan **5 días de gracia** (`--dias-gracia`), con los días
+  restantes a la vista en el reporte y en el Centro. Si a los 5 días sigue pausada, se borra.
+  · **Ya no existe** (404 de `/products/{id}`) → se borra de una; un catálogo borrado no vuelve.
+  · **Enlace muerto** → no se borra el producto, se retira el enlace: el catálogo sigue vivo, lo
+  que murió es nuestro enlace, y con pegarle uno nuevo vuelve.
+  **Borrar es borrar**: el objeto sale de `merged-admin.json` *y* del array de su página, en ese
+  orden (al revés, nada quedaría en la base que le dijera a `sync-pausas.js` que esa tarjeta
+  sobra, y se quedaría anunciada para siempre). Queda copia completa en
+  `scripts/papelera-productos.json`.
+
+  Se retiraron: `ml-update.js`, `ml-report.json`, `update-prices.yml` y los cinco
+  `update-prices-<categoria>.yml`. `revisar-disponibilidad.yml` quedó a mano. `generar-admin.js`
+  ya no aplica precios: solo lee el reporte para enseñarlo en el gestor.
 - `precios-por-link.mjs [--todas|--categoria=a,b] [--aplicar] [--concurrencia=4] [--max-salto=25]
-  [--umbral=2] [--forzar]` — saca el precio de cada producto **abriendo su enlace de afiliado**
-  con `resolverAfiliado()`, no por la API. Una sola corrida hace las dos cosas: comprueba que el
-  enlace siga vivo y trae el precio (~4 min para los ~1,190 con `linkML`, concurrencia 4). El
-  precio que devuelve es el de la publicación a la que lleva NUESTRO enlace —el que verá quien dé
-  clic—, no la oferta más barata del catálogo; por eso se guarda también en `_precioFicha` +
-  `_precioFichaFecha`, la clave que `generar-admin.js` ya usa como piso para que el reporte de la
-  API no publique nunca menos de lo que se ve al dar clic. La racha de bajada la fija
-  `actualizarRachaML()` de `_ofertas.js`, la misma que usa `generar-admin.js`, para que una oferta
-  se comporte igual venga de donde venga el precio. Estados: `ok`, `sin_cambio`, `pausada`,
+  [--umbral=2] [--dias-gracia=5] [--forzar]` — **la corrida de datos**. Abre la página de cada
+  enlace de afiliado con `resolverAfiliado()` y de ahí saca el precio y la salud del enlace; al
+  que queda en duda le pregunta al catálogo por `/products/{id}` (que sí responde) para separar
+  "pausado" de "ya no existe". ~4 min para los ~1,190 con `linkML`, concurrencia 4. El precio que
+  devuelve es el de la publicación a la que lleva NUESTRO enlace —el que verá quien dé clic—, no
+  la oferta más barata del catálogo; se guarda también en `_precioFicha`. La racha de bajada la
+  fija `actualizarRachaML()` de `_ofertas.js`, la misma de siempre, para que una oferta se
+  comporte igual venga de donde venga. Estados: `ok`, `sin_cambio`, `pausada`, `no_existe`,
   `link_roto`, `link_otro`, `salto`, `sin_precio`, `error`. Candados:
-  **tope de salto** (25% por defecto; lo que se pasa no se escribe y va al reporte, mismo criterio
-  que `sync-guias-precios.js`); **freno de emergencia** (si no sale bien ninguno, o si más de la
-  mitad falla o se ve caída, no escribe nada y sale con error — si ML cambia la estructura de esa
-  página todo se vería roto a la vez, y un `link_roto` RETIRA el enlace); un `error` de red o un
-  5xx nunca pausa ni retira nada; un `link_roto`/`link_otro` se confirma en DOS corridas
-  (`_dispFallos`) y se trata con `_link-muerto.js` (se retira el enlace, no se pausa); una pausa
-  puesta a mano nunca se toca. También anota `_dispEstado`/`_dispFecha`, reactiva lo que él mismo
-  pausó y completa el `mlId` cuando la tarjeta lo trae y la base no. Escribe
-  `precios-link-report.json` (acumulativo por categoría, como el de disponibilidad). Después de
-  `--aplicar`: `sync-pausas.js`.
-  **Escribe el precio en la base Y en el HTML.** El precio que ve el visitante no sale de
-  `merged-admin.json`: sale del array JS de cada página, y el único que lo parcheaba era
-  `ml-update.js`. La primera corrida de nov-2026 lo dejó claro: la base decía $1,699 y la página
-  seguía anunciando $1,920. Lo escribe en todas las páginas del registro que muestran la
-  categoría, espejos incluidos (bicis aparece en el hub y en su listado).
-- `_html-precios.js` — la regla única para **escribir un precio dentro del array JS de una
-  página**: `locateArray`, `topBlocks`, `patchBlock` y `escribirPrecios(abs, varName, tipo,
-  precios)`. La comparten `ml-update.js` y `precios-por-link.mjs`; antes vivía solo dentro del
-  primero y copiarla habría repetido el problema de las listas duplicadas. Empareja por `id` y,
-  si no coincide, por `linkML` (el id de la página no siempre es el de la base), y en las páginas
-  de familias manda el `linkML`, que es único por variante. Recalcula los campos derivados del
-  precio (`costoPorPorcion`, `costoPor5g`, `costoPor1000ui`): si no, quedan mintiendo en la
-  tarjeta. Avisa cuántos productos de la base no aparecen en la página, en vez de callarlo.
+  **tope de salto** (25%; lo que se pasa va al reporte y no se escribe); **freno de emergencia**
+  (si no sale bien casi ninguno no se escribe nada y la corrida falla: si ML cambia esa página
+  todo se vería roto a la vez, y un `link_roto` retira enlaces); un `error` de red o un 5xx nunca
+  pausa, borra ni retira nada; `link_roto`/`link_otro` se confirman en DOS corridas; una pausa
+  puesta a mano no se toca jamás. **Escribe el precio en la base Y en el array de la página**: el
+  precio que ve el visitante sale del array, no de la base, y antes eso lo hacía `ml-update.js`.
+  Reconoce la **tarjeta por defecto del perfil de afiliado** (varios productos cayendo en el mismo
+  catálogo ajeno) y la recuerda entre corridas en `tarjetaDefecto`, porque una corrida de una sola
+  categoría no tiene repetición que la delate: nov-2026 los cuatro enlaces muertos del sitio abrían
+  el mismo microondas GE, y el cuarto se salvaba por dos puntos de parecido.
+  Reporte: `precios-link-report.json` (acumulativo por categoría, con la cola de gracia).
+  Después de `--aplicar`: `sync-pausas.js`.
+- `especs-por-id.mjs [--todas|--categoria=a,b] [--aplicar] [--forzar-imagen]`,
+  `[--id=MLM…]`, `[--nuevo=categoria:MLM…:enlace]` — características, imagen y nombre desde
+  `/products/{id}`. **No pisa nada puesto a mano**: una característica con valor se respeta y la
+  diferencia se reporta. Los atributos crudos de ML van a `_mlAtributos`; `especs` solo se siembra
+  cuando el producto no tiene ninguna. Por qué: cada categoría tiene su esquema de claves cortas
+  (`potencia`, `capacidad`, `panel`) y la API devuelve los nombres que enseña ML (`Potencia`,
+  `Capacidad en volumen`), así que volcar unos sobre otros llenaría `especs` de claves paralelas
+  que ninguna página pinta. Mapear un atributo a una clave del esquema es decisión de categoría.
+  `--id` solo enseña lo que trae un catálogo, sin tocar nada. Reporte: `especs-report.json`.
+- `sugerir-ids.mjs [--todas|--categoria=a,b]` — candidatos de `mlId` para los productos con
+  enlace y sin ID, vía `/products/search` (que sigue respondiendo). Era el `--sugerir` de
+  `ml-update.js`; se mudó aquí al retirarlo porque no es una llamada de precios. Perdió el
+  desempate por cercanía de precio, que usaba el endpoint cerrado: ahora la nota es solo el
+  parecido de nombre. Escribe `ml-sugerencias.json`; los enseña el gestor tras `generar-admin.js`.
+- `_html-precios.js` — la regla única para tocar el array JS de una página: `locateArray`,
+  `topBlocks`, `patchBlock`, `escribirPrecios()` y `quitarProductos()`. Empareja por `id` y, si no
+  coincide, por `linkML` (el id de la página no siempre es el de la base). `quitarProductos`
+  **parsea el array antes de escribirlo**: si una coma mal quitada lo dejara roto no escribe nada,
+  porque una página con el JS roto no enseña ningún producto, que es mucho peor que una tarjeta de
+  más. No cubre las páginas de familias (celulares): ahí el producto es una variante y se reporta
+  para quitarla a mano, y el producto se queda en la base oculto en vez de borrarse.
 - `categorias.js` — **registro único de categorías**. Una categoría se declara aquí UNA vez (clave de
   `merged-admin.json`, página, nombre del array JS, y opcionalmente `descuentos` y `catalogMini`) y
-  entra sola en `ml-update.js`, `revisar-disponibilidad.js`, `sync-pausas.js`, `generar-catalog-mini.js`
+  entra sola en `precios-por-link.mjs`, `especs-por-id.mjs`, `sync-pausas.js`, `generar-catalog-mini.js`
   y `generar-bajadas.js`. Antes cada script llevaba su propia lista y se desincronizaban: cafeteras,
   smartwatches, refrigeradores, streaming, ollas e iPhone recibían precios pero **no** pausas, así que
   pausar un producto en el gestor no lo quitaba de su página. Al registrar una categoría nueva hay que
@@ -124,7 +151,7 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
   `check-site.js` falla si una categoría de la base no está registrada o si a su página le falta ese bloque.
 - `revisar-disponibilidad.js [--todas|--categoria=a,b] [--links] [--aplicar] [--umbral=N]` — revisa si
   cada producto publicado SIGUE existiendo en ML y pausa lo caído. Dos capas: la de catálogo
-  (`/products/{mlId}` + sus ofertas, ~2 min todo el sitio, corre a diario en `update-prices.yml`) y la
+  (`/products/{mlId}` + sus ofertas; **la parte de ofertas ya no responde**, así que este script quedó a mano) y la
   de links (`--links`: abre cada `meli.la` y comprueba que siga llevando a SU producto; ~20 min, corre
   los domingos en `revisar-disponibilidad.yml`). La segunda es la que descubre lo peor: nov-2026 dos
   laptops abrían una barra de sonido Sonos porque el link caído cae en la tarjeta por defecto del perfil
@@ -194,24 +221,23 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
   rango, la ficha lo dice sola con un `.cmx-rango` — así una guía nunca anuncia un tope que su propio
   contenido incumple. No se pone en la tabla, la barra lateral ni la tarjeta del comparador: no cabe.
 - `sync-guias-precios.js [--aplicar]` — las guías llevan el precio escrito a mano en la tabla, en las
-  fichas y en su array `familias*`, y `ml-update.js` no las toca, así que se desfasan solas. Este script
+  fichas y en su array `familias*`, y la corrida de precios no las toca, así que se desfasan solas. Este script
   lleva el `precioML` de la BD a esos tres lugares **sin adivinar nada**: cada familia declara
   `dbId: '<id de merged-admin.json>'` y cada precio del HTML lleva `data-cmx-precio="<modeloBase>"`.
   Nunca empareja por nombre ni por número de id. **Tope de seguridad `MAX_SALTO` (25%)**: si la BD se
   aleja más de eso del precio de la guía no lo escribe y lo manda a `guias-precios-report.json` para
   revisarlo a mano (oct-2026 la BD tiene un Pixel 9a a $20,794 por un `mlId` mal asignado; el tope
-  existe para que un dato así no acabe en una guía). Corre en `update-prices.yml`.
+  existe para que un dato así no acabe en una guía). Corre en `precios-por-link.yml`.
   Guías ya anotadas: `mejores-celulares-menos-5000`. Para sumar otra hay que anotarla primero.
-- `ml-update.js [--categoria=X] [--dry-run]` — precio ML de cada producto con link ML y `mlId`
-  (ID de catálogo `MLM…` de la ficha `/p/MLM…`) vía `/products/{mlId}/items`; parchea el HTML por `id`
-  y escribe `ml-report.json`. Categorías: `laptops`, `freidoras`, `bicis`, `microondas`, `proteina`,
-  `omega3`, `magnesio`, `creatina`, `complejo_b`, o `suplementos`.
-  `--sugerir` busca candidatos de ID para productos sin `mlId` y los guarda en `ml-sugerencias.json`.
-- Los links `meli.la` no contienen el producto (abren el perfil de afiliado) y la API da 403 para IDs de
-  publicación (`MLM-…`): sin `mlId` de catálogo no hay precio. El `mlId` se asigna en el artifact (Asignar IDs).
-- `generar-admin.js` — completa `mlId` desde links `/p/MLM…`, aplica `ml-report.json` por `id` (si el producto
-  se editó a mano después del reporte, gana la edición), agrega candidatos de `ml-sugerencias.json` y genera
-  `admin-artifact.html` desde `admin-template.html` (el CSS/JS del artifact se edita ahí, como HTML normal).
+- Los links `meli.la` no contienen el producto: abren el perfil de afiliado. Lo que sí trae esa
+  página es la tarjeta destacada con el producto y su precio, y de ahí lo saca `resolverAfiliado()`.
+  El `mlId` se pega a mano en el gestor (botón 🔗) o sale del propio enlace.
+- `generar-admin.js` — completa `mlId` desde links `/p/MLM…`, agrega candidatos de
+  `ml-sugerencias.json` y genera `admin-artifact.html` desde `admin-template.html` (el CSS/JS del
+  artifact se edita ahí, como HTML normal). **Ya no aplica precios**: los escribe
+  `precios-por-link.mjs` directo en la base, y aquí solo se lee `precios-link-report.json` para
+  enseñarlo en el gestor. Que dos scripts escribieran el mismo campo era además la receta para
+  pisarse: este paso deshacía en la misma corrida lo que acababa de escribir el otro.
 - `ml-bicis.js especs|nuevas [--aplicar]` — bicis: llena características vacías desde la ficha ML (nunca
   sobrescribe) y agrega bicis más vendidas con stock como `estadoML:"nuevo"`, `activo:false`. En el artifact se
   publican (requiere link de afiliado) y `sync-html.js` agrega las marcadas `_publicar` a `ELECTRICAS`.
@@ -248,7 +274,7 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
   de ofertas del inicio, `/celulares/`, `/celulares/android/` y las 3 guías de celulares con `descuentos.json`.
 - `generar-bajadas.js` — escribe `assets/data/bajadas.json` con TODOS los productos que bajaron de precio por
   categoría (bajada oficial de `_ofertas.js` + lo que ya anuncia cada `descuentos.json`, que tiene tope de 5–8).
-  Corre en `update-prices.yml` tras las ofertas. `assets/js/price-drops.js` lo lee: pinta "↓ % · Bajó $ · Antes $"
+  Corre en `precios-por-link.yml` tras las ofertas. `assets/js/price-drops.js` lo lee: pinta "↓ % · Bajó $ · Antes $"
   en la tarjeta y da el filtro "Bajó de precio" (chip sobre el listado, sección "Ofertas" en el panel, y en
   proteína/creatina su filtro propio). Solo muestra una bajada si id, nombre y precio actual coinciden con la página.
 - `generar-ofertas.js [--dry-run]` — arma **`/ofertas/`**, la página que junta en una fila por
@@ -264,7 +290,7 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
   página baja un archivo y no los 24. Los productos con salto atípico en la serie se publican pero
   van al final de su fila: ese salto casi siempre es un cambio de la oferta de referencia del
   catálogo, no una rebaja. Tope de 8 tarjetas por categoría (`TOPE`); el resto se ve en la categoría.
-  Corre en `update-prices.yml` y en `revisar-disponibilidad.yml`. Los grupos del índice viven en el
+  Corre en `precios-por-link.yml`. Los grupos del índice viven en el
   propio script: una categoría nueva de `categorias.js` entra sola en "Más categorías".
 - `sync-ofertas-cta.js [--check] [--dry-run]` — pone el acceso a `/ofertas/` en las 26 páginas del
   registro: el chip junto al contador (`cl-oflink`, primera pantalla, solo donde existe
@@ -307,21 +333,15 @@ El artifact se reconstruye a sí mismo al guardar; si se edita `admin-template.h
   `generar-centro.js`, `check-site.js`, `validar-datos.js`) y hace commit. Como abre cada enlace,
   cubre también la capa de links que hacía `revisar-disponibilidad.yml` los domingos. Su resumen
   avisa si el freno paró la corrida y si la API volvió.
-- `update-prices.yml` ("Actualizar precios Mercado Libre") — **dormido desde el 24-nov-2026**
-  (sin `schedule`, solo manual), porque su paso de precios no actualiza nada y el de
-  disponibilidad falla a propósito y tumba la corrida entera. Era: diario 6:00 CDMX y manual con
-  selector de categoría. Corre
-  todo el pipeline (`ml-update.js`, `generar-admin.js`, histórico, `generar-catalog-mini.js`,
-  descuentos, bajadas, pausas, `sync-guias-precios.js`, `check-site.js`) y hace commit. El artifact
-  enlaza a este workflow. Una categoría o una guía nuevas entran solas: basta registrarlas en su
-  script (`CATALOG` de `ml-update.js`, `CATALOGOS` de `generar-catalog-mini.js`, `GUIAS` de
-  `sync-guias-precios.js`); el commit usa `git add -u`, no una lista de rutas.
-  (`ml-update.yml` hacía lo mismo cuatro horas antes; se retiró el 16-nov-2026.)
-- `revisar-disponibilidad.yml` ("Revisar disponibilidad en Mercado Libre") — **dormido desde el
-  24-nov-2026** por lo mismo (su capa 1 es la API). Era: domingos 5:00 CDMX y
+- `update-prices.yml` y los cinco `update-prices-<categoria>.yml` **se borraron** el
+  25-nov-2026: su paso de precios llamaba a la API cerrada y el de disponibilidad fallaba a
+  propósito, tumbando la corrida entera a mitad del pipeline.
+- `revisar-disponibilidad.yml` ("Revisar disponibilidad en Mercado Libre") — **dormido**: su
+  capa 1 es la API de precios. Lo que hacía su capa de links lo hace ahora a diario
+  `precios-por-link.yml`, que abre cada enlace de todos modos. Era: domingos 5:00 CDMX y
   manual (con opciones de aplicar/links/umbral). Corre la revisión completa **con la capa de links**,
   pausa lo caído, aplica pausas a las páginas, regenera el gestor y valida. La capa rápida ya corre
-  a diario dentro de `update-prices.yml`.
+  a diario dentro de `precios-por-link.yml`.
 - `update-prices-<categoria>.yml` — manual por categoría (mismo pipeline, sin `check-site.js`).
 - `sync-productos.yml` — al cambiar `productos.json` o `merged-admin.json`, corre `sync-html.js`.
 - `check-site.yml` — corre `check-site.js` y `validar-datos.js` en cada push y PR.
@@ -341,7 +361,7 @@ exista con el array declarado y que tenga el bloque `/*PAUSAS*/` (si no, pausar 
 gestor no lo quitaría del sitio). Si falla, no hacer push.
 
 `node scripts/validar-datos.js` revisa los JSON de datos (la base, los reportes, el histórico,
-`descuentos.json`, `catalog-mini.json`): que no tengan marcas de conflicto de git, que se puedan
+`descuentos.json`, `catalog-mini.json`, la papelera): que no tengan marcas de conflicto de git, que se puedan
 leer y que `merged-admin.json` no se haya quedado vacío. Corre en cada push y antes de cada commit
 de los workflows. Es la red que faltaba el 16-nov-2026, cuando `git add` + `git commit` publicaron
 la base con marcas de conflicto sin que nada fallara.
