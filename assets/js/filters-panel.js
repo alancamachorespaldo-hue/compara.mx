@@ -8,6 +8,26 @@
   var aside, main, openBtn, backdrop, clearBtn, facets = [], sel = {}, L = [], minInput, maxInput;
   var path = location.pathname;
 
+  /* ── GA4: el filtro de precio manda su propio evento ──
+     'filtro_aplicar' (el generico de los demas filtros) no se puede desglosar por parametro en los
+     reportes sin dimension personalizada, y aqui los campos min/max no mandaban nada. Con debounce
+     porque 'input' dispara por cada tecla. */
+  var ga = function (name, params) { if (typeof window.gtag === 'function') { try { window.gtag('event', name, params || {}); } catch (e) {} } };
+  var gaPrecioT = null;
+  function gaPrecio(extra) {
+    clearTimeout(gaPrecioT);
+    gaPrecioT = setTimeout(function () {
+      var mn = minInput && minInput.value !== '' ? +minInput.value : null;
+      var mx = maxInput && maxInput.value !== '' ? +maxInput.value : null;
+      if (mn == null && mx == null && !extra) return;
+      var par = { page_path: path, page_section: path.replace(/^\/+|\/+$/g, '') || 'inicio' };
+      if (mn != null) par.precio_min = mn;
+      if (mx != null) par.precio_max = mx;
+      if (extra) for (var k in extra) par[k] = extra[k];
+      ga('filtro_precio', par);
+    }, 700);
+  }
+
   /* ── Utilidades de datos ── */
   function products() {
     try { return typeof productos !== 'undefined' ? productos : PRODUCTOS; } catch (e) { return []; }
@@ -391,6 +411,7 @@
       if (input.checked && i < 0) s.push(o.v);
       if (!input.checked && i > -1) s.splice(i, 1);
       if (f.id === 'bajada' && o.v === 'drop' && input.checked && typeof gtag === 'function') gtag('event', 'filtro_bajada_precio', { page_path: location.pathname });
+      if (f.id === 'precio' && input.checked) gaPrecio({ rango: o.v, rango_label: String(o.label).replace(/<[^>]*>/g, '') });
       rerender();
     });
     var lbl = el('span', 'cmx-fp-lbl', o.label);
@@ -504,8 +525,8 @@
       row.appendChild(maxInput);
       ps.appendChild(row);
       aside.appendChild(ps);
-      minInput.addEventListener('input', function () { setTimeout(rerender, 0); });
-      maxInput.addEventListener('input', function () { setTimeout(rerender, 0); });
+      minInput.addEventListener('input', function () { setTimeout(rerender, 0); gaPrecio(); });
+      maxInput.addEventListener('input', function () { setTimeout(rerender, 0); gaPrecio(); });
     }
 
     facets.forEach(function (f) { aside.appendChild(buildFacetSection(f)); });

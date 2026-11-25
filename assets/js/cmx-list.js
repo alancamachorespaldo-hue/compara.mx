@@ -164,7 +164,13 @@
         if (t.dataset.f) { var s = st.sel[t.dataset.f]; if (t.checked) { s.add(t.dataset.v); ga('filtro_aplicar', { filtro: t.dataset.f, valor: t.dataset.v, page_section: cfg.section }); } else s.delete(t.dataset.v); }
         else if (t.id === 'cl-drop') { st.drop = t.checked; if (st.drop) ga('filtro_bajada_precio', { page_path: location.pathname }); }
         else if (t.id === 'cl-fav-only') { st.favOnly = t.checked; if (st.favOnly) ga('filtro_guardados', { origen: 'panel', value: favs.size, page_section: cfg.section }); }
-        else if (t.id === 'cl-range') { if (st.max != null) ga('filtro_aplicar', { filtro: 'precio_max', valor: String(st.max), page_section: cfg.section }); toResults(); return; }
+        else if (t.id === 'cl-range') {
+          if (st.max != null) ga('filtro_aplicar', { filtro: 'precio_max', valor: String(st.max), page_section: cfg.section });
+          /* Evento propio: 'filtro_aplicar' es el mismo nombre para todos los filtros y en GA4 no se
+             puede desglosar por parametro sin dimension personalizada, asi que el precio manda el suyo. */
+          ga('filtro_precio', { precio_max: st.max == null ? PMAX : st.max, tope_maximo: PMAX, sin_tope: st.max == null ? 1 : 0, page_section: cfg.section, page_path: location.pathname });
+          toResults(); return;
+        }
         render(); toResults();
       });
       el.addEventListener('input', function (e) {
