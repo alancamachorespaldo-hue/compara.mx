@@ -241,22 +241,16 @@ async function main() {
   // 1. Qué revisar: lo que tiene enlace de ML y no está dado de baja.
   //    Lo pausado SÍ entra: su precio se refresca para que esté al día el día que se reactive,
   //    y su enlace se comprueba igual. Lo que no tiene enlace (_necesitaLink) no da precio: fuera.
-  //    Lo que SE VE EN LA PÁGINA entra siempre, aunque `publicado()` lo dé por no publicado:
-  //    esa regla es de ofertas —no anunciar un producto que un script encontró buscando en ML
-  //    antes de que Alan lo apruebe— y aquí se volvía en contra. Nov-2026: 28 productos
-  //    (26 de proteína y 2 de juegos) estaban en su página, con su enlace y su botón de comprar,
-  //    marcados `estadoML:'nuevo'` sin `_publicar`, así que la corrida los saltaba y su precio
-  //    llevaba días congelado: el Mutant Whey Triple Chocolate anunciaba $986 cuando en Mercado
-  //    Libre costaba $883. Un producto a la vista con precio viejo es peor que uno de más en la
-  //    cola. `_enWeb` lo anota `marcar-publicados.js` leyendo el array de cada página; va un día
-  //    atrás (corre después de este paso), lo que solo retrasa una corrida a un producto recién
-  //    publicado. Lo que no está en la web se sigue saltando igual que antes.
+  //    Lo que se ve en la página entra siempre: `publicado()` cuenta como publicado todo lo que
+  //    `marcar-publicados.js` marcó con `_enWeb`, así que un producto a la vista en el sitio no
+  //    se queda sin precio aunque nadie lo haya aprobado en su día (nov-2026: 28 productos así).
+  //    Ese `_enWeb` va un día atrás —se anota después de este paso—, lo que como mucho retrasa
+  //    una corrida a un producto recién publicado.
   const tareas = [];
   let sinLink = 0;
   for (const cat of claves) {
     for (const p of (db[cat] ?? [])) {
-      if (p.activo === false || p._eliminado === true) continue;
-      if (!publicado(p) && p._enWeb !== true) continue;
+      if (p.activo === false || p._eliminado === true || !publicado(p)) continue;
       if (!p.linkML) { sinLink++; continue; }
       tareas.push({ cat, p });
     }

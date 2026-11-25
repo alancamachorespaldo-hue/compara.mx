@@ -3,8 +3,16 @@
 // Amazon: _precioAmzAntes + _precioAmzFecha los escribe el artifact cuando se captura un precio menor.
 export const DIAS_OFERTA_AMZ = 30;
 export const DIAS_OFERTA_ML = 30;
-// Un producto "nuevo" (hallado por la búsqueda de ML) no se muestra hasta que se publica desde el artifact (_publicar).
-export const publicado = p => !(p.estadoML === 'nuevo' && !p._publicar);
+// Un producto "nuevo" (hallado por la búsqueda de ML) no se muestra hasta que se publica desde el
+// artifact (_publicar) — PERO si ya está escrito en su página, está publicado y punto. Nov-2026:
+// las 27 proteínas del 28-oct (commit 3d927a09) se escribieron en la página y en la base el mismo
+// día, sin pasar nunca por esa aprobación, así que para el sitio llevaban un mes vendiendo y para
+// esta función seguían siendo candidatas. Resultado: la corrida de precios las saltaba (el Mutant
+// Whey Triple Chocolate anunciaba $986 del 22-nov cuando costaba $883), su ficha decía "todavía no
+// tenemos histórico" sobre un mes de datos ya registrados, y ni ofertas ni bajadas las miraban.
+// `_enWeb` lo anota marcar-publicados.js leyendo el array de cada página, así que esto dice
+// exactamente lo que se ve en el sitio. Lo que NO está en la web se sigue callando igual que antes.
+export const publicado = p => p._enWeb === true || !(p.estadoML === 'nuevo' && !p._publicar);
 // Un producto que ya no se vende no puede anunciar una oferta. Nov-2026: la AMYET SE1
 // estaba con activo:false y _eliminado:true y aun así el inicio la anunciaba con −72%
 // ($3,999 contra $14,499) cuando su publicación está pausada en $25,000 — el precio venía
