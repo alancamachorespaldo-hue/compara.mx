@@ -32,6 +32,17 @@ const OUT = resolve(ROOT, 'scripts/historico-precios.json');
 
 const BACKFILL = process.argv.includes('--backfill');
 const DRY = process.argv.includes('--dry-run');
+/**
+ * De dónde salió el precio de HOY. Desde el 25-nov-2026 lo escribe precios-por-link.mjs
+ * leyendo la página del enlace de afiliado; antes lo bajaba ml-update.js de la API.
+ *
+ * POR QUÉ SE ANOTA. No son la misma medida: la API daba la oferta más barata del CATÁLOGO y el
+ * enlace da el precio de la PUBLICACIÓN a la que mandamos al visitante. Comparar un día de una
+ * contra un día de la otra inventa subidas y bajadas que nunca pasaron — es lo que produjo los
+ * 111 "saltos atípicos" del 25-nov. Con la fuente anotada, quien lea la serie sabe dónde está
+ * la costura y puede no cruzarla.
+ */
+const FUENTE = process.argv.find(a => a.startsWith('--fuente='))?.split('=')[1] || 'link';
 
 /** Días de histórico que se conservan. 30 es lo que muestra el sitio; guardamos mucho más
  *  para poder mirar hacia atrás sin volver a depender de git. */
@@ -70,7 +81,24 @@ function leerSnapshot(data) {
 // producto (pausado, sin stock, sin precio). No se rellena ni se interpola.
 
 function vacio() {
-  return { generado: null, dias: DIAS_MAX, fechas: [], series: {} };
+  return { generado: null, dias: DIAS_MAX, fechas: [], fuentes: {}, series: {} };
+}
+
+/**
+ * De dónde salió el precio de cada día anterior al registro de fuentes.
+ *   · hasta el 22-nov-2026 → la API (`/products/{id}/items`)
+ *   · el 23-nov            → NADA. Ese día la API ya respondía 403 y ml-update.js no actualizó
+ *                            ni un precio: el snapshot repitió los del 22 tal cual. Queda
+ *                            marcado como `sin_observacion` para que nadie lo lea como un día
+ *                            de precios planos, que es lo que parece.
+ *   · el 24-nov            → no hubo snapshot (no está en `fechas`).
+ *   · del 25-nov en adelante → el enlace de afiliado.
+ */
+function fuenteHistorica(fecha) {
+  if (fecha <= '2026-11-22') return 'api';
+  if (fecha === '2026-11-23') return 'sin_observacion';
+  if (fecha === '2026-11-24') return 'sin_observacion';
+  return 'link';
 }
 
 /** Clave libre para una serie que se rompe (cambió el mlId: es otra publicación). */
@@ -90,6 +118,8 @@ function agregarDia(hist, fecha, snap) {
   const repetida = fecha === ultima;
   if (repetida) quitarUltimoDia(hist, fecha);
   fechas.push(fecha);
+  hist.fuentes ??= {};
+  hist.fuentes[fecha] = BACKFILL ? fuenteHistorica(fecha) : FUENTE;
   const anterior = fechas[fechas.length - 2] || null;
 
   for (const [clave0, { precio, mlId }] of snap) {

@@ -4,3 +4,9 @@ node_modules/
 scripts/merged-admin.backup.*.json
 .env.local
 .env.*.local
+
+# Exportaciones del histórico de precios (scripts/exportar-historico.mjs).
+# NO van al repo: el repo es el sitio, así que todo lo commiteado se publica en comparalo.mx,
+# y esto es nuestro histórico completo de precios. Además se regenera cuando haga falta: lo que
+# de verdad lo conserva es scripts/historico-precios.json, que sí está versionado (400 días).
+historico-export/

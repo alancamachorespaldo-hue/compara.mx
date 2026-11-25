@@ -185,6 +185,25 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
 - `aplicar-especs.mjs <archivo.json> [--aplicar]` — mete en `merged-admin.json` las características
   corregidas a mano en el Centro de Control (solo el campo `especs`; un valor vacío borra la clave).
   Avisa de las categorías que no pasan por `sync-html.js`, donde hay que editar el array del HTML.
+- **Histórico de precios.** `scripts/historico-precios.json` es la fuente canónica y guarda
+  **400 días** (`DIAS_MAX`), no 30; los 30 son solo lo que publica `generar-historico.js` para
+  que lo baje el navegador. Está versionado, así que cada commit es una copia congelada. Formato
+  comprimido: tramos de días CON registro (`r`) y solo los PUNTOS DE CAMBIO de precio (`p`); un
+  día que no cae en ningún tramo es un hueco real (pausado, sin stock) y **no se interpola**.
+  Cada día lleva además en `fuentes` de dónde salió su precio, y esto importa:
+  `api` (hasta el 22-nov-2026, la oferta más barata del CATÁLOGO) y `link` (del 25-nov en
+  adelante, el precio de la PUBLICACIÓN de nuestro enlace) **no miden lo mismo**, así que una
+  diferencia que cruce la costura puede no ser un cambio de precio sino un cambio de regla — de
+  ahí los 111 "saltos atípicos" del 25-nov. El 23 y el 24-nov quedan como `sin_observacion`: la
+  API ya daba 403 y no se observó nada (el 23 el snapshot repitió los precios del 22, y leerlo
+  como un día de precios planos sería falso; el 24 no hubo snapshot).
+- `exportar-historico.mjs [--categoria=a,b] [--desde=] [--hasta=] [--solo-cambios] [--salida=]`
+  — expande el histórico a un CSV por categoría (más `TODO.csv`), con la fuente en cada fila,
+  además de una copia fechada del JSON canónico y un `resumen.json`. Punto y coma y UTF-8 con
+  BOM, para que Excel en español lo abra sin pelear. Escribe en `historico-export/<fecha>/`,
+  que está en `.gitignore` **a propósito**: el repo es el sitio, así que commitearlo publicaría
+  el histórico completo en comparalo.mx. 25-nov-2026: 1,633 series, 56 días, 48,930 filas, 12 MB
+  (con `--solo-cambios`, una fila por cambio, es una fracción).
 - `generar-centro.js` — resume la base y los reportes en `centro-datos.json`, que lee el **Centro de
   Control** (`scripts/centro-control.html`, publicado como artifact con ese JSON al lado). Es de solo
   lectura: calcula si cada producto **se ve o no en la página** y por qué, con el mismo criterio con
