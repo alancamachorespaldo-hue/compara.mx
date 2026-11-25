@@ -185,6 +185,19 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
 - `aplicar-especs.mjs <archivo.json> [--aplicar]` — mete en `merged-admin.json` las características
   corregidas a mano en el Centro de Control (solo el campo `especs`; un valor vacío borra la clave).
   Avisa de las categorías que no pasan por `sync-html.js`, donde hay que editar el array del HTML.
+- `aplicar-productos.mjs <archivo.json> [--aplicar] [--forzar]` — lo mismo para los **campos del
+  producto** editados en la pestaña «Editar» del Centro: `nombre`, `marca`, `precioML`,
+  `precioAmz`, `linkML`, `linkAmz`, `mlId`, `activo`, `pausaML`, `pausaAmz`, `_eliminado`. Viaja
+  **solo lo que cambió**, campo por campo, así que no pisa lo que haya escrito una corrida entre
+  medias —el defecto de `extraer-artifact.js`, que reescribía la base entera—. Cadena vacía borra
+  el dato (precio a `null`, enlace retirado). Candados: **tope de salto del 25%** en los precios
+  (lo que se pasa se reporta y no se escribe, salvo `--forzar`), un `linkAmz` sin
+  `tag=guiasdecomp01-20` se rechaza, un campo fuera de la lista se rechaza, y `_eliminado` solo
+  **marca** (borrar de verdad sigue siendo cosa de `precios-por-link.mjs`, con papelera). Una pausa
+  puesta aquí queda como **a mano** (`_pausaAuto:false`), así que ninguna corrida la levanta sola; y
+  pegar un `linkML` nuevo limpia `_linkMuerto`/`_necesitaLink`. Escribe la base **y** el precio en
+  el array JS de todas las páginas de esa categoría (`_html-precios.js`). Después: `sync-pausas.js`
+  y `generar-centro.js`.
 - **Histórico de precios.** `scripts/historico-precios.json` es la fuente canónica y guarda
   **400 días** (`DIAS_MAX`), no 30; los 30 son solo lo que publica `generar-historico.js` para
   que lo baje el navegador. Está versionado, así que cada commit es una copia congelada. Formato
@@ -205,8 +218,9 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
   el histórico completo en comparalo.mx. 25-nov-2026: 1,633 series, 56 días, 48,930 filas, 12 MB
   (con `--solo-cambios`, una fila por cambio, es una fracción).
 - `generar-centro.js` — resume la base y los reportes en `centro-datos.json`, que lee el **Centro de
-  Control** (`scripts/centro-control.html`, publicado como artifact con ese JSON al lado). Es de solo
-  lectura: calcula si cada producto **se ve o no en la página** y por qué, con el mismo criterio con
+  Control** (`scripts/centro-control.html`, publicado como artifact con ese JSON al lado, que ahí se
+  llama `datos.json`). El Centro es **el panel** (ver "El panel: Centro de Control" más abajo); de
+  este JSON solo lee: calcula si cada producto **se ve o no en la página** y por qué, con el mismo criterio con
   el que `sync-pausas.js` escribe el HTML. Su bloque `preciosLink` lleva al Centro cómo le fue a la
   última corrida de precios por enlace (cuándo, cuántos cambiaron, cuántos enlaces se vieron rotos,
   cuántos quedaron fuera por el tope de salto, si se frenó y si la API volvió); el dashboard avisa en
@@ -337,10 +351,36 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
   no familias. Corre después de `sync-pausas.js` en los dos workflows de datos.
 - `check-site.js` — validaciones del sitio (ver abajo).
 
-Admin: Claude Artifact https://claude.ai/artifact/BTt8aRBCUZQNWvGAS81rTt (se publica desde
-`scripts/admin-artifact.html`). Para traer lo que el usuario guardó ahí: leer el artifact con la herramienta
-Artifact, `node scripts/extraer-artifact.js <html guardado>` y luego `node scripts/generar-admin.js`.
-El artifact se reconstruye a sí mismo al guardar; si se edita `admin-template.html`, regenerar y republicar.
+## El panel: Centro de Control (decisión del 25-nov-2026)
+
+**Toda la gestión de productos vive en el Centro de Control. El gestor queda fuera.** Lo decidió
+Alan: un solo panel que controla todo, no dos que se pisan. Así que **nunca lo mandes al gestor**
+—ni a abrirlo, ni a capturar ahí, ni a guardar y extraer— y cuando algo tenga que verse o tocarse
+en un panel, el panel es el Centro.
+
+| | Artifact | Se publica desde | Qué es hoy |
+|---|---|---|---|
+| **Centro de Control** | https://claude.ai/artifact/ECZ49Kif8wHJMpZa878g41 | `scripts/centro-control.html` + `scripts/centro-datos.json` publicado al lado **como `datos.json`** | **el panel**. Lee `datos.json` y escribe en su propia base de artifact (capacidades `db` y `user`): correcciones de `especs`, tareas y objetivos |
+| Gestión Productos (gestor) | https://claude.ai/artifact/BTt8aRBCUZQNWvGAS81rTt | `scripts/admin-artifact.html` (desde `admin-template.html` con `generar-admin.js`) | **retirado como panel.** Se sigue generando y no se ha borrado, pero no se le manda a Alan |
+
+Republicar el Centro: `node scripts/generar-centro.js` y publicar `scripts/centro-control.html`
+con `files: {"datos.json": "scripts/centro-datos.json"}` sobre esa URL. **Leer el artifact antes de
+republicar** (lo exige la herramienta y evita pisar lo que Alan haya guardado dentro de la página).
+Son dos artifacts distintos: republicar el gestor no cambia nada en el Centro, que fue justo la
+confusión del 25-nov-2026.
+
+**Editar un producto desde el Centro** (pestaña «Editar» del detalle, 25-nov-2026): nombre, marca,
+`precioML`, `precioAmz`, `linkML`, `linkAmz`, `mlId`, `activo`, `pausaML`, `pausaAmz` y
+`_eliminado`. Se guarda en la colección `productos` de su `db` —**solo los campos que cambiaron**,
+no la base entera, que es la diferencia con el gestor: una corrida de precios que ocurra mientras
+el Centro está abierto ya no se pisa—. El botón «Copiar cambios» da el JSON y
+`aplicar-productos.mjs` lo mete a la base y a la página. Alta y baja de productos siguen fuera del
+Centro: el alta es `especs-por-id.mjs --nuevo=…` y la baja la decide `precios-por-link.mjs`.
+
+Camino viejo del gestor, por si hace falta tocarlo: leer el artifact con la herramienta Artifact,
+`node scripts/extraer-artifact.js <html guardado>` y luego `node scripts/generar-admin.js`. El
+artifact se reconstruye a sí mismo al guardar; si se edita `admin-template.html`, regenerar y
+republicar.
 
 ## GitHub Actions
 

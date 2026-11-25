@@ -86,18 +86,19 @@ Dos reglas de seguridad que **no se tocan**:
 
    Si Alan quiere pausar hoy mismo lo que se vio caído una sola vez: `--umbral=1`.
 
-5. **Deja el gestor al día:** `node scripts/generar-admin.js`. Ahí Alan toma las decisiones:
+5. **Deja el Centro de Control al día:** `node scripts/generar-centro.js` y republica el Centro
+   (`scripts/centro-control.html` con `files: {"datos.json": "scripts/centro-datos.json"}` sobre
+   https://claude.ai/artifact/ECZ49Kif8wHJMpZa878g41, leyendo el artifact antes). **El Centro es el
+   único panel** desde el 25-nov-2026: no mandes a Alan al gestor. Ahí ve:
 
-   - Panel 📋 → tarjeta **"Disponibilidad en Mercado Libre"**: los caídos con su motivo y botones
-     para pausar de uno en uno o todos.
-   - Columna **"Revisado en ML"** en la tabla: cuándo se revisó cada producto y qué salió
-     (*Disponible*, *Link roto*, *Sin revisar*…). Se puede ordenar por esa columna para ver lo
-     que lleva más tiempo sin mirarse.
-   - Colas: **"Pausados por la revisión"** (los que ocultó el script; se reactivan con el
-     interruptor), **"En observación"** (vistos caídos una vez) y **"Nunca revisados"**.
+   - Tarjeta **"Disponibilidad en Mercado Libre"**: los caídos con su motivo.
+   - **"Revisado en ML"**: cuándo se revisó cada producto y qué salió (*Disponible*, *Link roto*,
+     *Sin revisar*…), para ver lo que lleva más tiempo sin mirarse.
+   - Colas: **"Pausados por la revisión"** (los que ocultó el script), **"En observación"** (vistos
+     caídos una vez) y **"Nunca revisados"**.
 
-   Si Alan tenía el artifact abierto, recuérdale que hay que volver a publicarlo (ver la entrada
-   de CLAUDE.md sobre publicar el artifact).
+   Pausar y reactivar todavía **no** se hace desde el Centro: eso lo escribe `--aplicar` y después
+   `sync-pausas.js`. Si hace falta una pausa suelta, se pone en `merged-admin.json`.
 
 6. **Valida y publica:** `node scripts/check-site.js` y `node scripts/validar-datos.js` antes del
    push. Commit con los archivos por nombre; un commit = un tema.
@@ -118,7 +119,7 @@ productos vivos por un ID equivocado es el error contrario y también cuesta cre
 
 `disponibilidad-report.json` **no se borra** al revisar una sola categoría: conserva lo que ya se
 sabía de las demás y guarda en `revisadas` la fecha de la última revisión de cada una. Por eso el
-gestor siempre muestra la foto completa, aunque la última corrida fuera de una categoría.
+Centro siempre muestra la foto completa, aunque la última corrida fuera de una categoría.
 
 ## Qué reportar al terminar
 
@@ -127,4 +128,4 @@ gestor siempre muestra la foto completa, aunque la última corrida fuera de una 
 - Lo que **no** se pudo verificar: productos sin `mlId` y los que dieron `error` de API.
 - Si corriste con `--links` o solo con la capa de catálogo — no afirmes que los links están bien
   si no los abriste.
-- Si el sitio quedó publicado o no (commit y push), y si falta republicar el artifact del gestor.
+- Si el sitio quedó publicado o no (commit y push), y si falta republicar el Centro de Control.

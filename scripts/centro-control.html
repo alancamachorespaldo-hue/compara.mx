@@ -818,8 +818,112 @@ function pResumenHTML(p){
     (p.linkAmz?'<a class="btn sm" href="'+esc(p.linkAmz)+'" target="_blank" rel="noopener">Abrir en Amazon ↗</a>':'')+
   '</div>'+
   (p.linkML?'<div class="row"><pre class="pre" style="flex:1">'+esc(p.linkML)+'</pre><button class="btn sm copy" data-copy="'+esc(p.linkML)+'" type="button">Copiar</button></div>':'')+
-  '<p class="sm" style="margin:0">Para cambiar algo de este producto en la base: pídemelo con su categoría y su id, o edítalo en el gestor de precios. Este panel es de lectura.</p>';
+  '<p class="sm" style="margin:0">Para cambiar precio, enlaces, pausas o el ID de catálogo, abre la pestaña <b>Editar</b>. Lo que guardes ahí vive en este Centro hasta que yo lo aplique a la base con <code>scripts/aplicar-productos.mjs</code>.</p>';
 }
+/* ───────── edición de producto ─────────
+   Misma idea que las correcciones de características, pero sobre los campos del producto. Se
+   guarda SOLO lo que cambió —no la base entera, como hacía el gestor—, así que una corrida de
+   precios que ocurra mientras esto está abierto no se pisa. De aquí lo saco con
+   scripts/aplicar-productos.mjs. */
+var EDI = {}, pEditProd = false;
+var EDI_CAMPOS = [
+  ['nombre', 'Nombre', 'texto'],
+  ['marca', 'Marca', 'texto'],
+  ['precioML', 'Precio Mercado Libre', 'precio'],
+  ['precioAmz', 'Precio Amazon', 'precio'],
+  ['linkML', 'Enlace de afiliado de Mercado Libre', 'enlace'],
+  ['linkAmz', 'Enlace de Amazon', 'enlace'],
+  ['mlId', 'ID de catálogo (MLM…)', 'texto'],
+  ['activo', 'Activo en la base', 'bool'],
+  ['pausaML', 'Pausado en Mercado Libre', 'bool'],
+  ['pausaAmz', 'Pausado en Amazon', 'bool'],
+  ['_eliminado', 'Marcado como eliminado', 'bool']
+];
+var TAG_AMZ = 'guiasdecomp01-20';
+function ediKey(p){ return espKey(p) }
+function ediDe(p){ var e = EDI[ediKey(p)]; return e && e.cambios ? e.cambios : null }
+/** Lo que hoy dice la base, campo por campo (el JSON del Centro llama `eliminado` a `_eliminado`). */
+function ediBase(p, campo){
+  if (campo === '_eliminado') return !!p.eliminado;
+  if (campo === 'activo' || campo === 'pausaML' || campo === 'pausaAmz') return !!p[campo];
+  var v = p[campo]; return v == null ? '' : v;
+}
+/** Lo que se ve en el formulario: la base con el cambio pendiente encima. */
+function ediVista(p, campo){
+  var c = ediDe(p);
+  if (c && Object.prototype.hasOwnProperty.call(c, campo)) return c[campo];
+  return ediBase(p, campo);
+}
+function ediEsBool(campo){ return campo === 'activo' || campo === 'pausaML' || campo === 'pausaAmz' || campo === '_eliminado' }
+function ediIgual(campo, a, b){
+  if (ediEsBool(campo)) return !!a === !!b;
+  return String(a == null ? '' : a) === String(b == null ? '' : b);
+}
+function pEditarHTML(p){
+  var pend = ediDe(p), nPend = Object.keys(EDI).length;
+  var campos = EDI_CAMPOS.map(function (f){
+    var k = f[0], etq = f[1], tipo = f[2], v = ediVista(p, k);
+    var cambiado = pend && Object.prototype.hasOwnProperty.call(pend, k);
+    var marca = cambiado ? ' <span class="chip warn">sin aplicar</span>' : '';
+    if (tipo === 'bool') {
+      return '<label class="f">' + esc(etq) + marca +
+        '<select class="inp" data-edi="' + k + '" data-tipo="bool">' +
+          '<option value="no"' + (v ? '' : ' selected') + '>No</option>' +
+          '<option value="si"' + (v ? ' selected' : '') + '>Sí</option>' +
+        '</select></label>';
+    }
+    return '<label class="f">' + esc(etq) + marca +
+      '<input class="inp" data-edi="' + k + '" data-tipo="' + tipo + '" value="' + esc(v === null || v === undefined ? '' : String(v)) + '"' +
+      (tipo === 'precio' ? ' inputmode="numeric" placeholder="vacío = sin precio"' : '') +
+      (tipo === 'enlace' ? ' placeholder="vacío = retirar el enlace"' : '') + '></label>';
+  }).join('');
+  return '<div class="stack">' +
+    '<div class="why"><b>Esto todavía no toca el sitio</b>Se guarda en el almacenamiento de este Centro. ' +
+      'Yo lo aplico a <code>merged-admin.json</code> y a la página con ' +
+      '<code>node scripts/aplicar-productos.mjs cambios.json --aplicar</code>. ' +
+      'Un precio que se aleje más de <b>25%</b> del actual se frena y se reporta; un enlace de Amazon sin ' +
+      '<code>tag=' + TAG_AMZ + '</code> se rechaza.</div>' +
+    '<div class="grid2">' + campos + '</div>' +
+    '<div class="row">' +
+      '<button class="btn pri" id="edi_ok" type="button">Guardar cambios</button>' +
+      '<button class="btn" id="edi_no" type="button">Cancelar</button>' +
+      (pend ? '<button class="btn" id="edi_del" type="button">Descartar lo pendiente</button>' : '') +
+      (nPend ? '<button class="btn" id="edi_copy" type="button" style="margin-left:auto">Copiar cambios (' + nPend + ')</button>' : '') +
+    '</div>' +
+    '<p class="sm" style="margin:0">Deja un campo vacío para borrar ese dato: un precio pasa a <code>null</code> y un enlace se retira. ' +
+      'Una pausa puesta aquí cuenta como <b>a mano</b>, así que ninguna corrida la levanta sola.</p>' +
+  '</div>';
+}
+function ediGuardar(p){
+  if (!PDB) { toast('El almacenamiento todavía no responde'); return false }
+  var cambios = {}, n = 0, malo = '';
+  [].forEach.call(el('pDetail').querySelectorAll('[data-edi]'), function (i){
+    var k = i.getAttribute('data-edi'), tipo = i.getAttribute('data-tipo');
+    var v = tipo === 'bool' ? (i.value === 'si') : i.value.trim();
+    if (tipo === 'precio' && v !== '') {
+      var num = Number(String(v).replace(/[$,\s]/g, ''));
+      if (!isFinite(num) || num <= 0) { malo = malo || '"' + v + '" no es un precio válido'; return }
+      v = num;
+    }
+    if (tipo === 'enlace' && v !== '' && !/^https?:\/\//i.test(v)) { malo = malo || 'el enlace tiene que empezar con http'; return }
+    if (k === 'linkAmz' && v !== '' && String(v).indexOf('tag=' + TAG_AMZ) < 0) { malo = malo || 'el enlace de Amazon necesita tag=' + TAG_AMZ; return }
+    if (k === 'mlId' && v !== '' && !/MLM\d{6,12}/i.test(v)) { malo = malo || '"' + v + '" no parece un ID de catálogo'; return }
+    if (k === 'nombre' && v === '') { malo = malo || 'el nombre no puede quedar vacío'; return }
+    if (!ediIgual(k, v, ediBase(p, k))) { cambios[k] = v; n++ }
+  });
+  if (malo) { toast(malo); return false }
+  var key = ediKey(p);
+  if (!n) {
+    PDB.collection('productos').doc(key).delete().then(function (){}, function (){});
+    delete EDI[key]; toast('Sin cambios respecto a la base'); return true;
+  }
+  EDI[key] = { cat: p.cat, id: String(p.id), nombre: p.nombre, cambios: cambios, ts: new Date().toISOString() };
+  PDB.collection('productos').doc(key).set(EDI[key]).then(
+    function (){ toast(n + (n === 1 ? ' cambio guardado' : ' cambios guardados') + ' · falta aplicarlo al repo') },
+    function (){ toast('No se pudo guardar') });
+  return true;
+}
+
 /* Correcciones de características guardadas en el almacenamiento del artifact (colección
    `especs`). No tocan el repo: de ahí las saco yo con scripts/aplicar-especs.mjs. */
 var ESP={}, pEditEsp=false;
@@ -900,9 +1004,9 @@ function pWebHTML(p){
 }
 function detalle(p){
   pSel=p;
-  var tabs=[['resumen','Resumen'],['especs','Características'],['web','En la web']];
-  var cuerpo=pTab==='especs'?pEspecsHTML(p):(pTab==='web'?pWebHTML(p):pResumenHTML(p));
-  el('pDetail').innerHTML='<div class="hd"><h3>'+esc(p.nombre)+'</h3>'+chipWeb(p)+(p.bajada?' <span class="chip ok">↓ bajada</span>':'')+'</div>'+
+  var tabs=[['resumen','Resumen'],['especs','Características'],['web','En la web'],['editar','Editar']];
+  var cuerpo=pTab==='especs'?pEspecsHTML(p):(pTab==='web'?pWebHTML(p):(pTab==='editar'?pEditarHTML(p):pResumenHTML(p)));
+  el('pDetail').innerHTML='<div class="hd"><h3>'+esc(p.nombre)+'</h3>'+chipWeb(p)+(p.bajada?' <span class="chip ok">↓ bajada</span>':'')+(ediDe(p)?' <span class="chip warn">editado aquí · falta aplicarlo</span>':'')+'</div>'+
     '<div class="tabs" role="tablist">'+tabs.map(function(t){
       return '<button type="button" role="tab" data-tab="'+t[0]+'" aria-selected="'+(pTab===t[0]?'true':'false')+'">'+t[1]+'</button>'}).join('')+'</div>'+
     '<div class="bd stack">'+cuerpo+'</div>';
@@ -912,6 +1016,21 @@ el('pDetail').addEventListener('click',function(e){
   var b=e.target.closest('[data-tab]');
   if(b){pTab=b.getAttribute('data-tab'); pEditEsp=false; detalle(pSel); return}
   var id=e.target.id;
+  if(id==='edi_ok'){ if(ediGuardar(pSel))detalle(pSel); return }
+  if(id==='edi_no'){ pTab='resumen'; detalle(pSel); return }
+  if(id==='edi_del'){
+    if(PDB)PDB.collection('productos').doc(ediKey(pSel)).delete();
+    delete EDI[ediKey(pSel)]; detalle(pSel); toast('Cambios descartados'); return;
+  }
+  if(id==='edi_copy'){
+    var pend=Object.keys(EDI).map(function(k){var x=EDI[k];
+      return {cat:x.cat,id:x.id,nombre:x.nombre,cambios:x.cambios}});
+    copiar('Cambios de producto capturados en el Centro de Control ('+pend.length+')\n'+
+      'Guárdalos en un archivo y aplicalos con:\n'+
+      '  node scripts/aplicar-productos.mjs cambios.json --aplicar\n\n'+
+      JSON.stringify(pend,null,2));
+    return;
+  }
   if(id==='esp_edit'){pEditEsp=true;detalle(pSel);return}
   if(id==='esp_no'){pEditEsp=false;detalle(pSel);return}
   if(id==='esp_del'){
@@ -2161,6 +2280,10 @@ function iniciarPlan(){
     db.collection('especs').onSnapshot(function(s2){
       ESP={}; s2.docs.forEach(function(d2){var o=d2.data()||{};ESP[d2.id]=o});
       if(VIEW==='productos'&&pSel&&!pEditEsp)detalle(pSel);
+    },function(){});
+    db.collection('productos').onSnapshot(function(s2){
+      EDI={}; s2.docs.forEach(function(d2){var o=d2.data()||{};EDI[d2.id]=o});
+      if(VIEW==='productos'&&pSel&&pTab!=='editar')detalle(pSel);
     },function(){});
     engancha('objetivos',function(v){POBJ=v});
   };
