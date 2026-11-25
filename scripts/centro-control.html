@@ -767,8 +767,24 @@ function chipWeb(p){
   var corto=p.visible?'Se ve':(m[1].indexOf('·')>0?m[1].split('·')[1].trim():'No se ve');
   return '<span class="chip '+m[0]+'">'+(p.visible?'● ':'○ ')+esc(corto)+'</span>';
 }
+/* Miniaturas. Las fotos viven en http2.mlstatic.com y m.media-amazon.com, y la CSP
+   del artifact bloquea TODA imagen externa: dentro del Centro nunca cargan y las
+   tarjetas salían vacías. Así que generar-miniaturas.mjs las baja en 90 px y las
+   publica al lado como imagenes.json, en data: URI, que sí pasa. El archivo pesa
+   unos MB, así que se pide solo cuando una vista lo necesita, no al arrancar. */
+var IMGS=null;
+function imgSrc(p){return (IMGS&&p&&IMGS[p.cat+':'+p.id])||''}
+function pedirImgs(){
+  if(IMGS!==null)return; IMGS={};
+  fetch('imagenes.json').then(function(r){return r.ok?r.json():null}).catch(function(){return null})
+    .then(function(j){
+      if(!j)return; delete j.__fuentes; IMGS=j;
+      if(VIEW==='productos'){pintarProductos(); if(pSel)detalle(pSel);}
+    });
+}
 var ESTADO={ok:['ok','Sin problema'],'sin-id':['warn','Sin ID'],'pausado-ml':['warn','Pausado en ML'],'pausado-amz':['warn','Pausado en Amazon'],pausado:['bad','Pausado'],'sin-tienda':['bad','Sin tienda'],inactivo:['mute','Inactivo']};
 function pintarProductos(){
+  pedirImgs();
   if(!el('pcat').options.length)llenarSelects();
   var lista=filtrados();
   el('pcount').textContent=fmt(lista.length)+' de '+fmt(D.productos.length)+' productos';
@@ -776,7 +792,7 @@ function pintarProductos(){
   el('pRows').innerHTML=vis.length?vis.map(function(p,i){
     var k=p.cat+'|'+p.id;
     return '<tr data-k="'+esc(k)+'"'+(pSel&&pSel.cat===p.cat&&pSel.id===p.id?' class="sel"':'')+'><td><div class="cel">'+
-      (p.imagen?'<img class="thumb" src="'+esc(p.imagen)+'" alt="" loading="lazy">':'<span class="thumb ph">▢</span>')+
+      (imgSrc(p)?'<img class="thumb" src="'+esc(imgSrc(p))+'" alt="" loading="lazy">':'<span class="thumb ph">▢</span>')+
       '<span><span class="nm">'+esc(p.nombre)+'</span><span class="sm">'+esc(p.id)+
       (p.mlId?' · '+esc(p.mlId):' · <b>sin ID</b>')+'</span></span></div></td>'+
       '<td class="sm">'+esc(p.catTitulo)+'</td>'+
@@ -796,7 +812,7 @@ function llenarSelects(){
 var pTab='resumen';
 function pMLBusca(p){return 'https://listado.mercadolibre.com.mx/'+encodeURIComponent(p.nombre).replace(/%20/g,'-')}
 function pResumenHTML(p){
-  return (p.imagen?'<img src="'+esc(p.imagen)+'" alt="" style="max-height:120px;align-self:flex-start;border-radius:10px;border:1px solid var(--line)">':'')+
+  return (imgSrc(p)?'<img src="'+esc(imgSrc(p))+'" alt="" style="max-height:120px;align-self:flex-start;border-radius:10px;border:1px solid var(--line)">':'')+
   '<dl class="kv">'+
     '<dt>Categoría</dt><dd>'+esc(p.catTitulo)+' <span class="sm">('+esc(p.cat)+')</span></dd>'+
     '<dt>Marca</dt><dd>'+esc(p.marca||'—')+'</dd>'+
@@ -966,7 +982,7 @@ function pEspecsHTML(p){
       (cor?'<span class="chip warn">corregido aquí · falta aplicarlo al repo</span>':'')+
       (Object.keys(ESP).length?'<button class="btn sm" id="esp_copy" type="button" style="margin-left:auto">Copiar correcciones ('+Object.keys(ESP).length+')</button>':'')+
     '</div>'+
-    (p.imagen?'<img src="'+esc(p.imagen)+'" alt="" style="max-height:130px;align-self:flex-start;border-radius:10px;border:1px solid var(--line)">':'')+
+    (imgSrc(p)?'<img src="'+esc(imgSrc(p))+'" alt="" style="max-height:130px;align-self:flex-start;border-radius:10px;border:1px solid var(--line)">':'')+
     (ks.length?'<dl class="kv">'+ks.map(function(k){
       return '<dt>'+esc(k.replace(/_/g,' '))+'</dt><dd>'+esc(e[k])+'</dd>'}).join('')+'</dl>':
       '<div class="why"><b>Este producto no tiene características en la base</b>Las que se ven en la página salen de <code>especs</code> en <code>merged-admin.json</code>. Se llenan a mano en el gestor de precios o, en bicis, con <code>ml-bicis.js especs</code>, que las copia de la ficha de ML sin sobrescribir lo que ya esté escrito.</div>')+

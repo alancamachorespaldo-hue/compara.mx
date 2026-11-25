@@ -10,3 +10,8 @@ scripts/merged-admin.backup.*.json
 # y esto es nuestro histórico completo de precios. Además se regenera cuando haga falta: lo que
 # de verdad lo conserva es scripts/historico-precios.json, que sí está versionado (400 días).
 historico-export/
+
+# Miniaturas del Centro de Control: ~4 MB que se rehacen en minutos con
+# "node scripts/generar-miniaturas.mjs". Versionarlas metería un blob nuevo de 4 MB
+# en cada corrida y, como el repo es el sitio, las publicaría en comparalo.mx.
+scripts/centro-imagenes.json

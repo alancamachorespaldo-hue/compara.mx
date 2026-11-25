@@ -226,6 +226,19 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
   cuántos quedaron fuera por el tope de salto, si se frenó y si la API volvió); el dashboard avisa en
   rojo si la corrida se frenó o si lleva dos días o más sin pasar, porque un sitio con precios viejos
   no se queja solo.
+- `generar-miniaturas.mjs [--categoria=a,b] [--forzar] [--concurrencia=8]` — las miniaturas del
+  Centro, en `scripts/centro-imagenes.json` (se publica al lado como `imagenes.json`, ~4 MB).
+  Existe porque **el artifact corre con una CSP que bloquea toda imagen externa**: las URLs de
+  `http2.mlstatic.com` y `m.media-amazon.com` que guarda la base son correctas —se abren en el
+  navegador— pero dentro del Centro no cargan nunca y las tarjetas salían vacías (25-nov-2026). Lo
+  único que pasa esa CSP son los bytes que viajan con el artifact, así que baja cada foto en tamaño
+  miniatura y la guarda como `data:` URI con la clave `<categoria>:<id>`. No encoge nada: pide el
+  tamaño chico al propio servidor (ML cambia la letra final, `…-F.jpg` → `…-I.webp`, 90 px y ~1.3 KB;
+  Amazon con `_AC_SX90_`), porque redimensionar aquí pediría `sharp` y el repo no tiene build step.
+  Es **incremental**: solo baja lo que no está o cuya URL de origen cambió, y borra la miniatura del
+  producto que ya no está en la base. El Centro lo pide con `fetch` solo al abrir el Gestor, no al
+  arrancar. Correrlo después de dar de alta productos o de `especs-por-id.mjs`, que es quien trae
+  la imagen.
 - `merged-admin.json` — **fuente de verdad** de productos (precios, links, `activo`, specs) por categoría.
 - `productos.json` — base que `sync-html.js` combina con `merged-admin.json`.
 - `sync-html.js` — aplica `activo`, links y `precioML`/`precioAmz` de la BD a los arrays JS de los HTML.
@@ -364,7 +377,10 @@ en un panel, el panel es el Centro.
 | Gestión Productos (gestor) | https://claude.ai/artifact/BTt8aRBCUZQNWvGAS81rTt | `scripts/admin-artifact.html` (desde `admin-template.html` con `generar-admin.js`) | **retirado como panel.** Se sigue generando y no se ha borrado, pero no se le manda a Alan |
 
 Republicar el Centro: `node scripts/generar-centro.js` y publicar `scripts/centro-control.html`
-con `files: {"datos.json": "scripts/centro-datos.json"}` sobre esa URL. **Leer el artifact antes de
+con `files: {"datos.json": "scripts/centro-datos.json", "imagenes.json": "scripts/centro-imagenes.json"}`
+sobre esa URL. **Las dos van siempre**: un publish que solo mande `datos.json` conserva el
+`imagenes.json` anterior (lo que no se nombra no se toca), así que las altas recientes saldrían sin
+foto hasta la siguiente corrida de `generar-miniaturas.mjs`. **Leer el artifact antes de
 republicar** (lo exige la herramienta y evita pisar lo que Alan haya guardado dentro de la página).
 Son dos artifacts distintos: republicar el gestor no cambia nada en el Centro, que fue justo la
 confusión del 25-nov-2026.
