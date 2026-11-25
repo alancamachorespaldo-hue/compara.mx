@@ -27,6 +27,7 @@ export const NOMBRES = {
   tecnologia_bocinas: ['bocina', 'bocinas'],
   tecnologia_audifonos: ['audífono', 'audífonos'],
   tecnologia_smartwatches: ['smartwatch', 'smartwatches'],
+  tecnologia_lentes: ['lentes inteligentes', 'lentes inteligentes'],
   streaming: ['dispositivo de streaming', 'dispositivos de streaming'],
   televisiones: ['televisión', 'televisiones'],
   bicis: ['bici eléctrica', 'bicis eléctricas'],

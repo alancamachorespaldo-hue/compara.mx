@@ -139,6 +139,9 @@ export const CATEGORIAS = {
     titulo: 'Smartwatches', file: 'tecnologia/smartwatches/index.html', varName: 'productos',
     descuentos: 'tecnologia/smartwatches/descuentos.json',
   },
+  tecnologia_lentes: {
+    titulo: 'Lentes inteligentes', file: 'tecnologia/lentes-inteligentes/index.html', varName: 'productos',
+  },
 
   // ── Entretenimiento ────────────────────────────────────────────────────────
   streaming: {

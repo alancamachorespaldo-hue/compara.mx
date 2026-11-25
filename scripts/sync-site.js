@@ -53,7 +53,7 @@ const HUB = {
   magnesio: '/suplementos/magnesio/', omega3: '/suplementos/omega3/', complejob: '/suplementos/complejo-b/', suplementos: '/suplementos/',
   bicis: '/bicis/', laptops: '/laptops/', cafeteras: '/electrodomesticos/cafeteras/', freidoras: '/electrodomesticos/freidoras/',
   microondas: '/electrodomesticos/microondas/', refrigeradores: '/electrodomesticos/refrigeradores/', lavadoras: '/electrodomesticos/lavadoras/', electro: '/electrodomesticos/', ollas: '/electrodomesticos/ollas/', audifonos: '/tecnologia/audifonos/',
-  bocinas: '/tecnologia/bocinas/', smartwatches: '/tecnologia/smartwatches/', tecnologia: '/tecnologia/', videojuegos: '/videojuegos/',
+  bocinas: '/tecnologia/bocinas/', smartwatches: '/tecnologia/smartwatches/', lentes: '/tecnologia/lentes-inteligentes/', tecnologia: '/tecnologia/', videojuegos: '/videojuegos/',
   televisiones: '/entretenimiento/televisiones/',
 };
 const RELATED_CATS = {
@@ -77,6 +77,7 @@ const RELATED_CATS = {
   audifonos: ['/tecnologia/bocinas/', '/tecnologia/smartwatches/', '/celulares/'],
   bocinas: ['/tecnologia/audifonos/', '/tecnologia/smartwatches/', '/celulares/'],
   smartwatches: ['/tecnologia/audifonos/', '/tecnologia/bocinas/', '/celulares/iphone/'],
+  lentes: ['/tecnologia/smartwatches/', '/tecnologia/audifonos/', '/celulares/'],
   tecnologia: ['/celulares/', '/laptops/', '/videojuegos/'],
   videojuegos: ['/tecnologia/audifonos/', '/laptops/', '/tecnologia/bocinas/'],
   televisiones: ['/entretenimiento/streaming/', '/tecnologia/bocinas/', '/videojuegos/consolas/'],
@@ -110,6 +111,7 @@ function topicOf(p) {
   if (p.startsWith('/tecnologia/audifonos/')) return 'audifonos';
   if (p.startsWith('/tecnologia/bocinas/')) return 'bocinas';
   if (p.startsWith('/tecnologia/smartwatches/')) return 'smartwatches';
+  if (p.startsWith('/tecnologia/lentes-inteligentes/')) return 'lentes';
   if (p.startsWith('/tecnologia/')) return 'tecnologia';
   if (p.startsWith('/entretenimiento/televisiones/') || p.startsWith('/guias/televisiones/')) return 'televisiones';
   if (p.startsWith('/videojuegos/') || p.startsWith('/guias/videojuegos/')) return 'videojuegos';
@@ -124,7 +126,7 @@ function activeSection(p) {
     celulares: '/celulares/', iphone: '/celulares/', laptops: '/laptops/', cafeteras: '/electrodomesticos/', freidoras: '/electrodomesticos/',
     microondas: '/electrodomesticos/', refrigeradores: '/electrodomesticos/', electro: '/electrodomesticos/', ollas: '/electrodomesticos/', proteina: '/suplementos/', creatina: '/suplementos/',
     magnesio: '/suplementos/', omega3: '/suplementos/', complejob: '/suplementos/', suplementos: '/suplementos/', bicis: '/bicis/',
-    audifonos: '/tecnologia/', bocinas: '/tecnologia/', smartwatches: '/tecnologia/', tecnologia: '/tecnologia/', videojuegos: '/videojuegos/',
+    audifonos: '/tecnologia/', bocinas: '/tecnologia/', smartwatches: '/tecnologia/', lentes: '/tecnologia/', tecnologia: '/tecnologia/', videojuegos: '/videojuegos/',
     televisiones: '/entretenimiento/',
   };
   const url = map[t];
@@ -171,7 +173,7 @@ const SHARE_BTN = '<button class="btn-share" onclick="shareCurrentPage()" title=
    Sus estilos viven en /assets/css/cmx-home.css mientras solo lo use el inicio. */
 const HUBS_V2 = ['/electrodomesticos/', '/suplementos/', '/tecnologia/', '/entretenimiento/', '/celulares/', '/bicis/', '/videojuegos/'];
 /* Listados que ya usan la plantilla cmx-list */
-const LISTS_V2 = ['/tecnologia/smartwatches/', '/tecnologia/bocinas/', '/celulares/android/', '/celulares/iphone/', '/suplementos/proteina/', '/laptops/', '/electrodomesticos/cafeteras/', '/suplementos/omega3/', '/suplementos/creatina/', '/videojuegos/consolas/', '/bicicletas/bici-ruta/', '/bicicletas/bici-electricas/', '/bicicletas/bici-montana/', '/electrodomesticos/freidoras/', '/electrodomesticos/microondas/', '/electrodomesticos/ollas/', '/electrodomesticos/refrigeradores/', '/electrodomesticos/lavadoras/', '/entretenimiento/televisiones/'];
+const LISTS_V2 = ['/tecnologia/lentes-inteligentes/', '/tecnologia/smartwatches/', '/tecnologia/bocinas/', '/celulares/android/', '/celulares/iphone/', '/suplementos/proteina/', '/laptops/', '/electrodomesticos/cafeteras/', '/suplementos/omega3/', '/suplementos/creatina/', '/videojuegos/consolas/', '/bicicletas/bici-ruta/', '/bicicletas/bici-electricas/', '/bicicletas/bici-montana/', '/electrodomesticos/freidoras/', '/electrodomesticos/microondas/', '/electrodomesticos/ollas/', '/electrodomesticos/refrigeradores/', '/electrodomesticos/lavadoras/', '/entretenimiento/televisiones/'];
 /* Guías con el sistema nuevo (skill guia-ml-noviembre-2026): mismo encabezado que los listados */
 const GUIAS_V2 = ['/guias/celulares/mejores-celulares-menos-5000/', '/guias/celulares/celulares-menos-3000-mexico/', '/guias/celulares/mejores-celulares-calidad-precio/', '/guias/cafeteras/espresso-menos-2000/', '/suplementos/creatina/creatina-mexico-cual-comprar/', '/guias/videojuegos/que-consola-comprar-gta-6/', '/guias/videojuegos/gta-6-guia-completa/', '/guias/laptops/macbook-reacondicionadas/', '/guias-compra/freidoras/oster-freidoras-vale-la-pena/', '/guias/televisiones/smart-tv-menos-5000/', '/guias/televisiones/smart-tv-menos-3000/'];
 /* Página de ofertas (/ofertas/): encabezado y pie del rediseño, y pie solo-Mercado Libre. */
