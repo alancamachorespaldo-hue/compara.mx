@@ -2224,6 +2224,42 @@ const productos = [
     linkML: "https://meli.la/2Pc3unK",
     linkAmz: null,
     img: "https://http2.mlstatic.com/D_NQ_NP_2X_624784-MLA99939865977_112025-F.webp"
+  },
+  {
+    id: 69,
+    nombre: "Lenovo IdeaPad Slim 3 Ryzen 5 7520U 8GB 256GB Azul",
+    marca: "Lenovo",
+    color: null,
+    precio: 8899,
+    precioML: 8899,
+    precioAmz: null,
+    procesador: "AMD Ryzen 5 7520U",
+    marcaProcesador: "AMD",
+    ram: 8,
+    almacenamiento: 256,
+    ssd: true,
+    pantalla: 15.6,
+    resolucion: "FHD 1920×1080",
+    touch: false,
+    gpu: "AMD Radeon 610M",
+    gpuDedicada: false,
+    vram: null,
+    duracionBateria: null,
+    peso: null,
+    os: "Windows 11 Home",
+    uso: ["trabajo", "estudio"],
+    estrellas: 4.8,
+    resenas: 130,
+    estrellasML: null,
+    resenasML: null,
+    estrellasAmz: null,
+    resenasAmz: null,
+    badges: [
+      { t: "ML", c: "b-ml" }
+    ],
+    linkML: "https://meli.la/2GsBucj",
+    linkAmz: null,
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_931559-MLA112386883655_052026-F.webp"
   }
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=productos.length-1;_i>=0;_i--){var _p=productos[_i];var _z=_PZ[_p.id];if(!_z)continue;if(_z.ml){_p.linkML=null;_p.precioML=null;_p.pausaML=true;}if(_z.amz){_p.linkAmz='';_p.precioAmz=null;_p.pausaAmz=true;}if(!_p.linkML&&!_p.linkAmz)productos.splice(_i,1);}}catch(e){}

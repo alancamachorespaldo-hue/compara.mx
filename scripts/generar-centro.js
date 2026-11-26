@@ -59,6 +59,13 @@ const visibilidad = (p) => {
   if (p._eliminado === true) return [false, 'eliminado'];
   if (p.activo === false) return [false, 'inactivo'];
   if (p._publicar === false) return [false, 'sin_publicar'];
+  // Quedarse sin tienda se dice antes que lo de la tarjeta: es la causa, y la tarjeta que
+  // falta es la consecuencia (`sync-pausas.js` la quita al no haber link). Al revés, los 18
+  // productos a los que la revisión del 24-nov les retiró el enlace muerto salían en el
+  // panel como "su tarjeta no está en la página" —que invita a reescribir el HTML— cuando
+  // lo único que necesitan es un enlace de afiliado nuevo pegado en el Centro.
+  if (!p.linkML && p._necesitaLink) return [false, 'necesita_link'];
+  if (!p.linkML && !p.linkAmz) return [false, 'sin_tienda'];
   // Estar sano en la base no basta: la tarjeta tiene que existir en el array de su página.
   // `marcar-publicados.js` lo comprueba leyendo el HTML y lo anota en `_enWeb`. Nov-2026, al
   // revivir 30 productos marcados como eliminados a mano, 22 seguían fuera del array de su
@@ -68,8 +75,6 @@ const visibilidad = (p) => {
   const ml = !!p.linkML && !p.pausaML;
   const amz = !!p.linkAmz && !p.pausaAmz;
   if (ml || amz) return [true, ml && amz ? 'ambas' : (ml ? 'solo_ml' : 'solo_amazon')];
-  if (!p.linkML && p._necesitaLink) return [false, 'necesita_link'];
-  if (!p.linkML && !p.linkAmz) return [false, 'sin_tienda'];
   return [false, p._motivoPausa || p._dispEstado || 'pausado'];
 };
 
