@@ -1038,9 +1038,32 @@ function banBarra(){
   var cat=el('pcat').value, info=cat&&BAN[cat]?BAN[cat]:null;
   var marcados=Object.keys(BMARCA).filter(function(k){return BMARCA[k]});
   var enCola=Object.keys(BEDI).filter(function(k){return BEDI[k].accion==='publicar'}).length;
-  el('pcount').innerHTML='<span class="sm">Bandeja de productos nuevos</span> '+
-    '<span class="chip">'+fmt(lista.length)+' sin publicar</span> '+
-    (D.bandeja&&D.bandeja.seVenden?'<button class="chip ok" type="button" data-est="nuevos-se-venden" title="Los del ranking de más vendidos de Mercado Libre">↑ '+fmt(D.bandeja.seVenden)+' se venden hoy</button> ':'')+
+  // Los filtros de la bandeja, a la vista y con su cuenta. Vivían solo dentro del desplegable de
+  // estado y ahí no se encontraban: un <select> cerrado no se ve, y el buscador del navegador
+  // tampoco lo mira (26-nov-2026).
+  var est=el('pest').value;
+  var hay={todos:0,venden:0,enlace:0,validar:0};
+  Object.keys(BAN).forEach(function(c){
+    if(cat&&c!==cat)return;
+    (BAN[c].productos||[]).forEach(function(p){
+      var x=Object.assign({},p,{cat:c}), v=banVista(x);
+      if(v.accion==='eliminar')return;
+      hay.todos++;
+      if(x.seVende)hay.venden++;
+      if(!v.linkML)hay.enlace++;
+      if(banFaltan(x).length)hay.validar++;
+    });
+  });
+  var tab=function(valor,etq,n,tono){
+    var act=(est===valor);
+    return '<button class="chip '+(act?'ac':(tono||'mute'))+'" type="button" data-est="'+valor+'"'+
+      (act?' style="outline:2px solid var(--ac);outline-offset:1px"':'')+'>'+esc(etq)+' '+fmt(n)+'</button> ';
+  };
+  el('pcount').innerHTML='<span class="sm" style="margin-right:4px">Bandeja:</span>'+
+    tab('nuevos','Todos',hay.todos)+
+    (hay.venden?tab('nuevos-se-venden','↑ Se venden hoy',hay.venden,'ok'):'')+
+    tab('nuevos-sin-enlace','Falta enlace',hay.enlace,'warn')+
+    tab('nuevos-sin-validar','Falta validar',hay.validar,'warn')+
     (enCola?'<span class="chip ok">'+fmt(enCola)+' dados de alta, listos para publicar</span> '+
       '<button class="btn sm pri" id="bCopia" type="button">Copiar para publicar</button> '+
       '<a class="btn sm" href="https://github.com/alancamachorespaldo-hue/compara.mx/actions/workflows/publicar-nuevos.yml" target="_blank" rel="noopener">Publicar en GitHub ↗</a> ':'')+
