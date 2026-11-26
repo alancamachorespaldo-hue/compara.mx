@@ -31,9 +31,9 @@ on:
         default: proteina
         options: [proteina]
       fuente:
-        description: '¿De dónde sacar los candidatos?'
+        description: '¿De dónde sacar los candidatos? ranking = solo los que se venden hoy'
         type: choice
-        default: ambas
+        default: ranking
         options: [ranking, ambas, busqueda]
       tope:
         description: 'Máximo de productos nuevos que se guardan en esta corrida'

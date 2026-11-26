@@ -148,6 +148,10 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
   display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:11.5px}
 .empty{color:var(--muted);text-align:center;padding:26px 14px;font-size:13px}
 .split{display:grid;gap:14px;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)}
+/* En la bandeja la tabla manda: a una sola columna cabe entera sin arrastrarla de lado,
+   y la ficha del producto pasa debajo, que es donde estorba menos. */
+.split.solo{grid-template-columns:minmax(0,1fr)}
+.split.solo .side-card{position:static;max-height:none}
 .stack{display:flex;flex-direction:column;gap:10px}
 dl.kv{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;margin:0;font-size:12.5px}
 dl.kv dt{color:var(--muted)} dl.kv dd{margin:0;word-break:break-word}
@@ -823,6 +827,7 @@ function pintarProductos(){
   // otras columnas. Se desvía aquí para no mezclar las dos en la misma función.
   if(modoBandeja()){pintarBandeja();return}
   if(BSEL){BSEL=null; el('pDetail').innerHTML='<div class="bd"><div class="empty">Elige un producto de la lista.</div></div>'}
+  document.querySelector('#v-productos .split').classList.remove('solo');
   el('pHead').innerHTML='<tr><th>Producto</th><th>Categoría</th><th class="num">ML</th><th class="num">Amazon</th><th>En la web</th></tr>';
   var lista=filtrados();
   // El panorama se cuenta SIN el desplegable de estado: elegir "pausados" no debe hacer que el
@@ -903,7 +908,7 @@ var BAN=null, BSEL=null, BEDI={}, bTab='ficha', bPedida=false;
    artifact corre en un iframe de caja de arena y ahí confirm() no abre nada y devuelve
    false, así que el botón Eliminar parecía no hacer nada. Ahora el primer clic pone el
    botón en «¿Seguro?» y el segundo borra. */
-var BMARCA={}, bPorBorrar=null, bUltima=null, bPegar=false;
+var BMARCA={}, bPorBorrar=null, bUltima=null, bPegar=false, bSoloVivosPide=false;
 function modoBandeja(){var v=el('pest').value;return v.indexOf('nuevos')===0}
 function banKey(cat,id){return cat+'__'+String(id)}
 function banDe(p){return BEDI[banKey(p.cat,p.id)]||null}
@@ -1020,9 +1025,13 @@ function pintarBandeja(){
     return;
   }
   var lista=banLista();
-  el('pHead').innerHTML='<tr><th style="width:28px"><input type="checkbox" id="bAll" title="Marcar todo lo que se ve"></th>'+
-    '<th>Producto</th><th>Marca</th><th>Categoría</th><th>Características</th>'+
-    '<th class="num">Precio ML</th><th>ID de catálogo</th><th>Estado</th><th>Enlace de afiliado</th><th>Acción</th></tr>';
+  document.querySelector('#v-productos .split').classList.add('solo');
+  // Seis columnas y ni una más: con diez había que arrastrar la tabla de lado para ver el estado
+  // de cada producto (26-nov-2026). La marca y el ID viven bajo el nombre, la categoría ya la
+  // dice el filtro de arriba y el precio no existe hasta publicar.
+  el('pHead').innerHTML='<tr><th style="width:26px"><input type="checkbox" id="bAll" title="Marcar todo lo que se ve"></th>'+
+    '<th>Producto</th><th style="width:22%">Características</th><th style="width:16%">Estado</th>'+
+    '<th style="width:26%">Enlace y comprobación</th></tr>';
   var vis=lista.slice(0,pTope);
   el('pRows').innerHTML=vis.length?vis.map(function(p){
     var v=banVista(p), e=v.especs;
@@ -1032,22 +1041,19 @@ function pintarBandeja(){
     return '<tr data-b="'+esc(kk)+'"'+(BSEL&&BSEL.id===p.id?' class="sel"':'')+'>'+
       '<td><input type="checkbox" data-bchk="'+esc(kk)+'"'+(BMARCA[kk]?' checked':'')+'></td>'+
       '<td><div class="cel">'+(banImg(p)?'<img class="thumb" src="'+esc(banImg(p))+'" alt="" loading="lazy">':'<span class="thumb ph">▢</span>')+
-        '<span><span class="nm">'+esc(p.nombre)+'</span><span class="sm">'+esc(p.modelo||'')+'</span></span></div></td>'+
-      '<td class="sm">'+esc(p.marca||'—')+'</td>'+
-      '<td class="sm">'+esc(p.catTitulo)+'</td>'+
+        '<span><span class="nm" style="max-width:none">'+esc(p.nombre)+'</span>'+
+        '<span class="sm">'+esc(p.marca||'sin marca')+' · <code>'+esc(p.id)+'</code></span></span></div></td>'+
       '<td class="sm">'+esc(carac||'—')+'</td>'+
-      '<td class="num sm">'+(v.linkML?'al publicar':'—')+'</td>'+
-      '<td class="sm"><code>'+esc(p.id)+'</code></td>'+
       '<td>'+banChip(p)+(p.seVende?' '+banVende(p):'')+'</td>'+
-      '<td>'+(v.linkML?'<button class="btn sm" type="button" data-blink="'+esc(kk)+'">Ver / editar</button>'
-                     :'<button class="btn sm pri" type="button" data-blink="'+esc(kk)+'">Agregar enlace</button>')+'</td>'+
       '<td><div class="row" style="gap:4px;flex-wrap:nowrap">'+
-        '<a class="btn sm" href="'+esc(p.urlML)+'" target="_blank" rel="noopener" title="Abrir la ficha en Mercado Libre">Abrir ↗</a>'+
+        (v.linkML?'<button class="btn sm" type="button" data-blink="'+esc(kk)+'" title="Ver o cambiar el enlace de afiliado">Enlace ✓</button>'
+                 :'<button class="btn sm pri" type="button" data-blink="'+esc(kk)+'" title="Pegar el enlace de afiliado">Enlace</button>')+
+        '<a class="btn sm" href="'+esc(p.urlML)+'" target="_blank" rel="noopener" title="Abrir la ficha en Mercado Libre">ML ↗</a>'+
         (v.revisado==='ok'?'<span class="chip ok" title="Lo comprobaste tú">✓</span>'
-          :'<button class="btn sm" type="button" data-bok="'+esc(kk)+'" title="Sí se vende: lo dejo en la bandeja y queda comprobado">✓ Sí</button>')+
-        '<button class="btn sm" type="button" data-bno="'+esc(kk)+'" title="No está disponible: lo saca de la bandeja y no vuelve" style="border-color:var(--bad);color:var(--bad)">✗ No</button>'+
+          :'<button class="btn sm" type="button" data-bok="'+esc(kk)+'" title="Sí se vende">✓</button>')+
+        '<button class="btn sm" type="button" data-bno="'+esc(kk)+'" title="No está disponible: lo saca de la bandeja" style="border-color:var(--bad);color:var(--bad)">✗</button>'+
       '</div></td></tr>';
-  }).join(''):'<tr><td colspan="10"><div class="empty">'+
+  }).join(''):'<tr><td colspan="5"><div class="empty">'+
     (Object.keys(BAN).length?'Nada pendiente con esos filtros.':'La bandeja está vacía. Usa «Buscar catálogo en API de Mercado Libre» para llenarla.')+'</div></td></tr>';
   el('pMore').hidden=lista.length<=pTope;
   el('pMore').textContent='Mostrar más ('+fmt(lista.length-vis.length)+' restantes)';
@@ -1096,6 +1102,8 @@ function banBarra(){
       '<a class="btn sm" href="https://github.com/alancamachorespaldo-hue/compara.mx/actions/workflows/publicar-nuevos.yml" target="_blank" rel="noopener">Publicar en GitHub ↗</a> ':'')+
     (info&&info.actualizado?'<span class="sm">· búsqueda del '+esc(fecha(info.actualizado))+'</span> ':'')+
     '<button class="btn sm" id="bPegarBtn" type="button" title="Pegar de una vez los enlaces de varios productos">Pegar enlaces en bloque</button> '+
+    (hay.porComprobar?'<button class="btn sm" id="bSoloVivos" type="button" title="Quita de la bandeja todo lo que no sabemos si se vende"'+
+      (bSoloVivosPide?' style="border-color:var(--bad);color:var(--bad)">¿Quitar '+fmt(hay.porComprobar)+'?':'>Dejar solo los que se venden')+'</button> ':'')+
     (marcados.length
       ? '<span class="row" style="gap:6px;margin-left:8px"><b class="sm">'+marcados.length+' marcados</b>'+
         '<button class="btn sm pri" id="bAlta" type="button">Dar de alta</button>'+
@@ -1636,6 +1644,25 @@ el('pcount').addEventListener('click',function(e){
   var fb=e.target.closest('[data-est]');
   if(fb){ el('pest').value=fb.getAttribute('data-est'); pTope=200; pintarProductos(); return }
   if(id==='bPegarBtn'){ bPegar=true; BSEL=null; banPegarPanel(); return }
+  /* Deja la bandeja con lo único que sabemos vendible: lo que salió del ranking de más vendidos
+     y lo que Alan marcó a mano. Todo lo demás sale. Es brusco a propósito: una bandeja con 300
+     fichas de las que no sabemos nada cuesta más tiempo del que ahorra. */
+  if(id==='bSoloVivos'){
+    if(bSoloVivosPide!==true){ bSoloVivosPide=true; banBarra(); return }
+    bSoloVivosPide=false;
+    var fuera=0;
+    Object.keys(BAN).forEach(function(c){
+      if(el('pcat').value&&c!==el('pcat').value)return;
+      (BAN[c].productos||[]).forEach(function(q){
+        var x=Object.assign({},q,{cat:c}), v=banVista(x);
+        if(v.accion==='eliminar'||x.seVende||v.revisado)return;
+        banRevisar(x,'muerto'); fuera++;
+      });
+    });
+    BMARCA={}; pintarBandeja();
+    toast(fuera+' fuera de la bandeja · quedan los comprobados');
+    return;
+  }
   if(id==='bCopia'){
     var cs=banCambios(), n=0;
     cs.forEach(function(c){n+=c.publicar.length+c.eliminar.length});

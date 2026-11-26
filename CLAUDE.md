@@ -478,6 +478,14 @@ nada); y la ficha pública `/p/MLM…` contesta con el muro antibots de ML, tamb
 navegador de verdad (captcha). Así que **no se puede filtrar al buscar ni revisar después**: las
 dos ideas necesitan el mismo dato que no tenemos.
 
+**No existe la «pasada de comprobación» en GitHub, y es la pregunta que más veces ha vuelto.**
+La revisión de precios funciona porque abre el **enlace de afiliado** (`meli.la`), que lleva a la
+página del perfil de afiliado con la tarjeta del producto — no a la ficha de ML. Para un producto
+de la bandeja no hay enlace que abrir, y todo lo demás está cerrado: `/items/{id}` también
+responde 403, y `/quotations`, `/offers`, `/sellers`, `/prices` o no existen o dan 500. Por eso
+`--fuente=ranking` es la única forma de que la bandeja traiga SOLO vendibles, y el botón
+**«Dejar solo los que se venden»** del Centro deja la bandeja con eso y nada más.
+
 Lo que sí hay es **el ranking de más vendidos**, `/highlights/MLM/category/{id}` (200): un
 producto que está ahí se está vendiendo. De los 21 pausados conocidos, **0** aparecen en él. Por
 eso `descubrir-catalogo.mjs` tiene `--fuente`:
