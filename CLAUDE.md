@@ -362,6 +362,24 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
 - `sync-hub-counts.js [--check]` — números de producto en los hubs. Cuenta con el mismo criterio
   que las páginas (lo que conserva alguna tienda tras las pausas) y, en celulares, cuenta variantes,
   no familias. Corre después de `sync-pausas.js` en los dos workflows de datos.
+- **Analítica (GA4 + Search Console, nov-2026).** `analitica.mjs [--dry-run] [--solo=ga4|gsc]` pregunta
+  a la **GA4 Data API** y a la de **Search Console** y escribe `scripts/analitica.json`, que es lo que lee
+  la sección Analítica del Centro. Corre en `analitica.yml` (diario 7:30 CDMX, media hora después de los
+  precios) y **no en el navegador**: las dos APIs piden credencial de servidor y una página del artifact
+  no puede guardarla sin exponerla. La credencial es una **cuenta de servicio de Google** en el secret
+  `GOOGLE_SERVICE_ACCOUNT_JSON` (JSON tal cual o en base64; en la máquina, `scripts/.google-sa.json`,
+  que está en `.gitignore`), con lectura en la propiedad de GA4 y en la de Search Console. **Sin
+  dependencias a propósito**: el repo no tiene build step, así que el JWT se firma con `node:crypto`.
+  La propiedad de GA4 se busca sola por el measurement id `G-9TKZ4ER13X` y el sitio de GSC por el
+  dominio; `GA4_PROPERTY_ID` y `GSC_SITE` solo hacen falta si eso no acierta. Escribe dos periodos
+  comparados contra el anterior (7 contra 7 y 28 contra 28), serie diaria de 56 días, páginas, fuentes,
+  eventos, consultas, y un bloque `semana` ya resumido que es el que usará el Planificador como KPI.
+  **Search Console cierra con ~3 días de retraso**, así que sus periodos terminan en hoy-3: si no, el
+  último tramo siempre se vería cayendo. Clics a tienda = `affiliate_click_ml` + `click_ml` +
+  `affiliate_click_amazon` + `affiliate_click_amz`; es lo más cerca de una venta que vemos, porque la
+  conversión ocurre ya dentro de ML o de Amazon. `analitica-resumen.js` imprime en Markdown cómo le fue
+  a la última corrida (lo usa el resumen del workflow). Si falta la credencial no se inventa ni un
+  número: el Centro enseña los pasos exactos para conectarla.
 - `check-site.js` — validaciones del sitio (ver abajo).
 
 ## El panel: Centro de Control (decisión del 25-nov-2026)

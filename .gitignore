@@ -15,3 +15,8 @@ historico-export/
 # "node scripts/generar-miniaturas.mjs". Versionarlas metería un blob nuevo de 4 MB
 # en cada corrida y, como el repo es el sitio, las publicaría en comparalo.mx.
 scripts/centro-imagenes.json
+
+# Credencial de la cuenta de servicio de Google para la analítica (GA4 + Search Console).
+# Solo para correr scripts/analitica.mjs en la máquina; en GitHub vive como el secret
+# GOOGLE_SERVICE_ACCOUNT_JSON. Como el repo es el sitio, commitearla la publicaría.
+scripts/.google-sa.json

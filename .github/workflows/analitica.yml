@@ -1,0 +1,60 @@
+name: 📈 Analítica (GA4 y Search Console)
+
+# Trae los números de GA4 y de Search Console y commitea scripts/analitica.json,
+# que es lo que lee la sección Analítica del Centro de Control.
+#
+# Corre aquí y no en el navegador porque las dos APIs piden credencial de
+# servidor: una página del artifact no puede guardarla sin exponerla.
+#
+# Secret necesario: GOOGLE_SERVICE_ACCOUNT_JSON (el JSON de la cuenta de
+# servicio, tal cual o en base64). Opcionales: GA4_PROPERTY_ID y GSC_SITE,
+# que solo hacen falta si la búsqueda automática de la propiedad no acierta.
+
+on:
+  schedule:
+    - cron: '30 13 * * *'   # 7:30 CDMX, media hora después de la corrida de precios
+  workflow_dispatch:
+
+# Todos los workflows de datos escriben en el repo: que no se traslapen.
+concurrency: datos-comparalo
+
+permissions:
+  contents: write
+
+jobs:
+  analitica:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Traer GA4 y Search Console
+        env:
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+          GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
+          GSC_SITE: ${{ secrets.GSC_SITE }}
+        run: node scripts/analitica.mjs
+
+      - name: Resumen
+        run: node scripts/analitica-resumen.js >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Validar los datos antes de commitear
+        run: node scripts/validar-datos.js
+
+      - name: Commitear
+        run: |
+          if git diff --quiet -- scripts/analitica.json; then
+            echo "Sin cambios en analitica.json"
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add scripts/analitica.json
+          git commit -m "chore(analitica): GA4 y Search Console $(date -u +%Y-%m-%d)"
+          # Nunca stash aquí: se commitea primero y luego se rebasa sobre el remoto.
+          git fetch origin main
+          git rebase origin/main || { git rebase --abort; exit 1; }
+          git push origin HEAD:main

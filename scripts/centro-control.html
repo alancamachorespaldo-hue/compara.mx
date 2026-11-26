@@ -177,6 +177,18 @@ tbody tr.sel td:first-child{box-shadow:inset 3px 0 0 var(--ac)}
 .pl-tit{font-weight:600;font-size:13.5px}
 .pl-acc{display:flex;gap:6px;flex:none}
 @media (max-width:700px){.pl-acc{flex-direction:column}}
+/* ── Analítica ── */
+.an-head{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.delta{font-size:11.5px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.delta.up{color:var(--ok)} .delta.down{color:var(--bad)} .delta.flat{color:var(--faint)}
+.an-chart{width:100%;height:180px;display:block}
+.an-chart .ar{fill:var(--ac-soft)}
+.an-chart .ln{fill:none;stroke:var(--ac);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.an-chart .br{fill:var(--ml);opacity:.85}
+.an-chart .gd{stroke:var(--line);stroke-width:1}
+.an-chart .lb{fill:var(--faint);font-size:10px}
+.an-leg{display:flex;gap:16px;flex-wrap:wrap;font-size:11.5px;color:var(--muted)}
+.an-leg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(18px + env(safe-area-inset-bottom,0px));
   background:var(--fg);color:var(--bg);padding:9px 16px;border-radius:999px;font-weight:600;font-size:13px;z-index:50;box-shadow:var(--shadow)}
 .toast[hidden]{display:none!important}
@@ -537,16 +549,11 @@ var MODULOS=[
   {id:'nueva',ico:'+',nombre:'Nueva categoría',titulo:'Nueva categoría',sub:'Captura la categoría y sus primeros productos',grupo:'Crecimiento'},
   {id:'captura',ico:'⤓',nombre:'Captura Amazon',titulo:'Captura Amazon',sub:'Sube el producto, su enlace y sus características: la ficha la arma la categoría',grupo:'Crecimiento'},
   {id:'guias',ico:'▸',nombre:'Guías Amazon',titulo:'Guías Amazon',sub:'Centro de Productos Amazon: inventario, ASIN, enlaces y paquetes de guía',grupo:'Crecimiento'},
-  {id:'analitica',ico:'∿',nombre:'Analítica',titulo:'Analítica',sub:'GA4 y Search Console',grupo:'Crecimiento',pendiente:true},
+  {id:'analitica',ico:'∿',nombre:'Analítica',titulo:'Analítica',sub:'Visitas, clics a tienda e impresiones en Google',grupo:'Crecimiento'},
   {id:'plan',ico:'◎',nombre:'Planificador',titulo:'Planificador',sub:'Tareas de la semana, objetivos y avances, guardados en tu cuenta',grupo:'Crecimiento'},
   {id:'redes',ico:'◉',nombre:'Redes sociales',titulo:'Redes sociales',sub:'Preparar publicaciones con UTM',grupo:'Crecimiento',pendiente:true}
 ];
 var PENDIENTES={
-  analitica:{
-    que:'Visitas, usuarios, páginas más vistas, fuentes de tráfico, clics a Amazon y ML, impresiones, CTR y posición, con comparación entre periodos.',
-    hoy:'El sitio ya manda todo a GA4 (<code>G-9TKZ4ER13X</code>), incluidos los eventos de clic a tienda y <code>click_ofertas_cta</code>. Lo que falta es traer esos números hasta acá.',
-    falta:['Un acceso de lectura a la API de GA4 Data y a la de Search Console. Las dos piden credencial de servidor: una página en el navegador no puede guardarlas sin exponerlas.','La vía práctica: un workflow de GitHub Actions que pregunte a las dos APIs una vez al día y escriba un <code>analitica.json</code> en el repo, igual que hoy se escribe el reporte de precios. El artifact solo lee ese archivo.','Decidir qué periodos comparar por defecto (7 contra 7 días, mes contra mes).']
-  },
   redes:{
     que:'Elegir productos, traer su información y preparar el texto, el link y los parámetros UTM para Facebook, Instagram, TikTok, Reddit y YouTube Shorts. Sin publicar automáticamente.',
     hoy:'Los datos que necesita ya están aquí: nombre, precio, imagen y link de afiliado de los 1,524 productos.',
@@ -584,6 +591,7 @@ function ir(id){
   if(id==='captura')pintarCaptura();
   if(id==='plan')pintarPlan();
   if(id==='guias')pintarGuias();
+  if(id==='analitica')pintarAnalitica();
   if(PENDIENTES[id])pintarPendiente(id);
   window.scrollTo({top:0,behavior:'auto'});
 }
@@ -2657,6 +2665,235 @@ function pEditor(id){
   el('ed_no').addEventListener('click',pRefrescar);
 }
 
+/* ───────── Analítica ─────────
+   Los números NO se piden desde aquí: las APIs de GA4 Data y de Search Console
+   piden credencial de servidor y una página del artifact no puede guardarla sin
+   exponerla. Las consulta `scripts/analitica.mjs` una vez al día en GitHub
+   Actions y esta página solo lee el `analitica.json` que se publica a su lado.
+   Si el archivo no está o la credencial falta, no se inventa ni un número: se
+   explica exactamente qué falta. */
+var AN=null, anPer='7d';
+
+function anNum(v){return typeof v==='number'?v.toLocaleString('es-MX'):'—'}
+function anCtr(v){return typeof v==='number'?(v*100).toFixed(1)+'%':'—'}
+function anPos(v){return typeof v==='number'&&v>0?v.toFixed(1):'—'}
+/* "17 nov": las semanas se leen como fecha, no como "hace 9 días" */
+function anDia(f){
+  if(!f)return '—';
+  var p=String(f).split('-'), MM=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  return Number(p[2])+' '+MM[Number(p[1])-1];
+}
+function anSemanaRango(lunes){
+  var p=lunes.split('-'), d=new Date(Date.UTC(+p[0],+p[1]-1,+p[2]));
+  d.setUTCDate(d.getUTCDate()+6);
+  return anDia(lunes)+' – '+anDia(d.toISOString().slice(0,10));
+}
+/* el cambio contra el periodo anterior; sin base previa no hay porcentaje que valga */
+function anDelta(act,prev,alReves){
+  if(typeof act!=='number'||typeof prev!=='number')return '';
+  if(!prev)return act>0?'<span class="delta up">nuevo</span>':'';
+  var d=(act-prev)/prev, cl=Math.abs(d)<0.005?'flat':((d>0)!==!!alReves?'up':'down');
+  return '<span class="delta '+cl+'">'+(d>0?'▲ +':(d<0?'▼ ':''))+(d*100).toFixed(0)+'%</span>';
+}
+function anKpi(lab,val,act,prev,fine,alReves){
+  return '<div class="kpi"><span class="lab">'+esc(lab)+'</span><span class="val tnum">'+val+'</span>'+
+    '<span class="fine">'+anDelta(act,prev,alReves)+(fine?' <span class="sm">'+fine+'</span>':'')+'</span></div>';
+}
+
+/* gráfica: área de usuarios por día + barras de clics a tienda. SVG a mano
+   porque el artifact no carga librerías de fuera. */
+function anGrafica(serie){
+  if(!serie||serie.length<2)return '<p class="sm">Todavía no hay días suficientes para la gráfica.</p>';
+  var W=720,H=180,PL=38,PR=10,PT=12,PB=22;
+  var maxU=Math.max.apply(null,serie.map(function(d){return d.usuarios||0}))||1;
+  var maxC=Math.max.apply(null,serie.map(function(d){return d.clicsTienda||0}))||1;
+  var x=function(i){return PL+(W-PL-PR)*(serie.length<2?0:i/(serie.length-1))};
+  var y=function(v){return PT+(H-PT-PB)*(1-v/maxU)};
+  var pts=serie.map(function(d,i){return x(i)+','+y(d.usuarios||0)}).join(' ');
+  var area='M'+x(0)+','+(H-PB)+' L'+pts.split(' ').join(' L')+' L'+x(serie.length-1)+','+(H-PB)+' Z';
+  var anchoB=Math.max(1.5,(W-PL-PR)/serie.length*0.55);
+  var barras=serie.map(function(d,i){
+    var h=(H-PT-PB)*0.42*((d.clicsTienda||0)/maxC);
+    return h>0.4?'<rect class="br" x="'+(x(i)-anchoB/2).toFixed(1)+'" y="'+(H-PB-h).toFixed(1)+'" width="'+anchoB.toFixed(1)+'" height="'+h.toFixed(1)+'" rx="1"/>':'';
+  }).join('');
+  var ejes='';
+  [0,0.5,1].forEach(function(f){
+    var yy=PT+(H-PT-PB)*(1-f);
+    ejes+='<line class="gd" x1="'+PL+'" y1="'+yy+'" x2="'+(W-PR)+'" y2="'+yy+'"/>'+
+      '<text class="lb" x="4" y="'+(yy+3)+'">'+Math.round(maxU*f).toLocaleString('es-MX')+'</text>';
+  });
+  var etq=function(i){var p=serie[i].fecha.split('-');return p[2]+'/'+p[1]};
+  ejes+='<text class="lb" x="'+PL+'" y="'+(H-6)+'">'+etq(0)+'</text>'+
+    '<text class="lb" x="'+(W-PR)+'" y="'+(H-6)+'" text-anchor="end">'+etq(serie.length-1)+'</text>';
+  return '<svg class="an-chart" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" role="img" aria-label="Usuarios por día y clics a tienda">'+
+    ejes+'<path class="ar" d="'+area+'"/>'+barras+'<polyline class="ln" points="'+pts+'"/></svg>'+
+    '<div class="an-leg" style="margin-top:8px"><span><i style="background:var(--ac)"></i>Usuarios por día</span>'+
+    '<span><i style="background:var(--ml)"></i>Clics a tienda (máx '+anNum(maxC)+')</span></div>';
+}
+
+function anTabla(cols,filas,vacio){
+  if(!filas.length)return '<div class="bd"><p class="sm">'+esc(vacio||'Sin datos en este periodo.')+'</p></div>';
+  return '<div class="tbl-wrap"><table><thead><tr>'+
+    cols.map(function(c){return '<th'+(c.num?' class="num"':'')+'>'+esc(c.t)+'</th>'}).join('')+
+    '</tr></thead><tbody>'+filas.join('')+'</tbody></table></div>';
+}
+
+/* qué falta para conectarlo: los pasos exactos, no un "pendiente" genérico */
+function anSinDatos(motivo,detalle){
+  return '<div class="sec"><div class="alert warn"><div><b>'+esc(motivo)+'</b>'+
+      '<p>'+detalle+'</p></div></div></div>'+
+    '<div class="sec"><div class="split">'+
+    '<div class="card"><div class="hd"><h3>Cómo se conecta</h3><span class="note">una sola vez</span></div><div class="bd">'+
+      '<ol class="steps">'+
+      '<li><div><b>Cuenta de servicio en Google Cloud.</b> En un proyecto cualquiera: APIs y servicios → Credenciales → Crear cuenta de servicio. Sin roles. Al terminar, Claves → Agregar clave → JSON, y guarda el archivo.</div></li>'+
+      '<li><div><b>Prende las dos APIs</b> en ese proyecto: <i>Google Analytics Data API</i>, <i>Google Analytics Admin API</i> y <i>Search Console API</i>.</div></li>'+
+      '<li><div><b>Dale lectura en GA4.</b> Analytics → Administrar → Accesos a la propiedad → agrega el correo de la cuenta de servicio (<code>…@….iam.gserviceaccount.com</code>) como <b>Lector</b>.</div></li>'+
+      '<li><div><b>Dale lectura en Search Console.</b> Configuración → Usuarios y permisos → agregar ese mismo correo como <b>Restringido</b>.</div></li>'+
+      '<li><div><b>Guarda el JSON como secret del repo.</b> GitHub → Settings → Secrets and variables → Actions → nuevo secret <code>GOOGLE_SERVICE_ACCOUNT_JSON</code>, pegando el archivo completo.</div></li>'+
+      '<li><div><b>Corre el workflow</b> «📈 Analítica (GA4 y Search Console)» a mano la primera vez. Después corre solo, a las 7:30 de la mañana.</div></li>'+
+      '</ol></div></div>'+
+    '<div class="card"><div class="hd"><h3>Por qué así</h3></div><div class="bd stack">'+
+      '<p style="margin:0" class="sm">Las dos APIs piden credencial de servidor. Si la guardara esta página, cualquiera que abriera el Centro podría leerla, así que las preguntas las hace un workflow y aquí solo se lee el archivo que deja: <code>analitica.json</code>, publicado al lado de <code>datos.json</code>.</p>'+
+      '<p style="margin:0" class="sm">La cuenta de servicio es de <b>solo lectura</b>: no puede cambiar nada en Analytics ni en Search Console.</p>'+
+      '<p style="margin:0" class="sm">Para probarlo en la computadora, el mismo JSON en <code>scripts/.google-sa.json</code> y <code>node scripts/analitica.mjs</code>. Ese archivo está en <code>.gitignore</code>.</p>'+
+    '</div></div></div></div>';
+}
+
+function pintarAnalitica(){
+  var v=el('v-analitica');
+  if(!AN){
+    v.innerHTML=anSinDatos('Todavía no hay datos de analítica',
+      'No se encontró <code>analitica.json</code> al lado del Centro. Corre el workflow de analítica y vuelve a publicar el Centro con ese archivo.');
+    return;
+  }
+  if(AN.estado==='sin-credencial'||(!AN.ga4&&!AN.gsc)){
+    var err=(AN.errores||[]).map(function(e){return '<code>'+esc(e.donde)+'</code>: '+esc(e.mensaje)}).join('<br>');
+    v.innerHTML=anSinDatos(AN.estado==='sin-credencial'?'Falta la credencial de Google':'Las APIs no respondieron',
+      (err||'Sin detalle.')+'<br><span class="sm">Último intento: '+esc(fecha(AN.generado))+'</span>');
+    return;
+  }
+
+  var g=AN.ga4&&AN.ga4.periodos[anPer], s=AN.gsc&&AN.gsc.periodos[anPer];
+  var ga=g&&g.actual, gp=g&&g.previo, sa=s&&s.actual, sp=s&&s.previo;
+  var h='';
+
+  /* cabecera: qué periodo y de cuándo son los números */
+  h+='<div class="sec"><div class="an-head">'+
+    '<div class="tabs" role="tablist">'+
+      ['7d','28d'].map(function(p){
+        return '<button type="button" role="tab" data-per="'+p+'" aria-selected="'+(anPer===p?'true':'false')+'">'+
+          (p==='7d'?'Últimos 7 días':'Últimos 28 días')+'</button>';
+      }).join('')+
+    '</div>'+
+    '<span class="chip mute">Datos del '+esc(fecha(AN.generado))+'</span>'+
+    (ga?'<span class="sm">Analytics: '+esc(ga.desde)+' → '+esc(ga.hasta)+'</span>':'')+
+    (sa?'<span class="sm">· Google: '+esc(sa.desde)+' → '+esc(sa.hasta)+' (cierra con '+(AN.gsc.retrasoDias||3)+' días de retraso)</span>':'')+
+    '<button class="btn sm copy" type="button" data-copy="'+esc(JSON.stringify(AN.semana||{},null,2))+'" style="margin-left:auto">Copiar KPI de la semana</button>'+
+  '</div></div>';
+
+  if(AN.estado==='parcial'){
+    h+='<div class="sec"><div class="alert warn"><div><b>Falta una de las dos fuentes</b><p>'+
+      (AN.errores||[]).map(function(e){return '<code>'+esc(e.donde)+'</code>: '+esc(e.mensaje)}).join('<br>')+'</p></div></div></div>';
+  }
+
+  /* KPIs */
+  h+='<div class="sec"><div class="sech"><h2>Lo que pasó</h2><span class="note">contra el periodo anterior del mismo largo</span></div><div class="kpis">';
+  if(ga){
+    h+=anKpi('Usuarios',anNum(ga.usuarios),ga.usuarios,gp.usuarios);
+    h+=anKpi('Sesiones',anNum(ga.sesiones),ga.sesiones,gp.sesiones);
+    h+=anKpi('Páginas vistas',anNum(ga.vistas),ga.vistas,gp.vistas);
+    h+=anKpi('Clics a tienda',anNum(ga.clicsTienda),ga.clicsTienda,gp.clicsTienda,
+      'ML '+anNum(ga.clicsML)+' · Amazon '+anNum(ga.clicsAmz));
+    var conv=ga.sesiones?(ga.clicsTienda/ga.sesiones):null, convP=gp.sesiones?(gp.clicsTienda/gp.sesiones):null;
+    h+=anKpi('Clics por sesión',conv===null?'—':(conv*100).toFixed(1)+'%',conv,convP,'de cada 100 sesiones');
+  }
+  if(sa){
+    h+=anKpi('Impresiones en Google',anNum(sa.impresiones),sa.impresiones,sp.impresiones);
+    h+=anKpi('Clics desde Google',anNum(sa.clics),sa.clics,sp.clics);
+    h+=anKpi('CTR',anCtr(sa.ctr),sa.ctr,sp.ctr);
+    h+=anKpi('Posición media',anPos(sa.posicion),sa.posicion,sp.posicion,'más bajo es mejor',true);
+  }
+  h+='</div></div>';
+
+  /* gráfica diaria */
+  if(AN.ga4&&AN.ga4.serie&&AN.ga4.serie.length){
+    var serie=AN.ga4.serie.slice(anPer==='7d'?-28:-56);
+    h+='<div class="sec"><div class="card"><div class="hd"><h3>Día a día</h3>'+
+      '<span class="note">'+serie.length+' días</span></div><div class="bd">'+anGrafica(serie)+'</div></div></div>';
+  }
+
+  /* Search Console por semana: es el ritmo con el que se mueve el SEO */
+  if(AN.gsc&&AN.gsc.semanas&&AN.gsc.semanas.length){
+    var sem=AN.gsc.semanas.slice(-12).reverse();
+    var maxImp=Math.max.apply(null,sem.map(function(w){return w.impresiones}))||1;
+    var filas=sem.map(function(w,i){
+      var prev=sem[i+1];
+      return '<tr><td><span class="nm">'+esc(anSemanaRango(w.semana))+'</span><span class="sm">'+esc(fechaCorta(w.semana))+'</span></td>'+
+        '<td class="num">'+anNum(w.impresiones)+' '+anDelta(w.impresiones,prev&&prev.impresiones)+'</td>'+
+        '<td><div class="bar"><i style="width:'+(w.impresiones/maxImp*100).toFixed(1)+'%"></i></div></td>'+
+        '<td class="num">'+anNum(w.clics)+'</td><td class="num">'+anCtr(w.ctr)+'</td><td class="num">'+anPos(w.posicion)+'</td></tr>';
+    });
+    h+='<div class="sec"><div class="sech"><h2>Impresiones por semana</h2><span class="note">Search Console · '+sem.length+' semanas</span></div>'+
+      anTabla([{t:'Semana'},{t:'Impresiones',num:true},{t:''},{t:'Clics',num:true},{t:'CTR',num:true},{t:'Posición',num:true}],filas)+'</div>';
+  }
+
+  /* eventos: el clic a tienda es lo más cerca de una venta que vemos */
+  if(AN.ga4&&AN.ga4.eventos&&AN.ga4.eventos.length){
+    var evs=AN.ga4.eventos.slice(0,25);
+    var fe=evs.map(function(e){
+      return '<tr><td><span class="nm">'+esc(e.evento)+'</span>'+(e.clave?' <span class="chip ac">clave</span>':'')+'</td>'+
+        '<td class="num">'+anNum(e.conteo)+'</td><td class="num">'+anNum(e.previo)+'</td>'+
+        '<td class="num">'+anDelta(e.conteo,e.previo)+'</td></tr>';
+    });
+    h+='<div class="sec"><div class="sech"><h2>Eventos</h2><span class="note">28 días contra los 28 anteriores</span></div>'+
+      anTabla([{t:'Evento'},{t:'Ahora',num:true},{t:'Antes',num:true},{t:'Cambio',num:true}],fe)+'</div>';
+  }
+
+  /* páginas y fuentes, lado a lado */
+  var izq='',der='';
+  if(AN.ga4&&AN.ga4.paginas&&AN.ga4.paginas.length){
+    var fp=AN.ga4.paginas.slice(0,20).map(function(p){
+      return '<tr><td><a href="https://comparalo.mx'+esc(p.ruta)+'" target="_blank" rel="noopener"><span class="nm">'+esc(p.ruta)+'</span></a></td>'+
+        '<td class="num">'+anNum(p.vistas)+'</td><td class="num">'+anNum(p.usuarios)+'</td></tr>';
+    });
+    izq='<div class="card"><div class="hd"><h3>Páginas más vistas</h3><span class="note">28 días</span></div>'+
+      anTabla([{t:'Ruta'},{t:'Vistas',num:true},{t:'Usuarios',num:true}],fp)+'</div>';
+  }
+  if(AN.ga4&&AN.ga4.fuentes&&AN.ga4.fuentes.length){
+    var ff=AN.ga4.fuentes.map(function(f){
+      return '<tr><td><span class="nm">'+esc(f.fuente)+'</span></td><td class="num">'+anNum(f.sesiones)+'</td><td class="num">'+anNum(f.usuarios)+'</td></tr>';
+    });
+    der='<div class="card"><div class="hd"><h3>De dónde llega la gente</h3><span class="note">28 días</span></div>'+
+      anTabla([{t:'Canal'},{t:'Sesiones',num:true},{t:'Usuarios',num:true}],ff)+'</div>';
+  }
+  if(izq||der)h+='<div class="sec"><div class="split">'+izq+der+'</div></div>';
+
+  /* búsquedas: qué le pregunta la gente a Google y con qué página la atiende */
+  if(AN.gsc&&AN.gsc.consultas&&AN.gsc.consultas.length){
+    var fc=AN.gsc.consultas.slice(0,25).map(function(c){
+      return '<tr><td><span class="nm">'+esc(c.consulta)+'</span></td><td class="num">'+anNum(c.impresiones)+'</td>'+
+        '<td class="num">'+anNum(c.clics)+'</td><td class="num">'+anCtr(c.ctr)+'</td><td class="num">'+anPos(c.posicion)+'</td></tr>';
+    });
+    var fpg=(AN.gsc.paginas||[]).slice(0,25).map(function(p){
+      return '<tr><td><a href="'+esc(p.url)+'" target="_blank" rel="noopener"><span class="nm">'+esc(p.ruta||p.url)+'</span></a></td>'+
+        '<td class="num">'+anNum(p.impresiones)+'</td><td class="num">'+anNum(p.clics)+'</td>'+
+        '<td class="num">'+anCtr(p.ctr)+'</td><td class="num">'+anPos(p.posicion)+'</td></tr>';
+    });
+    h+='<div class="sec"><div class="sech"><h2>En Google</h2><span class="note">28 días · lo que ya aparece, no lo que podría</span></div>'+
+      '<div class="split">'+
+      '<div class="card"><div class="hd"><h3>Búsquedas</h3></div>'+
+        anTabla([{t:'Consulta'},{t:'Impr.',num:true},{t:'Clics',num:true},{t:'CTR',num:true},{t:'Pos.',num:true}],fc)+'</div>'+
+      '<div class="card"><div class="hd"><h3>Páginas en resultados</h3></div>'+
+        anTabla([{t:'Ruta'},{t:'Impr.',num:true},{t:'Clics',num:true},{t:'CTR',num:true},{t:'Pos.',num:true}],fpg)+'</div>'+
+      '</div></div>';
+  }
+
+  v.innerHTML=h;
+  v.querySelectorAll('[data-per]').forEach(function(b){
+    b.addEventListener('click',function(){anPer=b.getAttribute('data-per');store('anPer',anPer);pintarAnalitica()});
+  });
+}
+
 /* ───────── módulos por conectar ───────── */
 function pintarPendiente(id){
   var p=PENDIENTES[id], v=el('v-'+id);
@@ -2695,6 +2932,14 @@ fetch('datos.json').then(function(r){
   iniciarPlan();
   var h=location.hash.slice(1);
   ir(MODULOS.some(function(m){return m.id===h})?h:'dashboard');
+  // Analítica: el archivo que deja el workflow de GA4 + Search Console, publicado al lado.
+  // Si no está, la sección lo dice y explica cómo conectarlo; no se inventa ningún número.
+  anPer=store('anPer')||'7d';
+  fetch('analitica.json').then(function(r){return r.ok?r.json():null}).catch(function(){return null})
+    .then(function(j){
+      AN=j;
+      if(VIEW==='analitica')pintarAnalitica();
+    });
   // Inventario de Amazon: el archivo publicado al lado, o lo último que se cargó a mano.
   fetch('amazon.json').then(function(r){return r.ok?r.json():null}).catch(function(){return null})
     .then(function(j){
