@@ -500,8 +500,19 @@ ML»** y **«✓ Comprobados»**. Así el orden de trabajo es: comprobar en bloq
 un vistazo por ficha) y pegar enlaces solo en los que sobreviven, en vez de ir alternando las dos
 cosas producto por producto.
 
-Dónde se sabe con certeza sin mirar: al publicar, porque el enlace de un producto pausado no da
-precio y `aplicar-nuevos.mjs` lo deja fuera.
+**El camino sin revisar a mano (26-nov-2026).** Comprobar abriendo fichas una por una sigue
+disponible, pero no hace falta: el enlace de afiliado SÍ se puede abrir por programa —es lo que
+hace la corrida de precios a diario— así que la publicación hace de comprobación. En el Centro,
+**«Pegar enlaces en bloque»** acepta una línea por producto (ID y enlace en cualquier orden,
+pegado de Excel tal cual) y los reparte por la bandeja. Después, al publicar,
+`aplicar-nuevos.mjs` abre cada enlace y:
+· da precio → publica el producto;
+· está **pausada** o **no da precio** → el producto **sale solo de la bandeja**
+(`estado:'eliminado'` + `_motivoBaja`), que es la comprobación hecha sin un clic de más;
+· el enlace abre **otro** producto, o falla la red → NO da de baja nada: eso es un problema del
+enlace, no del producto, y se reporta para revisarlo.
+Las bajas se escriben aunque no se publique ni un producto, para no tener que volver a abrir los
+mismos enlaces muertos.
 
 Una categoría entra al descubrimiento agregándole un bloque `descubrir` en `categorias.js`
 (términos, `categoriasML` para el ranking, dominios, clase, mapa de atributos → `especs`,

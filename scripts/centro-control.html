@@ -903,7 +903,7 @@ var BAN=null, BSEL=null, BEDI={}, bTab='ficha', bPedida=false;
    artifact corre en un iframe de caja de arena y ahí confirm() no abre nada y devuelve
    false, así que el botón Eliminar parecía no hacer nada. Ahora el primer clic pone el
    botón en «¿Seguro?» y el segundo borra. */
-var BMARCA={}, bPorBorrar=null, bUltima=null;
+var BMARCA={}, bPorBorrar=null, bUltima=null, bPegar=false;
 function modoBandeja(){var v=el('pest').value;return v.indexOf('nuevos')===0}
 function banKey(cat,id){return cat+'__'+String(id)}
 function banDe(p){return BEDI[banKey(p.cat,p.id)]||null}
@@ -1095,6 +1095,7 @@ function banBarra(){
       '<button class="btn sm pri" id="bCopia" type="button">Copiar para publicar</button> '+
       '<a class="btn sm" href="https://github.com/alancamachorespaldo-hue/compara.mx/actions/workflows/publicar-nuevos.yml" target="_blank" rel="noopener">Publicar en GitHub ↗</a> ':'')+
     (info&&info.actualizado?'<span class="sm">· búsqueda del '+esc(fecha(info.actualizado))+'</span> ':'')+
+    '<button class="btn sm" id="bPegarBtn" type="button" title="Pegar de una vez los enlaces de varios productos">Pegar enlaces en bloque</button> '+
     (marcados.length
       ? '<span class="row" style="gap:6px;margin-left:8px"><b class="sm">'+marcados.length+' marcados</b>'+
         '<button class="btn sm pri" id="bAlta" type="button">Dar de alta</button>'+
@@ -1246,6 +1247,35 @@ function banBorraLote(){
   });
   BMARCA={}; if(BSEL&&keys.indexOf(BSEL.cat+'|'+BSEL.id)>=0)BSEL=null;
   pintarBandeja(); toast(n+' quitados de la bandeja');
+}
+/* Pegar enlaces en bloque. Por qué existe: comprobar si un producto se vende NO se puede
+   automatizar (la API no lo dice y la ficha pública está tras el muro antibots de ML), pero el
+   enlace de afiliado SÍ se puede abrir — es lo que hace la corrida de precios todos los días.
+   Así que el camino corto es pegar los enlaces de golpe y dejar que la publicación compruebe:
+   `aplicar-nuevos.mjs` abre cada uno, publica los que dan precio y saca de la bandeja los que
+   salen pausados o sin precio. Una pasada, sin abrir fichas una por una. */
+function banPegarPanel(){
+  el('pDetail').innerHTML='<div class="hd"><h3>Pegar enlaces en bloque</h3></div>'+
+    '<div class="bd stack">'+
+    '<div class="why"><b>Una línea por producto</b>El ID de catálogo y su enlace, en cualquier orden y separados por lo que sea (espacio, tabulador, coma). Lo que pegues de Excel funciona tal cual.<br>'+
+      '<code>MLM18486368 https://meli.la/abc123</code></div>'+
+    '<textarea id="pegar_txt" rows="10" spellcheck="false" placeholder="MLM18486368  https://meli.la/abc123&#10;MLM47290541  https://meli.la/def456"></textarea>'+
+    '<div class="row"><button class="btn pri" id="pegar_ok" type="button">Guardar enlaces</button>'+
+      '<button class="btn" id="pegar_no" type="button">Cancelar</button></div>'+
+    '<div class="why"><b>Lo que pasa después</b>Marca los que pegaste, <b>Dar de alta</b> y <b>Publicar en GitHub</b>. La corrida abre cada enlace: publica los que dan precio y <b>saca solos de la bandeja</b> los que estén pausados o sin vendedor, diciéndote cuáles. Eso es la comprobación, y no cuesta ni un clic más.</div>'+
+    '</div>';
+}
+/** Guarda el enlace de una ficha sin pasar por el formulario del panel. */
+function banEnlace(p,link){
+  if(!PDB)return false;
+  var k=banKey(p.cat,p.id), prev=BEDI[k]||{};
+  var e={cat:p.cat,id:p.id,nombre:p.nombre,
+    linkML:link,linkAmz:prev.linkAmz||null,
+    especs:Object.assign({},prev.especs||{}),
+    accion:prev.accion||null,revisado:prev.revisado||null,ts:new Date().toISOString()};
+  BEDI[k]=e;
+  PDB.collection('bandeja').doc(k).set(e).then(function(){},function(){});
+  return true;
 }
 /** El JSON que entiende aplicar-nuevos.mjs, agrupado por categoría. */
 function banCambios(){
@@ -1479,6 +1509,27 @@ function detalle(p){
 }
 el('pDetail').addEventListener('click',function(e){
   // ── bandeja: pestañas y acciones de una ficha nueva ──
+  if(bPegar){
+    if(e.target.id==='pegar_no'){ bPegar=false; el('pDetail').innerHTML='<div class="bd"><div class="empty">Elige un producto de la lista.</div></div>'; return }
+    if(e.target.id==='pegar_ok'){
+      var lineas=el('pegar_txt').value.split(/[\r\n]+/), ok=0, raros=0, faltan=[];
+      lineas.forEach(function(l){
+        if(!l.trim())return;
+        var mid=(l.match(/MLM\d{6,12}/)||[])[0];
+        var url=(l.match(/https?:\/\/\S+/)||[])[0];
+        if(!mid||!url){raros++;return}
+        var p=null;
+        Object.keys(BAN).forEach(function(c){ if(!p)p=banBuscar(c,mid) });
+        if(!p){faltan.push(mid);return}
+        if(banEnlace(p,url.replace(/[),.;]+$/,'')))ok++;
+      });
+      toast(ok+' enlaces guardados'+(faltan.length?' · '+faltan.length+' ids no están en la bandeja':'')+(raros?' · '+raros+' líneas no se entendieron':''));
+      bPegar=false; pintarBandeja();
+      el('pDetail').innerHTML='<div class="bd"><div class="empty">'+ok+' enlaces guardados. Marca esos productos, dales de alta y publícalos: la corrida comprueba cuáles siguen vivos.</div></div>';
+      return;
+    }
+    return;
+  }
   if(BSEL){
     var bt=e.target.closest('[data-btab]');
     if(bt){bTab=bt.getAttribute('data-btab'); banDetalle(BSEL); return}
@@ -1584,6 +1635,7 @@ el('pcount').addEventListener('click',function(e){
   if(id==='bNada'){BMARCA={};pintarBandeja();return}   // aquí sí: hay que destildar las casillas
   var fb=e.target.closest('[data-est]');
   if(fb){ el('pest').value=fb.getAttribute('data-est'); pTope=200; pintarProductos(); return }
+  if(id==='bPegarBtn'){ bPegar=true; BSEL=null; banPegarPanel(); return }
   if(id==='bCopia'){
     var cs=banCambios(), n=0;
     cs.forEach(function(c){n+=c.publicar.length+c.eliminar.length});

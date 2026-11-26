@@ -91,6 +91,16 @@ const paraPagina = [];
 
 for (const item of cambios.publicar ?? []) {
   const nota = m => { fallos.push({ id: item.id, motivo: m }); };
+  /* Un rechazo que demuestra que el producto NO SIRVE saca la ficha de la bandeja ahí mismo.
+     Es la comprobación de disponibilidad que la API no deja hacer: aquí sí se sabe, porque el
+     enlace se abrió de verdad. Así, pegar enlaces y mandar a publicar limpia la bandeja sola y
+     no hay que revisar nada a mano antes. Lo que NO da de baja: un error de red o un enlace
+     ilegible, que no prueban nada. */
+  const baja = (m, motivoCorto) => {
+    fallos.push({ id: item.id, motivo: m, baja: true });
+    const reg = porId.get(item.id);
+    if (reg) { reg.estado = 'eliminado'; reg.eliminadoEn = new Date().toISOString(); reg._motivoBaja = motivoCorto; }
+  };
   const enB = porId.get(item.id);
   if (!enB) { nota('no está en la bandeja de esta categoría'); continue; }
   if (prods.some(p => p.mlId === item.id)) { nota('ese ID de catálogo ya está publicado en la base'); continue; }
@@ -108,8 +118,8 @@ for (const item of cambios.publicar ?? []) {
   if (!r.ok) { nota(`el enlace no se pudo leer (${r.motivo})`); continue; }
   if (r.mlId && r.mlId !== item.id) { nota(`el enlace abre ${r.mlId}, no ${item.id}`); continue; }
   if (!r.mlId) { nota('el enlace no deja ver a qué producto de catálogo lleva'); continue; }
-  if (r.pausada) { nota('la publicación del enlace está pausada en ML'); continue; }
-  if (!(r.precio > 0)) { nota('el enlace no da precio'); continue; }
+  if (r.pausada) { baja('la publicación está pausada en ML · fuera de la bandeja', 'pausada'); continue; }
+  if (!(r.precio > 0)) { baja('sin precio: hoy no lo vende nadie · fuera de la bandeja', 'sin_precio'); continue; }
 
   const id = siguienteId();
   const nombre = item.nombre ?? enB.nombre;
@@ -173,23 +183,32 @@ for (const h of hechos) {
   console.log(h.accion ? `  · ${h.id} — ${h.accion}`
     : `  ✓ ${h.id} → id ${h.idBase} · $${h.precio} · ${String(h.nombre).slice(0, 60)}`);
 }
-for (const f of fallos) console.log(`  ⛔ ${f.id} — ${f.motivo}`);
-console.log(`\n  publicados ${hechos.filter(h => !h.accion).length} · eliminados ${hechos.filter(h => h.accion).length} · rechazados ${fallos.length}`);
+for (const f of fallos) console.log(`  ${f.baja ? 'x' : '⛔'} ${f.id} — ${f.motivo}`);
+const dadosDeBaja = fallos.filter(f => f.baja).length;
+console.log(`\n  publicados ${hechos.filter(h => !h.accion).length} · eliminados ${hechos.filter(h => h.accion).length} · rechazados ${fallos.length}` +
+  (dadosDeBaja ? ` · ${dadosDeBaja} salieron de la bandeja por no estar disponibles` : ''));
 
 if (!APLICAR) { console.log('\n(simulación — nada escrito; agrega --aplicar)'); process.exit(0); }
+
+// Las bajas se guardan aunque no se publique ni un producto: son el resultado de la
+// comprobación, y perderlas obligaría a volver a abrir los mismos enlaces muertos.
+const guardarBandeja = () => {
+  if (bandeja.categorias?.[cat.datos]) bandeja.categorias[cat.datos].actualizado = new Date().toISOString();
+  writeFileSync(BANDEJA_PATH, JSON.stringify(bandeja, null, 1));
+};
 
 if (paraPagina.length) {
   const res = agregarProductos(resolve(ROOT, cat.file), cat.varName, cat.tipo ?? 'plano', paraPagina);
   if (!res.ok) {
     console.error(`\n⛔ la página NO se tocó: ${res.motivo}`);
     console.error('   Tampoco se escribe la base, para que no queden desparejas.');
+    guardarBandeja();
     process.exit(1);
   }
   console.log(`\n✓ ${cat.file}: ${res.agregados} producto(s) agregados al array ${cat.varName}`);
 }
 
 writeFileSync(ADMIN_PATH, JSON.stringify(base, null, 2), 'utf8');
-if (bandeja.categorias?.[cat.datos]) bandeja.categorias[cat.datos].actualizado = new Date().toISOString();
-writeFileSync(BANDEJA_PATH, JSON.stringify(bandeja, null, 1));
+guardarBandeja();
 console.log('✓ scripts/merged-admin.json y scripts/bandeja-nuevos.json actualizados');
 console.log('  Siguiente: node scripts/sync-pausas.js · node scripts/sync-hub-counts.js · node scripts/generar-centro.js · node scripts/check-site.js');
