@@ -773,6 +773,7 @@ var MOTIVOS={
   link_roto:['bad','No se ve · link de afiliado roto','El link <code>meli.la</code> ya no abre este producto. Un link caído cae en la tarjeta por defecto de tu perfil de afiliado, así que el visitante aterriza en cualquier otra cosa. Por eso la revisión lo pausó en vez de dejarlo en la página.','Entra a la ficha de catálogo, genera un link de afiliado nuevo y reemplázalo en la base. Un producto pausado por link roto solo se reactiva en una corrida con <code>--links</code>.'],
   link_caido:['bad','No se ve · link de afiliado roto','El link <code>meli.la</code> ya no abre este producto y cae en la tarjeta por defecto de tu perfil de afiliado.','Genera un link nuevo desde la ficha de catálogo y reemplázalo en la base.'],
   link_otro:['bad','No se ve · el link abre otro producto','El link responde, pero lleva a un producto distinto del que anuncia la tarjeta. Es lo más grave que encuentra la revisión: el visitante compra otra cosa.','Consigue el link correcto desde la ficha de catálogo y reemplázalo.'],
+  tarjeta_defecto:['bad','No se ve · el producto ya no existe','Su enlace acaba en <b>tus búsquedas recientes de Mercado Libre</b> (hoy, gafas inteligentes), que es lo que ML devuelve cuando el producto al que llevaba ya desapareció. No es que el enlace apunte mal: el destino murió.','No le busques enlace nuevo. La corrida lo borra al confirmarlo en una segunda pasada, con copia completa en <code>scripts/papelera-productos.json</code>.'],
   no_existe:['bad','No se ve · la ficha ya no existe','La ficha de catálogo <code>/p/MLM…</code> desapareció de Mercado Libre.','Busca el producto otra vez en ML: si existe con otra ficha, cambia el <code>mlId</code> y el link; si ya no se vende, déjalo pausado.'],
   pausado:['warn','No se ve · pausado','La pausa está puesta en la base, así que <code>sync-pausas.js</code> lo quitó de la página.','Si fue a mano, quítala en el gestor de precios. Si fue automática, arregla primero lo que la causó.'],
   sin_ofertas:['warn','No se ve · nadie lo vende ahora','La ficha de catálogo existe, pero no tiene ninguna oferta activa: no hay vendedor ni precio que mostrar.','No hay nada que arreglar. Se reactiva solo cuando vuelva a haber ofertas y corra la revisión.'],
@@ -1030,7 +1031,8 @@ function pWebHTML(p){
   var m=MOTIVOS[p.motivo]||[(p.visible?'ok':'mute'),(p.visible?'Se ve en la página':'No se ve'),'',''];
   var revisado=p.dispFecha||fecha(p.revisado);
   var DISP={ok:'el link abrió su producto',link_roto:'el link ya no abre su producto',link_otro:'el link abrió otro producto',
-    no_existe:'la ficha de catálogo no existe',pausado:'la publicación está pausada en ML',sin_ofertas:'la ficha no tiene ofertas',
+    no_existe:'la ficha de catálogo no existe',tarjeta_defecto:'el producto ya no existe (el enlace acaba en tus búsquedas recientes)',
+    pausado:'la publicación está pausada en ML',sin_ofertas:'la ficha no tiene ofertas',
     sin_id:'no tiene ID de catálogo',error:'la API falló (un error nunca pausa nada)'};
   return '<div class="why" style="border-color:var(--'+(m[0]==='ok'?'ok':(m[0]==='bad'?'bad':'line'))+')"><b>'+esc(m[1])+'</b>'+m[2]+'</div>'+
   (m[3]?'<div class="why"><b>Qué hacer</b>'+m[3]+'</div>':'')+

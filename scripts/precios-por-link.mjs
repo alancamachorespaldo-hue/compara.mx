@@ -25,7 +25,8 @@
  *   node scripts/precios-por-link.mjs --todas --aplicar --max-salto=40
  *   node scripts/precios-por-link.mjs --todas --aplicar --forzar   (salta el freno)
  *
- * Estados: ok · sin_cambio · pausada · link_roto · link_otro · salto · sin_precio · error
+ * Estados: ok · sin_cambio · pausada · tarjeta_defecto · link_roto · link_otro · salto ·
+ *          sin_precio · error
  *
  * CANDADOS (ninguno es opcional):
  *   · Tope de salto (--max-salto, 25%): un precio que se aleja más de eso del guardado NO se
@@ -37,6 +38,11 @@
  *   · Un error de red o un 5xx NUNCA pausa ni retira nada.
  *   · Un link_roto/link_otro se confirma en DOS corridas (--umbral) antes de actuar, y se trata
  *     con _link-muerto.js: se RETIRA el enlace, no se pausa.
+ *   · `tarjeta_defecto` (el enlace acaba en las búsquedas recientes de la cuenta) significa que
+ *     el PRODUCTO ya no existe, así que se BORRA, también confirmado en dos corridas. No es un
+ *     enlace nuestro apuntando mal: cuando el destino desaparece, ML devuelve al usuario sus
+ *     propias búsquedas, que en esta cuenta son gafas inteligentes. Lo pidió Alan el
+ *     25-nov-2026, después de borrar a mano los 8 celulares que seguían en esa cola.
  *   · Una pausa puesta a mano (pausaML sin _pausaAuto) no se toca jamás.
  *
  * Después de --aplicar hay que correr `node scripts/sync-pausas.js` (el workflow lo hace solo).
@@ -100,7 +106,8 @@ const PARECIDO_DEFECTO = 60;
 
 // Estados de caída, los de aquí y los que pudo dejar revisar-disponibilidad.js: la racha de
 // _dispFallos es la misma cola, venga de la capa de catálogo o de esta.
-const CAIDO = new Set(['pausada', 'pausado', 'link_roto', 'link_otro', 'no_existe', 'sin_ofertas']);
+const CAIDO = new Set(['pausada', 'pausado', 'link_roto', 'link_otro', 'no_existe', 'sin_ofertas',
+  'tarjeta_defecto']);
 
 // ── Utilidades ───────────────────────────────────────────────────────────────
 const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -326,9 +333,17 @@ async function main() {
     }
     const repetida = r.mlId && (cuenta[r.mlId] || 0) >= 2;
     const ajena = r.mlId && p.mlId && r.mlId !== p.mlId;
-    if (repetida && (sim < PARECIDO_MIN || (ajena && sim < PARECIDO_DEFECTO))) {
-      fila.estado = 'link_roto';
-      fila.detalle = 'cae en la tarjeta por defecto del perfil de afiliado'
+    // Si el enlace abre EXACTAMENTE el catálogo que decimos, es nuestro producto, aunque el
+    // nombre se parezca poco: el parecido compara títulos y falla cuando el nuestro está en otro
+    // idioma. Importa porque el catálogo que hace de tarjeta por defecto es además un producto
+    // del sitio (`tecnologia_lentes/29`, las gafas de 8 MP, con nombre en inglés): sin esto, su
+    // propio enlace lo haría pasar por muerto y la corrida lo borraría.
+    const esElNuestro = r.mlId && p.mlId && r.mlId === p.mlId;
+    if (!esElNuestro && repetida && (sim < PARECIDO_MIN || (ajena && sim < PARECIDO_DEFECTO))) {
+      // El enlace acabó en las búsquedas recientes de la cuenta, que es lo que Mercado Libre
+      // devuelve cuando el destino ya no existe. O sea: el producto murió, no el enlace.
+      fila.estado = 'tarjeta_defecto';
+      fila.detalle = 'el producto ya no existe: el enlace acaba en las búsquedas recientes de la cuenta'
         + (ajena ? ' (abre ' + r.mlId + ', no ' + p.mlId + ')' : '');
       return fila;
     }
@@ -359,7 +374,8 @@ async function main() {
   //     —lo único cerrado son los precios—, y es lo que distingue "pausado" de "ya no existe".
   const TOKEN = await tokenApp();
   const dudosos = filas.map((f, i) => ({ f, i })).filter(x =>
-    ['pausada', 'link_roto', 'link_otro', 'sin_precio'].includes(x.f.estado) && tareas[x.i].p.mlId);
+    ['pausada', 'tarjeta_defecto', 'link_roto', 'link_otro', 'sin_precio'].includes(x.f.estado)
+    && tareas[x.i].p.mlId);
   if (dudosos.length) {
     console.log(`\n🔎 Preguntando al catálogo por ${dudosos.length} producto(s) dudoso(s)…`);
     await pool(dudosos, CONCURRENCIA, async x => {
@@ -382,7 +398,8 @@ async function main() {
     ok: cuentaEstado('ok'), sin_cambio: cuentaEstado('sin_cambio'), pausada: cuentaEstado('pausada'),
     link_roto: cuentaEstado('link_roto'), link_otro: cuentaEstado('link_otro'),
     salto: cuentaEstado('salto'), sin_precio: cuentaEstado('sin_precio'), error: cuentaEstado('error'),
-    no_existe: cuentaEstado('no_existe'), borrados: 0, en_gracia: 0,
+    no_existe: cuentaEstado('no_existe'), tarjeta_defecto: cuentaEstado('tarjeta_defecto'),
+    borrados: 0, en_gracia: 0,
     // Se cuentan al clasificar, no al escribir: así una corrida de solo reporte también dice
     // cuántos bajaron, que es lo primero que se mira en el Centro de Control.
     bajaron: filas.filter(f => f.estado === 'ok' && f.variacion < 0).length,
@@ -393,10 +410,12 @@ async function main() {
   // 4. FRENO DE EMERGENCIA. Una corrida en la que casi nada sale bien no es el catálogo
   //    cayéndose: es Mercado Libre cambiando esa página o cerrándonos la puerta. El 24-nov-2026
   //    un 403 en todas las llamadas hizo que revisar-disponibilidad.js pausara 1,137 productos
-  //    que estaban a la venta; aquí sería peor, porque un link_roto RETIRA el enlace. Si la
-  //    proporción es absurda no se escribe nada (el reporte sí, para poder mirarlo).
+  //    que estaban a la venta; aquí sería peor, porque un link_roto RETIRA el enlace y una
+  //    tarjeta_defecto BORRA el producto. Si la proporción es absurda no se escribe nada (el
+  //    reporte sí, para poder mirarlo).
   const resueltos = totales.ok + totales.sin_cambio;
-  const malos = totales.error + totales.link_roto + totales.link_otro + totales.sin_precio;
+  const malos = totales.error + totales.link_roto + totales.link_otro + totales.sin_precio
+    + totales.tarjeta_defecto;
   const sospechoso = filas.length >= 20 && (resueltos === 0 || malos / filas.length > 0.5);
 
   // 5. Aplicar a la base
@@ -453,6 +472,28 @@ async function main() {
           f.accion = 'sigue pausado · ' + f.diasRestantes + ' día(s) de gracia';
         }
         totales.en_gracia++;
+        continue;
+      }
+
+      // TARJETA POR DEFECTO: el producto ya no existe, así que se BORRA. No se le busca enlace
+      // nuevo ni se deja esperando: cuando el destino desaparece, ML devuelve al usuario sus
+      // propias búsquedas recientes, y eso es lo que estamos viendo. Se confirma en DOS corridas
+      // igual que un enlace muerto, porque esto se deduce de raspar una página y una lectura
+      // mala no debe borrar nada; con la copia en la papelera, pegarlo otra vez lo revive.
+      if (f.estado === 'tarjeta_defecto') {
+        const fallos = (CAIDO.has(p._dispEstado) ? (p._dispFallos ?? 1) : 0) + 1;
+        f.fallos = fallos;
+        p._dispEstado = 'tarjeta_defecto';
+        p._dispFallos = fallos;
+        p._dispFecha = HOY;
+        p._dispDesde ??= HOY;
+        if (fallos >= UMBRAL) {
+          aBorrar.push({ i, motivo: 'tarjeta_defecto' });
+          f.accion = 'borrado (el producto ya no existe)';
+        } else {
+          totales.en_observacion++;
+          f.accion = 'en observación (' + fallos + '/' + UMBRAL + ') · se borraría al confirmarse';
+        }
         continue;
       }
 
@@ -601,6 +642,7 @@ async function main() {
       sin_precio: 'sin precio en la tarjeta',
       pausada: 'se pausaría y empezarían sus ' + DIAS_GRACIA + ' días de gracia',
       no_existe: 'se borraría (el catálogo ya no existe)',
+      tarjeta_defecto: 'se borraría al confirmarse (el producto ya no existe)',
       link_roto: 'se retiraría el enlace al confirmarse', link_otro: 'se retiraría el enlace al confirmarse',
     };
     for (const f of filas) f.accion = QUE_PASARIA[f.estado] ?? null;
@@ -617,7 +659,7 @@ async function main() {
   for (const cat of claves) revisadas[cat] = HOY;
   const porCategoria = {};
   for (const f of filas) {
-    const c = (porCategoria[f.categoria] ??= { total: 0, ok: 0, sin_cambio: 0, pausada: 0, link_roto: 0, link_otro: 0, salto: 0, sin_precio: 0, error: 0 });
+    const c = (porCategoria[f.categoria] ??= { total: 0, ok: 0, sin_cambio: 0, pausada: 0, tarjeta_defecto: 0, link_roto: 0, link_otro: 0, salto: 0, sin_precio: 0, error: 0 });
     c.total++; c[f.estado]++;
   }
 
@@ -628,7 +670,7 @@ async function main() {
     // corridas de una sola categoría, donde no hay repetición que delate.
     tarjetaDefecto: [...new Set([
       ...previoDefecto,
-      ...filas.filter(f => f.estado === 'link_roto' && f.mlIdEnLink).map(f => f.mlIdEnLink),
+      ...filas.filter(f => f.estado === 'tarjeta_defecto' && f.mlIdEnLink).map(f => f.mlIdEnLink),
     ])],
     api: { ...api, mensaje: api.viva ? 'la API volvió, se puede retomar ml-update.js' : 'la API sigue cerrada' },
     diasGracia: DIAS_GRACIA,
@@ -654,14 +696,15 @@ async function main() {
   for (const cat of claves) {
     const c = porCategoria[cat];
     if (!c) continue;
-    const caidos = c.pausada + c.link_roto + c.link_otro;
+    const caidos = c.pausada + c.tarjeta_defecto + c.link_roto + c.link_otro;
     console.log('   ' + tituloDe(cat).substring(0, 24).padEnd(25) + col(c.total, 10) + col(c.ok || '·', 8) +
       col(c.sin_cambio || '·', 7) + col(c.salto || '·', 6) + col(caidos || '·', 8) + col(c.error || '·', 7));
   }
   console.log('   ' + '─'.repeat(72));
   console.log('   ' + 'TOTAL'.padEnd(25) + col(totales.revisados, 10) + col(totales.ok, 8) +
     col(totales.sin_cambio, 7) + col(totales.salto, 6) +
-    col(totales.pausada + totales.link_roto + totales.link_otro, 8) + col(totales.error, 7));
+    col(totales.pausada + totales.tarjeta_defecto + totales.link_roto + totales.link_otro, 8) +
+    col(totales.error, 7));
 
   const muestra = (titulo, lista, n = 6) => {
     if (!lista.length) return;
@@ -673,7 +716,8 @@ async function main() {
   muestra('📈 Subieron de precio', filas.filter(f => f.estado === 'ok' && f.variacion > 0));
   muestra('⚠ Fuera por el tope de salto (revísalos a mano)', filas.filter(f => f.estado === 'salto'));
   muestra('🔗 El enlace ya no abre su producto', filas.filter(f => LINK_MUERTO.has(f.estado)));
-  muestra('🗑 Ya no existen en Mercado Libre (se borran)', filas.filter(f => f.estado === 'no_existe'));
+  muestra('🗑 Ya no existen en Mercado Libre (se borran)',
+    filas.filter(f => f.estado === 'no_existe' || f.estado === 'tarjeta_defecto'));
   const enGracia = filas.filter(f => f.estado === 'pausada' && f.diasRestantes != null);
   if (enGracia.length) {
     console.log('\n⏸ Pausadas en Mercado Libre — ' + enGracia.length + ' (se borran al pasar ' + DIAS_GRACIA + ' días)');

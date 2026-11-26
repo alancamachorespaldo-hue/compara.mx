@@ -90,13 +90,16 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
   · **Ya no existe** (404 de `/products/{id}`) → se borra de una; un catálogo borrado no vuelve.
   · **Enlace muerto** → no se borra el producto, se retira el enlace: el catálogo sigue vivo, lo
   que murió es nuestro enlace, y con pegarle uno nuevo vuelve.
-  · **Cae en la "tarjeta por defecto del perfil"** → **el producto ya no existe: se borra.** Esa
-  tarjeta no es un enlace nuestro apuntando mal: cuando el destino desaparece, ML le devuelve al
-  usuario sus propias búsquedas recientes, y en esta cuenta eso son gafas inteligentes (de cuando
-  se armó `/tecnologia/lentes-inteligentes/`). Así que el `MLM2051584545` que sale en los reportes
-  no tiene nada que ver con el producto ni con el enlace: es el síntoma de que el producto murió.
-  No se le busca enlace nuevo ni se deja esperando. Ojo: `precios-por-link.mjs` todavía trata este
-  caso como `link_roto` y solo retira el enlace (25-nov-2026, 8 celulares borrados a mano así).
+  · **Cae en la "tarjeta por defecto del perfil"** (estado `tarjeta_defecto`) → **el producto ya
+  no existe: se borra**, confirmado en DOS corridas como un enlace muerto, porque esto se deduce
+  de raspar una página. Esa tarjeta no es un enlace nuestro apuntando mal: cuando el destino
+  desaparece, ML le devuelve al usuario **sus propias búsquedas recientes**, y en esta cuenta eso
+  son gafas inteligentes (de cuando se armó `/tecnologia/lentes-inteligentes/`). Así que el
+  `MLM2051584545` que sale en los reportes no tiene nada que ver con el producto ni con el enlace:
+  es el síntoma de que el producto murió. No se le busca enlace nuevo ni se deja esperando.
+  Hasta el 25-nov-2026 esto se trataba como `link_roto` —se retiraba el enlace y el producto se
+  quedaba esperando uno que nunca iba a llegar—; ese día Alan lo aclaró, se borraron a mano los 8
+  celulares que seguían en esa cola y la corrida pasó a borrarlos sola.
   **Borrar es borrar**: el objeto sale de `merged-admin.json` *y* del array de su página, en ese
   orden (al revés, nada quedaría en la base que le dijera a `sync-pausas.js` que esa tarjeta
   sobra, y se quedaría anunciada para siempre). Queda copia completa en
@@ -114,17 +117,19 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
   la oferta más barata del catálogo; se guarda también en `_precioFicha`. La racha de bajada la
   fija `actualizarRachaML()` de `_ofertas.js`, la misma de siempre, para que una oferta se
   comporte igual venga de donde venga. Estados: `ok`, `sin_cambio`, `pausada`, `no_existe`,
-  `link_roto`, `link_otro`, `salto`, `sin_precio`, `error`. Candados:
+  `tarjeta_defecto`, `link_roto`, `link_otro`, `salto`, `sin_precio`, `error`. Candados:
   **tope de salto** (25%; lo que se pasa va al reporte y no se escribe); **freno de emergencia**
   (si no sale bien casi ninguno no se escribe nada y la corrida falla: si ML cambia esa página
   todo se vería roto a la vez, y un `link_roto` retira enlaces); un `error` de red o un 5xx nunca
-  pausa, borra ni retira nada; `link_roto`/`link_otro` se confirman en DOS corridas; una pausa
-  puesta a mano no se toca jamás. **Escribe el precio en la base Y en el array de la página**: el
+  pausa, borra ni retira nada; `link_roto`/`link_otro`/`tarjeta_defecto` se confirman en DOS
+  corridas; una pausa puesta a mano no se toca jamás. **Escribe el precio en la base Y en el array de la página**: el
   precio que ve el visitante sale del array, no de la base, y antes eso lo hacía `ml-update.js`.
   Reconoce la **tarjeta por defecto del perfil de afiliado** (varios productos cayendo en el mismo
   catálogo ajeno) y la recuerda entre corridas en `tarjetaDefecto`, porque una corrida de una sola
   categoría no tiene repetición que la delate: nov-2026 los cuatro enlaces muertos del sitio abrían
-  el mismo microondas GE, y el cuarto se salvaba por dos puntos de parecido.
+  el mismo microondas GE, y el cuarto se salvaba por dos puntos de parecido. Esa tarjeta son **las
+  búsquedas recientes de la cuenta**, lo que ML devuelve cuando el destino ya no existe, así que
+  caer ahí es `tarjeta_defecto` y el producto se **borra** (no se le retira el enlace).
   Reporte: `precios-link-report.json` (acumulativo por categoría, con la cola de gracia).
   Después de `--aplicar`: `sync-pausas.js`.
 - `especs-por-id.mjs [--todas|--categoria=a,b] [--aplicar] [--forzar-imagen]`,
