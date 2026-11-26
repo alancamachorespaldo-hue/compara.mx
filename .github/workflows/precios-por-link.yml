@@ -85,6 +85,12 @@ jobs:
       - name: Registrar el precio de hoy en el histórico
         run: node scripts/historico-precios.js
 
+      # Va aquí a propósito: el histórico de hoy ya está escrito, y los descuentos todavía no.
+      # Si una lectura disparatada quedó de referencia de "precio antes", se suelta antes de que
+      # los generadores la conviertan en un "−61%" que nunca ocurrió.
+      - name: Soltar las referencias de precio que el histórico desmiente
+        run: node scripts/limpiar-anclas.mjs --aplicar
+
       - name: Publicar el histórico de 30 días por categoría
         run: node scripts/generar-historico.js
 
