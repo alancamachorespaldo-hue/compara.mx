@@ -21,14 +21,25 @@
  *     aquí sobre el `domain_id` de cada resultado.
  *   · ~45% del catálogo viene `status:"inactive"`: se descarta.
  *
- * LO QUE NO PODEMOS SABER AQUÍ: si el producto tiene vendedor y stock HOY. La API de ofertas
- * (`/products/{id}/items`) responde 403, y la ficha pública `/p/MLM…` contesta con el muro de
- * tráfico sospechoso de ML en vez de la página, así que no hay de dónde leerlo. `status:"active"`
- * del catálogo solo dice que la FICHA existe, no que alguien lo venda: por eso en la bandeja
- * pueden caer productos que ML enseña como «no disponible por el momento». Dónde sí se sabe:
- * al publicar, cuando `aplicar-nuevos.mjs` abre el enlace de afiliado —ahí el precio y la pausa
- * son visibles— y un producto sin stock se queda fuera. Mientras tanto se guarda `actualizadoML`
- * como pista y se puede borrar a mano desde el Centro.
+ * DE DÓNDE SALEN LOS CANDIDATOS (dos fuentes, y la diferencia importa):
+ *   · `ranking`  — `/highlights/MLM/category/{id}`, los más vendidos de la categoría. Un producto
+ *     que está en ese ranking SE ESTÁ VENDIENDO, así que tiene vendedor y stock. De los 21
+ *     catálogos que la revisión tenía marcados como pausados, 0 aparecen ahí (medido el
+ *     26-nov-2026). Es la única señal de disponibilidad que queda abierta. Da unos 20 productos
+ *     por categoría: poco, pero todo aprovechable.
+ *   · `busqueda` — `/products/search`, que trae cientos pero SIN saber si se venden; ahí caen los
+ *     «no disponible por el momento» (8 de cada 10 en la muestra que revisó Alan).
+ * Cada ficha guarda su `fuente`, las del ranking van primero y el Centro las marca «se vende hoy».
+ *
+ * LO QUE NO PODEMOS SABER AQUÍ: si un producto de la BÚSQUEDA tiene vendedor y stock hoy. Se
+ * probó por cuatro caminos y ninguno sirve: `/products/{id}/items` responde 403;
+ * `buy_box_winner` viene `null` incluso para el nº1 en ventas, con token de usuario y de
+ * aplicación; ningún campo de `/products/{id}` separa 21 pausados de 199 vivos (status, tags,
+ * quality_type, ttr y last_updated se solapan por completo); y la ficha pública `/p/MLM…`
+ * contesta con el muro de tráfico sospechoso de ML en vez de la página. `status:"active"` del
+ * catálogo solo dice que la FICHA existe, no que alguien lo venda. Dónde sí se sabe: al publicar,
+ * cuando `aplicar-nuevos.mjs` abre el enlace de afiliado —ahí el precio y la pausa son visibles—
+ * y un producto sin stock se queda fuera.
  *
  * LO QUE NUNCA HACE: no escribe en merged-admin.json, no toca ninguna página, no publica nada.
  * Eso es cosa de `aplicar-nuevos.mjs`, y solo con lo que Alan aprueba en el Centro de Control.
@@ -44,7 +55,9 @@
  *   --aplicar         escribe la bandeja y el historial (sin esto solo informa)
  *   --tope=N          máximo de productos NUEVOS que se guardan por corrida (0 = sin tope, 150)
  *   --paginas=N       páginas de 50 por término (1-3; la API no deja más, 3)
- *   --concurrencia=N  fichas en paralelo (4)
+ *   --fuente=X        ranking (solo los más vendidos, de los que sabemos que se venden) |
+                     busqueda | ambas (por defecto)
+   --concurrencia=N  fichas en paralelo (4)
  *   --terminos=a|b    términos a mano, en vez de los de categorias.js
  */
 
@@ -67,6 +80,7 @@ const TOPE = arg('tope') != null ? Number(arg('tope')) : 150;
 const PAGINAS = Math.min(Math.max(Number(arg('paginas') ?? 3), 1), 3);
 const CONC = Number(arg('concurrencia') ?? 4);
 const TERMINOS_ARG = (arg('terminos') ?? '').split('|').map(s => s.trim()).filter(Boolean);
+const FUENTE = arg('fuente') ?? 'ambas';   // ranking | busqueda | ambas
 const CATS_ARG = (arg('categoria') ?? '').split(',').map(s => s.trim()).filter(Boolean);
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -180,14 +194,35 @@ async function descubrir(cat, base, bandejaPrevia) {
   const crudos = new Map();
   const porTermino = [];
 
-  for (const q of terminos) {
+  // ── fuente 1: el ranking de más vendidos (los que SÍ se venden) ──
+  const rankings = [];
+  if (FUENTE !== 'busqueda') {
+    for (const catML of cfg.categoriasML ?? []) {
+      const r = await api(`/highlights/MLM/category/${catML}`);
+      if (!r.ok) { ERRORES.push({ ranking: catML, status: r.status }); continue; }
+      const ids = (r.data?.content ?? []).filter(x => x.type === 'PRODUCT');
+      rankings.push({ categoria: catML, productos: ids.length });
+      // El ranking solo da el id, así que la ficha se pide aparte.
+      const fichas = await pool(ids, CONC, async x => (await api(`/products/${x.id}`)).data ?? null);
+      fichas.forEach((d, i) => {
+        if (!d) return;
+        crudos.set(d.id, { ...d, _termino: `más vendidos ${catML}`, _fuente: 'ranking', _pos: ids[i].position ?? i });
+      });
+    }
+  }
+
+  // ── fuente 2: la búsqueda por términos (mucho más, pero sin saber si se venden) ──
+  if (FUENTE !== 'ranking') for (const q of terminos) {
     let n = 0, err = null;
     for (let p = 0; p < PAGINAS; p++) {
       const off = p * 50;
       const r = await api(`/products/search?site_id=MLM&q=${encodeURIComponent(q)}&limit=50&offset=${off}`);
       if (!r.ok) { err = r.status; ERRORES.push({ termino: q, offset: off, status: r.status }); break; }
       const res = r.data?.results ?? [];
-      for (const it of res) { n++; if (!crudos.has(it.id)) crudos.set(it.id, { ...it, _termino: q }); }
+      // La posición en los resultados es lo más cerca que estamos de «qué tan buscado es»; se
+      // guarda para ordenar la bandeja por ahí y no por cuántos atributos trae la ficha, que no
+      // tiene nada que ver con que el producto se venda.
+      res.forEach((it, i) => { n++; if (!crudos.has(it.id)) crudos.set(it.id, { ...it, _termino: q, _fuente: 'busqueda', _pos: off + i }); });
       if (res.length < 50) break;
     }
     porTermino.push({ termino: q, resultados: n, error: err });
@@ -243,10 +278,12 @@ async function descubrir(cat, base, bandejaPrevia) {
     if (posible) revisar.push(reg); else nuevos.push(reg);
   }
 
-  // Orden: primero lo más completo (más atributos útiles), que es lo que menos trabajo manual
-  // deja. Sin precio ni ventas no hay mejor criterio disponible: la API no los da.
-  const puntua = r => Object.keys(r.a).length + (r.gtins.length ? 3 : 0);
-  const candidatos = [...nuevos, ...revisar].sort((x, y) => puntua(y) - puntua(x));
+  // Orden: PRIMERO los del ranking de ventas —los únicos de los que sabemos que tienen vendedor—
+  // y después los de búsqueda por su posición en los resultados. Hasta el 26-nov-2026 se ordenaba
+  // por número de atributos, que no dice nada sobre si el producto se vende: por eso los primeros
+  // de la bandeja salían «no disponible» 8 de cada 10.
+  const puntua = r => (r.it._fuente === 'ranking' ? 0 : 10000) + (r.it._pos ?? 9999);
+  const candidatos = [...nuevos, ...revisar].sort((x, y) => puntua(x) - puntua(y));
   const tope = TOPE > 0 ? TOPE : candidatos.length;
   const aFichar = candidatos.filter(r => !yaEnBandeja.has(r.it.id)).slice(0, tope);
 
@@ -288,6 +325,10 @@ async function descubrir(cat, base, bandejaPrevia) {
       recomendadasFaltantes: (cfg.recomendadas ?? []).filter(k => mapearEspecs(a, cfg.mapa)[k] == null),
       posibleDuplicadoDe: r.posible,
       termino: r.it._termino,
+      fuente: r.it._fuente ?? 'busqueda',
+      // true solo para los del ranking: de esos sabemos que alguien los está vendiendo. En los de
+      // búsqueda no lo sabemos, y decir que sí sería inventarlo.
+      seVende: r.it._fuente === 'ranking',
       detectadoEn: ahora,
       linkML: null,
       linkAmz: null,
@@ -304,6 +345,8 @@ async function descubrir(cat, base, bandejaPrevia) {
       duplicados: duplicados.length, duplicadosDetalle: duplicados.slice(0, 20),
       posiblesDuplicados: revisar.length,
       nuevos: productos.filter(p => p.estado === 'new_unpublished').length,
+      rankings,
+      delRanking: productos.filter(p => p.seVende).length,
       guardados: productos.length,
       candidatos: candidatos.length,
       yaEnBandeja: candidatos.filter(r => yaEnBandeja.has(r.it.id)).length,
@@ -371,6 +414,7 @@ for (const cat of cats) {
   console.log(`  descartados: ${resumen.descartes.inactivo} inactivos · ${resumen.descartes.dominio} de otro dominio · ${resumen.descartes.clase} de otra clase`);
   console.log(`  duplicados en la base: ${resumen.duplicados} · posibles duplicados: ${resumen.posiblesDuplicados}`);
   console.log(`  NUEVOS guardados: ${resumen.guardados} de ${resumen.candidatos} candidatos (ya en bandeja: ${resumen.yaEnBandeja})`);
+  console.log(`  de ellos, del ranking de más vendidos (se venden hoy): ${resumen.delRanking}`);
   console.log(`  ${LLAMADAS} llamadas · ${segundos}s · errores de API: ${resumen.errores}`);
   if (resumen.ejemplosDescarte.length) {
     console.log('  ejemplos descartados:');

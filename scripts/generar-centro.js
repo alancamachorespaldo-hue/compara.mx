@@ -266,6 +266,8 @@ for (const [clave, info] of Object.entries(bandejaRaw.categorias || {})) {
     nuevos: todos.filter((p) => p.estado === 'new_unpublished').length,
     revisar: todos.filter((p) => p.estado === 'revisar').length,
     sinEnlace: pend.filter((p) => !p.linkML).length,
+    // Los del ranking de más vendidos: los únicos de los que sabemos que tienen vendedor hoy.
+    seVenden: pend.filter((p) => p.seVende === true).length,
     sinValidar: pend.filter((p) => faltanDe(p, obligatorias).length).length,
     // Los que piden trabajo: sin enlace O sin las características obligatorias. Contados una
     // sola vez, no sumando las dos colas: casi siempre son el mismo producto.
@@ -297,6 +299,7 @@ for (const [clave, info] of Object.entries(bandejaRaw.categorias || {})) {
       faltantes: faltanDe(p, obligatorias), avisos: faltanDe(p, recomendadas),
       posibleDuplicadoDe: p.posibleDuplicadoDe || null,
       termino: p.termino, detectadoEn: p.detectadoEn, actualizadoML: p.actualizadoML || null,
+      fuente: p.fuente || 'busqueda', seVende: p.seVende === true,
       linkML: p.linkML || null, linkAmz: p.linkAmz || null,
     })),
   };
@@ -383,6 +386,7 @@ const salida = {
     sinEnlace: bandejaCats.reduce((n, c) => n + c.sinEnlace, 0),
     sinValidar: bandejaCats.reduce((n, c) => n + c.sinValidar, 0),
     atencion: bandejaCats.reduce((n, c) => n + c.atencion, 0),
+    seVenden: bandejaCats.reduce((n, c) => n + c.seVenden, 0),
     historial: (historialRaw.busquedas || []).slice(0, 20),
   },
   categoriasSinRegistrar: sinRegistrar,

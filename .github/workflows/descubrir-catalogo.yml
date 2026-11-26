@@ -16,6 +16,9 @@ name: Buscar catálogo en API de Mercado Libre
 #   /products/{id}    200 — imágenes, variantes, descripción
 #   /products/{id}/items  403 — PRECIOS: cerrado. Por eso un producto nuevo entra sin precio y
 #                               lo consigue al publicarse, de la página de su enlace de afiliado.
+#   /highlights/MLM/category/{id}  200 — los MÁS VENDIDOS. Es la única fuente que garantiza que
+#                               el producto tiene vendedor hoy (fuente=ranking). La búsqueda por
+#                               términos trae muchos más, pero entre ellos caen los pausados.
 #
 # Manual nada más: descubrir productos es una decisión, no una rutina. No tiene cron a propósito.
 
@@ -27,6 +30,11 @@ on:
         type: choice
         default: proteina
         options: [proteina]
+      fuente:
+        description: '¿De dónde sacar los candidatos?'
+        type: choice
+        default: ambas
+        options: [ranking, ambas, busqueda]
       tope:
         description: 'Máximo de productos nuevos que se guardan en esta corrida'
         type: choice
@@ -67,9 +75,10 @@ jobs:
           ML_CLIENT_SECRET: ${{ secrets.ML_CLIENT_SECRET }}
           ML_REFRESH_TOKEN: ${{ secrets.ML_REFRESH_TOKEN }}
           CATEGORIA: ${{ inputs.categoria }}
+          FUENTE:    ${{ inputs.fuente }}
           TOPE:      ${{ inputs.tope }}
           APLICAR:   ${{ inputs.aplicar && '--aplicar' || '' }}
-        run: node scripts/descubrir-catalogo.mjs --categoria="$CATEGORIA" --tope="$TOPE" $APLICAR
+        run: node scripts/descubrir-catalogo.mjs --categoria="$CATEGORIA" --fuente="$FUENTE" --tope="$TOPE" $APLICAR
 
       - name: Resumir todo para el Centro de Control
         if: ${{ inputs.aplicar }}

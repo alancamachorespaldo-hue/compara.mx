@@ -465,17 +465,38 @@ recomendada porque la API no la da en NINGÚN producto, así que exigirla conver
 fichas en 150 capturas a mano. Si se publica sin ella entra como `null` —lo que esa página ya hace
 con las fichas incompletas—, nunca deducida del nombre comercial.
 
-**La bandeja no sabe si hay stock.** `status:"active"` del catálogo dice que la FICHA existe, no
-que alguien lo venda, así que pueden caer productos que ML enseña como «no disponible por el
-momento». No hay de dónde leerlo: el endpoint de ofertas responde 403 y la ficha pública
-`/p/MLM…` contesta con el muro antibots de ML en vez de la página (comprobado el 26-nov-2026).
-Dónde sí se sabe: al publicar, porque el enlace de un producto pausado no da precio y
-`aplicar-nuevos.mjs` lo deja fuera. Mientras tanto se guarda `actualizadoML` (cuándo tocó ML la
-ficha por última vez) como pista, y se borra a mano desde el Centro.
+**Las dos fuentes de candidatos, y por qué importa la diferencia (26-nov-2026).** Alan abrió 10
+fichas de la bandeja y 8 decían «no está disponible por el momento». La causa: `status:"active"`
+del catálogo dice que la FICHA existe, no que alguien lo venda.
+
+Se buscó un dato que lo delatara y **no existe con nuestro acceso**, probado por cuatro caminos:
+`/products/{id}/items` responde 403; `buy_box_winner` viene `null` **hasta para el nº1 en ventas**,
+con token de usuario y de aplicación; ningún campo de `/products/{id}` separa 21 catálogos
+pausados de 199 vivos (status, tags, quality_type, ttr, last_updated y date_created se solapan —
+«ficha movida hace menos de 30 días» acierta el 95% cuando la tasa base ya era del 90%, o sea
+nada); y la ficha pública `/p/MLM…` contesta con el muro antibots de ML, también desde un
+navegador de verdad (captcha). Así que **no se puede filtrar al buscar ni revisar después**: las
+dos ideas necesitan el mismo dato que no tenemos.
+
+Lo que sí hay es **el ranking de más vendidos**, `/highlights/MLM/category/{id}` (200): un
+producto que está ahí se está vendiendo. De los 21 pausados conocidos, **0** aparecen en él. Por
+eso `descubrir-catalogo.mjs` tiene `--fuente`:
+· `ranking` — solo los más vendidos de las `categoriasML` de la categoría. Seguros, pero **~20
+por categoría de ML** (en proteína dieron 3 que no teníamos). Se guardan con `seVende:true` y el
+Centro los marca **«↑ se vende hoy»**, con su propio filtro «Nuevos · se venden hoy».
+· `busqueda` — `/products/search`, cientos de candidatos sin saber si se venden.
+· `ambas` (por defecto) — las dos, con el ranking **primero** en la bandeja.
+El orden de los de búsqueda es ahora su posición en los resultados, no cuántos atributos traen:
+ordenar por atributos no tenía nada que ver con venderse, y por eso los primeros de la bandeja
+salían muertos.
+
+Dónde se sabe con certeza: al publicar, porque el enlace de un producto pausado no da precio y
+`aplicar-nuevos.mjs` lo deja fuera. En la bandeja, lo de búsqueda se comprueba abriendo su ficha
+(un clic desde el Centro) y lo muerto se borra con el botón de su fila, que no vuelve a salir.
 
 Una categoría entra al descubrimiento agregándole un bloque `descubrir` en `categorias.js`
-(términos, dominios, clase, mapa de atributos → `especs`, obligatorias, recomendadas) y sumándola
-a las opciones de los dos workflows. Hoy solo está Proteína, el piloto.
+(términos, `categoriasML` para el ranking, dominios, clase, mapa de atributos → `especs`,
+obligatorias, recomendadas) y sumándola a las opciones de los dos workflows. Hoy solo está Proteína, el piloto.
 
 ## El panel: Centro de Control (decisión del 25-nov-2026)
 
@@ -525,7 +546,8 @@ republicar.
   25-nov-2026: su paso de precios llamaba a la API cerrada y el de disponibilidad fallaba a
   propósito, tumbando la corrida entera a mitad del pipeline.
 - `descubrir-catalogo.yml` ("Buscar catálogo en API de Mercado Libre") — **manual a propósito**
-  (descubrir productos es una decisión, no una rutina): selector de categoría, tope y aplicar.
+  (descubrir productos es una decisión, no una rutina): selector de categoría, **fuente**
+  (`ranking` | `ambas` | `busqueda`), tope y aplicar.
   Corre `descubrir-catalogo.mjs`, regenera el Centro, valida y commitea solo la bandeja, el
   historial y los JSON del Centro. No escribe `merged-admin.json` ni ninguna página; comparte el
   `concurrency: datos-comparalo` porque también commitea en main.

@@ -39,6 +39,9 @@
  *                          de Mercado Libre (`descubrir-catalogo.mjs`). Solo las categorías que
  *                          la llevan entran en esa corrida. Campos:
  *                            terminos    términos de búsqueda para /products/search.
+ *                            categoriasML  categorías de Mercado Libre para el ranking de más
+ *                                        vendidos (`/highlights`), la única fuente que asegura
+ *                                        que el producto tiene vendedor hoy.
  *                            dominios    domain_id que SÍ son de esta categoría. Lo demás se
  *                                        descarta (un libro de repostería no es proteína).
  *                            clase       { atributos:[…], rx } — además del dominio, el valor de
@@ -103,6 +106,10 @@ export const CATEGORIAS = {
         'proteina isolate', 'proteina en polvo', 'caseina', 'proteina hidrolizada',
         'proteina concentrada', 'whey isolate',
       ],
+      // Categorías de ML de las que se pide el RANKING de más vendidos. Es la única fuente que
+      // garantiza que el producto se vende hoy: de los 21 pausados conocidos, 0 salen ahí
+      // (medido el 26-nov-2026). Da ~20 por categoría, así que es poco pero bueno.
+      categoriasML: ['MLM438195'],
       dominios: ['MLM-SUPPLEMENTS'],
       clase: { atributos: ['SUPPLEMENT_CLASS', 'MAIN_SUPPLEMENT', 'TRADE_NAME'], rx: /prote|whey|case/i },
       mapa: {

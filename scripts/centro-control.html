@@ -286,6 +286,7 @@ tbody tr.sel td:first-child{box-shadow:inset 3px 0 0 var(--ac)}
               <option value="inactivo">Inactivo</option>
               <option value="eliminado">Marcados como eliminados</option>
               <option value="nuevos">Nuevos sin publicar (bandeja)</option>
+              <option value="nuevos-se-venden">Nuevos · se venden hoy (ranking de ML)</option>
               <option value="nuevos-sin-enlace">Nuevos · pendientes de enlace</option>
               <option value="nuevos-sin-validar">Nuevos · pendientes de validación</option>
             </select>
@@ -901,7 +902,7 @@ var BAN=null, BSEL=null, BEDI={}, bTab='ficha', bPedida=false;
    false, así que el botón Eliminar parecía no hacer nada. Ahora el primer clic pone el
    botón en «¿Seguro?» y el segundo borra. */
 var BMARCA={}, bPorBorrar=null, bUltima=null;
-function modoBandeja(){var v=el('pest').value;return v==='nuevos'||v==='nuevos-sin-enlace'||v==='nuevos-sin-validar'}
+function modoBandeja(){var v=el('pest').value;return v==='nuevos'||v==='nuevos-sin-enlace'||v==='nuevos-sin-validar'||v==='nuevos-se-venden'}
 function banKey(cat,id){return cat+'__'+String(id)}
 function banDe(p){return BEDI[banKey(p.cat,p.id)]||null}
 /** Lo que hoy se ve en la ficha: lo que trajo la API con lo editado aquí encima. */
@@ -934,6 +935,7 @@ function banLista(){
       if(v.accion==='eliminar')return;
       if(est==='nuevos-sin-enlace'&&v.linkML)return;
       if(est==='nuevos-sin-validar'&&!banFaltan(x).length)return;
+      if(est==='nuevos-se-venden'&&!x.seVende)return;
       if(q){
         var h=(x.nombre+' '+x.id+' '+(x.marca||'')+' '+(x.gtin||[]).join(' ')).toLowerCase();
         if(h.indexOf(q)<0)return;
@@ -972,6 +974,11 @@ function banOk(p){
   v.forEach(function(x){if(!x[0])ok=false});
   return ok;
 }
+/* El único distintivo que dice algo sobre la disponibilidad. Solo lo llevan los del ranking de
+   más vendidos: de los demás no sabemos si tienen vendedor, y pintarlo sería inventarlo. */
+function banVende(p){
+  return p.seVende?'<span class="chip ok" title="Está en el ranking de más vendidos de Mercado Libre, así que alguien lo está vendiendo hoy">↑ se vende hoy</span>':'';
+}
 function banChip(p){
   var v=banVista(p);
   if(v.accion==='publicar')return '<span class="chip ok">● Listo para publicar</span>';
@@ -1009,7 +1016,7 @@ function pintarBandeja(){
       '<td class="sm">'+esc(carac||'—')+'</td>'+
       '<td class="num sm">'+(v.linkML?'al publicar':'—')+'</td>'+
       '<td class="sm"><code>'+esc(p.id)+'</code></td>'+
-      '<td>'+banChip(p)+'</td>'+
+      '<td>'+banChip(p)+(p.seVende?' '+banVende(p):'')+'</td>'+
       '<td>'+(v.linkML?'<button class="btn sm" type="button" data-blink="'+esc(kk)+'">Ver / editar</button>'
                      :'<button class="btn sm pri" type="button" data-blink="'+esc(kk)+'">Agregar enlace</button>')+'</td>'+
       '<td>'+(bPorBorrar===kk
@@ -1033,6 +1040,7 @@ function banBarra(){
   var enCola=Object.keys(BEDI).filter(function(k){return BEDI[k].accion==='publicar'}).length;
   el('pcount').innerHTML='<span class="sm">Bandeja de productos nuevos</span> '+
     '<span class="chip">'+fmt(lista.length)+' sin publicar</span> '+
+    (D.bandeja&&D.bandeja.seVenden?'<button class="chip ok" type="button" data-est="nuevos-se-venden" title="Los del ranking de más vendidos de Mercado Libre">↑ '+fmt(D.bandeja.seVenden)+' se venden hoy</button> ':'')+
     (enCola?'<span class="chip ok">'+fmt(enCola)+' dados de alta, listos para publicar</span> '+
       '<button class="btn sm pri" id="bCopia" type="button">Copiar para publicar</button> '+
       '<a class="btn sm" href="https://github.com/alancamachorespaldo-hue/compara.mx/actions/workflows/publicar-nuevos.yml" target="_blank" rel="noopener">Publicar en GitHub ↗</a> ':'')+
@@ -1072,7 +1080,9 @@ function banDetalle(p){
     '<label class="f">Enlace de afiliado de Mercado Libre<input class="inp" data-blk="linkML" value="'+esc(v.linkML)+'" placeholder="https://meli.la/…"></label>'+
     '<div class="row"><button class="btn pri sm" id="ban_ok" type="button">Guardar enlace</button>'+
       '<a class="btn sm" href="'+esc(p.urlML)+'" target="_blank" rel="noopener">Abrir la ficha en ML para sacarlo ↗</a></div>'+
-    '<div class="why"><b>Si ML dice «no está disponible»</b>Ese producto no tiene vendedor hoy y no sirve: elimínalo con el botón de su fila. La API no nos deja saberlo antes —el endpoint de ofertas responde 403 y la ficha pública contesta con el muro antibots de ML—, así que la bandeja no puede filtrarlos sola. Al publicar sí se sabe: el enlace de un producto pausado no da precio y <code>aplicar-nuevos.mjs</code> lo deja fuera.</div>'+
+    (p.seVende
+      ? '<div class="why" style="border-color:var(--ok)"><b>Este sí se está vendiendo</b>Salió del <b>ranking de más vendidos</b> de Mercado Libre, así que hoy tiene vendedor y stock. Es la única señal de disponibilidad que la API nos deja ver; de los 21 catálogos pausados que teníamos fichados, ninguno aparecía en ese ranking.</div>'
+      : '<div class="why" style="border-color:var(--warn)"><b>De este no sabemos si se vende</b>Salió de la búsqueda por términos, que no dice nada sobre el stock: si al abrir la ficha ML dice «no está disponible por el momento», elimínalo con el botón de su fila. No se puede filtrar antes —el endpoint de ofertas responde 403, <code>buy_box_winner</code> viene vacío hasta para el nº1 en ventas y la ficha pública contesta con el muro antibots—. Para trabajar solo sobre seguros, usa el filtro <b>«Nuevos · se venden hoy»</b>.</div>')+
     (p.posibleDuplicadoDe?'<div class="why" style="border-color:var(--warn)"><b>Posible duplicado</b>Se parece a <b>'+esc(p.posibleDuplicadoDe.nombre)+'</b> (id '+esc(p.posibleDuplicadoDe.id)+') por marca, contenido y sabor. No se descartó solo: un sabor o un tamaño distinto es otro producto. Compruébalo antes de publicar.</div>':'')+
     (p.descripcion?'<div class="why"><b>Descripción de Mercado Libre</b>'+esc(p.descripcion)+'</div>':'')+
     '<div class="row">'+
@@ -1113,7 +1123,7 @@ function banDetalle(p){
     '</div>'+
     '<p class="sm" style="margin:0">«Publicar» lo deja en la cola de este Centro; el producto entra a la base y a la página cuando yo corra <code>node scripts/aplicar-nuevos.mjs cambios.json --aplicar</code>. Nada se publica solo al pegar el enlace.</p>';
   var cuerpo=bTab==='carac'?cuerpoCarac:(bTab==='enlace'?cuerpoEnlace:cuerpoFicha);
-  el('pDetail').innerHTML='<div class="hd"><h3>'+esc(p.nombre)+'</h3>'+banChip(p)+(banDe(p)?' <span class="chip warn">editado aquí · falta aplicarlo</span>':'')+'</div>'+
+  el('pDetail').innerHTML='<div class="hd"><h3>'+esc(p.nombre)+'</h3>'+banChip(p)+' '+banVende(p)+(banDe(p)?' <span class="chip warn">editado aquí · falta aplicarlo</span>':'')+'</div>'+
     '<div class="bd" style="padding-bottom:0">'+pasos+'</div>'+
     '<div class="tabs" role="tablist">'+[['ficha','Identificación'],['carac','Características'],['enlace','Enlace y publicación']].map(function(t){
       return '<button type="button" role="tab" data-btab="'+t[0]+'" aria-selected="'+(bTab===t[0]?'true':'false')+'">'+t[1]+'</button>'}).join('')+'</div>'+
@@ -1520,6 +1530,8 @@ el('pcount').addEventListener('click',function(e){
   if(id==='bAlta'){banAltaLote();return}
   if(id==='bBorra'){banBorraLote();return}
   if(id==='bNada'){BMARCA={};pintarBandeja();return}   // aquí sí: hay que destildar las casillas
+  var fb=e.target.closest('[data-est]');
+  if(fb){ el('pest').value=fb.getAttribute('data-est'); pTope=200; pintarProductos(); return }
   if(id==='bCopia'){
     var cs=banCambios(), n=0;
     cs.forEach(function(c){n+=c.publicar.length+c.eliminar.length});
