@@ -1,12 +1,2135 @@
 {
-  "generado": "2026-11-26T00:01:16.783Z",
-  "estado": "sin-credencial",
-  "ga4": null,
-  "gsc": null,
-  "errores": [
-    {
-      "donde": "credencial",
-      "mensaje": "Falta GOOGLE_SERVICE_ACCOUNT_JSON (o scripts/.google-sa.json en la máquina)"
+  "generado": "2026-11-26T00:21:57.259Z",
+  "estado": "ok",
+  "ga4": {
+    "propiedad": "properties/550716422",
+    "nombre": "comparalo.mx",
+    "medicion": "G-9TKZ4ER13X",
+    "periodos": {
+      "7d": {
+        "dias": 7,
+        "actual": {
+          "desde": "2026-11-20",
+          "hasta": "2026-11-26",
+          "usuarios": 154,
+          "sesiones": 161,
+          "vistas": 864,
+          "eventos": 2156,
+          "clicsML": 31,
+          "clicsAmz": 0,
+          "clicsTienda": 31,
+          "leads": 0
+        },
+        "previo": {
+          "desde": "2026-11-13",
+          "hasta": "2026-11-19",
+          "usuarios": 275,
+          "sesiones": 291,
+          "vistas": 349,
+          "eventos": 1364,
+          "clicsML": 49,
+          "clicsAmz": 7,
+          "clicsTienda": 56,
+          "leads": 0
+        }
+      },
+      "28d": {
+        "dias": 28,
+        "actual": {
+          "desde": "2026-10-30",
+          "hasta": "2026-11-26",
+          "usuarios": 974,
+          "sesiones": 1046,
+          "vistas": 1995,
+          "eventos": 6264,
+          "clicsML": 139,
+          "clicsAmz": 33,
+          "clicsTienda": 172,
+          "leads": 0
+        },
+        "previo": {
+          "desde": "2026-10-02",
+          "hasta": "2026-10-29",
+          "usuarios": 660,
+          "sesiones": 734,
+          "vistas": 1365,
+          "eventos": 5661,
+          "clicsML": 110,
+          "clicsAmz": 89,
+          "clicsTienda": 199,
+          "leads": 0
+        }
+      }
+    },
+    "serie": [
+      {
+        "fecha": "2026-10-02",
+        "usuarios": 14,
+        "sesiones": 17,
+        "vistas": 24,
+        "clicsTienda": 4
+      },
+      {
+        "fecha": "2026-10-03",
+        "usuarios": 7,
+        "sesiones": 7,
+        "vistas": 8,
+        "clicsTienda": 1
+      },
+      {
+        "fecha": "2026-10-04",
+        "usuarios": 23,
+        "sesiones": 28,
+        "vistas": 101,
+        "clicsTienda": 6
+      },
+      {
+        "fecha": "2026-10-05",
+        "usuarios": 25,
+        "sesiones": 29,
+        "vistas": 72,
+        "clicsTienda": 22
+      },
+      {
+        "fecha": "2026-10-06",
+        "usuarios": 48,
+        "sesiones": 53,
+        "vistas": 96,
+        "clicsTienda": 96
+      },
+      {
+        "fecha": "2026-10-07",
+        "usuarios": 21,
+        "sesiones": 24,
+        "vistas": 43,
+        "clicsTienda": 2
+      },
+      {
+        "fecha": "2026-10-08",
+        "usuarios": 27,
+        "sesiones": 29,
+        "vistas": 47,
+        "clicsTienda": 0
+      },
+      {
+        "fecha": "2026-10-09",
+        "usuarios": 20,
+        "sesiones": 21,
+        "vistas": 50,
+        "clicsTienda": 0
+      },
+      {
+        "fecha": "2026-10-10",
+        "usuarios": 23,
+        "sesiones": 25,
+        "vistas": 64,
+        "clicsTienda": 0
+      },
+      {
+        "fecha": "2026-10-11",
+        "usuarios": 33,
+        "sesiones": 41,
+        "vistas": 103,
+        "clicsTienda": 3
+      },
+      {
+        "fecha": "2026-10-12",
+        "usuarios": 34,
+        "sesiones": 36,
+        "vistas": 66,
+        "clicsTienda": 2
+      },
+      {
+        "fecha": "2026-10-13",
+        "usuarios": 22,
+        "sesiones": 22,
+        "vistas": 22,
+        "clicsTienda": 2
+      },
+      {
+        "fecha": "2026-10-14",
+        "usuarios": 25,
+        "sesiones": 27,
+        "vistas": 37,
+        "clicsTienda": 3
+      },
+      {
+        "fecha": "2026-10-15",
+        "usuarios": 24,
+        "sesiones": 24,
+        "vistas": 32,
+        "clicsTienda": 8
+      },
+      {
+        "fecha": "2026-10-16",
+        "usuarios": 27,
+        "sesiones": 27,
+        "vistas": 41,
+        "clicsTienda": 3
+      },
+      {
+        "fecha": "2026-10-17",
+        "usuarios": 18,
+        "sesiones": 20,
+        "vistas": 150,
+        "clicsTienda": 2
+      },
+      {
+        "fecha": "2026-10-18",
+        "usuarios": 20,
+        "sesiones": 20,
+        "vistas": 29,
+        "clicsTienda": 1
+      },
+      {
+        "fecha": "2026-10-19",
+        "usuarios": 22,
+        "sesiones": 27,
+        "vistas": 38,
+        "clicsTienda": 2
+      },
+      {
+        "fecha": "2026-10-20",
+        "usuarios": 21,
+        "sesiones": 23,
+        "vistas": 27,
+        "clicsTienda": 2
+      },
+      {
+        "fecha": "2026-10-21",
+        "usuarios": 21,
+        "sesiones": 21,
+        "vistas": 53,
+        "clicsTienda": 5
+      },
+      {
+        "fecha": "2026-10-22",
+        "usuarios": 21,
+        "sesiones": 21,
+        "vistas": 28,
+        "clicsTienda": 1
+      },
+      {
+        "fecha": "2026-10-23",
+        "usuarios": 30,
+        "sesiones": 32,
+        "vistas": 33,
+        "clicsTienda": 1
+      },
+      {
+        "fecha": "2026-10-24",
+        "usuarios": 24,
+        "sesiones": 24,
+        "vistas": 26,
+        "clicsTienda": 3
+      },
+      {
+        "fecha": "2026-10-25",
+        "usuarios": 28,
+        "sesiones": 29,
+        "vistas": 37,
+        "clicsTienda": 14
+      },
+      {
+        "fecha": "2026-10-26",
+        "usuarios": 16,
+        "sesiones": 17,
+        "vistas": 17,
+        "clicsTienda": 6
+      },
+      {
+        "fecha": "2026-10-27",
+        "usuarios": 26,
+        "sesiones": 26,
+        "vistas": 32,
+        "clicsTienda": 5
+      },
+      {
+        "fecha": "2026-10-28",
+        "usuarios": 36,
+        "sesiones": 37,
+        "vistas": 43,
+        "clicsTienda": 3
+      },
+      {
+        "fecha": "2026-10-29",
+        "usuarios": 35,
+        "sesiones": 35,
+        "vistas": 46,
+        "clicsTienda": 2
+      },
+      {
+        "fecha": "2026-10-30",
+        "usuarios": 31,
+        "sesiones": 33,
+        "vistas": 39,
+        "clicsTienda": 13
+      },
+      {
+        "fecha": "2026-10-31",
+        "usuarios": 33,
+        "sesiones": 33,
+        "vistas": 39,
+        "clicsTienda": 2
+      },
+      {
+        "fecha": "2026-11-01",
+        "usuarios": 24,
+        "sesiones": 24,
+        "vistas": 25,
+        "clicsTienda": 7
+      },
+      {
+        "fecha": "2026-11-02",
+        "usuarios": 31,
+        "sesiones": 38,
+        "vistas": 73,
+        "clicsTienda": 6
+      },
+      {
+        "fecha": "2026-11-03",
+        "usuarios": 30,
+        "sesiones": 33,
+        "vistas": 38,
+        "clicsTienda": 2
+      },
+      {
+        "fecha": "2026-11-04",
+        "usuarios": 39,
+        "sesiones": 44,
+        "vistas": 70,
+        "clicsTienda": 7
+      },
+      {
+        "fecha": "2026-11-05",
+        "usuarios": 56,
+        "sesiones": 61,
+        "vistas": 88,
+        "clicsTienda": 3
+      },
+      {
+        "fecha": "2026-11-06",
+        "usuarios": 50,
+        "sesiones": 52,
+        "vistas": 62,
+        "clicsTienda": 9
+      },
+      {
+        "fecha": "2026-11-07",
+        "usuarios": 34,
+        "sesiones": 36,
+        "vistas": 42,
+        "clicsTienda": 8
+      },
+      {
+        "fecha": "2026-11-08",
+        "usuarios": 37,
+        "sesiones": 37,
+        "vistas": 43,
+        "clicsTienda": 3
+      },
+      {
+        "fecha": "2026-11-09",
+        "usuarios": 42,
+        "sesiones": 46,
+        "vistas": 74,
+        "clicsTienda": 9
+      },
+      {
+        "fecha": "2026-11-10",
+        "usuarios": 74,
+        "sesiones": 78,
+        "vistas": 95,
+        "clicsTienda": 3
+      },
+      {
+        "fecha": "2026-11-11",
+        "usuarios": 37,
+        "sesiones": 39,
+        "vistas": 49,
+        "clicsTienda": 6
+      },
+      {
+        "fecha": "2026-11-12",
+        "usuarios": 42,
+        "sesiones": 42,
+        "vistas": 45,
+        "clicsTienda": 7
+      },
+      {
+        "fecha": "2026-11-13",
+        "usuarios": 57,
+        "sesiones": 58,
+        "vistas": 70,
+        "clicsTienda": 8
+      },
+      {
+        "fecha": "2026-11-14",
+        "usuarios": 41,
+        "sesiones": 42,
+        "vistas": 56,
+        "clicsTienda": 6
+      },
+      {
+        "fecha": "2026-11-15",
+        "usuarios": 40,
+        "sesiones": 41,
+        "vistas": 46,
+        "clicsTienda": 8
+      },
+      {
+        "fecha": "2026-11-16",
+        "usuarios": 46,
+        "sesiones": 52,
+        "vistas": 66,
+        "clicsTienda": 7
+      },
+      {
+        "fecha": "2026-11-17",
+        "usuarios": 38,
+        "sesiones": 41,
+        "vistas": 49,
+        "clicsTienda": 15
+      },
+      {
+        "fecha": "2026-11-18",
+        "usuarios": 27,
+        "sesiones": 27,
+        "vistas": 31,
+        "clicsTienda": 4
+      },
+      {
+        "fecha": "2026-11-19",
+        "usuarios": 29,
+        "sesiones": 30,
+        "vistas": 31,
+        "clicsTienda": 8
+      },
+      {
+        "fecha": "2026-11-20",
+        "usuarios": 17,
+        "sesiones": 17,
+        "vistas": 20,
+        "clicsTienda": 4
+      },
+      {
+        "fecha": "2026-11-21",
+        "usuarios": 18,
+        "sesiones": 18,
+        "vistas": 25,
+        "clicsTienda": 2
+      },
+      {
+        "fecha": "2026-11-22",
+        "usuarios": 28,
+        "sesiones": 29,
+        "vistas": 35,
+        "clicsTienda": 3
+      },
+      {
+        "fecha": "2026-11-23",
+        "usuarios": 36,
+        "sesiones": 36,
+        "vistas": 51,
+        "clicsTienda": 10
+      },
+      {
+        "fecha": "2026-11-24",
+        "usuarios": 45,
+        "sesiones": 46,
+        "vistas": 702,
+        "clicsTienda": 7
+      },
+      {
+        "fecha": "2026-11-25",
+        "usuarios": 13,
+        "sesiones": 15,
+        "vistas": 31,
+        "clicsTienda": 5
+      }
+    ],
+    "paginas": [
+      {
+        "ruta": "/guias/celulares/celulares-menos-3000-mexico/",
+        "vistas": 130,
+        "usuarios": 114
+      },
+      {
+        "ruta": "/suplementos/proteina/",
+        "vistas": 123,
+        "usuarios": 107
+      },
+      {
+        "ruta": "/",
+        "vistas": 122,
+        "usuarios": 100
+      },
+      {
+        "ruta": "/suplementos/creatina/",
+        "vistas": 86,
+        "usuarios": 72
+      },
+      {
+        "ruta": "/guias/celulares/mejores-celulares-calidad-precio/",
+        "vistas": 81,
+        "usuarios": 75
+      },
+      {
+        "ruta": "/guias/celulares/mejores-celulares-menos-5000/",
+        "vistas": 75,
+        "usuarios": 63
+      },
+      {
+        "ruta": "/guias/celulares/celulares-5000-10000-mexico/",
+        "vistas": 50,
+        "usuarios": 50
+      },
+      {
+        "ruta": "/bicicletas/bici-montana/",
+        "vistas": 45,
+        "usuarios": 41
+      },
+      {
+        "ruta": "/suplementos/",
+        "vistas": 45,
+        "usuarios": 19
+      },
+      {
+        "ruta": "/electrodomesticos/cafeteras/",
+        "vistas": 43,
+        "usuarios": 38
+      },
+      {
+        "ruta": "/ofertas/",
+        "vistas": 38,
+        "usuarios": 29
+      },
+      {
+        "ruta": "/celulares/android/",
+        "vistas": 35,
+        "usuarios": 23
+      },
+      {
+        "ruta": "/suplementos/creatina/creatina-mexico-cual-comprar/",
+        "vistas": 32,
+        "usuarios": 27
+      },
+      {
+        "ruta": "/suplementos/proteina/proteina-whey-cual-comprar/",
+        "vistas": 32,
+        "usuarios": 31
+      },
+      {
+        "ruta": "/celulares/iphone/",
+        "vistas": 31,
+        "usuarios": 23
+      },
+      {
+        "ruta": "/guias/cafeteras/espresso-menos-2000/",
+        "vistas": 31,
+        "usuarios": 28
+      },
+      {
+        "ruta": "/videojuegos/consolas/",
+        "vistas": 31,
+        "usuarios": 22
+      },
+      {
+        "ruta": "/electrodomesticos/freidoras/",
+        "vistas": 27,
+        "usuarios": 24
+      },
+      {
+        "ruta": "/electrodomesticos/refrigeradores/",
+        "vistas": 26,
+        "usuarios": 21
+      },
+      {
+        "ruta": "/guias/celulares/celulares-buena-camara-economicos/",
+        "vistas": 26,
+        "usuarios": 27
+      },
+      {
+        "ruta": "/suplementos/proteina/proteina-por-precio-mexico-2026/",
+        "vistas": 26,
+        "usuarios": 26
+      },
+      {
+        "ruta": "/entretenimiento/streaming/",
+        "vistas": 25,
+        "usuarios": 15
+      },
+      {
+        "ruta": "/laptops/",
+        "vistas": 25,
+        "usuarios": 21
+      },
+      {
+        "ruta": "/suplementos/omega3/omega3-cual-comprar/",
+        "vistas": 24,
+        "usuarios": 22
+      },
+      {
+        "ruta": "/guias/celulares/celulares-buen-fin-2026-segun-presupuesto/",
+        "vistas": 23,
+        "usuarios": 22
+      },
+      {
+        "ruta": "/suplementos/complejo-b/",
+        "vistas": 23,
+        "usuarios": 22
+      },
+      {
+        "ruta": "/bicicletas/bici-electricas/",
+        "vistas": 22,
+        "usuarios": 18
+      },
+      {
+        "ruta": "/suplementos/omega3/",
+        "vistas": 22,
+        "usuarios": 20
+      },
+      {
+        "ruta": "/tecnologia/smartwatches/",
+        "vistas": 21,
+        "usuarios": 11
+      },
+      {
+        "ruta": "/bicis/",
+        "vistas": 18,
+        "usuarios": 18
+      }
+    ],
+    "fuentes": [
+      {
+        "fuente": "AI Assistant",
+        "sesiones": 756,
+        "usuarios": 729
+      },
+      {
+        "fuente": "Direct",
+        "sesiones": 240,
+        "usuarios": 203
+      },
+      {
+        "fuente": "Organic Social",
+        "sesiones": 19,
+        "usuarios": 16
+      },
+      {
+        "fuente": "Organic Search",
+        "sesiones": 18,
+        "usuarios": 18
+      },
+      {
+        "fuente": "Unassigned",
+        "sesiones": 9,
+        "usuarios": 9
+      },
+      {
+        "fuente": "Referral",
+        "sesiones": 2,
+        "usuarios": 2
+      },
+      {
+        "fuente": "Organic Shopping",
+        "sesiones": 1,
+        "usuarios": 1
+      }
+    ],
+    "eventos": [
+      {
+        "evento": "page_view",
+        "conteo": 1995,
+        "previo": 1365,
+        "clave": false
+      },
+      {
+        "evento": "session_start",
+        "conteo": 1044,
+        "previo": 742,
+        "clave": false
+      },
+      {
+        "evento": "first_visit",
+        "conteo": 967,
+        "previo": 655,
+        "clave": false
+      },
+      {
+        "evento": "user_engagement",
+        "conteo": 685,
+        "previo": 636,
+        "clave": false
+      },
+      {
+        "evento": "scroll",
+        "conteo": 634,
+        "previo": 215,
+        "clave": false
+      },
+      {
+        "evento": "comparison_section_view",
+        "conteo": 152,
+        "previo": 45,
+        "clave": false
+      },
+      {
+        "evento": "affiliate_click_ml",
+        "conteo": 139,
+        "previo": 110,
+        "clave": true
+      },
+      {
+        "evento": "click",
+        "conteo": 108,
+        "previo": 189,
+        "clave": false
+      },
+      {
+        "evento": "scroll_profundidad",
+        "conteo": 92,
+        "previo": 0,
+        "clave": false
+      },
+      {
+        "evento": "onboarding_step_view",
+        "conteo": 75,
+        "previo": 517,
+        "clave": false
+      },
+      {
+        "evento": "onboarding_shown",
+        "conteo": 67,
+        "previo": 473,
+        "clave": false
+      },
+      {
+        "evento": "click_seleccionar_comparar",
+        "conteo": 42,
+        "previo": 0,
+        "clave": false
+      },
+      {
+        "evento": "onboarding_closed",
+        "conteo": 35,
+        "previo": 379,
+        "clave": false
+      },
+      {
+        "evento": "affiliate_click_amazon",
+        "conteo": 32,
+        "previo": 89,
+        "clave": true
+      },
+      {
+        "evento": "select_product",
+        "conteo": 20,
+        "previo": 42,
+        "clave": false
+      },
+      {
+        "evento": "onboarding_completed",
+        "conteo": 15,
+        "previo": 116,
+        "clave": false
+      },
+      {
+        "evento": "search_open",
+        "conteo": 15,
+        "previo": 29,
+        "clave": false
+      },
+      {
+        "evento": "filter_price",
+        "conteo": 13,
+        "previo": 3,
+        "clave": false
+      },
+      {
+        "evento": "cta_click",
+        "conteo": 11,
+        "previo": 1,
+        "clave": false
+      },
+      {
+        "evento": "form_start",
+        "conteo": 10,
+        "previo": 9,
+        "clave": false
+      },
+      {
+        "evento": "guide_product_click",
+        "conteo": 9,
+        "previo": 0,
+        "clave": false
+      },
+      {
+        "evento": "historico_cerrar",
+        "conteo": 8,
+        "previo": 0,
+        "clave": false
+      },
+      {
+        "evento": "category_click",
+        "conteo": 7,
+        "previo": 14,
+        "clave": false
+      },
+      {
+        "evento": "click_comparar_categoria",
+        "conteo": 7,
+        "previo": 0,
+        "clave": false
+      },
+      {
+        "evento": "filtro_bajada_precio",
+        "conteo": 7,
+        "previo": 0,
+        "clave": true
+      },
+      {
+        "evento": "show_more",
+        "conteo": 7,
+        "previo": 0,
+        "clave": false
+      },
+      {
+        "evento": "historico_abrir",
+        "conteo": 6,
+        "previo": 0,
+        "clave": false
+      },
+      {
+        "evento": "historico_comparativa_view",
+        "conteo": 6,
+        "previo": 0,
+        "clave": false
+      },
+      {
+        "evento": "filter_brand",
+        "conteo": 5,
+        "previo": 3,
+        "clave": false
+      },
+      {
+        "evento": "filtro_aplicar",
+        "conteo": 4,
+        "previo": 0,
+        "clave": false
+      },
+      {
+        "evento": "guide_open",
+        "conteo": 4,
+        "previo": 6,
+        "clave": true
+      },
+      {
+        "evento": "historico_sin_datos",
+        "conteo": 4,
+        "previo": 0,
+        "clave": false
+      },
+      {
+        "evento": "compare_2_products",
+        "conteo": 3,
+        "previo": 1,
+        "clave": false
+      },
+      {
+        "evento": "compare_start",
+        "conteo": 3,
+        "previo": 3,
+        "clave": true
+      },
+      {
+        "evento": "form_submit",
+        "conteo": 3,
+        "previo": 5,
+        "clave": false
+      },
+      {
+        "evento": "guia_configurador",
+        "conteo": 3,
+        "previo": 0,
+        "clave": false
+      },
+      {
+        "evento": "ofertas_indice",
+        "conteo": 3,
+        "previo": 0,
+        "clave": false
+      },
+      {
+        "evento": "view_search_results",
+        "conteo": 3,
+        "previo": 6,
+        "clave": false
+      },
+      {
+        "evento": "filter_ram",
+        "conteo": 2,
+        "previo": 0,
+        "clave": false
+      },
+      {
+        "evento": "guide_compare_remove",
+        "conteo": 2,
+        "previo": 0,
+        "clave": false
+      },
+      {
+        "evento": "home_ver_todas_ofertas",
+        "conteo": 2,
+        "previo": 0,
+        "clave": false
+      },
+      {
+        "evento": "nav_search_select",
+        "conteo": 2,
+        "previo": 0,
+        "clave": false
+      },
+      {
+        "evento": "search_no_results",
+        "conteo": 2,
+        "previo": 0,
+        "clave": false
+      },
+      {
+        "evento": "search_product",
+        "conteo": 2,
+        "previo": 0,
+        "clave": false
+      },
+      {
+        "evento": "share",
+        "conteo": 2,
+        "previo": 1,
+        "clave": false
+      },
+      {
+        "evento": "affiliate_click_amz",
+        "conteo": 1,
+        "previo": 0,
+        "clave": true
+      },
+      {
+        "evento": "buscar_listado",
+        "conteo": 1,
+        "previo": 0,
+        "clave": false
+      },
+      {
+        "evento": "click_guia_cafeteras",
+        "conteo": 1,
+        "previo": 0,
+        "clave": false
+      },
+      {
+        "evento": "filter_storage",
+        "conteo": 1,
+        "previo": 0,
+        "clave": false
+      },
+      {
+        "evento": "guia_comparar",
+        "conteo": 1,
+        "previo": 0,
+        "clave": false
+      },
+      {
+        "evento": "leads_form_start",
+        "conteo": 1,
+        "previo": 2,
+        "clave": false
+      },
+      {
+        "evento": "share_click",
+        "conteo": 1,
+        "previo": 1,
+        "clave": false
+      },
+      {
+        "evento": "compare_3_products",
+        "conteo": 0,
+        "previo": 2,
+        "clave": false
+      },
+      {
+        "evento": "save_product",
+        "conteo": 0,
+        "previo": 2,
+        "clave": false
+      }
+    ]
+  },
+  "gsc": {
+    "sitio": "sc-domain:comparalo.mx",
+    "retrasoDias": 3,
+    "periodos": {
+      "7d": {
+        "dias": 7,
+        "actual": {
+          "desde": "2026-11-17",
+          "hasta": "2026-11-23",
+          "clics": 0,
+          "impresiones": 94,
+          "ctr": 0,
+          "posicion": 50.223404255319146
+        },
+        "previo": {
+          "desde": "2026-11-10",
+          "hasta": "2026-11-16",
+          "clics": 0,
+          "impresiones": 56,
+          "ctr": 0,
+          "posicion": 43.392857142857146
+        }
+      },
+      "28d": {
+        "dias": 28,
+        "actual": {
+          "desde": "2026-10-27",
+          "hasta": "2026-11-23",
+          "clics": 1,
+          "impresiones": 191,
+          "ctr": 0.005235602094240838,
+          "posicion": 44.92670157068063
+        },
+        "previo": {
+          "desde": "2026-09-29",
+          "hasta": "2026-10-26",
+          "clics": 1,
+          "impresiones": 109,
+          "ctr": 0.009174311926605505,
+          "posicion": 42.41284403669725
+        }
+      }
+    },
+    "semanas": [
+      {
+        "semana": "2026-08-31",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 81
+      },
+      {
+        "semana": "2026-09-07",
+        "clics": 0,
+        "impresiones": 28,
+        "ctr": 0,
+        "posicion": 38.5
+      },
+      {
+        "semana": "2026-09-14",
+        "clics": 1,
+        "impresiones": 32,
+        "ctr": 0.03125,
+        "posicion": 42.1875
+      },
+      {
+        "semana": "2026-09-21",
+        "clics": 0,
+        "impresiones": 34,
+        "ctr": 0,
+        "posicion": 27.705882352941178
+      },
+      {
+        "semana": "2026-09-28",
+        "clics": 0,
+        "impresiones": 22,
+        "ctr": 0,
+        "posicion": 39.95454545454545
+      },
+      {
+        "semana": "2026-10-05",
+        "clics": 0,
+        "impresiones": 29,
+        "ctr": 0,
+        "posicion": 41.689655172413794
+      },
+      {
+        "semana": "2026-10-12",
+        "clics": 1,
+        "impresiones": 31,
+        "ctr": 0.03225806451612903,
+        "posicion": 39.903225806451616
+      },
+      {
+        "semana": "2026-10-19",
+        "clics": 0,
+        "impresiones": 24,
+        "ctr": 0,
+        "posicion": 51.833333333333336
+      },
+      {
+        "semana": "2026-10-26",
+        "clics": 0,
+        "impresiones": 18,
+        "ctr": 0,
+        "posicion": 38
+      },
+      {
+        "semana": "2026-11-02",
+        "clics": 1,
+        "impresiones": 25,
+        "ctr": 0.04,
+        "posicion": 34.36
+      },
+      {
+        "semana": "2026-11-09",
+        "clics": 0,
+        "impresiones": 52,
+        "ctr": 0,
+        "posicion": 40.92307692307692
+      },
+      {
+        "semana": "2026-11-16",
+        "clics": 0,
+        "impresiones": 80,
+        "ctr": 0,
+        "posicion": 48.075
+      },
+      {
+        "semana": "2026-11-23",
+        "clics": 0,
+        "impresiones": 22,
+        "ctr": 0,
+        "posicion": 54.72727272727273
+      }
+    ],
+    "serieDias": [
+      {
+        "fecha": "2026-09-01",
+        "clics": 0,
+        "impresiones": 0
+      },
+      {
+        "fecha": "2026-09-02",
+        "clics": 0,
+        "impresiones": 0
+      },
+      {
+        "fecha": "2026-09-03",
+        "clics": 0,
+        "impresiones": 0
+      },
+      {
+        "fecha": "2026-09-04",
+        "clics": 0,
+        "impresiones": 0
+      },
+      {
+        "fecha": "2026-09-05",
+        "clics": 0,
+        "impresiones": 0
+      },
+      {
+        "fecha": "2026-09-06",
+        "clics": 0,
+        "impresiones": 1
+      },
+      {
+        "fecha": "2026-09-07",
+        "clics": 0,
+        "impresiones": 0
+      },
+      {
+        "fecha": "2026-09-08",
+        "clics": 0,
+        "impresiones": 0
+      },
+      {
+        "fecha": "2026-09-09",
+        "clics": 0,
+        "impresiones": 5
+      },
+      {
+        "fecha": "2026-09-10",
+        "clics": 0,
+        "impresiones": 1
+      },
+      {
+        "fecha": "2026-09-11",
+        "clics": 0,
+        "impresiones": 5
+      },
+      {
+        "fecha": "2026-09-12",
+        "clics": 0,
+        "impresiones": 5
+      },
+      {
+        "fecha": "2026-09-13",
+        "clics": 0,
+        "impresiones": 12
+      },
+      {
+        "fecha": "2026-09-14",
+        "clics": 0,
+        "impresiones": 2
+      },
+      {
+        "fecha": "2026-09-15",
+        "clics": 0,
+        "impresiones": 4
+      },
+      {
+        "fecha": "2026-09-16",
+        "clics": 0,
+        "impresiones": 1
+      },
+      {
+        "fecha": "2026-09-17",
+        "clics": 1,
+        "impresiones": 11
+      },
+      {
+        "fecha": "2026-09-18",
+        "clics": 0,
+        "impresiones": 6
+      },
+      {
+        "fecha": "2026-09-19",
+        "clics": 0,
+        "impresiones": 3
+      },
+      {
+        "fecha": "2026-09-20",
+        "clics": 0,
+        "impresiones": 5
+      },
+      {
+        "fecha": "2026-09-21",
+        "clics": 0,
+        "impresiones": 8
+      },
+      {
+        "fecha": "2026-09-22",
+        "clics": 0,
+        "impresiones": 10
+      },
+      {
+        "fecha": "2026-09-23",
+        "clics": 0,
+        "impresiones": 4
+      },
+      {
+        "fecha": "2026-09-24",
+        "clics": 0,
+        "impresiones": 3
+      },
+      {
+        "fecha": "2026-09-25",
+        "clics": 0,
+        "impresiones": 0
+      },
+      {
+        "fecha": "2026-09-26",
+        "clics": 0,
+        "impresiones": 4
+      },
+      {
+        "fecha": "2026-09-27",
+        "clics": 0,
+        "impresiones": 5
+      },
+      {
+        "fecha": "2026-09-28",
+        "clics": 0,
+        "impresiones": 3
+      },
+      {
+        "fecha": "2026-09-29",
+        "clics": 0,
+        "impresiones": 5
+      },
+      {
+        "fecha": "2026-09-30",
+        "clics": 0,
+        "impresiones": 5
+      },
+      {
+        "fecha": "2026-10-01",
+        "clics": 0,
+        "impresiones": 3
+      },
+      {
+        "fecha": "2026-10-02",
+        "clics": 0,
+        "impresiones": 1
+      },
+      {
+        "fecha": "2026-10-03",
+        "clics": 0,
+        "impresiones": 2
+      },
+      {
+        "fecha": "2026-10-04",
+        "clics": 0,
+        "impresiones": 3
+      },
+      {
+        "fecha": "2026-10-05",
+        "clics": 0,
+        "impresiones": 8
+      },
+      {
+        "fecha": "2026-10-06",
+        "clics": 0,
+        "impresiones": 4
+      },
+      {
+        "fecha": "2026-10-07",
+        "clics": 0,
+        "impresiones": 4
+      },
+      {
+        "fecha": "2026-10-08",
+        "clics": 0,
+        "impresiones": 5
+      },
+      {
+        "fecha": "2026-10-09",
+        "clics": 0,
+        "impresiones": 0
+      },
+      {
+        "fecha": "2026-10-10",
+        "clics": 0,
+        "impresiones": 5
+      },
+      {
+        "fecha": "2026-10-11",
+        "clics": 0,
+        "impresiones": 3
+      },
+      {
+        "fecha": "2026-10-12",
+        "clics": 0,
+        "impresiones": 5
+      },
+      {
+        "fecha": "2026-10-13",
+        "clics": 0,
+        "impresiones": 5
+      },
+      {
+        "fecha": "2026-10-14",
+        "clics": 0,
+        "impresiones": 1
+      },
+      {
+        "fecha": "2026-10-15",
+        "clics": 0,
+        "impresiones": 5
+      },
+      {
+        "fecha": "2026-10-16",
+        "clics": 0,
+        "impresiones": 9
+      },
+      {
+        "fecha": "2026-10-17",
+        "clics": 1,
+        "impresiones": 5
+      },
+      {
+        "fecha": "2026-10-18",
+        "clics": 0,
+        "impresiones": 1
+      },
+      {
+        "fecha": "2026-10-19",
+        "clics": 0,
+        "impresiones": 5
+      },
+      {
+        "fecha": "2026-10-20",
+        "clics": 0,
+        "impresiones": 1
+      },
+      {
+        "fecha": "2026-10-21",
+        "clics": 0,
+        "impresiones": 4
+      },
+      {
+        "fecha": "2026-10-22",
+        "clics": 0,
+        "impresiones": 4
+      },
+      {
+        "fecha": "2026-10-23",
+        "clics": 0,
+        "impresiones": 2
+      },
+      {
+        "fecha": "2026-10-24",
+        "clics": 0,
+        "impresiones": 5
+      },
+      {
+        "fecha": "2026-10-25",
+        "clics": 0,
+        "impresiones": 3
+      },
+      {
+        "fecha": "2026-10-26",
+        "clics": 0,
+        "impresiones": 6
+      },
+      {
+        "fecha": "2026-10-27",
+        "clics": 0,
+        "impresiones": 1
+      },
+      {
+        "fecha": "2026-10-28",
+        "clics": 0,
+        "impresiones": 1
+      },
+      {
+        "fecha": "2026-10-29",
+        "clics": 0,
+        "impresiones": 3
+      },
+      {
+        "fecha": "2026-10-30",
+        "clics": 0,
+        "impresiones": 3
+      },
+      {
+        "fecha": "2026-10-31",
+        "clics": 0,
+        "impresiones": 4
+      },
+      {
+        "fecha": "2026-11-01",
+        "clics": 0,
+        "impresiones": 0
+      },
+      {
+        "fecha": "2026-11-02",
+        "clics": 0,
+        "impresiones": 1
+      },
+      {
+        "fecha": "2026-11-03",
+        "clics": 0,
+        "impresiones": 5
+      },
+      {
+        "fecha": "2026-11-04",
+        "clics": 0,
+        "impresiones": 4
+      },
+      {
+        "fecha": "2026-11-05",
+        "clics": 1,
+        "impresiones": 9
+      },
+      {
+        "fecha": "2026-11-06",
+        "clics": 0,
+        "impresiones": 2
+      },
+      {
+        "fecha": "2026-11-07",
+        "clics": 0,
+        "impresiones": 0
+      },
+      {
+        "fecha": "2026-11-08",
+        "clics": 0,
+        "impresiones": 4
+      },
+      {
+        "fecha": "2026-11-09",
+        "clics": 0,
+        "impresiones": 4
+      },
+      {
+        "fecha": "2026-11-10",
+        "clics": 0,
+        "impresiones": 8
+      },
+      {
+        "fecha": "2026-11-11",
+        "clics": 0,
+        "impresiones": 4
+      },
+      {
+        "fecha": "2026-11-12",
+        "clics": 0,
+        "impresiones": 2
+      },
+      {
+        "fecha": "2026-11-13",
+        "clics": 0,
+        "impresiones": 9
+      },
+      {
+        "fecha": "2026-11-14",
+        "clics": 0,
+        "impresiones": 16
+      },
+      {
+        "fecha": "2026-11-15",
+        "clics": 0,
+        "impresiones": 9
+      },
+      {
+        "fecha": "2026-11-16",
+        "clics": 0,
+        "impresiones": 8
+      },
+      {
+        "fecha": "2026-11-17",
+        "clics": 0,
+        "impresiones": 27
+      },
+      {
+        "fecha": "2026-11-18",
+        "clics": 0,
+        "impresiones": 6
+      },
+      {
+        "fecha": "2026-11-19",
+        "clics": 0,
+        "impresiones": 5
+      },
+      {
+        "fecha": "2026-11-20",
+        "clics": 0,
+        "impresiones": 9
+      },
+      {
+        "fecha": "2026-11-21",
+        "clics": 0,
+        "impresiones": 8
+      },
+      {
+        "fecha": "2026-11-22",
+        "clics": 0,
+        "impresiones": 17
+      },
+      {
+        "fecha": "2026-11-23",
+        "clics": 0,
+        "impresiones": 22
+      }
+    ],
+    "consultas": [
+      {
+        "consulta": "apple comparar",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 2
+      },
+      {
+        "consulta": "bicicleta de ruta",
+        "clics": 0,
+        "impresiones": 3,
+        "ctr": 0,
+        "posicion": 67.66666666666667
+      },
+      {
+        "consulta": "bicicleta de rutas",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 66
+      },
+      {
+        "consulta": "bicicletas de ruta",
+        "clics": 0,
+        "impresiones": 3,
+        "ctr": 0,
+        "posicion": 61
+      },
+      {
+        "consulta": "bocinas buen fin",
+        "clics": 0,
+        "impresiones": 2,
+        "ctr": 0,
+        "posicion": 42.5
+      },
+      {
+        "consulta": "breville",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 6
+      },
+      {
+        "consulta": "cafetera blanca",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 56
+      },
+      {
+        "consulta": "cafetera de espresso",
+        "clics": 0,
+        "impresiones": 2,
+        "ctr": 0,
+        "posicion": 49
+      },
+      {
+        "consulta": "cafetera de expreso",
+        "clics": 0,
+        "impresiones": 4,
+        "ctr": 0,
+        "posicion": 42.5
+      },
+      {
+        "consulta": "cafetera de grano",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 66
+      },
+      {
+        "consulta": "cafetera de grano entero",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 68
+      },
+      {
+        "consulta": "cafetera economica",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 50
+      },
+      {
+        "consulta": "cafetera espresso",
+        "clics": 0,
+        "impresiones": 5,
+        "ctr": 0,
+        "posicion": 51.4
+      },
+      {
+        "consulta": "cafetera expreso",
+        "clics": 0,
+        "impresiones": 7,
+        "ctr": 0,
+        "posicion": 39
+      },
+      {
+        "consulta": "cafetera express",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 58
+      },
+      {
+        "consulta": "cafetera fuego directo",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 47
+      },
+      {
+        "consulta": "cafetera grano",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 68
+      },
+      {
+        "consulta": "cafetera modernas",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 75
+      },
+      {
+        "consulta": "cafetera para cafe de grano",
+        "clics": 0,
+        "impresiones": 2,
+        "ctr": 0,
+        "posicion": 54.5
+      },
+      {
+        "consulta": "cafetera para espresso",
+        "clics": 0,
+        "impresiones": 3,
+        "ctr": 0,
+        "posicion": 47.333333333333336
+      },
+      {
+        "consulta": "cafetera para espresso y capuchino",
+        "clics": 0,
+        "impresiones": 2,
+        "ctr": 0,
+        "posicion": 43
+      },
+      {
+        "consulta": "cafetera para granos de cafe",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 53
+      },
+      {
+        "consulta": "cafeteras baratas y buenas",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 58
+      },
+      {
+        "consulta": "cafeteras con filtro permanente",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 51
+      },
+      {
+        "consulta": "cafeteras de espresso",
+        "clics": 0,
+        "impresiones": 2,
+        "ctr": 0,
+        "posicion": 50
+      },
+      {
+        "consulta": "cafeteras económicas",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 49
+      },
+      {
+        "consulta": "cafeteras espresso",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 56
+      },
+      {
+        "consulta": "celulares",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 1
+      },
+      {
+        "consulta": "celulares 2024",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 2
+      },
+      {
+        "consulta": "celulares baratos con buena camara de maximo 1800 pesos",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 10
+      },
+      {
+        "consulta": "comparacion de productos",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 92
+      },
+      {
+        "consulta": "comparador de precios mexico",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 84
+      },
+      {
+        "consulta": "comparador de productos",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 93
+      },
+      {
+        "consulta": "comparalo con",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 3
+      },
+      {
+        "consulta": "comparar celulares",
+        "clics": 0,
+        "impresiones": 3,
+        "ctr": 0,
+        "posicion": 86.33333333333333
+      },
+      {
+        "consulta": "comparlo",
+        "clics": 0,
+        "impresiones": 2,
+        "ctr": 0,
+        "posicion": 4
+      },
+      {
+        "consulta": "comprar electrodomésticos",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 24
+      },
+      {
+        "consulta": "comprar smartphone",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 85
+      },
+      {
+        "consulta": "cuanto cuesta la proteina",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 89
+      },
+      {
+        "consulta": "electrodomésticos baratos",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 70
+      }
+    ],
+    "paginas": [
+      {
+        "url": "https://comparalo.mx/",
+        "ruta": "/",
+        "clics": 1,
+        "impresiones": 22,
+        "ctr": 0.045454545454545456,
+        "posicion": 15.363636363636363
+      },
+      {
+        "url": "https://comparalo.mx/bicicletas/bici-ruta/",
+        "ruta": "/bicicletas/bici-ruta/",
+        "clics": 0,
+        "impresiones": 7,
+        "ctr": 0,
+        "posicion": 64.57142857142857
+      },
+      {
+        "url": "https://comparalo.mx/bicis/",
+        "ruta": "/bicis/",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 2
+      },
+      {
+        "url": "https://comparalo.mx/celulares/",
+        "ruta": "/celulares/",
+        "clics": 0,
+        "impresiones": 9,
+        "ctr": 0,
+        "posicion": 53.888888888888886
+      },
+      {
+        "url": "https://comparalo.mx/celulares/android/",
+        "ruta": "/celulares/android/",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 9
+      },
+      {
+        "url": "https://comparalo.mx/como-comprar-suplementos-originales-amazon-mercado-libre-mexico.html",
+        "ruta": "/como-comprar-suplementos-originales-amazon-mercado-libre-mexico.html",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 4
+      },
+      {
+        "url": "https://comparalo.mx/creatina-mexico-2026-cual-comprar.html",
+        "ruta": "/creatina-mexico-2026-cual-comprar.html",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 2
+      },
+      {
+        "url": "https://comparalo.mx/electrodomesticos.html",
+        "ruta": "/electrodomesticos.html",
+        "clics": 0,
+        "impresiones": 8,
+        "ctr": 0,
+        "posicion": 52.25
+      },
+      {
+        "url": "https://comparalo.mx/electrodomesticos/",
+        "ruta": "/electrodomesticos/",
+        "clics": 0,
+        "impresiones": 2,
+        "ctr": 0,
+        "posicion": 3.5
+      },
+      {
+        "url": "https://comparalo.mx/electrodomesticos/cafeteras/",
+        "ruta": "/electrodomesticos/cafeteras/",
+        "clics": 0,
+        "impresiones": 70,
+        "ctr": 0,
+        "posicion": 47.2
+      },
+      {
+        "url": "https://comparalo.mx/electrodomesticos/microondas/",
+        "ruta": "/electrodomesticos/microondas/",
+        "clics": 0,
+        "impresiones": 2,
+        "ctr": 0,
+        "posicion": 74.5
+      },
+      {
+        "url": "https://comparalo.mx/electrodomesticos/refrigeradores/",
+        "ruta": "/electrodomesticos/refrigeradores/",
+        "clics": 0,
+        "impresiones": 31,
+        "ctr": 0,
+        "posicion": 48.83870967741935
+      },
+      {
+        "url": "https://comparalo.mx/entretenimiento/",
+        "ruta": "/entretenimiento/",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 6
+      },
+      {
+        "url": "https://comparalo.mx/guias-amazon/",
+        "ruta": "/guias-amazon/",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 97
+      },
+      {
+        "url": "https://comparalo.mx/guias-amazon/celulares-android/",
+        "ruta": "/guias-amazon/celulares-android/",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 72
+      },
+      {
+        "url": "https://comparalo.mx/guias-amazon/freidoras/",
+        "ruta": "/guias-amazon/freidoras/",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 6
+      },
+      {
+        "url": "https://comparalo.mx/guias-compra/freidoras/",
+        "ruta": "/guias-compra/freidoras/",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 47
+      },
+      {
+        "url": "https://comparalo.mx/guias/",
+        "ruta": "/guias/",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 4
+      },
+      {
+        "url": "https://comparalo.mx/guias/cafeteras/superautomatica-vs-semiautomatica/",
+        "ruta": "/guias/cafeteras/superautomatica-vs-semiautomatica/",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 34
+      },
+      {
+        "url": "https://comparalo.mx/guias/calendario-ofertas-amazon-mercado-libre-mexico-2026/",
+        "ruta": "/guias/calendario-ofertas-amazon-mercado-libre-mexico-2026/",
+        "clics": 0,
+        "impresiones": 4,
+        "ctr": 0,
+        "posicion": 76.5
+      },
+      {
+        "url": "https://comparalo.mx/guias/celulares/celulares-5000-10000-mexico/",
+        "ruta": "/guias/celulares/celulares-5000-10000-mexico/",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 1
+      },
+      {
+        "url": "https://comparalo.mx/guias/celulares/celulares-buen-fin-2026-segun-presupuesto/",
+        "ruta": "/guias/celulares/celulares-buen-fin-2026-segun-presupuesto/",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 1
+      },
+      {
+        "url": "https://comparalo.mx/guias/celulares/celulares-buena-camara-economicos/",
+        "ruta": "/guias/celulares/celulares-buena-camara-economicos/",
+        "clics": 0,
+        "impresiones": 2,
+        "ctr": 0,
+        "posicion": 9.5
+      },
+      {
+        "url": "https://comparalo.mx/guias/electrodomesticos/cafeteras-mexico-2026/",
+        "ruta": "/guias/electrodomesticos/cafeteras-mexico-2026/",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 1
+      },
+      {
+        "url": "https://comparalo.mx/guias/laptops/macbook-reacondicionadas/",
+        "ruta": "/guias/laptops/macbook-reacondicionadas/",
+        "clics": 0,
+        "impresiones": 6,
+        "ctr": 0,
+        "posicion": 33.166666666666664
+      },
+      {
+        "url": "https://comparalo.mx/guias/laptops/mejores-macbook-calidad-precio/",
+        "ruta": "/guias/laptops/mejores-macbook-calidad-precio/",
+        "clics": 0,
+        "impresiones": 5,
+        "ctr": 0,
+        "posicion": 54.8
+      },
+      {
+        "url": "https://comparalo.mx/guias/tecnologia/bocinas-buen-fin-2026/",
+        "ruta": "/guias/tecnologia/bocinas-buen-fin-2026/",
+        "clics": 0,
+        "impresiones": 2,
+        "ctr": 0,
+        "posicion": 42.5
+      },
+      {
+        "url": "https://comparalo.mx/laptops/",
+        "ruta": "/laptops/",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 3
+      },
+      {
+        "url": "https://comparalo.mx/laptops/como-elegir-laptop/",
+        "ruta": "/laptops/como-elegir-laptop/",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 7
+      },
+      {
+        "url": "https://comparalo.mx/laptops/laptop-para-universidad/",
+        "ruta": "/laptops/laptop-para-universidad/",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 25
+      },
+      {
+        "url": "https://comparalo.mx/suplementos.html",
+        "ruta": "/suplementos.html",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 5
+      },
+      {
+        "url": "https://comparalo.mx/suplementos/como-comprar-suplementos-originales/",
+        "ruta": "/suplementos/como-comprar-suplementos-originales/",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 7
+      },
+      {
+        "url": "https://comparalo.mx/suplementos/creatina/creatina-vs-proteina/",
+        "ruta": "/suplementos/creatina/creatina-vs-proteina/",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 51
+      },
+      {
+        "url": "https://comparalo.mx/suplementos/magnesio/",
+        "ruta": "/suplementos/magnesio/",
+        "clics": 0,
+        "impresiones": 2,
+        "ctr": 0,
+        "posicion": 8
+      },
+      {
+        "url": "https://comparalo.mx/suplementos/proteina-con-creatina/",
+        "ruta": "/suplementos/proteina-con-creatina/",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 8
+      },
+      {
+        "url": "https://comparalo.mx/suplementos/proteina/",
+        "ruta": "/suplementos/proteina/",
+        "clics": 0,
+        "impresiones": 8,
+        "ctr": 0,
+        "posicion": 75.25
+      },
+      {
+        "url": "https://comparalo.mx/tecnologia/audifonos/",
+        "ruta": "/tecnologia/audifonos/",
+        "clics": 0,
+        "impresiones": 2,
+        "ctr": 0,
+        "posicion": 18
+      },
+      {
+        "url": "https://comparalo.mx/tecnologia/bocinas/",
+        "ruta": "/tecnologia/bocinas/",
+        "clics": 0,
+        "impresiones": 1,
+        "ctr": 0,
+        "posicion": 59
+      }
+    ]
+  },
+  "errores": [],
+  "semana": {
+    "desde": "2026-11-20",
+    "hasta": "2026-11-26",
+    "usuarios": 154,
+    "sesiones": 161,
+    "vistas": 864,
+    "clicsTienda": 31,
+    "clicsML": 31,
+    "clicsAmz": 0,
+    "impresiones": 94,
+    "clicsBusqueda": 0,
+    "ctr": 0,
+    "posicion": 50.223404255319146,
+    "cambio": {
+      "usuarios": -0.44,
+      "clicsTienda": -0.44642857142857145,
+      "impresiones": 0.6785714285714286,
+      "clicsBusqueda": null
     }
-  ]
+  }
 }
