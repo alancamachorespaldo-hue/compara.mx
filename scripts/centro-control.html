@@ -269,6 +269,7 @@ tbody tr.sel td:first-child{box-shadow:inset 3px 0 0 var(--ac)}
       <!-- GESTOR -->
       <section class="view" id="v-productos" hidden>
         <div class="sec">
+          <div class="row" id="pKpis" style="margin-bottom:10px"></div>
           <div class="row" style="margin-bottom:12px">
             <input class="inp" id="pq" type="search" placeholder="Nombre, id, marca o MLM…" style="flex:1;min-width:200px">
             <select class="inp" id="pcat"></select>
@@ -284,6 +285,9 @@ tbody tr.sel td:first-child{box-shadow:inset 3px 0 0 var(--ac)}
               <option value="sin-tienda">Sin tienda</option>
               <option value="inactivo">Inactivo</option>
               <option value="eliminado">Marcados como eliminados</option>
+              <option value="nuevos">Nuevos sin publicar (bandeja)</option>
+              <option value="nuevos-sin-enlace">Nuevos · pendientes de enlace</option>
+              <option value="nuevos-sin-validar">Nuevos · pendientes de validación</option>
             </select>
             <select class="inp" id="ptienda">
               <option value="">Cualquier tienda</option>
@@ -303,11 +307,13 @@ tbody tr.sel td:first-child{box-shadow:inset 3px 0 0 var(--ac)}
                   <button class="btn sm copy" type="button" data-copy="node scripts/precios-por-link.mjs --todas --aplicar&#10;node scripts/sync-pausas.js">Copiar comando</button>
                   <a class="btn sm" id="pRevisar" href="https://github.com/alancamachorespaldo-hue/compara.mx/actions/workflows/revisar-disponibilidad.yml" target="_blank" rel="noopener">Revisar todos los enlaces ↗</a>
                   <button class="btn sm copy" type="button" data-copy="node scripts/revisar-disponibilidad.js --todas --links --aplicar&#10;node scripts/sync-pausas.js">Copiar comando</button>
+                  <a class="btn pri sm" id="pBuscarCat" href="https://github.com/alancamachorespaldo-hue/compara.mx/actions/workflows/descubrir-catalogo.yml" target="_blank" rel="noopener">🔎 Buscar catálogo en API de Mercado Libre ↗</a>
+                  <button class="btn sm copy" id="pBuscarCmd" type="button" data-copy="node scripts/descubrir-catalogo.mjs --categoria=proteina --aplicar">Copiar comando</button>
                 </span>
               </div>
               <div class="tbl-wrap tall">
                 <table>
-                  <thead><tr><th>Producto</th><th>Categoría</th><th class="num">ML</th><th class="num">Amazon</th><th>En la web</th></tr></thead>
+                  <thead id="pHead"><tr><th>Producto</th><th>Categoría</th><th class="num">ML</th><th class="num">Amazon</th><th>En la web</th></tr></thead>
                   <tbody id="pRows"></tbody>
                 </table>
               </div>
@@ -809,6 +815,12 @@ var ESTADO={ok:['ok','Sin problema'],'sin-id':['warn','Sin ID'],'pausado-ml':['w
 function pintarProductos(){
   pedirImgs();
   if(!el('pcat').options.length)llenarSelects();
+  pintarKpis();
+  // El filtro «Nuevos sin publicar» no mira la base: mira la bandeja, que es otra lista con
+  // otras columnas. Se desvía aquí para no mezclar las dos en la misma función.
+  if(modoBandeja()){pintarBandeja();return}
+  if(BSEL){BSEL=null; el('pDetail').innerHTML='<div class="bd"><div class="empty">Elige un producto de la lista.</div></div>'}
+  el('pHead').innerHTML='<tr><th>Producto</th><th>Categoría</th><th class="num">ML</th><th class="num">Amazon</th><th>En la web</th></tr>';
   var lista=filtrados();
   // El panorama se cuenta SIN el desplegable de estado: elegir "pausados" no debe hacer que el
   // resto de las cifras se desplomen, que es justo cuando uno las quiere comparar.
@@ -871,6 +883,271 @@ function pResumenHTML(p){
   (p.linkML?'<div class="row"><pre class="pre" style="flex:1">'+esc(p.linkML)+'</pre><button class="btn sm copy" data-copy="'+esc(p.linkML)+'" type="button">Copiar</button></div>':'')+
   '<p class="sm" style="margin:0">Para cambiar precio, enlaces, pausas o el ID de catálogo, abre la pestaña <b>Editar</b>. Lo que guardes ahí vive en este Centro hasta que yo lo aplique a la base con <code>scripts/aplicar-productos.mjs</code>.</p>';
 }
+/* ───────── bandeja de productos nuevos (descubiertos por la API de catálogo) ─────────
+   De dónde sale: `descubrir-catalogo.mjs` busca en /products/search de Mercado Libre, descarta
+   lo que no es de la categoría y deja lo que NO tenemos en scripts/bandeja-nuevos.json. Aquí se
+   lee la versión recortada que publica generar-centro.js al lado (bandeja.json), y se pide solo
+   al entrar al filtro: son cientos de fichas con todos sus atributos y no tienen por qué pesar
+   en el arranque.
+
+   NADA de lo que se toca aquí llega al sitio solo. Lo que Alan decide (enlace de afiliado,
+   correcciones, publicar, eliminar) se guarda en el almacenamiento de este Centro, igual que las
+   demás ediciones, y de ahí sale con «Copiar cambios» para aplicarlo con
+   `node scripts/aplicar-nuevos.mjs cambios.json --aplicar`, que es quien vuelve a comprobar que
+   el enlace abra DE VERDAD ese ID de catálogo antes de publicar nada. */
+var BAN=null, BSEL=null, BEDI={}, bTab='ficha', bPedida=false;
+function modoBandeja(){var v=el('pest').value;return v==='nuevos'||v==='nuevos-sin-enlace'||v==='nuevos-sin-validar'}
+function banKey(cat,id){return cat+'__'+String(id)}
+function banDe(p){return BEDI[banKey(p.cat,p.id)]||null}
+/** Lo que hoy se ve en la ficha: lo que trajo la API con lo editado aquí encima. */
+function banVista(p){
+  var e=banDe(p)||{};
+  return {
+    linkML:(e.linkML!==undefined&&e.linkML!==null)?e.linkML:(p.linkML||''),
+    linkAmz:(e.linkAmz!==undefined&&e.linkAmz!==null)?e.linkAmz:(p.linkAmz||''),
+    especs:Object.assign({},p.especs||{},e.especs||{}),
+    accion:e.accion||null
+  };
+}
+function pedirBandeja(){
+  if(bPedida)return; bPedida=true;
+  fetch('bandeja.json').then(function(r){return r.ok?r.json():null}).catch(function(){return null})
+    .then(function(j){
+      BAN=j||{};
+      if(VIEW==='productos')pintarProductos();
+    });
+}
+/** Las fichas pendientes, ya filtradas por categoría, texto y sub-estado. */
+function banLista(){
+  if(!BAN)return [];
+  var cat=el('pcat').value, q=el('pq').value.trim().toLowerCase(), est=el('pest').value, out=[];
+  Object.keys(BAN).forEach(function(c){
+    if(cat&&c!==cat)return;
+    (BAN[c].productos||[]).forEach(function(p){
+      var x=Object.assign({},p,{cat:c,catTitulo:BAN[c].titulo||c});
+      var v=banVista(x);
+      if(v.accion==='eliminar')return;
+      if(est==='nuevos-sin-enlace'&&v.linkML)return;
+      if(est==='nuevos-sin-validar'&&!banFaltan(x).length)return;
+      if(q){
+        var h=(x.nombre+' '+x.id+' '+(x.marca||'')+' '+(x.gtin||[]).join(' ')).toLowerCase();
+        if(h.indexOf(q)<0)return;
+      }
+      out.push(x);
+    });
+  });
+  return out;
+}
+/** Una ficha de la bandeja por categoría + ID de catálogo. */
+function banBuscar(cat,id){
+  if(!BAN||!BAN[cat])return null;
+  var ps=BAN[cat].productos||[];
+  for(var i=0;i<ps.length;i++)if(ps[i].id===id)return Object.assign({},ps[i],{cat:cat,catTitulo:BAN[cat].titulo||cat});
+  return null;
+}
+/** Características obligatorias de la categoría que siguen vacías. */
+function banFaltan(p){
+  var ob=(BAN&&BAN[p.cat]&&BAN[p.cat].obligatorias)||[], v=banVista(p).especs;
+  return ob.filter(function(k){return v[k]===undefined||v[k]===null||String(v[k]).trim()===''});
+}
+/** Las comprobaciones del paso «Completar y validar», las mismas que repite aplicar-nuevos.mjs. */
+function banValida(p){
+  var v=banVista(p), falta=banFaltan(p), r=[];
+  r.push([!!p.nombre&&!!p.marca,'Identidad del producto (nombre y marca)']);
+  r.push([/^MLM\d{6,12}$/.test(p.id),'ID de catálogo de Mercado Libre']);
+  r.push([!!p.imagen,'Imagen válida']);
+  r.push([!falta.length,'Características obligatorias'+(falta.length?': falta '+falta.join(', '):'')]);
+  r.push([!p.posibleDuplicadoDe,'Sin duplicado en la base'+(p.posibleDuplicadoDe?' (se parece a «'+p.posibleDuplicadoDe.nombre+'»)':'')]);
+  r.push([/^https?:\/\//.test(v.linkML),'Enlace de afiliado de Mercado Libre']);
+  if(v.linkAmz)r.push([v.linkAmz.indexOf('tag='+TAG_AMZ)>=0,'El enlace de Amazon lleva tag='+TAG_AMZ]);
+  return r;
+}
+function banOk(p){
+  var v=banValida(p), ok=true;
+  v.forEach(function(x){if(!x[0])ok=false});
+  return ok;
+}
+function banChip(p){
+  var v=banVista(p);
+  if(v.accion==='publicar')return '<span class="chip ok">● Listo para publicar</span>';
+  if(p.estado==='revisar')return '<span class="chip warn">○ Revisar · posible duplicado</span>';
+  if(!v.linkML)return '<span class="chip warn">○ Nuevo · falta enlace</span>';
+  if(banFaltan(p).length)return '<span class="chip warn">○ Nuevo · falta validar</span>';
+  return '<span class="chip">○ Nuevo sin publicar</span>';
+}
+function banImg(p){return (IMGS&&IMGS['bandeja:'+p.id])||''}
+function pintarBandeja(){
+  pedirImgs(); pedirBandeja();
+  if(!BAN){
+    el('pHead').innerHTML='<tr><th>Producto</th></tr>';
+    el('pRows').innerHTML='<tr><td><div class="empty">Cargando la bandeja…</div></td></tr>';
+    el('pMore').hidden=true;
+    el('pcount').innerHTML='<span class="sm">Bandeja de productos nuevos</span>';
+    return;
+  }
+  var lista=banLista();
+  el('pHead').innerHTML='<tr><th>Producto</th><th>Marca</th><th>Categoría</th><th>Características</th>'+
+    '<th class="num">Precio ML</th><th>ID de catálogo</th><th>Estado</th><th>Enlace de afiliado</th><th>Acción</th></tr>';
+  var vis=lista.slice(0,pTope);
+  el('pRows').innerHTML=vis.length?vis.map(function(p){
+    var v=banVista(p), e=v.especs;
+    var carac=[e.contenidoGramos?e.contenidoGramos+' g':'',e.sabor||'',e.porciones?e.porciones+' porciones':'',e.tipoProteina||'']
+      .filter(function(x){return x}).slice(0,3).join(' · ');
+    return '<tr data-b="'+esc(p.cat+'|'+p.id)+'"'+(BSEL&&BSEL.id===p.id?' class="sel"':'')+'>'+
+      '<td><div class="cel">'+(banImg(p)?'<img class="thumb" src="'+esc(banImg(p))+'" alt="" loading="lazy">':'<span class="thumb ph">▢</span>')+
+        '<span><span class="nm">'+esc(p.nombre)+'</span><span class="sm">'+esc(p.modelo||'')+'</span></span></div></td>'+
+      '<td class="sm">'+esc(p.marca||'—')+'</td>'+
+      '<td class="sm">'+esc(p.catTitulo)+'</td>'+
+      '<td class="sm">'+esc(carac||'—')+'</td>'+
+      '<td class="num sm">'+(v.linkML?'al publicar':'—')+'</td>'+
+      '<td class="sm"><code>'+esc(p.id)+'</code></td>'+
+      '<td>'+banChip(p)+'</td>'+
+      '<td>'+(v.linkML?'<button class="btn sm" type="button" data-blink="'+esc(p.cat+'|'+p.id)+'">Ver / editar</button>'
+                     :'<button class="btn sm pri" type="button" data-blink="'+esc(p.cat+'|'+p.id)+'">Agregar enlace</button>')+'</td>'+
+      '<td><button class="btn sm" type="button" data-bdel="'+esc(p.cat+'|'+p.id)+'" title="Quitar de la bandeja (no toca la base)">Eliminar</button></td></tr>';
+  }).join(''):'<tr><td colspan="9"><div class="empty">'+
+    (Object.keys(BAN).length?'Nada pendiente con esos filtros.':'La bandeja está vacía. Usa «Buscar catálogo en API de Mercado Libre» para llenarla.')+'</div></td></tr>';
+  el('pMore').hidden=lista.length<=pTope;
+  el('pMore').textContent='Mostrar más ('+fmt(lista.length-vis.length)+' restantes)';
+  var cat=el('pcat').value, info=cat&&BAN[cat]?BAN[cat]:null;
+  el('pcount').innerHTML='<span class="sm">Bandeja de productos nuevos</span> '+
+    '<span class="chip">'+fmt(lista.length)+' sin publicar</span> '+
+    (info&&info.actualizado?'<span class="sm">· búsqueda del '+esc(fecha(info.actualizado))+'</span>':
+      '<span class="sm">· lo que encontró la última búsqueda por categoría</span>');
+}
+/* Panel derecho de una ficha de la bandeja: los tres pasos del alta, sin salir de aquí. */
+function banDetalle(p){
+  BSEL=p; pSel=null;
+  var v=banVista(p), ok=banOk(p), val=banValida(p);
+  var ob=(BAN[p.cat]&&BAN[p.cat].obligatorias)||[];
+  var claves=Object.keys(v.especs);
+  ob.forEach(function(k){if(claves.indexOf(k)<0)claves.push(k)});
+  var paso=v.accion==='publicar'?3:(v.linkML?2:1);
+  var pasos=['1. Detectado','2. Completar y validar','3. Publicar'].map(function(t,i){
+    return '<span class="chip '+(i+1<paso?'ok':(i+1===paso?'warn':'mute'))+'">'+(i+1<paso?'✓ ':'')+esc(t)+'</span>';
+  }).join(' ');
+  var cuerpoFicha =
+    (banImg(p)?'<img src="'+esc(banImg(p))+'" alt="" style="max-height:130px;align-self:flex-start;border-radius:10px;border:1px solid var(--line)">':'')+
+    '<dl class="kv">'+
+      '<dt>Marca</dt><dd>'+esc(p.marca||'—')+'</dd>'+
+      '<dt>Categoría</dt><dd>'+esc(p.catTitulo)+'</dd>'+
+      '<dt>ID de catálogo</dt><dd><code>'+esc(p.id)+'</code> <button class="btn sm copy" type="button" data-copy="'+esc(p.id)+'">Copiar</button></dd>'+
+      '<dt>GTIN / EAN</dt><dd>'+((p.gtin||[]).length?esc(p.gtin.join(', ')):'<span class="sm">no lo da esta ficha</span>')+'</dd>'+
+      '<dt>Precio</dt><dd><span class="sm">la API no lo da: sale del enlace de afiliado al publicar</span></dd>'+
+      '<dt>Detectado</dt><dd>'+esc(fecha(p.detectadoEn))+(p.termino?' <span class="sm">buscando «'+esc(p.termino)+'»</span>':'')+'</dd>'+
+    '</dl>'+
+    (p.posibleDuplicadoDe?'<div class="why" style="border-color:var(--warn)"><b>Posible duplicado</b>Se parece a <b>'+esc(p.posibleDuplicadoDe.nombre)+'</b> (id '+esc(p.posibleDuplicadoDe.id)+') por marca, contenido y sabor. No se descartó solo: un sabor o un tamaño distinto es otro producto. Compruébalo antes de publicar.</div>':'')+
+    (p.descripcion?'<div class="why"><b>Descripción de Mercado Libre</b>'+esc(p.descripcion)+'</div>':'')+
+    '<div class="row">'+
+      '<a class="btn sm" href="'+esc(p.urlML)+'" target="_blank" rel="noopener">Ficha de catálogo ↗</a>'+
+      (p.imagen?'<a class="btn sm" href="'+esc(p.imagen)+'" target="_blank" rel="noopener">Imagen ↗</a>':'')+
+    '</div>';
+  var cuerpoCarac =
+    '<div class="why"><b>De dónde sale cada dato</b>Lo que tiene valor lo trajo la API de Mercado Libre. Lo marcado como <b>falta</b> no lo da la API —los datos nutricionales por porción vienen en texto libre— y hay que escribirlo aquí antes de publicar. No se deduce del nombre comercial.</div>'+
+    '<div class="grid2">'+claves.map(function(k){
+      var valor=v.especs[k], vacio=(valor===undefined||valor===null||String(valor).trim()==='');
+      return '<label class="f">'+esc(k.replace(/_/g,' '))+
+        (vacio?(ob.indexOf(k)>=0?' <span class="chip bad">falta</span>':''):' <span class="chip ok">API</span>')+
+        '<input class="inp" data-bes="'+esc(k)+'" value="'+esc(vacio?'':String(valor))+'"></label>';
+    }).join('')+'</div>'+
+    '<div class="row"><button class="btn pri" id="ban_ok" type="button">Guardar cambios</button></div>'+
+    ((p.caracteristicas||[]).length?'<div class="why"><b>Lo que presume la ficha (por verificar)</b>'+
+      p.caracteristicas.map(function(t){return esc(t)}).join(' · ')+'</div>':'')+
+    '<details><summary class="sm">Todos los atributos que devolvió la API ('+Object.keys(p.atributos||{}).length+')</summary>'+
+      '<dl class="kv">'+Object.keys(p.atributos||{}).map(function(k){
+        return '<dt>'+esc(k)+'</dt><dd>'+esc(p.atributos[k])+'</dd>'}).join('')+'</dl></details>';
+  var cuerpoEnlace =
+    '<label class="f">Enlace de afiliado de Mercado Libre<input class="inp" data-blk="linkML" value="'+esc(v.linkML)+'" placeholder="https://meli.la/…"></label>'+
+    '<label class="f">Enlace de afiliado de Amazon<input class="inp" data-blk="linkAmz" value="'+esc(v.linkAmz)+'" placeholder="https://www.amazon.com.mx/…tag='+TAG_AMZ+'"></label>'+
+    '<div class="why"><b>Se guarda tal cual lo pegues</b>No se genera ningún enlace ni se le cambia nada. El de Amazon tiene que llevar <code>tag='+TAG_AMZ+'</code>, el StoreID vigente. Al publicar, <code>aplicar-nuevos.mjs</code> abre el enlace de Mercado Libre y comprueba que lleve a <code>'+esc(p.id)+'</code>: si abre otra cosa, no publica.</div>'+
+    '<div class="card"><div class="bd"><b class="sm">Validación de la ficha</b>'+
+      val.map(function(x){return '<div class="row" style="gap:6px;align-items:flex-start;margin-top:6px">'+
+        '<span class="chip '+(x[0]?'ok':'bad')+'">'+(x[0]?'✓':'✗')+'</span>'+
+        '<span class="sm" style="flex:1">'+esc(x[1])+'</span></div>'}).join('')+
+    '</div></div>'+
+    '<div class="row">'+
+      '<button class="btn pri" id="ban_ok" type="button">Guardar cambios</button>'+
+      '<button class="btn" id="ban_pub" type="button"'+(ok?'':' disabled title="Faltan validaciones"')+'>'+(v.accion==='publicar'?'Quitar de la cola de publicación':'Publicar producto')+'</button>'+
+      '<button class="btn" id="ban_del" type="button">Eliminar producto</button>'+
+      (Object.keys(BEDI).length?'<button class="btn" id="ban_copy" type="button" style="margin-left:auto">Copiar cambios ('+Object.keys(BEDI).length+')</button>':'')+
+    '</div>'+
+    '<p class="sm" style="margin:0">«Publicar» lo deja en la cola de este Centro; el producto entra a la base y a la página cuando yo corra <code>node scripts/aplicar-nuevos.mjs cambios.json --aplicar</code>. Nada se publica solo al pegar el enlace.</p>';
+  var cuerpo=bTab==='carac'?cuerpoCarac:(bTab==='enlace'?cuerpoEnlace:cuerpoFicha);
+  el('pDetail').innerHTML='<div class="hd"><h3>'+esc(p.nombre)+'</h3>'+banChip(p)+(banDe(p)?' <span class="chip warn">editado aquí · falta aplicarlo</span>':'')+'</div>'+
+    '<div class="bd" style="padding-bottom:0">'+pasos+'</div>'+
+    '<div class="tabs" role="tablist">'+[['ficha','Identificación'],['carac','Características'],['enlace','Enlace y publicación']].map(function(t){
+      return '<button type="button" role="tab" data-btab="'+t[0]+'" aria-selected="'+(bTab===t[0]?'true':'false')+'">'+t[1]+'</button>'}).join('')+'</div>'+
+    '<div class="bd stack">'+cuerpo+'</div>';
+}
+/** Guarda en el almacenamiento del Centro lo editado de una ficha. `accion` es opcional. */
+function banGuardar(p,accion){
+  if(!PDB){toast('El almacenamiento todavía no responde');return false}
+  var k=banKey(p.cat,p.id), prev=BEDI[k]||{};
+  var e={cat:p.cat,id:p.id,nombre:p.nombre,
+    linkML:prev.linkML||null,linkAmz:prev.linkAmz||null,
+    especs:Object.assign({},prev.especs||{}),accion:prev.accion||null};
+  var malo='';
+  [].forEach.call(el('pDetail').querySelectorAll('[data-blk]'),function(i){
+    var campo=i.getAttribute('data-blk'), val=i.value.trim();
+    if(val&&!/^https?:\/\//i.test(val)){malo=malo||'el enlace tiene que empezar con http';return}
+    if(campo==='linkAmz'&&val&&val.indexOf('tag='+TAG_AMZ)<0){malo=malo||'el enlace de Amazon necesita tag='+TAG_AMZ;return}
+    e[campo]=val;
+  });
+  [].forEach.call(el('pDetail').querySelectorAll('[data-bes]'),function(i){
+    var campo=i.getAttribute('data-bes'), val=i.value.trim(), orig=(p.especs||{})[campo];
+    if(val===''){
+      if(orig!==undefined&&orig!==null&&String(orig)!=='')e.especs[campo]='';
+      else delete e.especs[campo];
+      return;
+    }
+    var num=Number(val.replace(/[$,\s]/g,''));
+    e.especs[campo]=(/^[\d.,\s$]+$/.test(val)&&isFinite(num))?num:val;
+  });
+  if(malo){toast(malo);return false}
+  if(accion!==undefined)e.accion=accion;
+  e.ts=new Date().toISOString();
+  BEDI[k]=e;
+  PDB.collection('bandeja').doc(k).set(e).then(function(){toast('Guardado · falta aplicarlo al repo')},function(){toast('No se pudo guardar')});
+  return true;
+}
+/** El JSON que entiende aplicar-nuevos.mjs, agrupado por categoría. */
+function banCambios(){
+  var porCat={};
+  Object.keys(BEDI).forEach(function(k){
+    var e=BEDI[k];
+    var c=porCat[e.cat]||(porCat[e.cat]={categoria:e.cat,publicar:[],eliminar:[]});
+    if(e.accion==='eliminar'){c.eliminar.push(e.id);return}
+    if(e.accion!=='publicar')return;
+    var item={id:e.id,nombre:e.nombre};
+    if(e.linkML)item.linkML=e.linkML;
+    if(e.linkAmz)item.linkAmz=e.linkAmz;
+    if(e.especs&&Object.keys(e.especs).length)item.especs=e.especs;
+    c.publicar.push(item);
+  });
+  return Object.keys(porCat).map(function(k){return porCat[k]});
+}
+/* Los indicadores de arriba: lo que hay publicado, lo pausado y lo que espera en la bandeja.
+   Cada uno es también un filtro, igual que los contadores de la lista. */
+function pintarKpis(){
+  var ambito=filtrados({sinEstado:true});
+  var enWeb=0,paus=0;
+  ambito.forEach(function(p){if(p.visible)enWeb++; if(esPausado(p))paus++});
+  var cat=el('pcat').value;
+  var b=(D.bandeja&&D.bandeja.categorias)||[];
+  var nuevos=0,atencion=0;
+  b.forEach(function(c){
+    if(cat&&c.clave!==cat)return;
+    nuevos+=c.nuevos+c.revisar;
+    atencion+=(c.atencion!==undefined?c.atencion:c.sinEnlace);
+  });
+  el('pKpis').innerHTML=
+    '<button class="chip ok" type="button" data-est="visible">✓ '+fmt(enWeb)+' publicados</button> '+
+    '<button class="chip warn" type="button" data-est="pausados">⏸ '+fmt(paus)+' pausados</button> '+
+    '<button class="chip" type="button" data-est="nuevos">▣ '+fmt(nuevos)+' nuevos sin publicar</button> '+
+    '<button class="chip '+(atencion?'bad':'mute')+'" type="button" data-est="nuevos-sin-validar">⚠ '+fmt(atencion)+' requieren atención</button>'+
+    (D.bandeja&&D.bandeja.generado?' <span class="sm">· última búsqueda de catálogo: '+esc(fecha(D.bandeja.generado))+'</span>':'');
+}
+
 /* ───────── edición de producto ─────────
    Misma idea que las correcciones de características, pero sobre los campos del producto. Se
    guarda SOLO lo que cambió —no la base entera, como hacía el gestor—, así que una corrida de
@@ -1064,6 +1341,40 @@ function detalle(p){
     '<div class="bd stack">'+cuerpo+'</div>';
 }
 el('pDetail').addEventListener('click',function(e){
+  // ── bandeja: pestañas y acciones de una ficha nueva ──
+  if(BSEL){
+    var bt=e.target.closest('[data-btab]');
+    if(bt){bTab=bt.getAttribute('data-btab'); banDetalle(BSEL); return}
+    var bid=e.target.id;
+    if(bid==='ban_ok'){ if(banGuardar(BSEL)){banDetalle(BSEL); pintarBandeja()} return }
+    if(bid==='ban_pub'){
+      var ya=banVista(BSEL).accion==='publicar';
+      if(banGuardar(BSEL, ya?null:'publicar')){
+        toast(ya?'Fuera de la cola':'En la cola de publicación · cópiala y aplícala con aplicar-nuevos.mjs');
+        banDetalle(BSEL); pintarBandeja();
+      }
+      return;
+    }
+    if(bid==='ban_del'){
+      if(confirm('¿Quitar «'+BSEL.nombre+'» de la bandeja? No toca la base ni ningún producto publicado.')){
+        banGuardar(BSEL,'eliminar'); BSEL=null; pintarProductos();
+        el('pDetail').innerHTML='<div class="bd"><div class="empty">Quitado de la bandeja.</div></div>';
+      }
+      return;
+    }
+    if(bid==='ban_copy'){
+      var cs=banCambios(), n=0;
+      cs.forEach(function(c){n+=c.publicar.length+c.eliminar.length});
+      copiar('Altas y bajas de la bandeja capturadas en el Centro de Control ('+n+')\n'+
+        'Guárdalo en un archivo y aplícalo con:\n'+
+        '  node scripts/aplicar-nuevos.mjs cambios.json --aplicar\n'+
+        '  node scripts/sync-pausas.js && node scripts/generar-centro.js\n\n'+
+        JSON.stringify(cs.length===1?cs[0]:cs,null,2));
+      return;
+    }
+    if(e.target.closest('[data-copy]'))return;
+    return;
+  }
   if(!pSel)return;
   var b=e.target.closest('[data-tab]');
   if(b){pTab=b.getAttribute('data-tab'); pEditEsp=false; detalle(pSel); return}
@@ -1120,7 +1431,41 @@ el('pcount').addEventListener('click',function(e){
   el('pest').value=(el('pest').value===v)?'':v;
   pTope=200;pintarProductos();
 });
+// Los indicadores de arriba filtran igual que los contadores de la lista.
+el('pKpis').addEventListener('click',function(e){
+  var b=e.target.closest('[data-est]');if(!b)return;
+  var v=b.getAttribute('data-est');
+  el('pest').value=(el('pest').value===v)?'':v;
+  pTope=200;pintarProductos();
+});
 el('pRows').addEventListener('click',function(e){
+  // ── bandeja ──
+  var bb=e.target.closest('[data-bdel]');
+  if(bb){
+    var kd=bb.getAttribute('data-bdel').split('|');
+    var pd=banBuscar(kd[0],kd[1]);
+    if(pd&&confirm('¿Quitar «'+pd.nombre+'» de la bandeja? No toca la base ni ningún producto publicado: queda en la papelera de la bandeja y se puede recuperar.')){
+      BSEL=pd; banGuardar(pd,'eliminar'); pintarProductos();
+    }
+    return;
+  }
+  var bl=e.target.closest('[data-blink]');
+  if(bl){
+    var kl=bl.getAttribute('data-blink').split('|');
+    var pl=banBuscar(kl[0],kl[1]);
+    if(pl){bTab='enlace'; banDetalle(pl); pintarBandeja()}
+    return;
+  }
+  var btr=e.target.closest('tr[data-b]');
+  if(btr){
+    var kb=btr.getAttribute('data-b').split('|');
+    var pb=banBuscar(kb[0],kb[1]);
+    if(!pb)return;
+    [].forEach.call(el('pRows').querySelectorAll('tr.sel'),function(x){x.classList.remove('sel')});
+    btr.classList.add('sel');
+    banDetalle(pb);
+    return;
+  }
   var tr=e.target.closest('tr[data-k]');if(!tr)return;
   var k=tr.getAttribute('data-k').split('|');
   var p=D.productos.filter(function(x){return x.cat===k[0]&&x.id===k[1]})[0];
@@ -2343,6 +2688,12 @@ function iniciarPlan(){
     db.collection('productos').onSnapshot(function(s2){
       EDI={}; s2.docs.forEach(function(d2){var o=d2.data()||{};EDI[d2.id]=o});
       if(VIEW==='productos'&&pSel&&pTab!=='editar')detalle(pSel);
+    },function(){});
+    // Lo capturado sobre las fichas nuevas de la bandeja: enlace de afiliado, correcciones y la
+    // cola de publicación. Vive aquí, nunca en el repo, hasta que se aplique con el script.
+    db.collection('bandeja').onSnapshot(function(s2){
+      BEDI={}; s2.docs.forEach(function(d2){var o=d2.data()||{};BEDI[d2.id]=o});
+      if(VIEW==='productos'&&modoBandeja())pintarBandeja();
     },function(){});
     engancha('objetivos',function(v){POBJ=v});
   };

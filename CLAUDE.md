@@ -141,6 +141,37 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
   `Capacidad en volumen`), así que volcar unos sobre otros llenaría `especs` de claves paralelas
   que ninguna página pinta. Mapear un atributo a una clave del esquema es decisión de categoría.
   `--id` solo enseña lo que trae un catálogo, sin tocar nada. Reporte: `especs-report.json`.
+- **Descubrir productos nuevos (nov-2026).** `descubrir-catalogo.mjs [--categoria=a,b|--todas]
+  [--aplicar] [--tope=150] [--paginas=3] [--concurrencia=4] [--terminos=a|b]` busca en
+  `/products/search` productos de CATÁLOGO que todavía no tenemos y los deja apagados en
+  `scripts/bandeja-nuevos.json`. **No toca la base ni ninguna página.** Qué deja hacer hoy la API,
+  medido el 25-nov-2026 con las credenciales del repo: `/products/search` **200** (con atributos),
+  `/products/{id}` **200** (imágenes, variantes, descripción), `/sites/MLM/search` **403**
+  (publicaciones de vendedores: cerrado, como los precios). Así que se descubre por catálogo o no
+  se descubre. **El `offset` máximo es 100** —con 150 responde 400, y `paging.total` dice 10000 y
+  miente—, así que la cobertura se gana con MÁS TÉRMINOS, no paginando más hondo. `category_id` y
+  `domain_id` se aceptan pero no filtran: el filtro lo hace el script sobre el `domain_id` del
+  resultado más el atributo de clase (`dominios` y `clase` del bloque `descubrir` de
+  `categorias.js`). ~45% del catálogo viene `inactive` y se descarta. Duplicados: por `mlId`, por
+  `GTIN` (63% de cobertura) y, como AVISO y nunca como descarte, por marca+contenido+sabor —un
+  sabor o un tamaño distinto es otro producto—. **La API no da precio** (`/products/{id}/items`
+  sigue en 403 y `buy_box_winner` viene `null`), así que un producto nuevo entra sin precio y lo
+  consigue al publicarse, de la página de su enlace. Tampoco da los datos nutricionales por
+  porción como dato estructurado: `NUTRITIONAL_VALUES_PER_SERVING` es texto libre («22 gr de
+  proteína», «110 kcal»), así que `proteinaPorPorcion` se escribe a mano y **no se deduce del
+  nombre comercial**. Piloto: Proteína (570 productos de la categoría, 569 que no teníamos, en
+  29 llamadas). Historial de búsquedas en `scripts/busquedas-catalogo.json`.
+- `aplicar-nuevos.mjs <cambios.json> [--aplicar]` — publica lo que Alan aprobó en el Centro. Es el
+  ÚNICO camino de la bandeja al sitio. Antes de publicar comprueba, producto por producto: que
+  siga en la bandeja, que tenga enlace de ML, que **ese enlace abra de verdad ese ID de catálogo**
+  (`resolverAfiliado()`, el mismo de los precios: si abre otra cosa, no publica), que dé precio y
+  no esté pausada, que estén las `obligatorias` de la categoría, que un `linkAmz` lleve
+  `tag=guiasdecomp01-20` y que el ID no esté ya en la base. Escribe el producto en
+  `merged-admin.json` **y** su tarjeta en el array JS de la página con `agregarProductos()` de
+  `_html-precios.js`, que copia el esquema de campos del primer producto que ya está en esa página
+  y parsea el array antes de escribirlo. Borrar desde la bandeja es lógico (`estado:'eliminado'`):
+  no toca la base ni ningún producto publicado. Después: `sync-pausas.js`, `sync-hub-counts.js`,
+  `generar-centro.js`, `check-site.js`.
 - `sugerir-ids.mjs [--todas|--categoria=a,b]` — candidatos de `mlId` para los productos con
   enlace y sin ID, vía `/products/search` (que sigue respondiendo). Era el `--sugerir` de
   `ml-update.js`; se mudó aquí al retirarlo porque no es una llamada de precios. Perdió el
@@ -394,6 +425,31 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
   número: el Centro enseña los pasos exactos para conectarla.
 - `check-site.js` — validaciones del sitio (ver abajo).
 
+## La bandeja de productos nuevos (el alta por API, nov-2026)
+
+El flujo completo, de la API al sitio:
+
+1. **Buscar.** En el Gestor del Centro, el botón «🔎 Buscar catálogo en API de Mercado Libre» abre
+   el workflow `descubrir-catalogo.yml` (manual, con selector de categoría y tope). El Centro es un
+   artifact: no puede guardar credenciales ni llamar a ML desde el navegador, por eso la búsqueda
+   corre en Actions o en la máquina (`node scripts/descubrir-catalogo.mjs --categoria=proteina --aplicar`).
+2. **Revisar.** En el Gestor, estado **«Nuevos sin publicar (bandeja)»** (más «pendientes de
+   enlace» y «pendientes de validación»): otra tabla, con imagen, marca, características, ID de
+   catálogo, estado y enlace. Los datos salen de `scripts/centro-bandeja.json`, que publica
+   `generar-centro.js` al lado del Centro **como `bandeja.json`** y se pide con `fetch` solo al
+   entrar al filtro. Las miniaturas son las de siempre (`generar-miniaturas.mjs`, clave
+   `bandeja:<MLM…>`), porque la CSP del artifact bloquea toda imagen externa.
+3. **Completar.** En el panel derecho: enlace de afiliado de ML y de Amazon, corrección de
+   características, y la lista de validaciones. «Publicar producto» está **deshabilitado** hasta
+   que pasen todas. Lo capturado vive en la colección `bandeja` del almacenamiento del Centro,
+   nunca en el repo.
+4. **Aplicar.** «Copiar cambios» da el JSON y `node scripts/aplicar-nuevos.mjs cambios.json --aplicar`
+   lo mete a `merged-admin.json` y a la página. Nada se publica solo al pegar el enlace.
+
+Una categoría entra al descubrimiento agregándole un bloque `descubrir` en `categorias.js`
+(términos, dominios, clase, mapa de atributos → `especs`, obligatorias) y sumándola a las opciones
+del workflow. Hoy solo está Proteína, el piloto.
+
 ## El panel: Centro de Control (decisión del 25-nov-2026)
 
 **Toda la gestión de productos vive en el Centro de Control. El gestor queda fuera.** Lo decidió
@@ -407,8 +463,8 @@ en un panel, el panel es el Centro.
 | Gestión Productos (gestor) | https://claude.ai/artifact/BTt8aRBCUZQNWvGAS81rTt | `scripts/admin-artifact.html` (desde `admin-template.html` con `generar-admin.js`) | **retirado como panel.** Se sigue generando y no se ha borrado, pero no se le manda a Alan |
 
 Republicar el Centro: `node scripts/generar-centro.js` y publicar `scripts/centro-control.html`
-con `files: {"datos.json": "scripts/centro-datos.json", "imagenes.json": "scripts/centro-imagenes.json"}`
-sobre esa URL. **Las dos van siempre**: un publish que solo mande `datos.json` conserva el
+con `files: {"datos.json": "scripts/centro-datos.json", "imagenes.json": "scripts/centro-imagenes.json",
+"bandeja.json": "scripts/centro-bandeja.json"}` sobre esa URL. **Las tres van siempre**: un publish que solo mande `datos.json` conserva el
 `imagenes.json` anterior (lo que no se nombra no se toca), así que las altas recientes saldrían sin
 foto hasta la siguiente corrida de `generar-miniaturas.mjs`. **Leer el artifact antes de
 republicar** (lo exige la herramienta y evita pisar lo que Alan haya guardado dentro de la página).
@@ -441,6 +497,11 @@ republicar.
 - `update-prices.yml` y los cinco `update-prices-<categoria>.yml` **se borraron** el
   25-nov-2026: su paso de precios llamaba a la API cerrada y el de disponibilidad fallaba a
   propósito, tumbando la corrida entera a mitad del pipeline.
+- `descubrir-catalogo.yml` ("Buscar catálogo en API de Mercado Libre") — **manual a propósito**
+  (descubrir productos es una decisión, no una rutina): selector de categoría, tope y aplicar.
+  Corre `descubrir-catalogo.mjs`, regenera el Centro, valida y commitea solo la bandeja, el
+  historial y los JSON del Centro. No escribe `merged-admin.json` ni ninguna página; comparte el
+  `concurrency: datos-comparalo` porque también commitea en main.
 - `revisar-disponibilidad.yml` ("Revisar disponibilidad en Mercado Libre") — **dormido**: su
   capa 1 es la API de precios. Lo que hacía su capa de links lo hace ahora a diario
   `precios-por-link.yml`, que abre cada enlace de todos modos. Era: domingos 5:00 CDMX y

@@ -100,6 +100,29 @@ for (const [cat, lista] of Object.entries(base)) {
     pendientes.push({ k, url: p.imagen });
   }
 }
+// La bandeja de productos nuevos: sus fotos viven en ML y la CSP del artifact las bloquea
+// igual que las de la base, así que el Gestor enseñaría tarjetas vacías justo donde hay que
+// decidir si un producto entra al sitio. Se guardan con la clave `bandeja:<ID de catálogo>`,
+// que es como las pide el Centro, y se van solas cuando el producto sale de la bandeja.
+const BANDEJA = path.join(DIR, 'bandeja-nuevos.json');
+if (fs.existsSync(BANDEJA)) {
+  const b = JSON.parse(fs.readFileSync(BANDEJA, 'utf8'));
+  for (const [cat, info] of Object.entries(b.categorias || {})) {
+    if (CATS && !CATS.includes(cat)) {
+      for (const p of info.productos || []) vigentes.add(`bandeja:${p.id}`);
+      continue;
+    }
+    for (const p of info.productos || []) {
+      if (p.estado !== 'new_unpublished' && p.estado !== 'revisar') continue;
+      const k = `bandeja:${p.id}`;
+      vigentes.add(k);
+      if (!p.imagen) continue;
+      if (imagenes[k] && fuentes[k] === p.imagen && !FORZAR) continue;
+      pendientes.push({ k, url: p.imagen });
+    }
+  }
+}
+
 // un producto borrado de la base se lleva su miniatura
 for (const k of Object.keys(imagenes)) if (!vigentes.has(k)) { delete imagenes[k]; delete fuentes[k]; }
 

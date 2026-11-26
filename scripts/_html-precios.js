@@ -224,3 +224,77 @@ export function quitarProductos(abs, varName, tipo, productos, opts = {}) {
   writeFileSync(abs, html.slice(0, loc.start) + text + html.slice(loc.end), 'utf8');
   return { ok: true, quitados, noEstaban: productos.length - quitados };
 }
+
+/**
+ * Agrega productos NUEVOS al final del array JS de una página.
+ *
+ * POR QUÉ AQUÍ. Es la misma regla de siempre —el array del HTML es lo que ve el visitante— pero
+ * al revés que `quitarProductos`. Vive junto a sus hermanas para que nadie vuelva a escribir una
+ * segunda forma de tocar ese array.
+ *
+ * EL ESQUEMA LO MANDA LA PÁGINA, NO LA BASE. Cada categoría tiene su propio juego de campos
+ * (proteína pinta `proteinaPorPorcion`, freidoras `potencia`) y el renderizador de la tarjeta lee
+ * esos nombres. Así que las claves del bloque nuevo se copian del PRIMER producto que ya existe
+ * en la página: lo que no sepamos entra como `null` —que es justo lo que esas páginas ya hacen
+ * con las fichas incompletas— y nada se inventa ni se agrega una clave que nadie pinta.
+ *
+ * Igual que `quitarProductos`, PARSEA el array antes de escribirlo: si el bloque nuevo lo dejara
+ * roto, la página no enseñaría ni un producto, que es mucho peor que no agregar el producto.
+ *
+ * @param {string} abs      ruta absoluta del HTML
+ * @param {string} varName  nombre del array dentro del HTML
+ * @param {'plano'|'familias'} tipo
+ * @param {Array<object>} productos  objetos ya listos (sus claves se filtran contra el esquema)
+ * @param {{dryRun?:boolean}} opts
+ */
+export function agregarProductos(abs, varName, tipo, productos, opts = {}) {
+  const vacio = { agregados: 0, pedidos: productos.length };
+  if (tipo === 'familias') return { ok: false, motivo: 'página de familias: la variante se agrega a mano', ...vacio };
+  if (!existsSync(abs)) return { ok: false, motivo: 'no existe el archivo', ...vacio };
+  const html = readFileSync(abs, 'utf8');
+  const loc = locateArray(html, varName);
+  if (!loc) return { ok: false, motivo: `sin array ${varName}`, ...vacio };
+
+  const arrayText = html.slice(loc.start, loc.end);
+  let actuales;
+  try { actuales = new Function('return ' + arrayText)(); } catch (e) {
+    return { ok: false, motivo: `el array de la página no se pudo leer (${e.message})`, ...vacio };
+  }
+  if (!Array.isArray(actuales) || !actuales.length) {
+    return { ok: false, motivo: 'la página no tiene ningún producto del que copiar el esquema', ...vacio };
+  }
+
+  const esquema = Object.keys(actuales[0]);
+  const yaEstan = new Set(actuales.map(p => String(p.id)));
+  const porLink = new Set(actuales.map(p => p.linkML).filter(Boolean));
+  const nuevos = productos.filter(p => !yaEstan.has(String(p.id)) && !(p.linkML && porLink.has(p.linkML)));
+  if (!nuevos.length) return { ok: true, agregados: 0, pedidos: productos.length, yaEstaban: productos.length };
+
+  const lit = v => {
+    if (v === undefined || v === null) return 'null';
+    if (typeof v === 'number') return Number.isFinite(v) ? String(+v.toFixed(2)) : 'null';
+    if (typeof v === 'boolean') return String(v);
+    if (Array.isArray(v)) return '[' + v.map(lit).join(', ') + ']';
+    if (typeof v === 'object') return '{ ' + Object.entries(v).map(([k, x]) => `${k}: ${lit(x)}`).join(', ') + ' }';
+    return JSON.stringify(String(v));
+  };
+  const bloques = nuevos.map(p => '  {\n' +
+    esquema.map(k => `    ${k}: ${lit(p[k])},`).join('\n') +
+    '\n  }');
+
+  const cierre = arrayText.lastIndexOf(']');
+  let antes = arrayText.slice(0, cierre).replace(/\s*$/, '');
+  if (!antes.replace(/\s/g, '').endsWith('[')) antes += antes.endsWith(',') ? '' : ',';
+  const text = `${antes}\n${bloques.join(',\n')},\n]`;
+
+  try {
+    const arr = new Function('return ' + text)();
+    if (!Array.isArray(arr) || arr.length !== actuales.length + nuevos.length) throw new Error('cuenta inesperada');
+  } catch (e) {
+    return { ok: false, motivo: `el array quedaría roto (${e.message}): no se tocó la página`, ...vacio };
+  }
+
+  if (opts.dryRun) return { ok: true, agregados: nuevos.length, pedidos: productos.length };
+  writeFileSync(abs, html.slice(0, loc.start) + text + html.slice(loc.end), 'utf8');
+  return { ok: true, agregados: nuevos.length, pedidos: productos.length };
+}

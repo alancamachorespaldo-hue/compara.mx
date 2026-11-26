@@ -1,0 +1,140 @@
+name: Buscar catálogo en API de Mercado Libre
+
+# Llena la BANDEJA de productos nuevos: busca en el catálogo de Mercado Libre productos de una
+# categoría que todavía no tenemos y los deja apagados en scripts/bandeja-nuevos.json.
+#
+# NO publica nada. No toca merged-admin.json, ni ninguna página, ni ningún producto vivo. Lo que
+# encuentra se revisa en el Gestor del Centro de Control, donde Alan le pega el enlace de
+# afiliado y decide; publicar es otro paso, a mano, con scripts/aplicar-nuevos.mjs.
+#
+# Por qué existe este workflow y no un botón que llame a la API: el Centro es un artifact y no
+# puede guardar credenciales ni llamar a Mercado Libre desde el navegador. Aquí sí: las
+# credenciales son secrets del repositorio y nunca salen del runner.
+#
+# Qué endpoints usa (los únicos que la cuenta tiene abiertos hoy, medido el 25-nov-2026):
+#   /products/search  200 — descubrir productos de catálogo con sus atributos
+#   /products/{id}    200 — imágenes, variantes, descripción
+#   /products/{id}/items  403 — PRECIOS: cerrado. Por eso un producto nuevo entra sin precio y
+#                               lo consigue al publicarse, de la página de su enlace de afiliado.
+#
+# Manual nada más: descubrir productos es una decisión, no una rutina. No tiene cron a propósito.
+
+on:
+  workflow_dispatch:
+    inputs:
+      categoria:
+        description: 'Categoría a buscar (tiene que tener `descubrir` en categorias.js)'
+        type: choice
+        default: proteina
+        options: [proteina]
+      tope:
+        description: 'Máximo de productos nuevos que se guardan en esta corrida'
+        type: choice
+        default: '150'
+        options: ['50', '150', '300', '0']
+      aplicar:
+        description: '¿Guardar lo encontrado en la bandeja? (si no, solo informa)'
+        type: boolean
+        default: true
+
+# Mismo candado que los demás workflows de datos: aunque este no escribe merged-admin.json,
+# sí commitea en main y comparte el árbol con ellos.
+concurrency:
+  group: datos-comparalo
+  cancel-in-progress: false
+
+jobs:
+  descubrir:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - run: npm install
+
+      - name: Buscar en el catálogo de Mercado Libre
+        env:
+          ML_CLIENT_ID:     ${{ secrets.ML_CLIENT_ID }}
+          ML_CLIENT_SECRET: ${{ secrets.ML_CLIENT_SECRET }}
+          ML_REFRESH_TOKEN: ${{ secrets.ML_REFRESH_TOKEN }}
+          CATEGORIA: ${{ inputs.categoria }}
+          TOPE:      ${{ inputs.tope }}
+          APLICAR:   ${{ inputs.aplicar && '--aplicar' || '' }}
+        run: node scripts/descubrir-catalogo.mjs --categoria="$CATEGORIA" --tope="$TOPE" $APLICAR
+
+      - name: Resumir todo para el Centro de Control
+        if: ${{ inputs.aplicar }}
+        run: node scripts/generar-centro.js
+
+      - name: Revisar que los datos estén sanos
+        if: ${{ inputs.aplicar }}
+        run: node scripts/validar-datos.js
+
+      - name: Resumen en la corrida
+        if: always()
+        continue-on-error: true
+        run: |
+          node -e "
+            const fs = require('fs');
+            const cat = process.env.CATEGORIA;
+            let l = ['## Búsqueda de catálogo — ' + cat, ''];
+            try {
+              const h = JSON.parse(fs.readFileSync('./scripts/busquedas-catalogo.json', 'utf8'));
+              const b = (h.busquedas || []).filter(x => x.categoria === cat)[0];
+              if (b) l = l.concat([
+                '| | |', '|---|---|',
+                '| Productos de catálogo vistos | ' + b.encontrados + ' |',
+                '| De esta categoría | ' + b.relevantes + ' |',
+                '| **Nuevos guardados en la bandeja** | **' + b.nuevos + '** |',
+                '| Ya estaban en la base | ' + b.duplicados + ' |',
+                '| Posibles duplicados (a revisar) | ' + b.posiblesDuplicados + ' |',
+                '| Descartados por inactivos | ' + (b.descartados && b.descartados.inactivo) + ' |',
+                '| Descartados por no ser de la categoría | ' + ((b.descartados && b.descartados.dominio) + (b.descartados && b.descartados.clase)) + ' |',
+                '| Errores de API | ' + (b.errores || []).length + ' |',
+                '',
+                'Términos usados: ' + (b.terminos || []).join(' · '),
+                '',
+                '> Nada de esto está publicado. Ábrelo en el Centro de Control → Gestor de productos → filtro **Nuevos sin publicar**.',
+              ]);
+            } catch (e) { l.push('No se pudo leer el historial de búsquedas: ' + e.message); }
+            fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, l.join('\n') + '\n');
+          "
+        env:
+          CATEGORIA: ${{ inputs.categoria }}
+
+      - name: Commit y push si hay cambios
+        if: ${{ inputs.aplicar }}
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # Por nombre, nunca `git add -A`: esta corrida solo tiene por qué tocar estos archivos.
+          git add scripts/bandeja-nuevos.json scripts/busquedas-catalogo.json \
+                  scripts/centro-bandeja.json scripts/centro-datos.json
+          # centro-imagenes.json no va: está en .gitignore (4 MB). Las miniaturas se bajan en la
+          # máquina al republicar el Centro, con generar-miniaturas.mjs.
+          if git diff --staged --quiet; then
+            echo "Sin cambios."
+            exit 0
+          fi
+          git commit -m "chore(bandeja): búsqueda de catálogo en ${{ inputs.categoria }} $(date +'%Y-%m-%d')"
+          for intento in 1 2 3; do
+            git fetch origin main
+            if ! git rebase origin/main; then
+              git rebase --abort
+              echo "::error::El rebase chocó con otro commit del remoto. No se publica nada; revísalo a mano."
+              exit 1
+            fi
+            node scripts/validar-datos.js || exit 1
+            if git push origin HEAD:main; then exit 0; fi
+            echo "Push rechazado (intento $intento de 3); vuelvo a traer el remoto."
+          done
+          exit 1

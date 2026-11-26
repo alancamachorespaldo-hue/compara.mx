@@ -35,6 +35,19 @@
  *   catalogMini            { salida:[...segmentos de ruta], especs:[...] } si la categoría
  *                          publica catalog-mini.json para las guías.
  *   descuentos             ruta del descuentos.json de la categoría, si lo tiene.
+ *   descubrir              configuración del descubrimiento de productos nuevos en el catálogo
+ *                          de Mercado Libre (`descubrir-catalogo.mjs`). Solo las categorías que
+ *                          la llevan entran en esa corrida. Campos:
+ *                            terminos    términos de búsqueda para /products/search.
+ *                            dominios    domain_id que SÍ son de esta categoría. Lo demás se
+ *                                        descarta (un libro de repostería no es proteína).
+ *                            clase       { atributos:[…], rx } — además del dominio, el valor de
+ *                                        alguno de esos atributos tiene que casar con rx.
+ *                            mapa        atributo de ML → clave del esquema `especs` de la
+ *                                        categoría. Mapear es decisión de categoría, por eso
+ *                                        vive aquí y no en el script.
+ *                            obligatorias  claves de `especs` que el Centro exige antes de
+ *                                        dejar publicar. Las que la API no da se llenan a mano.
  */
 
 export const CATEGORIAS = {
@@ -78,6 +91,32 @@ export const CATEGORIAS = {
   proteina: {
     titulo: 'Proteína', file: 'suplementos/proteina/index.html', varName: 'productos',
     descuentos: 'suplementos/proteina/descuentos.json',
+    // Piloto del descubrimiento por catálogo (nov-2026). Los términos salen de la prueba real:
+    // con offset máximo 100 la API da ~150 productos por término, así que la cobertura se
+    // consigue con varios términos, no paginando más hondo.
+    descubrir: {
+      terminos: [
+        'proteina whey', 'whey protein', 'proteina vegana', 'proteina aislada',
+        'proteina isolate', 'proteina en polvo', 'caseina', 'proteina hidrolizada',
+        'proteina concentrada', 'whey isolate',
+      ],
+      dominios: ['MLM-SUPPLEMENTS'],
+      clase: { atributos: ['SUPPLEMENT_CLASS', 'MAIN_SUPPLEMENT', 'TRADE_NAME'], rx: /prote|whey|case/i },
+      mapa: {
+        BRAND: 'marca',
+        FLAVOR: 'sabor',
+        NET_WEIGHT: 'contenidoGramos',
+        SERVING_WEIGHT: 'gramosPorPorcion',
+        SERVINGS_NUMBER: 'porciones',
+        SUPPLEMENT_CLASS: 'tipoProteina',
+        IS_VEGAN: 'vegana',
+        IS_GLUTEN_FREE: 'glutenFree',
+        SUPPLEMENT_FORMAT: 'presentacion',
+      },
+      // proteinaPorPorcion NO la da la API como dato estructurado (0% de cobertura medida):
+      // NUTRITIONAL_VALUES_PER_SERVING es texto libre. Se pide a mano antes de publicar.
+      obligatorias: ['contenidoGramos', 'porciones', 'gramosPorPorcion', 'proteinaPorPorcion'],
+    },
   },
   omega3: {
     titulo: 'Omega 3', file: 'suplementos/omega3/index.html', varName: 'productos',
@@ -247,6 +286,11 @@ export function mapaDescuentos() {
 /** Categorías que publican catalog-mini.json para las guías. */
 export function conCatalogMini() {
   return entradas().filter(([, c]) => c.catalogMini).map(([, c]) => c);
+}
+
+/** Categorías con descubrimiento por catálogo de Mercado Libre configurado. */
+export function conDescubrir() {
+  return entradas().filter(([, c]) => c.descubrir).map(([, c]) => c);
 }
 
 /** Título legible de una clave de datos. */

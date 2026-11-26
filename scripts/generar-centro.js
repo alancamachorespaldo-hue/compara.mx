@@ -28,6 +28,8 @@ const disp = leer('scripts/disponibilidad-report.json', {});
 const sug = leer('scripts/ml-sugerencias.json', {});
 const linkRep = leer('scripts/precios-link-report.json', {});
 const especsRep = leer('scripts/especs-report.json', {});
+const bandejaRaw = leer('scripts/bandeja-nuevos.json', { categorias: {} });
+const historialRaw = leer('scripts/busquedas-catalogo.json', { busquedas: [] });
 
 const DIAS_OFERTA_AMZ = 7;
 const hoy = new Date();
@@ -235,6 +237,62 @@ const sugerencias = Object.entries(sug || {})
   .filter(([k]) => k !== 'generado' && k !== 'fecha')
   .map(([cat, v]) => ({ cat, n: Array.isArray(v) ? v.length : 0 }));
 
+
+/* ── Bandeja de productos nuevos (descubrir-catalogo.mjs) ────────────────────
+   Va en su PROPIO archivo, no dentro de datos.json: son 150 fichas con todos sus atributos de
+   Mercado Libre y engordarían el arranque del Centro para una vista que casi nunca se abre. El
+   Centro lo pide con fetch solo cuando entras al filtro «Nuevos sin publicar», igual que hace
+   con las miniaturas. En datos.json queda únicamente el conteo, que es lo que pinta el
+   indicador de arriba. */
+const PENDIENTES = new Set(['new_unpublished', 'revisar']);
+const bandejaCats = [];
+const bandejaDetalle = {};
+for (const [clave, info] of Object.entries(bandejaRaw.categorias || {})) {
+  const todos = info.productos || [];
+  const pend = todos.filter((p) => PENDIENTES.has(p.estado));
+  bandejaCats.push({
+    clave,
+    titulo: info.titulo || porDatos[clave]?.titulo || clave,
+    actualizado: info.actualizado || null,
+    nuevos: todos.filter((p) => p.estado === 'new_unpublished').length,
+    revisar: todos.filter((p) => p.estado === 'revisar').length,
+    sinEnlace: pend.filter((p) => !p.linkML).length,
+    sinValidar: pend.filter((p) => (p.obligatoriasFaltantes || []).length).length,
+    // Los que piden trabajo: sin enlace O sin las características obligatorias. Contados una
+    // sola vez, no sumando las dos colas: casi siempre son el mismo producto.
+    atencion: pend.filter((p) => !p.linkML || (p.obligatoriasFaltantes || []).length).length,
+    publicados: todos.filter((p) => p.estado === 'publicado').length,
+    eliminados: todos.filter((p) => p.estado === 'eliminado').length,
+    ultimaBusqueda: info.ultimaBusqueda
+      ? {
+          crudos: info.ultimaBusqueda.crudos, relevantes: info.ultimaBusqueda.relevantes,
+          duplicados: info.ultimaBusqueda.duplicados, posiblesDuplicados: info.ultimaBusqueda.posiblesDuplicados,
+          descartes: info.ultimaBusqueda.descartes, guardados: info.ultimaBusqueda.guardados,
+          candidatos: info.ultimaBusqueda.candidatos, errores: info.ultimaBusqueda.errores,
+          ejemplosDescarte: (info.ultimaBusqueda.ejemplosDescarte || []).slice(0, 5),
+        }
+      : null,
+  });
+  bandejaDetalle[clave] = {
+    titulo: info.titulo || clave,
+    actualizado: info.actualizado || null,
+    obligatorias: CATEGORIAS[clave]?.descubrir?.obligatorias || [],
+    productos: pend.map((p) => ({
+      id: p.id, catalogId: p.catalogId, estado: p.estado, nombre: p.nombre, marca: p.marca,
+      modelo: p.modelo, gtin: p.gtin || [], imagen: p.imagen, imagenes: (p.imagenes || []).slice(0, 4),
+      descripcion: (p.descripcion || '').slice(0, 700) || null,
+      caracteristicas: (p.caracteristicas || []).slice(0, 6),
+      variantes: (p.variantes || []).slice(0, 12),
+      urlML: p.urlML, especs: p.especs || {}, atributos: p._mlAtributos || {},
+      faltantes: p.obligatoriasFaltantes || [], posibleDuplicadoDe: p.posibleDuplicadoDe || null,
+      termino: p.termino, detectadoEn: p.detectadoEn,
+      linkML: p.linkML || null, linkAmz: p.linkAmz || null,
+    })),
+  };
+}
+const bandejaDest = path.join(RAIZ, 'scripts', 'centro-bandeja.json');
+fs.writeFileSync(bandejaDest, JSON.stringify(bandejaDetalle));
+
 const salida = {
   generado: new Date().toISOString(),
   fuente: {
@@ -306,6 +364,16 @@ const salida = {
   } : null,
   // Altas pegadas en el gestor que todavía no han pasado por especs-por-id.mjs.
   necesitanEspecs: productos.filter((p) => p.necesitaEspecs).length,
+  // La bandeja: solo el conteo. Las fichas van en bandeja.json, que el Centro pide aparte.
+  bandeja: {
+    generado: bandejaRaw.generado || null,
+    categorias: bandejaCats,
+    pendientes: bandejaCats.reduce((n, c) => n + c.nuevos + c.revisar, 0),
+    sinEnlace: bandejaCats.reduce((n, c) => n + c.sinEnlace, 0),
+    sinValidar: bandejaCats.reduce((n, c) => n + c.sinValidar, 0),
+    atencion: bandejaCats.reduce((n, c) => n + c.atencion, 0),
+    historial: (historialRaw.busquedas || []).slice(0, 20),
+  },
   categoriasSinRegistrar: sinRegistrar,
   categorias,
   colas,
@@ -321,4 +389,5 @@ console.log(`centro-datos.json escrito (${kb} KB)`);
 console.log(`  ${totales.categorias} categorías · ${totales.productos} productos · ${totales.activos} activos`);
 console.log(`  sin mlId: ${totales.sinMlId} (con link: ${totales.sinMlIdConLink}) · pausados: ${totales.pausados} (auto ${totales.pausadosAuto})`);
 console.log(`  problemas de disponibilidad: ${totales.problemas} · nunca revisados: ${totales.nuncaRevisado}`);
+console.log(`  bandeja: ${salida.bandeja.pendientes} sin publicar en ${bandejaCats.length} categoría(s) → centro-bandeja.json (${(fs.statSync(bandejaDest).size / 1024).toFixed(0)} KB)`);
 if (sinRegistrar.length) console.log(`  OJO categorías sin registrar en categorias.js: ${sinRegistrar.join(', ')}`);
