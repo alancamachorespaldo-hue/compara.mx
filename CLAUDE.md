@@ -585,8 +585,12 @@ republicar.
   `generar-centro.js`, `check-site.js` y `validar-datos.js`, y hace commit. Es el camino por el
   que un producto de la bandeja llega al sitio sin tocar la máquina. Lo pegado viaja por variable
   de entorno, no interpolado en el shell.
-- `revisar-disponibilidad.yml` ("Revisar disponibilidad en Mercado Libre") — **dormido**: su
-  capa 1 es la API de precios. Lo que hacía su capa de links lo hace ahora a diario
+- `revisar-disponibilidad.yml` ("Revisar disponibilidad en ML (DORMIDO…)") — **dormido**: su
+  capa 1 es la API de precios. Desde el 26-nov-2026 lo dice su propio nombre y además **sondea la
+  API en el primer paso**: si sigue cerrada, falla en 5 segundos y el resumen de la corrida
+  explica qué workflow usar en su lugar. Antes tardaba 5 minutos en abrir 1,200 fichas para
+  terminar en rojo sin escribir nada, y el nombre invitaba a lanzarlo justo cuando uno buscaba
+  comprobar disponibilidad. Lo que hacía su capa de links lo hace ahora a diario
   `precios-por-link.yml`, que abre cada enlace de todos modos. Era: domingos 5:00 CDMX y
   manual (con opciones de aplicar/links/umbral). Corre la revisión completa **con la capa de links**,
   pausa lo caído, aplica pausas a las páginas, regenera el gestor y valida. La capa rápida ya corre

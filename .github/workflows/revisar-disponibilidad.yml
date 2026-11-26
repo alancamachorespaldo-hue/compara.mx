@@ -1,4 +1,4 @@
-name: Revisar disponibilidad en Mercado Libre
+name: Revisar disponibilidad en ML (DORMIDO: la API de ofertas está cerrada)
 
 # Revisión a fondo: además de preguntarle al catálogo de ML si el producto sigue existiendo
 # (eso ya corre a diario dentro de "Actualizar precios Mercado Libre"), abre cada link de
@@ -57,6 +57,38 @@ jobs:
 
       - run: npm install
 
+      # Antes de gastar cinco minutos abriendo 1,200 fichas: ¿la API de ofertas volvió? Mientras
+      # responda 403, la capa 1 de este script ve TODO caído, el freno impide escribir y la
+      # corrida termina en rojo sin haber hecho nada (26-nov-2026, Alan la lanzó y perdió 5
+      # minutos para eso). Mejor fallar en 5 segundos y decir qué usar en su lugar.
+      - name: ¿La API de ofertas volvió a responder?
+        env:
+          ML_CLIENT_ID:     ${{ secrets.ML_CLIENT_ID }}
+          ML_CLIENT_SECRET: ${{ secrets.ML_CLIENT_SECRET }}
+        run: |
+          node -e "
+            (async () => {
+            const API = 'https://api.mercadolibre.com';
+            const body = new URLSearchParams({ grant_type: 'client_credentials', client_id: process.env.ML_CLIENT_ID, client_secret: process.env.ML_CLIENT_SECRET });
+            const t = await fetch(API + '/oauth/token', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body }).then(r => r.json());
+            const r = await fetch(API + '/products/MLM65737068/items?limit=1', { headers: { Authorization: 'Bearer ' + t.access_token } });
+            if (r.ok) { console.log('La API volvió: sigue la revisión.'); process.exit(0); }
+            const fs = require('fs');
+            const l = [
+              '## Esta revisión sigue dormida', '',
+              'La API de ofertas respondió **' + r.status + '** en /products/{id}/items, que es de donde sale la capa de catálogo de este workflow. Con eso la corrida ve todo caído, el freno de emergencia impide escribir y termina en rojo sin haber hecho nada.', '',
+              '**Qué usar en su lugar:**', '',
+              '| Para esto | Workflow |', '|---|---|',
+              '| Precios y enlaces caídos de lo YA publicado | **Precios por enlace de afiliado** (corre solo a diario) |',
+              '| Descubrir productos nuevos que sí se venden | **Buscar catálogo en API de Mercado Libre**, fuente = ranking |',
+              '| Publicar lo que ya tiene enlace | **Publicar productos nuevos** |', '',
+              'Se despierta solo: cuando la API vuelva, este paso lo dirá y la revisión continuará.',
+            ];
+            fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, l.join(String.fromCharCode(10)) + String.fromCharCode(10));
+            console.log('::error::La API de ofertas sigue cerrada (' + r.status + '). Mira el resumen: hay otro workflow para lo que querías.');
+            process.exit(1);
+            })();
+          "
       - name: Revisar disponibilidad
         env:
           ML_CLIENT_ID:     ${{ secrets.ML_CLIENT_ID }}
