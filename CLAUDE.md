@@ -490,9 +490,18 @@ El orden de los de búsqueda es ahora su posición en los resultados, no cuánto
 ordenar por atributos no tenía nada que ver con venderse, y por eso los primeros de la bandeja
 salían muertos.
 
-Dónde se sabe con certeza: al publicar, porque el enlace de un producto pausado no da precio y
-`aplicar-nuevos.mjs` lo deja fuera. En la bandeja, lo de búsqueda se comprueba abriendo su ficha
-(un clic desde el Centro) y lo muerto se borra con el botón de su fila, que no vuelve a salir.
+**El paso «comprobar» es manual, y no hay manera de que no lo sea** (26-nov-2026, decisión de
+Alan tras encontrar 8 pausados de cada 10). Lo que se hizo es que cueste un clic: cada fila de la
+bandeja lleva **Abrir ↗** (la ficha en ML), **✓ Sí** y **✗ No**. El ✗ saca el producto de la
+bandeja para siempre —una búsqueda futura no lo vuelve a traer, porque `fundir()` respeta el
+estado `eliminado`— y el ✓ lo deja marcado como comprobado (`revisado:'ok'` en el almacenamiento
+del Centro). Los del ranking cuentan como comprobados de entrada. Filtros: **«Por comprobar en
+ML»** y **«✓ Comprobados»**. Así el orden de trabajo es: comprobar en bloque primero (barato,
+un vistazo por ficha) y pegar enlaces solo en los que sobreviven, en vez de ir alternando las dos
+cosas producto por producto.
+
+Dónde se sabe con certeza sin mirar: al publicar, porque el enlace de un producto pausado no da
+precio y `aplicar-nuevos.mjs` lo deja fuera.
 
 Una categoría entra al descubrimiento agregándole un bloque `descubrir` en `categorias.js`
 (términos, `categoriasML` para el ranking, dominios, clase, mapa de atributos → `especs`,

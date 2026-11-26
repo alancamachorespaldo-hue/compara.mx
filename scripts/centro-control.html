@@ -287,6 +287,8 @@ tbody tr.sel td:first-child{box-shadow:inset 3px 0 0 var(--ac)}
               <option value="eliminado">Marcados como eliminados</option>
               <option value="nuevos">Nuevos sin publicar (bandeja)</option>
               <option value="nuevos-se-venden">Nuevos · se venden hoy (ranking de ML)</option>
+              <option value="nuevos-por-comprobar">Nuevos · por comprobar en ML</option>
+              <option value="nuevos-comprobados">Nuevos · comprobados, se venden</option>
               <option value="nuevos-sin-enlace">Nuevos · pendientes de enlace</option>
               <option value="nuevos-sin-validar">Nuevos · pendientes de validación</option>
             </select>
@@ -902,7 +904,7 @@ var BAN=null, BSEL=null, BEDI={}, bTab='ficha', bPedida=false;
    false, así que el botón Eliminar parecía no hacer nada. Ahora el primer clic pone el
    botón en «¿Seguro?» y el segundo borra. */
 var BMARCA={}, bPorBorrar=null, bUltima=null;
-function modoBandeja(){var v=el('pest').value;return v==='nuevos'||v==='nuevos-sin-enlace'||v==='nuevos-sin-validar'||v==='nuevos-se-venden'}
+function modoBandeja(){var v=el('pest').value;return v.indexOf('nuevos')===0}
 function banKey(cat,id){return cat+'__'+String(id)}
 function banDe(p){return BEDI[banKey(p.cat,p.id)]||null}
 /** Lo que hoy se ve en la ficha: lo que trajo la API con lo editado aquí encima. */
@@ -912,8 +914,25 @@ function banVista(p){
     linkML:(e.linkML!==undefined&&e.linkML!==null)?e.linkML:(p.linkML||''),
     linkAmz:(e.linkAmz!==undefined&&e.linkAmz!==null)?e.linkAmz:(p.linkAmz||''),
     especs:Object.assign({},p.especs||{},e.especs||{}),
-    accion:e.accion||null
+    accion:e.accion||null,
+    revisado:e.revisado||null          // 'ok' = Alan vio que sí se vende
   };
+}
+/* Comprobar disponibilidad es MANUAL y no hay forma de que no lo sea: la API no dice si un
+   catálogo tiene vendedor (probado por cinco vías) y la ficha pública responde con el muro
+   antibots de ML. Lo que sí se puede es que cueste un clic: abrir la ficha, mirar, y marcar.
+   «No disponible» lo saca de la bandeja para siempre; una búsqueda futura no lo vuelve a traer. */
+function banRevisar(p,valor){
+  if(!PDB){toast('El almacenamiento todavía no responde');return}
+  var k=banKey(p.cat,p.id), prev=BEDI[k]||{};
+  var e={cat:p.cat,id:p.id,nombre:p.nombre,
+    linkML:prev.linkML||null,linkAmz:prev.linkAmz||null,
+    especs:Object.assign({},prev.especs||{}),
+    accion:valor==='muerto'?'eliminar':(prev.accion||null),
+    revisado:valor==='ok'?'ok':null,
+    ts:new Date().toISOString()};
+  BEDI[k]=e;
+  PDB.collection('bandeja').doc(k).set(e).then(function(){},function(){toast('No se pudo guardar')});
 }
 function pedirBandeja(){
   if(bPedida)return; bPedida=true;
@@ -936,6 +955,8 @@ function banLista(){
       if(est==='nuevos-sin-enlace'&&v.linkML)return;
       if(est==='nuevos-sin-validar'&&!banFaltan(x).length)return;
       if(est==='nuevos-se-venden'&&!x.seVende)return;
+      if(est==='nuevos-por-comprobar'&&(v.revisado||x.seVende))return;
+      if(est==='nuevos-comprobados'&&!(v.revisado||x.seVende))return;
       if(q){
         var h=(x.nombre+' '+x.id+' '+(x.marca||'')+' '+(x.gtin||[]).join(' ')).toLowerCase();
         if(h.indexOf(q)<0)return;
@@ -982,6 +1003,7 @@ function banVende(p){
 function banChip(p){
   var v=banVista(p);
   if(v.accion==='publicar')return '<span class="chip ok">● Listo para publicar</span>';
+  if(v.revisado==='ok'&&!v.linkML)return '<span class="chip ok">✓ Comprobado · falta enlace</span>';
   if(p.estado==='revisar')return '<span class="chip warn">○ Revisar · posible duplicado</span>';
   if(!v.linkML)return '<span class="chip warn">○ Nuevo · falta enlace</span>';
   if(banFaltan(p).length)return '<span class="chip warn">○ Nuevo · falta validar</span>';
@@ -1019,9 +1041,12 @@ function pintarBandeja(){
       '<td>'+banChip(p)+(p.seVende?' '+banVende(p):'')+'</td>'+
       '<td>'+(v.linkML?'<button class="btn sm" type="button" data-blink="'+esc(kk)+'">Ver / editar</button>'
                      :'<button class="btn sm pri" type="button" data-blink="'+esc(kk)+'">Agregar enlace</button>')+'</td>'+
-      '<td>'+(bPorBorrar===kk
-        ? '<button class="btn sm" type="button" data-bdel="'+esc(kk)+'" style="border-color:var(--bad);color:var(--bad)">¿Seguro?</button>'
-        : '<button class="btn sm" type="button" data-bdel="'+esc(kk)+'" title="Quitar de la bandeja (no toca la base)">Eliminar</button>')+'</td></tr>';
+      '<td><div class="row" style="gap:4px;flex-wrap:nowrap">'+
+        '<a class="btn sm" href="'+esc(p.urlML)+'" target="_blank" rel="noopener" title="Abrir la ficha en Mercado Libre">Abrir ↗</a>'+
+        (v.revisado==='ok'?'<span class="chip ok" title="Lo comprobaste tú">✓</span>'
+          :'<button class="btn sm" type="button" data-bok="'+esc(kk)+'" title="Sí se vende: lo dejo en la bandeja y queda comprobado">✓ Sí</button>')+
+        '<button class="btn sm" type="button" data-bno="'+esc(kk)+'" title="No está disponible: lo saca de la bandeja y no vuelve" style="border-color:var(--bad);color:var(--bad)">✗ No</button>'+
+      '</div></td></tr>';
   }).join(''):'<tr><td colspan="10"><div class="empty">'+
     (Object.keys(BAN).length?'Nada pendiente con esos filtros.':'La bandeja está vacía. Usa «Buscar catálogo en API de Mercado Libre» para llenarla.')+'</div></td></tr>';
   el('pMore').hidden=lista.length<=pTope;
@@ -1042,7 +1067,7 @@ function banBarra(){
   // estado y ahí no se encontraban: un <select> cerrado no se ve, y el buscador del navegador
   // tampoco lo mira (26-nov-2026).
   var est=el('pest').value;
-  var hay={todos:0,venden:0,enlace:0,validar:0};
+  var hay={todos:0,venden:0,enlace:0,validar:0,porComprobar:0,comprobados:0};
   Object.keys(BAN).forEach(function(c){
     if(cat&&c!==cat)return;
     (BAN[c].productos||[]).forEach(function(p){
@@ -1050,6 +1075,7 @@ function banBarra(){
       if(v.accion==='eliminar')return;
       hay.todos++;
       if(x.seVende)hay.venden++;
+      if(v.revisado||x.seVende)hay.comprobados++; else hay.porComprobar++;
       if(!v.linkML)hay.enlace++;
       if(banFaltan(x).length)hay.validar++;
     });
@@ -1062,8 +1088,9 @@ function banBarra(){
   el('pcount').innerHTML='<span class="sm" style="margin-right:4px">Bandeja:</span>'+
     tab('nuevos','Todos',hay.todos)+
     (hay.venden?tab('nuevos-se-venden','↑ Se venden hoy',hay.venden,'ok'):'')+
+    tab('nuevos-por-comprobar','Por comprobar en ML',hay.porComprobar,'warn')+
+    (hay.comprobados?tab('nuevos-comprobados','✓ Comprobados',hay.comprobados,'ok'):'')+
     tab('nuevos-sin-enlace','Falta enlace',hay.enlace,'warn')+
-    tab('nuevos-sin-validar','Falta validar',hay.validar,'warn')+
     (enCola?'<span class="chip ok">'+fmt(enCola)+' dados de alta, listos para publicar</span> '+
       '<button class="btn sm pri" id="bCopia" type="button">Copiar para publicar</button> '+
       '<a class="btn sm" href="https://github.com/alancamachorespaldo-hue/compara.mx/actions/workflows/publicar-nuevos.yml" target="_blank" rel="noopener">Publicar en GitHub ↗</a> ':'')+
@@ -1103,9 +1130,11 @@ function banDetalle(p){
     '<label class="f">Enlace de afiliado de Mercado Libre<input class="inp" data-blk="linkML" value="'+esc(v.linkML)+'" placeholder="https://meli.la/…"></label>'+
     '<div class="row"><button class="btn pri sm" id="ban_ok" type="button">Guardar enlace</button>'+
       '<a class="btn sm" href="'+esc(p.urlML)+'" target="_blank" rel="noopener">Abrir la ficha en ML para sacarlo ↗</a></div>'+
-    (p.seVende
+    (banVista(p).revisado==='ok'
+      ? '<div class="why" style="border-color:var(--ok)"><b>Comprobado: se vende</b>Lo marcaste tú al abrir su ficha en Mercado Libre. Si te equivocaste, el botón ✗ de su fila lo saca de la bandeja.</div>'
+      : p.seVende
       ? '<div class="why" style="border-color:var(--ok)"><b>Este sí se está vendiendo</b>Salió del <b>ranking de más vendidos</b> de Mercado Libre, así que hoy tiene vendedor y stock. Es la única señal de disponibilidad que la API nos deja ver; de los 21 catálogos pausados que teníamos fichados, ninguno aparecía en ese ranking.</div>'
-      : '<div class="why" style="border-color:var(--warn)"><b>De este no sabemos si se vende</b>Salió de la búsqueda por términos, que no dice nada sobre el stock: si al abrir la ficha ML dice «no está disponible por el momento», elimínalo con el botón de su fila. No se puede filtrar antes —el endpoint de ofertas responde 403, <code>buy_box_winner</code> viene vacío hasta para el nº1 en ventas y la ficha pública contesta con el muro antibots—. Para trabajar solo sobre seguros, usa el filtro <b>«Nuevos · se venden hoy»</b>.</div>')+
+      : '<div class="why" style="border-color:var(--warn)"><b>De este no sabemos si se vende</b>Salió de la búsqueda por términos, que no dice nada sobre el stock. Ábrelo con <b>Abrir ↗</b> y marca en su fila <b>✓ Sí</b> o <b>✗ No</b>: eso es la comprobación, y el que marcas como no disponible no vuelve a aparecer. No se puede automatizar —el endpoint de ofertas responde 403, <code>buy_box_winner</code> viene vacío hasta para el nº1 en ventas, ningún campo del catálogo separa 21 pausados de 199 vivos y la ficha pública contesta con el muro antibots—.</div>')+
     (p.posibleDuplicadoDe?'<div class="why" style="border-color:var(--warn)"><b>Posible duplicado</b>Se parece a <b>'+esc(p.posibleDuplicadoDe.nombre)+'</b> (id '+esc(p.posibleDuplicadoDe.id)+') por marca, contenido y sabor. No se descartó solo: un sabor o un tamaño distinto es otro producto. Compruébalo antes de publicar.</div>':'')+
     (p.descripcion?'<div class="why"><b>Descripción de Mercado Libre</b>'+esc(p.descripcion)+'</div>':'')+
     '<div class="row">'+
@@ -1582,6 +1611,21 @@ el('pRows').addEventListener('click',function(e){
     var marcar=e.target.checked;
     banLista().forEach(function(p){BMARCA[p.cat+'|'+p.id]=marcar});
     pintarBandeja();
+    return;
+  }
+  var bok=e.target.closest('[data-bok]');
+  if(bok){
+    var ko=bok.getAttribute('data-bok').split('|'), po=banBuscar(ko[0],ko[1]);
+    if(po){banRevisar(po,'ok'); toast('Comprobado: se vende'); pintarBandeja(); if(BSEL&&BSEL.id===po.id)banDetalle(po);}
+    return;
+  }
+  var bno=e.target.closest('[data-bno]');
+  if(bno){
+    var kn=bno.getAttribute('data-bno').split('|'), pn=banBuscar(kn[0],kn[1]);
+    if(pn){
+      if(BSEL&&BSEL.cat===pn.cat&&BSEL.id===pn.id)BSEL=null;
+      banRevisar(pn,'muerto'); toast('Fuera: no está disponible'); pintarBandeja();
+    }
     return;
   }
   var bb=e.target.closest('[data-bdel]');
