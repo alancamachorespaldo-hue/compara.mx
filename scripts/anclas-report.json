@@ -1,52 +1,15 @@
 {
   "fecha": "2026-11-26",
-  "generado": "2026-11-26T01:11:56.468Z",
+  "generado": "2026-11-26T13:58:57.641Z",
   "aplicado": true,
   "factor": 1.5,
   "margen": 0.25,
   "minimo": 10,
   "totales": {
-    "bajadasVigentes": 527,
-    "soltadas": 3,
+    "bajadasVigentes": 559,
+    "soltadas": 0,
     "sinSerie": 0,
-    "pocosDatos": 68
+    "pocosDatos": 81
   },
-  "soltadas": [
-    {
-      "categoria": "videojuegos_juegos",
-      "id": "JUE-047",
-      "nombre": "Videojuego Battlefield 2042 Xbox Series X Español Físico",
-      "mlId": "MLM18616305",
-      "anclaSoltada": 299,
-      "precioHoy": 164,
-      "mediana30": 194,
-      "pctQueAnunciaba": 45,
-      "vecesSobreLaMediana": 1.54,
-      "dias": 30
-    },
-    {
-      "categoria": "bicisMontana",
-      "id": "206",
-      "nombre": "Terrafit Venum R26 Verde",
-      "mlId": "MLM46688555",
-      "anclaSoltada": 6227,
-      "precioHoy": 3879,
-      "mediana30": 3879,
-      "pctQueAnunciaba": 38,
-      "vecesSobreLaMediana": 1.61,
-      "dias": 10
-    },
-    {
-      "categoria": "bicisMontana",
-      "id": "202",
-      "nombre": "Kubor Octopus R29 9V Shimano Acera",
-      "mlId": "MLM46689385",
-      "anclaSoltada": 13199,
-      "precioHoy": 8299,
-      "mediana30": 8299,
-      "pctQueAnunciaba": 37,
-      "vecesSobreLaMediana": 1.59,
-      "dias": 10
-    }
-  ]
+  "soltadas": []
 }
