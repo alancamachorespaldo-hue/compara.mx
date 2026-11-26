@@ -278,10 +278,12 @@ tbody tr.sel td:first-child{box-shadow:inset 3px 0 0 var(--ac)}
               <option value="oculto">No se ve en la web</option>
               <option value="ok">Sin problema</option>
               <option value="sin-id">Sin ID de catálogo</option>
+              <option value="pausados">Pausado (en cualquier tienda)</option>
               <option value="pausado-ml">Pausado en ML</option>
               <option value="pausado">Pausado en ambas</option>
               <option value="sin-tienda">Sin tienda</option>
               <option value="inactivo">Inactivo</option>
+              <option value="eliminado">Marcados como eliminados</option>
             </select>
             <select class="inp" id="ptienda">
               <option value="">Cualquier tienda</option>
@@ -734,13 +736,24 @@ function pintarDashAmazon(){
 
 /* ───────── gestor ───────── */
 var pTope=200, pSel=null;
-function filtrados(){
-  var q=el('pq').value.trim().toLowerCase(), cat=el('pcat').value, est=el('pest').value, ti=el('ptienda').value, baj=el('pbaj').checked;
+/* Un producto marcado como eliminado ya no es inventario: la corrida lo borra de la base y de
+   su página en cuanto confirma que no existe en Mercado Libre, así que mientras tanto estorba en
+   la lista y falsea las cuentas. Queda fuera salvo que se pida su estado a propósito. */
+function esPausado(p){ return !p.eliminado && (p.pausaML||p.pausaAmz) }
+/* opciones: sinEstado ignora el desplegable de estado (para contar el panorama completo de la
+   categoría aunque haya un estado elegido); conEliminados los deja pasar (para contarlos). */
+function filtrados(o){
+  o=o||{};
+  var q=el('pq').value.trim().toLowerCase(), cat=el('pcat').value, ti=el('ptienda').value, baj=el('pbaj').checked;
+  var est=o.sinEstado?'':el('pest').value;
   return D.productos.filter(function(p){
     if(cat&&p.cat!==cat)return false;
+    if(p.eliminado&&est!=='eliminado'&&!o.conEliminados)return false;
     if(est==='visible'&&!p.visible)return false;
     else if(est==='oculto'&&p.visible)return false;
-    else if(est&&est!=='visible'&&est!=='oculto'&&p.estado!==est)return false;
+    else if(est==='pausados'&&!esPausado(p))return false;
+    else if(est==='eliminado'&&!p.eliminado)return false;
+    else if(est&&est!=='visible'&&est!=='oculto'&&est!=='pausados'&&est!=='eliminado'&&p.estado!==est)return false;
     if(baj&&!p.bajada)return false;
     if(ti==='ml'&&!p.linkML)return false;
     if(ti==='amz'&&!p.linkAmz)return false;
@@ -795,7 +808,19 @@ function pintarProductos(){
   pedirImgs();
   if(!el('pcat').options.length)llenarSelects();
   var lista=filtrados();
-  el('pcount').textContent=fmt(lista.length)+' de '+fmt(D.productos.length)+' productos';
+  // El panorama se cuenta SIN el desplegable de estado: elegir "pausados" no debe hacer que el
+  // resto de las cifras se desplomen, que es justo cuando uno las quiere comparar.
+  var ambito=filtrados({sinEstado:true});
+  var enWeb=ambito.filter(function(p){return p.visible}).length;
+  var pausados=ambito.filter(esPausado).length;
+  var elim=filtrados({sinEstado:true,conEliminados:true}).filter(function(p){return p.eliminado}).length;
+  var cat=el('pcat').value, est=el('pest').value;
+  var donde=cat?(D.categorias.filter(function(c){return c.clave===cat})[0]||{}).titulo||cat:'todas las categorías';
+  el('pcount').innerHTML='<span class="sm">'+esc(donde)+'</span> '+
+    '<button class="chip ok" type="button" data-est="visible" title="Productos que hoy se ven en su página">'+fmt(enWeb)+' en la web</button> '+
+    '<button class="chip warn" type="button" data-est="pausados" title="Con una pausa en Mercado Libre o en Amazon">'+fmt(pausados)+' pausados</button> '+
+    (elim?'<button class="chip mute" type="button" data-est="eliminado" title="Fuera de la lista: la corrida los borra en cuanto confirma que no existen">'+fmt(elim)+' eliminados</button> ':'')+
+    '<span class="sm">· '+fmt(lista.length)+(est?' con este filtro':'')+'</span>';
   var vis=lista.slice(0,pTope);
   el('pRows').innerHTML=vis.length?vis.map(function(p,i){
     var k=p.cat+'|'+p.id;
@@ -1085,6 +1110,13 @@ el('pDetail').addEventListener('click',function(e){
   el(id).addEventListener('input',function(){pTope=200;pintarProductos()});
 });
 el('pMore').addEventListener('click',function(){pTope+=300;pintarProductos()});
+// Los contadores son también el filtro: un clic deja solo ese grupo y otro clic lo quita.
+el('pcount').addEventListener('click',function(e){
+  var b=e.target.closest('[data-est]');if(!b)return;
+  var v=b.getAttribute('data-est');
+  el('pest').value=(el('pest').value===v)?'':v;
+  pTope=200;pintarProductos();
+});
 el('pRows').addEventListener('click',function(e){
   var tr=e.target.closest('tr[data-k]');if(!tr)return;
   var k=tr.getAttribute('data-k').split('|');
