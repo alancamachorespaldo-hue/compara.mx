@@ -982,6 +982,35 @@ const PRODUCTOS = [
     linkML: "https://meli.la/2KeNhsP",
     img: "https://http2.mlstatic.com/D_NQ_NP_2X_762843-MLA99938423115_112025-F.webp",
   },
+  {
+    id: 118,
+    nombre: "Healthaddiction Bplus B Complex 2 Pack – 120 Porciones",
+    marca: "Healthaddiction",
+    precio: 387,
+    precioML: 387,
+    precioAmz: null,
+    porciones: 120,
+    capsulasPorDia: 2,
+    porPorcion: "2 tabletas (1.4g)",
+    costoPorPorcion: 3.49,
+    b1: "15 mg",
+    b2: "17 mg",
+    b3: "24 mg",
+    b5: "20 mg",
+    b6: "9 mg",
+    b7: "300 µg",
+    b9: "300 µg",
+    b12: "12 µg",
+    formaB12: "cianocobalamina",
+    estrellas: 5,
+    resenas: 6,
+    badges: [
+      { t: "ML", c: "b-ml" }
+    ],
+    linkAmz: null,
+    linkML: "https://meli.la/2FwUbti",
+    img: "https://http2.mlstatic.com/D_NQ_NP_2X_671860-MLM106463065926_022026-F.webp"
+  },
 ];
 /*PAUSAS*/try{var _PZ=JSON.parse(document.getElementById('pausas').textContent||'{}');for(var _i=PRODUCTOS.length-1;_i>=0;_i--){var _p=PRODUCTOS[_i];var _z=_PZ[_p.id];if(!_z)continue;if(_z.ml){_p.linkML=null;_p.precioML=null;_p.pausaML=true;}if(_z.amz){_p.linkAmz='';_p.precioAmz=null;_p.pausaAmz=true;}if(!_p.linkML&&!_p.linkAmz)PRODUCTOS.splice(_i,1);}}catch(e){}
 
