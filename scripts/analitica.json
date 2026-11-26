@@ -1,5 +1,5 @@
 {
-  "generado": "2026-11-26T00:26:40.610Z",
+  "generado": "2026-11-26T22:30:26.041Z",
   "estado": "ok",
   "ga4": {
     "propiedad": "properties/550716422",
@@ -11,13 +11,13 @@
         "actual": {
           "desde": "2026-11-20",
           "hasta": "2026-11-26",
-          "usuarios": 155,
-          "sesiones": 162,
-          "vistas": 866,
-          "eventos": 2160,
-          "clicsML": 31,
+          "usuarios": 188,
+          "sesiones": 206,
+          "vistas": 940,
+          "eventos": 2383,
+          "clicsML": 38,
           "clicsAmz": 0,
-          "clicsTienda": 31,
+          "clicsTienda": 38,
           "leads": 0
         },
         "previo": {
@@ -38,13 +38,13 @@
         "actual": {
           "desde": "2026-10-30",
           "hasta": "2026-11-26",
-          "usuarios": 975,
-          "sesiones": 1047,
-          "vistas": 1997,
-          "eventos": 6268,
-          "clicsML": 139,
+          "usuarios": 1008,
+          "sesiones": 1090,
+          "vistas": 2071,
+          "eventos": 6491,
+          "clicsML": 146,
           "clicsAmz": 33,
-          "clicsTienda": 172,
+          "clicsTienda": 179,
           "leads": 0
         },
         "previo": {
@@ -442,27 +442,34 @@
       },
       {
         "fecha": "2026-11-25",
-        "usuarios": 14,
-        "sesiones": 16,
-        "vistas": 33,
-        "clicsTienda": 5
+        "usuarios": 43,
+        "sesiones": 51,
+        "vistas": 95,
+        "clicsTienda": 12
+      },
+      {
+        "fecha": "2026-11-26",
+        "usuarios": 8,
+        "sesiones": 9,
+        "vistas": 12,
+        "clicsTienda": 0
       }
     ],
     "paginas": [
       {
+        "ruta": "/",
+        "vistas": 137,
+        "usuarios": 106
+      },
+      {
         "ruta": "/guias/celulares/celulares-menos-3000-mexico/",
-        "vistas": 130,
-        "usuarios": 114
+        "vistas": 132,
+        "usuarios": 116
       },
       {
         "ruta": "/suplementos/proteina/",
-        "vistas": 123,
-        "usuarios": 107
-      },
-      {
-        "ruta": "/",
-        "vistas": 122,
-        "usuarios": 100
+        "vistas": 130,
+        "usuarios": 112
       },
       {
         "ruta": "/suplementos/creatina/",
@@ -471,13 +478,18 @@
       },
       {
         "ruta": "/guias/celulares/mejores-celulares-calidad-precio/",
-        "vistas": 81,
-        "usuarios": 75
+        "vistas": 82,
+        "usuarios": 76
       },
       {
         "ruta": "/guias/celulares/mejores-celulares-menos-5000/",
         "vistas": 75,
         "usuarios": 63
+      },
+      {
+        "ruta": "/ofertas/",
+        "vistas": 51,
+        "usuarios": 38
       },
       {
         "ruta": "/guias/celulares/celulares-5000-10000-mexico/",
@@ -486,7 +498,12 @@
       },
       {
         "ruta": "/bicicletas/bici-montana/",
-        "vistas": 45,
+        "vistas": 47,
+        "usuarios": 42
+      },
+      {
+        "ruta": "/electrodomesticos/cafeteras/",
+        "vistas": 47,
         "usuarios": 41
       },
       {
@@ -495,19 +512,19 @@
         "usuarios": 19
       },
       {
-        "ruta": "/electrodomesticos/cafeteras/",
-        "vistas": 43,
-        "usuarios": 38
-      },
-      {
-        "ruta": "/ofertas/",
-        "vistas": 38,
-        "usuarios": 29
-      },
-      {
         "ruta": "/celulares/android/",
-        "vistas": 35,
-        "usuarios": 23
+        "vistas": 37,
+        "usuarios": 25
+      },
+      {
+        "ruta": "/celulares/iphone/",
+        "vistas": 36,
+        "usuarios": 26
+      },
+      {
+        "ruta": "/suplementos/proteina/proteina-whey-cual-comprar/",
+        "vistas": 34,
+        "usuarios": 33
       },
       {
         "ruta": "/suplementos/creatina/creatina-mexico-cual-comprar/",
@@ -515,13 +532,8 @@
         "usuarios": 27
       },
       {
-        "ruta": "/suplementos/proteina/proteina-whey-cual-comprar/",
+        "ruta": "/videojuegos/consolas/",
         "vistas": 32,
-        "usuarios": 31
-      },
-      {
-        "ruta": "/celulares/iphone/",
-        "vistas": 31,
         "usuarios": 23
       },
       {
@@ -530,8 +542,8 @@
         "usuarios": 28
       },
       {
-        "ruta": "/videojuegos/consolas/",
-        "vistas": 31,
+        "ruta": "/laptops/",
+        "vistas": 28,
         "usuarios": 22
       },
       {
@@ -545,6 +557,11 @@
         "usuarios": 21
       },
       {
+        "ruta": "/entretenimiento/streaming/",
+        "vistas": 26,
+        "usuarios": 16
+      },
+      {
         "ruta": "/guias/celulares/celulares-buena-camara-economicos/",
         "vistas": 26,
         "usuarios": 27
@@ -555,14 +572,9 @@
         "usuarios": 26
       },
       {
-        "ruta": "/entretenimiento/streaming/",
-        "vistas": 25,
-        "usuarios": 15
-      },
-      {
-        "ruta": "/laptops/",
-        "vistas": 25,
-        "usuarios": 21
+        "ruta": "/suplementos/complejo-b/",
+        "vistas": 24,
+        "usuarios": 23
       },
       {
         "ruta": "/suplementos/omega3/omega3-cual-comprar/",
@@ -575,9 +587,9 @@
         "usuarios": 22
       },
       {
-        "ruta": "/suplementos/complejo-b/",
+        "ruta": "/suplementos/omega3/",
         "vistas": 23,
-        "usuarios": 22
+        "usuarios": 21
       },
       {
         "ruta": "/bicicletas/bici-electricas/",
@@ -585,36 +597,31 @@
         "usuarios": 18
       },
       {
-        "ruta": "/suplementos/omega3/",
-        "vistas": 22,
-        "usuarios": 20
-      },
-      {
         "ruta": "/tecnologia/smartwatches/",
         "vistas": 21,
         "usuarios": 11
       },
       {
-        "ruta": "/bicis/",
-        "vistas": 18,
-        "usuarios": 18
+        "ruta": "/bicicletas/bici-ruta/",
+        "vistas": 19,
+        "usuarios": 13
       }
     ],
     "fuentes": [
       {
         "fuente": "AI Assistant",
-        "sesiones": 756,
-        "usuarios": 729
+        "sesiones": 787,
+        "usuarios": 757
       },
       {
         "fuente": "Direct",
-        "sesiones": 240,
-        "usuarios": 203
+        "sesiones": 250,
+        "usuarios": 207
       },
       {
         "fuente": "Organic Social",
-        "sesiones": 19,
-        "usuarios": 16
+        "sesiones": 21,
+        "usuarios": 18
       },
       {
         "fuente": "Organic Search",
@@ -623,8 +630,8 @@
       },
       {
         "fuente": "Unassigned",
-        "sesiones": 9,
-        "usuarios": 9
+        "sesiones": 10,
+        "usuarios": 10
       },
       {
         "fuente": "Referral",
@@ -640,49 +647,49 @@
     "eventos": [
       {
         "evento": "page_view",
-        "conteo": 1995,
+        "conteo": 2071,
         "previo": 1365,
         "clave": false
       },
       {
         "evento": "session_start",
-        "conteo": 1044,
+        "conteo": 1088,
         "previo": 742,
         "clave": false
       },
       {
         "evento": "first_visit",
-        "conteo": 967,
+        "conteo": 1000,
         "previo": 655,
         "clave": false
       },
       {
         "evento": "user_engagement",
-        "conteo": 685,
+        "conteo": 719,
         "previo": 636,
         "clave": false
       },
       {
         "evento": "scroll",
-        "conteo": 634,
+        "conteo": 636,
         "previo": 215,
         "clave": false
       },
       {
         "evento": "comparison_section_view",
-        "conteo": 152,
+        "conteo": 161,
         "previo": 45,
         "clave": false
       },
       {
         "evento": "affiliate_click_ml",
-        "conteo": 139,
+        "conteo": 146,
         "previo": 110,
         "clave": true
       },
       {
         "evento": "click",
-        "conteo": 108,
+        "conteo": 111,
         "previo": 189,
         "clave": false
       },
@@ -729,15 +736,15 @@
         "clave": false
       },
       {
-        "evento": "onboarding_completed",
-        "conteo": 15,
-        "previo": 116,
+        "evento": "search_open",
+        "conteo": 16,
+        "previo": 29,
         "clave": false
       },
       {
-        "evento": "search_open",
+        "evento": "onboarding_completed",
         "conteo": 15,
-        "previo": 29,
+        "previo": 116,
         "clave": false
       },
       {
@@ -754,8 +761,14 @@
       },
       {
         "evento": "form_start",
-        "conteo": 10,
+        "conteo": 11,
         "previo": 9,
+        "clave": false
+      },
+      {
+        "evento": "filtro_aplicar",
+        "conteo": 9,
+        "previo": 0,
         "clave": false
       },
       {
@@ -766,14 +779,26 @@
       },
       {
         "evento": "historico_cerrar",
-        "conteo": 8,
+        "conteo": 9,
         "previo": 0,
         "clave": false
       },
       {
         "evento": "category_click",
-        "conteo": 7,
+        "conteo": 8,
         "previo": 14,
+        "clave": false
+      },
+      {
+        "evento": "filtro_bajada_precio",
+        "conteo": 8,
+        "previo": 0,
+        "clave": true
+      },
+      {
+        "evento": "historico_abrir",
+        "conteo": 8,
+        "previo": 0,
         "clave": false
       },
       {
@@ -783,20 +808,8 @@
         "clave": false
       },
       {
-        "evento": "filtro_bajada_precio",
-        "conteo": 7,
-        "previo": 0,
-        "clave": true
-      },
-      {
         "evento": "show_more",
         "conteo": 7,
-        "previo": 0,
-        "clave": false
-      },
-      {
-        "evento": "historico_abrir",
-        "conteo": 6,
         "previo": 0,
         "clave": false
       },
@@ -813,7 +826,7 @@
         "clave": false
       },
       {
-        "evento": "filtro_aplicar",
+        "evento": "filtro_precio",
         "conteo": 4,
         "previo": 0,
         "clave": false
@@ -826,6 +839,12 @@
       },
       {
         "evento": "historico_sin_datos",
+        "conteo": 4,
+        "previo": 0,
+        "clave": false
+      },
+      {
+        "evento": "ofertas_indice",
         "conteo": 4,
         "previo": 0,
         "clave": false
@@ -855,15 +874,15 @@
         "clave": false
       },
       {
-        "evento": "ofertas_indice",
-        "conteo": 3,
-        "previo": 0,
-        "clave": false
-      },
-      {
         "evento": "view_search_results",
         "conteo": 3,
         "previo": 6,
+        "clave": false
+      },
+      {
+        "evento": "buscar_listado",
+        "conteo": 2,
+        "previo": 0,
         "clave": false
       },
       {
@@ -915,12 +934,6 @@
         "clave": true
       },
       {
-        "evento": "buscar_listado",
-        "conteo": 1,
-        "previo": 0,
-        "clave": false
-      },
-      {
         "evento": "click_guia_cafeteras",
         "conteo": 1,
         "previo": 0,
@@ -942,6 +955,12 @@
         "evento": "leads_form_start",
         "conteo": 1,
         "previo": 2,
+        "clave": false
+      },
+      {
+        "evento": "ordenar_listado",
+        "conteo": 1,
+        "previo": 0,
         "clave": false
       },
       {
@@ -2115,19 +2134,19 @@
   "semana": {
     "desde": "2026-11-20",
     "hasta": "2026-11-26",
-    "usuarios": 155,
-    "sesiones": 162,
-    "vistas": 866,
-    "clicsTienda": 31,
-    "clicsML": 31,
+    "usuarios": 188,
+    "sesiones": 206,
+    "vistas": 940,
+    "clicsTienda": 38,
+    "clicsML": 38,
     "clicsAmz": 0,
     "impresiones": 94,
     "clicsBusqueda": 0,
     "ctr": 0,
     "posicion": 50.223404255319146,
     "cambio": {
-      "usuarios": -0.43636363636363634,
-      "clicsTienda": -0.44642857142857145,
+      "usuarios": -0.31636363636363635,
+      "clicsTienda": -0.32142857142857145,
       "impresiones": 0.6785714285714286,
       "clicsBusqueda": null
     }
