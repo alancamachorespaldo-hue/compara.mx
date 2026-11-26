@@ -1293,7 +1293,9 @@ function banCambios(){
     var c=porCat[e.cat]||(porCat[e.cat]={categoria:e.cat,publicar:[],eliminar:[]});
     if(e.accion==='eliminar'){c.eliminar.push(e.id);return}
     if(e.accion!=='publicar')return;
-    var item={id:e.id,nombre:e.nombre};
+    // Sin el nombre: lo saca el script de la propia bandeja, y aquí el JSON se pega a mano en
+    // un campo de GitHub, donde cada carácter de más es un problema.
+    var item={id:e.id};
     if(e.linkML)item.linkML=e.linkML;
     if(e.linkAmz)item.linkAmz=e.linkAmz;
     if(e.especs&&Object.keys(e.especs).length)item.especs=e.especs;
