@@ -896,6 +896,11 @@ function pResumenHTML(p){
    `node scripts/aplicar-nuevos.mjs cambios.json --aplicar`, que es quien vuelve a comprobar que
    el enlace abra DE VERDAD ese ID de catálogo antes de publicar nada. */
 var BAN=null, BSEL=null, BEDI={}, bTab='ficha', bPedida=false;
+/* Lo marcado con la casilla y el borrado en dos pasos. El borrado NO usa confirm(): el
+   artifact corre en un iframe de caja de arena y ahí confirm() no abre nada y devuelve
+   false, así que el botón Eliminar parecía no hacer nada. Ahora el primer clic pone el
+   botón en «¿Seguro?» y el segundo borra. */
+var BMARCA={}, bPorBorrar=null, bUltima=null;
 function modoBandeja(){var v=el('pest').value;return v==='nuevos'||v==='nuevos-sin-enlace'||v==='nuevos-sin-validar'}
 function banKey(cat,id){return cat+'__'+String(id)}
 function banDe(p){return BEDI[banKey(p.cat,p.id)]||null}
@@ -986,14 +991,17 @@ function pintarBandeja(){
     return;
   }
   var lista=banLista();
-  el('pHead').innerHTML='<tr><th>Producto</th><th>Marca</th><th>Categoría</th><th>Características</th>'+
+  el('pHead').innerHTML='<tr><th style="width:28px"><input type="checkbox" id="bAll" title="Marcar todo lo que se ve"></th>'+
+    '<th>Producto</th><th>Marca</th><th>Categoría</th><th>Características</th>'+
     '<th class="num">Precio ML</th><th>ID de catálogo</th><th>Estado</th><th>Enlace de afiliado</th><th>Acción</th></tr>';
   var vis=lista.slice(0,pTope);
   el('pRows').innerHTML=vis.length?vis.map(function(p){
     var v=banVista(p), e=v.especs;
     var carac=[e.contenidoGramos?e.contenidoGramos+' g':'',e.sabor||'',e.porciones?e.porciones+' porciones':'',e.tipoProteina||'']
       .filter(function(x){return x}).slice(0,3).join(' · ');
-    return '<tr data-b="'+esc(p.cat+'|'+p.id)+'"'+(BSEL&&BSEL.id===p.id?' class="sel"':'')+'>'+
+    var kk=p.cat+'|'+p.id;
+    return '<tr data-b="'+esc(kk)+'"'+(BSEL&&BSEL.id===p.id?' class="sel"':'')+'>'+
+      '<td><input type="checkbox" data-bchk="'+esc(kk)+'"'+(BMARCA[kk]?' checked':'')+'></td>'+
       '<td><div class="cel">'+(banImg(p)?'<img class="thumb" src="'+esc(banImg(p))+'" alt="" loading="lazy">':'<span class="thumb ph">▢</span>')+
         '<span><span class="nm">'+esc(p.nombre)+'</span><span class="sm">'+esc(p.modelo||'')+'</span></span></div></td>'+
       '<td class="sm">'+esc(p.marca||'—')+'</td>'+
@@ -1002,26 +1010,48 @@ function pintarBandeja(){
       '<td class="num sm">'+(v.linkML?'al publicar':'—')+'</td>'+
       '<td class="sm"><code>'+esc(p.id)+'</code></td>'+
       '<td>'+banChip(p)+'</td>'+
-      '<td>'+(v.linkML?'<button class="btn sm" type="button" data-blink="'+esc(p.cat+'|'+p.id)+'">Ver / editar</button>'
-                     :'<button class="btn sm pri" type="button" data-blink="'+esc(p.cat+'|'+p.id)+'">Agregar enlace</button>')+'</td>'+
-      '<td><button class="btn sm" type="button" data-bdel="'+esc(p.cat+'|'+p.id)+'" title="Quitar de la bandeja (no toca la base)">Eliminar</button></td></tr>';
-  }).join(''):'<tr><td colspan="9"><div class="empty">'+
+      '<td>'+(v.linkML?'<button class="btn sm" type="button" data-blink="'+esc(kk)+'">Ver / editar</button>'
+                     :'<button class="btn sm pri" type="button" data-blink="'+esc(kk)+'">Agregar enlace</button>')+'</td>'+
+      '<td>'+(bPorBorrar===kk
+        ? '<button class="btn sm" type="button" data-bdel="'+esc(kk)+'" style="border-color:var(--bad);color:var(--bad)">¿Seguro?</button>'
+        : '<button class="btn sm" type="button" data-bdel="'+esc(kk)+'" title="Quitar de la bandeja (no toca la base)">Eliminar</button>')+'</td></tr>';
+  }).join(''):'<tr><td colspan="10"><div class="empty">'+
     (Object.keys(BAN).length?'Nada pendiente con esos filtros.':'La bandeja está vacía. Usa «Buscar catálogo en API de Mercado Libre» para llenarla.')+'</div></td></tr>';
   el('pMore').hidden=lista.length<=pTope;
   el('pMore').textContent='Mostrar más ('+fmt(lista.length-vis.length)+' restantes)';
+  bUltima=lista;
+  banBarra();
+}
+/* La barra de arriba de la lista: cuántos hay, cuántos esperan publicación y las acciones de lo
+   marcado. Va aparte de pintarBandeja porque marcar una casilla solo tiene que cambiar ESTO: si
+   se repintaba la tabla entera, cada clic reconstruía las 300 filas y te movía el scroll. */
+function banBarra(){
+  if(!BAN)return;
+  var lista=bUltima||[];
   var cat=el('pcat').value, info=cat&&BAN[cat]?BAN[cat]:null;
+  var marcados=Object.keys(BMARCA).filter(function(k){return BMARCA[k]});
+  var enCola=Object.keys(BEDI).filter(function(k){return BEDI[k].accion==='publicar'}).length;
   el('pcount').innerHTML='<span class="sm">Bandeja de productos nuevos</span> '+
     '<span class="chip">'+fmt(lista.length)+' sin publicar</span> '+
-    (info&&info.actualizado?'<span class="sm">· búsqueda del '+esc(fecha(info.actualizado))+'</span>':
-      '<span class="sm">· lo que encontró la última búsqueda por categoría</span>');
+    (enCola?'<span class="chip ok">'+fmt(enCola)+' dados de alta, listos para publicar</span> '+
+      '<button class="btn sm pri" id="bCopia" type="button">Copiar para publicar</button> '+
+      '<a class="btn sm" href="https://github.com/alancamachorespaldo-hue/compara.mx/actions/workflows/publicar-nuevos.yml" target="_blank" rel="noopener">Publicar en GitHub ↗</a> ':'')+
+    (info&&info.actualizado?'<span class="sm">· búsqueda del '+esc(fecha(info.actualizado))+'</span> ':'')+
+    (marcados.length
+      ? '<span class="row" style="gap:6px;margin-left:8px"><b class="sm">'+marcados.length+' marcados</b>'+
+        '<button class="btn sm pri" id="bAlta" type="button">Dar de alta</button>'+
+        '<button class="btn sm" id="bBorra" type="button">Eliminar</button>'+
+        '<button class="btn sm" id="bNada" type="button">Quitar marcas</button></span>'
+      : '<span class="sm" style="margin-left:8px">Marca las casillas para dar de alta o eliminar varios de una vez.</span>');
 }
 /* Panel derecho de una ficha de la bandeja: los tres pasos del alta, sin salir de aquí. */
 function banDetalle(p){
   BSEL=p; pSel=null;
   var v=banVista(p), ok=banOk(p), val=banValida(p);
   var ob=(BAN[p.cat]&&BAN[p.cat].obligatorias)||[];
+  var rec=(BAN[p.cat]&&BAN[p.cat].recomendadas)||[];
   var claves=Object.keys(v.especs);
-  ob.forEach(function(k){if(claves.indexOf(k)<0)claves.push(k)});
+  ob.concat(rec).forEach(function(k){if(claves.indexOf(k)<0)claves.push(k)});
   var paso=v.accion==='publicar'?3:(v.linkML?2:1);
   var pasos=['1. Detectado','2. Completar y validar','3. Publicar'].map(function(t,i){
     return '<span class="chip '+(i+1<paso?'ok':(i+1===paso?'warn':'mute'))+'">'+(i+1<paso?'✓ ':'')+esc(t)+'</span>';
@@ -1035,7 +1065,14 @@ function banDetalle(p){
       '<dt>GTIN / EAN</dt><dd>'+((p.gtin||[]).length?esc(p.gtin.join(', ')):'<span class="sm">no lo da esta ficha</span>')+'</dd>'+
       '<dt>Precio</dt><dd><span class="sm">la API no lo da: sale del enlace de afiliado al publicar</span></dd>'+
       '<dt>Detectado</dt><dd>'+esc(fecha(p.detectadoEn))+(p.termino?' <span class="sm">buscando «'+esc(p.termino)+'»</span>':'')+'</dd>'+
+      (p.actualizadoML?'<dt>Ficha de ML</dt><dd>'+esc(fecha(p.actualizadoML))+' <span class="sm">última vez que ML la movió</span></dd>':'')+
     '</dl>'+
+    // El enlace se puede pegar aquí mismo: es lo primero que uno quiere hacer al abrir la ficha,
+    // y mandarlo a otra pestaña para una sola caja de texto era un paso de más.
+    '<label class="f">Enlace de afiliado de Mercado Libre<input class="inp" data-blk="linkML" value="'+esc(v.linkML)+'" placeholder="https://meli.la/…"></label>'+
+    '<div class="row"><button class="btn pri sm" id="ban_ok" type="button">Guardar enlace</button>'+
+      '<a class="btn sm" href="'+esc(p.urlML)+'" target="_blank" rel="noopener">Abrir la ficha en ML para sacarlo ↗</a></div>'+
+    '<div class="why"><b>Si ML dice «no está disponible»</b>Ese producto no tiene vendedor hoy y no sirve: elimínalo con el botón de su fila. La API no nos deja saberlo antes —el endpoint de ofertas responde 403 y la ficha pública contesta con el muro antibots de ML—, así que la bandeja no puede filtrarlos sola. Al publicar sí se sabe: el enlace de un producto pausado no da precio y <code>aplicar-nuevos.mjs</code> lo deja fuera.</div>'+
     (p.posibleDuplicadoDe?'<div class="why" style="border-color:var(--warn)"><b>Posible duplicado</b>Se parece a <b>'+esc(p.posibleDuplicadoDe.nombre)+'</b> (id '+esc(p.posibleDuplicadoDe.id)+') por marca, contenido y sabor. No se descartó solo: un sabor o un tamaño distinto es otro producto. Compruébalo antes de publicar.</div>':'')+
     (p.descripcion?'<div class="why"><b>Descripción de Mercado Libre</b>'+esc(p.descripcion)+'</div>':'')+
     '<div class="row">'+
@@ -1043,11 +1080,11 @@ function banDetalle(p){
       (p.imagen?'<a class="btn sm" href="'+esc(p.imagen)+'" target="_blank" rel="noopener">Imagen ↗</a>':'')+
     '</div>';
   var cuerpoCarac =
-    '<div class="why"><b>De dónde sale cada dato</b>Lo que tiene valor lo trajo la API de Mercado Libre. Lo marcado como <b>falta</b> no lo da la API —los datos nutricionales por porción vienen en texto libre— y hay que escribirlo aquí antes de publicar. No se deduce del nombre comercial.</div>'+
+    '<div class="why"><b>De dónde sale cada dato</b>Lo que tiene valor lo trajo la API de Mercado Libre. Las <b>obligatorias</b> vacías impiden publicar. Las que dicen <b>la API no la da</b> —la proteína por porción, sobre todo: Mercado Libre la manda en texto libre— no bloquean nada: se pueden llenar aquí o dejar vacías, y entonces el producto se publica con ese dato en blanco. Lo que no se hace nunca es deducirlas del nombre comercial.</div>'+
     '<div class="grid2">'+claves.map(function(k){
       var valor=v.especs[k], vacio=(valor===undefined||valor===null||String(valor).trim()==='');
       return '<label class="f">'+esc(k.replace(/_/g,' '))+
-        (vacio?(ob.indexOf(k)>=0?' <span class="chip bad">falta</span>':''):' <span class="chip ok">API</span>')+
+        (vacio?(ob.indexOf(k)>=0?' <span class="chip bad">obligatoria</span>':' <span class="chip warn">la API no la da</span>'):' <span class="chip ok">API</span>')+
         '<input class="inp" data-bes="'+esc(k)+'" value="'+esc(vacio?'':String(valor))+'"></label>';
     }).join('')+'</div>'+
     '<div class="row"><button class="btn pri" id="ban_ok" type="button">Guardar cambios</button></div>'+
@@ -1068,7 +1105,10 @@ function banDetalle(p){
     '<div class="row">'+
       '<button class="btn pri" id="ban_ok" type="button">Guardar cambios</button>'+
       '<button class="btn" id="ban_pub" type="button"'+(ok?'':' disabled title="Faltan validaciones"')+'>'+(v.accion==='publicar'?'Quitar de la cola de publicación':'Publicar producto')+'</button>'+
-      '<button class="btn" id="ban_del" type="button">Eliminar producto</button>'+
+      (bPorBorrar===p.cat+'|'+p.id
+        ? '<button class="btn" id="ban_del_si" type="button" style="border-color:var(--bad);color:var(--bad)">Sí, eliminar</button>'+
+          '<button class="btn" id="ban_del_no" type="button">Cancelar</button>'
+        : '<button class="btn" id="ban_del" type="button">Eliminar producto</button>')+
       (Object.keys(BEDI).length?'<button class="btn" id="ban_copy" type="button" style="margin-left:auto">Copiar cambios ('+Object.keys(BEDI).length+')</button>':'')+
     '</div>'+
     '<p class="sm" style="margin:0">«Publicar» lo deja en la cola de este Centro; el producto entra a la base y a la página cuando yo corra <code>node scripts/aplicar-nuevos.mjs cambios.json --aplicar</code>. Nada se publica solo al pegar el enlace.</p>';
@@ -1086,6 +1126,17 @@ function banGuardar(p,accion){
   var e={cat:p.cat,id:p.id,nombre:p.nombre,
     linkML:prev.linkML||null,linkAmz:prev.linkAmz||null,
     especs:Object.assign({},prev.especs||{}),accion:prev.accion||null};
+  // Los campos solo se leen si el panel derecho está enseñando ESTA ficha. Sin esta guarda,
+  // borrar o dar de alta desde la lista copiaba a este producto el enlace del que estuviera
+  // abierto al lado.
+  var mio=BSEL&&BSEL.cat===p.cat&&BSEL.id===p.id;
+  if(!mio){
+    if(accion!==undefined)e.accion=accion;
+    e.ts=new Date().toISOString();
+    BEDI[k]=e;
+    PDB.collection('bandeja').doc(k).set(e).then(function(){},function(){toast('No se pudo guardar')});
+    return true;
+  }
   var malo='';
   [].forEach.call(el('pDetail').querySelectorAll('[data-blk]'),function(i){
     var campo=i.getAttribute('data-blk'), val=i.value.trim();
@@ -1109,6 +1160,30 @@ function banGuardar(p,accion){
   BEDI[k]=e;
   PDB.collection('bandeja').doc(k).set(e).then(function(){toast('Guardado · falta aplicarlo al repo')},function(){toast('No se pudo guardar')});
   return true;
+}
+/** Da de alta lo marcado: lo que pase las validaciones entra en la cola de publicación. */
+function banAltaLote(){
+  var keys=Object.keys(BMARCA).filter(function(k){return BMARCA[k]});
+  var alta=0, sinLink=0, incompletos=0;
+  keys.forEach(function(k){
+    var kk=k.split('|'), p=banBuscar(kk[0],kk[1]);
+    if(!p)return;
+    if(!banVista(p).linkML){sinLink++;return}
+    if(banFaltan(p).length){incompletos++;return}
+    if(banGuardar(p,'publicar'))alta++;
+  });
+  BMARCA={}; pintarBandeja(); if(BSEL)banDetalle(BSEL);
+  toast(alta+' dados de alta'+(sinLink?' · '+sinLink+' sin enlace':'')+(incompletos?' · '+incompletos+' sin características obligatorias':''));
+}
+/** Quita de la bandeja lo marcado. No toca la base ni ningún producto publicado. */
+function banBorraLote(){
+  var keys=Object.keys(BMARCA).filter(function(k){return BMARCA[k]}), n=0;
+  keys.forEach(function(k){
+    var kk=k.split('|'), p=banBuscar(kk[0],kk[1]);
+    if(p&&banGuardar(p,'eliminar'))n++;
+  });
+  BMARCA={}; if(BSEL&&keys.indexOf(BSEL.cat+'|'+BSEL.id)>=0)BSEL=null;
+  pintarBandeja(); toast(n+' quitados de la bandeja');
 }
 /** El JSON que entiende aplicar-nuevos.mjs, agrupado por categoría. */
 function banCambios(){
@@ -1355,13 +1430,15 @@ el('pDetail').addEventListener('click',function(e){
       }
       return;
     }
-    if(bid==='ban_del'){
-      if(confirm('¿Quitar «'+BSEL.nombre+'» de la bandeja? No toca la base ni ningún producto publicado.')){
-        banGuardar(BSEL,'eliminar'); BSEL=null; pintarProductos();
-        el('pDetail').innerHTML='<div class="bd"><div class="empty">Quitado de la bandeja.</div></div>';
-      }
+    if(bid==='ban_del'){ bPorBorrar=BSEL.cat+'|'+BSEL.id; banDetalle(BSEL); return }
+    if(bid==='ban_del_si'){
+      var muerto=BSEL;
+      bPorBorrar=null; BSEL=null;
+      banGuardar(muerto,'eliminar'); pintarProductos();
+      el('pDetail').innerHTML='<div class="bd"><div class="empty">«'+esc(muerto.nombre)+'» quedó fuera de la bandeja. La base y la página no se tocaron.</div></div>';
       return;
     }
+    if(bid==='ban_del_no'){ bPorBorrar=null; banDetalle(BSEL); return }
     if(bid==='ban_copy'){
       var cs=banCambios(), n=0;
       cs.forEach(function(c){n+=c.publicar.length+c.eliminar.length});
@@ -1431,6 +1508,26 @@ el('pcount').addEventListener('click',function(e){
   el('pest').value=(el('pest').value===v)?'':v;
   pTope=200;pintarProductos();
 });
+el('pHead').addEventListener('click',function(e){
+  if(e.target.id!=='bAll')return;
+  var marcar=e.target.checked;
+  banLista().forEach(function(p){BMARCA[p.cat+'|'+p.id]=marcar});
+  pintarBandeja();
+});
+// Las acciones en lote viven en la barra del contador, junto al número de marcados.
+el('pcount').addEventListener('click',function(e){
+  var id=e.target.id;
+  if(id==='bAlta'){banAltaLote();return}
+  if(id==='bBorra'){banBorraLote();return}
+  if(id==='bNada'){BMARCA={};pintarBandeja();return}   // aquí sí: hay que destildar las casillas
+  if(id==='bCopia'){
+    var cs=banCambios(), n=0;
+    cs.forEach(function(c){n+=c.publicar.length+c.eliminar.length});
+    copiar(JSON.stringify(cs.length===1?cs[0]:cs));
+    toast('Copiado: pégalo en el workflow «Publicar productos nuevos» ('+n+')');
+    return;
+  }
+});
 // Los indicadores de arriba filtran igual que los contadores de la lista.
 el('pKpis').addEventListener('click',function(e){
   var b=e.target.closest('[data-est]');if(!b)return;
@@ -1440,13 +1537,30 @@ el('pKpis').addEventListener('click',function(e){
 });
 el('pRows').addEventListener('click',function(e){
   // ── bandeja ──
+  var bc=e.target.closest('[data-bchk]');
+  if(bc){
+    BMARCA[bc.getAttribute('data-bchk')]=bc.checked;
+    banBarra();                      // la fila ya se ve marcada sola: no hay que repintarla
+    return;
+  }
+  if(e.target.id==='bAll'){
+    var marcar=e.target.checked;
+    banLista().forEach(function(p){BMARCA[p.cat+'|'+p.id]=marcar});
+    pintarBandeja();
+    return;
+  }
   var bb=e.target.closest('[data-bdel]');
   if(bb){
-    var kd=bb.getAttribute('data-bdel').split('|');
-    var pd=banBuscar(kd[0],kd[1]);
-    if(pd&&confirm('¿Quitar «'+pd.nombre+'» de la bandeja? No toca la base ni ningún producto publicado: queda en la papelera de la bandeja y se puede recuperar.')){
-      BSEL=pd; banGuardar(pd,'eliminar'); pintarProductos();
+    var kb2=bb.getAttribute('data-bdel');
+    if(bPorBorrar!==kb2){ bPorBorrar=kb2; pintarBandeja(); return }   // primer clic: pide confirmar
+    var kd=kb2.split('|'), pd=banBuscar(kd[0],kd[1]);
+    bPorBorrar=null;
+    if(pd){
+      if(BSEL&&BSEL.cat===pd.cat&&BSEL.id===pd.id)BSEL=null;
+      banGuardar(pd,'eliminar');
+      toast('«'+pd.nombre.slice(0,40)+'» fuera de la bandeja');
     }
+    pintarBandeja();
     return;
   }
   var bl=e.target.closest('[data-blink]');

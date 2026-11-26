@@ -1,0 +1,129 @@
+name: Publicar productos nuevos
+
+# Publica en el sitio los productos que Alan dio de alta en la bandeja del Centro de Control.
+#
+# Cómo se usa: en el Gestor → filtro «Nuevos sin publicar» → marcas las casillas de los que
+# quieras → «Dar de alta» → «Copiar para publicar» → Run workflow y pegas eso en `cambios`.
+#
+# Qué hace con cada producto, antes de dejarlo entrar (lo decide scripts/aplicar-nuevos.mjs):
+#   · abre su enlace de afiliado y comprueba que lleve DE VERDAD a ese ID de catálogo;
+#   · de esa misma página saca el PRECIO —la API de ofertas sigue en 403, así que no hay otra—;
+#   · lo rechaza si la publicación está pausada, si no da precio o si le faltan las
+#     características obligatorias de su categoría.
+# Un producto rechazado no detiene a los demás: los buenos entran y el resumen dice por qué
+# quedó fuera cada uno. Un producto pausado en Mercado Libre NUNCA llega al sitio por aquí.
+#
+# Después escribe el producto en merged-admin.json y su tarjeta en la página de la categoría, y
+# corre el resto del pipeline para que el sitio quede coherente (pausas, contadores, Centro).
+
+on:
+  workflow_dispatch:
+    inputs:
+      cambios:
+        description: 'El JSON del botón «Copiar para publicar» del Centro de Control'
+        required: true
+        type: string
+      aplicar:
+        description: '¿Publicar de verdad? (si no, solo dice qué haría)'
+        type: boolean
+        default: true
+
+concurrency:
+  group: datos-comparalo
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - run: npm install
+
+      - name: Guardar lo pegado en un archivo
+        env:
+          CAMBIOS: ${{ inputs.cambios }}
+        # Por variable de entorno y no interpolado en el `run`: lo que se pega es texto libre y
+        # no tiene por qué acabar dentro de un comando de shell.
+        run: |
+          printf '%s' "$CAMBIOS" > cambios.json
+          # El Centro copia un objeto cuando es una sola categoría y un arreglo cuando son
+          # varias. Aquí se parte en un archivo por categoría, que es como lo quiere el script.
+          node -e "
+            const fs = require('fs');
+            const c = [].concat(JSON.parse(fs.readFileSync('cambios.json','utf8')));
+            c.forEach((x, i) => {
+              console.log(x.categoria + ': ' + (x.publicar||[]).length + ' a publicar · ' + (x.eliminar||[]).length + ' a eliminar');
+              fs.writeFileSync('cambios-' + i + '.json', JSON.stringify(x));
+            });
+          "
+
+      - name: Publicar lo aprobado
+        env:
+          APLICAR: ${{ inputs.aplicar && '--aplicar' || '' }}
+        run: |
+          for f in cambios-*.json; do
+            echo "── $f ──"
+            node scripts/aplicar-nuevos.mjs "$f" $APLICAR
+          done
+
+      - name: Aplicar pausas a las páginas
+        if: ${{ inputs.aplicar }}
+        run: node scripts/sync-pausas.js
+
+      - name: Cuadrar los contadores de los hubs
+        if: ${{ inputs.aplicar }}
+        run: node scripts/sync-hub-counts.js
+
+      - name: Anotar qué productos están publicados en cada página
+        if: ${{ inputs.aplicar }}
+        run: node scripts/marcar-publicados.js
+
+      - name: Resumir todo para el Centro de Control
+        if: ${{ inputs.aplicar }}
+        run: node scripts/generar-centro.js
+
+      - name: Revisar el sitio
+        if: ${{ inputs.aplicar }}
+        run: node scripts/check-site.js
+
+      - name: Revisar que los datos estén sanos
+        if: ${{ inputs.aplicar }}
+        run: node scripts/validar-datos.js
+
+      - name: Commit y push si hay cambios
+        if: ${{ inputs.aplicar }}
+        run: |
+          rm -f cambios.json cambios-*.json
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # -u y no -A: solo lo ya versionado que esta corrida tocó (la base, la página de la
+          # categoría, la bandeja y los JSON del Centro). Nada de archivos sueltos.
+          git add -u
+          if git diff --staged --quiet; then
+            echo "Sin cambios: ningún producto entró."
+            exit 0
+          fi
+          git commit -m "feat(productos): alta de productos nuevos desde la bandeja $(date +'%Y-%m-%d')"
+          for intento in 1 2 3; do
+            git fetch origin main
+            if ! git rebase origin/main; then
+              git rebase --abort
+              echo "::error::El rebase chocó con otro commit del remoto. No se publica nada; revísalo a mano."
+              exit 1
+            fi
+            node scripts/validar-datos.js || exit 1
+            if git push origin HEAD:main; then exit 0; fi
+            echo "Push rechazado (intento $intento de 3); vuelvo a traer el remoto."
+          done
+          exit 1

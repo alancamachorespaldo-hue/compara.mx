@@ -159,7 +159,8 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
   consigue al publicarse, de la página de su enlace. Tampoco da los datos nutricionales por
   porción como dato estructurado: `NUTRITIONAL_VALUES_PER_SERVING` es texto libre («22 gr de
   proteína», «110 kcal»), así que `proteinaPorPorcion` se escribe a mano y **no se deduce del
-  nombre comercial**. Piloto: Proteína (570 productos de la categoría, 569 que no teníamos, en
+  nombre comercial**. Tampoco se puede saber aquí si el producto tiene vendedor hoy (ver la
+  sección de la bandeja). Piloto: Proteína (570 productos de la categoría, 569 que no teníamos, en
   29 llamadas). Historial de búsquedas en `scripts/busquedas-catalogo.json`.
 - `aplicar-nuevos.mjs <cambios.json> [--aplicar]` — publica lo que Alan aprobó en el Centro. Es el
   ÚNICO camino de la bandeja al sitio. Antes de publicar comprueba, producto por producto: que
@@ -439,16 +440,42 @@ El flujo completo, de la API al sitio:
    `generar-centro.js` al lado del Centro **como `bandeja.json`** y se pide con `fetch` solo al
    entrar al filtro. Las miniaturas son las de siempre (`generar-miniaturas.mjs`, clave
    `bandeja:<MLM…>`), porque la CSP del artifact bloquea toda imagen externa.
-3. **Completar.** En el panel derecho: enlace de afiliado de ML y de Amazon, corrección de
-   características, y la lista de validaciones. «Publicar producto» está **deshabilitado** hasta
-   que pasen todas. Lo capturado vive en la colección `bandeja` del almacenamiento del Centro,
-   nunca en el repo.
-4. **Aplicar.** «Copiar cambios» da el JSON y `node scripts/aplicar-nuevos.mjs cambios.json --aplicar`
-   lo mete a `merged-admin.json` y a la página. Nada se publica solo al pegar el enlace.
+3. **Completar.** El enlace de afiliado se pega en la pestaña **Identificación** (es lo primero
+   que uno quiere hacer al abrir la ficha) o en **Enlace y publicación**, que además trae el de
+   Amazon, la corrección de características y la lista de validaciones. «Publicar producto» está
+   **deshabilitado** hasta que pasen todas. Lo capturado vive en la colección `bandeja` del
+   almacenamiento del Centro, nunca en el repo.
+4. **Dar de alta, varios de una vez.** Cada fila tiene casilla y la cabecera marca todo lo que se
+   ve. Con algo marcado aparecen **Dar de alta** y **Eliminar**: el alta mete en la cola de
+   publicación solo lo que pasa las validaciones y dice en un aviso cuántos quedaron fuera y por
+   qué («3 dados de alta · 2 sin enlace»).
+5. **Publicar.** «Copiar para publicar» copia el JSON; se pega en el workflow
+   **`publicar-nuevos.yml`** y ahí corre todo: abre cada enlace, saca el precio, escribe el
+   producto en la base y su tarjeta en la página, y hace commit. En la máquina es lo mismo con
+   `node scripts/aplicar-nuevos.mjs cambios.json --aplicar`. Nada se publica solo al pegar el enlace.
+
+**Eliminar es en dos pasos, sin `confirm()`**: el artifact corre en un iframe de caja de arena,
+donde `confirm()` no abre nada y devuelve `false` — por eso el botón Eliminar no hacía nada
+(26-nov-2026). Ahora el primer clic lo pone en «¿Seguro?» y el segundo lo quita de la bandeja.
+Quitar de la bandeja no toca la base ni ningún producto publicado.
+
+**Obligatorias contra recomendadas.** `obligatorias` bloquea la publicación; `recomendadas` solo
+avisa. Solo se ponen como obligatorias las que la API suele dar: `proteinaPorPorcion` pasó a
+recomendada porque la API no la da en NINGÚN producto, así que exigirla convertía dar de alta 150
+fichas en 150 capturas a mano. Si se publica sin ella entra como `null` —lo que esa página ya hace
+con las fichas incompletas—, nunca deducida del nombre comercial.
+
+**La bandeja no sabe si hay stock.** `status:"active"` del catálogo dice que la FICHA existe, no
+que alguien lo venda, así que pueden caer productos que ML enseña como «no disponible por el
+momento». No hay de dónde leerlo: el endpoint de ofertas responde 403 y la ficha pública
+`/p/MLM…` contesta con el muro antibots de ML en vez de la página (comprobado el 26-nov-2026).
+Dónde sí se sabe: al publicar, porque el enlace de un producto pausado no da precio y
+`aplicar-nuevos.mjs` lo deja fuera. Mientras tanto se guarda `actualizadoML` (cuándo tocó ML la
+ficha por última vez) como pista, y se borra a mano desde el Centro.
 
 Una categoría entra al descubrimiento agregándole un bloque `descubrir` en `categorias.js`
-(términos, dominios, clase, mapa de atributos → `especs`, obligatorias) y sumándola a las opciones
-del workflow. Hoy solo está Proteína, el piloto.
+(términos, dominios, clase, mapa de atributos → `especs`, obligatorias, recomendadas) y sumándola
+a las opciones de los dos workflows. Hoy solo está Proteína, el piloto.
 
 ## El panel: Centro de Control (decisión del 25-nov-2026)
 
@@ -502,6 +529,12 @@ republicar.
   Corre `descubrir-catalogo.mjs`, regenera el Centro, valida y commitea solo la bandeja, el
   historial y los JSON del Centro. No escribe `merged-admin.json` ni ninguna página; comparte el
   `concurrency: datos-comparalo` porque también commitea en main.
+- `publicar-nuevos.yml` ("Publicar productos nuevos") — **manual**: recibe en `cambios` el JSON
+  del botón «Copiar para publicar» del Centro y corre `aplicar-nuevos.mjs --aplicar` (un archivo
+  por categoría), `sync-pausas.js`, `sync-hub-counts.js`, `marcar-publicados.js`,
+  `generar-centro.js`, `check-site.js` y `validar-datos.js`, y hace commit. Es el camino por el
+  que un producto de la bandeja llega al sitio sin tocar la máquina. Lo pegado viaja por variable
+  de entorno, no interpolado en el shell.
 - `revisar-disponibilidad.yml` ("Revisar disponibilidad en Mercado Libre") — **dormido**: su
   capa 1 es la API de precios. Lo que hacía su capa de links lo hace ahora a diario
   `precios-por-link.yml`, que abre cada enlace de todos modos. Era: domingos 5:00 CDMX y

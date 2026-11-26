@@ -46,8 +46,11 @@
  *                            mapa        atributo de ML → clave del esquema `especs` de la
  *                                        categoría. Mapear es decisión de categoría, por eso
  *                                        vive aquí y no en el script.
- *                            obligatorias  claves de `especs` que el Centro exige antes de
- *                                        dejar publicar. Las que la API no da se llenan a mano.
+ *                            obligatorias  claves de `especs` sin las cuales no se deja publicar.
+ *                                        Solo se ponen aquí las que la API suele dar: una que
+ *                                        nunca da no es un requisito, es un bloqueo.
+ *                            recomendadas  las que se avisan en rojo pero no bloquean; si se
+ *                                        publica sin ellas entran como `null`, nunca deducidas.
  */
 
 export const CATEGORIAS = {
@@ -113,9 +116,14 @@ export const CATEGORIAS = {
         IS_GLUTEN_FREE: 'glutenFree',
         SUPPLEMENT_FORMAT: 'presentacion',
       },
-      // proteinaPorPorcion NO la da la API como dato estructurado (0% de cobertura medida):
-      // NUTRITIONAL_VALUES_PER_SERVING es texto libre. Se pide a mano antes de publicar.
-      obligatorias: ['contenidoGramos', 'porciones', 'gramosPorPorcion', 'proteinaPorPorcion'],
+      // `obligatorias` BLOQUEA la publicación; `recomendadas` solo avisa. La diferencia la
+      // decidió el uso: proteinaPorPorcion no la da la API en NINGÚN producto (0% medido, porque
+      // NUTRITIONAL_VALUES_PER_SERVING es texto libre), así que exigirla convertía dar de alta
+      // 150 fichas en 150 capturas a mano. Queda como recomendada: se ve en rojo, se puede
+      // llenar aquí mismo, y si se publica sin ella entra como `null` —que es lo que esa página
+      // ya hace con las fichas incompletas— en vez de deducirla del nombre comercial.
+      obligatorias: ['contenidoGramos', 'porciones', 'gramosPorPorcion'],
+      recomendadas: ['proteinaPorPorcion', 'sabor', 'tipoProteina'],
     },
   },
   omega3: {

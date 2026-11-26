@@ -245,11 +245,20 @@ const sugerencias = Object.entries(sug || {})
    con las miniaturas. En datos.json queda únicamente el conteo, que es lo que pinta el
    indicador de arriba. */
 const PENDIENTES = new Set(['new_unpublished', 'revisar']);
+/* Las faltantes se RECALCULAN aquí, no se copian de la bandeja: la lista de obligatorias de la
+   categoría cambia (en nov-2026 proteinaPorPorcion pasó de bloquear a solo avisar) y las fichas
+   guardadas antes del cambio seguirían diciendo que les falta algo que ya no se exige. */
+const faltanDe = (p, claves) => (claves || []).filter((k) => {
+  const v = (p.especs || {})[k];
+  return v === undefined || v === null || String(v).trim() === '';
+});
 const bandejaCats = [];
 const bandejaDetalle = {};
 for (const [clave, info] of Object.entries(bandejaRaw.categorias || {})) {
   const todos = info.productos || [];
   const pend = todos.filter((p) => PENDIENTES.has(p.estado));
+  const obligatorias = CATEGORIAS[clave]?.descubrir?.obligatorias || [];
+  const recomendadas = CATEGORIAS[clave]?.descubrir?.recomendadas || [];
   bandejaCats.push({
     clave,
     titulo: info.titulo || porDatos[clave]?.titulo || clave,
@@ -257,10 +266,10 @@ for (const [clave, info] of Object.entries(bandejaRaw.categorias || {})) {
     nuevos: todos.filter((p) => p.estado === 'new_unpublished').length,
     revisar: todos.filter((p) => p.estado === 'revisar').length,
     sinEnlace: pend.filter((p) => !p.linkML).length,
-    sinValidar: pend.filter((p) => (p.obligatoriasFaltantes || []).length).length,
+    sinValidar: pend.filter((p) => faltanDe(p, obligatorias).length).length,
     // Los que piden trabajo: sin enlace O sin las características obligatorias. Contados una
     // sola vez, no sumando las dos colas: casi siempre son el mismo producto.
-    atencion: pend.filter((p) => !p.linkML || (p.obligatoriasFaltantes || []).length).length,
+    atencion: pend.filter((p) => !p.linkML || faltanDe(p, obligatorias).length).length,
     publicados: todos.filter((p) => p.estado === 'publicado').length,
     eliminados: todos.filter((p) => p.estado === 'eliminado').length,
     ultimaBusqueda: info.ultimaBusqueda
@@ -276,7 +285,8 @@ for (const [clave, info] of Object.entries(bandejaRaw.categorias || {})) {
   bandejaDetalle[clave] = {
     titulo: info.titulo || clave,
     actualizado: info.actualizado || null,
-    obligatorias: CATEGORIAS[clave]?.descubrir?.obligatorias || [],
+    obligatorias,
+    recomendadas,
     productos: pend.map((p) => ({
       id: p.id, catalogId: p.catalogId, estado: p.estado, nombre: p.nombre, marca: p.marca,
       modelo: p.modelo, gtin: p.gtin || [], imagen: p.imagen, imagenes: (p.imagenes || []).slice(0, 4),
@@ -284,8 +294,9 @@ for (const [clave, info] of Object.entries(bandejaRaw.categorias || {})) {
       caracteristicas: (p.caracteristicas || []).slice(0, 6),
       variantes: (p.variantes || []).slice(0, 12),
       urlML: p.urlML, especs: p.especs || {}, atributos: p._mlAtributos || {},
-      faltantes: p.obligatoriasFaltantes || [], posibleDuplicadoDe: p.posibleDuplicadoDe || null,
-      termino: p.termino, detectadoEn: p.detectadoEn,
+      faltantes: faltanDe(p, obligatorias), avisos: faltanDe(p, recomendadas),
+      posibleDuplicadoDe: p.posibleDuplicadoDe || null,
+      termino: p.termino, detectadoEn: p.detectadoEn, actualizadoML: p.actualizadoML || null,
       linkML: p.linkML || null, linkAmz: p.linkAmz || null,
     })),
   };

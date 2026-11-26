@@ -21,6 +21,15 @@
  *     aquí sobre el `domain_id` de cada resultado.
  *   · ~45% del catálogo viene `status:"inactive"`: se descarta.
  *
+ * LO QUE NO PODEMOS SABER AQUÍ: si el producto tiene vendedor y stock HOY. La API de ofertas
+ * (`/products/{id}/items`) responde 403, y la ficha pública `/p/MLM…` contesta con el muro de
+ * tráfico sospechoso de ML en vez de la página, así que no hay de dónde leerlo. `status:"active"`
+ * del catálogo solo dice que la FICHA existe, no que alguien lo venda: por eso en la bandeja
+ * pueden caer productos que ML enseña como «no disponible por el momento». Dónde sí se sabe:
+ * al publicar, cuando `aplicar-nuevos.mjs` abre el enlace de afiliado —ahí el precio y la pausa
+ * son visibles— y un producto sin stock se queda fuera. Mientras tanto se guarda `actualizadoML`
+ * como pista y se puede borrar a mano desde el Centro.
+ *
  * LO QUE NUNCA HACE: no escribe en merged-admin.json, no toca ninguna página, no publica nada.
  * Eso es cosa de `aplicar-nuevos.mjs`, y solo con lo que Alan aprueba en el Centro de Control.
  *
@@ -269,9 +278,14 @@ async function descubrir(cat, base, bandejaPrevia) {
         picker: p.picker_name, etiqueta: v.picker_label, id: v.product_id,
       }))),
       urlML: `https://www.mercadolibre.com.mx/p/${r.it.id}`,
+      // Cuándo tocó ML esta ficha por última vez. NO dice si hay stock —eso no lo sabemos, ver
+      // abajo—, pero una ficha que lleva semanas sin moverse suele ser una sin vendedores, así
+      // que se enseña en el Centro como pista para decidir a cuál pedirle enlace primero.
+      actualizadoML: d.last_updated ?? r.it.last_updated ?? null,
       especs: mapearEspecs(a, cfg.mapa),
       _mlAtributos: attrsLegibles(d),
       obligatoriasFaltantes: (cfg.obligatorias ?? []).filter(k => mapearEspecs(a, cfg.mapa)[k] == null),
+      recomendadasFaltantes: (cfg.recomendadas ?? []).filter(k => mapearEspecs(a, cfg.mapa)[k] == null),
       posibleDuplicadoDe: r.posible,
       termino: r.it._termino,
       detectadoEn: ahora,
