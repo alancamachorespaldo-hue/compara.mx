@@ -90,6 +90,13 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
   · **Ya no existe** (404 de `/products/{id}`) → se borra de una; un catálogo borrado no vuelve.
   · **Enlace muerto** → no se borra el producto, se retira el enlace: el catálogo sigue vivo, lo
   que murió es nuestro enlace, y con pegarle uno nuevo vuelve.
+  · **Cae en la "tarjeta por defecto del perfil"** → **el producto ya no existe: se borra.** Esa
+  tarjeta no es un enlace nuestro apuntando mal: cuando el destino desaparece, ML le devuelve al
+  usuario sus propias búsquedas recientes, y en esta cuenta eso son gafas inteligentes (de cuando
+  se armó `/tecnologia/lentes-inteligentes/`). Así que el `MLM2051584545` que sale en los reportes
+  no tiene nada que ver con el producto ni con el enlace: es el síntoma de que el producto murió.
+  No se le busca enlace nuevo ni se deja esperando. Ojo: `precios-por-link.mjs` todavía trata este
+  caso como `link_roto` y solo retira el enlace (25-nov-2026, 8 celulares borrados a mano así).
   **Borrar es borrar**: el objeto sale de `merged-admin.json` *y* del array de su página, en ese
   orden (al revés, nada quedaría en la base que le dijera a `sync-pausas.js` que esa tarjeta
   sobra, y se quedaría anunciada para siempre). Queda copia completa en
