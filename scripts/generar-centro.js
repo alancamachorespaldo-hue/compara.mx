@@ -59,6 +59,12 @@ const visibilidad = (p) => {
   if (p._eliminado === true) return [false, 'eliminado'];
   if (p.activo === false) return [false, 'inactivo'];
   if (p._publicar === false) return [false, 'sin_publicar'];
+  // Estar sano en la base no basta: la tarjeta tiene que existir en el array de su página.
+  // `marcar-publicados.js` lo comprueba leyendo el HTML y lo anota en `_enWeb`. Nov-2026, al
+  // revivir 30 productos marcados como eliminados a mano, 22 seguían fuera del array de su
+  // página: sin esto el panel los habría dado por publicados y nadie habría sabido que faltaba
+  // devolverles la tarjeta. `undefined` no cuenta: hay categorías que ese script no mapea.
+  if (p._enWeb === false) return [false, 'falta_en_la_pagina'];
   const ml = !!p.linkML && !p.pausaML;
   const amz = !!p.linkAmz && !p.pausaAmz;
   if (ml || amz) return [true, ml && amz ? 'ambas' : (ml ? 'solo_ml' : 'solo_amazon')];

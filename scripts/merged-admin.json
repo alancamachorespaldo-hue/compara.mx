@@ -69,11 +69,13 @@
       "precio": null,
       "_publicar": true,
       "_enWeb": true,
-      "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispEstado": "link_roto",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 30799,
       "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioLinkFecha": "2026-11-25",
+      "_dispFallos": 1,
+      "_dispDesde": "2026-11-26"
     },
     {
       "id": "exp_MLM27793007",
@@ -141,10 +143,10 @@
       "_publicar": true,
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 6900,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 1,
@@ -576,10 +578,10 @@
       "_linkSinProducto": null,
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 25999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 15,
@@ -845,10 +847,10 @@
       "_linkSinProducto": null,
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 37499,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 23,
@@ -857,9 +859,9 @@
       "linkML": "https://meli.la/2VN1CU4",
       "linkAmz": "https://www.amazon.com.mx/dp/B0GR12XN4K?tag=guiasdecomp01-20",
       "mlId": "MLM73080506",
-      "precioML": 24899,
+      "precioML": 25999,
       "precioAmz": 34999,
-      "activo": false,
+      "activo": true,
       "estadoML": "sin_cambio",
       "especs": {
         "procesador": "Apple M5 (CPU 10 núcleos)",
@@ -884,7 +886,13 @@
       "_linkRevisar": null,
       "_linkSinProducto": null,
       "_enWeb": false,
-      "_eliminado": true
+      "_revividoFecha": "2026-11-26",
+      "_revividoMotivo": "su enlace de afiliado sigue abriendo el producto",
+      "_dispEstado": "ok",
+      "_dispFecha": "2026-11-26",
+      "_precioFicha": 25999,
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 24,
@@ -1115,10 +1123,10 @@
       "_linkSinProducto": null,
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 44999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 31,
@@ -1193,7 +1201,7 @@
       "mlId": null,
       "precioML": 30029,
       "precioAmz": 26999,
-      "activo": false,
+      "activo": true,
       "estadoML": "sin_precio",
       "especs": {
         "procesador": "Intel Core i5-14450HX",
@@ -1218,8 +1226,11 @@
       "_linkError": null,
       "_linkRevisar": null,
       "_linkSinProducto": null,
-      "_eliminado": true,
-      "_enWeb": false
+      "_enWeb": false,
+      "_revividoFecha": "2026-11-26",
+      "_revividoMotivo": "su enlace de afiliado sigue abriendo el producto",
+      "_dispEstado": "ok",
+      "_dispFecha": "2026-11-26"
     },
     {
       "id": 34,
@@ -1795,10 +1806,10 @@
       "mlIdFuente": "afiliado",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 24658,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 24983,
       "_precioMLFecha": "2026-11-25"
     },
@@ -1834,10 +1845,10 @@
       "mlIdFuente": "afiliado",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 108999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 55,
@@ -1945,10 +1956,10 @@
       "mlIdFuente": "afiliado",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 11799,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 59,
@@ -1984,12 +1995,12 @@
       "mlIdFuente": "afiliado",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 7260,
       "_precioMLFecha": "2026-11-25",
       "_precioFicha": 6226,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 60,
@@ -1998,9 +2009,9 @@
       "linkML": "https://meli.la/2Pc3unK",
       "linkAmz": null,
       "mlId": "MLM53153939",
-      "precioML": 25000,
+      "precioML": 23499,
       "precioAmz": null,
-      "activo": false,
+      "activo": true,
       "estadoML": "sin_cambio",
       "especs": {
         "procesador": "Intel Core i5-13420H",
@@ -2024,8 +2035,16 @@
       "_mlCheckedAt": "2026-11-16T14:12:48.035Z",
       "mlIdFuente": "afiliado",
       "_linkRevisar": "link_caido",
-      "_eliminado": true,
-      "_enWeb": false
+      "_enWeb": false,
+      "_revividoFecha": "2026-11-26",
+      "_revividoMotivo": "su enlace de afiliado sigue abriendo el producto",
+      "_dispEstado": "ok",
+      "_dispFecha": "2026-11-26",
+      "_precioFicha": 23499,
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
+      "_precioMLAntes": 25000,
+      "_precioMLFecha": "2026-11-26"
     },
     {
       "id": 63,
@@ -2061,10 +2080,10 @@
       "mlIdFuente": "afiliado",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 6359,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 6446,
       "_precioMLFecha": "2026-11-25"
     },
@@ -2100,10 +2119,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": false,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 8899,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 70,
@@ -2174,10 +2193,10 @@
       "mlIdFuente": "afiliado",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 4839,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 4969,
       "_precioMLFecha": "2026-11-25"
     },
@@ -2214,10 +2233,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 44999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 74,
@@ -2253,10 +2272,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 18905,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 77,
@@ -2292,10 +2311,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 15999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 81,
@@ -2518,7 +2537,7 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 29954,
       "_precioFichaFecha": "2026-11-25",
       "_precioLinkFecha": "2026-11-25",
@@ -2562,10 +2581,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 19999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "ml_MLM51480509",
@@ -2603,10 +2622,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 5319,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "ml_MLM77331152",
@@ -2644,10 +2663,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 16116,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 16326,
       "_precioMLFecha": "2026-11-25"
     },
@@ -2687,10 +2706,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 15999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "ml_MLM2112784721",
@@ -2761,11 +2780,11 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "pausaML": false,
       "_precioFicha": 15999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "ml_MLM1066172746",
@@ -2793,7 +2812,7 @@
       "estrellas": null,
       "resenas": null,
       "precio": 17499,
-      "activo": false,
+      "activo": true,
       "estadoML": "sin_cambio",
       "_publicar": true,
       "_updatedAt": "2026-11-16T21:34:48.660Z",
@@ -2802,8 +2821,14 @@
       "_mlCatalogo": "https://www.mercadolibre.com.mx/p/MLM1066172746",
       "_mlCheckedAt": "2026-11-16T14:12:48.035Z",
       "_linkRevisar": "link_caido",
-      "_eliminado": true,
-      "_enWeb": false
+      "_enWeb": false,
+      "_revividoFecha": "2026-11-26",
+      "_revividoMotivo": "su enlace de afiliado sigue abriendo el producto",
+      "_dispEstado": "ok",
+      "_dispFecha": "2026-11-26",
+      "_precioFicha": 18499,
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "ml_MLM76403131",
@@ -2840,10 +2865,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 2800,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "ml_MLM75474152",
@@ -2881,10 +2906,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 6568,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "ml_MLM80268535",
@@ -2960,10 +2985,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 13900,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "ml_MLM80023002",
@@ -3000,12 +3025,12 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 22168,
       "_precioMLFecha": "2026-11-25",
       "_precioFicha": 21328,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "ml_MLM1066172677",
@@ -3043,10 +3068,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 15999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "ml_MLM65605808",
@@ -3119,10 +3144,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 15279,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 16559,
       "_precioMLFecha": "2026-11-25"
     },
@@ -3251,10 +3276,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 13503,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "ml_MLM77673866",
@@ -3290,11 +3315,11 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "pausaML": false,
       "_precioFicha": 10457,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "ml_MLM73943613",
@@ -3332,10 +3357,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 13610,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 13784,
       "_precioMLFecha": "2026-11-25"
     },
@@ -3376,10 +3401,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 5237,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "ml_MLM77592683",
@@ -3529,10 +3554,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 13899,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "ml_MLM80256211",
@@ -3613,10 +3638,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 17639,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "ml_MLM76475634",
@@ -3679,7 +3704,7 @@
       "estrellas": null,
       "resenas": null,
       "precio": 19999,
-      "activo": false,
+      "activo": true,
       "estadoML": "sin_precio",
       "_publicar": true,
       "_updatedAt": "2026-11-16T21:34:48.660Z",
@@ -3687,8 +3712,14 @@
       "mlIdFuente": "manual",
       "_mlCatalogo": "https://www.mercadolibre.com.mx/p/MLM79094708",
       "_mlCheckedAt": "2026-11-16T14:12:48.035Z",
-      "_eliminado": true,
-      "_enWeb": false
+      "_enWeb": false,
+      "_revividoFecha": "2026-11-26",
+      "_revividoMotivo": "su enlace de afiliado sigue abriendo el producto",
+      "_dispEstado": "ok",
+      "_dispFecha": "2026-11-26",
+      "_precioFicha": 18914,
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "ml_MLM53983379",
@@ -3727,10 +3758,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 26999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "ml_MLM57328307",
@@ -3838,10 +3869,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 22247,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 22529,
       "_precioMLFecha": "2026-11-25"
     },
@@ -3882,10 +3913,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 18499,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "ml_MLM79381183",
@@ -3921,10 +3952,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 15899,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "ml_MLM67638582",
@@ -3950,7 +3981,7 @@
       "estrellas": null,
       "resenas": null,
       "precio": 14769,
-      "activo": false,
+      "activo": true,
       "estadoML": "sin_precio",
       "_publicar": true,
       "_updatedAt": "2026-11-16T21:34:48.660Z",
@@ -3958,8 +3989,14 @@
       "mlIdFuente": "manual",
       "_mlCatalogo": "https://www.mercadolibre.com.mx/p/MLM67638582",
       "_mlCheckedAt": "2026-11-16T14:12:48.035Z",
-      "_eliminado": true,
-      "_enWeb": false
+      "_enWeb": false,
+      "_revividoFecha": "2026-11-26",
+      "_revividoMotivo": "su enlace de afiliado sigue abriendo el producto",
+      "_dispEstado": "ok",
+      "_dispFecha": "2026-11-26",
+      "_precioFicha": 15999,
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "ml_MLM77179074",
@@ -4035,10 +4072,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 5200,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 5800,
       "_precioMLFecha": "2026-11-25"
     },
@@ -4115,10 +4152,10 @@
       "_precioMLFecha": "2026-11-20",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 3298,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "ml_MLM80236761",
@@ -4155,10 +4192,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 3104,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "52",
@@ -4203,10 +4240,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 42499,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     }
   ],
   "bicis": [
@@ -6558,7 +6595,7 @@
       "mlIdFuente": "manual",
       "_mlCatalogo": "https://www.mercadolibre.com.mx/p/MLM53338064",
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
-      "_enWeb": true,
+      "_enWeb": false,
       "_dispEstado": "sin_link",
       "_dispFecha": "2026-11-25",
       "_precioFicha": 3599,
@@ -8673,10 +8710,10 @@
       "mlIdFuente": "manual",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 500,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 2,
@@ -8715,12 +8752,12 @@
       "mlIdFuente": "manual",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 1498,
       "_precioMLFecha": "2026-11-20",
       "_precioFicha": 1333,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 3,
@@ -8766,10 +8803,10 @@
       "mlIdFuente": "manual",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 479,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 4,
@@ -8818,10 +8855,10 @@
       "mlIdFuente": "manual",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 839,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 5,
@@ -8857,10 +8894,10 @@
       "mlIdFuente": "manual",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 619,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 6,
@@ -8897,10 +8934,10 @@
       "pausaAmz": true,
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 645,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 7,
@@ -9042,10 +9079,10 @@
       "_precioMLFecha": "2026-11-25",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 472,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 10,
@@ -9182,10 +9219,10 @@
       "mlIdFuente": "afiliado",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 13,
@@ -9227,10 +9264,10 @@
       "mlIdFuente": "manual",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 298,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 14,
@@ -9308,10 +9345,10 @@
       "pausaAmz": true,
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 816,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 899,
       "_precioMLFecha": "2026-11-25"
     },
@@ -9357,7 +9394,7 @@
       "mlIdFuente": "manual",
       "_enWeb": true,
       "_dispEstado": "pausado",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 2499,
       "_precioMLFecha": "2026-11-20",
       "pausaML": true,
@@ -9410,10 +9447,10 @@
       "mlIdFuente": "manual",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 399,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 18,
@@ -9509,7 +9546,7 @@
       "mlIdFuente": "manual",
       "_enWeb": true,
       "_dispEstado": "pausado",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "pausaML": true,
       "_linkRevisar": "pausada",
       "_dispFallos": 6,
@@ -9525,10 +9562,10 @@
       "marca": "KONA NUTRITION",
       "linkML": "https://meli.la/1oZBpbz",
       "linkAmz": "https://www.amazon.com.mx/dp/B0G3VR7V85?&linkCode=ll2&tag=guiasdecomp01-20&linkId=d3ab3b046bf3482ac4f390613a736b29&ref_=as_li_ss_tl",
-      "precioML": 1121,
+      "precioML": 1087,
       "precioAmz": 1003,
       "estadoML": "sin_precio",
-      "activo": false,
+      "activo": true,
       "_updatedAt": "2026-11-16T15:37:54.947Z",
       "imagen": "https://m.media-amazon.com/images/I/611HZIJJcfL._AC_SX679_.jpg",
       "estrellas": 5,
@@ -9551,8 +9588,16 @@
       },
       "precio": 699,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
-      "_eliminado": true,
-      "_enWeb": false
+      "_enWeb": false,
+      "_revividoFecha": "2026-11-26",
+      "_revividoMotivo": "su enlace de afiliado sigue abriendo el producto",
+      "_dispEstado": "ok",
+      "_dispFecha": "2026-11-26",
+      "_precioFicha": 1087,
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
+      "_precioMLAntes": 1121,
+      "_precioMLFecha": "2026-11-26"
     },
     {
       "id": 21,
@@ -9563,7 +9608,7 @@
       "precioML": 1999,
       "precioAmz": 846,
       "estadoML": "sin_cambio",
-      "activo": false,
+      "activo": true,
       "_updatedAt": "2026-11-16T15:37:54.947Z",
       "imagen": "https://m.media-amazon.com/images/I/71R3b3RFqML._AC_SX679_.jpg",
       "estrellas": 4.7,
@@ -9593,8 +9638,11 @@
       },
       "precio": 430,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
-      "_eliminado": true,
-      "_enWeb": false
+      "_enWeb": false,
+      "_revividoFecha": "2026-11-26",
+      "_revividoMotivo": "su enlace de afiliado sigue abriendo el producto",
+      "_dispEstado": "ok",
+      "_dispFecha": "2026-11-26"
     },
     {
       "id": 22,
@@ -9633,10 +9681,10 @@
       "mlIdFuente": "manual",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 1200,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 23,
@@ -9679,10 +9727,10 @@
       "mlIdFuente": "manual",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 1298,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 1299,
       "_precioMLFecha": "2026-11-25"
     },
@@ -9724,10 +9772,10 @@
       "mlIdFuente": "manual",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 289,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 299,
       "_precioMLFecha": "2026-11-25"
     },
@@ -9740,7 +9788,7 @@
       "precioML": 1799,
       "precioAmz": 1799,
       "estadoML": "sin_precio",
-      "activo": false,
+      "activo": true,
       "_updatedAt": "2026-11-16T15:37:54.947Z",
       "imagen": "https://m.media-amazon.com/images/I/616fhxxD3gL._AC_SX679_.jpg",
       "estrellas": 4.7,
@@ -9763,8 +9811,14 @@
       },
       "precio": 399,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
-      "_eliminado": true,
-      "_enWeb": false
+      "_enWeb": false,
+      "_revividoFecha": "2026-11-26",
+      "_revividoMotivo": "su enlace de afiliado sigue abriendo el producto",
+      "_dispEstado": "ok",
+      "_dispFecha": "2026-11-26",
+      "_precioFicha": 1799,
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 26,
@@ -9804,10 +9858,10 @@
       "mlIdFuente": "manual",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 1599,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 27,
@@ -9888,10 +9942,10 @@
       "mlIdFuente": "manual",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 557,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 619,
       "_precioMLFecha": "2026-11-25"
     },
@@ -9941,12 +9995,12 @@
       "mlIdFuente": "manual",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 389,
       "_precioMLFecha": "2026-11-25",
       "_precioFicha": 326,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 105,
@@ -9994,10 +10048,10 @@
       "mlIdFuente": "manual",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 836,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 107,
@@ -10044,12 +10098,12 @@
       "mlIdFuente": "manual",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 1047,
       "_precioMLFecha": "2026-11-25",
       "_precioFicha": 891,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 108,
@@ -10098,12 +10152,12 @@
       "mlIdFuente": "manual",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 1047,
       "_precioMLFecha": "2026-11-25",
       "_precioFicha": 891,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 110,
@@ -10161,12 +10215,12 @@
       "mlIdFuente": "manual",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 1899,
       "_precioMLFecha": "2026-11-21",
       "_precioFicha": 1789,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 111,
@@ -10211,10 +10265,10 @@
       "mlIdFuente": "manual",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 1267,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 112,
@@ -10262,10 +10316,10 @@
       "mlIdFuente": "manual",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 1274,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 115,
@@ -10316,10 +10370,10 @@
       "mlIdFuente": "manual",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 1349,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 117,
@@ -10327,10 +10381,10 @@
       "marca": "Golds Protein",
       "linkML": "https://meli.la/26UUHHk",
       "linkAmz": null,
-      "precioML": 501.5,
+      "precioML": 502,
       "precioAmz": null,
       "estadoML": "sin_precio",
-      "activo": false,
+      "activo": true,
       "_updatedAt": "2026-11-16T15:37:54.948Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_825867-MLM98395723051_112025-F.webp",
       "estrellas": 4.6,
@@ -10380,8 +10434,14 @@
       ],
       "_linkError": null,
       "pausaAmz": true,
-      "_eliminado": true,
-      "_enWeb": false
+      "_enWeb": false,
+      "_revividoFecha": "2026-11-26",
+      "_revividoMotivo": "su enlace de afiliado sigue abriendo el producto",
+      "_dispEstado": "ok",
+      "_dispFecha": "2026-11-26",
+      "_precioFicha": 502,
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 118,
@@ -10389,10 +10449,10 @@
       "marca": "Athyra Nutrition",
       "linkML": "https://meli.la/2zS9eAL",
       "linkAmz": null,
-      "precioML": 350,
+      "precioML": 340,
       "precioAmz": null,
       "estadoML": "sin_precio",
-      "activo": false,
+      "activo": true,
       "_updatedAt": "2026-11-16T15:37:54.948Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_799911-MLM107450190503_022026-F.webp",
       "estrellas": null,
@@ -10446,8 +10506,16 @@
       ],
       "_linkError": null,
       "pausaAmz": true,
-      "_eliminado": true,
-      "_enWeb": false
+      "_enWeb": false,
+      "_revividoFecha": "2026-11-26",
+      "_revividoMotivo": "su enlace de afiliado sigue abriendo el producto",
+      "_dispEstado": "ok",
+      "_dispFecha": "2026-11-26",
+      "_precioFicha": 340,
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
+      "_precioMLAntes": 350,
+      "_precioMLFecha": "2026-11-26"
     },
     {
       "id": 119,
@@ -10489,12 +10557,12 @@
       "mlIdFuente": "manual",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 1831,
       "_precioMLFecha": "2026-11-25",
       "_precioFicha": 1799,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 120,
@@ -10602,10 +10670,10 @@
       "mlIdFuente": "manual",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 1023,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 1080,
       "_precioMLFecha": "2026-11-25"
     },
@@ -10649,10 +10717,10 @@
       "mlIdFuente": "manual",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 688,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 123,
@@ -10694,10 +10762,10 @@
       "mlIdFuente": "afiliado",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 886,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 124,
@@ -10708,7 +10776,7 @@
       "precioML": 323,
       "precioAmz": 345,
       "estadoML": "sin_cambio",
-      "activo": false,
+      "activo": true,
       "_updatedAt": "2026-11-16T15:37:54.948Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_905730-MLA99488933356_112025-F.webp",
       "estrellas": 4.5,
@@ -10741,8 +10809,11 @@
       },
       "precio": 887,
       "_mlCheckedAt": "2026-10-05T04:15:04.861Z",
-      "_eliminado": true,
-      "_enWeb": false
+      "_enWeb": false,
+      "_revividoFecha": "2026-11-26",
+      "_revividoMotivo": "su enlace de afiliado sigue abriendo el producto",
+      "_dispEstado": "ok",
+      "_dispFecha": "2026-11-26"
     },
     {
       "id": 126,
@@ -10778,10 +10849,10 @@
       "mlIdFuente": "afiliado",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 813,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 127,
@@ -10823,10 +10894,10 @@
       "mlIdFuente": "afiliado",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 836,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 128,
@@ -10874,12 +10945,12 @@
       "mlIdFuente": "manual",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 957,
       "_precioMLFecha": "2026-11-25",
       "_precioFicha": 943,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 129,
@@ -10984,10 +11055,10 @@
       "mlIdFuente": "manual",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 1359,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 132,
@@ -11030,10 +11101,10 @@
       "mlIdFuente": "afiliado",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 780,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 796,
       "_precioMLFecha": "2026-11-25"
     },
@@ -11080,10 +11151,10 @@
       "mlIdFuente": "afiliado",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 479,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 483,
       "_precioMLFecha": "2026-11-25"
     },
@@ -11221,10 +11292,10 @@
       "marca": "Diablo",
       "linkML": "https://meli.la/2ENnKfr",
       "linkAmz": null,
-      "precioML": 904.09,
+      "precioML": 904,
       "precioAmz": null,
       "estadoML": "sin_precio",
-      "activo": false,
+      "activo": true,
       "_updatedAt": "2026-11-16T15:37:54.948Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_905556-MLM90305129204_082025-F.webp",
       "estrellas": 5,
@@ -11273,8 +11344,16 @@
         }
       ],
       "pausaAmz": true,
-      "_eliminado": true,
-      "_enWeb": false
+      "_enWeb": false,
+      "_revividoFecha": "2026-11-26",
+      "_revividoMotivo": "su enlace de afiliado sigue abriendo el producto",
+      "_dispEstado": "ok",
+      "_dispFecha": "2026-11-26",
+      "_precioFicha": 904,
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
+      "_precioMLAntes": 904.09,
+      "_precioMLFecha": "2026-11-26"
     },
     {
       "id": 138,
@@ -11343,7 +11422,7 @@
       "marca": "MDN Sports",
       "linkML": "https://meli.la/1Rz1Bzk",
       "linkAmz": "https://www.amazon.com.mx/MDN-Wheyner-Mass-Chocolate-10lbs/dp/B07B6CKDD9?__mk_es_MX=%C3%85M%C3%85%C5%BD%C3%95%C3%91&dib=eyJ2IjoiMSJ9.smjQ9ZDT7_8UBYWPhWnAg9gLgf6Xpht2CIP6hsyN_fPkXk4LpSea4E9QNBOxzYN73d65AzWFhTIZuxXTqjgVVonKvwiHU5E5huJnnXFt4mMbuU8bGvJTEiujYsl8MRfIllrbRfvj3X3Vp_eL_eteuDG0c0VOdbkDWt4LdudT1nY.2wqSWdCO-ar32XAGn0qMT67W0pMY9bUtJ8urLVoumhQ&dib_tag=se&keywords=MDN%2BSports%2BWheyner%2BMass%2BTriple%2BChocolate%2B4.5%2Bkg&qid=1791342924&sr=8-5&ufe=app_do%3Aamzn1.fos.06fa9770-d92c-4c52-90c1-2e1c2a45e1df&th=1&linkCode=ll2&tag=guiasdecomp01-20&linkId=405e3b1a238f620400ab4a3fd5973267&ref_=as_li_ss_tl",
-      "precioML": 885,
+      "precioML": 869,
       "precioAmz": 989,
       "estadoML": "sin_precio",
       "activo": true,
@@ -11378,10 +11457,12 @@
       "mlIdFuente": "afiliado",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
-      "_precioFicha": 885,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_dispFecha": "2026-11-26",
+      "_precioFicha": 869,
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
+      "_precioMLAntes": 885,
+      "_precioMLFecha": "2026-11-26"
     },
     {
       "id": 140,
@@ -11422,12 +11503,12 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 847,
       "_precioMLFecha": "2026-11-25",
       "_precioFicha": 702,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 141,
@@ -11529,10 +11610,10 @@
       "mlIdFuente": "manual",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 674,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 143,
@@ -11576,10 +11657,10 @@
       "mlIdFuente": "afiliado",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 1019,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 1079,
       "_precioMLFecha": "2026-11-25"
     },
@@ -11628,10 +11709,10 @@
       "pausaAmz": true,
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 621,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 145,
@@ -11678,11 +11759,11 @@
       "mlIdFuente": "afiliado",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "pausaML": false,
       "_precioFicha": 420,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 146,
@@ -11725,10 +11806,10 @@
       "mlIdFuente": "afiliado",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 722,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 849,
       "_precioMLFecha": "2026-11-25"
     },
@@ -11771,10 +11852,10 @@
       "mlIdFuente": "afiliado",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 284,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 148,
@@ -11815,10 +11896,10 @@
       "mlIdFuente": "afiliado",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 1190,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 149,
@@ -11863,10 +11944,10 @@
       "mlIdFuente": "manual",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 1102,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 150,
@@ -11928,12 +12009,12 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 999,
       "_precioMLFecha": "2026-11-25",
       "_precioFicha": 883,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 152,
@@ -11962,12 +12043,12 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 697,
       "_precioMLFecha": "2026-11-25",
       "_precioFicha": 629,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 153,
@@ -11996,12 +12077,12 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 1127,
       "_precioMLFecha": "2026-11-25",
       "_precioFicha": 982,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 154,
@@ -12030,10 +12111,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 710,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 155,
@@ -12062,10 +12143,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 1349,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 156,
@@ -12096,10 +12177,10 @@
       "_precioMLFecha": "2026-11-16",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 298,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 157,
@@ -12128,10 +12209,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 979,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 989,
       "_precioMLFecha": "2026-11-25"
     },
@@ -12162,12 +12243,12 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 1247,
       "_precioMLFecha": "2026-11-25",
       "_precioFicha": 1087,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 159,
@@ -12196,10 +12277,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 1959,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 160,
@@ -12230,10 +12311,10 @@
       "_precioMLFecha": "2026-11-25",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 1066,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 161,
@@ -12262,12 +12343,12 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 663,
       "_precioMLFecha": "2026-11-25",
       "_precioFicha": 556,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 162,
@@ -12296,10 +12377,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 1149,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 163,
@@ -12328,12 +12409,12 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 1751,
       "_precioMLFecha": "2026-11-20",
       "_precioFicha": 1600,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 164,
@@ -12362,10 +12443,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 1346,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 165,
@@ -12394,10 +12475,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 1346,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 166,
@@ -12426,12 +12507,12 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 626,
       "_precioMLFecha": "2026-11-25",
       "_precioFicha": 591,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 167,
@@ -12460,12 +12541,12 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 827,
       "_precioMLFecha": "2026-11-25",
       "_precioFicha": 745,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 168,
@@ -12494,12 +12575,12 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 1247,
       "_precioMLFecha": "2026-11-25",
       "_precioFicha": 1087,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 169,
@@ -12507,7 +12588,7 @@
       "marca": "Birdman",
       "mlId": "MLM72125504",
       "mlIdFuente": "manual",
-      "linkML": "https://meli.la/2D9Q676",
+      "linkML": null,
       "linkAmz": null,
       "precioML": 2006,
       "precioAmz": null,
@@ -12527,12 +12608,14 @@
       "img": "https://http2.mlstatic.com/D_NQ_NP_922163-MLA111628631040_062026-F.jpg",
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
-      "_dispEstado": "link_roto",
-      "_dispFecha": "2026-11-25",
+      "_dispEstado": "sin_link",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 2042,
       "_precioMLFecha": "2026-11-19",
-      "_dispFallos": 1,
-      "_dispDesde": "2026-11-25"
+      "_linkMuerto": "https://meli.la/2D9Q676",
+      "_linkMuertoFecha": "2026-11-26",
+      "_linkMuertoMotivo": "link_roto",
+      "_necesitaLink": true
     },
     {
       "id": 170,
@@ -12561,12 +12644,12 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 827,
       "_precioMLFecha": "2026-11-21",
       "_precioFicha": 730,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 171,
@@ -12595,12 +12678,12 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 827,
       "_precioMLFecha": "2026-11-21",
       "_precioFicha": 730,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 172,
@@ -12629,10 +12712,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 404,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 414,
       "_precioMLFecha": "2026-11-25"
     },
@@ -12663,10 +12746,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 174,
@@ -12695,10 +12778,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 175,
@@ -12727,10 +12810,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 2080,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 176,
@@ -12759,10 +12842,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 339,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     }
   ],
   "omega3": [
@@ -16490,10 +16573,10 @@
       "mlIdFuente": "afiliado",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 199,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 102,
@@ -16530,10 +16613,10 @@
       "mlIdFuente": "afiliado",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 299,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 103,
@@ -16570,11 +16653,11 @@
       "mlIdFuente": "afiliado",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "pausaML": false,
       "_precioFicha": 498,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 104,
@@ -16611,10 +16694,10 @@
       "mlIdFuente": "afiliado",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 353,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 459,
       "_precioMLFecha": "2026-11-25"
     },
@@ -16698,10 +16781,10 @@
       "mlIdFuente": "manual",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 181,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 212,
       "_precioMLFecha": "2026-11-25"
     },
@@ -16740,12 +16823,12 @@
       "mlIdFuente": "afiliado",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 389,
       "_precioMLFecha": "2026-11-20",
       "_precioFicha": 345,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 108,
@@ -16780,10 +16863,10 @@
       "mlIdFuente": "afiliado",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 226,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 109,
@@ -16859,10 +16942,10 @@
       "mlIdFuente": "manual",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 399,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 111,
@@ -16899,10 +16982,10 @@
       "mlIdFuente": "afiliado",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 179,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 112,
@@ -16940,10 +17023,10 @@
       "mlIdFuente": "manual",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 432,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 449,
       "_precioMLFecha": "2026-11-25"
     },
@@ -16982,10 +17065,10 @@
       "mlIdFuente": "afiliado",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 145,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 114,
@@ -17118,10 +17201,10 @@
       "mlIdFuente": "afiliado",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 139,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 117,
@@ -17158,10 +17241,10 @@
       "mlIdFuente": "afiliado",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 299,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 118,
@@ -17169,10 +17252,10 @@
       "marca": "Healthaddiction",
       "linkML": "https://meli.la/2FwUbti",
       "linkAmz": null,
-      "precioML": 499,
+      "precioML": 387,
       "precioAmz": null,
       "estadoML": "sin_precio",
-      "activo": false,
+      "activo": true,
       "_updatedAt": "2026-11-16T15:37:54.950Z",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_671860-MLM106463065926_022026-F.webp",
       "estrellas": 5,
@@ -17214,8 +17297,16 @@
           "s": 51
         }
       ],
-      "_eliminado": true,
-      "_enWeb": false
+      "_enWeb": false,
+      "_revividoFecha": "2026-11-26",
+      "_revividoMotivo": "su enlace de afiliado sigue abriendo el producto",
+      "_dispEstado": "ok",
+      "_dispFecha": "2026-11-26",
+      "_precioFicha": 387,
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
+      "_precioMLAntes": 499,
+      "_precioMLFecha": "2026-11-26"
     },
     {
       "id": 119,
@@ -17282,11 +17373,11 @@
       "_precioMLFecha": "2026-11-15",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "pausaML": false,
       "_precioFicha": 245,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": 121,
@@ -17777,10 +17868,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 10612,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "CON-SWODL-001",
@@ -17814,10 +17905,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 10475,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "CON-SWODLB-001",
@@ -18041,10 +18132,10 @@
       "_enWeb": true,
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 16119,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "CON-PS5SD-001",
@@ -18264,10 +18355,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 20979,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 27000,
       "_precioMLFecha": "2026-11-25"
     },
@@ -18404,13 +18495,13 @@
       "linkML": "https://meli.la/27Dn21s",
       "mlId": "MLM28299479",
       "mlIdFuente": "busqueda",
-      "precioML": 12873.25,
+      "precioML": 12800,
       "linkAmz": null,
       "precioAmz": null,
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_807398-MLA95657342704_102025-F.jpg",
       "estrellas": null,
       "resenas": null,
-      "activo": false,
+      "activo": true,
       "estadoML": "sin_precio",
       "especs": {
         "generacion": "Realidad mixta",
@@ -18423,8 +18514,16 @@
       },
       "_updatedAt": "2026-11-16T15:14:12.354Z",
       "_publicar": true,
-      "_eliminado": true,
-      "_enWeb": false
+      "_enWeb": false,
+      "_revividoFecha": "2026-11-26",
+      "_revividoMotivo": "su enlace de afiliado sigue abriendo el producto",
+      "_dispEstado": "ok",
+      "_dispFecha": "2026-11-26",
+      "_precioFicha": 12800,
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
+      "_precioMLAntes": 12873.25,
+      "_precioMLFecha": "2026-11-26"
     },
     {
       "id": "CON-MQ3S-001",
@@ -18455,10 +18554,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 11134,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "CON-SNES-001",
@@ -18516,10 +18615,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 10572,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "CON-NS2C-001",
@@ -18529,7 +18628,7 @@
       "linkAmz": null,
       "mlId": "MLM49200061",
       "mlIdFuente": "manual",
-      "precioML": 9475.59,
+      "precioML": 10612,
       "precioAmz": null,
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_611101-MLA84512956497_052025-F.jpg",
       "especs": {
@@ -18540,15 +18639,21 @@
         "tipoConsola": "Hibrida",
         "condicion": "Nuevo"
       },
-      "activo": false,
+      "activo": true,
       "_publicar": true,
       "estadoML": "sin_precio",
       "_updatedAt": "2026-11-16T15:16:17.041Z",
       "_linkError": null,
       "_linkRevisar": null,
       "_linkSinProducto": null,
-      "_eliminado": true,
-      "_enWeb": false
+      "_enWeb": false,
+      "_revividoFecha": "2026-11-26",
+      "_revividoMotivo": "su enlace de afiliado sigue abriendo el producto",
+      "_dispEstado": "ok",
+      "_dispFecha": "2026-11-26",
+      "_precioFicha": 10612,
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "CON-SWB1-001",
@@ -18580,10 +18685,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 5922,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "CON-SWODLSM-001",
@@ -18593,7 +18698,7 @@
       "linkAmz": null,
       "mlId": "MLM54621976",
       "mlIdFuente": "manual",
-      "precioML": 5999,
+      "precioML": 5880,
       "precioAmz": null,
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_708545-MLA91725553793_092025-F.jpg",
       "especs": {
@@ -18615,12 +18720,12 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 7199,
-      "_precioMLFecha": "2026-11-25",
-      "_precioFicha": 5999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioMLFecha": "2026-11-26",
+      "_precioFicha": 5880,
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "CON-SWLTG-001",
@@ -18648,10 +18753,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 4499,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "CON-SWODLWH-001",
@@ -18679,10 +18784,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 5499,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 6199,
       "_precioMLFecha": "2026-11-25"
     },
@@ -18712,10 +18817,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 5199,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "CON-SWODLZ-001",
@@ -18737,12 +18842,15 @@
         "accesorios": "Zelda: Tears of the Kingdom",
         "condicion": "Nuevo"
       },
-      "activo": false,
+      "activo": true,
       "_publicar": true,
       "estadoML": "sin_precio",
       "_updatedAt": "2026-11-16T15:19:22.766Z",
-      "_eliminado": true,
-      "_enWeb": false
+      "_enWeb": false,
+      "_revividoFecha": "2026-11-26",
+      "_revividoMotivo": "su enlace de afiliado sigue abriendo el producto",
+      "_dispEstado": "ok",
+      "_dispFecha": "2026-11-26"
     },
     {
       "id": "CON-SWB2-001",
@@ -18752,7 +18860,7 @@
       "linkAmz": null,
       "mlId": "MLM62829408",
       "mlIdFuente": "afiliado-resuelto",
-      "precioML": 5899,
+      "precioML": 5922,
       "precioAmz": null,
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_948371-MLA96996601928_112025-F.jpg",
       "especs": {
@@ -18764,13 +18872,19 @@
         "accesorios": "Super Mario Bros. Wonder, Suscripcion NSO",
         "condicion": "Nuevo"
       },
-      "activo": false,
+      "activo": true,
       "_publicar": true,
       "estadoML": "sin_precio",
       "_updatedAt": "2026-11-16T15:19:35.040Z",
-      "_eliminado": true,
       "_enWeb": false,
-      "_mlCheckedAt": "2026-11-22T18:14:55.158Z"
+      "_mlCheckedAt": "2026-11-22T18:14:55.158Z",
+      "_revividoFecha": "2026-11-26",
+      "_revividoMotivo": "su enlace de afiliado sigue abriendo el producto",
+      "_dispEstado": "ok",
+      "_dispFecha": "2026-11-26",
+      "_precioFicha": 5922,
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "CON-PS5B1-001",
@@ -18799,10 +18913,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 14697,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 14698,
       "_precioMLFecha": "2026-11-25"
     },
@@ -18832,10 +18946,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 15999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 18000,
       "_precioMLFecha": "2026-11-25"
     },
@@ -18858,13 +18972,16 @@
         "tipoConsola": "Sobremesa",
         "condicion": "Nuevo"
       },
-      "activo": false,
+      "activo": true,
       "_publicar": true,
       "estadoML": "sin_precio",
       "_updatedAt": "2026-11-16T15:20:28.326Z",
-      "_eliminado": true,
       "_enWeb": false,
-      "_linkRevisar": "link_caido"
+      "_linkRevisar": "link_caido",
+      "_revividoFecha": "2026-11-26",
+      "_revividoMotivo": "su enlace de afiliado sigue abriendo el producto",
+      "_dispEstado": "ok",
+      "_dispFecha": "2026-11-26"
     },
     {
       "id": "CON-PS5SDR-001",
@@ -19017,12 +19134,18 @@
         "accesorios": "Call of Duty: Modern Warfare II",
         "condicion": "Nuevo"
       },
-      "activo": false,
+      "activo": true,
       "_publicar": true,
       "estadoML": "sin_precio",
       "_updatedAt": "2026-11-16T15:21:17.348Z",
-      "_eliminado": true,
-      "_enWeb": false
+      "_enWeb": false,
+      "_revividoFecha": "2026-11-26",
+      "_revividoMotivo": "su enlace de afiliado sigue abriendo el producto",
+      "_dispEstado": "ok",
+      "_dispFecha": "2026-11-26",
+      "_precioFicha": 10999,
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "CON-PS4SD-001",
@@ -19077,10 +19200,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 21999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "CON-XBSX2T-001",
@@ -19165,12 +19288,15 @@
         "tipoConsola": "Sobremesa",
         "condicion": "Nuevo"
       },
-      "activo": false,
+      "activo": true,
       "_publicar": true,
       "estadoML": "sin_precio",
       "_updatedAt": "2026-11-16T15:22:19.924Z",
-      "_eliminado": true,
-      "_enWeb": false
+      "_enWeb": false,
+      "_revividoFecha": "2026-11-26",
+      "_revividoMotivo": "su enlace de afiliado sigue abriendo el producto",
+      "_dispEstado": "ok",
+      "_dispFecha": "2026-11-26"
     },
     {
       "id": "CON-XBSXR3-001",
@@ -19217,12 +19343,15 @@
         "tipoConsola": "Sobremesa",
         "condicion": "Nuevo"
       },
-      "activo": false,
+      "activo": true,
       "_publicar": true,
       "estadoML": "sin_precio",
       "_updatedAt": "2026-11-16T15:22:34.408Z",
-      "_eliminado": true,
-      "_enWeb": false
+      "_enWeb": false,
+      "_revividoFecha": "2026-11-26",
+      "_revividoMotivo": "su enlace de afiliado sigue abriendo el producto",
+      "_dispEstado": "ok",
+      "_dispFecha": "2026-11-26"
     },
     {
       "id": "CON-XBSXDW3-001",
@@ -19285,7 +19414,7 @@
       "linkAmz": null,
       "mlId": "MLM2057666087",
       "mlIdFuente": "manual",
-      "precioML": 18995.48,
+      "precioML": 20305,
       "precioAmz": null,
       "imagen": "https://http2.mlstatic.com/D_922422-CBT80067659741_102024-F.jpg",
       "especs": {
@@ -19296,12 +19425,18 @@
         "tipoConsola": "Sobremesa",
         "condicion": "Nuevo"
       },
-      "activo": false,
+      "activo": true,
       "_publicar": true,
       "estadoML": "sin_precio",
       "_updatedAt": "2026-11-16T15:23:11.249Z",
-      "_eliminado": true,
-      "_enWeb": false
+      "_enWeb": false,
+      "_revividoFecha": "2026-11-26",
+      "_revividoMotivo": "su enlace de afiliado sigue abriendo el producto",
+      "_dispEstado": "ok",
+      "_dispFecha": "2026-11-26",
+      "_precioFicha": 20305,
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "CON-XBSSW-001",
@@ -19329,10 +19464,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 9699,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 10399,
       "_precioMLFecha": "2026-11-25"
     },
@@ -19503,13 +19638,13 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "pausaML": false,
       "_precioMLAntes": 18499,
       "_precioMLFecha": "2026-11-19",
       "_precioFicha": 11499,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "CON-LLGOS-001",
@@ -19537,10 +19672,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 15999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "CON-XBSS1TD-001",
@@ -19574,10 +19709,10 @@
       "_enWeb": true,
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 12748,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 16599,
       "_precioMLFecha": "2026-11-25"
     },
@@ -19613,10 +19748,10 @@
       "_enWeb": true,
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 17999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 18990,
       "_precioMLFecha": "2026-11-25"
     },
@@ -19692,10 +19827,10 @@
       "_enWeb": true,
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 9997,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 12599,
       "_precioMLFecha": "2026-11-25"
     },
@@ -19731,11 +19866,11 @@
       "_enWeb": true,
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "pausaML": false,
       "_precioFicha": 42864,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 48999,
       "_precioMLFecha": "2026-11-25"
     },
@@ -19771,10 +19906,10 @@
       "_enWeb": true,
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 18446,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "CON-PS5SB1-001",
@@ -19808,10 +19943,10 @@
       "_enWeb": true,
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 15999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "CON-PS5DNBA-001",
@@ -19845,10 +19980,10 @@
       "_enWeb": true,
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 14596,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "CON-PS5D825-001",
@@ -19882,10 +20017,10 @@
       "_enWeb": true,
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 12499,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 12500,
       "_precioMLFecha": "2026-11-25"
     },
@@ -19921,10 +20056,10 @@
       "_enWeb": true,
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 26000,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "CON-PS5DRC-001",
@@ -19958,10 +20093,10 @@
       "_enWeb": true,
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 22390,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 23890,
       "_precioMLFecha": "2026-11-25"
     },
@@ -19997,10 +20132,10 @@
       "_enWeb": true,
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 15683,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "CON-PS5DFN-001",
@@ -20034,10 +20169,10 @@
       "_enWeb": true,
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 14053,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "CON-PS530A-001",
@@ -20111,10 +20246,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 39712,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     }
   ],
   "videojuegos_controles": [
@@ -28460,10 +28595,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 5299,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-motorola-moto-g75-256gb-8gb",
@@ -28494,10 +28629,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 4379,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-samsung-a16-128gb-4gb",
@@ -28528,12 +28663,12 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 2899,
       "_precioMLFecha": "2026-11-25",
       "_precioFicha": 2799,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-doogee-bladegtpro-512gb-32gb",
@@ -28564,10 +28699,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 6326,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 6329,
       "_precioMLFecha": "2026-11-25"
     },
@@ -28600,10 +28735,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 19308,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 19309,
       "_precioMLFecha": "2026-11-25"
     },
@@ -28638,11 +28773,11 @@
       "_precioMLFecha": "2026-11-20",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "pausaML": false,
       "_precioFicha": 3199,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-samsung-a17-mediatek-helio-g99-128gb-4gb",
@@ -28673,12 +28808,12 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 3099,
       "_precioMLFecha": "2026-11-17",
       "_precioFicha": 3089,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-doogee-note58-pro-256gb-32gb",
@@ -28709,10 +28844,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 3226,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 3234,
       "_precioMLFecha": "2026-11-25"
     },
@@ -28745,10 +28880,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 8219,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-oppo-reno14-f-5g-256gb-12gb",
@@ -28841,12 +28976,12 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 1215,
       "_precioMLFecha": "2026-11-18",
       "_precioFicha": 1160,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-blackview-fort-256gb-18gb",
@@ -28877,10 +29012,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 3413,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 3521,
       "_precioMLFecha": "2026-11-25"
     },
@@ -28913,10 +29048,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 11699,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 12999,
       "_precioMLFecha": "2026-11-25"
     },
@@ -28949,12 +29084,12 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 4985,
       "_precioMLFecha": "2026-11-25",
       "_precioFicha": 4849,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-philips-philips-s8310-128gb-12gb",
@@ -29016,10 +29151,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 7299,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-motorola-motorola-g67-4gb-256gb-256gb-4gb",
@@ -29050,10 +29185,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 4999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-samsung-s25fe-128gb-8gb",
@@ -29084,10 +29219,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 10999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-oscal-marine-2-64gb-4gb",
@@ -29184,10 +29319,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 9999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 10428,
       "_precioMLFecha": "2026-11-25"
     },
@@ -29258,10 +29393,10 @@
       "_precioMLFecha": "2026-11-16",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 9311,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-infinix-gt-50-pro-dual-sim-512gb-12gb",
@@ -29292,10 +29427,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 14349,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-doogee-b10-pro-256gb-64gb",
@@ -29326,10 +29461,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 4781,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-motorola-razr-fold-1gb-16gb",
@@ -29362,10 +29497,10 @@
       "_precioMLFecha": "2026-11-16",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 39999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-google-pixel-10a-128gb-8gb",
@@ -29396,12 +29531,12 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 9599,
       "_precioMLFecha": "2026-11-21",
       "_precioFicha": 9549,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-google-pixel-10a-256gb-8gb",
@@ -29432,12 +29567,12 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 13099,
       "_precioMLFecha": "2026-11-17",
       "_precioFicha": 11590,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-samsung-galaxy-a57-256gb-8gb",
@@ -29468,10 +29603,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 8759,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-doogee-s200e-256gb-48gb",
@@ -29502,10 +29637,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 7686,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-infinix-hot-70-128gb-4gb",
@@ -29536,10 +29671,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 3962,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-oppo-reno14-5g-512gb-12gb",
@@ -29570,12 +29705,12 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 12223,
       "_precioMLFecha": "2026-11-19",
       "_precioFicha": 10522,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-oukitel-g7-256gb-24gb",
@@ -29637,12 +29772,12 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 3443,
       "_precioMLFecha": "2026-11-18",
       "_precioFicha": 3429,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-motorola-edge-60-fusion-5g-128gb-128gb",
@@ -29742,10 +29877,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 15383,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-blackview-wave-7c-64gb-16gb",
@@ -29812,10 +29947,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 7122,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 7196,
       "_precioMLFecha": "2026-11-25"
     },
@@ -29883,10 +30018,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 6832,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 7273,
       "_precioMLFecha": "2026-11-25"
     },
@@ -29919,10 +30054,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 12520,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-oppo-reno16-pro-5g-negro-256gb-12gb",
@@ -30020,12 +30155,12 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 11927,
       "_precioMLFecha": "2026-11-25",
       "_precioFicha": 11862,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-oscal-flat-3c-mini-32gb-12gb",
@@ -30056,10 +30191,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 1490,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 1505,
       "_precioMLFecha": "2026-11-25"
     },
@@ -30092,10 +30227,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 3644,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-doogee-note-58-128gb-8gb",
@@ -30126,10 +30261,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 2684,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-generica-i14-pro-max-16gb-2gb",
@@ -30171,7 +30306,7 @@
       "mlId": "MLM65503993",
       "precioML": 20999,
       "precioAmz": null,
-      "activo": false,
+      "activo": true,
       "estadoML": "sin_precio",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_617813-MLA108032078647_032026-F.webp",
       "estrellas": 4.9,
@@ -30187,11 +30322,14 @@
         "cam": "200 MP"
       },
       "_updatedAt": "2026-11-16T15:37:54.950Z",
-      "_eliminado": true,
       "_enWeb": true,
       "mlIdFuente": "afiliado-resuelto",
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
-      "_linkRevisar": "link_caido"
+      "_linkRevisar": "link_caido",
+      "_revividoFecha": "2026-11-26",
+      "_revividoMotivo": "su enlace de afiliado sigue abriendo el producto",
+      "_dispEstado": "ok",
+      "_dispFecha": "2026-11-26"
     },
     {
       "id": "android-samsung-galaxy-s26-ultra-512gb-12gb",
@@ -30284,10 +30422,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 16399,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-samsung-galaxy-s26-512gb-12gb",
@@ -30296,9 +30434,9 @@
       "linkML": "https://meli.la/1TgKbkx",
       "linkAmz": null,
       "mlId": "MLM65560108",
-      "precioML": 16364,
+      "precioML": 16399,
       "precioAmz": null,
-      "activo": false,
+      "activo": true,
       "estadoML": "actualizado",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_870493-MLA109812392870_042026-F.webp",
       "estrellas": 4.9,
@@ -30317,7 +30455,13 @@
       "mlIdFuente": "manual",
       "_mlCheckedAt": "2026-11-16T21:44:14.857Z",
       "_enWeb": false,
-      "_eliminado": true
+      "_revividoFecha": "2026-11-26",
+      "_revividoMotivo": "su enlace de afiliado sigue abriendo el producto",
+      "_dispEstado": "ok",
+      "_dispFecha": "2026-11-26",
+      "_precioFicha": 16399,
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-samsung-galaxy-s26-plus-256gb-12gb",
@@ -30348,12 +30492,12 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 23999,
       "_precioMLFecha": "2026-11-25",
       "_precioFicha": 19699,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-samsung-galaxy-s26-plus-512gb-12gb",
@@ -30386,10 +30530,10 @@
       "_precioMLFecha": "2026-11-25",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 21999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-motorola-signature-1024gb-16gb",
@@ -30420,10 +30564,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 25872,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 25873,
       "_precioMLFecha": "2026-11-25"
     },
@@ -30549,10 +30693,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 13499,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 15359,
       "_precioMLFecha": "2026-11-25"
     },
@@ -30563,9 +30707,9 @@
       "linkML": "https://meli.la/2iTdy3y",
       "linkAmz": null,
       "mlId": null,
-      "precioML": 50348,
+      "precioML": 53198,
       "precioAmz": null,
-      "activo": false,
+      "activo": true,
       "estadoML": "sin_revisar",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_975523-MLM91277414448_092025-F.webp",
       "estrellas": null,
@@ -30581,7 +30725,6 @@
         "cam": "50 MP"
       },
       "_updatedAt": "2026-11-16T15:37:54.950Z",
-      "_eliminado": true,
       "_enWeb": true,
       "_mlSug": [
         {
@@ -30599,7 +30742,14 @@
           "n": "Google Pixel 7 Pro 512 GB nieve 12 GB RAM",
           "s": 50
         }
-      ]
+      ],
+      "_revividoFecha": "2026-11-26",
+      "_revividoMotivo": "su enlace de afiliado sigue abriendo el producto",
+      "_dispEstado": "ok",
+      "_dispFecha": "2026-11-26",
+      "_precioFicha": 53198,
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-xiaomi-17t-pro-256gb-12gb",
@@ -30630,12 +30780,12 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 19920,
       "_precioMLFecha": "2026-11-25",
       "_precioFicha": 19402,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-xiaomi-17t-pro-512gb-12gb",
@@ -30666,10 +30816,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 18280,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 20999,
       "_precioMLFecha": "2026-11-25"
     },
@@ -30680,9 +30830,9 @@
       "linkML": "https://meli.la/2AUjAyH",
       "linkAmz": null,
       "mlId": null,
-      "precioML": 19015,
+      "precioML": 19544,
       "precioAmz": null,
-      "activo": false,
+      "activo": true,
       "estadoML": "sin_revisar",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_993534-CBT113939491433_062026-F-xiaomi-17-12gb-ram-256gb-rom-63-camara-de-leica-100w-azul.webp",
       "estrellas": null,
@@ -30698,7 +30848,6 @@
         "cam": "50 MP"
       },
       "_updatedAt": "2026-11-16T15:37:54.951Z",
-      "_eliminado": true,
       "_enWeb": true,
       "_mlSug": [
         {
@@ -30716,7 +30865,14 @@
           "n": "Teléfono Xiaomi 17 256GB Rom 12GB Ram 6,3\" Leica Camera 6330mah 100W Verde",
           "s": 84
         }
-      ]
+      ],
+      "_revividoFecha": "2026-11-26",
+      "_revividoMotivo": "su enlace de afiliado sigue abriendo el producto",
+      "_dispEstado": "ok",
+      "_dispFecha": "2026-11-26",
+      "_precioFicha": 19544,
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-xiaomi-17t-512gb-12gb",
@@ -30747,10 +30903,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 13215,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-xiaomi-redmi-17-128gb-4gb",
@@ -30759,9 +30915,9 @@
       "linkML": "https://meli.la/2nAtP9e",
       "linkAmz": null,
       "mlId": null,
-      "precioML": 4265,
+      "precioML": 4092,
       "precioAmz": null,
-      "activo": false,
+      "activo": true,
       "estadoML": "sin_revisar",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_636342-CBT115285598872_082026-F-xiaomi-redmi-17-4g-4gb-ram-128gb-rom-69-7500mah-45w-negro.webp",
       "estrellas": null,
@@ -30777,7 +30933,6 @@
         "cam": "108 MP"
       },
       "_updatedAt": "2026-11-16T15:37:54.951Z",
-      "_eliminado": true,
       "_enWeb": true,
       "_mlSug": [
         {
@@ -30795,7 +30950,16 @@
           "n": "Xiaomi Redmi 15c 128 GB 6 RAM 4G Negro",
           "s": 47
         }
-      ]
+      ],
+      "_revividoFecha": "2026-11-26",
+      "_revividoMotivo": "su enlace de afiliado sigue abriendo el producto",
+      "_dispEstado": "ok",
+      "_dispFecha": "2026-11-26",
+      "_precioFicha": 4092,
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
+      "_precioMLAntes": 4265,
+      "_precioMLFecha": "2026-11-26"
     },
     {
       "id": "android-xiaomi-redmi-17-256gb-4gb",
@@ -30826,10 +30990,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 4199,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 4379,
       "_precioMLFecha": "2026-11-25"
     },
@@ -30862,10 +31026,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 18999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-motorola-edge-70-fusion-256gb-8gb",
@@ -30896,10 +31060,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 9429,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-oppo-reno16f-5g-128gb-8gb",
@@ -30961,10 +31125,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 12933,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-honor-600-5g-512gb-8gb",
@@ -31107,10 +31271,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 7767,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 7859,
       "_precioMLFecha": "2026-11-25"
     },
@@ -31278,10 +31442,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 3499,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-xiaomi-redmi-note-14-5g-256gb-8gb",
@@ -31366,12 +31530,12 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 8402,
       "_precioMLFecha": "2026-11-22",
       "_precioFicha": 8352,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-lagenio-eagle-pro-256gb-16gb",
@@ -31433,10 +31597,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 6437,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-oppo-reno13-5g-256gb-12gb",
@@ -31467,10 +31631,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 9295,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-wo-s26mini-64gb-4gb",
@@ -31538,12 +31702,12 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 3114,
       "_precioMLFecha": "2026-11-25",
       "_precioFicha": 2999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-blackview-bv4800-pro-128gb-12gb",
@@ -31574,10 +31738,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 3152,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-doogee-fire-7-128gb-8gb",
@@ -31608,10 +31772,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 5121,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-vivo-y28-256gb-8gb",
@@ -31673,10 +31837,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 3390,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 3399,
       "_precioMLFecha": "2026-11-25"
     },
@@ -31709,10 +31873,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 4595,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 4615,
       "_precioMLFecha": "2026-11-25"
     },
@@ -31745,10 +31909,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 6999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-cubot-p90-256gb-12gb",
@@ -31779,10 +31943,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 3546,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 3555,
       "_precioMLFecha": "2026-11-25"
     },
@@ -31815,10 +31979,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 7299,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-honor-x7d-256gb-8gb",
@@ -31849,10 +32013,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 3968,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 4182,
       "_precioMLFecha": "2026-11-25"
     },
@@ -31863,7 +32027,7 @@
       "linkML": "https://meli.la/1JvFZd7",
       "linkAmz": null,
       "mlId": "MLM63043377",
-      "precioML": 3499,
+      "precioML": 3999,
       "precioAmz": null,
       "activo": true,
       "estadoML": "sin_precio",
@@ -31885,10 +32049,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
-      "_precioFicha": 3499,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_dispFecha": "2026-11-26",
+      "_precioFicha": 3999,
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-honor-x9d-5g-512gb-8gb",
@@ -31919,12 +32083,12 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 7299,
       "_precioMLFecha": "2026-11-18",
       "_precioFicha": 7294,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-motorola-g86-power-256gb-8gb",
@@ -31955,12 +32119,12 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 4749,
       "_precioMLFecha": "2026-11-21",
       "_precioFicha": 4599,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-samsung-galaxy-a37-5g-256gb-8gb",
@@ -31991,10 +32155,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 6559,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-samsung-galaxy-a56-256gb-12gb",
@@ -32025,10 +32189,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 8995,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-samsung-galaxy-s25-ultra-512gb-12gb",
@@ -32059,10 +32223,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 17949,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-nothing-phone-3-512gb-16gb",
@@ -32129,10 +32293,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 8799,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 9425,
       "_precioMLFecha": "2026-11-25"
     },
@@ -32165,10 +32329,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 24699,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 24999,
       "_precioMLFecha": "2026-11-25"
     },
@@ -32201,10 +32365,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 5381,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "android-google-pixel-10-pro-128gb-16gb-obsidiana",
@@ -32226,10 +32390,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 16769,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 16949,
       "_precioMLFecha": "2026-11-25"
     },
@@ -32253,10 +32417,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 9429,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     }
   ],
   "celulares_iphone": [
@@ -32288,10 +32452,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 16999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "apple-iphone-17-256gb-esim-ml-2",
@@ -32321,10 +32485,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 19499,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 20299,
       "_precioMLFecha": "2026-11-25"
     },
@@ -32356,10 +32520,10 @@
       "_mlCheckedAt": "2026-11-07T18:28:27.926Z",
       "_enWeb": false,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 19499,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 20299,
       "_precioMLFecha": "2026-11-25"
     },
@@ -32391,10 +32555,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 25999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "apple-iphone-17-pro-256gb-esim",
@@ -32424,10 +32588,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 28499,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "apple-iphone-17-pro-512gb-esim",
@@ -32457,10 +32621,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 33499,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "apple-iphone-17-pro-1tb-esim",
@@ -32490,10 +32654,10 @@
       "_mlCheckedAt": "2026-11-07T18:28:27.926Z",
       "_enWeb": false,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 28499,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "apple-iphone-17-pro-max-256gb-esim-ml-2",
@@ -32504,7 +32668,7 @@
       "mlId": "MLM54106937",
       "precioML": 27799,
       "precioAmz": null,
-      "activo": false,
+      "activo": true,
       "estadoML": "sin_precio",
       "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_975183-MLA96892195530_112025-F.webp",
       "estrellas": 4.9,
@@ -32521,8 +32685,14 @@
       "_updatedAt": "2026-11-16T21:34:48.660Z",
       "mlIdFuente": "manual",
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
-      "_eliminado": true,
-      "_enWeb": true
+      "_enWeb": true,
+      "_revividoFecha": "2026-11-26",
+      "_revividoMotivo": "su enlace de afiliado sigue abriendo el producto",
+      "_dispEstado": "ok",
+      "_dispFecha": "2026-11-26",
+      "_precioFicha": 27799,
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "apple-iphone-17-pro-max-512gb-esim-ml-2",
@@ -32552,10 +32722,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 35999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "apple-iphone-17-pro-max-1tb-esim",
@@ -32641,10 +32811,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 29999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "apple-iphone-18-pro-1tb-esim",
@@ -32704,10 +32874,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 31999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "apple-iphone-18-pro-max-2tb-esim-ml-1",
@@ -32737,10 +32907,10 @@
       "_mlCheckedAt": "2026-11-07T18:28:27.926Z",
       "_enWeb": false,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 31999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "apple-iphone-16e-128gb",
@@ -32770,10 +32940,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 13399,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 14799,
       "_precioMLFecha": "2026-11-25"
     },
@@ -32805,10 +32975,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 13399,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 14799,
       "_precioMLFecha": "2026-11-25"
     },
@@ -32819,7 +32989,7 @@
       "linkML": "https://meli.la/2YicyZQ",
       "linkAmz": null,
       "mlId": "MLM1027172677",
-      "precioML": 16188,
+      "precioML": 16999,
       "precioAmz": null,
       "activo": true,
       "estadoML": "sin_precio",
@@ -32840,12 +33010,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
-      "_precioFicha": 16188,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
-      "_precioMLAntes": 16999,
-      "_precioMLFecha": "2026-11-25"
+      "_dispFecha": "2026-11-26",
+      "_precioFicha": 16999,
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "apple-iphone-15-256gb-ml-2",
@@ -32905,10 +33073,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 15199,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 15999,
       "_precioMLFecha": "2026-11-25"
     },
@@ -32940,11 +33108,11 @@
       "_mlCheckedAt": "2026-11-07T18:28:27.926Z",
       "_enWeb": false,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "pausaML": false,
       "_precioFicha": 15199,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 15999,
       "_precioMLFecha": "2026-11-25"
     },
@@ -33550,10 +33718,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 19799,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 21999,
       "_precioMLFecha": "2026-11-25"
     },
@@ -33577,10 +33745,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 26999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "apple-iphone-18-pro-512gb",
@@ -33638,10 +33806,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 2272,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 2273,
       "_precioMLFecha": "2026-11-25"
     },
@@ -33672,7 +33840,7 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 4202,
       "_precioMLFecha": "2026-11-25",
       "_precioFicha": 3970,
@@ -33742,11 +33910,13 @@
       },
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
-      "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispEstado": "link_roto",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 474,
       "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioLinkFecha": "2026-11-25",
+      "_dispFallos": 1,
+      "_dispDesde": "2026-11-26"
     },
     {
       "id": "cafetera-mlm24158064-5",
@@ -33775,10 +33945,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 245,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 632,
       "_precioMLFecha": "2026-11-25"
     },
@@ -33809,10 +33979,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 3867,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm26915687-7",
@@ -33843,10 +34013,10 @@
       "_precioMLFecha": "2026-11-16",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 1150,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm25172002-8",
@@ -33875,10 +34045,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 475,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm55285653-9",
@@ -33907,10 +34077,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 229,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 249,
       "_precioMLFecha": "2026-11-25"
     },
@@ -33977,10 +34147,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 749,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 839,
       "_precioMLFecha": "2026-11-25"
     },
@@ -34011,10 +34181,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 532,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm63547237-13",
@@ -34043,10 +34213,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 1085,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm76221126-14",
@@ -34075,7 +34245,7 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "pausaML": false,
       "mlIdFuente": "afiliado-resuelto",
       "_precioFicha": 2562,
@@ -34109,10 +34279,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 2351,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm49547626-16",
@@ -34141,10 +34311,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 1728,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 1999,
       "_precioMLFecha": "2026-11-25"
     },
@@ -34175,10 +34345,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 875,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm65036652-18",
@@ -34207,10 +34377,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 13999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 16192,
       "_precioMLFecha": "2026-11-25"
     },
@@ -34241,10 +34411,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 1149,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm38492826-20",
@@ -34273,10 +34443,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 2297,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm19308141-21",
@@ -34305,10 +34475,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 1022,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 1199,
       "_precioMLFecha": "2026-11-25"
     },
@@ -34339,10 +34509,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 910,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm27289430-23",
@@ -34371,10 +34541,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 1385,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 1470,
       "_precioMLFecha": "2026-11-25"
     },
@@ -34439,10 +34609,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 249,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm69618231-26",
@@ -34471,10 +34641,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 2424,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm69055537-27",
@@ -34503,10 +34673,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 1699,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm20778509-28",
@@ -34535,10 +34705,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 559,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm29326829-29",
@@ -34567,10 +34737,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 3490,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 3790,
       "_precioMLFecha": "2026-11-25"
     },
@@ -34601,10 +34771,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 528,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm28372254-31",
@@ -34633,10 +34803,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 9555,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm76944699-32",
@@ -34665,10 +34835,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 2072,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 2136,
       "_precioMLFecha": "2026-11-25"
     },
@@ -34699,10 +34869,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 678,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm80135052-34",
@@ -34733,10 +34903,10 @@
       "_precioMLFecha": "2026-11-25",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 599,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm50884583-35",
@@ -34769,7 +34939,7 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 329,
       "_precioFichaFecha": "2026-11-25",
       "_precioLinkFecha": "2026-11-25"
@@ -34805,10 +34975,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 1599,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 2899,
       "_precioMLFecha": "2026-11-25"
     },
@@ -34843,13 +35013,13 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "pausaML": false,
       "_precioMLAntes": 16149,
       "_precioMLFecha": "2026-11-17",
       "_precioFicha": 12799,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm49827161-38",
@@ -34882,10 +35052,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 879,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm42416247-39",
@@ -34956,12 +35126,12 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 1509,
       "_precioMLFecha": "2026-11-19",
       "_precioFicha": 1239,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm45402536-41",
@@ -34994,10 +35164,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 2299,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 2300,
       "_precioMLFecha": "2026-11-25"
     },
@@ -35032,7 +35202,7 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 500,
       "_precioMLFecha": "2026-11-25",
       "_precioFicha": 389,
@@ -35070,10 +35240,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 1541,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 1589,
       "_precioMLFecha": "2026-11-25"
     },
@@ -35108,10 +35278,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 794,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm38224698-45",
@@ -35186,10 +35356,10 @@
       "_precioMLFecha": "2026-11-18",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 1571,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm63643363-47",
@@ -35222,12 +35392,12 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 11849,
       "_precioMLFecha": "2026-11-21",
       "_precioFicha": 11067,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm54250784-48",
@@ -35260,10 +35430,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 3102,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm64639256-49",
@@ -35296,7 +35466,7 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 2555,
       "_precioFichaFecha": "2026-11-25",
       "_precioLinkFecha": "2026-11-25"
@@ -35332,10 +35502,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 3349,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm37445228-51",
@@ -35368,12 +35538,12 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 2339,
       "_precioMLFecha": "2026-11-20",
       "_precioFicha": 2209,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm35544277-52",
@@ -35406,12 +35576,12 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 13999,
       "_precioMLFecha": "2026-11-19",
       "_precioFicha": 13799,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm73678844-53",
@@ -35520,10 +35690,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 1379,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 1380,
       "_precioMLFecha": "2026-11-25"
     },
@@ -35601,10 +35771,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 2576,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 3999,
       "_precioMLFecha": "2026-11-25"
     },
@@ -35641,10 +35811,10 @@
       "_precioMLFecha": "2026-11-20",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 9099,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm65599139-59",
@@ -35788,10 +35958,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 883,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 938,
       "_precioMLFecha": "2026-11-25"
     },
@@ -35826,10 +35996,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 4499,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm42113953-64",
@@ -35862,10 +36032,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 2307,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm45867011-65",
@@ -35898,10 +36068,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 2399,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm62979610-66",
@@ -35934,10 +36104,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 1709,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm19722532-67",
@@ -35970,10 +36140,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 2499,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm55687063-68",
@@ -36006,10 +36176,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 24288,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 24289,
       "_precioMLFecha": "2026-11-25"
     },
@@ -36044,10 +36214,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 4038,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm79743127-70",
@@ -36080,10 +36250,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 1898,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm54800255-71",
@@ -36116,10 +36286,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 1841,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 1907,
       "_precioMLFecha": "2026-11-25"
     },
@@ -36154,7 +36324,7 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "pausado",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 440,
       "_precioFichaFecha": "2026-11-25",
       "_precioLinkFecha": "2026-11-25",
@@ -36195,10 +36365,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 1599,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 1600,
       "_precioMLFecha": "2026-11-25"
     },
@@ -36233,10 +36403,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 22435,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm64203067-75",
@@ -36306,10 +36476,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 999,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm49760227-77",
@@ -36342,10 +36512,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 2241,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm61104879-78",
@@ -36378,10 +36548,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 2249,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm22728551-79",
@@ -36414,7 +36584,7 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioMLAntes": 3982,
       "_precioMLFecha": "2026-11-20",
       "_precioFicha": 3892,
@@ -36530,10 +36700,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 20240,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 20241,
       "_precioMLFecha": "2026-11-25"
     },
@@ -36568,10 +36738,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 8899,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 8900,
       "_precioMLFecha": "2026-11-25"
     },
@@ -36606,10 +36776,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 5039,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm39206420-85",
@@ -36642,7 +36812,7 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "pausado",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_dispFallos": 14,
       "_dispDesde": "2026-11-17",
       "pausaML": true,
@@ -36683,10 +36853,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 929,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 1192,
       "_precioMLFecha": "2026-11-25"
     },
@@ -36721,10 +36891,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 3685,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 3799,
       "_precioMLFecha": "2026-11-25"
     },
@@ -36836,10 +37006,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 1871,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25",
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26",
       "_precioMLAntes": 1949,
       "_precioMLFecha": "2026-11-25"
     },
@@ -36874,10 +37044,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 779,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm73546686-92",
@@ -36910,10 +37080,10 @@
       "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
       "_enWeb": true,
       "_dispEstado": "ok",
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_precioFicha": 2207,
-      "_precioFichaFecha": "2026-11-25",
-      "_precioLinkFecha": "2026-11-25"
+      "_precioFichaFecha": "2026-11-26",
+      "_precioLinkFecha": "2026-11-26"
     },
     {
       "id": "cafetera-mlm77506871-93",
@@ -36947,7 +37117,7 @@
       "_enWeb": true,
       "_dispEstado": "pausado",
       "_dispFallos": 17,
-      "_dispFecha": "2026-11-25",
+      "_dispFecha": "2026-11-26",
       "_dispDesde": "2026-11-17",
       "pausaML": true,
       "_pausaAuto": true,
@@ -36961,7 +37131,7 @@
       "nombre": "Miele CM 6360 MilkPerfection Countertop Coffee & Espresso Machine",
       "nombreCorto": "Miele CM 6360 MilkPerfection",
       "marca": "Miele",
-      "activo": false,
+      "activo": true,
       "linkML": "https://meli.la/11PPuJK",
       "linkAmz": "https://www.amazon.com.mx/Miele-6360-MilkPerfection-obsidiana-CleanSteelMetallic/dp/B09BG85YDM?crid=2YURR8ADDMTAE&dib=eyJ2IjoiMSJ9.vAzmXKCAi7nDKcsiya_HiUj9LgD6Akva4mQ-5v7gXh1XxCSMg4CYQl6swIHahL-3FGa2Q0f5LvGs0gXbAWWPhuEpgJ1vewV42sHKqDVqDbexX6_aopbi4MJoxBp251Duo5ypWbhpr2SCIA7O8ovUP-xYlJsuokXdWZUjx7ioZf_4oSok6RXsj6o13cnyMUlJZFjMpPd-mga5Jr_35U9X7Z_DzKd138Q_3Q4dGPEy7Kqi1krKcax3hXhYyUp79vyXAQ6u_7Uf0rsE81VwDhGZSnA43MYl6z2N7gxQFdQxpqE.uEDLnM-f9ckJJdpvLCJhl_4QHycG5-eHFee2rJtpmRs&dib_tag=se&keywords=cafetera&qid=1793066957&sprefix=cafe%2Caps%2C275&sr=8-3-spons&ufe=app_do%3Aamzn1.fos.03979ec5-04c0-4e2b-b2cb-0da67477c2a5&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1&linkCode=ll2&tag=guiasdecomp01-20&linkId=8a59bb64cf2c0dc6f2aeac0e22cac2b7&ref_=as_li_ss_tl",
       "precioML": 50000,
@@ -36980,8 +37150,11 @@
       "_linkError": null,
       "_linkRevisar": null,
       "_linkSinProducto": null,
-      "_eliminado": true,
-      "_enWeb": false
+      "_enWeb": false,
+      "_revividoFecha": "2026-11-26",
+      "_revividoMotivo": "su enlace de afiliado sigue abriendo el producto",
+      "_dispEstado": "ok",
+      "_dispFecha": "2026-11-26"
     }
   ],
   "bicisMontana": [
