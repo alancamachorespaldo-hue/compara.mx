@@ -463,9 +463,10 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
 El flujo completo, de la API al sitio:
 
 1. **Buscar.** En el Gestor del Centro, el botón «🔎 Buscar catálogo en API de Mercado Libre» abre
-   el workflow `descubrir-catalogo.yml` (manual, con selector de categoría y tope). El Centro es un
-   artifact: no puede guardar credenciales ni llamar a ML desde el navegador, por eso la búsqueda
-   corre en Actions o en la máquina (`node scripts/descubrir-catalogo.mjs --categoria=proteina --aplicar`).
+   el workflow `descubrir-catalogo.yml` (manual; el campo de categoría acepta `todas`, una clave
+   o varias con coma, más fuente y tope). El Centro es un artifact: no puede guardar credenciales
+   ni llamar a ML desde el navegador, por eso la búsqueda corre en Actions o en la máquina
+   (`node scripts/descubrir-catalogo.mjs --todas --aplicar`, o `--categoria=proteina`).
 2. **Revisar.** En el Gestor, estado **«Nuevos sin publicar (bandeja)»** (más «pendientes de
    enlace» y «pendientes de validación»): otra tabla, con imagen, marca, características, ID de
    catálogo, estado y enlace. Los datos salen de `scripts/centro-bandeja.json`, que publica
@@ -556,10 +557,58 @@ mismos enlaces muertos.
 
 Una categoría entra al descubrimiento agregándole un bloque `descubrir` en `categorias.js`
 (términos, `categoriasML` para el ranking, dominios, clase, mapa de atributos → `especs`,
-obligatorias, recomendadas, y opcionalmente `firma` para el aviso de posible duplicado) y
-sumándola a las opciones del workflow `descubrir-catalogo.yml` (`publicar-nuevos.yml` no lleva
-lista: la categoría viaja dentro del JSON pegado). Hoy están **Proteína** (el piloto, página
-plana) e **iPhone** (`celulares_iphone`, página de familias).
+`tipos`, `valores`, obligatorias, recomendadas, y opcionalmente `firma` para el aviso de posible
+duplicado). El workflow `descubrir-catalogo.yml` ya NO lleva lista de categorías: su campo
+`categoria` es texto y acepta `todas`, una clave o varias con coma (GitHub admite 20 opciones de
+`choice` como máximo y el registro ya tiene 26); `publicar-nuevos.yml` nunca llevó lista, la
+categoría viaja dentro del JSON pegado.
+
+**EL DESCUBRIMIENTO CUBRE 26 CATEGORÍAS (27-nov-2026).** Después del piloto (Proteína) y de
+iPhone se declararon las 24 que faltaban de una sola vez, midiendo la API categoría por categoría
+en vez de suponer: dominio real de cada una, categoría de ML cuyo ranking responde, y qué
+atributos trae con qué cobertura. Lo que se aprendió al hacerlo, y que vale para la siguiente:
+
+- **El filtro de dominio es el que hace el trabajo**, y los accesorios siempre tienen dominio
+  propio. Buscar «roku» devuelve 20 controles remotos de 61 resultados, «laptop» devuelve
+  maletines y bases, «freidora de aire» devuelve 25 libros de recetas de 100 resultados, y
+  «playstation 5» devuelve 71 videojuegos de 77 — para consolas los términos tienen que decir
+  «consola …» y el dominio `MLM-GAME_CONSOLES`.
+- **Un dominio compartido se separa con `clase`, no con términos.** Montaña y gravel/ruta son las
+  dos `MLM-BICYCLES` (las separa `BICYCLE_TYPE`), y los cinco suplementos son todos
+  `MLM-SUPPLEMENTS` (los separa `MAIN_SUPPLEMENT`/`SUPPLEMENT_CLASS`/`TRADE_NAME`/`LINE`).
+  **`INGREDIENTS` no entra en ese filtro**: una proteína lleva creatina entre sus ingredientes y
+  un multivitamínico lleva magnesio, así que con él la primera corrida metió tres proteínas en la
+  bandeja de creatina.
+- **`tipos` y `valores`, los dos campos nuevos del bloque.** `tipos` dice cómo se guarda cada
+  clave (`'texto' | 'numero' | 'gramos' | 'gramosTexto' | 'bool' | 'slug' | 'watts' |
+  'wattsTexto'`) porque la MISMA clave se guarda distinto según la página: `pantalla` es el número
+  6.3 en celulares y el texto '15.6 "' en laptops, `contenidoGramos` es 450 en proteína y "450 g"
+  en creatina. Los tipos con unidad además normalizan, porque la API mezcla «1.4 kW» con «1400 W»
+  y «2.27 kg» con «450 g» en el mismo atributo — leer el número a secas dejaba un microondas de
+  1.1 W. `valores` es el vocabulario CERRADO de una clave que la página usa para filtrar
+  (`{ valor de ML normalizado → valor del sitio }`): lo que no está en la tabla **no se escribe**.
+  Es a propósito, y es la regla de fondo: **cuando la API habla otro idioma que el filtro de la
+  página, el dato se deja vacío** (sale en rojo en el Centro y se llena al publicar) en vez de
+  escribir el valor de ML. Un audífono con `formato:"Diadema"` donde el filtro conoce
+  In-ear/On-ear/Over-ear no queda informado, queda escondido de su propia lista. Por eso no se
+  mapean `tipo` ni `panel` en freidoras, `tipo` en cafeteras y bicis, `generacion` y
+  `formatoJuegos` en consolas, ni `autonomia` en bicis eléctricas (la API la da en HORAS y la
+  página la enseña en KILÓMETROS; convertirla sería inventarse la velocidad media).
+- **`especsPlanas`** marca las cinco categorías que no guardan un objeto `especs` en la base sino
+  CAMPOS del producto (microondas, refrigeradores, lavadoras, ollas, televisiones), para que
+  `aplicar-nuevos.mjs` escriba el producto nuevo con la forma que ya tiene su categoría. Un
+  `mapa` puede además mandar un atributo a VARIAS claves (`TOTAL_CAPACITY: ['capacidadTotal',
+  'capacidadL']`, el mismo dato como texto y como número, que es como ya está refrigeradores).
+- **Android se queda fuera, y no es un olvido.** En `/celulares/android/` la variante es
+  (capacidad, RAM) con campos `storage`/`ram`, mientras iPhone guarda `almacenamientoGB`: el «ya
+  lo tenemos» de `descubrir-catalogo.mjs`, `agregarVariantes()` y `altaVariante()` solo saben
+  leer la forma de iPhone (y `altaVariante` escribe `apple-…` y `marca:'Apple'` a mano). Darle
+  descubrimiento a Android es escribir primero la regla de alta para su forma.
+- Cobertura de atributos, por si hay que decidir qué exigir: televisiones es la mejor de todas
+  (pulgadas 138 de 140 activos, resolución 116, panel 112), laptops y lavadoras van bien (RAM 74
+  de 76, capacidad 57 de 62), y los suplementos son los peores — los datos por porción (EPA, DHA,
+  mg de magnesio, las B, UI de vitamina D) viven en texto libre y se escriben a mano, igual que
+  `proteinaPorPorcion`.
 
 **iPhone: lo que cambia por ser una página de familias** (27-nov-2026). El circuito es el mismo
 —buscar, revisar, pegar enlace, publicar— pero con dos diferencias que vienen de que el array de
@@ -637,10 +686,11 @@ republicar.
   25-nov-2026: su paso de precios llamaba a la API cerrada y el de disponibilidad fallaba a
   propósito, tumbando la corrida entera a mitad del pipeline.
 - `descubrir-catalogo.yml` ("Buscar catálogo en API de Mercado Libre") — **manual a propósito**
-  (descubrir productos es una decisión, no una rutina): selector de categoría (`proteina` |
-  `celulares_iphone`), **fuente** (`ranking` | `ambas` | `busqueda`), tope y aplicar. En iPhone el
+  (descubrir productos es una decisión, no una rutina): **categoría** como texto (`todas`, una
+  clave de `categorias.js` o varias con coma; es texto porque `choice` admite 20 opciones y hay
+  26 categorías), **fuente** (`ranking` | `ambas` | `busqueda`), tope y aplicar. En iPhone el
   ranking de MLM1055 son los más vendidos de TODAS las marcas y da ~2 iPhones por corrida, así que
-  ahí la fuente útil es `ambas`.
+  ahí la fuente útil es `ambas`. Su resumen sale como una tabla con una fila por categoría.
   Corre `descubrir-catalogo.mjs`, regenera el Centro, valida y commitea solo la bandeja, el
   historial y los JSON del Centro. No escribe `merged-admin.json` ni ninguna página; comparte el
   `concurrency: datos-comparalo` porque también commitea en main.

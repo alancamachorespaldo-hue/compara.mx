@@ -216,7 +216,14 @@ for (const item of cambios.publicar ?? []) {
       imagen: item.imagen ?? enB.imagen ?? null,
       activo: true,
       estadoML: 'ok',
-      especs,
+      /* Dónde van las características en la BASE. Casi todas las categorías las guardan en un
+         objeto `especs`, pero cinco no: microondas, refrigeradores, lavadoras, ollas y
+         televisiones las tienen como CAMPOS del producto (`capacidadKg`, `pulgadas`, `puertas`),
+         y así las leen sus páginas y `generar-catalog-mini.js`. Un producto nuevo tiene que
+         entrar con la forma que ya tiene su categoría: si no, la base guardaría dos esquemas
+         distintos en la misma lista y el producto nuevo saldría sin características en todo lo
+         que lee la base. Lo dice la categoría con `descubrir.especsPlanas`. */
+      ...(cat.descubrir?.especsPlanas ? especs : { especs }),
       gtin: enB.gtin ?? [],
       _mlAtributos: enB._mlAtributos ?? {},
       _precioFicha: r.precio,

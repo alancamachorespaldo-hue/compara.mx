@@ -316,13 +316,24 @@ for (const [clave, info] of Object.entries(bandejaRaw.categorias || {})) {
        se puede publicar. El Centro lo usa para no dejar mandar al workflow un alta que
        aplicar-nuevos.mjs va a rechazar. */
     familias: (CATEGORIAS[clave]?.tipo ?? 'plano') === 'familias' || undefined,
+    /* CUÁNTO PESA ESTO IMPORTA (27-nov-2026). Con el descubrimiento en 26 categorías la bandeja
+       pasó de ~800 fichas a ~4,000, y este archivo —que el Centro se baja de un tirón al entrar
+       al filtro— llegó a 10 MB. El desglose decía dónde estaba: los atributos crudos de ML
+       (664 B por ficha), la descripción (419 B) y las variantes (241 B), que juntos eran dos
+       tercios del archivo. Se recortan a lo que de verdad se usa para decidir si un producto
+       entra al sitio; el dato completo sigue en `scripts/bandeja-nuevos.json`, que es la fuente.
+       Si algún día hace falta la ficha entera en el Centro, el camino no es engordar esto: es
+       partirlo en un archivo por categoría y pedir solo el de la que se está viendo. */
     productos: pend.map((p) => ({
       id: p.id, catalogId: p.catalogId, estado: p.estado, nombre: p.nombre, marca: p.marca,
-      modelo: p.modelo, gtin: p.gtin || [], imagen: p.imagen, imagenes: (p.imagenes || []).slice(0, 4),
-      descripcion: (p.descripcion || '').slice(0, 700) || null,
-      caracteristicas: (p.caracteristicas || []).slice(0, 6),
-      variantes: (p.variantes || []).slice(0, 12),
-      urlML: p.urlML, especs: p.especs || {}, atributos: p._mlAtributos || {},
+      modelo: p.modelo, gtin: p.gtin || [], imagen: p.imagen, imagenes: (p.imagenes || []).slice(0, 2),
+      descripcion: (p.descripcion || '').slice(0, 260) || null,
+      caracteristicas: (p.caracteristicas || []).slice(0, 4),
+      variantes: (p.variantes || []).slice(0, 6),
+      urlML: p.urlML, especs: p.especs || {},
+      // Los atributos crudos de ML sirven para llenar a mano lo que el mapa no mapeó; con 16
+      // alcanza para eso y son la mitad de lo que pesaban.
+      atributos: Object.fromEntries(Object.entries(p._mlAtributos || {}).slice(0, 16)),
       faltantes: faltanDe(p, obligatorias), avisos: faltanDe(p, recomendadas),
       posibleDuplicadoDe: p.posibleDuplicadoDe || null,
       termino: p.termino, detectadoEn: p.detectadoEn, actualizadoML: p.actualizadoML || null,

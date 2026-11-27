@@ -112,6 +112,19 @@ const aNumero = txt => {
 const aBool = txt => (/^s[ií]$/i.test(String(txt ?? '').trim()) ? true
   : /^no$/i.test(String(txt ?? '').trim()) ? false : null);
 
+/**
+ * "1300 W" | "1.4 kW" → 1300 / 1400. En watts, SIEMPRE.
+ * Existe porque la API mezcla las dos unidades en el mismo atributo —de 49 microondas, 8 traen
+ * «1.1 kW» y 9 «700 W»— y leer el número a secas dejaba un microondas de 1.1 W en la base.
+ */
+function aWatts(txt) {
+  const m = String(txt ?? '').replace(',', '.').match(/([\d.]+)\s*(kw|w)\b/i);
+  if (!m) return null;
+  const n = parseFloat(m[1]);
+  if (!isFinite(n) || n <= 0) return null;
+  return Math.round(m[2].toLowerCase() === 'kw' ? n * 1000 : n);
+}
+
 const CLAVES_GRAMOS = new Set(['contenidoGramos', 'gramosPorPorcion', 'pesoNeto']);
 const CLAVES_NUMERO = new Set(['porciones', 'potencia', 'capacidad',
   // Celulares: la página pinta estos tres como números (6.3 pulgadas, 48 MP, 120 Hz) y la
@@ -119,17 +132,55 @@ const CLAVES_NUMERO = new Set(['porciones', 'potencia', 'capacidad',
   'pantalla', 'camPrincipal', 'hz']);
 const CLAVES_BOOL = new Set(['vegana', 'glutenFree', 'sugarFree', 'pura', 'organico']);
 
-/** Atributos de ML → claves del esquema `especs` de la categoría, con su conversión. */
-function mapearEspecs(attrs, mapa) {
+/** "Carga frontal" → "carga-frontal". El estilo de las claves que las páginas usan para filtrar. */
+const aSlug = txt => String(txt ?? '').normalize('NFD').replace(/[̀-ͯ]/g, '')
+  .toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+
+/**
+ * Atributos de ML → claves del esquema `especs` de la categoría, con su conversión.
+ *
+ * TRES COSAS QUE DECIDE LA CATEGORÍA, no este script (todas en su bloque `descubrir`):
+ *   · `mapa`     atributo de ML → clave (o VARIAS claves: `TOTAL_CAPACITY: ['capacidadTotal',
+ *                'capacidadL']`, que es el mismo dato guardado como texto y como número, tal
+ *                como ya está en refrigeradores).
+ *   · `tipos`    cómo se guarda cada clave: 'texto' | 'numero' | 'gramos' (número en g) |
+ *                'gramosTexto' ("2270 g") | 'bool' | 'slug' | 'watts' (número en W) |
+ *                'wattsTexto' ("1400 W"). Los de unidad normalizan: la API mezcla «2.27 kg» con
+ *                «450 g» y «1.4 kW» con «1400 W» en el mismo atributo.
+ *                Hace falta porque la MISMA clave se guarda distinto según la categoría: en
+ *                celulares `pantalla` es el número 6.3 y en laptops y smartwatches es el texto
+ *                '15.6"'; `contenidoGramos` es número en proteína y "450 g" en creatina. Sin
+ *                esto, los nombres de clave globales de abajo decidían por todas y escribían el
+ *                formato de una categoría en la base de otra.
+ *   · `valores`  vocabulario CERRADO de una clave que la página usa para filtrar: { valor de ML
+ *                normalizado → valor del sitio }. Lo que no esté en la tabla NO SE ESCRIBE y
+ *                sale en rojo en el Centro para llenarlo a mano. Es a propósito: el filtro de
+ *                «formato» de audífonos conoce In-ear/On-ear/Over-ear, así que meterle el
+ *                "Diadema" de ML no llena el dato, esconde el producto de su propio filtro.
+ */
+function mapearEspecs(attrs, cfg = {}) {
+  const { mapa, tipos = {}, valores = {} } = cfg;
   const out = {};
-  for (const [idAttr, clave] of Object.entries(mapa ?? {})) {
+  for (const [idAttr, destino] of Object.entries(mapa ?? {})) {
     const v = attrs[idAttr];
     if (v == null || v === '' || v === '-') continue;
-    out[clave] = CLAVES_GRAMOS.has(clave) ? aGramos(v)
-      : CLAVES_NUMERO.has(clave) ? aNumero(v)
-      : CLAVES_BOOL.has(clave) ? aBool(v)
-      : String(v);
-    if (out[clave] == null) delete out[clave];
+    for (const clave of [].concat(destino)) {
+      const tipo = tipos[clave] ?? (CLAVES_GRAMOS.has(clave) ? 'gramos'
+        : CLAVES_NUMERO.has(clave) ? 'numero'
+        : CLAVES_BOOL.has(clave) ? 'bool' : 'texto');
+      let val = tipo === 'gramos' ? aGramos(v)
+        : tipo === 'numero' ? aNumero(v)
+        : tipo === 'bool' ? aBool(v)
+        : tipo === 'slug' ? aSlug(v)
+        : tipo === 'gramosTexto' ? (aGramos(v) == null ? null : `${aGramos(v)} g`)
+        : tipo === 'watts' ? aWatts(v)
+        : tipo === 'wattsTexto' ? (aWatts(v) == null ? null : `${aWatts(v)} W`)
+        : String(v);
+      const tabla = valores[clave];
+      if (tabla) val = Object.prototype.hasOwnProperty.call(tabla, norm(v)) ? tabla[norm(v)] : null;
+      if (val == null || val === '') continue;
+      out[clave] = val;
+    }
   }
   return out;
 }
@@ -326,14 +377,14 @@ async function descubrir(cat, base, bandejaPrevia) {
       duplicados.push({ id: it.id, nombre: it.name, motivo: dupId ? 'mlId' : 'gtin', base: (dupId || dupGtin).id });
       continue;
     }
-    const sitio = sitioEnPagina(a, mapearEspecs(a, cfg.mapa));
+    const sitio = sitioEnPagina(a, mapearEspecs(a, cfg));
     if (sitio && sitio.modeloBase && sitio.gb && yaEnPagina.has(`${sitio.modeloBase}|${sitio.gb}`)) {
       duplicados.push({ id: it.id, nombre: it.name, motivo: 'modelo+capacidad', base: `${sitio.modeloBase} ${sitio.gb} GB` });
       continue;
     }
     // Firma marca+contenido+sabor: NO descarta, marca para revisión. Un sabor o un tamaño
     // distinto es otro producto; confundirlos sería peor que tener una tarjeta de más.
-    const esp = mapearEspecs(a, cfg.mapa);
+    const esp = mapearEspecs(a, cfg);
     const f = clavesFirma ? firma([norm(a.BRAND), ...clavesFirma.map(k => norm(esp[k]))]) : null;
     const posible = f ? porFirma.get(f) : null;
     const reg = { it, a, gtins, sitio, posible: posible ? { id: posible.id, nombre: posible.nombre } : null };
@@ -381,10 +432,10 @@ async function descubrir(cat, base, bandejaPrevia) {
       // abajo—, pero una ficha que lleva semanas sin moverse suele ser una sin vendedores, así
       // que se enseña en el Centro como pista para decidir a cuál pedirle enlace primero.
       actualizadoML: d.last_updated ?? r.it.last_updated ?? null,
-      especs: mapearEspecs(a, cfg.mapa),
+      especs: mapearEspecs(a, cfg),
       _mlAtributos: attrsLegibles(d),
-      obligatoriasFaltantes: (cfg.obligatorias ?? []).filter(k => mapearEspecs(a, cfg.mapa)[k] == null),
-      recomendadasFaltantes: (cfg.recomendadas ?? []).filter(k => mapearEspecs(a, cfg.mapa)[k] == null),
+      obligatoriasFaltantes: (cfg.obligatorias ?? []).filter(k => mapearEspecs(a, cfg)[k] == null),
+      recomendadasFaltantes: (cfg.recomendadas ?? []).filter(k => mapearEspecs(a, cfg)[k] == null),
       posibleDuplicadoDe: r.posible,
       /* Páginas de familias: a qué familia de la página le toca esta variante. null significa
          que ese modelo todavía no tiene familia escrita, así que no se puede publicar hasta que

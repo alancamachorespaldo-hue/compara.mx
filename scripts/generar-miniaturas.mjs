@@ -36,6 +36,14 @@ const flag = (n) => args.find((a) => a.startsWith(`--${n}=`))?.split('=').slice(
 const FORZAR = args.includes('--forzar');
 const CONC = Number(flag('concurrencia') || 8);
 const CATS = flag('categoria')?.split(',').map((s) => s.trim()).filter(Boolean) || null;
+/* Cuántas fichas de la BANDEJA de cada categoría llevan miniatura (0 = todas). Existe desde que
+   el descubrimiento cubre 26 categorías (27-nov-2026): la bandeja pasó de ~800 fichas a ~4,000, y
+   con una miniatura de ~3 KB cada una este archivo se iba a 16 MB —el límite de lo que se puede
+   publicar al lado del Centro, y 16 MB que el navegador se baja al abrir el Gestor—. La bandeja
+   viene ordenada por lo que más vale la pena mirar (primero el ranking de más vendidos, después
+   la posición en los resultados), así que las primeras de cada categoría son justo las que uno
+   abre. Las de más atrás salen sin foto hasta que se suba el tope. */
+const TOPE_BANDEJA = flag('tope-bandeja') != null ? Number(flag('tope-bandeja')) : 60;
 
 /** URL de la versión miniatura de la misma foto. */
 export function urlMiniatura(url) {
@@ -112,10 +120,14 @@ if (fs.existsSync(BANDEJA)) {
       for (const p of info.productos || []) vigentes.add(`bandeja:${p.id}`);
       continue;
     }
+    let n = 0;
     for (const p of info.productos || []) {
       if (p.estado !== 'new_unpublished' && p.estado !== 'revisar') continue;
       const k = `bandeja:${p.id}`;
+      // Pasado el tope se dan por vigentes (para no borrar la miniatura de una que ya la tenga)
+      // pero no se piden nuevas.
       vigentes.add(k);
+      if (TOPE_BANDEJA > 0 && ++n > TOPE_BANDEJA) continue;
       if (!p.imagen) continue;
       if (imagenes[k] && fuentes[k] === p.imagen && !FORZAR) continue;
       pendientes.push({ k, url: p.imagen });

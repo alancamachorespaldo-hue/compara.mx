@@ -25,11 +25,12 @@ name: Buscar catálogo en API de Mercado Libre
 on:
   workflow_dispatch:
     inputs:
+      # Texto y no `choice` porque GitHub admite 20 opciones como máximo y el registro ya tiene
+      # 26 categorías con `descubrir`. `todas` corre todas; varias se separan con coma.
       categoria:
-        description: 'Categoría a buscar (tiene que tener `descubrir` en categorias.js)'
-        type: choice
-        default: proteina
-        options: [proteina, celulares_iphone]
+        description: 'Categoría(s) a buscar: `todas`, una clave de categorias.js, o varias con coma'
+        type: string
+        default: todas
       fuente:
         description: '¿De dónde sacar los candidatos? ranking = solo los que se venden hoy'
         type: choice
@@ -78,7 +79,12 @@ jobs:
           FUENTE:    ${{ inputs.fuente }}
           TOPE:      ${{ inputs.tope }}
           APLICAR:   ${{ inputs.aplicar && '--aplicar' || '' }}
-        run: node scripts/descubrir-catalogo.mjs --categoria="$CATEGORIA" --fuente="$FUENTE" --tope="$TOPE" $APLICAR
+        run: |
+          if [ "$CATEGORIA" = "todas" ]; then
+            node scripts/descubrir-catalogo.mjs --todas --fuente="$FUENTE" --tope="$TOPE" $APLICAR
+          else
+            node scripts/descubrir-catalogo.mjs --categoria="$CATEGORIA" --fuente="$FUENTE" --tope="$TOPE" $APLICAR
+          fi
 
       - name: Resumir todo para el Centro de Control
         if: ${{ inputs.aplicar }}
@@ -94,26 +100,30 @@ jobs:
         run: |
           node -e "
             const fs = require('fs');
-            const cat = process.env.CATEGORIA;
-            let l = ['## Búsqueda de catálogo — ' + cat, ''];
+            const pedido = process.env.CATEGORIA;
+            let l = ['## Búsqueda de catálogo — ' + pedido, ''];
             try {
               const h = JSON.parse(fs.readFileSync('./scripts/busquedas-catalogo.json', 'utf8'));
-              const b = (h.busquedas || []).filter(x => x.categoria === cat)[0];
-              if (b) l = l.concat([
-                '| | |', '|---|---|',
-                '| Productos de catálogo vistos | ' + b.encontrados + ' |',
-                '| De esta categoría | ' + b.relevantes + ' |',
-                '| **Nuevos guardados en la bandeja** | **' + b.nuevos + '** |',
-                '| Ya estaban en la base | ' + b.duplicados + ' |',
-                '| Posibles duplicados (a revisar) | ' + b.posiblesDuplicados + ' |',
-                '| Descartados por inactivos | ' + (b.descartados && b.descartados.inactivo) + ' |',
-                '| Descartados por no ser de la categoría | ' + ((b.descartados && b.descartados.dominio) + (b.descartados && b.descartados.clase)) + ' |',
-                '| Errores de API | ' + (b.errores || []).length + ' |',
-                '',
-                'Términos usados: ' + (b.terminos || []).join(' · '),
-                '',
-                '> Nada de esto está publicado. Ábrelo en el Centro de Control → Gestor de productos → filtro **Nuevos sin publicar**.',
+              // La corrida escribe una entrada por categoría, las más nuevas primero. Se toma la
+              // última de cada una (una corrida de \`todas\` deja 26) y se enseña en una tabla.
+              const vistas = new Set();
+              const filas = [];
+              for (const b of h.busquedas || []) {
+                if (vistas.has(b.categoria)) continue;
+                if (pedido !== 'todas' && !pedido.split(',').map(s => s.trim()).includes(b.categoria)) continue;
+                vistas.add(b.categoria);
+                const d = b.descartados || {};
+                filas.push('| ' + (b.titulo || b.categoria) + ' | ' + b.encontrados + ' | ' + b.relevantes +
+                  ' | **' + b.nuevos + '** | ' + b.duplicados + ' | ' + ((d.dominio || 0) + (d.clase || 0)) +
+                  ' | ' + (d.inactivo || 0) + ' | ' + (b.errores || []).length + ' |');
+              }
+              if (filas.length) l = l.concat([
+                '| Categoría | De catálogo | De la categoría | **Nuevos en la bandeja** | Ya en la base | De otra clase | Inactivos | Errores |',
+                '|---|---|---|---|---|---|---|---|',
+                ...filas, '',
+                '> Nada de esto está publicado. Ábrelo en el Centro de Control → Gestor de productos → filtro **Nuevos sin publicar (bandeja)**.',
               ]);
+              else l.push('El historial no tiene ninguna búsqueda de ' + pedido + '.');
             } catch (e) { l.push('No se pudo leer el historial de búsquedas: ' + e.message); }
             fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, l.join('\n') + '\n');
           "
