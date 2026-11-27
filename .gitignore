@@ -20,3 +20,28 @@ scripts/centro-imagenes.json
 # Solo para correr scripts/analitica.mjs en la máquina; en GitHub vive como el secret
 # GOOGLE_SERVICE_ACCOUNT_JSON. Como el repo es el sitio, commitearla la publicaría.
 scripts/.google-sa.json
+
+# ── Sobras de trabajo local (27-nov-2026) ────────────────────────────────────
+# Se quedan en el disco a propósito, pero NO en el repo: el repo es el sitio, así
+# que todo lo commiteado queda descargable en comparalo.mx. Son resultados crudos,
+# scripts de una sola vez y notas de trabajo; nada de esto lo necesita el sitio ni
+# ningún workflow.
+desktop.ini
+*.xlsx
+excel_a_codigo.py
+PROMPT_FABLE_REDESIGN.md
+README_CAMBIOS_AMAZON.txt
+videos-freidoras.md
+# Sobra vieja: la base buena es scripts/productos.json (la raíz salió del repo en b97eda55).
+/productos.json
+scripts/_bicis-saved-version.json
+scripts/bicis-fetch-result.json
+scripts/bicis-nuevas.json
+scripts/juegos-raw.json
+scripts/merged-admin-new.json
+scripts/fetch-bicis-cats.mjs
+scripts/fetch-bicis-nuevas.mjs
+scripts/fetch-juegos-temp.mjs
+scripts/montana-ded-snippet.js
+scripts/montana-entries-snippet.js
+scripts/print-proteina-sidebar.js
