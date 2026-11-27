@@ -406,6 +406,19 @@ export function agregarVariantes(abs, varName, items, opts = {}) {
 
   const fallos = [];
   const porFamilia = new Map();
+  /* Las capacidades ocupadas de cada familia, CONTANDO las que entran en esta misma llamada.
+     Mirar solo las que ya estaban en el HTML no basta: Mercado Libre tiene una ficha de catálogo
+     por COLOR, así que de una tanda salen seis «iPhone 16 Plus 128 GB» —negro, blanco, rosa…—
+     que son el mismo teléfono y el mismo hueco. Sin esto, las seis pasaban el filtro (cada una
+     comparada contra la página original, donde no había ninguna) y la familia acababa con seis
+     variantes de 128 GB. Visto el 27-nov-2026 en la primera tanda de verdad, 46 enlaces. */
+  const ocupadas = new Map();
+  const capsDe = i => {
+    if (!ocupadas.has(i)) {
+      ocupadas.set(i, new Set((familias[i].variantes ?? []).map(x => x && x.almacenamientoGB).filter(Boolean)));
+    }
+    return ocupadas.get(i);
+  };
   for (const it of items) {
     const v = it.variante ?? {};
     const nota = m => fallos.push({ modeloBase: it.modeloBase, mlId: v.mlId ?? null, motivo: m });
@@ -413,12 +426,13 @@ export function agregarVariantes(abs, varName, items, opts = {}) {
     if (i === -1) { nota(`no hay ninguna familia con modeloBase "${it.modeloBase}" en la página`); continue; }
     const gb = v.almacenamientoGB;
     if (!(gb > 0)) { nota('la variante no trae almacenamientoGB: no hay dónde colocarla'); continue; }
-    if ((familias[i].variantes ?? []).some(x => x && x.almacenamientoGB === gb)) {
+    if (capsDe(i).has(gb)) {
       nota(`la familia ${it.modeloBase} ya tiene la variante de ${gb} GB`); continue;
     }
     if (v.mlId && mlIds.has(v.mlId)) { nota(`el catálogo ${v.mlId} ya está en otra variante de la página`); continue; }
     if (v.linkML && links.has(v.linkML)) { nota('ese enlace ya está en otra variante de la página'); continue; }
     if (v.id && ids.has(v.id)) { nota(`el id "${v.id}" ya está en la página`); continue; }
+    capsDe(i).add(gb);
     if (v.mlId) mlIds.add(v.mlId);
     if (v.linkML) links.add(v.linkML);
     if (v.id) ids.add(v.id);

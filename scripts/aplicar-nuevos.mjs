@@ -258,6 +258,52 @@ for (const id of cambios.eliminar ?? []) {
   hechos.push({ id, accion: 'eliminado de la bandeja (papelera lógica)' });
 }
 
+/** Deshace un alta ya apuntada: sale de la base, de la página y de la cola, y la ficha vuelve
+    a la bandeja como estaba. Se usa cuando algo se descubre DESPUÉS de resolver el enlace. */
+function deshacerAlta(mlId, motivo) {
+  fallos.push({ id: mlId, motivo });
+  const i = paraPagina.findIndex(x => x.variante && x.variante.mlId === mlId);
+  if (i >= 0) paraPagina.splice(i, 1);
+  const reg = altas.get(mlId);
+  if (!reg) return;
+  const j = prods.indexOf(reg.nuevo);
+  if (j >= 0) prods.splice(j, 1);
+  reg.enB.estado = reg.estadoPrevio;
+  delete reg.enB.idBase;
+  delete reg.enB.publicadoEn;
+  const k = hechos.findIndex(h => h.id === mlId);
+  if (k >= 0) hechos.splice(k, 1);
+}
+
+/* ── Varias fichas para un mismo hueco: gana la más barata ───────────────────────────────────
+   Mercado Libre tiene una ficha de catálogo por COLOR, pero la página guarda una variante por
+   CAPACIDAD: de una tanda salen seis «iPhone 16 Plus 128 GB» —negro, blanco, rosa…— que son el
+   mismo teléfono y el mismo sitio. Solo cabe una, y la que tiene que quedarse es la BARATA: el
+   sitio existe para decir dónde conviene comprar, y publicar el mismo teléfono $900 más caro
+   porque su ficha venía antes en la lista sería mentirle al visitante. El precio ya está
+   resuelto a estas alturas —se acaba de abrir el enlace—, así que la comparación es real y no
+   una estimación. Las que pierden se reportan con el precio que las dejó fuera, para poder
+   revisarlo. Empate: gana la primera, que da igual cuál sea. */
+if (ES_FAMILIAS && paraPagina.length) {
+  const porHueco = new Map();
+  for (const x of paraPagina) {
+    const k = x.modeloBase + '|' + x.variante.almacenamientoGB;
+    if (!porHueco.has(k)) porHueco.set(k, []);
+    porHueco.get(k).push(x);
+  }
+  for (const [hueco, grupo] of porHueco) {
+    if (grupo.length < 2) continue;
+    const gana = grupo.reduce((a, b) => (b.variante.precio < a.variante.precio ? b : a));
+    for (const x of grupo) {
+      if (x === gana) continue;
+      const donde = hueco.replace('|', ' de ') + ' GB';
+      deshacerAlta(x.variante.mlId, gana.variante.precio < x.variante.precio
+        ? `otra ficha del mismo ${donde} entró más barata ($${gana.variante.precio} contra $${x.variante.precio}): en la página solo cabe una por capacidad`
+        : `otra ficha del mismo ${donde} entró al mismo precio ($${x.variante.precio}): en la página solo cabe una por capacidad`);
+    }
+  }
+}
+
 /* ── La página tiene la última palabra (solo en familias) ─────────────────────────────────────
    `agregarVariantes` es quien de verdad sabe si la variante cabe: puede rechazarla porque esa
    capacidad ya existe en la familia o porque el enlace ya está en otra variante. Se le pregunta
@@ -271,20 +317,7 @@ if (ES_FAMILIAS && paraPagina.length) {
     console.error('   No se escribe nada, ni en la base ni en la bandeja.');
     process.exit(1);
   }
-  for (const f of prueba.fallos) {
-    const reg = altas.get(f.mlId);
-    fallos.push({ id: f.mlId ?? f.modeloBase, motivo: f.motivo });
-    const i = paraPagina.findIndex(x => x.variante && x.variante.mlId === f.mlId);
-    if (i >= 0) paraPagina.splice(i, 1);
-    if (!reg) continue;
-    const j = prods.indexOf(reg.nuevo);
-    if (j >= 0) prods.splice(j, 1);
-    reg.enB.estado = reg.estadoPrevio;
-    delete reg.enB.idBase;
-    delete reg.enB.publicadoEn;
-    const k = hechos.findIndex(h => h.id === f.mlId);
-    if (k >= 0) hechos.splice(k, 1);
-  }
+  for (const f of prueba.fallos) deshacerAlta(f.mlId, f.motivo);
 }
 
 // ── informe ──
@@ -294,7 +327,10 @@ for (const h of hechos) {
     : `  ✓ ${h.id} → id ${h.idBase} · $${h.precio} · ${String(h.nombre).slice(0, 60)}`);
 }
 for (const f of fallos) console.log(`  ${f.baja ? 'x' : '⛔'} ${f.id} — ${f.motivo}`);
-for (const a of avisos) console.log(`  ⚠ ${a.id} — ${a.aviso}`);
+/* Solo los avisos de lo que de verdad entró: los demás se apuntaron antes de saber que esa ficha
+   se iba a caer, y leer «revisa los saltos» de un producto que no se publicó solo despista. */
+const publicados = new Set(hechos.filter(h => !h.accion).map(h => h.id));
+for (const a of avisos) if (publicados.has(a.id)) console.log(`  ⚠ ${a.id} — ${a.aviso}`);
 const dadosDeBaja = fallos.filter(f => f.baja).length;
 console.log(`\n  publicados ${hechos.filter(h => !h.accion).length} · eliminados ${hechos.filter(h => h.accion).length} · rechazados ${fallos.length}` +
   (dadosDeBaja ? ` · ${dadosDeBaja} salieron de la bandeja por no estar disponibles` : ''));
