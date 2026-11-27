@@ -1005,6 +1005,14 @@ function banValida(p){
   r.push([!falta.length,'Características obligatorias'+(falta.length?': falta '+falta.join(', '):'')]);
   r.push([!p.posibleDuplicadoDe,'Sin duplicado en la base'+(p.posibleDuplicadoDe?' (se parece a «'+p.posibleDuplicadoDe.nombre+'»)':'')]);
   r.push([/^https?:\/\//.test(v.linkML),'Enlace de afiliado de Mercado Libre']);
+  /* Categorías de familias (celulares): el catálogo no es una tarjeta, es una variante de
+     almacenamiento de un modelo que tiene que existir ya en la página. Si su modelo no tiene
+     familia escrita, publicarlo es imposible —`aplicar-nuevos.mjs` lo rechaza— así que se
+     bloquea aquí y no después de pegar el enlace y mandar el workflow. */
+  if(BAN&&BAN[p.cat]&&BAN[p.cat].familias){
+    r.push([!!p.familia,'Familia donde entra en la página'+(p.familia?': '+p.familia
+      :' — '+(p.familiaMotivo||'su modelo todavía no está en la página; hay que escribir su familia antes'))]);
+  }
   if(v.linkAmz)r.push([v.linkAmz.indexOf('tag='+TAG_AMZ)>=0,'El enlace de Amazon lleva tag='+TAG_AMZ]);
   return r;
 }
@@ -1169,6 +1177,11 @@ function banDetalle(p){
       ? '<div class="why" style="border-color:var(--ok)"><b>Este sí se está vendiendo</b>Salió del <b>ranking de más vendidos</b> de Mercado Libre, así que hoy tiene vendedor y stock. Es la única señal de disponibilidad que la API nos deja ver; de los 21 catálogos pausados que teníamos fichados, ninguno aparecía en ese ranking.</div>'
       : '<div class="why" style="border-color:var(--warn)"><b>De este no sabemos si se vende</b>Salió de la búsqueda por términos, que no dice nada sobre el stock. Ábrelo con <b>Abrir ↗</b> y marca en su fila <b>✓ Sí</b> o <b>✗ No</b>: eso es la comprobación, y el que marcas como no disponible no vuelve a aparecer. No se puede automatizar —el endpoint de ofertas responde 403, <code>buy_box_winner</code> viene vacío hasta para el nº1 en ventas, ningún campo del catálogo separa 21 pausados de 199 vivos y la ficha pública contesta con el muro antibots—.</div>')+
     (p.posibleDuplicadoDe?'<div class="why" style="border-color:var(--warn)"><b>Posible duplicado</b>Se parece a <b>'+esc(p.posibleDuplicadoDe.nombre)+'</b> (id '+esc(p.posibleDuplicadoDe.id)+') por marca, contenido y sabor. No se descartó solo: un sabor o un tamaño distinto es otro producto. Compruébalo antes de publicar.</div>':'')+
+    (BAN&&BAN[p.cat]&&BAN[p.cat].familias
+      ? (p.familia
+        ? '<div class="why" style="border-color:var(--ok)"><b>Entra en la familia <code>'+esc(p.familia)+'</code></b>En esta página los productos van agrupados por modelo, y este catálogo es una variante de almacenamiento de ese modelo. Al publicarlo se mete ahí dentro, en su sitio por capacidad, sin tocar las demás familias. Si la familia ya tiene mensajes de «por $X más duplicas el almacenamiento», revísalos después: esos se escriben a mano.</div>'
+        : '<div class="why" style="border-color:var(--bad)"><b>Su modelo no está en la página</b>'+esc(p.familiaMotivo||'No se pudo saber a qué familia pertenece.')+' En esta página cada modelo es una familia con sus variantes de almacenamiento dentro, y una familia no es solo un contenedor: lleva el chip, las pulgadas, los Hz, la versión de USB, el zoom y los colores, que la API no da. Así que este producto no se publica hasta que la familia de su modelo exista. No se crea sola a propósito: saldría media vacía y la página la pintaría igual que a las curadas.</div>')
+      : '')+
     (p.descripcion?'<div class="why"><b>Descripción de Mercado Libre</b>'+esc(p.descripcion)+'</div>':'')+
     // ✓/✗ vivían en la fila; al quitar esa columna se vienen aquí, junto al botón que abre la
     // ficha en ML, que es el orden en que se usan: abrir, mirar, marcar.

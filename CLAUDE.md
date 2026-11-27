@@ -97,6 +97,10 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
   son gafas inteligentes (de cuando se armó `/tecnologia/lentes-inteligentes/`). Así que el
   `MLM2051584545` que sale en los reportes no tiene nada que ver con el producto ni con el enlace:
   es el síntoma de que el producto murió. No se le busca enlace nuevo ni se deja esperando.
+  **Ese ID cambia con el tiempo**, porque son las búsquedas recientes de la cuenta: el 27-nov-2026
+  la tarjeta por defecto era `MLM29490409`, una proteína Isolate (de cuando se armó el alta de
+  `/suplementos/proteina/`), no las gafas. Por eso `precios-por-link.mjs` la detecta por repetición
+  y la recuerda en `tarjetaDefecto` en vez de llevar el ID escrito: no hay un ID fijo que buscar.
   Hasta el 25-nov-2026 esto se trataba como `link_roto` —se retiraba el enlace y el producto se
   quedaba esperando uno que nunca iba a llegar—; ese día Alan lo aclaró, se borraron a mano los 8
   celulares que seguían en esa cola y la corrida pasó a borrarlos sola.
@@ -183,8 +187,36 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
   coincide, por `linkML` (el id de la página no siempre es el de la base). `quitarProductos`
   **parsea el array antes de escribirlo**: si una coma mal quitada lo dejara roto no escribe nada,
   porque una página con el JS roto no enseña ningún producto, que es mucho peor que una tarjeta de
-  más. No cubre las páginas de familias (celulares): ahí el producto es una variante y se reporta
-  para quitarla a mano, y el producto se queda en la base oculto en vez de borrarse.
+  más. `quitarProductos` no cubre las páginas de familias (celulares): ahí el producto es una
+  variante y se reporta para quitarla a mano, y el producto se queda en la base oculto en vez de
+  borrarse. **Para AGREGAR en una página de familias sí hay camino**: `agregarVariantes()`, que
+  mete la variante en la familia que le diga el llamador (por `modeloBase`) y en su sitio por
+  capacidad, copiando letra por letra las variantes que ya estaban —el diff del commit es una
+  línea— y negándose sin tocar el archivo si esa familia no está, si esa capacidad ya existe en
+  ella o si el `mlId`/`linkML` ya aparecen en otra variante. `leerArray()` devuelve el array ya
+  parseado, para decidir antes de escribir. Quién decide la familia es `_familias-alta.js`.
+- `_familias-alta.js` — **la regla única para dar de alta un catálogo de ML en una página de
+  familias** (celulares). En proteína un catálogo es una tarjeta; en `/celulares/iphone/` es una
+  VARIANTE de almacenamiento de un modelo que casi siempre ya existe, así que antes de escribir
+  hay que contestar dos cosas y si cualquiera queda en duda NO se publica:
+  · **¿de qué familia es?** del atributo `MODEL` de la API, normalizado (sin acentos, sin
+  «(sólo eSIM)», sin «dual sim») y comparado con el `nombre` de cada familia **exigiendo
+  coincidencia exacta**. «iPhone 17» NO cae en «iPhone 17 Pro» y «iPhone 16e» no cae en
+  «iPhone 16». El nombre comercial del anuncio nunca se usa para esto: es texto de vendedor
+  («Smartphone Apple iPhone 17 Pro Max 512GB Liberado Nuevo Sellado») y adivinar ahí es
+  exactamente el atajo que mete una variante en la familia de al lado. Tampoco el campo `modelo`
+  de la bandeja, que cae en `LINE` cuando falta `MODEL` —y `LINE` de un 17 Pro es «iPhone 17»—.
+  · **¿cuántos GB?** de `INTERNAL_MEMORY`. Es la llave de la variante, y por eso `almacenamiento`
+  es la única obligatoria de la categoría.
+  **No crea familias nuevas a propósito**: una familia no es un contenedor, es la ficha editorial
+  del modelo (chip, pulgadas, Hz, versión de USB, zoom, colores y los mensajes de «por $5,000 más
+  duplicas el almacenamiento»), y la API no da el USB ni el zoom ni los saltos. Una familia creada
+  de oficio saldría medio vacía y la página la pintaría igual que a las curadas. Un modelo nuevo
+  entra cuando Alan escribe su familia; después sus variantes entran solas. Salida de emergencia:
+  el JSON de publicación acepta `modeloBase` por ficha, que es una decisión suya y se respeta.
+  Las características del MODELO que van a la base salen de la FAMILIA, no de la API (es el mismo
+  teléfono y la familia las tiene curadas), y se convierten al formato de la base ahí mismo:
+  `hz: 120` → `"120 Hz"`, `usb: 3` → `"USB 3"`, `zoom: 16` → `"16x"`, `pantalla: 6.3` → `'6.3"'`.
 - `categorias.js` — **registro único de categorías**. Una categoría se declara aquí UNA vez (clave de
   `merged-admin.json`, página, nombre del array JS, y opcionalmente `descuentos` y `catalogMini`) y
   entra sola en `precios-por-link.mjs`, `especs-por-id.mjs`, `sync-pausas.js`, `generar-catalog-mini.js`
@@ -524,7 +556,38 @@ mismos enlaces muertos.
 
 Una categoría entra al descubrimiento agregándole un bloque `descubrir` en `categorias.js`
 (términos, `categoriasML` para el ranking, dominios, clase, mapa de atributos → `especs`,
-obligatorias, recomendadas) y sumándola a las opciones de los dos workflows. Hoy solo está Proteína, el piloto.
+obligatorias, recomendadas, y opcionalmente `firma` para el aviso de posible duplicado) y
+sumándola a las opciones del workflow `descubrir-catalogo.yml` (`publicar-nuevos.yml` no lleva
+lista: la categoría viaja dentro del JSON pegado). Hoy están **Proteína** (el piloto, página
+plana) e **iPhone** (`celulares_iphone`, página de familias).
+
+**iPhone: lo que cambia por ser una página de familias** (27-nov-2026). El circuito es el mismo
+—buscar, revisar, pegar enlace, publicar— pero con dos diferencias que vienen de que el array de
+`/celulares/iphone/` guarda modelos con variantes dentro, no una tarjeta por producto:
+
+- **El duplicado es «mismo modelo, misma capacidad», no el `mlId`.** Mercado Libre tiene varias
+  fichas de catálogo del MISMO teléfono (la normal, la «sólo eSIM», la del distribuidor), cada una
+  con su propio MLM, así que comparar solo el `mlId` dejaba la bandeja con 300 iPhones de los que
+  9 de cada 10 eran el iPhone 17 Pro 256 GB que ya está publicado con otro número. Lo que
+  identifica el teléfono en esta página es (familia, capacidad): `descubrir-catalogo.mjs` arma ese
+  par con `_familias-alta.js`, lo compara contra la página **y** contra la base, y lo repetido va
+  a `duplicados` con motivo `modelo+capacidad`. Medido el 27-nov-2026: de 306 iPhones de catálogo
+  relevantes, 79 eran capacidades ya cubiertas. Lo que sí entra a la bandeja son los huecos reales
+  (17 pares familia+capacidad que faltaban) y los modelos que el sitio no cubre.
+- **Un producto sin familia no se puede publicar, y se ve desde el Centro.** Cada ficha de la
+  bandeja lleva `_familia` (el `modeloBase` donde entraría) o `null` con el motivo; el Centro lo
+  enseña como una validación más, así que un iPhone 15 Pro —que no tiene familia escrita— no se
+  manda al workflow para que lo rechace allá. De los 225 guardados, 109 tienen familia y 116
+  piden que se escriba antes la ficha del modelo (iPhone 16 Pro, 15, 15 Pro, 15 Pro Max,
+  16 Pro Max, iPhone 18 no-Pro, iPhone Air 2).
+- Varias fichas pueden apuntar al mismo hueco; se guardan todas a propósito, para poder elegir.
+  Al publicar una, las hermanas quedan rechazadas con un motivo claro y la siguiente búsqueda ya
+  las cuenta como `modelo+capacidad`.
+- Qué da la API de un iPhone (63 catálogos activos, 26-nov-2026): `MODEL` 100 %,
+  `INTERNAL_MEMORY` 98 %, `DISPLAY_SIZE` 96 %, cámara 90 %, `PROCESSOR_MODEL` 92 % en los viejos
+  pero 5 de 8 en los nuevos, `DISPLAY_REFRESH_RATE` 0 %. Y **no se mapean `usb` ni `zoom`**: en
+  esta página son números editoriales (versión de USB, aumento del tele), no lo que da la API
+  («USB-C»), así que volcarlos pintaría basura.
 
 ## El panel: Centro de Control (decisión del 25-nov-2026)
 
@@ -574,8 +637,10 @@ republicar.
   25-nov-2026: su paso de precios llamaba a la API cerrada y el de disponibilidad fallaba a
   propósito, tumbando la corrida entera a mitad del pipeline.
 - `descubrir-catalogo.yml` ("Buscar catálogo en API de Mercado Libre") — **manual a propósito**
-  (descubrir productos es una decisión, no una rutina): selector de categoría, **fuente**
-  (`ranking` | `ambas` | `busqueda`), tope y aplicar.
+  (descubrir productos es una decisión, no una rutina): selector de categoría (`proteina` |
+  `celulares_iphone`), **fuente** (`ranking` | `ambas` | `busqueda`), tope y aplicar. En iPhone el
+  ranking de MLM1055 son los más vendidos de TODAS las marcas y da ~2 iPhones por corrida, así que
+  ahí la fuente útil es `ambas`.
   Corre `descubrir-catalogo.mjs`, regenera el Centro, valida y commitea solo la bandeja, el
   historial y los JSON del Centro. No escribe `merged-admin.json` ni ninguna página; comparte el
   `concurrency: datos-comparalo` porque también commitea en main.

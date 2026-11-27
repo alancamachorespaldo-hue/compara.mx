@@ -29,7 +29,7 @@ on:
         description: 'Categoría a buscar (tiene que tener `descubrir` en categorias.js)'
         type: choice
         default: proteina
-        options: [proteina]
+        options: [proteina, celulares_iphone]
       fuente:
         description: '¿De dónde sacar los candidatos? ranking = solo los que se venden hoy'
         type: choice

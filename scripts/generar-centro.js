@@ -289,6 +289,11 @@ for (const [clave, info] of Object.entries(bandejaRaw.categorias || {})) {
     actualizado: info.actualizado || null,
     obligatorias,
     recomendadas,
+    /* true en las categorías de FAMILIAS (celulares): ahí un catálogo no es una tarjeta, es una
+       variante de un modelo, así que la ficha lleva también la familia donde entra y sin ella no
+       se puede publicar. El Centro lo usa para no dejar mandar al workflow un alta que
+       aplicar-nuevos.mjs va a rechazar. */
+    familias: (CATEGORIAS[clave]?.tipo ?? 'plano') === 'familias' || undefined,
     productos: pend.map((p) => ({
       id: p.id, catalogId: p.catalogId, estado: p.estado, nombre: p.nombre, marca: p.marca,
       modelo: p.modelo, gtin: p.gtin || [], imagen: p.imagen, imagenes: (p.imagenes || []).slice(0, 4),
@@ -300,6 +305,7 @@ for (const [clave, info] of Object.entries(bandejaRaw.categorias || {})) {
       posibleDuplicadoDe: p.posibleDuplicadoDe || null,
       termino: p.termino, detectadoEn: p.detectadoEn, actualizadoML: p.actualizadoML || null,
       fuente: p.fuente || 'busqueda', seVende: p.seVende === true,
+      familia: p._familia ?? null, familiaMotivo: p._familiaMotivo || null,
       linkML: p.linkML || null, linkAmz: p.linkAmz || null,
     })),
   };

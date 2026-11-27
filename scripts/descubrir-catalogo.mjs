@@ -65,6 +65,8 @@ import 'dotenv/config';
 import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { resolve } from 'path';
 import { entradas, conDescubrir } from './categorias.js';
+import { leerArray } from './_html-precios.js';
+import { resolverFamilia, gbDeTexto } from './_familias-alta.js';
 
 const ROOT = resolve(import.meta.dirname, '..');
 const API = 'https://api.mercadolibre.com';
@@ -111,7 +113,10 @@ const aBool = txt => (/^s[ií]$/i.test(String(txt ?? '').trim()) ? true
   : /^no$/i.test(String(txt ?? '').trim()) ? false : null);
 
 const CLAVES_GRAMOS = new Set(['contenidoGramos', 'gramosPorPorcion', 'pesoNeto']);
-const CLAVES_NUMERO = new Set(['porciones', 'potencia', 'capacidad']);
+const CLAVES_NUMERO = new Set(['porciones', 'potencia', 'capacidad',
+  // Celulares: la página pinta estos tres como números (6.3 pulgadas, 48 MP, 120 Hz) y la
+  // API los da con su unidad pegada («6.3 "», «48 Mpx», «120 Hz»).
+  'pantalla', 'camPrincipal', 'hz']);
 const CLAVES_BOOL = new Set(['vegana', 'glutenFree', 'sugarFree', 'pura', 'organico']);
 
 /** Atributos de ML → claves del esquema `especs` de la categoría, con su conversión. */
@@ -256,8 +261,59 @@ async function descubrir(cat, base, bandejaPrevia) {
   const porMlId = new Map(prods.filter(p => p.mlId).map(p => [p.mlId, p]));
   const porGtin = new Map();
   for (const p of prods) for (const g of [].concat(p.gtin ?? [])) if (g) porGtin.set(String(g).replace(/^0+/, ''), p);
-  const firma = p => [norm(p.marca), p.especs?.contenidoGramos ?? '', norm(p.especs?.sabor)].join('|');
-  const porFirma = new Map(prods.map(p => [firma(p), p]));
+  /* ── Categorías de FAMILIAS: el duplicado es «mismo modelo, misma capacidad» ───────────────
+     En proteína cada catálogo es un producto distinto, así que basta comparar `mlId` y GTIN. En
+     celulares no: Mercado Libre tiene varias fichas de catálogo del MISMO teléfono (la normal,
+     la «sólo eSIM», la del distribuidor autorizado…), cada una con su propio MLM. Comparar solo
+     el `mlId` dejaba la bandeja con 300 iPhones de los que ~9 de cada 10 eran el iPhone 17 Pro
+     256 GB que ya está publicado, con otro número.
+     Lo que de verdad identifica el teléfono en esta página es (familia, capacidad): si ya hay un
+     iPhone 17 Pro de 512 GB en la página, otra ficha de iPhone 17 Pro de 512 GB es ese mismo
+     teléfono y no cabe —`agregarVariantes` la rechazaría al publicar—, así que se cuenta como
+     duplicado aquí y no se le hace perder el tiempo a nadie.
+     Lo que NO se descarta: un modelo que no tiene familia en la página (un iPhone 15 Pro) o una
+     capacidad que falta. Eso es justo lo que vale la pena descubrir, y se guarda con `_familia`
+     apuntando a la familia que le toca —o a null, que significa «hay que escribir su familia
+     antes de poder publicarlo»— para que el reporte y el alta lo digan sin volver a adivinar. */
+  let familiasPagina = null;
+  if (cat.tipo === 'familias') {
+    const r = leerArray(resolve(ROOT, cat.file), cat.varName);
+    if (!r.ok) {
+      ERRORES.push({ pagina: cat.file, motivo: r.motivo });
+      console.warn(`⚠ no se pudo leer ${cat.file} (${r.motivo}): no se podrá decir de qué familia es cada candidato`);
+    } else familiasPagina = r.datos;
+  }
+  const yaEnPagina = new Set();
+  if (familiasPagina) {
+    for (const f of familiasPagina) {
+      for (const v of f.variantes ?? []) if (v?.almacenamientoGB) yaEnPagina.add(`${f.modeloBase}|${v.almacenamientoGB}`);
+    }
+    // La base manda igual que la página: un producto puede estar en la base y oculto en la
+    // página (pausado), y volver a descubrirlo no ayuda a nadie.
+    for (const p of prods) {
+      const gb = gbDeTexto(p.especs?.almacenamiento);
+      const mb = p._modeloBase ?? null;
+      if (mb && gb) yaEnPagina.add(`${mb}|${gb}`);
+    }
+  }
+  /** (familia, capacidad) de un candidato, o null si no se puede saber. */
+  const sitioEnPagina = (attrs, esp) => {
+    if (!familiasPagina) return null;
+    const fam = resolverFamilia(familiasPagina, { modelo: attrs.MODEL });
+    const gb = gbDeTexto(esp.almacenamiento ?? attrs.INTERNAL_MEMORY);
+    return { modeloBase: fam.ok ? fam.familia.modeloBase : null, gb, motivo: fam.ok ? null : fam.motivo };
+  };
+
+  /* La firma marca+características es un AVISO de posible duplicado, no un descarte, y cada
+     categoría dice con qué claves se arma (`descubrir.firma`). Una categoría sin firma declarada
+     no recibe ese aviso, a propósito: en iPhone esas claves no existen en la base, y una firma
+     vacía casa con TODOS los productos de la categoría —marcaría cada candidato como duplicado
+     de un iPhone al azar—. Lo que de verdad impide duplicar algo es el `mlId`, que sí se compara
+     siempre, y en las páginas de familias, además, que esa capacidad ya exista en la familia. */
+  const clavesFirma = cfg.firma ?? null;
+  const firma = vals => (vals.slice(1).some(v => v !== '' && v != null) ? vals.join('|') : null);
+  const firmaBase = p => firma([norm(p.marca), ...clavesFirma.map(k => norm(p.especs?.[k]))]);
+  const porFirma = new Map(clavesFirma ? prods.map(p => [firmaBase(p), p]).filter(([f]) => f) : []);
   const yaEnBandeja = new Map((bandejaPrevia?.productos ?? []).map(p => [p.id, p]));
 
   const nuevos = [], duplicados = [], revisar = [];
@@ -270,11 +326,17 @@ async function descubrir(cat, base, bandejaPrevia) {
       duplicados.push({ id: it.id, nombre: it.name, motivo: dupId ? 'mlId' : 'gtin', base: (dupId || dupGtin).id });
       continue;
     }
+    const sitio = sitioEnPagina(a, mapearEspecs(a, cfg.mapa));
+    if (sitio && sitio.modeloBase && sitio.gb && yaEnPagina.has(`${sitio.modeloBase}|${sitio.gb}`)) {
+      duplicados.push({ id: it.id, nombre: it.name, motivo: 'modelo+capacidad', base: `${sitio.modeloBase} ${sitio.gb} GB` });
+      continue;
+    }
     // Firma marca+contenido+sabor: NO descarta, marca para revisión. Un sabor o un tamaño
     // distinto es otro producto; confundirlos sería peor que tener una tarjeta de más.
-    const f = [norm(a.BRAND), aGramos(a.NET_WEIGHT) ?? '', norm(a.FLAVOR)].join('|');
-    const posible = porFirma.get(f);
-    const reg = { it, a, gtins, posible: posible ? { id: posible.id, nombre: posible.nombre } : null };
+    const esp = mapearEspecs(a, cfg.mapa);
+    const f = clavesFirma ? firma([norm(a.BRAND), ...clavesFirma.map(k => norm(esp[k]))]) : null;
+    const posible = f ? porFirma.get(f) : null;
+    const reg = { it, a, gtins, sitio, posible: posible ? { id: posible.id, nombre: posible.nombre } : null };
     if (posible) revisar.push(reg); else nuevos.push(reg);
   }
 
@@ -324,6 +386,11 @@ async function descubrir(cat, base, bandejaPrevia) {
       obligatoriasFaltantes: (cfg.obligatorias ?? []).filter(k => mapearEspecs(a, cfg.mapa)[k] == null),
       recomendadasFaltantes: (cfg.recomendadas ?? []).filter(k => mapearEspecs(a, cfg.mapa)[k] == null),
       posibleDuplicadoDe: r.posible,
+      /* Páginas de familias: a qué familia de la página le toca esta variante. null significa
+         que ese modelo todavía no tiene familia escrita, así que no se puede publicar hasta que
+         Alan la escriba; `_familiaMotivo` dice por qué no se pudo saber. */
+      _familia: r.sitio ? r.sitio.modeloBase : undefined,
+      _familiaMotivo: r.sitio && !r.sitio.modeloBase ? r.sitio.motivo : undefined,
       termino: r.it._termino,
       fuente: r.it._fuente ?? 'busqueda',
       // true solo para los del ranking: de esos sabemos que alguien los está vendiendo. En los de
@@ -343,6 +410,11 @@ async function descubrir(cat, base, bandejaPrevia) {
       crudos: crudos.size, relevantes: relevantes.length,
       descartes, ejemplosDescarte,
       duplicados: duplicados.length, duplicadosDetalle: duplicados.slice(0, 20),
+      duplicadosPorMotivo: duplicados.reduce((o, d) => ({ ...o, [d.motivo]: (o[d.motivo] ?? 0) + 1 }), {}),
+      /* Solo en páginas de familias: cuántos de los guardados ya tienen familia donde entrar y
+         cuántos piden que se escriba antes la ficha del modelo. */
+      conFamilia: cat.tipo === 'familias' ? productos.filter(p => p._familia).length : undefined,
+      sinFamilia: cat.tipo === 'familias' ? productos.filter(p => p._familia === null).length : undefined,
       posiblesDuplicados: revisar.length,
       nuevos: productos.filter(p => p.estado === 'new_unpublished').length,
       rankings,
@@ -413,8 +485,14 @@ for (const cat of cats) {
   console.log(`  términos ${resumen.terminos} · ${resumen.crudos} de catálogo · ${resumen.relevantes} de la categoría`);
   console.log(`  descartados: ${resumen.descartes.inactivo} inactivos · ${resumen.descartes.dominio} de otro dominio · ${resumen.descartes.clase} de otra clase`);
   console.log(`  duplicados en la base: ${resumen.duplicados} · posibles duplicados: ${resumen.posiblesDuplicados}`);
+  if (Object.keys(resumen.duplicadosPorMotivo).length) {
+    console.log(`    por: ${Object.entries(resumen.duplicadosPorMotivo).map(([k, v]) => `${k} ${v}`).join(' · ')}`);
+  }
   console.log(`  NUEVOS guardados: ${resumen.guardados} de ${resumen.candidatos} candidatos (ya en bandeja: ${resumen.yaEnBandeja})`);
   console.log(`  de ellos, del ranking de más vendidos (se venden hoy): ${resumen.delRanking}`);
+  if (resumen.conFamilia !== undefined) {
+    console.log(`  con familia en la página (publicables con su enlace): ${resumen.conFamilia} · sin familia (hay que escribirla antes): ${resumen.sinFamilia}`);
+  }
   console.log(`  ${LLAMADAS} llamadas · ${segundos}s · errores de API: ${resumen.errores}`);
   if (resumen.ejemplosDescarte.length) {
     console.log('  ejemplos descartados:');

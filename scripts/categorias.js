@@ -54,6 +54,10 @@
  *                                        nunca da no es un requisito, es un bloqueo.
  *                            recomendadas  las que se avisan en rojo pero no bloquean; si se
  *                                        publica sin ellas entran como `null`, nunca deducidas.
+ *                            firma       claves de `especs` con las que se arma el aviso de
+ *                                        «posible duplicado» (marca + esas claves). Sin ella no
+ *                                        hay aviso: en iPhone esas claves no están en la base y
+ *                                        una firma vacía casaría con todos los productos.
  */
 
 export const CATEGORIAS = {
@@ -131,6 +135,9 @@ export const CATEGORIAS = {
       // ya hace con las fichas incompletas— en vez de deducirla del nombre comercial.
       obligatorias: ['contenidoGramos', 'porciones', 'gramosPorPorcion'],
       recomendadas: ['proteinaPorPorcion', 'sabor', 'tipoProteina'],
+      // Con qué claves se arma la firma del aviso «posible duplicado». Es un aviso, nunca un
+      // descarte: un sabor o un tamaño distinto es otro producto.
+      firma: ['contenidoGramos', 'sabor'],
     },
   },
   omega3: {
@@ -255,6 +262,52 @@ export const CATEGORIAS = {
     titulo: 'iPhone', file: 'celulares/iphone/index.html', varName: 'familias',
     tipo: 'familias', prefix: 'iphone',
     descuentos: 'celulares/descuentos.json',
+    /* Descubrimiento por catálogo en una página de FAMILIAS (nov-2026). A diferencia de
+       proteína, aquí un catálogo de ML no es una tarjeta: es una VARIANTE de almacenamiento
+       dentro de una familia (iPhone 17 Pro 256 GB ⊂ «iPhone 17 Pro»). Quién decide la familia y
+       qué pasa cuando no está claro vive en `scripts/_familias-alta.js`; aquí solo se declara
+       de dónde salen los candidatos y qué atributo de ML es cada campo. */
+    descubrir: {
+      // Términos por generación: la búsqueda tiene offset máximo 100, así que la cobertura se
+      // gana con más términos. Se pide de iPhone 15 en adelante porque de ahí para atrás el
+      // catálogo de ML está lleno de fichas de reacondicionados viejos que el sitio no cubre.
+      terminos: [
+        'iphone 18 pro', 'iphone 18', 'iphone 17 pro max', 'iphone 17 pro', 'iphone 17e',
+        'iphone 17', 'iphone air', 'iphone 16 pro max', 'iphone 16 pro', 'iphone 16e',
+        'iphone 16 plus', 'iphone 16', 'iphone 15 pro max', 'iphone 15 pro', 'iphone 15',
+      ],
+      // MLM1055 «Celulares y Smartphones» — no tiene subcategorías, y su ranking de más
+      // vendidos da 20 productos de todas las marcas; el filtro de clase deja solo los iPhone.
+      categoriasML: ['MLM1055'],
+      // Medido el 26-nov-2026: los celulares son MLM-CELLPHONES y los accesorios tienen dominio
+      // propio (MLM-CELLPHONE_CASES_AND_COVERS, MLM-CELLPHONE_CAMERA_PROTECTORS, MLM-BOOKS…),
+      // así que este filtro solo deja teléfonos. Buscar «iphone 17» trae 10 fundas de cada 10.
+      dominios: ['MLM-CELLPHONES'],
+      // Dos cosas a la vez: que sea Apple y que sea de una generación que el sitio cubre. Sin lo
+      // segundo la bandeja se llena de iPhone 6/7/8 —la búsqueda devuelve decenas— que no tienen
+      // familia en la página ni sentido comercial.
+      clase: { atributos: ['BRAND', 'LINE', 'MODEL'], rx: /iphone\s*(?:1[5-9]|[2-9]\d)|iphone\s*air/i },
+      // Coverage real sobre 63 catálogos de iPhone activos (26-nov-2026): MODEL 100%,
+      // INTERNAL_MEMORY 98%, DISPLAY_SIZE 96%, cámara 90%, PROCESSOR_MODEL 92% en los viejos
+      // pero 5/8 en los nuevos, DISPLAY_REFRESH_RATE 0% en la muestra.
+      // NO se mapean `usb` ni `zoom`: en esta página son números editoriales (versión de USB y
+      // aumento del tele), no lo que da la API («USB-C»). Volcarlos ahí pintaría basura.
+      mapa: {
+        MODEL: 'modeloML',
+        INTERNAL_MEMORY: 'almacenamiento',
+        DISPLAY_SIZE: 'pantalla',
+        MAIN_REAR_CAMERA_RESOLUTION: 'camPrincipal',
+        PROCESSOR_MODEL: 'chip',
+        DISPLAY_REFRESH_RATE: 'hz',
+        COLOR: 'color',
+      },
+      // Solo `almacenamiento` bloquea, y no por rigor: es LA LLAVE de la variante. Sin saber si
+      // son 256 o 512 GB no hay dónde meter el producto dentro de su familia. Todo lo demás es
+      // de la familia (que ya lo tiene) o editorial, así que exigirlo convertiría cada alta en
+      // una captura a mano — el error que ya se pagó en proteína con proteinaPorPorcion.
+      obligatorias: ['almacenamiento'],
+      recomendadas: ['pantalla', 'camPrincipal', 'chip', 'hz', 'color'],
+    },
   },
 };
 

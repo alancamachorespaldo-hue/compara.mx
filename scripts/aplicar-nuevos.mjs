@@ -26,7 +26,16 @@
  *   7. que el ID de catálogo no esté ya en la base (nunca se duplica un producto publicado).
  *
  * Lo que escribe: `merged-admin.json` (producto nuevo, `activo:true`) y el array JS de la página
- * de la categoría, con `agregarProductos()` de `_html-precios.js`, que parsea antes de escribir.
+ * de la categoría, que parsea antes de escribir.
+ *
+ * DOS FORMAS DE PÁGINA, Y LA DIFERENCIA IMPORTA. En una categoría plana (proteína, freidoras) el
+ * catálogo es una tarjeta y entra con `agregarProductos()`. En una de FAMILIAS (celulares) el
+ * array guarda modelos con sus variantes de almacenamiento dentro, así que el catálogo es una
+ * VARIANTE: `_familias-alta.js` decide de qué familia es —exigiendo que el modelo de la API case
+ * exacto con el nombre de una familia de la página— y `agregarVariantes()` la mete ahí dentro, en
+ * su sitio por capacidad. Si la familia no existe o queda en duda, ese producto NO se publica y
+ * se dice por qué: una variante en la familia equivocada enseñaría dos teléfonos distintos bajo
+ * el mismo nombre, que es mucho peor que un alta que se queda pendiente.
  * Borrar desde la bandeja es LÓGICO: el producto queda con estado `eliminado` y su fecha, nunca
  * se toca la base ni ningún producto ya publicado.
  *
@@ -36,7 +45,8 @@
 import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { resolve } from 'path';
 import { entradas } from './categorias.js';
-import { agregarProductos } from './_html-precios.js';
+import { agregarProductos, agregarVariantes, leerArray } from './_html-precios.js';
+import { resolverFamilia, altaVariante } from './_familias-alta.js';
 import { resolverAfiliado } from './resolver-afiliado.js';
 
 const ROOT = resolve(import.meta.dirname, '..');
@@ -59,12 +69,31 @@ const enBandeja = bandeja.categorias?.[cat.datos]?.productos ?? [];
 const porId = new Map(enBandeja.map(p => [p.id, p]));
 const prods = base[cat.datos] ?? (base[cat.datos] = []);
 const obligatorias = cat.descubrir?.obligatorias ?? [];
+const ES_FAMILIAS = (cat.tipo ?? 'plano') === 'familias';
+const PAGINA = resolve(ROOT, cat.file);
+
+/* En una página de familias hay que LEER la página antes de decidir: la familia a la que
+   pertenece el catálogo vive ahí, no en la base. Si no se puede leer, no se publica nada. */
+let familiasPagina = [];
+if (ES_FAMILIAS) {
+  const r = leerArray(PAGINA, cat.varName);
+  if (!r.ok) {
+    console.error(`No se pudo leer ${cat.file} (${r.motivo}). Sin eso no hay forma de saber en qué familia va cada producto.`);
+    process.exit(1);
+  }
+  familiasPagina = r.datos;
+}
+/* Ids ya tomados, en la base Y en la página: el id de la variante nueva no puede pisar ninguno. */
+const idsUsados = new Set([
+  ...prods.map(p => String(p.id)),
+  ...familiasPagina.flatMap(f => (f.variantes ?? []).map(v => v && String(v.id))),
+].filter(Boolean));
 
 /** Siguiente id numérico libre, mirando la base Y la página (no siempre coinciden). */
 function siguienteId() {
   let max = 0;
   for (const p of prods) { const n = Number(p.id); if (isFinite(n)) max = Math.max(max, n); }
-  const abs = resolve(ROOT, cat.file);
+  const abs = PAGINA;
   if (existsSync(abs)) {
     const html = readFileSync(abs, 'utf8');
     for (const m of html.matchAll(/^\s*id:\s*(\d+)\s*,/gm)) max = Math.max(max, Number(m[1]));
@@ -86,7 +115,9 @@ function derivar(o) {
   return out;
 }
 
-const hechos = [], fallos = [];
+const hechos = [], fallos = [], avisos = [];
+/* mlId → lo que se apuntó para publicar, por si la página lo rechaza y hay que deshacerlo. */
+const altas = new Map();
 const paraPagina = [];
 
 for (const item of cambios.publicar ?? []) {
@@ -121,48 +152,98 @@ for (const item of cambios.publicar ?? []) {
   if (r.pausada) { baja('la publicación está pausada en ML · fuera de la bandeja', 'pausada'); continue; }
   if (!(r.precio > 0)) { baja('sin precio: hoy no lo vende nadie · fuera de la bandeja', 'sin_precio'); continue; }
 
-  const id = siguienteId();
-  const nombre = item.nombre ?? enB.nombre;
-  const nuevo = {
-    id,
-    nombre,
-    marca: item.marca ?? enB.marca ?? null,
-    mlId: item.id,
-    mlIdFuente: 'descubrimiento-catalogo',
-    linkML,
-    linkAmz,
-    precioML: r.precio,
-    precioAmz: null,
-    precio: r.precio,
-    imagen: item.imagen ?? enB.imagen ?? null,
-    activo: true,
-    estadoML: 'ok',
-    especs,
-    gtin: enB.gtin ?? [],
-    _mlAtributos: enB._mlAtributos ?? {},
-    _precioFicha: r.precio,
-    _precioLinkFecha: new Date().toISOString(),
-    _altaDesde: 'catalogo-ml',
-    _altaFecha: new Date().toISOString(),
-    _updatedAt: new Date().toISOString(),
-  };
-  prods.push(nuevo);
+  const ahora = new Date().toISOString();
+  const estadoPrevio = enB.estado;
+  let nuevo, nombre, id;
 
-  const pagina = {
-    id, nombre, marca: nuevo.marca,
-    precio: r.precio, precioML: r.precio, precioAmz: null,
-    linkML, linkAmz,
-    img: nuevo.imagen, imagen: nuevo.imagen,
-    sabor: especs.sabor ?? null,
-    saboresDisponibles: especs.sabor ? [especs.sabor] : [],
-    estrellas: null, resenas: null,
-    ...especs,
-  };
-  Object.assign(pagina, derivar({ ...especs, precioML: r.precio }));
-  paraPagina.push(pagina);
+  if (ES_FAMILIAS) {
+    /* Página de familias: el catálogo es una variante de un modelo que ya está en la página.
+       `item.modeloBase` es la salida de emergencia —Alan dice la familia a mano— y manda sobre
+       lo que diga la API. Sin familia clara no se publica: se explica y se sigue con los demás. */
+    /* El modelo tiene que venir del atributo MODEL de la API (`especs.modeloML`), nunca del
+       campo `modelo` de la bandeja: ese cae en `TRADE_NAME` o en `LINE` cuando falta MODEL, y
+       `LINE` de un iPhone 17 Pro es «iPhone 17» — justo el dato que metería la variante en la
+       familia de al lado. Si no hay MODEL, se reporta y no se publica. */
+    const fam = resolverFamilia(familiasPagina, {
+      modelo: item.modeloML ?? especs.modeloML ?? null,
+      modeloBase: item.modeloBase ?? enB.modeloBase ?? null,
+    });
+    if (!fam.ok) { nota(fam.motivo); continue; }
+
+    const alta = altaVariante({
+      familia: fam.familia,
+      mlId: item.id,
+      especs,
+      precio: r.precio,
+      linkML,
+      linkAmz,
+      imagen: item.imagen ?? enB.imagen ?? null,
+      idsUsados,
+    });
+    if (!alta.ok) { nota(alta.motivo); continue; }
+
+    id = alta.variante.id;
+    nombre = alta.producto.nombre;
+    idsUsados.add(id);
+    nuevo = {
+      ...alta.producto,
+      gtin: enB.gtin ?? [],
+      _mlAtributos: enB._mlAtributos ?? {},
+      _precioFicha: r.precio,
+      _precioLinkFecha: ahora,
+      _altaDesde: 'catalogo-ml',
+      _altaFecha: ahora,
+      _updatedAt: ahora,
+    };
+    prods.push(nuevo);
+    paraPagina.push({ modeloBase: fam.familia.modeloBase, variante: alta.variante });
+    altas.set(item.id, { enB, estadoPrevio, nuevo });
+    for (const a of alta.avisos) avisos.push({ id: item.id, aviso: a });
+  } else {
+    id = siguienteId();
+    nombre = item.nombre ?? enB.nombre;
+    nuevo = {
+      id,
+      nombre,
+      marca: item.marca ?? enB.marca ?? null,
+      mlId: item.id,
+      mlIdFuente: 'descubrimiento-catalogo',
+      linkML,
+      linkAmz,
+      precioML: r.precio,
+      precioAmz: null,
+      precio: r.precio,
+      imagen: item.imagen ?? enB.imagen ?? null,
+      activo: true,
+      estadoML: 'ok',
+      especs,
+      gtin: enB.gtin ?? [],
+      _mlAtributos: enB._mlAtributos ?? {},
+      _precioFicha: r.precio,
+      _precioLinkFecha: ahora,
+      _altaDesde: 'catalogo-ml',
+      _altaFecha: ahora,
+      _updatedAt: ahora,
+    };
+    prods.push(nuevo);
+
+    const pagina = {
+      id, nombre, marca: nuevo.marca,
+      precio: r.precio, precioML: r.precio, precioAmz: null,
+      linkML, linkAmz,
+      img: nuevo.imagen, imagen: nuevo.imagen,
+      sabor: especs.sabor ?? null,
+      saboresDisponibles: especs.sabor ? [especs.sabor] : [],
+      estrellas: null, resenas: null,
+      ...especs,
+    };
+    Object.assign(pagina, derivar({ ...especs, precioML: r.precio }));
+    paraPagina.push(pagina);
+  }
+
   enB.estado = 'publicado';
   enB.idBase = id;
-  enB.publicadoEn = new Date().toISOString();
+  enB.publicadoEn = ahora;
   enB.linkML = linkML;
   enB.linkAmz = linkAmz;
   enB.precioML = r.precio;
@@ -177,6 +258,35 @@ for (const id of cambios.eliminar ?? []) {
   hechos.push({ id, accion: 'eliminado de la bandeja (papelera lógica)' });
 }
 
+/* ── La página tiene la última palabra (solo en familias) ─────────────────────────────────────
+   `agregarVariantes` es quien de verdad sabe si la variante cabe: puede rechazarla porque esa
+   capacidad ya existe en la familia o porque el enlace ya está en otra variante. Se le pregunta
+   EN SECO antes de escribir nada, y lo que rechace se deshace también en la base. Si no, la base
+   diría que el producto está publicado y la página no lo tendría: justo la clase de desparejo
+   que obliga después a averiguar a mano por qué falta una tarjeta. */
+if (ES_FAMILIAS && paraPagina.length) {
+  const prueba = agregarVariantes(PAGINA, cat.varName, paraPagina, { dryRun: true });
+  if (!prueba.ok) {
+    console.error(`\n⛔ ${cat.file} no se puede tocar: ${prueba.motivo}`);
+    console.error('   No se escribe nada, ni en la base ni en la bandeja.');
+    process.exit(1);
+  }
+  for (const f of prueba.fallos) {
+    const reg = altas.get(f.mlId);
+    fallos.push({ id: f.mlId ?? f.modeloBase, motivo: f.motivo });
+    const i = paraPagina.findIndex(x => x.variante && x.variante.mlId === f.mlId);
+    if (i >= 0) paraPagina.splice(i, 1);
+    if (!reg) continue;
+    const j = prods.indexOf(reg.nuevo);
+    if (j >= 0) prods.splice(j, 1);
+    reg.enB.estado = reg.estadoPrevio;
+    delete reg.enB.idBase;
+    delete reg.enB.publicadoEn;
+    const k = hechos.findIndex(h => h.id === f.mlId);
+    if (k >= 0) hechos.splice(k, 1);
+  }
+}
+
 // ── informe ──
 console.log(`\nCategoría: ${cat.titulo} (${cat.datos})`);
 for (const h of hechos) {
@@ -184,6 +294,7 @@ for (const h of hechos) {
     : `  ✓ ${h.id} → id ${h.idBase} · $${h.precio} · ${String(h.nombre).slice(0, 60)}`);
 }
 for (const f of fallos) console.log(`  ${f.baja ? 'x' : '⛔'} ${f.id} — ${f.motivo}`);
+for (const a of avisos) console.log(`  ⚠ ${a.id} — ${a.aviso}`);
 const dadosDeBaja = fallos.filter(f => f.baja).length;
 console.log(`\n  publicados ${hechos.filter(h => !h.accion).length} · eliminados ${hechos.filter(h => h.accion).length} · rechazados ${fallos.length}` +
   (dadosDeBaja ? ` · ${dadosDeBaja} salieron de la bandeja por no estar disponibles` : ''));
@@ -198,14 +309,17 @@ const guardarBandeja = () => {
 };
 
 if (paraPagina.length) {
-  const res = agregarProductos(resolve(ROOT, cat.file), cat.varName, cat.tipo ?? 'plano', paraPagina);
+  const res = ES_FAMILIAS
+    ? agregarVariantes(PAGINA, cat.varName, paraPagina)
+    : agregarProductos(PAGINA, cat.varName, cat.tipo ?? 'plano', paraPagina);
   if (!res.ok) {
     console.error(`\n⛔ la página NO se tocó: ${res.motivo}`);
     console.error('   Tampoco se escribe la base, para que no queden desparejas.');
     guardarBandeja();
     process.exit(1);
   }
-  console.log(`\n✓ ${cat.file}: ${res.agregados} producto(s) agregados al array ${cat.varName}`);
+  const n = ES_FAMILIAS ? res.agregadas : res.agregados;
+  console.log(`\n✓ ${cat.file}: ${n} ${ES_FAMILIAS ? 'variante(s) metida(s) en su familia' : 'producto(s) agregados'} en el array ${cat.varName}`);
 }
 
 writeFileSync(ADMIN_PATH, JSON.stringify(base, null, 2), 'utf8');

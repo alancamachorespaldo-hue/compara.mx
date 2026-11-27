@@ -298,3 +298,191 @@ export function agregarProductos(abs, varName, tipo, productos, opts = {}) {
   writeFileSync(abs, html.slice(0, loc.start) + text + html.slice(loc.end), 'utf8');
   return { ok: true, agregados: nuevos.length, pedidos: productos.length };
 }
+
+/**
+ * Lee y PARSEA el array JS de una página, para poder decidir antes de escribir.
+ *
+ * Existe porque las páginas de familias no se pueden tratar a ciegas: para saber si un catálogo
+ * nuevo es una variante de una familia que ya está —y de cuál— hay que leer la página primero.
+ *
+ * @returns {{ok:boolean, motivo?:string, datos?:Array<object>}}
+ */
+export function leerArray(abs, varName) {
+  if (!existsSync(abs)) return { ok: false, motivo: 'no existe el archivo' };
+  const html = readFileSync(abs, 'utf8');
+  const loc = locateArray(html, varName);
+  if (!loc) return { ok: false, motivo: `sin array ${varName}` };
+  try {
+    const datos = new Function('return ' + html.slice(loc.start, loc.end))();
+    if (!Array.isArray(datos)) throw new Error('no es un array');
+    return { ok: true, datos };
+  } catch (e) {
+    return { ok: false, motivo: `el array ${varName} no se pudo leer (${e.message})` };
+  }
+}
+
+/** Cierre del `[` o `{` que abre en `i`, dentro de `txt`. -1 si no cierra. */
+function cierreDe(txt, i) {
+  const abre = txt[i], cierra = abre === '[' ? ']' : '}';
+  let d = 0;
+  for (let j = i; j < txt.length; j++) {
+    if (txt[j] === abre) d++;
+    else if (txt[j] === cierra && --d === 0) return j;
+  }
+  return -1;
+}
+
+/** Un objeto plano en una línea, con el estilo del archivo: { id: "x", almacenamientoGB: 256 }. */
+function objEnLinea(obj, esquema) {
+  const lit = v => {
+    if (v === undefined || v === null) return 'null';
+    if (typeof v === 'number') return Number.isFinite(v) ? String(+v.toFixed(2)) : 'null';
+    if (typeof v === 'boolean') return String(v);
+    if (Array.isArray(v)) return '[' + v.map(lit).join(', ') + ']';
+    return JSON.stringify(String(v));
+  };
+  return '{ ' + esquema.map(k => `${k}: ${lit(obj[k])}`).join(', ') + ' }';
+}
+
+/**
+ * Agrega VARIANTES a las familias de una página de celulares (`tipo: 'familias'`).
+ *
+ * POR QUÉ NO SIRVE `agregarProductos` AQUÍ. En una página plana (proteína, freidoras) un
+ * catálogo de Mercado Libre es una tarjeta, así que basta copiar el esquema del primer producto
+ * y empujar el objeto al final del array. En celulares el array no guarda productos: guarda
+ * FAMILIAS (iPhone 17 Pro) con sus variantes de almacenamiento dentro, y un catálogo nuevo es
+ * una variante de una de ellas. Empujarlo al final crearía una familia fantasma sin nombre, sin
+ * chip y sin pantalla que la página pintaría como un modelo más.
+ *
+ * LO QUE NUNCA HACE: inventar la familia. Esta función mete la variante en la familia que el
+ * llamador le dice (por `modeloBase`, que es la llave de la página) y se niega —sin tocar el
+ * archivo— si esa familia no está, si esa capacidad ya existe en ella o si el `mlId`/`linkML`
+ * ya aparecen en otra variante del array. Meter un iPhone en la familia equivocada sería peor
+ * que no publicarlo: quien entra a comparar 256 contra 512 GB vería dos teléfonos distintos
+ * bajo el mismo nombre. Quién decide la familia está en `_familias-alta.js`.
+ *
+ * CÓMO ESCRIBE. Cirugía sobre el texto, no reescritura del array: cada variante que ya estaba se
+ * copia tal cual, letra por letra, y lo único nuevo es una línea. Así el diff del commit enseña
+ * exactamente lo que entró y el formato curado de las otras familias no se mueve. La variante
+ * entra ORDENADA por capacidad, porque la página toma la primera como la de referencia y los
+ * filtros de almacenamiento leen la lista en orden.
+ *
+ * RED DE SEGURIDAD: igual que sus hermanas, parsea el array resultante antes de escribirlo y
+ * comprueba que el número de familias no cambió y que el de variantes subió exactamente en lo
+ * que se pidió. Si algo no cuadra no se escribe nada: una página con el JS roto no enseña ni un
+ * teléfono, que es mucho peor que no publicar el producto.
+ *
+ * @param {string} abs      ruta absoluta del HTML
+ * @param {string} varName  nombre del array de familias
+ * @param {Array<{modeloBase:string, variante:object}>} items
+ * @param {{dryRun?:boolean}} opts
+ * @returns {{ok:boolean, motivo?:string, agregadas:number, fallos:Array<{modeloBase:string,mlId:string|null,motivo:string}>}}
+ */
+export function agregarVariantes(abs, varName, items, opts = {}) {
+  const vacio = { agregadas: 0, fallos: [] };
+  if (!existsSync(abs)) return { ok: false, motivo: 'no existe el archivo', ...vacio };
+  const html = readFileSync(abs, 'utf8');
+  const loc = locateArray(html, varName);
+  if (!loc) return { ok: false, motivo: `sin array ${varName}`, ...vacio };
+
+  const arrayText = html.slice(loc.start, loc.end);
+  let familias;
+  try { familias = new Function('return ' + arrayText)(); } catch (e) {
+    return { ok: false, motivo: `el array de la página no se pudo leer (${e.message})`, ...vacio };
+  }
+  if (!Array.isArray(familias) || !familias.length) {
+    return { ok: false, motivo: 'la página no tiene ninguna familia', ...vacio };
+  }
+
+  const EOL = html.includes('\r\n') ? '\r\n' : '\n';
+  const todas = familias.flatMap(f => f.variantes ?? []).filter(v => v && typeof v === 'object');
+  // El esquema de la variante lo manda la PÁGINA, no la base: sus claves son las que lee el
+  // renderizador de la tarjeta. Lo que no sepamos entra como `null`, igual que ya hacen las
+  // variantes incompletas que están ahí.
+  const esquemaGlobal = Object.keys(todas[0] ?? {});
+  const mlIds = new Set(todas.map(v => v.mlId).filter(Boolean));
+  const links = new Set(todas.map(v => v.linkML).filter(Boolean));
+  const ids = new Set(todas.map(v => v.id).filter(Boolean));
+
+  const fallos = [];
+  const porFamilia = new Map();
+  for (const it of items) {
+    const v = it.variante ?? {};
+    const nota = m => fallos.push({ modeloBase: it.modeloBase, mlId: v.mlId ?? null, motivo: m });
+    const i = familias.findIndex(f => f.modeloBase === it.modeloBase);
+    if (i === -1) { nota(`no hay ninguna familia con modeloBase "${it.modeloBase}" en la página`); continue; }
+    const gb = v.almacenamientoGB;
+    if (!(gb > 0)) { nota('la variante no trae almacenamientoGB: no hay dónde colocarla'); continue; }
+    if ((familias[i].variantes ?? []).some(x => x && x.almacenamientoGB === gb)) {
+      nota(`la familia ${it.modeloBase} ya tiene la variante de ${gb} GB`); continue;
+    }
+    if (v.mlId && mlIds.has(v.mlId)) { nota(`el catálogo ${v.mlId} ya está en otra variante de la página`); continue; }
+    if (v.linkML && links.has(v.linkML)) { nota('ese enlace ya está en otra variante de la página'); continue; }
+    if (v.id && ids.has(v.id)) { nota(`el id "${v.id}" ya está en la página`); continue; }
+    if (v.mlId) mlIds.add(v.mlId);
+    if (v.linkML) links.add(v.linkML);
+    if (v.id) ids.add(v.id);
+    if (!porFamilia.has(i)) porFamilia.set(i, []);
+    porFamilia.get(i).push(v);
+  }
+
+  let pedidas = [...porFamilia.values()].reduce((n, l) => n + l.length, 0);
+  if (!pedidas) return { ok: true, agregadas: 0, fallos };
+
+  // Los bloques de primer nivel del texto son las familias, en el mismo orden que `familias`.
+  const bloques = topBlocks(arrayText);
+  if (bloques.length !== familias.length) {
+    return { ok: false, motivo: 'el texto del array y su contenido no cuadran: no se toca la página', agregadas: 0, fallos };
+  }
+
+  let text = arrayText;
+  // De atrás hacia adelante: cada inserción mueve los índices de lo que viene después.
+  for (const i of [...porFamilia.keys()].sort((a, b) => b - a)) {
+    const nuevas = porFamilia.get(i);
+    const bloque = text.slice(bloques[i].s, bloques[i].e);
+    const mv = bloque.match(/["']?variantes["']?\s*:\s*\[/);
+    const vIni = mv ? bloque.indexOf('[', mv.index) : -1;
+    const vFin = vIni >= 0 ? cierreDe(bloque, vIni) : -1;
+    if (vFin < 0) {
+      for (const v of nuevas) fallos.push({ modeloBase: familias[i].modeloBase, mlId: v.mlId ?? null, motivo: 'no se encontró su array `variantes` en el HTML' });
+      pedidas -= nuevas.length;
+      continue;
+    }
+    const vTexto = bloque.slice(vIni, vFin + 1);
+    const partes = topBlocks(vTexto).map(b => vTexto.slice(b.s, b.e));
+    const existentes = (familias[i].variantes ?? []).filter(v => v && typeof v === 'object');
+    const esquema = Object.keys(existentes[0] ?? {});
+    const orden = (familias[i].variantes ?? []).map(v => (v && v.almacenamientoGB) || 0);
+
+    for (const v of nuevas.sort((a, b) => a.almacenamientoGB - b.almacenamientoGB)) {
+      const texto = objEnLinea(v, esquema.length ? esquema : (esquemaGlobal.length ? esquemaGlobal : Object.keys(v)));
+      let pos = orden.findIndex(gb => gb > v.almacenamientoGB);
+      if (pos === -1) pos = partes.length;
+      partes.splice(pos, 0, texto);
+      orden.splice(pos, 0, v.almacenamientoGB);
+    }
+
+    // La sangría se copia del propio archivo; no se da por hecha.
+    const sangria = vTexto.match(/\[\s*\r?\n([ \t]+)/)?.[1]
+      ?? ' '.repeat((bloque.match(/^([ \t]*)["']?variantes/m)?.[1]?.length ?? 4) + 2);
+    const sangriaCierre = sangria.slice(0, Math.max(0, sangria.length - 2));
+    const nuevoVTexto = '[' + EOL + partes.map(p => sangria + p + ',').join(EOL) + EOL + sangriaCierre + ']';
+    const nuevoBloque = bloque.slice(0, vIni) + nuevoVTexto + bloque.slice(vFin + 1);
+    text = text.slice(0, bloques[i].s) + nuevoBloque + text.slice(bloques[i].e);
+  }
+
+  if (!pedidas) return { ok: true, agregadas: 0, fallos };
+
+  try {
+    const arr = new Function('return ' + text)();
+    if (!Array.isArray(arr) || arr.length !== familias.length) throw new Error('cambió el número de familias');
+    const ahora = arr.flatMap(f => f.variantes ?? []).length;
+    if (ahora !== todas.length + pedidas) throw new Error(`se esperaban ${todas.length + pedidas} variantes y quedaron ${ahora}`);
+  } catch (e) {
+    return { ok: false, motivo: `el array quedaría mal (${e.message}): no se tocó la página`, agregadas: 0, fallos };
+  }
+
+  if (opts.dryRun) return { ok: true, agregadas: pedidas, fallos };
+  writeFileSync(abs, html.slice(0, loc.start) + text + html.slice(loc.end), 'utf8');
+  return { ok: true, agregadas: pedidas, fallos };
+}
