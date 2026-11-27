@@ -1120,6 +1120,16 @@ function banBarra(){
         '<button class="btn sm" id="bNada" type="button">Quitar marcas</button></span>'
       : '<span class="sm" style="margin-left:8px">Marca las casillas para dar de alta o eliminar varios de una vez.</span>');
 }
+/* En la bandeja la lista ocupa el ancho entero (clase `solo`), así que el panel de detalle deja
+   de estar al lado y pasa a dibujarse DEBAJO de una tabla tan alta como la pantalla. El botón
+   «Pegar enlaces en bloque» sí abría su panel, pero fuera de vista: parecía roto (26-nov-2026).
+   Por eso todo lo que pinta el panel lo trae a la vista y, si hay dónde escribir, pone el cursor. */
+function verPanel(foco){
+  var d=el('pDetail');
+  if(!d)return;
+  try{d.scrollIntoView({behavior:'smooth',block:'start'})}catch(_){d.scrollIntoView()}
+  if(foco)setTimeout(function(){var f=el(foco); if(f)f.focus()},150);
+}
 /* Panel derecho de una ficha de la bandeja: los tres pasos del alta, sin salir de aquí. */
 function banDetalle(p){
   BSEL=p; pSel=null;
@@ -1198,6 +1208,7 @@ function banDetalle(p){
     '<div class="tabs" role="tablist">'+[['ficha','Identificación'],['carac','Características'],['enlace','Enlace y publicación']].map(function(t){
       return '<button type="button" role="tab" data-btab="'+t[0]+'" aria-selected="'+(bTab===t[0]?'true':'false')+'">'+t[1]+'</button>'}).join('')+'</div>'+
     '<div class="bd stack">'+cuerpo+'</div>';
+  verPanel();
 }
 /** Guarda en el almacenamiento del Centro lo editado de una ficha. `accion` es opcional. */
 function banGuardar(p,accion){
@@ -1281,6 +1292,7 @@ function banPegarPanel(){
       '<button class="btn" id="pegar_no" type="button">Cancelar</button></div>'+
     '<div class="why"><b>Lo que pasa después</b>Marca los que pegaste, <b>Dar de alta</b> y <b>Publicar en GitHub</b>. La corrida abre cada enlace: publica los que dan precio y <b>saca solos de la bandeja</b> los que estén pausados o sin vendedor, diciéndote cuáles. Eso es la comprobación, y no cuesta ni un clic más.</div>'+
     '</div>';
+  verPanel('pegar_txt');
 }
 /** Guarda el enlace de una ficha sin pasar por el formulario del panel. */
 function banEnlace(p,link){
