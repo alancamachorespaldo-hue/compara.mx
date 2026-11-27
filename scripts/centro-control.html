@@ -833,6 +833,7 @@ function pedirImgs(){
     .then(function(j){
       if(!j)return; delete j.__fuentes; IMGS=j;
       if(VIEW==='productos'){pintarProductos(); if(pSel)detalle(pSel);}
+      if(VIEW==='captura')pintarCaptura();
     });
 }
 var ESTADO={ok:['ok','Sin problema'],'sin-id':['warn','Sin ID'],'pausado-ml':['warn','Pausado en ML'],'pausado-amz':['warn','Pausado en Amazon'],pausado:['bad','Pausado'],'sin-tienda':['bad','Sin tienda'],inactivo:['mute','Inactivo']};
@@ -2808,6 +2809,70 @@ function linkTag(asin){return 'https://www.amazon.com.mx/dp/'+asin+'?tag='+TAG}
    categoría. El PRECIO se guarda como observación interna (lo pide la política
    de Amazon Associates: en la guía va el precio que muestra Amazon al abrir el
    enlace, nunca una cifra escrita a mano). */
+/* ── el nombre del producto, venga donde venga en el pegado ──
+   "La primera línea" no sirve: unas veces el pegado empieza por el enlace,
+   otras por la descripción, y otras por una raya puesta a mano para separar un
+   producto del siguiente. Así que se puntúan TODAS las líneas y gana la mejor.
+   La pista más fuerte es el propio enlace: una URL de Amazon lleva el título en
+   su ruta (/HUAWEI-Watch-FIT-Smartwatch-Negro/dp/B0GX1W277X), así que la línea
+   que más palabras comparta con esa ruta es el título, esté donde esté. */
+var CAP_SALTAR=/^(informacion del producto|detalles adicionales|detalles del producto|estilo|conectividad|pantalla|bateria|compatibilidad|medidas|guia de usuario|acerca de este articulo|descripcion del producto|especificaciones)$/;
+function palabras(s){
+  return norm(s).replace(/[^a-z0-9 ]+/g,' ').split(/\s+/).filter(function(w){return w.length>2});
+}
+function tituloEnURL(u){
+  var m=/amazon\.[^/]+\/([^/?]+)\/(?:dp|gp\/product|gp\/aw\/d)\//i.exec(String(u||''));
+  if(!m)return [];
+  try{return palabras(decodeURIComponent(m[1]).replace(/-/g,' '))}catch(e){return palabras(m[1].replace(/-/g,' '))}
+}
+function puntuarTitulo(t,slugW,marca){
+  var s=t.trim();
+  if(!s||/^https?:/i.test(s)||s.indexOf('\t')>=0)return -99;
+  var letras=(s.match(/[A-Za-zÁÉÍÓÚÑáéíóúñ]/g)||[]).length;
+  /* una raya, una fila de guiones o un precio no son nombres */
+  if(letras<6||letras/s.length<0.45)return -99;
+  var n=norm(s);
+  if(CAP_SALTAR.test(n))return -99;
+  if(/^\$/.test(s))return -99;
+  if(/de 5 estrellas|comprados el mes|^promoci|^oferta\b|visita la tienda|buscar en esta pagina|ver el top|^n[º°o]\s*\d+\s+en\s|^opinion media|^clasificacion en/.test(n))return -99;
+  if(/^[^:]{2,40}:\s/.test(s)&&s.length<90)return -99;   /* "Clave: valor" */
+  var ws=palabras(s);
+  if(ws.length<2)return -99;
+  var p=0;
+  if(slugW.length){
+    var hit=ws.filter(function(w){return slugW.indexOf(w)>=0}).length;
+    p+=6*(hit/Math.max(3,slugW.length));
+    if(hit>=2)p+=2;
+  }
+  if(marca&&n.indexOf(norm(marca))>=0)p+=3;
+  p+=(ws.length>=3&&ws.length<=22)?2:-1;
+  if(s.length>=18&&s.length<=180)p+=1;
+  if(/\d/.test(s))p+=0.5;
+  /* tres comas o más es la línea de ventajas ("Hasta 10 días de batería, …") */
+  if((s.match(/,/g)||[]).length>=3)p-=2.5;
+  if(/^(hasta|con|incluye|compatible|ideal)\b/i.test(s))p-=2;
+  return p;
+}
+function tituloDelPegado(lineas,url,marca){
+  var slugW=tituloEnURL(url), mejor=-99, idx=-1;
+  lineas.forEach(function(l,i){
+    var p=puntuarTitulo(l,slugW,marca);
+    if(p>mejor){mejor=p;idx=i}
+  });
+  /* si no hay ninguna línea de título (pegaste solo la tabla y el enlace), el
+     nombre sale de la ruta del enlace, que para eso lo lleva */
+  if(idx<0)return {nombre:slugW.length?slugW.map(function(w){return w.charAt(0).toUpperCase()+w.slice(1)}).join(' ').slice(0,180):'',bullets:''};
+  var nombre=lineas[idx].trim().slice(0,180), bullets='';
+  /* la línea de ventajas suele ir pegada al título, antes o después */
+  [lineas[idx+1],lineas[idx-1]].forEach(function(c){
+    if(bullets||!c)return;
+    var s=c.trim();
+    if(/^https?:/i.test(s)||s.indexOf('\t')>=0||/^\$/.test(s)||/estrellas|comprados/i.test(s))return;
+    if((s.match(/,/g)||[]).length>=2&&s.length>30)bullets=s.slice(0,400);
+  });
+  return {nombre:nombre,bullets:bullets};
+}
+
 /* el texto sin enlaces: para la ficha estorban (una URL con ':' parece un par
    "clave: valor") y los enlaces ya los clasificó capPegado */
 function sinEnlaces(txt){
@@ -2842,18 +2907,8 @@ function capPegado(txt){
   if(!o.asin){var aa=asinDeTexto(limpio); if(aa)o.asin=aa}
 
   var lineas=limpio.split(/[\n\r]+/).map(function(l){return l.replace(/^[\s•·\-–*]+/,'').replace(/\s+$/,'')}).filter(function(l){return l.trim()});
-  var saltar=/^(informacion del producto|detalles adicionales|detalles del producto|estilo|conectividad|pantalla|bateria|compatibilidad|medidas|guia de usuario)$/i;
-  for(var i=0;i<lineas.length;i++){
-    var l=lineas[i].trim();
-    if(/^https?:/i.test(l)||l.indexOf('\t')>=0||l.charAt(0)==='$'||saltar.test(norm(l)))continue;
-    if(l.length>12&&l.indexOf(':')<0){
-      o.nombre=l.slice(0,180);
-      /* la línea de abajo del título suele ser la de ventajas, separada por comas */
-      var sig=(lineas[i+1]||'').trim();
-      if(sig&&sig.indexOf('\t')<0&&(sig.match(/,/g)||[]).length>=2&&!/estrellas|^\$/i.test(sig))o.bullets=sig.slice(0,400);
-      break;
-    }
-  }
+  var mejor=tituloDelPegado(lineas,o.linkAfiliado||o.linkProducto,o.marca);
+  o.nombre=mejor.nombre; if(mejor.bullets)o.bullets=mejor.bullets;
 
   var m;
   m=/(\d(?:[.,]\d)?)\s*de\s*5\s*estrellas/i.exec(limpio); if(m)o.rating=m[1].replace(',','.');
@@ -2921,7 +2976,7 @@ function capTexto(f){
 }
 
 /* ── estado del módulo ── */
-var CAP=[], capEdit=null, capDet=null, capFiltro='';
+var CAP=[], capEdit=null, capDet=null, capFiltro='', capQ='', capSel={}, capIdeasDe=null;
 function capCargar(){CAP=store('captura')||[]; if(!Array.isArray(CAP))CAP=[]}
 function capGuardarTodo(){store('captura',CAP)}
 function capCats(){
@@ -2957,10 +3012,8 @@ function capPerfil(f){
   var el1=estadoLinkAmz(f.linkAfiliado||(f.asin?linkTag(f.asin):''));
   var l=EST_LINK[el1]||['mute',el1];
   return '<div class="hd"><h3>Perfil del producto</h3><span class="note">Así se va a leer en la guía</span></div><div class="bd stack">'+
-    /* dentro del artifact la CSP bloquea toda imagen externa, así que si no
-       carga se dice que la URL está guardada en vez de dejar el hueco roto */
-    (f.imagen?'<img src="'+esc(f.imagen)+'" alt="" style="max-height:140px;align-self:flex-start;border-radius:10px;border:1px solid var(--line)" '+
-      'onerror="this.outerHTML=\'<div class=&quot;sm&quot;>Imagen guardada (aquí no se ve: el Centro bloquea las imágenes de fuera)</div>\'">':'')+
+    (f.imagen?'<div class="row" style="align-items:flex-start">'+capThumb(f,120)+
+      '<a class="btn sm" href="'+esc(f.imagen)+'" target="_blank" rel="noopener">Ver la foto ↗</a></div>':'')+
     '<div><b>'+esc(f.nombre||'(sin nombre)')+'</b>'+
       '<div class="sm">'+esc(f.marca||'—')+(f.modelo?' · '+esc(f.modelo):'')+' · '+esc(f.catTitulo||'sin categoría')+'</div></div>'+
     '<div class="row"><span class="chip '+l[0]+'">'+esc(l[1])+'</span>'+
@@ -2984,7 +3037,7 @@ function capPerfil(f){
   '</div>';
 }
 function pintarCaptura(){
-  capCargar();
+  capCargar(); pedirImgs();
   var f=capForm(), esq=capEsq(f.cat), cats=capCats();
   el('v-captura').innerHTML=
   '<div class="sec"><div class="split">'+
@@ -3038,10 +3091,16 @@ function pintarCaptura(){
     '<button class="btn sm" id="cp_brief" type="button">Copiar brief de guía</button></div>'+
     '<div class="row" style="margin-bottom:10px"><select class="inp" id="cp_cat"><option value="">Todas las categorías</option>'+
       cats.map(function(c){return '<option value="'+esc(c.clave)+'"'+(capFiltro===c.clave?' selected':'')+'>'+esc(c.titulo)+'</option>'}).join('')+
-      '</select></div>'+
-    '<div class="tbl-wrap"><table><thead><tr><th>Producto</th><th>Categoría</th><th>ASIN</th><th class="num">Ficha</th><th>Enlace</th><th>Estado</th><th></th></tr></thead>'+
+      '</select>'+
+      '<input class="inp" id="cp_q" type="search" placeholder="Filtrar por marca o nombre… (ej. HUAWEI)" value="'+esc(capQ)+'" style="flex:1;min-width:180px">'+
+    '</div>'+
+    '<div class="row" id="cp_barra" style="margin-bottom:10px"></div>'+
+    '<div class="tbl-wrap"><table><thead><tr>'+
+      '<th style="width:28px"><input type="checkbox" id="cp_todos" title="Marcar todo lo que se ve"></th>'+
+      '<th>Producto</th><th>Categoría</th><th>ASIN</th><th class="num">Ficha</th><th>Enlace</th><th>Estado</th><th></th></tr></thead>'+
     '<tbody id="cp_rows"></tbody></table></div>'+
   '</div>'+
+  '<div class="sec" id="cp_ideas" hidden></div>'+
   '<div class="sec" id="cp_out" hidden><div class="card"><div class="hd"><h3>Exportación</h3>'+
     '<span class="note">Pégame esto o guárdalo como archivo</span>'+
     '<button class="btn sm copy" id="cp_copy" type="button" style="margin-left:auto">Copiar todo</button></div>'+
@@ -3170,6 +3229,22 @@ function capEnganches(){
     capEdit=capVacio(); capDet=null; pintarCaptura(); toast('Eliminado');
   });
   el('cp_cat').addEventListener('change',function(){capFiltro=this.value;capPintarTabla()});
+  el('cp_q').addEventListener('input',function(){capQ=this.value;capPintarTabla()});
+  el('cp_todos').addEventListener('change',function(){
+    var on=this.checked;
+    capVisibles().forEach(function(p){if(on)capSel[p.id]=1; else delete capSel[p.id]});
+    capPintarTabla();
+  });
+  el('cp_rows').addEventListener('change',function(e){
+    var c=e.target.closest('[data-sel]'); if(!c)return;
+    var id=c.getAttribute('data-sel');
+    if(c.checked)capSel[id]=1; else delete capSel[id];
+    capPintarTabla();
+  });
+  el('cp_barra').addEventListener('click',function(e){
+    if(e.target.id==='cp_quitarSel'){capSel={};capIdeasDe=null;el('cp_ideas').hidden=true;capPintarTabla();return}
+    if(e.target.id==='cp_ideasBtn')capPintarIdeas();
+  });
   el('cp_rows').addEventListener('click',function(e){
     var b=e.target.closest('[data-cap]'); if(!b)return;
     var p=CAP.filter(function(x){return x.id===b.getAttribute('data-cap')})[0];
@@ -3186,11 +3261,27 @@ function capEnganches(){
     copiar(capBrief());
   });
 }
+/* La miniatura de un producto capturado. Las fotos de Amazon están en
+   m.media-amazon.com y dentro del Centro la CSP las bloquea, así que lo que se
+   enseña es la miniatura que `generar-miniaturas.mjs --captura=<export.json>`
+   dejó en imagenes.json con la clave `captura:<ASIN>`. Mientras no exista, se
+   intenta la URL (fuera del artifact sí carga) y, si falla, queda el hueco con
+   enlace para abrirla. */
+function capImg(p){return (IMGS&&p.asin&&IMGS['captura:'+p.asin])||p.imagen||''}
+function capThumb(p,px){
+  var s=capImg(p), n=px||38;
+  if(!s)return '<div class="thumb ph" style="width:'+n+'px;height:'+n+'px">▫</div>';
+  return '<img class="thumb" style="width:'+n+'px;height:'+n+'px" src="'+esc(s)+'" alt="" loading="lazy" '+
+    'onerror="this.className=\'thumb ph\';this.removeAttribute(\'src\');this.outerHTML=\'<a class=&quot;thumb ph&quot; style=&quot;width:'+n+'px;height:'+n+'px&quot; href='+esc(s)+' target=_blank rel=noopener title=&quot;Ver la foto en Amazon&quot;>↗</a>\'">';
+}
 function capFila(p){
   var esq=ESQUEMAS[p.esquema]||capEsq(p.cat);
   var llenos=esq.campos.filter(function(c){return p.attrs&&p.attrs[c.k]}).length;
   var e=EST_AMZ[p.estado]||['mute',p.estado], est=estadoLinkAmz(p.linkAfiliado), l=EST_LINK[est]||['mute',est];
-  return '<tr><td><span class="nm">'+esc(p.nombre)+'</span><span class="sm">'+esc(p.marca||'—')+(p.modelo?' · '+esc(p.modelo):'')+'</span></td>'+
+  return '<tr'+(capSel[p.id]?' class="sel"':'')+'>'+
+    '<td><input type="checkbox" data-sel="'+esc(p.id)+'"'+(capSel[p.id]?' checked':'')+'></td>'+
+    '<td><div class="cel">'+capThumb(p)+'<span><span class="nm">'+esc(p.nombre||'(sin nombre)')+'</span>'+
+      '<span class="sm">'+esc(p.marca||'—')+(p.modelo?' · '+esc(p.modelo):'')+'</span></span></div></td>'+
     '<td class="sm">'+esc(p.catTitulo||p.cat)+'</td>'+
     '<td>'+(p.asin?'<code>'+esc(p.asin)+'</code>':'<span class="chip bad">falta</span>')+'</td>'+
     '<td class="num"><span class="chip '+(llenos>=Math.ceil(esq.campos.length/2)?'ok':'warn')+'">'+llenos+'/'+esq.campos.length+'</span></td>'+
@@ -3198,12 +3289,40 @@ function capFila(p){
     '<td><span class="chip '+e[0]+'">'+esc(e[1])+'</span></td>'+
     '<td><button class="btn sm" type="button" data-cap="'+esc(p.id)+'">Abrir</button></td></tr>';
 }
+/* lo que se ve ahora mismo: la categoría elegida y el texto del filtro (marca,
+   nombre o modelo). Es lo que marca la casilla de la cabecera y lo que se
+   manda a «Ideas para guía». */
+function capVisibles(){
+  var q=norm(capQ);
+  return CAP.filter(function(p){
+    if(capFiltro&&p.cat!==capFiltro)return false;
+    if(!q)return true;
+    return norm([p.nombre,p.marca,p.modelo,p.asin].filter(Boolean).join(' ')).indexOf(q)>=0;
+  });
+}
 function capPintarTabla(){
-  var lista=CAP.filter(function(p){return !capFiltro||p.cat===capFiltro});
+  var lista=capVisibles();
   el('cp_count').textContent=lista.length===CAP.length?fmt(CAP.length)+(CAP.length===1?' producto':' productos'):
     fmt(lista.length)+' de '+fmt(CAP.length)+' productos';
   el('cp_rows').innerHTML=lista.length?lista.slice().reverse().map(capFila).join(''):
-    '<tr><td colspan="7"><div class="empty">Nada capturado todavía. Llena el formulario de arriba y guarda.</div></td></tr>';
+    '<tr><td colspan="8"><div class="empty">'+(CAP.length?'Nada con ese filtro.':'Nada capturado todavía. Llena el formulario de arriba y guarda.')+'</div></td></tr>';
+  var marcados=lista.filter(function(p){return capSel[p.id]});
+  var t=el('cp_todos'); if(t){t.checked=lista.length>0&&marcados.length===lista.length;
+    t.indeterminate=marcados.length>0&&marcados.length<lista.length}
+  capPintarBarra(marcados);
+  /* si las ideas están abiertas, se rehacen con la selección nueva */
+  var bx=el('cp_ideas');
+  if(bx&&!bx.hidden){ if(capSeleccion().length)capPintarIdeas(true); else bx.hidden=true }
+}
+function capPintarBarra(marcados){
+  var b=el('cp_barra'); if(!b)return;
+  if(!marcados.length){
+    b.innerHTML='<span class="sm">Marca los productos que van juntos en una guía —por ejemplo todos los HUAWEI— y aquí aparecen las ideas.</span>';
+    return;
+  }
+  b.innerHTML='<span class="chip ac">'+marcados.length+(marcados.length===1?' seleccionado':' seleccionados')+'</span>'+
+    '<button class="btn pri sm" id="cp_ideasBtn" type="button">Ideas para guía</button>'+
+    '<button class="btn sm" id="cp_quitarSel" type="button">Quitar selección</button>';
 }
 function capPintarCobertura(){
   var porCat={};
@@ -3268,6 +3387,208 @@ function capBrief(){
   'la guía se arma con la skill crear-guia-ofertas y su tarjeta va arriba del sub-hub de /guias-compra/.\n';
   return t;
 }
+/* ───────── De los productos capturados a una guía ─────────
+   El camino es: marcas los que van juntos (todos los HUAWEI, los de menos de
+   $3,000, los que sean) → «Ideas para guía» propone ángulos y los cruza con lo
+   que la gente YA busca en el sitio según Search Console → eliges uno → copias
+   el prompt con el JSON y lo pegas en Claude Code, que arma la guía con el
+   agente `comparalo-crear-guia-oferta-amazon`. Aquí no se inventa ni un número
+   de búsquedas: lo que no esté en `analitica.json` se dice que no se sabe. */
+function capSeleccion(){return CAP.filter(function(p){return capSel[p.id]})}
+function slugify(s){
+  return norm(s).replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,70);
+}
+function capAnio(){return new Date().getFullYear()}
+/* "Pantalla" → "pantalla", pero "GPS" se queda GPS */
+function minus(s){return /^[A-ZÁÉÍÓÚÑ0-9/ ]+$/.test(String(s||''))?String(s):String(s||'').toLowerCase()}
+/* las palabras que describen esta selección: categoría, marcas y lo que
+   comparten sus características */
+function capTerminos(sel){
+  var t={};
+  sel.forEach(function(p){
+    palabras(p.catTitulo||'').concat(palabras(p.marca||'')).forEach(function(w){t[w]=(t[w]||0)+1});
+  });
+  return t;
+}
+function capMarcas(sel){
+  var m={}; sel.forEach(function(p){if(p.marca)m[p.marca]=(m[p.marca]||0)+1});
+  return Object.keys(m).sort(function(a,b){return m[b]-m[a]});
+}
+/* lo que YA busca la gente y le muestra este sitio (Search Console, real) */
+function capBusquedas(sel){
+  var qs=(AN&&AN.gsc&&AN.gsc.consultas)||[];
+  if(!qs.length)return null;
+  var term=capTerminos(sel);
+  var claves=Object.keys(term);
+  return qs.map(function(q){
+    var ws=palabras(q.consulta), hit=ws.filter(function(w){return claves.indexOf(w)>=0}).length;
+    return {q:q,hit:hit};
+  }).filter(function(x){return x.hit>0})
+    .sort(function(a,b){return b.hit-a.hit||b.q.impresiones-a.q.impresiones})
+    .slice(0,12).map(function(x){return x.q});
+}
+/* los ángulos posibles, sacados de lo que tiene la selección */
+function capAngulos(sel){
+  var marcas=capMarcas(sel), cat=(sel[0]&&sel[0].catTitulo)||'productos', anio=capAnio(), out=[];
+  var catL=cat.toLowerCase();
+  if(marcas.length===1){
+    out.push({titulo:'Mejores '+catL+' '+marcas[0]+' en México ('+anio+')',
+      porque:'Los '+sel.length+' productos son '+marcas[0]+'. Una guía de una sola marca compite por una búsqueda más concreta y es la que mejor convierte: quien busca la marca ya decidió la mitad.',
+      intencion:catL+' '+marcas[0].toLowerCase()+' / qué '+catL+' '+marcas[0]+' comprar'});
+  }else{
+    out.push({titulo:'Mejores '+catL+' en México ('+anio+')',
+      porque:'La selección mezcla '+marcas.length+' marcas ('+marcas.slice(0,4).join(', ')+'), así que el ángulo natural es la comparativa general.',
+      intencion:'mejores '+catL+' / '+catL+' recomendados'});
+    out.push({titulo:catL.charAt(0).toUpperCase()+catL.slice(1)+': '+marcas.slice(0,2).join(' vs ')+', ¿cuál conviene?',
+      porque:'Un cara a cara entre las dos marcas con más productos aquí. Atrapa la búsqueda comparativa, que es la que llega con la decisión casi tomada.',
+      intencion:marcas.slice(0,2).join(' vs ').toLowerCase()});
+  }
+  var conP=sel.filter(function(p){return Number(p.precio)>0}).map(function(p){return Number(p.precio)});
+  if(conP.length>=Math.max(2,Math.ceil(sel.length/2))){
+    var techo=Math.ceil(Math.max.apply(null,conP)/500)*500;
+    out.push({titulo:'Mejores '+catL+' por menos de $'+techo.toLocaleString('es-MX')+' ('+anio+')',
+      porque:'Los '+conP.length+' que traen precio observado caben debajo de $'+techo.toLocaleString('es-MX')+'. Ojo: el precio NO se escribe en la guía (política de Amazon), el techo solo vive en el título y hay que revisarlo cada vez que cambien las ofertas.',
+      intencion:catL+' baratos / '+catL+' económicos'});
+  }
+  /* Un ángulo por característica compartida: si los cuatro traen GPS, «con GPS»
+     es una guía. Solo vale para los campos `destacados` de la categoría y solo
+     si el VALOR es el mismo en todos: que todos tengan pantalla no es un
+     ángulo, que todos tengan GPS sí. */
+  var esq=capEsq(sel[0]&&sel[0].cat);
+  var iguales=(esq.destacados||[]).map(function(k){
+    var c=(esq.campos||[]).filter(function(x){return x.k===k})[0]; if(!c)return null;
+    var vals=sel.map(function(p){return (p.attrs||{})[k]});
+    if(vals.length<2||vals.some(function(v){return !v||v!==vals[0]}))return null;
+    return {lab:c.lab,val:vals[0]};
+  }).filter(Boolean);
+  if(iguales.length&&sel.length>1){
+    var f=iguales[0], fl=minus(f.lab);
+    out.push({titulo:'Mejores '+catL+' con '+fl+' ('+anio+')',
+      porque:'Los '+sel.length+' tienen lo mismo en '+fl+' ('+f.val+')'+
+        (iguales[1]?' y en '+minus(iguales[1].lab)+' ('+iguales[1].val+')':'')+
+        ', así que la guía puede prometerlo en el título y cumplirlo con todos.',
+      intencion:catL+' con '+fl});
+  }
+  return out;
+}
+/* El JSON que espera el agente `comparalo-crear-guia-oferta-amazon`. */
+function capJsonGuia(sel,ang){
+  var cat=(sel[0]&&sel[0].catTitulo)||'', esq=capEsq(sel[0]&&sel[0].cat);
+  /* los filtros del comparador salen de lo que DE VERDAD cambia entre estos
+     productos, y primero los campos que mandan en la categoría */
+  var dest=esq.destacados||[];
+  var difieren=(esq.campos||[]).filter(function(c){
+    var v={}; sel.forEach(function(p){var x=(p.attrs||{})[c.k]; if(x)v[x]=1});
+    return Object.keys(v).length>1;
+  }).sort(function(a,b){
+    var ia=dest.indexOf(a.k), ib=dest.indexOf(b.k);
+    return (ia<0?99:ia)-(ib<0?99:ib);
+  }).slice(0,4);
+  return {
+    titulo:ang.titulo, slug:'guias-compra/'+slugify(cat)+'/'+slugify(ang.titulo),
+    categoria_padre:'guias-compra/'+slugify(cat)+'/',
+    descripcion:(ang.titulo+': comparativa de '+sel.length+' modelos con características verificadas, para decidir sin abrir diez pestañas.').slice(0,155),
+    fecha:hoyISO(), tag:TAG, categoria:cat,
+    filtros:[{clave:'brand',nombre:'Marca',valores:capMarcas(sel)}].concat(difieren.map(function(c){
+      var v={}; sel.forEach(function(p){var x=(p.attrs||{})[c.k]; if(x)v[x]=1});
+      return {clave:c.k,nombre:c.lab,valores:Object.keys(v)};
+    })),
+    productos:sel.map(function(p){
+      var at=p.attrs||{}, gen=p.gen||{};
+      var llenos=(esq.campos||[]).filter(function(c){return at[c.k]});
+      var dest=(esq.destacados||[]).map(function(k){return llenos.filter(function(c){return c.k===k})[0]}).filter(Boolean);
+      var orden=dest.concat(llenos.filter(function(c){return dest.indexOf(c)<0}));
+      var specs={}; llenos.forEach(function(c){specs[c.lab]=at[c.k]});
+      CAMPOS_GEN.forEach(function(c){if(gen[c.k])specs[c.lab]=gen[c.k]});
+      var data={brand:slugify(p.marca||'otro'),condition:'new'};
+      difieren.forEach(function(c){if(at[c.k])data[c.k]=at[c.k]});
+      return {
+        id:slugify(p.nombre||p.asin), nombre:p.nombre, asin:p.asin||null, marca:p.marca||null, modelo:p.modelo||null,
+        imagen:p.imagen||null,
+        badges:[p.marca,at[(esq.destacados||[])[0]]].filter(Boolean),
+        specs_line:orden.slice(0,4).map(function(c){return at[c.k]}).join(' · '),
+        bullets:orden.slice(0,4).map(function(c){return c.lab+': '+at[c.k]}),
+        link_amz:p.asin?linkTag(p.asin):(p.linkAfiliado||null),
+        data:data, specs_completas:specs,
+        texto:p.texto||null,
+        _interno:{precio_observado:p.precio?Number(p.precio):null,precio_lista:p.precioLista?Number(p.precioLista):null,
+          descuento:p.descuento?Number(p.descuento):null,promo:p.promo||null,observado_el:fecha(p.ts),
+          rating:p.rating?Number(p.rating):null,opiniones:p.resenas?Number(p.resenas):null,
+          vendidos:p.vendidos||null,ranking:p.ranking||[]}
+      };
+    })
+  };
+}
+function capPrompt(sel,ang){
+  var j=capJsonGuia(sel,ang);
+  return 'Crea la guía de oferta Amazon con el agente comparalo-crear-guia-oferta-amazon.\n\n'+
+  'Título: '+ang.titulo+'\n'+
+  'Ruta: '+j.slug+'/\n'+
+  'A qué búsqueda apunta: '+ang.intencion+'\n'+
+  'Por qué esta guía: '+ang.porque+'\n\n'+
+  'Los '+sel.length+' productos van en el JSON de abajo, capturados en el Centro de Control desde la ficha de Amazon.\n'+
+  'Reglas que no se rompen:\n'+
+  '· Los enlaces se arman con el ASIN y tag='+TAG+'. No uses acortadores.\n'+
+  '· NINGÚN precio en el HTML. Lo de `_interno` es observación histórica mía para que elijas el orden y el ángulo, no para publicarlo. Los botones dicen «Ver precio en Amazon».\n'+
+  '· `specs_completas` sale de la ficha de Amazon de cada producto: si algo te parece dudoso, dilo en el `caution` de la tarjeta en vez de corregirlo a ojo.\n'+
+  '· Divulgación de afiliados visible, GA4, onboarding.js y check-site.js como en todas.\n'+
+  '· La tarjeta de la guía va arriba del sub-hub de /guias-compra/.\n\n'+
+  '```json\n'+JSON.stringify(j,null,2)+'\n```\n';
+}
+function capPintarIdeas(sinSaltar){
+  var sel=capSeleccion(), box=el('cp_ideas');
+  if(!sel.length){box.hidden=true;return}
+  var angs=capAngulos(sel), bus=capBusquedas(sel), marcas=capMarcas(sel);
+  /* si ya habías elegido un ángulo, se conserva al cambiar la selección */
+  var ini=0;
+  if(capIdeasDe)angs.forEach(function(a,i){if(a.titulo===capIdeasDe.titulo)ini=i});
+  capIdeasDe=angs[ini];
+  var sinEnlace=sel.filter(function(p){return !p.asin&&!p.linkAfiliado}).length;
+  var sinFicha=sel.filter(function(p){var e=capEsq(p.cat);return (e.campos||[]).filter(function(c){return (p.attrs||{})[c.k]}).length<3}).length;
+  box.hidden=false;
+  box.innerHTML='<div class="sech"><h2>Ideas para guía</h2><span class="note">'+sel.length+' productos · '+
+      (marcas.length===1?marcas[0]:marcas.length+' marcas')+'</span></div>'+
+    '<div class="split"><div class="stack">'+
+      angs.map(function(a,i){
+        return '<div class="card"><div class="hd"><h3>'+esc(a.titulo)+'</h3>'+
+          (i===ini?'<span class="chip ok">elegida</span>':'')+
+          '<button class="btn '+(i===ini?'pri ':'')+'sm" type="button" data-ang="'+i+'" style="margin-left:auto">Usar esta</button></div>'+
+          '<div class="bd stack">'+
+          '<div class="sm">'+esc(a.porque)+'</div>'+
+          '<dl class="kv"><dt>Busca como</dt><dd>'+esc(a.intencion)+'</dd>'+
+          '<dt>Ruta</dt><dd><code>/guias-compra/'+esc(slugify((sel[0]&&sel[0].catTitulo)||''))+'/'+esc(slugify(a.titulo))+'/</code></dd></dl>'+
+          '</div></div>';
+      }).join('')+
+    '</div><div class="stack">'+
+      '<div class="card"><div class="hd"><h3>Lo que ya busca la gente</h3><span class="note">Search Console, últimos 28 días</span></div><div class="bd">'+
+        (bus&&bus.length?
+          '<table><thead><tr><th>Consulta</th><th class="num">Impresiones</th><th class="num">Clics</th><th class="num">Posición</th></tr></thead><tbody>'+
+          bus.map(function(q){return '<tr><td class="sm">'+esc(q.consulta)+'</td><td class="num">'+fmt(q.impresiones)+'</td><td class="num">'+fmt(q.clics)+'</td><td class="num">'+(q.posicion?q.posicion.toFixed(0):'—')+'</td></tr>'}).join('')+
+          '</tbody></table>'+
+          '<div class="sm" style="margin-top:8px">Son búsquedas reales en las que comparalo.mx <b>ya aparece</b>. No es el volumen de Google —eso no lo tengo— pero sí la prueba de que la gente llega por ahí y de en qué posición estás.</div>'
+          :'<div class="empty">'+(AN?'Search Console no tiene ninguna consulta que se parezca a esta selección todavía. Es una guía para una búsqueda en la que el sitio aún no aparece: más lenta de posicionar, pero sin competencia interna.':'No se cargó <code>analitica.json</code>, así que no puedo cruzar con lo que ya busca la gente.')+'</div>')+
+      '</div></div>'+
+      ((sinEnlace||sinFicha)?'<div class="alert warn"><div><b>Antes de generarla</b><p>'+
+        (sinEnlace?sinEnlace+' sin enlace ni ASIN (no tendrían botón de compra). ':'')+
+        (sinFicha?sinFicha+' con menos de 3 características (la tarjeta saldría pelona). ':'')+
+        '</p></div></div>':'')+
+    '</div></div>'+
+    '<div class="card" style="margin-top:14px"><div class="hd"><h3>Prompt para Claude Code</h3>'+
+      '<span class="note" id="cp_angNote">'+esc(angs[ini].titulo)+'</span>'+
+      '<button class="btn pri sm" id="cp_copiarPrompt" type="button" style="margin-left:auto">Copiar prompt + JSON</button></div>'+
+      '<div class="bd"><textarea id="cp_prompt" rows="16" spellcheck="false">'+esc(capPrompt(sel,angs[ini]))+'</textarea>'+
+      '<div class="sm" style="margin-top:6px">Pégalo tal cual en Claude Code. Lleva dentro el JSON de los '+sel.length+' productos con sus ASIN, enlaces con <code>tag='+TAG+'</code>, características y la foto; los precios van marcados como internos para que no acaben escritos en la guía.</div></div></div>';
+  box.querySelectorAll('[data-ang]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var a=angs[Number(b.getAttribute('data-ang'))];
+      capIdeasDe=a; el('cp_prompt').value=capPrompt(sel,a); el('cp_angNote').textContent=a.titulo;
+      toast('Prompt armado con: '+a.titulo);
+    });
+  });
+  el('cp_copiarPrompt').addEventListener('click',function(){copiar(el('cp_prompt').value)});
+  if(!sinSaltar)box.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
 /* lo capturado, en el mismo formato que el inventario importado */
 function capturaNorm(){
   capCargar();

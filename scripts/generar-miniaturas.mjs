@@ -123,6 +123,30 @@ if (fs.existsSync(BANDEJA)) {
   }
 }
 
+// Lo capturado a mano en «Captura Amazon» (del botón «Exportar JSON» del Centro). Vive en el
+// navegador de Alan, no en el repo, así que no hay de dónde sacarlo salvo el archivo que él
+// exporte: `--captura=<archivo.json>`. Clave `captura:<ASIN>`. Sin la bandera no se toca
+// ninguna de estas —no sabemos cuáles siguen capturadas— y sin ellas el Centro enseñaría la
+// ficha sin foto justo cuando hay que decidir si el producto entra a una guía.
+const CAPTURA = flag('captura');
+if (CAPTURA) {
+  const ruta = path.isAbsolute(CAPTURA) ? CAPTURA : path.join(process.cwd(), CAPTURA);
+  const c = JSON.parse(fs.readFileSync(ruta, 'utf8'));
+  const lista = Array.isArray(c) ? c : (c.products || c.productos || []);
+  for (const p of lista) {
+    const asin = p.asin || p.ASIN;
+    const url = p.image_url || p.imagen;
+    if (!asin) continue;
+    const k = `captura:${asin}`;
+    vigentes.add(k);
+    if (!url) continue;
+    if (imagenes[k] && fuentes[k] === url && !FORZAR) continue;
+    pendientes.push({ k, url });
+  }
+} else {
+  for (const k of Object.keys(imagenes)) if (k.startsWith('captura:')) vigentes.add(k);
+}
+
 // un producto borrado de la base se lleva su miniatura
 for (const k of Object.keys(imagenes)) if (!vigentes.has(k)) { delete imagenes[k]; delete fuentes[k]; }
 
