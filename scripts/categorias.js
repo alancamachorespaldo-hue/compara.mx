@@ -262,6 +262,13 @@ export const CATEGORIAS = {
     titulo: 'iPhone', file: 'celulares/iphone/index.html', varName: 'familias',
     tipo: 'familias', prefix: 'iphone',
     descuentos: 'celulares/descuentos.json',
+    /* catalog-mini.json propio: el de Android (celulares/catalog-mini.json) solo trae
+       `android-*`, así que una guía de iPhone no encontraba ahí ni precio vivo ni oferta
+       verificada. Las guías de iPhone leen este archivo en C.catalogUrl. */
+    catalogMini: {
+      salida: ['celulares', 'iphone', 'catalog-mini.json'],
+      especs: ['pantalla', 'chip', 'almacenamiento', 'hz'],
+    },
     /* Descubrimiento por catálogo en una página de FAMILIAS (nov-2026). A diferencia de
        proteína, aquí un catálogo de ML no es una tarjeta: es una VARIANTE de almacenamiento
        dentro de una familia (iPhone 17 Pro 256 GB ⊂ «iPhone 17 Pro»). Quién decide la familia y

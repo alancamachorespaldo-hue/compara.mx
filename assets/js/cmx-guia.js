@@ -65,6 +65,8 @@
      La clave de cada producto es su dbId (el id de merged-admin.json), que es con el que
      se publica assets/data/historico/<categoria>.json. El JSON se baja solo al abrir el
      primer histórico: una guía que nadie despliega no pesa nada de más. */
+  /* precio vivo por enlace (linkML -> precioML); lo llena el fetch de catalogUrl */
+  var PRECIOS = {};
   var HIST = !!(C.historico && window.cmxHist);
   if (HIST) window.cmxHist.init(C.historico);
   var IC_CHART = '<line x1="3" y1="21" x2="21" y2="21"/><rect x="5" y="12" width="3.5" height="7"/><rect x="10.2" y="7" width="3.5" height="12"/><rect x="15.4" y="14" width="3.5" height="5"/>';
@@ -391,6 +393,7 @@
     if (!cat) return;
     var map = {};
     Object.keys(cat).forEach(function (k) { if (cat[k].linkML) map[cat[k].linkML] = cat[k].precioML; });
+    PRECIOS = map;
     F.forEach(function (f) {
       /* Un producto puede tener precio en la base pero ningún enlace guardado ahí (las
          subpáginas de suplementos conservan sus enlaces solo en el HTML, ver CLAUDE.md).
@@ -401,7 +404,12 @@
       (f.variantes || []).forEach(function (v) { if (v.linkML && map[v.linkML] != null) v.precio = map[v.linkML]; });
       if (f.dbId && cat[f.dbId]) REG[f.modeloBase].especs = cat[f.dbId].especs;
     });
-    if (typeof window.cmxPreciosGuia === 'function') window.cmxPreciosGuia(F, map, C.rango);
+    /* preciosExtra: precios del artículo que NO son una familia de la guía. Una guía de precios
+       lista todas las capacidades de cada modelo, no solo la que representa a su tarjeta, y esas
+       cifras también tienen que refrescarse. Solo se pintan: no entran al comparador, ni a las
+       tarjetas, ni a los Guardados. Forma: { modeloBase: '<dbId>', dbId: '<dbId>', precio, linkML }
+       —modeloBase y dbId iguales para que sync-guias-precios.js también las mantenga en el HTML—. */
+    if (typeof window.cmxPreciosGuia === 'function') window.cmxPreciosGuia(F.concat(C.preciosExtra || []), map, C.rango);
     /* guias-precios.js es compartido: aquí se ajusta lo propio de las guías de Mercado Libre */
     $$('.cmx-precio-nd').forEach(function (el) { el.textContent = el.classList.contains('cg-p-inline') ? 'un precio que cambia a diario' : 'Consulta el precio en Mercado Libre'; });
     $$('[data-cmx-precio] + .cmx-rango').forEach(function (el) { el.parentNode.removeChild(el); });
@@ -419,7 +427,15 @@
       var it = REG[el.getAttribute('data-cg-ml')];
       if (it) {
         var p = prodParams(it, el.getAttribute('data-ga-section') || 'articulo');
-        p.event_category = 'afiliado'; p.event_label = it.nombre; p.value = price(it) || 0;
+        /* Una guía de precios enlaza VARIAS capacidades del mismo modelo, y todas comparten
+           el modeloBase de su tarjeta. Cada enlace puede declarar el id y el nombre de la
+           capacidad concreta para que el informe no las mezcle; el valor sale del precio vivo
+           de ese mismo enlace, así que no hay que mantenerlo a mano en el HTML. */
+        var ovId = el.getAttribute('data-ga-item'), ovNom = el.getAttribute('data-ga-name');
+        if (ovId) p.item_id = ovId;
+        if (ovNom) p.item_name = ovNom;
+        var vivo = PRECIOS[el.getAttribute('href')];
+        p.event_category = 'afiliado'; p.event_label = p.item_name; p.value = (vivo != null ? vivo : price(it)) || 0;
         if (p.page_section === 'ofertas') p.is_offer = !!it.pct;
         ev('affiliate_click_ml', p);
       }

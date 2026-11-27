@@ -145,6 +145,11 @@ que Alan lo pida.
   paneles, ofertas verificadas, precios vivos y **todos los eventos**. Se configura con
   `window.CMX_GUIA` (ver el comentario inicial del archivo) y con atributos `data-cg-*` /
   `data-ga-*`; la guía no lleva `onclick` en línea.
+- `preciosExtra` (nov-2026) — lista plana de `{ modeloBase: '<dbId>', dbId: '<dbId>', precio, linkML }`
+  para precios del artículo que no son una familia de la guía: una guía de **precios** enseña todas
+  las capacidades de cada modelo, no solo la que representa a su tarjeta. Se pintan con el mismo
+  mapa que las tarjetas y `sync-guias-precios.js` también las mantiene (por eso `modeloBase` y
+  `dbId` llevan el mismo valor). No entran al comparador ni a los Guardados.
 - Las ofertas salen de `assets/data/bajadas.json` cruzado con el `catalog-mini.json` de la
   categoría, filtradas al rango de precio de la guía. Si no hay, la caja pasa a «Precios de hoy».
 - Categorías sin `catalog-mini.json` o con otro comparador: revisar su contrato y, si hace falta,
