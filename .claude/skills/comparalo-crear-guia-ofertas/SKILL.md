@@ -20,10 +20,19 @@ los botones de afiliado de Amazon correctamente, y publicar** (página + tarjeta
 sitemap + validación). **El contenido editorial lo escribe Alan; tú no inventas productos,
 precios ni características.**
 
-> Para la mecánica de la plantilla (head, header, secciones, sidebar/FAB, JS) reutiliza la skill
-> [`crear-guia`](../crear-guia/SKILL.md). Esta skill **añade la capa de cumplimiento de Amazon y
-> el paso de publicación en `/guias-compra/`**. Si hay conflicto, mandan las reglas de Amazon de
-> abajo.
+> **La plantilla vigente de las guías de Amazon es `cg`** (nov-2026): tres columnas sobre
+> `assets/css/cmx-guia.css` + `assets/css/cmx-guia-amz.css`, con el comparador, la barra y los
+> paneles móviles ya resueltos en `assets/js/cmx-guia-amz.js`; la guía solo declara sus datos en
+> `window.CMX_GUIA_AMZ`. Molde vivo: `guias/laptops/macbook-reacondicionadas/index.html`; ejemplo
+> con fichas repetidas del mismo modelo:
+> `guias-compra/smartwatches/mejores-smartwatches-xiaomi-en-mexico/index.html`. La mecánica
+> completa (sección por sección, contrato de `CMX_GUIA_AMZ`, veredictos, filtros) está en el
+> agente [`comparalo-crear-guia-oferta-amazon`](../../agents/comparalo-crear-guia-oferta-amazon.md).
+> **No uses el molde viejo** de columna única con `.product` y CSS en línea
+> (`guias/laptops/mejores-macbook-calidad-precio/`), ni la mecánica de
+> [`crear-guia`](../crear-guia/SKILL.md), que es para las guías de Mercado Libre de `/guias/`.
+> Esta skill **añade la capa de cumplimiento de Amazon y el paso de publicación en
+> `/guias-compra/`**. Si hay conflicto, mandan las reglas de Amazon de abajo.
 
 ---
 
