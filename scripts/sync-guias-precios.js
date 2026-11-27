@@ -26,6 +26,8 @@ const RAIZ = join(AQUI, '..');
 const MAX_SALTO = 0.25; // 25%
 
 const GUIAS = [
+  'guias/celulares/precios-iphone-mexico/index.html',
+  'guias/celulares/iphone-menos-20000-mexico/index.html',
   'guias/celulares/mejores-celulares-menos-5000/index.html',
   'guias/celulares/celulares-menos-3000-mexico/index.html',
   'guias/celulares/mejores-celulares-calidad-precio/index.html',
