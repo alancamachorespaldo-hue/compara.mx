@@ -15,6 +15,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { CATEGORIAS } from './categorias.js';
+import { leerArray } from './_html-precios.js';
+import { resolverFamilia } from './_familias-alta.js';
 
 const DIR = path.dirname(fileURLToPath(import.meta.url));
 const RAIZ = path.join(DIR, '..');
@@ -245,6 +247,26 @@ const sugerencias = Object.entries(sug || {})
    con las miniaturas. En datos.json queda únicamente el conteo, que es lo que pinta el
    indicador de arriba. */
 const PENDIENTES = new Set(['new_unpublished', 'revisar']);
+/* En qué familia de la página entra cada ficha de la bandeja. Se calcula AQUÍ, contra la página
+   tal como está hoy, y no se copia el `_familia` que dejó el descubrimiento: la página cambia
+   por su cuenta —en cuanto se escribe la familia de un modelo, sus fichas dejan de estar
+   huérfanas— y un valor guardado seguiría diciendo «sin familia» hasta la siguiente búsqueda.
+   Es la misma pregunta que hace `aplicar-nuevos.mjs` al publicar, así que el Centro enseña
+   exactamente lo que va a pasar. */
+const familiasDe = {};
+for (const clave of Object.keys(bandejaRaw.categorias || {})) {
+  const cat = CATEGORIAS[clave];
+  if (!cat || (cat.tipo ?? 'plano') !== 'familias') continue;
+  const r = leerArray(path.join(RAIZ, cat.file), cat.varName);
+  if (r.ok) familiasDe[clave] = r.datos;
+  else console.warn(`  ⚠ no se pudo leer ${cat.file} (${r.motivo}): la bandeja de ${clave} irá sin familia`);
+}
+const familiaDe = (clave, p) => {
+  const fams = familiasDe[clave];
+  if (!fams) return { familia: undefined, motivo: null };
+  const r = resolverFamilia(fams, { modelo: (p.especs || {}).modeloML || null });
+  return r.ok ? { familia: r.familia.modeloBase, motivo: null } : { familia: null, motivo: r.motivo };
+};
 /* Las faltantes se RECALCULAN aquí, no se copian de la bandeja: la lista de obligatorias de la
    categoría cambia (en nov-2026 proteinaPorPorcion pasó de bloquear a solo avisar) y las fichas
    guardadas antes del cambio seguirían diciendo que les falta algo que ya no se exige. */
@@ -305,7 +327,7 @@ for (const [clave, info] of Object.entries(bandejaRaw.categorias || {})) {
       posibleDuplicadoDe: p.posibleDuplicadoDe || null,
       termino: p.termino, detectadoEn: p.detectadoEn, actualizadoML: p.actualizadoML || null,
       fuente: p.fuente || 'busqueda', seVende: p.seVende === true,
-      familia: p._familia ?? null, familiaMotivo: p._familiaMotivo || null,
+      ...(() => { const f = familiaDe(clave, p); return f.familia === undefined ? {} : { familia: f.familia, familiaMotivo: f.motivo }; })(),
       linkML: p.linkML || null, linkAmz: p.linkAmz || null,
     })),
   };

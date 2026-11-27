@@ -318,6 +318,30 @@ if (ES_FAMILIAS && paraPagina.length) {
     process.exit(1);
   }
   for (const f of prueba.fallos) deshacerAlta(f.mlId, f.motivo);
+
+  /* Aviso, no candado: si en una familia una capacidad MAYOR acaba más barata que una menor, la
+     tarjeta se lee como un error aunque los dos precios sean ciertos. Pasa de verdad con los
+     modelos descatalogados —el 27-nov-2026 el iPhone 15 Pro quedó con 512 GB a $16,164 y 256 GB
+     a $25,999, y las dos publicaciones son nuevas y están vivas: es el mercado, no el dato—. No
+     se bloquea porque el precio es el que verá quien dé clic, que es justo lo que este sitio
+     promete enseñar; se avisa para poder mirarlo. */
+  const porFam = new Map();
+  for (const x of paraPagina) {
+    if (!porFam.has(x.modeloBase)) {
+      const f = familiasPagina.find(y => y.modeloBase === x.modeloBase);
+      porFam.set(x.modeloBase, (f?.variantes ?? []).map(v => ({ gb: v.almacenamientoGB, precio: v.precioML ?? v.precio, nuevo: null })));
+    }
+    porFam.get(x.modeloBase).push({ gb: x.variante.almacenamientoGB, precio: x.variante.precio, nuevo: x.variante.mlId });
+  }
+  for (const [modeloBase, vs] of porFam) {
+    const orden = vs.filter(v => v.gb > 0 && v.precio > 0).sort((a, b) => a.gb - b.gb);
+    for (let i = 1; i < orden.length; i++) {
+      if (orden[i].precio >= orden[i - 1].precio) continue;
+      const culpable = orden[i].nuevo ?? orden[i - 1].nuevo;
+      if (!culpable) continue;
+      avisos.push({ id: culpable, aviso: `en ${modeloBase}, ${orden[i].gb} GB queda a $${orden[i].precio} y ${orden[i - 1].gb} GB a $${orden[i - 1].precio}: los dos enlaces están vivos, pero la tarjeta se va a leer rara` });
+    }
+  }
 }
 
 // ── informe ──

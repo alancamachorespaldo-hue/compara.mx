@@ -600,3 +600,90 @@ export function quitarVariantes(abs, varName, ids, opts = {}) {
   writeFileSync(abs, html.slice(0, loc.start) + text + html.slice(loc.end), 'utf8');
   return { ok: true, quitadas: pedidas, fallos };
 }
+
+/**
+ * Agrega FAMILIAS nuevas (modelos) a una página de celulares.
+ *
+ * `agregarVariantes` mete una capacidad dentro de un modelo que ya está; esto crea el modelo.
+ * Son dos cosas distintas a propósito: una variante se deduce del catálogo —capacidad, precio,
+ * enlace— mientras que una familia es la ficha editorial del teléfono (chip, pulgadas, Hz,
+ * versión de USB, zoom, colores), y de eso la API solo da una parte. Por eso ninguna corrida
+ * crea familias sola: las escribe quien sabe, y esta función solo las coloca bien.
+ *
+ * La familia nueva nace con `variantes: []`. Queda invisible en la página —sin variantes no hay
+ * nada que comprar— hasta que `aplicar-nuevos.mjs` le meta la primera con su enlace, que es el
+ * orden correcto: primero el modelo, después sus capacidades.
+ *
+ * El esquema de campos se copia de la familia MÁS COMPLETA que ya esté en la página, para que
+ * todas tengan las mismas claves y los filtros no se encuentren con una a medias; lo que no se
+ * sepa entra como `null`, nunca deducido.
+ *
+ * @param {string} abs      ruta absoluta del HTML
+ * @param {string} varName  nombre del array de familias
+ * @param {Array<object>} nuevas  familias ya armadas (al menos `modeloBase` y `nombre`)
+ * @param {{dryRun?:boolean}} opts
+ * @returns {{ok:boolean, motivo?:string, agregadas:number, fallos:Array<{modeloBase:string,motivo:string}>}}
+ */
+export function agregarFamilias(abs, varName, nuevas, opts = {}) {
+  const vacio = { agregadas: 0, fallos: [] };
+  if (!existsSync(abs)) return { ok: false, motivo: 'no existe el archivo', ...vacio };
+  const html = readFileSync(abs, 'utf8');
+  const loc = locateArray(html, varName);
+  if (!loc) return { ok: false, motivo: `sin array ${varName}`, ...vacio };
+
+  const arrayText = html.slice(loc.start, loc.end);
+  let familias;
+  try { familias = new Function('return ' + arrayText)(); } catch (e) {
+    return { ok: false, motivo: `el array de la página no se pudo leer (${e.message})`, ...vacio };
+  }
+  if (!Array.isArray(familias) || !familias.length) {
+    return { ok: false, motivo: 'la página no tiene ninguna familia de la que copiar el esquema', ...vacio };
+  }
+
+  const fallos = [];
+  const vistos = new Set(familias.map(f => f.modeloBase));
+  const entran = [];
+  for (const f of nuevas) {
+    if (!f || !f.modeloBase) { fallos.push({ modeloBase: '(sin modeloBase)', motivo: 'la familia no trae modeloBase' }); continue; }
+    if (vistos.has(f.modeloBase)) { fallos.push({ modeloBase: f.modeloBase, motivo: 'ya existe esa familia en la página' }); continue; }
+    if (!f.nombre) { fallos.push({ modeloBase: f.modeloBase, motivo: 'la familia no trae nombre, y el nombre es con lo que se le asignan las variantes' }); continue; }
+    vistos.add(f.modeloBase);
+    entran.push(f);
+  }
+  if (!entran.length) return { ok: true, agregadas: 0, fallos };
+
+  const EOL = html.includes('\r\n') ? '\r\n' : '\n';
+  const rica = familias.reduce((a, b) => (Object.keys(b).length > Object.keys(a).length ? b : a), familias[0]);
+  const esquema = Object.keys(rica);
+
+  const lit = v => {
+    if (v === undefined || v === null) return 'null';
+    if (typeof v === 'number') return Number.isFinite(v) ? String(+v.toFixed(2)) : 'null';
+    if (typeof v === 'boolean') return String(v);
+    if (Array.isArray(v)) return '[' + v.map(lit).join(', ') + ']';
+    if (typeof v === 'object') return '{ ' + Object.entries(v).map(([k, x]) => `${k}: ${lit(x)}`).join(', ') + ' }';
+    return JSON.stringify(String(v));
+  };
+  const bloques = entran.map(f => '  {' + EOL + esquema.map(k => {
+    const v = k === 'variantes' || k === 'saltos' ? (f[k] ?? []) : f[k];
+    return `    ${k}: ${Array.isArray(v) && !v.length ? '[]' : lit(v)},`;
+  }).join(EOL) + EOL + '  }');
+
+  const cierre = arrayText.lastIndexOf(']');
+  let antes = arrayText.slice(0, cierre).replace(/\s*$/, '');
+  if (!antes.replace(/\s/g, '').endsWith('[')) antes += antes.endsWith(',') ? '' : ',';
+  const text = `${antes}${EOL}${bloques.join(',' + EOL)},${EOL}]`;
+
+  try {
+    const arr = new Function('return ' + text)();
+    if (!Array.isArray(arr) || arr.length !== familias.length + entran.length) throw new Error('cuenta inesperada');
+    const claves = new Set(arr.map(f => f.modeloBase));
+    if (claves.size !== arr.length) throw new Error('quedarían dos familias con el mismo modeloBase');
+  } catch (e) {
+    return { ok: false, motivo: `el array quedaría mal (${e.message}): no se tocó la página`, ...vacio };
+  }
+
+  if (opts.dryRun) return { ok: true, agregadas: entran.length, fallos };
+  writeFileSync(abs, html.slice(0, loc.start) + text + html.slice(loc.end), 'utf8');
+  return { ok: true, agregadas: entran.length, fallos };
+}
