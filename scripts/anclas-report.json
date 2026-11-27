@@ -1,15 +1,52 @@
 {
-  "fecha": "2026-11-26",
-  "generado": "2026-11-26T21:00:48.301Z",
+  "fecha": "2026-11-27",
+  "generado": "2026-11-27T06:44:51.200Z",
   "aplicado": true,
   "factor": 1.5,
   "margen": 0.25,
   "minimo": 10,
   "totales": {
-    "bajadasVigentes": 589,
-    "soltadas": 0,
+    "bajadasVigentes": 604,
+    "soltadas": 3,
     "sinSerie": 0,
-    "pocosDatos": 83
+    "pocosDatos": 85
   },
-  "soltadas": []
+  "soltadas": [
+    {
+      "categoria": "cafeteras",
+      "id": "cafetera-mlm24158064-5",
+      "nombre": "Oster Cafetera Bvstdco5 Goteo De 5 Tazas Con Filtro Permanente Color Negro",
+      "mlId": "MLM24158064",
+      "anclaSoltada": 632,
+      "precioHoy": 245,
+      "mediana30": 259,
+      "pctQueAnunciaba": 61,
+      "vecesSobreLaMediana": 2.44,
+      "dias": 30
+    },
+    {
+      "categoria": "bicisMontana",
+      "id": "101",
+      "nombre": "Terrafit Venum R26",
+      "mlId": "MLM47063986",
+      "anclaSoltada": 6227,
+      "precioHoy": 3879,
+      "mediana30": 3999,
+      "pctQueAnunciaba": 38,
+      "vecesSobreLaMediana": 1.56,
+      "dias": 11
+    },
+    {
+      "categoria": "videojuegos_consolas",
+      "id": "CON-XBSXD-001",
+      "nombre": "Consola Xbox Series X Digital Robot White 1TB",
+      "mlId": "MLM40162063",
+      "anclaSoltada": 27000,
+      "precioHoy": 19999,
+      "mediana30": 16635.42,
+      "pctQueAnunciaba": 26,
+      "vecesSobreLaMediana": 1.62,
+      "dias": 30
+    }
+  ]
 }
