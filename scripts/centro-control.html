@@ -1311,8 +1311,13 @@ function banPegarPanel(){
   var deDonde=marcados.length?'<b>'+ambito.length+' marcados</b>'
                              :'<b>los '+ambito.length+' que se ven con el filtro de arriba</b>';
   el('pDetail').innerHTML='<div class="hd"><h3>Pegar enlaces en bloque</h3>'+
-      '<span class="chip '+(con?'ok':'warn')+'">'+con+' de '+ambito.length+' ya tienen enlace</span></div>'+
+      '<span class="chip '+(con===ambito.length?'ok':(con?'warn':'bad'))+'">'+con+' de '+ambito.length+' ya tienen enlace</span></div>'+
     '<div class="bd stack">'+
+    (ambito.length&&con===ambito.length
+      ? '<div class="why" style="border-color:var(--ok)"><b>Aquí ya no hay nada que pegar</b>'+
+        'Los '+ambito.length+' tienen su enlace guardado. Este panel ya no te hace falta: cierra, '+
+        'márcalos y dale a <b>Dar de alta</b>, luego <b>Copiar para publicar</b> y <b>Publicar en GitHub</b>.</div>'
+      : '')+
     '<div class="why"><b>Una línea por producto</b>Abajo están '+deDonde+', con el enlace que ya tengan guardado. '+
       'Pega el que falte después del ID; lo que va tras <code>#</code> es el nombre, para ubicarte, y se ignora.<br>'+
       'También puedes borrar todo y pegar de Excel: el ID y su enlace en cualquier orden y separados por lo que sea.</div>'+
@@ -1588,10 +1593,19 @@ el('pDetail').addEventListener('click',function(e){
         if(banVista(q).linkML===link){igual++;return}   // ya estaba guardado: no se reescribe
         if(banEnlace(q,link))ok++;
       });
-      toast((ok?ok+' enlaces nuevos':'Sin cambios')+(igual?' · '+igual+' ya los tenían':'')+
-        (pend?' · '+pend+(pend===1?' sigue':' siguen')+' sin enlace':'')+
-        (faltan.length?' · '+faltan.length+(faltan.length===1?' id no está':' ids no están')+' en la bandeja':'')+
-        (raros?' · '+raros+' líneas no se entendieron':''));
+      // Que todo salga «igual» no es un fallo: es que esos enlaces ya estaban guardados y no
+      // hay nada que pegar. Dicho como «sin cambios» parecía que el botón no había hecho nada
+      // (26-nov-2026, Alan), así que ese caso lo dice con todas sus letras y apunta al paso que sigue.
+      var nada=!ok&&igual&&!pend&&!faltan.length&&!raros;   // todo ya estaba: el paso está hecho
+      var partes=[];
+      if(ok)partes.push(ok+(ok===1?' enlace nuevo guardado':' enlaces nuevos guardados'));
+      else if(nada)partes.push('Nada que pegar: los '+igual+' ya tenían su enlace · sigue con «Dar de alta»');
+      else partes.push('Sin cambios');
+      if(igual&&!nada)partes.push(igual+(igual===1?' ya lo tenía':' ya lo tenían'));
+      if(pend)partes.push(pend+(pend===1?' sigue':' siguen')+' sin enlace');
+      if(faltan.length)partes.push(faltan.length+(faltan.length===1?' id no está':' ids no están')+' en la bandeja');
+      if(raros)partes.push(raros+' líneas no se entendieron');
+      toast(partes.join(' · '));
       pintarBandeja(); banPegarPanel();   // se vuelve a pintar: ahí mismo se ve lo que quedó
       return;
     }
