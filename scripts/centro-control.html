@@ -307,6 +307,7 @@ tbody tr.sel td:first-child{box-shadow:inset 3px 0 0 var(--ac)}
               <option value="nuevos-por-comprobar">Nuevos · por comprobar en ML</option>
               <option value="nuevos-comprobados">Nuevos · comprobados, se venden</option>
               <option value="nuevos-sin-enlace">Nuevos · pendientes de enlace</option>
+              <option value="nuevos-con-enlace">Nuevos · con enlace ya pegado</option>
               <option value="nuevos-sin-validar">Nuevos · pendientes de validación</option>
             </select>
             <select class="inp" id="ptienda">
@@ -324,11 +325,14 @@ tbody tr.sel td:first-child{box-shadow:inset 3px 0 0 var(--ac)}
               <div class="sech"><span class="note" id="pcount"></span>
                 <span class="row" style="margin-left:auto;gap:6px">
                   <a class="btn sm" id="pPrecios" href="https://github.com/alancamachorespaldo-hue/compara.mx/actions/workflows/precios-por-link.yml" target="_blank" rel="noopener">Revisar precios por link ↗</a>
-                  <button class="btn sm copy" type="button" data-copy="node scripts/precios-por-link.mjs --todas --aplicar&#10;node scripts/sync-pausas.js">Copiar comando</button>
                   <a class="btn sm" id="pRevisar" href="https://github.com/alancamachorespaldo-hue/compara.mx/actions/workflows/revisar-disponibilidad.yml" target="_blank" rel="noopener">Revisar todos los enlaces ↗</a>
-                  <button class="btn sm copy" type="button" data-copy="node scripts/revisar-disponibilidad.js --todas --links --aplicar&#10;node scripts/sync-pausas.js">Copiar comando</button>
                   <a class="btn pri sm" id="pBuscarCat" href="https://github.com/alancamachorespaldo-hue/compara.mx/actions/workflows/descubrir-catalogo.yml" target="_blank" rel="noopener">🔎 Buscar catálogo en API de Mercado Libre ↗</a>
-                  <button class="btn sm copy" id="pBuscarCmd" type="button" data-copy="node scripts/descubrir-catalogo.mjs --categoria=proteina --aplicar">Copiar comando</button>
+                  <!-- UN solo «Copiar comando» (27-nov-2026, Alan). Eran tres seguidos y no se
+                       distinguía cuál copiaba qué; además el de la búsqueda llevaba
+                       `--categoria=proteina` escrito a mano, que desde que existe iPhone ya era
+                       el comando equivocado la mitad de las veces. Ahora copia el comando de lo
+                       que estás viendo y lo dice en su propio texto: `pintarCmdBarra()`. -->
+                  <button class="btn sm copy" id="pCmd" type="button" data-copy="">Copiar comando</button>
                 </span>
               </div>
               <div class="tbl-wrap tall">
@@ -832,10 +836,35 @@ function pedirImgs(){
     });
 }
 var ESTADO={ok:['ok','Sin problema'],'sin-id':['warn','Sin ID'],'pausado-ml':['warn','Pausado en ML'],'pausado-amz':['warn','Pausado en Amazon'],pausado:['bad','Pausado'],'sin-tienda':['bad','Sin tienda'],inactivo:['mute','Inactivo']};
+/* El único «Copiar comando» de la barra. Copia el comando de LO QUE ESTÁS VIENDO y lo dice en su
+   texto, en vez de tres botones iguales de los que no se sabía cuál era cuál:
+     · en la bandeja → la búsqueda de catálogo, con la categoría elegida en el desplegable
+       (antes decía `--categoria=proteina` escrito a mano: con iPhone ya en el registro, eso
+       mandaba a buscar la categoría equivocada);
+     · en el resto → los precios por enlace, que es la corrida diaria y la única fuente de
+       precios mientras la API siga cerrada.
+   `revisar-disponibilidad.js` no tiene comando aquí a propósito: su capa de catálogo está
+   dormida —la API responde 403— y su capa de enlaces la hace ya a diario precios-por-link. */
+function pintarCmdBarra(){
+  var b=el('pCmd'); if(!b)return;
+  var cat=el('pcat').value;
+  if(modoBandeja()){
+    var cmd='node scripts/descubrir-catalogo.mjs '+(cat?'--categoria='+cat:'--todas')+' --fuente=ambas --aplicar';
+    b.textContent='Copiar comando de búsqueda';
+    b.setAttribute('data-copy',cmd);
+    b.title=cmd;
+  }else{
+    var pc='node scripts/precios-por-link.mjs '+(cat?'--categoria='+cat:'--todas')+' --aplicar\nnode scripts/sync-pausas.js';
+    b.textContent='Copiar comando de precios';
+    b.setAttribute('data-copy',pc);
+    b.title=pc;
+  }
+}
 function pintarProductos(){
   pedirImgs();
   if(!el('pcat').options.length)llenarSelects();
   pintarKpis();
+  pintarCmdBarra();
   // El filtro «Nuevos sin publicar» no mira la base: mira la bandeja, que es otra lista con
   // otras columnas. Se desvía aquí para no mezclar las dos en la misma función.
   if(modoBandeja()){pintarBandeja();return}
@@ -971,6 +1000,7 @@ function banLista(){
       var v=banVista(x);
       if(v.accion==='eliminar')return;
       if(est==='nuevos-sin-enlace'&&v.linkML)return;
+      if(est==='nuevos-con-enlace'&&!v.linkML)return;
       if(est==='nuevos-sin-validar'&&!banFaltan(x).length)return;
       if(est==='nuevos-se-venden'&&!x.seVende)return;
       if(est==='nuevos-por-comprobar'&&(v.revisado||x.seVende))return;
@@ -1092,7 +1122,7 @@ function banBarra(){
   // estado y ahí no se encontraban: un <select> cerrado no se ve, y el buscador del navegador
   // tampoco lo mira (26-nov-2026).
   var est=el('pest').value;
-  var hay={todos:0,venden:0,enlace:0,validar:0,porComprobar:0,comprobados:0};
+  var hay={todos:0,venden:0,enlace:0,conEnlace:0,validar:0,porComprobar:0,comprobados:0};
   Object.keys(BAN).forEach(function(c){
     if(cat&&c!==cat)return;
     (BAN[c].productos||[]).forEach(function(p){
@@ -1101,7 +1131,7 @@ function banBarra(){
       hay.todos++;
       if(x.seVende)hay.venden++;
       if(v.revisado||x.seVende)hay.comprobados++; else hay.porComprobar++;
-      if(!v.linkML)hay.enlace++;
+      if(!v.linkML)hay.enlace++; else hay.conEnlace++;
       if(banFaltan(x).length)hay.validar++;
     });
   });
@@ -1116,11 +1146,19 @@ function banBarra(){
     tab('nuevos-por-comprobar','Por comprobar en ML',hay.porComprobar,'warn')+
     (hay.comprobados?tab('nuevos-comprobados','✓ Comprobados',hay.comprobados,'ok'):'')+
     tab('nuevos-sin-enlace','Falta enlace',hay.enlace,'warn')+
+    (hay.conEnlace?tab('nuevos-con-enlace','✓ Con enlace',hay.conEnlace,'ok'):'')+
     (enCola?'<span class="chip ok">'+fmt(enCola)+' dados de alta, listos para publicar</span> '+
       '<button class="btn sm pri" id="bCopia" type="button">Copiar para publicar</button> '+
       '<a class="btn sm" href="https://github.com/alancamachorespaldo-hue/compara.mx/actions/workflows/publicar-nuevos.yml" target="_blank" rel="noopener">Publicar en GitHub ↗</a> ':'')+
     (info&&info.actualizado?'<span class="sm">· búsqueda del '+esc(fecha(info.actualizado))+'</span> ':'')+
     '<button class="btn sm" id="bPegarBtn" type="button" title="Pegar de una vez los enlaces de varios productos">Pegar enlaces en bloque</button> '+
+    /* El camino corto de «ya pegué los enlaces que pude» a «copiar el JSON» (27-nov-2026, Alan).
+       De una búsqueda salen cientos de fichas y solo unas pocas acaban con enlace —las demás ni
+       se venden—, así que ir marcándolas una por una entre 225 filas es el paso que estorba.
+       Este botón deja a la vista solo las que tienen enlace y las marca todas de una vez: queda
+       «Dar de alta» y «Copiar para publicar». Marca la lista ENTERA, no solo las filas pintadas,
+       que se cortan en las primeras 200. */
+    (hay.conEnlace?'<button class="btn sm pri" id="bSoloEnlace" type="button" title="Deja en la tabla solo los que ya tienen enlace de afiliado y los marca todos">✓ Marcar los '+fmt(hay.conEnlace)+' con enlace</button> ':'')+
     (hay.porComprobar?'<button class="btn sm" id="bSoloVivos" type="button" title="Quita de la bandeja todo lo que no sabemos si se vende"'+
       (bSoloVivosPide?' style="border-color:var(--bad);color:var(--bad)">¿Quitar '+fmt(hay.porComprobar)+'?':'>Dejar solo los que se venden')+'</button> ':'')+
     (marcados.length
@@ -1748,6 +1786,17 @@ el('pcount').addEventListener('click',function(e){
   if(id==='bAlta'){banAltaLote();return}
   if(id==='bBorra'){banBorraLote();return}
   if(id==='bNada'){BMARCA={};pintarBandeja();return}   // aquí sí: hay que destildar las casillas
+  /* Filtrar y marcar en un solo clic: deja la tabla con los que ya tienen enlace y los marca
+     todos, que es lo que se quiere hacer justo después de pegar enlaces en bloque. */
+  if(id==='bSoloEnlace'){
+    el('pest').value='nuevos-con-enlace';
+    pTope=200; BMARCA={};
+    var conEnlace=banLista();
+    conEnlace.forEach(function(p){BMARCA[p.cat+'|'+p.id]=true});
+    pintarProductos();
+    toast(conEnlace.length+' con enlace, marcados · «Dar de alta» y luego «Copiar para publicar»');
+    return;
+  }
   var fb=e.target.closest('[data-est]');
   if(fb){ el('pest').value=fb.getAttribute('data-est'); pTope=200; pintarProductos(); return }
   if(id==='bPegarBtn'){ bPegar=true; BSEL=null; banPegarPanel(); return }
