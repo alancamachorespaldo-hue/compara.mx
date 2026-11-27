@@ -1,5 +1,5 @@
 {
-  "generado": "2026-11-27T15:28:06.475Z",
+  "generado": "2026-11-27T22:14:53.291Z",
   "estado": "ok",
   "ga4": {
     "propiedad": "properties/550716422",
@@ -11,13 +11,13 @@
         "actual": {
           "desde": "2026-11-21",
           "hasta": "2026-11-27",
-          "usuarios": 204,
-          "sesiones": 226,
-          "vistas": 1018,
-          "eventos": 2651,
-          "clicsML": 48,
+          "usuarios": 211,
+          "sesiones": 238,
+          "vistas": 1035,
+          "eventos": 2699,
+          "clicsML": 50,
           "clicsAmz": 0,
-          "clicsTienda": 48,
+          "clicsTienda": 50,
           "leads": 0
         },
         "previo": {
@@ -38,13 +38,13 @@
         "actual": {
           "desde": "2026-10-31",
           "hasta": "2026-11-27",
-          "usuarios": 1009,
-          "sesiones": 1094,
-          "vistas": 2130,
-          "eventos": 6669,
-          "clicsML": 149,
+          "usuarios": 1016,
+          "sesiones": 1107,
+          "vistas": 2147,
+          "eventos": 6717,
+          "clicsML": 151,
           "clicsAmz": 31,
-          "clicsTienda": 180,
+          "clicsTienda": 182,
           "leads": 0
         },
         "previo": {
@@ -449,22 +449,22 @@
       },
       {
         "fecha": "2026-11-27",
-        "usuarios": 11,
-        "sesiones": 11,
-        "vistas": 48,
-        "clicsTienda": 7
+        "usuarios": 19,
+        "sesiones": 22,
+        "vistas": 65,
+        "clicsTienda": 9
       }
     ],
     "paginas": [
       {
-        "ruta": "/",
-        "vistas": 137,
-        "usuarios": 105
+        "ruta": "/suplementos/proteina/",
+        "vistas": 141,
+        "usuarios": 118
       },
       {
-        "ruta": "/suplementos/proteina/",
-        "vistas": 137,
-        "usuarios": 115
+        "ruta": "/",
+        "vistas": 139,
+        "usuarios": 105
       },
       {
         "ruta": "/guias/celulares/celulares-menos-3000-mexico/",
@@ -473,8 +473,8 @@
       },
       {
         "ruta": "/suplementos/creatina/",
-        "vistas": 86,
-        "usuarios": 72
+        "vistas": 87,
+        "usuarios": 73
       },
       {
         "ruta": "/guias/celulares/mejores-celulares-menos-5000/",
@@ -482,19 +482,19 @@
         "usuarios": 63
       },
       {
+        "ruta": "/ofertas/",
+        "vistas": 73,
+        "usuarios": 53
+      },
+      {
         "ruta": "/guias/celulares/mejores-celulares-calidad-precio/",
         "vistas": 72,
         "usuarios": 67
       },
       {
-        "ruta": "/ofertas/",
-        "vistas": 70,
-        "usuarios": 52
-      },
-      {
         "ruta": "/electrodomesticos/cafeteras/",
-        "vistas": 49,
-        "usuarios": 42
+        "vistas": 51,
+        "usuarios": 44
       },
       {
         "ruta": "/bicicletas/bici-montana/",
@@ -523,8 +523,8 @@
       },
       {
         "ruta": "/celulares/android/",
-        "vistas": 36,
-        "usuarios": 23
+        "vistas": 37,
+        "usuarios": 24
       },
       {
         "ruta": "/suplementos/proteina/proteina-whey-cual-comprar/",
@@ -610,12 +610,12 @@
     "fuentes": [
       {
         "fuente": "AI Assistant",
-        "sesiones": 789,
-        "usuarios": 758
+        "sesiones": 797,
+        "usuarios": 765
       },
       {
         "fuente": "Direct",
-        "sesiones": 252,
+        "sesiones": 256,
         "usuarios": 207
       },
       {
@@ -630,8 +630,8 @@
       },
       {
         "fuente": "Unassigned",
-        "sesiones": 15,
-        "usuarios": 15
+        "sesiones": 13,
+        "usuarios": 13
       },
       {
         "fuente": "Referral",
@@ -647,49 +647,49 @@
     "eventos": [
       {
         "evento": "page_view",
-        "conteo": 2130,
+        "conteo": 2147,
         "previo": 1380,
         "clave": false
       },
       {
         "evento": "session_start",
-        "conteo": 1093,
+        "conteo": 1104,
         "previo": 758,
         "clave": false
       },
       {
         "evento": "first_visit",
-        "conteo": 1000,
+        "conteo": 1007,
         "previo": 676,
         "clave": false
       },
       {
         "evento": "user_engagement",
-        "conteo": 752,
+        "conteo": 758,
         "previo": 637,
         "clave": false
       },
       {
         "evento": "scroll",
-        "conteo": 638,
+        "conteo": 639,
         "previo": 215,
         "clave": false
       },
       {
         "evento": "comparison_section_view",
-        "conteo": 175,
+        "conteo": 176,
         "previo": 42,
         "clave": false
       },
       {
         "evento": "affiliate_click_ml",
-        "conteo": 149,
+        "conteo": 151,
         "previo": 118,
         "clave": true
       },
       {
         "evento": "click",
-        "conteo": 113,
+        "conteo": 114,
         "previo": 186,
         "clave": false
       },
@@ -713,7 +713,7 @@
       },
       {
         "evento": "click_seleccionar_comparar",
-        "conteo": 55,
+        "conteo": 56,
         "previo": 0,
         "clave": false
       },
@@ -790,6 +790,12 @@
         "clave": false
       },
       {
+        "evento": "filtro_bajada_precio",
+        "conteo": 10,
+        "previo": 0,
+        "clave": true
+      },
+      {
         "evento": "guide_product_click",
         "conteo": 10,
         "previo": 0,
@@ -806,12 +812,6 @@
         "conteo": 9,
         "previo": 14,
         "clave": false
-      },
-      {
-        "evento": "filtro_bajada_precio",
-        "conteo": 9,
-        "previo": 0,
-        "clave": true
       },
       {
         "evento": "historico_sin_datos",
@@ -2174,19 +2174,19 @@
   "semana": {
     "desde": "2026-11-21",
     "hasta": "2026-11-27",
-    "usuarios": 204,
-    "sesiones": 226,
-    "vistas": 1018,
-    "clicsTienda": 48,
-    "clicsML": 48,
+    "usuarios": 211,
+    "sesiones": 238,
+    "vistas": 1035,
+    "clicsTienda": 50,
+    "clicsML": 50,
     "clicsAmz": 0,
     "impresiones": 77,
     "clicsBusqueda": 0,
     "ctr": 0,
     "posicion": 49.94805194805195,
     "cambio": {
-      "usuarios": -0.13559322033898305,
-      "clicsTienda": -0.07692307692307693,
+      "usuarios": -0.1059322033898305,
+      "clicsTienda": -0.038461538461538464,
       "impresiones": 0.02666666666666667,
       "clicsBusqueda": null
     }
