@@ -1,15 +1,28 @@
 {
   "fecha": "2026-11-27",
-  "generado": "2026-11-27T14:41:32.227Z",
+  "generado": "2026-11-27T20:46:31.324Z",
   "aplicado": true,
   "factor": 1.5,
   "margen": 0.25,
   "minimo": 10,
   "totales": {
-    "bajadasVigentes": 592,
-    "soltadas": 0,
+    "bajadasVigentes": 620,
+    "soltadas": 1,
     "sinSerie": 0,
-    "pocosDatos": 85
+    "pocosDatos": 90
   },
-  "soltadas": []
+  "soltadas": [
+    {
+      "categoria": "tecnologia_audifonos",
+      "id": "aud_mlm44417681",
+      "nombre": "Audífonos Inalámbricos HUAWEI FreeBuds SE 3 Negro",
+      "mlId": "MLM44417681",
+      "anclaSoltada": 999,
+      "precioHoy": 699,
+      "mediana30": 576,
+      "pctQueAnunciaba": 30,
+      "vecesSobreLaMediana": 1.73,
+      "dias": 30
+    }
+  ]
 }

@@ -1,7 +1,42 @@
 {
-  "actualizado": "2026-11-27T14:41:31.610Z",
+  "actualizado": "2026-11-27T20:46:30.852Z",
   "nota": "Productos borrados de merged-admin.json por precios-por-link.mjs. Están completos: para revivir uno, vuelve a pegarlo en su categoría.",
   "productos": [
+    {
+      "fecha": "2026-11-27",
+      "categoria": "tecnologia_smartwatches",
+      "motivo": "tarjeta_defecto",
+      "detalle": "el producto ya no existe: el enlace acaba en las búsquedas recientes de la cuenta (abre MLM15787455, no MLM77845805)",
+      "producto": {
+        "id": "93",
+        "nombre": "Smartwatch HUAWEI Watch GT 7 41 mm Rosa",
+        "marca": "Huawei",
+        "linkML": "https://meli.la/1QbAGag",
+        "linkAmz": null,
+        "precioML": 4112,
+        "precioAmz": null,
+        "imagen": "https://http2.mlstatic.com/D_NQ_NP_890979-MLA117884528701_092026-F.jpg",
+        "especs": {
+          "compatibilidad": "Android e iOS",
+          "pantalla": "1.32 \"",
+          "bateria": "2 semanas",
+          "gps": "Sí",
+          "nfc": "Sí"
+        },
+        "activo": true,
+        "mlId": "MLM77845805",
+        "estadoML": "sin_precio",
+        "_mlCheckedAt": "2026-11-23T23:32:03.749Z",
+        "_enWeb": true,
+        "_dispEstado": "tarjeta_defecto",
+        "_dispFecha": "2026-11-27",
+        "_precioFicha": 4112,
+        "_precioFichaFecha": "2026-11-27",
+        "_precioLinkFecha": "2026-11-27",
+        "_dispFallos": 2,
+        "_dispDesde": "2026-11-27"
+      }
+    },
     {
       "fecha": "2026-11-27",
       "categoria": "laptops",
