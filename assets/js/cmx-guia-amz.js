@@ -77,7 +77,7 @@
       }).join('') + '</tr></tbody></table>';
     tbl.innerHTML = html;
     if (ver) {
-      var texto = (C.veredictos && C.veredictos[id]) || 'Compara las especificaciones de la tabla y revisa el checklist antes de decidir: en reacondicionadas, la configuración declarada no sustituye la verificación del vendedor.';
+      var texto = (C.veredictos && C.veredictos[id]) || C.veredictoFallback || 'Compara las especificaciones de la tabla y revisa el checklist antes de decidir: en reacondicionadas, la configuración declarada no sustituye la verificación del vendedor.';
       ver.innerHTML = '<strong>¿Cuál conviene de estas ' + sel.length + '?</strong> ' + esc(texto);
     }
     out.classList.add('show');

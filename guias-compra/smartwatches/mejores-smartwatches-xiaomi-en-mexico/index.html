@@ -19,6 +19,7 @@
 <meta property="og:locale" content="es_MX">
 <meta property="og:site_name" content="comparalo.mx">
 <meta property="article:published_time" content="2026-11-27">
+<meta property="article:modified_time" content="2026-11-27">
 <meta property="article:section" content="Smartwatches">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@comparalomx">
@@ -60,514 +61,524 @@
 <link rel="icon" type="image/png" href="/logopng.png">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="stylesheet" href="/assets/css/cmx-site.css">
+<link rel="stylesheet" href="/assets/css/cmx-guia.css">
+<link rel="stylesheet" href="/assets/css/cmx-guia-amz.css">
 <style>
-:root{--bg:#fff;--s1:#f7f7f5;--s2:#f0f0ec;--bd:#e2e2dc;--bd2:#d0d0c8;--tx:#0f172a;--tx2:#64748b;--tx3:#94a3b8;--ac:#006847;--acd:#e5f4ed;--red:#ce1126;--amz:#f90;--amzd:#fff2df;--r:14px;--max:1220px}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:#fff;color:#182230;font-family:Satoshi,Arial,sans-serif;font-size:16px;line-height:1.65}
-a{color:var(--ac)}
-.wrap{width:min(var(--max),calc(100% - 36px));margin:auto}
-
-/* Hero */
-.hero{background:linear-gradient(120deg,#075b40 0%,#08734d 58%,#0b503b 100%);color:#fff;padding:52px 0 46px}
-.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.12em;font-weight:800;opacity:.82}
-.hero h1{max-width:900px;font-size:clamp(32px,4.6vw,50px);line-height:1.07;letter-spacing:-1.4px;margin:12px 0}
-.hero p{max-width:770px;color:#e2f2eb;margin:14px 0 0;font-size:17px;line-height:1.65}
-.hero-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
-.pill{border:1px solid #ffffff55;border-radius:30px;padding:5px 12px;font-size:12px;color:#fff}
-
-/* Disclosure (obligatoria Amazon) */
-.amz-disclosure{background:#fff8ec;border:1px solid #f1dcae;border-left:4px solid var(--amz);border-radius:10px;padding:13px 16px;margin:22px 0 8px;font-size:13.5px;color:#6b4e14;line-height:1.55}
-.amz-disclosure strong{color:#4d3a0f}
-
-.notice{background:#f5fbf7;border:1px solid #d3eadc;border-left:4px solid var(--ac);padding:15px 17px;border-radius:10px;margin:18px 0 26px;color:#244b3a;font-size:14px}
-
-/* Layout + TOC */
-.layout{display:grid;grid-template-columns:minmax(0,1fr) 235px;gap:28px;align-items:start;padding:28px 0 60px}
-.article{min-width:0;max-width:100%}
-.toc{position:sticky;top:20px;border:1px solid var(--bd);border-radius:13px;padding:17px;background:#fff}
-.toc strong{display:block;margin-bottom:9px}
-.toc a{display:block;text-decoration:none;font-size:13px;color:var(--tx2);padding:7px 0;line-height:1.4}
-.toc a:hover{color:var(--ac)}
-
-h2{font-size:clamp(24px,3vw,30px);line-height:1.2;letter-spacing:-.6px;margin:46px 0 12px}
-h3{font-size:18px;line-height:1.3;margin:24px 0 8px}
-p{margin:0 0 15px}
-.muted{color:var(--tx2)}
-.small{font-size:13px;color:var(--tx2)}
-
-/* Respuesta rápida */
-.quick-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:20px 0}
-.quick{border:1px solid var(--bd);border-radius:13px;padding:17px;background:#fff;min-height:150px;display:flex;flex-direction:column}
-.quick .tag{font-size:11px;color:var(--ac);font-weight:800;text-transform:uppercase;letter-spacing:.06em}
-.quick b{display:block;margin:6px 0 0;font-size:15px;line-height:1.35}
-.quick p{font-size:13px;color:var(--tx2);margin:7px 0 12px;line-height:1.55}
-.quick .amz-mini{margin-top:auto;align-self:flex-start}
-
-/* Tablas */
-.table-wrap{overflow-x:auto;border:1px solid var(--bd);border-radius:12px;margin:18px 0;background:#fff}
-.cmp-table{width:100%;border-collapse:collapse;min-width:690px;font-size:13px}
-.cmp-table th{padding:13px 14px;text-align:center;color:var(--tx3);font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:var(--s1);border-bottom:1px solid var(--bd)}
-.cmp-table td{padding:12px 14px;border-bottom:1px solid var(--bd);text-align:center;vertical-align:middle}
-.cmp-table td:first-child{color:var(--tx2);font-size:11px;font-weight:800;background:var(--s1);text-transform:uppercase;letter-spacing:.04em;text-align:left;min-width:150px}
-.cmp-table tr:last-child td{border-bottom:0}
-.cmp-table tr.cmp-cta td{background:#fff;padding:12px 10px;text-align:center}
-.cmp-table tr.cmp-cta td:first-child{background:var(--s1)}
-
-/* Configurador interactivo */
-.config{border:1px solid #d8e8df;background:#f7faf8;border-radius:14px;padding:16px 18px;margin:18px 0 18px}
-.config-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:7px 0}
-.config-row+.config-row{border-top:1px dashed #dbe7e0}
-.config-label{flex:0 0 118px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:#315a46}
-.config-chips{display:flex;gap:7px;flex-wrap:wrap}
-.filter{border:1px solid var(--bd2);background:#fff;color:var(--tx2);padding:7px 13px;border-radius:30px;font:600 12px Satoshi,Arial;cursor:pointer;transition:.15s}
-.filter.active,.filter:hover{background:var(--ac);border-color:var(--ac);color:#fff}
-.config-result{margin-top:12px;font-size:13px;font-weight:700;color:var(--ac)}
-.config-summary{display:none}
-.amz-mini{display:inline-flex;align-items:center;gap:6px;background:var(--amz);color:#111;border-radius:8px;padding:8px 11px;text-decoration:none;font-weight:800;font-size:11.5px;min-height:36px;line-height:1}
-.amz-mini:hover{filter:brightness(.96)}
-.amz-mini img{height:12px;width:auto;object-fit:contain}
-@media(min-width:1041px){
-  details.config-collapse>summary{display:none!important}
-  details.config-collapse>*:not(summary){display:revert}
-}
-@media(max-width:1040px){
-  details.config-collapse{padding:0}
-  details.config-collapse>summary{display:flex;justify-content:space-between;align-items:center;gap:10px;cursor:pointer;list-style:none;padding:14px 16px;font-size:13px;font-weight:800;color:var(--ac)}
-  details.config-collapse>summary::-webkit-details-marker{display:none}
-  details.config-collapse>summary::after{content:'▾';transition:transform .2s}
-  details.config-collapse[open]>summary::after{transform:rotate(180deg)}
-  details.config-collapse>summary+*{margin-top:4px}
-  details.config-collapse>.config-row,details.config-collapse>.config-result{padding-left:16px;padding-right:16px}
-  details.config-collapse>.config-result{padding-bottom:14px}
-}
-
-/* Comparador (selección) */
-.compare-controls{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;background:#fff;border:1px solid var(--bd);padding:16px 18px;border-radius:12px;margin:14px 0 20px}
-.compare-controls strong{display:block;font-size:15px}
-.compare-controls p{font-size:13px;color:var(--tx2);margin:3px 0 0;max-width:560px}
-.compare-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.compare-btn,.clear-btn{border:0;border-radius:8px;padding:11px 17px;font:700 13px Satoshi;cursor:pointer}
-.compare-btn{background:var(--ac);color:#fff}
-.compare-btn:disabled{opacity:.45;cursor:not-allowed}
-.compare-btn:not(:disabled):hover{background:#004d34}
-.clear-btn{background:#e8e8e2;color:var(--tx2)}
-.selected-count{font-size:12px;font-weight:700;color:var(--ac);white-space:nowrap}
-
-/* Tarjetas de producto */
-.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:stretch}
-.product{border:1px solid #e1e5e2;border-radius:15px;overflow:hidden;background:#fff;display:flex;flex-direction:column;min-width:0;transition:border-color .16s,box-shadow .16s,transform .16s}
-.product:hover{border-color:#b8d5c5;box-shadow:0 8px 24px #102b1b0d;transform:translateY(-2px)}
-.product.is-selected{border:2px solid #08734d;box-shadow:0 0 0 3px #08734d18}
-.product[hidden]{display:none}
-.product-img{height:180px;background:#f7f8f6;display:flex;align-items:center;justify-content:center;padding:18px;border-bottom:1px solid var(--bd)}
-.product-img img{width:100%;height:100%;object-fit:contain}
-.product-img .placeholder{font-size:58px;color:#9ca3af}
-.product-body{padding:16px;display:flex;flex-direction:column;flex:1}
-.badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:9px;min-height:24px}
-.badge{font-size:10px;font-weight:800;padding:4px 8px;border-radius:20px;background:var(--s2);color:var(--tx2)}
-.badge.new{background:#e5f4ed;color:#006847}
-.badge.renew{background:#fff2df;color:#955400}
-.select-product{display:flex;align-items:center;gap:9px;padding:10px 11px;border:1px solid #dce4df;border-radius:9px;background:#fff;color:#334155;font-size:12px;font-weight:700;cursor:pointer;margin:0 0 12px;transition:.15s}
-.select-product:hover{border-color:#08734d;background:#f4faf6}
-.select-product input{width:17px;height:17px;accent-color:#08734d;margin:0;flex:0 0 auto}
-.select-product:has(input:checked){background:#e8f5ee;border-color:#08734d;color:#00583b}
-.product h3{font-size:16px;line-height:1.35;min-height:44px;margin:0 0 6px}
-.spec-line{font-size:12px;line-height:1.5;min-height:38px;margin-bottom:10px;color:#526174}
-.product ul{font-size:12px;line-height:1.55;padding-left:17px;margin:0 0 12px;color:var(--tx2);min-height:100px}
-.product li{margin:5px 0}
-.caution{background:#fff9ed;border:1px solid #f5dfb8;border-radius:8px;padding:9px 10px;font-size:11px;color:#74521b;line-height:1.5;margin-top:auto;margin-bottom:12px}
-.amz-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:var(--amz);color:#111;border-radius:8px;padding:11px 14px;text-decoration:none;font-size:13px;font-weight:800;min-height:44px;transition:filter .15s}
-.amz-btn:hover{filter:brightness(.95)}
-.amz-btn img{height:18px;width:auto;object-fit:contain}
-
-/* Comparativa dinámica */
-.compare-output{display:none;margin:22px 0;scroll-margin-top:20px;padding:18px;border:1px solid #d8e8df;border-radius:14px;background:#fbfdfb}
-.compare-output.show{display:block}
-.compare-output h3{margin:0 0 12px}
-.compare-output .cmp-table{min-width:620px}
-.compare-output .cmp-table th{background:#eaf4ee;color:#315a46}
-.compare-output .cmp-table td:first-child{background:#f4f7f5}
-.compare-output .cmp-table td{font-size:12px}
-.compare-hint{font-size:12px;color:#64748b;margin:0 0 12px}
-
-.callout{border-left:4px solid var(--ac);background:var(--s1);padding:14px 16px;border-radius:0 10px 10px 0;margin:18px 0}
-.checklist li{margin:7px 0}
-.faq details{border-bottom:1px solid var(--bd);padding:15px 0}
-.faq summary{cursor:pointer;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:12px}
-.faq summary::-webkit-details-marker{display:none}
-.faq summary span{color:var(--ac)}
-.faq details p{margin:10px 0 0;color:var(--tx2);font-size:14px}
-.sources{font-size:13px;color:var(--tx2)}
-.sources li{margin:7px 0}
-.affiliate{font-size:12px;color:var(--tx2);border-top:1px solid var(--bd);padding:18px 0;margin-top:32px;line-height:1.6}
-
-@media(max-width:1050px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.layout{grid-template-columns:minmax(0,1fr) 210px;gap:20px}.quick-grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:850px){.layout{grid-template-columns:1fr}.toc{position:static;order:-1}.toc nav{display:grid;grid-template-columns:repeat(3,1fr);gap:0 12px}.quick-grid{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.compare-controls{align-items:flex-start;flex-direction:column}.config-label{flex-basis:100%}}
-@media(max-width:560px){.wrap{width:calc(100% - 24px)}.hero{padding:34px 0 30px}.hero p{font-size:15px}.cards{grid-template-columns:1fr;gap:13px}.product{display:grid;grid-template-columns:118px minmax(0,1fr);align-items:stretch}.product-img{height:auto;min-height:100%;padding:10px;border-bottom:0;border-right:1px solid var(--bd)}.product-body{padding:12px}.product h3{min-height:0;font-size:15px}.spec-line{min-height:0}.product ul{min-height:0}.product ul li:nth-child(n+4){display:none}.toc nav{grid-template-columns:1fr 1fr}.cmp-table{min-width:630px}.selected-count{width:100%}}
+/* Aviso de afiliados de Amazon (obligatorio, encima del artículo) */
+.cg-amz-disc{background:#fff8ec;border:1px solid #f1dcae;border-left:4px solid var(--amz);border-radius:10px;padding:13px 16px;margin:0 0 16px;font-size:13.5px;color:#6b4e14;line-height:1.55}
+.cg-amz-disc strong{color:#4d3a0f}
 </style>
 </head>
-<body>
+<body class="cg" data-guide-id="smartwatches-xiaomi" data-category="smartwatches-amazon">
 
 <!-- cmx-header:start -->
-<div class="cmx-hd" id="cmx-hd">
+<div class="cmx-hd cmx-hd2" id="cmx-hd">
   <div class="cmx-hd-in">
-    <a class="cmx-hd-logo" href="/" aria-label="comparalo.mx, inicio"><img src="/logopng.png" alt="" width="28" height="28"><span>comparalo<i>.mx</i></span></a>
-    <div class="cmx-hd-search" id="cmx-hd-search"></div>
-    <div class="cmx-hd-links" role="navigation" aria-label="Navegación principal">
-      <a href="/celulares/">Celulares</a>
-      <a href="/laptops/">Laptops</a>
-      <a href="/electrodomesticos/">Electrodomésticos</a>
-      <a href="/suplementos/">Suplementos</a>
-      <a href="/bicis/">Bicicletas</a>
-      <a href="/videojuegos/">Videojuegos</a>
-      <a href="/tecnologia/">Tecnología</a>
-      <a href="/guias/">Guías</a>
-    </div>
+    <a class="cmx-hd-logo" href="/" aria-label="comparalo.mx, inicio"><img src="/logopng.png" alt="" width="44" height="44"><span>comparalo<i>.mx</i></span></a>
+    <nav class="cmx-hd2-nav" aria-label="Navegación principal">
+      <div class="cmx-hd2-dd">
+        <button type="button" class="cmx-hd2-ddbtn" aria-haspopup="true">Categorías <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="cmx-hd2-menu">
+          <a href="/celulares/">Celulares</a>
+          <a href="/laptops/">Laptops</a>
+          <a href="/electrodomesticos/">Electrodomésticos</a>
+          <a href="/suplementos/">Suplementos</a>
+          <a href="/bicis/">Bicicletas</a>
+          <a href="/videojuegos/">Videojuegos</a>
+          <a href="/tecnologia/">Tecnología</a>
+        </div>
+      </div>
+      <a href="/#categorias">Comparativas</a>
+      <a href="/guias/">Guías de compra</a>
+      <a class="cmx-hd2-ofertas" href="/ofertas/"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z"/><circle cx="7" cy="7" r="1.2" fill="currentColor"/></svg> Ofertas</a>
+    </nav>
     <div class="cmx-hd-act">
-      <button class="cmx-hd-searchbtn" id="cmx-hd-searchbtn" type="button" aria-label="Buscar categoría"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
-      <a class="cmx-hd-guias" href="/guias/">Guías</a>
       <!-- cmx-hd-extra:start --><!-- cmx-hd-extra:end -->
-      <button class="btn-share" onclick="shareCurrentPage()" title="Compartir esta p&#225;gina" aria-label="Compartir"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg><span class="share-txt">Compartir</span></button>
+      <button class="cmx-hd-searchbtn" id="cmx-hd-searchbtn" type="button" aria-label="Buscar categoría"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7.5"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg><span class="cmx-hd2-searchtx">¿Qué quieres comparar?</span></button>
+      <button class="cmx-hd2-burger" type="button" aria-label="Abrir menú de categorías" onclick="document.getElementById('cmx-hd-searchbtn').click()"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
     </div>
   </div>
 </div>
 <!-- cmx-header:end -->
 <!-- cmx-bc:start -->
-<div class="cmx-bc"><ol aria-label="Ruta de navegación"><li><a href="/">Inicio</a></li><li><a href="/guias-compra/">Guías de compra</a></li><li><a href="/guias-compra/smartwatches/">Smartwatches</a></li><li aria-current="page">Mejores smartwatches Xiaomi en México</li></ol></div>
+<div class="cmx-bc"><ol aria-label="Ruta de navegación"><li><a href="/">Inicio</a></li><li><a href="/guias-compra/">Guías de compra</a></li><li><a href="/guias-compra/smartwatches/">Smartwatches</a></li><li aria-current="page">Mejores smartwatches Xiaomi</li></ol></div>
 <!-- cmx-bc:end -->
 
-<section class="hero"><div class="wrap">
-  <div class="eyebrow">Guía de compra · Smartwatches · México · Actualizada noviembre de 2026</div>
-  <h1>Mejores smartwatches Xiaomi en México: ¿cuál de todos?</h1>
-  <p>Si ya decidiste que quieres un Xiaomi, falta la mitad difícil: la marca vende varios relojes que se parecen mucho en la foto y se diferencian en la pantalla, el GPS, la resistencia al agua y la autonomía. Aquí comparamos seis fichas de Amazon México —Redmi Watch 6, Watch 6 Lite, Watch 5 Lite y Watch 5 Active— con las características tal como las declara cada anuncio, y te damos un comparador para ponerlas lado a lado.</p>
-  <div class="hero-meta"><span class="pill">Comparativa editorial</span><span class="pill">6 fichas analizadas</span><span class="pill">Solo Amazon México</span><span class="pill">Sin precios ni calificaciones de Amazon</span></div>
-</div></section>
+<div class="cg-wrap">
 
-<main class="wrap layout">
-<article class="article">
+  <!-- COLUMNA IZQUIERDA: índice y comparador -->
+  <aside class="cg-left" aria-label="Índice y comparador">
+    <nav class="cg-box" aria-label="Contenido de la guía">
+      <div class="cg-box-h">Guía de contenido</div>
+      <div class="cg-box-b">
+      <ol class="cg-toc" id="cg-toc">
+        <li><a href="#sec-respuesta">Respuesta rápida</a></li>
+        <li><a href="#sec-como-leer">Cómo leer esta guía</a></li>
+        <li><a href="#sec-comparativa">Comparativa rápida</a></li>
+        <li data-cg-group><a href="#sec-modelos">Los seis relojes</a>
+          <ul><li><a href="#sec-w6lite">Watch 6 Lite</a></li><li><a href="#sec-w6n">Watch 6 negro</a></li><li><a href="#sec-w6g">Watch 6 gris</a></li><li><a href="#sec-w5lite">Watch 5 Lite</a></li><li><a href="#sec-w5ap">Watch 5 Active plata</a></li><li><a href="#sec-w5an">Watch 5 Active negro</a></li></ul>
+        </li>
+        <li><a href="#sec-cual-conviene">¿Cuál te conviene?</a></li>
+        <li><a href="#sec-specs">Qué mirar en un Xiaomi</a></li>
+        <li><a href="#sec-fichas">Fichas repetidas</a></li>
+        <li><a href="#sec-faq">Preguntas frecuentes</a></li>
+        <li><a href="#sec-fuentes">Fuentes y metodología</a></li>
+      </ol>
+      </div>
+    </nav>
+    <div class="cg-tip"><strong>💡 Consejo clave</strong>Dentro de una misma marca la decisión se juega en dos campos: GPS integrado y resistencia al agua. Revísalos en la ficha que abras, no en el nombre del modelo.</div>
+    <div class="cg-box cg-cmpmod">
+      <div class="cg-box-b">
+        <h2><img src="/logopng.png" alt="" width="26" height="26"> Compáralo <small>hasta <span data-cg-max>3</span> relojes</small></h2>
+        <div class="cg-slots" id="cg-slots"></div>
+        <button type="button" class="cg-btn cg-btn-ac cg-w100" data-cg-go data-ga-section="modulo_comparar" disabled><span>Comparar ahora (<span data-cg-count>0</span>/<span data-cg-max>3</span>)</span></button>
+        <button type="button" class="cg-btn cg-btn-ghost cg-w100" data-cg-clear>Limpiar selección</button>
+      </div>
+    </div>
+    <button type="button" class="cg-btn cg-btn-amz cg-of-open" data-cg-open="guide" data-ga-section="columna_izquierda">📋 Ver consejos de compra</button>
+  </aside>
 
-<div class="amz-disclosure"><strong>Como Afiliado de Amazon, percibo dinero con las compras elegibles.</strong> Algunos enlaces de esta guía son de afiliado: si compras a través de ellos, comparalo.mx puede recibir una comisión sin costo adicional para ti. La selección y el análisis se basan en las características y necesidades de compra, no en la comisión.</div>
+  <!-- COLUMNA CENTRAL: artículo -->
+  <main class="cg-main">
+    <header class="cg-hero">
+      <div>
+        <span class="cg-eyebrow">Guía de compra · Smartwatches · México · 2026</span>
+        <h1>Mejores smartwatches Xiaomi en México: ¿cuál de todos?</h1>
+        <p class="cg-intro">Si ya decidiste que quieres un Xiaomi, falta la mitad difícil: la marca vende varios relojes que se parecen mucho en la foto y se diferencian en la pantalla, el GPS, la resistencia al agua y la autonomía. Comparamos seis fichas de Amazon México con las características tal como las declara cada anuncio.</p>
+        <ul class="cg-meta">
+          <li>Por comparalo.mx</li>
+          <li>Actualizado: <time datetime="2026-11">noviembre de 2026</time></li>
+          <li>Lectura: 8 min</li>
+          <li>Solo productos de Amazon México</li>
+        </ul>
+      </div>
+      <div class="cg-hero-img"><img src="https://http2.mlstatic.com/D_NQ_NP_802798-MLA117209921033_092026-F.jpg" alt="Smartwatch Xiaomi Redmi Watch" width="230" height="150" referrerpolicy="no-referrer"></div>
+    </header>
 
-<div class="notice"><strong>Cómo leer esta guía:</strong> todas las características provienen de la ficha de cada producto en Amazon México, consultada el 27 de noviembre de 2026. Cuando un anuncio se contradice —y en estos relojes pasa más de una vez— lo decimos en la tarjeta en lugar de corregir el dato por nuestra cuenta. No publicamos precios: cada botón lleva a la ficha, donde el precio y la disponibilidad son los del momento en que lo abres.</div>
+    <div class="cg-amz-disc"><strong>Como Afiliado de Amazon, percibo dinero con las compras elegibles.</strong> Algunos enlaces de esta guía son de afiliado: si compras a través de ellos, comparalo.mx puede recibir una comisión sin costo adicional para ti. La selección y el análisis se basan en las características y necesidades de compra, no en la comisión. Esta guía no muestra precios ni calificaciones de Amazon.</div>
 
-<h2 id="respuesta">Respuesta rápida: ¿cuál Xiaomi comprar?</h2>
-<div class="quick-grid">
-  <div class="quick"><span class="tag">El equilibrio</span><b>Redmi Watch 6 Lite</b><p>Pantalla AMOLED de 1.96", GPS integrado, 5ATM y 18 días de autonomía declarada, en un cuerpo de 27.8 g según su ficha. Es el que más cosas cubre sin irse al tope de la gama.</p><a class="amz-mini" href="https://www.amazon.com.mx/dp/B0H8TCWZYF?tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Redmi Watch 6 Lite" data-loc="respuesta_rapida">Ver precio en Amazon <img src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a></div>
-  <div class="quick"><span class="tag">El más completo</span><b>Redmi Watch 6</b><p>La pantalla más grande y luminosa de la selección: 2.07", 432 x 514 y 2000 nits declarados, con batería de 550 mAh para 12 días y GPS integrado. Para quien quiere el tope de Redmi.</p><a class="amz-mini" href="https://www.amazon.com.mx/dp/B0GQL9JZS7?tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Redmi Watch 6 negro" data-loc="respuesta_rapida">Ver precio en Amazon <img src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a></div>
-  <div class="quick"><span class="tag">La puerta de entrada</span><b>Redmi Watch 5 Active</b><p>Pantalla de 2" sin GPS integrado y 18 días declarados. Cumple con notificaciones, pasos, sueño y llamadas por Bluetooth; es el modelo más sencillo de los cuatro.</p><a class="amz-mini" href="https://www.amazon.com.mx/dp/B0DFHFM1X9?tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Redmi Watch 5 Active plata" data-loc="respuesta_rapida">Ver precio en Amazon <img src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a></div>
+    <section class="cg-quick" id="sec-respuesta" data-cg-sec aria-labelledby="h-respuesta">
+      <div class="cg-quick-ic" aria-hidden="true">✓</div>
+      <div>
+        <h2 id="h-respuesta">Respuesta rápida</h2>
+        <ul>
+          <li>El equilibrio: <a href="#sec-w6lite" data-cg-prod="w6lite" data-ga-section="respuesta_rapida"><strong>Redmi Watch 6 Lite</strong></a>, AMOLED de 1.96", GPS integrado, 5ATM y 18 días declarados en 27.8 g. <button type="button" class="cg-mini-cmp" data-cg-sel="w6lite" data-cg-lbl="short" data-ga-section="respuesta_rapida" aria-pressed="false">＋ Comparar</button></li>
+          <li>La pantalla más grande: <a href="#sec-w6n" data-cg-prod="w6n" data-ga-section="respuesta_rapida"><strong>Redmi Watch 6</strong></a>, 2.07" con 2000 nits y 550 mAh declarados, a cambio de 89 g en la muñeca. <button type="button" class="cg-mini-cmp" data-cg-sel="w6n" data-cg-lbl="short" data-ga-section="respuesta_rapida" aria-pressed="false">＋ Comparar</button></li>
+          <li>La puerta de entrada: <a href="#sec-w5ap" data-cg-prod="w5ap" data-ga-section="respuesta_rapida"><strong>Redmi Watch 5 Active</strong></a>, 2", 18 días declarados y sin GPS integrado. <button type="button" class="cg-mini-cmp" data-cg-sel="w5ap" data-cg-lbl="short" data-ga-section="respuesta_rapida" aria-pressed="false">＋ Comparar</button></li>
+          <li>Solo tras verificar su ficha: <a href="#sec-w5lite" data-cg-prod="w5lite" data-ga-section="respuesta_rapida"><strong>Redmi Watch 5 Lite</strong></a>, el único de caja redonda, con varios campos contradictorios en el anuncio. <button type="button" class="cg-mini-cmp" data-cg-sel="w5lite" data-cg-lbl="short" data-ga-section="respuesta_rapida" aria-pressed="false">＋ Comparar</button></li>
+        </ul>
+        <p class="cg-note">No declaramos un ganador absoluto, y menos dentro de una sola marca: el Xiaomi correcto depende de si vas a nadar con él, de si sales a entrenar sin el celular y de cuánta pantalla quieres cargar.</p>
+      </div>
+      <a class="cg-btn cg-btn-ac" href="#sec-cual-conviene" data-ga-ev="cta_click" data-ga-cta="ver_resumen" data-ga-section="respuesta_rapida">Ver resumen →</a>
+    </section>
+
+    <details class="cg-toc-mob">
+      <summary>Contenido de esta guía</summary>
+      <nav aria-label="Contenido de la guía" data-cg-toc-clone></nav>
+    </details>
+
+    <section class="cg-sec" id="sec-como-leer" data-cg-sec>
+      <h2 class="cg-h2">Cómo leer esta guía</h2>
+      <p>Todas las características provienen de la ficha de cada producto en Amazon México, consultada el 27 de noviembre de 2026. Cuando un anuncio se contradice —y en estos relojes pasa más de una vez— lo decimos en la tarjeta en lugar de corregir el dato por nuestra cuenta.</p>
+      <div class="cg-callout"><strong>Regla de comparalo.mx:</strong> cuando dos anuncios del mismo producto declaran cosas distintas, no elegimos el dato que nos gusta más ni lo arreglamos a ojo. Lo señalamos y te decimos qué campo revisar. Lo que te entregan es lo que diga el anuncio que abriste, no lo que diga esta guía.</div>
+      <ul class="cg-crit">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="3"/><path d="M12 7v5l3 2"/></svg><strong>Tipo de panel</strong>AMOLED o LCD, y su brillo</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="10" r="3"/><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/></svg><strong>GPS</strong>Integrado o del teléfono</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 2.7S6 10 6 14a6 6 0 0 0 12 0c0-4-6-11.3-6-11.3z"/></svg><strong>Resistencia</strong>5ATM para nadar, IP68 no</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="2" y="7" width="17" height="10" rx="2"/><line x1="22" y1="11" x2="22" y2="13"/><rect x="5" y="10" width="6" height="4" fill="currentColor" stroke="none"/></svg><strong>Autonomía</strong>Cifra máxima de laboratorio</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-8.8 1.8 5.5 5.5 0 0 0-8.8-1.8C.6 7 2.4 11 12 19.5 21.6 11 23.4 7 20.8 4.6z"/></svg><strong>Sensores</strong>Cardíaco, SpO2, sueño</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><line x1="10" y1="18.5" x2="14" y2="18.5"/></svg><strong>Compatibilidad</strong>Android, iOS o solo uno</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 3v18M5 7h14M5 17h14"/></svg><strong>Peso</strong>27.8 g y 89 g no se sienten igual</li>
+      </ul>
+      <p class="cg-note">No publicamos precios: cada botón lleva a la ficha, donde el precio y la disponibilidad son los del momento en que lo abres.</p>
+    </section>
+
+    <section class="cg-sec" id="sec-comparativa" data-cg-sec data-ga-section="comparison">
+      <div class="cg-sec-top">
+        <h2 class="cg-h2">Comparativa rápida de los cuatro modelos</h2>
+      </div>
+      <p class="cg-note">La tabla resume los cuatro modelos distintos de la selección. Las dos fichas repetidas —la segunda del Watch 6 y la segunda del Watch 5 Active— están más abajo en las tarjetas, porque su interés está justamente en las diferencias que declaran. No mostramos precios: Amazon no permite anunciarlos en comparativas de terceros.</p>
+      <p class="cg-tbl-hint">Desliza la tabla para ver todas las columnas y la casilla «Comparar» →</p>
+      <div class="cg-tblw" role="region" aria-label="Tabla comparativa de smartwatches Xiaomi" tabindex="0">
+        <table class="cg-tbl"><thead><tr>
+          <th scope="col">Característica</th><th scope="col">Watch 6 Lite</th><th scope="col">Watch 6</th><th scope="col">Watch 5 Lite</th><th scope="col">Watch 5 Active</th>
+        </tr></thead><tbody>
+        <tr><td>Pantalla declarada</td><td>1.96" AMOLED</td><td>2.07"</td><td>AMOLED (ver nota)</td><td>2" LCD</td></tr>
+        <tr><td>Resolución</td><td>240 x 240 (ver nota)</td><td>432 x 514</td><td>410 x 502</td><td>320 x 385</td></tr>
+        <tr><td>Brillo</td><td>1500 nits</td><td>2000 nits</td><td>600 nits</td><td>500 nits</td></tr>
+        <tr><td>Batería declarada</td><td>18 días</td><td>12 días</td><td>Ver nota</td><td>18 días</td></tr>
+        <tr><td>Capacidad</td><td>470 mAh</td><td>550 mAh</td><td>Ver nota</td><td>470 mAh</td></tr>
+        <tr><td>GPS</td><td>GPS integrado</td><td>GPS integrado</td><td>GPS integrado</td><td>Sin GPS</td></tr>
+        <tr><td>Resistencia</td><td>5ATM</td><td>5ATM</td><td>No declarada (ver nota)</td><td>5ATM o IP68 según ficha</td></tr>
+        <tr><td>Compatibilidad</td><td>Android e iOS</td><td>Android e iOS</td><td>Android e iOS</td><td>Varía entre fichas</td></tr>
+        <tr><td>Peso declarado</td><td>27.8 g</td><td>89 g</td><td>Ver nota</td><td>81 g</td></tr>
+        <tr data-cg-card="tabla-row"><td>Comparar</td>
+          <td><input type="checkbox" data-cg-sel="w6lite" data-ga-section="tabla" aria-label="Comparar Redmi Watch 6 Lite"></td>
+          <td><input type="checkbox" data-cg-sel="w6n" data-ga-section="tabla" aria-label="Comparar Redmi Watch 6 negro"></td>
+          <td><input type="checkbox" data-cg-sel="w5lite" data-ga-section="tabla" aria-label="Comparar Redmi Watch 5 Lite"></td>
+          <td><input type="checkbox" data-cg-sel="w5ap" data-ga-section="tabla" aria-label="Comparar Redmi Watch 5 Active plata"></td>
+        </tr>
+        </tbody></table>
+      </div>
+      <p class="cg-note">Las autonomías son cifras máximas declaradas por el fabricante en condiciones de prueba; no equivalen a lo que obtendrás con pantalla activa, ejercicio con GPS y mediciones continuas. Donde dice «ver nota», la ficha declara valores que no cuadran entre sí y lo explicamos en la tarjeta del modelo.</p>
+    </section>
+
+    <div class="cg-sec" id="sec-comparativa-personalizada">
+      <div class="compare-output" id="cg-compare-output">
+        <h3>Comparativa seleccionada</h3>
+        <div id="cg-compare-verdict"></div>
+        <p class="cg-note" style="margin-bottom:10px">Sin precios: los botones llevan a cada ficha en Amazon.</p>
+        <div id="cg-compare-table"></div>
+      </div>
+    </div>
+
+    <section class="cg-sec" id="sec-modelos" data-cg-sec>
+      <h2 class="cg-h2">Los seis relojes, uno por uno</h2>
+      <p>Están ordenados de la que cubre más necesidades a la más sencilla. Filtra por modelo, autonomía declarada, GPS o resistencia, y marca de dos a tres para armar tu propia tabla. Los botones llevan a la ficha correspondiente en Amazon México.</p>
+
+      <details class="config config-collapse" id="config">
+        <summary>Filtrar: modelo, batería, GPS y resistencia ▾</summary>
+        <div class="config-row"><span class="config-label">Modelo</span><div class="config-chips" data-facet="serie">
+          <button class="filter active" data-val="all">Todos</button>
+          <button class="filter" data-val="w6">Watch 6</button>
+          <button class="filter" data-val="w6lite">Watch 6 Lite</button>
+          <button class="filter" data-val="w5lite">Watch 5 Lite</button>
+          <button class="filter" data-val="w5active">Watch 5 Active</button>
+        </div></div>
+        <div class="config-row"><span class="config-label">Batería declarada</span><div class="config-chips" data-facet="bateria">
+          <button class="filter active" data-val="all">Cualquiera</button>
+          <button class="filter" data-val="18d">18 días</button>
+          <button class="filter" data-val="12d">12 días</button>
+          <button class="filter" data-val="12h">12 horas</button>
+        </div></div>
+        <div class="config-row"><span class="config-label">GPS</span><div class="config-chips" data-facet="gps">
+          <button class="filter active" data-val="all">Cualquiera</button>
+          <button class="filter" data-val="si">GPS integrado</button>
+          <button class="filter" data-val="no">Sin GPS</button>
+        </div></div>
+        <div class="config-row"><span class="config-label">Resistencia</span><div class="config-chips" data-facet="resistencia">
+          <button class="filter active" data-val="all">Cualquiera</button>
+          <button class="filter" data-val="5atm">5ATM</button>
+          <button class="filter" data-val="ip68">IP68</button>
+          <button class="filter" data-val="nd">No declarada</button>
+        </div></div>
+        <div class="config-result" id="configResult">Mostrando 6 de 6 relojes</div>
+      </details>
+
+      <div class="cg-cards" id="productCards" style="margin-top:14px">
+
+        <article class="cg-card" data-id="w6lite" data-cg-card="w6lite" data-serie="w6lite" data-bateria="18d" data-gps="si" data-resistencia="5atm">
+          <div class="cg-card-top">
+            <img src="https://http2.mlstatic.com/D_NQ_NP_802798-MLA117209921033_092026-F.jpg" alt="Xiaomi Redmi Watch 6 Lite" loading="lazy" referrerpolicy="no-referrer">
+            <div><span class="cg-tag">ASIN B0H8TCWZYF · AMOLED</span>
+              <h3><a href="#sec-w6lite" data-cg-prod="w6lite" data-ga-section="tarjeta">Xiaomi Redmi Watch 6 Lite</a></h3>
+              <ul><li>1.96" AMOLED · 1500 nits · Always On Display</li><li>GPS integrado · 5ATM · 18 días declarados</li><li>El más ligero de la selección: 27.8 g</li></ul>
+            </div>
+          </div>
+          <div class="cg-caution">Su ficha declara AMOLED de 1.96" con resolución de 240 x 240, una cifra que no corresponde a un panel de ese tamaño; no la corregimos. En Amazon el anuncio se titula «Xiaomi Redmi Watch 6», pero su campo de modelo dice REDMI Watch 6 Lite: lo nombramos Watch 6 Lite. La imagen es de referencia del modelo.</div>
+          <button type="button" class="cg-btn cg-btn-line" data-cg-sel="w6lite" data-cg-lbl="full" data-ga-section="tarjeta" aria-pressed="false">＋ Seleccionar para comparar</button>
+          <a class="cg-btn cg-btn-amz" href="https://www.amazon.com.mx/dp/B0H8TCWZYF?tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Redmi Watch 6 Lite" data-loc="tarjeta">Ver precio en <img src="/logoamazon.png" alt="Amazon" onerror="this.outerHTML='Amazon'"> <span aria-hidden="true">&#8599;</span></a>
+        </article>
+
+        <article class="cg-card" data-id="w6n" data-cg-card="w6n" data-serie="w6" data-bateria="12d" data-gps="si" data-resistencia="5atm">
+          <div class="cg-card-top">
+            <img src="https://http2.mlstatic.com/D_NQ_NP_985987-MLA110566609097_042026-F.jpg" alt="Xiaomi Redmi Watch 6" loading="lazy" referrerpolicy="no-referrer">
+            <div><span class="cg-tag">ASIN B0GQL9JZS7 · negro</span>
+              <h3><a href="#sec-w6n" data-cg-prod="w6n" data-ga-section="tarjeta">Xiaomi Redmi Watch 6 · negro</a></h3>
+              <ul><li>2.07" · 432 x 514 · 2000 nits declarados</li><li>550 mAh para 12 días · GPS integrado · 5ATM</li><li>Always On Display y rastreador multideporte</li></ul>
+            </div>
+          </div>
+          <div class="cg-caution">Esta ficha declara el tipo de pantalla como «Digital», mientras la del mismo modelo en gris la declara AMOLED, y aquí no aparece tiempo de carga. Son dos anuncios del mismo reloj que no dicen lo mismo: revisa el tipo de panel y el color en la ficha que abras. Tampoco declara llamadas por Bluetooth.</div>
+          <button type="button" class="cg-btn cg-btn-line" data-cg-sel="w6n" data-cg-lbl="full" data-ga-section="tarjeta" aria-pressed="false">＋ Seleccionar para comparar</button>
+          <a class="cg-btn cg-btn-amz" href="https://www.amazon.com.mx/dp/B0GQL9JZS7?tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Redmi Watch 6 negro" data-loc="tarjeta">Ver precio en <img src="/logoamazon.png" alt="Amazon" onerror="this.outerHTML='Amazon'"> <span aria-hidden="true">&#8599;</span></a>
+        </article>
+
+        <article class="cg-card" data-id="w6g" data-cg-card="w6g" data-serie="w6" data-bateria="12d" data-gps="si" data-resistencia="5atm">
+          <div class="cg-card-top">
+            <img src="https://http2.mlstatic.com/D_NQ_NP_985987-MLA110566609097_042026-F.jpg" alt="Xiaomi Redmi Watch 6" loading="lazy" referrerpolicy="no-referrer">
+            <div><span class="cg-tag">ASIN B0GQLM2HG7 · gris</span>
+              <h3><a href="#sec-w6g" data-cg-prod="w6g" data-ga-section="tarjeta">Xiaomi Redmi Watch 6 · gris</a></h3>
+              <ul><li>Misma base que la negra: 2.07", 432 x 514, 2000 nits</li><li>Esta ficha sí declara AMOLED y carga de 2 horas</li><li>GPS integrado · 5ATM · Android e iOS</li></ul>
+            </div>
+          </div>
+          <div class="cg-caution">Segunda ficha del mismo modelo, en gris. Difiere de la negra en el tipo de pantalla declarado (AMOLED frente a «Digital») y en que aquí sí hay tiempo de carga. La imagen es de referencia del modelo y puede no corresponder al color gris; confirma color y características en la ficha.</div>
+          <button type="button" class="cg-btn cg-btn-line" data-cg-sel="w6g" data-cg-lbl="full" data-ga-section="tarjeta" aria-pressed="false">＋ Seleccionar para comparar</button>
+          <a class="cg-btn cg-btn-amz" href="https://www.amazon.com.mx/dp/B0GQLM2HG7?tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Redmi Watch 6 gris" data-loc="tarjeta">Ver precio en <img src="/logoamazon.png" alt="Amazon" onerror="this.outerHTML='Amazon'"> <span aria-hidden="true">&#8599;</span></a>
+        </article>
+
+        <article class="cg-card" data-id="w5lite" data-cg-card="w5lite" data-serie="w5lite" data-bateria="12h" data-gps="si" data-resistencia="nd">
+          <div class="cg-card-top">
+            <img src="https://http2.mlstatic.com/D_NQ_NP_733634-MLA99488978272_112025-F.jpg" alt="Xiaomi Redmi Watch 5 Lite" loading="lazy" referrerpolicy="no-referrer">
+            <div><span class="cg-tag">ASIN B0DG5Z75F8 · caja redonda</span>
+              <h3><a href="#sec-w5lite" data-cg-prod="w5lite" data-ga-section="tarjeta">Xiaomi Redmi Watch 5 Lite con GPS</a></h3>
+              <ul><li>El único de caja redonda · AMOLED 410 x 502 · 600 nits</li><li>GPS integrado y llamadas por Bluetooth</li><li>Frecuencia cardíaca y oxígeno en sangre</li></ul>
+            </div>
+          </div>
+          <div class="cg-caution">Es la ficha con más datos que no cuadran: declara «Batería: 12 horas» y «Capacidad de batería: 10000 mAh» mientras el texto del propio anuncio promete AMOLED de 1.96" y hasta 18 días; el campo de pantalla aparece como «4,98 Centímetros», la resistencia como el literal «[water_resistant]» y el peso como «4», sin unidad. No corregimos ninguno: verifica autonomía, pantalla y resistencia al agua en la ficha antes de pagar.</div>
+          <button type="button" class="cg-btn cg-btn-line" data-cg-sel="w5lite" data-cg-lbl="full" data-ga-section="tarjeta" aria-pressed="false">＋ Seleccionar para comparar</button>
+          <a class="cg-btn cg-btn-amz" href="https://www.amazon.com.mx/dp/B0DG5Z75F8?tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Redmi Watch 5 Lite" data-loc="tarjeta">Ver precio en <img src="/logoamazon.png" alt="Amazon" onerror="this.outerHTML='Amazon'"> <span aria-hidden="true">&#8599;</span></a>
+        </article>
+
+        <article class="cg-card" data-id="w5ap" data-cg-card="w5ap" data-serie="w5active" data-bateria="18d" data-gps="no" data-resistencia="5atm">
+          <div class="cg-card-top">
+            <img src="https://http2.mlstatic.com/D_NQ_NP_623224-MLA99565300348_122025-F.jpg" alt="Xiaomi Redmi Watch 5 Active" loading="lazy" referrerpolicy="no-referrer">
+            <div><span class="cg-tag">ASIN B0DFHFM1X9 · plata · 5ATM</span>
+              <h3><a href="#sec-w5ap" data-cg-prod="w5ap" data-ga-section="tarjeta">Xiaomi Redmi Watch 5 Active · plata</a></h3>
+              <ul><li>2" · 320 x 385 · 500 nits declarados</li><li>Acelerómetro, frecuencia cardíaca óptica y SpO2</li><li>5ATM · Android e iOS · carga en 30 minutos</li></ul>
+            </div>
+          </div>
+          <div class="cg-caution">De este modelo hay dos fichas en Amazon y no declaran lo mismo: esta (plata) dice 5ATM, 500 nits, 320 x 385 y Android e iOS; la negra dice IP68, 300 nits, 320 x 340 y solo Android. Si te importa nadar con el reloj o usarlo con iPhone, revisa esos campos en la ficha exacta que abras. La imagen es de referencia del modelo.</div>
+          <button type="button" class="cg-btn cg-btn-line" data-cg-sel="w5ap" data-cg-lbl="full" data-ga-section="tarjeta" aria-pressed="false">＋ Seleccionar para comparar</button>
+          <a class="cg-btn cg-btn-amz" href="https://www.amazon.com.mx/dp/B0DFHFM1X9?tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Redmi Watch 5 Active plata" data-loc="tarjeta">Ver precio en <img src="/logoamazon.png" alt="Amazon" onerror="this.outerHTML='Amazon'"> <span aria-hidden="true">&#8599;</span></a>
+        </article>
+
+        <article class="cg-card" data-id="w5an" data-cg-card="w5an" data-serie="w5active" data-bateria="18d" data-gps="no" data-resistencia="ip68">
+          <div class="cg-card-top">
+            <img src="https://http2.mlstatic.com/D_NQ_NP_623224-MLA99565300348_122025-F.jpg" alt="Xiaomi Redmi Watch 5 Active" loading="lazy" referrerpolicy="no-referrer">
+            <div><span class="cg-tag">ASIN B0DFZPR9Z4 · negro · IP68</span>
+              <h3><a href="#sec-w5an" data-cg-prod="w5an" data-ga-section="tarjeta">Xiaomi Redmi Watch 5 Active · negro</a></h3>
+              <ul><li>2" · 320 x 340 · 300 nits declarados</li><li>Resistencia declarada IP68, no 5ATM</li><li>Compatibilidad declarada solo con Android</li></ul>
+            </div>
+          </div>
+          <div class="cg-caution">Es la otra ficha del Redmi Watch 5 Active, en negro, y es la más conservadora de las dos: IP68 en lugar de 5ATM, 300 nits en lugar de 500 y solo Android. Si usas iPhone o quieres nadar con él, compara los dos anuncios antes de decidir. La imagen es de referencia del modelo.</div>
+          <button type="button" class="cg-btn cg-btn-line" data-cg-sel="w5an" data-cg-lbl="full" data-ga-section="tarjeta" aria-pressed="false">＋ Seleccionar para comparar</button>
+          <a class="cg-btn cg-btn-amz" href="https://www.amazon.com.mx/dp/B0DFZPR9Z4?tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Redmi Watch 5 Active negro" data-loc="tarjeta">Ver precio en <img src="/logoamazon.png" alt="Amazon" onerror="this.outerHTML='Amazon'"> <span aria-hidden="true">&#8599;</span></a>
+        </article>
+
+      </div>
+
+      <div class="cg-model" id="sec-w6lite" data-cg-sec style="margin-top:28px">
+        <div>
+          <h3>Watch 6 Lite: el que más cosas cubre</h3>
+          <p>De los seis, es el que reúne más de lo que se le pide a un reloj de esta gama sin subir al tope: panel AMOLED, GPS integrado para salir sin el celular, 5ATM para la alberca y la autonomía declarada más alta. Lo que lo distingue de verdad es el peso: su ficha reporta 27.8 g frente a los 89 g del Watch 6, y esa diferencia se nota al dormir y al correr.</p>
+          <div class="cg-pros"><h3>A favor</h3><ul><li>AMOLED de 1.96" con 1500 nits declarados</li><li>GPS integrado y 5ATM</li><li>18 días declarados en el cuerpo más ligero</li></ul></div>
+        </div>
+        <aside class="cg-pc">
+          <div class="cg-pc-img"><img src="https://http2.mlstatic.com/D_NQ_NP_802798-MLA117209921033_092026-F.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+          <h3>Watch 6 Lite</h3>
+          <table class="cg-specs"><tr><th>Pantalla</th><td>1.96" AMOLED</td></tr><tr><th>Brillo</th><td>1500 nits</td></tr><tr><th>GPS</th><td>Integrado</td></tr><tr><th>Resistencia</th><td>5ATM</td></tr><tr><th>Peso</th><td>27.8 g</td></tr></table>
+          <a class="cg-btn cg-btn-amz cg-w100" href="https://www.amazon.com.mx/dp/B0H8TCWZYF?tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Redmi Watch 6 Lite" data-loc="analisis">Ver precio en <img src="/logoamazon.png" alt="Amazon" onerror="this.outerHTML='Amazon'"> <span aria-hidden="true">&#8599;</span></a>
+        </aside>
+      </div>
+
+      <div class="cg-model" id="sec-w6n" data-cg-sec style="margin-top:28px">
+        <div>
+          <h3>Watch 6 negro: la pantalla más grande y luminosa</h3>
+          <p>2.07 pulgadas, 432 x 514 y 2000 nits declarados son los números más altos de la selección, y 550 mAh es también la batería más grande, aunque su autonomía declarada sea menor (12 días) precisamente porque mueve más pantalla. El precio a pagar está en la muñeca: 89 g. Esta ficha concreta declara el panel como «Digital», no como AMOLED.</p>
+          <div class="cg-pros"><h3>A favor</h3><ul><li>La pantalla más grande y brillante de la guía</li><li>Batería de 550 mAh y GPS integrado</li><li>5ATM y rastreador multideporte</li></ul></div>
+        </div>
+        <aside class="cg-pc">
+          <div class="cg-pc-img"><img src="https://http2.mlstatic.com/D_NQ_NP_985987-MLA110566609097_042026-F.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+          <h3>Watch 6 negro</h3>
+          <table class="cg-specs"><tr><th>Pantalla</th><td>2.07"</td></tr><tr><th>Brillo</th><td>2000 nits</td></tr><tr><th>GPS</th><td>Integrado</td></tr><tr><th>Resistencia</th><td>5ATM</td></tr><tr><th>Peso</th><td>89 g</td></tr></table>
+          <a class="cg-btn cg-btn-amz cg-w100" href="https://www.amazon.com.mx/dp/B0GQL9JZS7?tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Redmi Watch 6 negro" data-loc="analisis">Ver precio en <img src="/logoamazon.png" alt="Amazon" onerror="this.outerHTML='Amazon'"> <span aria-hidden="true">&#8599;</span></a>
+        </aside>
+      </div>
+
+      <div class="cg-model" id="sec-w6g" data-cg-sec style="margin-top:28px">
+        <div>
+          <h3>Watch 6 gris: el mismo reloj, mejor descrito</h3>
+          <p>Es el mismo Watch 6, y por eso aparece aquí: su anuncio declara el panel como AMOLED y reporta un tiempo de carga de 2 horas, dos datos que la ficha negra no da. No significa que los relojes sean distintos; significa que uno de los dos anuncios está mejor llenado. Si el color te da igual, es la ficha con la que es más fácil saber qué estás comprando.</p>
+          <div class="cg-pros"><h3>A favor</h3><ul><li>Declara AMOLED, no «Digital»</li><li>Declara tiempo de carga: 2 horas</li><li>Mismas 2.07", 2000 nits y 5ATM que la negra</li></ul></div>
+        </div>
+        <aside class="cg-pc">
+          <div class="cg-pc-img"><img src="https://http2.mlstatic.com/D_NQ_NP_985987-MLA110566609097_042026-F.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+          <h3>Watch 6 gris</h3>
+          <table class="cg-specs"><tr><th>Pantalla</th><td>2.07" AMOLED</td></tr><tr><th>Brillo</th><td>2000 nits</td></tr><tr><th>Carga</th><td>2 horas</td></tr><tr><th>Resistencia</th><td>5ATM</td></tr><tr><th>Peso</th><td>89 g</td></tr></table>
+          <a class="cg-btn cg-btn-amz cg-w100" href="https://www.amazon.com.mx/dp/B0GQLM2HG7?tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Redmi Watch 6 gris" data-loc="analisis">Ver precio en <img src="/logoamazon.png" alt="Amazon" onerror="this.outerHTML='Amazon'"> <span aria-hidden="true">&#8599;</span></a>
+        </aside>
+      </div>
+
+      <div class="cg-model" id="sec-w5lite" data-cg-sec style="margin-top:28px">
+        <div>
+          <h3>Watch 5 Lite: el único redondo, con la ficha más confusa</h3>
+          <p>Es el único de caja redonda de la selección y el único que rompe la estética rectangular de Redmi, con AMOLED de 410 x 502, GPS integrado y medición de oxígeno en sangre. El problema no es el reloj, es su anuncio: declara 12 horas de batería con 10000 mAh, la pantalla en centímetros y la resistencia como un código sin traducir. Lo elegiría solo después de confirmar esos tres campos con el vendedor.</p>
+          <div class="cg-pros"><h3>A favor</h3><ul><li>Caja redonda, si prefieres ese formato</li><li>AMOLED de 410 x 502 y GPS integrado</li><li>Mide frecuencia cardíaca y oxígeno en sangre</li></ul></div>
+        </div>
+        <aside class="cg-pc">
+          <div class="cg-pc-img"><img src="https://http2.mlstatic.com/D_NQ_NP_733634-MLA99488978272_112025-F.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+          <h3>Watch 5 Lite</h3>
+          <table class="cg-specs"><tr><th>Pantalla</th><td>AMOLED (ver nota)</td></tr><tr><th>Brillo</th><td>600 nits</td></tr><tr><th>GPS</th><td>Integrado</td></tr><tr><th>Resistencia</th><td>No declarada</td></tr><tr><th>Forma</th><td>Redonda</td></tr></table>
+          <a class="cg-btn cg-btn-amz cg-w100" href="https://www.amazon.com.mx/dp/B0DG5Z75F8?tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Redmi Watch 5 Lite" data-loc="analisis">Ver precio en <img src="/logoamazon.png" alt="Amazon" onerror="this.outerHTML='Amazon'"> <span aria-hidden="true">&#8599;</span></a>
+        </aside>
+      </div>
+
+      <div class="cg-model" id="sec-w5ap" data-cg-sec style="margin-top:28px">
+        <div>
+          <h3>Watch 5 Active plata: la entrada, en su mejor versión</h3>
+          <p>Es el modelo más sencillo de la gama —pantalla LCD de 2", sin GPS integrado— pero cubre lo que la mayoría usa de verdad: notificaciones, pasos, sueño, frecuencia cardíaca, SpO2 y llamadas por Bluetooth, con 18 días declarados. De sus dos fichas, esta es la que más promete: 5ATM, 500 nits y compatibilidad con iOS.</p>
+          <div class="cg-pros"><h3>A favor</h3><ul><li>Declara 5ATM y 500 nits, mejor que la ficha negra</li><li>Compatibilidad declarada con Android e iOS</li><li>18 días declarados y carga en 30 minutos</li></ul></div>
+        </div>
+        <aside class="cg-pc">
+          <div class="cg-pc-img"><img src="https://http2.mlstatic.com/D_NQ_NP_623224-MLA99565300348_122025-F.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+          <h3>Watch 5 Active plata</h3>
+          <table class="cg-specs"><tr><th>Pantalla</th><td>2" LCD</td></tr><tr><th>Brillo</th><td>500 nits</td></tr><tr><th>GPS</th><td>Sin GPS</td></tr><tr><th>Resistencia</th><td>5ATM</td></tr><tr><th>Compatibilidad</th><td>Android e iOS</td></tr></table>
+          <a class="cg-btn cg-btn-amz cg-w100" href="https://www.amazon.com.mx/dp/B0DFHFM1X9?tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Redmi Watch 5 Active plata" data-loc="analisis">Ver precio en <img src="/logoamazon.png" alt="Amazon" onerror="this.outerHTML='Amazon'"> <span aria-hidden="true">&#8599;</span></a>
+        </aside>
+      </div>
+
+      <div class="cg-model" id="sec-w5an" data-cg-sec style="margin-top:28px">
+        <div>
+          <h3>Watch 5 Active negro: la misma entrada, declarando menos</h3>
+          <p>Mismo modelo que la variante plata, pero su anuncio declara tres cosas peores: IP68 en lugar de 5ATM, 300 nits en lugar de 500 y compatibilidad solo con Android. Si usas iPhone o piensas nadar con el reloj, esos tres campos son justo los que importan, así que entre las dos fichas del mismo reloj esta es la que pide más comprobación antes de pagar.</p>
+          <div class="cg-pros"><h3>A favor</h3><ul><li>18 días declarados, igual que la plata</li><li>Llamadas por Bluetooth y carga en 30 minutos</li><li>Pantalla de 2", la más grande de los Active</li></ul></div>
+        </div>
+        <aside class="cg-pc">
+          <div class="cg-pc-img"><img src="https://http2.mlstatic.com/D_NQ_NP_623224-MLA99565300348_122025-F.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+          <h3>Watch 5 Active negro</h3>
+          <table class="cg-specs"><tr><th>Pantalla</th><td>2" LCD</td></tr><tr><th>Brillo</th><td>300 nits</td></tr><tr><th>GPS</th><td>Sin GPS</td></tr><tr><th>Resistencia</th><td>IP68</td></tr><tr><th>Compatibilidad</th><td>Solo Android</td></tr></table>
+          <a class="cg-btn cg-btn-amz cg-w100" href="https://www.amazon.com.mx/dp/B0DFZPR9Z4?tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Redmi Watch 5 Active negro" data-loc="analisis">Ver precio en <img src="/logoamazon.png" alt="Amazon" onerror="this.outerHTML='Amazon'"> <span aria-hidden="true">&#8599;</span></a>
+        </aside>
+      </div>
+    </section>
+
+    <section class="cg-sec" id="sec-cual-conviene" data-cg-sec>
+      <h2 class="cg-h2">¿Cuál te conviene?</h2>
+      <div class="cg-picks">
+        <div class="cg-pick"><h3>Notificaciones, pasos y sueño</h3><p>El Watch 5 Active basta: pantalla grande, llamadas por Bluetooth, frecuencia cardíaca y la autonomía declarada más alta. Su límite es que no lleva GPS integrado, así que para trazar una ruta necesita el teléfono.</p><a class="cg-btn cg-btn-line" href="#sec-w5ap" data-cg-prod="w5ap" data-ga-section="cual_conviene">Ver análisis</a></div>
+        <div class="cg-pick"><h3>Correr o andar en bici sin celular</h3><p>Ahí el GPS integrado deja de ser un extra. El Watch 6 Lite es el más equilibrado: AMOLED, 5ATM, 18 días declarados y 27.8 g, que para correr se siente distinto a cargar casi 90.</p><a class="cg-btn cg-btn-line" href="#sec-w6lite" data-cg-prod="w6lite" data-ga-section="cual_conviene">Ver análisis</a></div>
+        <div class="cg-pick"><h3>La pantalla más grande</h3><p>El Watch 6, en cualquiera de sus dos fichas: 2.07", 432 x 514 y 2000 nits son los números más altos de la selección. Si decides por este, la diferencia entre la negra y la gris no es solo el color.</p><a class="cg-btn cg-btn-line" href="#sec-w6g" data-cg-prod="w6g" data-ga-section="cual_conviene">Ver análisis</a></div>
+        <div class="cg-pick"><h3>Vas a nadar con él</h3><p>Busca 5ATM y no te conformes con IP68. Declaran 5ATM el Watch 6 (las dos fichas), el Watch 6 Lite y el Watch 5 Active en plata; la del Active negro declara IP68 y la del Watch 5 Lite no da un valor legible.</p><a class="cg-btn cg-btn-line" href="#sec-specs" data-ga-section="cual_conviene">Ver qué significa</a></div>
+        <div class="cg-pick"><h3>Usas iPhone</h3><p>El Watch 6, el Watch 6 Lite y el Watch 5 Lite declaran Android e iOS. En el Watch 5 Active depende de la ficha: una declara las dos y la otra solo Android. Confírmalo en el anuncio y revisa los requisitos de la app de Xiaomi.</p><a class="cg-btn cg-btn-line" href="#sec-fichas" data-ga-section="cual_conviene">Ver las fichas repetidas</a></div>
+        <div class="cg-pick"><h3>Prefieres caja redonda</h3><p>Solo el Watch 5 Lite lo es. Es un buen formato, pero su anuncio es el más contradictorio de los seis: confirma batería, pantalla y resistencia antes de pagar.</p><a class="cg-btn cg-btn-line" href="#sec-w5lite" data-cg-prod="w5lite" data-ga-section="cual_conviene">Ver análisis</a></div>
+      </div>
+    </section>
+
+    <section class="cg-sec" id="sec-specs" data-cg-sec>
+      <h2 class="cg-h2">Qué mirar en un Xiaomi</h2>
+      <p>Dentro de una sola marca los nombres se parecen mucho, así que la decisión se juega en unos pocos campos. Esto es lo que cambia en la práctica:</p>
+      <div class="cg-tblw" role="region" aria-label="Qué significa cada característica" tabindex="0">
+        <table class="cg-tbl"><thead><tr><th scope="col">Característica</th><th scope="col">Por qué importa</th><th scope="col">A quién le conviene mirarla</th></tr></thead><tbody>
+        <tr><td>Tipo de panel</td><td>AMOLED da negros reales y suele leerse mejor al sol que un LCD; también permite pantalla siempre encendida con menos castigo visual.</td><td>Quien usa el reloj a mitad del día en la calle.</td></tr>
+        <tr><td>Brillo (nits)</td><td>Es lo que decide si ves la hora bajo el sol de mediodía. Entre 300 y 2000 nits declarados hay una diferencia enorme.</td><td>Quien trabaja o entrena a la intemperie.</td></tr>
+        <tr><td>GPS integrado</td><td>Sin él, el reloj traza rutas con el GPS del teléfono; con él, puedes salir sin celular.</td><td>Corredores, ciclistas, caminantes.</td></tr>
+        <tr><td>Resistencia (5ATM vs. IP68)</td><td>5ATM es una prueba de presión asociada a natación en superficie; IP68 describe polvo e inmersión en condiciones de norma, más pensada para lluvia y salpicaduras.</td><td>Quien quiere meterse a la alberca con el reloj.</td></tr>
+        <tr><td>Autonomía declarada</td><td>Es un máximo de laboratorio. Sirve para comparar modelos entre sí, no para prometer días concretos.</td><td>Todos, con la expectativa ajustada.</td></tr>
+        <tr><td>Peso</td><td>Un reloj de 27.8 g y otro de 89 g se sienten distintos al dormir y al correr.</td><td>Quien lo usa 24 horas, sueño incluido.</td></tr>
+        </tbody></table>
+      </div>
+      <p>La compatibilidad merece una mención aparte: casi todos los relojes de esta gama funcionan con Android e iOS, pero las funciones disponibles en iPhone suelen ser menos que en Android. Si usas iOS, revisa qué queda fuera antes de decidir.</p>
+    </section>
+
+    <section class="cg-sec" id="sec-fichas" data-cg-sec>
+      <h2 class="cg-h2">Cuidado con las fichas repetidas del mismo Xiaomi</h2>
+      <p>En una guía de una sola marca este punto no es un detalle: el mismo reloj aparece en Amazon con varias fichas —por color, por empaque o por vendedor— y los campos técnicos no siempre coinciden entre ellas. En esta selección pasa dos veces.</p>
+      <div class="cg-callout">
+      <ol style="padding-left:20px;margin:0">
+        <li><strong>Redmi Watch 5 Active:</strong> dos fichas del mismo modelo. Una declara 5ATM, 500 nits, 320 x 385 y Android e iOS; la otra, IP68, 300 nits, 320 x 340 y solo Android.</li>
+        <li><strong>Redmi Watch 6:</strong> dos fichas del mismo modelo. Una declara el panel como «Digital» y no indica tiempo de carga; la otra lo declara AMOLED y reporta 2 horas.</li>
+        <li><strong>Redmi Watch 6 Lite:</strong> su anuncio aparece titulado como «Redmi Watch 6» aunque su campo de modelo diga Watch 6 Lite. Son relojes distintos: el Lite declara 1.96" y 470 mAh; el Watch 6, 2.07" y 550 mAh.</li>
+      </ol>
+      </div>
+      <p class="cg-note">Por eso cada tarjeta de esta guía lleva su ASIN a la vista y un identificador propio: así los filtros y el comparador nunca mezclan dos fichas del mismo modelo.</p>
+    </section>
+
+    <section class="cg-sec cg-faq" id="sec-faq" data-cg-sec>
+      <h2 class="cg-h2">Preguntas frecuentes</h2>
+      <details><summary>¿Cuál smartwatch Xiaomi conviene si es el primero? <span>+</span></summary><p class="cg-faq-b">El Redmi Watch 5 Active es la puerta de entrada: pantalla grande, notificaciones, llamadas por Bluetooth y 18 días de autonomía declarada. No incluye GPS integrado, así que depende del teléfono para registrar rutas. Si quieres pantalla AMOLED y GPS propio sin irte al tope de la gama, el Redmi Watch 6 Lite es el siguiente escalón lógico.</p></details>
+      <details><summary>¿Qué diferencia hay entre el Redmi Watch 6 y el Redmi Watch 6 Lite? <span>+</span></summary><p class="cg-faq-b">Según sus fichas, el Watch 6 declara 2.07" con 432 x 514, 2000 nits y 550 mAh para 12 días; el Watch 6 Lite declara 1.96" AMOLED, 1500 nits, 470 mAh y 18 días. Los dos declaran GPS integrado, 5ATM y compatibilidad con Android e iOS. El Lite también pesa mucho menos según su ficha: 27.8 g frente a 89 g.</p></details>
+      <details><summary>¿El Redmi Watch 5 Active funciona con iPhone? <span>+</span></summary><p class="cg-faq-b">Depende de la publicación. Las dos fichas del mismo modelo no dicen lo mismo: una declara compatibilidad solo con Android y la otra con Android e iOS. Si usas iPhone, confirma ese campo en la ficha concreta que abras y revisa los requisitos de la aplicación de Xiaomi.</p></details>
+      <details><summary>¿Por qué el mismo reloj Xiaomi aparece con dos ASIN distintos? <span>+</span></summary><p class="cg-faq-b">Amazon crea una ficha por variante y por vendedor, así que un mismo modelo puede tener dos o más ASIN: por color, por empaque o por quien lo publica. En esta guía incluimos las dos del Redmi Watch 5 Active y las dos del Redmi Watch 6 porque sus campos técnicos no coinciden entre sí.</p></details>
+      <details><summary>¿Los 18 días de batería son reales? <span>+</span></summary><p class="cg-faq-b">Son una cifra máxima declarada en condiciones de prueba del fabricante, normalmente sin pantalla siempre encendida, sin GPS y con pocas notificaciones. En uso diario con pantalla activa, ejercicio con GPS y mediciones continuas la autonomía baja. Úsala para comparar modelos, no como promesa.</p></details>
+      <details><summary>¿Necesito GPS integrado en el reloj? <span>+</span></summary><p class="cg-faq-b">Si sales a correr o a andar en bici y quieres dejar el teléfono en casa, sí: sin GPS integrado el reloj necesita el del celular para trazar la ruta. Si solo te interesan pasos, notificaciones, sueño y frecuencia cardíaca, deja de ser determinante.</p></details>
+      <details><summary>¿Qué significa 5ATM y en qué se diferencia de IP68? <span>+</span></summary><p class="cg-faq-b">5ATM es una prueba de presión equivalente a 50 metros de columna de agua y suele asociarse a natación en superficie. IP68 describe protección contra polvo e inmersión en condiciones definidas por la norma, pensada más para salpicaduras y lluvia. En esta guía hay fichas con 5ATM y una con IP68, así que revisa ese campo si piensas nadar.</p></details>
+      <details><summary>¿Por qué esta guía no muestra precios de Amazon? <span>+</span></summary><p class="cg-faq-b">Porque un precio escrito a mano envejece en horas y mostrarlo así incumple las condiciones del programa de afiliados de Amazon. Cada botón lleva a la ficha, donde el precio y la disponibilidad son los vigentes en ese momento.</p></details>
+    </section>
+
+    <section class="cg-sec" id="sec-fuentes" data-cg-sec>
+      <h2 class="cg-h2">Fuentes y metodología</h2>
+      <p>Las características de cada tarjeta provienen de la ficha del producto en Amazon México, consultada el 27 de noviembre de 2026 y enlazada en cada botón. Para contrastar lo que declara el fabricante, estas son las páginas oficiales de los cuatro modelos:</p>
+      <ul>
+        <li><a href="https://www.mi.com/global/product/redmi-watch-6/" target="_blank" rel="noopener">Xiaomi: especificaciones del REDMI Watch 6</a></li>
+        <li><a href="https://www.mi.com/global/product/redmi-watch-6-lite/" target="_blank" rel="noopener">Xiaomi: especificaciones del REDMI Watch 6 Lite</a></li>
+        <li><a href="https://www.mi.com/global/product/redmi-watch-5-lite/" target="_blank" rel="noopener">Xiaomi: especificaciones del REDMI Watch 5 Lite</a></li>
+        <li><a href="https://www.mi.com/global/product/redmi-watch-5-active/" target="_blank" rel="noopener">Xiaomi: especificaciones del Redmi Watch 5 Active</a></li>
+        <li><a href="https://www.mi.com/mx/" target="_blank" rel="noopener">Xiaomi México</a>, para disponibilidad y garantía oficial en el país</li>
+        <li>Archivo interno: captura de fichas de comparalo.mx del 27 de noviembre de 2026</li>
+      </ul>
+      <p>Cómo seleccionamos y ordenamos: conservamos las seis fichas, repetidas incluidas, porque sus campos técnicos no coinciden y esa diferencia es justo lo que hay que decidir. Nombramos cada reloj por su campo de modelo y no por el título del anuncio —por eso el ASIN B0H8TCWZYF aparece como Watch 6 Lite— y le dimos a cada tarjeta un identificador propio para que el comparador no mezcle dos fichas del mismo modelo. El campo de GPS llega sin normalizar en varios anuncios («built_in_gps», «Built-in GPS», «GPS integrado») y lo mostramos como «GPS integrado» o «Sin GPS» para poder compararlo, sin cambiar el contenido técnico.</p>
+      <p class="cg-note">Las fichas oficiales pueden declarar valores distintos a los de un anuncio concreto, sobre todo en variantes regionales. Esta guía no corrige el anuncio con la ficha oficial: te señala la discrepancia para que decidas con las dos fuentes a la vista. No publicamos precios, descuentos, calificaciones, número de opiniones ni posiciones de ventas de Amazon; el orden es editorial y se basa en qué necesidades cubre cada reloj.</p>
+    </section>
+
+    <p class="cg-disc">Como Afiliado de Amazon, percibo dinero con las compras elegibles. Los enlaces de esta página pueden generar una comisión para comparalo.mx sin costo adicional para el comprador. La selección editorial se basa en características, condiciones y utilidad; no en la comisión. Los precios, vendedores, disponibilidad y condiciones pueden cambiar en Amazon: confirma siempre el modelo, el color y las características en la ficha antes de pagar.</p>
+  </main>
+
+  <!-- COLUMNA DERECHA: consejos de compra (Amazon no permite precios aquí) -->
+  <aside class="cg-right" aria-label="Consejos de compra">
+    <div class="cg-box cg-editorial">
+      <div class="cg-box-h">📋 Antes de comprar</div>
+      <div class="cg-box-b">
+        <ul>
+          <li>Confirma en la ficha si declara <strong>5ATM</strong> o <strong>IP68</strong>: solo el primero se asocia a nadar.</li>
+          <li>Revisa si el <strong>GPS es integrado</strong> o depende del teléfono.</li>
+          <li>Si usas iPhone, comprueba la compatibilidad en ese anuncio concreto: entre dos fichas del mismo reloj cambia.</li>
+          <li>Compara el <strong>peso</strong>: 27.8 g y 89 g no se sienten igual al dormir.</li>
+          <li>Trata la autonomía como cifra máxima de laboratorio, no como promesa.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="cg-trust"><strong>Comprar en Amazon México</strong>Revisa la política de devoluciones de la publicación concreta y el vendedor antes de pagar; varía por producto.</div>
+    <nav class="cg-box" aria-label="Más guías">
+      <div class="cg-box-h">Más guías de compra</div>
+      <div class="cg-box-b">
+        <ul class="cg-guias-rel">
+          <li><a href="/guias-compra/smartwatches/">Todas las guías de smartwatches</a></li>
+          <li><a href="/guias-compra/">Ver todas las guías de compra</a></li>
+          <li><a href="/tecnologia/smartwatches/">Comparar smartwatches en Mercado Libre</a></li>
+        </ul>
+      </div>
+    </nav>
+  </aside>
+
+</div><!-- /cg-wrap -->
+
+<!-- Barra de comparación (escritorio) -->
+<div class="cg-bar" id="cg-bar" role="region" aria-label="Comparación de productos">
+  <span class="cg-bar-t" id="cg-bar-t">Comparando 0 productos</span>
+  <div class="cg-bar-chips" id="cg-bar-chips"></div>
+  <button type="button" class="cg-btn cg-btn-y" data-cg-go data-ga-section="barra_comparar">Comparar ahora →</button>
+  <button type="button" class="cg-btn cg-btn-ghost" data-cg-clear>Limpiar</button>
 </div>
-<p class="muted">No hay un ganador absoluto, y menos dentro de una misma marca: el Xiaomi correcto depende de si vas a nadar con él, de si quieres salir a correr sin el celular y de cuánta pantalla quieres cargar en la muñeca.</p>
+<div class="cg-toast" id="cg-toast"></div>
 
-<h2 id="comparativa">Comparativa rápida de los Xiaomi</h2>
-<p>Esta tabla resume los cuatro modelos distintos de la selección con los datos declarados en sus fichas. Las dos fichas repetidas (la segunda del Watch 6 y la segunda del Watch 5 Active) están más abajo, en las tarjetas, porque su interés está justamente en las diferencias que declaran.</p>
-<div class="table-wrap"><table class="cmp-table"><thead><tr><th>Característica</th><th>Redmi Watch 6</th><th>Redmi Watch 6 Lite</th><th>Redmi Watch 5 Lite</th><th>Redmi Watch 5 Active</th></tr></thead><tbody>
-<tr><td>Pantalla declarada</td><td>2.07"</td><td>1.96" AMOLED</td><td>AMOLED (ver nota)</td><td>2" LCD</td></tr>
-<tr><td>Resolución</td><td>432 x 514</td><td>240 x 240 (ver nota)</td><td>410 x 502</td><td>320 x 385</td></tr>
-<tr><td>Brillo</td><td>2000 nits</td><td>1500 nits</td><td>600 nits</td><td>500 nits</td></tr>
-<tr><td>Batería declarada</td><td>12 días</td><td>18 días</td><td>Ver nota</td><td>18 días</td></tr>
-<tr><td>Capacidad</td><td>550 mAh</td><td>470 mAh</td><td>Ver nota</td><td>470 mAh</td></tr>
-<tr><td>GPS</td><td>GPS integrado</td><td>GPS integrado</td><td>GPS integrado</td><td>Sin GPS</td></tr>
-<tr><td>Resistencia</td><td>5ATM</td><td>5ATM</td><td>No declarada (ver nota)</td><td>5ATM / IP68 según ficha</td></tr>
-<tr><td>Compatibilidad</td><td>Android e iOS</td><td>Android e iOS</td><td>Android e iOS</td><td>Varía entre fichas</td></tr>
-<tr><td>Peso declarado</td><td>89 g</td><td>27.8 g</td><td>Ver nota</td><td>81 g</td></tr>
-<tr class="cmp-cta"><td>Ver en Amazon</td>
-<td><a class="amz-mini" href="https://www.amazon.com.mx/dp/B0GQL9JZS7?tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Redmi Watch 6 negro" data-loc="tabla">Ver precio en Amazon <img src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a></td>
-<td><a class="amz-mini" href="https://www.amazon.com.mx/dp/B0H8TCWZYF?tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Redmi Watch 6 Lite" data-loc="tabla">Ver precio en Amazon <img src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a></td>
-<td><a class="amz-mini" href="https://www.amazon.com.mx/dp/B0DG5Z75F8?tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Redmi Watch 5 Lite" data-loc="tabla">Ver precio en Amazon <img src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a></td>
-<td><a class="amz-mini" href="https://www.amazon.com.mx/dp/B0DFHFM1X9?tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Redmi Watch 5 Active plata" data-loc="tabla">Ver precio en Amazon <img src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a></td>
-</tr>
-</tbody></table></div>
-<p class="small">Las autonomías son cifras máximas declaradas por el fabricante en condiciones de prueba; no equivalen a lo que obtendrás con pantalla activa, ejercicio con GPS y mediciones continuas. Donde dice "ver nota", la ficha declara valores que no cuadran entre sí y lo explicamos en la tarjeta del modelo.</p>
+<!-- Barra inferior y paneles (móvil) -->
+<nav class="cg-nav" aria-label="Navegación de la guía">
+  <button type="button" data-nav="index" aria-expanded="false" aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="14" y2="18"/></svg>Índice</button>
+  <button type="button" data-nav="guide" aria-expanded="false" aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Consejos</button>
+  <button type="button" data-nav="compare" aria-expanded="false" aria-haspopup="dialog" aria-label="Comparar productos (0 seleccionados)"><img src="/logopng.png" alt="">Compáralo<span class="cg-nav-n" id="cg-nav-n">0</span></button>
+  <a href="/tecnologia/smartwatches/" data-nav="category"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M12 7v5l3 2"/></svg>Smartwatches</a>
+</nav>
+<div class="cg-bd" id="cg-bd"></div>
 
-<h2 id="modelos">Elige tu Xiaomi</h2>
-<p>Aquí están las seis fichas, ordenadas de la que cubre más necesidades a la más sencilla. Filtra por modelo, autonomía declarada, GPS o resistencia, y marca de dos a tres para armar tu propia tabla. Los botones llevan a la ficha correspondiente en Amazon México con el identificador de afiliado de esta sección.</p>
-
-<details class="config config-collapse" id="config">
-  <summary class="config-summary">Filtrar: modelo, batería, GPS y resistencia</summary>
-  <div class="config-row"><span class="config-label">Modelo</span><div class="config-chips" data-facet="serie">
-    <button class="filter active" data-val="all">Todos</button><button class="filter" data-val="w6">Watch 6</button><button class="filter" data-val="w6lite">Watch 6 Lite</button><button class="filter" data-val="w5lite">Watch 5 Lite</button><button class="filter" data-val="w5active">Watch 5 Active</button>
-  </div></div>
-  <div class="config-row"><span class="config-label">Batería declarada</span><div class="config-chips" data-facet="bateria">
-    <button class="filter active" data-val="all">Cualquiera</button><button class="filter" data-val="18d">18 días</button><button class="filter" data-val="12d">12 días</button><button class="filter" data-val="12h">12 horas</button>
-  </div></div>
-  <div class="config-row"><span class="config-label">GPS</span><div class="config-chips" data-facet="gps">
-    <button class="filter active" data-val="all">Cualquiera</button><button class="filter" data-val="si">GPS integrado</button><button class="filter" data-val="no">Sin GPS</button>
-  </div></div>
-  <div class="config-row"><span class="config-label">Resistencia</span><div class="config-chips" data-facet="resistencia">
-    <button class="filter active" data-val="all">Cualquiera</button><button class="filter" data-val="5atm">5ATM</button><button class="filter" data-val="ip68">IP68</button><button class="filter" data-val="nd">No declarada</button>
-  </div></div>
-  <div class="config-result" id="configResult">Mostrando 6 de 6 modelos</div>
-</details>
-
-<div class="compare-controls"><div class="compare-copy"><strong>Arma tu propia comparativa</strong><p>Marca de 2 a 3 relojes con la casilla de cada tarjeta y genera una tabla lado a lado con lo que declara cada ficha.</p></div><div class="compare-actions"><button class="compare-btn" id="compareBtn" disabled>Comparar modelos</button><button class="clear-btn" id="clearBtn">Limpiar</button><span class="selected-count" id="selectedCount">0 de 3 seleccionados</span></div></div>
-
-<div class="cards" id="productCards">
-
-<article class="product" data-id="B0H8TCWZYF" data-serie="w6lite" data-bateria="18d" data-gps="si" data-resistencia="5atm">
-  <div class="product-img"><img src="https://http2.mlstatic.com/D_NQ_NP_802798-MLA117209921033_092026-F.jpg" alt="Xiaomi Redmi Watch 6 Lite" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.innerHTML='<div class=&quot;placeholder&quot;>⌚</div>'"></div>
-  <div class="product-body">
-    <div class="badges"><span class="badge new">Nuevo</span><span class="badge">AMOLED</span><span class="badge">18 días</span></div>
-    <label class="select-product"><input class="product-select" type="checkbox" aria-label="Seleccionar Redmi Watch 6 Lite para comparar"><span>Agregar a comparativa</span></label>
-    <h3>Xiaomi Redmi Watch 6 Lite</h3>
-    <div class="spec-line">18 días declarados · 1.96" AMOLED · GPS integrado · Frecuencia cardíaca y sueño</div>
-    <ul><li>Pantalla AMOLED de 1.96" con 1500 nits declarados y Always On Display.</li><li>GPS integrado: registra rutas sin depender del teléfono.</li><li>5ATM y compatibilidad declarada con Android e iOS.</li><li>El más ligero de la selección según su ficha: 27.8 g, correa de TPU.</li></ul>
-    <div class="caution">Su ficha declara pantalla AMOLED de 1.96" con resolución de 240 x 240, una cifra que no corresponde a lo que suele traer un panel de ese tamaño; no la corregimos y la dejamos tal cual aparece. En Amazon este producto aparece titulado como "Xiaomi Redmi Watch 6", pero su campo de modelo dice REDMI Watch 6 Lite: lo nombramos Watch 6 Lite. La imagen es de referencia del modelo y puede no corresponder al color de esta variante: confirma modelo y color en la ficha antes de pagar.</div>
-    <a class="amz-btn" href="https://www.amazon.com.mx/dp/B0H8TCWZYF?tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Redmi Watch 6 Lite" data-loc="tarjeta" onclick="typeof gtag==='function'&&gtag('event','affiliate_click_amazon',{event_category:'afiliado',event_label:'Redmi Watch 6 Lite',location:'editorial_guide'})">Ver precio en Amazon <img src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>
-  </div>
-</article>
-
-<article class="product" data-id="B0GQL9JZS7" data-serie="w6" data-bateria="12d" data-gps="si" data-resistencia="5atm">
-  <div class="product-img"><img src="https://http2.mlstatic.com/D_NQ_NP_985987-MLA110566609097_042026-F.jpg" alt="Xiaomi Redmi Watch 6" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.innerHTML='<div class=&quot;placeholder&quot;>⌚</div>'"></div>
-  <div class="product-body">
-    <div class="badges"><span class="badge new">Nuevo</span><span class="badge">2.07"</span><span class="badge">2000 nits</span></div>
-    <label class="select-product"><input class="product-select" type="checkbox" aria-label="Seleccionar Redmi Watch 6 negro para comparar"><span>Agregar a comparativa</span></label>
-    <h3>Xiaomi Redmi Watch 6 · negro</h3>
-    <div class="spec-line">12 días declarados · 2.07" · GPS integrado · Frecuencia cardíaca, sueño y estrés</div>
-    <ul><li>La pantalla más grande y luminosa de la guía: 2.07", 432 x 514 y 2000 nits declarados.</li><li>Batería de 550 mAh para 12 días declarados.</li><li>GPS integrado, 5ATM y rastreador multideporte.</li><li>Always On Display y seguimiento de actividad personalizable.</li></ul>
-    <div class="caution">Esta ficha declara el tipo de pantalla como "Digital", mientras la del mismo modelo en gris la declara AMOLED, y aquí no aparece tiempo de carga. Son dos anuncios del mismo reloj que no dicen lo mismo: revisa en la ficha que abras el tipo de panel y el color antes de pagar. Tampoco declara llamadas por Bluetooth.</div>
-    <a class="amz-btn" href="https://www.amazon.com.mx/dp/B0GQL9JZS7?tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Redmi Watch 6 negro" data-loc="tarjeta" onclick="typeof gtag==='function'&&gtag('event','affiliate_click_amazon',{event_category:'afiliado',event_label:'Redmi Watch 6 negro',location:'editorial_guide'})">Ver precio en Amazon <img src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>
-  </div>
-</article>
-
-<article class="product" data-id="B0GQLM2HG7" data-serie="w6" data-bateria="12d" data-gps="si" data-resistencia="5atm">
-  <div class="product-img"><img src="https://http2.mlstatic.com/D_NQ_NP_985987-MLA110566609097_042026-F.jpg" alt="Xiaomi Redmi Watch 6" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.innerHTML='<div class=&quot;placeholder&quot;>⌚</div>'"></div>
-  <div class="product-body">
-    <div class="badges"><span class="badge new">Nuevo</span><span class="badge">AMOLED</span><span class="badge">Carga 2 h</span></div>
-    <label class="select-product"><input class="product-select" type="checkbox" aria-label="Seleccionar Redmi Watch 6 gris para comparar"><span>Agregar a comparativa</span></label>
-    <h3>Xiaomi Redmi Watch 6 · gris</h3>
-    <div class="spec-line">12 días declarados · 2.07" AMOLED · GPS integrado · Frecuencia cardíaca, sueño y estrés</div>
-    <ul><li>Misma base que la versión negra: 2.07", 432 x 514, 2000 nits y 550 mAh declarados.</li><li>Esta ficha sí declara el panel como AMOLED y un tiempo de carga de 2 horas.</li><li>GPS integrado, 5ATM y compatibilidad con Android e iOS.</li><li>Correa de TPU y rastreador multideporte.</li></ul>
-    <div class="caution">Segunda ficha del mismo modelo, en gris. Difiere de la versión negra en el tipo de pantalla declarado (AMOLED frente a "Digital") y en que aquí sí hay tiempo de carga. La imagen es de referencia del modelo y puede no corresponder al color de esta variante; confirma color y características en la ficha.</div>
-    <a class="amz-btn" href="https://www.amazon.com.mx/dp/B0GQLM2HG7?tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Redmi Watch 6 gris" data-loc="tarjeta" onclick="typeof gtag==='function'&&gtag('event','affiliate_click_amazon',{event_category:'afiliado',event_label:'Redmi Watch 6 gris',location:'editorial_guide'})">Ver precio en Amazon <img src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>
-  </div>
-</article>
-
-<article class="product" data-id="B0DG5Z75F8" data-serie="w5lite" data-bateria="12h" data-gps="si" data-resistencia="nd">
-  <div class="product-img"><img src="https://http2.mlstatic.com/D_NQ_NP_733634-MLA99488978272_112025-F.jpg" alt="Xiaomi Redmi Watch 5 Lite" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.innerHTML='<div class=&quot;placeholder&quot;>⌚</div>'"></div>
-  <div class="product-body">
-    <div class="badges"><span class="badge new">Nuevo</span><span class="badge">AMOLED</span><span class="badge">Caja redonda</span></div>
-    <label class="select-product"><input class="product-select" type="checkbox" aria-label="Seleccionar Redmi Watch 5 Lite para comparar"><span>Agregar a comparativa</span></label>
-    <h3>Xiaomi Redmi Watch 5 Lite con GPS</h3>
-    <div class="spec-line">AMOLED · 410 x 502 · GPS integrado · Frecuencia cardíaca y oxígeno en sangre</div>
-    <ul><li>Único de caja redonda en esta selección, con panel AMOLED de 600 nits declarados.</li><li>GPS integrado y llamadas por Bluetooth según su ficha.</li><li>Mide frecuencia cardíaca y oxígeno en sangre.</li><li>Compatibilidad declarada con Android e iOS.</li></ul>
-    <div class="caution">Es la ficha con más datos que no cuadran: declara "Batería: 12 horas" y "Capacidad de batería: 10000 mAh" mientras el texto del propio anuncio promete AMOLED de 1.96" y hasta 18 días; el campo de pantalla aparece como "4,98 Centímetros", la resistencia como el literal "[water_resistant]" y el peso como "4", sin unidad. No corregimos ninguno de esos valores: los dejamos como están y te recomendamos verificar autonomía, pantalla y resistencia al agua en la ficha antes de pagar. La imagen es de referencia del modelo; la ficha declara caja redonda.</div>
-    <a class="amz-btn" href="https://www.amazon.com.mx/dp/B0DG5Z75F8?tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Redmi Watch 5 Lite" data-loc="tarjeta" onclick="typeof gtag==='function'&&gtag('event','affiliate_click_amazon',{event_category:'afiliado',event_label:'Redmi Watch 5 Lite',location:'editorial_guide'})">Ver precio en Amazon <img src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>
-  </div>
-</article>
-
-<article class="product" data-id="B0DFHFM1X9" data-serie="w5active" data-bateria="18d" data-gps="no" data-resistencia="5atm">
-  <div class="product-img"><img src="https://http2.mlstatic.com/D_NQ_NP_623224-MLA99565300348_122025-F.jpg" alt="Xiaomi Redmi Watch 5 Active" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.innerHTML='<div class=&quot;placeholder&quot;>⌚</div>'"></div>
-  <div class="product-body">
-    <div class="badges"><span class="badge new">Nuevo</span><span class="badge">5ATM</span><span class="badge">18 días</span></div>
-    <label class="select-product"><input class="product-select" type="checkbox" aria-label="Seleccionar Redmi Watch 5 Active plata para comparar"><span>Agregar a comparativa</span></label>
-    <h3>Xiaomi Redmi Watch 5 Active · plata</h3>
-    <div class="spec-line">18 días declarados · 2" · Sin GPS · Acelerómetro, frecuencia cardíaca y SpO2</div>
-    <ul><li>Pantalla de 2" con 320 x 385 y 500 nits declarados.</li><li>Sensores declarados: acelerómetro, frecuencia cardíaca óptica y SpO2.</li><li>5ATM y compatibilidad declarada con Android e iOS.</li><li>Llamadas por Bluetooth y carga declarada en 30 minutos.</li></ul>
-    <div class="caution">De este modelo hay dos fichas distintas en Amazon y no declaran lo mismo: esta (plata) dice 5ATM, 500 nits, 320 x 385 y Android e iOS; la negra dice IP68, 300 nits, 320 x 340 y solo Android. Si te importa nadar con el reloj o usarlo con iPhone, revisa esos campos en la ficha exacta que abras. La imagen es de referencia del modelo y puede no corresponder al color plata.</div>
-    <a class="amz-btn" href="https://www.amazon.com.mx/dp/B0DFHFM1X9?tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Redmi Watch 5 Active plata" data-loc="tarjeta" onclick="typeof gtag==='function'&&gtag('event','affiliate_click_amazon',{event_category:'afiliado',event_label:'Redmi Watch 5 Active plata',location:'editorial_guide'})">Ver precio en Amazon <img src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>
-  </div>
-</article>
-
-<article class="product" data-id="B0DFZPR9Z4" data-serie="w5active" data-bateria="18d" data-gps="no" data-resistencia="ip68">
-  <div class="product-img"><img src="https://http2.mlstatic.com/D_NQ_NP_623224-MLA99565300348_122025-F.jpg" alt="Xiaomi Redmi Watch 5 Active" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.innerHTML='<div class=&quot;placeholder&quot;>⌚</div>'"></div>
-  <div class="product-body">
-    <div class="badges"><span class="badge new">Nuevo</span><span class="badge">IP68</span><span class="badge">18 días</span></div>
-    <label class="select-product"><input class="product-select" type="checkbox" aria-label="Seleccionar Redmi Watch 5 Active negro para comparar"><span>Agregar a comparativa</span></label>
-    <h3>Xiaomi Redmi Watch 5 Active · negro</h3>
-    <div class="spec-line">18 días declarados · 2" · Sin GPS · Múltiples instrumentos de medición</div>
-    <ul><li>Pantalla de 2" con 320 x 340 y 300 nits declarados.</li><li>Resistencia declarada IP68, no 5ATM como la variante plata.</li><li>Compatibilidad declarada solo con Android.</li><li>Llamadas por Bluetooth y carga declarada en 30 minutos.</li></ul>
-    <div class="caution">Es la otra ficha del Redmi Watch 5 Active, en negro, y es la más conservadora de las dos: IP68 en lugar de 5ATM, 300 nits en lugar de 500 y solo Android. Si usas iPhone o quieres nadar con él, compara los dos anuncios antes de decidir. La imagen es de referencia del modelo.</div>
-    <a class="amz-btn" href="https://www.amazon.com.mx/dp/B0DFZPR9Z4?tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="Redmi Watch 5 Active negro" data-loc="tarjeta" onclick="typeof gtag==='function'&&gtag('event','affiliate_click_amazon',{event_category:'afiliado',event_label:'Redmi Watch 5 Active negro',location:'editorial_guide'})">Ver precio en Amazon <img src="/logoamazon.png" alt="Amazon" onerror="this.style.display='none'"></a>
-  </div>
-</article>
-
+<div class="cg-sheet" id="cg-sheet-index" role="dialog" aria-modal="true" aria-label="Índice de la guía">
+  <div class="cg-sheet-h"><span>Contenido de la guía</span><button type="button" data-cg-close aria-label="Cerrar">✕</button></div>
+  <div class="cg-sheet-b"><nav aria-label="Secciones" data-cg-toc-clone></nav></div>
 </div>
 
-<div class="compare-output" id="compareOutput"><h3>Comparativa de los modelos seleccionados</h3><p class="compare-hint">Los valores son los que declara cada ficha de Amazon México; cuando un campo falta o no se puede interpretar, lo decimos en lugar de rellenarlo.</p><div class="table-wrap"><table class="cmp-table" id="dynamicTable"></table></div><p class="small">La comparativa contrasta características declaradas. No calcula un ganador por precio ni utiliza calificaciones ni reseñas de compradores.</p></div>
-
-<h2 id="elegir">Qué Xiaomi elegir según tu necesidad</h2>
-<h3>Quiero notificaciones, pasos y sueño, nada más</h3>
-<p>El Redmi Watch 5 Active es suficiente. Tiene pantalla grande, llamadas por Bluetooth, medición de frecuencia cardíaca y la autonomía declarada más alta de la gama. Su límite es claro y conviene tenerlo presente: no lleva GPS integrado, así que para registrar una ruta necesita el GPS del teléfono. Si ese es tu único uso, pagar por un modelo superior no te va a cambiar el día.</p>
-<h3>Salgo a correr o a andar en bici sin el celular</h3>
-<p>Ahí el GPS integrado deja de ser un extra. Entre los que lo declaran, el Redmi Watch 6 Lite es el más equilibrado: AMOLED, 5ATM, 18 días declarados y un cuerpo que su ficha reporta en 27.8 g, que para correr se siente distinto a cargar casi 90. El Redmi Watch 5 Lite también declara GPS, pero su ficha tiene varios datos contradictorios, así que lo elegiría solo después de confirmar autonomía y resistencia en el anuncio.</p>
-<h3>Quiero la pantalla más grande y más brillante</h3>
-<p>El Redmi Watch 6, en cualquiera de sus dos fichas: 2.07", 432 x 514 y 2000 nits declarados son los números más altos de la selección, y 550 mAh es también la batería más grande, aunque su autonomía declarada sea menor (12 días) precisamente porque mueve más pantalla. Si decides por este, la diferencia entre la ficha negra y la gris no es solo el color: revisa el tipo de panel declarado.</p>
-<h3>Voy a nadar con él</h3>
-<p>Busca 5ATM y no te conformes con IP68. Entre los Xiaomi de esta guía, las fichas del Watch 6, del Watch 6 Lite y la del Watch 5 Active en plata declaran 5ATM; la del Watch 5 Active en negro declara IP68, y la del Watch 5 Lite no declara un valor legible en ese campo. Es el campo que más conviene verificar en el anuncio antes de pagar.</p>
-<h3>Uso iPhone</h3>
-<p>El Watch 6, el Watch 6 Lite y el Watch 5 Lite declaran compatibilidad con Android e iOS. En el Watch 5 Active depende de la ficha: una declara Android e iOS y la otra solo Android. Antes de comprar, confirma la compatibilidad en la ficha concreta y revisa los requisitos de la aplicación de Xiaomi para tu versión de iOS.</p>
-
-<h2 id="specs">Guía de especificaciones: qué mirar en un Xiaomi</h2>
-<p>Dentro de una sola marca los nombres se parecen mucho, así que la decisión se juega en cinco campos. Esto es lo que cambia en la práctica:</p>
-<div class="table-wrap"><table class="cmp-table"><thead><tr><th>Característica</th><th>Por qué importa</th><th>A quién le conviene mirarla</th></tr></thead><tbody>
-<tr><td>Tipo de panel</td><td>AMOLED da negros reales y suele leerse mejor al sol que un LCD; también permite pantalla siempre encendida con menos castigo visual.</td><td>Quien usa el reloj a mitad del día en la calle.</td></tr>
-<tr><td>Brillo (nits)</td><td>Es lo que decide si ves la hora bajo el sol de mediodía. Entre 300 y 2000 nits declarados hay una diferencia enorme.</td><td>Quien trabaja o entrena a la intemperie.</td></tr>
-<tr><td>GPS integrado</td><td>Sin él, el reloj traza rutas con el GPS del teléfono; con él, puedes salir sin celular.</td><td>Corredores, ciclistas, caminantes.</td></tr>
-<tr><td>Resistencia (5ATM vs. IP68)</td><td>5ATM es una prueba de presión asociada a natación en superficie; IP68 describe polvo e inmersión en condiciones de norma, más pensada para lluvia y salpicaduras.</td><td>Quien quiere meterse a la alberca con el reloj.</td></tr>
-<tr><td>Autonomía declarada</td><td>Es un máximo de laboratorio. Sirve para comparar modelos entre sí, no para prometer días concretos.</td><td>Todos, con la expectativa ajustada.</td></tr>
-<tr><td>Peso</td><td>Un reloj de 27.8 g y otro de 89 g se sienten distintos al dormir y al correr.</td><td>Quien lo usa 24 horas, sueño incluido.</td></tr>
-</tbody></table></div>
-<p>La compatibilidad merece una mención aparte: casi todos los relojes de esta gama funcionan con Android e iOS, pero las funciones disponibles en iPhone suelen ser menos que en Android. Si usas iOS, revisa qué queda fuera antes de decidir.</p>
-
-<h2 id="fichas">Cuidado con las fichas repetidas del mismo Xiaomi</h2>
-<p>En una guía de una sola marca este punto no es un detalle: el mismo reloj aparece en Amazon con varias fichas —por color, por empaque o por vendedor— y los campos técnicos no siempre coinciden entre ellas. En esta selección pasa dos veces.</p>
-<ul class="checklist">
-<li><strong>Redmi Watch 5 Active:</strong> dos fichas del mismo modelo. Una declara 5ATM, 500 nits, 320 x 385 y Android e iOS; la otra, IP68, 300 nits, 320 x 340 y solo Android.</li>
-<li><strong>Redmi Watch 6:</strong> dos fichas del mismo modelo. Una declara el panel como "Digital" y no indica tiempo de carga; la otra lo declara AMOLED y reporta 2 horas.</li>
-<li><strong>Redmi Watch 6 Lite:</strong> su anuncio aparece titulado como "Redmi Watch 6" aunque su campo de modelo diga Watch 6 Lite. Son relojes distintos: el Lite declara 1.96" y 470 mAh; el Watch 6, 2.07" y 550 mAh.</li>
-</ul>
-<div class="callout"><strong>Regla de comparalo.mx:</strong> cuando dos anuncios del mismo producto declaran cosas distintas, no elegimos el dato que nos gusta más ni lo corregimos por nuestra cuenta. Lo señalamos y te decimos qué campo revisar en la ficha. Lo que te entregan es lo que diga el anuncio que abriste, no lo que diga esta guía.</div>
-
-<h2 id="metodologia">Cómo seleccionamos los modelos</h2>
-<p>Partimos de un archivo de captura con seis fichas de smartwatches Xiaomi de Amazon México, registrado el 27 de noviembre de 2026, y lo tratamos así:</p>
-<ul>
-<li>Conservamos las seis fichas, incluidas las repetidas, porque sus campos técnicos no coinciden y esa diferencia es justo lo que hay que decidir.</li>
-<li>Nombramos cada reloj por su campo de modelo, no por el título del anuncio: por eso el ASIN B0H8TCWZYF aparece como Redmi Watch 6 Lite y no como Watch 6.</li>
-<li>Dimos a cada tarjeta un identificador propio basado en su ASIN, para que los filtros y la comparativa no mezclen dos fichas del mismo modelo.</li>
-<li>Dejamos las características tal como las declara la ficha. Cuando un valor es dudoso o viene sin normalizar, lo advertimos en la tarjeta en lugar de arreglarlo a ojo.</li>
-<li>El campo de GPS llega sin normalizar en varias fichas ("built_in_gps", "Built-in GPS", "GPS integrado"). Lo mostramos como "GPS integrado" o "Sin GPS" para que se pueda comparar, sin cambiar el contenido técnico.</li>
-<li>No publicamos precios, descuentos, calificaciones, número de opiniones ni posiciones de ventas de Amazon. El orden de la guía es editorial y se basa en qué necesidades cubre cada reloj.</li>
-</ul>
-
-<h2 id="faq">Preguntas frecuentes</h2>
-<div class="faq">
-<details><summary>¿Cuál smartwatch Xiaomi conviene si es el primero?<span>+</span></summary><p>El Redmi Watch 5 Active es la puerta de entrada: pantalla grande, notificaciones, llamadas por Bluetooth y 18 días de autonomía declarada. No incluye GPS integrado, así que depende del teléfono para registrar rutas. Si quieres pantalla AMOLED y GPS propio sin irte al tope de la gama, el Redmi Watch 6 Lite es el siguiente escalón lógico.</p></details>
-<details><summary>¿Qué diferencia hay entre el Redmi Watch 6 y el Redmi Watch 6 Lite?<span>+</span></summary><p>Según sus fichas, el Watch 6 declara 2.07" con 432 x 514, 2000 nits y 550 mAh para 12 días; el Watch 6 Lite declara 1.96" AMOLED, 1500 nits, 470 mAh y 18 días. Los dos declaran GPS integrado, 5ATM y compatibilidad con Android e iOS. El Lite también pesa mucho menos según su ficha: 27.8 g frente a 89 g.</p></details>
-<details><summary>¿El Redmi Watch 5 Active funciona con iPhone?<span>+</span></summary><p>Depende de la publicación. Las dos fichas del mismo modelo no dicen lo mismo: una declara compatibilidad solo con Android y la otra con Android e iOS. Si usas iPhone, confirma ese campo en la ficha concreta que abras y revisa los requisitos de la aplicación de Xiaomi.</p></details>
-<details><summary>¿Por qué el mismo reloj Xiaomi aparece con dos ASIN distintos?<span>+</span></summary><p>Amazon crea una ficha por variante y por vendedor, así que un mismo modelo puede tener dos o más ASIN: por color, por empaque o por quien lo publica. En esta guía incluimos las dos del Redmi Watch 5 Active y las dos del Redmi Watch 6 porque sus campos técnicos no coinciden entre sí.</p></details>
-<details><summary>¿Los 18 días de batería son reales?<span>+</span></summary><p>Son una cifra máxima declarada en condiciones de prueba del fabricante, normalmente sin pantalla siempre encendida, sin GPS y con pocas notificaciones. En uso diario con pantalla activa, ejercicio con GPS y mediciones continuas la autonomía baja. Úsala para comparar modelos, no como promesa.</p></details>
-<details><summary>¿Necesito GPS integrado en el reloj?<span>+</span></summary><p>Si sales a correr o a andar en bici y quieres dejar el teléfono en casa, sí: sin GPS integrado el reloj necesita el del celular para trazar la ruta. Si solo te interesan pasos, notificaciones, sueño y frecuencia cardíaca, deja de ser determinante.</p></details>
-<details><summary>¿Qué significa 5ATM y en qué se diferencia de IP68?<span>+</span></summary><p>5ATM es una prueba de presión equivalente a 50 metros de columna de agua y suele asociarse a natación en superficie. IP68 describe protección contra polvo e inmersión en condiciones definidas por la norma, pensada más para salpicaduras y lluvia. En esta guía hay fichas con 5ATM y una con IP68, así que revisa ese campo si piensas nadar.</p></details>
-<details><summary>¿Por qué esta guía no muestra precios de Amazon?<span>+</span></summary><p>Porque un precio escrito a mano envejece en horas y mostrarlo así incumple las condiciones del programa de afiliados de Amazon. Cada botón lleva a la ficha, donde el precio y la disponibilidad son los vigentes en ese momento.</p></details>
+<div class="cg-sheet" id="cg-sheet-guide" role="dialog" aria-modal="true" aria-label="Consejos de compra">
+  <div class="cg-sheet-h"><span>Antes de comprar</span><button type="button" data-cg-close aria-label="Cerrar">✕</button></div>
+  <div class="cg-sheet-b">
+    <ul>
+      <li>Confirma si la ficha declara 5ATM o IP68: solo el primero se asocia a nadar.</li>
+      <li>Revisa si el GPS es integrado o depende del teléfono.</li>
+      <li>Si usas iPhone, comprueba la compatibilidad en ese anuncio concreto.</li>
+      <li>Compara el peso: 27.8 g y 89 g no se sienten igual.</li>
+      <li>La autonomía declarada es una cifra máxima de laboratorio.</li>
+    </ul>
+  </div>
 </div>
 
-<h2 id="fuentes">Fuentes y verificación</h2>
-<p>Las características de cada tarjeta provienen de la ficha del producto en Amazon México, consultada el 27 de noviembre de 2026 y enlazada en cada botón. Para contrastar lo que declara el fabricante, estas son las páginas oficiales de los cuatro modelos:</p>
-<ul class="sources">
-<li><a href="https://www.mi.com/global/product/redmi-watch-6/" target="_blank" rel="noopener">Xiaomi: especificaciones del REDMI Watch 6</a>.</li>
-<li><a href="https://www.mi.com/global/product/redmi-watch-6-lite/" target="_blank" rel="noopener">Xiaomi: especificaciones del REDMI Watch 6 Lite</a>.</li>
-<li><a href="https://www.mi.com/global/product/redmi-watch-5-lite/" target="_blank" rel="noopener">Xiaomi: especificaciones del REDMI Watch 5 Lite</a>.</li>
-<li><a href="https://www.mi.com/global/product/redmi-watch-5-active/" target="_blank" rel="noopener">Xiaomi: especificaciones del Redmi Watch 5 Active</a>.</li>
-<li><a href="https://www.mi.com/mx/" target="_blank" rel="noopener">Xiaomi México</a>, para disponibilidad y garantía oficial en el país.</li>
-<li>Archivo interno de captura de comparalo.mx (27 de noviembre de 2026). Se utilizaron las características y las advertencias; no se publicaron precios, descuentos, calificaciones, reseñas ni posiciones de ventas.</li>
-</ul>
-<p class="small">Las fichas oficiales pueden declarar valores distintos a los de un anuncio concreto, sobre todo en variantes regionales. Esta guía no corrige el anuncio con la ficha oficial: te señala la discrepancia para que decidas con las dos fuentes a la vista.</p>
+<div class="cg-sheet" id="cg-sheet-compare" role="dialog" aria-modal="true" aria-label="Comparar productos">
+  <div class="cg-sheet-h"><span>Compáralo</span><button type="button" data-cg-close aria-label="Cerrar">✕</button></div>
+  <div class="cg-sheet-b">
+    <p class="cg-sheet-hint" id="cg-sel-hint">Elige de 2 a 3 relojes para compararlos lado a lado.</p>
+    <div id="cg-sel-list"></div>
+  </div>
+  <div class="cg-sheet-f">
+    <button type="button" class="cg-btn cg-btn-ac cg-w100" data-cg-go data-ga-section="panel_comparar" disabled>Comparar ahora</button>
+  </div>
+</div>
 
-<div class="affiliate"><strong>Como Afiliado de Amazon, percibo dinero con las compras elegibles.</strong> Los enlaces de esta página pueden generar una comisión para comparalo.mx sin costo adicional para ti. La selección y el análisis se basan en las características y necesidades de compra, no en la comisión que pueda generar un producto. Los precios, vendedores, disponibilidad y condiciones pueden cambiar en Amazon; confirma siempre el modelo, el color y las características en la ficha antes de pagar.</div>
-
-</article>
-
-<aside class="toc"><strong>En esta guía</strong><nav>
-<a href="#respuesta">Respuesta rápida</a>
-<a href="#comparativa">Comparativa rápida</a>
-<a href="#modelos">Elige tu Xiaomi</a>
-<a href="#elegir">Qué Xiaomi elegir</a>
-<a href="#specs">Guía de specs</a>
-<a href="#fichas">Fichas repetidas</a>
-<a href="#metodologia">Metodología</a>
-<a href="#faq">Preguntas frecuentes</a>
-<a href="#fuentes">Fuentes</a>
-</nav></aside>
-</main>
-
-<script>
-// ── Datos para la comparativa dinámica (sin precios ni calificaciones de Amazon) ──
-// Valores tal como los declara la ficha de Amazon México; el GPS se muestra normalizado.
-const specs={
- B0H8TCWZYF:{name:'Redmi Watch 6 Lite',modelo:'REDMI Watch 6 Lite',pantalla:'1.96"',tipo:'AMOLED',resolucion:'240 x 240 (dato dudoso en la ficha)',brillo:'1500 nits',bateria:'18 días',capacidad:'470 mAh',carga:'No declarado en la ficha',gps:'GPS integrado',sensores:'Monitor de frecuencia cardíaca, sueño',resistencia:'5ATM',compat:'Android e iOS',llamadas:'No declarado en la ficha',correa:'Poliuretano termoplástico (TPU)',forma:'Smartwatch (según la ficha)',peso:'27,8 g',color:'Gris',garantia:'1 año',nota:'El anuncio se titula "Redmi Watch 6" pero su modelo es Watch 6 Lite; la resolución declarada no corresponde a un AMOLED de ese tamaño.'},
- B0GQL9JZS7:{name:'Redmi Watch 6 · negro',modelo:'REDMI Watch 6',pantalla:'2.07"',tipo:'Digital (según la ficha)',resolucion:'432 x 514 pixeles',brillo:'2000 nits',bateria:'12 días',capacidad:'550 mAh',carga:'No declarado en la ficha',gps:'GPS integrado',sensores:'Frecuencia cardíaca, sueño, estrés',resistencia:'5ATM',compat:'Android e iOS',llamadas:'No declarado en la ficha',correa:'Poliuretano termoplástico (TPU)',forma:'Rectangular',peso:'89 g',color:'Negro',garantia:'1 año',nota:'Esta ficha declara el panel como "Digital"; la del mismo modelo en gris lo declara AMOLED.'},
- B0GQLM2HG7:{name:'Redmi Watch 6 · gris',modelo:'REDMI Watch 6',pantalla:'2.07"',tipo:'AMOLED',resolucion:'432 x 514 pixeles',brillo:'2000 nits',bateria:'12 días',capacidad:'550 mAh',carga:'2 horas',gps:'GPS integrado',sensores:'Detección de frecuencia cardíaca, sueño, estrés',resistencia:'5ATM',compat:'Android e iOS',llamadas:'No declarado en la ficha',correa:'Poliuretano termoplástico (TPU)',forma:'Rectangular',peso:'89 g',color:'Gris',garantia:'1 año',nota:'Segunda ficha del mismo modelo: difiere de la negra en el tipo de panel declarado y en el tiempo de carga.'},
- B0DG5Z75F8:{name:'Redmi Watch 5 Lite',modelo:'BHR8789GL',pantalla:'4,98 Centímetros (según la ficha)',tipo:'AMOLED',resolucion:'410 x 502',brillo:'600 nits',bateria:'12 horas (según la ficha)',capacidad:'10000 mAh (según la ficha)',carga:'3 horas',gps:'GPS integrado',sensores:'Frecuencia cardíaca, oxígeno en la sangre',resistencia:'No declarada de forma legible',compat:'Android e iOS',llamadas:'Sí',correa:'Silicona',forma:'Redonda',peso:'4 (sin unidad en la ficha)',color:'Negro',garantia:'1 año',nota:'La ficha declara 12 horas y 10000 mAh mientras el texto del anuncio promete AMOLED de 1.96" y hasta 18 días; la resistencia aparece como el literal "[water_resistant]" y el peso como "4". Verifica estos campos en la ficha.'},
- B0DFHFM1X9:{name:'Redmi Watch 5 Active · plata',modelo:'Redmi Watch 5 Active',pantalla:'2"',tipo:'LCD',resolucion:'320 x 385',brillo:'500 nits',bateria:'18 días',capacidad:'470 mAh',carga:'30 minutos',gps:'Sin GPS',sensores:'Acelerómetro, sensor óptico de frecuencia cardíaca, SpO2',resistencia:'5ATM',compat:'Android e iOS',llamadas:'Sí',correa:'Silicona',forma:'Rectangular',peso:'81 g',color:'Plata',garantia:'De un año del fabricante',nota:'Una de las dos fichas del mismo modelo: esta declara 5ATM, 500 nits y Android e iOS.'},
- B0DFZPR9Z4:{name:'Redmi Watch 5 Active · negro',modelo:'Redmi Watch 5 Active',pantalla:'2"',tipo:'LCD',resolucion:'320 x 340',brillo:'300 nits',bateria:'18 días',capacidad:'470 mAh',carga:'30 minutos',gps:'Sin GPS',sensores:'Múltiples instrumentos de medición, frecuencia cardíaca',resistencia:'IP68',compat:'Android',llamadas:'Sí',correa:'Silicona',forma:'Rectangular',peso:'81 g',color:'Negro',garantia:'De un año del fabricante',nota:'La otra ficha del mismo modelo: declara IP68, 300 nits y solo Android.'}
-};
-
-// ── Configurador ──
-const facets={serie:'all',bateria:'all',gps:'all',resistencia:'all'};
-const cards=[...document.querySelectorAll('.product')];
-function applyConfig(){
- let visibles=0;
- cards.forEach(card=>{
-  const ok=(facets.serie==='all'||card.dataset.serie===facets.serie)
-    &&(facets.bateria==='all'||card.dataset.bateria===facets.bateria)
-    &&(facets.gps==='all'||card.dataset.gps===facets.gps)
-    &&(facets.resistencia==='all'||card.dataset.resistencia===facets.resistencia);
-  card.hidden=!ok;
-  if(ok)visibles++;
-  // si una tarjeta oculta estaba seleccionada, la quitamos de la comparativa
-  if(!ok){const id=card.dataset.id;if(selected.has(id)){selected.delete(id);}}
- });
- const r=document.getElementById('configResult');
- r.textContent=visibles===0?'Ningún modelo coincide con esos filtros. Ajusta las opciones.':('Mostrando '+visibles+' de '+cards.length+' modelos');
- updateSelection();
-}
-document.querySelectorAll('.config-chips').forEach(group=>{
- const facet=group.dataset.facet;
- group.querySelectorAll('.filter').forEach(btn=>btn.addEventListener('click',()=>{
-  group.querySelectorAll('.filter').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  facets[facet]=btn.dataset.val;
-  applyConfig();
-  if(typeof gtag==='function')gtag('event','guia_configurador',{event_category:'guia_smartwatches_xiaomi',facet:facet,valor:btn.dataset.val});
- }));
-});
-
-// ── Comparador por selección ──
-const selected=new Set();
-const compareBtn=document.getElementById('compareBtn');
-const selectedCount=document.getElementById('selectedCount');
-const compareOutput=document.getElementById('compareOutput');
-function updateSelection(){
- cards.forEach(card=>{
-  const id=card.dataset.id, chosen=selected.has(id), input=card.querySelector('.product-select');
-  card.classList.toggle('is-selected',chosen);
-  if(input)input.checked=chosen;
-  const label=card.querySelector('.select-product span');
-  if(label)label.textContent=chosen?'Agregado a comparativa':'Agregar a comparativa';
- });
- selectedCount.textContent=selected.size+' de 3 seleccionados';
- compareBtn.disabled=selected.size<2;
-}
-document.querySelectorAll('.product-select').forEach(input=>input.addEventListener('change',()=>{
- const card=input.closest('.product'),id=card.dataset.id;
- if(input.checked){if(selected.size>=3){input.checked=false;return;}selected.add(id);}else selected.delete(id);
- updateSelection();
- if(typeof gtag==='function')gtag('event','guia_seleccion',{event_category:'guia_smartwatches_xiaomi',modelo:id,estado:input.checked?'agregado':'quitado'});
-}));
-function renderCompare(){
- if(selected.size<2)return;
- const ids=[...selected];
- const rows=[['Modelo declarado','modelo'],['Pantalla','pantalla'],['Tipo de panel','tipo'],['Resolución','resolucion'],['Brillo','brillo'],['Batería declarada','bateria'],['Capacidad de batería','capacidad'],['Tiempo de carga','carga'],['GPS','gps'],['Sensores','sensores'],['Resistencia','resistencia'],['Compatibilidad','compat'],['Llamadas','llamadas'],['Correa','correa'],['Forma','forma'],['Peso','peso'],['Color','color'],['Garantía','garantia'],['Nota importante','nota']];
- let table='<thead><tr><th>Característica</th>'+ids.map(id=>'<th>'+specs[id].name+'</th>').join('')+'</tr></thead><tbody>';
- for(const [label,key] of rows){table+='<tr><td>'+label+'</td>'+ids.map(id=>'<td>'+(specs[id][key]||'—')+'</td>').join('')+'</tr>';}
- table+='<tr class="cmp-cta"><td>Ver en Amazon</td>'+ids.map(id=>{
-  const btn=document.querySelector('.product[data-id="'+id+'"] .amz-btn');
-  const href=btn?btn.getAttribute('href'):'#';
-  return '<td><a class="amz-mini" href="'+href+'" target="_blank" rel="sponsored nofollow noopener" data-amz="'+specs[id].name+'" data-loc="comparativa">Ver precio en Amazon <img src="/logoamazon.png" alt="Amazon" onerror="this.style.display=\'none\'"></a></td>';
- }).join('')+'</tr></tbody>';
- document.getElementById('dynamicTable').innerHTML=table;
- compareOutput.classList.add('show');
- compareOutput.scrollIntoView({behavior:'smooth',block:'start'});
- if(typeof gtag==='function')gtag('event','guia_comparar',{event_category:'guia_smartwatches_xiaomi',modelos:ids.join(',')});
-}
-compareBtn.addEventListener('click',renderCompare);
-document.getElementById('clearBtn').addEventListener('click',()=>{selected.clear();updateSelection();compareOutput.classList.remove('show');});
-
-updateSelection();
-</script>
-
-<script>
-// Clic de afiliado por delegación (enlaces con data-amz: tabla, respuesta rápida y comparativa)
-document.addEventListener('click',function(e){
- var a=e.target.closest('a[data-amz]');
- if(a&&typeof gtag==='function')gtag('event','affiliate_click_amazon',{event_category:'afiliado',event_label:a.dataset.amz,location:a.dataset.loc||'guia'});
-});
-// Profundidad de scroll
-(function(){var m={25:false,50:false,75:false,100:false};function c(){var h=document.documentElement,mx=h.scrollHeight-h.clientHeight;if(mx<=0)return;var p=(h.scrollTop||document.body.scrollTop)/mx*100;[25,50,75,100].forEach(function(x){if(!m[x]&&p>=x){m[x]=true;if(typeof gtag==='function')gtag('event','scroll_profundidad',{event_category:'guia_smartwatches_xiaomi',porcentaje:x,pagina:'mejores-smartwatches-xiaomi-en-mexico'})}})}window.addEventListener('scroll',c,{passive:true});c();})();
-</script>
-<script src="/assets/js/share.js" defer></script>
-<script src="/js/onboarding.js" defer></script>
 <!-- cmx-footer:start -->
 <div class="cmx-ft" role="contentinfo" id="cmx-ft"><div class="cmx-ft-in">
 <div class="cmx-ft-disc"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6EE7B7" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><div><h2>Aviso de afiliados</h2><p>comparalo.mx participa en los programas de afiliados de Amazon México y Mercado Libre. Si compras a través de nuestros enlaces recibimos una comisión, sin costo adicional para ti. Esa comisión no influye en el orden ni en las recomendaciones. <a href="/aviso-afiliados/">Leer el aviso de afiliados completo</a></p></div></div>
@@ -581,6 +592,104 @@ document.addEventListener('click',function(e){
 </div></div>
 <!-- cmx-footer:end -->
 
+<script>
+window.CMX_GUIA_AMZ={
+  id:'smartwatches-xiaomi', category:'smartwatches-amazon', max:3,
+  categoryHref:'/tecnologia/smartwatches/', categoryLabel:'Smartwatches',
+  veredictoFallback:'Compara las características de la tabla y revisa qué declara cada ficha antes de decidir: en estos relojes el GPS, la resistencia al agua y la compatibilidad con iPhone cambian de un anuncio a otro, incluso tratándose del mismo modelo.',
+  productos:[
+    {id:'w6lite', nombre:'Xiaomi Redmi Watch 6 Lite', corto:'Watch 6 Lite', img:'https://http2.mlstatic.com/D_NQ_NP_802798-MLA117209921033_092026-F.jpg', link:'https://www.amazon.com.mx/dp/B0H8TCWZYF?tag=guiasdecomp01-20', especs:[['Modelo declarado','REDMI Watch 6 Lite'],['Pantalla','1.96" AMOLED'],['Resolución','240 x 240 (ver nota)'],['Brillo','1500 nits'],['Batería declarada','18 días'],['Capacidad','470 mAh'],['GPS','GPS integrado'],['Resistencia','5ATM'],['Compatibilidad','Android e iOS'],['Peso declarado','27.8 g'],['ASIN','B0H8TCWZYF']]},
+    {id:'w6n', nombre:'Xiaomi Redmi Watch 6 · negro', corto:'Watch 6 negro', img:'https://http2.mlstatic.com/D_NQ_NP_985987-MLA110566609097_042026-F.jpg', link:'https://www.amazon.com.mx/dp/B0GQL9JZS7?tag=guiasdecomp01-20', especs:[['Modelo declarado','REDMI Watch 6'],['Pantalla','2.07"'],['Resolución','432 x 514'],['Brillo','2000 nits'],['Batería declarada','12 días'],['Capacidad','550 mAh'],['GPS','GPS integrado'],['Resistencia','5ATM'],['Compatibilidad','Android e iOS'],['Peso declarado','89 g'],['Tipo de panel','Digital (según ficha)'],['ASIN','B0GQL9JZS7']]},
+    {id:'w6g', nombre:'Xiaomi Redmi Watch 6 · gris', corto:'Watch 6 gris', img:'https://http2.mlstatic.com/D_NQ_NP_985987-MLA110566609097_042026-F.jpg', link:'https://www.amazon.com.mx/dp/B0GQLM2HG7?tag=guiasdecomp01-20', especs:[['Modelo declarado','REDMI Watch 6'],['Pantalla','2.07"'],['Resolución','432 x 514'],['Brillo','2000 nits'],['Batería declarada','12 días'],['Capacidad','550 mAh'],['GPS','GPS integrado'],['Resistencia','5ATM'],['Compatibilidad','Android e iOS'],['Peso declarado','89 g'],['Tipo de panel','AMOLED'],['Tiempo de carga','2 horas'],['ASIN','B0GQLM2HG7']]},
+    {id:'w5lite', nombre:'Xiaomi Redmi Watch 5 Lite con GPS', corto:'Watch 5 Lite', img:'https://http2.mlstatic.com/D_NQ_NP_733634-MLA99488978272_112025-F.jpg', link:'https://www.amazon.com.mx/dp/B0DG5Z75F8?tag=guiasdecomp01-20', especs:[['Modelo declarado','BHR8789GL'],['Pantalla','AMOLED (ver nota)'],['Resolución','410 x 502'],['Brillo','600 nits'],['Batería declarada','Ver nota'],['Capacidad','Ver nota'],['GPS','GPS integrado'],['Resistencia','No declarada'],['Compatibilidad','Android e iOS'],['Peso declarado','Ver nota'],['Forma','Redonda'],['ASIN','B0DG5Z75F8']]},
+    {id:'w5ap', nombre:'Xiaomi Redmi Watch 5 Active · plata', corto:'Watch 5 Active plata', img:'https://http2.mlstatic.com/D_NQ_NP_623224-MLA99565300348_122025-F.jpg', link:'https://www.amazon.com.mx/dp/B0DFHFM1X9?tag=guiasdecomp01-20', especs:[['Modelo declarado','Redmi Watch 5 Active'],['Pantalla','2" LCD'],['Resolución','320 x 385'],['Brillo','500 nits'],['Batería declarada','18 días'],['Capacidad','470 mAh'],['GPS','Sin GPS'],['Resistencia','5ATM'],['Compatibilidad','Android e iOS'],['Peso declarado','81 g'],['Tiempo de carga','30 minutos'],['ASIN','B0DFHFM1X9']]},
+    {id:'w5an', nombre:'Xiaomi Redmi Watch 5 Active · negro', corto:'Watch 5 Active negro', img:'https://http2.mlstatic.com/D_NQ_NP_623224-MLA99565300348_122025-F.jpg', link:'https://www.amazon.com.mx/dp/B0DFZPR9Z4?tag=guiasdecomp01-20', especs:[['Modelo declarado','Redmi Watch 5 Active'],['Pantalla','2" LCD'],['Resolución','320 x 340'],['Brillo','300 nits'],['Batería declarada','18 días'],['Capacidad','470 mAh'],['GPS','Sin GPS'],['Resistencia','IP68'],['Compatibilidad','Solo Android'],['Peso declarado','81 g'],['Tiempo de carga','30 minutos'],['ASIN','B0DFZPR9Z4']]}
+  ],
+  veredictos:{
+    'w5an__w5ap':'Es el mismo reloj en dos anuncios distintos, y gana la ficha plata: declara 5ATM en lugar de IP68, 500 nits en lugar de 300 y compatibilidad con iOS además de Android. Si el color te da igual, no hay razón para elegir la negra.',
+    'w5an__w5lite':'El Watch 5 Lite suma GPS integrado, panel AMOLED y caja redonda, pero su anuncio contradice su propia batería y no declara resistencia legible. El Active negro es más simple y más claro: sin GPS, IP68 y solo Android.',
+    'w5an__w6g':'Dos extremos de la gama: el Watch 6 gris suma GPS integrado, 2.07" AMOLED, 2000 nits y 5ATM; el Active negro se queda en 2" LCD, 300 nits, IP68 y solo Android, a cambio de 18 días declarados y menos peso.',
+    'w5an__w6lite':'El Watch 6 Lite gana en todo lo que se puede comparar —AMOLED, GPS integrado, 5ATM, Android e iOS— y además pesa un tercio (27.8 g frente a 81 g), con la misma autonomía declarada de 18 días. El Active negro solo compite por sencillez.',
+    'w5an__w6n':'El Watch 6 ofrece la pantalla más grande y brillante de la guía más GPS integrado y 5ATM; el Active negro declara más autonomía (18 contra 12 días), IP68 y solo Android. Si vas a nadar o usas iPhone, el Watch 6.',
+    'w5ap__w5lite':'El Watch 5 Lite añade GPS integrado y AMOLED en caja redonda; el Active plata declara 5ATM, 18 días y una ficha sin contradicciones. Para entrenar sin celular, el Lite; para comprar sin verificar nada, el Active plata.',
+    'w5ap__w6g':'El Watch 6 gris sube a 2.07" AMOLED con 2000 nits y añade GPS integrado; el Active plata declara más autonomía (18 contra 12 días) y pesa 81 g contra 89 g. Los dos declaran 5ATM y compatibilidad con Android e iOS.',
+    'w5ap__w6lite':'Este es el salto más limpio de la guía: por el mismo tipo de uso, el Watch 6 Lite añade AMOLED, GPS integrado y un cuerpo de 27.8 g, manteniendo 5ATM y los 18 días declarados del Active plata. Si el GPS te sirve, es el escalón lógico.',
+    'w5ap__w6n':'El Watch 6 gana en pantalla (2.07", 2000 nits) y en GPS integrado; el Active plata gana en autonomía declarada (18 contra 12 días) y en peso. Los dos declaran 5ATM y Android e iOS, así que la decisión es pantalla contra batería.',
+    'w5lite__w6g':'Los dos declaran GPS integrado y AMOLED, pero el Watch 6 gris lo hace sin contradecirse: 2.07", 2000 nits, 5ATM, 12 días y 550 mAh. El Watch 5 Lite solo tiene a favor la caja redonda y una ficha que hay que verificar campo por campo.',
+    'w5lite__w6lite':'Los dos traen AMOLED y GPS integrado, pero el Watch 6 Lite declara 5ATM, 18 días, 1500 nits y 27.8 g de forma coherente, mientras la ficha del Watch 5 Lite se contradice en batería, pantalla y resistencia. Salvo que quieras caja redonda, el 6 Lite.',
+    'w5lite__w6n':'El Watch 6 es más pantalla y más brillo (2.07" y 2000 nits contra 600 nits) con 5ATM declarado; el Watch 5 Lite ofrece caja redonda y AMOLED, pero no declara resistencia legible ni una autonomía creíble. Para nadar, el Watch 6.',
+    'w6g__w6lite':'Es la decisión más interesante de la guía: el Watch 6 da la pantalla grande (2.07", 2000 nits) y el Watch 6 Lite da autonomía (18 contra 12 días) y ligereza (27.8 contra 89 g). Los dos declaran AMOLED, GPS integrado y 5ATM. Pantalla o muñeca.',
+    'w6g__w6n':'Es el mismo reloj en dos anuncios. La ficha gris declara el panel como AMOLED y un tiempo de carga de 2 horas; la negra lo llama «Digital» y no da carga. Mismas 2.07", 2000 nits, 550 mAh y 5ATM: elige por color, pero la gris describe mejor lo que compras.',
+    'w6lite__w6n':'El Watch 6 ofrece 2.07" y 2000 nits; el Watch 6 Lite, 18 días declarados y 27.8 g contra 89 g. Los dos declaran GPS integrado, 5ATM y Android e iOS, así que la pregunta real es si quieres la pantalla más grande o el reloj que casi no se siente.',
+    'w5an__w5ap__w5lite':'Entre los tres de la serie 5, el Active plata es el más claro (5ATM, 500 nits, Android e iOS), el Active negro es el mismo reloj declarando menos, y el Watch 5 Lite es el único con GPS integrado pero el de la ficha más contradictoria.',
+    'w5an__w5ap__w6lite':'Los dos Active son el mismo reloj —la plata declara 5ATM y iOS, la negra IP68 y solo Android— y el Watch 6 Lite está un escalón arriba: AMOLED, GPS integrado, 5ATM y 27.8 g con los mismos 18 días declarados.',
+    'w5an__w5ap__w6n':'Los dos Active comparten modelo y se diferencian en lo que declaran (5ATM y iOS la plata, IP68 y solo Android la negra). El Watch 6 cambia de categoría: más pantalla, más brillo y GPS integrado, a cambio de 12 días y 89 g.',
+    'w5ap__w5lite__w6lite':'Los tres cubren necesidades distintas: el Active plata es la entrada sin GPS, el Watch 5 Lite es el único redondo con GPS pero con la ficha a verificar, y el Watch 6 Lite es el que reúne AMOLED, GPS, 5ATM y 18 días sin contradecirse.',
+    'w5ap__w6lite__w6n':'Un escalón por fila: el Active plata sin GPS, el Watch 6 Lite con GPS y el cuerpo más ligero, y el Watch 6 con la pantalla más grande y luminosa. Los tres declaran 5ATM; la autonomía declarada baja a 12 días solo en el Watch 6.',
+    'w5an__w6lite__w6n':'El Active negro es la opción más básica y la que declara menos (IP68, solo Android). Entre los otros dos, el Watch 6 Lite gana en autonomía y peso y el Watch 6 en pantalla y brillo, los dos con GPS integrado y 5ATM.',
+    'w5lite__w6lite__w6n':'Los tres declaran GPS integrado. El Watch 6 Lite es el equilibrio (AMOLED, 5ATM, 18 días, 27.8 g), el Watch 6 es la pantalla grande (2.07", 2000 nits) y el Watch 5 Lite es el único redondo, pero su ficha pide verificación antes de pagar.',
+    'w6g__w6lite__w6n':'Dos de los tres son el mismo Watch 6 en anuncios distintos: la ficha gris declara AMOLED y carga de 2 horas, la negra no. El Watch 6 Lite es el otro camino: menos pantalla, pero 18 días declarados y un tercio del peso.',
+    'w5ap__w6g__w6lite':'Tres escalones claros: el Active plata cubre notificaciones y pasos sin GPS; el Watch 6 Lite añade AMOLED, GPS y ligereza con 18 días; el Watch 6 gris da la pantalla más grande con la ficha mejor descrita de ese modelo.',
+    'w5an__w5lite__w6lite':'El Active negro es el más básico y el que declara menos. El Watch 5 Lite y el Watch 6 Lite comparten AMOLED y GPS integrado, pero solo el 6 Lite declara 5ATM, autonomía y peso de forma coherente.'
+  }
+};
+</script>
+<script src="/assets/js/cmx-guia-amz.js" defer></script>
+<script src="/assets/js/share.js" defer></script>
+<script src="/js/onboarding.js" defer></script>
+<script>
+/* Filtros de la selección (modelo / batería / GPS / resistencia) */
+var PRODUCTS=[].slice.call(document.querySelectorAll('#productCards .cg-card'));
+var filters={serie:'all',bateria:'all',gps:'all',resistencia:'all'};
+function applyFilters(){
+  var vis=0;
+  PRODUCTS.forEach(function(p){
+    var ok=(filters.serie==='all'||p.dataset.serie===filters.serie)&&
+           (filters.bateria==='all'||p.dataset.bateria===filters.bateria)&&
+           (filters.gps==='all'||p.dataset.gps===filters.gps)&&
+           (filters.resistencia==='all'||p.dataset.resistencia===filters.resistencia);
+    p.hidden=!ok;
+    if(ok)vis++;
+  });
+  document.getElementById('configResult').textContent='Mostrando '+vis+' de '+PRODUCTS.length+' relojes';
+  if(typeof gtag==='function')gtag('event','guia_filtro',{facet:JSON.stringify(filters)});
+}
+document.querySelectorAll('.config-chips').forEach(function(group){
+  group.querySelectorAll('.filter').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      group.querySelectorAll('.filter').forEach(function(b){b.classList.remove('active');});
+      btn.classList.add('active');
+      filters[group.dataset.facet]=btn.dataset.val;
+      applyFilters();
+    });
+  });
+});
+/* Scroll depth */
+(function(){
+  var sent={};
+  window.addEventListener('scroll',function(){
+    var pct=Math.round((window.scrollY/(document.body.scrollHeight-window.innerHeight))*100);
+    [25,50,75,100].forEach(function(p){
+      if(pct>=p&&!sent[p]){sent[p]=1;if(typeof gtag==='function')gtag('event','scroll_profundidad',{porcentaje:p,pagina:'smartwatches-xiaomi'});}
+    });
+  },{passive:true});
+})();
+</script>
+<style>
+.config{border:1px solid var(--bd);background:#f7faf8;border-radius:14px;padding:16px 18px;margin:14px 0}
+.config-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:7px 0}
+.config-row+.config-row{border-top:1px dashed #dbe7e0}
+.config-label{flex:0 0 118px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:#315a46}
+.config-chips{display:flex;gap:7px;flex-wrap:wrap}
+.filter{border:1px solid var(--bd2,#d0d0c8);background:#fff;color:var(--tx2);padding:7px 13px;border-radius:30px;font:600 12px Satoshi,Arial;cursor:pointer;transition:.15s}
+.filter.active,.filter:hover{background:var(--ac);border-color:var(--ac);color:#fff}
+.config-result{margin-top:12px;font-size:13px;font-weight:700;color:var(--ac)}
+details.config-collapse>summary{cursor:pointer;font-weight:800;color:var(--ac);list-style:none}
+details.config-collapse>summary::-webkit-details-marker{display:none}
+.cg-card[hidden]{display:none}
+.compare-output{display:none}
+.compare-output.show{display:block}
+</style>
 <script src="/js/site-nav.js" defer></script>
 </body>
 </html>
