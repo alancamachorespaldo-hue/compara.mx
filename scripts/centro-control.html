@@ -121,6 +121,8 @@ label.f{display:flex;flex-direction:column;gap:4px;font-size:11.5px;font-weight:
 
 .tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface);box-shadow:var(--shadow)}
 table{border-collapse:collapse;width:100%;font-size:13px}
+th.srt{cursor:pointer;user-select:none;white-space:nowrap}th.srt:hover{color:var(--muted)}
+th.srt::after{content:' ↕';opacity:.35}th.srt[data-dir=asc]::after{content:' ↑';opacity:1}th.srt[data-dir=desc]::after{content:' ↓';opacity:1}
 th{text-align:left;font-family:var(--display);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--faint);
   font-weight:700;padding:10px 12px;border-bottom:1px solid var(--line);background:var(--surface2);white-space:nowrap;position:sticky;top:0}
 td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
@@ -191,6 +193,13 @@ tbody tr.sel td:first-child{box-shadow:inset 3px 0 0 var(--ac)}
 .an-chart .br{fill:var(--ml);opacity:.85}
 .an-chart .gd{stroke:var(--line);stroke-width:1}
 .an-chart .lb{fill:var(--faint);font-size:10px}
+.an-wrap{position:relative}
+.an-chart .hz{fill:transparent;cursor:crosshair}
+.an-chart .hl{stroke:var(--faint);stroke-width:1;stroke-dasharray:3 3;vector-effect:non-scaling-stroke}
+.an-dot{position:absolute;width:9px;height:9px;margin:-4.5px 0 0 -4.5px;border-radius:50%;background:var(--ac);box-shadow:0 0 0 2px var(--surface,#fff);pointer-events:none}
+.an-tip{position:absolute;z-index:3;pointer-events:none;background:var(--surface,#fff);border:1px solid var(--line);border-radius:8px;padding:7px 10px;font-size:11.5px;line-height:1.5;color:var(--muted);box-shadow:0 4px 14px rgba(0,0,0,.12);white-space:nowrap;display:flex;flex-direction:column}
+.an-tip b{color:inherit;font-weight:700}.an-tip>b{color:var(--fg)}
+.an-tip i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px}
 .an-leg{display:flex;gap:16px;flex-wrap:wrap;font-size:11.5px;color:var(--muted)}
 .an-leg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(18px + env(safe-area-inset-bottom,0px));
@@ -3332,7 +3341,7 @@ function pEditor(id){
    Actions y esta página solo lee el `analitica.json` que se publica a su lado.
    Si el archivo no está o la credencial falta, no se inventa ni un número: se
    explica exactamente qué falta. */
-var AN=null, anPer='7d';
+var AN=null, anPer='7d', anRango='28d';
 
 function anNum(v){return typeof v==='number'?v.toLocaleString('es-MX'):'—'}
 function anCtr(v){return typeof v==='number'?(v*100).toFixed(1)+'%':'—'}
@@ -3360,6 +3369,45 @@ function anKpi(lab,val,act,prev,fine,alReves){
     '<span class="fine">'+anDelta(act,prev,alReves)+(fine?' <span class="sm">'+fine+'</span>':'')+'</span></div>';
 }
 
+/* recorte de la serie diaria según el rango elegido; el "hoy" es el último día con datos */
+function anSerieRango(serie,r){
+  if(!serie||!serie.length)return [];
+  var ult=serie[serie.length-1].fecha, p=ult.split('-'), d=new Date(Date.UTC(+p[0],+p[1]-1,+p[2])), desde;
+  if(r==='semana'){var dw=(d.getUTCDay()+6)%7;d.setUTCDate(d.getUTCDate()-dw);desde=d.toISOString().slice(0,10)}
+  else if(r==='mes'){desde=ult.slice(0,8)+'01'}
+  else {d.setUTCDate(d.getUTCDate()-((r==='7d'?7:28)-1));desde=d.toISOString().slice(0,10)}
+  return serie.filter(function(x){return x.fecha>=desde&&x.fecha<=ult});
+}
+/* números al pasar el cursor por la gráfica */
+function anTooltip(raiz){
+  raiz.querySelectorAll('.an-wrap').forEach(function(w){
+    var S; try{S=JSON.parse(w.getAttribute('data-serie'))}catch(e){return}
+    var tip=w.querySelector('.an-tip'), dot=w.querySelector('.an-dot'), hl=w.querySelector('.hl');
+    var DS=['dom','lun','mar','mié','jue','vie','sáb'];
+    var ver=function(i){
+      var d=S[i]; if(!d)return;
+      var p=d.f.split('-'), dw=DS[new Date(Date.UTC(+p[0],+p[1]-1,+p[2])).getUTCDay()];
+      tip.innerHTML='<b>'+dw+' '+esc(anDia(d.f))+'</b>'+
+        '<span><i style="background:var(--ac)"></i>Usuarios <b>'+anNum(d.u)+'</b></span>'+
+        '<span>Sesiones <b>'+anNum(d.s)+'</b> · Vistas <b>'+anNum(d.v)+'</b></span>'+
+        '<span><i style="background:var(--ml)"></i>Clics a tienda <b>'+anNum(d.c)+'</b></span>';
+      tip.style.display='';dot.style.display='';hl.style.display='';
+      var vb=720*d.x; hl.setAttribute('x1',vb);hl.setAttribute('x2',vb);
+      var svg=w.querySelector('svg'), bw=svg.clientWidth, bh=svg.clientHeight;
+      dot.style.left=(d.x*bw)+'px';dot.style.top=(d.y*bh)+'px';
+      var tw=tip.offsetWidth, lx=d.x*bw+12; if(lx+tw>bw)lx=d.x*bw-tw-12; if(lx<0)lx=0;
+      tip.style.left=lx+'px';tip.style.top='4px';
+    };
+    var esconder=function(){tip.style.display='none';dot.style.display='none';hl.style.display='none'};
+    w.querySelectorAll('.hz').forEach(function(z){
+      var i=+z.getAttribute('data-i');
+      z.addEventListener('mouseenter',function(){ver(i)});
+      z.addEventListener('touchstart',function(){ver(i)},{passive:true});
+    });
+    w.addEventListener('mouseleave',esconder);
+  });
+}
+
 /* gráfica: área de usuarios por día + barras de clics a tienda. SVG a mano
    porque el artifact no carga librerías de fuera. */
 function anGrafica(serie){
@@ -3385,15 +3433,62 @@ function anGrafica(serie){
   var etq=function(i){var p=serie[i].fecha.split('-');return p[2]+'/'+p[1]};
   ejes+='<text class="lb" x="'+PL+'" y="'+(H-6)+'">'+etq(0)+'</text>'+
     '<text class="lb" x="'+(W-PR)+'" y="'+(H-6)+'" text-anchor="end">'+etq(serie.length-1)+'</text>';
-  return '<svg class="an-chart" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" role="img" aria-label="Usuarios por día y clics a tienda">'+
-    ejes+'<path class="ar" d="'+area+'"/>'+barras+'<polyline class="ln" points="'+pts+'"/></svg>'+
+  var paso=(W-PL-PR)/Math.max(1,serie.length-1);
+  var zonas=serie.map(function(d,i){
+    var x0=Math.max(PL,x(i)-paso/2), x1=Math.min(W-PR,x(i)+paso/2);
+    return '<rect class="hz" data-i="'+i+'" x="'+x0.toFixed(1)+'" y="'+PT+'" width="'+(x1-x0).toFixed(1)+'" height="'+(H-PT-PB)+'"/>';
+  }).join('');
+  var datos=esc(JSON.stringify(serie.map(function(d,i){return {f:d.fecha,u:d.usuarios||0,s:d.sesiones||0,v:d.vistas||0,c:d.clicsTienda||0,x:x(i)/W,y:y(d.usuarios||0)/H}})));
+  return '<div class="an-wrap" data-serie="'+datos+'"><svg class="an-chart" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" role="img" aria-label="Usuarios por día y clics a tienda">'+
+    ejes+'<path class="ar" d="'+area+'"/>'+barras+'<polyline class="ln" points="'+pts+'"/>'+
+    '<line class="hl" x1="0" x2="0" y1="'+PT+'" y2="'+(H-PB)+'" style="display:none"/>'+zonas+'</svg>'+
+    '<i class="an-dot" style="display:none"></i><div class="an-tip" style="display:none"></div></div>'+
     '<div class="an-leg" style="margin-top:8px"><span><i style="background:var(--ac)"></i>Usuarios por día</span>'+
     '<span><i style="background:var(--ml)"></i>Clics a tienda (máx '+anNum(maxC)+')</span></div>';
 }
 
+/* categoría de una ruta: /guias/celulares/... → celulares; /suplementos/proteina/ → suplementos */
+function anCat(ruta){
+  var seg=String(ruta||'').replace(/^https?:\/\/[^\/]+/,'').split('/').filter(Boolean);
+  if(!seg.length)return 'inicio';
+  if(seg[0]==='guias'&&seg[1])return seg[1];
+  return seg[0];
+}
+/* ordenar una tabla al hacer clic en su encabezado: números de mayor a menor, texto de A a Z */
+function anOrdenable(raiz){
+  raiz.querySelectorAll('table.an-sort').forEach(function(t){
+    var ths=t.querySelectorAll('thead th');
+    ths.forEach(function(th,ci){
+      if(!th.textContent.trim())return;
+      th.classList.add('srt');th.title='Ordenar por '+th.textContent.trim().toLowerCase();
+      th.addEventListener('click',function(){
+        var num=th.classList.contains('num');
+        var dir=th.getAttribute('data-dir');
+        dir=dir?(dir==='desc'?'asc':'desc'):(num?'desc':'asc');
+        ths.forEach(function(o){o.removeAttribute('data-dir')});th.setAttribute('data-dir',dir);
+        var tb=t.tBodies[0], rows=Array.prototype.slice.call(tb.rows);
+        rows.forEach(function(r,i){if(r._o==null)r._o=i});
+        var val=function(r){
+          var td=r.cells[ci]; if(!td)return num?-Infinity:'';
+          var v=td.getAttribute('data-v')!=null?td.getAttribute('data-v'):td.textContent.trim();
+          if(!num)return v.toLowerCase();
+          var m=String(v).replace(/,/g,'').match(/-?\d+(\.\d+)?/);return m?parseFloat(m[0]):-Infinity;
+        };
+        rows.sort(function(a,b){
+          var x=val(a),y=val(b),c;
+          c=num?(x-y):String(x).localeCompare(String(y),'es');
+          if(dir==='desc')c=-c;
+          return c||(a._o-b._o);
+        });
+        rows.forEach(function(r){tb.appendChild(r)});
+      });
+    });
+  });
+}
+
 function anTabla(cols,filas,vacio){
   if(!filas.length)return '<div class="bd"><p class="sm">'+esc(vacio||'Sin datos en este periodo.')+'</p></div>';
-  return '<div class="tbl-wrap"><table><thead><tr>'+
+  return '<div class="tbl-wrap"><table class="an-sort"><thead><tr>'+
     cols.map(function(c){return '<th'+(c.num?' class="num"':'')+'>'+esc(c.t)+'</th>'}).join('')+
     '</tr></thead><tbody>'+filas.join('')+'</tbody></table></div>';
 }
@@ -3477,9 +3572,16 @@ function pintarAnalitica(){
 
   /* gráfica diaria */
   if(AN.ga4&&AN.ga4.serie&&AN.ga4.serie.length){
-    var serie=AN.ga4.serie.slice(anPer==='7d'?-28:-56);
+    var serie=anSerieRango(AN.ga4.serie,anRango);
+    var tU=0,tC=0;serie.forEach(function(d){tU+=d.usuarios||0;tC+=d.clicsTienda||0});
     h+='<div class="sec"><div class="card"><div class="hd"><h3>Día a día</h3>'+
-      '<span class="note">'+serie.length+' días</span></div><div class="bd">'+anGrafica(serie)+'</div></div></div>';
+      '<span class="note">'+(serie.length?esc(anDia(serie[0].fecha))+' – '+esc(anDia(serie[serie.length-1].fecha))+' · ':'')+
+        serie.length+' días · '+anNum(tU)+' usuarios · '+anNum(tC)+' clics</span>'+
+      '<div class="tabs" role="tablist" style="margin-left:auto">'+
+      [['semana','Semana natural'],['7d','Últimos 7 días'],['mes','Mes actual'],['28d','Últimos 28 días']].map(function(r){
+        return '<button type="button" role="tab" data-rango="'+r[0]+'" aria-selected="'+(anRango===r[0]?'true':'false')+'">'+r[1]+'</button>';
+      }).join('')+'</div></div><div class="bd">'+
+      (serie.length===1?anGrafica([serie[0],serie[0]]):anGrafica(serie))+'</div></div></div>';
   }
 
   /* Search Console por semana: es el ritmo con el que se mueve el SEO */
@@ -3488,7 +3590,7 @@ function pintarAnalitica(){
     var maxImp=Math.max.apply(null,sem.map(function(w){return w.impresiones}))||1;
     var filas=sem.map(function(w,i){
       var prev=sem[i+1];
-      return '<tr><td><span class="nm">'+esc(anSemanaRango(w.semana))+'</span><span class="sm">'+esc(fechaCorta(w.semana))+'</span></td>'+
+      return '<tr><td data-v="'+esc(w.semana)+'"><span class="nm">'+esc(anSemanaRango(w.semana))+'</span><span class="sm">'+esc(fechaCorta(w.semana))+'</span></td>'+
         '<td class="num">'+anNum(w.impresiones)+' '+anDelta(w.impresiones,prev&&prev.impresiones)+'</td>'+
         '<td><div class="bar"><i style="width:'+(w.impresiones/maxImp*100).toFixed(1)+'%"></i></div></td>'+
         '<td class="num">'+anNum(w.clics)+'</td><td class="num">'+anCtr(w.ctr)+'</td><td class="num">'+anPos(w.posicion)+'</td></tr>';
@@ -3514,10 +3616,11 @@ function pintarAnalitica(){
   if(AN.ga4&&AN.ga4.paginas&&AN.ga4.paginas.length){
     var fp=AN.ga4.paginas.slice(0,20).map(function(p){
       return '<tr><td><a href="https://comparalo.mx'+esc(p.ruta)+'" target="_blank" rel="noopener"><span class="nm">'+esc(p.ruta)+'</span></a></td>'+
+        '<td><span class="chip mute">'+esc(anCat(p.ruta))+'</span></td>'+
         '<td class="num">'+anNum(p.vistas)+'</td><td class="num">'+anNum(p.usuarios)+'</td></tr>';
     });
     izq='<div class="card"><div class="hd"><h3>Páginas más vistas</h3><span class="note">28 días</span></div>'+
-      anTabla([{t:'Ruta'},{t:'Vistas',num:true},{t:'Usuarios',num:true}],fp)+'</div>';
+      anTabla([{t:'Ruta'},{t:'Categoría'},{t:'Vistas',num:true},{t:'Usuarios',num:true}],fp)+'</div>';
   }
   if(AN.ga4&&AN.ga4.fuentes&&AN.ga4.fuentes.length){
     var ff=AN.ga4.fuentes.map(function(f){
@@ -3536,6 +3639,7 @@ function pintarAnalitica(){
     });
     var fpg=(AN.gsc.paginas||[]).slice(0,25).map(function(p){
       return '<tr><td><a href="'+esc(p.url)+'" target="_blank" rel="noopener"><span class="nm">'+esc(p.ruta||p.url)+'</span></a></td>'+
+        '<td><span class="chip mute">'+esc(anCat(p.ruta||p.url))+'</span></td>'+
         '<td class="num">'+anNum(p.impresiones)+'</td><td class="num">'+anNum(p.clics)+'</td>'+
         '<td class="num">'+anCtr(p.ctr)+'</td><td class="num">'+anPos(p.posicion)+'</td></tr>';
     });
@@ -3544,11 +3648,16 @@ function pintarAnalitica(){
       '<div class="card"><div class="hd"><h3>Búsquedas</h3></div>'+
         anTabla([{t:'Consulta'},{t:'Impr.',num:true},{t:'Clics',num:true},{t:'CTR',num:true},{t:'Pos.',num:true}],fc)+'</div>'+
       '<div class="card"><div class="hd"><h3>Páginas en resultados</h3></div>'+
-        anTabla([{t:'Ruta'},{t:'Impr.',num:true},{t:'Clics',num:true},{t:'CTR',num:true},{t:'Pos.',num:true}],fpg)+'</div>'+
+        anTabla([{t:'Ruta'},{t:'Categoría'},{t:'Impr.',num:true},{t:'Clics',num:true},{t:'CTR',num:true},{t:'Pos.',num:true}],fpg)+'</div>'+
       '</div></div>';
   }
 
   v.innerHTML=h;
+  anOrdenable(v);
+  anTooltip(v);
+  v.querySelectorAll('[data-rango]').forEach(function(b){
+    b.addEventListener('click',function(){anRango=b.getAttribute('data-rango');store('anRango',anRango);pintarAnalitica()});
+  });
   v.querySelectorAll('[data-per]').forEach(function(b){
     b.addEventListener('click',function(){anPer=b.getAttribute('data-per');store('anPer',anPer);pintarAnalitica()});
   });
@@ -3595,6 +3704,7 @@ fetch('datos.json').then(function(r){
   // Analítica: el archivo que deja el workflow de GA4 + Search Console, publicado al lado.
   // Si no está, la sección lo dice y explica cómo conectarlo; no se inventa ningún número.
   anPer=store('anPer')||'7d';
+  anRango=store('anRango')||'28d';
   fetch('analitica.json').then(function(r){return r.ok?r.json():null}).catch(function(){return null})
     .then(function(j){
       AN=j;
