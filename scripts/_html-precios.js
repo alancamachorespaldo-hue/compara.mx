@@ -399,7 +399,7 @@ export function agregarVariantes(abs, varName, items, opts = {}) {
   // El esquema de la variante lo manda la PÁGINA, no la base: sus claves son las que lee el
   // renderizador de la tarjeta. Lo que no sepamos entra como `null`, igual que ya hacen las
   // variantes incompletas que están ahí.
-  const esquemaGlobal = Object.keys(todas[0] ?? {});
+  const esquemaGlobal = Object.keys(todas.reduce((a, b) => (Object.keys(b).length > Object.keys(a || {}).length ? b : a), todas[0]) ?? {});
   const mlIds = new Set(todas.map(v => v.mlId).filter(Boolean));
   const links = new Set(todas.map(v => v.linkML).filter(Boolean));
   const ids = new Set(todas.map(v => v.id).filter(Boolean));
@@ -464,8 +464,15 @@ export function agregarVariantes(abs, varName, items, opts = {}) {
     }
     const vTexto = bloque.slice(vIni, vFin + 1);
     const partes = topBlocks(vTexto).map(b => vTexto.slice(b.s, b.e));
+    /* El esquema se copia de la variante MÁS COMPLETA de la familia, no de la primera, y se le
+       suman las claves que tengan las demás familias. La primera del iPhone 16 Plus no traía
+       `mlId`, así que las seis variantes que entraron el 27-nov-2026 nacieron sin él: la base sí
+       lo tenía y la página no, y eso es justo el dato con el que se vuelve a encontrar el
+       producto en el catálogo. Una clave de más entra como `null`; una de menos se pierde. */
     const existentes = (familias[i].variantes ?? []).filter(v => v && typeof v === 'object');
-    const esquema = Object.keys(existentes[0] ?? {});
+    const rica = existentes.reduce((a, b) => (Object.keys(b).length > Object.keys(a || {}).length ? b : a), existentes[0]);
+    const esquema = Object.keys(rica ?? {});
+    for (const k of esquemaGlobal) if (!esquema.includes(k)) esquema.push(k);
     const orden = (familias[i].variantes ?? []).map(v => (v && v.almacenamientoGB) || 0);
 
     for (const v of nuevas.sort((a, b) => a.almacenamientoGB - b.almacenamientoGB)) {
@@ -499,4 +506,97 @@ export function agregarVariantes(abs, varName, items, opts = {}) {
   if (opts.dryRun) return { ok: true, agregadas: pedidas, fallos };
   writeFileSync(abs, html.slice(0, loc.start) + text + html.slice(loc.end), 'utf8');
   return { ok: true, agregadas: pedidas, fallos };
+}
+
+/**
+ * Quita variantes de las familias de una página de celulares, por su `id`.
+ *
+ * La hermana de `agregarVariantes`, y hace falta por lo mismo que `quitarProductos` en las
+ * páginas planas: cuando un producto sale de la base, su tarjeta tiene que salir de la página en
+ * el mismo momento o se queda ahí para siempre, sin nada en la base que la delate.
+ *
+ * Nació el 27-nov-2026 limpiando un destrozo propio: el candado de «esa capacidad ya existe»
+ * miraba la página en disco y no lo que llevaba añadido la misma corrida, así que entraron seis
+ * variantes de 128 GB en el iPhone 16 Plus. Se quitan con esto, no a mano.
+ *
+ * NUNCA deja una familia vacía: si se pidiera quitar su última variante, se niega y lo reporta.
+ * Una familia sin variantes se pinta igual, con su nombre y su ficha, pero sin nada que comprar.
+ *
+ * @param {string} abs      ruta absoluta del HTML
+ * @param {string} varName  nombre del array de familias
+ * @param {string[]} ids    ids de variante a quitar
+ * @param {{dryRun?:boolean}} opts
+ * @returns {{ok:boolean, motivo?:string, quitadas:number, fallos:Array<{id:string,motivo:string}>}}
+ */
+export function quitarVariantes(abs, varName, ids, opts = {}) {
+  const vacio = { quitadas: 0, fallos: [] };
+  if (!existsSync(abs)) return { ok: false, motivo: 'no existe el archivo', ...vacio };
+  const html = readFileSync(abs, 'utf8');
+  const loc = locateArray(html, varName);
+  if (!loc) return { ok: false, motivo: `sin array ${varName}`, ...vacio };
+
+  const arrayText = html.slice(loc.start, loc.end);
+  let familias;
+  try { familias = new Function('return ' + arrayText)(); } catch (e) {
+    return { ok: false, motivo: `el array de la página no se pudo leer (${e.message})`, ...vacio };
+  }
+
+  const fallos = [];
+  const porFamilia = new Map();
+  for (const id of ids) {
+    const i = familias.findIndex(f => (f.variantes ?? []).some(v => v && v.id === id));
+    if (i === -1) { fallos.push({ id, motivo: 'no está en ninguna familia de la página' }); continue; }
+    if (!porFamilia.has(i)) porFamilia.set(i, new Set());
+    porFamilia.get(i).add(id);
+  }
+  for (const [i, set] of porFamilia) {
+    if (set.size >= (familias[i].variantes ?? []).length) {
+      for (const id of set) fallos.push({ id, motivo: `dejaría la familia ${familias[i].modeloBase} sin ninguna variante` });
+      porFamilia.delete(i);
+    }
+  }
+
+  const pedidas = [...porFamilia.values()].reduce((n, s) => n + s.size, 0);
+  if (!pedidas) return { ok: true, quitadas: 0, fallos };
+
+  const bloques = topBlocks(arrayText);
+  if (bloques.length !== familias.length) {
+    return { ok: false, motivo: 'el texto del array y su contenido no cuadran: no se toca la página', quitadas: 0, fallos };
+  }
+
+  const EOL = html.includes('\r\n') ? '\r\n' : '\n';
+  const antes = familias.flatMap(f => f.variantes ?? []).length;
+  let text = arrayText;
+  for (const i of [...porFamilia.keys()].sort((a, b) => b - a)) {
+    const fuera = porFamilia.get(i);
+    const bloque = text.slice(bloques[i].s, bloques[i].e);
+    const mv = bloque.match(/["']?variantes["']?\s*:\s*\[/);
+    const vIni = mv ? bloque.indexOf('[', mv.index) : -1;
+    const vFin = vIni >= 0 ? cierreDe(bloque, vIni) : -1;
+    if (vFin < 0) {
+      for (const id of fuera) fallos.push({ id, motivo: 'no se encontró su array `variantes` en el HTML' });
+      continue;
+    }
+    const vTexto = bloque.slice(vIni, vFin + 1);
+    const trozos = topBlocks(vTexto).map(b => vTexto.slice(b.s, b.e));
+    const quedan = trozos.filter((t, k) => !fuera.has((familias[i].variantes[k] ?? {}).id));
+    const sangria = vTexto.match(/\[\s*\r?\n([ \t]+)/)?.[1] ?? '      ';
+    const nuevoVTexto = '[' + EOL + quedan.map(t => sangria + t + ',').join(EOL) + EOL + sangria.slice(0, -2) + ']';
+    const nuevoBloque = bloque.slice(0, vIni) + nuevoVTexto + bloque.slice(vFin + 1);
+    text = text.slice(0, bloques[i].s) + nuevoBloque + text.slice(bloques[i].e);
+  }
+
+  try {
+    const arr = new Function('return ' + text)();
+    if (!Array.isArray(arr) || arr.length !== familias.length) throw new Error('cambió el número de familias');
+    const ahora = arr.flatMap(f => f.variantes ?? []).length;
+    if (ahora !== antes - pedidas) throw new Error(`se esperaban ${antes - pedidas} variantes y quedaron ${ahora}`);
+    if (arr.some(f => !(f.variantes ?? []).length)) throw new Error('alguna familia se quedaría sin variantes');
+  } catch (e) {
+    return { ok: false, motivo: `el array quedaría mal (${e.message}): no se tocó la página`, quitadas: 0, fallos };
+  }
+
+  if (opts.dryRun) return { ok: true, quitadas: pedidas, fallos };
+  writeFileSync(abs, html.slice(0, loc.start) + text + html.slice(loc.end), 'utf8');
+  return { ok: true, quitadas: pedidas, fallos };
 }
