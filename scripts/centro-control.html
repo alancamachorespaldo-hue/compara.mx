@@ -1037,6 +1037,7 @@ function pintarBandeja(){
     el('pcount').innerHTML='<span class="sm">Bandeja de productos nuevos</span>';
     return;
   }
+  banOlvidarPublicados();
   var lista=banLista();
   /* Cuatro columnas y el panel al lado. La tabla a ancho completo empujaba la ficha DEBAJO de
      una tabla tan alta como la pantalla: pegar un enlace obligaba a bajar hasta el final y
@@ -1078,7 +1079,7 @@ function banBarra(){
   var lista=bUltima||[];
   var cat=el('pcat').value, info=cat&&BAN[cat]?BAN[cat]:null;
   var marcados=Object.keys(BMARCA).filter(function(k){return BMARCA[k]});
-  var enCola=Object.keys(BEDI).filter(function(k){return BEDI[k].accion==='publicar'}).length;
+  var enCola=Object.keys(BEDI).filter(function(k){return BEDI[k].accion==='publicar'&&banVigente(BEDI[k])}).length;
   // Los filtros de la bandeja, a la vista y con su cuenta. Vivían solo dentro del desplegable de
   // estado y ahí no se encontraban: un <select> cerrado no se ve, y el buscador del navegador
   // tampoco lo mira (26-nov-2026).
@@ -1340,11 +1341,31 @@ function banEnlace(p,link){
   PDB.collection('bandeja').doc(k).set(e).then(function(){},function(){});
   return true;
 }
+/* Una captura de la colección `bandeja` deja de valer en cuanto su producto sale de la bandeja:
+   `aplicar-nuevos.mjs` lo publicó (y el workflow lo marcó `publicado`) o se eliminó. Si se
+   quedara, el Centro seguiría diciendo «4 dados de alta, listos para publicar» después de
+   publicarlos y «Copiar para publicar» los volvería a mandar (27-nov-2026, Alan). Solo se opina
+   de las categorías que la bandeja trae cargadas: de las demás no se sabe nada. */
+function banVigente(e){
+  if(!e||!e.cat)return false;
+  if(!BAN||!BAN[e.cat])return true;
+  return !!banBuscar(e.cat,e.id);
+}
+/** Borra de la base del Centro lo capturado de productos que ya salieron de la bandeja. */
+function banOlvidarPublicados(){
+  if(!BAN||!PDB)return;
+  Object.keys(BEDI).forEach(function(k){
+    if(banVigente(BEDI[k]))return;
+    delete BEDI[k];
+    try{PDB.collection('bandeja').doc(k).delete()}catch(_){}
+  });
+}
 /** El JSON que entiende aplicar-nuevos.mjs, agrupado por categoría. */
 function banCambios(){
   var porCat={};
   Object.keys(BEDI).forEach(function(k){
     var e=BEDI[k];
+    if(!banVigente(e))return;   // ya se publicó o ya no está en la bandeja: no se vuelve a mandar
     var c=porCat[e.cat]||(porCat[e.cat]={categoria:e.cat,publicar:[],eliminar:[]});
     if(e.accion==='eliminar'){c.eliminar.push(e.id);return}
     if(e.accion!=='publicar')return;
