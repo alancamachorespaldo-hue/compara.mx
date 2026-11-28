@@ -1087,7 +1087,7 @@
       el.innerHTML = top4.map(d => `
         <a class="aside-prod-card" href="${d.linkML}" target="_blank" rel="sponsored nofollow noopener"
            onclick="typeof gtag==='function'&&gtag('event','affiliate_click_ml',{event_category:'afiliado',event_label:'${d.nombre.replace(/'/g,"\\'")}',value:${d.precioML},page_section:'aside_prod'})">
-          <img class="aside-prod-img" src="${d.imagen}" alt="" referrerpolicy="no-referrer" referrerpolicy="no-referrer" onerror="this.style.display='none'">
+          <img class="aside-prod-img" src="${d.imagen}" alt="${d.nombre}" referrerpolicy="no-referrer" referrerpolicy="no-referrer" onerror="this.style.display='none'">
           <div class="aside-prod-body">
             <span class="aside-prod-name">${d.nombre}</span>
             <span class="aside-prod-price">${fmt(d.precioML)}</span>
