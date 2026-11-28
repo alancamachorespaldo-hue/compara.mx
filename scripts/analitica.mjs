@@ -23,11 +23,27 @@
  *
  * SEARCH CONSOLE VA RETRASADO ~3 días, así que sus periodos terminan en
  * hoy-3 y no en hoy; si no, el último tramo siempre se vería cayendo.
+ *
+ * SOLO MÉXICO (decisión de Alan, 28-nov-2026). Todo lo que sale de aquí —GA4 y
+ * Search Console— va filtrado al país: el sitio vende en ML y Amazon México, y
+ * las visitas de Estados Unidos, China o India (bots y curiosos, ~15% de las
+ * sesiones) solo ensuciaban los números. El filtro se pone en `reporte()` y en
+ * `consultaGSC()`, así que ninguna consulta nueva puede olvidarlo.
+ *
+ * HECHOS (`ga4.hechos`). Para que el Centro filtre como Looker Studio —por
+ * fuente, página de entrada, categoría, ciudad, evento y fechas, todo cruzado—
+ * no basta con totales: viajan las FILAS de GA4 de los últimos 90 días, con los
+ * textos en diccionarios y cada fila como índices, y el navegador suma lo que
+ * quede después de filtrar. Dos tablas que comparten diccionario: sesiones
+ * (fecha, canal, fuente, página de entrada, ciudad, estado, dispositivo) y
+ * eventos (las mismas menos dispositivo, más evento y página donde ocurrió;
+ * GA4 admite 9 dimensiones contando la del filtro de país).
  */
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
+import { ubicar, nombreEstado } from './_geo-mx.js';
 
 const DIR = path.dirname(fileURLToPath(import.meta.url));
 const RAIZ = path.join(DIR, '..');
@@ -45,6 +61,11 @@ const SOLO = opt('solo', '');
 const MEASUREMENT_ID = 'G-9TKZ4ER13X';     // el GA4 del sitio (regla de CLAUDE.md)
 const DOMINIO = 'comparalo.mx';
 const RETRASO_GSC = 3;                      // días que tarda Search Console en cerrar un día
+const PAIS_GA4 = 'MX';                      // countryId de GA4
+const PAIS_GSC = 'mex';                     // país de Search Console (ISO 3166-1 alfa-3)
+const DIAS_HECHOS = 90;                     // ventana de las filas que filtra el Centro
+/* eventos que no dicen nada por sí solos y solo inflarían las filas */
+const EV_RUIDO = ['session_start', 'first_visit', 'user_engagement'];
 
 /* eventos que valen dinero: un clic a tienda es lo más cerca de una venta que
    vemos, porque la conversión ocurre ya dentro de ML o de Amazon */
@@ -157,10 +178,84 @@ const filaGA4 = (f) => ({
   mets: (f.metricValues || []).map((m) => (m.value == null ? 0 : Number(m.value)))
 });
 
-/** una corrida de runReport ya desarmada en filas simples */
+const FILTRO_MX = { filter: { fieldName: 'countryId', stringFilter: { value: PAIS_GA4 } } };
+
+/** una corrida de runReport ya desarmada en filas simples, siempre solo México
+ *  y, con `paginar`, completa (GA4 corta en `limit` y dice en `rowCount` cuántas había) */
 async function reporte(tk, prop, cuerpo) {
-  const j = await api(ga4Url(prop), tk, cuerpo);
-  return (j.rows || []).map(filaGA4);
+  const c = Object.assign({}, cuerpo);
+  delete c.paginar;
+  c.dimensionFilter = c.dimensionFilter ? { andGroup: { expressions: [FILTRO_MX, c.dimensionFilter] } } : FILTRO_MX;
+  let filas = [], offset = 0;
+  for (;;) {
+    const j = await api(ga4Url(prop), tk, Object.assign({}, c, offset ? { offset } : {}));
+    const r = (j.rows || []).map(filaGA4);
+    filas = filas.concat(r);
+    offset += r.length;
+    if (!cuerpo.paginar || !r.length || offset >= (j.rowCount || 0)) break;
+  }
+  return filas;
+}
+
+const fechaGA4 = (d) => d.slice(0, 4) + '-' + d.slice(4, 6) + '-' + d.slice(6, 8);
+
+/** las filas que filtra el Centro: sesiones y eventos de los últimos DIAS_HECHOS días */
+async function hechosGA4(tk, prop, hoy) {
+  const v = ventanas(hoy, DIAS_HECHOS);
+  const rango = [{ startDate: v.desde, endDate: v.hasta }];
+  const DIMS = ['date', 'sessionDefaultChannelGroup', 'sessionSource', 'landingPage', 'city', 'region'];
+  const ses = await reporte(tk, prop, {
+    dateRanges: rango,
+    dimensions: DIMS.concat(['deviceCategory']).map((name) => ({ name })),
+    metrics: ['sessions', 'totalUsers', 'screenPageViews', 'engagedSessions', 'newUsers'].map((name) => ({ name })),
+    limit: 50000, paginar: true
+  });
+  const evs = await reporte(tk, prop, {
+    dateRanges: rango,
+    dimensions: DIMS.concat(['eventName', 'pagePath']).map((name) => ({ name })),
+    metrics: [{ name: 'eventCount' }, { name: 'totalUsers' }],
+    dimensionFilter: { notExpression: { filter: { fieldName: 'eventName', inListFilter: { values: EV_RUIDO } } } },
+    limit: 50000, paginar: true
+  });
+  // un diccionario COMPARTIDO: el mismo índice significa lo mismo en las dos
+  // tablas, así que un filtro del Centro se aplica igual a sesiones y a eventos
+  const nombres = ['fecha', 'canal', 'fuente', 'entrada', 'ciudad', 'estado', 'dispositivo', 'evento', 'pagina'];
+  const dic = {}, idx = {};
+  nombres.forEach((n) => { dic[n] = []; idx[n] = new Map(); });
+  const id = (n, val) => {
+    const m = idx[n];
+    if (!m.has(val)) { m.set(val, dic[n].length); dic[n].push(val); }
+    return m.get(val);
+  };
+  const comunes = (f) => [id('fecha', fechaGA4(f.dims[0])), id('canal', f.dims[1]), id('fuente', f.dims[2]),
+    id('entrada', f.dims[3] || '(not set)'), id('ciudad', f.dims[4] + '|' + f.dims[5]), id('estado', f.dims[5])];
+  const filasSes = ses.map((f) => comunes(f).concat([id('dispositivo', f.dims[6])], f.mets));
+  const filasEv = evs.map((f) => comunes(f).concat([id('evento', f.dims[6]), id('pagina', f.dims[7] || '(not set)')], f.mets));
+
+  // la ciudad viaja como 'ciudad|estado' (Guadalupe hay dos); aquí se resuelve
+  // su punto en el mapa y su nombre para mostrar
+  const geo = dic.ciudad.map((k) => {
+    const [c, e] = k.split('|');
+    const u = ubicar(c, e);
+    return {
+      ciudad: c === '(not set)' ? '(sin ciudad)' : c, estado: nombreEstado(e),
+      lat: u ? u[0] : null, lon: u ? u[1] : null, precision: u ? u[2] : null
+    };
+  });
+  dic.estado = dic.estado.map(nombreEstado);
+  return {
+    desde: v.desde, hasta: v.hasta, pais: PAIS_GA4,
+    dic, geo,
+    sesiones: {
+      columnas: ['fecha', 'canal', 'fuente', 'entrada', 'ciudad', 'estado', 'dispositivo', 'sesiones', 'usuarios', 'vistas', 'conInteraccion', 'nuevos'],
+      filas: filasSes
+    },
+    eventos: {
+      columnas: ['fecha', 'canal', 'fuente', 'entrada', 'ciudad', 'estado', 'evento', 'pagina', 'conteo', 'usuarios'],
+      filas: filasEv
+    },
+    eventosTienda: { ml: EV_ML, amazon: EV_AMZ, leads: EV_LEAD }
+  };
 }
 
 /** totales de un rango: usuarios, sesiones, vistas y los eventos que importan */
@@ -194,7 +289,7 @@ async function traerGA4(tk, hoy) {
   const prop = await propiedadGA4(tk);
   const out = {
     propiedad: prop.id, nombre: prop.nombre, medicion: MEASUREMENT_ID,
-    periodos: {}, serie: [], paginas: [], fuentes: [], eventos: []
+    pais: PAIS_GA4, periodos: {}, serie: [], paginas: [], fuentes: [], eventos: [], hechos: null
   };
 
   for (const n of [7, 28]) {
@@ -255,6 +350,8 @@ async function traerGA4(tk, hoy) {
   out.eventos = nombres.map((n) => ({ evento: n, conteo: a[n] || 0, previo: b[n] || 0, clave: EV_CLAVE.indexOf(n) >= 0 }))
     .sort((x, y) => y.conteo - x.conteo);
 
+  out.hechos = await hechosGA4(tk, prop.id, hoy);
+
   // el desglose completo ya viajó en `eventos`; no hace falta duplicarlo
   for (const k of Object.keys(out.periodos)) {
     delete out.periodos[k].actual.porEvento;
@@ -275,9 +372,13 @@ async function sitioGSC(tk) {
   return mios.find((s) => s.startsWith('sc-domain:')) || mios[0];
 }
 
+/** siempre solo México, como GA4 (ver la cabecera) */
 async function consultaGSC(tk, sitio, cuerpo) {
   const url = 'https://www.googleapis.com/webmasters/v3/sites/' + encodeURIComponent(sitio) + '/searchAnalytics/query';
-  const j = await api(url, tk, cuerpo);
+  const c = Object.assign({}, cuerpo, {
+    dimensionFilterGroups: [{ filters: [{ dimension: 'country', operator: 'equals', expression: PAIS_GSC }] }]
+  });
+  const j = await api(url, tk, c);
   return j.rows || [];
 }
 
@@ -294,7 +395,7 @@ function totalGSC(filas, desde, hasta) {
 async function traerGSC(tk, hoy) {
   const sitio = await sitioGSC(tk);
   const fin = menos(hoy, RETRASO_GSC);
-  const out = { sitio, retrasoDias: RETRASO_GSC, periodos: {}, semanas: [], serieDias: [], consultas: [], paginas: [] };
+  const out = { sitio, pais: PAIS_GSC, retrasoDias: RETRASO_GSC, periodos: {}, semanas: [], serieDias: [], consultas: [], paginas: [] };
 
   for (const n of [7, 28]) {
     const v = ventanas(fin, n);
@@ -402,7 +503,10 @@ if (salida.ga4 || salida.gsc) {
   };
 }
 
-const txt = JSON.stringify(salida, null, 2);
+/* legible, pero cada fila de `hechos` en UNA línea: con sangría completa el
+   archivo pesaría diez veces más y el diff de cada día sería ilegible */
+const txt = JSON.stringify(salida, null, 2)
+  .replace(/\[\s+(-?[\d.e+-]+(?:,\s+-?[\d.e+-]+)*)\s+\]/g, (m, d) => '[' + d.replace(/\s+/g, '') + ']');
 if (DRY) console.log(txt);
 else {
   fs.writeFileSync(SALIDA, txt + '\n');

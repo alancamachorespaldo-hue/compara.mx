@@ -456,6 +456,21 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
   conversión ocurre ya dentro de ML o de Amazon. `analitica-resumen.js` imprime en Markdown cómo le fue
   a la última corrida (lo usa el resumen del workflow). Si falta la credencial no se inventa ni un
   número: el Centro enseña los pasos exactos para conectarla.
+  **Solo México (28-nov-2026, decisión de Alan):** todo GA4 (`countryId=MX`) y todo Search Console
+  (`country=mex`) va filtrado al país dentro de `reporte()` y `consultaGSC()`, así que ninguna consulta
+  nueva puede olvidarlo; EE. UU., China e India eran ~15% de las sesiones y solo ensuciaban.
+  **Tablero filtrable:** `ga4.hechos` lleva las FILAS de 90 días (sesiones: fecha, canal, fuente,
+  página de entrada, ciudad, estado, dispositivo; eventos: lo mismo sin dispositivo, más evento y
+  página del evento — GA4 admite 9 dimensiones contando la del filtro de país) con los textos en
+  diccionario compartido, y el Centro filtra y suma en el navegador como Looker Studio: filtros por
+  clic, ventana ▾ tipo Excel, origen legible (ChatGPT, Bing…), categoría y tipo de página sacados de
+  la página de entrada, mapa de México por ciudad/estado, explorador con columnas a elegir y
+  «Copiar para Excel», y **metas** (colección `kpis` del almacenamiento del artifact: cifra por
+  semana o mes, opcionalmente con los filtros de ese momento, con proyección al cierre). Los
+  usuarios del tablero son **suma por fila** (~15-20% arriba del único de GA4; el exacto se enseña al
+  lado cuando el rango coincide). GA4 no da coordenadas: salen de `scripts/_geo-mx.js` (ciudad+estado
+  → lat/lon; lo que no está cae en el centro de su estado con borde punteado). El tráfico de
+  `localhost` se descarta en el Centro. El Centro necesita `analitica.json` publicado a su lado.
 - `check-site.js` — validaciones del sitio (ver abajo).
 
 ## La bandeja de productos nuevos (el alta por API, nov-2026)
@@ -652,7 +667,7 @@ en un panel, el panel es el Centro.
 
 Republicar el Centro: `node scripts/generar-centro.js` y publicar `scripts/centro-control.html`
 con `files: {"datos.json": "scripts/centro-datos.json", "imagenes.json": "scripts/centro-imagenes.json",
-"bandeja.json": "scripts/centro-bandeja.json"}` sobre esa URL. **Las tres van siempre**: un publish que solo mande `datos.json` conserva el
+"bandeja.json": "scripts/centro-bandeja.json", "analitica.json": "scripts/analitica.json"}` sobre esa URL. **Las cuatro van siempre**: un publish que solo mande `datos.json` conserva el
 `imagenes.json` anterior (lo que no se nombra no se toca), así que las altas recientes saldrían sin
 foto hasta la siguiente corrida de `generar-miniaturas.mjs`. **Leer el artifact antes de
 republicar** (lo exige la herramienta y evita pisar lo que Alan haya guardado dentro de la página).
