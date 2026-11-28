@@ -3743,6 +3743,16 @@ function iniciarPlan(){
       AKPI=s2.docs.map(function(d2){var o=d2.data()||{};o.id=d2.id;return o});
       if(VIEW==='analitica'&&AP&&AF)anPintarDash();
     },function(){});
+    // Analítica al día sin republicar: la tarea programada «Centro · analítica al día» sube cada
+    // mañana analitica.json partido en trozos (scripts/analitica-db.js). Se usa si es más nuevo
+    // que el analitica.json publicado al lado de la página.
+    db.collection('analitica').onSnapshot(function(s2){
+      var por={}; s2.docs.forEach(function(d2){por[d2.id]=d2.data()||{}});
+      var m=por.meta; if(!m||!m.partes)return;
+      var txt='';
+      for(var i=0;i<m.partes;i++){if(!por['p'+i]||typeof por['p'+i].s!=='string')return; txt+=por['p'+i].s}
+      try{anUsar(JSON.parse(txt),'base')}catch(e){}
+    },function(){});
   };
   if(!(window.claude&&window.claude.use)){ pEstado='ok'; listo(dbLocal(),true); return }
   window.claude.use('db').then(function(db){
@@ -4105,7 +4115,16 @@ function pEditor(id){
    Actions y esta página solo lee el `analitica.json` que se publica a su lado.
    Si el archivo no está o la credencial falta, no se inventa ni un número: se
    explica exactamente qué falta. */
-var AN=null, anPer='7d';
+var AN=null, anPer='7d', anDeDonde='';
+/* Dos caminos traen analitica.json: el archivo publicado al lado de la página y
+   la base del artifact (la tarea programada la actualiza cada mañana sin
+   republicar). Gana el más nuevo por `generado`, llegue en el orden que llegue. */
+function anUsar(j,origen){
+  if(!j||!j.generado)return;
+  if(AN&&AN.generado&&AN.generado>=j.generado)return;
+  AN=j; AP=null; anDeDonde=origen;
+  if(VIEW==='analitica')pintarAnalitica();
+}
 
 function anNum(v){return typeof v==='number'?v.toLocaleString('es-MX'):'—'}
 function anCtr(v){return typeof v==='number'?(v*100).toFixed(1)+'%':'—'}
@@ -4849,7 +4868,7 @@ function pintarAnalitica(){
   if(!AP)AP=anPrep();
   if(!AF)anCargaFiltros();
   var h='<div class="sec"><div class="an-head">'+
-    '<span class="chip mute">Datos del '+esc(fecha(AN.generado))+'</span>'+
+    '<span class="chip mute" title="'+(anDeDonde==='base'?'Llegó por la base del Centro (tarea programada diaria)':'El analitica.json publicado con la página')+'">Datos del '+esc(fecha(AN.generado))+(anDeDonde==='base'?' · al día':'')+'</span>'+
     '<span class="chip ac">Solo visitas desde México</span>'+
     (AP?'<span class="sm">Analytics: '+esc(AP.desde)+' → '+esc(AP.hasta)+' (hoy va a medias)</span>':'')+
     '<button class="btn sm copy" type="button" data-copy="'+esc(JSON.stringify(AN.semana||{},null,2))+'" style="margin-left:auto">Copiar KPI de la semana</button>'+
@@ -4961,10 +4980,7 @@ fetch('datos.json').then(function(r){
   // Si no está, la sección lo dice y explica cómo conectarlo; no se inventa ningún número.
   anPer=store('anPer')||'7d';
   fetch('analitica.json').then(function(r){return r.ok?r.json():null}).catch(function(){return null})
-    .then(function(j){
-      AN=j; AP=null;
-      if(VIEW==='analitica')pintarAnalitica();
-    });
+    .then(function(j){if(j)anUsar(j,'archivo');else if(VIEW==='analitica'&&!AN)pintarAnalitica()});
   // Inventario de Amazon: el archivo publicado al lado, o lo último que se cargó a mano.
   fetch('amazon.json').then(function(r){return r.ok?r.json():null}).catch(function(){return null})
     .then(function(j){

@@ -470,7 +470,14 @@ Errores de URL ya vistos: `/celularesalta-gama`, `/electrodomesticosfreidoras` (
   usuarios del tablero son **suma por fila** (~15-20% arriba del único de GA4; el exacto se enseña al
   lado cuando el rango coincide). GA4 no da coordenadas: salen de `scripts/_geo-mx.js` (ciudad+estado
   → lat/lon; lo que no está cae en el centro de su estado con borde punteado). El tráfico de
-  `localhost` se descarta en el Centro. El Centro necesita `analitica.json` publicado a su lado.
+  `localhost` se descarta en el Centro.
+  **Se actualiza sin republicar (28-nov-2026):** la tarea programada local «Centro · analítica al día»
+  (7:20 hora de la máquina, después de `analitica.yml`) hace `git pull`, corre
+  `node scripts/analitica-db.js <tmp>` —que parte el JSON en trozos de <256 KiB, el límite por
+  documento de la base— y los sube con ArtifactData (`file_path`) a la colección `analitica` del
+  Centro (`meta` + `p0…pN`). El Centro usa lo más nuevo por `generado` entre esa base y el
+  `analitica.json` publicado a su lado (que sigue yendo en cada republicación, como respaldo).
+  Corre solo con la app de Claude abierta; si estaba cerrada, corre al abrirla.
 - `check-site.js` — validaciones del sitio (ver abajo).
 
 ## La bandeja de productos nuevos (el alta por API, nov-2026)
