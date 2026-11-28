@@ -33,46 +33,10 @@ const LAYOUT_EXEMPT = new Set(['video-resenas.html']); // herramienta interna co
 // ── Límites de <title> y <meta name="description"> ──────────────────────────
 // Los marca Bing Webmaster Tools como ERROR, y desde nov-2026 Bing manda tráfico
 // real al sitio: un título de más de 70 caracteres lo trunca o lo ignora, y de la
-// descripción solo se leen los primeros 150-160. SEO_DEUDA son las páginas que ya
-// estaban fuera de rango el 27-nov-2026: no fallan para no tumbar CI de golpe,
-// pero ninguna página NUEVA puede entrar a la lista. Al arreglar una, hay que
-// sacarla de aquí (si cumple y sigue en la lista, esto falla a propósito, para que
-// la lista no se quede con nombres viejos que ya no protegen nada).
+// descripción solo se leen los primeros 150-160. El 27-nov-2026 había 33 páginas
+// fuera de rango (17 títulos y 28 descripciones) y se arreglaron todas, así que
+// esto no lleva lista de excepciones: aplica a toda página indexable, sin deuda.
 const TITLE_MAX = 70, DESC_MAX = 160, DESC_MIN = 25;
-const SEO_DEUDA = new Set([
-  'aviso-afiliados/index.html',
-  'bicis/bicicleta-electrica-vale-la-pena/index.html',
-  'bicis/como-elegir-bicicleta-electrica/index.html',
-  'electrodomesticos/freidoras/index.html',
-  'electrodomesticos/index.html',
-  'electrodomesticos/lavadoras/index.html',
-  'electrodomesticos/ollas/index.html',
-  'electrodomesticos/refrigeradores/index.html',
-  'entretenimiento/index.html',
-  'entretenimiento/streaming/index.html',
-  'entretenimiento/televisiones/index.html',
-  'guias-compra/freidoras/freidoras-de-aire-por-capacidad/index.html',
-  'guias-compra/freidoras/oster-freidoras-vale-la-pena/index.html',
-  'guias/cafeteras/espresso-menos-2000/index.html',
-  'guias/cafeteras/nespresso-vs-dolce-gusto/index.html',
-  'guias/cafeteras/superautomatica-vs-semiautomatica/index.html',
-  'guias/celulares/celulares-buen-fin-2026-segun-presupuesto/index.html',
-  'guias/celulares/como-detectar-ofertas-reales-celulares-buen-fin-2026/index.html',
-  'guias/celulares/samsung-plegables/index.html',
-  'guias/electrodomesticos/cafeteras-mexico-2026/index.html',
-  'guias/laptops/lenovo-loq-gaming-rtx-4050-vs-rtx-5050/index.html',
-  'guias/laptops/macbook-neo-vs-air-m5/index.html',
-  'guias/laptops/macbook-reacondicionadas/index.html',
-  'guias/laptops/mejores-macbook-calidad-precio/index.html',
-  'guias/streaming/que-es-xuper-tv/index.html',
-  'guias/tecnologia/como-elegir-smartwatch/index.html',
-  'guias/televisiones/smart-tv-menos-3000/index.html',
-  'guias/televisiones/smart-tv-menos-5000/index.html',
-  'guias/videojuegos/gta-6-impacto-economico-industria/index.html',
-  'ofertas/index.html',
-  'suplementos/proteina-con-creatina/index.html',
-  'suplementos/proteina/index.html',
-]);
 
 const errors = [];
 const err = (file, msg) => errors.push(`${file}: ${msg}`);
@@ -131,7 +95,7 @@ for (const abs of walk(ROOT)) {
   }
 
   // <title> y <meta name="description"> dentro de los límites de los buscadores
-  // (ver el bloque SEO_DEUDA más abajo). Mismo alcance que el sitemap: lo que
+  // (ver TITLE_MAX / DESC_MAX arriba). Mismo alcance que el sitemap: lo que
   // puede salir en resultados de búsqueda.
   if (!isRedirect && file.endsWith('/index.html') && !/noindex/i.test(html)) {
     const tm = html.match(/<title>([^<]*)<\/title>/);
@@ -145,8 +109,7 @@ for (const abs of walk(ROOT)) {
     else if (d.length > DESC_MAX) mal.push(`meta description de ${d.length} caracteres (máximo ${DESC_MAX})`);
     else if (d.length < DESC_MIN) mal.push(`meta description de ${d.length} caracteres (mínimo ${DESC_MIN})`);
 
-    if (mal.length && !SEO_DEUDA.has(file)) err(file, mal.join('; '));
-    if (!mal.length && SEO_DEUDA.has(file)) err(file, 'ya cumple los límites de title/description: quítala de SEO_DEUDA en scripts/check-site.js');
+    if (mal.length) err(file, mal.join('; '));
   }
 
   for (const needle of MUST_CONTAIN[file] || [])

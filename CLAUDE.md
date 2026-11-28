@@ -731,12 +731,12 @@ gestor no lo quitaría del sitio). Si falla, no hacer push.
 **Límites de buscador (nov-2026).** En toda página indexable, `check-site.js` exige además que el
 `<title>` no pase de **70 caracteres** y que la `meta description` quede entre **25 y 160**. Son los
 límites que Bing Webmaster Tools marca como ERROR, y Bing empezó a mandar tráfico real al sitio en
-nov-2026. Las 32 páginas que ya estaban fuera de rango el 27-nov-2026 están listadas en `SEO_DEUDA`,
-dentro del propio script, para no tumbar CI de golpe: **ninguna página nueva puede entrar a esa
-lista**, y al arreglar una hay que sacarla de ahí (si cumple y sigue listada, el check falla a
-propósito, para que la lista no se quede con nombres que ya no protegen nada). Las imágenes de
-PRODUCTO llevan `alt` descriptivo; `alt=""` se queda solo en lo decorativo, donde el texto de al
-lado ya nombra la imagen.
+nov-2026. El 27-nov-2026 había 33 páginas fuera de rango (17 títulos, el peor de 99 caracteres, y 28
+descripciones, la peor de 229) y **se reescribieron todas**, así que el check **no lleva lista de
+excepciones**: aplica a toda página indexable y no hay deuda que arrastrar. Al escribir un título,
+cuenta los caracteres (`node -e "console.log('…'.length)"`) y recorta el adorno antes que el término
+por el que la página posiciona. Las imágenes de PRODUCTO llevan `alt` descriptivo; `alt=""` se queda
+solo en lo decorativo, donde el texto de al lado ya nombra la imagen.
 
 `node scripts/validar-datos.js` revisa los JSON de datos (la base, los reportes, el histórico,
 `descuentos.json`, `catalog-mini.json`, la papelera): que no tengan marcas de conflicto de git, que se puedan
