@@ -36,6 +36,28 @@ precios ni características.**
 
 ---
 
+## 0 bis. LÍMITES DE BUSCADOR (los verifica `check-site.js`)
+
+Bing Webmaster Tools los marca como **error**, y desde nov-2026 Bing manda tráfico real a
+comparalo.mx. `check-site.js` falla si una página indexable se pasa, así que la guía no se puede
+publicar sin esto:
+
+| | Límite | Apunta a |
+|---|---|---|
+| `<title>` (incluido ` | comparalo.mx`) | máximo **70** caracteres | 55-65 |
+| `<meta name="description">` | entre **25 y 160** caracteres | 150-158 |
+
+Cuéntalos con `node -e "console.log('…'.length)"`, no a ojo. Si el título no cabe, recorta el
+adorno (`(2026): cuál comprar` → `2026`), nunca el término por el que quieres posicionar. Si
+creas también la página del sub-hub, cuenta los suyos.
+
+**Imágenes:** toda foto de producto lleva `alt` descriptivo (nombre y color). `alt=""` se queda
+solo en lo decorativo, donde el texto de al lado ya nombra la imagen —el logo junto a
+«comparalo.mx», el de Amazon dentro del botón «Ver precio en»—: ahí ponerle texto se lo lee dos
+veces quien usa lector de pantalla.
+
+---
+
 ## 0. REGLAS DE AMAZON QUE NUNCA SE ROMPEN
 
 Salen de los documentos oficiales del programa de afiliados que aceptó Alan (Acuerdo Operativo +

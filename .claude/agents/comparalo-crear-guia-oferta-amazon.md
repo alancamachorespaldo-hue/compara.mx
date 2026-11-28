@@ -107,6 +107,20 @@ Antes de escribir el HTML, extrae del JSON y del HTML de ChatGPT:
 
 ### 1. `<head>` completo
 
+> **Límites que verifica `check-site.js` (vienen de Bing Webmaster Tools, nov-2026).** Bing los
+> marca como ERROR, no como sugerencia, y desde nov-2026 manda tráfico real al sitio:
+>
+> | | Límite | Apunta a | Por qué |
+> |---|---|---|---|
+> | `<title>` | **máx. 70 caracteres**, contando ` \| comparalo.mx` | 55-65 | Más largo, el buscador lo trunca o lo ignora |
+> | `<meta name="description">` | **25-160 caracteres** | 150-158 | Solo se leen los primeros 150-160; si se queda corta, el buscador la sustituye por texto de la página |
+>
+> Cuéntalos, no los estimes: `node -e "console.log('…'.length)"`. Si el título no cabe, lo que se
+> recorta primero es el adorno (`(2026): cuál comprar` → `2026`), nunca el término por el que
+> quieres salir. **`check-site.js` falla** si una página indexable se pasa, así que esto no es un
+> consejo: es parte de que la guía se pueda publicar. Lo mismo aplica a la página del sub-hub si
+> creas una.
+
 ```html
 <!doctype html>
 <html lang="es-MX">
@@ -328,13 +342,20 @@ delegación a través de `data-amz` y `data-loc`. Poner los dos duplicaría el e
     <div class="cg-pros"><h3>A favor</h3><ul><li>…</li></ul></div>
   </div>
   <aside class="cg-pc">
-    <div class="cg-pc-img"><img src="{imagen}" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="cg-pc-img"><img src="{imagen}" alt="{nombre del producto}" loading="lazy" referrerpolicy="no-referrer"></div>
     <h3>{corto}</h3>
     <table class="cg-specs"><tr><th>{spec}</th><td>{valor}</td></tr>…</table>
     <a class="cg-btn cg-btn-amz cg-w100" href="…?tag=guiasdecomp01-20" target="_blank" rel="sponsored nofollow noopener" data-amz="{nombre}" data-loc="analisis">Ver precio en <img src="/logoamazon.png" alt="Amazon" onerror="this.outerHTML='Amazon'"> <span aria-hidden="true">&#8599;</span></a>
   </aside>
 </div>
 ```
+
+**El `alt` de cada foto de producto se escribe.** En el molde de la ficha venía vacío y Bing lo
+marca como aviso en cada imagen. La regla: si la imagen ES el producto (tarjeta, ficha, hero),
+lleva `alt` descriptivo con el nombre y el color; si es decorativa y el texto de al lado ya la
+nombra (el logo junto a «comparalo.mx», el logo de Amazon dentro de un botón que dice «Ver precio
+en»), `alt=""` es lo correcto y no se cambia: ponerle texto se lo lee dos veces quien usa lector
+de pantalla.
 
 Cada `data-cg-prod="{id}"` del artículo debe tener su `#sec-{id}` o el enlace no lleva a ningún
 lado. Si dos fichas son del mismo modelo, **cada una lleva su ancla y su análisis**: lo que las
@@ -524,6 +545,8 @@ Cada artículo debe:
 - [ ] `veredictoFallback` escrito para la categoría
 - [ ] Cada `data-cg-prod="{id}"` tiene su `#sec-{id}`; cada sección del índice lleva `data-cg-sec`
 - [ ] Sin `onclick` de `gtag` en los botones de afiliado (lo mide el JS por `data-amz`)
+- [ ] `<title>` de 70 caracteres o menos y `meta description` entre 25 y 160 (contados, no estimados)
+- [ ] Toda imagen de PRODUCTO con `alt` descriptivo; `alt=""` solo en lo decorativo (logos junto a su propio nombre)
 - [ ] Todos los `data-*` de las `.cg-card` corresponden a las claves de `filters` y a los `data-val`
 - [ ] `<!-- cmx-header:start -->` y `<!-- cmx-bc:start -->` presentes para que `sync-site.js` los llene
 - [ ] Ruta del archivo: `guias/{categoria}/{slug}/index.html`
